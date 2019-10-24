@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home matches snapshot 1`] = `
+<div
+  className="home"
+>
+  <header
+    className="homeHeader"
+  >
+    <img
+      alt="logo"
+      className="homeLogo"
+      src="logo.svg"
+    />
+    <p>
+      Lorem ipsum (fi)
+    </p>
+  </header>
+</div>
+`;
