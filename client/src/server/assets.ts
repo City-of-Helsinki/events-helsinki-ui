@@ -18,7 +18,6 @@ const extract = (pattern: string, str: string) => {
 };
 
 const getRuntimeJs = (files: string[]) => {
-  while (!files);
   return files
     .filter(
       (file: string) => file.startsWith("runtime") && file.endsWith(".js")
