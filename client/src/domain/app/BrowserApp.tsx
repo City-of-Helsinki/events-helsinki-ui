@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from "react";
-import { Switch, Route, Redirect } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 
-import App from "./App";
 import { SUPPORT_LANGUAGES } from "../../common/translation/constants";
+import App from "./App";
 
 const localeParam = `:locale(${SUPPORT_LANGUAGES.EN}|${SUPPORT_LANGUAGES.FI}|${SUPPORT_LANGUAGES.SV})`;
 // Export for testing purpose

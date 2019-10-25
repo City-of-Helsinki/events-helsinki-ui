@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Html matches snapshot 1`] = `
+<html
+  lang="en"
+>
+  <head>
+    <meta
+      charSet="utf-8"
+    />
+    <meta
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      name="viewport"
+    />
+    <meta
+      content="#000000"
+      name="theme-color"
+    />
+    <link
+      href="/manifest.json"
+      rel="manifest"
+    />
+    <link
+      href="/favicon.ico"
+      rel="shortcut icon"
+    />
+    &lt;meta data-react-helmet="true" name="description" content="testing react helmet"&gt;
+    &lt;title&gt;Test title&lt;/title&gt;
+    <link
+      href="test1.css"
+      rel="stylesheet"
+    />
+    <link
+      href="test2.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<p>Test content</p>",
+        }
+      }
+      id="root"
+    />
+    <script
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "window.__APOLLO_STATE__={};",
+        }
+      }
+    />
+    <script
+      src="test1.js"
+    />
+    <script
+      src="test2.js"
+    />
+  </body>
+</html>
+`;

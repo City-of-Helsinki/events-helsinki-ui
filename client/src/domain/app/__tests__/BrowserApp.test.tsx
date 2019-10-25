@@ -1,9 +1,9 @@
-import React from "react";
 import { mount } from "enzyme";
+import React from "react";
 import { MemoryRouter } from "react-router";
 
-import BrowserApp, { appRoutes } from "../BrowserApp";
 import App from "../App";
+import BrowserApp, { appRoutes } from "../BrowserApp";
 
 const wrapperCreator = (route: string) =>
   mount(<MemoryRouter initialEntries={[route]}>{appRoutes}</MemoryRouter>);

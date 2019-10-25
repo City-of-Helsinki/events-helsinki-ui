@@ -1,5 +1,5 @@
-import { Route, Switch, RouteComponentProps, Redirect } from "react-router";
 import React, { FunctionComponent } from "react";
+import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 
 import { SUPPORT_LANGUAGES } from "../../common/translation/constants";
 import { changeLanguage } from "../../common/translation/utils";
