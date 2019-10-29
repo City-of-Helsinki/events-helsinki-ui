@@ -1,0 +1,10 @@
+schema: src/schema/index.ts
+overwrite: true
+watch: true
+require:
+  - ts-node/register
+generates:
+  ./src/types/types.d.ts:
+    plugins:
+      - typescript
+      - typescript-operations

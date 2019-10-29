@@ -6,6 +6,7 @@
     { "language": "typescriptreact", "autoFix": true }
   ],
   "eslint.workingDirectories": [
-    "client"
+    "client",
+    "graphql-proxy"
   ]
 }

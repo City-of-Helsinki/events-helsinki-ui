@@ -1,0 +1,13 @@
+{
+  "extends": ["tslint:latest", "tslint-config-prettier"],
+  "linterOptions": {
+      "exclude": ["./types/*"]
+  },
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "rules": {
+      "interface-name": [true, "never-prefix"],
+      "no-console": false,
+      "object-literal-sort-keys": false,
+      "prettier": true
+  }
+}
