@@ -7,6 +7,9 @@
     "plugin:import/warnings",
     "plugin:import/typescript"
   ],
+  "plugins": [
+    "simple-import-sort"
+  ],
   "rules": {
     "@typescript-eslint/brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "@typescript-eslint/explicit-function-return-type": "off",
@@ -15,22 +18,14 @@
     "@typescript-eslint/no-require-imports": ["error"],
     "react/no-unused-prop-types": ["warn", { "skipShapeProps": true }],
     "array-bracket-spacing": ["warn", "never"],
-    "import/order": [
-      "error",
-      {
-        "groups": [
-          "builtin",
-          "external",
-          ["internal", "parent", "sibling", "index"]
-        ],
-        "newlines-between": "always"
-      }
-    ],
     "max-len": ["warn", { "code": 120 }],
     "no-console": "warn",
     "no-plusplus": "error",
     "no-undef": "warn",
     "object-curly-spacing": ["warn", "always"],
-    "sort-keys": ["warn", "asc", { "caseSensitive": true, "natural": true, "minKeys": 2 }]
+    "sort-keys": ["warn", "asc", { "caseSensitive": true, "natural": true, "minKeys": 2 }],
+    "sort-imports": "off",
+    "import/order": "off",
+    "simple-import-sort/sort": "error"
   }
 }

@@ -1,11 +1,12 @@
+import "./index.css";
+
 import React from "react";
 import ReactDOM from "react-dom";
 
-import "./index.css";
 import BrowserApp from "./domain/app/BrowserApp";
 import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(<BrowserApp />, document.getElementById("root"));
+ReactDOM.hydrate(<BrowserApp />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

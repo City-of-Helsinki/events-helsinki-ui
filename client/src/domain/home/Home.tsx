@@ -1,8 +1,8 @@
 import React from "react";
 
+import { formatMessage } from "../../common/translation/utils";
 import logo from "../../logo.svg";
 import styles from "./home.module.css";
-import { formatMessage } from "../../common/translation/utils";
 
 const Home: React.FC = () => {
   return (
