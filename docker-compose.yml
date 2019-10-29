@@ -1,0 +1,38 @@
+version: "2.2"
+services:
+  events-helsinki-reverse-proxy:
+    image: traefik:v2.0 # The official Traefik docker image
+    command: --api.insecure=true --providers.docker # Enables the web UI and tells Traefik to listen to docker
+    ports:
+      - "80:80" # The HTTP port
+      - "8443:443" # The HTTP port
+      - "8080:8080" # The Web UI (enabled by --api)
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
+      - ./volumes/traefik-acme:/acme # Tell Traefik to save SSL certs here
+  events-helsinki-client:
+    build:
+      context: client
+      dockerfile: Dockerfile-client
+      args:
+        - REACT_APP_GRAPHQL_BASE_URL=${REACT_APP_GRAPHQL_BASE_URL}
+        - REACT_APP_SSR_PORT=${REACT_APP_SSR_PORT}
+    image: events-helsinki-client
+    labels:
+      - traefik.http.routers.event-helsinki-client.rule=Host(`${HOST}`)
+    ports:
+      - ${REACT_APP_SSR_PORT}
+  events-helsinki-graphql-proxy:
+    build:
+      context: graphql-proxy
+      dockerfile: Dockerfile-proxy
+      args:
+        - GRAPHQL_PROXY_DEBUG=${GRAPHQL_PROXY_DEBUG}
+        - GRAPHQL_PROXY_PORT=${GRAPHQL_PROXY_PORT}
+        - GRAPHQL_PROXY_ENGINE_API_KEY=${GRAPHQL_PROXY_ENGINE_API_KEY}
+        - GRAPHQL_PROXY_API_BASE_URL=${GRAPHQL_PROXY_API_BASE_URL}
+    image: events-helsinki-graphql-proxy
+    labels:
+      - traefik.http.routers.event-helsinki-graphql-proxy.rule=Host(`proxy.${HOST}`) || (Host(`${HOST}`) && PathPrefix(`/proxy`))
+    ports: 
+      - ${GRAPHQL_PROXY_PORT}
