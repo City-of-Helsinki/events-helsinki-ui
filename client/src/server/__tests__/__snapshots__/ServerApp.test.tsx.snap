@@ -2,19 +2,73 @@
 
 exports[`ServerApp matches snapshot 1`] = `
 <div
-  className="home"
+  className="pageWrapper"
 >
   <header
-    className="homeHeader"
+    className="headerWrapper"
   >
-    <img
-      alt="logo"
-      className="homeLogo"
-      src="logo.svg"
-    />
-    <p>
-      Lorem ipsum (fi)
-    </p>
+    <div
+      className="container"
+    >
+      <div
+        className="navbarTop"
+      >
+        <div
+          className="logo"
+        />
+        <h1
+          className="appName"
+        >
+          Tapahtumat
+        </h1>
+      </div>
+    </div>
   </header>
+  <div
+    className="pageBody"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="home"
+      >
+        <header
+          className="homeHeader"
+        >
+          <img
+            alt="logo"
+            className="homeLogo"
+            src="logo.svg"
+          />
+          <p>
+            Lorem ipsum (fi)
+          </p>
+        </header>
+      </div>
+    </div>
+  </div>
+  <footer
+    className="footerWrapper"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="footer"
+      >
+        <div
+          className="helsinkiLogo"
+        />
+        <div
+          className="copyright"
+        >
+          <p>
+            © Copyright 2019 • All right reserved •
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
 </div>
 `;

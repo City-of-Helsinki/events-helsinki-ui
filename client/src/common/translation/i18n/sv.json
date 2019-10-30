@@ -1,4 +1,8 @@
 {
+  "appName": "Tapahtumat (sv)",
+  "footer": {
+    "copyrightText": "© Copyright 2019 • All right reserved •"
+  },
   "home": {
     "text": "Lorem ipsum (sv)"
   }

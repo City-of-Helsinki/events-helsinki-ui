@@ -1,4 +1,8 @@
 {
+  "appName": "Tapahtumat",
+  "footer": {
+    "copyrightText": "© Copyright 2019 • All right reserved •"
+  },
   "home": {
     "text": "Lorem ipsum (fi)"
   }

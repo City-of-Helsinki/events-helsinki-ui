@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders snapshot correctly 1`] = `"<div class=\\"home\\"><header class=\\"homeHeader\\"><img src=\\"logo.svg\\" class=\\"homeLogo\\" alt=\\"logo\\"><p>Lorem ipsum (fi)</p></header></div>"`;
+exports[`renders snapshot correctly 1`] = `"<div class=\\"pageWrapper\\"><header class=\\"headerWrapper\\"><div class=\\"container\\"><div class=\\"navbarTop\\"><div class=\\"logo\\"></div><h1 class=\\"appName\\">Tapahtumat</h1></div></div></header><div class=\\"pageBody\\"><div class=\\"container\\"><div class=\\"home\\"><header class=\\"homeHeader\\"><img src=\\"logo.svg\\" class=\\"homeLogo\\" alt=\\"logo\\"><p>Lorem ipsum (fi)</p></header></div></div></div><footer class=\\"footerWrapper\\"><div class=\\"container\\"><div class=\\"footer\\"><div class=\\"helsinkiLogo\\"></div><div class=\\"copyright\\"><p>© Copyright 2019 • All right reserved •</p></div></div></div></footer></div>"`;
