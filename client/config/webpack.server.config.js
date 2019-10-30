@@ -10,6 +10,8 @@ const paths = require("./paths");
 
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
+const sassRegex = /\.(scss|sass)$/;
+const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -130,9 +132,42 @@ module.exports = function() {
               use: getStyleLoaders({
                 getLocalIdent: getCSSModuleLocalIdent,
                 importLoaders: 1,
+                sourceMap: false,
                 modules: true,
-                sourceMap: false
-              })
+              }),
+            },
+            // Opt-in support for SASS (using .scss or .sass extensions).
+            // By default we support SASS Modules with the
+            // extensions .module.scss or .module.sass
+            {
+              test: sassRegex,
+              exclude: sassModuleRegex,
+              use: getStyleLoaders(
+                {
+                  importLoaders: 2,
+                  sourceMap: false,
+                },
+                'sass-loader'
+              ),
+              // Don't consider CSS imports dead code even if the
+              // containing package claims to have no side effects.
+              // Remove this when webpack adds a warning or an error for this.
+              // See https://github.com/webpack/webpack/issues/6571
+              sideEffects: true,
+            },
+            // Adds support for CSS Modules, but using SASS
+            // using the extension .module.scss or .module.sass
+            {
+              test: sassModuleRegex,
+              use: getStyleLoaders(
+                {
+                  getLocalIdent: getCSSModuleLocalIdent,
+                  importLoaders: 2,
+                  sourceMap: false,
+                  modules: true,
+                },
+                'sass-loader'
+              ),
             },
             // In production, assets are copied to the `build` folder.
             // This loader doesn't use a "test" so it will catch all modules
