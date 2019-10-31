@@ -13,21 +13,9 @@ Starting the application
 
     docker-compose up -d
 
-The web application will run on the HOST you set on .env file in your root directory.
+The web application will run on http://localhost:3000
 
-GraphQL playground will run on <${HOST}/graphql>
-
-                                                                    | Docker
-    http://events-helsinki.docker.localhost           ->  |         | -> UI
-                                                          | traefik |
-    https://events-helsinki.docker.localhost/graphql  ->  |         | -> GraphQL Proxy
-                                                
-
-a single traefik service, that:
-
-1. Handles domain mapping and url routing
-2. Provides SSL
-3. Can load balances production instances
+GraphQL playground will run on http://localhost:4000/proxy/graphql
 
 ## Developing locally, outside Docker
 
