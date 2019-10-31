@@ -15,6 +15,15 @@ export const Subscription = gql`
     _empty: String
   }
 `;
-const global = [Query, Mutation, Subscription];
+
+export const LocalizedObject = gql`
+  type LocalizedObject {
+    fi: String!
+    sv: String!
+    en: String!
+  }
+`;
+
+const global = [LocalizedObject, Mutation, Query, Subscription];
 
 export default global;

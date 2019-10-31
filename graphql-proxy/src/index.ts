@@ -4,13 +4,13 @@ import dotenv from "dotenv";
 import express from "express";
 import depthLimit from "graphql-depth-limit";
 
-import DummyAPI from "./datasources/dummy";
+import LinkedEventsAPI from "./datasources/linkedEvents";
 import schema from "./schema";
 
 dotenv.config();
 
 const dataSources = () => ({
-  dummyAPI: new DummyAPI()
+  linkedEventsAPI: new LinkedEventsAPI()
 });
 
 (async () => {

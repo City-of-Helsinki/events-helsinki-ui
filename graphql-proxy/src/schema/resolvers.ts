@@ -1,7 +1,7 @@
 import merge from "lodash/merge";
 
-import dummy from "./dummy/resolvers";
+import linkedEvents from "./linkedEvents/resolvers";
 
-const resolvers = merge(dummy);
+const resolvers = merge(linkedEvents);
 
 export default resolvers;
