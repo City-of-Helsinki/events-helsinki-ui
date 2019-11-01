@@ -8,97 +8,172 @@ export type Scalars = {
   Float: number,
 };
 
-export type LinkedEventAudience = {
-   __typename?: 'LinkedEventAudience',
+export type InternalIdObject = {
+   __typename?: 'InternalIdObject',
   internalId?: Maybe<Scalars['String']>,
 };
 
-export type LinkedEventEventDetails = {
-   __typename?: 'LinkedEventEventDetails',
+export type LinkedCoursesEventDetails = {
+   __typename?: 'LinkedCoursesEventDetails',
   id: Scalars['ID'],
-  location?: Maybe<LinkedEventLocation>,
-  keywords: Array<LinkedEventKeyword>,
-  super_event?: Maybe<Scalars['ID']>,
-  event_status?: Maybe<Scalars['String']>,
-  external_links: Array<Scalars['String']>,
-  offers: Array<LinkedEventOffer>,
-  data_source?: Maybe<Scalars['String']>,
+  location?: Maybe<InternalIdObject>,
+  keywords: Array<InternalIdObject>,
+  superEvent?: Maybe<InternalIdObject>,
+  eventStatus?: Maybe<Scalars['String']>,
+  externalLinks: Array<LinkedCoursesExternalLink>,
+  offers: Array<LinkedCoursesOffer>,
+  dataSource?: Maybe<Scalars['String']>,
   publisher?: Maybe<Scalars['ID']>,
-  sub_events: Array<Scalars['ID']>,
-  images: Array<LinkedEventImage>,
-  in_language: Array<Scalars['String']>,
-  audience: Array<LinkedEventAudience>,
-  created_time?: Maybe<Scalars['String']>,
-  last_modified_time?: Maybe<Scalars['String']>,
-  date_published?: Maybe<Scalars['String']>,
-  start_time?: Maybe<Scalars['String']>,
-  end_time?: Maybe<Scalars['String']>,
-  custom_data?: Maybe<Scalars['String']>,
-  audience_min_age?: Maybe<Scalars['String']>,
-  audience_max_age?: Maybe<Scalars['String']>,
-  super_event_type?: Maybe<Scalars['String']>,
-  extension_course?: Maybe<LinkedEventExtensionCourse>,
+  subEvents: Array<InternalIdObject>,
+  images: Array<LinkedCoursesImage>,
+  inLanguage: Array<InternalIdObject>,
+  audience: Array<InternalIdObject>,
+  createdTime?: Maybe<Scalars['String']>,
+  lastModifiedTime?: Maybe<Scalars['String']>,
+  datePublished?: Maybe<Scalars['String']>,
+  startTime?: Maybe<Scalars['String']>,
+  endTime?: Maybe<Scalars['String']>,
+  customData?: Maybe<Scalars['String']>,
+  audienceMinAge?: Maybe<Scalars['String']>,
+  audienceMaxAge?: Maybe<Scalars['String']>,
+  superEventType?: Maybe<Scalars['String']>,
+  extensionCourse?: Maybe<LinkedCoursesExtensionCourse>,
   name?: Maybe<LocalizedObject>,
-  location_extra_info?: Maybe<LocalizedObject>,
-  short_description?: Maybe<LocalizedObject>,
-  provider?: Maybe<Scalars['ID']>,
-  info_url?: Maybe<LocalizedObject>,
-  provider_contact_info?: Maybe<Scalars['String']>,
+  locationExtraInfo?: Maybe<LocalizedObject>,
+  shortDescription?: Maybe<LocalizedObject>,
+  provider?: Maybe<LocalizedObject>,
+  infoUrl?: Maybe<LocalizedObject>,
+  providerContactInfo?: Maybe<Scalars['String']>,
   description?: Maybe<LocalizedObject>,
   internalId?: Maybe<Scalars['String']>,
-  internaleContext?: Maybe<Scalars['String']>,
+  internalContext?: Maybe<Scalars['String']>,
   internalType?: Maybe<Scalars['String']>,
 };
 
-export type LinkedEventExtensionCourse = {
-   __typename?: 'LinkedEventExtensionCourse',
-  enrolment_start_time?: Maybe<Scalars['String']>,
-  enrolment_end_time?: Maybe<Scalars['String']>,
-  maximum_attendee_capacity?: Maybe<Scalars['Int']>,
-  minimum_attendee_capacity?: Maybe<Scalars['Int']>,
-  remaining_attendee_capacity?: Maybe<Scalars['Int']>,
+export type LinkedCoursesExtensionCourse = {
+   __typename?: 'LinkedCoursesExtensionCourse',
+  enrolmentStartTime?: Maybe<Scalars['String']>,
+  enrolmentEndTime?: Maybe<Scalars['String']>,
+  maximumAttendeeCapacity?: Maybe<Scalars['Int']>,
+  minimumAttendeeCapacity?: Maybe<Scalars['Int']>,
+  remainingAttendeeCapacity?: Maybe<Scalars['Int']>,
 };
 
-export type LinkedEventImage = {
-   __typename?: 'LinkedEventImage',
+export type LinkedCoursesExternalLink = {
+   __typename?: 'LinkedCoursesExternalLink',
+  name?: Maybe<Scalars['String']>,
+  link?: Maybe<Scalars['String']>,
+  language?: Maybe<Scalars['String']>,
+};
+
+export type LinkedCoursesImage = {
+   __typename?: 'LinkedCoursesImage',
   id: Scalars['ID'],
   license?: Maybe<Scalars['String']>,
-  created_time?: Maybe<Scalars['String']>,
-  last_modified_time?: Maybe<Scalars['String']>,
+  createdTime?: Maybe<Scalars['String']>,
+  lastModifiedTime?: Maybe<Scalars['String']>,
   name?: Maybe<Scalars['String']>,
   url?: Maybe<Scalars['String']>,
   cropping?: Maybe<Scalars['String']>,
-  photographer_name?: Maybe<Scalars['String']>,
-  data_source?: Maybe<Scalars['String']>,
+  photographerName?: Maybe<Scalars['String']>,
+  dataSource?: Maybe<Scalars['String']>,
   publisher?: Maybe<Scalars['String']>,
   internalId?: Maybe<Scalars['String']>,
-  internaleContext?: Maybe<Scalars['String']>,
+  internalContext?: Maybe<Scalars['String']>,
   internalType?: Maybe<Scalars['String']>,
 };
 
-export type LinkedEventKeyword = {
-   __typename?: 'LinkedEventKeyword',
-  internalId?: Maybe<Scalars['String']>,
+export type LinkedCoursesOffer = {
+   __typename?: 'LinkedCoursesOffer',
+  isFree?: Maybe<Scalars['Boolean']>,
+  description?: Maybe<LocalizedObject>,
+  price?: Maybe<LocalizedObject>,
+  infoUrl?: Maybe<LocalizedObject>,
 };
 
-export type LinkedEventLocation = {
-   __typename?: 'LinkedEventLocation',
+export type LinkedEventsEventDetails = {
+   __typename?: 'LinkedEventsEventDetails',
+  id: Scalars['ID'],
+  location?: Maybe<InternalIdObject>,
+  keywords: Array<InternalIdObject>,
+  superEvent?: Maybe<InternalIdObject>,
+  eventStatus?: Maybe<Scalars['String']>,
+  externalLinks: Array<LinkedEventsExternalLink>,
+  offers: Array<LinkedEventsOffer>,
+  dataSource?: Maybe<Scalars['String']>,
+  publisher?: Maybe<Scalars['ID']>,
+  subEvents: Array<InternalIdObject>,
+  images: Array<LinkedEventsImage>,
+  inLanguage: Array<InternalIdObject>,
+  audience: Array<InternalIdObject>,
+  createdTime?: Maybe<Scalars['String']>,
+  lastModifiedTime?: Maybe<Scalars['String']>,
+  datePublished?: Maybe<Scalars['String']>,
+  startTime?: Maybe<Scalars['String']>,
+  endTime?: Maybe<Scalars['String']>,
+  customData?: Maybe<Scalars['String']>,
+  audienceMinAge?: Maybe<Scalars['String']>,
+  audienceMaxAge?: Maybe<Scalars['String']>,
+  superEventType?: Maybe<Scalars['String']>,
+  extensionCourse?: Maybe<LinkedEventsExtensionCourse>,
+  name?: Maybe<LocalizedObject>,
+  locationExtraInfo?: Maybe<LocalizedObject>,
+  shortDescription?: Maybe<LocalizedObject>,
+  provider?: Maybe<LocalizedObject>,
+  infoUrl?: Maybe<LocalizedObject>,
+  providerContactInfo?: Maybe<Scalars['String']>,
+  description?: Maybe<LocalizedObject>,
   internalId?: Maybe<Scalars['String']>,
+  internalContext?: Maybe<Scalars['String']>,
+  internalType?: Maybe<Scalars['String']>,
 };
 
-export type LinkedEventOffer = {
-   __typename?: 'LinkedEventOffer',
-  is_free?: Maybe<Scalars['Boolean']>,
-  description?: Maybe<Scalars['String']>,
-  price?: Maybe<Scalars['String']>,
-  info_url?: Maybe<Scalars['String']>,
+export type LinkedEventsExtensionCourse = {
+   __typename?: 'LinkedEventsExtensionCourse',
+  enrolmentStartTime?: Maybe<Scalars['String']>,
+  enrolmentEndTime?: Maybe<Scalars['String']>,
+  maximumAttendeeCapacity?: Maybe<Scalars['Int']>,
+  minimumAttendeeCapacity?: Maybe<Scalars['Int']>,
+  remainingAttendeeCapacity?: Maybe<Scalars['Int']>,
+};
+
+export type LinkedEventsExternalLink = {
+   __typename?: 'LinkedEventsExternalLink',
+  name?: Maybe<Scalars['String']>,
+  link?: Maybe<Scalars['String']>,
+  language?: Maybe<Scalars['String']>,
+};
+
+export type LinkedEventsImage = {
+   __typename?: 'LinkedEventsImage',
+  id: Scalars['ID'],
+  license?: Maybe<Scalars['String']>,
+  createdTime?: Maybe<Scalars['String']>,
+  lastModifiedTime?: Maybe<Scalars['String']>,
+  name?: Maybe<Scalars['String']>,
+  url?: Maybe<Scalars['String']>,
+  cropping?: Maybe<Scalars['String']>,
+  photographerName?: Maybe<Scalars['String']>,
+  dataSource?: Maybe<Scalars['String']>,
+  publisher?: Maybe<Scalars['String']>,
+  internalId?: Maybe<Scalars['String']>,
+  internalContext?: Maybe<Scalars['String']>,
+  internalType?: Maybe<Scalars['String']>,
+};
+
+export type LinkedEventsOffer = {
+   __typename?: 'LinkedEventsOffer',
+  isFree?: Maybe<Scalars['Boolean']>,
+  description?: Maybe<LocalizedObject>,
+  price?: Maybe<LocalizedObject>,
+  infoUrl?: Maybe<LocalizedObject>,
 };
 
 export type LocalizedObject = {
    __typename?: 'LocalizedObject',
-  fi: Scalars['String'],
-  sv: Scalars['String'],
-  en: Scalars['String'],
+  fi?: Maybe<Scalars['String']>,
+  sv?: Maybe<Scalars['String']>,
+  en?: Maybe<Scalars['String']>,
 };
 
 export type Mutation = {

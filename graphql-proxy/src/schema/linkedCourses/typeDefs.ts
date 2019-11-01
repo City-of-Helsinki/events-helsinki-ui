@@ -2,21 +2,21 @@ import { gql } from "apollo-server";
 
 const typeDefs = gql`
   extend type Query {
-    linkedEventsEventDetails(id: ID): LinkedEventsEventDetails!
+    linkedCoursesEventDetails(id: ID): LinkedCoursesEventDetails!
   }
 
-  type LinkedEventsEventDetails {
+  type LinkedCoursesEventDetails {
     id: ID!
     location: InternalIdObject
     keywords: [InternalIdObject!]!
     superEvent: InternalIdObject
     eventStatus: String
-    externalLinks: [LinkedEventsExternalLink!]!
-    offers: [LinkedEventsOffer!]!
+    externalLinks: [LinkedCoursesExternalLink!]!
+    offers: [LinkedCoursesOffer!]!
     dataSource: String
     publisher: ID
     subEvents: [InternalIdObject!]!
-    images: [LinkedEventsImage!]!
+    images: [LinkedCoursesImage!]!
     inLanguage: [InternalIdObject!]!
     audience: [InternalIdObject!]!
     createdTime: String
@@ -28,7 +28,7 @@ const typeDefs = gql`
     audienceMinAge: String
     audienceMaxAge: String
     superEventType: String
-    extensionCourse: LinkedEventsExtensionCourse
+    extensionCourse: LinkedCoursesExtensionCourse
     name: LocalizedObject
     locationExtraInfo: LocalizedObject
     shortDescription: LocalizedObject
@@ -44,20 +44,20 @@ const typeDefs = gql`
     internalType: String
   }
 
-  type LinkedEventsExternalLink {
+  type LinkedCoursesExternalLink {
     name: String
     link: String
     language: String
   }
 
-  type LinkedEventsOffer {
+  type LinkedCoursesOffer {
     isFree: Boolean
     description: LocalizedObject
     price: LocalizedObject
     infoUrl: LocalizedObject
   }
 
-  type LinkedEventsImage {
+  type LinkedCoursesImage {
     id: ID!
     license: String
     createdTime: String
@@ -76,7 +76,7 @@ const typeDefs = gql`
     internalType: String
   }
 
-  type LinkedEventsExtensionCourse {
+  type LinkedCoursesExtensionCourse {
     enrolmentStartTime: String
     enrolmentEndTime: String
     maximumAttendeeCapacity: Int

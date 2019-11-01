@@ -16,14 +16,27 @@ export const Subscription = gql`
   }
 `;
 
-export const LocalizedObject = gql`
-  type LocalizedObject {
-    fi: String!
-    sv: String!
-    en: String!
+export const InternalIdObject = gql`
+  type InternalIdObject {
+    # @id is renamed as internalId so it's usable on GraphQl
+    internalId: String
   }
 `;
 
-const global = [LocalizedObject, Mutation, Query, Subscription];
+export const LocalizedObject = gql`
+  type LocalizedObject {
+    fi: String
+    sv: String
+    en: String
+  }
+`;
+
+const global = [
+  InternalIdObject,
+  LocalizedObject,
+  Mutation,
+  Query,
+  Subscription
+];
 
 export default global;
