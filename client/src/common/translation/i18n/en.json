@@ -4,6 +4,18 @@
     "copyrightText": "© Copyright 2019 • All right reserved •"
   },
   "home": {
+    "category": {
+      "culture": "Kulttuuri ja taide (en)",
+      "dance": "Tanssi (en)",
+      "food": "Ruoka (en)",
+      "influence": "Osallistu ja vaikuta (en)",
+      "movie": "Elokuva (en)",
+      "museum": "Museot (en)",
+      "music": "Musiikki (en)",
+      "nature": "Luonto ja ulkoilu (en)",
+      "sport": "Liikunta ja urheilu (en)",
+      "theatre": "Teatteri (en)"
+    },
     "search": {
       "buttonSearch": "Hae (en)",
       "labelDateRange": "Mille ajankohdalle etsit? (en)",
