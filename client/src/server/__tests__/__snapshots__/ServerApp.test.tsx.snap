@@ -31,20 +31,34 @@ exports[`ServerApp matches snapshot 1`] = `
       className="container"
     >
       <div
-        className="home"
+        className="searchContainer"
       >
-        <header
-          className="homeHeader"
-        >
-          <img
-            alt="logo"
-            className="homeLogo"
-            src="logo.svg"
-          />
-          <p>
-            Lorem ipsum (fi)
-          </p>
-        </header>
+        <div>
+          <h3>
+            Löydä itsellesi tekemistä!
+          </h3>
+        </div>
+        <div>
+          <label>
+            Mitä etsit?
+          </label>
+        </div>
+        <div>
+          <label>
+            Mille ajankohdalle etsit?
+          </label>
+        </div>
+        <div>
+          <button
+            className="btn btnMediumPrimary btnBlock"
+            type="button"
+          >
+            <svg>
+              search.svg
+            </svg>
+            Hae
+          </button>
+        </div>
       </div>
     </div>
   </div>

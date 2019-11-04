@@ -1,19 +1,12 @@
 import React from "react";
 
-import { formatMessage } from "../../common/translation/utils";
-import logo from "../../logo.svg";
 import Layout from "../app/layout/Layout";
-import styles from "./home.module.scss";
+import Search from "./Search";
 
 const Home: React.FC = () => {
   return (
     <Layout>
-      <div className={styles.home}>
-        <header className={styles.homeHeader}>
-          <img src={logo} className={styles.homeLogo} alt="logo" />
-          <p>{formatMessage("home.text")}</p>
-        </header>
-      </div>
+      <Search />
     </Layout>
   );
 };

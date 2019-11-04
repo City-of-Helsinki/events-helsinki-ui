@@ -4,6 +4,11 @@
     "copyrightText": "© Copyright 2019 • All right reserved •"
   },
   "home": {
-    "text": "Lorem ipsum (fi)"
+    "search": {
+      "buttonSearch": "Hae",
+      "labelDateRange": "Mille ajankohdalle etsit?",
+      "labelSearchField": "Mitä etsit?",
+      "title": "Löydä itsellesi tekemistä!"
+    }
   }
 }
