@@ -1,0 +1,29 @@
+@import "colors";
+
+.category {
+  height: 1.5rem;
+  background-color: $light-orange;
+  color: $hel-black;
+  margin: 0.1875rem 0.375rem 0.1875rem 0;
+  display: inline-flex;
+  padding: 0 0.5rem;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+
+  .closeButton {
+    padding: 0;
+    background: transparent;
+    border: none;
+    margin-right: 0.375rem;
+    cursor: pointer;
+
+    svg {
+      fill: $hel-black;
+      height: 0.625rem;
+      width: 0.625rem;
+      margin: 0;
+    }
+  }
+
+}

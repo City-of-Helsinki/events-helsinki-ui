@@ -13,16 +13,29 @@ import { ReactComponent as SportIcon } from "../../assets/icons/svg/sport.svg";
 import { ReactComponent as TheatreIcon } from "../../assets/icons/svg/theatre.svg";
 import Button, { ButtonStyles } from "../../common/components/button/Button";
 import CategoryFilters from "../../common/components/category/CategoryFilters";
+import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import { formatMessage } from "../../common/translation/utils";
+import { Category } from "../../common/types";
 import { CATEGORIES } from "../../constants";
 import styles from "./search.module.scss";
 
 const SearchContainer: FunctionComponent = () => {
-  const handleCategoryClick = (categoryKey: string) => {
-    // TODO: Handle category click
-    // eslint-disable-next-line no-console
-    console.log(categoryKey);
+  const [categories, setCategories] = React.useState<Category[]>([]);
+  const handleCategoryClick = (newCategory: Category) => {
+    if (
+      categories.findIndex(category => category.value === newCategory.value) ===
+      -1
+    ) {
+      setCategories([...categories, newCategory]);
+    }
   };
+
+  const handleRemoveCategory = (removedCategory: Category) => {
+    setCategories(
+      categories.filter(category => category.value !== removedCategory.value)
+    );
+  };
+
   return (
     <>
       <div className={styles.searchContainer}>
@@ -31,6 +44,11 @@ const SearchContainer: FunctionComponent = () => {
         </div>
         <div>
           <label>{formatMessage("home.search.labelSearchField")}</label>
+          <SearchAutosuggest
+            categories={categories}
+            onRemoveCategory={handleRemoveCategory}
+            placeholder="Aloita kirjoittamalla tähän, esim. teatteri"
+          />
         </div>
         <div>
           <label>{formatMessage("home.search.labelDateRange")}</label>
@@ -49,65 +67,56 @@ const SearchContainer: FunctionComponent = () => {
         categories={[
           {
             icon: <MovieIcon />,
-            onClick: handleCategoryClick,
             text: formatMessage("home.category.movie"),
             value: CATEGORIES.MOVIE
           },
           {
             icon: <MusicIcon />,
-            onClick: handleCategoryClick,
             text: formatMessage("home.category.music"),
             value: CATEGORIES.MUSIC
           },
           {
             icon: <SportIcon />,
-            onClick: handleCategoryClick,
             text: formatMessage("home.category.sport"),
             value: CATEGORIES.SPORT
           },
           {
             icon: <MuseumIcon />,
-            onClick: handleCategoryClick,
             text: formatMessage("home.category.museum"),
             value: CATEGORIES.MUSEUM
           },
           {
             icon: <DanceIcon />,
-            onClick: handleCategoryClick,
             text: formatMessage("home.category.dance"),
             value: CATEGORIES.DANCE
           },
           {
             icon: <CultureIcon />,
-            onClick: handleCategoryClick,
             text: formatMessage("home.category.culture"),
             value: CATEGORIES.CULTURE
           },
           {
             icon: <NatureIcon />,
-            onClick: handleCategoryClick,
             text: formatMessage("home.category.nature"),
             value: CATEGORIES.NATURE
           },
           {
             icon: <InfluenceIcon />,
-            onClick: handleCategoryClick,
             text: formatMessage("home.category.influence"),
             value: CATEGORIES.INFLUENCE
           },
           {
             icon: <TheatreIcon />,
-            onClick: handleCategoryClick,
             text: formatMessage("home.category.theatre"),
             value: CATEGORIES.THEATRE
           },
           {
             icon: <FoodIcon />,
-            onClick: handleCategoryClick,
             text: formatMessage("home.category.food"),
             value: CATEGORIES.FOOD
           }
         ]}
+        onClickCategory={handleCategoryClick}
       />
     </>
   );

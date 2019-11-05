@@ -1,20 +1,25 @@
 import React, { FunctionComponent } from "react";
 
-import CategoryFilter, { CategoryFilterType } from "./CategoryFilter";
+import { Category } from "../../types";
+import CategoryFilter from "./CategoryFilter";
 import styles from "./categoryFilters.module.scss";
 
 interface Props {
-  categories: Array<CategoryFilterType>;
+  categories: Array<Category>;
+  onClickCategory: (category: Category) => void;
 }
 
-const CategoryFilters: FunctionComponent<Props> = ({ categories }) => {
+const CategoryFilters: FunctionComponent<Props> = ({
+  categories,
+  onClickCategory
+}) => {
   return (
     <div className={styles.categoryFilters}>
       {categories.map(category => (
         <CategoryFilter
           key={category.value}
           icon={category.icon}
-          onClick={category.onClick}
+          onClick={onClickCategory}
           text={category.text}
           value={category.value}
         />

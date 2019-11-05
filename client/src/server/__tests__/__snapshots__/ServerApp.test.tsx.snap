@@ -42,6 +42,28 @@ exports[`ServerApp matches snapshot 1`] = `
           <label>
             Mitä etsit?
           </label>
+          <div
+            className="searchAutosuggest"
+          >
+            <div
+              className="iconWrapper"
+            >
+              <svg>
+                search.svg
+              </svg>
+            </div>
+            <div />
+            <div
+              className="inputWrapper"
+            >
+              <input
+                onChange={[Function]}
+                placeholder="Aloita kirjoittamalla tähän, esim. teatteri"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
         </div>
         <div>
           <label>
