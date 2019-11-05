@@ -8,13 +8,15 @@
   height: $buttonHeight;
   padding: $buttonPadding;
   cursor: pointer;
+  position: relative;
 
   svg {
     height: 1.25rem;
     width: 1.25rem;
     fill: $hel-white;
     stroke: $hel-white;
-    float: left;
+    position: absolute;
+    left: 1rem;
   }
   
   &Block {
