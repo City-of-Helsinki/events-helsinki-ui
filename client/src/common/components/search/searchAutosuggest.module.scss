@@ -1,6 +1,7 @@
 @import "colors";
 
 .searchAutosuggest {
+  position: relative;
   min-height: 3.5rem;
   background: $hel-white;
   display: flex;

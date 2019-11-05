@@ -10,3 +10,10 @@ export const CATEGORIES = {
   SPORT: "sport",
   THEATRE: "theatre"
 };
+
+export const KEYWORD_TYPES = {
+  AREA: "area",
+  CATEGORY: "category",
+  SERVICE_POINT: "servicePoint",
+  YSO: "yso"
+};

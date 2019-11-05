@@ -1,7 +1,9 @@
 import React, { ChangeEvent, FunctionComponent } from "react";
 
 import { ReactComponent as SearchIcon } from "../../../assets/icons/svg/search.svg";
+import { KEYWORD_TYPES } from "../../../constants";
 import { Category as CategoryType } from "../../types";
+import AutosuggestMenu from "./AutosuggestMenu";
 import Category from "./Category";
 import styles from "./searchAutosuggest.module.scss";
 
@@ -20,6 +22,48 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   const input = React.useRef<HTMLInputElement | null>(null);
   const [searchValue, setSearchValue] = React.useState("");
 
+  const autosuggestItems = [
+    {
+      text: "Luonto ja ulkoilu",
+      type: KEYWORD_TYPES.CATEGORY
+    },
+    {
+      text: "Maastojuoksu",
+      type: KEYWORD_TYPES.YSO
+    },
+    {
+      text: "Maastopyöräily",
+      type: KEYWORD_TYPES.YSO
+    },
+    {
+      text: "Sunnistus",
+      type: KEYWORD_TYPES.YSO
+    },
+    {
+      text: "Keskusta",
+      type: KEYWORD_TYPES.AREA
+    },
+    {
+      text: "Käpylä",
+      type: KEYWORD_TYPES.AREA
+    },
+    {
+      text: "Kisahalli",
+      type: KEYWORD_TYPES.SERVICE_POINT
+    },
+    {
+      text: "Annatalo",
+      type: KEYWORD_TYPES.SERVICE_POINT
+    },
+    {
+      text: "Stoa",
+      type: KEYWORD_TYPES.SERVICE_POINT
+    },
+    {
+      text: "Caisa",
+      type: KEYWORD_TYPES.SERVICE_POINT
+    }
+  ];
   const handleComponentClick = () => {
     if (input && input.current) {
       // Set focus on input field when clicking container
@@ -72,6 +116,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
           value={searchValue}
         />
       </div>
+      <AutosuggestMenu items={autosuggestItems} isOpen={true} />
     </div>
   );
 };
