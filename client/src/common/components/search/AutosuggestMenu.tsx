@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import React, { FunctionComponent } from "react";
 
+import { formatMessage } from "../../translation/utils";
 import styles from "./autosuggestMenu.module.scss";
 
 interface AutosuggestItem {
@@ -17,11 +18,14 @@ const AutosuggestMenu: FunctionComponent<Props> = ({ items, isOpen }) => {
   if (!isOpen) return null;
   return (
     <div className={styles.autosuggestMenu}>
-      <div className={styles.title}>Hakuehdotuksia</div>
+      <div className={styles.title}>
+        {formatMessage("commons.autosuggest.menu.title")}
+      </div>
       <ul className={styles.autosuggesItems}>
-        {items.map(item => {
+        {items.map((item, index) => {
           return (
             <li
+              key={index}
               className={classNames(
                 styles.autosuggesItem,
                 styles[`autosuggestItem--${item.type}`]
@@ -40,7 +44,7 @@ const AutosuggestMenu: FunctionComponent<Props> = ({ items, isOpen }) => {
       </ul>
 
       <div className={styles.info}>
-        Voit myös etsiä kirjoittamallasi hakusanalla
+        {formatMessage("commons.autosuggest.menu.info")}
       </div>
     </div>
   );

@@ -47,7 +47,7 @@ const SearchContainer: FunctionComponent = () => {
           <SearchAutosuggest
             categories={categories}
             onRemoveCategory={handleRemoveCategory}
-            placeholder="Aloita kirjoittamalla tähän, esim. teatteri"
+            placeholder={formatMessage("home.search.placeholder")}
           />
         </div>
         <div>

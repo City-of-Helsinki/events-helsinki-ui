@@ -22,7 +22,8 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   const input = React.useRef<HTMLInputElement | null>(null);
   const [searchValue, setSearchValue] = React.useState("");
 
-  const autosuggestItems = [
+  // This is moch data so no need to translate items
+  const mochAutosuggestItems = [
     {
       text: "Luonto ja ulkoilu",
       type: KEYWORD_TYPES.CATEGORY
@@ -116,7 +117,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
           value={searchValue}
         />
       </div>
-      <AutosuggestMenu items={autosuggestItems} isOpen={true} />
+      <AutosuggestMenu items={mochAutosuggestItems} isOpen={true} />
     </div>
   );
 };

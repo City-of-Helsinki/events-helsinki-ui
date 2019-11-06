@@ -1,5 +1,16 @@
 {
   "appName": "Tapahtumat (sv)",
+  "commons": {
+    "autosuggest": {
+      "menu": {
+        "info": "Voit myös etsiä kirjoittamallasi hakusanalla (sv)",
+        "title": "Hakuehdotuksia (sv)"
+      }
+    },
+    "category": {
+      "ariaButtonRemove": "Poista kategoria: {{category}} (sv)"
+    }
+  },
   "footer": {
     "copyrightText": "© Copyright 2019 • All right reserved •"
   },
@@ -20,6 +31,7 @@
       "buttonSearch": "Hae (sv)",
       "labelDateRange": "Mille ajankohdalle etsit? (sv)",
       "labelSearchField": "Mitä etsit? (sv)",
+      "placeholder": "Aloita kirjoittamalla tähän, esim. teatteri (sv)",
       "title": "Löydä itsellesi tekemistä! (sv)"
     }
   }

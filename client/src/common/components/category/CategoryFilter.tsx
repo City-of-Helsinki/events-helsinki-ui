@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 
-import { ReactComponent as AngleIcon } from "../../../assets/icons/svg/angle-right.svg";
+import { ReactComponent as AngleRightIcon } from "../../../assets/icons/svg/angle-right.svg";
 import { Category } from "../../types";
 import styles from "./categoryFilter.module.scss";
 
@@ -17,12 +17,13 @@ const CategoryFilter: FunctionComponent<Props> = ({
   const handleClick = () => {
     onClick({ text, value });
   };
+
   return (
     <div className={styles.categoryFilter}>
       <button onClick={handleClick}>
         {icon}
         <span>{text}</span>
-        <AngleIcon />
+        <AngleRightIcon />
       </button>
     </div>
   );
