@@ -3,6 +3,7 @@
   "commons": {
     "autosuggest": {
       "menu": {
+        "ariaButtonClose": "Sulje valikko (en)",
         "info": "Voit myös etsiä kirjoittamallasi hakusanalla (en)",
         "title": "Hakuehdotuksia (en)"
       }
