@@ -1,4 +1,5 @@
 @import "colors";
+@import "layout";
 
 .searchContainer {
   display: grid;
@@ -13,5 +14,10 @@
 
   h3 {
     margin: 0;
+  }
+
+  @include respond-below(sm) {
+    grid-template-columns: 1fr;
+    place-self: stretch;
   }
 }

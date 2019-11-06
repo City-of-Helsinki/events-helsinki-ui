@@ -1,4 +1,5 @@
 @import "colors";
+@import "layout";
 
 .categoryFilters {
   display: grid;
@@ -8,4 +9,9 @@
   padding: 4rem 0 4rem;
   align-items: center;
   place-self: stretch;
+
+  @include respond-below(sm) {
+    grid-template-columns: 1fr 1fr;
+    place-self: stretch;
+  }
 }
