@@ -2,6 +2,7 @@ import { shallow } from "enzyme";
 import React from "react";
 
 import { ReactComponent as CultureIcon } from "../../../../assets/icons/svg/culture.svg";
+import { Category as CategoryType } from "../../../types";
 import CategoryFilters from "../CategoryFilters";
 
 it("CategoryFilters matched snapshot", () => {
@@ -10,14 +11,11 @@ it("CategoryFilters matched snapshot", () => {
       categories={[
         {
           icon: <CultureIcon />,
-          onClick: (value: string) => {
-            // eslint-disable-next-line no-console
-            console.log(value);
-          },
           text: "test",
           value: "value"
         }
       ]}
+      onClickCategory={(category: CategoryType) => {}}
     />
   );
   expect(el.html()).toMatchSnapshot();

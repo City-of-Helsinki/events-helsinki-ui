@@ -13,6 +13,7 @@ import { ReactComponent as SportIcon } from "../../assets/icons/svg/sport.svg";
 import { ReactComponent as TheatreIcon } from "../../assets/icons/svg/theatre.svg";
 import Button, { ButtonStyles } from "../../common/components/button/Button";
 import CategoryFilters from "../../common/components/category/CategoryFilters";
+import DateSelector from "../../common/components/dateSelector/DateSelector";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import { formatMessage } from "../../common/translation/utils";
 import { Category } from "../../common/types";
@@ -21,6 +22,12 @@ import styles from "./search.module.scss";
 
 const SearchContainer: FunctionComponent = () => {
   const [categories, setCategories] = React.useState<Category[]>([]);
+  const [dateTypes, setDateTypes] = React.useState<string[]>([]);
+  const [startDate, setStartDate] = React.useState<Date | null>(null);
+  const [endDate, setEndDate] = React.useState<Date | null>(null);
+  const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
+  const [searchValue, setSearchValue] = React.useState("");
+
   const handleCategoryClick = (newCategory: Category) => {
     if (
       categories.findIndex(category => category.value === newCategory.value) ===
@@ -30,10 +37,18 @@ const SearchContainer: FunctionComponent = () => {
     }
   };
 
+  const handleChangeDateTypes = (value: string[]) => {
+    setDateTypes(value);
+  };
+
   const handleRemoveCategory = (removedCategory: Category) => {
     setCategories(
       categories.filter(category => category.value !== removedCategory.value)
     );
+  };
+
+  const toggleIsCustomDate = () => {
+    setIsCustomDate(!isCustomDate);
   };
 
   return (
@@ -42,18 +57,30 @@ const SearchContainer: FunctionComponent = () => {
         <div>
           <h3>{formatMessage("home.search.title")}</h3>
         </div>
-        <div>
+        <div className={styles.autosuggestWrapper}>
           <label>{formatMessage("home.search.labelSearchField")}</label>
           <SearchAutosuggest
             categories={categories}
+            onChangeSearchValue={setSearchValue}
             onRemoveCategory={handleRemoveCategory}
             placeholder={formatMessage("home.search.placeholder")}
+            searchValue={searchValue}
           />
         </div>
-        <div>
+        <div className={styles.dateSelectorWrapper}>
           <label>{formatMessage("home.search.labelDateRange")}</label>
+          <DateSelector
+            dateTypes={dateTypes}
+            endDate={endDate}
+            isCustomDate={isCustomDate}
+            onChangeDateTypes={handleChangeDateTypes}
+            onChangeEndDate={setEndDate}
+            onChangeStartDate={setStartDate}
+            startDate={startDate}
+            toggleIsCustomDate={toggleIsCustomDate}
+          />
         </div>
-        <div>
+        <div className={styles.buttonWrapper}>
           <Button
             buttonStyle={ButtonStyles.MEDIUM_PRIMARY}
             icon={<SearchIcon />}

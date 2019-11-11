@@ -3,7 +3,7 @@
 
 .searchContainer {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr;
+  grid-template-columns: 1fr 3fr 2fr 1fr;
   grid-gap: 2.5rem;
   height: fit-content;
   color: $hel-white;
@@ -14,6 +14,23 @@
 
   h3 {
     margin: 0;
+  }
+
+  .autosuggestWrapper {
+    align-self: flex-end;
+  }
+
+  .dateSelectorWrapper {
+    align-self: flex-end;
+  }
+
+  .buttonWrapper {
+    align-self: flex-end;
+  }
+
+  @include respond-below(md) {
+    grid-template-columns: 1fr 3fr 2fr;
+    place-self: stretch;
   }
 
   @include respond-below(sm) {

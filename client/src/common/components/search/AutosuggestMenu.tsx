@@ -9,7 +9,6 @@ import styles from "./autosuggestMenu.module.scss";
 interface Props {
   items: AutosuggestMenuItem[];
   isOpen: boolean;
-  onBlur: () => void;
   onClose: () => void;
   onItemClick: (item: AutosuggestMenuItem) => void;
 }
@@ -17,7 +16,6 @@ interface Props {
 const AutosuggestMenu: FunctionComponent<Props> = ({
   items,
   isOpen,
-  onBlur,
   onClose,
   onItemClick
 }) => {
@@ -50,7 +48,7 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
               <div className={styles.colorIndicator} />
               <div className={styles.icon} />
               <div className={styles.textWrapper}>
-                <button onBlur={onBlur} onClick={handleClick}>
+                <button onClick={handleClick}>
                   <div className={styles.text}>{item.text}</div>
                 </button>
               </div>

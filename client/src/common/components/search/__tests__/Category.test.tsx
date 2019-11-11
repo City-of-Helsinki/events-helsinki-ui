@@ -7,10 +7,7 @@ test("Category matches snapshot", () => {
   const component = renderer.create(
     <Category
       category={{ text: "foo", value: "bar" }}
-      onRemove={category => {
-        // eslint-disable-next-line no-console
-        console.log(category);
-      }}
+      onRemove={category => {}}
     />
   );
   const tree = component.toJSON();

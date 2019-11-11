@@ -8,10 +8,7 @@ it("CategoryFilter matched snapshot", () => {
   const el = shallow(
     <CategoryFilter
       icon={<CultureIcon />}
-      onClick={() => {
-        // eslint-disable-next-line no-console
-        console.log("test");
-      }}
+      onClick={() => {}}
       text={"test"}
       value={"value"}
     />

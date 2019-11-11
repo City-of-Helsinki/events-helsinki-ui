@@ -8,11 +8,12 @@
   right: 0;
   left: 0;
   top: 100%;
+  z-index: 1;
 
   .title {
     padding: 1rem;
     text-align: center;
-    color: $light-gray;
+    color: $medium-gray;
     font-weight: 500;
     border-bottom: 1px solid $lightest-gray;
 
@@ -32,7 +33,7 @@
   .info {
     padding: 1rem;
     text-align: center;
-    color: $light-gray;
+    color: $medium-gray;
     font-weight: 500;
   }
   .autosuggesItems {

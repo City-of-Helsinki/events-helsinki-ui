@@ -7,11 +7,10 @@ test("SearchAutosuggest matches snapshot", () => {
   const component = renderer.create(
     <SearchAutosuggest
       categories={[{ text: "bar", value: "foo" }]}
-      onRemoveCategory={category => {
-        // eslint-disable-next-line no-console
-        console.log(category);
-      }}
+      onRemoveCategory={category => {}}
+      onChangeSearchValue={value => {}}
       placeholder="Lorem ipsum"
+      searchValue={"search value"}
     />
   );
   const tree = component.toJSON();

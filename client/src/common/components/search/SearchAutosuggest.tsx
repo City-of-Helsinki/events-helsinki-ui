@@ -9,19 +9,22 @@ import styles from "./searchAutosuggest.module.scss";
 
 interface Props {
   categories: CategoryType[];
+  onChangeSearchValue: (value: string) => void;
   onRemoveCategory: (category: CategoryType) => void;
   placeholder: string;
+  searchValue: string;
 }
 
 const SearchAutosuggest: FunctionComponent<Props> = ({
   categories,
   onRemoveCategory,
-  placeholder
+  onChangeSearchValue,
+  placeholder,
+  searchValue
 }) => {
   const container = React.useRef<HTMLDivElement | null>(null);
   const categoryWrapper = React.useRef<HTMLDivElement | null>(null);
   const input = React.useRef<HTMLInputElement | null>(null);
-  const [searchValue, setSearchValue] = React.useState("");
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   // This is moch data so no need to translate items
@@ -109,28 +112,17 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     }
   };
 
-  const handleBlur = () => {
-    // Browser first changes focus to body so wait 1 ms to let focus change to next item
-    setTimeout(() => {
-      const activeElement = document.activeElement;
+  const handleDocumentFocusin = (event: FocusEvent) => {
+    const target = event.target;
+    const current = container && container.current;
 
-      const current = container && container.current;
-
-      // Close menu when moving focus outside of the component
-      if (
-        !(
-          current &&
-          activeElement instanceof Node &&
-          current.contains(activeElement)
-        )
-      ) {
-        setIsMenuOpen(false);
-      }
-    }, 1);
+    if (!(current && target instanceof Node && current.contains(target))) {
+      setIsMenuOpen(false);
+    }
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
+    onChangeSearchValue(event.target.value);
     // Open menu when search value changes
     setIsMenuOpen(true);
   };
@@ -152,7 +144,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     // Set focus to input so the menu is not opened again afted focusing to input
     setFocusToInput();
 
-    setSearchValue(item.text);
+    onChangeSearchValue(item.text);
     // Close menu when selecting one of the autosuggest items
     setIsMenuOpen(false);
   };
@@ -164,10 +156,12 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   React.useEffect(() => {
     document.addEventListener("click", handleDocumentClick);
     document.addEventListener("keydown", handleDocumentKeyDown);
+    document.addEventListener("focusin", handleDocumentFocusin);
     // Clean up event listener to prevent memory leaks
     return () => {
       document.removeEventListener("click", handleDocumentClick);
       document.removeEventListener("keydown", handleDocumentKeyDown);
+      document.removeEventListener("focusin", handleDocumentFocusin);
     };
   }, []);
 
@@ -185,7 +179,6 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
           return (
             <Category
               key={category.value}
-              onBlur={handleBlur}
               category={category}
               onRemove={handleRemoveCategory}
             />
@@ -195,7 +188,6 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       <div className={styles.inputWrapper}>
         <input
           ref={input}
-          onBlur={handleBlur}
           onChange={handleInputChange}
           onFocus={handleInputFocus}
           placeholder={placeholder}
@@ -206,7 +198,6 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       <AutosuggestMenu
         items={mochAutosuggestItems}
         isOpen={isMenuOpen}
-        onBlur={handleBlur}
         onClose={handleCloseMenu}
         onItemClick={handleMenuItemClick}
       />

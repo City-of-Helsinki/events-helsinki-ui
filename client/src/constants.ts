@@ -11,6 +11,14 @@ export const CATEGORIES = {
   THEATRE: "theatre"
 };
 
+export const DATE_TYPES = {
+  ALL: "all",
+  THIS_WEEK: "this_week",
+  TODAY: "today",
+  TOMORROW: "tomorrow",
+  WEEKEND: "weekend"
+};
+
 export const KEYWORD_TYPES = {
   AREA: "area",
   CATEGORY: "category",

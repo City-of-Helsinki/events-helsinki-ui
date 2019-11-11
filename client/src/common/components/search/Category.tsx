@@ -7,11 +7,10 @@ import styles from "./category.module.scss";
 
 interface Props {
   category: CategoryType;
-  onBlur: () => void;
   onRemove: (category: CategoryType) => void;
 }
 
-const Category: FunctionComponent<Props> = ({ category, onBlur, onRemove }) => {
+const Category: FunctionComponent<Props> = ({ category, onRemove }) => {
   const handleRemove = () => {
     onRemove(category);
   };
@@ -21,7 +20,6 @@ const Category: FunctionComponent<Props> = ({ category, onBlur, onRemove }) => {
       <button
         type="button"
         className={styles.closeButton}
-        onBlur={onBlur}
         onClick={handleRemove}
         aria-label={formatMessage("commons.category.ariaButtonRemove", {
           category: category.text
