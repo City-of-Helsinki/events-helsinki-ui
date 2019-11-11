@@ -6,6 +6,7 @@ import { ReactComponent as AngleLeftIcon } from "../../../assets/icons/svg/angle
 import { ReactComponent as AngleRightIcon } from "../../../assets/icons/svg/angle-right.svg";
 import { ReactComponent as CalendarAddIcon } from "../../../assets/icons/svg/calendar-add.svg";
 import { DATE_TYPES } from "../../../constants";
+import { formatMessage } from "../../translation/utils";
 import Checkbox from "../input/Checkbox";
 import DateRangePicker from "./DateRangePicker";
 import styles from "./dateSelectorMenu.module.scss"; // the locale you want
@@ -61,7 +62,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
             onChange={handleCheckboxChange}
             value={DATE_TYPES.ALL}
           >
-            Koska tahansa
+            {formatMessage("commons.dateSelector.dateTypeAll")}
           </Checkbox>
           <Checkbox
             checked={dateTypes.indexOf(DATE_TYPES.TODAY) !== -1}
@@ -69,7 +70,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
             onChange={handleCheckboxChange}
             value={DATE_TYPES.TODAY}
           >
-            Tänään
+            {formatMessage("commons.dateSelector.dateTypeToday")}
           </Checkbox>
           <Checkbox
             checked={dateTypes.indexOf(DATE_TYPES.TOMORROW) !== -1}
@@ -77,7 +78,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
             onChange={handleCheckboxChange}
             value={DATE_TYPES.TOMORROW}
           >
-            Huomenna
+            {formatMessage("commons.dateSelector.dateTypeTomorrow")}
           </Checkbox>
           <Checkbox
             checked={dateTypes.indexOf(DATE_TYPES.THIS_WEEK) !== -1}
@@ -85,7 +86,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
             onChange={handleCheckboxChange}
             value={DATE_TYPES.THIS_WEEK}
           >
-            Tällä viikolla
+            {formatMessage("commons.dateSelector.dateTypeThisWeek")}
           </Checkbox>
           <Checkbox
             checked={dateTypes.indexOf(DATE_TYPES.WEEKEND) !== -1}
@@ -93,7 +94,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
             onChange={handleCheckboxChange}
             value={DATE_TYPES.WEEKEND}
           >
-            Viikonloppuna
+            {formatMessage("commons.dateSelector.dateTypeWeekend")}
           </Checkbox>
         </div>
       )}
@@ -106,7 +107,9 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         onClick={toggleIsCustomDate}
       >
         <CalendarAddIcon />
-        <div className={styles.buttonText}>Valitse päivät</div>
+        <div className={styles.buttonText}>
+          {formatMessage("commons.dateSelector.menu.buttonCustom")}
+        </div>
         <AngleRightIcon />
       </button>
 
@@ -118,7 +121,9 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         onClick={toggleIsCustomDate}
       >
         <AngleLeftIcon />
-        <div className={styles.buttonText}>Takaisin</div>
+        <div className={styles.buttonText}>
+          {formatMessage("commons.dateSelector.menu.buttonBack")}
+        </div>
       </button>
 
       {isCustomDate && (
@@ -138,7 +143,9 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         })}
         onClick={toggleMenu}
       >
-        <div className={styles.buttonText}>Sulje</div>
+        <div className={styles.buttonText}>
+          {formatMessage("commons.dateSelector.menu.buttonClose")}
+        </div>
       </button>
     </div>
   );

@@ -5,6 +5,7 @@ import {
   convertFinnishDateStrToDate,
   formatDate
 } from "../../../util/dateUtils";
+import { formatMessage } from "../../translation/utils";
 import styles from "./dateRangeInputs.module.scss";
 
 interface Props {
@@ -92,8 +93,10 @@ class DateRangeInputs extends React.Component<Props> {
     return (
       <div className={styles.dateRangeInputsContainer}>
         <div className={styles.dateInputWrapper}>
-          <label>Alkamispäivä</label>
-          <div className={styles.formatInfo}>pp.kk.vvvv</div>
+          <label>{formatMessage("commons.dateSelector.labelStartDate")}</label>
+          <div className={styles.formatInfo}>
+            {formatMessage("commons.dateSelector.infoDate")}
+          </div>
           <div className={styles.inputWrapper}>
             <div className={styles.input}>
               <input
@@ -112,8 +115,10 @@ class DateRangeInputs extends React.Component<Props> {
         </div>
         <div className={styles.dateSeparator}>—</div>
         <div className={styles.dateInputWrapper}>
-          <label>Loppumispäivä</label>
-          <div className={styles.formatInfo}>pp.kk.vvvv</div>
+          <label>{formatMessage("commons.dateSelector.labelEndDate")}</label>
+          <div className={styles.formatInfo}>
+            {formatMessage("commons.dateSelector.infoDate")}
+          </div>
           <div className={styles.inputWrapper}>
             <div className={styles.input}>
               <input

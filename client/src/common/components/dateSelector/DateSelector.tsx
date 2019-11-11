@@ -3,6 +3,7 @@ import React, { FunctionComponent } from "react";
 import { ReactComponent as AngleDownIcon } from "../../../assets/icons/svg/angle-down.svg";
 import { ReactComponent as AngleUpIcon } from "../../../assets/icons/svg/angle-up.svg";
 import { ReactComponent as CalendarIcon } from "../../../assets/icons/svg/calendar.svg";
+import { formatMessage } from "../../translation/utils";
 import styles from "./dateSelector.module.scss";
 import DateSelectorMenu from "./DateSelectorMenu";
 
@@ -100,7 +101,9 @@ const DateSelector: FunctionComponent<Props> = ({
         <div className={styles.iconWrapper}>
           <CalendarIcon />
         </div>
-        <div className={styles.info}>Valitse ajankohta</div>
+        <div className={styles.info}>
+          {formatMessage("commons.dateSelector.title")}
+        </div>
         <div className={styles.arrowWrapper}>
           {isMenuOpen ? <AngleUpIcon /> : <AngleDownIcon />}
         </div>

@@ -10,6 +10,22 @@
     },
     "category": {
       "ariaButtonRemove": "Poista kategoria: {{category}} (en)"
+    },
+    "dateSelector": {
+      "dateTypeAll": "Koska tahansa (en)",
+      "dateTypeThisWeek": "Tällä viikolla (en)",
+      "dateTypeToday": "Tänään (en)",
+      "dateTypeTomorrow": "Huomenna (en)",
+      "dateTypeWeekend": "Viikonloppuna (en)",
+      "infoDate": "kk.mm.vvvv (en)",
+      "labelEndDate": "Loppumispäivä (en)",
+      "labelStartDate": "Alkamispäivä (en)",
+      "menu": {
+        "buttonBack": "Takaisin (en)",
+        "buttonClose": "Sulje (en)",
+        "buttonCustom": "Valitse päivät (en)"
+      },
+      "title": "Valitse ajankohta (en)"
     }
   },
   "footer": {
