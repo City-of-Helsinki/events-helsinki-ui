@@ -1,0 +1,28 @@
+@import "layout";
+
+.container {
+    display: grid;
+    grid-row: span;
+
+    & > * {
+        grid-column: 2;
+    }
+}
+
+@include respond-below(sm) {
+    .container {
+        grid-template-columns: 5% 1fr 5%;
+    }
+}
+
+@include respond-between(sm, xlg) {
+    .container {
+        grid-template-columns: 1fr 10fr 1fr;
+    }
+}
+
+@include respond-above(xlg) {
+    .container {
+        grid-template-columns: 1fr 6fr 1fr;
+    }
+}

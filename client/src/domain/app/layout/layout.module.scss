@@ -1,0 +1,14 @@
+@import "variables";
+
+.pageWrapper {
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+
+    grid-template-rows: $headerHeight 1fr $footerHeight;
+}
+
+.pageBody {
+    display: grid;
+}
