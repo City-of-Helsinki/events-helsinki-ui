@@ -1,16 +1,5 @@
-
-<svg width="11px" height="17px" viewBox="0 0 11 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <defs>
-    <polygon id="path-1" points="8 5.95286195 2.04713805 0 0 2.04713805 5.95286195 8 8 10.047138 10.047138 8 16 2.04713805 13.952862 0"></polygon>
-  </defs>
-  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-    <g transform="translate(-6.000000, -4.000000)">
-      <g transform="translate(12.000000, 12.500000) rotate(-90.000000) translate(-12.000000, -12.500000) translate(4.000000, 7.000000)">
-        <mask id="mask-2" fill="white">
-          <use xlink:href="#path-1"></use>
-        </mask>
-        <rect fill="#000000" mask="url(#mask-2)" x="-4" y="-7" width="24" height="24"></rect>
-      </g>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="199.404px" height="199.404px" viewBox="0 0 199.404 199.404" style="enable-background:new 0 0 199.404 199.404;" xml:space="preserve">
+  <g>
+    <polygon points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "/>
   </g>
 </svg>
