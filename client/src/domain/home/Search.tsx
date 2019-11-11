@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from "react";
+import { useHistory } from "react-router";
 
 import { ReactComponent as CultureIcon } from "../../assets/icons/svg/culture.svg";
 import { ReactComponent as DanceIcon } from "../../assets/icons/svg/dance.svg";
@@ -18,6 +19,7 @@ import SearchAutosuggest from "../../common/components/search/SearchAutosuggest"
 import { formatMessage } from "../../common/translation/utils";
 import { Category } from "../../common/types";
 import { CATEGORIES } from "../../constants";
+import { getSearchQuery } from "../../util/searchUtils";
 import styles from "./search.module.scss";
 
 const SearchContainer: FunctionComponent = () => {
@@ -27,6 +29,7 @@ const SearchContainer: FunctionComponent = () => {
   const [endDate, setEndDate] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
   const [searchValue, setSearchValue] = React.useState("");
+  const { push } = useHistory();
 
   const handleCategoryClick = (newCategory: Category) => {
     if (
@@ -51,10 +54,23 @@ const SearchContainer: FunctionComponent = () => {
     setIsCustomDate(!isCustomDate);
   };
 
+  const moveToSearchPage = () => {
+    const search = getSearchQuery({
+      categories,
+      dateTypes,
+      endDate,
+      isCustomDate,
+      search: searchValue,
+      startDate
+    });
+
+    return push({ pathname: "test", search });
+  };
+
   return (
     <>
       <div className={styles.searchContainer}>
-        <div>
+        <div className={styles.titleWrapper}>
           <h3>{formatMessage("home.search.title")}</h3>
         </div>
         <div className={styles.autosuggestWrapper}>
@@ -85,6 +101,7 @@ const SearchContainer: FunctionComponent = () => {
             buttonStyle={ButtonStyles.MEDIUM_PRIMARY}
             icon={<SearchIcon />}
             isBlock={true}
+            onClick={moveToSearchPage}
           >
             {formatMessage("home.search.buttonSearch")}
           </Button>
