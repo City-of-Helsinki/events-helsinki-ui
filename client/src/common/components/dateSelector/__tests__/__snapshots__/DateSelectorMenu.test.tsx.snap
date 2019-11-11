@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateSelectorMenu matches snapshot 1`] = `
+<div
+  className="dateSelectorMenu"
+>
+  <div
+    className="wrapper"
+  >
+    <label
+      className="checkbox"
+    >
+      <input
+        checked={false}
+        name="date"
+        onChange={[Function]}
+        type="checkbox"
+        value="all"
+      />
+      <span
+        className="checkmark"
+      />
+      Koska tahansa
+    </label>
+    <label
+      className="checkbox"
+    >
+      <input
+        checked={false}
+        name="date"
+        onChange={[Function]}
+        type="checkbox"
+        value="today"
+      />
+      <span
+        className="checkmark"
+      />
+      Tänään
+    </label>
+    <label
+      className="checkbox"
+    >
+      <input
+        checked={false}
+        name="date"
+        onChange={[Function]}
+        type="checkbox"
+        value="tomorrow"
+      />
+      <span
+        className="checkmark"
+      />
+      Huomenna
+    </label>
+    <label
+      className="checkbox"
+    >
+      <input
+        checked={false}
+        name="date"
+        onChange={[Function]}
+        type="checkbox"
+        value="this_week"
+      />
+      <span
+        className="checkmark"
+      />
+      Tällä viikolla
+    </label>
+    <label
+      className="checkbox"
+    >
+      <input
+        checked={false}
+        name="date"
+        onChange={[Function]}
+        type="checkbox"
+        value="weekend"
+      />
+      <span
+        className="checkmark"
+      />
+      Viikonloppuna
+    </label>
+  </div>
+  <button
+    className="button btnSelectDates"
+    onClick={[Function]}
+  >
+    <svg>
+      calendar-add.svg
+    </svg>
+    <div
+      className="buttonText"
+    >
+      Valitse päivät
+    </div>
+    <svg>
+      angle-right.svg
+    </svg>
+  </button>
+  <button
+    className="button btnBack hidden"
+    onClick={[Function]}
+  >
+    <svg>
+      angle-left.svg
+    </svg>
+    <div
+      className="buttonText"
+    >
+      Takaisin
+    </div>
+  </button>
+  <button
+    className="button btnClose hidden"
+    onClick={[Function]}
+  >
+    <div
+      className="buttonText"
+    >
+      Sulje
+    </div>
+  </button>
+</div>
+`;

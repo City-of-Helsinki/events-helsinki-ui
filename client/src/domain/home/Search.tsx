@@ -22,7 +22,7 @@ import { CATEGORIES } from "../../constants";
 import { getSearchQuery } from "../../util/searchUtils";
 import styles from "./search.module.scss";
 
-const SearchContainer: FunctionComponent = () => {
+const Search: FunctionComponent = () => {
   const [categories, setCategories] = React.useState<Category[]>([]);
   const [dateTypes, setDateTypes] = React.useState<string[]>([]);
   const [startDate, setStartDate] = React.useState<Date | null>(null);
@@ -64,7 +64,7 @@ const SearchContainer: FunctionComponent = () => {
       startDate
     });
 
-    return push({ pathname: "test", search });
+    return push({ pathname: "/search", search });
   };
 
   return (
@@ -166,4 +166,4 @@ const SearchContainer: FunctionComponent = () => {
   );
 };
 
-export default SearchContainer;
+export default Search;

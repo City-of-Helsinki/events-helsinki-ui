@@ -10,7 +10,7 @@ import styles from "./dateRangeInputs.module.scss";
 
 interface Props {
   endDateRaw: string;
-  endDateRef: MutableRefObject<HTMLInputElement | null>;
+  endDateRef?: MutableRefObject<HTMLInputElement | null>;
   // onBlur method is overriden by ReactFatePicker so name this as onBlurInput
   onBlurInput: (
     ref: MutableRefObject<HTMLInputElement | null>,
@@ -22,7 +22,7 @@ interface Props {
   setStartDateRaw: (val: string) => void;
   startDate: Date | null;
   startDateRaw: string;
-  startDateRef: MutableRefObject<HTMLInputElement | null>;
+  startDateRef?: MutableRefObject<HTMLInputElement | null>;
 }
 
 // Use class instead of function component so the ref is passed correctly by ReactDatePicker
@@ -50,7 +50,10 @@ class DateRangeInputs extends React.Component<Props> {
     const newDate = convertFinnishDateStrToDate(startDateRaw);
 
     if (newDate) {
-      onBlurInput(startDateRef, newDate);
+      if (startDateRef) {
+        onBlurInput(startDateRef, newDate);
+      }
+
       setStartDateRaw(formatDate(newDate));
     } else {
       setStartDateRaw(formatDate(startDate));
@@ -68,7 +71,10 @@ class DateRangeInputs extends React.Component<Props> {
     const newDate = convertFinnishDateStrToDate(endDateRaw);
 
     if (newDate) {
-      onBlurInput(endDateRef, newDate);
+      if (endDateRef) {
+        onBlurInput(endDateRef, newDate);
+      }
+
       setEndDateRaw(formatDate(newDate));
     } else {
       setEndDateRaw(formatDate(endDate));

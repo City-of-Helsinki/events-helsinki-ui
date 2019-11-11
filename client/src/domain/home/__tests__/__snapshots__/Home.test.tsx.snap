@@ -33,7 +33,9 @@ exports[`Home matches snapshot 1`] = `
       <div
         className="searchContainer"
       >
-        <div>
+        <div
+          className="titleWrapper"
+        >
           <h3>
             Löydä itsellesi tekemistä!
           </h3>
@@ -110,6 +112,7 @@ exports[`Home matches snapshot 1`] = `
         >
           <button
             className="btn btnMediumPrimary btnBlock"
+            onClick={[Function]}
             type="button"
           >
             <svg>
