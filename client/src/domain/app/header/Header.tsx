@@ -1,22 +1,17 @@
 import React from "react";
 
-import { formatMessage } from "../../../common/translation/utils";
 import Container from "../layout/Container";
 import styles from "./header.module.scss";
+import Navbar from "./navbar/Navbar";
 
-type Props = {};
-
-function Header(props: Props) {
+const Header: React.FC = () => {
   return (
     <header className={styles.headerWrapper}>
       <Container>
-        <div className={styles.navbarTop}>
-          <div className={styles.logo}></div>
-          <h1 className={styles.appName}>{formatMessage("appName")}</h1>
-        </div>
+        <Navbar />
       </Container>
     </header>
   );
-}
+};
 
 export default Header;

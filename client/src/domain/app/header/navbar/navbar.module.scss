@@ -1,0 +1,30 @@
+@import "mixins";
+@import "colors";
+@import "variables";
+
+$logoHeight: 2.5rem;
+$logoWidth: 5.5rem;
+
+.navbarTop {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logoWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+  
+.appName {
+  margin-left: 1.875rem;
+  font-size: 1.25rem;
+}
+
+.logo {
+    @include helsinki-logo($hel-black);
+    background-position: center;
+    height: $logoHeight;
+    width: $logoWidth;
+}

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 
 import { SUPPORT_LANGUAGES } from "../../common/translation/constants";
-import { changeLanguage } from "../../common/translation/utils";
+import { changeLanguage } from "../../common/translation/TranslationUtils";
 import Home from "../home/Home";
 
 const App: FunctionComponent<

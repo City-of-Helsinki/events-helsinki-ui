@@ -1,6 +1,6 @@
 import React from "react";
 
-import { formatMessage } from "../../common/translation/utils";
+import { formatMessage } from "../../common/translation/TranslationUtils";
 import logo from "../../logo.svg";
 import Layout from "../app/layout/Layout";
 import styles from "./home.module.scss";

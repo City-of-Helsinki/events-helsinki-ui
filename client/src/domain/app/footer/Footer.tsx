@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 
-import { formatMessage } from "../../../common/translation/utils";
+import { formatMessage } from "../../../common/translation/TranslationUtils";
 import Container from "../layout/Container";
 import styles from "./footer.module.scss";
 
