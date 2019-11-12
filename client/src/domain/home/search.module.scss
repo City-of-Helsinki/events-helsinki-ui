@@ -11,6 +11,7 @@
   padding: 2.375rem 2.5rem 3.75rem 2.5rem;
   align-items: center;
   place-self: start;
+  position: relative;
 
   h3 {
     margin: 0;
@@ -30,11 +31,6 @@
 
   .buttonWrapper {
     align-self: flex-end;
-  }
-
-  @include respond-below(md) {
-    grid-template-columns: 1fr 3fr 2fr;
-    place-self: stretch;
   }
 
   @include respond-below(sm) {

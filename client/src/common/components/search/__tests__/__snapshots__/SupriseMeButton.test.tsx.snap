@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SupriseMeButton matches snapshot 1`] = `
+<button
+  className="supriseMeButton"
+  onClick={[Function]}
+  type="button"
+>
+  <div
+    className="text"
+  >
+    Yllätä minut
+  </div>
+  <svg>
+    suprise-me.svg
+  </svg>
+</button>
+`;

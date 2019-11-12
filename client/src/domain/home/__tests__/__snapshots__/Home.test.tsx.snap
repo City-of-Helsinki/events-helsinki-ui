@@ -33,6 +33,20 @@ exports[`Home matches snapshot 1`] = `
       <div
         className="searchContainer"
       >
+        <button
+          className="supriseMeButton"
+          onClick={[Function]}
+          type="button"
+        >
+          <div
+            className="text"
+          >
+            Yllätä minut
+          </div>
+          <svg>
+            suprise-me.svg
+          </svg>
+        </button>
         <div
           className="titleWrapper"
         >

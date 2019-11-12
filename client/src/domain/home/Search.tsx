@@ -16,6 +16,7 @@ import Button, { ButtonStyles } from "../../common/components/button/Button";
 import CategoryFilters from "../../common/components/category/CategoryFilters";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
+import SupriseMeButton from "../../common/components/search/SupriseMeButton";
 import { formatMessage } from "../../common/translation/utils";
 import { Category } from "../../common/types";
 import { CATEGORIES } from "../../constants";
@@ -67,9 +68,15 @@ const Search: FunctionComponent = () => {
     return push({ pathname: "/search", search });
   };
 
+  const handleClickSupriseMe = () => {
+    // TODO: Add suprise me feature
+    alert("suprise me");
+  };
+
   return (
     <>
       <div className={styles.searchContainer}>
+        <SupriseMeButton onClick={handleClickSupriseMe} />
         <div className={styles.titleWrapper}>
           <h3>{formatMessage("home.search.title")}</h3>
         </div>
