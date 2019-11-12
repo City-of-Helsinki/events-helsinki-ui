@@ -1,0 +1,67 @@
+@import "colors";
+
+.select {
+  .select {
+    &__control {
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      border: 2px solid transparent;
+
+      &:active {
+        border-color: $light-gray; 
+      }
+
+      &--is-focused {
+        box-shadow: none;
+        border-color: $hel-black;
+      }
+
+      &:hover {
+        border-color: $light-gray; 
+        background-color: $lightest-gray;
+      }
+
+      &--menu-is-open, 
+      &--menu-is-open:hover {
+        border-color: $hel-black;
+      }
+    }
+
+    &__menu {
+      margin-bottom: 0;
+      margin-top: 0;
+      box-shadow: none;
+      border-radius: 0;
+      border: 2px solid $light-gray;
+      border-top: none;
+    }
+
+    &__menu-list {
+      padding-bottom: 0;
+      padding-top: 0;
+    }
+
+    &__option {
+      background-color: $lightest-gray;
+      color: $hel-black;
+
+      &--is-selected {
+        background-color: $lightest-gray;
+      }
+      &--is-focused {
+        background-color: $hel-fog;
+      }
+    }
+    &__dropdown-indicator {
+      display: flex;
+      padding: 0.5rem;
+      box-sizing: border-box;
+
+      svg {
+        height: 0.75rem;
+        width: 0.75rem;
+      }
+    }
+  }
+}
