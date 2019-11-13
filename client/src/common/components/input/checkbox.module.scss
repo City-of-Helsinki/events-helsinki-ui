@@ -1,0 +1,84 @@
+@import "colors";
+
+.checkbox {
+  display: block;
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1.25rem;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: normal;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.checkbox * {
+  box-sizing: border-box;
+}
+
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-color: $hel-white;
+  border: 2px solid $hel-gray;
+}
+
+.checkbox:hover input ~ .checkmark, 
+.checkbox input:focus ~ .checkmark {
+  background-color: $hel-white;
+  border-color: $hel-black;
+}
+
+.checkbox input:disabled ~ .checkmark {
+  cursor: not-allowed;
+  background-color: $hel-light;
+  border-color: $hel-gray;
+}
+
+.checkbox input:checked ~ .checkmark {
+  border-color: $hel-bus;
+  background-color: $hel-bus;
+}
+
+.checkbox input:checked:focus ~ .checkmark {
+  border-color: $hel-black;
+}
+
+.checkbox input:checked:disabled ~ .checkmark {
+  border-color: $hel-light;
+  background-color: $hel-light;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox .checkmark:after {
+  content: "✓";
+  font-size: 1.5rem;
+  font-weight: 400;
+  top: -2px;
+  color: $hel-white;
+  left: 0;
+}

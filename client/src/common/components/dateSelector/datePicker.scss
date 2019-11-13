@@ -1,0 +1,109 @@
+@import "colors";
+
+.react-datepicker {
+  border: none;
+  color: $hel-black;
+  width: 100%;
+
+  &__no-popper {
+    position: unset !important;
+    transform: unset !important;
+  }
+  
+  &__triangle {
+    display: none;
+  }
+
+  &__header {
+    background-color: $hel-white;
+    border-bottom: none;
+  }
+
+  &__navigation--previous {
+    background-image: url("../../../assets/icons/svg/angle-left.svg");
+    border: none;
+    background-repeat: no-repeat;
+    height: 0.75rem;
+    width: 0.75rem;
+    background-size: 0.75rem 0.75rem;
+    top: 0.75rem;
+  }
+
+  &__navigation--next {
+    background-image: url("../../../assets/icons/svg/angle-right.svg");
+    border: none;
+    background-repeat: no-repeat;
+    height: 0.75rem;
+    width: 0.75rem;
+    background-size: 0.75rem 0.75rem;
+    top: 0.75rem;
+  }
+
+  &__day-names {
+    display: flex;
+  }
+
+  &__day-name {
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 600;
+    flex: 1 1 0%;
+    color: $hel-black;
+  }
+
+  &__current-month {
+    font-size: 1.125rem;
+    color: $hel-black;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+
+  &__month-container {
+    float: none;
+  }
+
+  &__month {
+    margin: 0;
+  }
+
+  &__week {
+    display: flex;
+  }
+
+  &__day {
+    flex: 1 1 0%;
+    font-size: 0.875rem;
+    color: $hel-black;
+    border-radius: 0 !important;
+
+    &--outside-month {
+      color: $medium-gray;
+    }
+
+    &--in-range {
+      color: $hel-white;
+      background-color: $hel-coat;
+    }
+
+    &--in-selecting-range {
+      color: $hel-white;
+      background-color: $hel-fog;
+    }
+
+    &--in-selecting-range:hover {
+      color: $hel-white;
+      background-color: $hel-coat;
+    }
+
+    &--selected {
+      color: $hel-white;
+      background-color: $hel-coat;
+    }
+
+    &--keyboard-selected {
+      color: $hel-white;
+      background-color: $hel-bus;
+    }
+  }
+}

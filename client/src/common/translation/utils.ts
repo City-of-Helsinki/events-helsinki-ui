@@ -1,4 +1,4 @@
-import { FormatFunction } from "i18next";
+import { TFunction, TOptions } from "i18next";
 
 import i18n from "./i18n/i18nInit";
 
@@ -8,9 +8,13 @@ import i18n from "./i18n/i18nInit";
  * to translate your content.
  * Purpose of using this function instead of hook for HOC is for easier maintain
  *
- * @param args Format arguments, check ts definition / i18next documentation
+ * @param key Key of the string to translate
+ * @param options Options of the string to translate
  */
-export const formatMessage: FormatFunction = args => i18n.t(args);
+export const formatMessage: TFunction = (
+  key: string,
+  options?: TOptions | string
+) => i18n.t(key, options);
 
 export const changeLanguage = (language: string) =>
   i18n.changeLanguage(language);

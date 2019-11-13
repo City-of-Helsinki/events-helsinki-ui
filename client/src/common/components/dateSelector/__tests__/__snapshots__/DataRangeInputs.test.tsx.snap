@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateRangeInputs matches snapshot 1`] = `
+<div
+  className="dateRangeInputsContainer"
+>
+  <div
+    className="dateInputWrapper"
+  >
+    <label>
+      Alkamispäivä
+    </label>
+    <div
+      className="formatInfo"
+    >
+      kk.mm.vvvv
+    </div>
+    <div
+      className="inputWrapper"
+    >
+      <div
+        className="input"
+      >
+        <input
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          value=""
+        />
+      </div>
+      <div
+        className="icon"
+      >
+        <svg>
+          calendar-add.svg
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div
+    className="dateSeparator"
+  >
+    —
+  </div>
+  <div
+    className="dateInputWrapper"
+  >
+    <label>
+      Loppumispäivä
+    </label>
+    <div
+      className="formatInfo"
+    >
+      kk.mm.vvvv
+    </div>
+    <div
+      className="inputWrapper"
+    >
+      <div
+        className="input"
+      >
+        <input
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          value=""
+        />
+      </div>
+      <div
+        className="icon"
+      >
+        <svg>
+          calendar-add.svg
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+`;

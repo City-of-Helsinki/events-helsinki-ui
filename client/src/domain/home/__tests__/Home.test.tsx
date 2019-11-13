@@ -1,10 +1,15 @@
 import * as React from "react";
+import { MemoryRouter } from "react-router";
 import renderer from "react-test-renderer";
 
 import Home from "../Home";
 
 test("Home matches snapshot", () => {
-  const component = renderer.create(<Home />);
+  const component = renderer.create(
+    <MemoryRouter initialEntries={["/fi/home"]}>
+      <Home />
+    </MemoryRouter>
+  );
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });

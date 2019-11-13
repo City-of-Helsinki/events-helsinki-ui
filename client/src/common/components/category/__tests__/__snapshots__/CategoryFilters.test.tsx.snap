@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryFilters matched snapshot 1`] = `"<div class=\\"categoryFilters\\"><div class=\\"categoryFilter\\"><button><svg>culture.svg</svg><span>test</span><svg>angle-right.svg</svg></button></div></div>"`;
