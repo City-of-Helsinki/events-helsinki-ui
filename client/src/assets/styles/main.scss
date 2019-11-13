@@ -41,6 +41,10 @@ h6 {
   font-size: $h6-font-size;
 }
 
+button {
+  cursor: pointer;
+}
+
 // Override globally all text to use Helsinki font.
 * {
   font-family: $font-family-base;
