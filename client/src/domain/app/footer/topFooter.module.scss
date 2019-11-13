@@ -1,0 +1,77 @@
+@import "colors";
+@import "layout";
+@import "mixins";
+
+$logoHeight: 4.375rem;
+$logoWidth: 9.5rem;
+
+.topFooterWrapper {
+    background-color: #fff4bb;
+    padding: 3.75rem 0 5rem;
+    display: grid;
+    align-items: center;
+}
+
+.companyInfoWrapper {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid $hel-silver;
+    justify-content: space-between;
+
+    @include respond-below(sm) {
+        flex-direction: column;
+    }
+
+    @include respond-above(sm) {
+        padding-bottom: 1.25rem;
+    }
+}
+
+.logoWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.helsinkiLogo {
+    @include helsinki-logo($hel-black);
+    background-position: center;
+    height: $logoHeight;
+    width: $logoWidth;
+}
+
+.appName {
+    margin-left: 1.875rem;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.iconLinkWrapper {
+    display: flex;
+    align-items: center;
+
+    @include respond-below(sm) {
+        margin-top: 1.25rem;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    a {
+        margin-left: 2.5rem;
+
+        @include respond-below(sm) {
+            margin-left: 0;
+            margin-bottom: 1.25rem;
+        }
+    }
+
+    .categoriesWrapper {
+        padding-top: 1.25rem;
+    }
+
+    .categoriesTitle {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+}

@@ -2,7 +2,7 @@
   button {
     display: flex;
     align-items: center;
-    padding: 12px 0;
+    padding: 0.75rem 0;
     border: none;
     background-color: white;
     font-size: 1.125rem;
@@ -14,18 +14,26 @@
       width: 1.25rem;
       
     }
+
     svg:first-child {
       margin-right: 0.75rem;
     }
+
     svg:last-child {
       height: 0.75rem;
       width: 0.75rem;
       margin-left: 0.75rem;
     }
+    
     span {
       flex: 1 1 0%;
       text-align: left;
     }
   }
-  
+
+  &.withHorizontalPadding {
+    button {
+      padding: 0.75rem;
+    }
+  }
 }
