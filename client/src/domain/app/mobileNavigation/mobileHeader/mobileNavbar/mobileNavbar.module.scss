@@ -1,0 +1,59 @@
+@import "mixins";
+@import "colors";
+@import "variables";
+
+$logoHeight: 2.5rem;
+$logoWidth: 5.5rem;
+
+.mobileNavbar {
+  height: 100%;
+  display: flex;
+}
+
+.logoWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1 1 0%;
+}
+  
+.appName {
+  margin-left: 1.875rem;
+  margin-right: 1.875rem;
+  font-size: 1.25rem;
+  white-space: nowrap;
+}
+
+.logo {
+    @include helsinki-logo($hel-black);
+    background-position: center;
+    height: $logoHeight;
+    width: $logoWidth;
+}
+
+.buttonWrapper {
+  display: flex;
+
+  .closeButton {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    margin-right: -0.5rem;
+
+    svg {
+      height: 0.875rem;
+      width: 0.875rem;
+    }
+  }
+
+  .menuButton {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    
+    svg {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+  }
+}

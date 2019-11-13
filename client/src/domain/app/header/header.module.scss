@@ -1,10 +1,9 @@
-@import "colors";
-@import "fonts";
-@import "mixins";
-
-$logoHeight: 2.5rem;
-$logoWidth: 5.5rem;
+@import "layout";
 
 .headerWrapper {
   display: grid;
+
+  @include respond-below(sm) {
+    display: none;
+  }
 }

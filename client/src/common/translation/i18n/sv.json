@@ -3,7 +3,19 @@
   "footer": {
     "copyrightText": "© Copyright 2019 • All right reserved •"
   },
+  "header": {
+    "ariaButtonCloseMenu": "Sulje valikko (sv)",
+    "ariaButtonOpenMenu": "Avaa valikko (sv)",
+    "searchCollections": "Selaa kokoelmia (sv)",
+    "searchEvents": "Etsi tekemistä (sv)"
+  },
   "home": {
     "text": "Lorem ipsum (sv)"
+  },
+  "menu": {
+    "aboutService": "Tietoa palvelusta (sv)",
+    "mostPopular": "Suosituimmat haut (sv)",
+    "searchCategories": "Selaa kategorioita (sv)",
+    "searchEvents": "Etsi tekemistä (sv)"
   }
 }
