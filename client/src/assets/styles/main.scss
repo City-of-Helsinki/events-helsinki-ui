@@ -1,5 +1,6 @@
 @import "./vendor/normalize";
 @import "fonts";
+@import "layout";
 
 html {
   height: 100%;
@@ -49,6 +50,12 @@ label {
   font-size: $label-font-size;
   font-weight: $label-font-weight;
   line-height: normal;
+}
+
+@include respond-below(sm) {
+  body.scrollDisabledOnMobile {
+    overflow: hidden;
+  }
 }
 
 // Override globally all text to use Helsinki font.
