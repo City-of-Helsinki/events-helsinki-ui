@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateSelector matches snapshot 1`] = `
+<div
+  className="dateSelector"
+>
+  <button
+    className="button"
+    onClick={[Function]}
+    type="button"
+  >
+    <div
+      className="iconWrapper"
+    >
+      <svg>
+        calendar.svg
+      </svg>
+    </div>
+    <div
+      className="info"
+    >
+      Valitse ajankohta
+    </div>
+    <div
+      className="arrowWrapper"
+    >
+      <svg>
+        angle-down.svg
+      </svg>
+    </div>
+  </button>
+</div>
+`;

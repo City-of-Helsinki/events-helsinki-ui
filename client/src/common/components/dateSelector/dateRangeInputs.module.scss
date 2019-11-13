@@ -1,0 +1,54 @@
+@import "colors";
+
+.dateRangeInputsContainer {
+  display: grid;
+  grid-template-columns: 1fr 2.5rem 1fr;
+}
+
+.dateInputWrapper {
+  label {
+    font-size: 0.875rem;
+  }
+
+  .formatInfo {
+    font-size: 0.875rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .inputWrapper {
+    display: flex;
+    border: 2px solid $light-gray;
+
+    .input {
+      flex: 1 1 0%;
+
+      input {
+        border: none;
+        width: 100%;
+        padding: 0.6875rem 0.5rem;
+        box-sizing: border-box;
+      }
+    }
+
+    .icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-left: 2px solid $light-gray;
+
+      svg {
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+    }
+  }
+  
+}
+
+.dateSeparator {
+  justify-self: center;
+  align-self: flex-end;
+  line-height: 2.5rem;
+}

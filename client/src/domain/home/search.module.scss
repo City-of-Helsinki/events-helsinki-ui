@@ -1,0 +1,40 @@
+@import "colors";
+@import "layout";
+
+.searchContainer {
+  display: grid;
+  grid-template-columns: 1fr 3fr 2fr 1fr;
+  grid-gap: 2.5rem;
+  height: fit-content;
+  color: $hel-white;
+  background-color: $hel-dark;
+  padding: 2.375rem 2.5rem 3.75rem 2.5rem;
+  align-items: center;
+  place-self: start;
+  position: relative;
+
+  h3 {
+    margin: 0;
+  }
+
+  .titleWrapper {
+    min-width: 11.1rem;
+  }
+
+  .autosuggestWrapper {
+    align-self: flex-end;
+  }
+
+  .dateSelectorWrapper {
+    align-self: flex-end;
+  }
+
+  .buttonWrapper {
+    align-self: flex-end;
+  }
+
+  @include respond-below(sm) {
+    grid-template-columns: 1fr;
+    place-self: stretch;
+  }
+}

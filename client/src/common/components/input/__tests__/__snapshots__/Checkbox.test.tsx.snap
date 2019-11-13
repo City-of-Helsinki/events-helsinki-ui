@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox matches snapshot 1`] = `
+<label
+  className="checkbox test-class-name"
+>
+  <input
+    checked={true}
+    type="checkbox"
+  />
+  <span
+    className="checkmark"
+  />
+  Test
+</label>
+`;

@@ -1,5 +1,34 @@
 {
   "appName": "Tapahtumat (en)",
+  "commons": {
+    "autosuggest": {
+      "menu": {
+        "ariaButtonClose": "Sulje valikko (en)",
+        "info": "Voit myös etsiä kirjoittamallasi hakusanalla (en)",
+        "title": "Hakuehdotuksia (en)"
+      }
+    },
+    "category": {
+      "ariaButtonRemove": "Poista kategoria: {{category}} (en)"
+    },
+    "dateSelector": {
+      "dateTypeAll": "Koska tahansa (en)",
+      "dateTypeThisWeek": "Tällä viikolla (en)",
+      "dateTypeToday": "Tänään (en)",
+      "dateTypeTomorrow": "Huomenna (en)",
+      "dateTypeWeekend": "Viikonloppuna (en)",
+      "infoDate": "kk.mm.vvvv (en)",
+      "labelEndDate": "Loppumispäivä (en)",
+      "labelStartDate": "Alkamispäivä (en)",
+      "menu": {
+        "buttonBack": "Takaisin (en)",
+        "buttonClose": "Sulje (en)",
+        "buttonCustom": "Valitse päivät (en)"
+      },
+      "title": "Valitse ajankohta (en)"
+    },
+    "supriseMe": "Yllätä minut (en)"
+  },
   "footer": {
     "copyrightText": "© Copyright 2019 • All right reserved •"
   },
@@ -10,7 +39,25 @@
     "searchEvents": "Etsi tekemistä (en)"
   },
   "home": {
-    "text": "Lorem ipsum (en)"
+    "category": {
+      "culture": "Kulttuuri ja taide (en)",
+      "dance": "Tanssi (en)",
+      "food": "Ruoka (en)",
+      "influence": "Osallistu ja vaikuta (en)",
+      "movie": "Elokuva (en)",
+      "museum": "Museot (en)",
+      "music": "Musiikki (en)",
+      "nature": "Luonto ja ulkoilu (en)",
+      "sport": "Liikunta ja urheilu (en)",
+      "theatre": "Teatteri (en)"
+    },
+    "search": {
+      "buttonSearch": "Hae (en)",
+      "labelDateRange": "Mille ajankohdalle etsit? (en)",
+      "labelSearchField": "Mitä etsit? (en)",
+      "placeholder": "Aloita kirjoittamalla tähän, esim. teatteri (en)",
+      "title": "Löydä itsellesi tekemistä! (en)"
+    }
   },
   "menu": {
     "aboutService": "Tietoa palvelusta (en)",

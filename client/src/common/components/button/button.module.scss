@@ -1,0 +1,35 @@
+@import "colors";
+@import "variables";
+
+.btn {
+  border: 1px solid $black;
+  color: $black;
+  text-align: center;
+  height: $buttonHeight;
+  padding: $buttonPadding;
+  cursor: pointer;
+  position: relative;
+
+  svg {
+    height: 1.25rem;
+    width: 1.25rem;
+    fill: $hel-white;
+    stroke: $hel-white;
+    position: absolute;
+    left: 1rem;
+  }
+  
+  &Block {
+    width: 100%;
+  }
+
+  &MediumPrimary {
+    background-color: $dark-green;
+    border-color: $dark-green;
+    color: $hel-white;
+    font-size: $buttonFontSize;
+    font-weight: $buttonFontWeight;
+    min-height: $mediumButtonHeight;
+    padding: $mediumButtonPadding;
+  }
+}

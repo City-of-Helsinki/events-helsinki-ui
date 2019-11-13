@@ -45,6 +45,12 @@ button {
   cursor: pointer;
 }
 
+label {
+  font-size: $label-font-size;
+  font-weight: $label-font-weight;
+  line-height: normal;
+}
+
 // Override globally all text to use Helsinki font.
 * {
   font-family: $font-family-base;
