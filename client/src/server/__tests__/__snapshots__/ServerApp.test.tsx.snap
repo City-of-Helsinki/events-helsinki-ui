@@ -14,16 +14,233 @@ exports[`ServerApp matches snapshot 1`] = `
         className="navbarTop"
       >
         <div
-          className="logo"
-        />
-        <h1
-          className="appName"
+          className="logoWrapper"
         >
-          Tapahtumat
-        </h1>
+          <div
+            className="logo"
+            onClick={[Function]}
+          />
+          <h1
+            className="appName"
+          >
+            Tapahtumat
+          </h1>
+        </div>
+        <div
+          className="linkWrapper"
+        >
+          <a
+            className="iconLink"
+            href="/search"
+            onClick={[Function]}
+          >
+            <div
+              className="iconWrapper"
+            >
+              <svg>
+                search.svg
+              </svg>
+            </div>
+            <div
+              className="textWrapper"
+            >
+              Etsi tekemistä
+            </div>
+          </a>
+          <a
+            className="iconLink"
+            href="/search"
+            onClick={[Function]}
+          >
+            <div
+              className="iconWrapper"
+            >
+              <svg>
+                smile.svg
+              </svg>
+            </div>
+            <div
+              className="textWrapper"
+            >
+              Selaa kokoelmia
+            </div>
+          </a>
+        </div>
+        <div
+          className="languageDropdown"
+        >
+          <div
+            className="languageDropdownWrapper"
+          >
+            <div
+              className="select css-2b097c-container"
+              onKeyDown={[Function]}
+            >
+              <div
+                className="select__control css-yk16xz-control"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+              >
+                <div
+                  className="select__value-container select__value-container--has-value css-1hwfws3"
+                >
+                  <div
+                    className="select__single-value css-1uccc91-singleValue"
+                  >
+                    FI
+                  </div>
+                  <input
+                    className="css-62g3xt-dummyInput"
+                    disabled={false}
+                    id="react-select-2-input"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    readOnly={true}
+                    tabIndex="0"
+                    value=""
+                  />
+                </div>
+                <div
+                  className="select__indicators css-1hb7zxy-IndicatorsContainer"
+                >
+                  <div
+                    className="select__dropdown-indicator"
+                  >
+                    <svg>
+                      angle-down.svg
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </header>
+  <div
+    className="mobileNavigation"
+  >
+    <header
+      className="mobileHeaderWrapper"
+    >
+      <div
+        className="container"
+      >
+        <div
+          className="mobileNavbar"
+        >
+          <div
+            className="logoWrapper"
+          >
+            <div
+              className="logo"
+              onClick={[Function]}
+            />
+            <h1
+              className="appName"
+            >
+              Tapahtumat
+            </h1>
+          </div>
+          <div
+            className="buttonWrapper"
+          >
+            <button
+              aria-label="Avaa valikko"
+              className="menuButton"
+              onClick={[Function]}
+            >
+              <svg>
+                menu.svg
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div
+      className="mobileNavigationMenu"
+    >
+      <div
+        className="menuItem searchCategories"
+        onClick={[Function]}
+      >
+        <div
+          className="text"
+        >
+          Selaa kategorioita
+        </div>
+        <div
+          className="iconWrapper"
+        >
+          <svg>
+            tags-search.svg
+          </svg>
+        </div>
+      </div>
+      <div
+        className="menuItem searchEvents"
+        onClick={[Function]}
+      >
+        <div
+          className="text"
+        >
+          Etsi tekemistä
+        </div>
+        <div
+          className="iconWrapper"
+        >
+          <svg>
+            one-eye-smiley.svg
+          </svg>
+        </div>
+      </div>
+      <div
+        className="menuItem mostPopular"
+        onClick={[Function]}
+      >
+        <div
+          className="text"
+        >
+          Suosituimmat haut
+        </div>
+        <div
+          className="iconWrapper"
+        >
+          <svg>
+            ranking-stars-ribbon.svg
+          </svg>
+        </div>
+      </div>
+      <div
+        className="menuItem aboutService"
+        onClick={[Function]}
+      >
+        <div
+          className="text"
+        >
+          Tietoa palvelusta
+        </div>
+        <div
+          className="iconWrapper"
+        >
+          <svg>
+            flag-information.svg
+          </svg>
+        </div>
+      </div>
+      <div
+        className="login"
+        onClick={[Function]}
+      >
+        <div
+          className="squareExtension"
+        />
+      </div>
+    </div>
+  </div>
   <div
     className="pageBody"
   >
