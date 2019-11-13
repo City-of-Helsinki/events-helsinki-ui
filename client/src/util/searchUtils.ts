@@ -55,5 +55,5 @@ export const getSearchQuery = (filters: Filters): string => {
     }
   });
 
-  return query.length ? query.join("&") : "";
+  return query.length ? `?${query.join("&")}` : "";
 };

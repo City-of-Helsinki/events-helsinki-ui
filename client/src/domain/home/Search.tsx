@@ -65,7 +65,7 @@ const Search: FunctionComponent = () => {
       startDate
     });
 
-    return push({ pathname: "/search", search });
+    push({ pathname: "search", search });
   };
 
   const handleClickSupriseMe = () => {
