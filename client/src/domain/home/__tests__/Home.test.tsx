@@ -6,7 +6,7 @@ import Home from "../Home";
 
 test("Home matches snapshot", () => {
   const component = renderer.create(
-    <MemoryRouter initialEntries={["/fi/home"]}>
+    <MemoryRouter>
       <Home />
     </MemoryRouter>
   );

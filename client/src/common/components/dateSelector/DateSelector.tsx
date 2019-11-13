@@ -3,7 +3,7 @@ import React, { FunctionComponent } from "react";
 import { ReactComponent as AngleDownIcon } from "../../../assets/icons/svg/angle-down.svg";
 import { ReactComponent as AngleUpIcon } from "../../../assets/icons/svg/angle-up.svg";
 import { ReactComponent as CalendarIcon } from "../../../assets/icons/svg/calendar.svg";
-import { formatMessage } from "../../translation/utils";
+import { formatMessage } from "../../translation/TranslationUtils";
 import styles from "./dateSelector.module.scss";
 import DateSelectorMenu from "./DateSelectorMenu";
 

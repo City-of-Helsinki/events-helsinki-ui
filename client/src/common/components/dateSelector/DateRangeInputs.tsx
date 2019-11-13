@@ -5,7 +5,7 @@ import {
   convertFinnishDateStrToDate,
   formatDate
 } from "../../../util/dateUtils";
-import { formatMessage } from "../../translation/utils";
+import { formatMessage } from "../../translation/TranslationUtils";
 import styles from "./dateRangeInputs.module.scss";
 
 interface Props {

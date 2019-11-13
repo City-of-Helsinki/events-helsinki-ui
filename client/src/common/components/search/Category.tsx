@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 
 import { ReactComponent as CloseIcon } from "../../../assets/icons/svg/close.svg";
-import { formatMessage } from "../../translation/utils";
+import { formatMessage } from "../../translation/TranslationUtils";
 import { Category as CategoryType } from "../../types";
 import styles from "./category.module.scss";
 

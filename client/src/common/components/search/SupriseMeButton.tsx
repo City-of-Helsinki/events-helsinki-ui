@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 
 import { ReactComponent as SupriseMeIcon } from "../../../assets/icons/svg/suprise-me.svg";
-import { formatMessage } from "../../translation/utils";
+import { formatMessage } from "../../translation/TranslationUtils";
 import styles from "./supriseMeButton.module.scss";
 
 interface Props {

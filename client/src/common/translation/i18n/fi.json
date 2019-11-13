@@ -32,6 +32,12 @@
   "footer": {
     "copyrightText": "© Copyright 2019 • All right reserved •"
   },
+  "header": {
+    "ariaButtonCloseMenu": "Sulje valikko",
+    "ariaButtonOpenMenu": "Avaa valikko",
+    "searchCollections": "Selaa kokoelmia",
+    "searchEvents": "Etsi tekemistä"
+  },
   "home": {
     "category": {
       "culture": "Kulttuuri ja taide",
@@ -52,5 +58,11 @@
       "placeholder": "Aloita kirjoittamalla tähän, esim. teatteri",
       "title": "Löydä itsellesi tekemistä!"
     }
+  },
+  "menu": {
+    "aboutService": "Tietoa palvelusta",
+    "mostPopular": "Suosituimmat haut",
+    "searchCategories": "Selaa kategorioita",
+    "searchEvents": "Etsi tekemistä"
   }
 }

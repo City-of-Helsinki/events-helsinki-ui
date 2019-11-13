@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React, { FunctionComponent } from "react";
 
 import { ReactComponent as CloseIcon } from "../../../assets/icons/svg/close.svg";
-import { formatMessage } from "../../translation/utils";
+import { formatMessage } from "../../translation/TranslationUtils";
 import { AutosuggestMenuItem } from "../../types";
 import styles from "./autosuggestMenu.module.scss";
 

@@ -17,7 +17,7 @@ import CategoryFilters from "../../common/components/category/CategoryFilters";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import SupriseMeButton from "../../common/components/search/SupriseMeButton";
-import { formatMessage } from "../../common/translation/utils";
+import { formatMessage } from "../../common/translation/TranslationUtils";
 import { Category } from "../../common/types";
 import { CATEGORIES } from "../../constants";
 import { getSearchQuery } from "../../util/searchUtils";
@@ -65,7 +65,7 @@ const Search: FunctionComponent = () => {
       startDate
     });
 
-    return push({ pathname: "/search", search });
+    push({ pathname: "search", search });
   };
 
   const handleClickSupriseMe = () => {

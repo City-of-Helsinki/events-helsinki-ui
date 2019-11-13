@@ -6,7 +6,7 @@ import { ReactComponent as AngleLeftIcon } from "../../../assets/icons/svg/angle
 import { ReactComponent as AngleRightIcon } from "../../../assets/icons/svg/angle-right.svg";
 import { ReactComponent as CalendarAddIcon } from "../../../assets/icons/svg/calendar-add.svg";
 import { DATE_TYPES } from "../../../constants";
-import { formatMessage } from "../../translation/utils";
+import { formatMessage } from "../../translation/TranslationUtils";
 import Checkbox from "../input/Checkbox";
 import DateRangePicker from "./DateRangePicker";
 import styles from "./dateSelectorMenu.module.scss"; // the locale you want
