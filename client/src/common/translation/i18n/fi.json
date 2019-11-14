@@ -30,7 +30,9 @@
     "supriseMe": "Yllätä minut"
   },
   "footer": {
-    "copyrightText": "© Copyright 2019 • All right reserved •"
+    "titleCategories": "Kategoriat",
+    "searchCollections": "Selaa kokoelmia",
+    "searchEvents": "Etsi tekemistä"
   },
   "header": {
     "ariaButtonCloseMenu": "Sulje valikko",

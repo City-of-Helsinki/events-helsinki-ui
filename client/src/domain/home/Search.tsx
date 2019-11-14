@@ -114,61 +114,63 @@ const Search: FunctionComponent = () => {
           </Button>
         </div>
       </div>
-      <CategoryFilters
-        categories={[
-          {
-            icon: <MovieIcon />,
-            text: formatMessage("home.category.movie"),
-            value: CATEGORIES.MOVIE
-          },
-          {
-            icon: <MusicIcon />,
-            text: formatMessage("home.category.music"),
-            value: CATEGORIES.MUSIC
-          },
-          {
-            icon: <SportIcon />,
-            text: formatMessage("home.category.sport"),
-            value: CATEGORIES.SPORT
-          },
-          {
-            icon: <MuseumIcon />,
-            text: formatMessage("home.category.museum"),
-            value: CATEGORIES.MUSEUM
-          },
-          {
-            icon: <DanceIcon />,
-            text: formatMessage("home.category.dance"),
-            value: CATEGORIES.DANCE
-          },
-          {
-            icon: <CultureIcon />,
-            text: formatMessage("home.category.culture"),
-            value: CATEGORIES.CULTURE
-          },
-          {
-            icon: <NatureIcon />,
-            text: formatMessage("home.category.nature"),
-            value: CATEGORIES.NATURE
-          },
-          {
-            icon: <InfluenceIcon />,
-            text: formatMessage("home.category.influence"),
-            value: CATEGORIES.INFLUENCE
-          },
-          {
-            icon: <TheatreIcon />,
-            text: formatMessage("home.category.theatre"),
-            value: CATEGORIES.THEATRE
-          },
-          {
-            icon: <FoodIcon />,
-            text: formatMessage("home.category.food"),
-            value: CATEGORIES.FOOD
-          }
-        ]}
-        onClickCategory={handleCategoryClick}
-      />
+      <div className={styles.categoriesWrapper}>
+        <CategoryFilters
+          categories={[
+            {
+              icon: <MovieIcon />,
+              text: formatMessage("home.category.movie"),
+              value: CATEGORIES.MOVIE
+            },
+            {
+              icon: <MusicIcon />,
+              text: formatMessage("home.category.music"),
+              value: CATEGORIES.MUSIC
+            },
+            {
+              icon: <SportIcon />,
+              text: formatMessage("home.category.sport"),
+              value: CATEGORIES.SPORT
+            },
+            {
+              icon: <MuseumIcon />,
+              text: formatMessage("home.category.museum"),
+              value: CATEGORIES.MUSEUM
+            },
+            {
+              icon: <DanceIcon />,
+              text: formatMessage("home.category.dance"),
+              value: CATEGORIES.DANCE
+            },
+            {
+              icon: <CultureIcon />,
+              text: formatMessage("home.category.culture"),
+              value: CATEGORIES.CULTURE
+            },
+            {
+              icon: <NatureIcon />,
+              text: formatMessage("home.category.nature"),
+              value: CATEGORIES.NATURE
+            },
+            {
+              icon: <InfluenceIcon />,
+              text: formatMessage("home.category.influence"),
+              value: CATEGORIES.INFLUENCE
+            },
+            {
+              icon: <TheatreIcon />,
+              text: formatMessage("home.category.theatre"),
+              value: CATEGORIES.THEATRE
+            },
+            {
+              icon: <FoodIcon />,
+              text: formatMessage("home.category.food"),
+              value: CATEGORIES.FOOD
+            }
+          ]}
+          onClickCategory={handleCategoryClick}
+        />
+      </div>
     </>
   );
 };

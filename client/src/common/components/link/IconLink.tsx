@@ -11,10 +11,12 @@ interface Props {
 
 const IconLink: React.FC<Props> = ({ icon, text, to }) => {
   return (
-    <Link className={styles.iconLink} to={to}>
-      <div className={styles.iconWrapper}>{icon}</div>
-      <div className={styles.textWrapper}>{text}</div>
-    </Link>
+    <div className={styles.iconLink}>
+      <Link to={to}>
+        <div className={styles.iconWrapper}>{icon}</div>
+        <div className={styles.textWrapper}>{text}</div>
+      </Link>
+    </div>
   );
 };
 
