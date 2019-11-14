@@ -1,8 +1,7 @@
-build
-node_modules
-.dockerignore
-.eslintignore
-.eslintrc.json
-.gitignore
-.nvmrc
-README.md
+*
+!config
+!public
+!src
+!package.json
+!tsconfig.json
+!yarn.lock

@@ -1,42 +1,43 @@
 # Our First stage, that builds the application
-FROM node:12.13.0-alpine AS graphql-builder
-WORKDIR proxy
+FROM helsinkitest/node:12-slim AS graphql-builder
 
-# Copy all files
-COPY . .
+# Use non-root user
+USER appuser
 
 # Install dependencies
+COPY package.json yarn.lock /app/
 RUN yarn
+
+# Copy all files 
+COPY . .
 
 # Copy enviromental variables
 ARG GRAPHQL_PROXY_DEBUG
-ENV GRAPHQL_PROXY_DEBUG=$GRAPHQL_PROXY_DEBUG
 
 # set graphql proxy server port
 ARG GRAPHQL_PROXY_PORT
-ENV GRAPHQL_PROXY_PORT=$GRAPHQL_PROXY_PORT
 
 # set graphql proxy engine api key
 ARG GRAPHQL_PROXY_ENGINE_API_KEY
-ENV GRAPHQL_PROXY_ENGINE_API_KEY=$GRAPHQL_PROXY_ENGINE_API_KEY
 
 # set graphql proxy api base url
 ARG GRAPHQL_PROXY_API_BASE_URL
-ENV GRAPHQL_PROXY_API_BASE_URL=$GRAPHQL_PROXY_API_BASE_URL
 
 # Build application
 RUN yarn build
 
 
 # Our Second stage, that creates an image for production
-FROM node:12.13.0-alpine AS graphql-prod
-WORKDIR /proxy
+FROM helsinkitest/node:12-slim AS graphql-prod
+
+# Use non-root user
+USER appuser
 
 # Copy build folder from stage 1
-COPY --from=graphql-builder ./proxy/build ./build
+COPY --from=graphql-builder /app/build /app/build
 
 # Copy package.json and yarn.lock files
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock /app/
 
 # Install production dependencies
 RUN yarn install --production

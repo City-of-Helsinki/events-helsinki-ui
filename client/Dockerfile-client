@@ -1,34 +1,37 @@
 # Our First stage, that builds the application
-FROM node:12.13.0-alpine AS react-builder
-WORKDIR app
+FROM helsinkitest/node:12-slim AS react-builder
+
+# Use non-root user
+USER appuser
+
+# Install dependencies
+COPY package.json yarn.lock /app/
+RUN yarn
 
 # Copy all files 
 COPY . .
 
-# Install dependencies
-RUN yarn
-
 # set graphql server base url
 ARG REACT_APP_GRAPHQL_BASE_URL
-ENV REACT_APP_GRAPHQL_BASE_URL=$REACT_APP_GRAPHQL_BASE_URL
 
 # set ssr server port
 ARG REACT_APP_SSR_PORT
-ENV REACT_APP_SSR_PORT=$REACT_APP_SSR_PORT
 
 # Build application
 RUN yarn build
 
 
 # Our Second stage, that creates an image for production
-FROM node:12.13.0-alpine AS react-prod
-WORKDIR /app
+FROM helsinkitest/node:12-slim AS react-prod
+
+# Use non-root user
+USER appuser
 
 # Copy build folder from stage 1
-COPY --from=react-builder ./app/build ./build
+COPY --from=react-builder /app/build /app/build
 
 # Copy package.json and yarn.lock files
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock /app/
 
 # Install production dependencies
 RUN yarn install --production
