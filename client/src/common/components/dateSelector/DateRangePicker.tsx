@@ -49,9 +49,11 @@ const DateRangePicker: FunctionComponent<Props> = ({
     switch (ref) {
       case endDateRef:
         onChangeEndDate(date);
-
+        setCounter(1);
         break;
       case startDateRef:
+        onChangeStartDate(date);
+        setCounter(2);
         break;
     }
 
@@ -71,7 +73,7 @@ const DateRangePicker: FunctionComponent<Props> = ({
       inlineFocusSelectedMonth={false}
       selectsStart={true}
       selectsEnd={true}
-      selected={startDate}
+      selected={counter === 1 ? endDate : startDate}
       // Inline datepicker doesn't have field so keep datepicker alway open instead
       open
       popperClassName={"react-datepicker__no-popper"}
