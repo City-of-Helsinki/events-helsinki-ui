@@ -2,7 +2,7 @@
 
 exports[`Button matches snapshot 1`] = `
 <button
-  className="btn btnMediumPrimary"
+  className="btn mdSize primary"
   type="button"
 >
   Test
