@@ -53,6 +53,11 @@
       "sport": "Liikunta ja urheilu (en)",
       "theatre": "Teatteri (en)"
     },
+    "hero": {
+      "buttonText": "Katso vinkit (en)",
+      "subTitle": "Kokosimme yhteen (en)",
+      "title": "Syysloman riehakaimmat riennot! (en)"
+    },
     "search": {
       "buttonSearch": "Hae (en)",
       "labelDateRange": "Mille ajankohdalle etsit? (en)",

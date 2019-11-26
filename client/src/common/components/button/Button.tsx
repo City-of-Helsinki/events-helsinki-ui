@@ -1,34 +1,26 @@
 import classNames from "classnames";
-import React, { FunctionComponent, ReactElement, SyntheticEvent } from "react";
+import React, { FunctionComponent, ReactElement } from "react";
 
 import styles from "./button.module.scss";
-
-export enum ButtonStyles {
-  MEDIUM_PRIMARY = "MediumPrimary"
-}
-
-export type ButtonStyleType = ButtonStyles;
 
 type ReactButton = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 interface Props extends ReactButton {
-  buttonStyle: ButtonStyleType;
   className?: string;
+  color: "primary";
+  fullWidth?: boolean;
   icon?: ReactElement;
-  isBlock?: boolean;
-  disabled?: boolean;
-  onClick?: (event?: SyntheticEvent) => void;
-  size?: ButtonStyleType;
+  size: "md" | "sm";
 }
 
 const Button: FunctionComponent<Props> = ({
-  buttonStyle,
   children,
   className,
+  color,
   disabled,
+  fullWidth,
   icon,
-  isBlock,
-  onClick,
+  size,
   type = "button",
   ...rest
 }) => {
@@ -36,14 +28,12 @@ const Button: FunctionComponent<Props> = ({
     <button
       className={classNames(
         styles.btn,
-        {
-          [styles[`btn${buttonStyle}`]]: buttonStyle,
-          [styles.btnBlock]: isBlock
-        },
+        styles[`${size}Size`],
+        styles[color],
+        { [styles.fullWidth]: fullWidth },
         className
       )}
       disabled={disabled}
-      onClick={onClick}
       type={type}
       {...rest}
     >

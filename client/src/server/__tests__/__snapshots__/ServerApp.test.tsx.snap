@@ -251,6 +251,38 @@ exports[`ServerApp matches snapshot 1`] = `
     className="pageBody"
   >
     <div
+      className="heroWrapper"
+    >
+      <div
+        className="heroImage"
+      />
+      <div
+        className="container"
+      >
+        <div
+          className="textWrapper"
+        >
+          <div
+            className="subTitle"
+          >
+            Kokosimme yhteen
+          </div>
+          <div
+            className="title"
+          >
+            Syysloman riehakaimmat riennot!
+          </div>
+          <button
+            className="btn smSize primary"
+            onClick={[Function]}
+            type="button"
+          >
+            Katso vinkit
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
       className="container"
     >
       <div
@@ -348,7 +380,7 @@ exports[`ServerApp matches snapshot 1`] = `
           className="buttonWrapper"
         >
           <button
-            className="btn btnMediumPrimary btnBlock"
+            className="btn mdSize primary fullWidth"
             onClick={[Function]}
             type="button"
           >

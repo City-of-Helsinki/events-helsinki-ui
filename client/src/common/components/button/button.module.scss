@@ -9,6 +9,7 @@
   padding: $buttonPadding;
   cursor: pointer;
   position: relative;
+  font-weight: $buttonFontWeight;
 
   svg {
     height: 1.25rem;
@@ -18,18 +19,30 @@
     position: absolute;
     left: 1rem;
   }
-  
-  &Block {
-    width: 100%;
-  }
+}
 
-  &MediumPrimary {
-    background-color: $dark-green;
-    border-color: $dark-green;
-    color: $hel-white;
-    font-size: $buttonFontSize;
-    font-weight: $buttonFontWeight;
-    min-height: $mediumButtonHeight;
-    padding: $mediumButtonPadding;
-  }
+.fullWidth {
+  width: 100%;
+}
+
+// Button sizes
+
+.mdSize {
+  font-size: $buttonFontSize;
+  min-height: $mediumButtonHeight;
+  padding: $mediumButtonPadding;
+}
+
+.smSize {
+  font-size: $buttonFontSize;
+  min-height: $smallButtonHeight;
+  padding: $smallButtonPadding;
+}
+
+// Button colors
+
+.primary {
+  background-color: $dark-green;
+  border-color: $dark-green;
+  color: $hel-white;  
 }

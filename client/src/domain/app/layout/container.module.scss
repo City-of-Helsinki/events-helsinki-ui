@@ -24,6 +24,6 @@
 
 @include respond-above(xlg) {
     .container {
-        grid-template-columns: 1fr 10fr 1fr;
+        grid-template-columns: 1fr 91.875rem 1fr;
     }
 }
