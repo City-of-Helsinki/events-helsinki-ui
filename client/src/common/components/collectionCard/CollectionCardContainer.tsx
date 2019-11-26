@@ -23,9 +23,10 @@ const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
         styles[`${size}Size`]
       )}
     >
-      {cards.map(card => {
+      {cards.map((card, index) => {
         return (
           <CollectionCard
+            key={index}
             count={card.count}
             description={card.description}
             id={card.id}

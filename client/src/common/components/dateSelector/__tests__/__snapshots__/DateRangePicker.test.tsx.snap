@@ -205,7 +205,7 @@ Array [
               <div
                 aria-disabled={false}
                 aria-label="day-26"
-                className="react-datepicker__day react-datepicker__day--026 react-datepicker__day--in-range react-datepicker__day--outside-month"
+                className="react-datepicker__day react-datepicker__day--026 react-datepicker__day--in-range react-datepicker__day--today react-datepicker__day--outside-month"
                 onClick={[Function]}
                 onMouseEnter={[Function]}
                 role="option"
