@@ -16,7 +16,7 @@ exports[`CollectionCard matches snapshot 1`] = `
       <div
         className="count"
       >
-        120
+        120 kpl
       </div>
     </div>
     <div
