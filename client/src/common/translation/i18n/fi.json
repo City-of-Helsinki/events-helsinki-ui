@@ -11,6 +11,9 @@
     "category": {
       "ariaButtonRemove": "Poista kategoria: {{category}}"
     },
+    "collectionCard": {
+      "count": "{{count}} kpl"
+    },
     "dateSelector": {
       "dateTypeAll": "Koska tahansa",
       "dateTypeThisWeek": "Tällä viikolla",

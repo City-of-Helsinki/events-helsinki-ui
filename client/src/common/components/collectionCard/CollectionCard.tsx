@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { ReactComponent as ArrowRightIcon } from "../../../assets/icons/svg/arrow-right.svg";
+import { formatMessage } from "../../../common/translation/TranslationUtils";
 import styles from "./collectionCard.module.scss";
 
 export interface CollectionCardType {
@@ -35,7 +36,9 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
       <div className={styles.imageWrapper}></div>
       <div className={styles.textWrapper}>
         <div className={styles.countWrapper}>
-          <div className={styles.count}>{count}</div>
+          <div className={styles.count}>
+            {formatMessage("commons.collectionCard.count", { count })}
+          </div>
         </div>
 
         <div className={styles.titleWrapper}>
