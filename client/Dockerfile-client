@@ -5,11 +5,11 @@ FROM helsinkitest/node:12-slim AS react-builder
 USER appuser
 
 # Install dependencies
-COPY package.json yarn.lock /app/
+COPY --chown=appuser:appuser package.json yarn.lock /app/
 RUN yarn
 
 # Copy all files 
-COPY . .
+COPY --chown=appuser:appuser . .
 
 # set graphql server base url
 ARG REACT_APP_GRAPHQL_BASE_URL
@@ -28,10 +28,10 @@ FROM helsinkitest/node:12-slim AS react-prod
 USER appuser
 
 # Copy build folder from stage 1
-COPY --from=react-builder /app/build /app/build
+COPY --chown=appuser:appuser --from=react-builder /app/build /app/build
 
 # Copy package.json and yarn.lock files
-COPY package.json yarn.lock /app/
+COPY --chown=appuser:appuser package.json yarn.lock /app/
 
 # Install production dependencies
 RUN yarn install --production

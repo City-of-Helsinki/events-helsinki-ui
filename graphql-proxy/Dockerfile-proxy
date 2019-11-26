@@ -5,11 +5,11 @@ FROM helsinkitest/node:12-slim AS graphql-builder
 USER appuser
 
 # Install dependencies
-COPY package.json yarn.lock /app/
+COPY --chown=appuser:appuser package.json yarn.lock /app/
 RUN yarn
 
 # Copy all files 
-COPY . .
+COPY --chown=appuser:appuser . .
 
 # Copy enviromental variables
 ARG GRAPHQL_PROXY_DEBUG
@@ -34,10 +34,10 @@ FROM helsinkitest/node:12-slim AS graphql-prod
 USER appuser
 
 # Copy build folder from stage 1
-COPY --from=graphql-builder /app/build /app/build
+COPY --chown=appuser:appuser --from=graphql-builder /app/build /app/build
 
 # Copy package.json and yarn.lock files
-COPY package.json yarn.lock /app/
+COPY --chown=appuser:appuser package.json yarn.lock /app/
 
 # Install production dependencies
 RUN yarn install --production
