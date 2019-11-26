@@ -576,6 +576,9 @@ exports[`ServerApp matches snapshot 1`] = `
       <div
         className="container"
       >
+        <h2>
+          Kokoelmat
+        </h2>
         <div
           className="collectionCardContainer lgSize"
         >

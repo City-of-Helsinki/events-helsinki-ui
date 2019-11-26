@@ -56,6 +56,9 @@
       "sport": "Liikunta ja urheilu",
       "theatre": "Teatteri"
     },
+    "collections": {
+      "title": "Kokoelmat"
+    },
     "hero": {
       "buttonText": "Katso vinkit",
       "subTitle": "Kokosimme yhteen",

@@ -22,6 +22,7 @@ const Home: React.FC = () => {
       </Container>
       <div className={styles.collectionCardContainer}>
         <Container>
+          <h2>{t("home.collections.title")}</h2>
           <CollectionCardContainer
             cards={[
               {
