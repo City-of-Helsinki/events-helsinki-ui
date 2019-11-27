@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MobileHeader matches snapshot 1`] = `"<header class=\\"mobileHeaderWrapper\\"><div class=\\"container\\"><div class=\\"mobileNavbar\\"><div class=\\"logoWrapper\\"><div class=\\"logo\\"></div><h1 class=\\"appName\\">Tapahtumat</h1></div><div class=\\"buttonWrapper\\"><button class=\\"menuButton\\" aria-label=\\"Avaa valikko\\"><svg>menu.svg</svg></button></div></div></div></header>"`;

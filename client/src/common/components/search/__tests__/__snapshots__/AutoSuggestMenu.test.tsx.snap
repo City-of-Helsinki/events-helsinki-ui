@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AutosuggestMenu matches snapshot 1`] = `
+<div
+  className="autosuggestMenu"
+>
+  <div
+    className="title"
+  >
+    Hakuehdotuksia
+    <button
+      aria-label="Sulje valikko"
+      className="closeButton"
+      onClick={[Function]}
+    >
+      <svg>
+        close.svg
+      </svg>
+    </button>
+  </div>
+  <ul
+    className="autosuggesItems"
+  >
+    <li
+      className="autosuggesItem autosuggestItem--bar"
+    >
+      <div
+        className="colorIndicator"
+      />
+      <div
+        className="icon"
+      />
+      <div
+        className="textWrapper"
+      >
+        <button
+          onClick={[Function]}
+        >
+          <div
+            className="text"
+          >
+            foo
+          </div>
+        </button>
+      </div>
+    </li>
+  </ul>
+  <div
+    className="info"
+  >
+    Voit myös etsiä kirjoittamallasi hakusanalla
+  </div>
+</div>
+`;

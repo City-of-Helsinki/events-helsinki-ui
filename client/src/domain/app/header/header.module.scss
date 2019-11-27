@@ -1,0 +1,9 @@
+@import "layout";
+
+.headerWrapper {
+  display: grid;
+
+  @include respond-below(sm) {
+    display: none;
+  }
+}

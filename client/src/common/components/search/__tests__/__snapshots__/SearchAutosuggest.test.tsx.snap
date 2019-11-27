@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchAutosuggest matches snapshot 1`] = `
+<div
+  className="searchAutosuggest"
+  onClick={[Function]}
+>
+  <div
+    className="iconWrapper"
+  >
+    <svg>
+      search.svg
+    </svg>
+  </div>
+  <div>
+    <div
+      className="category"
+    >
+      <button
+        aria-label="Poista kategoria: bar"
+        className="closeButton"
+        onClick={[Function]}
+        type="button"
+      >
+        <svg>
+          close.svg
+        </svg>
+      </button>
+      bar
+    </div>
+  </div>
+  <div
+    className="inputWrapper"
+  >
+    <input
+      onChange={[Function]}
+      onFocus={[Function]}
+      placeholder="Lorem ipsum"
+      type="text"
+      value="search value"
+    />
+  </div>
+</div>
+`;

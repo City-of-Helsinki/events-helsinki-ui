@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Category matches snapshot 1`] = `
+<div
+  className="category"
+>
+  <button
+    aria-label="Poista kategoria: foo"
+    className="closeButton"
+    onClick={[Function]}
+    type="button"
+  >
+    <svg>
+      close.svg
+    </svg>
+  </button>
+  foo
+</div>
+`;

@@ -1,0 +1,29 @@
+@import "colors";
+
+.iconLink {
+  a {
+    display: flex;
+    text-decoration: none;
+    color: $hel-black;
+
+    .iconWrapper {
+      background-color: $hel-lightest-copper;
+      height: 2.5rem;
+      width: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: .75rem;
+    }
+    .textWrapper {
+      align-self: center;
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    svg {
+      height: 1.25rem;
+      width: 1.25rem;
+    }
+  }
+}

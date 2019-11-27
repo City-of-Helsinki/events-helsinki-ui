@@ -1,15 +1,17 @@
-version: "2.2"
+version: "3.7"
 services:
   events-helsinki-client:
     build:
       context: client
       dockerfile: Dockerfile-client
       args:
+        - SASS_PATH=${SASS_PATH}
         - REACT_APP_GRAPHQL_BASE_URL=${REACT_APP_GRAPHQL_BASE_URL}
         - REACT_APP_SSR_PORT=${REACT_APP_SSR_PORT}
     image: events-helsinki-client
     ports:
       - "${REACT_APP_SSR_PORT}:${REACT_APP_SSR_PORT}"
+    
   events-helsinki-graphql-proxy:
     build:
       context: graphql-proxy

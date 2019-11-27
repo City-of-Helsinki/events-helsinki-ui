@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BottomFooter matches snapshot 1`] = `
+<div
+  className="bottomFooter"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="contentWrapper"
+    >
+      <div
+        className="linkContainer"
+      >
+        <a
+          href="/about"
+          onClick={[Function]}
+        >
+          Tietoa palvelusta
+        </a>
+        <a
+          href="/faq"
+          onClick={[Function]}
+        >
+          Usein kysyttyä
+        </a>
+        <a
+          href="/feedback"
+          onClick={[Function]}
+        >
+          Anna palautetta
+        </a>
+      </div>
+      <div
+        className="logoWrapper"
+      >
+        <div
+          className="helsinkiLogo"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

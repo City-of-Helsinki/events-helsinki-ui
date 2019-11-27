@@ -1,5 +1,75 @@
 {
+  "appName": "Tapahtumat",
+  "commons": {
+    "autosuggest": {
+      "menu": {
+        "ariaButtonClose": "Sulje valikko",
+        "info": "Voit myös etsiä kirjoittamallasi hakusanalla",
+        "title": "Hakuehdotuksia"
+      }
+    },
+    "category": {
+      "ariaButtonRemove": "Poista kategoria: {{category}}"
+    },
+    "dateSelector": {
+      "dateTypeAll": "Koska tahansa",
+      "dateTypeThisWeek": "Tällä viikolla",
+      "dateTypeToday": "Tänään",
+      "dateTypeTomorrow": "Huomenna",
+      "dateTypeWeekend": "Viikonloppuna",
+      "infoDate": "kk.mm.vvvv",
+      "labelEndDate": "Loppumispäivä",
+      "labelStartDate": "Alkamispäivä",
+      "menu": {
+        "buttonBack": "Takaisin",
+        "buttonClose": "Sulje",
+        "buttonCustom": "Valitse päivät"
+      },
+      "title": "Valitse ajankohta"
+    },
+    "supriseMe": "Yllätä minut"
+  },
+  "footer": {
+    "titleCategories": "Kategoriat",
+    "searchCollections": "Selaa kokoelmia",
+    "searchEvents": "Etsi tekemistä"
+  },
+  "header": {
+    "ariaButtonCloseMenu": "Sulje valikko",
+    "ariaButtonOpenMenu": "Avaa valikko",
+    "searchCollections": "Selaa kokoelmia",
+    "searchEvents": "Etsi tekemistä"
+  },
   "home": {
-    "text": "Lorem ipsum (fi)"
+    "category": {
+      "culture": "Kulttuuri ja taide",
+      "dance": "Tanssi",
+      "food": "Ruoka",
+      "influence": "Osallistu ja vaikuta",
+      "movie": "Elokuva",
+      "museum": "Museot",
+      "music": "Musiikki",
+      "nature": "Luonto ja ulkoilu",
+      "sport": "Liikunta ja urheilu",
+      "theatre": "Teatteri"
+    },
+    "hero": {
+      "buttonText": "Katso vinkit",
+      "subTitle": "Kokosimme yhteen",
+      "title": "Syysloman riehakaimmat riennot!"
+    },
+    "search": {
+      "buttonSearch": "Hae",
+      "labelDateRange": "Mille ajankohdalle etsit?",
+      "labelSearchField": "Mitä etsit?",
+      "placeholder": "Aloita kirjoittamalla tähän, esim. teatteri",
+      "title": "Löydä itsellesi tekemistä!"
+    }
+  },
+  "menu": {
+    "aboutService": "Tietoa palvelusta",
+    "mostPopular": "Suosituimmat haut",
+    "searchCategories": "Selaa kategorioita",
+    "searchEvents": "Etsi tekemistä"
   }
 }

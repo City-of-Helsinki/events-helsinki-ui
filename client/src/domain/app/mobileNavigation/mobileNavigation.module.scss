@@ -1,0 +1,7 @@
+@import "layout";
+
+.mobileNavigation {
+  @include respond-above(sm) {
+    display: none;
+  }
+}

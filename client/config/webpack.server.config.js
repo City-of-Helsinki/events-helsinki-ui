@@ -4,12 +4,15 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const postcssNormalize = require("postcss-normalize");
 const getCSSModuleLocalIdent = require("react-dev-utils/getCSSModuleLocalIdent");
 const nodeExternals = require("webpack-node-externals");
+const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
 
 const getClientEnvironment = require("./env");
 const paths = require("./paths");
 
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
+const sassRegex = /\.(scss|sass)$/;
+const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -111,6 +114,53 @@ module.exports = function() {
               }
             },
             {
+              test: /\.(js|mjs|jsx|ts|tsx)$/,
+              include: paths.appServerSrc,
+              loader: require.resolve('babel-loader'),
+              options: {
+                customize: require.resolve(
+                  'babel-preset-react-app/webpack-overrides'
+                ),
+                babelrc: false,
+                configFile: false,
+                presets: [require.resolve('babel-preset-react-app')],
+                // Make sure we have a unique cache identifier, erring on the
+                // side of caution.
+                // We remove this when the user ejects because the default
+                // is sane and uses Babel options. Instead of options, we use
+                // the react-scripts and babel-preset-react-app versions.
+                cacheIdentifier: getCacheIdentifier(
+                  'production',
+                  [
+                    'babel-plugin-named-asset-import',
+                    'babel-preset-react-app',
+                    'react-dev-utils',
+                    'react-scripts',
+                  ]
+                ),
+                plugins: [
+                  [
+                    require.resolve('babel-plugin-named-asset-import'),
+                    {
+                      loaderMap: {
+                        svg: {
+                          ReactComponent:
+                            '@svgr/webpack?-svgo,+titleProp,+ref![path]',
+                        },
+                      },
+                    },
+                  ],
+                ],
+                // This is a feature of `babel-loader` for webpack (not Babel itself).
+                // It enables caching results in ./node_modules/.cache/babel-loader/
+                // directory for faster rebuilds.
+                cacheDirectory: true,
+                // See #6846 for context on why cacheCompression is disabled
+                cacheCompression: false,
+                compact: true,
+              },
+            },
+            {
               test: cssRegex,
               exclude: cssModuleRegex,
               use: getStyleLoaders({
@@ -130,9 +180,42 @@ module.exports = function() {
               use: getStyleLoaders({
                 getLocalIdent: getCSSModuleLocalIdent,
                 importLoaders: 1,
+                sourceMap: false,
                 modules: true,
-                sourceMap: false
-              })
+              }),
+            },
+            // Opt-in support for SASS (using .scss or .sass extensions).
+            // By default we support SASS Modules with the
+            // extensions .module.scss or .module.sass
+            {
+              test: sassRegex,
+              exclude: sassModuleRegex,
+              use: getStyleLoaders(
+                {
+                  importLoaders: 2,
+                  sourceMap: false,
+                },
+                'sass-loader'
+              ),
+              // Don't consider CSS imports dead code even if the
+              // containing package claims to have no side effects.
+              // Remove this when webpack adds a warning or an error for this.
+              // See https://github.com/webpack/webpack/issues/6571
+              sideEffects: true,
+            },
+            // Adds support for CSS Modules, but using SASS
+            // using the extension .module.scss or .module.sass
+            {
+              test: sassModuleRegex,
+              use: getStyleLoaders(
+                {
+                  getLocalIdent: getCSSModuleLocalIdent,
+                  importLoaders: 2,
+                  sourceMap: false,
+                  modules: true,
+                },
+                'sass-loader'
+              ),
             },
             // In production, assets are copied to the `build` folder.
             // This loader doesn't use a "test" so it will catch all modules

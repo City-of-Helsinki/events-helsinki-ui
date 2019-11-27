@@ -1,17 +1,24 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
-import { formatMessage } from "../../common/translation/utils";
-import logo from "../../logo.svg";
-import styles from "./home.module.css";
+import Hero from "../../common/components/hero/Hero";
+import Container from "../app/layout/Container";
+import Layout from "../app/layout/Layout";
+import Search from "./Search";
 
 const Home: React.FC = () => {
+  const { t } = useTranslation();
   return (
-    <div className={styles.home}>
-      <header className={styles.homeHeader}>
-        <img src={logo} className={styles.homeLogo} alt="logo" />
-        <p>{formatMessage("home.text")}</p>
-      </header>
-    </div>
+    <Layout>
+      <Hero
+        buttonText={t("home.hero.buttonText")}
+        subTitle={t("home.hero.subTitle")}
+        title={t("home.hero.title")}
+      />
+      <Container>
+        <Search />
+      </Container>
+    </Layout>
   );
 };
 

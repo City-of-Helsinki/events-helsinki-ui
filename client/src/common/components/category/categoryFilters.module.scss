@@ -1,0 +1,17 @@
+@import "colors";
+@import "layout";
+
+.categoryFilters {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 1rem 3.25rem;
+  height: fit-content;
+  padding: 0;
+  align-items: center;
+  place-self: stretch;
+
+  @include respond-below(sm) {
+    grid-template-columns: 1fr 1fr;
+    place-self: stretch;
+  }
+}

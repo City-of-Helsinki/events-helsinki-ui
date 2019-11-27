@@ -1,0 +1,64 @@
+@import "./vendor/normalize";
+@import "fonts";
+@import "layout";
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  flex: 1;
+}
+
+h1 {
+  font-size: $h1-font-size;
+}
+
+h2 {
+  font-size: $h2-font-size;
+}
+
+h3 {
+  font-size: $h3-font-size;
+}
+
+h4 {
+  font-size: $h4-font-size;
+}
+
+h5 {
+  font-size: $h5-font-size;
+}
+
+h6 {
+  font-size: $h6-font-size;
+}
+
+button {
+  cursor: pointer;
+}
+
+label {
+  font-size: $label-font-size;
+  font-weight: $label-font-weight;
+  line-height: normal;
+}
+
+@include respond-below(sm) {
+  body.scrollDisabledOnMobile {
+    overflow: hidden;
+  }
+}
+
+// Override globally all text to use Helsinki font.
+* {
+  font-family: $font-family-base;
+}

@@ -1,0 +1,17 @@
+.languageDropdown {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  z-index: 2;
+
+  &Wrapper {
+    display: block;
+    min-width: 4rem;
+    font-weight: 600;
+  }
+}
+
+
+  
+  
+
