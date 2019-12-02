@@ -1,0 +1,20 @@
+@import 'mixins';
+
+.spinnerWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+    width: 100%;
+}
+
+.spinner{
+    position: relative;
+    height: $spinnerHeight;
+    width: $spinnerHeight;
+    
+    &::before {
+        @include add_spinner();
+    }
+}

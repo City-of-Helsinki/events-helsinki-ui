@@ -42,3 +42,35 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+/*
+ * Pure CSS spinner, taken from:
+ * https://stephanwagner.me/only-css-loading-spinner
+ */
+ @keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+/*
+* Add a simple round spinner
+*
+* You should use it in pseudo element, see sample below
+*/
+@mixin add_spinner(
+  $size: $spinnerHeight,
+  $main-color: $hel-gray,
+  $alt-color: $hel-black,
+  $thickness: 2px
+){
+  content: '';
+  box-sizing: border-box;
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: $thickness solid $main-color;
+  border-top-color: $alt-color;
+  animation: spinner 1s linear infinite;
+}
