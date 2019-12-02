@@ -12,9 +12,7 @@ interface Props {
 
 const Category: FunctionComponent<Props> = ({ category, onRemove }) => {
   const handleRemove = () => {
-    if (onRemove) {
-      onRemove(category);
-    }
+    onRemove(category);
   };
 
   return (
