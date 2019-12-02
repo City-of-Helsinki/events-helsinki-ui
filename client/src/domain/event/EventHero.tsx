@@ -6,6 +6,7 @@ import {
   isThisWeek,
   isToday
 } from "date-fns";
+import capitalize from "lodash/capitalize";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps, withRouter } from "react-router";
@@ -56,13 +57,19 @@ const EventHero: React.FC<Props> = ({
   };
 
   const getDateStr = (start: string, end: string | null | undefined) => {
-    const dateFormat = "d. MMMM yyyy cccc";
+    const dateFormat = "d. MMMM yyyy ";
 
     if (!end) {
-      return formatDate(new Date(start), dateFormat, locale);
+      return (
+        formatDate(new Date(start), dateFormat, locale) +
+        capitalize(formatDate(new Date(start), "cccc", locale))
+      );
     } else {
       if (isSameDay(new Date(start), new Date(end))) {
-        return formatDate(new Date(start), dateFormat, locale);
+        return (
+          formatDate(new Date(start), dateFormat, locale) +
+          capitalize(formatDate(new Date(start), "cccc", locale))
+        );
       } else if (isSameMonth(new Date(start), new Date(end))) {
         return `${formatDate(new Date(start), "d")} – ${formatDate(
           new Date(start),
