@@ -56,7 +56,7 @@ const EventHero: React.FC<Props> = ({
   };
 
   const getDateStr = (start: string, end: string | null | undefined) => {
-    const dateFormat = "d. MMMM yyyy EEEE";
+    const dateFormat = "d. MMMM yyyy cccc";
 
     if (!end) {
       return formatDate(new Date(start), dateFormat, locale);
