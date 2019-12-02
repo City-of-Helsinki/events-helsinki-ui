@@ -17,6 +17,9 @@ ARG REACT_APP_GRAPHQL_BASE_URL
 # set ssr server port
 ARG REACT_APP_SSR_PORT
 
+# set sass path
+ARG SASS_PATH
+
 # Build application
 RUN yarn build
 

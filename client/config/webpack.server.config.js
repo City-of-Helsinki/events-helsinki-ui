@@ -82,7 +82,10 @@ module.exports = function() {
 
   return {
     entry: paths.appServerIndexJs,
-    externals: [nodeExternals()],
+    externals: [nodeExternals({
+      // load non-javascript files with extensions, presumably via loaders
+      whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
+    })],
     module: {
       rules: [
         {
