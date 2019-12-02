@@ -10,20 +10,20 @@ export default ({ className = "" }: Props) => (
     viewBox="0 0 27 26"
     className={className}
   >
-    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-      <g transform="translate(-785.000000, -171.000000)" stroke-width="2">
+    <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+      <g transform="translate(-785.000000, -171.000000)" strokeWidth="2">
         <g transform="translate(773.000000, 129.000000)">
           <g transform="translate(13.000000, 43.000000)">
             <circle
               stroke="#000000"
-              stroke-linecap="square"
+              strokeLinecap="square"
               cx="17.6"
               cy="18.4"
               r="5.6"
             ></circle>
             <polyline
               stroke="#000000"
-              stroke-linecap="square"
+              strokeLinecap="square"
               points="17.6 16 17.6 18.4 20 18.4"
             ></polyline>
             <line
@@ -33,7 +33,7 @@ export default ({ className = "" }: Props) => (
               y2="3.2"
               id="Path"
               stroke="#444444"
-              stroke-linecap="square"
+              strokeLinecap="square"
             ></line>
             <line
               x1="17.6"
@@ -42,7 +42,7 @@ export default ({ className = "" }: Props) => (
               y2="3.2"
               id="Path"
               stroke="#444444"
-              stroke-linecap="square"
+              strokeLinecap="square"
             ></line>
             <line
               x1="24"
@@ -54,7 +54,7 @@ export default ({ className = "" }: Props) => (
             ></line>
             <polyline
               stroke="#000000"
-              stroke-linecap="square"
+              strokeLinecap="square"
               points="8.8 22.4 0 22.4 0 3.2 24 3.2 24 11.2"
             ></polyline>
           </g>
