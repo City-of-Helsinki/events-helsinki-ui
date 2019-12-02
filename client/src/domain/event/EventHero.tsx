@@ -1,11 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import ArrowLeftIcon from "../../icons/ArrowLeftIcon";
 import Button from "../../common/components/button/Button";
 import Category from "../../common/components/category/Category";
 import { EventDetailsQuery } from "../../generated/graphql";
 import AngleRightIcon from "../../icons/AngleRightIcon";
+import ArrowLeftIcon from "../../icons/ArrowLeftIcon";
 import LocationIcon from "../../icons/LocationIcon";
 import ShareIcon from "../../icons/ShareIcon";
 import TicketIcon from "../../icons/TicketIcon";
@@ -41,7 +41,7 @@ const EventHero: React.FC<Props> = ({ eventData }) => {
     return [locationName, streetAddress, addressLocality].join(", ");
   };
 
-  const handleShare = () => {
+  const handleBack = () => {
     alert("TODO: Move to search page");
   };
 
