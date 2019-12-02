@@ -8,7 +8,7 @@ const typeDefs = gql`
   type LinkedCoursesEventDetails {
     id: ID!
     location: InternalIdObject
-    keywords: [InternalIdObject!]!
+    keywords: [LinkedCoursesKeyword!]!
     superEvent: InternalIdObject
     eventStatus: String
     externalLinks: [LinkedCoursesExternalLink!]!
@@ -48,6 +48,26 @@ const typeDefs = gql`
     name: String
     link: String
     language: String
+  }
+
+  type LinkedCoursesKeyword {
+    id: String!
+    altLabels: [String!]!
+    createdTime: String!
+    lastModifiedTime: String!
+    aggregate: Boolean
+    deprecated: Boolean
+    nEvents: Int!
+    image: LinkedEventsImage
+    dataSource: String!
+    publisher: ID
+    name: LocalizedObject!
+    # @id is renamed as internalId so it's usable on GraphQl
+    internalId: String
+    # @context is renamed as internalContext so it's usable on GraphQl
+    internalContext: String
+    # @type is renamed as internalType so it's usable on GraphQl
+    internalType: String
   }
 
   type LinkedCoursesOffer {

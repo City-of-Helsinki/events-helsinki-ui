@@ -3,6 +3,7 @@ import ApolloClient from "apollo-client";
 import { ApolloLink } from "apollo-link";
 import { BatchHttpLink } from "apollo-link-batch-http";
 import { createPersistedQueryLink } from "apollo-link-persisted-queries";
+import get from "lodash/get";
 
 export default function createClient(uri: string) {
   const customFetch = (batchUri: string, options: RequestInit) => {
@@ -20,7 +21,7 @@ export default function createClient(uri: string) {
   return new ApolloClient({
     cache: new InMemoryCache({
       addTypename: true
-    }),
+    }).restore(get(window, "__APOLLO_STATE__")),
     link
   });
 }

@@ -29,6 +29,12 @@
     },
     "supriseMe": "Yllätä minut"
   },
+  "event": {
+    "buttonBuyTickets": "Osta liput",
+    "offers": {
+      "isFree": "Ilmainen"
+    }
+  },
   "footer": {
     "titleCategories": "Kategoriat",
     "searchCollections": "Selaa kokoelmia",

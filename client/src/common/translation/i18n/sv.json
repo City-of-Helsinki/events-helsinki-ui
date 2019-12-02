@@ -29,6 +29,12 @@
     },
     "supriseMe": "Yllätä minut (sv)"
   },
+  "event": {
+    "buttonBuyTickets": "Köp biljetter",
+    "offers": {
+      "isFree": "Gratis"
+    }
+  },
   "footer": {
     "titleCategories": "Kategoriat (sv)",
     "searchCollections": "Selaa kokoelmia (sv)",

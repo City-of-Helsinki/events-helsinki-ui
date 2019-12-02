@@ -1,0 +1,119 @@
+@import "colors";
+
+
+$heroHeight: 30.6875rem; 
+$logoWidth: 8.6875rem;
+
+.heroWrapper {
+  background: $hel-light-copper;
+  height: auto;
+}
+
+.contentWrapper {
+  display: grid;
+  grid-template-columns: $logoWidth 1fr 1fr;
+  min-height: $heroHeight;
+
+  .image {
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .backButtonWrapper {
+    padding: 1.25rem;
+  }
+
+  .backButton {
+    height: 2.5rem;
+    width: 2.5rem;
+    border: none;
+    background-color: $hel-white;
+    display: flex;
+
+    svg {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+  }
+
+  .leftPanel {
+    display: flex;
+  }
+
+  .textWrapper {
+    padding: 2.5rem;
+  }
+
+  .date { 
+    margin-top: 0.5rem;
+    font-size: 1.125rem;
+    line-height: 1.625rem;
+  }
+
+  .description {
+    margin-top: 0.25rem;
+    font-size: 1.375rem;
+    line-height: 2rem;
+  }
+
+  .title {
+    margin-top: 0.25rem;
+    font-size: 2rem;
+    line-height: 2.5rem;
+    font-weight: 600;
+  }
+
+  .infoWithIcon {
+    display: flex;
+    margin-top: 1rem;
+
+    .iconWrapper {
+      width: 2.5rem;
+    }
+
+    .iconTextWrapper {
+      flex: 1 1 0%;
+      line-height: 1.5rem;
+    }
+  }
+  
+  .icon {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  .shareWrapper {
+    display: flex;
+    align-self: center;
+  }
+
+  .shareButton {
+    height: 2.5rem;
+    width: 2.5rem;
+    border: none;
+    background-color: $hel-white;
+    display: flex;
+
+    svg {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+  }
+
+  .buttonWrapper {
+    margin-top: 1rem;
+
+    button {
+      min-width: 11.375rem;
+      text-align: left;
+      padding-right: 4rem;
+
+      svg {
+        height: 1rem;
+        width: 1rem;
+      }
+    }
+  }
+}

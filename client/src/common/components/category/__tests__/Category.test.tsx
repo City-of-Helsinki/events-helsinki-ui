@@ -1,17 +1,14 @@
-import { shallow } from "enzyme";
-import React from "react";
+import * as React from "react";
+import renderer from "react-test-renderer";
 
-import { ReactComponent as CultureIcon } from "../../../../assets/icons/svg/culture.svg";
-import CategoryFilter from "../CategoryFilter";
+import Category from "../Category";
 
-it("CategoryFilter matched snapshot", () => {
-  const el = shallow(
-    <CategoryFilter
-      icon={<CultureIcon />}
-      onClick={() => {}}
-      text={"test"}
-      value={"value"}
-    />
+test("Category matches snapshot", () => {
+  const component = renderer.create(
+    <Category category={{ text: "foo", value: "bar" }} onRemove={() => {}} />
   );
-  expect(el.html()).toMatchSnapshot();
+  const tree = component.toJSON();
+  expect(tree).toMatchSnapshot();
 });
+
+export {};

@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from "react";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 
-import { SUPPORT_LANGUAGES } from "../../common/translation/constants";
 import { changeLanguage } from "../../common/translation/TranslationUtils";
+import { SUPPORT_LANGUAGES } from "../../constants";
 import EventPageContainer from "../event/EventPageContainer";
 import Home from "../home/Home";
 
