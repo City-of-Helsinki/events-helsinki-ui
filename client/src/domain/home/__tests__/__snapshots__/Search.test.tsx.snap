@@ -101,9 +101,13 @@ Array [
         onClick={[Function]}
         type="button"
       >
-        <svg>
-          search.svg
-        </svg>
+        <div
+          className="iconAtStart"
+        >
+          <svg>
+            search.svg
+          </svg>
+        </div>
         Hae
       </button>
     </div>
