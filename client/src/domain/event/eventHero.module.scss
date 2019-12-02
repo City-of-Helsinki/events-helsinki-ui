@@ -7,7 +7,7 @@ $imageMobileHeight: 23.4375rem;
 $logoWidth: 5.5rem;
 
 .heroWrapper {
-  background: $hel-light-copper;
+  background: $hel-copper-light-20;
   height: auto;
 
   @include respond_below(sm) {

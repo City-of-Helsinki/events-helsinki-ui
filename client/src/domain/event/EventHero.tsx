@@ -1,11 +1,17 @@
 import classNames from "classnames";
-import { isSameDay, isSameMonth, isSameYear } from "date-fns";
+import {
+  isSameDay,
+  isSameMonth,
+  isSameYear,
+  isThisWeek,
+  isToday
+} from "date-fns";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps, withRouter } from "react-router";
 
 import Button from "../../common/components/button/Button";
-import Category from "../../common/components/category/Category";
+import Keyword from "../../common/components/keyword/Keyword";
 import { EventDetailsQuery } from "../../generated/graphql";
 import AngleRightIcon from "../../icons/AngleRightIcon";
 import ArrowLeftIcon from "../../icons/ArrowLeftIcon";
@@ -140,6 +146,8 @@ const EventHero: React.FC<Props> = ({
   const startTime = eventData.linkedEventsEventDetails.startTime;
   const endTime = eventData.linkedEventsEventDetails.endTime;
   const name = eventData.linkedEventsEventDetails.name;
+  const today = isToday(new Date(startTime));
+  const thisWeek = isThisWeek(new Date(startTime));
 
   return (
     <div className={styles.heroWrapper}>
@@ -160,20 +168,23 @@ const EventHero: React.FC<Props> = ({
           </div>
           <div className={styles.leftPanel}>
             <div className={styles.textWrapper}>
-              {!!keywords && !!keywords.length && (
+              {(today || thisWeek || (!!keywords && !!keywords.length)) && (
                 <div className={styles.categoryWrapper}>
                   {keywords &&
                     keywords.map(keyword => {
                       return (
-                        <Category
+                        <Keyword
                           key={keyword.id}
-                          category={{
-                            text: getLocalisedString(keyword.name, locale),
-                            value: keyword.id
-                          }}
+                          keyword={getLocalisedString(keyword.name, locale)}
                         />
                       );
                     })}
+                  {today && !thisWeek && (
+                    <Keyword color="lightEngel50" keyword="Today" />
+                  )}
+                  {!today && thisWeek && (
+                    <Keyword color="lightEngel50" keyword="This week" />
+                  )}
                 </div>
               )}
               <div className={classNames(styles.date, styles.desktopOnly)}>
