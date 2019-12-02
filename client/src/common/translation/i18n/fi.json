@@ -30,9 +30,14 @@
     "supriseMe": "Yllätä minut"
   },
   "event": {
-    "buttonBuyTickets": "Osta liput",
-    "offers": {
-      "isFree": "Ilmainen"
+    "hero": {
+      "buttonBuyTickets": "Osta liput",
+      "labelDateAndTime": "Päivä ja aika",
+      "labelLocation": "Paikka",
+      "labelPrice": "Hinta",
+      "offers": {
+        "isFree": "Ilmainen"
+      }
     }
   },
   "footer": {

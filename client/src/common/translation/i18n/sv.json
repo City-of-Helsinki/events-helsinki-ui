@@ -30,9 +30,14 @@
     "supriseMe": "Yllätä minut (sv)"
   },
   "event": {
-    "buttonBuyTickets": "Köp biljetter",
-    "offers": {
-      "isFree": "Gratis"
+    "hero": {
+      "buttonBuyTickets": "Köp biljetter",
+      "labelDateAndTime": "Datum och tid",
+      "labelLocation": "Lokalisering",
+      "labelPrice": "Pris",
+      "offers": {
+        "isFree": "Gratis"
+      }
     }
   },
   "footer": {

@@ -72,6 +72,7 @@ export const QUERY_FACILITY_PROFILE = gql`
         en
         sv
       }
+      endTime
       startTime
     }
   }

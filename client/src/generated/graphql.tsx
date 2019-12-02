@@ -132,7 +132,7 @@ export type LinkedEventsEventDetails = {
   lastModifiedTime?: Maybe<Scalars['String']>,
   datePublished?: Maybe<Scalars['String']>,
   startTime: Scalars['String'],
-  endTime: Scalars['String'],
+  endTime?: Maybe<Scalars['String']>,
   customData?: Maybe<Scalars['String']>,
   audienceMinAge?: Maybe<Scalars['String']>,
   audienceMaxAge?: Maybe<Scalars['String']>,
@@ -298,7 +298,7 @@ export type EventDetailsQuery = (
   { __typename?: 'Query' }
   & { linkedEventsEventDetails: (
     { __typename?: 'LinkedEventsEventDetails' }
-    & Pick<LinkedEventsEventDetails, 'id' | 'startTime'>
+    & Pick<LinkedEventsEventDetails, 'id' | 'endTime' | 'startTime'>
     & { images: Array<(
       { __typename?: 'LinkedEventsImage' }
       & Pick<LinkedEventsImage, 'id' | 'name' | 'url'>
@@ -420,6 +420,7 @@ export const EventDetailsDocument = gql`
       en
       sv
     }
+    endTime
     startTime
   }
 }

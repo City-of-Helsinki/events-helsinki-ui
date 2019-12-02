@@ -23,7 +23,7 @@ const typeDefs = gql`
     lastModifiedTime: String
     datePublished: String
     startTime: String!
-    endTime: String!
+    endTime: String
     customData: String
     audienceMinAge: String
     audienceMaxAge: String

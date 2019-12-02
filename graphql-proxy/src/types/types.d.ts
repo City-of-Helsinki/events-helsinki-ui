@@ -128,7 +128,7 @@ export type LinkedEventsEventDetails = {
   lastModifiedTime?: Maybe<Scalars['String']>,
   datePublished?: Maybe<Scalars['String']>,
   startTime: Scalars['String'],
-  endTime: Scalars['String'],
+  endTime?: Maybe<Scalars['String']>,
   customData?: Maybe<Scalars['String']>,
   audienceMinAge?: Maybe<Scalars['String']>,
   audienceMaxAge?: Maybe<Scalars['String']>,
