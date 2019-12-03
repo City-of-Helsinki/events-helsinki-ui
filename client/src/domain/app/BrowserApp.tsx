@@ -5,7 +5,7 @@ import { Redirect, Route, Switch } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 
 import { SUPPORT_LANGUAGES } from "../../constants";
-import createClient from "../../util/createClient";
+import createGraphqlClient from "../../util/createGraphqlClient";
 import App from "./App";
 
 const localeParam = `:locale(${SUPPORT_LANGUAGES.EN}|${SUPPORT_LANGUAGES.FI}|${SUPPORT_LANGUAGES.SV})`;
@@ -22,7 +22,7 @@ export const appRoutes = (
 
 const BrowserApp: FunctionComponent = () => {
   const uri = process.env.REACT_APP_GRAPHQL_BASE_URL || "";
-  const client = createClient(uri);
+  const client = createGraphqlClient(uri);
 
   return (
     <BrowserRouter>
