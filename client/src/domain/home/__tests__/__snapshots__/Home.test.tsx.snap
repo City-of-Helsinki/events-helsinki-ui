@@ -574,6 +574,351 @@ exports[`Home matches snapshot 1`] = `
         </div>
       </div>
     </div>
+    <div
+      className="collectionCardContainer"
+    >
+      <div
+        className="container"
+      >
+        <h2>
+          Kokoelmat
+        </h2>
+        <div
+          className="collectionCardContainer lgSize"
+        >
+          <div
+            className="collectionCardWrapper lgSize"
+          >
+            <div
+              className="imageWrapper"
+            />
+            <div
+              className="textWrapper"
+            >
+              <div
+                className="countWrapper"
+              >
+                <div
+                  className="count"
+                >
+                  140 kpl
+                </div>
+              </div>
+              <div
+                className="titleWrapper"
+              >
+                <div
+                  className="title"
+                >
+                  Paras kesä ikinä
+                </div>
+                <div
+                  className="description"
+                >
+                  Kokosimme parhaat tärpit kesälle 2019
+                </div>
+              </div>
+              <div
+                className="linkWrapper"
+              >
+                <a
+                  href="/collection/1"
+                  onClick={[Function]}
+                >
+                  <svg>
+                    arrow-right.svg
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="collectionCardContainer mdSize"
+        >
+          <div
+            className="collectionCardWrapper mdSize"
+          >
+            <div
+              className="imageWrapper"
+            />
+            <div
+              className="textWrapper"
+            >
+              <div
+                className="countWrapper"
+              >
+                <div
+                  className="count"
+                >
+                  140 kpl
+                </div>
+              </div>
+              <div
+                className="titleWrapper"
+              >
+                <div
+                  className="title"
+                >
+                  Olipa kerra ihana kesä ja tuleva syksy.
+                </div>
+                <div
+                  className="description"
+                >
+                  
+                </div>
+              </div>
+              <div
+                className="linkWrapper"
+              >
+                <a
+                  href="/collection/2"
+                  onClick={[Function]}
+                >
+                  <svg>
+                    arrow-right.svg
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            className="collectionCardWrapper mdSize"
+          >
+            <div
+              className="imageWrapper"
+            />
+            <div
+              className="textWrapper"
+            >
+              <div
+                className="countWrapper"
+              >
+                <div
+                  className="count"
+                >
+                  140 kpl
+                </div>
+              </div>
+              <div
+                className="titleWrapper"
+              >
+                <div
+                  className="title"
+                >
+                  Olipa kerra ihana kesä ja tuleva syksy.
+                </div>
+                <div
+                  className="description"
+                >
+                  
+                </div>
+              </div>
+              <div
+                className="linkWrapper"
+              >
+                <a
+                  href="/collection/3"
+                  onClick={[Function]}
+                >
+                  <svg>
+                    arrow-right.svg
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="collectionCardContainer smSize"
+        >
+          <div
+            className="collectionCardWrapper smSize"
+          >
+            <div
+              className="imageWrapper"
+            />
+            <div
+              className="textWrapper"
+            >
+              <div
+                className="countWrapper"
+              >
+                <div
+                  className="count"
+                >
+                  140 kpl
+                </div>
+              </div>
+              <div
+                className="titleWrapper"
+              >
+                <div
+                  className="title"
+                >
+                  Menoa ja meininkiä viikon lopuksi
+                </div>
+                <div
+                  className="description"
+                >
+                  
+                </div>
+              </div>
+              <div
+                className="linkWrapper"
+              >
+                <a
+                  href="/collection/4"
+                  onClick={[Function]}
+                >
+                  <svg>
+                    arrow-right.svg
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            className="collectionCardWrapper smSize"
+          >
+            <div
+              className="imageWrapper"
+            />
+            <div
+              className="textWrapper"
+            >
+              <div
+                className="countWrapper"
+              >
+                <div
+                  className="count"
+                >
+                  140 kpl
+                </div>
+              </div>
+              <div
+                className="titleWrapper"
+              >
+                <div
+                  className="title"
+                >
+                  Vastinetta Netflixille
+                </div>
+                <div
+                  className="description"
+                >
+                  
+                </div>
+              </div>
+              <div
+                className="linkWrapper"
+              >
+                <a
+                  href="/collection/5"
+                  onClick={[Function]}
+                >
+                  <svg>
+                    arrow-right.svg
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            className="collectionCardWrapper smSize"
+          >
+            <div
+              className="imageWrapper"
+            />
+            <div
+              className="textWrapper"
+            >
+              <div
+                className="countWrapper"
+              >
+                <div
+                  className="count"
+                >
+                  140 kpl
+                </div>
+              </div>
+              <div
+                className="titleWrapper"
+              >
+                <div
+                  className="title"
+                >
+                  Menoa ja meininkiä viikon lopuksi
+                </div>
+                <div
+                  className="description"
+                >
+                  
+                </div>
+              </div>
+              <div
+                className="linkWrapper"
+              >
+                <a
+                  href="/collection/6"
+                  onClick={[Function]}
+                >
+                  <svg>
+                    arrow-right.svg
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            className="collectionCardWrapper smSize"
+          >
+            <div
+              className="imageWrapper"
+            />
+            <div
+              className="textWrapper"
+            >
+              <div
+                className="countWrapper"
+              >
+                <div
+                  className="count"
+                >
+                  140 kpl
+                </div>
+              </div>
+              <div
+                className="titleWrapper"
+              >
+                <div
+                  className="title"
+                >
+                  Vastinetta Netflixille
+                </div>
+                <div
+                  className="description"
+                >
+                  
+                </div>
+              </div>
+              <div
+                className="linkWrapper"
+              >
+                <a
+                  href="/collection/7"
+                  onClick={[Function]}
+                >
+                  <svg>
+                    arrow-right.svg
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <footer>
     <footer

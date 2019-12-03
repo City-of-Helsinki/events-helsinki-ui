@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CollectionCardContainer matches snapshot 1`] = `
+<div
+  className="collectionCardContainer lgSize"
+>
+  <div
+    className="collectionCardWrapper lgSize"
+  >
+    <div
+      className="imageWrapper"
+    />
+    <div
+      className="textWrapper"
+    >
+      <div
+        className="countWrapper"
+      >
+        <div
+          className="count"
+        >
+          120 kpl
+        </div>
+      </div>
+      <div
+        className="titleWrapper"
+      >
+        <div
+          className="title"
+        >
+          Title 1
+        </div>
+        <div
+          className="description"
+        >
+          Lorem ipsum 1
+        </div>
+      </div>
+      <div
+        className="linkWrapper"
+      >
+        <a
+          href="/collection/1"
+          onClick={[Function]}
+        >
+          <svg>
+            arrow-right.svg
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="collectionCardWrapper lgSize"
+  >
+    <div
+      className="imageWrapper"
+    />
+    <div
+      className="textWrapper"
+    >
+      <div
+        className="countWrapper"
+      >
+        <div
+          className="count"
+        >
+          120 kpl
+        </div>
+      </div>
+      <div
+        className="titleWrapper"
+      >
+        <div
+          className="title"
+        >
+          Title 2
+        </div>
+        <div
+          className="description"
+        >
+          Lorem ipsum 2
+        </div>
+      </div>
+      <div
+        className="linkWrapper"
+      >
+        <a
+          href="/collection/2"
+          onClick={[Function]}
+        >
+          <svg>
+            arrow-right.svg
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

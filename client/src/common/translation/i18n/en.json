@@ -11,6 +11,9 @@
     "category": {
       "ariaButtonRemove": "Poista kategoria: {{category}} (en)"
     },
+    "collectionCard": {
+      "count": "{{count}} pcs"
+    },
     "dateSelector": {
       "dateTypeAll": "Koska tahansa (en)",
       "dateTypeThisWeek": "Tällä viikolla (en)",
@@ -67,6 +70,9 @@
       "nature": "Luonto ja ulkoilu (en)",
       "sport": "Liikunta ja urheilu (en)",
       "theatre": "Teatteri (en)"
+    },
+    "collections": {
+      "title": "Collections"
     },
     "hero": {
       "buttonText": "Katso vinkit (en)",

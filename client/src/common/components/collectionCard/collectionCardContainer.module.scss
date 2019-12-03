@@ -1,0 +1,30 @@
+@import "layout";
+
+.collectionCardContainer {
+  display: grid;
+  column-gap: 2.5rem;
+  row-gap: 2.5rem;
+  margin-bottom: 2.5rem;
+
+  &.smSize {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    @include respond-below(sm) {
+      grid-template-columns: 1fr;
+      row-gap: 0.625rem;
+    }
+  }
+
+  &.mdSize {
+    grid-template-columns: 1fr 1fr;
+
+    @include respond-below(sm) {
+      grid-template-columns: 1fr;
+      row-gap: 0.625rem;
+    }
+  }
+
+  &.lgSize {
+    grid-template-columns: 1fr;
+  }
+}
