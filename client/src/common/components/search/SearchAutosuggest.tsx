@@ -3,8 +3,8 @@ import React, { ChangeEvent, FunctionComponent } from "react";
 import { ReactComponent as SearchIcon } from "../../../assets/icons/svg/search.svg";
 import { KEYWORD_TYPES } from "../../../constants";
 import { AutosuggestMenuItem, Category as CategoryType } from "../../types";
+import Category from "../category/Category";
 import AutosuggestMenu from "./AutosuggestMenu";
-import Category from "./Category";
 import styles from "./searchAutosuggest.module.scss";
 
 interface Props {

@@ -2,8 +2,8 @@
 @import "variables";
 
 .btn {
-  border: 1px solid $black;
-  color: $black;
+  border: 1px solid $hel-black;
+  color: $hel-black;
   text-align: center;
   height: $buttonHeight;
   padding: $buttonPadding;
@@ -11,13 +11,28 @@
   position: relative;
   font-weight: $buttonFontWeight;
 
-  svg {
-    height: 1.25rem;
-    width: 1.25rem;
-    fill: $hel-white;
-    stroke: $hel-white;
-    position: absolute;
-    left: 1rem;
+  .iconAtEnd {
+    svg {
+      height: 1.25rem;
+      width: 1.25rem;
+      fill: $hel-white;
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  .iconAtStart {
+    svg {
+      height: 1.25rem;
+      width: 1.25rem;
+      fill: $hel-white;
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
 }
 

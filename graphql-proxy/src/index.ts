@@ -4,13 +4,15 @@ import dotenv from "dotenv";
 import express from "express";
 import depthLimit from "graphql-depth-limit";
 
-import DummyAPI from "./datasources/dummy";
+import LinkedCoursesAPI from "./datasources/linkedCourses";
+import LinkedEventsAPI from "./datasources/linkedEvents";
 import schema from "./schema";
 
 dotenv.config();
 
 const dataSources = () => ({
-  dummyAPI: new DummyAPI()
+  linkedCoursesAPI: new LinkedCoursesAPI(),
+  linkedEventsAPI: new LinkedEventsAPI()
 });
 
 (async () => {
@@ -20,9 +22,11 @@ const dataSources = () => ({
       return { token };
     },
     dataSources,
-    debug: process.env.DEBUG === "debug" || process.env.ENV !== "production",
+    debug:
+      process.env.GRAPHQL_PROXY_DEBUG === "debug" ||
+      process.env.GRAPHQL_PROXY_ENV !== "production",
     engine: {
-      apiKey: process.env.ENGINE_API_KEY
+      apiKey: process.env.GRAPHQL_PROXY_ENGINE_API_KEY
     },
     formatError: err => {
       return err;
@@ -37,8 +41,12 @@ const dataSources = () => ({
 
   server.applyMiddleware({ app, path: "/proxy/graphql" });
 
-  app.listen({ port: process.env.PORT || 4000 }, () =>
+  const port = process.env.GRAPHQL_PROXY_PORT || 4000;
+
+  app.listen({ port }, () =>
     // eslint-disable-next-line no-console
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+    console.log(
+      `🚀 Server ready at http://localhost:${port}${server.graphqlPath}`
+    )
   );
 })();

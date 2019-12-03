@@ -25,3 +25,9 @@ export const KEYWORD_TYPES = {
   SERVICE_POINT: "servicePoint",
   YSO: "yso"
 };
+
+export enum SUPPORT_LANGUAGES {
+  FI = "fi",
+  SV = "sv",
+  EN = "en"
+}

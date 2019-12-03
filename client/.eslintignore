@@ -1,2 +1,3 @@
 config
+src/generated/*
 src/serviceWorker.ts

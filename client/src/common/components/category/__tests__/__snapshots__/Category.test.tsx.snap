@@ -1,3 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CategoryFilter matched snapshot 1`] = `"<div class=\\"categoryFilter\\"><button><svg>culture.svg</svg><span>test</span><svg>angle-right.svg</svg></button></div>"`;
+exports[`Category matches snapshot 1`] = `
+<div
+  className="category"
+>
+  <button
+    aria-label="Poista kategoria: foo"
+    className="closeButton"
+    onClick={[Function]}
+    type="button"
+  >
+    <svg>
+      close.svg
+    </svg>
+  </button>
+  foo
+</div>
+`;

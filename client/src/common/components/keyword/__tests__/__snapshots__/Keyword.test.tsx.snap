@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Keyword matches snapshot 1`] = `
+<div
+  className="keyword"
+>
+  test keyword
+</div>
+`;

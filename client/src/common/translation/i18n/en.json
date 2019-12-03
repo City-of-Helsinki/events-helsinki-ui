@@ -32,6 +32,21 @@
     },
     "supriseMe": "Yllätä minut (en)"
   },
+  "event": {
+    "categories": {
+      "labelThisWeek": "This week",
+      "labelToday": "Today"
+    },
+    "hero": {
+      "buttonBuyTickets": "Buy tickets",
+      "labelDateAndTime": "Date and time",
+      "labelLocation": "Location",
+      "labelPrice": "Price",
+      "offers": {
+        "isFree": "Free"
+      }
+    }
+  },
   "footer": {
     "titleCategories": "Kategoriat (en)",
     "searchCollections": "Selaa kokoelmia (en)",
