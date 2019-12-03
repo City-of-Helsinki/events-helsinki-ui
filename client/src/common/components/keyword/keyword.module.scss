@@ -4,8 +4,8 @@
 .keyword {
   height: auto;
   min-height: 1.5rem;
-  background-color: $hel-summer-light-50;
-  color: $hel-black;
+  background-color: $hel-black-80;
+  color: $hel-white;
   margin: 0.1875rem 0.375rem 0.1875rem 0;
   display: inline-flex;
   padding: 0.125rem 0.5rem;
@@ -13,9 +13,9 @@
   font-size: 0.875rem;
   font-weight: 500;
 
-  @include respond_below(sm) {
-    background-color: $hel-black-80;
-    color: $hel-white;
+  @include respond_above(sm) {
+    background-color: $hel-summer-light-50;
+    color: $hel-black;
   }
 
   &.lightEngel50 {
