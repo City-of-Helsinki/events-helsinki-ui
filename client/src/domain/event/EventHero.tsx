@@ -1,12 +1,5 @@
 import classNames from "classnames";
-import {
-  isSameDay,
-  isSameMonth,
-  isSameYear,
-  isThisWeek,
-  isToday
-} from "date-fns";
-import capitalize from "lodash/capitalize";
+import { isThisWeek, isToday } from "date-fns";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps, withRouter } from "react-router";
@@ -20,9 +13,10 @@ import CalendarIcon from "../../icons/CalendarIcon";
 import LocationIcon from "../../icons/LocationIcon";
 import ShareIcon from "../../icons/ShareIcon";
 import TicketIcon from "../../icons/TicketIcon";
-import { formatDate } from "../../util/dateUtils";
+import getDateRangeStr from "../../util/getDateRangeStr";
 import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
+import getTimeRangeStr from "../../util/getTimeRangeStr";
 import Container from "../app/layout/Container";
 import styles from "./eventHero.module.scss";
 
@@ -54,65 +48,6 @@ const EventHero: React.FC<Props> = ({
     );
 
     return [locationName, streetAddress, addressLocality].join(", ");
-  };
-
-  const getDateStr = (start: string, end: string | null | undefined) => {
-    const dateFormat = "d. MMMM yyyy ";
-
-    if (!end) {
-      return (
-        formatDate(new Date(start), dateFormat, locale) +
-        capitalize(formatDate(new Date(start), "cccc", locale))
-      );
-    } else {
-      if (isSameDay(new Date(start), new Date(end))) {
-        return (
-          formatDate(new Date(start), dateFormat, locale) +
-          capitalize(formatDate(new Date(start), "cccc", locale))
-        );
-      } else if (isSameMonth(new Date(start), new Date(end))) {
-        return `${formatDate(new Date(start), "d")} – ${formatDate(
-          new Date(start),
-          "d.M.yyyy"
-        )}`;
-      } else if (isSameYear(new Date(start), new Date(end))) {
-        return `${formatDate(new Date(start), "d.M")} – ${formatDate(
-          new Date(start),
-          "d.M.yyyy"
-        )}`;
-      } else {
-        return `${formatDate(new Date(start), "d.M.yyyy")} – ${formatDate(
-          new Date(start),
-          "d.M.yyyy"
-        )}`;
-      }
-    }
-  };
-
-  const getTimeFormat = (lng: string) => {
-    switch (lng) {
-      case "en":
-        return "h:mm a";
-      case "sv":
-        return "HH:mm";
-      case "fi":
-      default:
-        return "HH.mm";
-    }
-  };
-
-  const getTimeStr = (start: string, end: string | null | undefined) => {
-    const timeFormat = getTimeFormat(locale);
-
-    if (end && isSameDay(new Date(start), new Date(end))) {
-      return `${formatDate(new Date(start), timeFormat, locale)} – ${formatDate(
-        new Date(end),
-        timeFormat,
-        locale
-      )}`;
-    } else {
-      return formatDate(new Date(startTime), timeFormat, locale);
-    }
   };
 
   const handleBack = () => {
@@ -195,17 +130,14 @@ const EventHero: React.FC<Props> = ({
                 </div>
               )}
               <div className={classNames(styles.date, styles.desktopOnly)}>
-                {getDateStr(startTime, endTime)}
+                {getDateRangeStr(startTime, endTime, locale)}
               </div>
               <div className={styles.title}>
                 {getLocalisedString(name, locale)}
               </div>
-              <div
-                className={styles.description}
-                dangerouslySetInnerHTML={{
-                  __html: getLocalisedString(description, locale)
-                }}
-              />
+              <div className={styles.description}>
+                {getLocalisedString(description, locale)}
+              </div>
               <div className={styles.infoWithIcon}>
                 <div className={styles.iconWrapper}>
                   <LocationIcon className={styles.icon} />
@@ -228,8 +160,8 @@ const EventHero: React.FC<Props> = ({
                   <p className={styles.mobileOnly}>
                     {t("event.hero.labelDateAndTime")}
                   </p>
-                  <div>{getDateStr(startTime, endTime)}</div>
-                  <div>{getTimeStr(startTime, endTime)}</div>
+                  <div>{getDateRangeStr(startTime, endTime, locale)}</div>
+                  <div>{getTimeRangeStr(startTime, endTime, locale)}</div>
                 </div>
               </div>
 
