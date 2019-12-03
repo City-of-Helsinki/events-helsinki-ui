@@ -23,6 +23,7 @@ const Home: React.FC = () => {
       <div className={styles.collectionCardContainer}>
         <Container>
           <h2>{t("home.collections.title")}</h2>
+          {/* TODO: Remove hardcoded cards when API exists */}
           <CollectionCardContainer
             cards={[
               {
