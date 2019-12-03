@@ -1,46 +1,81 @@
 // Helsinki Brand Color Variables
-// Extracted from https://github.com/City-of-Helsinki/open-city-design/blob/master/src/scss/helsinki/_colors.scss
-// --------------------------------------------------
+$hel-coat: #0072c6;
+$hel-coat-light-20: #cce2f3;
+$hel-coat-light-50: #80b8e2;
+$hel-coat-dark-50: #000098;
 
-// Brand colors
+$hel-gold: #c2a251;
+$hel-gold-light-20: #f2ecdc;
+$hel-gold-light-50: #e0d0a8;
+$hel-gold-dark-50: #977b34;
 
-$hel-copper:          #00d7a7;
-$hel-dark-copper:     #01b78e;
-$hel-light-copper:    #80ebd3;
-$hel-lightest-copper: #CCF7ED;
-$hel-bus:             #0000bf;
-$hel-coat:            #0072c6;
-$hel-fog:             #9fc9eb;
-$hel-metro:           #fd4f00;
-$hel-brick:           #bd2719;
-$hel-suomenlinna:     #f5a3c7;
-$hel-engel:           #ffe977;
-$hel-tram:            #009246;
-$hel-summer:          #ffc61e;
-$hel-silver:          #dedfe1;
-$hel-gold:            #c2a251;
-$hel-black:           #231f20;
-$hel-black-90:        #1a1a1a;
-$hel-black-80:        #333333;
-$hel-black-70:        #4c4c4c;
-$hel-black-60:        #666666;
-$hel-black-54:        #757575;
-$hel-black-50:        #808080;
-$hel-black-40:        #999898;
-$hel-black-30:        #b2b2b2;
-$hel-black-20:        #cccccc;
-$hel-black-10:        #e5e5e5;
-$hel-black-5:        #f1f1f1;
+$hel-silver: #dedfe1;
+
+$hel-brick: #bd2719;
+$hel-brick-light-20: #f1d3d1;
+$hel-brick-light-50: #de938c;
+$hel-brick-dark-50: #99160a;
+
+$hel-bus: #0000bf;
+$hel-bus-light-20: #ccccf2;
+$hel-bus-light-50: #7f7fdf;
+$hel-bus-dark-50: #000098;
+
+$hel-copper: #00d7a7;
+$hel-copper-light-20: #ccf7ed;
+$hel-copper-light-50: #80ebd3;
+$hel-copper-dark-50: #01b78e;
+
+$hel-engel: #ffe977;
+$hel-engel-light-20: #fffae3;
+$hel-engel-light-50: #fff4bb;
+$hel-engel-dark-50: #f5da4e;
+
+$hel-fog: #9fc9eb;
+$hel-fog-light-20: #ebf4fb;
+$hel-fog-light-50: #cfe4f5;
+$hel-fog-dark-50: #78a4c7;
+
+$hel-metro: #fd4f00;
+$hel-metro-light-20: #fedbcc;
+$hel-metro-light-50: #fea780;
+$hel-metro-dark-50: #ca3f00;
+
+$hel-summer: #ffc61e;
+$hel-summer-light-20: #fff3d2;
+$hel-summer-light-50: #ffe28e;
+$hel-summer-dark-50: #e2ab0a;
+
+$hel-suomenlinna: #f5a3c7;
+$hel-suomenlinna-light-20: #fdecf3;
+$hel-suomenlinna-light-50: #fad1e3;
+$hel-suomenlinna-dark-50: #de7ba6;
+
+$hel-tram: #009246;
+$hel-tram-light-20: #cce9da;
+$hel-tram-light-50: #80c8a2;
+$hel-tram-dark-50: #007438;
+
+/* GRAY SHADES FOR UI COMPONENTS */
+$hel-black: #000000;
+$hel-white: #ffffff;
+$hel-black-5: #f1f1f1;
+$hel-black-10: #e5e5e5;
+$hel-black-20: #cccccc;
+$hel-black-30: #b2b2b2;
+$hel-black-40: #999898;
+$hel-black-50: #808080;
+$hel-black-60: #666666;
+$hel-black-70: #4c4c4c;
+$hel-black-80: #333333;
+$hel-black-90: #1a1a1a;
+
 $hel-dark:            #525a65;
 $hel-gray:            #abb2bd;
 $hel-light:           #ebedf1;
-$hel-white:           #ffffff;
 
-$black: #000;
 $medium-gray: #797979;
 $light-gray: #c4c4c4;
 $lightest-gray: #f9f9f9;
 $dark-green: #00a681;
-$light-orange: #fea780;
-$lightest-orange: #fedbcc;
 $red: #FF0000;

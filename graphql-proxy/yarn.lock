@@ -2226,6 +2226,11 @@ camel-case@^3.0.0:
     no-case "^2.2.0"
     upper-case "^1.1.1"
 
+camelcase-object-deep@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/camelcase-object-deep/-/camelcase-object-deep-1.1.1.tgz#ee19e9dcfe865c3525ae9449333591b1d08482da"
+  integrity sha512-/jeeBgmWvFumbWq9EXEdUwtCFQhIYW945oOFwcsqYv8pJUG0SuCxN8lGG6v/QTuD0tgGtepuWfZd2F2QrAianw==
+
 camelcase-object@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/camelcase-object/-/camelcase-object-1.0.0.tgz#850b84e9e3585703e516ad2b1f5bdc64b53044c2"

@@ -29,6 +29,21 @@
     },
     "supriseMe": "Yllätä minut"
   },
+  "event": {
+    "categories": {
+      "labelThisWeek": "Tällä viikolla",
+      "labelToday": "Tänään"
+    },
+    "hero": {
+      "buttonBuyTickets": "Osta liput",
+      "labelDateAndTime": "Päivä ja aika",
+      "labelLocation": "Paikka",
+      "labelPrice": "Hinta",
+      "offers": {
+        "isFree": "Ilmainen"
+      }
+    }
+  },
   "footer": {
     "titleCategories": "Kategoriat",
     "searchCollections": "Selaa kokoelmia",

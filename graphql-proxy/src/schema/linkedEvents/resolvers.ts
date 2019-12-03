@@ -1,6 +1,5 @@
-import camelcaseObject from "camelcase-object";
-
 import { LinkedEventsEventDetails } from "../../types/types";
+import objectToCamelCase from "../../utils/objectToCamelCase";
 
 export const normalizeEvent = (event: LinkedEventsEventDetails) => {
   // Rename keys starting with @ to has internal prefix (e.g. @id => internalId)
@@ -24,10 +23,18 @@ export const normalizeEvent = (event: LinkedEventsEventDetails) => {
     internalId: event["@id"],
     internalType: event["@type"],
     keywords: event.keywords
-      ? event.keywords.map(item => ({ internalId: item["@id"] }))
+      ? event.keywords.map(item => ({
+          ...item,
+          internalContext: item["@context"],
+          internalId: item["@id"],
+          internalType: item["@type"]
+        }))
       : [],
     location: {
-      internalId: event.location ? event.location["@id"] : null
+      ...event.location,
+      internalContext: event.location ? event.location["@context"] : null,
+      internalId: event.location ? event.location["@id"] : null,
+      internalType: event.location ? event.location["@type"] : null
     },
     subEvents: event.subEvents
       ? event.subEvents.map(item => ({ internalId: item["@id"] }))
@@ -41,7 +48,7 @@ export const normalizeEvent = (event: LinkedEventsEventDetails) => {
 const Query = {
   linkedEventsEventDetails: async (_, { id }, { dataSources }) => {
     const data = await dataSources.linkedEventsAPI.getEventDetails(id);
-    return normalizeEvent(camelcaseObject(data));
+    return normalizeEvent(objectToCamelCase(data));
   }
 };
 

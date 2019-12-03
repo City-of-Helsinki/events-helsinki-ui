@@ -9,7 +9,8 @@ interface Props extends ReactButton {
   className?: string;
   color: "primary";
   fullWidth?: boolean;
-  icon?: ReactElement;
+  iconAtEnd?: ReactElement;
+  iconAtStart?: ReactElement;
   size: "md" | "sm";
 }
 
@@ -19,7 +20,8 @@ const Button: FunctionComponent<Props> = ({
   color,
   disabled,
   fullWidth,
-  icon,
+  iconAtEnd,
+  iconAtStart,
   size,
   type = "button",
   ...rest
@@ -37,7 +39,8 @@ const Button: FunctionComponent<Props> = ({
       type={type}
       {...rest}
     >
-      {icon}
+      {iconAtStart && <div className={styles.iconAtStart}>{iconAtStart}</div>}
+      {iconAtEnd && <div className={styles.iconAtEnd}>{iconAtEnd}</div>}
       {children}
     </button>
   );

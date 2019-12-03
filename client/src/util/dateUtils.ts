@@ -1,9 +1,12 @@
 import { format as formatDateStr } from "date-fns";
 import isAfter from "date-fns/isAfter";
 import isValid from "date-fns/isValid";
-import fi from "date-fns/locale/fi";
+import { enGB as en, fi, sv } from "date-fns/locale";
 import parse from "date-fns/parse";
+import get from "lodash/get";
 import isNumber from "lodash/isNumber";
+
+const locales = { en, fi, sv };
 
 /**
  * Format date string
@@ -13,14 +16,17 @@ import isNumber from "lodash/isNumber";
  */
 export const formatDate = (
   date: Date | number | null,
-  format = "dd.MM.yyyy"
+  format = "dd.MM.yyyy",
+  locale = "fi"
 ): string => {
   if (!date) {
     return "";
   }
 
   const d = isNumber(date) ? date : new Date(date);
-  return formatDateStr(d, format);
+  return formatDateStr(d, format, {
+    locale: get(locales, locale)
+  });
 };
 
 /**

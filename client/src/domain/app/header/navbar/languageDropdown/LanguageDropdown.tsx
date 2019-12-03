@@ -4,8 +4,8 @@ import { useHistory, useLocation } from "react-router-dom";
 
 import Select from "../../../../../common/components/select/Select";
 import { updateLocaleParam } from "../../../../../common/route/RouteUtils";
-import { SUPPORT_LANGUAGES } from "../../../../../common/translation/constants";
 import { getCurrentLanguage } from "../../../../../common/translation/TranslationUtils";
+import { SUPPORT_LANGUAGES } from "../../../../../constants";
 import styles from "./languageDropdown.module.scss";
 
 const LanguageDropdown: React.FC = () => {

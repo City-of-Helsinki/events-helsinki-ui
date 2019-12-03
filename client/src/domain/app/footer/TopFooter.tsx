@@ -18,12 +18,14 @@ import CategoryFilters from "../../../common/components/category/CategoryFilters
 import IconLink from "../../../common/components/link/IconLink";
 import { Category } from "../../../common/types";
 import { CATEGORIES } from "../../../constants";
+import getLocale from "../../../util/getLocale";
 import { getSearchQuery } from "../../../util/searchUtils";
 import Container from "../layout/Container";
 import styles from "./topFooter.module.scss";
 
 const TopFooter: FunctionComponent = () => {
   const { t } = useTranslation();
+  const locale = getLocale();
   const { push } = useHistory();
 
   const handleCategoryClick = (category: Category) => {
@@ -36,7 +38,7 @@ const TopFooter: FunctionComponent = () => {
       startDate: null
     });
 
-    push({ pathname: "search", search });
+    push({ pathname: `/${locale}/search`, search });
   };
 
   return (

@@ -1,8 +1,9 @@
 import React, { FunctionComponent } from "react";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 
-import { SUPPORT_LANGUAGES } from "../../common/translation/constants";
 import { changeLanguage } from "../../common/translation/TranslationUtils";
+import { SUPPORT_LANGUAGES } from "../../constants";
+import EventPageContainer from "../event/EventPageContainer";
 import Home from "../home/Home";
 
 const App: FunctionComponent<
@@ -18,6 +19,11 @@ const App: FunctionComponent<
     <Switch>
       <Redirect exact path={`/${locale}/`} to={`/${locale}/home`} />
       <Route exact path={`/${locale}/home`} component={Home} />
+      <Route
+        exact
+        path={`/${locale}/event/:id`}
+        component={EventPageContainer}
+      />
     </Switch>
   );
 };
