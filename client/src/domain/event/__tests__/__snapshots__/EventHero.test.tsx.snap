@@ -52,7 +52,7 @@ exports[`EventHero matches snapshot 1`] = `
           <div
             className="date desktopOnly"
           >
-            13. joulukuuta 2019 perjantaina
+            13. joulukuuta 2019 Perjantai
           </div>
           <div
             className="title"
@@ -61,12 +61,9 @@ exports[`EventHero matches snapshot 1`] = `
           </div>
           <div
             className="description"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "short description fi",
-              }
-            }
-          />
+          >
+            short description fi
+          </div>
           <div
             className="infoWithIcon"
           >
@@ -111,12 +108,12 @@ exports[`EventHero matches snapshot 1`] = `
               >
                 <g
                   fill="none"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   stroke="none"
-                  stroke-width="1"
+                  strokeWidth="1"
                 >
                   <g
-                    stroke-width="2"
+                    strokeWidth="2"
                     transform="translate(-785.000000, -171.000000)"
                   >
                     <g
@@ -130,17 +127,17 @@ exports[`EventHero matches snapshot 1`] = `
                           cy="18.4"
                           r="5.6"
                           stroke="#000000"
-                          stroke-linecap="square"
+                          strokeLinecap="square"
                         />
                         <polyline
                           points="17.6 16 17.6 18.4 20 18.4"
                           stroke="#000000"
-                          stroke-linecap="square"
+                          strokeLinecap="square"
                         />
                         <line
                           id="Path"
                           stroke="#444444"
-                          stroke-linecap="square"
+                          strokeLinecap="square"
                           x1="6.4"
                           x2="6.4"
                           y1="0"
@@ -149,7 +146,7 @@ exports[`EventHero matches snapshot 1`] = `
                         <line
                           id="Path"
                           stroke="#444444"
-                          stroke-linecap="square"
+                          strokeLinecap="square"
                           x1="17.6"
                           x2="17.6"
                           y1="0"
@@ -166,7 +163,7 @@ exports[`EventHero matches snapshot 1`] = `
                         <polyline
                           points="8.8 22.4 0 22.4 0 3.2 24 3.2 24 11.2"
                           stroke="#000000"
-                          stroke-linecap="square"
+                          strokeLinecap="square"
                         />
                       </g>
                     </g>
@@ -183,7 +180,7 @@ exports[`EventHero matches snapshot 1`] = `
                 Päivä ja aika
               </p>
               <div>
-                13. joulukuuta 2019 perjantaina
+                13. joulukuuta 2019 Perjantai
               </div>
               <div>
                 10.00
