@@ -30,6 +30,10 @@
     "supriseMe": "Yllätä minut (sv)"
   },
   "event": {
+    "categories": {
+      "labelThisWeek": "Denna vecka",
+      "labelToday": "I dag"
+    },
     "hero": {
       "buttonBuyTickets": "Köp biljetter",
       "labelDateAndTime": "Datum och tid",

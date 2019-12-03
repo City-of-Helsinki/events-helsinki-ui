@@ -30,6 +30,10 @@
     "supriseMe": "Yllätä minut"
   },
   "event": {
+    "categories": {
+      "labelThisWeek": "Tällä viikolla",
+      "labelToday": "Tänään"
+    },
     "hero": {
       "buttonBuyTickets": "Osta liput",
       "labelDateAndTime": "Päivä ja aika",

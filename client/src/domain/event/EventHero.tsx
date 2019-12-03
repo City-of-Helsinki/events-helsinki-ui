@@ -121,11 +121,17 @@ const EventHero: React.FC<Props> = ({
                         />
                       );
                     })}
-                  {today && !thisWeek && (
-                    <Keyword color="lightEngel50" keyword="Today" />
+                  {!today && !thisWeek && (
+                    <Keyword
+                      color="lightEngel50"
+                      keyword={t("event.categories.labelToday")}
+                    />
                   )}
                   {!today && thisWeek && (
-                    <Keyword color="lightEngel50" keyword="This week" />
+                    <Keyword
+                      color="lightEngel50"
+                      keyword={t("event.categories.labelThisWeek")}
+                    />
                   )}
                 </div>
               )}
