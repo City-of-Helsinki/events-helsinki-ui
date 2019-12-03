@@ -10,7 +10,9 @@ const LoadingSpinner: FunctionComponent<{ isLoading: boolean }> = ({
     <>
       {isLoading ? (
         <div className={styles.spinnerWrapper}>
-          <div className={styles.spinner} />
+          <div className={styles.spinner}>
+            <div />
+          </div>
         </div>
       ) : (
         children

@@ -13,8 +13,8 @@
     position: relative;
     height: $spinnerHeight;
     width: $spinnerHeight;
-    
-    &::before {
+
+    div {
         @include add_spinner();
     }
 }
