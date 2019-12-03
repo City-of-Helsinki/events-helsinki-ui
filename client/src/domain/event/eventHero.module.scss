@@ -7,11 +7,11 @@ $imageMobileHeight: 23.4375rem;
 $logoWidth: 5.5rem;
 
 .heroWrapper {
-  background: $hel-copper-light-20;
+  background: $hel-white;
   height: auto;
 
-  @include respond_below(sm) {
-    background: $hel-white;
+  @include respond_above(sm) {
+    background: $hel-copper-light-20;
   }
 }
 
@@ -29,14 +29,15 @@ $logoWidth: 5.5rem;
 
 .contentWrapper {
   display: grid;
-  grid-template-columns: $logoWidth 1fr 1fr;
+  grid-template-columns: unset;
+  grid-template-rows: $imageMobileHeight auto;
   min-height: $heroHeight;
   position: relative;
 
-  @include respond_below(sm) {
-    min-height: unset;
-    grid-template-columns: unset;
-    grid-template-rows: $imageMobileHeight auto;
+  @include respond_above(sm) {
+    min-height: $heroHeight;
+    grid-template-columns: $logoWidth 1fr 1fr;
+    grid-template-rows: unset;
   }
 
   .backButtonWrapper {
@@ -77,10 +78,12 @@ $logoWidth: 5.5rem;
   }
 
   .textWrapper {
-    padding: 2.5rem;
+    padding: 0 0 2.5rem 0;
+    width: 100%;
 
-    @include respond_below(sm) {
-      padding: 0 0 2.5rem 0;
+    @include respond_above(sm) {
+      padding: 2.5rem;
+      width: unset;
     }
 
     .categoryWrapper {
@@ -99,9 +102,10 @@ $logoWidth: 5.5rem;
       margin-top: 0.25rem;
       font-size: 1.375rem;
       line-height: 2rem;
-
-      @include respond_below(sm) {
-        color: $hel-black-70;
+      color: $hel-black-70;
+      
+      @include respond_above(sm) {
+        color: $hel-black;
       }
     }
   
