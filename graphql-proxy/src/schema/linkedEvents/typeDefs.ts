@@ -96,7 +96,7 @@ const typeDefs = gql`
   type LinkedEventsKeyword {
     id: String!
     altLabels: [String!]!
-    createdTime: String!
+    createdTime: String
     lastModifiedTime: String!
     aggregate: Boolean
     deprecated: Boolean

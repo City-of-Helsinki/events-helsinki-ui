@@ -32,6 +32,14 @@ const EventHero: React.FC<Props> = ({
   const { t } = useTranslation();
   const locale = getLocale();
 
+  const offerInfoUrl = React.useMemo(() => {
+    const offer = eventData.linkedEventsEventDetails.offers.find(item =>
+      getLocalisedString(item.infoUrl || {}, locale)
+    );
+
+    return offer ? getLocalisedString(offer.infoUrl || {}, locale) : "";
+  }, [eventData.linkedEventsEventDetails.offers, locale]);
+
   const getLocationStr = () => {
     const location = eventData.linkedEventsEventDetails.location;
     const addressLocality = getLocalisedString(
@@ -55,7 +63,7 @@ const EventHero: React.FC<Props> = ({
   };
 
   const moveToTicketProvider = () => {
-    alert("TODO: Move to ticket provider page");
+    window.open(offerInfoUrl);
   };
 
   const handleShare = () => {
@@ -63,11 +71,11 @@ const EventHero: React.FC<Props> = ({
   };
 
   const isFree = React.useMemo(() => {
-    const price = eventData.linkedEventsEventDetails.offers.length
-      ? eventData.linkedEventsEventDetails.offers[0]
-      : null;
+    const offer = eventData.linkedEventsEventDetails.offers.find(
+      item => item.isFree
+    );
 
-    return !price || price.isFree;
+    return !offer || offer.isFree;
   }, [eventData.linkedEventsEventDetails.offers]);
 
   const getPriceStr = () => {
@@ -182,7 +190,7 @@ const EventHero: React.FC<Props> = ({
                   {getPriceStr() || "-"}
                 </div>
               </div>
-              {!isFree && (
+              {!!offerInfoUrl && (
                 <>
                   <div className={styles.buttonWrapper}>
                     <Button

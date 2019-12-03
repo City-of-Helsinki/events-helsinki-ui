@@ -53,7 +53,7 @@ const typeDefs = gql`
   type LinkedCoursesKeyword {
     id: String!
     altLabels: [String!]!
-    createdTime: String!
+    createdTime: String
     lastModifiedTime: String!
     aggregate: Boolean
     deprecated: Boolean
