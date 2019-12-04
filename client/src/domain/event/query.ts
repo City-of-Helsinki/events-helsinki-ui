@@ -38,6 +38,9 @@ export const QUERY_FACILITY_PROFILE = gql`
           sv
           en
         }
+        position {
+          coordinates
+        }
       }
       offers {
         isFree

@@ -91,7 +91,7 @@ export type LinkedCoursesKeyword = {
    __typename?: 'LinkedCoursesKeyword',
   id: Scalars['String'],
   altLabels: Array<Scalars['String']>,
-  createdTime: Scalars['String'],
+  createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime: Scalars['String'],
   aggregate?: Maybe<Scalars['Boolean']>,
   deprecated?: Maybe<Scalars['Boolean']>,
@@ -187,7 +187,7 @@ export type LinkedEventsKeyword = {
    __typename?: 'LinkedEventsKeyword',
   id: Scalars['String'],
   altLabels: Array<Scalars['String']>,
-  createdTime: Scalars['String'],
+  createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime: Scalars['String'],
   aggregate?: Maybe<Scalars['Boolean']>,
   deprecated?: Maybe<Scalars['Boolean']>,
@@ -320,6 +320,9 @@ export type EventDetailsQuery = (
       )>, streetAddress: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )>, position: Maybe<(
+        { __typename?: 'LinkedEventsLocationPosition' }
+        & Pick<LinkedEventsLocationPosition, 'coordinates'>
       )> }
     )>, offers: Array<(
       { __typename?: 'LinkedEventsOffer' }
@@ -385,6 +388,9 @@ export const EventDetailsDocument = gql`
         fi
         sv
         en
+      }
+      position {
+        coordinates
       }
     }
     offers {
