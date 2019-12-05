@@ -1,9 +1,16 @@
 @import "colors";
 @import "fonts";
+@import "layout";
+@import "variables";
 
 .eventLocationContainer {
   background-color: $hel-black-10;
-  padding: 1.25rem;
+  padding: $basePadding;
+  margin: 0 (0 - $basePadding) $largeMargin;
+
+  @include respond_above(sm) {
+    margin: 0 0 $largeMargin;
+  }
 }
 
 .titleWrapper {

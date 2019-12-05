@@ -37,6 +37,9 @@
       "labelThisWeek": "This week",
       "labelToday": "Today"
     },
+    "description": {
+      "title": "Description"
+    },
     "hero": {
       "buttonBuyTickets": "Buy tickets",
       "labelDateAndTime": "Date and time",

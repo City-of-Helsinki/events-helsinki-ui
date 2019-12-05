@@ -37,6 +37,9 @@
       "labelThisWeek": "Denna vecka",
       "labelToday": "I dag"
     },
+    "description": {
+      "title": "Beskrivning"
+    },
     "hero": {
       "buttonBuyTickets": "Köp biljetter",
       "labelDateAndTime": "Datum och tid",

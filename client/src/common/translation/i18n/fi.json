@@ -37,6 +37,9 @@
       "labelThisWeek": "Tällä viikolla",
       "labelToday": "Tänään"
     },
+    "description": {
+      "title": "Kuvaus"
+    },
     "hero": {
       "buttonBuyTickets": "Osta liput",
       "labelDateAndTime": "Päivä ja aika",
