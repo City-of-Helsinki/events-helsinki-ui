@@ -131,7 +131,7 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
         </a>
       </div>
 
-      <Map coordinates={coordinates} />
+      <Map coordinates={coordinates} zoom={16} />
       <div className={styles.eventName}>{getLocalisedString(name, locale)}</div>
       <div className={styles.location}>{getLocationStr()}</div>
       <a

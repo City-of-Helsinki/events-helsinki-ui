@@ -4,7 +4,7 @@ import L, { Icon } from "leaflet";
 import React from "react";
 import { Map as LeafletMap, Marker, TileLayer } from "react-leaflet";
 
-import markerIconUrl from "../../../assets/icons/svg/map-marker.svg";
+import markerIconUrl from "../../../assets/images/png/map-marker.png";
 import styles from "./map.module.scss";
 
 // Allow map scroll only inside Helsinki
@@ -12,10 +12,10 @@ const maxBounds: [number, number][] = [[60.33, 25.33], [60.1, 24.73]];
 
 interface Props {
   coordinates: number[] | null;
+  zoom: 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18;
 }
 
-const Map: React.FC<Props> = ({ coordinates }) => {
-  const zoom = 15;
+const Map: React.FC<Props> = ({ coordinates, zoom }) => {
   const position: [number, number] | null = coordinates
     ? [coordinates[1], coordinates[0]]
     : null;
@@ -26,7 +26,7 @@ const Map: React.FC<Props> = ({ coordinates }) => {
   const getMarkerIcon = (): Icon => {
     return L.icon({
       iconAnchor: [20, 40],
-      iconSize: [40, 40],
+      iconSize: [30, 30],
       iconUrl: markerIconUrl,
       popupAnchor: [0, 0]
     });
