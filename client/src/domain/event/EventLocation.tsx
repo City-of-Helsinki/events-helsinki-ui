@@ -85,8 +85,6 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
     )}?locale=${locale}`;
   };
 
-  //reittiopas.hsl.fi//Malmin tori 3264, Ylä-Malmi, Helsinki::60.25192,25.00724/
-
   const getLocationStr = () => {
     const location = eventData.linkedEventsEventDetails.location;
     const addressLocality = getLocalisedString(
@@ -118,6 +116,7 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
       ? eventData.linkedEventsEventDetails.location.position.coordinates
       : null;
   const name = eventData.linkedEventsEventDetails.name;
+
   return (
     <div className={styles.eventLocationContainer}>
       <div className={styles.titleWrapper}>

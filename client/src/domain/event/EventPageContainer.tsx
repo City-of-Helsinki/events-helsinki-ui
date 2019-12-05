@@ -2,10 +2,7 @@ import React from "react";
 import { RouteComponentProps, withRouter } from "react-router";
 
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
-import {
-  EventDetailsQuery,
-  useEventDetailsQuery
-} from "../../generated/graphql";
+import { useEventDetailsQuery } from "../../generated/graphql";
 import Container from "../app/layout/Container";
 import Layout from "../app/layout/Layout";
 import EventHero from "./EventHero";
@@ -20,22 +17,18 @@ const EventPageContainer: React.FC<
     variables: { id: eventId }
   });
 
-  const renderEventPage = (data: EventDetailsQuery) => {
-    return (
-      <>
-        <EventHero eventData={data} />
-        <Container>
-          <EventLocation eventData={data} />
-        </Container>
-      </>
-    );
-  };
-
   return (
     <Layout>
       <div className={styles.eventPageWrapper}>
         <LoadingSpinner isLoading={loading}>
-          {eventData && renderEventPage(eventData)}
+          {eventData && (
+            <>
+              <EventHero eventData={eventData} />
+              <Container>
+                <EventLocation eventData={eventData} />
+              </Container>
+            </>
+          )}
         </LoadingSpinner>
       </div>
     </Layout>
