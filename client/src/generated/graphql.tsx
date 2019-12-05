@@ -311,7 +311,15 @@ export type EventDetailsQuery = (
       ) }
     )>, location: Maybe<(
       { __typename?: 'LinkedEventsLocation' }
-      & { name: Maybe<(
+      & Pick<LinkedEventsLocation, 'postalCode'>
+      & { divisions: Array<(
+        { __typename?: 'LinkedEventsLocationDivision' }
+        & Pick<LinkedEventsLocationDivision, 'type'>
+        & { name: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+        )> }
+      )>, name: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
       )>, addressLocality: Maybe<(
@@ -374,6 +382,14 @@ export const EventDetailsDocument = gql`
       }
     }
     location {
+      divisions {
+        type
+        name {
+          fi
+          sv
+          en
+        }
+      }
       name {
         fi
         en
@@ -389,6 +405,7 @@ export const EventDetailsDocument = gql`
         sv
         en
       }
+      postalCode
       position {
         coordinates
       }

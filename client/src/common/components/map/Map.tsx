@@ -15,7 +15,7 @@ interface Props {
 }
 
 const Map: React.FC<Props> = ({ coordinates }) => {
-  const zoom = 12;
+  const zoom = 15;
   const position: [number, number] | null = coordinates
     ? [coordinates[1], coordinates[0]]
     : null;
@@ -32,7 +32,7 @@ const Map: React.FC<Props> = ({ coordinates }) => {
     });
   };
   const marker = markerPosition ? (
-    <Marker icon={getMarkerIcon()} position={markerPosition} />
+    <Marker icon={getMarkerIcon()} keyboard={false} position={markerPosition} />
   ) : null;
 
   return (
@@ -41,7 +41,7 @@ const Map: React.FC<Props> = ({ coordinates }) => {
         center={position || undefined}
         zoom={zoom}
         minZoom={11}
-        maxZoom={19}
+        maxZoom={18}
         maxBounds={maxBounds}
         style={{ height: "100%", width: "100%" }}
       >

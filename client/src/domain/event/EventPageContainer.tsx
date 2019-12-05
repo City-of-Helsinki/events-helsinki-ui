@@ -1,14 +1,15 @@
 import React from "react";
 import { RouteComponentProps, withRouter } from "react-router";
 
-import Map from "../../common/components/map/Map";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import {
   EventDetailsQuery,
   useEventDetailsQuery
 } from "../../generated/graphql";
+import Container from "../app/layout/Container";
 import Layout from "../app/layout/Layout";
 import EventHero from "./EventHero";
+import EventLocation from "./EventLocation";
 import styles from "./eventPage.module.scss";
 
 const EventPageContainer: React.FC<
@@ -20,17 +21,12 @@ const EventPageContainer: React.FC<
   });
 
   const renderEventPage = (data: EventDetailsQuery) => {
-    const coordinates =
-      data.linkedEventsEventDetails.location &&
-      data.linkedEventsEventDetails.location.position &&
-      data.linkedEventsEventDetails.location &&
-      data.linkedEventsEventDetails.location.position.coordinates
-        ? data.linkedEventsEventDetails.location.position.coordinates
-        : null;
     return (
       <>
         <EventHero eventData={data} />
-        <Map coordinates={coordinates} />
+        <Container>
+          <EventLocation eventData={data} />
+        </Container>
       </>
     );
   };

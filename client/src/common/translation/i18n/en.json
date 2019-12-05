@@ -45,6 +45,12 @@
       "offers": {
         "isFree": "Free"
       }
+    },
+    "location": {
+      "directionsGoogle": "Directions (Google)",
+      "directionsHSL": "Directions (HSL)",
+      "openMap": "Open the map in a new window",
+      "title": "Location"
     }
   },
   "footer": {
