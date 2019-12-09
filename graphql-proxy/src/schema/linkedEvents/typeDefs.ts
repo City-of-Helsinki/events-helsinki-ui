@@ -2,22 +2,22 @@ import { gql } from "apollo-server";
 
 const typeDefs = gql`
   extend type Query {
-    linkedEventsEventDetails(id: ID): LinkedEventsEventDetails!
+    eventDetails(id: ID): EventDetails!
   }
 
-  type LinkedEventsEventDetails {
+  type EventDetails {
     id: ID!
-    location: LinkedEventsLocation
-    keywords: [LinkedEventsKeyword!]!
+    location: Location
+    keywords: [Keyword!]!
     superEvent: InternalIdObject
     eventStatus: String
-    externalLinks: [LinkedEventsExternalLink!]!
-    offers: [LinkedEventsOffer!]!
+    externalLinks: [ExternalLink!]!
+    offers: [Offer!]!
     dataSource: String
     publisher: ID
     subEvents: [InternalIdObject!]!
-    images: [LinkedEventsImage!]!
-    inLanguage: [InternalIdObject!]!
+    images: [Image!]!
+    inLanguage: [InLanguage!]!
     audience: [InternalIdObject!]!
     createdTime: String
     lastModifiedTime: String
@@ -28,14 +28,14 @@ const typeDefs = gql`
     audienceMinAge: String
     audienceMaxAge: String
     superEventType: String
-    extensionCourse: LinkedEventsExtensionCourse
+    extensionCourse: ExtensionCourse
     name: LocalizedObject!
     locationExtraInfo: LocalizedObject
     shortDescription: LocalizedObject
     provider: LocalizedObject
     infoUrl: LocalizedObject
     providerContactInfo: String
-    description: LocalizedObject!
+    description: LocalizedObject
     # @id is renamed as internalId so it's usable on GraphQl
     internalId: String
     # @context is renamed as internalContext so it's usable on GraphQl
@@ -44,15 +44,27 @@ const typeDefs = gql`
     internalType: String
   }
 
-  type LinkedEventsExternalLink {
+  type ExternalLink {
     name: String
     link: String
     language: String
   }
 
-  type LinkedEventsLocation {
+  type InLanguage {
     id: ID!
-    divisions: [LinkedEventsLocationDivision!]!
+    translationAvailable: Boolean
+    name: LocalizedObject
+    # @id is renamed as internalId so it's usable on GraphQl
+    internalId: String
+    # @context is renamed as internalContext so it's usable on GraphQl
+    internalContext: String
+    # @type is renamed as internalType so it's usable on GraphQl
+    internalType: String
+  }
+
+  type Location {
+    id: ID!
+    divisions: [LocationDivision!]!
     createdTime: String
     lastModifiedTime: String
     customData: String
@@ -64,36 +76,36 @@ const typeDefs = gql`
     addressCountry: String
     deleted: Boolean
     nEvents: Int
-    image: LinkedEventsImage
+    image: Image
     dataSource: String
     publisher: ID
     parent: ID
     replacedBy: String
-    position: LinkedEventsLocationPosition
+    position: LocationPosition
     name: LocalizedObject
     description: String
-    telephone: String
+    telephone: LocalizedObject
     addressLocality: LocalizedObject
     streetAddress: LocalizedObject
-    infoUrl: String
+    infoUrl: LocalizedObject
     internalId: String
     internalContext: String
     internalType: String
   }
 
-  type LinkedEventsLocationDivision {
+  type LocationDivision {
     type: String!
     ocdId: String
     municipality: String
     name: LocalizedObject
   }
 
-  type LinkedEventsLocationPosition {
+  type LocationPosition {
     type: String!
     coordinates: [Float!]!
   }
 
-  type LinkedEventsKeyword {
+  type Keyword {
     id: String!
     altLabels: [String!]!
     createdTime: String
@@ -101,7 +113,7 @@ const typeDefs = gql`
     aggregate: Boolean
     deprecated: Boolean
     nEvents: Int!
-    image: LinkedEventsImage
+    image: Image
     dataSource: String!
     publisher: ID
     name: LocalizedObject!
@@ -113,14 +125,14 @@ const typeDefs = gql`
     internalType: String
   }
 
-  type LinkedEventsOffer {
+  type Offer {
     isFree: Boolean
     description: LocalizedObject
     price: LocalizedObject
     infoUrl: LocalizedObject
   }
 
-  type LinkedEventsImage {
+  type Image {
     id: ID!
     license: String
     createdTime: String
@@ -139,7 +151,7 @@ const typeDefs = gql`
     internalType: String
   }
 
-  type LinkedEventsExtensionCourse {
+  type ExtensionCourse {
     enrolmentStartTime: String
     enrolmentEndTime: String
     maximumAttendeeCapacity: Int
