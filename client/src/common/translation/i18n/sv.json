@@ -73,6 +73,12 @@
       "title": "Lokalisering"
     }
   },
+  "eventSearch": {
+    "filters": {
+      "titleSummary": "Valda sökkriterier"
+    },
+    "textFoundEvents": "Vi hittade {{count}} saker att göra för dig"
+  },
   "footer": {
     "titleCategories": "Kategoriat (sv)",
     "searchCollections": "Selaa kokoelmia (sv)",

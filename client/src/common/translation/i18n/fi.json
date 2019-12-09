@@ -73,6 +73,12 @@
       "title": "Sijainti"
     }
   },
+  "eventSearch": {
+    "filters": {
+      "titleSummary": "Valitsemasi hakuehdot"
+    },
+    "textFoundEvents": "Löysimme sinulle {{count}} tekemistä"
+  },
   "footer": {
     "titleCategories": "Kategoriat",
     "searchCollections": "Selaa kokoelmia",

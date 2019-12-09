@@ -73,6 +73,12 @@
       "title": "Location"
     }
   },
+  "eventSearch": {
+    "filters": {
+      "titleSummary": "Selected search criteria"
+    },
+    "textFoundEvents": "We found {{count}} things to do for you"
+  },
   "footer": {
     "titleCategories": "Kategoriat (en)",
     "searchCollections": "Selaa kokoelmia (en)",

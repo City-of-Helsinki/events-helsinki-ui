@@ -49,6 +49,12 @@ export type EventDetails = {
   internalType?: Maybe<Scalars['String']>,
 };
 
+export type EventListResponse = {
+   __typename?: 'EventListResponse',
+  meta: Meta,
+  data: Array<EventDetails>,
+};
+
 export type ExtensionCourse = {
    __typename?: 'ExtensionCourse',
   enrolmentStartTime?: Maybe<Scalars['String']>,
@@ -168,6 +174,13 @@ export type LocationPosition = {
   coordinates: Array<Scalars['Float']>,
 };
 
+export type Meta = {
+   __typename?: 'Meta',
+  count: Scalars['Int'],
+  next?: Maybe<Scalars['String']>,
+  previous?: Maybe<Scalars['String']>,
+};
+
 export type Mutation = {
    __typename?: 'Mutation',
   _empty?: Maybe<Scalars['String']>,
@@ -186,6 +199,7 @@ export type Query = {
   _empty?: Maybe<Scalars['String']>,
   courseDetails: EventDetails,
   eventDetails: EventDetails,
+  eventList: EventListResponse,
 };
 
 
@@ -286,6 +300,23 @@ export type EventDetailsQuery = (
     )>, infoUrl: Maybe<(
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )> }
+  ) }
+);
+
+export type EventListQueryVariables = {};
+
+
+export type EventListQuery = (
+  { __typename?: 'Query' }
+  & { eventList: (
+    { __typename?: 'EventListResponse' }
+    & { meta: (
+      { __typename?: 'Meta' }
+      & Pick<Meta, 'count' | 'next' | 'previous'>
+    ), data: Array<(
+      { __typename?: 'EventDetails' }
+      & Pick<EventDetails, 'id'>
     )> }
   ) }
 );
@@ -444,3 +475,53 @@ export function useEventDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQuer
 export type EventDetailsQueryHookResult = ReturnType<typeof useEventDetailsQuery>;
 export type EventDetailsLazyQueryHookResult = ReturnType<typeof useEventDetailsLazyQuery>;
 export type EventDetailsQueryResult = ApolloReactCommon.QueryResult<EventDetailsQuery, EventDetailsQueryVariables>;
+export const EventListDocument = gql`
+    query EventList {
+  eventList {
+    meta {
+      count
+      next
+      previous
+    }
+    data {
+      id
+    }
+  }
+}
+    `;
+export type EventListProps<TChildProps = {}> = ApolloReactHoc.DataProps<EventListQuery, EventListQueryVariables> | TChildProps;
+export function withEventList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  EventListQuery,
+  EventListQueryVariables,
+  EventListProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, EventListQuery, EventListQueryVariables, EventListProps<TChildProps>>(EventListDocument, {
+      alias: 'eventList',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useEventListQuery__
+ *
+ * To run a query within a React component, call `useEventListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventListQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useEventListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<EventListQuery, EventListQueryVariables>) {
+        return ApolloReactHooks.useQuery<EventListQuery, EventListQueryVariables>(EventListDocument, baseOptions);
+      }
+export function useEventListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<EventListQuery, EventListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<EventListQuery, EventListQueryVariables>(EventListDocument, baseOptions);
+        }
+export type EventListQueryHookResult = ReturnType<typeof useEventListQuery>;
+export type EventListLazyQueryHookResult = ReturnType<typeof useEventListLazyQuery>;
+export type EventListQueryResult = ApolloReactCommon.QueryResult<EventListQuery, EventListQueryVariables>;
