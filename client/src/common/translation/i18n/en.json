@@ -42,12 +42,29 @@
     },
     "hero": {
       "buttonBuyTickets": "Buy tickets",
-      "labelDateAndTime": "Date and time",
-      "labelLocation": "Location",
-      "labelPrice": "Price",
       "offers": {
         "isFree": "Free"
       }
+    },
+    "info": {
+      "buttonBuyTickets": "Buy tickets",
+      "directionsGoogle": "Directions (Google)",
+      "directionsHSL": "Directions (HSL)",
+      "extlinkFacebook": "Facebook",
+      "extlinkInstagram": "Instagram",
+      "extlinkTwitter": "Twitter",
+      "extlinkYoutube": "Youtube",
+      "labelDateAndTime": "Date and time",
+      "labelDistricts": "Find your way",
+      "labelLanguages": "Languages",
+      "labelLocation": "Location",
+      "labelOtherInfo": "Other information",
+      "labelPrice": "Price",
+      "linkWebPage": "Web page",
+      "offers": {
+        "isFree": "Free"
+      },
+      "openMap": "Open the map"
     },
     "location": {
       "directionsGoogle": "Directions (Google)",

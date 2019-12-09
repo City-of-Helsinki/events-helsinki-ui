@@ -6,10 +6,10 @@
 .eventLocationContainer {
   background-color: $hel-black-10;
   padding: $basePadding;
-  margin: 0 (0 - $basePadding) $largeMargin;
+  margin: $largeMargin (0 - $basePadding) $largeMargin;
 
   @include respond_above(sm) {
-    margin: 0 0 $largeMargin;
+    margin: $largeMargin 0 $largeMargin;
   }
 }
 
@@ -71,7 +71,7 @@
   color: $dark-green;
   margin-right: 2rem;
   font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
+  font-weight: $link-font-weight;
   text-decoration: none;
   margin-top: 0.5rem;
 

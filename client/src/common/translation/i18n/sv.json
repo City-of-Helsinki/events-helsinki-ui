@@ -42,12 +42,29 @@
     },
     "hero": {
       "buttonBuyTickets": "Köp biljetter",
-      "labelDateAndTime": "Datum och tid",
-      "labelLocation": "Lokalisering",
-      "labelPrice": "Pris",
       "offers": {
         "isFree": "Gratis"
       }
+    },
+    "info": {
+      "buttonBuyTickets": "Köp biljetter",
+      "directionsGoogle": "Vägbeskrivning (Google)",
+      "directionsHSL": "Vägbeskrivning (HSL)",
+      "extlinkFacebook": "Facebook",
+      "extlinkInstagram": "Instagram",
+      "extlinkTwitter": "Twitter",
+      "extlinkYoutube": "Youtube",
+      "labelDateAndTime": "Datum och tid",
+      "labelDistricts": "Hitta din väg",
+      "labelLanguages": "Språk",
+      "labelLocation": "Lokalisering",
+      "labelOtherInfo": "Annan information",
+      "labelPrice": "Pris",
+      "linkWebPage": "Webbsida",
+      "offers": {
+        "isFree": "Gratis"
+      },
+      "openMap": "Öppna kartan"
     },
     "location": {
       "directionsGoogle": "Vägbeskrivning (Google)",

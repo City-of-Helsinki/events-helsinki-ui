@@ -64,6 +64,7 @@ $logoWidth: 5.5rem;
 
   .image {
     height: 100%;
+    
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -166,12 +167,8 @@ $logoWidth: 5.5rem;
     }
   }
 
-  .buttonWrapper {
+  .buyButtonWrapper {
     margin-top: 1rem;
-
-    @include respond_below(sm) {
-      display: none;
-    }
 
     button {
       min-width: 11.375rem;

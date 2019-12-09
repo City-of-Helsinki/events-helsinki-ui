@@ -42,12 +42,29 @@
     },
     "hero": {
       "buttonBuyTickets": "Osta liput",
-      "labelDateAndTime": "Päivä ja aika",
-      "labelLocation": "Paikka",
-      "labelPrice": "Hinta",
       "offers": {
         "isFree": "Ilmainen"
       }
+    },
+    "info": {
+      "buttonBuyTickets": "Osta liput",
+      "directionsGoogle": "Reittiohjeet (Google)",
+      "directionsHSL": "Reittiohjeet (HSL)",
+      "extlinkFacebook": "Facebook",
+      "extlinkInstagram": "Instagram",
+      "extlinkTwitter": "Twitter",
+      "extlinkYoutube": "Youtube",
+      "labelDateAndTime": "Päivä ja aika",
+      "labelDistricts": "Löydä perille",
+      "labelLanguages": "Kielet",
+      "labelLocation": "Paikka",
+      "labelOtherInfo": "Muut tiedot",
+      "labelPrice": "Hinta",
+      "linkWebPage": "Verkkosivu",
+      "offers": {
+        "isFree": "Ilmainen"
+      },
+      "openMap": "Avaa kartta"
     },
     "location": {
       "directionsGoogle": "Reittiohjeet (Google)",

@@ -1,17 +1,32 @@
 export const mockEventData = {
-  linkedEventsEventDetails: {
+  eventDetails: {
     description: {
       en: "description en",
       fi: "description fi",
       sv: "description sv"
     },
     endTime: null,
+    externalLinks: [
+      {
+        link: "https://www.facebook.com/events/12345687/",
+        name: "extlink_facebook"
+      }
+    ],
     id: "123",
     images: [
       {
         id: "60578",
         name: "piha-2.jpg",
         url: "https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg"
+      }
+    ],
+    inLanguage: [
+      {
+        id: "fi",
+        translationAvailable: true,
+        name: {
+          fi: "suomi"
+        }
       }
     ],
     keywords: [],
