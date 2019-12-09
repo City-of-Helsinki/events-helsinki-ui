@@ -9,6 +9,12 @@ import LocationIcon from "../../icons/LocationIcon";
 import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import styles from "./eventLocation.module.scss";
+import {
+  getEventDistrict,
+  getGoogleDirectionsLink,
+  getGoogleLink,
+  getHslDirectionsLink
+} from "./EventUtils";
 
 interface Props {
   eventData: EventDetailsQuery;
@@ -18,104 +24,27 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
   const { t } = useTranslation();
   const locale = getLocale();
 
-  const getGoogleLink = () => {
-    const location = eventData.linkedEventsEventDetails.location;
-    const streetAddress = getLocalisedString(
-      (location && location.streetAddress) || {},
-      locale
-    );
-    const postalCode = (location && location.postalCode) || {};
-    const addressLocality = getLocalisedString(
-      (location && location.addressLocality) || {},
-      locale
-    );
-    const coordinates =
-      location && location.position
-        ? // Get coordinates for Google in correct order
-          [...location.position.coordinates].reverse()
-        : [];
-
-    return `https://www.google.com/maps/place/${streetAddress},+${postalCode}+${addressLocality}/@${coordinates.join(
-      ","
-    )}`.replace(/\s/g, "+");
-  };
-
-  const getGoogleDirectionsLink = () => {
-    const location = eventData.linkedEventsEventDetails.location;
-    const streetAddress = getLocalisedString(
-      (location && location.streetAddress) || {},
-      locale
-    );
-    const postalCode = (location && location.postalCode) || {};
-    const addressLocality = getLocalisedString(
-      (location && location.addressLocality) || {},
-      locale
-    );
-    const coordinates =
-      location && location.position
-        ? // Get coordinates for Google in correct order
-          [...location.position.coordinates].reverse()
-        : [];
-
-    return `https://www.google.com/maps/dir//${streetAddress},+${postalCode}+${addressLocality}/@${coordinates.join(
-      ","
-    )}`.replace(/\s/g, "+");
-  };
-
-  const getHslDirectionsLink = () => {
-    const location = eventData.linkedEventsEventDetails.location;
-    const streetAddress = getLocalisedString(
-      (location && location.streetAddress) || {},
-      locale
-    );
-    const addressLocality = getLocalisedString(
-      (location && location.addressLocality) || {},
-      locale
-    );
-    const coordinates =
-      location && location.position
-        ? // Get coordinates for HSL in correct order
-          [...location.position.coordinates].reverse()
-        : [];
-
-    return `https://reittiopas.hsl.fi/%20/${encodeURIComponent(
-      streetAddress
-    )},%20${encodeURIComponent(addressLocality)}::${coordinates.join(
-      ","
-    )}?locale=${locale}`;
-  };
-
   const getLocationStr = () => {
-    const location = eventData.linkedEventsEventDetails.location;
+    const location = eventData.eventDetails.location;
     const addressLocality = getLocalisedString(
       (location && location.addressLocality) || {},
       locale
     );
-    const district =
-      location &&
-      location.divisions.find(
-        division => ["district", "neighborhood"].indexOf(division.type) !== -1
-      );
-    const districtStr =
-      district && district.name
-        ? getLocalisedString(district.name, locale)
-        : null;
+    const district = getEventDistrict(eventData, locale);
     const streetAddress = getLocalisedString(
       (location && location.streetAddress) || {},
       locale
     );
 
-    return [streetAddress, districtStr, addressLocality]
-      .filter(e => e)
-      .join(", ");
+    return [streetAddress, district, addressLocality].filter(e => e).join(", ");
   };
 
   const coordinates =
-    eventData.linkedEventsEventDetails.location &&
-    eventData.linkedEventsEventDetails.location.position
-      ? eventData.linkedEventsEventDetails.location.position.coordinates
+    eventData.eventDetails.location &&
+    eventData.eventDetails.location.position
+      ? eventData.eventDetails.location.position.coordinates
       : null;
-  const name = eventData.linkedEventsEventDetails.name;
+  const name = eventData.eventDetails.name;
 
   return (
     <div className={styles.eventLocationContainer}>
@@ -124,7 +53,11 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
           <LocationIcon />
           <h3>{t("event.location.title")}</h3>
         </div>
-        <a className={styles.mapLink} href={getGoogleLink()} target="__blank">
+        <a
+          className={styles.mapLink}
+          href={getGoogleLink(eventData, locale)}
+          target="__blank"
+        >
           {t("event.location.openMap")}
           <ExternalLinkIcon />
         </a>
@@ -135,7 +68,7 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
       <div className={styles.location}>{getLocationStr()}</div>
       <a
         className={styles.directionsLink}
-        href={getGoogleDirectionsLink()}
+        href={getGoogleDirectionsLink(eventData, locale)}
         target="__blank"
       >
         {t("event.location.directionsGoogle")}
@@ -143,7 +76,7 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
       </a>
       <a
         className={styles.directionsLink}
-        href={getHslDirectionsLink()}
+        href={getHslDirectionsLink(eventData, locale)}
         target="__blank"
       >
         {t("event.location.directionsHSL")}
