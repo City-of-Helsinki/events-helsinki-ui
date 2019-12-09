@@ -31,9 +31,18 @@ export const LocalizedObject = gql`
   }
 `;
 
+export const Meta = gql`
+  type Meta {
+    count: Int!
+    next: String
+    previous: String
+  }
+`;
+
 const global = [
   InternalIdObject,
   LocalizedObject,
+  Meta,
   Mutation,
   Query,
   Subscription

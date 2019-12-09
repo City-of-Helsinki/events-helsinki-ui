@@ -54,6 +54,14 @@ const Query = {
   eventDetails: async (_, { id }, { dataSources }) => {
     const data = await dataSources.linkedEventsAPI.getEventDetails(id);
     return normalizeEvent(objectToCamelCase(data));
+  },
+  eventList: async (_, {}, { dataSources }) => {
+    const data = await dataSources.linkedEventsAPI.getEventList();
+
+    return {
+      data: data.data.map(event => normalizeEvent(event)),
+      meta: data.meta
+    };
   }
 };
 

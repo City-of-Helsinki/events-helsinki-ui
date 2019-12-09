@@ -45,6 +45,12 @@ export type EventDetails = {
   internalType?: Maybe<Scalars['String']>,
 };
 
+export type EventListResponse = {
+   __typename?: 'EventListResponse',
+  meta: Meta,
+  data: Array<EventDetails>,
+};
+
 export type ExtensionCourse = {
    __typename?: 'ExtensionCourse',
   enrolmentStartTime?: Maybe<Scalars['String']>,
@@ -162,6 +168,13 @@ export type LocationPosition = {
    __typename?: 'LocationPosition',
   type: Scalars['String'],
   coordinates: Array<Scalars['Float']>,
+};
+
+export type Meta = {
+   __typename?: 'Meta',
+  count: Scalars['Int'],
+  next?: Maybe<Scalars['String']>,
+  previous?: Maybe<Scalars['String']>,
 };
 
 export type Mutation = {

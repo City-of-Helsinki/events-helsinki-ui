@@ -3,6 +3,12 @@ import { gql } from "apollo-server";
 const typeDefs = gql`
   extend type Query {
     eventDetails(id: ID): EventDetails!
+    eventList: EventListResponse!
+  }
+
+  type EventListResponse {
+    meta: Meta!
+    data: [EventDetails!]!
   }
 
   type EventDetails {
