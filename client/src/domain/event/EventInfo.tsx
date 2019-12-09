@@ -163,9 +163,10 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
               </a>
             )}
 
-            {externalLinks.map(externalLink => {
+            {externalLinks.map((externalLink, index) => {
               return (
                 <a
+                  key={index}
                   className={styles.link}
                   href={externalLink.link || ""}
                   target="__blank"
