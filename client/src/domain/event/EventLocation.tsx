@@ -40,8 +40,7 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
   };
 
   const coordinates =
-    eventData.eventDetails.location &&
-    eventData.eventDetails.location.position
+    eventData.eventDetails.location && eventData.eventDetails.location.position
       ? eventData.eventDetails.location.position.coordinates
       : null;
   const name = eventData.eventDetails.name;
@@ -56,7 +55,8 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
         <a
           className={styles.mapLink}
           href={getGoogleLink(eventData, locale)}
-          target="__blank"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           {t("event.location.openMap")}
           <ExternalLinkIcon />
@@ -69,7 +69,8 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
       <a
         className={styles.directionsLink}
         href={getGoogleDirectionsLink(eventData, locale)}
-        target="__blank"
+        rel="noopener noreferrer"
+        target="_blank"
       >
         {t("event.location.directionsGoogle")}
         <AngleRightIcon />
@@ -77,7 +78,8 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
       <a
         className={styles.directionsLink}
         href={getHslDirectionsLink(eventData, locale)}
-        target="__blank"
+        rel="noopener noreferrer"
+        target="_blank"
       >
         {t("event.location.directionsHSL")}
         <AngleRightIcon />

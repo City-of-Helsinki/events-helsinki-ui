@@ -155,7 +155,7 @@ exports[`EventInfo matches snapshot 1`] = `
       <a
         className="link"
         href="https://www.google.com/maps/place/streetAddress+fi,+01234+locality+fi/@60.250507,25.01497"
-        target="__blank"
+        target="_blank"
       >
         Avaa kartta
         <svg
@@ -248,7 +248,7 @@ exports[`EventInfo matches snapshot 1`] = `
       <a
         className="link"
         href="https://www.lippu.fi/tickets.html?affiliate=adv&doc=erdetaila&fun=erdetail&erid=2640080"
-        target="__blank"
+        target="_blank"
       >
         Verkkosivu
         <svg
@@ -268,7 +268,7 @@ exports[`EventInfo matches snapshot 1`] = `
       <a
         className="link"
         href="https://www.facebook.com/events/12345687/"
-        target="__blank"
+        target="_blank"
       >
         Facebook
         <svg
@@ -353,7 +353,7 @@ exports[`EventInfo matches snapshot 1`] = `
       <a
         className="link"
         href="https://www.google.com/maps/dir//streetAddress+fi,+01234+locality+fi/@60.250507,25.01497"
-        target="__blank"
+        target="_blank"
       >
         Reittiohjeet (Google)
         <svg
@@ -373,7 +373,7 @@ exports[`EventInfo matches snapshot 1`] = `
       <a
         className="link"
         href="https://reittiopas.hsl.fi/%20/streetAddress%20fi,%20locality%20fi::60.250507,25.01497?locale=fi"
-        target="__blank"
+        target="_blank"
       >
         Reittiohjeet (HSL)
         <svg

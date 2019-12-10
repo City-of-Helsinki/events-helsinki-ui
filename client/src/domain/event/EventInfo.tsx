@@ -128,7 +128,8 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           <a
             className={styles.link}
             href={getGoogleLink(eventData, locale)}
-            target="__blank"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             {t("event.info.openMap")}
             <AngleRightIcon />
@@ -160,7 +161,12 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             {email && <div>{email}</div>}
             {telephone && <div>{telephone}</div>}
             {infoUrl && (
-              <a className={styles.link} href={infoUrl || ""} target="__blank">
+              <a
+                className={styles.link}
+                href={infoUrl || ""}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 {t("event.info.linkWebPage")}
                 <AngleRightIcon />
               </a>
@@ -172,7 +178,8 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
                   key={index}
                   className={styles.link}
                   href={externalLink.link || ""}
-                  target="__blank"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   {translateValue("event.info.", externalLink.name || "", t)}
                   <AngleRightIcon />
@@ -193,7 +200,8 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           <a
             className={styles.link}
             href={getGoogleDirectionsLink(eventData, locale)}
-            target="__blank"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             {t("event.info.directionsGoogle")}
             <AngleRightIcon />
@@ -201,7 +209,8 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           <a
             className={styles.link}
             href={getHslDirectionsLink(eventData, locale)}
-            target="__blank"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             {t("event.info.directionsHSL")}
             <AngleRightIcon />
