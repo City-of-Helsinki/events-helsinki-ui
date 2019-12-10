@@ -1,0 +1,81 @@
+@import "colors";
+@import "fonts";
+
+.eventLocationContainer {
+  background-color: $hel-black-10;
+  padding: 1.25rem;
+}
+
+.titleWrapper {
+  display: flex;
+}
+
+.title {
+  display: flex;
+  margin-bottom: 1rem;
+  flex: 1 1 0%;
+
+  svg {
+    height: 1.25rem;
+    width: 1.25rem;
+    margin-right: 0.5rem;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: $font-size-lg;
+  }
+}
+
+.mapLink {
+  display: inline-flex;
+  align-items: center;
+  color: $hel-black;
+  font-size: $font-size-sm;
+  text-decoration: none;
+  margin-bottom: 1rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  svg {
+    margin-left: 0.5rem;
+    height: 0.75rem;
+    width: 0.75rem;
+    fill: $hel-black;
+  }
+}
+
+.eventName {
+  font-size: $h3-font-size;
+  font-weight: $font-weight-bold;
+  margin: 1rem 0 0.5rem;
+}
+
+.location {
+  font-size: $font-size-lg;
+  margin-bottom: 0.5rem;
+}
+
+.directionsLink {
+  display: inline-flex;
+  align-items: center;
+  color: $dark-green;
+  margin-right: 2rem;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  text-decoration: none;
+  margin-top: 0.5rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  svg {
+    margin-left: 1rem;
+    height: 0.75rem;
+    width: 0.75rem;
+    fill: $dark-green;
+  }
+}

@@ -3,8 +3,10 @@ import { RouteComponentProps, withRouter } from "react-router";
 
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useEventDetailsQuery } from "../../generated/graphql";
+import Container from "../app/layout/Container";
 import Layout from "../app/layout/Layout";
 import EventHero from "./EventHero";
+import EventLocation from "./EventLocation";
 import styles from "./eventPage.module.scss";
 
 const EventPageContainer: React.FC<
@@ -22,6 +24,9 @@ const EventPageContainer: React.FC<
           {eventData && (
             <>
               <EventHero eventData={eventData} />
+              <Container>
+                <EventLocation eventData={eventData} />
+              </Container>
             </>
           )}
         </LoadingSpinner>

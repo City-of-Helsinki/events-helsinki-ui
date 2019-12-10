@@ -45,6 +45,12 @@
       "offers": {
         "isFree": "Ilmainen"
       }
+    },
+    "location": {
+      "directionsGoogle": "Reittiohjeet (Google)",
+      "directionsHSL": "Reittiohjeet (HSL)",
+      "openMap": "Avaa kartta uuteen ikkunaan",
+      "title": "Sijainti"
     }
   },
   "footer": {

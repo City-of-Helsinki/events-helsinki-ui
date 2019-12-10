@@ -55,7 +55,9 @@ const EventHero: React.FC<Props> = ({
       locale
     );
 
-    return [locationName, streetAddress, addressLocality].join(", ");
+    return [locationName, streetAddress, addressLocality]
+      .filter(e => e)
+      .join(", ");
   };
 
   const handleBack = () => {

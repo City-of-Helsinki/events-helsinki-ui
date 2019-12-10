@@ -91,7 +91,7 @@ export type LinkedCoursesKeyword = {
    __typename?: 'LinkedCoursesKeyword',
   id: Scalars['String'],
   altLabels: Array<Scalars['String']>,
-  createdTime: Scalars['String'],
+  createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime: Scalars['String'],
   aggregate?: Maybe<Scalars['Boolean']>,
   deprecated?: Maybe<Scalars['Boolean']>,
@@ -187,7 +187,7 @@ export type LinkedEventsKeyword = {
    __typename?: 'LinkedEventsKeyword',
   id: Scalars['String'],
   altLabels: Array<Scalars['String']>,
-  createdTime: Scalars['String'],
+  createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime: Scalars['String'],
   aggregate?: Maybe<Scalars['Boolean']>,
   deprecated?: Maybe<Scalars['Boolean']>,
@@ -311,7 +311,15 @@ export type EventDetailsQuery = (
       ) }
     )>, location: Maybe<(
       { __typename?: 'LinkedEventsLocation' }
-      & { name: Maybe<(
+      & Pick<LinkedEventsLocation, 'postalCode'>
+      & { divisions: Array<(
+        { __typename?: 'LinkedEventsLocationDivision' }
+        & Pick<LinkedEventsLocationDivision, 'type'>
+        & { name: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+        )> }
+      )>, name: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
       )>, addressLocality: Maybe<(
@@ -320,6 +328,9 @@ export type EventDetailsQuery = (
       )>, streetAddress: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )>, position: Maybe<(
+        { __typename?: 'LinkedEventsLocationPosition' }
+        & Pick<LinkedEventsLocationPosition, 'coordinates'>
       )> }
     )>, offers: Array<(
       { __typename?: 'LinkedEventsOffer' }
@@ -371,6 +382,14 @@ export const EventDetailsDocument = gql`
       }
     }
     location {
+      divisions {
+        type
+        name {
+          fi
+          sv
+          en
+        }
+      }
       name {
         fi
         en
@@ -385,6 +404,10 @@ export const EventDetailsDocument = gql`
         fi
         sv
         en
+      }
+      postalCode
+      position {
+        coordinates
       }
     }
     offers {

@@ -23,6 +23,14 @@ export const QUERY_FACILITY_PROFILE = gql`
         }
       }
       location {
+        divisions {
+          type
+          name {
+            fi
+            sv
+            en
+          }
+        }
         name {
           fi
           en
@@ -37,6 +45,10 @@ export const QUERY_FACILITY_PROFILE = gql`
           fi
           sv
           en
+        }
+        postalCode
+        position {
+          coordinates
         }
       }
       offers {
