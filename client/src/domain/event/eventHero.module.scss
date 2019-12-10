@@ -1,6 +1,6 @@
 @import "colors";
 @import "layout";
-
+@import "variables";
 
 $heroHeight: 30.6875rem; 
 $imageMobileHeight: 23.4375rem;
@@ -41,10 +41,10 @@ $logoWidth: 5.5rem;
   }
 
   .backButtonWrapper {
-    padding: 1.25rem;
+    padding: $basePadding;
 
     @include respond_below(sm) {
-      padding: 1.25rem 0;
+      padding: $basePadding 0;
       position: absolute;
     }
   }
@@ -64,12 +64,13 @@ $logoWidth: 5.5rem;
 
   .image {
     height: 100%;
+    
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 
     @include respond_below(sm) {
-      margin: 0 -2.5rem;
+      margin: 0 (0 - $basePadding);
     }
   }
 
@@ -78,11 +79,11 @@ $logoWidth: 5.5rem;
   }
 
   .textWrapper {
-    padding: 0 0 2.5rem 0;
+    padding: 0 0 $largePadding 0;
     width: 100%;
 
     @include respond_above(sm) {
-      padding: 2.5rem;
+      padding: $largePadding;
       width: unset;
     }
 
@@ -166,12 +167,8 @@ $logoWidth: 5.5rem;
     }
   }
 
-  .buttonWrapper {
+  .buyButtonWrapper {
     margin-top: 1rem;
-
-    @include respond_below(sm) {
-      display: none;
-    }
 
     button {
       min-width: 11.375rem;

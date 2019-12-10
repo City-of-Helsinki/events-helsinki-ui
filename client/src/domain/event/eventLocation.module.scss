@@ -1,9 +1,16 @@
 @import "colors";
 @import "fonts";
+@import "layout";
+@import "variables";
 
 .eventLocationContainer {
   background-color: $hel-black-10;
-  padding: 1.25rem;
+  padding: $basePadding;
+  margin: $largeMargin (0 - $basePadding) $largeMargin;
+
+  @include respond_above(sm) {
+    margin: $largeMargin 0 $largeMargin;
+  }
 }
 
 .titleWrapper {
@@ -64,7 +71,7 @@
   color: $dark-green;
   margin-right: 2rem;
   font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
+  font-weight: $link-font-weight;
   text-decoration: none;
   margin-top: 0.5rem;
 

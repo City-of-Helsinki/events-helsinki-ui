@@ -2,12 +2,23 @@ import gql from "graphql-tag";
 
 export const QUERY_FACILITY_PROFILE = gql`
   query EventDetails($id: ID!) {
-    linkedEventsEventDetails(id: $id) {
+    eventDetails(id: $id) {
       id
+      externalLinks {
+        name
+        link
+      }
       images {
         id
         name
         url
+      }
+      inLanguage {
+        name {
+          fi
+          sv
+          en
+        }
       }
       keywords {
         id
@@ -31,6 +42,12 @@ export const QUERY_FACILITY_PROFILE = gql`
             en
           }
         }
+        email
+        infoUrl {
+          fi
+          sv
+          en
+        }
         name {
           fi
           en
@@ -49,6 +66,11 @@ export const QUERY_FACILITY_PROFILE = gql`
         postalCode
         position {
           coordinates
+        }
+        telephone {
+          fi
+          sv
+          en
         }
       }
       offers {
@@ -86,6 +108,11 @@ export const QUERY_FACILITY_PROFILE = gql`
       }
       endTime
       startTime
+      infoUrl {
+        fi
+        sv
+        en
+      }
     }
   }
 `;

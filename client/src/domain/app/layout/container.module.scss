@@ -1,4 +1,5 @@
 @import "layout";
+@import "variables";
 
 .container {
     display: grid;
@@ -12,7 +13,7 @@
 
 @include respond-below(sm) {
     .container {
-        grid-template-columns: 5% 1fr 5%;
+        grid-template-columns: $basePadding 1fr $basePadding;
     }
 }
 

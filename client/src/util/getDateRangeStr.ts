@@ -9,21 +9,24 @@ import { formatDate } from "./dateUtils";
 export default (
   start: string,
   end: string | null | undefined,
-  locale: string
+  locale: string,
+  includeWeekday = true
 ) => {
   const dateFormat = "d. MMMM yyyy ";
 
   if (!end) {
-    return (
-      formatDate(new Date(start), dateFormat, locale) +
-      capitalize(formatDate(new Date(start), "cccc", locale))
-    );
+    return `${formatDate(new Date(start), dateFormat, locale)}${
+      includeWeekday
+        ? `${capitalize(formatDate(new Date(start), "cccc", locale))}`
+        : ""
+    }`;
   } else {
     if (isSameDay(new Date(start), new Date(end))) {
-      return (
-        formatDate(new Date(start), dateFormat, locale) +
-        capitalize(formatDate(new Date(start), "cccc", locale))
-      );
+      return `${formatDate(new Date(start), dateFormat, locale)}${
+        includeWeekday
+          ? `${capitalize(formatDate(new Date(start), "cccc", locale))}`
+          : ""
+      }`;
     } else if (isSameMonth(new Date(start), new Date(end))) {
       return `${formatDate(new Date(start), "d")} – ${formatDate(
         new Date(end),

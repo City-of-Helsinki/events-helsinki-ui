@@ -5,8 +5,8 @@ import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useEventDetailsQuery } from "../../generated/graphql";
 import Container from "../app/layout/Container";
 import Layout from "../app/layout/Layout";
+import EventContent from "./EventContent";
 import EventHero from "./EventHero";
-import EventLocation from "./EventLocation";
 import styles from "./eventPage.module.scss";
 
 const EventPageContainer: React.FC<
@@ -25,7 +25,7 @@ const EventPageContainer: React.FC<
             <>
               <EventHero eventData={eventData} />
               <Container>
-                <EventLocation eventData={eventData} />
+                <EventContent eventData={eventData} />
               </Container>
             </>
           )}
