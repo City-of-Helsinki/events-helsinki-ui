@@ -97,7 +97,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
         <div className={styles.buttonWrapper}>
           <>
             <div className={classNames(styles.buyButtonWrapper)}>
-              {!offerInfoUrl && (
+              {!!offerInfoUrl && (
                 <Button
                   color="primary"
                   iconAtStart={<AngleRightIcon />}
