@@ -1,6 +1,7 @@
 import { EventDetailsQuery } from "../../generated/graphql";
 import { Language } from "../../types";
 import getLocalisedString from "../../util/getLocalisedString";
+import { EventInList } from "./types";
 
 /**
  * Check is event free
@@ -15,20 +16,19 @@ export const isEventFree = (eventData: EventDetailsQuery): boolean => {
 
 /**
  * Get event district info as string
- * @param {object} eventData
+ * @param {object} event
  * @param {string} locale
  * @return {string}
  */
 export const getEventDistrict = (
-  eventData: EventDetailsQuery,
+  event: EventInList,
   locale: Language
 ): string | null => {
-  const location = eventData.eventDetails.location;
-  const district =
-    location &&
-    location.divisions.find(
-      division => ["district", "neighborhood"].indexOf(division.type) !== -1
-    );
+  const location = event.location;
+  const divisions = (location && location.divisions) || [];
+  const district = divisions.find(
+    division => ["district", "neighborhood"].indexOf(division.type) !== -1
+  );
   return district && district.name
     ? getLocalisedString(district.name, locale)
     : null;

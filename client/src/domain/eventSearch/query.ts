@@ -16,6 +16,14 @@ export const QUERY_EVENT_LIST = gql`
           url
         }
         location {
+          divisions {
+            type
+            name {
+              fi
+              en
+              sv
+            }
+          }
           name {
             fi
             en

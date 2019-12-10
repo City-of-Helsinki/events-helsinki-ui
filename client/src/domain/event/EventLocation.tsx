@@ -9,8 +9,8 @@ import LocationIcon from "../../icons/LocationIcon";
 import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import styles from "./eventLocation.module.scss";
+import LocationText from "./EventLocationText";
 import {
-  getEventDistrict,
   getGoogleDirectionsLink,
   getGoogleLink,
   getHslDirectionsLink
@@ -23,21 +23,6 @@ interface Props {
 const EventLocation: React.FC<Props> = ({ eventData }) => {
   const { t } = useTranslation();
   const locale = getLocale();
-
-  const getLocationStr = () => {
-    const location = eventData.eventDetails.location;
-    const addressLocality = getLocalisedString(
-      (location && location.addressLocality) || {},
-      locale
-    );
-    const district = getEventDistrict(eventData, locale);
-    const streetAddress = getLocalisedString(
-      (location && location.streetAddress) || {},
-      locale
-    );
-
-    return [streetAddress, district, addressLocality].filter(e => e).join(", ");
-  };
 
   const coordinates =
     eventData.eventDetails.location && eventData.eventDetails.location.position
@@ -65,7 +50,13 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
 
       <Map coordinates={coordinates} zoom={16} />
       <div className={styles.eventName}>{getLocalisedString(name, locale)}</div>
-      <div className={styles.location}>{getLocationStr()}</div>
+      <div className={styles.location}>
+        <LocationText
+          event={eventData.eventDetails}
+          showDistrict={true}
+          showLocationName={false}
+        />
+      </div>
       <a
         className={styles.directionsLink}
         href={getGoogleDirectionsLink(eventData, locale)}

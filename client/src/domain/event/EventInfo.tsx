@@ -58,7 +58,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
     (location && location.streetAddress) || {},
     locale
   );
-  const district = getEventDistrict(eventData, locale);
+  const district = getEventDistrict(eventData.eventDetails, locale);
 
   const languages = eventData.eventDetails.inLanguage
     .map(item => capitalize(getLocalisedString(item.name || {}, locale)))

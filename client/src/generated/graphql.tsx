@@ -322,7 +322,14 @@ export type EventListQuery = (
         & Pick<Image, 'id' | 'name' | 'url'>
       )>, location: Maybe<(
         { __typename?: 'Location' }
-        & { name: Maybe<(
+        & { divisions: Array<(
+          { __typename?: 'LocationDivision' }
+          & Pick<LocationDivision, 'type'>
+          & { name: Maybe<(
+            { __typename?: 'LocalizedObject' }
+            & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+          )> }
+        )>, name: Maybe<(
           { __typename?: 'LocalizedObject' }
           & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
         )>, addressLocality: Maybe<(
@@ -510,6 +517,14 @@ export const EventListDocument = gql`
         url
       }
       location {
+        divisions {
+          type
+          name {
+            fi
+            en
+            sv
+          }
+        }
         name {
           fi
           en

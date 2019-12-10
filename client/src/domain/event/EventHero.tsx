@@ -17,6 +17,7 @@ import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import Container from "../app/layout/Container";
 import styles from "./eventHero.module.scss";
+import LocationText from "./EventLocationText";
 import { getEventPrice } from "./EventUtils";
 
 interface Props extends RouteComponentProps {
@@ -38,26 +39,6 @@ const EventHero: React.FC<Props> = ({
 
     return offer ? getLocalisedString(offer.infoUrl || {}, locale) : "";
   }, [eventData.eventDetails.offers, locale]);
-
-  const getLocationStr = () => {
-    const location = eventData.eventDetails.location;
-    const addressLocality = getLocalisedString(
-      (location && location.addressLocality) || {},
-      locale
-    );
-    const locationName = getLocalisedString(
-      (location && location.name) || {},
-      locale
-    );
-    const streetAddress = getLocalisedString(
-      (location && location.streetAddress) || {},
-      locale
-    );
-
-    return [locationName, streetAddress, addressLocality]
-      .filter(e => e)
-      .join(", ");
-  };
 
   const handleBack = () => {
     push({ pathname: `/${locale}/search`, search });
@@ -143,7 +124,11 @@ const EventHero: React.FC<Props> = ({
                   <LocationIcon className={styles.icon} />
                 </div>
                 <div className={styles.iconTextWrapper}>
-                  {getLocationStr() || "-"}
+                  <LocationText
+                    event={eventData.eventDetails}
+                    showDistrict={false}
+                    showLocationName={true}
+                  />
                 </div>
               </div>
 
