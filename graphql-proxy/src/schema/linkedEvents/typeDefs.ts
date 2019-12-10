@@ -70,7 +70,7 @@ const typeDefs = gql`
 
   type Location {
     id: ID!
-    divisions: [LocationDivision!]!
+    divisions: [LocationDivision!]
     createdTime: String
     lastModifiedTime: String
     customData: String

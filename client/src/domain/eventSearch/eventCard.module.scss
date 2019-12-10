@@ -22,6 +22,21 @@ $imageWidth: 22.75rem;
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: cover;
+  padding: $basePadding $basePadding 1rem;
+  display: flex;
+
+  .tagWrapper {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+
+    @include respond_above(sm) {
+      display: none;
+    }
+
+    .categoryWrapper {
+      align-self: flex-end;
+    }
+  }
 }
 
 .infoWrapper {
@@ -30,8 +45,12 @@ $imageWidth: 22.75rem;
   padding-left: 2rem;
   grid-template-rows: auto 1fr auto;
 
-  .categoryWrapper {
-
+  .categoryWrapperDesktop {
+    padding-bottom: $basePadding;
+    
+    @include respond_below(sm) {
+      display: none;
+    }
   }
 
   .textWrapper {
@@ -63,9 +82,21 @@ $imageWidth: 22.75rem;
       font-size: 1rem;
       line-height: 1.875rem;
       margin-bottom: 0.5rem;
+      color: $hel-black-80;
 
       @include respond_above(sm) {
         order: 3;
+      }
+    }
+
+    .eventPrice {
+      font-size: 1rem;
+      line-height: 1.875rem;
+      margin-bottom: 0.5rem;
+      color: $hel-black-80;
+
+      @include respond_above(sm) {
+        order: 4;
       }
     }
   }

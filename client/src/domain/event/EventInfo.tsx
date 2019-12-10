@@ -225,8 +225,11 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
         </div>
         <div className={styles.iconTextWrapper}>
           <p>{t("event.info.labelPrice")}</p>
-          {getEventPrice(eventData, locale, t("event.info.offers.isFree")) ||
-            "-"}
+          {getEventPrice(
+            eventData.eventDetails,
+            locale,
+            t("event.info.offers.isFree")
+          ) || "-"}
         </div>
       </div>
 

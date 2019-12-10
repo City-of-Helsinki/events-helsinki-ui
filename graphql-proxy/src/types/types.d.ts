@@ -127,7 +127,7 @@ export type LocalizedObject = {
 export type Location = {
    __typename?: 'Location',
   id: Scalars['ID'],
-  divisions: Array<LocationDivision>,
+  divisions?: Maybe<Array<LocationDivision>>,
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
   customData?: Maybe<Scalars['String']>,

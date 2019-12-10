@@ -131,7 +131,7 @@ export type LocalizedObject = {
 export type Location = {
    __typename?: 'Location',
   id: Scalars['ID'],
-  divisions: Array<LocationDivision>,
+  divisions?: Maybe<Array<LocationDivision>>,
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
   customData?: Maybe<Scalars['String']>,
@@ -249,14 +249,14 @@ export type EventDetailsQuery = (
     )>, location: Maybe<(
       { __typename?: 'Location' }
       & Pick<Location, 'email' | 'postalCode'>
-      & { divisions: Array<(
+      & { divisions: Maybe<Array<(
         { __typename?: 'LocationDivision' }
         & Pick<LocationDivision, 'type'>
         & { name: Maybe<(
           { __typename?: 'LocalizedObject' }
           & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
         )> }
-      )>, infoUrl: Maybe<(
+      )>>, infoUrl: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
       )>, name: Maybe<(
@@ -320,16 +320,23 @@ export type EventListQuery = (
       & { images: Array<(
         { __typename?: 'Image' }
         & Pick<Image, 'id' | 'name' | 'url'>
+      )>, keywords: Array<(
+        { __typename?: 'Keyword' }
+        & Pick<Keyword, 'id'>
+        & { name: (
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+        ) }
       )>, location: Maybe<(
         { __typename?: 'Location' }
-        & { divisions: Array<(
+        & { divisions: Maybe<Array<(
           { __typename?: 'LocationDivision' }
           & Pick<LocationDivision, 'type'>
           & { name: Maybe<(
             { __typename?: 'LocalizedObject' }
             & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
           )> }
-        )>, name: Maybe<(
+        )>>, name: Maybe<(
           { __typename?: 'LocalizedObject' }
           & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
         )>, addressLocality: Maybe<(
@@ -342,7 +349,14 @@ export type EventListQuery = (
       )>, name: (
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
-      ) }
+      ), offers: Array<(
+        { __typename?: 'Offer' }
+        & Pick<Offer, 'isFree'>
+        & { price: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+        )> }
+      )> }
     )> }
   ) }
 );
@@ -516,6 +530,14 @@ export const EventListDocument = gql`
         name
         url
       }
+      keywords {
+        id
+        name {
+          fi
+          sv
+          en
+        }
+      }
       location {
         divisions {
           type
@@ -545,6 +567,14 @@ export const EventListDocument = gql`
         fi
         en
         sv
+      }
+      offers {
+        isFree
+        price {
+          fi
+          sv
+          en
+        }
       }
       startTime
       endTime

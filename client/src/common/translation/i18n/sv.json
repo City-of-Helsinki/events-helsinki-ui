@@ -34,6 +34,7 @@
   },
   "event": {
     "categories": {
+      "labelFree": "Gratis",
       "labelThisWeek": "Denna vecka",
       "labelToday": "I dag"
     },
@@ -75,7 +76,10 @@
   },
   "eventSearch": {
     "event": {
-      "dateAndTime": "{{date}}, kl {{time}}"
+      "dateAndTime": "{{date}}, kl {{time}}",
+      "offers": {
+        "isFree": "Gratis"
+      }
     },
     "filters": {
       "titleSummary": "Valda sökkriterier"

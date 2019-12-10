@@ -34,6 +34,7 @@
   },
   "event": {
     "categories": {
+      "labelFree": "Ilmainen",
       "labelThisWeek": "Tällä viikolla",
       "labelToday": "Tänään"
     },
@@ -75,7 +76,10 @@
   },
   "eventSearch": {
     "event": {
-      "dateAndTime": "{{date}}, kello {{time}}"
+      "dateAndTime": "{{date}}, kello {{time}}",
+      "offers": {
+        "isFree": "Ilmainen"
+      }
     },
     "filters": {
       "titleSummary": "Valitsemasi hakuehdot"

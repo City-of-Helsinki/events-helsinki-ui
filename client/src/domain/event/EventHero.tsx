@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { RouteComponentProps, withRouter } from "react-router";
 
 import Button from "../../common/components/button/Button";
-import Keyword from "../../common/components/keyword/Keyword";
 import { EventDetailsQuery } from "../../generated/graphql";
 import AngleRightIcon from "../../icons/AngleRightIcon";
 import ArrowLeftIcon from "../../icons/ArrowLeftIcon";
@@ -17,6 +16,7 @@ import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import Container from "../app/layout/Container";
 import styles from "./eventHero.module.scss";
+import EventKeywords from "./EventKeywords";
 import LocationText from "./EventLocationText";
 import { getEventPrice } from "./EventUtils";
 
@@ -84,27 +84,11 @@ const EventHero: React.FC<Props> = ({
             <div className={styles.textWrapper}>
               {(today || thisWeek || (!!keywords && !!keywords.length)) && (
                 <div className={styles.categoryWrapper}>
-                  {keywords &&
-                    keywords.map(keyword => {
-                      return (
-                        <Keyword
-                          key={keyword.id}
-                          keyword={getLocalisedString(keyword.name, locale)}
-                        />
-                      );
-                    })}
-                  {!today && !thisWeek && (
-                    <Keyword
-                      color="lightEngel50"
-                      keyword={t("event.categories.labelToday")}
-                    />
-                  )}
-                  {!today && thisWeek && (
-                    <Keyword
-                      color="lightEngel50"
-                      keyword={t("event.categories.labelThisWeek")}
-                    />
-                  )}
+                  <EventKeywords
+                    blackOnMobile={true}
+                    event={eventData.eventDetails}
+                    showIsFree={false}
+                  />
                 </div>
               )}
               <div className={classNames(styles.date, styles.desktopOnly)}>
@@ -140,7 +124,7 @@ const EventHero: React.FC<Props> = ({
                 </div>
                 <div className={styles.iconTextWrapper}>
                   {getEventPrice(
-                    eventData,
+                    eventData.eventDetails,
                     locale,
                     t("event.hero.offers.isFree")
                   ) || "-"}

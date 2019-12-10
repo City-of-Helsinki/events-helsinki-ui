@@ -8,8 +8,8 @@ import { EventInList } from "./types";
  * @param eventData
  * @return {boolean}
  */
-export const isEventFree = (eventData: EventDetailsQuery): boolean => {
-  const offer = eventData.eventDetails.offers.find(item => item.isFree);
+export const isEventFree = (event: EventInList): boolean => {
+  const offer = event.offers.find(item => item.isFree);
 
   return !!offer && !!offer.isFree;
 };
@@ -36,19 +36,19 @@ export const getEventDistrict = (
 
 /**
  * Get event price as a string
- * @param {object} eventData
+ * @param {object} event
  * @param {string} locale
  * @param {string} isFreeText - text to return if case that event is free
  * @return {string}
  */
 export const getEventPrice = (
-  eventData: EventDetailsQuery,
+  event: EventInList,
   locale: Language,
   isFreeText: string
 ): string => {
-  return isEventFree(eventData)
+  return isEventFree(event)
     ? isFreeText
-    : eventData.eventDetails.offers
+    : event.offers
         .map(offer => getLocalisedString(offer.price || {}, locale))
         .filter(e => e)
         .sort()

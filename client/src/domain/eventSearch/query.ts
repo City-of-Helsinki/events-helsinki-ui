@@ -15,6 +15,14 @@ export const QUERY_EVENT_LIST = gql`
           name
           url
         }
+        keywords {
+          id
+          name {
+            fi
+            sv
+            en
+          }
+        }
         location {
           divisions {
             type
@@ -44,6 +52,14 @@ export const QUERY_EVENT_LIST = gql`
           fi
           en
           sv
+        }
+        offers {
+          isFree
+          price {
+            fi
+            sv
+            en
+          }
         }
         startTime
         endTime

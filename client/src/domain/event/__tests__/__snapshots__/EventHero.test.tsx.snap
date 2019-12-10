@@ -52,10 +52,12 @@ exports[`EventHero matches snapshot 1`] = `
           <div
             className="categoryWrapper"
           >
-            <div
-              className="keyword lightEngel50"
-            >
-              Tällä viikolla
+            <div>
+              <div
+                className="keyword engelLight50"
+              >
+                Tällä viikolla
+              </div>
             </div>
           </div>
           <div

@@ -34,6 +34,7 @@
   },
   "event": {
     "categories": {
+      "labelFree": "Free",
       "labelThisWeek": "This week",
       "labelToday": "Today"
     },
@@ -75,7 +76,10 @@
   },
   "eventSearch": {
     "event": {
-      "dateAndTime": "{{date}}, at {{time}}"
+      "dateAndTime": "{{date}}, at {{time}}",
+      "offers": {
+        "isFree": "Free"
+      }
     },
     "filters": {
       "titleSummary": "Selected search criteria"
