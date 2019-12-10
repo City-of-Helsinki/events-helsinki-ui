@@ -15,18 +15,18 @@ export default (
   const dateFormat = "d. MMMM yyyy ";
 
   if (!end) {
-    return `${formatDate(new Date(start), dateFormat, locale)}${
+    return `${
       includeWeekday
         ? `${capitalize(formatDate(new Date(start), "cccc", locale))}`
         : ""
-    }`;
+    } ${formatDate(new Date(start), dateFormat, locale)}`;
   } else {
     if (isSameDay(new Date(start), new Date(end))) {
-      return `${formatDate(new Date(start), dateFormat, locale)}${
+      return `${
         includeWeekday
           ? `${capitalize(formatDate(new Date(start), "cccc", locale))}`
           : ""
-      }`;
+      } ${formatDate(new Date(start), dateFormat, locale)}`;
     } else if (isSameMonth(new Date(start), new Date(end))) {
       return `${formatDate(new Date(start), "d")} – ${formatDate(
         new Date(end),

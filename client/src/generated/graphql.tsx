@@ -30,7 +30,7 @@ export type EventDetails = {
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
   datePublished?: Maybe<Scalars['String']>,
-  startTime: Scalars['String'],
+  startTime?: Maybe<Scalars['String']>,
   endTime?: Maybe<Scalars['String']>,
   customData?: Maybe<Scalars['String']>,
   audienceMinAge?: Maybe<Scalars['String']>,
@@ -316,7 +316,26 @@ export type EventListQuery = (
       & Pick<Meta, 'count' | 'next' | 'previous'>
     ), data: Array<(
       { __typename?: 'EventDetails' }
-      & Pick<EventDetails, 'id'>
+      & Pick<EventDetails, 'id' | 'startTime' | 'endTime'>
+      & { images: Array<(
+        { __typename?: 'Image' }
+        & Pick<Image, 'id' | 'name' | 'url'>
+      )>, location: Maybe<(
+        { __typename?: 'Location' }
+        & { name: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+        )>, addressLocality: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+        )>, streetAddress: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+        )> }
+      )>, name: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+      ) }
     )> }
   ) }
 );
@@ -485,6 +504,35 @@ export const EventListDocument = gql`
     }
     data {
       id
+      images {
+        id
+        name
+        url
+      }
+      location {
+        name {
+          fi
+          en
+          sv
+        }
+        addressLocality {
+          fi
+          sv
+          en
+        }
+        streetAddress {
+          fi
+          sv
+          en
+        }
+      }
+      name {
+        fi
+        en
+        sv
+      }
+      startTime
+      endTime
     }
   }
 }

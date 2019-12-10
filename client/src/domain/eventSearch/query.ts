@@ -10,6 +10,35 @@ export const QUERY_EVENT_LIST = gql`
       }
       data {
         id
+        images {
+          id
+          name
+          url
+        }
+        location {
+          name {
+            fi
+            en
+            sv
+          }
+          addressLocality {
+            fi
+            sv
+            en
+          }
+          streetAddress {
+            fi
+            sv
+            en
+          }
+        }
+        name {
+          fi
+          en
+          sv
+        }
+        startTime
+        endTime
       }
     }
   }

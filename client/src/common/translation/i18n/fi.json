@@ -74,6 +74,9 @@
     }
   },
   "eventSearch": {
+    "event": {
+      "dateAndTime": "{{date}}, kello {{time}}"
+    },
     "filters": {
       "titleSummary": "Valitsemasi hakuehdot"
     },

@@ -74,6 +74,9 @@
     }
   },
   "eventSearch": {
+    "event": {
+      "dateAndTime": "{{date}}, at {{time}}"
+    },
     "filters": {
       "titleSummary": "Selected search criteria"
     },

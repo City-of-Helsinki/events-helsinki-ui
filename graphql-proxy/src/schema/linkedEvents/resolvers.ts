@@ -59,7 +59,7 @@ const Query = {
     const data = await dataSources.linkedEventsAPI.getEventList();
 
     return {
-      data: data.data.map(event => normalizeEvent(event)),
+      data: data.data.map(event => normalizeEvent(objectToCamelCase(event))),
       meta: data.meta
     };
   }

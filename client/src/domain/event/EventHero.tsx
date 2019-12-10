@@ -79,8 +79,8 @@ const EventHero: React.FC<Props> = ({
   const startTime = eventData.eventDetails.startTime;
   const endTime = eventData.eventDetails.endTime;
   const name = eventData.eventDetails.name;
-  const today = isToday(new Date(startTime));
-  const thisWeek = isThisWeek(new Date(startTime));
+  const today = startTime ? isToday(new Date(startTime)) : false;
+  const thisWeek = startTime ? isThisWeek(new Date(startTime)) : false;
 
   return (
     <div className={styles.heroWrapper}>
@@ -127,7 +127,7 @@ const EventHero: React.FC<Props> = ({
                 </div>
               )}
               <div className={classNames(styles.date, styles.desktopOnly)}>
-                {getDateRangeStr(startTime, endTime, locale)}
+                {!!startTime && getDateRangeStr(startTime, endTime, locale)}
               </div>
               <div className={styles.title}>
                 {getLocalisedString(name, locale)}

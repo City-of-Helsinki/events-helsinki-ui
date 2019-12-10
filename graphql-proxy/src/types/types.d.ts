@@ -26,7 +26,7 @@ export type EventDetails = {
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
   datePublished?: Maybe<Scalars['String']>,
-  startTime: Scalars['String'],
+  startTime?: Maybe<Scalars['String']>,
   endTime?: Maybe<Scalars['String']>,
   customData?: Maybe<Scalars['String']>,
   audienceMinAge?: Maybe<Scalars['String']>,

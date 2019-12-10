@@ -87,16 +87,19 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
         <div className={styles.iconTextWrapper}>
           <p>{t("event.info.labelDateAndTime")}</p>
           <div className={styles.mobileOnly}>
-            {getDateRangeStr(startTime, endTime, locale)}
+            {!!startTime && getDateRangeStr(startTime, endTime, locale)}
           </div>
 
           <div className={styles.desktopOnly}>
-            {getDateRangeStr(startTime, endTime, locale, false)}
+            {!!startTime && getDateRangeStr(startTime, endTime, locale, false)}
           </div>
           <div className={styles.desktopOnly}>
-            {capitalize(formatDate(new Date(startTime), "cccc", locale))}
+            {!!startTime &&
+              capitalize(formatDate(new Date(startTime), "cccc", locale))}
           </div>
-          <div>{getTimeRangeStr(startTime, endTime, locale)}</div>
+          <div>
+            {!!startTime && getTimeRangeStr(startTime, endTime, locale)}
+          </div>
         </div>
       </div>
 

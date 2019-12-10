@@ -74,6 +74,9 @@
     }
   },
   "eventSearch": {
+    "event": {
+      "dateAndTime": "{{date}}, kl {{time}}"
+    },
     "filters": {
       "titleSummary": "Valda sökkriterier"
     },
