@@ -355,6 +355,9 @@ export type EventListQuery = (
         & { price: Maybe<(
           { __typename?: 'LocalizedObject' }
           & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+        )>, infoUrl: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
         )> }
       )> }
     )> }
@@ -571,6 +574,11 @@ export const EventListDocument = gql`
       offers {
         isFree
         price {
+          fi
+          sv
+          en
+        }
+        infoUrl {
           fi
           sv
           en

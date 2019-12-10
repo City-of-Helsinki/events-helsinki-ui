@@ -76,6 +76,8 @@
   },
   "eventSearch": {
     "event": {
+      "buttonBuyTickets": "Osta liput",
+      "buttonReadMore": "Lue lisää",
       "dateAndTime": "{{date}}, kello {{time}}",
       "offers": {
         "isFree": "Ilmainen"

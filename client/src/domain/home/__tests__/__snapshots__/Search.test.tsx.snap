@@ -97,7 +97,7 @@ Array [
       className="buttonWrapper"
     >
       <button
-        className="btn mdSize primary fullWidth"
+        className="btn mdSize primary fullWidth hasIconAtStart"
         onClick={[Function]}
         type="button"
       >

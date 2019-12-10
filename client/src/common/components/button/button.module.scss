@@ -46,12 +46,28 @@
   font-size: $buttonFontSize;
   min-height: $mediumButtonHeight;
   padding: $mediumButtonPadding;
+  
+  &.hasIconAtEnd {
+    padding-right: 3rem;  
+  }
+
+  &.hasIconAtStart {
+    padding-left: 3rem;  
+  }
 }
 
 .smSize {
   font-size: $buttonFontSize;
   min-height: $smallButtonHeight;
   padding: $smallButtonPadding;
+
+  &.hasIconAtEnd {
+    padding-right: 3rem;  
+  }
+
+  &.hasIconAtStart {
+    padding-left: 3rem;  
+  }
 }
 
 // Button colors
@@ -59,5 +75,11 @@
 .primary {
   background-color: $dark-green;
   border-color: $dark-green;
+  color: $hel-white;  
+}
+
+.secondary {
+  background-color: $hel-black-70;
+  border-color: $hel-black-70;
   color: $hel-white;  
 }

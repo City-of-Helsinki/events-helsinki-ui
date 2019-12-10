@@ -30,7 +30,7 @@ exports[`Footer matches snapshot 1`] = `
             className="iconLink"
           >
             <a
-              href="/search"
+              href="/fi/events"
               onClick={[Function]}
             >
               <div
@@ -51,7 +51,7 @@ exports[`Footer matches snapshot 1`] = `
             className="iconLink"
           >
             <a
-              href="/search"
+              href="/fi/collections"
               onClick={[Function]}
             >
               <div

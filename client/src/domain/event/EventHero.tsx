@@ -41,7 +41,7 @@ const EventHero: React.FC<Props> = ({
   }, [eventData.eventDetails.offers, locale]);
 
   const handleBack = () => {
-    push({ pathname: `/${locale}/search`, search });
+    push({ pathname: `/${locale}/events`, search });
   };
 
   const moveToBuyTicketsPage = () => {

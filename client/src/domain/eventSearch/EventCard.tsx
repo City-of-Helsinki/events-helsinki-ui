@@ -1,7 +1,11 @@
+import classNames from "classnames";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useHistory, useLocation } from "react-router";
 
+import Button from "../../common/components/button/Button";
 import Keyword from "../../common/components/keyword/Keyword";
+import AngleRightIcon from "../../icons/TicketIcon";
 import getDateRangeStr from "../../util/getDateRangeStr";
 import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
@@ -18,7 +22,25 @@ interface Props {
 
 const EventCard: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
+  const { push } = useHistory();
+  const { search } = useLocation();
   const locale = getLocale();
+
+  const offerInfoUrl = React.useMemo(() => {
+    const offer = event.offers.find(item =>
+      getLocalisedString(item.infoUrl || {}, locale)
+    );
+
+    return offer ? getLocalisedString(offer.infoUrl || {}, locale) : "";
+  }, [event.offers, locale]);
+
+  const moveToBuyTicketsPage = React.useCallback(() => {
+    window.open(offerInfoUrl);
+  }, [offerInfoUrl]);
+
+  const moveToEventPage = React.useCallback(() => {
+    push({ pathname: `/${locale}/event/${event.id}`, search });
+  }, [event.id, locale, push, search]);
 
   const image = event.images.length ? event.images[0] : null;
   const name = event.name;
@@ -72,7 +94,27 @@ const EventCard: React.FC<Props> = ({ event }) => {
             {getEventPrice(event, locale, t("eventSearch.event.offers.isFree"))}
           </div>
         </div>
-        <div className={styles.buttonWrapper}>BUTTON</div>
+        <div className={styles.buttonWrapper}>
+          <>
+            <div className={classNames(styles.buyButtonWrapper)}>
+              {!!offerInfoUrl && (
+                <Button
+                  color="primary"
+                  iconAtStart={<AngleRightIcon />}
+                  onClick={moveToBuyTicketsPage}
+                  size="sm"
+                >
+                  {t("eventSearch.event.buttonBuyTickets")}
+                </Button>
+              )}
+            </div>
+            <div className={classNames(styles.readMoreButtonWrapper)}>
+              <Button color="secondary" onClick={moveToEventPage} size="sm">
+                {t("eventSearch.event.buttonReadMore")}
+              </Button>
+            </div>
+          </>
+        </div>
       </div>
     </div>
   );

@@ -76,6 +76,8 @@
   },
   "eventSearch": {
     "event": {
+      "buttonBuyTickets": "Buy tickets",
+      "buttonReadMore": "Read more",
       "dateAndTime": "{{date}}, at {{time}}",
       "offers": {
         "isFree": "Free"

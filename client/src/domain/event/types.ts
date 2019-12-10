@@ -10,6 +10,7 @@ import {
 
 type OfferInList = Pick<Offer, "isFree"> & {
   price: Maybe<Pick<LocalizedObject, "fi" | "sv" | "en">>;
+  infoUrl: Maybe<Pick<LocalizedObject, "fi" | "sv" | "en">>;
 };
 
 type KeywordInList = Pick<Keyword, "id"> & {

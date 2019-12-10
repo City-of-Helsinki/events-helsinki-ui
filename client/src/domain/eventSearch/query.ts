@@ -60,6 +60,11 @@ export const QUERY_EVENT_LIST = gql`
             sv
             en
           }
+          infoUrl {
+            fi
+            sv
+            en
+          }
         }
         startTime
         endTime

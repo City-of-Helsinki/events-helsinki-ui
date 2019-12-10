@@ -102,6 +102,36 @@ $imageWidth: 22.75rem;
   }
 
   .buttonWrapper {
+    display: flex;
 
+    @include respond_above(sm) {
+      justify-content: flex-end;
+    }
+
+    .buyButtonWrapper {
+      flex: 1 1 0%;
+
+      @include respond_above(sm) {
+        flex: none;
+      }
+
+      button {
+        margin-right: 0.25rem;
+        width: 100%;
+      }
+    }
+
+    .readMoreButtonWrapper {
+      flex: 1 1 0%;
+
+      @include respond_above(sm) {
+        flex: none;
+      }
+
+      button {
+        margin-left: 0.25rem;
+        width: 100%;
+      }
+    }
   }
 }
