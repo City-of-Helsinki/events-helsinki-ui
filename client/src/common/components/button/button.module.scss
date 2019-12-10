@@ -46,28 +46,12 @@
   font-size: $buttonFontSize;
   min-height: $mediumButtonHeight;
   padding: $mediumButtonPadding;
-  
-  &.hasIconAtEnd {
-    padding-right: 3rem;  
-  }
-
-  &.hasIconAtStart {
-    padding-left: 3rem;  
-  }
 }
 
 .smSize {
   font-size: $buttonFontSize;
   min-height: $smallButtonHeight;
   padding: $smallButtonPadding;
-
-  &.hasIconAtEnd {
-    padding-right: 3rem;  
-  }
-
-  &.hasIconAtStart {
-    padding-left: 3rem;  
-  }
 }
 
 // Button colors

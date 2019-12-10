@@ -33,9 +33,7 @@ const Button: FunctionComponent<Props> = ({
         styles[`${size}Size`],
         styles[color],
         {
-          [styles.fullWidth]: fullWidth,
-          [styles.hasIconAtEnd]: iconAtEnd,
-          [styles.hasIconAtStart]: iconAtStart
+          [styles.fullWidth]: fullWidth
         },
         className
       )}
