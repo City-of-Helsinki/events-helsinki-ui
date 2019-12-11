@@ -26,9 +26,10 @@ export const getEventDistrict = (
 ): string | null => {
   const location = event.location;
   const divisions = (location && location.divisions) || [];
-  const district = divisions.find(
-    division => ["district", "neighborhood"].indexOf(division.type) !== -1
+  const district = divisions.find(division =>
+    ["district", "neighborhood"].includes(division.type)
   );
+
   return district && district.name
     ? getLocalisedString(district.name, locale)
     : null;

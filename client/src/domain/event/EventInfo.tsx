@@ -163,7 +163,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             {infoUrl && (
               <a
                 className={styles.link}
-                href={infoUrl || ""}
+                href={infoUrl}
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -174,16 +174,18 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
 
             {externalLinks.map((externalLink, index) => {
               return (
-                <a
-                  key={index}
-                  className={styles.link}
-                  href={externalLink.link || ""}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {translateValue("event.info.", externalLink.name || "", t)}
-                  <AngleRightIcon />
-                </a>
+                !!externalLink.link && (
+                  <a
+                    key={index}
+                    className={styles.link}
+                    href={externalLink.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {translateValue("event.info.", externalLink.name || "", t)}
+                    <AngleRightIcon />
+                  </a>
+                )
               );
             })}
           </div>
