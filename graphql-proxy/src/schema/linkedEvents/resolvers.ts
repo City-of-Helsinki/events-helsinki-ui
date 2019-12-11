@@ -1,6 +1,25 @@
 import { EventDetails } from "../../types/types";
 import objectToCamelCase from "../../utils/objectToCamelCase";
 
+const eventDetailsQueryBuilder = () => {
+  // Get details of all needed fields
+  return "?include=in_language,keywords,location";
+};
+
+const eventListQueryBuilder = (page: number, pageSize: number) => {
+  // Get details of all needed fields
+  let query = "?include=keywords,location";
+
+  if (page) {
+    query = query.concat("&page=", page.toString());
+  }
+  if (pageSize) {
+    query = query.concat("&page_size=", pageSize.toString());
+  }
+
+  return query;
+};
+
 export const normalizeEvent = (event: EventDetails) => {
   // Rename keys starting with @ to has internal prefix (e.g. @id => internalId)
   return {
@@ -52,11 +71,15 @@ export const normalizeEvent = (event: EventDetails) => {
 
 const Query = {
   eventDetails: async (_, { id }, { dataSources }) => {
-    const data = await dataSources.linkedEventsAPI.getEventDetails(id);
+    const query = eventDetailsQueryBuilder();
+    const data = await dataSources.linkedEventsAPI.getEventDetails(id, query);
+
     return normalizeEvent(objectToCamelCase(data));
   },
-  eventList: async (_, {}, { dataSources }) => {
-    const data = await dataSources.linkedEventsAPI.getEventList();
+
+  eventList: async (_, { page, pageSize }, { dataSources }) => {
+    const query = eventListQueryBuilder(page, pageSize);
+    const data = await dataSources.linkedEventsAPI.getEventList(query);
 
     return {
       data: data.data.map(event => normalizeEvent(objectToCamelCase(event))),

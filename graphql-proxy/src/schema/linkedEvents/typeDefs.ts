@@ -3,7 +3,7 @@ import { gql } from "apollo-server";
 const typeDefs = gql`
   extend type Query {
     eventDetails(id: ID): EventDetails!
-    eventList: EventListResponse!
+    eventList(page: Int, pageSize: Int): EventListResponse!
   }
 
   type EventListResponse {
