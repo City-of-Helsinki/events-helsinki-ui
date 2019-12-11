@@ -380,7 +380,7 @@ exports[`ServerApp matches snapshot 1`] = `
           className="buttonWrapper"
         >
           <button
-            className="btn mdSize primary fullWidth hasIconAtStart"
+            className="btn mdSize primary fullWidth"
             onClick={[Function]}
             type="button"
           >

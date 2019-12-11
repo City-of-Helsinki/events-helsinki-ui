@@ -75,6 +75,7 @@
     }
   },
   "eventSearch": {
+    "buttonLoadMore": "Ladda ner fler evenemang",
     "event": {
       "buttonBuyTickets": "Köp biljetter",
       "buttonReadMore": "Läs mer",

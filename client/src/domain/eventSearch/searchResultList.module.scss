@@ -29,16 +29,36 @@
     grid-template-columns: 2fr 5fr;
   }
 
-  .filtersWrapper {
-    padding: $basePadding;
-    background-color: $hel-white;
+  .filtersContainer {
+    .filtersWrapper {
+      padding: $basePadding;
+      background-color: $hel-white;
+      margin-bottom: 0.625rem;
 
-    .titleFilterSummary {
-      font-size: $h4-font-size;
-      margin: 0 0 $baseMargin;
+      @include respond_above(sm) {
+        margin-bottom: $largeMargin;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+  
+      .titleFilterSummary {
+        font-size: $h4-font-size;
+        margin: 0 0 $baseMargin;
+      }
     }
   }
 
+  
+
   .eventListWrapper {
+    .loadMoreWrapper {
+      margin-top: 1.5rem;
+
+      @include respond_above(sm) {
+        margin-top: 0;
+      }
+    }
   }
 }

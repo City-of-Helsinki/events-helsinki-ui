@@ -212,6 +212,12 @@ export type QueryEventDetailsArgs = {
   id?: Maybe<Scalars['ID']>
 };
 
+
+export type QueryEventListArgs = {
+  page?: Maybe<Scalars['Int']>,
+  pageSize?: Maybe<Scalars['Int']>
+};
+
 export type Subscription = {
    __typename?: 'Subscription',
   _empty?: Maybe<Scalars['String']>,
@@ -304,7 +310,10 @@ export type EventDetailsQuery = (
   ) }
 );
 
-export type EventListQueryVariables = {};
+export type EventListQueryVariables = {
+  page?: Maybe<Scalars['Int']>,
+  pageSize?: Maybe<Scalars['Int']>
+};
 
 
 export type EventListQuery = (
@@ -519,8 +528,8 @@ export type EventDetailsQueryHookResult = ReturnType<typeof useEventDetailsQuery
 export type EventDetailsLazyQueryHookResult = ReturnType<typeof useEventDetailsLazyQuery>;
 export type EventDetailsQueryResult = ApolloReactCommon.QueryResult<EventDetailsQuery, EventDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList {
-  eventList {
+    query EventList($page: Int, $pageSize: Int) {
+  eventList(page: $page, pageSize: $pageSize) {
     meta {
       count
       next
@@ -614,6 +623,8 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  * @example
  * const { data, loading, error } = useEventListQuery({
  *   variables: {
+ *      page: // value for 'page'
+ *      pageSize: // value for 'pageSize'
  *   },
  * });
  */

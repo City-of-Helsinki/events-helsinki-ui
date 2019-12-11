@@ -75,6 +75,7 @@
     }
   },
   "eventSearch": {
+    "buttonLoadMore": "Load more events",
     "event": {
       "buttonBuyTickets": "Buy tickets",
       "buttonReadMore": "Read more",
