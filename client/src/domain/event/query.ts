@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-export const QUERY_FACILITY_PROFILE = gql`
+export const QUERY_EVENT_DETAILS = gql`
   query EventDetails($id: ID!) {
     eventDetails(id: $id) {
       id

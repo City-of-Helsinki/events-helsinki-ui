@@ -34,6 +34,7 @@
   },
   "event": {
     "categories": {
+      "labelFree": "Gratis",
       "labelThisWeek": "Denna vecka",
       "labelToday": "I dag"
     },
@@ -72,6 +73,21 @@
       "openMap": "Öppna kartan i ett nytt fönster",
       "title": "Lokalisering"
     }
+  },
+  "eventSearch": {
+    "buttonLoadMore": "Ladda ner fler evenemang",
+    "event": {
+      "buttonBuyTickets": "Köp biljetter",
+      "buttonReadMore": "Läs mer",
+      "dateAndTime": "{{date}}, kl {{time}}",
+      "offers": {
+        "isFree": "Gratis"
+      }
+    },
+    "filters": {
+      "titleSummary": "Valda sökkriterier"
+    },
+    "textFoundEvents": "Vi hittade {{count}} saker att göra för dig"
   },
   "footer": {
     "titleCategories": "Kategoriat (sv)",

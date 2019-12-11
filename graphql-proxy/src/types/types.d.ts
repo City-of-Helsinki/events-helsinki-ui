@@ -26,7 +26,7 @@ export type EventDetails = {
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
   datePublished?: Maybe<Scalars['String']>,
-  startTime: Scalars['String'],
+  startTime?: Maybe<Scalars['String']>,
   endTime?: Maybe<Scalars['String']>,
   customData?: Maybe<Scalars['String']>,
   audienceMinAge?: Maybe<Scalars['String']>,
@@ -43,6 +43,12 @@ export type EventDetails = {
   internalId?: Maybe<Scalars['String']>,
   internalContext?: Maybe<Scalars['String']>,
   internalType?: Maybe<Scalars['String']>,
+};
+
+export type EventListResponse = {
+   __typename?: 'EventListResponse',
+  meta: Meta,
+  data: Array<EventDetails>,
 };
 
 export type ExtensionCourse = {
@@ -121,7 +127,7 @@ export type LocalizedObject = {
 export type Location = {
    __typename?: 'Location',
   id: Scalars['ID'],
-  divisions: Array<LocationDivision>,
+  divisions?: Maybe<Array<LocationDivision>>,
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
   customData?: Maybe<Scalars['String']>,
@@ -162,6 +168,13 @@ export type LocationPosition = {
    __typename?: 'LocationPosition',
   type: Scalars['String'],
   coordinates: Array<Scalars['Float']>,
+};
+
+export type Meta = {
+   __typename?: 'Meta',
+  count: Scalars['Int'],
+  next?: Maybe<Scalars['String']>,
+  previous?: Maybe<Scalars['String']>,
 };
 
 export type Mutation = {

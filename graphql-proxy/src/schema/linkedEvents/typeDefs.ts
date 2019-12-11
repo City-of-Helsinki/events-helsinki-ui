@@ -3,6 +3,12 @@ import { gql } from "apollo-server";
 const typeDefs = gql`
   extend type Query {
     eventDetails(id: ID): EventDetails!
+    eventList(page: Int, pageSize: Int): EventListResponse!
+  }
+
+  type EventListResponse {
+    meta: Meta!
+    data: [EventDetails!]!
   }
 
   type EventDetails {
@@ -22,7 +28,7 @@ const typeDefs = gql`
     createdTime: String
     lastModifiedTime: String
     datePublished: String
-    startTime: String!
+    startTime: String
     endTime: String
     customData: String
     audienceMinAge: String
@@ -64,7 +70,7 @@ const typeDefs = gql`
 
   type Location {
     id: ID!
-    divisions: [LocationDivision!]!
+    divisions: [LocationDivision!]
     createdTime: String
     lastModifiedTime: String
     customData: String

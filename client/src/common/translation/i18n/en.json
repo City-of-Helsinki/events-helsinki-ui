@@ -34,6 +34,7 @@
   },
   "event": {
     "categories": {
+      "labelFree": "Free",
       "labelThisWeek": "This week",
       "labelToday": "Today"
     },
@@ -72,6 +73,21 @@
       "openMap": "Open the map in a new window",
       "title": "Location"
     }
+  },
+  "eventSearch": {
+    "buttonLoadMore": "Load more events",
+    "event": {
+      "buttonBuyTickets": "Buy tickets",
+      "buttonReadMore": "Read more",
+      "dateAndTime": "{{date}}, at {{time}}",
+      "offers": {
+        "isFree": "Free"
+      }
+    },
+    "filters": {
+      "titleSummary": "Selected search criteria"
+    },
+    "textFoundEvents": "We found {{count}} things to do for you"
   },
   "footer": {
     "titleCategories": "Kategoriat (en)",

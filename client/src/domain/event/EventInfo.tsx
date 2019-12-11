@@ -58,7 +58,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
     (location && location.streetAddress) || {},
     locale
   );
-  const district = getEventDistrict(eventData, locale);
+  const district = getEventDistrict(eventData.eventDetails, locale);
 
   const languages = eventData.eventDetails.inLanguage
     .map(item => capitalize(getLocalisedString(item.name || {}, locale)))
@@ -87,16 +87,19 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
         <div className={styles.iconTextWrapper}>
           <p>{t("event.info.labelDateAndTime")}</p>
           <div className={styles.mobileOnly}>
-            {getDateRangeStr(startTime, endTime, locale)}
+            {!!startTime && getDateRangeStr(startTime, endTime, locale)}
           </div>
 
           <div className={styles.desktopOnly}>
-            {getDateRangeStr(startTime, endTime, locale, false)}
+            {!!startTime && getDateRangeStr(startTime, endTime, locale, false)}
           </div>
           <div className={styles.desktopOnly}>
-            {capitalize(formatDate(new Date(startTime), "cccc", locale))}
+            {!!startTime &&
+              capitalize(formatDate(new Date(startTime), "cccc", locale))}
           </div>
-          <div>{getTimeRangeStr(startTime, endTime, locale)}</div>
+          <div>
+            {!!startTime && getTimeRangeStr(startTime, endTime, locale)}
+          </div>
         </div>
       </div>
 
@@ -125,7 +128,8 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           <a
             className={styles.link}
             href={getGoogleLink(eventData, locale)}
-            target="__blank"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             {t("event.info.openMap")}
             <AngleRightIcon />
@@ -157,7 +161,12 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             {email && <div>{email}</div>}
             {telephone && <div>{telephone}</div>}
             {infoUrl && (
-              <a className={styles.link} href={infoUrl || ""} target="__blank">
+              <a
+                className={styles.link}
+                href={infoUrl}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 {t("event.info.linkWebPage")}
                 <AngleRightIcon />
               </a>
@@ -165,15 +174,18 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
 
             {externalLinks.map((externalLink, index) => {
               return (
-                <a
-                  key={index}
-                  className={styles.link}
-                  href={externalLink.link || ""}
-                  target="__blank"
-                >
-                  {translateValue("event.info.", externalLink.name || "", t)}
-                  <AngleRightIcon />
-                </a>
+                !!externalLink.link && (
+                  <a
+                    key={index}
+                    className={styles.link}
+                    href={externalLink.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {translateValue("event.info.", externalLink.name || "", t)}
+                    <AngleRightIcon />
+                  </a>
+                )
               );
             })}
           </div>
@@ -190,7 +202,8 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           <a
             className={styles.link}
             href={getGoogleDirectionsLink(eventData, locale)}
-            target="__blank"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             {t("event.info.directionsGoogle")}
             <AngleRightIcon />
@@ -198,7 +211,8 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           <a
             className={styles.link}
             href={getHslDirectionsLink(eventData, locale)}
-            target="__blank"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             {t("event.info.directionsHSL")}
             <AngleRightIcon />
@@ -213,8 +227,11 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
         </div>
         <div className={styles.iconTextWrapper}>
           <p>{t("event.info.labelPrice")}</p>
-          {getEventPrice(eventData, locale, t("event.info.offers.isFree")) ||
-            "-"}
+          {getEventPrice(
+            eventData.eventDetails,
+            locale,
+            t("event.info.offers.isFree")
+          ) || "-"}
         </div>
       </div>
 

@@ -4,6 +4,7 @@ import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 import { changeLanguage } from "../../common/translation/TranslationUtils";
 import { SUPPORT_LANGUAGES } from "../../constants";
 import EventPageContainer from "../event/EventPageContainer";
+import EventSearchPageContainer from "../eventSearch/EventSearchPageContainer";
 import Home from "../home/Home";
 
 const App: FunctionComponent<
@@ -19,6 +20,11 @@ const App: FunctionComponent<
     <Switch>
       <Redirect exact path={`/${locale}/`} to={`/${locale}/home`} />
       <Route exact path={`/${locale}/home`} component={Home} />
+      <Route
+        exact
+        path={`/${locale}/events`}
+        component={EventSearchPageContainer}
+      />
       <Route
         exact
         path={`/${locale}/event/:id`}

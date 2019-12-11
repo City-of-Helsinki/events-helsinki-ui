@@ -38,7 +38,7 @@ const TopFooter: FunctionComponent = () => {
       startDate: null
     });
 
-    push({ pathname: `/${locale}/search`, search });
+    push({ pathname: `/${locale}/events`, search });
   };
 
   return (
@@ -53,12 +53,12 @@ const TopFooter: FunctionComponent = () => {
             <IconLink
               icon={<SearchIcon />}
               text={t("footer.searchEvents")}
-              to="/search"
+              to={`/${locale}/events`}
             />
             <IconLink
               icon={<SmileIcon />}
               text={t("footer.searchCollections")}
-              to="/search"
+              to={`/${locale}/collections`}
             />
           </div>
         </div>

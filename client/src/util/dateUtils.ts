@@ -26,7 +26,7 @@ export const formatDate = (
   const d = isNumber(date) ? date : new Date(date);
   return formatDateStr(d, format, {
     locale: get(locales, locale)
-  });
+  }).trim();
 };
 
 /**

@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { RouteComponentProps, withRouter } from "react-router";
 
 import Button from "../../common/components/button/Button";
-import Keyword from "../../common/components/keyword/Keyword";
 import { EventDetailsQuery } from "../../generated/graphql";
 import AngleRightIcon from "../../icons/AngleRightIcon";
 import ArrowLeftIcon from "../../icons/ArrowLeftIcon";
@@ -17,6 +16,8 @@ import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import Container from "../app/layout/Container";
 import styles from "./eventHero.module.scss";
+import EventKeywords from "./EventKeywords";
+import LocationText from "./EventLocationText";
 import { getEventPrice } from "./EventUtils";
 
 interface Props extends RouteComponentProps {
@@ -39,28 +40,8 @@ const EventHero: React.FC<Props> = ({
     return offer ? getLocalisedString(offer.infoUrl || {}, locale) : "";
   }, [eventData.eventDetails.offers, locale]);
 
-  const getLocationStr = () => {
-    const location = eventData.eventDetails.location;
-    const addressLocality = getLocalisedString(
-      (location && location.addressLocality) || {},
-      locale
-    );
-    const locationName = getLocalisedString(
-      (location && location.name) || {},
-      locale
-    );
-    const streetAddress = getLocalisedString(
-      (location && location.streetAddress) || {},
-      locale
-    );
-
-    return [locationName, streetAddress, addressLocality]
-      .filter(e => e)
-      .join(", ");
-  };
-
   const handleBack = () => {
-    push({ pathname: `/${locale}/search`, search });
+    push({ pathname: `/${locale}/events`, search });
   };
 
   const moveToBuyTicketsPage = () => {
@@ -79,8 +60,8 @@ const EventHero: React.FC<Props> = ({
   const startTime = eventData.eventDetails.startTime;
   const endTime = eventData.eventDetails.endTime;
   const name = eventData.eventDetails.name;
-  const today = isToday(new Date(startTime));
-  const thisWeek = isThisWeek(new Date(startTime));
+  const today = startTime ? isToday(new Date(startTime)) : false;
+  const thisWeek = startTime ? isThisWeek(new Date(startTime)) : false;
 
   return (
     <div className={styles.heroWrapper}>
@@ -103,31 +84,15 @@ const EventHero: React.FC<Props> = ({
             <div className={styles.textWrapper}>
               {(today || thisWeek || (!!keywords && !!keywords.length)) && (
                 <div className={styles.categoryWrapper}>
-                  {keywords &&
-                    keywords.map(keyword => {
-                      return (
-                        <Keyword
-                          key={keyword.id}
-                          keyword={getLocalisedString(keyword.name, locale)}
-                        />
-                      );
-                    })}
-                  {!today && !thisWeek && (
-                    <Keyword
-                      color="lightEngel50"
-                      keyword={t("event.categories.labelToday")}
-                    />
-                  )}
-                  {!today && thisWeek && (
-                    <Keyword
-                      color="lightEngel50"
-                      keyword={t("event.categories.labelThisWeek")}
-                    />
-                  )}
+                  <EventKeywords
+                    blackOnMobile={true}
+                    event={eventData.eventDetails}
+                    showIsFree={false}
+                  />
                 </div>
               )}
               <div className={classNames(styles.date, styles.desktopOnly)}>
-                {getDateRangeStr(startTime, endTime, locale)}
+                {!!startTime && getDateRangeStr(startTime, endTime, locale)}
               </div>
               <div className={styles.title}>
                 {getLocalisedString(name, locale)}
@@ -143,7 +108,11 @@ const EventHero: React.FC<Props> = ({
                   <LocationIcon className={styles.icon} />
                 </div>
                 <div className={styles.iconTextWrapper}>
-                  {getLocationStr() || "-"}
+                  <LocationText
+                    event={eventData.eventDetails}
+                    showDistrict={false}
+                    showLocationName={true}
+                  />
                 </div>
               </div>
 
@@ -155,7 +124,7 @@ const EventHero: React.FC<Props> = ({
                 </div>
                 <div className={styles.iconTextWrapper}>
                   {getEventPrice(
-                    eventData,
+                    eventData.eventDetails,
                     locale,
                     t("event.hero.offers.isFree")
                   ) || "-"}

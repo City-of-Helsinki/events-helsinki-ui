@@ -7,7 +7,7 @@ type ReactButton = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 interface Props extends ReactButton {
   className?: string;
-  color: "primary";
+  color: "primary" | "secondary";
   fullWidth?: boolean;
   iconAtEnd?: ReactElement;
   iconAtStart?: ReactElement;
@@ -32,7 +32,9 @@ const Button: FunctionComponent<Props> = ({
         styles.btn,
         styles[`${size}Size`],
         styles[color],
-        { [styles.fullWidth]: fullWidth },
+        {
+          [styles.fullWidth]: fullWidth
+        },
         className
       )}
       disabled={disabled}

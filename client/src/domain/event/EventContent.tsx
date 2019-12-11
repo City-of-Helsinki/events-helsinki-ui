@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import sanitizeHtml from "sanitize-html";
 
 import { EventDetailsQuery } from "../../generated/graphql";
 import getLocale from "../../util/getLocale";
@@ -33,7 +34,7 @@ const EventContent: React.FC<Props> = ({ eventData }) => {
             <div
               className={styles.description}
               dangerouslySetInnerHTML={{
-                __html: description
+                __html: sanitizeHtml(description)
               }}
             />
           </>

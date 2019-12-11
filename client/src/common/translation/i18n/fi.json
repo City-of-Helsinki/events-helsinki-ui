@@ -34,6 +34,7 @@
   },
   "event": {
     "categories": {
+      "labelFree": "Ilmainen",
       "labelThisWeek": "Tällä viikolla",
       "labelToday": "Tänään"
     },
@@ -72,6 +73,21 @@
       "openMap": "Avaa kartta uuteen ikkunaan",
       "title": "Sijainti"
     }
+  },
+  "eventSearch": {
+    "buttonLoadMore": "Lataa lisää tapahtumia",
+    "event": {
+      "buttonBuyTickets": "Osta liput",
+      "buttonReadMore": "Lue lisää",
+      "dateAndTime": "{{date}}, kello {{time}}",
+      "offers": {
+        "isFree": "Ilmainen"
+      }
+    },
+    "filters": {
+      "titleSummary": "Valitsemasi hakuehdot"
+    },
+    "textFoundEvents": "Löysimme sinulle {{count}} tekemistä"
   },
   "footer": {
     "titleCategories": "Kategoriat",

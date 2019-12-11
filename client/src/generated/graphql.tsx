@@ -30,7 +30,7 @@ export type EventDetails = {
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
   datePublished?: Maybe<Scalars['String']>,
-  startTime: Scalars['String'],
+  startTime?: Maybe<Scalars['String']>,
   endTime?: Maybe<Scalars['String']>,
   customData?: Maybe<Scalars['String']>,
   audienceMinAge?: Maybe<Scalars['String']>,
@@ -47,6 +47,12 @@ export type EventDetails = {
   internalId?: Maybe<Scalars['String']>,
   internalContext?: Maybe<Scalars['String']>,
   internalType?: Maybe<Scalars['String']>,
+};
+
+export type EventListResponse = {
+   __typename?: 'EventListResponse',
+  meta: Meta,
+  data: Array<EventDetails>,
 };
 
 export type ExtensionCourse = {
@@ -125,7 +131,7 @@ export type LocalizedObject = {
 export type Location = {
    __typename?: 'Location',
   id: Scalars['ID'],
-  divisions: Array<LocationDivision>,
+  divisions?: Maybe<Array<LocationDivision>>,
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
   customData?: Maybe<Scalars['String']>,
@@ -168,6 +174,13 @@ export type LocationPosition = {
   coordinates: Array<Scalars['Float']>,
 };
 
+export type Meta = {
+   __typename?: 'Meta',
+  count: Scalars['Int'],
+  next?: Maybe<Scalars['String']>,
+  previous?: Maybe<Scalars['String']>,
+};
+
 export type Mutation = {
    __typename?: 'Mutation',
   _empty?: Maybe<Scalars['String']>,
@@ -186,6 +199,7 @@ export type Query = {
   _empty?: Maybe<Scalars['String']>,
   courseDetails: EventDetails,
   eventDetails: EventDetails,
+  eventList: EventListResponse,
 };
 
 
@@ -196,6 +210,12 @@ export type QueryCourseDetailsArgs = {
 
 export type QueryEventDetailsArgs = {
   id?: Maybe<Scalars['ID']>
+};
+
+
+export type QueryEventListArgs = {
+  page?: Maybe<Scalars['Int']>,
+  pageSize?: Maybe<Scalars['Int']>
 };
 
 export type Subscription = {
@@ -235,14 +255,14 @@ export type EventDetailsQuery = (
     )>, location: Maybe<(
       { __typename?: 'Location' }
       & Pick<Location, 'email' | 'postalCode'>
-      & { divisions: Array<(
+      & { divisions: Maybe<Array<(
         { __typename?: 'LocationDivision' }
         & Pick<LocationDivision, 'type'>
         & { name: Maybe<(
           { __typename?: 'LocalizedObject' }
           & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
         )> }
-      )>, infoUrl: Maybe<(
+      )>>, infoUrl: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
       )>, name: Maybe<(
@@ -286,6 +306,69 @@ export type EventDetailsQuery = (
     )>, infoUrl: Maybe<(
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )> }
+  ) }
+);
+
+export type EventListQueryVariables = {
+  page?: Maybe<Scalars['Int']>,
+  pageSize?: Maybe<Scalars['Int']>
+};
+
+
+export type EventListQuery = (
+  { __typename?: 'Query' }
+  & { eventList: (
+    { __typename?: 'EventListResponse' }
+    & { meta: (
+      { __typename?: 'Meta' }
+      & Pick<Meta, 'count' | 'next' | 'previous'>
+    ), data: Array<(
+      { __typename?: 'EventDetails' }
+      & Pick<EventDetails, 'id' | 'startTime' | 'endTime'>
+      & { images: Array<(
+        { __typename?: 'Image' }
+        & Pick<Image, 'id' | 'name' | 'url'>
+      )>, keywords: Array<(
+        { __typename?: 'Keyword' }
+        & Pick<Keyword, 'id'>
+        & { name: (
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+        ) }
+      )>, location: Maybe<(
+        { __typename?: 'Location' }
+        & { divisions: Maybe<Array<(
+          { __typename?: 'LocationDivision' }
+          & Pick<LocationDivision, 'type'>
+          & { name: Maybe<(
+            { __typename?: 'LocalizedObject' }
+            & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+          )> }
+        )>>, name: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+        )>, addressLocality: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+        )>, streetAddress: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+        )> }
+      )>, name: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+      ), offers: Array<(
+        { __typename?: 'Offer' }
+        & Pick<Offer, 'isFree'>
+        & { price: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+        )>, infoUrl: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+        )> }
+      )> }
     )> }
   ) }
 );
@@ -444,3 +527,113 @@ export function useEventDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQuer
 export type EventDetailsQueryHookResult = ReturnType<typeof useEventDetailsQuery>;
 export type EventDetailsLazyQueryHookResult = ReturnType<typeof useEventDetailsLazyQuery>;
 export type EventDetailsQueryResult = ApolloReactCommon.QueryResult<EventDetailsQuery, EventDetailsQueryVariables>;
+export const EventListDocument = gql`
+    query EventList($page: Int, $pageSize: Int) {
+  eventList(page: $page, pageSize: $pageSize) {
+    meta {
+      count
+      next
+      previous
+    }
+    data {
+      id
+      images {
+        id
+        name
+        url
+      }
+      keywords {
+        id
+        name {
+          fi
+          sv
+          en
+        }
+      }
+      location {
+        divisions {
+          type
+          name {
+            fi
+            en
+            sv
+          }
+        }
+        name {
+          fi
+          en
+          sv
+        }
+        addressLocality {
+          fi
+          sv
+          en
+        }
+        streetAddress {
+          fi
+          sv
+          en
+        }
+      }
+      name {
+        fi
+        en
+        sv
+      }
+      offers {
+        isFree
+        price {
+          fi
+          sv
+          en
+        }
+        infoUrl {
+          fi
+          sv
+          en
+        }
+      }
+      startTime
+      endTime
+    }
+  }
+}
+    `;
+export type EventListProps<TChildProps = {}> = ApolloReactHoc.DataProps<EventListQuery, EventListQueryVariables> | TChildProps;
+export function withEventList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  EventListQuery,
+  EventListQueryVariables,
+  EventListProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, EventListQuery, EventListQueryVariables, EventListProps<TChildProps>>(EventListDocument, {
+      alias: 'eventList',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useEventListQuery__
+ *
+ * To run a query within a React component, call `useEventListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventListQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventListQuery({
+ *   variables: {
+ *      page: // value for 'page'
+ *      pageSize: // value for 'pageSize'
+ *   },
+ * });
+ */
+export function useEventListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<EventListQuery, EventListQueryVariables>) {
+        return ApolloReactHooks.useQuery<EventListQuery, EventListQueryVariables>(EventListDocument, baseOptions);
+      }
+export function useEventListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<EventListQuery, EventListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<EventListQuery, EventListQueryVariables>(EventListDocument, baseOptions);
+        }
+export type EventListQueryHookResult = ReturnType<typeof useEventListQuery>;
+export type EventListLazyQueryHookResult = ReturnType<typeof useEventListLazyQuery>;
+export type EventListQueryResult = ApolloReactCommon.QueryResult<EventListQuery, EventListQueryVariables>;
