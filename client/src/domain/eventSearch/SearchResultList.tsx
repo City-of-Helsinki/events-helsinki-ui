@@ -39,13 +39,6 @@ const SearchResultList: React.FC<Props> = ({
               {/* TODO: Add filters summary here */}
               TODO: Filter criteria summary
             </div>
-            <div className={styles.filtersWrapper}>
-              <h4 className={styles.titleFilterSummary}>
-                {t("eventSearch.filters.titleSummary")}
-              </h4>
-              {/* TODO: Add filters summary here */}
-              TODO: Filter criteria summary
-            </div>
           </div>
           <div className={styles.eventListWrapper}>
             {events.map(event => {

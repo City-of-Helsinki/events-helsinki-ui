@@ -1,6 +1,6 @@
 /**
- * Convert snake case string to camel case.
- * This is used to format data got from rest api to desired GraphQL format
+ * Normalize snake case keys to a form that GraphlQL can use
+ * Keys with @-prefix are replacing with internal-prefix
  * e.g
  * @event_type => internalEventType
  * event_end_date => eventEndDate

@@ -5,8 +5,7 @@ import normalizeKey from "./normalizeKey";
 const memoizedNormalizeKey = memoize(normalizeKey);
 
 /**
- * Convert complete object from snake case to camel case.
- * This is used to format data got from rest api to desired GraphQL format
+ * Normalize complete object using snake case keys to a format that GraphQL supports
  * e.g
  * Before:
  *  {
