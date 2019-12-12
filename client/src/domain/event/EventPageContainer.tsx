@@ -3,11 +3,13 @@ import { RouteComponentProps, withRouter } from "react-router";
 
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useEventDetailsQuery } from "../../generated/graphql";
+import isClient from "../../util/isClient";
 import Container from "../app/layout/Container";
 import Layout from "../app/layout/Layout";
 import EventContent from "./EventContent";
 import EventHero from "./EventHero";
 import styles from "./eventPage.module.scss";
+import SimilarEvents from "./SimilarEvents";
 
 const EventPageContainer: React.FC<
   RouteComponentProps<{ id: string }>
@@ -26,6 +28,7 @@ const EventPageContainer: React.FC<
               <EventHero eventData={eventData} />
               <Container>
                 <EventContent eventData={eventData} />
+                {isClient && <SimilarEvents eventData={eventData} />}
               </Container>
             </>
           )}

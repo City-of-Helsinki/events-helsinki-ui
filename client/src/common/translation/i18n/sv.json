@@ -72,6 +72,9 @@
       "directionsHSL": "Vägbeskrivning (HSL)",
       "openMap": "Öppna kartan i ett nytt fönster",
       "title": "Lokalisering"
+    },
+    "similarEvents": {
+      "title": "Andra liknande händelser"
     }
   },
   "eventSearch": {

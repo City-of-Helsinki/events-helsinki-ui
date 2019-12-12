@@ -11,7 +11,7 @@ import SearchResultList from "./SearchResultList";
 
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
-    fetchPolicy: "cache-and-network",
+    notifyOnNetworkStatusChange: true,
     variables: { pageSize: PAGE_SIZE }
   });
 

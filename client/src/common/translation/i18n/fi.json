@@ -72,6 +72,9 @@
       "directionsHSL": "Reittiohjeet (HSL)",
       "openMap": "Avaa kartta uuteen ikkunaan",
       "title": "Sijainti"
+    },
+    "similarEvents": {
+      "title": "Muita samankaltaisia tapahtumia"
     }
   },
   "eventSearch": {
