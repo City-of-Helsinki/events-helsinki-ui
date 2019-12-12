@@ -79,3 +79,6 @@ export const mockEventData = {
     startTime: "2019-12-13T08:00:00Z"
   }
 };
+
+// Amount of the similar events
+export const SIMILAR_EVENTS_AMOUNT = 8;

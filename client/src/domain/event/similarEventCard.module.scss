@@ -1,0 +1,128 @@
+@import "colors";
+@import "fonts";
+@import "layout";
+@import "variables";
+
+$imageHeight: 8rem;
+$imageHeightDesktop: 14.5rem;
+$imageWidth: 6.375rem;
+
+.similarEventCard {
+  background-color: $hel-white;
+  display: grid;
+  margin-bottom: 0.625rem;
+  grid-template-columns: $imageWidth 1fr;
+
+  @include respond_above(sm) {
+    grid-template-columns: none;
+    grid-template-rows: auto 1fr;
+    margin-bottom: 0;
+  }
+}
+
+.imageWrapper {
+  min-height: $imageHeight;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: cover;
+  padding: $basePadding $basePadding 1rem;
+  display: flex;
+  box-sizing: border-box;
+
+
+  @include respond_above(sm) {
+    min-height: $imageHeightDesktop;
+  }
+
+  .tagWrapperDesktop {
+    display: none;
+
+    @include respond_above(sm) {
+      display: grid;
+      grid-template-rows: auto 1fr;
+
+      .categoryWrapper {
+        align-self: flex-end;
+      }
+    }
+  }
+}
+.categoryWrapperMobile {
+  padding-bottom: 0.5rem;
+
+  @include respond_above(sm) {
+    display: none;
+  }
+}
+
+.infoWrapper {
+  display: grid;
+  padding: 0.625rem;
+  grid-template-columns: 1fr auto;
+
+  @include respond_above(sm) {
+    grid-template-columns: none;
+    grid-template-rows: 1fr auto;
+  }
+
+  .textWrapper {
+    display: flex;
+    flex-direction: column;
+
+    .eventDateAndTime {
+      font-size: $font-size-base;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+
+      @include respond_above(sm) {
+        font-size: $font-size-lg;
+      }
+    }
+
+    .eventName {
+      font-size: $font-size-lg;
+      line-height: 1.25rem;
+      font-weight: $font-weight-bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .eventLocation {
+      font-size: $font-size-base;
+      margin-bottom: 0.5rem;
+      color: $hel-black-80;
+
+      @include respond_below(sm) {
+        display: none;
+      }
+    }
+
+    .eventPrice {
+      font-size: $font-size-base;
+      color: $hel-black-80;
+    }
+  }
+  .buttonWrapper {
+    padding-left: 0.625rem;
+    align-self: center;
+
+    button {
+      height: $iconButtonSize;
+      width: $iconButtonSize;
+      background-color: $hel-copper-light-20;
+      border-color: $hel-copper-light-20;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+
+      svg {
+        height: $iconButtonIconSize;
+        width: $iconButtonIconSize;
+      }
+    }
+
+    @include respond_above(sm) {
+      padding-left: 0;
+      padding-top: 0.625rem;
+    }
+  }
+} 

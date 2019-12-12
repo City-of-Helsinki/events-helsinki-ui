@@ -72,6 +72,9 @@
       "directionsHSL": "Directions (HSL)",
       "openMap": "Open the map in a new window",
       "title": "Location"
+    },
+    "similarEvents": {
+      "title": "Other similar events"
     }
   },
   "eventSearch": {

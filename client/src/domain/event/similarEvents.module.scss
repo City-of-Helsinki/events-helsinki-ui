@@ -1,0 +1,22 @@
+@import "fonts";
+@import "layout";
+@import "variables";
+
+.similarEvents {
+  margin: $largeMargin 0;
+}
+
+.similarEventsTitle {
+  margin-top: 0;
+  font-size: $h2-font-size;
+  font-weight: $font-weight-bold;
+}
+
+.similarEventList {
+  display: grid;
+
+  @include respond_above(sm) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: $largePadding;
+  }
+}
