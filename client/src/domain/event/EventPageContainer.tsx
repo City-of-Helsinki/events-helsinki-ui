@@ -6,9 +6,11 @@ import { useEventDetailsQuery } from "../../generated/graphql";
 import isClient from "../../util/isClient";
 import Container from "../app/layout/Container";
 import Layout from "../app/layout/Layout";
+import EventClosedHero from "./EventClosedHero";
 import EventContent from "./EventContent";
 import EventHero from "./EventHero";
 import styles from "./eventPage.module.scss";
+import { isEventClosed } from "./EventUtils";
 import SimilarEvents from "./SimilarEvents";
 
 const EventPageContainer: React.FC<
@@ -19,15 +21,23 @@ const EventPageContainer: React.FC<
     variables: { id: eventId }
   });
 
+  const eventClosed = !eventData || isEventClosed(eventData.eventDetails);
+
   return (
     <Layout>
       <div className={styles.eventPageWrapper}>
         <LoadingSpinner isLoading={loading}>
           {eventData && (
             <>
-              <EventHero eventData={eventData} />
+              {!!eventClosed ? (
+                <EventClosedHero />
+              ) : (
+                <EventHero eventData={eventData} />
+              )}
               <Container>
-                <EventContent eventData={eventData} />
+                {/* Show event content only if event is open */}
+                {!eventClosed && <EventContent eventData={eventData} />}
+                {/* Hide similar event on SSR to make initial load faster */}
                 {isClient && <SimilarEvents eventData={eventData} />}
               </Container>
             </>

@@ -1,7 +1,18 @@
+import { isPast } from "date-fns";
+
 import { EventDetailsQuery } from "../../generated/graphql";
 import { Language } from "../../types";
 import getLocalisedString from "../../util/getLocalisedString";
 import { EventInList } from "./types";
+
+/**
+ * Check is event closed
+ * @param event
+ * @return {boolean}
+ */
+export const isEventClosed = (event: EventInList): boolean => {
+  return !!event.endTime && isPast(new Date(event.endTime));
+};
 
 /**
  * Check is event free

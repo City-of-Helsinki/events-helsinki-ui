@@ -43,9 +43,11 @@
     },
     "hero": {
       "buttonBuyTickets": "Osta liput",
+      "buttonToHomePage": "Kotisivulle",
       "offers": {
         "isFree": "Ilmainen"
-      }
+      },
+      "textEventClosed": "Etsimäsi tapahtuma on ehtinyt jo päättymään"
     },
     "info": {
       "buttonBuyTickets": "Osta liput",

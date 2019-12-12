@@ -43,9 +43,11 @@
     },
     "hero": {
       "buttonBuyTickets": "Buy tickets",
+      "buttonToHomePage": "To front page",
       "offers": {
         "isFree": "Free"
-      }
+      },
+      "textEventClosed": "The event you are looking for has already ended"
     },
     "info": {
       "buttonBuyTickets": "Buy tickets",
