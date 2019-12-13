@@ -48,6 +48,7 @@
       }
     },
     "info": {
+      "buttonAddToCalendar": "Lisää kalenteriin",
       "buttonBuyTickets": "Osta liput",
       "directionsGoogle": "Reittiohjeet (Google)",
       "directionsHSL": "Reittiohjeet (HSL)",
@@ -65,7 +66,8 @@
       "offers": {
         "isFree": "Ilmainen"
       },
-      "openMap": "Avaa kartta"
+      "openMap": "Avaa kartta",
+      "textCalendarLinkDescription": "{{description}} Lue lisää: {{link}}"
     },
     "location": {
       "directionsGoogle": "Reittiohjeet (Google)",

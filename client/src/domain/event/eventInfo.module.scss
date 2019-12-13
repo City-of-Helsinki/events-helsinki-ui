@@ -56,6 +56,12 @@
   font-size: $font-size-lg;
   font-weight: $link-font-weight;
   text-decoration: none;
+  background: transparent;
+  border: none;
+  padding: unset;
+  display: block;
+  width: 100%;
+  text-align: left;
 
   &:hover {
     text-decoration: underline;
