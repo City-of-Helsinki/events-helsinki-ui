@@ -1,3 +1,5 @@
+import "./common/test/test18nInit";
+
 import { configure } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
