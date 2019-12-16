@@ -22,14 +22,14 @@ const eventListQueryBuilder = (page: number, pageSize: number) => {
 const Query = {
   eventDetails: async (_, { id }, { dataSources }) => {
     const query = eventDetailsQueryBuilder();
-    const data = await dataSources.linkedEventsAPI.getEventDetails(id, query);
+    const data = await dataSources.eventAPI.getEventDetails(id, query);
 
     return normalizeKeys(data);
   },
 
   eventList: async (_, { page, pageSize }, { dataSources }) => {
     const query = eventListQueryBuilder(page, pageSize);
-    const data = await dataSources.linkedEventsAPI.getEventList(query);
+    const data = await dataSources.eventAPI.getEventList(query);
 
     return {
       data: data.data.map(event => {

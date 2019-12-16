@@ -4,15 +4,13 @@ import dotenv from "dotenv";
 import express from "express";
 import depthLimit from "graphql-depth-limit";
 
-import LinkedCoursesAPI from "./datasources/linkedCourses";
-import LinkedEventsAPI from "./datasources/linkedEvents";
+import EventAPI from "./datasources/event";
 import schema from "./schema";
 
 dotenv.config();
 
 const dataSources = () => ({
-  linkedCoursesAPI: new LinkedCoursesAPI(),
-  linkedEventsAPI: new LinkedEventsAPI()
+  eventAPI: new EventAPI()
 });
 
 (async () => {
