@@ -32,7 +32,7 @@ const OrganizationInfo: React.FC<Props> = ({ eventData }) => {
   );
 
   const getSearchLink = () => {
-    return `/${locale}/events?organization=${eventData.eventDetails.publisher}`;
+    return `/${locale}/events?publisher=${eventData.eventDetails.publisher}`;
   };
 
   return (

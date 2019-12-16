@@ -5,7 +5,11 @@ const eventDetailsQueryBuilder = () => {
   return "?include=in_language,keywords,location";
 };
 
-const eventListQueryBuilder = (page: number, pageSize: number) => {
+const eventListQueryBuilder = (
+  page: number,
+  pageSize: number,
+  publisher: string
+) => {
   // Get details of all needed fields
   let query = "?include=keywords,location";
 
@@ -14,6 +18,9 @@ const eventListQueryBuilder = (page: number, pageSize: number) => {
   }
   if (pageSize) {
     query = query.concat("&page_size=", pageSize.toString());
+  }
+  if (publisher) {
+    query = query.concat("&publisher=", publisher);
   }
 
   return query;
@@ -27,8 +34,8 @@ const Query = {
     return normalizeKeys(data);
   },
 
-  eventList: async (_, { page, pageSize }, { dataSources }) => {
-    const query = eventListQueryBuilder(page, pageSize);
+  eventList: async (_, { page, pageSize, publisher }, { dataSources }) => {
+    const query = eventListQueryBuilder(page, pageSize, publisher);
     const data = await dataSources.eventAPI.getEventList(query);
 
     return {

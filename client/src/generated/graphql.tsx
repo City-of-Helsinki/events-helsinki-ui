@@ -230,7 +230,8 @@ export type QueryEventDetailsArgs = {
 
 export type QueryEventListArgs = {
   page?: Maybe<Scalars['Int']>,
-  pageSize?: Maybe<Scalars['Int']>
+  pageSize?: Maybe<Scalars['Int']>,
+  publisher?: Maybe<Scalars['ID']>
 };
 
 
@@ -348,7 +349,8 @@ export type OrganizationDetailsQuery = (
 
 export type EventListQueryVariables = {
   page?: Maybe<Scalars['Int']>,
-  pageSize?: Maybe<Scalars['Int']>
+  pageSize?: Maybe<Scalars['Int']>,
+  publisher?: Maybe<Scalars['ID']>
 };
 
 
@@ -615,8 +617,8 @@ export type OrganizationDetailsQueryHookResult = ReturnType<typeof useOrganizati
 export type OrganizationDetailsLazyQueryHookResult = ReturnType<typeof useOrganizationDetailsLazyQuery>;
 export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($page: Int, $pageSize: Int) {
-  eventList(page: $page, pageSize: $pageSize) {
+    query EventList($page: Int, $pageSize: Int, $publisher: ID) {
+  eventList(page: $page, pageSize: $pageSize, publisher: $publisher) {
     meta {
       count
       next
@@ -712,6 +714,7 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  *   variables: {
  *      page: // value for 'page'
  *      pageSize: // value for 'pageSize'
+ *      publisher: // value for 'publisher'
  *   },
  * });
  */

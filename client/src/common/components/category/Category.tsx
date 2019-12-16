@@ -1,6 +1,6 @@
+import { IconClose } from "hds-react";
 import React, { FunctionComponent } from "react";
 
-import { ReactComponent as CloseIcon } from "../../../assets/icons/svg/close.svg";
 import { formatMessage } from "../../translation/TranslationUtils";
 import { Category as CategoryType } from "../../types";
 import styles from "./category.module.scss";
@@ -25,7 +25,7 @@ const Category: FunctionComponent<Props> = ({ category, onRemove }) => {
           category: category.text
         })}
       >
-        <CloseIcon />
+        <IconClose />
       </button>
       {category.text}
     </div>

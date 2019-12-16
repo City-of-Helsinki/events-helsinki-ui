@@ -34,6 +34,7 @@ const TopFooter: FunctionComponent = () => {
       dateTypes: [],
       endDate: null,
       isCustomDate: false,
+      publisher: null,
       search: "",
       startDate: null
     });

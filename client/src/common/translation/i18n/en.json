@@ -30,6 +30,10 @@
       },
       "title": "Valitse ajankohta (en)"
     },
+    "filter": {
+      "ariaButtonRemove": "Remove filter: {{filter}}"
+    },
+    "loading": "Loading...",
     "supriseMe": "Yllätä minut (en)"
   },
   "event": {
@@ -90,6 +94,7 @@
       }
     },
     "filters": {
+      "textNoFilters": "No search criteria",
       "titleSummary": "Selected search criteria"
     },
     "textFoundEvents": "We found {{count}} things to do for you"

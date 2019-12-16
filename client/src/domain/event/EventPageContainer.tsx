@@ -19,6 +19,13 @@ const EventPageContainer: React.FC<
     variables: { id: eventId }
   });
 
+  React.useEffect(() => {
+    // Scroll to top when page loads. Ignore this on SSR because window doesn't exist
+    if (isClient) {
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   return (
     <Layout>
       <div className={styles.eventPageWrapper}>
