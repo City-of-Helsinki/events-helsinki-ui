@@ -16,7 +16,7 @@ const mocks = [
     },
     result: {
       data: {
-        dog: { id: "1", name: "Buck" }
+        organizationDetails: { id: "1", name: "Test" }
       }
     }
   }
