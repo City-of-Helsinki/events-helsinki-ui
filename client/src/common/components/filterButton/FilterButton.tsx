@@ -1,7 +1,7 @@
+import { IconClose } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import CloseIcon from "../../../icons/CloseIcon";
 import styles from "./filterButton.module.scss";
 
 export type FilterType = "category" | "publisher";
@@ -30,7 +30,7 @@ const FilterButton: React.FC<Props> = ({ onRemove, text, type, value }) => {
           filter: text
         })}
       >
-        <CloseIcon />
+        <IconClose />
       </button>
       {text}
     </div>

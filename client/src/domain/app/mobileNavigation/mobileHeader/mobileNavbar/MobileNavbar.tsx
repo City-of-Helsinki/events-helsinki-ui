@@ -1,9 +1,9 @@
+import { IconClose } from "hds-react";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
 import { ReactComponent as MenuIcon } from "../../../../../assets/icons/svg/menu.svg";
-import CloseIcon from "../../../../../icons/CloseIcon";
 import LanguageDropdown from "../../../header/navbar/languageDropdown/LanguageDropdown";
 import styles from "./mobileNavbar.module.scss";
 
@@ -36,7 +36,7 @@ const MobileNavbar: React.FC<Props> = ({
               onClick={onCloseMenu}
               aria-label={t("header.ariaButtonCloseMenu")}
             >
-              <CloseIcon />
+              <IconClose />
             </button>
           </>
         ) : (
