@@ -5,12 +5,14 @@ import express from "express";
 import depthLimit from "graphql-depth-limit";
 
 import EventAPI from "./datasources/event";
+import OrganizationAPI from "./datasources/organization";
 import schema from "./schema";
 
 dotenv.config();
 
 const dataSources = () => ({
-  eventAPI: new EventAPI()
+  eventAPI: new EventAPI(),
+  organizationAPI: new OrganizationAPI()
 });
 
 (async () => {

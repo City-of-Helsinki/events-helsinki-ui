@@ -190,6 +190,26 @@ export type Offer = {
   infoUrl?: Maybe<LocalizedObject>,
 };
 
+export type OrganizationDetails = {
+   __typename?: 'OrganizationDetails',
+  id: Scalars['ID'],
+  dataSource?: Maybe<Scalars['String']>,
+  classification?: Maybe<Scalars['String']>,
+  name?: Maybe<Scalars['String']>,
+  foundingDate?: Maybe<Scalars['String']>,
+  dissolutionDate?: Maybe<Scalars['String']>,
+  parentOrganization?: Maybe<Scalars['String']>,
+  subOrganizations?: Maybe<Array<Maybe<Scalars['String']>>>,
+  affiliatedOrganizations?: Maybe<Array<Maybe<Scalars['String']>>>,
+  createdTime?: Maybe<Scalars['String']>,
+  lastModifiedTime?: Maybe<Scalars['String']>,
+  isAffiliated: Scalars['Boolean'],
+  replacedBy?: Maybe<Scalars['String']>,
+  internalId?: Maybe<Scalars['String']>,
+  internalContext?: Maybe<Scalars['String']>,
+  internalType?: Maybe<Scalars['String']>,
+};
+
 export type Query = {
    __typename?: 'Query',
   _empty?: Maybe<Scalars['String']>,
