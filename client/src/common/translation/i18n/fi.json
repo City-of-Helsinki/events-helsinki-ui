@@ -59,8 +59,10 @@
       "labelDistricts": "Löydä perille",
       "labelLanguages": "Kielet",
       "labelLocation": "Paikka",
+      "labelOrganizer": "Järjestäjän tiedot",
       "labelOtherInfo": "Muut tiedot",
       "labelPrice": "Hinta",
+      "linkSearchByOrganization": "Katso muut järjestäjän tapahtumat",
       "linkWebPage": "Verkkosivu",
       "offers": {
         "isFree": "Ilmainen"

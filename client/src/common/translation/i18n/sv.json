@@ -59,8 +59,10 @@
       "labelDistricts": "Hitta din väg",
       "labelLanguages": "Språk",
       "labelLocation": "Lokalisering",
+      "labelOrganizer": "Arrangörsinformation",
       "labelOtherInfo": "Annan information",
       "labelPrice": "Pris",
+      "linkSearchByOrganization": "Se andra evenemang av arrangören",
       "linkWebPage": "Webbsida",
       "offers": {
         "isFree": "Gratis"

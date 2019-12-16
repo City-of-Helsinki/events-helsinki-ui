@@ -194,17 +194,32 @@ export type Offer = {
   infoUrl?: Maybe<LocalizedObject>,
 };
 
+export type OrganizationDetails = {
+   __typename?: 'OrganizationDetails',
+  id: Scalars['ID'],
+  dataSource?: Maybe<Scalars['String']>,
+  classification?: Maybe<Scalars['String']>,
+  name?: Maybe<Scalars['String']>,
+  foundingDate?: Maybe<Scalars['String']>,
+  dissolutionDate?: Maybe<Scalars['String']>,
+  parentOrganization?: Maybe<Scalars['String']>,
+  subOrganizations?: Maybe<Array<Maybe<Scalars['String']>>>,
+  affiliatedOrganizations?: Maybe<Array<Maybe<Scalars['String']>>>,
+  createdTime?: Maybe<Scalars['String']>,
+  lastModifiedTime?: Maybe<Scalars['String']>,
+  isAffiliated: Scalars['Boolean'],
+  replacedBy?: Maybe<Scalars['String']>,
+  internalId?: Maybe<Scalars['String']>,
+  internalContext?: Maybe<Scalars['String']>,
+  internalType?: Maybe<Scalars['String']>,
+};
+
 export type Query = {
    __typename?: 'Query',
   _empty?: Maybe<Scalars['String']>,
-  courseDetails: EventDetails,
   eventDetails: EventDetails,
   eventList: EventListResponse,
-};
-
-
-export type QueryCourseDetailsArgs = {
-  id?: Maybe<Scalars['ID']>
+  organizationDetails: OrganizationDetails,
 };
 
 
@@ -216,6 +231,11 @@ export type QueryEventDetailsArgs = {
 export type QueryEventListArgs = {
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>
+};
+
+
+export type QueryOrganizationDetailsArgs = {
+  id?: Maybe<Scalars['ID']>
 };
 
 export type Subscription = {
@@ -232,7 +252,7 @@ export type EventDetailsQuery = (
   { __typename?: 'Query' }
   & { eventDetails: (
     { __typename?: 'EventDetails' }
-    & Pick<EventDetails, 'id' | 'endTime' | 'startTime'>
+    & Pick<EventDetails, 'id' | 'endTime' | 'startTime' | 'publisher'>
     & { externalLinks: Array<(
       { __typename?: 'ExternalLink' }
       & Pick<ExternalLink, 'name' | 'link'>
@@ -303,10 +323,26 @@ export type EventDetailsQuery = (
     )>, shortDescription: Maybe<(
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+    )>, provider: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
     )>, infoUrl: Maybe<(
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
     )> }
+  ) }
+);
+
+export type OrganizationDetailsQueryVariables = {
+  id: Scalars['ID']
+};
+
+
+export type OrganizationDetailsQuery = (
+  { __typename?: 'Query' }
+  & { organizationDetails: (
+    { __typename?: 'OrganizationDetails' }
+    & Pick<OrganizationDetails, 'id' | 'name'>
   ) }
 );
 
@@ -482,6 +518,12 @@ export const EventDetailsDocument = gql`
     }
     endTime
     startTime
+    publisher
+    provider {
+      fi
+      sv
+      en
+    }
     infoUrl {
       fi
       sv
@@ -527,6 +569,51 @@ export function useEventDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQuer
 export type EventDetailsQueryHookResult = ReturnType<typeof useEventDetailsQuery>;
 export type EventDetailsLazyQueryHookResult = ReturnType<typeof useEventDetailsLazyQuery>;
 export type EventDetailsQueryResult = ApolloReactCommon.QueryResult<EventDetailsQuery, EventDetailsQueryVariables>;
+export const OrganizationDetailsDocument = gql`
+    query OrganizationDetails($id: ID!) {
+  organizationDetails(id: $id) {
+    id
+    name
+  }
+}
+    `;
+export type OrganizationDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<OrganizationDetailsQuery, OrganizationDetailsQueryVariables> | TChildProps;
+export function withOrganizationDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  OrganizationDetailsQuery,
+  OrganizationDetailsQueryVariables,
+  OrganizationDetailsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, OrganizationDetailsQuery, OrganizationDetailsQueryVariables, OrganizationDetailsProps<TChildProps>>(OrganizationDetailsDocument, {
+      alias: 'organizationDetails',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useOrganizationDetailsQuery__
+ *
+ * To run a query within a React component, call `useOrganizationDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOrganizationDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOrganizationDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useOrganizationDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>) {
+        return ApolloReactHooks.useQuery<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>(OrganizationDetailsDocument, baseOptions);
+      }
+export function useOrganizationDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>(OrganizationDetailsDocument, baseOptions);
+        }
+export type OrganizationDetailsQueryHookResult = ReturnType<typeof useOrganizationDetailsQuery>;
+export type OrganizationDetailsLazyQueryHookResult = ReturnType<typeof useOrganizationDetailsLazyQuery>;
+export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>;
 export const EventListDocument = gql`
     query EventList($page: Int, $pageSize: Int) {
   eventList(page: $page, pageSize: $pageSize) {

@@ -59,8 +59,10 @@
       "labelDistricts": "Find your way",
       "labelLanguages": "Languages",
       "labelLocation": "Location",
+      "labelOrganizer": "Organizer information",
       "labelOtherInfo": "Other information",
       "labelPrice": "Price",
+      "linkSearchByOrganization": "See other events by organizer",
       "linkWebPage": "Web page",
       "offers": {
         "isFree": "Free"
