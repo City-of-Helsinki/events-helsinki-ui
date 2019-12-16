@@ -1,3 +1,4 @@
+import unescape from "lodash/unescape";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import sanitizeHtml from "sanitize-html";
@@ -34,7 +35,7 @@ const EventContent: React.FC<Props> = ({ eventData }) => {
             <div
               className={styles.description}
               dangerouslySetInnerHTML={{
-                __html: sanitizeHtml(description)
+                __html: sanitizeHtml(unescape(description))
               }}
             />
           </>
