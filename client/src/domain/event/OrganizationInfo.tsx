@@ -22,6 +22,7 @@ const OrganizationInfo: React.FC<Props> = ({ eventData }) => {
   const locale = getLocale();
   const { data: organizationData, loading } = useOrganizationDetailsQuery({
     skip: !eventData.eventDetails.publisher,
+    ssr: false,
     variables: { id: eventData.eventDetails.publisher || "" }
   });
 

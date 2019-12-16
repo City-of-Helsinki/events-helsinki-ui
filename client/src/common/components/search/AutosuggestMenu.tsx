@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import { IconClose } from "hds-react";
 import React, { FunctionComponent } from "react";
 
+import CloseIcon from "../../../icons/CloseIcon";
 import { formatMessage } from "../../translation/TranslationUtils";
 import { AutosuggestMenuItem } from "../../types";
 import styles from "./autosuggestMenu.module.scss";
@@ -30,7 +30,7 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
           className={styles.closeButton}
           onClick={onClose}
         >
-          <IconClose />
+          <CloseIcon />
         </button>
       </div>
       <ul className={styles.autosuggesItems}>

@@ -36,7 +36,7 @@ const EventPageContainer: React.FC<
               <EventHero eventData={eventData} />
               <Container>
                 <EventContent eventData={eventData} />
-                {isClient && <SimilarEvents eventData={eventData} />}
+                <SimilarEvents eventData={eventData} />
               </Container>
             </>
           )}
