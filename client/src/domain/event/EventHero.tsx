@@ -1,13 +1,17 @@
 import classNames from "classnames";
 import { isThisWeek, isToday } from "date-fns";
-import { IconAngleRight, IconArrowLeft, IconLocation } from "hds-react";
+import {
+  IconAngleRight,
+  IconArrowLeft,
+  IconLocation,
+  IconShare
+} from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps, withRouter } from "react-router";
 
 import Button from "../../common/components/button/Button";
 import { EventDetailsQuery } from "../../generated/graphql";
-import ShareIcon from "../../icons/ShareIcon";
 import TicketIcon from "../../icons/TicketIcon";
 import getDateRangeStr from "../../util/getDateRangeStr";
 import getLocale from "../../util/getLocale";
@@ -150,7 +154,7 @@ const EventHero: React.FC<Props> = ({
             </div>
             <div className={styles.shareWrapper}>
               <button className={styles.shareButton} onClick={handleShare}>
-                <ShareIcon />
+                <IconShare />
               </button>
             </div>
           </div>
