@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { saveAs } from "file-saver";
-import { IconAngleRight } from "hds-react";
+import { IconAngleRight, IconLocation } from "hds-react";
 import { createEvent, EventAttributes } from "ics";
 import capitalize from "lodash/capitalize";
 import React from "react";
@@ -12,7 +12,6 @@ import CalendarIcon from "../../icons/CalendarIcon";
 import DirectionsIcon from "../../icons/DirectionsIcon";
 import InfoIcon from "../../icons/InfoIcon";
 import LanguageIcon from "../../icons/LanguageIcon";
-import LocationIcon from "../../icons/LocationIcon";
 import TicketIcon from "../../icons/TicketIcon";
 import { formatDate } from "../../util/dateUtils";
 import getDateArray from "../../util/getDateArray";
@@ -153,7 +152,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
       {/* Location info */}
       <div className={styles.infoWithIcon}>
         <div className={styles.iconWrapper}>
-          <LocationIcon className={styles.icon} />
+          <IconLocation className={styles.icon} />
         </div>
         <div className={styles.iconTextWrapper}>
           <p>{t("event.info.labelLocation")}</p>

@@ -1,13 +1,12 @@
 import classNames from "classnames";
 import { isThisWeek, isToday } from "date-fns";
-import { IconAngleRight, IconArrowLeft } from "hds-react";
+import { IconAngleRight, IconArrowLeft, IconLocation } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps, withRouter } from "react-router";
 
 import Button from "../../common/components/button/Button";
 import { EventDetailsQuery } from "../../generated/graphql";
-import LocationIcon from "../../icons/LocationIcon";
 import ShareIcon from "../../icons/ShareIcon";
 import TicketIcon from "../../icons/TicketIcon";
 import getDateRangeStr from "../../util/getDateRangeStr";
@@ -104,7 +103,7 @@ const EventHero: React.FC<Props> = ({
                 className={classNames(styles.infoWithIcon, styles.desktopOnly)}
               >
                 <div className={styles.iconWrapper}>
-                  <LocationIcon className={styles.icon} />
+                  <IconLocation className={styles.icon} />
                 </div>
                 <div className={styles.iconTextWrapper}>
                   <LocationText
