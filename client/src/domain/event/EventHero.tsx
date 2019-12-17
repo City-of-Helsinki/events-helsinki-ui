@@ -4,7 +4,8 @@ import {
   IconAngleRight,
   IconArrowLeft,
   IconLocation,
-  IconShare
+  IconShare,
+  IconTicket
 } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -12,7 +13,6 @@ import { RouteComponentProps, withRouter } from "react-router";
 
 import Button from "../../common/components/button/Button";
 import { EventDetailsQuery } from "../../generated/graphql";
-import TicketIcon from "../../icons/TicketIcon";
 import getDateRangeStr from "../../util/getDateRangeStr";
 import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
@@ -122,7 +122,7 @@ const EventHero: React.FC<Props> = ({
                 className={classNames(styles.infoWithIcon, styles.desktopOnly)}
               >
                 <div className={styles.iconWrapper}>
-                  <TicketIcon className={styles.icon} />
+                  <IconTicket className={styles.icon} />
                 </div>
                 <div className={styles.iconTextWrapper}>
                   {getEventPrice(

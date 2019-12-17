@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { saveAs } from "file-saver";
-import { IconAngleRight, IconInfo, IconLocation } from "hds-react";
+import { IconAngleRight, IconInfo, IconLocation, IconTicket } from "hds-react";
 import { createEvent, EventAttributes } from "ics";
 import capitalize from "lodash/capitalize";
 import React from "react";
@@ -11,7 +11,6 @@ import { EventDetailsQuery } from "../../generated/graphql";
 import CalendarIcon from "../../icons/CalendarIcon";
 import DirectionsIcon from "../../icons/DirectionsIcon";
 import LanguageIcon from "../../icons/LanguageIcon";
-import TicketIcon from "../../icons/TicketIcon";
 import { formatDate } from "../../util/dateUtils";
 import getDateArray from "../../util/getDateArray";
 import getDateRangeStr from "../../util/getDateRangeStr";
@@ -270,7 +269,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
       {/* Price info */}
       <div className={classNames(styles.infoWithIcon, styles.mobileOnly)}>
         <div className={styles.iconWrapper}>
-          <TicketIcon className={styles.icon} />
+          <IconTicket className={styles.icon} />
         </div>
         <div className={styles.iconTextWrapper}>
           <p>{t("event.info.labelPrice")}</p>
@@ -287,7 +286,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           <Button
             color="primary"
             fullWidth={true}
-            iconAtStart={<TicketIcon />}
+            iconAtStart={<IconTicket />}
             onClick={moveToBuyTicketsPage}
             size="sm"
           >
