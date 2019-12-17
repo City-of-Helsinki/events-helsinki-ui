@@ -1,7 +1,7 @@
 import classNames from "classnames";
+import { IconAngleRight } from "hds-react";
 import React, { FunctionComponent } from "react";
 
-import { ReactComponent as AngleRightIcon } from "../../../assets/icons/svg/angle-right.svg";
 import { Category } from "../../types";
 import styles from "./categoryFilter.module.scss";
 
@@ -30,7 +30,7 @@ const CategoryFilter: FunctionComponent<Props> = ({
       <button onClick={handleClick}>
         {icon}
         <span>{text}</span>
-        <AngleRightIcon />
+        <IconAngleRight />
       </button>
     </div>
   );

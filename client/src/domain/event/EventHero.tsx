@@ -1,12 +1,12 @@
 import classNames from "classnames";
 import { isThisWeek, isToday } from "date-fns";
+import { IconAngleRight } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps, withRouter } from "react-router";
 
 import Button from "../../common/components/button/Button";
 import { EventDetailsQuery } from "../../generated/graphql";
-import AngleRightIcon from "../../icons/AngleRightIcon";
 import ArrowLeftIcon from "../../icons/ArrowLeftIcon";
 import LocationIcon from "../../icons/LocationIcon";
 import ShareIcon from "../../icons/ShareIcon";
@@ -140,7 +140,7 @@ const EventHero: React.FC<Props> = ({
                   >
                     <Button
                       color="primary"
-                      iconAtEnd={<AngleRightIcon />}
+                      iconAtEnd={<IconAngleRight />}
                       onClick={moveToBuyTicketsPage}
                       size="sm"
                     >

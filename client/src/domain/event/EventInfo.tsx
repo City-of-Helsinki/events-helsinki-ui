@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { saveAs } from "file-saver";
+import { IconAngleRight } from "hds-react";
 import { createEvent, EventAttributes } from "ics";
 import capitalize from "lodash/capitalize";
 import React from "react";
@@ -7,7 +8,6 @@ import { useTranslation } from "react-i18next";
 
 import Button from "../../common/components/button/Button";
 import { EventDetailsQuery } from "../../generated/graphql";
-import AngleRightIcon from "../../icons/AngleRightIcon";
 import CalendarIcon from "../../icons/CalendarIcon";
 import DirectionsIcon from "../../icons/DirectionsIcon";
 import InfoIcon from "../../icons/InfoIcon";
@@ -144,7 +144,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           {eventData.eventDetails.startTime && (
             <button className={styles.link} onClick={downloadIcsFile}>
               {t("event.info.buttonAddToCalendar")}
-              <AngleRightIcon />
+              <IconAngleRight />
             </button>
           )}
         </div>
@@ -179,7 +179,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             target="_blank"
           >
             {t("event.info.openMap")}
-            <AngleRightIcon />
+            <IconAngleRight />
           </a>
         </div>
       </div>
@@ -215,7 +215,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
                 target="_blank"
               >
                 {t("event.info.linkWebPage")}
-                <AngleRightIcon />
+                <IconAngleRight />
               </a>
             )}
 
@@ -230,7 +230,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
                     target="_blank"
                   >
                     {translateValue("event.info.", externalLink.name || "", t)}
-                    <AngleRightIcon />
+                    <IconAngleRight />
                   </a>
                 )
               );
@@ -253,7 +253,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             target="_blank"
           >
             {t("event.info.directionsGoogle")}
-            <AngleRightIcon />
+            <IconAngleRight />
           </a>
           <a
             className={styles.link}
@@ -262,7 +262,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             target="_blank"
           >
             {t("event.info.directionsHSL")}
-            <AngleRightIcon />
+            <IconAngleRight />
           </a>
         </div>
       </div>
