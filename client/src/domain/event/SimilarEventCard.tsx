@@ -1,9 +1,9 @@
+import { IconArrowRight } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 
 import Keyword from "../../common/components/keyword/Keyword";
-import ArrowRightIcon from "../../icons/ArrowRightIcon";
 import getDateRangeStr from "../../util/getDateRangeStr";
 import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
@@ -89,7 +89,7 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
         </div>
         <div className={styles.buttonWrapper}>
           <button onClick={moveToEventPage}>
-            <ArrowRightIcon />
+            <IconArrowRight />
           </button>
         </div>
       </div>

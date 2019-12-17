@@ -1,13 +1,12 @@
 import classNames from "classnames";
 import { isThisWeek, isToday } from "date-fns";
-import { IconAngleRight } from "hds-react";
+import { IconAngleRight, IconArrowLeft } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps, withRouter } from "react-router";
 
 import Button from "../../common/components/button/Button";
 import { EventDetailsQuery } from "../../generated/graphql";
-import ArrowLeftIcon from "../../icons/ArrowLeftIcon";
 import LocationIcon from "../../icons/LocationIcon";
 import ShareIcon from "../../icons/ShareIcon";
 import TicketIcon from "../../icons/TicketIcon";
@@ -69,7 +68,7 @@ const EventHero: React.FC<Props> = ({
         <div className={styles.contentWrapper}>
           <div className={styles.backButtonWrapper}>
             <button className={styles.backButton} onClick={handleBack}>
-              <ArrowLeftIcon />
+              <IconArrowLeft />
             </button>
           </div>
           <div>
