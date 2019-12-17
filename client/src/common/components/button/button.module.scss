@@ -11,19 +11,19 @@
 }
 
 .primary.disabled {
-  background-color: $hel-copper-light-50;
+  background-color: $dark-green-light;
 }
 
 .primary.disabled:after {
-  border-color: $hel-copper-light-50;
+  border-color: $dark-green-light;
 }
 
 .primary:hover {
-  background-color: $hel-copper-dark-50;
+  background-color: $dark-green-dark;
 }
 
 .primary:hover:after {
-  border-color: $hel-copper-dark-50;
+  border-color: $dark-green-dark;
 }
 
 
