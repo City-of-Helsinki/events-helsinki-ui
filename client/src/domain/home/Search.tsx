@@ -111,9 +111,9 @@ const Search: FunctionComponent = () => {
           <Button
             color="primary"
             fullWidth={true}
-            iconAtStart={<SearchIcon />}
+            iconLeft={<SearchIcon />}
             onClick={moveToSearchPage}
-            size="md"
+            size="default"
           >
             {t("home.search.buttonSearch")}
           </Button>

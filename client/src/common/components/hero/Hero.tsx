@@ -1,7 +1,7 @@
 import React from "react";
 
-import Button from "../../../common/components/button/Button";
 import Container from "../../../domain/app/layout/Container";
+import Button from "../button/Button";
 import styles from "./hero.module.scss";
 
 interface Props {
@@ -23,7 +23,7 @@ const Hero: React.FC<Props> = ({ buttonText, subTitle, title }) => {
             onClick={() => {
               alert("TODO: Katso vinkit");
             }}
-            size="sm"
+            size="default"
           >
             {buttonText}
           </Button>

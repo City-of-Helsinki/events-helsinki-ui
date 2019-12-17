@@ -286,9 +286,9 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           <Button
             color="primary"
             fullWidth={true}
-            iconAtStart={<IconTicket />}
+            iconLeft={<IconTicket />}
             onClick={moveToBuyTicketsPage}
-            size="sm"
+            size="default"
           >
             {t("event.info.buttonBuyTickets")}
           </Button>

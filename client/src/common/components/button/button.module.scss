@@ -1,69 +1,53 @@
+
 @import "colors";
-@import "variables";
-
-.btn {
-  border: 1px solid $hel-black;
-  color: $hel-black;
-  text-align: center;
-  height: $buttonHeight;
-  padding: $buttonPadding;
-  cursor: pointer;
-  position: relative;
-  font-weight: $buttonFontWeight;
-
-  .iconAtEnd {
-    svg {
-      height: 1.25rem;
-      width: 1.25rem;
-      fill: $hel-white;
-      position: absolute;
-      right: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-  }
-
-  .iconAtStart {
-    svg {
-      height: 1.25rem;
-      width: 1.25rem;
-      fill: $hel-white;
-      position: absolute;
-      left: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-  }
-}
-
-.fullWidth {
-  width: 100%;
-}
-
-// Button sizes
-
-.mdSize {
-  font-size: $buttonFontSize;
-  min-height: $mediumButtonHeight;
-  padding: $mediumButtonPadding;
-}
-
-.smSize {
-  font-size: $buttonFontSize;
-  min-height: $smallButtonHeight;
-  padding: $smallButtonPadding;
-}
-
-// Button colors
 
 .primary {
   background-color: $dark-green;
+  color: $hel-white;
+} 
+
+.primary:after {
   border-color: $dark-green;
-  color: $hel-white;  
 }
+
+.primary.disabled {
+  background-color: $hel-copper-light-50;
+}
+
+.primary.disabled:after {
+  border-color: $hel-copper-light-50;
+}
+
+.primary:hover {
+  background-color: $hel-copper-dark-50;
+}
+
+.primary:hover:after {
+  border-color: $hel-copper-dark-50;
+}
+
 
 .secondary {
   background-color: $hel-black-70;
+  color: $hel-white;
+} 
+
+.secondary:after {
   border-color: $hel-black-70;
-  color: $hel-white;  
+}
+
+.secondary.disabled {
+  background-color: $hel-black-50;
+}
+
+.secondary.disabled:after {
+  border-color: $hel-black-50;
+}
+
+.secondary:hover {
+  background-color: $hel-black-80;
+}
+
+.secondary:hover:after {
+  border-color: $hel-black-80;
 }

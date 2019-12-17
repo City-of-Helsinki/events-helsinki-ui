@@ -2,9 +2,14 @@
 
 exports[`Button matches snapshot 1`] = `
 <button
-  className="btn mdSize primary"
+  className="_3wgeeaHxiHujNcKzeML5j4 _3aSBFzRPhZcNdul13_gERo _3bo_TEhSbadoDUbxUTgx4J _3HrcdU2U-mUB4lgurXreR2 primary"
+  disabled={false}
   type="button"
 >
-  Test
+  <span
+    className="_2zMLCVF6mmvV2UqfaBF5K"
+  >
+    Test
+  </span>
 </button>
 `;

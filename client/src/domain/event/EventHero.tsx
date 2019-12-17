@@ -142,9 +142,9 @@ const EventHero: React.FC<Props> = ({
                   >
                     <Button
                       color="primary"
-                      iconAtEnd={<IconAngleRight />}
+                      iconRight={<IconAngleRight />}
                       onClick={moveToBuyTicketsPage}
-                      size="sm"
+                      size="default"
                     >
                       {t("event.hero.buttonBuyTickets")}
                     </Button>

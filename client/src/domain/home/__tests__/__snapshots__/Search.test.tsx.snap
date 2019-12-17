@@ -97,18 +97,24 @@ Array [
       className="buttonWrapper"
     >
       <button
-        className="btn mdSize primary fullWidth"
+        className="_3wgeeaHxiHujNcKzeML5j4 _3aSBFzRPhZcNdul13_gERo _3bo_TEhSbadoDUbxUTgx4J _2AR2oE9bnVLLmiLEmYiWNc primary"
+        disabled={false}
         onClick={[Function]}
         type="button"
       >
         <div
-          className="iconAtStart"
+          aria-hidden="true"
+          className="_3Wlc6ydCOxrot7DuTOBW8x"
         >
           <svg>
             search.svg
           </svg>
         </div>
-        Hae
+        <span
+          className="_2zMLCVF6mmvV2UqfaBF5K"
+        >
+          Hae
+        </span>
       </button>
     </div>
   </div>,
@@ -130,8 +136,18 @@ Array [
           <span>
             Elokuva
           </span>
-          <svg>
-            angle-right.svg
+          <svg
+            className=""
+            height="100%"
+            viewBox="0 0 199.404 199.404"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <polygon
+                points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+              />
+            </g>
           </svg>
         </button>
       </div>
@@ -147,8 +163,18 @@ Array [
           <span>
             Musiikki
           </span>
-          <svg>
-            angle-right.svg
+          <svg
+            className=""
+            height="100%"
+            viewBox="0 0 199.404 199.404"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <polygon
+                points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+              />
+            </g>
           </svg>
         </button>
       </div>
@@ -164,8 +190,18 @@ Array [
           <span>
             Liikunta ja urheilu
           </span>
-          <svg>
-            angle-right.svg
+          <svg
+            className=""
+            height="100%"
+            viewBox="0 0 199.404 199.404"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <polygon
+                points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+              />
+            </g>
           </svg>
         </button>
       </div>
@@ -181,8 +217,18 @@ Array [
           <span>
             Museot
           </span>
-          <svg>
-            angle-right.svg
+          <svg
+            className=""
+            height="100%"
+            viewBox="0 0 199.404 199.404"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <polygon
+                points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+              />
+            </g>
           </svg>
         </button>
       </div>
@@ -198,8 +244,18 @@ Array [
           <span>
             Tanssi
           </span>
-          <svg>
-            angle-right.svg
+          <svg
+            className=""
+            height="100%"
+            viewBox="0 0 199.404 199.404"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <polygon
+                points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+              />
+            </g>
           </svg>
         </button>
       </div>
@@ -215,8 +271,18 @@ Array [
           <span>
             Kulttuuri ja taide
           </span>
-          <svg>
-            angle-right.svg
+          <svg
+            className=""
+            height="100%"
+            viewBox="0 0 199.404 199.404"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <polygon
+                points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+              />
+            </g>
           </svg>
         </button>
       </div>
@@ -232,8 +298,18 @@ Array [
           <span>
             Luonto ja ulkoilu
           </span>
-          <svg>
-            angle-right.svg
+          <svg
+            className=""
+            height="100%"
+            viewBox="0 0 199.404 199.404"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <polygon
+                points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+              />
+            </g>
           </svg>
         </button>
       </div>
@@ -249,8 +325,18 @@ Array [
           <span>
             Osallistu ja vaikuta
           </span>
-          <svg>
-            angle-right.svg
+          <svg
+            className=""
+            height="100%"
+            viewBox="0 0 199.404 199.404"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <polygon
+                points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+              />
+            </g>
           </svg>
         </button>
       </div>
@@ -266,8 +352,18 @@ Array [
           <span>
             Teatteri
           </span>
-          <svg>
-            angle-right.svg
+          <svg
+            className=""
+            height="100%"
+            viewBox="0 0 199.404 199.404"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <polygon
+                points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+              />
+            </g>
           </svg>
         </button>
       </div>
@@ -283,8 +379,18 @@ Array [
           <span>
             Ruoka
           </span>
-          <svg>
-            angle-right.svg
+          <svg
+            className=""
+            height="100%"
+            viewBox="0 0 199.404 199.404"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <polygon
+                points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+              />
+            </g>
           </svg>
         </button>
       </div>

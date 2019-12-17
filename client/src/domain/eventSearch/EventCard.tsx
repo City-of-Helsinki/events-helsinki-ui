@@ -100,16 +100,22 @@ const EventCard: React.FC<Props> = ({ event }) => {
               {!!offerInfoUrl && (
                 <Button
                   color="primary"
-                  iconAtStart={<IconAngleRight />}
+                  fullWidth
+                  iconLeft={<IconAngleRight />}
                   onClick={moveToBuyTicketsPage}
-                  size="sm"
+                  size="default"
                 >
                   {t("eventSearch.event.buttonBuyTickets")}
                 </Button>
               )}
             </div>
             <div className={classNames(styles.readMoreButtonWrapper)}>
-              <Button color="secondary" onClick={moveToEventPage} size="sm">
+              <Button
+                color="secondary"
+                fullWidth
+                onClick={moveToEventPage}
+                size="default"
+              >
                 {t("eventSearch.event.buttonReadMore")}
               </Button>
             </div>

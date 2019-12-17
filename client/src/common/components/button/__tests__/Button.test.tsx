@@ -5,7 +5,7 @@ import Button from "../Button";
 
 test("Button matches snapshot", () => {
   const component = renderer.create(
-    <Button color="primary" size="md">
+    <Button color="primary" size="small">
       Test
     </Button>
   );

@@ -171,17 +171,6 @@ $logoWidth: 5.5rem;
 
   .buyButtonWrapper {
     margin-top: 1rem;
-
-    button {
-      min-width: 11.375rem;
-      text-align: left;
-      padding-right: 4rem;
-
-      svg {
-        height: 1rem;
-        width: 1rem;
-      }
-    }
   }
 
   .buttonWrapperMobile {
@@ -189,13 +178,6 @@ $logoWidth: 5.5rem;
 
     @include respond_above(sm) {
       display: none;
-    }
-
-    button {
-      svg {
-        height: 1.5rem;
-        width: 1.5rem;
-      }
     }
   }
 }
