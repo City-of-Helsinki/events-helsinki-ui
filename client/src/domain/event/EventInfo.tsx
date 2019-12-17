@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { saveAs } from "file-saver";
-import { IconAngleRight, IconLocation } from "hds-react";
+import { IconAngleRight, IconInfo, IconLocation } from "hds-react";
 import { createEvent, EventAttributes } from "ics";
 import capitalize from "lodash/capitalize";
 import React from "react";
@@ -10,7 +10,6 @@ import Button from "../../common/components/button/Button";
 import { EventDetailsQuery } from "../../generated/graphql";
 import CalendarIcon from "../../icons/CalendarIcon";
 import DirectionsIcon from "../../icons/DirectionsIcon";
-import InfoIcon from "../../icons/InfoIcon";
 import LanguageIcon from "../../icons/LanguageIcon";
 import TicketIcon from "../../icons/TicketIcon";
 import { formatDate } from "../../util/dateUtils";
@@ -200,7 +199,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
       {(!!email || !!externalLinks.length || !!infoUrl || !!telephone) && (
         <div className={styles.infoWithIcon}>
           <div className={styles.iconWrapper}>
-            <InfoIcon className={styles.icon} />
+            <IconInfo className={styles.icon} />
           </div>
           <div className={styles.iconTextWrapper}>
             <p>{t("event.info.labelOtherInfo")}</p>
