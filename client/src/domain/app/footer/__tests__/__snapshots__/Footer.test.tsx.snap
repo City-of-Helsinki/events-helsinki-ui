@@ -93,8 +93,18 @@ exports[`Footer matches snapshot 1`] = `
               <span>
                 Elokuva
               </span>
-              <svg>
-                angle-right.svg
+              <svg
+                className=""
+                height="100%"
+                viewBox="0 0 199.404 199.404"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <polygon
+                    points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+                  />
+                </g>
               </svg>
             </button>
           </div>
@@ -110,8 +120,18 @@ exports[`Footer matches snapshot 1`] = `
               <span>
                 Musiikki
               </span>
-              <svg>
-                angle-right.svg
+              <svg
+                className=""
+                height="100%"
+                viewBox="0 0 199.404 199.404"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <polygon
+                    points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+                  />
+                </g>
               </svg>
             </button>
           </div>
@@ -127,8 +147,18 @@ exports[`Footer matches snapshot 1`] = `
               <span>
                 Liikunta ja urheilu
               </span>
-              <svg>
-                angle-right.svg
+              <svg
+                className=""
+                height="100%"
+                viewBox="0 0 199.404 199.404"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <polygon
+                    points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+                  />
+                </g>
               </svg>
             </button>
           </div>
@@ -144,8 +174,18 @@ exports[`Footer matches snapshot 1`] = `
               <span>
                 Museot
               </span>
-              <svg>
-                angle-right.svg
+              <svg
+                className=""
+                height="100%"
+                viewBox="0 0 199.404 199.404"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <polygon
+                    points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+                  />
+                </g>
               </svg>
             </button>
           </div>
@@ -161,8 +201,18 @@ exports[`Footer matches snapshot 1`] = `
               <span>
                 Tanssi
               </span>
-              <svg>
-                angle-right.svg
+              <svg
+                className=""
+                height="100%"
+                viewBox="0 0 199.404 199.404"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <polygon
+                    points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+                  />
+                </g>
               </svg>
             </button>
           </div>
@@ -178,8 +228,18 @@ exports[`Footer matches snapshot 1`] = `
               <span>
                 Kulttuuri ja taide
               </span>
-              <svg>
-                angle-right.svg
+              <svg
+                className=""
+                height="100%"
+                viewBox="0 0 199.404 199.404"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <polygon
+                    points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+                  />
+                </g>
               </svg>
             </button>
           </div>
@@ -195,8 +255,18 @@ exports[`Footer matches snapshot 1`] = `
               <span>
                 Luonto ja ulkoilu
               </span>
-              <svg>
-                angle-right.svg
+              <svg
+                className=""
+                height="100%"
+                viewBox="0 0 199.404 199.404"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <polygon
+                    points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+                  />
+                </g>
               </svg>
             </button>
           </div>
@@ -212,8 +282,18 @@ exports[`Footer matches snapshot 1`] = `
               <span>
                 Osallistu ja vaikuta
               </span>
-              <svg>
-                angle-right.svg
+              <svg
+                className=""
+                height="100%"
+                viewBox="0 0 199.404 199.404"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <polygon
+                    points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+                  />
+                </g>
               </svg>
             </button>
           </div>
@@ -229,8 +309,18 @@ exports[`Footer matches snapshot 1`] = `
               <span>
                 Teatteri
               </span>
-              <svg>
-                angle-right.svg
+              <svg
+                className=""
+                height="100%"
+                viewBox="0 0 199.404 199.404"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <polygon
+                    points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+                  />
+                </g>
               </svg>
             </button>
           </div>
@@ -246,8 +336,18 @@ exports[`Footer matches snapshot 1`] = `
               <span>
                 Ruoka
               </span>
-              <svg>
-                angle-right.svg
+              <svg
+                className=""
+                height="100%"
+                viewBox="0 0 199.404 199.404"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <polygon
+                    points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+                  />
+                </g>
               </svg>
             </button>
           </div>

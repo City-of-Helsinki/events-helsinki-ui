@@ -1,9 +1,9 @@
 import classNames from "classnames";
+import { IconAngleRight } from "hds-react";
 import React, { ChangeEvent, FunctionComponent, MutableRefObject } from "react";
 import { useLocation } from "react-router";
 
 import { ReactComponent as AngleLeftIcon } from "../../../assets/icons/svg/angle-left.svg";
-import { ReactComponent as AngleRightIcon } from "../../../assets/icons/svg/angle-right.svg";
 import { ReactComponent as CalendarAddIcon } from "../../../assets/icons/svg/calendar-add.svg";
 import { DATE_TYPES } from "../../../constants";
 import { formatMessage } from "../../translation/TranslationUtils";
@@ -110,7 +110,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         <div className={styles.buttonText}>
           {formatMessage("commons.dateSelector.menu.buttonCustom")}
         </div>
-        <AngleRightIcon />
+        <IconAngleRight />
       </button>
 
       <button

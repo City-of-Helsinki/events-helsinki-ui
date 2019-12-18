@@ -1,8 +1,8 @@
 import classNames from "classnames";
+import { IconArrowRight } from "hds-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { ReactComponent as ArrowRightIcon } from "../../../assets/icons/svg/arrow-right.svg";
 import { formatMessage } from "../../../common/translation/TranslationUtils";
 import styles from "./collectionCard.module.scss";
 
@@ -48,7 +48,7 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
 
         <div className={styles.linkWrapper}>
           <Link to={`collection/${id}`}>
-            <ArrowRightIcon />
+            <IconArrowRight />
           </Link>
         </div>
       </div>

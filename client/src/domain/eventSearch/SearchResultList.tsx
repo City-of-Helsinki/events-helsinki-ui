@@ -95,7 +95,7 @@ const SearchResultList: React.FC<Props> = ({
             <div className={styles.loadMoreWrapper}>
               <LoadingSpinner isLoading={loading}>
                 {!!eventsData.eventList.meta.next && (
-                  <Button color="primary" size="sm" onClick={onLoadMore}>
+                  <Button color="primary" size="default" onClick={onLoadMore}>
                     {t("eventSearch.buttonLoadMore")}
                   </Button>
                 )}

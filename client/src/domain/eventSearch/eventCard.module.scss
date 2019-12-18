@@ -119,11 +119,6 @@ $imageWidth: 22.75rem;
       button {
         margin-top: 0.25rem;
         margin-right: 0.25rem;
-        width: 100%;
-
-        @include respond_above(sm) {
-          padding-left: 3rem;
-        }
       }
     }
 
@@ -137,7 +132,6 @@ $imageWidth: 22.75rem;
       button {
         margin-top: 0.25rem;
         margin-left: 0.25rem;
-        width: 100%;
       }
     }
   }

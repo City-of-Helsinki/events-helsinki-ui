@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { saveAs } from "file-saver";
+import { IconAngleRight, IconInfo, IconLocation, IconTicket } from "hds-react";
 import { createEvent, EventAttributes } from "ics";
 import capitalize from "lodash/capitalize";
 import React from "react";
@@ -7,13 +8,9 @@ import { useTranslation } from "react-i18next";
 
 import Button from "../../common/components/button/Button";
 import { EventDetailsQuery } from "../../generated/graphql";
-import AngleRightIcon from "../../icons/AngleRightIcon";
 import CalendarIcon from "../../icons/CalendarIcon";
 import DirectionsIcon from "../../icons/DirectionsIcon";
-import InfoIcon from "../../icons/InfoIcon";
 import LanguageIcon from "../../icons/LanguageIcon";
-import LocationIcon from "../../icons/LocationIcon";
-import TicketIcon from "../../icons/TicketIcon";
 import { formatDate } from "../../util/dateUtils";
 import getDateArray from "../../util/getDateArray";
 import getDateRangeStr from "../../util/getDateRangeStr";
@@ -144,7 +141,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           {eventData.eventDetails.startTime && (
             <button className={styles.link} onClick={downloadIcsFile}>
               {t("event.info.buttonAddToCalendar")}
-              <AngleRightIcon />
+              <IconAngleRight />
             </button>
           )}
         </div>
@@ -153,7 +150,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
       {/* Location info */}
       <div className={styles.infoWithIcon}>
         <div className={styles.iconWrapper}>
-          <LocationIcon className={styles.icon} />
+          <IconLocation className={styles.icon} />
         </div>
         <div className={styles.iconTextWrapper}>
           <p>{t("event.info.labelLocation")}</p>
@@ -179,7 +176,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             target="_blank"
           >
             {t("event.info.openMap")}
-            <AngleRightIcon />
+            <IconAngleRight />
           </a>
         </div>
       </div>
@@ -201,7 +198,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
       {(!!email || !!externalLinks.length || !!infoUrl || !!telephone) && (
         <div className={styles.infoWithIcon}>
           <div className={styles.iconWrapper}>
-            <InfoIcon className={styles.icon} />
+            <IconInfo className={styles.icon} />
           </div>
           <div className={styles.iconTextWrapper}>
             <p>{t("event.info.labelOtherInfo")}</p>
@@ -215,7 +212,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
                 target="_blank"
               >
                 {t("event.info.linkWebPage")}
-                <AngleRightIcon />
+                <IconAngleRight />
               </a>
             )}
 
@@ -230,7 +227,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
                     target="_blank"
                   >
                     {translateValue("event.info.", externalLink.name || "", t)}
-                    <AngleRightIcon />
+                    <IconAngleRight />
                   </a>
                 )
               );
@@ -253,7 +250,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             target="_blank"
           >
             {t("event.info.directionsGoogle")}
-            <AngleRightIcon />
+            <IconAngleRight />
           </a>
           <a
             className={styles.link}
@@ -262,7 +259,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             target="_blank"
           >
             {t("event.info.directionsHSL")}
-            <AngleRightIcon />
+            <IconAngleRight />
           </a>
         </div>
       </div>
@@ -272,7 +269,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
       {/* Price info */}
       <div className={classNames(styles.infoWithIcon, styles.mobileOnly)}>
         <div className={styles.iconWrapper}>
-          <TicketIcon className={styles.icon} />
+          <IconTicket className={styles.icon} />
         </div>
         <div className={styles.iconTextWrapper}>
           <p>{t("event.info.labelPrice")}</p>
@@ -289,9 +286,9 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           <Button
             color="primary"
             fullWidth={true}
-            iconAtStart={<TicketIcon />}
+            iconLeft={<IconTicket />}
             onClick={moveToBuyTicketsPage}
-            size="sm"
+            size="default"
           >
             {t("event.info.buttonBuyTickets")}
           </Button>

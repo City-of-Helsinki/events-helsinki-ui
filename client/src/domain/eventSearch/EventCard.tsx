@@ -1,11 +1,11 @@
 import classNames from "classnames";
+import { IconAngleRight } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 
 import Button from "../../common/components/button/Button";
 import Keyword from "../../common/components/keyword/Keyword";
-import AngleRightIcon from "../../icons/TicketIcon";
 import getDateRangeStr from "../../util/getDateRangeStr";
 import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
@@ -100,16 +100,22 @@ const EventCard: React.FC<Props> = ({ event }) => {
               {!!offerInfoUrl && (
                 <Button
                   color="primary"
-                  iconAtStart={<AngleRightIcon />}
+                  fullWidth
+                  iconLeft={<IconAngleRight />}
                   onClick={moveToBuyTicketsPage}
-                  size="sm"
+                  size="default"
                 >
                   {t("eventSearch.event.buttonBuyTickets")}
                 </Button>
               )}
             </div>
             <div className={classNames(styles.readMoreButtonWrapper)}>
-              <Button color="secondary" onClick={moveToEventPage} size="sm">
+              <Button
+                color="secondary"
+                fullWidth
+                onClick={moveToEventPage}
+                size="default"
+              >
                 {t("eventSearch.event.buttonReadMore")}
               </Button>
             </div>

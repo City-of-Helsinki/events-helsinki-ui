@@ -1,11 +1,10 @@
+import { IconAngleRight, IconLocation } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 import Map from "../../common/components/map/Map";
 import { EventDetailsQuery } from "../../generated/graphql";
-import AngleRightIcon from "../../icons/AngleRightIcon";
 import ExternalLinkIcon from "../../icons/ExternalLinkIcon";
-import LocationIcon from "../../icons/LocationIcon";
 import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import styles from "./eventLocation.module.scss";
@@ -34,7 +33,7 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
     <div className={styles.eventLocationContainer}>
       <div className={styles.titleWrapper}>
         <div className={styles.title}>
-          <LocationIcon />
+          <IconLocation />
           <h3>{t("event.location.title")}</h3>
         </div>
         <a
@@ -64,7 +63,7 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
         target="_blank"
       >
         {t("event.location.directionsGoogle")}
-        <AngleRightIcon />
+        <IconAngleRight />
       </a>
       <a
         className={styles.directionsLink}
@@ -73,7 +72,7 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
         target="_blank"
       >
         {t("event.location.directionsHSL")}
-        <AngleRightIcon />
+        <IconAngleRight />
       </a>
     </div>
   );

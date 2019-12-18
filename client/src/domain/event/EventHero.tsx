@@ -1,16 +1,18 @@
 import classNames from "classnames";
 import { isThisWeek, isToday } from "date-fns";
+import {
+  IconAngleRight,
+  IconArrowLeft,
+  IconLocation,
+  IconShare,
+  IconTicket
+} from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps, withRouter } from "react-router";
 
 import Button from "../../common/components/button/Button";
 import { EventDetailsQuery } from "../../generated/graphql";
-import AngleRightIcon from "../../icons/AngleRightIcon";
-import ArrowLeftIcon from "../../icons/ArrowLeftIcon";
-import LocationIcon from "../../icons/LocationIcon";
-import ShareIcon from "../../icons/ShareIcon";
-import TicketIcon from "../../icons/TicketIcon";
 import getDateRangeStr from "../../util/getDateRangeStr";
 import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
@@ -69,7 +71,7 @@ const EventHero: React.FC<Props> = ({
         <div className={styles.contentWrapper}>
           <div className={styles.backButtonWrapper}>
             <button className={styles.backButton} onClick={handleBack}>
-              <ArrowLeftIcon />
+              <IconArrowLeft />
             </button>
           </div>
           <div>
@@ -105,7 +107,7 @@ const EventHero: React.FC<Props> = ({
                 className={classNames(styles.infoWithIcon, styles.desktopOnly)}
               >
                 <div className={styles.iconWrapper}>
-                  <LocationIcon className={styles.icon} />
+                  <IconLocation className={styles.icon} />
                 </div>
                 <div className={styles.iconTextWrapper}>
                   <LocationText
@@ -120,7 +122,7 @@ const EventHero: React.FC<Props> = ({
                 className={classNames(styles.infoWithIcon, styles.desktopOnly)}
               >
                 <div className={styles.iconWrapper}>
-                  <TicketIcon className={styles.icon} />
+                  <IconTicket className={styles.icon} />
                 </div>
                 <div className={styles.iconTextWrapper}>
                   {getEventPrice(
@@ -140,9 +142,9 @@ const EventHero: React.FC<Props> = ({
                   >
                     <Button
                       color="primary"
-                      iconAtEnd={<AngleRightIcon />}
+                      iconRight={<IconAngleRight />}
                       onClick={moveToBuyTicketsPage}
-                      size="sm"
+                      size="default"
                     >
                       {t("event.hero.buttonBuyTickets")}
                     </Button>
@@ -152,7 +154,7 @@ const EventHero: React.FC<Props> = ({
             </div>
             <div className={styles.shareWrapper}>
               <button className={styles.shareButton} onClick={handleShare}>
-                <ShareIcon />
+                <IconShare />
               </button>
             </div>
           </div>

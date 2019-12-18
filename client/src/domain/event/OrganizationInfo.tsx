@@ -1,3 +1,4 @@
+import { IconAngleRight } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -7,7 +8,6 @@ import {
   EventDetailsQuery,
   useOrganizationDetailsQuery
 } from "../../generated/graphql";
-import AngleRightIcon from "../../icons/AngleRightIcon";
 import SmileIcon from "../../icons/SmileIcon";
 import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
@@ -49,7 +49,7 @@ const OrganizationInfo: React.FC<Props> = ({ eventData }) => {
           </>
           <Link className={styles.link} to={getSearchLink()}>
             {t("event.info.linkSearchByOrganization")}
-            <AngleRightIcon />
+            <IconAngleRight />
           </Link>
         </LoadingSpinner>
       </div>
