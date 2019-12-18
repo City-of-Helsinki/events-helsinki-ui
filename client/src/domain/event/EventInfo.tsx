@@ -1,4 +1,6 @@
 import classNames from "classnames";
+import { saveAs } from "file-saver";
+import { createEvent, EventAttributes } from "ics";
 import capitalize from "lodash/capitalize";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -13,7 +15,9 @@ import LanguageIcon from "../../icons/LanguageIcon";
 import LocationIcon from "../../icons/LocationIcon";
 import TicketIcon from "../../icons/TicketIcon";
 import { formatDate } from "../../util/dateUtils";
+import getDateArray from "../../util/getDateArray";
 import getDateRangeStr from "../../util/getDateRangeStr";
+import getDomain from "../../util/getDomain";
 import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import getTimeRangeStr from "../../util/getTimeRangeStr";
@@ -45,17 +49,17 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
 
   const startTime = eventData.eventDetails.startTime;
   const endTime = eventData.eventDetails.endTime;
-  const location = eventData.eventDetails.location;
+  const eventLocation = eventData.eventDetails.location;
   const addressLocality = getLocalisedString(
-    (location && location.addressLocality) || {},
+    (eventLocation && eventLocation.addressLocality) || {},
     locale
   );
   const locationName = getLocalisedString(
-    (location && location.name) || {},
+    (eventLocation && eventLocation.name) || {},
     locale
   );
   const streetAddress = getLocalisedString(
-    (location && location.streetAddress) || {},
+    (eventLocation && eventLocation.streetAddress) || {},
     locale
   );
   const district = getEventDistrict(eventData.eventDetails, locale);
@@ -63,18 +67,54 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
   const languages = eventData.eventDetails.inLanguage
     .map(item => capitalize(getLocalisedString(item.name || {}, locale)))
     .filter(e => e);
-  const email = location && location.email;
+  const email = eventLocation && eventLocation.email;
   const infoUrl = eventData.eventDetails.infoUrl
     ? getLocalisedString(eventData.eventDetails.infoUrl, locale)
     : null;
   const telephone =
-    location && location.telephone
-      ? getLocalisedString(location.telephone, locale)
+    eventLocation && eventLocation.telephone
+      ? getLocalisedString(eventLocation.telephone, locale)
       : null;
   const externalLinks = eventData.eventDetails.externalLinks;
 
   const moveToBuyTicketsPage = () => {
     window.open(offerInfoUrl);
+  };
+
+  const downloadIcsFile = () => {
+    if (eventData.eventDetails.startTime) {
+      const domain = getDomain();
+      const event: EventAttributes = {
+        description: t("event.info.textCalendarLinkDescription", {
+          description: getLocalisedString(
+            eventData.eventDetails.shortDescription || {},
+            locale
+          ),
+          link: `${domain}/${locale}/event/${eventData.eventDetails.id}`
+        }),
+        end: eventData.eventDetails.endTime
+          ? getDateArray(eventData.eventDetails.endTime)
+          : getDateArray(eventData.eventDetails.startTime),
+        location: [locationName, streetAddress, district, addressLocality]
+          .filter(e => e)
+          .join(", "),
+        productId: domain,
+        start: getDateArray(eventData.eventDetails.startTime),
+        startOutputType: "local",
+        title: getLocalisedString(eventData.eventDetails.name || {}, locale)
+      };
+      createEvent(event, (error: Error | undefined, value: string) => {
+        if (error) {
+          console.error(error);
+        } else {
+          const blob = new Blob([value], { type: "text/calendar" });
+          saveAs(
+            blob,
+            `event_${eventData.eventDetails.id.replace(/:/g, "")}.ics`
+          );
+        }
+      });
+    }
   };
 
   return (
@@ -100,6 +140,12 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           <div>
             {!!startTime && getTimeRangeStr(startTime, endTime, locale)}
           </div>
+          {eventData.eventDetails.startTime && (
+            <button className={styles.link} onClick={downloadIcsFile}>
+              {t("event.info.buttonAddToCalendar")}
+              <AngleRightIcon />
+            </button>
+          )}
         </div>
       </div>
 
