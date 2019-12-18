@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteComponentProps, withRouter } from "react-router";
+import { RouteComponentProps, useLocation, withRouter } from "react-router";
 
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useEventListQuery } from "../../generated/graphql";
@@ -10,9 +10,14 @@ import styles from "./eventSearchPage.module.scss";
 import SearchResultList from "./SearchResultList";
 
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
+  const searchParams = new URLSearchParams(useLocation().search);
+
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
-    variables: { pageSize: PAGE_SIZE }
+    variables: {
+      pageSize: PAGE_SIZE,
+      publisher: searchParams.get("publisher")
+    }
   });
 
   const handleLoadMore = () => {

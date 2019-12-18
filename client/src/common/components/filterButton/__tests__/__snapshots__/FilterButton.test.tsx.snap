@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Category matches snapshot 1`] = `
+exports[`FilterButton matches snapshot 1`] = `
 <div
-  className="category"
+  className="filter"
 >
   <button
-    aria-label="Poista kategoria: foo"
+    aria-label="Poista suodatin: text"
     className="closeButton"
     onClick={[Function]}
     type="button"
@@ -23,6 +23,6 @@ exports[`Category matches snapshot 1`] = `
       />
     </svg>
   </button>
-  foo
+  text
 </div>
 `;

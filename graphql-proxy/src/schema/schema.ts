@@ -1,7 +1,7 @@
+import event from "./event/typeDefs";
 import global from "./global/typeDefs";
-import linkedCourses from "./linkedCourses/typeDefs";
-import linkedEvents from "./linkedEvents/typeDefs";
+import organization from "./organization/typeDefs";
 
-const typeDefs = [...global, linkedCourses, linkedEvents];
+const typeDefs = [...global, event, organization];
 
 export default typeDefs;

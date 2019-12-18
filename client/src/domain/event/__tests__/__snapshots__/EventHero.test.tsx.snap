@@ -50,17 +50,6 @@ exports[`EventHero matches snapshot 1`] = `
           className="textWrapper"
         >
           <div
-            className="categoryWrapper"
-          >
-            <div>
-              <div
-                className="keyword engelLight50"
-              >
-                Tällä viikolla
-              </div>
-            </div>
-          </div>
-          <div
             className="date desktopOnly"
           >
             Perjantai 13. joulukuuta 2019

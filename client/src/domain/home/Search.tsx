@@ -64,6 +64,7 @@ const Search: FunctionComponent = () => {
       dateTypes,
       endDate,
       isCustomDate,
+      publisher: null,
       search: searchValue,
       startDate
     });

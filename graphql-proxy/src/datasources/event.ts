@@ -1,6 +1,6 @@
 import DataSource from "./LinkedEventsDataSource";
 
-class LinkedEventsAPI extends DataSource {
+class EventAPI extends DataSource {
   public async getEventDetails(id: string, query: string) {
     return this.get(`event/${id}${query}`);
   }
@@ -10,4 +10,4 @@ class LinkedEventsAPI extends DataSource {
   }
 }
 
-export default LinkedEventsAPI;
+export default EventAPI;

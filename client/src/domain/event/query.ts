@@ -108,11 +108,24 @@ export const QUERY_EVENT_DETAILS = gql`
       }
       endTime
       startTime
+      publisher
+      provider {
+        fi
+        sv
+        en
+      }
       infoUrl {
         fi
         sv
         en
       }
+    }
+  }
+
+  query OrganizationDetails($id: ID!) {
+    organizationDetails(id: $id) {
+      id
+      name
     }
   }
 `;

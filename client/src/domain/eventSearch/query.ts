@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const QUERY_EVENT_LIST = gql`
-  query EventList($page: Int, $pageSize: Int) {
-    eventList(page: $page, pageSize: $pageSize) {
+  query EventList($page: Int, $pageSize: Int, $publisher: ID) {
+    eventList(page: $page, pageSize: $pageSize, publisher: $publisher) {
       meta {
         count
         next

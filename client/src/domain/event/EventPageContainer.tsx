@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteComponentProps, withRouter } from "react-router";
+import { RouteComponentProps, useLocation, withRouter } from "react-router";
 
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useEventDetailsQuery } from "../../generated/graphql";
@@ -16,10 +16,18 @@ import SimilarEvents from "./SimilarEvents";
 const EventPageContainer: React.FC<
   RouteComponentProps<{ id: string }>
 > = props => {
+  const { pathname } = useLocation();
   const eventId = props.match.params.id;
   const { data: eventData, loading } = useEventDetailsQuery({
     variables: { id: eventId }
   });
+
+  React.useEffect(() => {
+    // Scroll to top when event changes. Ignore this on SSR because window doesn't exist
+    if (isClient) {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
 
   const eventClosed = !eventData || isEventClosed(eventData.eventDetails);
 

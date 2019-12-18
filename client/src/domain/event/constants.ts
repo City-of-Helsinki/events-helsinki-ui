@@ -71,6 +71,8 @@ export const mockEventData = {
         price: null
       }
     ],
+    provider: null,
+    publisher: "provider:123",
     shortDescription: {
       en: "short description en",
       fi: "short description fi",

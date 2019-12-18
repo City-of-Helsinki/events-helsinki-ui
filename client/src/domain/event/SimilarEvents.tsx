@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { EventDetailsQuery, useEventListQuery } from "../../generated/graphql";
+import isClient from "../../util/isClient";
 // Use same page size as on event search page
 import { PAGE_SIZE } from "../eventSearch/constants";
 import { SIMILAR_EVENTS_AMOUNT } from "./constants";
@@ -21,6 +22,7 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
   // Use url search params in case that coming from
   // search page and eventData values in case that search params are missing
   const { data: eventsData, loading } = useEventListQuery({
+    skip: !isClient,
     variables: { pageSize: PAGE_SIZE }
   });
 

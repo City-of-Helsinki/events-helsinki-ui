@@ -3,7 +3,6 @@ const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const postcssNormalize = require("postcss-normalize");
 const getCSSModuleLocalIdent = require("react-dev-utils/getCSSModuleLocalIdent");
-const nodeExternals = require("webpack-node-externals");
 const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
 
 const getClientEnvironment = require("./env");
@@ -82,10 +81,10 @@ module.exports = function() {
 
   return {
     entry: paths.appServerIndexJs,
-    externals: [nodeExternals({
-      // load non-javascript files with extensions, presumably via loaders
-      whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
-    })],
+    // externals: [nodeExternals({
+    //   // load non-javascript files with extensions, presumably via loaders
+    //   whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
+    // })],
     module: {
       rules: [
         {

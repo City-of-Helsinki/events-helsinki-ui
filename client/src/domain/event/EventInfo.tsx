@@ -30,6 +30,7 @@ import {
   getGoogleLink,
   getHslDirectionsLink
 } from "./EventUtils";
+import OrganizationInfo from "./OrganizationInfo";
 
 interface Props {
   eventData: EventDetailsQuery;
@@ -265,6 +266,8 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           </a>
         </div>
       </div>
+      {/* Organization info */}
+      <OrganizationInfo eventData={eventData} />
 
       {/* Price info */}
       <div className={classNames(styles.infoWithIcon, styles.mobileOnly)}>
