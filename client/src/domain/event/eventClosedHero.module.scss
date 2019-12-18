@@ -1,0 +1,38 @@
+@import "colors";
+@import "fonts";
+@import "layout";
+@import "variables";
+
+$heroHeight: 34.5rem;
+$heroHeightDesktop: 39.3125rem; 
+
+.eventClosedHero {
+  background: $hel-copper-light-20;
+  min-height: $heroHeight;
+  margin-bottom: -12rem;
+  padding: 5.625rem $baseMargin;
+  text-align: center;
+  box-sizing: border-box;
+
+  @include respond_above(sm) {
+    min-height: $heroHeightDesktop;
+    padding-top: 10.375rem;
+    margin-bottom: -14rem;
+  }
+
+  button {
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+  }
+}
+
+.text {
+  font-size: 1.75rem;
+  line-height: 2.5rem;
+  font-weight: $font-weight-bold;
+  margin-bottom: 3rem;
+
+  @include respond_above(sm) {
+    margin-bottom: 2rem;
+  }
+}

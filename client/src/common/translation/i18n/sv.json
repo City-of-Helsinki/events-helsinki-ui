@@ -43,9 +43,11 @@
     },
     "hero": {
       "buttonBuyTickets": "Köp biljetter",
+      "buttonToHomePage": "Till första sidan",
       "offers": {
         "isFree": "Gratis"
-      }
+      },
+      "textEventClosed": "Händelsen du letar efter är redan slut"
     },
     "info": {
       "buttonBuyTickets": "Köp biljetter",
