@@ -47,11 +47,14 @@
     },
     "hero": {
       "buttonBuyTickets": "Buy tickets",
+      "buttonToHomePage": "To front page",
       "offers": {
         "isFree": "Free"
-      }
+      },
+      "textEventClosed": "The event you are looking for has already ended"
     },
     "info": {
+      "buttonAddToCalendar": "Add to calendar",
       "buttonBuyTickets": "Buy tickets",
       "directionsGoogle": "Directions (Google)",
       "directionsHSL": "Directions (HSL)",
@@ -71,7 +74,8 @@
       "offers": {
         "isFree": "Free"
       },
-      "openMap": "Open the map"
+      "openMap": "Open the map",
+      "textCalendarLinkDescription": "{{description}} Read more: {{link}}"
     },
     "location": {
       "directionsGoogle": "Directions (Google)",

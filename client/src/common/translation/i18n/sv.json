@@ -47,11 +47,14 @@
     },
     "hero": {
       "buttonBuyTickets": "Köp biljetter",
+      "buttonToHomePage": "Till första sidan",
       "offers": {
         "isFree": "Gratis"
-      }
+      },
+      "textEventClosed": "Händelsen du letar efter är redan slut"
     },
     "info": {
+      "buttonAddToCalendar": "Lägg till i kalendern",
       "buttonBuyTickets": "Köp biljetter",
       "directionsGoogle": "Vägbeskrivning (Google)",
       "directionsHSL": "Vägbeskrivning (HSL)",
@@ -71,7 +74,8 @@
       "offers": {
         "isFree": "Gratis"
       },
-      "openMap": "Öppna kartan"
+      "openMap": "Öppna kartan",
+      "textCalendarLinkDescription": "{{description}} Läs mer: {{link}}"
     },
     "location": {
       "directionsGoogle": "Vägbeskrivning (Google)",
