@@ -5,8 +5,9 @@ import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useEventListQuery } from "../../generated/graphql";
 import Layout from "../app/layout/Layout";
 import { PAGE_SIZE } from "./constants";
-import { getNextPage } from "./EventListUtils";
+import { getEventFilters, getNextPage } from "./EventListUtils";
 import styles from "./eventSearchPage.module.scss";
+import Search from "./Search";
 import SearchResultList from "./SearchResultList";
 
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
@@ -14,10 +15,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
 
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
-    variables: {
-      pageSize: PAGE_SIZE,
-      publisher: searchParams.get("publisher")
-    }
+    variables: getEventFilters(searchParams, PAGE_SIZE)
   });
 
   const handleLoadMore = () => {
@@ -45,6 +43,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   return (
     <Layout>
       <div className={styles.eventSearchPageWrapper}>
+        <Search />
         <LoadingSpinner isLoading={!eventsData && loading}>
           {eventsData && (
             <>

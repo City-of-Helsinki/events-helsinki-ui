@@ -2,8 +2,8 @@
 
 .mobileNavigationMenu {
   position: fixed;
-  top: 3.125rem;
-  bottom: 0;
+  top: -100vh;
+  bottom: 100vh;
   left: 0;
   right: 0;
   overflow: hidden;
@@ -103,6 +103,8 @@
   }
 
   &.menuOpen {
+    top: 3.125rem;
+    bottom: 0;
     background-color: $hel-white;
     transition: background-color 0.5s;
     z-index: 2;

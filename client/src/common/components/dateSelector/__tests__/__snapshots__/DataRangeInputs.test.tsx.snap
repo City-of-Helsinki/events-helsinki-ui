@@ -13,7 +13,7 @@ exports[`DateRangeInputs matches snapshot 1`] = `
     <div
       className="formatInfo"
     >
-      kk.mm.vvvv
+      pp.kk.vvvv
     </div>
     <div
       className="inputWrapper"
@@ -51,7 +51,7 @@ exports[`DateRangeInputs matches snapshot 1`] = `
     <div
       className="formatInfo"
     >
-      kk.mm.vvvv
+      pp.kk.vvvv
     </div>
     <div
       className="inputWrapper"
