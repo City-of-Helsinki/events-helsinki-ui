@@ -12,17 +12,18 @@ import SearchResultList from "./SearchResultList";
 
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const searchParams = new URLSearchParams(useLocation().search);
-
+  const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
     variables: getEventFilters(searchParams, PAGE_SIZE)
   });
 
-  const handleLoadMore = () => {
+  const handleLoadMore = async () => {
     const page = getNextPage(eventsData);
+    setIsFetchingMore(true);
 
     if (page) {
-      fetchMore({
+      await fetchMore({
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev;
           const events = [
@@ -38,18 +39,19 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
         }
       });
     }
+    setIsFetchingMore(false);
   };
 
   return (
     <Layout>
       <div className={styles.eventSearchPageWrapper}>
         <Search />
-        <LoadingSpinner isLoading={!eventsData && loading}>
+        <LoadingSpinner isLoading={!isFetchingMore && loading}>
           {eventsData && (
             <>
               <SearchResultList
                 eventsData={eventsData}
-                loading={loading}
+                loading={isFetchingMore}
                 onLoadMore={handleLoadMore}
               />
             </>
