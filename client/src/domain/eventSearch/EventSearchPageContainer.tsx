@@ -13,6 +13,7 @@ import SearchResultList from "./SearchResultList";
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const searchParams = new URLSearchParams(useLocation().search);
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
+
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
     variables: getEventFilters(searchParams, PAGE_SIZE)
@@ -34,8 +35,8 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
           return fetchMoreResult;
         },
         variables: {
-          page: page,
-          pageSize: PAGE_SIZE
+          ...getEventFilters(searchParams, PAGE_SIZE),
+          page: page
         }
       });
     }

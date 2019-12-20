@@ -52,15 +52,20 @@ const Search: FunctionComponent = () => {
     const start = searchParams.get("startDate");
     const dTypes = getUrlParamAsArray(searchParams, "dateTypes");
 
+    if (end) {
+      setEndDate(new Date(end));
+    } else {
+      setEndDate(null);
+    }
+
+    if (start) {
+      setStartDate(new Date(start));
+    } else {
+      setStartDate(null);
+    }
+
     if (end || start) {
       setIsCustomDate(true);
-
-      if (end) {
-        setEndDate(new Date(end));
-      }
-      if (start) {
-        setStartDate(new Date(start));
-      }
     } else {
       setDateTypes(dTypes);
     }
