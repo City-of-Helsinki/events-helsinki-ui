@@ -6,10 +6,13 @@ import Button from "../../common/components/button/Button";
 import { FilterType } from "../../common/components/filterButton/FilterButton";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { EventListQuery } from "../../generated/graphql";
+import { formatDate } from "../../util/dateUtils";
 import getLocale from "../../util/getLocale";
+import getUrlParamAsString from "../../util/getUrlParamAsString";
 import isClient from "../../util/isClient";
 import { getSearchQuery } from "../../util/searchUtils";
 import Container from "../app/layout/Container";
+import DateFilter from "./DateFilter";
 import EventCard from "./EventCard";
 import PublisherFilter from "./PublisherFilter";
 import styles from "./searchResultList.module.scss";
@@ -31,17 +34,33 @@ const SearchResultList: React.FC<Props> = ({
   const searchParams = new URLSearchParams(useLocation().search);
   const events = eventsData.eventList.data;
   const publisher = searchParams.get("publisher");
+  const dateTypes = getUrlParamAsString(searchParams, "dateTypes");
+  const startDate = searchParams.get("startDate");
+  const endDate = searchParams.get("endDate");
+  const dateText = startDate
+    ? endDate
+      ? `${formatDate(new Date(startDate))} - ${formatDate(new Date(endDate))}`
+      : formatDate(new Date(startDate))
+    : endDate
+    ? formatDate(new Date(endDate))
+    : "";
 
   const handleFilterRemove = (value: string, type: FilterType) => {
     // TODO: Support all the filtering types
+    const endDate = searchParams.get("endDate");
+    const startDate = searchParams.get("startDate");
+
     const search = getSearchQuery({
       categories: [],
-      dateTypes: [],
-      endDate: null,
-      isCustomDate: false,
+      dateTypes:
+        type === "dateType"
+          ? dateTypes.filter(dateType => dateType !== value)
+          : dateTypes,
+      endDate: type === "date" ? null : endDate ? new Date(endDate) : null,
+      isCustomDate: !!(startDate || endDate),
       publisher: type !== "publisher" ? searchParams.get("publisher") : null,
       search: "",
-      startDate: null
+      startDate: type === "date" ? null : startDate ? new Date(startDate) : null
     });
 
     push({ pathname: `/${locale}/events`, search });
@@ -50,7 +69,8 @@ const SearchResultList: React.FC<Props> = ({
   };
 
   // TODO: Uppdate this variable when adding new filters
-  const hasFilters = !!searchParams.get("publisher");
+  const hasFilters =
+    !!searchParams.get("publisher") || dateText || dateTypes.length;
 
   React.useEffect(() => {
     // Scroll to top when page loads. Ignore this on SSR because window doesn't exist
@@ -82,6 +102,22 @@ const SearchResultList: React.FC<Props> = ({
                       onRemove={handleFilterRemove}
                     />
                   )}
+                  {dateText && (
+                    <DateFilter
+                      onRemove={handleFilterRemove}
+                      text={dateText}
+                      type="date"
+                      value="date"
+                    />
+                  )}
+                  {dateTypes.map(dateType => (
+                    <DateFilter
+                      key={dateType}
+                      onRemove={handleFilterRemove}
+                      type="dateType"
+                      value={dateType}
+                    />
+                  ))}
                 </>
               ) : (
                 t("eventSearch.filters.textNoFilters")
