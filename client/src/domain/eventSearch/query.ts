@@ -2,6 +2,7 @@ import gql from "graphql-tag";
 
 export const QUERY_EVENT_LIST = gql`
   query EventList(
+    $categories: [String]
     $endDate: String
     $page: Int
     $pageSize: Int
@@ -9,6 +10,7 @@ export const QUERY_EVENT_LIST = gql`
     $startDate: String
   ) {
     eventList(
+      categories: $categories
       endDate: $endDate
       page: $page
       pageSize: $pageSize

@@ -30,6 +30,11 @@
       },
       "title": "Select period"
     },
+    "dropdown": {
+      "menu": {
+        "buttonClear": "Clear selection"
+      }
+    },
     "filter": {
       "ariaButtonRemove": "Remove filter: {{filter}}"
     },
@@ -116,16 +121,17 @@
   },
   "home": {
     "category": {
-      "culture": "Kulttuuri ja taide (en)",
-      "dance": "Tanssi (en)",
-      "food": "Ruoka (en)",
-      "influence": "Osallistu ja vaikuta (en)",
-      "movie": "Elokuva (en)",
-      "museum": "Museot (en)",
-      "music": "Musiikki (en)",
-      "nature": "Luonto ja ulkoilu (en)",
-      "sport": "Liikunta ja urheilu (en)",
-      "theatre": "Teatteri (en)"
+      "culture": "Culture and art",
+      "dance": "Dance",
+      "food": "Food",
+      "influence": "Participate and influence",
+      "misc": "Other",
+      "movie": "Movie",
+      "museum": "Museums",
+      "music": "Music",
+      "nature": "Nature and outdoor activities",
+      "sport": "Exercise and sports",
+      "theatre": "Theater"
     },
     "collections": {
       "title": "Collections"

@@ -30,7 +30,7 @@ const TopFooter: FunctionComponent = () => {
 
   const handleCategoryClick = (category: Category) => {
     const search = getSearchQuery({
-      categories: [category],
+      categories: [category.value],
       dateTypes: [],
       endDate: null,
       isCustomDate: false,

@@ -30,6 +30,11 @@
       },
       "title": "Valitse ajankohta"
     },
+    "dropdown": {
+      "menu": {
+        "buttonClear": "Tyhjennä valinnat"
+      }
+    },
     "filter": {
       "ariaButtonRemove": "Poista suodatin: {{filter}}"
     },
@@ -120,6 +125,7 @@
       "dance": "Tanssi",
       "food": "Ruoka",
       "influence": "Osallistu ja vaikuta",
+      "misc": "Muut",
       "movie": "Elokuva",
       "museum": "Museot",
       "music": "Musiikki",
