@@ -4,9 +4,5 @@
     "javascriptreact",
     { "language": "typescript", "autoFix": true },
     { "language": "typescriptreact", "autoFix": true }
-  ],
-  "eslint.workingDirectories": [
-    "client",
-    "graphql-proxy"
   ]
 }
