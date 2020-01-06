@@ -13,13 +13,38 @@ import { getAssets } from "./assets";
 import Html from "./Html";
 import ServerApp from "./ServerApp";
 
+const OK = "OK";
+const SERVER_IS_NOT_READY = "SERVER_IS_NOT_READY";
+
 interface StaticContext {
   url?: string;
 }
 
+let serverIsReady = false;
+
+const signalReady = () => {
+  serverIsReady = true;
+};
+
+const checkIsServerReady = (response: Response) => {
+  if (serverIsReady) {
+    response.send(OK);
+  } else {
+    response.status(500).send(SERVER_IS_NOT_READY);
+  }
+};
+
 const app = express();
 
 app.use(express.static(__dirname, { index: false }));
+
+app.get("/healthz", (request, response) => {
+  checkIsServerReady(response);
+});
+
+app.get("/readiness", (request, response) => {
+  checkIsServerReady(response);
+});
 
 app.use(async (req: Request, res: Response) => {
   const client = new ApolloClient({
@@ -56,6 +81,8 @@ app.use(async (req: Request, res: Response) => {
 const port = process.env.REACT_APP_SSR_PORT || 3000;
 
 app.listen(port, () => {
+  signalReady();
+
   // eslint-disable-next-line no-console
   console.log(`Server listening on ${port} port`);
 });
