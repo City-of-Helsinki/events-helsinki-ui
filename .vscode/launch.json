@@ -5,14 +5,14 @@
       "name": "Run Client Tests",
       "type": "node",
       "request": "launch",
-      "runtimeExecutable": "${workspaceRoot}/client/node_modules/.bin/react-scripts",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/react-scripts",
       "args": [
         "test",
         "--runInBand",
         "--no-cache",
         "--watchAll=false"
       ],
-      "cwd": "${workspaceRoot}/client",
+      "cwd": "${workspaceRoot}",
       "protocol": "inspector",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
