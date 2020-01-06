@@ -1,6 +1,6 @@
 import { addDays, endOfWeek, startOfWeek, subDays } from "date-fns";
 
-import { DATE_TYPES } from "../../constants";
+import { CATEGORIES, DATE_TYPES } from "../../constants";
 import { EventListQuery } from "../../generated/graphql";
 import { formatDate } from "../../util/dateUtils";
 import getUrlParamAsString from "../../util/getUrlParamAsString";
@@ -69,8 +69,38 @@ export const getEventFilters = (params: URLSearchParams, pageSize: number) => {
     params.get("startDate"),
     params.get("endDate")
   );
+  const categories = getUrlParamAsString(params, "categories");
+  const mappedCategories = categories.map(category => {
+    switch (category) {
+      case CATEGORIES.CULTURE:
+        return "yso:p360";
+      case CATEGORIES.DANCE:
+        return "yso:p1278";
+      case CATEGORIES.FOOD:
+        return "yso:p3670";
+      case CATEGORIES.INFLUENCE:
+        return "yso:p1657";
+      case CATEGORIES.MISC:
+        return "yso:p2108";
+      case CATEGORIES.MOVIE:
+        return "yso:p1235";
+      case CATEGORIES.MUSEUM:
+        return "yso:p4934";
+      case CATEGORIES.MUSIC:
+        return "yso:p1808";
+      case CATEGORIES.NATURE:
+        return "yso:p2771";
+      case CATEGORIES.SPORT:
+        return "yso:p965";
+      case CATEGORIES.THEATRE:
+        return "yso:p2625";
+      default:
+        return "";
+    }
+  });
 
   return {
+    categories: mappedCategories,
     endDate: endDate,
     pageSize,
     publisher: params.get("publisher"),

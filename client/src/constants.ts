@@ -3,6 +3,7 @@ export const CATEGORIES = {
   DANCE: "dance",
   FOOD: "food",
   INFLUENCE: "influence",
+  MISC: "misc",
   MOVIE: "movie",
   MUSEUM: "museum",
   MUSIC: "music",

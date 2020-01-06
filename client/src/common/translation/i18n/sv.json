@@ -36,6 +36,11 @@
     "loading": "Laddning...",
     "supriseMe": "Yllätä minut (sv)"
   },
+  "dropdown": {
+    "menu": {
+      "buttonClear": "Rensa val"
+    }
+  },
   "event": {
     "categories": {
       "labelFree": "Gratis",
@@ -116,16 +121,17 @@
   },
   "home": {
     "category": {
-      "culture": "Kulttuuri ja taide (sv)",
-      "dance": "Tanssi (sv)",
-      "food": "Ruoka (sv)",
-      "influence": "Osallistu ja vaikuta (sv)",
-      "movie": "Elokuva (sv)",
-      "museum": "Museot (sv)",
-      "music": "Musiikki (sv)",
-      "nature": "Luonto ja ulkoilu (sv)",
-      "sport": "Liikunta ja urheilu (sv)",
-      "theatre": "Teatteri (sv)"
+      "culture": "Kultur och konst",
+      "dance": "Dans",
+      "food": "Mat",
+      "influence": "Delta och påverka",
+      "misc": "Andra",
+      "movie": "Film",
+      "museum": "Museer",
+      "music": "Musik",
+      "nature": "Natur och utomhusaktiviteter",
+      "sport": "Motion och sport",
+      "theatre": "Teater"
     },
     "collections": {
       "title": "Kollektioner"

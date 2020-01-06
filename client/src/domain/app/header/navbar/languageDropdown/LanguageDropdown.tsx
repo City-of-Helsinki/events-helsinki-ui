@@ -23,9 +23,14 @@ const LanguageDropdown: React.FC = () => {
 
   const handleChange = (newLanguage: string) => {
     i18n.changeLanguage(newLanguage);
-    history.push(
-      updateLocaleParam(location.pathname, currentLanguage, newLanguage)
-    );
+    history.push({
+      pathname: updateLocaleParam(
+        location.pathname,
+        currentLanguage,
+        newLanguage
+      ),
+      search: location.search
+    });
   };
   return (
     <div className={styles.languageDropdown}>

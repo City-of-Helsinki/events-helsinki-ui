@@ -60,7 +60,7 @@ const Search: FunctionComponent = () => {
 
   const moveToSearchPage = () => {
     const search = getSearchQuery({
-      categories,
+      categories: categories.map(category => category.value),
       dateTypes,
       endDate,
       isCustomDate,

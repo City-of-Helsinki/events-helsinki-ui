@@ -3,11 +3,10 @@ import isArray from "lodash/isArray";
 import isEmpty from "lodash/isEmpty";
 import isNumber from "lodash/isNumber";
 
-import { Category } from "../common/types";
 import { formatDate } from "./dateUtils";
 
 interface Filters {
-  categories: Category[];
+  categories: string[];
   dateTypes: string[];
   endDate: Date | null;
   isCustomDate: boolean;
@@ -28,7 +27,6 @@ interface MappedFilters {
 export const getSearchQuery = (filters: Filters): string => {
   const newFilters: MappedFilters = {
     ...filters,
-    categories: filters.categories.map(category => category.value),
     endDate: formatDate(filters.endDate, "yyyy-MM-dd"),
     startDate: formatDate(filters.startDate, "yyyy-MM-dd")
   };

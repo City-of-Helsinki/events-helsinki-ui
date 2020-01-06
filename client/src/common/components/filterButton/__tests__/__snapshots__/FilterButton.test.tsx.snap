@@ -2,7 +2,7 @@
 
 exports[`FilterButton matches snapshot 1`] = `
 <div
-  className="filter"
+  className="filter publisher"
 >
   <button
     aria-label="Poista suodatin: text"
