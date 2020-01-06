@@ -11,7 +11,9 @@ import getLocale from "../../util/getLocale";
 import getUrlParamAsString from "../../util/getUrlParamAsString";
 import isClient from "../../util/isClient";
 import { getSearchQuery } from "../../util/searchUtils";
+import { translateValue } from "../../util/translateUtils";
 import Container from "../app/layout/Container";
+import CategoryFilter from "./CategoryFilter";
 import DateFilter from "./DateFilter";
 import EventCard from "./EventCard";
 import PublisherFilter from "./PublisherFilter";
@@ -34,6 +36,7 @@ const SearchResultList: React.FC<Props> = ({
   const searchParams = new URLSearchParams(useLocation().search);
   const events = eventsData.eventList.data;
   const publisher = searchParams.get("publisher");
+  const categories = getUrlParamAsString(searchParams, "categories");
   const dateTypes = getUrlParamAsString(searchParams, "dateTypes");
   const startDate = searchParams.get("startDate");
   const endDate = searchParams.get("endDate");
@@ -51,7 +54,10 @@ const SearchResultList: React.FC<Props> = ({
     const startDate = searchParams.get("startDate");
 
     const search = getSearchQuery({
-      categories: [],
+      categories:
+        type === "category"
+          ? categories.filter(category => category !== value)
+          : categories,
       dateTypes:
         type === "dateType"
           ? dateTypes.filter(dateType => dateType !== value)
@@ -70,7 +76,10 @@ const SearchResultList: React.FC<Props> = ({
 
   // TODO: Uppdate this variable when adding new filters
   const hasFilters =
-    !!searchParams.get("publisher") || dateText || dateTypes.length;
+    !!searchParams.get("publisher") ||
+    !!categories.length ||
+    !!dateText ||
+    !!dateTypes.length;
 
   React.useEffect(() => {
     // Scroll to top when page loads. Ignore this on SSR because window doesn't exist
@@ -96,6 +105,14 @@ const SearchResultList: React.FC<Props> = ({
               {/* TODO: Add filters summary here */}
               {hasFilters ? (
                 <>
+                  {categories.map(category => (
+                    <CategoryFilter
+                      key={category}
+                      onRemove={handleFilterRemove}
+                      text={translateValue("home.category.", category, t)}
+                      value={category}
+                    />
+                  ))}
                   {publisher && (
                     <PublisherFilter
                       id={publisher}
