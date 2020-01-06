@@ -8,6 +8,7 @@ describe("getSearchQuery function", () => {
         dateTypes: [],
         endDate: null,
         isCustomDate: false,
+        publisher: null,
         search: "",
         startDate: null
       })
@@ -15,13 +16,11 @@ describe("getSearchQuery function", () => {
 
     expect(
       getSearchQuery({
-        categories: [
-          { text: "cat1", value: "category1" },
-          { text: "cat2", value: "category2" }
-        ],
+        categories: ["category1", "category2"],
         dateTypes: ["type1", "type2"],
         endDate: null,
         isCustomDate: false,
+        publisher: null,
         search: "test",
         startDate: null
       })
@@ -33,6 +32,7 @@ describe("getSearchQuery function", () => {
         dateTypes: ["type1", "type2"],
         endDate: new Date("2019-12-20"),
         isCustomDate: true,
+        publisher: null,
         search: "test",
         startDate: new Date("2019-11-20")
       })
