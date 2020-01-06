@@ -1,10 +1,11 @@
+import classNames from "classnames";
 import { IconClose } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 import styles from "./filterButton.module.scss";
 
-export type FilterType = "category" | "publisher";
+export type FilterType = "category" | "date" | "dateType" | "publisher";
 
 interface Props {
   onRemove: (value: string, type: FilterType) => void;
@@ -21,7 +22,7 @@ const FilterButton: React.FC<Props> = ({ onRemove, text, type, value }) => {
   };
 
   return (
-    <div className={styles.filter}>
+    <div className={classNames(styles.filter, styles[type])}>
       <button
         type="button"
         className={styles.closeButton}

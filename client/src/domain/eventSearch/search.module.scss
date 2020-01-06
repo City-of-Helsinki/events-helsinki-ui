@@ -1,0 +1,47 @@
+@import "colors";
+@import "fonts";
+@import "layout";
+@import "variables";
+
+.searchContainer {
+  display: grid;
+  grid-gap: 0.625rem;
+  height: fit-content;
+  color: $hel-black;
+  background-color: $hel-copper-light-20;
+  padding: 2.375rem 0 3.75rem 0;
+  align-items: center;
+  position: relative;
+
+  .secondRow {
+    display: grid;
+    grid-gap: 0.625rem;
+
+    .dateSelectorWrapper {
+      align-self: flex-end;
+    }
+  
+    .buttonWrapper {
+      align-self: flex-end;
+    }
+  
+    @include respond-above(sm) {
+      grid-template-columns: 1fr 1fr 1fr 1fr auto;
+      grid-gap: $largePadding;
+    }
+  }
+}
+
+.label {
+  font-size: $label-font-size;
+  font-weight: $label-font-weight;
+  line-height: normal;
+
+  @include respond-below(sm) {
+    display: none;
+  }
+}
+
+.categoriesWrapper {
+  padding: 4rem 0 4rem;
+}

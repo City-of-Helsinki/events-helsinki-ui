@@ -20,7 +20,7 @@
       "dateTypeToday": "Tänään",
       "dateTypeTomorrow": "Huomenna",
       "dateTypeWeekend": "Viikonloppuna",
-      "infoDate": "kk.mm.vvvv",
+      "infoDate": "pp.kk.vvvv",
       "labelEndDate": "Loppumispäivä",
       "labelStartDate": "Alkamispäivä",
       "menu": {

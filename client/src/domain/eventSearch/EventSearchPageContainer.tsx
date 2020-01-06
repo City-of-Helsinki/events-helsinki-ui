@@ -5,26 +5,26 @@ import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useEventListQuery } from "../../generated/graphql";
 import Layout from "../app/layout/Layout";
 import { PAGE_SIZE } from "./constants";
-import { getNextPage } from "./EventListUtils";
+import { getEventFilters, getNextPage } from "./EventListUtils";
 import styles from "./eventSearchPage.module.scss";
+import Search from "./Search";
 import SearchResultList from "./SearchResultList";
 
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const searchParams = new URLSearchParams(useLocation().search);
+  const [isFetchingMore, setIsFetchingMore] = React.useState(false);
 
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
-    variables: {
-      pageSize: PAGE_SIZE,
-      publisher: searchParams.get("publisher")
-    }
+    variables: getEventFilters(searchParams, PAGE_SIZE)
   });
 
-  const handleLoadMore = () => {
+  const handleLoadMore = async () => {
     const page = getNextPage(eventsData);
+    setIsFetchingMore(true);
 
     if (page) {
-      fetchMore({
+      await fetchMore({
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev;
           const events = [
@@ -35,22 +35,24 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
           return fetchMoreResult;
         },
         variables: {
-          page: page,
-          pageSize: PAGE_SIZE
+          ...getEventFilters(searchParams, PAGE_SIZE),
+          page: page
         }
       });
     }
+    setIsFetchingMore(false);
   };
 
   return (
     <Layout>
       <div className={styles.eventSearchPageWrapper}>
-        <LoadingSpinner isLoading={!eventsData && loading}>
+        <Search />
+        <LoadingSpinner isLoading={!isFetchingMore && loading}>
           {eventsData && (
             <>
               <SearchResultList
                 eventsData={eventsData}
-                loading={loading}
+                loading={isFetchingMore}
                 onLoadMore={handleLoadMore}
               />
             </>

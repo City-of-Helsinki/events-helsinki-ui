@@ -15,20 +15,20 @@
       "count": "{{count}} st"
     },
     "dateSelector": {
-      "dateTypeAll": "Koska tahansa (sv)",
-      "dateTypeThisWeek": "Tällä viikolla (sv)",
-      "dateTypeToday": "Tänään (sv)",
-      "dateTypeTomorrow": "Huomenna (sv)",
-      "dateTypeWeekend": "Viikonloppuna (sv)",
-      "infoDate": "kk.mm.vvvv (sv)",
-      "labelEndDate": "Loppumispäivä (sv)",
-      "labelStartDate": "Alkamispäivä (sv)",
+      "dateTypeAll": "När som helst",
+      "dateTypeThisWeek": "Denna vecka",
+      "dateTypeToday": "I dag",
+      "dateTypeTomorrow": "I morgon",
+      "dateTypeWeekend": "På veckoslut",
+      "infoDate": "dd.mm.åååå",
+      "labelEndDate": "Slutdatum",
+      "labelStartDate": "Startdatum",
       "menu": {
-        "buttonBack": "Takaisin (sv)",
-        "buttonClose": "Sulje (sv)",
-        "buttonCustom": "Valitse päivät (sv)"
+        "buttonBack": "Tillbaka",
+        "buttonClose": "Stänga",
+        "buttonCustom": "Välj datu,"
       },
-      "title": "Valitse ajankohta (sv)"
+      "title": "Välj period"
     },
     "filter": {
       "ariaButtonRemove": "Ta bort filter: {{filter}}"
@@ -106,13 +106,13 @@
   "footer": {
     "titleCategories": "Kategoriat (sv)",
     "searchCollections": "Selaa kokoelmia (sv)",
-    "searchEvents": "Etsi tekemistä (sv)"
+    "searchEvents": "Hitta något att göra"
   },
   "header": {
     "ariaButtonCloseMenu": "Sulje valikko (sv)",
     "ariaButtonOpenMenu": "Avaa valikko (sv)",
     "searchCollections": "Selaa kokoelmia (sv)",
-    "searchEvents": "Etsi tekemistä (sv)"
+    "searchEvents": "Hitta något att göra"
   },
   "home": {
     "category": {
@@ -136,17 +136,17 @@
       "title": "Syysloman riehakaimmat riennot! (sv)"
     },
     "search": {
-      "buttonSearch": "Hae (sv)",
-      "labelDateRange": "Mille ajankohdalle etsit? (sv)",
-      "labelSearchField": "Mitä etsit? (sv)",
-      "placeholder": "Aloita kirjoittamalla tähän, esim. teatteri (sv)",
-      "title": "Löydä itsellesi tekemistä! (sv)"
+      "buttonSearch": "Sök",
+      "labelDateRange": "För vilken period du letar efter?",
+      "labelSearchField": "Vad du letar efter?",
+      "placeholder": "Börja skriva här, t.ex. teater",
+      "title": "Hitta något att göra!"
     }
   },
   "menu": {
     "aboutService": "Tietoa palvelusta (sv)",
     "mostPopular": "Suosituimmat haut (sv)",
     "searchCategories": "Selaa kategorioita (sv)",
-    "searchEvents": "Etsi tekemistä (sv)"
+    "searchEvents": "Hitta något att göra"
   }
 }

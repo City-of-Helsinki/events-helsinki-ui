@@ -1,14 +1,19 @@
 @import "colors";
+@import "layout";
 
 .dateSelectorMenu {
   background: $hel-white;
   color: $hel-black;
-  position: absolute;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
-  top: 100%;
-  left: 0;
-  right: 0;
   z-index: 1;
+  min-width: 21rem;
+
+  @include respond_above(sm) {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+  }
 
   .button {
     cursor: pointer;
