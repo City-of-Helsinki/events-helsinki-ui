@@ -7,6 +7,7 @@ import Button from "../../common/components/button/Button";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import Dropdown from "../../common/components/dropdown/Dropdown";
 import Checkbox from "../../common/components/input/Checkbox";
+import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import { CATEGORIES } from "../../constants";
 import IconRead from "../../icons/IconRead";
 import getLocale from "../../util/getLocale";
@@ -22,6 +23,7 @@ const Search: FunctionComponent = () => {
   ]);
   const { t } = useTranslation();
   const locale = getLocale();
+  const [searchValue, setSearchValue] = React.useState("");
   const [dateTypes, setDateTypes] = React.useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = React.useState<string[]>(
     []
@@ -96,7 +98,7 @@ const Search: FunctionComponent = () => {
       endDate,
       isCustomDate,
       publisher: null,
-      search: "",
+      search: searchValue,
       startDate
     });
 
@@ -105,10 +107,15 @@ const Search: FunctionComponent = () => {
 
   // Initialize fields when page is loaded
   React.useEffect(() => {
+    const searchVal = searchParams.get("search");
     const end = searchParams.get("endDate");
     const start = searchParams.get("startDate");
     const dTypes = getUrlParamAsArray(searchParams, "dateTypes");
     const categories = getUrlParamAsArray(searchParams, "categories");
+
+    if (searchVal) {
+      setSearchValue(searchVal);
+    }
 
     if (end) {
       setEndDate(new Date(end));
@@ -150,15 +157,24 @@ const Search: FunctionComponent = () => {
     <>
       <div className={styles.searchContainer}>
         <Container>
+          <div className={styles.firstRow}>
+            <label>{t("eventSearch.search.labelSearchField")}</label>
+            <SearchAutosuggest
+              categories={[]}
+              onChangeSearchValue={setSearchValue}
+              placeholder={t("eventSearch.search.placeholder")}
+              searchValue={searchValue}
+            />
+          </div>
           <div className={styles.secondRow}>
             <div>
               <div className={styles.label}>
-                {t("home.search.labelDateRange")}
+                {t("eventSearch.search.labelCategory")}
               </div>
               <Dropdown
                 icon={<IconRead />}
                 onClearButtonClick={handleClearCategories}
-                title="Valitse kategoria"
+                title={t("eventSearch.search.titleDropdownCategory")}
               >
                 <>
                   {categories.map(category => {
@@ -177,6 +193,9 @@ const Search: FunctionComponent = () => {
               </Dropdown>
             </div>
             <div className={styles.dateSelectorWrapper}>
+              <div className={styles.label}>
+                {t("eventSearch.search.labelDateRange")}
+              </div>
               <DateSelector
                 dateTypes={dateTypes}
                 endDate={endDate}
@@ -198,7 +217,7 @@ const Search: FunctionComponent = () => {
                 onClick={moveToSearchPage}
                 size="default"
               >
-                {t("home.search.buttonSearch")}
+                {t("eventSearch.search.buttonSearch")}
               </Button>
             </div>
           </div>

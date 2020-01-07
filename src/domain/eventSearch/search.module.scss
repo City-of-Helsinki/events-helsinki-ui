@@ -13,6 +13,10 @@
   align-items: center;
   position: relative;
 
+  .firstRow {
+    margin-bottom: 2rem;
+  }
+
   .secondRow {
     display: grid;
     grid-gap: 0.625rem;

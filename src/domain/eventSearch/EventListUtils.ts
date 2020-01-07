@@ -69,6 +69,7 @@ export const getEventFilters = (params: URLSearchParams, pageSize: number) => {
     params.get("startDate"),
     params.get("endDate")
   );
+
   const categories = getUrlParamAsString(params, "categories");
   const mappedCategories = categories.map(category => {
     switch (category) {
@@ -104,7 +105,8 @@ export const getEventFilters = (params: URLSearchParams, pageSize: number) => {
     endDate: endDate,
     pageSize,
     publisher: params.get("publisher"),
-    startDate: startDate
+    startDate: startDate,
+    text: params.get("search")
   };
 };
 

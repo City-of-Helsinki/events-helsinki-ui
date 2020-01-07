@@ -234,7 +234,8 @@ export type QueryEventListArgs = {
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   publisher?: Maybe<Scalars['ID']>,
-  startDate?: Maybe<Scalars['String']>
+  startDate?: Maybe<Scalars['String']>,
+  text?: Maybe<Scalars['String']>
 };
 
 
@@ -356,7 +357,8 @@ export type EventListQueryVariables = {
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   publisher?: Maybe<Scalars['ID']>,
-  startDate?: Maybe<Scalars['String']>
+  startDate?: Maybe<Scalars['String']>,
+  text?: Maybe<Scalars['String']>
 };
 
 
@@ -623,8 +625,8 @@ export type OrganizationDetailsQueryHookResult = ReturnType<typeof useOrganizati
 export type OrganizationDetailsLazyQueryHookResult = ReturnType<typeof useOrganizationDetailsLazyQuery>;
 export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($categories: [String], $endDate: String, $page: Int, $pageSize: Int, $publisher: ID, $startDate: String) {
-  eventList(categories: $categories, endDate: $endDate, page: $page, pageSize: $pageSize, publisher: $publisher, startDate: $startDate) {
+    query EventList($categories: [String], $endDate: String, $page: Int, $pageSize: Int, $publisher: ID, $startDate: String, $text: String) {
+  eventList(categories: $categories, endDate: $endDate, page: $page, pageSize: $pageSize, publisher: $publisher, startDate: $startDate, text: $text) {
     meta {
       count
       next
@@ -724,6 +726,7 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  *      pageSize: // value for 'pageSize'
  *      publisher: // value for 'publisher'
  *      startDate: // value for 'startDate'
+ *      text: // value for 'text'
  *   },
  * });
  */

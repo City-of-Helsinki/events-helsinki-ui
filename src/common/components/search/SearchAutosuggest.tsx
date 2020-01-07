@@ -10,7 +10,7 @@ import styles from "./searchAutosuggest.module.scss";
 interface Props {
   categories: CategoryType[];
   onChangeSearchValue: (value: string) => void;
-  onRemoveCategory: (category: CategoryType) => void;
+  onRemoveCategory?: (category: CategoryType) => void;
   placeholder: string;
   searchValue: string;
 }
@@ -150,7 +150,9 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   };
 
   const handleRemoveCategory = (category: CategoryType) => {
-    onRemoveCategory(category);
+    if (onRemoveCategory) {
+      onRemoveCategory(category);
+    }
   };
 
   React.useEffect(() => {

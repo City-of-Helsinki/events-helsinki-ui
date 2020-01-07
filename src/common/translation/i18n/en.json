@@ -106,6 +106,14 @@
       "textNoFilters": "No search criteria",
       "titleSummary": "Selected search criteria"
     },
+    "search": {
+      "buttonSearch": "Search",
+      "labelCategory": "What kind of event you are looking for?",
+      "labelDateRange": "For what period you are looking for?",
+      "labelSearchField": "What you are looking for?",
+      "placeholder": "Start typing here, eg theater",
+      "titleDropdownCategory": "Select category"
+    },
     "textFoundEvents": "We found {{count}} things to do for you"
   },
   "footer": {

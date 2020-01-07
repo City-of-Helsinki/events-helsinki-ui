@@ -106,6 +106,14 @@
       "textNoFilters": "Ei hakuehtoja",
       "titleSummary": "Valitsemasi hakuehdot"
     },
+    "search": {
+      "buttonSearch": "Hae",
+      "labelCategory": "Millaista haet?",
+      "labelDateRange": "Mille ajankohdalle etsit?",
+      "labelSearchField": "Mitä etsit?",
+      "placeholder": "Aloita kirjoittamalla tähän, esim. teatteri",
+      "titleDropdownCategory": "Valitse kategoria"
+    },
     "textFoundEvents": "Löysimme sinulle {{count}} tekemistä"
   },
   "footer": {

@@ -8,6 +8,7 @@ export const QUERY_EVENT_LIST = gql`
     $pageSize: Int
     $publisher: ID
     $startDate: String
+    $text: String
   ) {
     eventList(
       categories: $categories
@@ -16,6 +17,7 @@ export const QUERY_EVENT_LIST = gql`
       pageSize: $pageSize
       publisher: $publisher
       startDate: $startDate
+      text: $text
     ) {
       meta {
         count
