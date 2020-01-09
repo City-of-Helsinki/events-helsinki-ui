@@ -12,10 +12,18 @@ export type Scalars = {
   Float: number,
 };
 
+export type Division = {
+   __typename?: 'Division',
+  type: Scalars['String'],
+  ocdId?: Maybe<Scalars['String']>,
+  municipality?: Maybe<Scalars['String']>,
+  name?: Maybe<LocalizedObject>,
+};
+
 export type EventDetails = {
    __typename?: 'EventDetails',
   id: Scalars['ID'],
-  location?: Maybe<Location>,
+  location?: Maybe<Place>,
   keywords: Array<Keyword>,
   superEvent?: Maybe<InternalIdObject>,
   eventStatus?: Maybe<Scalars['String']>,
@@ -134,52 +142,6 @@ export type LocalizedObject = {
   en?: Maybe<Scalars['String']>,
 };
 
-export type Location = {
-   __typename?: 'Location',
-  id: Scalars['ID'],
-  divisions?: Maybe<Array<LocationDivision>>,
-  createdTime?: Maybe<Scalars['String']>,
-  lastModifiedTime?: Maybe<Scalars['String']>,
-  customData?: Maybe<Scalars['String']>,
-  email?: Maybe<Scalars['String']>,
-  contactType?: Maybe<Scalars['String']>,
-  addressRegion?: Maybe<Scalars['String']>,
-  postalCode?: Maybe<Scalars['String']>,
-  postOfficeBoxNum?: Maybe<Scalars['String']>,
-  addressCountry?: Maybe<Scalars['String']>,
-  deleted?: Maybe<Scalars['Boolean']>,
-  nEvents?: Maybe<Scalars['Int']>,
-  image?: Maybe<Image>,
-  dataSource?: Maybe<Scalars['String']>,
-  publisher?: Maybe<Scalars['ID']>,
-  parent?: Maybe<Scalars['ID']>,
-  replacedBy?: Maybe<Scalars['String']>,
-  position?: Maybe<LocationPosition>,
-  name?: Maybe<LocalizedObject>,
-  description?: Maybe<Scalars['String']>,
-  telephone?: Maybe<LocalizedObject>,
-  addressLocality?: Maybe<LocalizedObject>,
-  streetAddress?: Maybe<LocalizedObject>,
-  infoUrl?: Maybe<LocalizedObject>,
-  internalId?: Maybe<Scalars['String']>,
-  internalContext?: Maybe<Scalars['String']>,
-  internalType?: Maybe<Scalars['String']>,
-};
-
-export type LocationDivision = {
-   __typename?: 'LocationDivision',
-  type: Scalars['String'],
-  ocdId?: Maybe<Scalars['String']>,
-  municipality?: Maybe<Scalars['String']>,
-  name?: Maybe<LocalizedObject>,
-};
-
-export type LocationPosition = {
-   __typename?: 'LocationPosition',
-  type: Scalars['String'],
-  coordinates: Array<Scalars['Float']>,
-};
-
 export type Meta = {
    __typename?: 'Meta',
   count: Scalars['Int'],
@@ -220,6 +182,50 @@ export type OrganizationDetails = {
   internalType?: Maybe<Scalars['String']>,
 };
 
+export type Place = {
+   __typename?: 'Place',
+  id: Scalars['ID'],
+  divisions?: Maybe<Array<Division>>,
+  createdTime?: Maybe<Scalars['String']>,
+  lastModifiedTime?: Maybe<Scalars['String']>,
+  customData?: Maybe<Scalars['String']>,
+  email?: Maybe<Scalars['String']>,
+  contactType?: Maybe<Scalars['String']>,
+  addressRegion?: Maybe<Scalars['String']>,
+  postalCode?: Maybe<Scalars['String']>,
+  postOfficeBoxNum?: Maybe<Scalars['String']>,
+  addressCountry?: Maybe<Scalars['String']>,
+  deleted?: Maybe<Scalars['Boolean']>,
+  nEvents?: Maybe<Scalars['Int']>,
+  image?: Maybe<Image>,
+  dataSource?: Maybe<Scalars['String']>,
+  publisher?: Maybe<Scalars['ID']>,
+  parent?: Maybe<Scalars['ID']>,
+  replacedBy?: Maybe<Scalars['String']>,
+  position?: Maybe<PlacePosition>,
+  name?: Maybe<LocalizedObject>,
+  description?: Maybe<Scalars['String']>,
+  telephone?: Maybe<LocalizedObject>,
+  addressLocality?: Maybe<LocalizedObject>,
+  streetAddress?: Maybe<LocalizedObject>,
+  infoUrl?: Maybe<LocalizedObject>,
+  internalId?: Maybe<Scalars['String']>,
+  internalContext?: Maybe<Scalars['String']>,
+  internalType?: Maybe<Scalars['String']>,
+};
+
+export type PlaceListResponse = {
+   __typename?: 'PlaceListResponse',
+  meta: Meta,
+  data: Array<Place>,
+};
+
+export type PlacePosition = {
+   __typename?: 'PlacePosition',
+  type: Scalars['String'],
+  coordinates: Array<Scalars['Float']>,
+};
+
 export type Query = {
    __typename?: 'Query',
   _empty?: Maybe<Scalars['String']>,
@@ -227,6 +233,7 @@ export type Query = {
   eventList: EventListResponse,
   keywordList: KeywordListResponse,
   organizationDetails: OrganizationDetails,
+  placeList: PlaceListResponse,
 };
 
 
@@ -258,6 +265,17 @@ export type QueryKeywordListArgs = {
 
 export type QueryOrganizationDetailsArgs = {
   id?: Maybe<Scalars['ID']>
+};
+
+
+export type QueryPlaceListArgs = {
+  dataSource?: Maybe<Scalars['String']>,
+  divisions?: Maybe<Array<Maybe<Scalars['String']>>>,
+  page?: Maybe<Scalars['Int']>,
+  pageSize?: Maybe<Scalars['Int']>,
+  showAllPlaces?: Maybe<Scalars['Boolean']>,
+  sort?: Maybe<Scalars['String']>,
+  text?: Maybe<Scalars['String']>
 };
 
 export type Subscription = {
@@ -295,11 +313,11 @@ export type EventDetailsQuery = (
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
       ) }
     )>, location: Maybe<(
-      { __typename?: 'Location' }
-      & Pick<Location, 'email' | 'postalCode'>
+      { __typename?: 'Place' }
+      & Pick<Place, 'email' | 'postalCode'>
       & { divisions: Maybe<Array<(
-        { __typename?: 'LocationDivision' }
-        & Pick<LocationDivision, 'type'>
+        { __typename?: 'Division' }
+        & Pick<Division, 'type'>
         & { name: Maybe<(
           { __typename?: 'LocalizedObject' }
           & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
@@ -317,8 +335,8 @@ export type EventDetailsQuery = (
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
       )>, position: Maybe<(
-        { __typename?: 'LocationPosition' }
-        & Pick<LocationPosition, 'coordinates'>
+        { __typename?: 'PlacePosition' }
+        & Pick<PlacePosition, 'coordinates'>
       )>, telephone: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
@@ -400,10 +418,10 @@ export type EventListQuery = (
           & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
         ) }
       )>, location: Maybe<(
-        { __typename?: 'Location' }
+        { __typename?: 'Place' }
         & { divisions: Maybe<Array<(
-          { __typename?: 'LocationDivision' }
-          & Pick<LocationDivision, 'type'>
+          { __typename?: 'Division' }
+          & Pick<Division, 'type'>
           & { name: Maybe<(
             { __typename?: 'LocalizedObject' }
             & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
@@ -460,6 +478,35 @@ export type KeywordListQuery = (
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
       ) }
+    )> }
+  ) }
+);
+
+export type PlaceListQueryVariables = {
+  dataSource?: Maybe<Scalars['String']>,
+  divisions?: Maybe<Array<Maybe<Scalars['String']>>>,
+  page?: Maybe<Scalars['Int']>,
+  pageSize?: Maybe<Scalars['Int']>,
+  showAllPlaces?: Maybe<Scalars['Boolean']>,
+  sort?: Maybe<Scalars['String']>,
+  text?: Maybe<Scalars['String']>
+};
+
+
+export type PlaceListQuery = (
+  { __typename?: 'Query' }
+  & { placeList: (
+    { __typename?: 'PlaceListResponse' }
+    & { meta: (
+      { __typename?: 'Meta' }
+      & Pick<Meta, 'count' | 'next' | 'previous'>
+    ), data: Array<(
+      { __typename?: 'Place' }
+      & Pick<Place, 'id'>
+      & { name: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )> }
     )> }
   ) }
 );
@@ -845,3 +892,65 @@ export function useKeywordListLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type KeywordListQueryHookResult = ReturnType<typeof useKeywordListQuery>;
 export type KeywordListLazyQueryHookResult = ReturnType<typeof useKeywordListLazyQuery>;
 export type KeywordListQueryResult = ApolloReactCommon.QueryResult<KeywordListQuery, KeywordListQueryVariables>;
+export const PlaceListDocument = gql`
+    query PlaceList($dataSource: String, $divisions: [String], $page: Int, $pageSize: Int, $showAllPlaces: Boolean, $sort: String, $text: String) {
+  placeList(dataSource: $dataSource, divisions: $divisions, page: $page, pageSize: $pageSize, showAllPlaces: $showAllPlaces, sort: $sort, text: $text) {
+    meta {
+      count
+      next
+      previous
+    }
+    data {
+      id
+      name {
+        fi
+        sv
+        en
+      }
+    }
+  }
+}
+    `;
+export type PlaceListProps<TChildProps = {}> = ApolloReactHoc.DataProps<PlaceListQuery, PlaceListQueryVariables> | TChildProps;
+export function withPlaceList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  PlaceListQuery,
+  PlaceListQueryVariables,
+  PlaceListProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, PlaceListQuery, PlaceListQueryVariables, PlaceListProps<TChildProps>>(PlaceListDocument, {
+      alias: 'placeList',
+      ...operationOptions
+    });
+};
+
+/**
+ * __usePlaceListQuery__
+ *
+ * To run a query within a React component, call `usePlaceListQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePlaceListQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePlaceListQuery({
+ *   variables: {
+ *      dataSource: // value for 'dataSource'
+ *      divisions: // value for 'divisions'
+ *      page: // value for 'page'
+ *      pageSize: // value for 'pageSize'
+ *      showAllPlaces: // value for 'showAllPlaces'
+ *      sort: // value for 'sort'
+ *      text: // value for 'text'
+ *   },
+ * });
+ */
+export function usePlaceListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PlaceListQuery, PlaceListQueryVariables>) {
+        return ApolloReactHooks.useQuery<PlaceListQuery, PlaceListQueryVariables>(PlaceListDocument, baseOptions);
+      }
+export function usePlaceListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PlaceListQuery, PlaceListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<PlaceListQuery, PlaceListQueryVariables>(PlaceListDocument, baseOptions);
+        }
+export type PlaceListQueryHookResult = ReturnType<typeof usePlaceListQuery>;
+export type PlaceListLazyQueryHookResult = ReturnType<typeof usePlaceListLazyQuery>;
+export type PlaceListQueryResult = ApolloReactCommon.QueryResult<PlaceListQuery, PlaceListQueryVariables>;

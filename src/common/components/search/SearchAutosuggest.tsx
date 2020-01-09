@@ -2,7 +2,10 @@ import React, { ChangeEvent, FunctionComponent } from "react";
 
 import { ReactComponent as SearchIcon } from "../../../assets/icons/svg/search.svg";
 import { KEYWORD_TYPES } from "../../../constants";
-import { useKeywordListQuery } from "../../../generated/graphql";
+import {
+  useKeywordListQuery,
+  usePlaceListQuery
+} from "../../../generated/graphql";
 import useDebounce from "../../../hooks/useDebounce";
 import getLocale from "../../../util/getLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
@@ -41,6 +44,14 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     }
   });
 
+  const { data: placesData } = usePlaceListQuery({
+    skip: !internalInputValue,
+    variables: {
+      pageSize: 5,
+      text: internalInputValue
+    }
+  });
+
   const autosuggestItems = React.useMemo(() => {
     const items = [];
     if (keywordsData) {
@@ -53,11 +64,19 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
         }))
       );
     }
-    return items;
-  }, [keywordsData, locale]);
+    if (placesData) {
+      items.push(
+        ...placesData.placeList.data.map(place => ({
+          text: place.name ? getLocalisedString(place.name, locale) : "",
+          type: KEYWORD_TYPES.SERVICE_POINT
+        }))
+      );
+    }
+    return items.filter(item => item.text);
+  }, [keywordsData, locale, placesData]);
 
-  // This is moch data so no need to translate items
-  const mochAutosuggestItems = [
+  // This is mock data so no need to translate items
+  const mockAutosuggestItems = [
     {
       text: "Luonto ja ulkoilu",
       type: KEYWORD_TYPES.CATEGORY
