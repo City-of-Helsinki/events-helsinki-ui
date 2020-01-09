@@ -180,6 +180,7 @@ const Search: FunctionComponent = () => {
                   {categories.map(category => {
                     return (
                       <Checkbox
+                        key={category.value}
                         checked={selectedCategories.includes(category.value)}
                         name="category"
                         onChange={handleCategoryChange}

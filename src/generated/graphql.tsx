@@ -121,6 +121,12 @@ export type Keyword = {
   internalType?: Maybe<Scalars['String']>,
 };
 
+export type KeywordListResponse = {
+   __typename?: 'KeywordListResponse',
+  meta: Meta,
+  data: Array<Keyword>,
+};
+
 export type LocalizedObject = {
    __typename?: 'LocalizedObject',
   fi?: Maybe<Scalars['String']>,
@@ -219,6 +225,7 @@ export type Query = {
   _empty?: Maybe<Scalars['String']>,
   eventDetails: EventDetails,
   eventList: EventListResponse,
+  keywordList: KeywordListResponse,
   organizationDetails: OrganizationDetails,
 };
 
@@ -235,6 +242,16 @@ export type QueryEventListArgs = {
   pageSize?: Maybe<Scalars['Int']>,
   publisher?: Maybe<Scalars['ID']>,
   startDate?: Maybe<Scalars['String']>,
+  text?: Maybe<Scalars['String']>
+};
+
+
+export type QueryKeywordListArgs = {
+  dataSource?: Maybe<Scalars['String']>,
+  page?: Maybe<Scalars['Int']>,
+  pageSize?: Maybe<Scalars['Int']>,
+  showAllKeywords?: Maybe<Scalars['Boolean']>,
+  sort?: Maybe<Scalars['String']>,
   text?: Maybe<Scalars['String']>
 };
 
@@ -415,6 +432,34 @@ export type EventListQuery = (
           & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
         )> }
       )> }
+    )> }
+  ) }
+);
+
+export type KeywordListQueryVariables = {
+  dataSource?: Maybe<Scalars['String']>,
+  page?: Maybe<Scalars['Int']>,
+  pageSize?: Maybe<Scalars['Int']>,
+  showAllKeywords?: Maybe<Scalars['Boolean']>,
+  sort?: Maybe<Scalars['String']>,
+  text?: Maybe<Scalars['String']>
+};
+
+
+export type KeywordListQuery = (
+  { __typename?: 'Query' }
+  & { keywordList: (
+    { __typename?: 'KeywordListResponse' }
+    & { meta: (
+      { __typename?: 'Meta' }
+      & Pick<Meta, 'count' | 'next' | 'previous'>
+    ), data: Array<(
+      { __typename?: 'Keyword' }
+      & Pick<Keyword, 'id'>
+      & { name: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      ) }
     )> }
   ) }
 );
@@ -739,3 +784,64 @@ export function useEventListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHo
 export type EventListQueryHookResult = ReturnType<typeof useEventListQuery>;
 export type EventListLazyQueryHookResult = ReturnType<typeof useEventListLazyQuery>;
 export type EventListQueryResult = ApolloReactCommon.QueryResult<EventListQuery, EventListQueryVariables>;
+export const KeywordListDocument = gql`
+    query KeywordList($dataSource: String, $page: Int, $pageSize: Int, $showAllKeywords: Boolean, $sort: String, $text: String) {
+  keywordList(dataSource: $dataSource, page: $page, pageSize: $pageSize, showAllKeywords: $showAllKeywords, sort: $sort, text: $text) {
+    meta {
+      count
+      next
+      previous
+    }
+    data {
+      id
+      name {
+        fi
+        sv
+        en
+      }
+    }
+  }
+}
+    `;
+export type KeywordListProps<TChildProps = {}> = ApolloReactHoc.DataProps<KeywordListQuery, KeywordListQueryVariables> | TChildProps;
+export function withKeywordList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  KeywordListQuery,
+  KeywordListQueryVariables,
+  KeywordListProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, KeywordListQuery, KeywordListQueryVariables, KeywordListProps<TChildProps>>(KeywordListDocument, {
+      alias: 'keywordList',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useKeywordListQuery__
+ *
+ * To run a query within a React component, call `useKeywordListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useKeywordListQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useKeywordListQuery({
+ *   variables: {
+ *      dataSource: // value for 'dataSource'
+ *      page: // value for 'page'
+ *      pageSize: // value for 'pageSize'
+ *      showAllKeywords: // value for 'showAllKeywords'
+ *      sort: // value for 'sort'
+ *      text: // value for 'text'
+ *   },
+ * });
+ */
+export function useKeywordListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<KeywordListQuery, KeywordListQueryVariables>) {
+        return ApolloReactHooks.useQuery<KeywordListQuery, KeywordListQueryVariables>(KeywordListDocument, baseOptions);
+      }
+export function useKeywordListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<KeywordListQuery, KeywordListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<KeywordListQuery, KeywordListQueryVariables>(KeywordListDocument, baseOptions);
+        }
+export type KeywordListQueryHookResult = ReturnType<typeof useKeywordListQuery>;
+export type KeywordListLazyQueryHookResult = ReturnType<typeof useKeywordListLazyQuery>;
+export type KeywordListQueryResult = ApolloReactCommon.QueryResult<KeywordListQuery, KeywordListQueryVariables>;

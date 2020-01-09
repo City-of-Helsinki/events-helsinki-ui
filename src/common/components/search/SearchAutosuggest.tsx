@@ -2,6 +2,10 @@ import React, { ChangeEvent, FunctionComponent } from "react";
 
 import { ReactComponent as SearchIcon } from "../../../assets/icons/svg/search.svg";
 import { KEYWORD_TYPES } from "../../../constants";
+import { useKeywordListQuery } from "../../../generated/graphql";
+import useDebounce from "../../../hooks/useDebounce";
+import getLocale from "../../../util/getLocale";
+import getLocalisedString from "../../../util/getLocalisedString";
 import { AutosuggestMenuItem, Category as CategoryType } from "../../types";
 import Category from "../category/Category";
 import AutosuggestMenu from "./AutosuggestMenu";
@@ -22,10 +26,35 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   placeholder,
   searchValue
 }) => {
+  const locale = getLocale();
   const container = React.useRef<HTMLDivElement | null>(null);
   const categoryWrapper = React.useRef<HTMLDivElement | null>(null);
   const input = React.useRef<HTMLInputElement | null>(null);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const internalInputValue = useDebounce(searchValue, 500);
+
+  const { data: keywordsData } = useKeywordListQuery({
+    skip: !internalInputValue,
+    variables: {
+      pageSize: 5,
+      text: internalInputValue
+    }
+  });
+
+  const autosuggestItems = React.useMemo(() => {
+    const items = [];
+    if (keywordsData) {
+      items.push(
+        ...keywordsData.keywordList.data.map(keyword => ({
+          text: getLocalisedString(keyword.name, locale),
+          type: keyword.id.startsWith("yso")
+            ? KEYWORD_TYPES.YSO
+            : KEYWORD_TYPES.CATEGORY
+        }))
+      );
+    }
+    return items;
+  }, [keywordsData, locale]);
 
   // This is moch data so no need to translate items
   const mochAutosuggestItems = [
@@ -122,7 +151,8 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onChangeSearchValue(event.target.value);
+    const newValue = event.target.value;
+    onChangeSearchValue(newValue);
     // Open menu when search value changes
     setIsMenuOpen(true);
   };
@@ -198,7 +228,8 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
         />
       </div>
       <AutosuggestMenu
-        items={mochAutosuggestItems}
+        items={autosuggestItems}
+        // items={mockAutosuggestItems}
         isOpen={isMenuOpen}
         onClose={handleCloseMenu}
         onItemClick={handleMenuItemClick}
