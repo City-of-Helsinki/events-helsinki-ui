@@ -90,6 +90,23 @@ We recommend using VS Code's debugger.
 See more detailed instructions here:
 https://create-react-app.dev/docs/debugging-tests#debugging-tests-in-chrome
 
+### Debugging social media metadata
+
+Facebook, Twitter and LinkedIn all provide a debugger you can use to see how each platform's scraper would format a given link for your page.
+
+- Facebook: https://developers.facebook.com/tools/debug/ (requires Facebook login)
+- Twitter: https://cards-dev.twitter.com/validator (requires Twitter login)
+- LinkedIn: https://www.linkedin.com/post-inspector/inspect/ (requires LinkedIn login)
+
+The addresses you provide for these tools need to be accessible for them. In other words, you can't use localhost directly.
+
+You have at least two good strategies:
+
+- use the staging server to run your code in a place that is accessible for these tools
+- use a tunneling solution which allows you to expose localhost to the outside world
+
+Two popular options are [ngrok](https://ngrok.com/) and [localtunnel](https://www.npmjs.com/package/localtunnel). `ngrok` does not work with Facebook's tool.
+
 ## Notes about social media sharing
 
 The app includes controls that can be used to share pages on social media. In essence, these are integrations to different social media platforms. In this section of the readme, we will go over how these integrations are expected to behave and what logic was used when applying the metadata.
