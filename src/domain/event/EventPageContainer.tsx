@@ -10,12 +10,13 @@ import EventClosedHero from "./EventClosedHero";
 import EventContent from "./EventContent";
 import EventHero from "./EventHero";
 import styles from "./eventPage.module.scss";
+import EventPageMeta from "./EventPageMeta";
 import { isEventClosed } from "./EventUtils";
 import SimilarEvents from "./SimilarEvents";
 
-const EventPageContainer: React.FC<
-  RouteComponentProps<{ id: string }>
-> = props => {
+const EventPageContainer: React.FC<RouteComponentProps<{
+  id: string;
+}>> = props => {
   const { pathname } = useLocation();
   const eventId = props.match.params.id;
   const { data: eventData, loading } = useEventDetailsQuery({
@@ -37,6 +38,8 @@ const EventPageContainer: React.FC<
         <LoadingSpinner isLoading={loading}>
           {eventData && (
             <>
+              {/* Wait for data to be accessible before updating metadata */}
+              <EventPageMeta eventData={eventData} />
               {!!eventClosed ? (
                 <EventClosedHero />
               ) : (
