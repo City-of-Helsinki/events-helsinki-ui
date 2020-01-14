@@ -18,7 +18,7 @@ import CategoryFilters from "../../common/components/category/CategoryFilters";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import SupriseMeButton from "../../common/components/search/SupriseMeButton";
-import { Category } from "../../common/types";
+import { AutosuggestMenuItem, Category } from "../../common/types";
 import { CATEGORIES } from "../../constants";
 import getLocale from "../../util/getLocale";
 import { getSearchQuery } from "../../util/searchUtils";
@@ -31,6 +31,7 @@ const Search: FunctionComponent = () => {
   const [dateTypes, setDateTypes] = React.useState<string[]>([]);
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
+  const [places, setPlaces] = React.useState<string[]>([]);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
   const [searchValue, setSearchValue] = React.useState("");
   const { push } = useHistory();
@@ -58,23 +59,73 @@ const Search: FunctionComponent = () => {
     setIsCustomDate(!isCustomDate);
   };
 
-  const moveToSearchPage = () => {
+  const moveToSearchPage = React.useCallback(() => {
     const search = getSearchQuery({
       categories: categories.map(category => category.value),
       dateTypes,
       endDate,
       isCustomDate,
+      keywords: [],
+      places,
       publisher: null,
       search: searchValue,
       startDate
     });
 
     push({ pathname: `/${locale}/events`, search });
-  };
+  }, [
+    categories,
+    dateTypes,
+    endDate,
+    isCustomDate,
+    locale,
+    places,
+    push,
+    searchValue,
+    startDate
+  ]);
 
   const handleClickSupriseMe = () => {
     // TODO: Add suprise me feature
     alert("TODO: suprise me");
+  };
+
+  const handleMenuItemClick = (item: AutosuggestMenuItem) => {
+    switch (item.type) {
+      case "keyword":
+      case "yso":
+        const searchQuery = getSearchQuery({
+          categories: categories.map(category => category.value),
+          dateTypes,
+          endDate,
+          isCustomDate,
+          keywords: [item.value],
+          places: [],
+          publisher: null,
+          search: "",
+          startDate
+        });
+        push({ pathname: `/${locale}/events`, search: searchQuery });
+        break;
+      case "place":
+        const newPlaces = [...places, item.value];
+        setPlaces(newPlaces);
+        setSearchValue("");
+
+        const search = getSearchQuery({
+          categories: categories.map(category => category.value),
+          dateTypes,
+          endDate,
+          isCustomDate,
+          keywords: [],
+          places: newPlaces,
+          publisher: null,
+          search: "",
+          startDate
+        });
+
+        push({ pathname: `/${locale}/events`, search });
+    }
   };
 
   return (
@@ -89,6 +140,7 @@ const Search: FunctionComponent = () => {
           <SearchAutosuggest
             categories={categories}
             onChangeSearchValue={setSearchValue}
+            onMenuItemClick={handleMenuItemClick}
             onRemoveCategory={handleRemoveCategory}
             placeholder={t("home.search.placeholder")}
             searchValue={searchValue}

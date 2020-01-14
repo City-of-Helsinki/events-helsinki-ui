@@ -17,6 +17,7 @@ import styles from "./searchAutosuggest.module.scss";
 interface Props {
   categories: CategoryType[];
   onChangeSearchValue: (value: string) => void;
+  onMenuItemClick: (item: AutosuggestMenuItem) => void;
   onRemoveCategory?: (category: CategoryType) => void;
   placeholder: string;
   searchValue: string;
@@ -24,6 +25,7 @@ interface Props {
 
 const SearchAutosuggest: FunctionComponent<Props> = ({
   categories,
+  onMenuItemClick,
   onRemoveCategory,
   onChangeSearchValue,
   placeholder,
@@ -52,7 +54,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     }
   });
 
-  const autosuggestItems = React.useMemo(() => {
+  const autosuggestItems: AutosuggestMenuItem[] = React.useMemo(() => {
     const items = [];
     if (keywordsData) {
       items.push(
@@ -60,7 +62,8 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
           text: getLocalisedString(keyword.name, locale),
           type: keyword.id.startsWith("yso")
             ? KEYWORD_TYPES.YSO
-            : KEYWORD_TYPES.CATEGORY
+            : KEYWORD_TYPES.KEYWORD,
+          value: keyword.id
         }))
       );
     }
@@ -68,56 +71,13 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       items.push(
         ...placesData.placeList.data.map(place => ({
           text: place.name ? getLocalisedString(place.name, locale) : "",
-          type: KEYWORD_TYPES.SERVICE_POINT
+          type: KEYWORD_TYPES.PLACE,
+          value: place.id
         }))
       );
     }
     return items.filter(item => item.text);
   }, [keywordsData, locale, placesData]);
-
-  // This is mock data so no need to translate items
-  const mockAutosuggestItems = [
-    {
-      text: "Luonto ja ulkoilu",
-      type: KEYWORD_TYPES.CATEGORY
-    },
-    {
-      text: "Maastojuoksu",
-      type: KEYWORD_TYPES.YSO
-    },
-    {
-      text: "Maastopyöräily",
-      type: KEYWORD_TYPES.YSO
-    },
-    {
-      text: "Sunnistus",
-      type: KEYWORD_TYPES.YSO
-    },
-    {
-      text: "Keskusta",
-      type: KEYWORD_TYPES.AREA
-    },
-    {
-      text: "Käpylä",
-      type: KEYWORD_TYPES.AREA
-    },
-    {
-      text: "Kisahalli",
-      type: KEYWORD_TYPES.SERVICE_POINT
-    },
-    {
-      text: "Annatalo",
-      type: KEYWORD_TYPES.SERVICE_POINT
-    },
-    {
-      text: "Stoa",
-      type: KEYWORD_TYPES.SERVICE_POINT
-    },
-    {
-      text: "Caisa",
-      type: KEYWORD_TYPES.SERVICE_POINT
-    }
-  ];
 
   const setFocusToInput = () => {
     if (input && input.current) {
@@ -193,7 +153,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     // Set focus to input so the menu is not opened again afted focusing to input
     setFocusToInput();
 
-    onChangeSearchValue(item.text);
+    onMenuItemClick(item);
     // Close menu when selecting one of the autosuggest items
     setIsMenuOpen(false);
   };

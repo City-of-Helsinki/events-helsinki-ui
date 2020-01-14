@@ -1,6 +1,16 @@
 import gql from "graphql-tag";
 
 export const QUERY_PLACE = gql`
+  query PlaceDetails($id: ID!) {
+    placeDetails(id: $id) {
+      id
+      name {
+        fi
+        sv
+        en
+      }
+    }
+  }
   query PlaceList(
     $dataSource: String
     $divisions: [String]

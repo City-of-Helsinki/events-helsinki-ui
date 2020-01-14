@@ -3,7 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 
 import Button from "../../common/components/button/Button";
-import { FilterType } from "../../common/components/filterButton/FilterButton";
+import FilterButton, {
+  FilterType
+} from "../../common/components/filterButton/FilterButton";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { EventListQuery } from "../../generated/graphql";
 import { formatDate } from "../../util/dateUtils";
@@ -13,9 +15,10 @@ import isClient from "../../util/isClient";
 import { getSearchQuery } from "../../util/searchUtils";
 import { translateValue } from "../../util/translateUtils";
 import Container from "../app/layout/Container";
-import CategoryFilter from "./CategoryFilter";
 import DateFilter from "./DateFilter";
 import EventCard from "./EventCard";
+import KeywordFilter from "./KeywordFilter";
+import PlaceFilter from "./PlaceFilter";
 import PublisherFilter from "./PublisherFilter";
 import styles from "./searchResultList.module.scss";
 
@@ -38,6 +41,8 @@ const SearchResultList: React.FC<Props> = ({
   const publisher = searchParams.get("publisher");
   const categories = getUrlParamAsString(searchParams, "categories");
   const dateTypes = getUrlParamAsString(searchParams, "dateTypes");
+  const keywords = getUrlParamAsString(searchParams, "keywords");
+  const places = getUrlParamAsString(searchParams, "places");
   const startDate = searchParams.get("startDate");
   const endDate = searchParams.get("endDate");
   const dateText = startDate
@@ -64,6 +69,12 @@ const SearchResultList: React.FC<Props> = ({
           : dateTypes,
       endDate: type === "date" ? null : endDate ? new Date(endDate) : null,
       isCustomDate: !!(startDate || endDate),
+      keywords:
+        type === "keyword" || type === "yso"
+          ? keywords.filter(keyword => keyword !== value)
+          : keywords,
+      places:
+        type === "place" ? places.filter(place => place !== value) : places,
       publisher: type !== "publisher" ? searchParams.get("publisher") : null,
       search: "",
       startDate: type === "date" ? null : startDate ? new Date(startDate) : null
@@ -79,7 +90,9 @@ const SearchResultList: React.FC<Props> = ({
     !!searchParams.get("publisher") ||
     !!categories.length ||
     !!dateText ||
-    !!dateTypes.length;
+    !!dateTypes.length ||
+    !!keywords.length ||
+    !!places.length;
 
   React.useEffect(() => {
     // Scroll to top when page loads. Ignore this on SSR because window doesn't exist
@@ -106,10 +119,11 @@ const SearchResultList: React.FC<Props> = ({
               {hasFilters ? (
                 <>
                   {categories.map(category => (
-                    <CategoryFilter
+                    <FilterButton
                       key={category}
                       onRemove={handleFilterRemove}
                       text={translateValue("home.category.", category, t)}
+                      type="category"
                       value={category}
                     />
                   ))}
@@ -133,6 +147,20 @@ const SearchResultList: React.FC<Props> = ({
                       onRemove={handleFilterRemove}
                       type="dateType"
                       value={dateType}
+                    />
+                  ))}
+                  {keywords.map(keyword => (
+                    <KeywordFilter
+                      key={keyword}
+                      onRemove={handleFilterRemove}
+                      id={keyword}
+                    />
+                  ))}
+                  {places.map(place => (
+                    <PlaceFilter
+                      key={place}
+                      id={place}
+                      onRemove={handleFilterRemove}
                     />
                   ))}
                 </>

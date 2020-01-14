@@ -231,8 +231,10 @@ export type Query = {
   _empty?: Maybe<Scalars['String']>,
   eventDetails: EventDetails,
   eventList: EventListResponse,
+  keywordDetails: Keyword,
   keywordList: KeywordListResponse,
   organizationDetails: OrganizationDetails,
+  placeDetails: Place,
   placeList: PlaceListResponse,
 };
 
@@ -243,13 +245,20 @@ export type QueryEventDetailsArgs = {
 
 
 export type QueryEventListArgs = {
-  categories?: Maybe<Array<Maybe<Scalars['String']>>>,
+  divisions?: Maybe<Array<Maybe<Scalars['String']>>>,
   endDate?: Maybe<Scalars['String']>,
+  keywords?: Maybe<Array<Maybe<Scalars['String']>>>,
+  locations?: Maybe<Array<Maybe<Scalars['String']>>>,
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   publisher?: Maybe<Scalars['ID']>,
   startDate?: Maybe<Scalars['String']>,
   text?: Maybe<Scalars['String']>
+};
+
+
+export type QueryKeywordDetailsArgs = {
+  id: Scalars['ID']
 };
 
 
@@ -265,6 +274,11 @@ export type QueryKeywordListArgs = {
 
 export type QueryOrganizationDetailsArgs = {
   id?: Maybe<Scalars['ID']>
+};
+
+
+export type QueryPlaceDetailsArgs = {
+  id: Scalars['ID']
 };
 
 
@@ -387,8 +401,10 @@ export type OrganizationDetailsQuery = (
 );
 
 export type EventListQueryVariables = {
-  categories?: Maybe<Array<Maybe<Scalars['String']>>>,
+  divisions?: Maybe<Array<Maybe<Scalars['String']>>>,
   endDate?: Maybe<Scalars['String']>,
+  keywords?: Maybe<Array<Maybe<Scalars['String']>>>,
+  locations?: Maybe<Array<Maybe<Scalars['String']>>>,
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   publisher?: Maybe<Scalars['ID']>,
@@ -454,6 +470,23 @@ export type EventListQuery = (
   ) }
 );
 
+export type KeywordDetailsQueryVariables = {
+  id: Scalars['ID']
+};
+
+
+export type KeywordDetailsQuery = (
+  { __typename?: 'Query' }
+  & { keywordDetails: (
+    { __typename?: 'Keyword' }
+    & Pick<Keyword, 'id'>
+    & { name: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    ) }
+  ) }
+);
+
 export type KeywordListQueryVariables = {
   dataSource?: Maybe<Scalars['String']>,
   page?: Maybe<Scalars['Int']>,
@@ -478,6 +511,23 @@ export type KeywordListQuery = (
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
       ) }
+    )> }
+  ) }
+);
+
+export type PlaceDetailsQueryVariables = {
+  id: Scalars['ID']
+};
+
+
+export type PlaceDetailsQuery = (
+  { __typename?: 'Query' }
+  & { placeDetails: (
+    { __typename?: 'Place' }
+    & Pick<Place, 'id'>
+    & { name: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
     )> }
   ) }
 );
@@ -717,8 +767,8 @@ export type OrganizationDetailsQueryHookResult = ReturnType<typeof useOrganizati
 export type OrganizationDetailsLazyQueryHookResult = ReturnType<typeof useOrganizationDetailsLazyQuery>;
 export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($categories: [String], $endDate: String, $page: Int, $pageSize: Int, $publisher: ID, $startDate: String, $text: String) {
-  eventList(categories: $categories, endDate: $endDate, page: $page, pageSize: $pageSize, publisher: $publisher, startDate: $startDate, text: $text) {
+    query EventList($divisions: [String], $endDate: String, $keywords: [String], $locations: [String], $page: Int, $pageSize: Int, $publisher: ID, $startDate: String, $text: String) {
+  eventList(divisions: $divisions, endDate: $endDate, keywords: $keywords, locations: $locations, page: $page, pageSize: $pageSize, publisher: $publisher, startDate: $startDate, text: $text) {
     meta {
       count
       next
@@ -812,8 +862,10 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  * @example
  * const { data, loading, error } = useEventListQuery({
  *   variables: {
- *      categories: // value for 'categories'
+ *      divisions: // value for 'divisions'
  *      endDate: // value for 'endDate'
+ *      keywords: // value for 'keywords'
+ *      locations: // value for 'locations'
  *      page: // value for 'page'
  *      pageSize: // value for 'pageSize'
  *      publisher: // value for 'publisher'
@@ -831,6 +883,55 @@ export function useEventListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHo
 export type EventListQueryHookResult = ReturnType<typeof useEventListQuery>;
 export type EventListLazyQueryHookResult = ReturnType<typeof useEventListLazyQuery>;
 export type EventListQueryResult = ApolloReactCommon.QueryResult<EventListQuery, EventListQueryVariables>;
+export const KeywordDetailsDocument = gql`
+    query KeywordDetails($id: ID!) {
+  keywordDetails(id: $id) {
+    id
+    name {
+      fi
+      sv
+      en
+    }
+  }
+}
+    `;
+export type KeywordDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<KeywordDetailsQuery, KeywordDetailsQueryVariables> | TChildProps;
+export function withKeywordDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  KeywordDetailsQuery,
+  KeywordDetailsQueryVariables,
+  KeywordDetailsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, KeywordDetailsQuery, KeywordDetailsQueryVariables, KeywordDetailsProps<TChildProps>>(KeywordDetailsDocument, {
+      alias: 'keywordDetails',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useKeywordDetailsQuery__
+ *
+ * To run a query within a React component, call `useKeywordDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useKeywordDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useKeywordDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useKeywordDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<KeywordDetailsQuery, KeywordDetailsQueryVariables>) {
+        return ApolloReactHooks.useQuery<KeywordDetailsQuery, KeywordDetailsQueryVariables>(KeywordDetailsDocument, baseOptions);
+      }
+export function useKeywordDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<KeywordDetailsQuery, KeywordDetailsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<KeywordDetailsQuery, KeywordDetailsQueryVariables>(KeywordDetailsDocument, baseOptions);
+        }
+export type KeywordDetailsQueryHookResult = ReturnType<typeof useKeywordDetailsQuery>;
+export type KeywordDetailsLazyQueryHookResult = ReturnType<typeof useKeywordDetailsLazyQuery>;
+export type KeywordDetailsQueryResult = ApolloReactCommon.QueryResult<KeywordDetailsQuery, KeywordDetailsQueryVariables>;
 export const KeywordListDocument = gql`
     query KeywordList($dataSource: String, $page: Int, $pageSize: Int, $showAllKeywords: Boolean, $sort: String, $text: String) {
   keywordList(dataSource: $dataSource, page: $page, pageSize: $pageSize, showAllKeywords: $showAllKeywords, sort: $sort, text: $text) {
@@ -892,6 +993,55 @@ export function useKeywordListLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type KeywordListQueryHookResult = ReturnType<typeof useKeywordListQuery>;
 export type KeywordListLazyQueryHookResult = ReturnType<typeof useKeywordListLazyQuery>;
 export type KeywordListQueryResult = ApolloReactCommon.QueryResult<KeywordListQuery, KeywordListQueryVariables>;
+export const PlaceDetailsDocument = gql`
+    query PlaceDetails($id: ID!) {
+  placeDetails(id: $id) {
+    id
+    name {
+      fi
+      sv
+      en
+    }
+  }
+}
+    `;
+export type PlaceDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<PlaceDetailsQuery, PlaceDetailsQueryVariables> | TChildProps;
+export function withPlaceDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  PlaceDetailsQuery,
+  PlaceDetailsQueryVariables,
+  PlaceDetailsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, PlaceDetailsQuery, PlaceDetailsQueryVariables, PlaceDetailsProps<TChildProps>>(PlaceDetailsDocument, {
+      alias: 'placeDetails',
+      ...operationOptions
+    });
+};
+
+/**
+ * __usePlaceDetailsQuery__
+ *
+ * To run a query within a React component, call `usePlaceDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePlaceDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePlaceDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function usePlaceDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PlaceDetailsQuery, PlaceDetailsQueryVariables>) {
+        return ApolloReactHooks.useQuery<PlaceDetailsQuery, PlaceDetailsQueryVariables>(PlaceDetailsDocument, baseOptions);
+      }
+export function usePlaceDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PlaceDetailsQuery, PlaceDetailsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<PlaceDetailsQuery, PlaceDetailsQueryVariables>(PlaceDetailsDocument, baseOptions);
+        }
+export type PlaceDetailsQueryHookResult = ReturnType<typeof usePlaceDetailsQuery>;
+export type PlaceDetailsLazyQueryHookResult = ReturnType<typeof usePlaceDetailsLazyQuery>;
+export type PlaceDetailsQueryResult = ApolloReactCommon.QueryResult<PlaceDetailsQuery, PlaceDetailsQueryVariables>;
 export const PlaceListDocument = gql`
     query PlaceList($dataSource: String, $divisions: [String], $page: Int, $pageSize: Int, $showAllPlaces: Boolean, $sort: String, $text: String) {
   placeList(dataSource: $dataSource, divisions: $divisions, page: $page, pageSize: $pageSize, showAllPlaces: $showAllPlaces, sort: $sort, text: $text) {

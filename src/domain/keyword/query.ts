@@ -1,6 +1,16 @@
 import gql from "graphql-tag";
 
 export const QUERY_KEYWORD = gql`
+  query KeywordDetails($id: ID!) {
+    keywordDetails(id: $id) {
+      id
+      name {
+        fi
+        sv
+        en
+      }
+    }
+  }
   query KeywordList(
     $dataSource: String
     $page: Int

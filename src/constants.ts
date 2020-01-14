@@ -22,8 +22,8 @@ export const DATE_TYPES = {
 
 export const KEYWORD_TYPES = {
   AREA: "area",
-  CATEGORY: "category",
-  SERVICE_POINT: "servicePoint",
+  KEYWORD: "keyword",
+  PLACE: "place",
   YSO: "yso"
 };
 

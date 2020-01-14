@@ -10,6 +10,8 @@ interface Filters {
   dateTypes: string[];
   endDate: Date | null;
   isCustomDate: boolean;
+  keywords: string[];
+  places: string[];
   publisher: string | null;
   search: string;
   startDate: Date | null;
@@ -19,6 +21,8 @@ interface MappedFilters {
   categories: string[];
   dateTypes?: string[];
   endDate?: string | null;
+  keywords: string[];
+  places: string[];
   publisher?: string | null;
   search: string;
   startDate?: string | null;

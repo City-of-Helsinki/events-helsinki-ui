@@ -5,7 +5,14 @@ import { useTranslation } from "react-i18next";
 
 import styles from "./filterButton.module.scss";
 
-export type FilterType = "category" | "date" | "dateType" | "publisher";
+export type FilterType =
+  | "category"
+  | "date"
+  | "dateType"
+  | "keyword"
+  | "place"
+  | "publisher"
+  | "yso";
 
 interface Props {
   onRemove: (value: string, type: FilterType) => void;

@@ -8,6 +8,7 @@ import DateSelector from "../../common/components/dateSelector/DateSelector";
 import Dropdown from "../../common/components/dropdown/Dropdown";
 import Checkbox from "../../common/components/input/Checkbox";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
+import { AutosuggestMenuItem } from "../../common/types";
 import { CATEGORIES } from "../../constants";
 import IconRead from "../../icons/IconRead";
 import getLocale from "../../util/getLocale";
@@ -28,6 +29,8 @@ const Search: FunctionComponent = () => {
   const [selectedCategories, setSelectedCategories] = React.useState<string[]>(
     []
   );
+  const [keywords, setKeywords] = React.useState<string[]>([]);
+  const [places, setPlaces] = React.useState<string[]>([]);
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
@@ -91,19 +94,32 @@ const Search: FunctionComponent = () => {
     setIsCustomDate(!isCustomDate);
   };
 
-  const moveToSearchPage = () => {
+  const moveToSearchPage = React.useCallback(() => {
     const search = getSearchQuery({
       categories: selectedCategories,
       dateTypes,
       endDate,
       isCustomDate,
+      keywords,
+      places,
       publisher: null,
       search: searchValue,
       startDate
     });
 
     push({ pathname: `/${locale}/events`, search });
-  };
+  }, [
+    dateTypes,
+    endDate,
+    isCustomDate,
+    keywords,
+    locale,
+    places,
+    push,
+    searchValue,
+    selectedCategories,
+    startDate
+  ]);
 
   // Initialize fields when page is loaded
   React.useEffect(() => {
@@ -112,6 +128,8 @@ const Search: FunctionComponent = () => {
     const start = searchParams.get("startDate");
     const dTypes = getUrlParamAsArray(searchParams, "dateTypes");
     const categories = getUrlParamAsArray(searchParams, "categories");
+    const keywords = getUrlParamAsArray(searchParams, "keywords");
+    const places = getUrlParamAsArray(searchParams, "places");
 
     if (searchVal) {
       setSearchValue(searchVal);
@@ -136,6 +154,8 @@ const Search: FunctionComponent = () => {
     }
 
     setSelectedCategories(categories);
+    setKeywords(keywords);
+    setPlaces(places);
   }, [searchParams]);
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -153,6 +173,53 @@ const Search: FunctionComponent = () => {
     setSelectedCategories([]);
   };
 
+  const handleMenuItemClick = async (item: AutosuggestMenuItem) => {
+    switch (item.type) {
+      case "keyword":
+      case "yso":
+        const newKeywords = getUrlParamAsArray(searchParams, "keywords");
+        if (!newKeywords.includes(item.value)) {
+          newKeywords.push(item.value);
+        }
+
+        setKeywords(newKeywords);
+        setSearchValue("");
+        const searchQuery = getSearchQuery({
+          categories: selectedCategories,
+          dateTypes,
+          endDate,
+          isCustomDate,
+          keywords: newKeywords,
+          places,
+          publisher: null,
+          search: "",
+          startDate
+        });
+        push({ pathname: `/${locale}/events`, search: searchQuery });
+        break;
+      case "place":
+        const newPlaces = getUrlParamAsArray(searchParams, "places");
+        if (!newPlaces.includes(item.value)) {
+          newPlaces.push(item.value);
+        }
+
+        setPlaces(newPlaces);
+        setSearchValue("");
+        const search = getSearchQuery({
+          categories: selectedCategories,
+          dateTypes,
+          endDate,
+          isCustomDate,
+          keywords,
+          places: newPlaces,
+          publisher: null,
+          search: "",
+          startDate
+        });
+        push({ pathname: `/${locale}/events`, search });
+    }
+  };
+
   return (
     <>
       <div className={styles.searchContainer}>
@@ -162,6 +229,7 @@ const Search: FunctionComponent = () => {
             <SearchAutosuggest
               categories={[]}
               onChangeSearchValue={setSearchValue}
+              onMenuItemClick={handleMenuItemClick}
               placeholder={t("eventSearch.search.placeholder")}
               searchValue={searchValue}
             />
