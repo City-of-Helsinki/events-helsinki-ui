@@ -1,4 +1,4 @@
-import { IconFill, IconFood } from "hds-react";
+import { IconFill, IconFood, IconTree } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
@@ -8,7 +8,6 @@ import { ReactComponent as DanceIcon } from "../../assets/icons/svg/dance.svg";
 import { ReactComponent as MovieIcon } from "../../assets/icons/svg/movie.svg";
 import { ReactComponent as MuseumIcon } from "../../assets/icons/svg/museum.svg";
 import { ReactComponent as MusicIcon } from "../../assets/icons/svg/music.svg";
-import { ReactComponent as NatureIcon } from "../../assets/icons/svg/nature.svg";
 import { ReactComponent as SearchIcon } from "../../assets/icons/svg/search.svg";
 import { ReactComponent as SportIcon } from "../../assets/icons/svg/sport.svg";
 import { ReactComponent as TheatreIcon } from "../../assets/icons/svg/theatre.svg";
@@ -215,7 +214,7 @@ const Search: FunctionComponent = () => {
               value: CATEGORIES.CULTURE
             },
             {
-              icon: <NatureIcon />,
+              icon: <IconTree />,
               text: t("home.category.nature"),
               value: CATEGORIES.NATURE
             },
