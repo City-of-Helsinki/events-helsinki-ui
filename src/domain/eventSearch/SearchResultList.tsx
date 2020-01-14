@@ -138,6 +138,13 @@ const SearchResultList: React.FC<Props> = ({
                       value={category}
                     />
                   ))}
+                  {keywords.map(keyword => (
+                    <KeywordFilter
+                      key={keyword}
+                      onRemove={handleFilterRemove}
+                      id={keyword}
+                    />
+                  ))}
                   {publisher && (
                     <PublisherFilter
                       id={publisher}
@@ -158,13 +165,6 @@ const SearchResultList: React.FC<Props> = ({
                       onRemove={handleFilterRemove}
                       type="dateType"
                       value={dateType}
-                    />
-                  ))}
-                  {keywords.map(keyword => (
-                    <KeywordFilter
-                      key={keyword}
-                      onRemove={handleFilterRemove}
-                      id={keyword}
                     />
                   ))}
                   {districts.map(district => (

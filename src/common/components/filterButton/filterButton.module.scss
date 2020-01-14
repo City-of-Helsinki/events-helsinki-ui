@@ -32,6 +32,16 @@
 .dateType {
   background-color: $hel-engel-light-50;
 }
+.district {
+  background-color: $hel-metro;
+  color: $hel-white;
+
+  .closeButton {
+    svg {
+      fill: $hel-white;
+    }
+  }
+}
 .keyword {
   background-color: $hel-metro-light-50;
 }
