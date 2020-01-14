@@ -1,4 +1,5 @@
 @import "colors";
+@import "mixins";
 
 .dropdown {
   position: relative;
@@ -31,6 +32,16 @@
     flex: 1 1 0%;
     text-align: left;
     color: $hel-black;
+
+    input {
+      height: 100%;
+      width: 100%;
+      border: none;
+      outline: none;
+
+      
+      @include placeholder($hel-black);
+    }
   }
 
   .arrowWrapper {

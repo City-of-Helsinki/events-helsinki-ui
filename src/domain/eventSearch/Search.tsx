@@ -1,3 +1,4 @@
+import get from "lodash/get";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
@@ -9,11 +10,12 @@ import Dropdown from "../../common/components/dropdown/Dropdown";
 import Checkbox from "../../common/components/input/Checkbox";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import { AutosuggestMenuItem } from "../../common/types";
-import { CATEGORIES } from "../../constants";
+import { CATEGORIES, DISTRICTS } from "../../constants";
 import IconRead from "../../icons/IconRead";
 import getLocale from "../../util/getLocale";
 import getUrlParamAsArray from "../../util/getUrlParamAsString";
 import { getSearchQuery } from "../../util/searchUtils";
+import { translateValue } from "../../util/translateUtils";
 import Container from "../app/layout/Container";
 import styles from "./search.module.scss";
 
@@ -31,11 +33,27 @@ const Search: FunctionComponent = () => {
   );
   const [keywords, setKeywords] = React.useState<string[]>([]);
   const [districts, setDistricts] = React.useState<string[]>([]);
+  const [selectedDistricts, setSelectedDistricts] = React.useState<string[]>(
+    []
+  );
   const [places, setPlaces] = React.useState<string[]>([]);
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
   const { push } = useHistory();
+
+  const districtOptions = React.useMemo(
+    () =>
+      Object.keys(DISTRICTS)
+        .map(key => {
+          return {
+            text: translateValue("commons.districts.", key, t),
+            value: get(DISTRICTS, key)
+          };
+        })
+        .sort((a, b) => (a.text >= b.text ? 1 : -1)),
+    [t]
+  );
 
   const categories = React.useMemo(
     () => [
@@ -163,17 +181,6 @@ const Search: FunctionComponent = () => {
     setPlaces(places);
   }, [searchParams]);
 
-  const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const category = event.target.value;
-    if (selectedCategories.includes(category)) {
-      setSelectedCategories(
-        selectedCategories.filter(item => item !== category)
-      );
-    } else {
-      setSelectedCategories([...selectedCategories, category]);
-    }
-  };
-
   const handleClearCategories = () => {
     setSelectedCategories([]);
   };
@@ -271,25 +278,12 @@ const Search: FunctionComponent = () => {
               </div>
               <Dropdown
                 icon={<IconRead />}
-                onClearButtonClick={handleClearCategories}
+                name="category"
+                onChange={setSelectedCategories}
+                options={categories}
                 title={t("eventSearch.search.titleDropdownCategory")}
-              >
-                <>
-                  {categories.map(category => {
-                    return (
-                      <Checkbox
-                        key={category.value}
-                        checked={selectedCategories.includes(category.value)}
-                        name="category"
-                        onChange={handleCategoryChange}
-                        value={category.value}
-                      >
-                        {category.text}
-                      </Checkbox>
-                    );
-                  })}
-                </>
-              </Dropdown>
+                value={selectedCategories}
+              />
             </div>
             <div className={styles.dateSelectorWrapper}>
               <div className={styles.label}>
@@ -306,7 +300,19 @@ const Search: FunctionComponent = () => {
                 toggleIsCustomDate={toggleIsCustomDate}
               />
             </div>
-            <div></div>
+            <div>
+              <div className={styles.label}>
+                {t("eventSearch.search.labelDistrict")}
+              </div>
+              <Dropdown
+                icon={<IconRead />}
+                name="district"
+                onChange={setDistricts}
+                options={districtOptions}
+                title={t("eventSearch.search.titleDropdownDistrict")}
+                value={districts}
+              />
+            </div>
             <div></div>
             <div className={styles.buttonWrapper}>
               <Button

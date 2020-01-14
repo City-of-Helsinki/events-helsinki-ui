@@ -160,9 +160,11 @@
       "buttonSearch": "Hae",
       "labelCategory": "Millaista haet?",
       "labelDateRange": "Mille ajankohdalle etsit?",
+      "labelDistrict": "Mistä etsit?",
       "labelSearchField": "Mitä etsit?",
       "placeholder": "Aloita kirjoittamalla tähän, esim. teatteri",
-      "titleDropdownCategory": "Valitse kategoria"
+      "titleDropdownCategory": "Valitse kategoria",
+      "titleDropdownDistrict": "Valitse alue"
     },
     "textFoundEvents": "Löysimme sinulle {{count}} tekemistä"
   },
