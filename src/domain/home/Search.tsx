@@ -1,11 +1,10 @@
-import { IconFood } from "hds-react";
+import { IconFill, IconFood } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 
 import { ReactComponent as CultureIcon } from "../../assets/icons/svg/culture.svg";
 import { ReactComponent as DanceIcon } from "../../assets/icons/svg/dance.svg";
-import { ReactComponent as InfluenceIcon } from "../../assets/icons/svg/influence.svg";
 import { ReactComponent as MovieIcon } from "../../assets/icons/svg/movie.svg";
 import { ReactComponent as MuseumIcon } from "../../assets/icons/svg/museum.svg";
 import { ReactComponent as MusicIcon } from "../../assets/icons/svg/music.svg";
@@ -221,7 +220,7 @@ const Search: FunctionComponent = () => {
               value: CATEGORIES.NATURE
             },
             {
-              icon: <InfluenceIcon />,
+              icon: <IconFill />,
               text: t("home.category.influence"),
               value: CATEGORIES.INFLUENCE
             },
