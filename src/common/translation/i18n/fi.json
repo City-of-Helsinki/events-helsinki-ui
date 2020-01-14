@@ -89,6 +89,11 @@
       "ariaButtonRemove": "Poista suodatin: {{filter}}"
     },
     "loading": "Ladataan...",
+    "shareLink": {
+      "shareOnFacebook": "Jaa Facebookissa",
+      "shareOnTwitter": "Jaa Twitterissä",
+      "shareOnLinkedIn": "Jaa LinkedInissä"
+    },
     "supriseMe": "Yllätä minut",
     "targets": {
       "children": "Lapsille",
@@ -141,6 +146,11 @@
       "directionsHSL": "Reittiohjeet (HSL)",
       "openMap": "Avaa kartta uuteen ikkunaan",
       "title": "Sijainti"
+    },
+    "shareLinks": {
+      "buttonCopyLink": "Kopioi linkin osoite",
+      "messageLinkCopySuccess": "Linkki kopioitu leikepöydälle",
+      "title": "Jaa tapahtuma"
     },
     "similarEvents": {
       "title": "Muita samankaltaisia tapahtumia"

@@ -89,6 +89,11 @@
       "ariaButtonRemove": "Ta bort filter: {{filter}}"
     },
     "loading": "Laddning...",
+    "shareLink": {
+      "shareOnFacebook": "Dela på Facebook",
+      "shareOnTwitter": "Dela på Twitter",
+      "shareOnLinkedIn": "Dela på LinkedIn"
+    },
     "supriseMe": "Yllätä minut (sv)",
     "targets": {
       "children": "Barn",
@@ -141,6 +146,11 @@
       "directionsHSL": "Vägbeskrivning (HSL)",
       "openMap": "Öppna kartan i ett nytt fönster",
       "title": "Lokalisering"
+    },
+    "shareLinks": {
+      "buttonCopyLink": "Kopiera länk adress",
+      "messageLinkCopySuccess": "SV Linkki kopioitu leikepöydälle",
+      "title": "SV Jaa tapahtuma"
     },
     "similarEvents": {
       "title": "Andra liknande händelser"

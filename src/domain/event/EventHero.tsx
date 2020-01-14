@@ -4,7 +4,6 @@ import {
   IconAngleRight,
   IconArrowLeft,
   IconLocation,
-  IconShare,
   IconTicket
 } from "hds-react";
 import React from "react";
@@ -48,10 +47,6 @@ const EventHero: React.FC<Props> = ({
 
   const moveToBuyTicketsPage = () => {
     window.open(offerInfoUrl);
-  };
-
-  const handleShare = () => {
-    alert("TODO: Share event");
   };
 
   const image = eventData.eventDetails.images.length
@@ -151,11 +146,6 @@ const EventHero: React.FC<Props> = ({
                   </div>
                 </>
               )}
-            </div>
-            <div className={styles.shareWrapper}>
-              <button className={styles.shareButton} onClick={handleShare}>
-                <IconShare />
-              </button>
             </div>
           </div>
         </div>

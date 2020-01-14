@@ -89,6 +89,11 @@
       "ariaButtonRemove": "Remove filter: {{filter}}"
     },
     "loading": "Loading...",
+    "shareLink": {
+      "shareOnFacebook": "Share on Facebook",
+      "shareOnTwitter": "Share on Twitter",
+      "shareOnLinkedIn": "Share on LinkedIn"
+    },
     "supriseMe": "Yllätä minut (en)",
     "targets": {
       "children": "Children",
@@ -141,6 +146,11 @@
       "directionsHSL": "Directions (HSL)",
       "openMap": "Open the map in a new window",
       "title": "Location"
+    },
+    "shareLinks": {
+      "buttonCopyLink": "Copy link address",
+      "messageLinkCopySuccess": "Link copied into clipboard",
+      "title": "Share Event"
     },
     "similarEvents": {
       "title": "Other similar events"

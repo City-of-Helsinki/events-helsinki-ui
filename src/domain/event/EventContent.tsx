@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import unescape from "lodash/unescape";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -9,6 +10,7 @@ import getLocalisedString from "../../util/getLocalisedString";
 import styles from "./eventContent.module.scss";
 import EventInfo from "./EventInfo";
 import EventLocation from "./EventLocation";
+import EventShareLinks from "./EventShareLinks";
 
 interface Props {
   eventData: EventDetailsQuery;
@@ -40,7 +42,13 @@ const EventContent: React.FC<Props> = ({ eventData }) => {
             />
           </>
         )}
-
+        <EventShareLinks />
+        <div
+          className={classNames(
+            styles.horizontalDivider,
+            styles.largeWhiteSpace
+          )}
+        />
         <EventLocation eventData={eventData} />
       </div>
       {/* Dummy div to keep layout consistent with EventHero */}
