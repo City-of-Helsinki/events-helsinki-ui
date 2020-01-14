@@ -1,11 +1,10 @@
-import { IconSmile } from "hds-react";
+import { IconFood, IconSmile } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 
 import { ReactComponent as CultureIcon } from "../../../assets/icons/svg/culture.svg";
 import { ReactComponent as DanceIcon } from "../../../assets/icons/svg/dance.svg";
-import { ReactComponent as FoodIcon } from "../../../assets/icons/svg/food.svg";
 import { ReactComponent as InfluenceIcon } from "../../../assets/icons/svg/influence.svg";
 import { ReactComponent as MovieIcon } from "../../../assets/icons/svg/movie.svg";
 import { ReactComponent as MuseumIcon } from "../../../assets/icons/svg/museum.svg";
@@ -119,7 +118,7 @@ const TopFooter: FunctionComponent = () => {
                 value: CATEGORIES.THEATRE
               },
               {
-                icon: <FoodIcon />,
+                icon: <IconFood />,
                 text: t("home.category.food"),
                 value: CATEGORIES.FOOD
               }
