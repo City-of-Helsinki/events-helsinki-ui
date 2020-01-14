@@ -31,7 +31,6 @@ const Search: FunctionComponent = () => {
   const [dateTypes, setDateTypes] = React.useState<string[]>([]);
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
-  const [places, setPlaces] = React.useState<string[]>([]);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
   const [searchValue, setSearchValue] = React.useState("");
   const { push } = useHistory();
@@ -63,10 +62,11 @@ const Search: FunctionComponent = () => {
     const search = getSearchQuery({
       categories: categories.map(category => category.value),
       dateTypes,
+      districts: [],
       endDate,
       isCustomDate,
       keywords: [],
-      places,
+      places: [],
       publisher: null,
       search: searchValue,
       startDate
@@ -79,7 +79,6 @@ const Search: FunctionComponent = () => {
     endDate,
     isCustomDate,
     locale,
-    places,
     push,
     searchValue,
     startDate
@@ -91,12 +90,28 @@ const Search: FunctionComponent = () => {
   };
 
   const handleMenuItemClick = (item: AutosuggestMenuItem) => {
+    let search = "";
     switch (item.type) {
-      case "keyword":
-      case "yso":
-        const searchQuery = getSearchQuery({
+      case "district":
+        search = getSearchQuery({
           categories: categories.map(category => category.value),
           dateTypes,
+          districts: [item.value],
+          endDate,
+          isCustomDate,
+          keywords: [],
+          places: [],
+          publisher: null,
+          search: "",
+          startDate
+        });
+        break;
+      case "keyword":
+      case "yso":
+        search = getSearchQuery({
+          categories: categories.map(category => category.value),
+          dateTypes,
+          districts: [],
           endDate,
           isCustomDate,
           keywords: [item.value],
@@ -105,27 +120,23 @@ const Search: FunctionComponent = () => {
           search: "",
           startDate
         });
-        push({ pathname: `/${locale}/events`, search: searchQuery });
         break;
       case "place":
-        const newPlaces = [...places, item.value];
-        setPlaces(newPlaces);
-        setSearchValue("");
-
-        const search = getSearchQuery({
+        search = getSearchQuery({
           categories: categories.map(category => category.value),
           dateTypes,
+          districts: [],
           endDate,
           isCustomDate,
           keywords: [],
-          places: newPlaces,
+          places: [item.value],
           publisher: null,
           search: "",
           startDate
         });
-
-        push({ pathname: `/${locale}/events`, search });
     }
+    push({ pathname: `/${locale}/events`, search });
+    setSearchValue("");
   };
 
   return (

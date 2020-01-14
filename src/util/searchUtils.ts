@@ -8,6 +8,7 @@ import { formatDate } from "./dateUtils";
 interface Filters {
   categories: string[];
   dateTypes: string[];
+  districts: string[];
   endDate: Date | null;
   isCustomDate: boolean;
   keywords: string[];
@@ -20,6 +21,7 @@ interface Filters {
 interface MappedFilters {
   categories: string[];
   dateTypes?: string[];
+  districts: string[];
   endDate?: string | null;
   keywords: string[];
   places: string[];

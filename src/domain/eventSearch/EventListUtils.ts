@@ -72,6 +72,7 @@ export const getEventFilters = (params: URLSearchParams, pageSize: number) => {
   const places = getUrlParamAsString(params, "places");
 
   const categories = getUrlParamAsString(params, "categories");
+  const districts = getUrlParamAsString(params, "districts");
   const keywords = getUrlParamAsString(params, "keywords");
   const mappedCategories: string[] = categories.map(category => {
     switch (category) {
@@ -104,6 +105,7 @@ export const getEventFilters = (params: URLSearchParams, pageSize: number) => {
   mappedCategories.push(...keywords);
 
   return {
+    divisions: districts,
     endDate: endDate,
     keywords: mappedCategories,
     locations: places,

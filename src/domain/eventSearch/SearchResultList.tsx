@@ -1,3 +1,4 @@
+import get from "lodash/get";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
@@ -7,6 +8,7 @@ import FilterButton, {
   FilterType
 } from "../../common/components/filterButton/FilterButton";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
+import { DISTRICTS } from "../../constants";
 import { EventListQuery } from "../../generated/graphql";
 import { formatDate } from "../../util/dateUtils";
 import getLocale from "../../util/getLocale";
@@ -21,6 +23,9 @@ import KeywordFilter from "./KeywordFilter";
 import PlaceFilter from "./PlaceFilter";
 import PublisherFilter from "./PublisherFilter";
 import styles from "./searchResultList.module.scss";
+
+const findKeyOfDistrict = (value: string) =>
+  Object.keys(DISTRICTS).find(key => get(DISTRICTS, key) === value);
 
 interface Props {
   eventsData: EventListQuery;
@@ -41,6 +46,7 @@ const SearchResultList: React.FC<Props> = ({
   const publisher = searchParams.get("publisher");
   const categories = getUrlParamAsString(searchParams, "categories");
   const dateTypes = getUrlParamAsString(searchParams, "dateTypes");
+  const districts = getUrlParamAsString(searchParams, "districts");
   const keywords = getUrlParamAsString(searchParams, "keywords");
   const places = getUrlParamAsString(searchParams, "places");
   const startDate = searchParams.get("startDate");
@@ -67,6 +73,10 @@ const SearchResultList: React.FC<Props> = ({
         type === "dateType"
           ? dateTypes.filter(dateType => dateType !== value)
           : dateTypes,
+      districts:
+        type === "district"
+          ? districts.filter(district => district !== value)
+          : districts,
       endDate: type === "date" ? null : endDate ? new Date(endDate) : null,
       isCustomDate: !!(startDate || endDate),
       keywords:
@@ -91,6 +101,7 @@ const SearchResultList: React.FC<Props> = ({
     !!categories.length ||
     !!dateText ||
     !!dateTypes.length ||
+    !!districts.length ||
     !!keywords.length ||
     !!places.length;
 
@@ -154,6 +165,19 @@ const SearchResultList: React.FC<Props> = ({
                       key={keyword}
                       onRemove={handleFilterRemove}
                       id={keyword}
+                    />
+                  ))}
+                  {districts.map(district => (
+                    <FilterButton
+                      key={district}
+                      onRemove={handleFilterRemove}
+                      text={translateValue(
+                        "commons.districts.",
+                        findKeyOfDistrict(district) || "",
+                        t
+                      )}
+                      type="district"
+                      value={district}
                     />
                   ))}
                   {places.map(place => (

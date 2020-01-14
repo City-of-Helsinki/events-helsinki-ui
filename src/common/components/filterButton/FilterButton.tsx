@@ -9,6 +9,7 @@ export type FilterType =
   | "category"
   | "date"
   | "dateType"
+  | "district"
   | "keyword"
   | "place"
   | "publisher"

@@ -30,16 +30,66 @@
       },
       "title": "Välj period"
     },
+    "districts": {
+      "alppiharju": "Åshöjden",
+      "eira": "Eira",
+      "etuTöölö": "Främre Tölö",
+      "haaga": "Haga",
+      "hermanni": "Hermanstad",
+      "herttoniemi": "Hertonäs",
+      "kaarela": "Kårböle",
+      "kaartinkaupunki": "Gardesstaden",
+      "kaivopuisto": "Brunnsparken",
+      "kallio": "Berghäll",
+      "kamppi": "Kampen",
+      "katajanokka": "Skatudden",
+      "kluuvi": "Gloet",
+      "konala": "Kånala",
+      "koskela": "Forsby",
+      "kruununhaka": "Kronohagen",
+      "kulosaari": "Brändö villastad och Blåbärslandet-Högholmen",
+      "kumpula": "Gumtäkt",
+      "käpylä": "Kottby",
+      "laajasalo": "Degerö, Villinge och Sandhamn",
+      "laakso": "Dal",
+      "lauttasaari": "Drumsö",
+      "länsisatama": "Västra hamnen",
+      "malmi": "Malm",
+      "meilahti": "Mejlans",
+      "mellunkylä": "Mellungsby",
+      "munkkiniemi": "Munksnäs",
+      "oulunkylä": "Åggelby",
+      "pakila": "Baggböle",
+      "pitäjämäki": "Sockenbacka",
+      "pukinmäki": "Bocksbacka",
+      "punavuori": "Rödbergen",
+      "ruskeasuo": "Brunakärr",
+      "suomenlinna": "Sveaborg och Utöarna",
+      "suurmetsä": "Storskog",
+      "suutarila": "Skomakarböle",
+      "sörnäinen": "Sörnäs",
+      "takaTöölö": "Bortre Tölö",
+      "tammisalo": "Tammelund",
+      "tapaninkylä": "Staffansby",
+      "ullanlinna": "Ulrikasborg",
+      "vallila": "Vallgård",
+      "vanhakaupunki": "Gammelstaden",
+      "vartiokylä": "Botby",
+      "vartiosaari": "Vårdö",
+      "viikki": "Vik",
+      "vuosaari": "Nordsjö",
+      "östersundom": "Östersundom"
+    },
+    "dropdown": {
+      "menu": {
+        "buttonClear": "Rensa val"
+      }
+    },
     "filter": {
       "ariaButtonRemove": "Ta bort filter: {{filter}}"
     },
     "loading": "Laddning...",
     "supriseMe": "Yllätä minut (sv)"
-  },
-  "dropdown": {
-    "menu": {
-      "buttonClear": "Rensa val"
-    }
   },
   "event": {
     "categories": {

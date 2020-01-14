@@ -30,6 +30,7 @@ const Search: FunctionComponent = () => {
     []
   );
   const [keywords, setKeywords] = React.useState<string[]>([]);
+  const [districts, setDistricts] = React.useState<string[]>([]);
   const [places, setPlaces] = React.useState<string[]>([]);
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
@@ -98,6 +99,7 @@ const Search: FunctionComponent = () => {
     const search = getSearchQuery({
       categories: selectedCategories,
       dateTypes,
+      districts,
       endDate,
       isCustomDate,
       keywords,
@@ -110,6 +112,7 @@ const Search: FunctionComponent = () => {
     push({ pathname: `/${locale}/events`, search });
   }, [
     dateTypes,
+    districts,
     endDate,
     isCustomDate,
     keywords,
@@ -128,6 +131,7 @@ const Search: FunctionComponent = () => {
     const start = searchParams.get("startDate");
     const dTypes = getUrlParamAsArray(searchParams, "dateTypes");
     const categories = getUrlParamAsArray(searchParams, "categories");
+    const districts = getUrlParamAsArray(searchParams, "districts");
     const keywords = getUrlParamAsArray(searchParams, "keywords");
     const places = getUrlParamAsArray(searchParams, "places");
 
@@ -154,6 +158,7 @@ const Search: FunctionComponent = () => {
     }
 
     setSelectedCategories(categories);
+    setDistricts(districts);
     setKeywords(keywords);
     setPlaces(places);
   }, [searchParams]);
@@ -174,7 +179,30 @@ const Search: FunctionComponent = () => {
   };
 
   const handleMenuItemClick = async (item: AutosuggestMenuItem) => {
+    let search = "";
     switch (item.type) {
+      case "district":
+        const newDistricts = getUrlParamAsArray(searchParams, "districts");
+        if (!newDistricts.includes(item.value)) {
+          newDistricts.push(item.value);
+        }
+
+        setDistricts(newDistricts);
+        setSearchValue("");
+        search = getSearchQuery({
+          categories: selectedCategories,
+          dateTypes,
+          districts: newDistricts,
+          endDate,
+          isCustomDate,
+          keywords,
+          places,
+          publisher: null,
+          search: "",
+          startDate
+        });
+        push({ pathname: `/${locale}/events`, search });
+        break;
       case "keyword":
       case "yso":
         const newKeywords = getUrlParamAsArray(searchParams, "keywords");
@@ -184,9 +212,10 @@ const Search: FunctionComponent = () => {
 
         setKeywords(newKeywords);
         setSearchValue("");
-        const searchQuery = getSearchQuery({
+        search = getSearchQuery({
           categories: selectedCategories,
           dateTypes,
+          districts,
           endDate,
           isCustomDate,
           keywords: newKeywords,
@@ -195,7 +224,7 @@ const Search: FunctionComponent = () => {
           search: "",
           startDate
         });
-        push({ pathname: `/${locale}/events`, search: searchQuery });
+        push({ pathname: `/${locale}/events`, search });
         break;
       case "place":
         const newPlaces = getUrlParamAsArray(searchParams, "places");
@@ -205,9 +234,10 @@ const Search: FunctionComponent = () => {
 
         setPlaces(newPlaces);
         setSearchValue("");
-        const search = getSearchQuery({
+        search = getSearchQuery({
           categories: selectedCategories,
           dateTypes,
+          districts,
           endDate,
           isCustomDate,
           keywords,

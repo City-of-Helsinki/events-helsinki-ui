@@ -1,7 +1,9 @@
+import get from "lodash/get";
 import React, { ChangeEvent, FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 
 import { ReactComponent as SearchIcon } from "../../../assets/icons/svg/search.svg";
-import { KEYWORD_TYPES } from "../../../constants";
+import { DISTRICTS, KEYWORD_TYPES } from "../../../constants";
 import {
   useKeywordListQuery,
   usePlaceListQuery
@@ -9,6 +11,7 @@ import {
 import useDebounce from "../../../hooks/useDebounce";
 import getLocale from "../../../util/getLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
+import { translateValue } from "../../../util/translateUtils";
 import { AutosuggestMenuItem, Category as CategoryType } from "../../types";
 import Category from "../category/Category";
 import AutosuggestMenu from "./AutosuggestMenu";
@@ -31,12 +34,26 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   placeholder,
   searchValue
 }) => {
+  const { t } = useTranslation();
   const locale = getLocale();
   const container = React.useRef<HTMLDivElement | null>(null);
   const categoryWrapper = React.useRef<HTMLDivElement | null>(null);
   const input = React.useRef<HTMLInputElement | null>(null);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const internalInputValue = useDebounce(searchValue, 500);
+
+  const districtOptions = React.useMemo(
+    () =>
+      Object.keys(DISTRICTS)
+        .map(key => {
+          return {
+            text: translateValue("commons.districts.", key, t),
+            value: get(DISTRICTS, key)
+          };
+        })
+        .sort((a, b) => (a.text >= b.text ? 1 : -1)),
+    [t]
+  );
 
   const { data: keywordsData } = useKeywordListQuery({
     skip: !internalInputValue,
@@ -67,6 +84,20 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
         }))
       );
     }
+    if (internalInputValue) {
+      items.push(
+        ...districtOptions
+          .filter(item =>
+            item.text.toLowerCase().includes(internalInputValue.toLowerCase())
+          )
+          .slice(0, 5)
+          .map(item => ({
+            text: item.text,
+            type: KEYWORD_TYPES.DISTRICT,
+            value: item.value
+          }))
+      );
+    }
     if (placesData) {
       items.push(
         ...placesData.placeList.data.map(place => ({
@@ -76,8 +107,9 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
         }))
       );
     }
+
     return items.filter(item => item.text);
-  }, [keywordsData, locale, placesData]);
+  }, [districtOptions, internalInputValue, keywordsData, locale, placesData]);
 
   const setFocusToInput = () => {
     if (input && input.current) {
