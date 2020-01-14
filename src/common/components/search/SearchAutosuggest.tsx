@@ -240,7 +240,6 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       </div>
       <AutosuggestMenu
         items={autosuggestItems}
-        // items={mockAutosuggestItems}
         isOpen={isMenuOpen}
         onClose={handleCloseMenu}
         onItemClick={handleMenuItemClick}
