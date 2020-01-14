@@ -85,3 +85,8 @@ export enum SUPPORT_LANGUAGES {
   SV = "sv",
   EN = "en"
 }
+
+export const TARGET_GROUPS = {
+  CHILDREN: "children",
+  YOUNG_PEOPLE: "young_people"
+};

@@ -1,6 +1,6 @@
 import { addDays, endOfWeek, startOfWeek, subDays } from "date-fns";
 
-import { CATEGORIES, DATE_TYPES } from "../../constants";
+import { CATEGORIES, DATE_TYPES, TARGET_GROUPS } from "../../constants";
 import { EventListQuery } from "../../generated/graphql";
 import { formatDate } from "../../util/dateUtils";
 import getUrlParamAsString from "../../util/getUrlParamAsString";
@@ -103,6 +103,19 @@ export const getEventFilters = (params: URLSearchParams, pageSize: number) => {
     }
   });
   mappedCategories.push(...keywords);
+  const targets = getUrlParamAsString(params, "targets");
+  const mappedTargets: string[] = targets.map(target => {
+    switch (target) {
+      case TARGET_GROUPS.CHILDREN:
+        return "yso:p4354";
+      case TARGET_GROUPS.YOUNG_PEOPLE:
+        return "yso:p11617";
+      default:
+        return "";
+    }
+  });
+
+  mappedCategories.push(...mappedTargets);
 
   return {
     divisions: districts,

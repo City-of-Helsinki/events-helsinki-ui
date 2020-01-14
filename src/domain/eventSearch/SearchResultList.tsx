@@ -8,7 +8,7 @@ import FilterButton, {
   FilterType
 } from "../../common/components/filterButton/FilterButton";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
-import { DISTRICTS } from "../../constants";
+import { DISTRICTS, TARGET_GROUPS } from "../../constants";
 import { EventListQuery } from "../../generated/graphql";
 import { formatDate } from "../../util/dateUtils";
 import getLocale from "../../util/getLocale";
@@ -26,6 +26,9 @@ import styles from "./searchResultList.module.scss";
 
 const findKeyOfDistrict = (value: string) =>
   Object.keys(DISTRICTS).find(key => get(DISTRICTS, key) === value);
+
+const findKeyOfTarget = (value: string) =>
+  Object.keys(TARGET_GROUPS).find(key => get(TARGET_GROUPS, key) === value);
 
 interface Props {
   eventsData: EventListQuery;
@@ -49,6 +52,7 @@ const SearchResultList: React.FC<Props> = ({
   const districts = getUrlParamAsString(searchParams, "districts");
   const keywords = getUrlParamAsString(searchParams, "keywords");
   const places = getUrlParamAsString(searchParams, "places");
+  const targets = getUrlParamAsString(searchParams, "targets");
   const startDate = searchParams.get("startDate");
   const endDate = searchParams.get("endDate");
   const dateText = startDate
@@ -87,7 +91,10 @@ const SearchResultList: React.FC<Props> = ({
         type === "place" ? places.filter(place => place !== value) : places,
       publisher: type !== "publisher" ? searchParams.get("publisher") : null,
       search: "",
-      startDate: type === "date" ? null : startDate ? new Date(startDate) : null
+      startDate:
+        type === "date" ? null : startDate ? new Date(startDate) : null,
+      targets:
+        type === "target" ? targets.filter(target => target !== value) : targets
     });
 
     push({ pathname: `/${locale}/events`, search });
@@ -103,7 +110,8 @@ const SearchResultList: React.FC<Props> = ({
     !!dateTypes.length ||
     !!districts.length ||
     !!keywords.length ||
-    !!places.length;
+    !!places.length ||
+    !!targets.length;
 
   React.useEffect(() => {
     // Scroll to top when page loads. Ignore this on SSR because window doesn't exist
@@ -185,6 +193,19 @@ const SearchResultList: React.FC<Props> = ({
                       key={place}
                       id={place}
                       onRemove={handleFilterRemove}
+                    />
+                  ))}
+                  {targets.map(target => (
+                    <FilterButton
+                      key={target}
+                      onRemove={handleFilterRemove}
+                      text={translateValue(
+                        "commons.targets.",
+                        findKeyOfTarget(target) || "",
+                        t
+                      )}
+                      type="target"
+                      value={target}
                     />
                   ))}
                 </>

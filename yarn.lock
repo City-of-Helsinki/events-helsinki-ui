@@ -6606,17 +6606,17 @@ hash.js@^1.0.0, hash.js@^1.0.3, hash.js@^1.1.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-hds-core@^0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-0.3.2.tgz#70c5129ae0c4ecd08b70bd69ca5e1a234cc3747f"
-  integrity sha512-L/EeAx+skAjUTkCIZfSBdcG8uqMD9BpyYOYue0ORjH9NCj01ke1dWNu8is+M8k0VHfBrnDuAM4pytdBUx+T3hw==
+hds-core@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-0.4.1.tgz#8076a47040509e103e43e7a12fda50002340f41e"
+  integrity sha512-5YpJn663U36PT3XdbL3PJkwVoxZu9oNrjBl4ne6ulXEO+7q922huDc67/FyjBu8+IdKt1HgXWY9pdhF+U495Og==
 
-hds-react@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/hds-react/-/hds-react-0.5.1.tgz#8477b832210407d9febbbe45fde4c801da449264"
-  integrity sha512-GPKcTZ6HG1CAaipcGc0hRICnHy1aFRn/kPWopG3nZ7IJJ5XlAfp6C6TDNpStdEnWkUJDm3fpwoADEj5hUNf/hQ==
+hds-react@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/hds-react/-/hds-react-0.5.4.tgz#0a852272bc097d38d2ab6ee1c89694a15f071c12"
+  integrity sha512-7ga/4HhAvo5ahmkGwx/VwmRYt/BS1qQDw77yDVq+bDyYYrLuD296iNL9Ipxo9p4fuKE7r9OJjpBfCDpbBPRd1w==
   dependencies:
-    hds-core "^0.3.2"
+    hds-core "^0.4.1"
     lodash.uniqueid "^4.0.1"
     react-spring "^8.0.27"
 

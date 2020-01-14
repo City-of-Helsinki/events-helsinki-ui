@@ -89,7 +89,11 @@
       "ariaButtonRemove": "Poista suodatin: {{filter}}"
     },
     "loading": "Ladataan...",
-    "supriseMe": "Yllätä minut"
+    "supriseMe": "Yllätä minut",
+    "targets": {
+      "children": "Lapsille",
+      "youngPeople": "Nuorille"
+    }
   },
   "event": {
     "categories": {
@@ -162,9 +166,11 @@
       "labelDateRange": "Mille ajankohdalle etsit?",
       "labelDistrict": "Mistä etsit?",
       "labelSearchField": "Mitä etsit?",
+      "labelTargetGroup": "Kenelle etsit?",
       "placeholder": "Aloita kirjoittamalla tähän, esim. teatteri",
       "titleDropdownCategory": "Valitse kategoria",
-      "titleDropdownDistrict": "Valitse alue"
+      "titleDropdownDistrict": "Valitse alue",
+      "titleDropdownTargetGroup": "Valitse kenelle"
     },
     "textFoundEvents": "Löysimme sinulle {{count}} tekemistä"
   },

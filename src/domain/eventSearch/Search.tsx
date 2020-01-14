@@ -1,16 +1,16 @@
+import { IconLocation, IconSearch } from "hds-react";
 import get from "lodash/get";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 
-import { ReactComponent as SearchIcon } from "../../assets/icons/svg/search.svg";
 import Button from "../../common/components/button/Button";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import Dropdown from "../../common/components/dropdown/Dropdown";
-import Checkbox from "../../common/components/input/Checkbox";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import { AutosuggestMenuItem } from "../../common/types";
-import { CATEGORIES, DISTRICTS } from "../../constants";
+import { CATEGORIES, DISTRICTS, TARGET_GROUPS } from "../../constants";
+import IconPerson from "../../icons/IconPerson";
 import IconRead from "../../icons/IconRead";
 import getLocale from "../../util/getLocale";
 import getUrlParamAsArray from "../../util/getUrlParamAsString";
@@ -33,10 +33,8 @@ const Search: FunctionComponent = () => {
   );
   const [keywords, setKeywords] = React.useState<string[]>([]);
   const [districts, setDistricts] = React.useState<string[]>([]);
-  const [selectedDistricts, setSelectedDistricts] = React.useState<string[]>(
-    []
-  );
   const [places, setPlaces] = React.useState<string[]>([]);
+  const [targets, setTargets] = React.useState<string[]>([]);
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
@@ -49,6 +47,19 @@ const Search: FunctionComponent = () => {
           return {
             text: translateValue("commons.districts.", key, t),
             value: get(DISTRICTS, key)
+          };
+        })
+        .sort((a, b) => (a.text >= b.text ? 1 : -1)),
+    [t]
+  );
+
+  const targetOptions = React.useMemo(
+    () =>
+      Object.keys(TARGET_GROUPS)
+        .map(key => {
+          return {
+            text: translateValue("commons.targets.", key, t),
+            value: get(TARGET_GROUPS, key)
           };
         })
         .sort((a, b) => (a.text >= b.text ? 1 : -1)),
@@ -124,7 +135,8 @@ const Search: FunctionComponent = () => {
       places,
       publisher: null,
       search: searchValue,
-      startDate
+      startDate,
+      targets
     });
 
     push({ pathname: `/${locale}/events`, search });
@@ -139,7 +151,8 @@ const Search: FunctionComponent = () => {
     push,
     searchValue,
     selectedCategories,
-    startDate
+    startDate,
+    targets
   ]);
 
   // Initialize fields when page is loaded
@@ -152,6 +165,7 @@ const Search: FunctionComponent = () => {
     const districts = getUrlParamAsArray(searchParams, "districts");
     const keywords = getUrlParamAsArray(searchParams, "keywords");
     const places = getUrlParamAsArray(searchParams, "places");
+    const targets = getUrlParamAsArray(searchParams, "targets");
 
     if (searchVal) {
       setSearchValue(searchVal);
@@ -179,12 +193,8 @@ const Search: FunctionComponent = () => {
     setDistricts(districts);
     setKeywords(keywords);
     setPlaces(places);
+    setTargets(targets);
   }, [searchParams]);
-
-  const handleClearCategories = () => {
-    setSelectedCategories([]);
-  };
-
   const handleMenuItemClick = async (item: AutosuggestMenuItem) => {
     let search = "";
     switch (item.type) {
@@ -206,7 +216,8 @@ const Search: FunctionComponent = () => {
           places,
           publisher: null,
           search: "",
-          startDate
+          startDate,
+          targets
         });
         push({ pathname: `/${locale}/events`, search });
         break;
@@ -229,7 +240,8 @@ const Search: FunctionComponent = () => {
           places,
           publisher: null,
           search: "",
-          startDate
+          startDate,
+          targets
         });
         push({ pathname: `/${locale}/events`, search });
         break;
@@ -251,7 +263,8 @@ const Search: FunctionComponent = () => {
           places: newPlaces,
           publisher: null,
           search: "",
-          startDate
+          startDate,
+          targets
         });
         push({ pathname: `/${locale}/events`, search });
     }
@@ -305,7 +318,7 @@ const Search: FunctionComponent = () => {
                 {t("eventSearch.search.labelDistrict")}
               </div>
               <Dropdown
-                icon={<IconRead />}
+                icon={<IconLocation />}
                 name="district"
                 onChange={setDistricts}
                 options={districtOptions}
@@ -313,12 +326,24 @@ const Search: FunctionComponent = () => {
                 value={districts}
               />
             </div>
-            <div></div>
+            <div>
+              <div className={styles.label}>
+                {t("eventSearch.search.labelTargetGroup")}
+              </div>
+              <Dropdown
+                icon={<IconPerson />}
+                name="targets"
+                onChange={setTargets}
+                options={targetOptions}
+                title={t("eventSearch.search.titleDropdownTargetGroup")}
+                value={targets}
+              />
+            </div>
             <div className={styles.buttonWrapper}>
               <Button
                 color="primary"
                 fullWidth={true}
-                iconLeft={<SearchIcon />}
+                iconLeft={<IconSearch />}
                 onClick={moveToSearchPage}
                 size="default"
               >

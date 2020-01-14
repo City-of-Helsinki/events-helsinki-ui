@@ -69,7 +69,8 @@ const Search: FunctionComponent = () => {
       places: [],
       publisher: null,
       search: searchValue,
-      startDate
+      startDate,
+      targets: []
     });
 
     push({ pathname: `/${locale}/events`, search });
@@ -90,51 +91,21 @@ const Search: FunctionComponent = () => {
   };
 
   const handleMenuItemClick = (item: AutosuggestMenuItem) => {
-    let search = "";
-    switch (item.type) {
-      case "district":
-        search = getSearchQuery({
-          categories: categories.map(category => category.value),
-          dateTypes,
-          districts: [item.value],
-          endDate,
-          isCustomDate,
-          keywords: [],
-          places: [],
-          publisher: null,
-          search: "",
-          startDate
-        });
-        break;
-      case "keyword":
-      case "yso":
-        search = getSearchQuery({
-          categories: categories.map(category => category.value),
-          dateTypes,
-          districts: [],
-          endDate,
-          isCustomDate,
-          keywords: [item.value],
-          places: [],
-          publisher: null,
-          search: "",
-          startDate
-        });
-        break;
-      case "place":
-        search = getSearchQuery({
-          categories: categories.map(category => category.value),
-          dateTypes,
-          districts: [],
-          endDate,
-          isCustomDate,
-          keywords: [],
-          places: [item.value],
-          publisher: null,
-          search: "",
-          startDate
-        });
-    }
+    const search = getSearchQuery({
+      categories: categories.map(category => category.value),
+      dateTypes,
+      districts: item.type === "district" ? [item.value] : [],
+      endDate,
+      isCustomDate,
+      keywords:
+        item.type === "keyword" || item.type === "yso" ? [item.value] : [],
+      places: item.type === "place" ? [item.value] : [],
+      publisher: null,
+      search: "",
+      startDate,
+      targets: []
+    });
+
     push({ pathname: `/${locale}/events`, search });
     setSearchValue("");
   };
