@@ -1,3 +1,4 @@
+import { IconSmile } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
@@ -11,7 +12,6 @@ import { ReactComponent as MuseumIcon } from "../../../assets/icons/svg/museum.s
 import { ReactComponent as MusicIcon } from "../../../assets/icons/svg/music.svg";
 import { ReactComponent as NatureIcon } from "../../../assets/icons/svg/nature.svg";
 import { ReactComponent as SearchIcon } from "../../../assets/icons/svg/search.svg";
-import { ReactComponent as SmileIcon } from "../../../assets/icons/svg/smile.svg";
 import { ReactComponent as SportIcon } from "../../../assets/icons/svg/sport.svg";
 import { ReactComponent as TheatreIcon } from "../../../assets/icons/svg/theatre.svg";
 import CategoryFilters from "../../../common/components/category/CategoryFilters";
@@ -60,7 +60,7 @@ const TopFooter: FunctionComponent = () => {
               to={`/${locale}/events`}
             />
             <IconLink
-              icon={<SmileIcon />}
+              icon={<IconSmile />}
               text={t("footer.searchCollections")}
               to={`/${locale}/collections`}
             />
