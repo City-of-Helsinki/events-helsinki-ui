@@ -9,8 +9,12 @@ test("Html matches snapshot", () => {
     js: ["test1.js", "test2.js"]
   };
   const content = "<p>Test content</p>";
+  const canonicalUrl = "http://localhost:3000";
   // Helmet.renderStatic() is not available on client side so use mock data to test
   const helmet = {
+    link: {
+      toComponent: () => `<link rel="canonical" href="${canonicalUrl}" />`
+    },
     meta: {
       toComponent: () =>
         '<meta data-react-helmet="true" name="description" content="testing react helmet">'
@@ -21,7 +25,13 @@ test("Html matches snapshot", () => {
   };
 
   const component = renderer.create(
-    <Html assets={assets} content={content} helmet={helmet} state={{}} />
+    <Html
+      assets={assets}
+      content={content}
+      helmet={helmet}
+      state={{}}
+      canonicalUrl={canonicalUrl}
+    />
   );
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();

@@ -1,13 +1,12 @@
+import { IconSearch } from "hds-react";
 import get from "lodash/get";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 
-import { ReactComponent as SearchIcon } from "../../assets/icons/svg/search.svg";
 import Button from "../../common/components/button/Button";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import Dropdown from "../../common/components/dropdown/Dropdown";
-import Checkbox from "../../common/components/input/Checkbox";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import { AutosuggestMenuItem } from "../../common/types";
 import { CATEGORIES, DISTRICTS } from "../../constants";
@@ -33,9 +32,6 @@ const Search: FunctionComponent = () => {
   );
   const [keywords, setKeywords] = React.useState<string[]>([]);
   const [districts, setDistricts] = React.useState<string[]>([]);
-  const [selectedDistricts, setSelectedDistricts] = React.useState<string[]>(
-    []
-  );
   const [places, setPlaces] = React.useState<string[]>([]);
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
@@ -181,10 +177,6 @@ const Search: FunctionComponent = () => {
     setPlaces(places);
   }, [searchParams]);
 
-  const handleClearCategories = () => {
-    setSelectedCategories([]);
-  };
-
   const handleMenuItemClick = async (item: AutosuggestMenuItem) => {
     let search = "";
     switch (item.type) {
@@ -318,7 +310,7 @@ const Search: FunctionComponent = () => {
               <Button
                 color="primary"
                 fullWidth={true}
-                iconLeft={<SearchIcon />}
+                iconLeft={<IconSearch />}
                 onClick={moveToSearchPage}
                 size="default"
               >

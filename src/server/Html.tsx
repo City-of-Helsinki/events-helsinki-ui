@@ -13,11 +13,21 @@ interface Props {
     title: {
       toComponent: () => void;
     };
+    link: {
+      toComponent: () => void;
+    };
   };
   state: object;
+  canonicalUrl: string;
 }
 
-const Html: React.FC<Props> = ({ assets, content, helmet, state }) => {
+const Html: React.FC<Props> = ({
+  assets,
+  content,
+  helmet,
+  state,
+  canonicalUrl
+}) => {
   return (
     <html lang="en">
       <head>
@@ -27,10 +37,13 @@ const Html: React.FC<Props> = ({ assets, content, helmet, state }) => {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         <meta name="theme-color" content="#000000" />
+        <meta property="og:url" content={canonicalUrl} />
         <link rel="manifest" href="/manifest.json" />
         <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="canonical" href={canonicalUrl} />
         {helmet.meta.toComponent()}
         {helmet.title.toComponent()}
+        {helmet.link.toComponent()}
         {assets.css &&
           assets.css.map((c: string, idx: number) => (
             <link key={idx} href={c} rel="stylesheet" />

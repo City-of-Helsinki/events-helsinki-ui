@@ -1,6 +1,12 @@
 import classNames from "classnames";
 import { saveAs } from "file-saver";
-import { IconAngleRight, IconInfo, IconLocation, IconTicket } from "hds-react";
+import {
+  IconAngleRight,
+  IconInfo,
+  IconLanguage,
+  IconLocation,
+  IconTicket
+} from "hds-react";
 import { createEvent, EventAttributes } from "ics";
 import capitalize from "lodash/capitalize";
 import React from "react";
@@ -10,7 +16,6 @@ import Button from "../../common/components/button/Button";
 import { EventDetailsQuery } from "../../generated/graphql";
 import CalendarIcon from "../../icons/CalendarIcon";
 import DirectionsIcon from "../../icons/DirectionsIcon";
-import LanguageIcon from "../../icons/LanguageIcon";
 import { formatDate } from "../../util/dateUtils";
 import getDateArray from "../../util/getDateArray";
 import getDateRangeStr from "../../util/getDateRangeStr";
@@ -185,7 +190,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
       {!!languages.length && (
         <div className={styles.infoWithIcon}>
           <div className={styles.iconWrapper}>
-            <LanguageIcon className={styles.icon} />
+            <IconLanguage className={styles.icon} />
           </div>
           <div className={styles.iconTextWrapper}>
             <p>{t("event.info.labelLanguages")}</p>
