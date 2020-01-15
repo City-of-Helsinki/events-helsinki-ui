@@ -50,7 +50,7 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
             >
               <div className={styles.colorIndicator} />
               <div className={styles.icon}>
-                {item.type === "area" && <IconLocation />}
+                {item.type === "district" && <IconLocation />}
               </div>
               <div className={styles.textWrapper}>
                 <button onClick={handleClick}>
