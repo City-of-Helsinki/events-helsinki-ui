@@ -1,8 +1,8 @@
+import { IconSearch } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 
-import { ReactComponent as SearchIcon } from "../../assets/icons/svg/search.svg";
 import Button from "../../common/components/button/Button";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import Dropdown from "../../common/components/dropdown/Dropdown";
@@ -312,7 +312,7 @@ const Search: FunctionComponent = () => {
               <Button
                 color="primary"
                 fullWidth={true}
-                iconLeft={<SearchIcon />}
+                iconLeft={<IconSearch />}
                 onClick={moveToSearchPage}
                 size="default"
               >
