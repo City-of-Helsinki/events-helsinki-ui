@@ -1,5 +1,7 @@
+import "hds-core/lib/icons/icon-location.css";
+
 import classNames from "classnames";
-import { IconClose } from "hds-react";
+import { IconClose, IconLocation } from "hds-react";
 import React, { FunctionComponent } from "react";
 
 import { formatMessage } from "../../translation/TranslationUtils";
@@ -47,7 +49,9 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
               )}
             >
               <div className={styles.colorIndicator} />
-              <div className={styles.icon} />
+              <div className={styles.icon}>
+                {item.type === "district" && <IconLocation />}
+              </div>
               <div className={styles.textWrapper}>
                 <button onClick={handleClick}>
                   <div className={styles.text}>{item.text}</div>

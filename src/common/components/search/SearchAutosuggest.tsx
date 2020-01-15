@@ -1,8 +1,8 @@
+import { IconSearch } from "hds-react";
 import get from "lodash/get";
 import React, { ChangeEvent, FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 
-import { ReactComponent as SearchIcon } from "../../../assets/icons/svg/search.svg";
 import { DISTRICTS, KEYWORD_TYPES } from "../../../constants";
 import {
   useKeywordListQuery,
@@ -215,7 +215,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       ref={container}
     >
       <div className={styles.iconWrapper}>
-        <SearchIcon />
+        <IconSearch />
       </div>
       <div ref={categoryWrapper}>
         {categories.map(category => {

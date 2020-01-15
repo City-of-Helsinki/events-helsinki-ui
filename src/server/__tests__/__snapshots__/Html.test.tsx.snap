@@ -16,6 +16,10 @@ exports[`Html matches snapshot 1`] = `
       content="#000000"
       name="theme-color"
     />
+    <meta
+      content="http://localhost:3000"
+      property="og:url"
+    />
     <link
       href="/manifest.json"
       rel="manifest"
@@ -24,8 +28,13 @@ exports[`Html matches snapshot 1`] = `
       href="/favicon.ico"
       rel="shortcut icon"
     />
+    <link
+      href="http://localhost:3000"
+      rel="canonical"
+    />
     &lt;meta data-react-helmet="true" name="description" content="testing react helmet"&gt;
     &lt;title&gt;Test title&lt;/title&gt;
+    &lt;link rel="canonical" href="http://localhost:3000" /&gt;
     <link
       href="test1.css"
       rel="stylesheet"

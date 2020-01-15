@@ -1,17 +1,13 @@
+import { IconFill, IconFood, IconSearch, IconSmile, IconTree } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 
 import { ReactComponent as CultureIcon } from "../../../assets/icons/svg/culture.svg";
 import { ReactComponent as DanceIcon } from "../../../assets/icons/svg/dance.svg";
-import { ReactComponent as FoodIcon } from "../../../assets/icons/svg/food.svg";
-import { ReactComponent as InfluenceIcon } from "../../../assets/icons/svg/influence.svg";
 import { ReactComponent as MovieIcon } from "../../../assets/icons/svg/movie.svg";
 import { ReactComponent as MuseumIcon } from "../../../assets/icons/svg/museum.svg";
 import { ReactComponent as MusicIcon } from "../../../assets/icons/svg/music.svg";
-import { ReactComponent as NatureIcon } from "../../../assets/icons/svg/nature.svg";
-import { ReactComponent as SearchIcon } from "../../../assets/icons/svg/search.svg";
-import { ReactComponent as SmileIcon } from "../../../assets/icons/svg/smile.svg";
 import { ReactComponent as SportIcon } from "../../../assets/icons/svg/sport.svg";
 import { ReactComponent as TheatreIcon } from "../../../assets/icons/svg/theatre.svg";
 import CategoryFilters from "../../../common/components/category/CategoryFilters";
@@ -56,12 +52,12 @@ const TopFooter: FunctionComponent = () => {
           </div>
           <div className={styles.iconLinkWrapper}>
             <IconLink
-              icon={<SearchIcon />}
+              icon={<IconSearch />}
               text={t("footer.searchEvents")}
               to={`/${locale}/events`}
             />
             <IconLink
-              icon={<SmileIcon />}
+              icon={<IconSmile />}
               text={t("footer.searchCollections")}
               to={`/${locale}/collections`}
             />
@@ -105,12 +101,12 @@ const TopFooter: FunctionComponent = () => {
                 value: CATEGORIES.CULTURE
               },
               {
-                icon: <NatureIcon />,
+                icon: <IconTree />,
                 text: t("home.category.nature"),
                 value: CATEGORIES.NATURE
               },
               {
-                icon: <InfluenceIcon />,
+                icon: <IconFill />,
                 text: t("home.category.influence"),
                 value: CATEGORIES.INFLUENCE
               },
@@ -120,7 +116,7 @@ const TopFooter: FunctionComponent = () => {
                 value: CATEGORIES.THEATRE
               },
               {
-                icon: <FoodIcon />,
+                icon: <IconFood />,
                 text: t("home.category.food"),
                 value: CATEGORIES.FOOD
               }

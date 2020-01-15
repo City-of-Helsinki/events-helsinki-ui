@@ -9,6 +9,7 @@ import { getDataFromTree } from "react-apollo";
 import ReactDOMServer from "react-dom/server";
 import Helmet from "react-helmet";
 
+import getDomainFromRequest from "../util/getDomainFromRequest";
 import { getAssets } from "./assets";
 import Html from "./Html";
 import ServerApp from "./ServerApp";
@@ -61,12 +62,18 @@ app.use(async (req: Request, res: Response) => {
   // Executes all graphql queries for the current state of application
   await getDataFromTree(el);
 
-  // // Extracts apollo client cache
+  // Extracts apollo client cache
   const state = client.extract();
   const content = ReactDOMServer.renderToString(el);
   const helmet = Helmet.renderStatic();
   const assets = getAssets();
-  const htmlEl = React.createElement(Html, { assets, content, helmet, state });
+  const htmlEl = React.createElement(Html, {
+    assets,
+    canonicalUrl: `${getDomainFromRequest(req)}${req.url}`,
+    content,
+    helmet,
+    state
+  });
   const html = ReactDOMServer.renderToString(htmlEl);
 
   if (context.url) {

@@ -195,6 +195,7 @@ const Search: FunctionComponent = () => {
     setPlaces(places);
     setTargets(targets);
   }, [searchParams]);
+
   const handleMenuItemClick = async (item: AutosuggestMenuItem) => {
     let search = "";
     switch (item.type) {
