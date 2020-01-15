@@ -56,7 +56,6 @@
     }
 
     .icon {
-      background: url("../../../assets//icons/svg/area.svg");
       background-size: 1.25rem;
       background-repeat: no-repeat;
       background-position: center;
@@ -89,7 +88,13 @@
     } 
 
     .icon {
-      background-image: url("../../../assets//icons/svg/area.svg");
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        margin: 0
+      }
     }
   }
 
