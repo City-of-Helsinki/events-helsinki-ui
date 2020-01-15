@@ -1,9 +1,9 @@
 import {
+  Division,
   EventDetails,
   Image,
   Keyword,
   LocalizedObject,
-  LocationDivision,
   Maybe,
   Offer
 } from "../../generated/graphql";
@@ -21,7 +21,7 @@ type LocationInList = {
   addressLocality: Maybe<Pick<LocalizedObject, "fi" | "sv" | "en">>;
   divisions: Maybe<
     Array<
-      Pick<LocationDivision, "type"> & {
+      Pick<Division, "type"> & {
         name: Maybe<Pick<LocalizedObject, "fi" | "sv" | "en">>;
       }
     >

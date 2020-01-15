@@ -1,16 +1,13 @@
+import { IconFill, IconFood, IconSearch, IconTree } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 
 import { ReactComponent as CultureIcon } from "../../assets/icons/svg/culture.svg";
 import { ReactComponent as DanceIcon } from "../../assets/icons/svg/dance.svg";
-import { ReactComponent as FoodIcon } from "../../assets/icons/svg/food.svg";
-import { ReactComponent as InfluenceIcon } from "../../assets/icons/svg/influence.svg";
 import { ReactComponent as MovieIcon } from "../../assets/icons/svg/movie.svg";
 import { ReactComponent as MuseumIcon } from "../../assets/icons/svg/museum.svg";
 import { ReactComponent as MusicIcon } from "../../assets/icons/svg/music.svg";
-import { ReactComponent as NatureIcon } from "../../assets/icons/svg/nature.svg";
-import { ReactComponent as SearchIcon } from "../../assets/icons/svg/search.svg";
 import { ReactComponent as SportIcon } from "../../assets/icons/svg/sport.svg";
 import { ReactComponent as TheatreIcon } from "../../assets/icons/svg/theatre.svg";
 import Button from "../../common/components/button/Button";
@@ -18,7 +15,7 @@ import CategoryFilters from "../../common/components/category/CategoryFilters";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import SupriseMeButton from "../../common/components/search/SupriseMeButton";
-import { Category } from "../../common/types";
+import { AutosuggestMenuItem, Category } from "../../common/types";
 import { CATEGORIES } from "../../constants";
 import getLocale from "../../util/getLocale";
 import { getSearchQuery } from "../../util/searchUtils";
@@ -58,23 +55,85 @@ const Search: FunctionComponent = () => {
     setIsCustomDate(!isCustomDate);
   };
 
-  const moveToSearchPage = () => {
+  const moveToSearchPage = React.useCallback(() => {
     const search = getSearchQuery({
       categories: categories.map(category => category.value),
       dateTypes,
+      districts: [],
       endDate,
       isCustomDate,
+      keywords: [],
+      places: [],
       publisher: null,
       search: searchValue,
       startDate
     });
 
     push({ pathname: `/${locale}/events`, search });
-  };
+  }, [
+    categories,
+    dateTypes,
+    endDate,
+    isCustomDate,
+    locale,
+    push,
+    searchValue,
+    startDate
+  ]);
 
   const handleClickSupriseMe = () => {
     // TODO: Add suprise me feature
     alert("TODO: suprise me");
+  };
+
+  const handleMenuItemClick = (item: AutosuggestMenuItem) => {
+    let search = "";
+    switch (item.type) {
+      case "district":
+        search = getSearchQuery({
+          categories: categories.map(category => category.value),
+          dateTypes,
+          districts: [item.value],
+          endDate,
+          isCustomDate,
+          keywords: [],
+          places: [],
+          publisher: null,
+          search: "",
+          startDate
+        });
+        break;
+      case "keyword":
+      case "yso":
+        search = getSearchQuery({
+          categories: categories.map(category => category.value),
+          dateTypes,
+          districts: [],
+          endDate,
+          isCustomDate,
+          keywords: [item.value],
+          places: [],
+          publisher: null,
+          search: "",
+          startDate
+        });
+        break;
+      case "place":
+        search = getSearchQuery({
+          categories: categories.map(category => category.value),
+          dateTypes,
+          districts: [],
+          endDate,
+          isCustomDate,
+          keywords: [],
+          places: [item.value],
+          publisher: null,
+          search: "",
+          startDate
+        });
+    }
+    push({ pathname: `/${locale}/events`, search });
+    setSearchValue("");
   };
 
   return (
@@ -89,6 +148,7 @@ const Search: FunctionComponent = () => {
           <SearchAutosuggest
             categories={categories}
             onChangeSearchValue={setSearchValue}
+            onMenuItemClick={handleMenuItemClick}
             onRemoveCategory={handleRemoveCategory}
             placeholder={t("home.search.placeholder")}
             searchValue={searchValue}
@@ -111,7 +171,7 @@ const Search: FunctionComponent = () => {
           <Button
             color="primary"
             fullWidth={true}
-            iconLeft={<SearchIcon />}
+            iconLeft={<IconSearch />}
             onClick={moveToSearchPage}
             size="default"
           >
@@ -153,12 +213,12 @@ const Search: FunctionComponent = () => {
               value: CATEGORIES.CULTURE
             },
             {
-              icon: <NatureIcon />,
+              icon: <IconTree />,
               text: t("home.category.nature"),
               value: CATEGORIES.NATURE
             },
             {
-              icon: <InfluenceIcon />,
+              icon: <IconFill />,
               text: t("home.category.influence"),
               value: CATEGORIES.INFLUENCE
             },
@@ -168,7 +228,7 @@ const Search: FunctionComponent = () => {
               value: CATEGORIES.THEATRE
             },
             {
-              icon: <FoodIcon />,
+              icon: <IconFood />,
               text: t("home.category.food"),
               value: CATEGORIES.FOOD
             }

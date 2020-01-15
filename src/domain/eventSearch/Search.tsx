@@ -1,12 +1,14 @@
+import { IconSearch } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 
-import { ReactComponent as SearchIcon } from "../../assets/icons/svg/search.svg";
 import Button from "../../common/components/button/Button";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import Dropdown from "../../common/components/dropdown/Dropdown";
 import Checkbox from "../../common/components/input/Checkbox";
+import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
+import { AutosuggestMenuItem } from "../../common/types";
 import { CATEGORIES } from "../../constants";
 import IconRead from "../../icons/IconRead";
 import getLocale from "../../util/getLocale";
@@ -22,10 +24,14 @@ const Search: FunctionComponent = () => {
   ]);
   const { t } = useTranslation();
   const locale = getLocale();
+  const [searchValue, setSearchValue] = React.useState("");
   const [dateTypes, setDateTypes] = React.useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = React.useState<string[]>(
     []
   );
+  const [keywords, setKeywords] = React.useState<string[]>([]);
+  const [districts, setDistricts] = React.useState<string[]>([]);
+  const [places, setPlaces] = React.useState<string[]>([]);
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
@@ -89,26 +95,49 @@ const Search: FunctionComponent = () => {
     setIsCustomDate(!isCustomDate);
   };
 
-  const moveToSearchPage = () => {
+  const moveToSearchPage = React.useCallback(() => {
     const search = getSearchQuery({
       categories: selectedCategories,
       dateTypes,
+      districts,
       endDate,
       isCustomDate,
+      keywords,
+      places,
       publisher: null,
-      search: "",
+      search: searchValue,
       startDate
     });
 
     push({ pathname: `/${locale}/events`, search });
-  };
+  }, [
+    dateTypes,
+    districts,
+    endDate,
+    isCustomDate,
+    keywords,
+    locale,
+    places,
+    push,
+    searchValue,
+    selectedCategories,
+    startDate
+  ]);
 
   // Initialize fields when page is loaded
   React.useEffect(() => {
+    const searchVal = searchParams.get("search");
     const end = searchParams.get("endDate");
     const start = searchParams.get("startDate");
     const dTypes = getUrlParamAsArray(searchParams, "dateTypes");
     const categories = getUrlParamAsArray(searchParams, "categories");
+    const districts = getUrlParamAsArray(searchParams, "districts");
+    const keywords = getUrlParamAsArray(searchParams, "keywords");
+    const places = getUrlParamAsArray(searchParams, "places");
+
+    if (searchVal) {
+      setSearchValue(searchVal);
+    }
 
     if (end) {
       setEndDate(new Date(end));
@@ -129,6 +158,9 @@ const Search: FunctionComponent = () => {
     }
 
     setSelectedCategories(categories);
+    setDistricts(districts);
+    setKeywords(keywords);
+    setPlaces(places);
   }, [searchParams]);
 
   const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -146,24 +178,107 @@ const Search: FunctionComponent = () => {
     setSelectedCategories([]);
   };
 
+  const handleMenuItemClick = async (item: AutosuggestMenuItem) => {
+    let search = "";
+    switch (item.type) {
+      case "district":
+        const newDistricts = getUrlParamAsArray(searchParams, "districts");
+        if (!newDistricts.includes(item.value)) {
+          newDistricts.push(item.value);
+        }
+
+        setDistricts(newDistricts);
+        setSearchValue("");
+        search = getSearchQuery({
+          categories: selectedCategories,
+          dateTypes,
+          districts: newDistricts,
+          endDate,
+          isCustomDate,
+          keywords,
+          places,
+          publisher: null,
+          search: "",
+          startDate
+        });
+        push({ pathname: `/${locale}/events`, search });
+        break;
+      case "keyword":
+      case "yso":
+        const newKeywords = getUrlParamAsArray(searchParams, "keywords");
+        if (!newKeywords.includes(item.value)) {
+          newKeywords.push(item.value);
+        }
+
+        setKeywords(newKeywords);
+        setSearchValue("");
+        search = getSearchQuery({
+          categories: selectedCategories,
+          dateTypes,
+          districts,
+          endDate,
+          isCustomDate,
+          keywords: newKeywords,
+          places,
+          publisher: null,
+          search: "",
+          startDate
+        });
+        push({ pathname: `/${locale}/events`, search });
+        break;
+      case "place":
+        const newPlaces = getUrlParamAsArray(searchParams, "places");
+        if (!newPlaces.includes(item.value)) {
+          newPlaces.push(item.value);
+        }
+
+        setPlaces(newPlaces);
+        setSearchValue("");
+        search = getSearchQuery({
+          categories: selectedCategories,
+          dateTypes,
+          districts,
+          endDate,
+          isCustomDate,
+          keywords,
+          places: newPlaces,
+          publisher: null,
+          search: "",
+          startDate
+        });
+        push({ pathname: `/${locale}/events`, search });
+    }
+  };
+
   return (
     <>
       <div className={styles.searchContainer}>
         <Container>
+          <div className={styles.firstRow}>
+            <label>{t("eventSearch.search.labelSearchField")}</label>
+            <SearchAutosuggest
+              categories={[]}
+              onChangeSearchValue={setSearchValue}
+              onMenuItemClick={handleMenuItemClick}
+              placeholder={t("eventSearch.search.placeholder")}
+              searchValue={searchValue}
+            />
+          </div>
           <div className={styles.secondRow}>
             <div>
               <div className={styles.label}>
-                {t("home.search.labelDateRange")}
+                {t("eventSearch.search.labelCategory")}
               </div>
               <Dropdown
                 icon={<IconRead />}
                 onClearButtonClick={handleClearCategories}
-                title="Valitse kategoria"
+                title={t("eventSearch.search.titleDropdownCategory")}
               >
                 <>
                   {categories.map(category => {
                     return (
                       <Checkbox
+                        key={category.value}
                         checked={selectedCategories.includes(category.value)}
                         name="category"
                         onChange={handleCategoryChange}
@@ -177,6 +292,9 @@ const Search: FunctionComponent = () => {
               </Dropdown>
             </div>
             <div className={styles.dateSelectorWrapper}>
+              <div className={styles.label}>
+                {t("eventSearch.search.labelDateRange")}
+              </div>
               <DateSelector
                 dateTypes={dateTypes}
                 endDate={endDate}
@@ -194,11 +312,11 @@ const Search: FunctionComponent = () => {
               <Button
                 color="primary"
                 fullWidth={true}
-                iconLeft={<SearchIcon />}
+                iconLeft={<IconSearch />}
                 onClick={moveToSearchPage}
                 size="default"
               >
-                {t("home.search.buttonSearch")}
+                {t("eventSearch.search.buttonSearch")}
               </Button>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { IconAngleRight } from "hds-react";
+import { IconAngleRight, IconSmile } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -8,7 +8,6 @@ import {
   EventDetailsQuery,
   useOrganizationDetailsQuery
 } from "../../generated/graphql";
-import SmileIcon from "../../icons/SmileIcon";
 import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import styles from "./eventInfo.module.scss";
@@ -39,7 +38,7 @@ const OrganizationInfo: React.FC<Props> = ({ eventData }) => {
   return (
     <div className={styles.infoWithIcon}>
       <div className={styles.iconWrapper}>
-        <SmileIcon className={styles.icon} />
+        <IconSmile className={styles.icon} />
       </div>
       <div className={styles.iconTextWrapper}>
         <p>{t("event.info.labelOrganizer")}</p>

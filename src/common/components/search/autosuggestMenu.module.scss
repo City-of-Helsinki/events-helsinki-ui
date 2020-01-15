@@ -56,7 +56,6 @@
     }
 
     .icon {
-      background: url("../../../assets//icons/svg/area.svg");
       background-size: 1.25rem;
       background-repeat: no-repeat;
       background-position: center;
@@ -83,17 +82,23 @@
     }
   }
 
-  .autosuggestItem--area {
+  .autosuggestItem--district {
     .colorIndicator {
       background-color: $hel-metro;
     } 
 
     .icon {
-      background-image: url("../../../assets//icons/svg/area.svg");
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        margin: 0
+      }
     }
   }
 
-  .autosuggestItem--category {
+  .autosuggestItem--keyword {
     .colorIndicator {
       background-color: $hel-metro-light-50;
     } 
@@ -103,7 +108,7 @@
     }
   }
 
-  .autosuggestItem--servicePoint {
+  .autosuggestItem--place {
     .colorIndicator {
       background-color: $hel-tram;
     } 
