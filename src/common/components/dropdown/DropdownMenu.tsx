@@ -5,13 +5,13 @@ import styles from "./dropdownMenu.module.scss";
 
 interface Props {
   isOpen: boolean;
-  onClearButtonClick: () => void;
+  onClear: () => void;
 }
 
 const DropdownMenu: FunctionComponent<Props> = ({
   children,
   isOpen,
-  onClearButtonClick
+  onClear
 }) => {
   const { t } = useTranslation();
   if (!isOpen) return null;
@@ -19,7 +19,7 @@ const DropdownMenu: FunctionComponent<Props> = ({
   return (
     <div className={styles.dropdownMenu}>
       <div className={styles.dropdownMenuWrapper}>{children}</div>
-      <button className={styles.btnClear} onClick={onClearButtonClick}>
+      <button className={styles.btnClear} onClick={onClear}>
         {t("commons.dropdown.menu.buttonClear")}
       </button>
     </div>

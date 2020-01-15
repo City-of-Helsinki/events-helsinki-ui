@@ -9,6 +9,7 @@ test("SearchAutosuggest matches snapshot", () => {
       categories={[{ text: "bar", value: "foo" }]}
       onRemoveCategory={category => {}}
       onChangeSearchValue={value => {}}
+      onMenuItemClick={() => {}}
       placeholder="Lorem ipsum"
       searchValue={"search value"}
     />

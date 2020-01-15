@@ -160,9 +160,11 @@
       "buttonSearch": "Sök",
       "labelCategory": "Vilken typ av evenemang du letar efter?",
       "labelDateRange": "För vilken period du letar efter?",
+      "labelDistrict": "Varifrån letar du efter??",
       "labelSearchField": "Vad du letar efter?",
       "placeholder": "Börja skriva här, t.ex. teater",
-      "titleDropdownCategory": "Välj kategori"
+      "titleDropdownCategory": "Välj kategori",
+      "titleDropdownDistrict": "Välj område"
     },
     "textFoundEvents": "Vi hittade {{count}} saker att göra för dig"
   },
