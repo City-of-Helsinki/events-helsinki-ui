@@ -69,8 +69,12 @@ export const getEventFilters = (params: URLSearchParams, pageSize: number) => {
     params.get("startDate"),
     params.get("endDate")
   );
+  const places = getUrlParamAsString(params, "places");
+
   const categories = getUrlParamAsString(params, "categories");
-  const mappedCategories = categories.map(category => {
+  const districts = getUrlParamAsString(params, "districts");
+  const keywords = getUrlParamAsString(params, "keywords");
+  const mappedCategories: string[] = categories.map(category => {
     switch (category) {
       case CATEGORIES.CULTURE:
         return "yso:p360";
@@ -98,13 +102,17 @@ export const getEventFilters = (params: URLSearchParams, pageSize: number) => {
         return "";
     }
   });
+  mappedCategories.push(...keywords);
 
   return {
-    categories: mappedCategories,
+    divisions: districts,
     endDate: endDate,
+    keywords: mappedCategories,
+    locations: places,
     pageSize,
     publisher: params.get("publisher"),
-    startDate: startDate
+    startDate: startDate,
+    text: params.get("search")
   };
 };
 

@@ -1,7 +1,17 @@
+import get from "lodash/get";
 import React, { ChangeEvent, FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 
 import { ReactComponent as SearchIcon } from "../../../assets/icons/svg/search.svg";
-import { KEYWORD_TYPES } from "../../../constants";
+import { DISTRICTS, KEYWORD_TYPES } from "../../../constants";
+import {
+  useKeywordListQuery,
+  usePlaceListQuery
+} from "../../../generated/graphql";
+import useDebounce from "../../../hooks/useDebounce";
+import getLocale from "../../../util/getLocale";
+import getLocalisedString from "../../../util/getLocalisedString";
+import { translateValue } from "../../../util/translateUtils";
 import { AutosuggestMenuItem, Category as CategoryType } from "../../types";
 import Category from "../category/Category";
 import AutosuggestMenu from "./AutosuggestMenu";
@@ -10,66 +20,96 @@ import styles from "./searchAutosuggest.module.scss";
 interface Props {
   categories: CategoryType[];
   onChangeSearchValue: (value: string) => void;
-  onRemoveCategory: (category: CategoryType) => void;
+  onMenuItemClick: (item: AutosuggestMenuItem) => void;
+  onRemoveCategory?: (category: CategoryType) => void;
   placeholder: string;
   searchValue: string;
 }
 
 const SearchAutosuggest: FunctionComponent<Props> = ({
   categories,
+  onMenuItemClick,
   onRemoveCategory,
   onChangeSearchValue,
   placeholder,
   searchValue
 }) => {
+  const { t } = useTranslation();
+  const locale = getLocale();
   const container = React.useRef<HTMLDivElement | null>(null);
   const categoryWrapper = React.useRef<HTMLDivElement | null>(null);
   const input = React.useRef<HTMLInputElement | null>(null);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const internalInputValue = useDebounce(searchValue, 500);
 
-  // This is moch data so no need to translate items
-  const mochAutosuggestItems = [
-    {
-      text: "Luonto ja ulkoilu",
-      type: KEYWORD_TYPES.CATEGORY
-    },
-    {
-      text: "Maastojuoksu",
-      type: KEYWORD_TYPES.YSO
-    },
-    {
-      text: "Maastopyöräily",
-      type: KEYWORD_TYPES.YSO
-    },
-    {
-      text: "Sunnistus",
-      type: KEYWORD_TYPES.YSO
-    },
-    {
-      text: "Keskusta",
-      type: KEYWORD_TYPES.AREA
-    },
-    {
-      text: "Käpylä",
-      type: KEYWORD_TYPES.AREA
-    },
-    {
-      text: "Kisahalli",
-      type: KEYWORD_TYPES.SERVICE_POINT
-    },
-    {
-      text: "Annatalo",
-      type: KEYWORD_TYPES.SERVICE_POINT
-    },
-    {
-      text: "Stoa",
-      type: KEYWORD_TYPES.SERVICE_POINT
-    },
-    {
-      text: "Caisa",
-      type: KEYWORD_TYPES.SERVICE_POINT
+  const districtOptions = React.useMemo(
+    () =>
+      Object.keys(DISTRICTS)
+        .map(key => {
+          return {
+            text: translateValue("commons.districts.", key, t),
+            value: get(DISTRICTS, key)
+          };
+        })
+        .sort((a, b) => (a.text >= b.text ? 1 : -1)),
+    [t]
+  );
+
+  const { data: keywordsData } = useKeywordListQuery({
+    skip: !internalInputValue,
+    variables: {
+      pageSize: 5,
+      text: internalInputValue
     }
-  ];
+  });
+
+  const { data: placesData } = usePlaceListQuery({
+    skip: !internalInputValue,
+    variables: {
+      pageSize: 5,
+      text: internalInputValue
+    }
+  });
+
+  const autosuggestItems: AutosuggestMenuItem[] = React.useMemo(() => {
+    const items = [];
+    if (keywordsData) {
+      items.push(
+        ...keywordsData.keywordList.data.map(keyword => ({
+          text: getLocalisedString(keyword.name, locale),
+          type: keyword.id.startsWith("yso")
+            ? KEYWORD_TYPES.YSO
+            : KEYWORD_TYPES.KEYWORD,
+          value: keyword.id
+        }))
+      );
+    }
+    if (internalInputValue) {
+      items.push(
+        ...districtOptions
+          .filter(item =>
+            item.text.toLowerCase().includes(internalInputValue.toLowerCase())
+          )
+          .slice(0, 5)
+          .map(item => ({
+            text: item.text,
+            type: KEYWORD_TYPES.DISTRICT,
+            value: item.value
+          }))
+      );
+    }
+    if (placesData) {
+      items.push(
+        ...placesData.placeList.data.map(place => ({
+          text: place.name ? getLocalisedString(place.name, locale) : "",
+          type: KEYWORD_TYPES.PLACE,
+          value: place.id
+        }))
+      );
+    }
+
+    return items.filter(item => item.text);
+  }, [districtOptions, internalInputValue, keywordsData, locale, placesData]);
 
   const setFocusToInput = () => {
     if (input && input.current) {
@@ -122,7 +162,8 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onChangeSearchValue(event.target.value);
+    const newValue = event.target.value;
+    onChangeSearchValue(newValue);
     // Open menu when search value changes
     setIsMenuOpen(true);
   };
@@ -144,13 +185,15 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     // Set focus to input so the menu is not opened again afted focusing to input
     setFocusToInput();
 
-    onChangeSearchValue(item.text);
+    onMenuItemClick(item);
     // Close menu when selecting one of the autosuggest items
     setIsMenuOpen(false);
   };
 
   const handleRemoveCategory = (category: CategoryType) => {
-    onRemoveCategory(category);
+    if (onRemoveCategory) {
+      onRemoveCategory(category);
+    }
   };
 
   React.useEffect(() => {
@@ -196,7 +239,8 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
         />
       </div>
       <AutosuggestMenu
-        items={mochAutosuggestItems}
+        items={autosuggestItems}
+        // items={mockAutosuggestItems}
         isOpen={isMenuOpen}
         onClose={handleCloseMenu}
         onItemClick={handleMenuItemClick}

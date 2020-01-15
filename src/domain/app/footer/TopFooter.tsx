@@ -32,8 +32,11 @@ const TopFooter: FunctionComponent = () => {
     const search = getSearchQuery({
       categories: [category.value],
       dateTypes: [],
+      districts: [],
       endDate: null,
       isCustomDate: false,
+      keywords: [],
+      places: [],
       publisher: null,
       search: "",
       startDate: null
