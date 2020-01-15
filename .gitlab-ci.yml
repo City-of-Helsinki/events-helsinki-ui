@@ -12,7 +12,7 @@ build-review:
   variables:
     DOCKER_IMAGE_NAME: "$CI_PROJECT_NAME-review"
     DOCKER_BUILD_ARG_SASS_PATH: "./src/assets/styles"
-    DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: "https://tekemista-proxy.test.kuva.hel.ninja/proxy/graphql"
+    DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: "https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql"
     DOCKER_BUILD_ARG_REACT_APP_SSR_PORT: 3000
   only:
     refs:
@@ -23,7 +23,7 @@ build-staging:
   variables:
     DOCKER_IMAGE_NAME: "$CI_PROJECT_NAME-staging"
     DOCKER_BUILD_ARG_SASS_PATH: "./src/assets/styles"
-    DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: "https://tekemista-proxy.test.kuva.hel.ninja/proxy/graphql"
+    DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: "https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql"
     DOCKER_BUILD_ARG_REACT_APP_SSR_PORT: 3000
   only:
     refs:
@@ -34,7 +34,7 @@ build-production:
   variables:
     DOCKER_IMAGE_NAME: "$CI_PROJECT_NAME-production"
     DOCKER_BUILD_ARG_SASS_PATH: "./src/assets/styles"
-    DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: "https://tekemista-proxy.test.kuva.hel.ninja/proxy/graphql"
+    DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: "https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql"
     DOCKER_BUILD_ARG_REACT_APP_SSR_PORT: 3000
   only:
     refs:
