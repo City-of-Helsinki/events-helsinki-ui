@@ -14,8 +14,8 @@ import { useTranslation } from "react-i18next";
 
 import Button from "../../common/components/button/Button";
 import { EventDetailsQuery } from "../../generated/graphql";
-import CalendarIcon from "../../icons/CalendarIcon";
-import DirectionsIcon from "../../icons/DirectionsIcon";
+import IconCalendar from "../../icons/IconCalendar";
+import IconDirections from "../../icons/IconDirections";
 import { formatDate } from "../../util/dateUtils";
 import getDateArray from "../../util/getDateArray";
 import getDateRangeStr from "../../util/getDateRangeStr";
@@ -125,7 +125,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
       {/* Date info */}
       <div className={styles.infoWithIcon}>
         <div className={styles.iconWrapper}>
-          <CalendarIcon className={styles.icon} />
+          <IconCalendar className={styles.icon} />
         </div>
         <div className={styles.iconTextWrapper}>
           <p>{t("event.info.labelDateAndTime")}</p>
@@ -244,7 +244,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
       {/* Directions */}
       <div className={styles.infoWithIcon}>
         <div className={styles.iconWrapper}>
-          <DirectionsIcon className={styles.icon} />
+          <IconDirections className={styles.icon} />
         </div>
         <div className={styles.iconTextWrapper}>
           <p>{t("event.info.labelDistricts")}</p>
