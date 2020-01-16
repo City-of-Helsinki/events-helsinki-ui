@@ -3,7 +3,7 @@ import get from "lodash/get";
 import React, { ChangeEvent, FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 
-import { DISTRICTS, KEYWORD_TYPES } from "../../../constants";
+import { AUTOSUGGEST_TYPES, DISTRICTS } from "../../../constants";
 import {
   useKeywordListQuery,
   usePlaceListQuery
@@ -79,8 +79,8 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
         ...keywordsData.keywordList.data.map(keyword => ({
           text: getLocalisedString(keyword.name, locale),
           type: keyword.id.startsWith("yso")
-            ? KEYWORD_TYPES.YSO
-            : KEYWORD_TYPES.KEYWORD,
+            ? AUTOSUGGEST_TYPES.YSO
+            : AUTOSUGGEST_TYPES.KEYWORD,
           value: keyword.id
         }))
       );
@@ -94,7 +94,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
           .slice(0, 5)
           .map(item => ({
             text: item.text,
-            type: KEYWORD_TYPES.DISTRICT,
+            type: AUTOSUGGEST_TYPES.DISTRICT,
             value: item.value
           }))
       );
@@ -103,7 +103,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       items.push(
         ...placesData.placeList.data.map(place => ({
           text: place.name ? getLocalisedString(place.name, locale) : "",
-          type: KEYWORD_TYPES.PLACE,
+          type: AUTOSUGGEST_TYPES.PLACE,
           value: place.id
         }))
       );

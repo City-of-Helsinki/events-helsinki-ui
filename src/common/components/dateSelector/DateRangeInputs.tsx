@@ -1,6 +1,6 @@
 import React, { ChangeEvent, MutableRefObject } from "react";
 
-import { ReactComponent as CalendarAddIcon } from "../../../assets/icons/svg/calendar-add.svg";
+import IconCalendarAdd from "../../../icons/IconCalendarAdd";
 import {
   convertFinnishDateStrToDate,
   formatDate
@@ -115,7 +115,7 @@ class DateRangeInputs extends React.Component<Props> {
               />
             </div>
             <div className={styles.icon}>
-              <CalendarAddIcon />
+              <IconCalendarAdd />
             </div>
           </div>
         </div>
@@ -137,7 +137,7 @@ class DateRangeInputs extends React.Component<Props> {
               />
             </div>
             <div className={styles.icon}>
-              <CalendarAddIcon />
+              <IconCalendarAdd />
             </div>
           </div>
         </div>

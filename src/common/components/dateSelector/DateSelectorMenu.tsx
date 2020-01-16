@@ -3,9 +3,9 @@ import { IconAngleRight } from "hds-react";
 import React, { ChangeEvent, FunctionComponent, MutableRefObject } from "react";
 import { useLocation } from "react-router";
 
-import { ReactComponent as AngleLeftIcon } from "../../../assets/icons/svg/angle-left.svg";
-import { ReactComponent as CalendarAddIcon } from "../../../assets/icons/svg/calendar-add.svg";
 import { DATE_TYPES } from "../../../constants";
+import IconAngleLeft from "../../../icons/IconAngleLeft";
+import IconCalendarAdd from "../../../icons/IconCalendarAdd";
 import { formatMessage } from "../../translation/TranslationUtils";
 import Checkbox from "../input/Checkbox";
 import DateRangePicker from "./DateRangePicker";
@@ -106,7 +106,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         })}
         onClick={toggleIsCustomDate}
       >
-        <CalendarAddIcon />
+        <IconCalendarAdd />
         <div className={styles.buttonText}>
           {formatMessage("commons.dateSelector.menu.buttonCustom")}
         </div>
@@ -120,7 +120,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         })}
         onClick={toggleIsCustomDate}
       >
-        <AngleLeftIcon />
+        <IconAngleLeft />
         <div className={styles.buttonText}>
           {formatMessage("commons.dateSelector.menu.buttonBack")}
         </div>

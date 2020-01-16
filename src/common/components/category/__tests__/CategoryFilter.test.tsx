@@ -1,13 +1,13 @@
 import { shallow } from "enzyme";
+import { IconWine } from "hds-react";
 import React from "react";
 
-import { ReactComponent as CultureIcon } from "../../../../assets/icons/svg/culture.svg";
 import CategoryFilter from "../CategoryFilter";
 
 it("CategoryFilter matched snapshot", () => {
   const el = shallow(
     <CategoryFilter
-      icon={<CultureIcon />}
+      icon={<IconWine />}
       onClick={() => {}}
       text={"test"}
       value={"value"}
