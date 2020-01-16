@@ -25,7 +25,12 @@
       right: 1rem;
 
       svg {
+        display: block;
         margin: 0;
+      }
+      &:focus {
+        outline: 2px solid $hel-black;
+        outline-offset: 2px;
       }
     }
   }
@@ -65,21 +70,17 @@
     }
     .textWrapper {
       flex: 1 1 0%;
+      cursor: pointer;
 
-      button {
-        padding: 0;
-        margin: 0;
-        background: transparent;
-        border: none;
-        width: 100%;
-        text-align: left;
-        cursor: pointer;
-      }
       .text {
         padding: 0.875rem;
         color: $hel-black;
       }
     }
+  }
+
+  .autosuggesItem--isFocused {
+    background-color: $hel-fog;
   }
 
   .autosuggestItem--district {
@@ -104,7 +105,7 @@
     } 
 
     .icon {
-      background-image: url("../../../assets//icons/svg/category.svg");
+      background-image: url("../../../assets/icons/svg/category.svg");
     }
   }
 
@@ -114,7 +115,7 @@
     } 
 
     .icon {
-      background-image: url("../../../assets//icons/svg/service-point.svg");
+      background-image: url("../../../assets/icons/svg/service-point.svg");
     }
   }
 
@@ -124,7 +125,7 @@
     } 
 
     .icon {
-      background-image: url("../../../assets//icons/svg/yso.svg");
+      background-image: url("../../../assets/icons/svg/yso.svg");
     }
   }
 }
