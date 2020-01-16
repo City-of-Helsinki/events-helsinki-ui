@@ -5,23 +5,23 @@ import { IconClose, IconLocation } from "hds-react";
 import React, { FunctionComponent } from "react";
 
 import { formatMessage } from "../../translation/TranslationUtils";
-import { AutosuggestMenuItem } from "../../types";
+import { AutosuggestMenuOption } from "../../types";
 import styles from "./autosuggestMenu.module.scss";
 
 interface Props {
   focusedOption: number;
-  items: AutosuggestMenuItem[];
   isOpen: boolean;
   onClose: () => void;
-  onItemClick: (item: AutosuggestMenuItem) => void;
+  onOptionClick: (item: AutosuggestMenuOption) => void;
+  options: AutosuggestMenuOption[];
 }
 
 const AutosuggestMenu: FunctionComponent<Props> = ({
   focusedOption,
-  items,
   isOpen,
   onClose,
-  onItemClick
+  onOptionClick,
+  options
 }) => {
   if (!isOpen) return null;
 
@@ -37,28 +37,29 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
           <IconClose />
         </button>
       </div>
-      <ul className={styles.autosuggesItems}>
-        {items.map((item, index) => {
+      <ul className={styles.autosuggestOptions}>
+        {options.map((option, index) => {
           const handleClick = () => {
-            onItemClick(item);
+            onOptionClick(option);
           };
           return (
             <li
               key={index}
               className={classNames(
-                styles.autosuggesItem,
-                styles[`autosuggestItem--${item.type}`],
+                styles.autosuggestOption,
+                styles[`autosuggestOption--${option.type}`],
                 {
-                  [styles["autosuggesItem--isFocused"]]: focusedOption === index
+                  [styles["autosuggestOption--isFocused"]]:
+                    focusedOption === index
                 }
               )}
             >
               <div className={styles.colorIndicator} />
               <div className={styles.icon}>
-                {item.type === "district" && <IconLocation />}
+                {option.type === "district" && <IconLocation />}
               </div>
               <div className={styles.textWrapper} onClick={handleClick}>
-                <div className={styles.text}>{item.text}</div>
+                <div className={styles.text}>{option.text}</div>
               </div>
             </li>
           );

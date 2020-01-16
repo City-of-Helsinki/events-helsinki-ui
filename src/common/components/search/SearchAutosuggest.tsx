@@ -12,7 +12,7 @@ import useDebounce from "../../../hooks/useDebounce";
 import getLocale from "../../../util/getLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
 import { translateValue } from "../../../util/translateUtils";
-import { AutosuggestMenuItem, Category as CategoryType } from "../../types";
+import { AutosuggestMenuOption, Category as CategoryType } from "../../types";
 import Category from "../category/Category";
 import AutosuggestMenu from "./AutosuggestMenu";
 import styles from "./searchAutosuggest.module.scss";
@@ -20,7 +20,7 @@ import styles from "./searchAutosuggest.module.scss";
 interface Props {
   categories: CategoryType[];
   onChangeSearchValue: (value: string) => void;
-  onMenuItemClick: (item: AutosuggestMenuItem) => void;
+  onOptionClick: (item: AutosuggestMenuOption) => void;
   onRemoveCategory?: (category: CategoryType) => void;
   placeholder: string;
   searchValue: string;
@@ -28,7 +28,7 @@ interface Props {
 
 const SearchAutosuggest: FunctionComponent<Props> = ({
   categories,
-  onMenuItemClick,
+  onOptionClick,
   onRemoveCategory,
   onChangeSearchValue,
   placeholder,
@@ -72,7 +72,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     }
   });
 
-  const autosuggestItems: AutosuggestMenuItem[] = React.useMemo(() => {
+  const autosuggestItems: AutosuggestMenuOption[] = React.useMemo(() => {
     const items = [];
     if (keywordsData) {
       items.push(
@@ -155,12 +155,12 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     setFocusedOption(-1);
   }, []);
 
-  const handleMenuItemClick = React.useCallback(
-    (item: AutosuggestMenuItem) => {
-      onMenuItemClick(item);
+  const handleMenuOptionClick = React.useCallback(
+    (option: AutosuggestMenuOption) => {
+      onOptionClick(option);
       handleCloseMenu();
     },
-    [handleCloseMenu, onMenuItemClick]
+    [handleCloseMenu, onOptionClick]
   );
 
   const isComponentFocused = () => {
@@ -215,7 +215,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
             const selectedItem = autosuggestItems[focusedOption];
 
             if (selectedItem) {
-              handleMenuItemClick(selectedItem);
+              handleMenuOptionClick(selectedItem);
             }
           } else {
             handleCloseMenu();
@@ -229,7 +229,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       focusOption,
       focusedOption,
       handleCloseMenu,
-      handleMenuItemClick,
+      handleMenuOptionClick,
       isMenuOpen,
       openMenu
     ]
@@ -344,10 +344,10 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       </div>
       <AutosuggestMenu
         focusedOption={focusedOption}
-        items={autosuggestItems}
         isOpen={isMenuOpen}
         onClose={handleCloseMenu}
-        onItemClick={handleMenuItemClick}
+        onOptionClick={handleMenuOptionClick}
+        options={autosuggestItems}
       />
     </div>
   );

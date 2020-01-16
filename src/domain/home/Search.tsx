@@ -15,7 +15,7 @@ import CategoryFilters from "../../common/components/category/CategoryFilters";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import SupriseMeButton from "../../common/components/search/SupriseMeButton";
-import { AutosuggestMenuItem, Category } from "../../common/types";
+import { AutosuggestMenuOption, Category } from "../../common/types";
 import { CATEGORIES } from "../../constants";
 import getLocale from "../../util/getLocale";
 import { getSearchQuery } from "../../util/searchUtils";
@@ -87,16 +87,18 @@ const Search: FunctionComponent = () => {
     alert("TODO: suprise me");
   };
 
-  const handleMenuItemClick = (item: AutosuggestMenuItem) => {
+  const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
+    const type = option.type;
+    const value = option.value;
+
     const search = getSearchQuery({
       categories: categories.map(category => category.value),
       dateTypes,
-      districts: item.type === "district" ? [item.value] : [],
+      districts: type === "district" ? [value] : [],
       endDate,
       isCustomDate,
-      keywords:
-        item.type === "keyword" || item.type === "yso" ? [item.value] : [],
-      places: item.type === "place" ? [item.value] : [],
+      keywords: type === "keyword" || type === "yso" ? [value] : [],
+      places: type === "place" ? [value] : [],
       publisher: null,
       search: "",
       startDate,
@@ -119,7 +121,7 @@ const Search: FunctionComponent = () => {
           <SearchAutosuggest
             categories={categories}
             onChangeSearchValue={setSearchValue}
-            onMenuItemClick={handleMenuItemClick}
+            onOptionClick={handleMenuOptionClick}
             onRemoveCategory={handleRemoveCategory}
             placeholder={t("home.search.placeholder")}
             searchValue={searchValue}

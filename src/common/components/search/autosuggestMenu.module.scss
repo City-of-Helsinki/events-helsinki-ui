@@ -41,12 +41,13 @@
     color: $medium-gray;
     font-weight: 500;
   }
-  .autosuggesItems {
+
+  .autosuggestOptions {
     padding: 0;
     margin: 0;
   }
 
-  .autosuggesItem {
+  .autosuggestOption {
     position: relative;
     border-bottom: 1px solid $lightest-gray;
     display: flex;
@@ -79,11 +80,11 @@
     }
   }
 
-  .autosuggesItem--isFocused {
+  .autosuggestOption--isFocused {
     background-color: $hel-fog;
   }
 
-  .autosuggestItem--district {
+  .autosuggestOption--district {
     .colorIndicator {
       background-color: $hel-metro;
     } 
@@ -99,7 +100,7 @@
     }
   }
 
-  .autosuggestItem--keyword {
+  .autosuggestOption--keyword {
     .colorIndicator {
       background-color: $hel-metro-light-50;
     } 
@@ -109,7 +110,7 @@
     }
   }
 
-  .autosuggestItem--place {
+  .autosuggestOption--place {
     .colorIndicator {
       background-color: $hel-tram;
     } 
@@ -119,7 +120,7 @@
     }
   }
 
-  .autosuggestItem--yso {
+  .autosuggestOption--yso {
     .colorIndicator {
       background-color: $hel-metro-light-20;
     } 

@@ -8,7 +8,7 @@ import Button from "../../common/components/button/Button";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import Dropdown from "../../common/components/dropdown/Dropdown";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
-import { AutosuggestMenuItem } from "../../common/types";
+import { AutosuggestMenuOption } from "../../common/types";
 import { CATEGORIES, DISTRICTS, TARGET_GROUPS } from "../../constants";
 import IconPerson from "../../icons/IconPerson";
 import IconRead from "../../icons/IconRead";
@@ -196,13 +196,16 @@ const Search: FunctionComponent = () => {
     setTargets(targets);
   }, [searchParams]);
 
-  const handleMenuItemClick = async (item: AutosuggestMenuItem) => {
+  const handleMenuOptionClick = async (option: AutosuggestMenuOption) => {
+    const type = option.type;
+    const value = option.value;
+
     let search = "";
-    switch (item.type) {
+    switch (type) {
       case "district":
         const newDistricts = getUrlParamAsArray(searchParams, "districts");
-        if (!newDistricts.includes(item.value)) {
-          newDistricts.push(item.value);
+        if (!newDistricts.includes(value)) {
+          newDistricts.push(value);
         }
 
         setDistricts(newDistricts);
@@ -225,8 +228,8 @@ const Search: FunctionComponent = () => {
       case "keyword":
       case "yso":
         const newKeywords = getUrlParamAsArray(searchParams, "keywords");
-        if (!newKeywords.includes(item.value)) {
-          newKeywords.push(item.value);
+        if (!newKeywords.includes(value)) {
+          newKeywords.push(value);
         }
 
         setKeywords(newKeywords);
@@ -248,8 +251,8 @@ const Search: FunctionComponent = () => {
         break;
       case "place":
         const newPlaces = getUrlParamAsArray(searchParams, "places");
-        if (!newPlaces.includes(item.value)) {
-          newPlaces.push(item.value);
+        if (!newPlaces.includes(value)) {
+          newPlaces.push(value);
         }
 
         setPlaces(newPlaces);
@@ -280,7 +283,7 @@ const Search: FunctionComponent = () => {
             <SearchAutosuggest
               categories={[]}
               onChangeSearchValue={setSearchValue}
-              onMenuItemClick={handleMenuItemClick}
+              onOptionClick={handleMenuOptionClick}
               placeholder={t("eventSearch.search.placeholder")}
               searchValue={searchValue}
             />
