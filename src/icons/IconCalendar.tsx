@@ -20,38 +20,29 @@ export default ({ className = "" }: Props) => (
               cx="17.6"
               cy="18.4"
               r="5.6"
-            ></circle>
+            />
             <polyline
               stroke="#000000"
               strokeLinecap="square"
               points="17.6 16 17.6 18.4 20 18.4"
-            ></polyline>
+            />
             <line
               x1="6.4"
               y1="0"
               x2="6.4"
               y2="3.2"
-              id="Path"
               stroke="#444444"
               strokeLinecap="square"
-            ></line>
+            />
             <line
               x1="17.6"
               y1="0"
               x2="17.6"
               y2="3.2"
-              id="Path"
               stroke="#444444"
               strokeLinecap="square"
-            ></line>
-            <line
-              x1="24"
-              y1="8"
-              x2="0"
-              y2="8"
-              id="Path"
-              stroke="#000000"
-            ></line>
+            />
+            <line x1="24" y1="8" x2="0" y2="8" stroke="#000000"></line>
             <polyline
               stroke="#000000"
               strokeLinecap="square"

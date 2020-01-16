@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import Map from "../../common/components/map/Map";
 import { EventDetailsQuery } from "../../generated/graphql";
-import ExternalLinkIcon from "../../icons/ExternalLinkIcon";
+import IconExternalLink from "../../icons/IconExternalLink";
 import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import styles from "./eventLocation.module.scss";
@@ -43,7 +43,7 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
           target="_blank"
         >
           {t("event.location.openMap")}
-          <ExternalLinkIcon />
+          <IconExternalLink />
         </a>
       </div>
 
