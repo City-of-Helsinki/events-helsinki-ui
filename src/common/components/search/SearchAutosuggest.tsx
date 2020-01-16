@@ -35,6 +35,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   searchValue
 }) => {
   const { t } = useTranslation();
+  const [focusedOption, setFocusedOption] = React.useState(-1);
   const locale = getLocale();
   const container = React.useRef<HTMLDivElement | null>(null);
   const categoryWrapper = React.useRef<HTMLDivElement | null>(null);
@@ -111,6 +112,129 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     return items.filter(item => item.text);
   }, [districtOptions, internalInputValue, keywordsData, locale, placesData]);
 
+  const openMenu = React.useCallback(
+    (focusOption: "first" | "last") => {
+      const openAtIndex =
+        focusOption === "first" ? 0 : autosuggestItems.length - 1;
+      setFocusedOption(openAtIndex);
+
+      if (searchValue) {
+        setIsMenuOpen(true);
+      }
+    },
+    [autosuggestItems.length, searchValue]
+  );
+
+  const focusOption = React.useCallback(
+    (direction: "down" | "up") => {
+      if (!autosuggestItems.length) return;
+      switch (direction) {
+        case "down":
+          setFocusedOption(
+            focusedOption < autosuggestItems.length - 1
+              ? focusedOption + 1
+              : focusedOption >= 0
+              ? focusedOption
+              : 0
+          );
+          break;
+        case "up":
+          setFocusedOption(focusedOption > 0 ? focusedOption - 1 : 0);
+          break;
+      }
+    },
+    [autosuggestItems.length, focusedOption]
+  );
+
+  const handleCloseMenu = React.useCallback(() => {
+    // Set focus to input so the menu is not opened again afted focusing to input
+    setFocusToInput();
+
+    // Close menu when clicking close button
+    setIsMenuOpen(false);
+    setFocusedOption(-1);
+  }, []);
+
+  const handleMenuItemClick = React.useCallback(
+    (item: AutosuggestMenuItem) => {
+      onMenuItemClick(item);
+      handleCloseMenu();
+    },
+    [handleCloseMenu, onMenuItemClick]
+  );
+
+  const isComponentFocused = () => {
+    const active = document.activeElement;
+    const current = container && container.current;
+
+    if (current && active instanceof Node && current.contains(active)) {
+      return true;
+    }
+    return false;
+  };
+
+  const isInputFocused = () => {
+    const active = document.activeElement;
+    const current = input && input.current;
+
+    if (current && active instanceof Node && current.contains(active)) {
+      return true;
+    }
+    return false;
+  };
+
+  const onKeyDown = React.useCallback(
+    (event: KeyboardEvent) => {
+      // Handle keyboard events only if current element is focused
+      if (!isComponentFocused()) return;
+
+      switch (event.key) {
+        case "ArrowUp":
+          if (isMenuOpen) {
+            focusOption("up");
+          } else {
+            openMenu("last");
+          }
+          event.preventDefault();
+          break;
+        case "ArrowDown":
+          if (isMenuOpen) {
+            focusOption("down");
+          } else {
+            openMenu("first");
+          }
+          event.preventDefault();
+          break;
+        case "Escape":
+          setIsMenuOpen(false);
+          setFocusedOption(-1);
+          event.preventDefault();
+          break;
+        case "Enter":
+          if (isInputFocused()) {
+            const selectedItem = autosuggestItems[focusedOption];
+
+            if (selectedItem) {
+              handleMenuItemClick(selectedItem);
+            }
+          } else {
+            handleCloseMenu();
+          }
+          event.preventDefault();
+          break;
+      }
+    },
+    [
+      autosuggestItems,
+      focusOption,
+      focusedOption,
+      handleCloseMenu,
+      handleMenuItemClick,
+      isMenuOpen,
+      openMenu
+    ]
+  );
+
   const setFocusToInput = () => {
     if (input && input.current) {
       input.current.focus();
@@ -133,7 +257,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     }
   };
 
-  const handleDocumentClick = (event: MouseEvent) => {
+  const onDocumentClick = (event: MouseEvent) => {
     const target = event.target;
     const current = container && container.current;
 
@@ -143,16 +267,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     }
   };
 
-  const handleDocumentKeyDown = (event: KeyboardEvent) => {
-    switch (event.keyCode) {
-      // Close menu on ESC key
-      case 27:
-        setIsMenuOpen(false);
-        break;
-    }
-  };
-
-  const handleDocumentFocusin = (event: FocusEvent) => {
+  const onDocumentFocusin = (event: FocusEvent) => {
     const target = event.target;
     const current = container && container.current;
 
@@ -165,29 +280,18 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     const newValue = event.target.value;
     onChangeSearchValue(newValue);
     // Open menu when search value changes
-    setIsMenuOpen(true);
+    if (newValue) {
+      setIsMenuOpen(true);
+    } else {
+      setIsMenuOpen(false);
+    }
   };
 
   const handleInputFocus = () => {
     // Open menu when focused on the search input
-    setIsMenuOpen(true);
-  };
-
-  const handleCloseMenu = () => {
-    // Set focus to input so the menu is not opened again afted focusing to input
-    setFocusToInput();
-
-    // Close menu when clicking close button
-    setIsMenuOpen(false);
-  };
-
-  const handleMenuItemClick = (item: AutosuggestMenuItem) => {
-    // Set focus to input so the menu is not opened again afted focusing to input
-    setFocusToInput();
-
-    onMenuItemClick(item);
-    // Close menu when selecting one of the autosuggest items
-    setIsMenuOpen(false);
+    if (searchValue) {
+      setIsMenuOpen(true);
+    }
   };
 
   const handleRemoveCategory = (category: CategoryType) => {
@@ -197,16 +301,16 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   };
 
   React.useEffect(() => {
-    document.addEventListener("click", handleDocumentClick);
-    document.addEventListener("keydown", handleDocumentKeyDown);
-    document.addEventListener("focusin", handleDocumentFocusin);
+    document.addEventListener("click", onDocumentClick);
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("focusin", onDocumentFocusin);
     // Clean up event listener to prevent memory leaks
     return () => {
-      document.removeEventListener("click", handleDocumentClick);
-      document.removeEventListener("keydown", handleDocumentKeyDown);
-      document.removeEventListener("focusin", handleDocumentFocusin);
+      document.removeEventListener("click", onDocumentClick);
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("focusin", onDocumentFocusin);
     };
-  }, []);
+  }, [onKeyDown]);
 
   return (
     <div
@@ -239,6 +343,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
         />
       </div>
       <AutosuggestMenu
+        focusedOption={focusedOption}
         items={autosuggestItems}
         isOpen={isMenuOpen}
         onClose={handleCloseMenu}

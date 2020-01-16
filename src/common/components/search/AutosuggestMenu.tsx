@@ -9,6 +9,7 @@ import { AutosuggestMenuItem } from "../../types";
 import styles from "./autosuggestMenu.module.scss";
 
 interface Props {
+  focusedOption: number;
   items: AutosuggestMenuItem[];
   isOpen: boolean;
   onClose: () => void;
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const AutosuggestMenu: FunctionComponent<Props> = ({
+  focusedOption,
   items,
   isOpen,
   onClose,
@@ -45,17 +47,18 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
               key={index}
               className={classNames(
                 styles.autosuggesItem,
-                styles[`autosuggestItem--${item.type}`]
+                styles[`autosuggestItem--${item.type}`],
+                {
+                  [styles["autosuggesItem--isFocused"]]: focusedOption === index
+                }
               )}
             >
               <div className={styles.colorIndicator} />
               <div className={styles.icon}>
                 {item.type === "district" && <IconLocation />}
               </div>
-              <div className={styles.textWrapper}>
-                <button onClick={handleClick}>
-                  <div className={styles.text}>{item.text}</div>
-                </button>
+              <div className={styles.textWrapper} onClick={handleClick}>
+                <div className={styles.text}>{item.text}</div>
               </div>
             </li>
           );
