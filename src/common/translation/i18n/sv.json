@@ -89,7 +89,11 @@
       "ariaButtonRemove": "Ta bort filter: {{filter}}"
     },
     "loading": "Laddning...",
-    "supriseMe": "Yllätä minut (sv)"
+    "supriseMe": "Yllätä minut (sv)",
+    "targets": {
+      "children": "Barn",
+      "youngPeople": "Unga människor"
+    }
   },
   "event": {
     "categories": {
@@ -162,9 +166,11 @@
       "labelDateRange": "För vilken period du letar efter?",
       "labelDistrict": "Varifrån letar du efter??",
       "labelSearchField": "Vad du letar efter?",
+      "labelTargetGroup": "Vem du letar efter?",
       "placeholder": "Börja skriva här, t.ex. teater",
       "titleDropdownCategory": "Välj kategori",
-      "titleDropdownDistrict": "Välj område"
+      "titleDropdownDistrict": "Välj område",
+      "titleDropdownTargetGroup": "Välj vem"
     },
     "textFoundEvents": "Vi hittade {{count}} saker att göra för dig"
   },

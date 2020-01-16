@@ -114,6 +114,7 @@ const Dropdown: React.FC<Props> = ({
         {filteredOptions.map(option => {
           return (
             <Checkbox
+              key={option.value}
               checked={value.includes(option.value)}
               name={name}
               onChange={handleValueChange}

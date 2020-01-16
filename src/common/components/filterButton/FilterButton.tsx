@@ -13,6 +13,7 @@ export type FilterType =
   | "keyword"
   | "place"
   | "publisher"
+  | "target"
   | "yso";
 
 interface Props {

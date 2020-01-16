@@ -1,3 +1,4 @@
+import { MockedProvider } from "@apollo/react-testing";
 import { mount } from "enzyme";
 import React from "react";
 import { MemoryRouter } from "react-router";
@@ -6,7 +7,11 @@ import App from "../App";
 import BrowserApp, { appRoutes } from "../BrowserApp";
 
 const wrapperCreator = (route: string) =>
-  mount(<MemoryRouter initialEntries={[route]}>{appRoutes}</MemoryRouter>);
+  mount(
+    <MemoryRouter initialEntries={[route]}>
+      <MockedProvider mocks={[]}>{appRoutes}</MockedProvider>
+    </MemoryRouter>
+  );
 
 it("renders snapshot correctly", () => {
   const tree = mount(<BrowserApp />);
