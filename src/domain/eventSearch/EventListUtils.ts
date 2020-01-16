@@ -1,6 +1,11 @@
 import { addDays, endOfWeek, startOfWeek, subDays } from "date-fns";
 
-import { CATEGORIES, DATE_TYPES, TARGET_GROUPS } from "../../constants";
+import {
+  CATEGORIES,
+  DATE_TYPES,
+  DISTRICTS,
+  TARGET_GROUPS
+} from "../../constants";
 import { EventListQuery } from "../../generated/graphql";
 import { formatDate } from "../../util/dateUtils";
 import getUrlParamAsString from "../../util/getUrlParamAsString";
@@ -73,6 +78,20 @@ export const getEventFilters = (params: URLSearchParams, pageSize: number) => {
 
   const categories = getUrlParamAsString(params, "categories");
   const districts = getUrlParamAsString(params, "districts");
+  const mappedDistricts: string[] = districts.map(district => {
+    switch (district) {
+      case DISTRICTS.KULOSAARI:
+        return "kaupunginosa:mustikkamaa-korkeasaari,kaupunginosa:kulosaari";
+      case DISTRICTS.LAAJASALO:
+        return "kaupunginosa:laajasalo,kaupunginosa:villinki,kaupunginosa:santahamina";
+      case DISTRICTS.SUOMENLINNA:
+        return "kaupunginosa:suomenlinna,kaupunginosa:ulkosaaret";
+      case DISTRICTS.ÖSTERSUNDOM:
+        return "kaupunginosa:östersundom,kaupunginosa:salmenkallio,kaupunginosa:talosaari,kaupunginosa:karhusaari,kaupunginosa:ultuna";
+      default:
+        return district;
+    }
+  });
   const keywords = getUrlParamAsString(params, "keywords");
   const mappedCategories: string[] = categories.map(category => {
     switch (category) {
@@ -118,7 +137,7 @@ export const getEventFilters = (params: URLSearchParams, pageSize: number) => {
   mappedCategories.push(...mappedTargets);
 
   return {
-    divisions: districts,
+    divisions: mappedDistricts,
     endDate: endDate,
     keywords: mappedCategories,
     locations: places,
