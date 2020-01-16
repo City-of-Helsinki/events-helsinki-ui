@@ -4,6 +4,10 @@ import classNames from "classnames";
 import { IconClose, IconLocation } from "hds-react";
 import React, { FunctionComponent } from "react";
 
+import { AUTOSUGGEST_TYPES } from "../../../constants";
+import IconHome from "../../../icons/IconHome";
+import IconKeyword from "../../../icons/IconKeyword";
+import IconYso from "../../../icons/IconYso";
 import { formatMessage } from "../../translation/TranslationUtils";
 import { AutosuggestMenuOption } from "../../types";
 import styles from "./autosuggestMenu.module.scss";
@@ -58,7 +62,10 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
             >
               <div className={styles.colorIndicator} />
               <div className={styles.icon}>
-                {option.type === "district" && <IconLocation />}
+                {option.type === AUTOSUGGEST_TYPES.DISTRICT && <IconLocation />}
+                {option.type === AUTOSUGGEST_TYPES.KEYWORD && <IconKeyword />}
+                {option.type === AUTOSUGGEST_TYPES.PLACE && <IconHome />}
+                {option.type === AUTOSUGGEST_TYPES.YSO && <IconYso />}
               </div>
               <div className={styles.textWrapper} onClick={handleClick}>
                 <div className={styles.text}>{option.text}</div>

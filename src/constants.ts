@@ -71,7 +71,7 @@ export const DATE_TYPES = {
   WEEKEND: "weekend"
 };
 
-export const KEYWORD_TYPES = {
+export const AUTOSUGGEST_TYPES = {
   DISTRICT: "district",
   KEYWORD: "keyword",
   PLACE: "place",

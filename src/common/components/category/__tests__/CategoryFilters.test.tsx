@@ -1,7 +1,7 @@
 import { shallow } from "enzyme";
+import { IconWine } from "hds-react";
 import React from "react";
 
-import { ReactComponent as CultureIcon } from "../../../../assets/icons/svg/culture.svg";
 import { Category as CategoryType } from "../../../types";
 import CategoryFilters from "../CategoryFilters";
 
@@ -10,7 +10,7 @@ it("CategoryFilters matched snapshot", () => {
     <CategoryFilters
       categories={[
         {
-          icon: <CultureIcon />,
+          icon: <IconWine />,
           text: "test",
           value: "value"
         }

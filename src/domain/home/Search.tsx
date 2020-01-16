@@ -1,15 +1,20 @@
-import { IconFill, IconFood, IconSearch, IconTree } from "hds-react";
+import {
+  IconBoots,
+  IconDoubleLike,
+  IconFemale,
+  IconFill,
+  IconFood,
+  IconLanguage,
+  IconLips,
+  IconSearch,
+  IconTree,
+  IconVolume,
+  IconWine
+} from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 
-import { ReactComponent as CultureIcon } from "../../assets/icons/svg/culture.svg";
-import { ReactComponent as DanceIcon } from "../../assets/icons/svg/dance.svg";
-import { ReactComponent as MovieIcon } from "../../assets/icons/svg/movie.svg";
-import { ReactComponent as MuseumIcon } from "../../assets/icons/svg/museum.svg";
-import { ReactComponent as MusicIcon } from "../../assets/icons/svg/music.svg";
-import { ReactComponent as SportIcon } from "../../assets/icons/svg/sport.svg";
-import { ReactComponent as TheatreIcon } from "../../assets/icons/svg/theatre.svg";
 import Button from "../../common/components/button/Button";
 import CategoryFilters from "../../common/components/category/CategoryFilters";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
@@ -156,32 +161,32 @@ const Search: FunctionComponent = () => {
         <CategoryFilters
           categories={[
             {
-              icon: <MovieIcon />,
+              icon: <IconVolume />,
               text: t("home.category.movie"),
               value: CATEGORIES.MOVIE
             },
             {
-              icon: <MusicIcon />,
+              icon: <IconLips />,
               text: t("home.category.music"),
               value: CATEGORIES.MUSIC
             },
             {
-              icon: <SportIcon />,
+              icon: <IconBoots />,
               text: t("home.category.sport"),
               value: CATEGORIES.SPORT
             },
             {
-              icon: <MuseumIcon />,
+              icon: <IconLanguage />,
               text: t("home.category.museum"),
               value: CATEGORIES.MUSEUM
             },
             {
-              icon: <DanceIcon />,
+              icon: <IconFemale />,
               text: t("home.category.dance"),
               value: CATEGORIES.DANCE
             },
             {
-              icon: <CultureIcon />,
+              icon: <IconWine />,
               text: t("home.category.culture"),
               value: CATEGORIES.CULTURE
             },
@@ -196,7 +201,7 @@ const Search: FunctionComponent = () => {
               value: CATEGORIES.INFLUENCE
             },
             {
-              icon: <TheatreIcon />,
+              icon: <IconDoubleLike />,
               text: t("home.category.theatre"),
               value: CATEGORIES.THEATRE
             },

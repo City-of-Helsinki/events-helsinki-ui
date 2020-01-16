@@ -3,14 +3,14 @@ import "./select.scss";
 import React from "react";
 import ReactSelect, { IndicatorProps, ValueType } from "react-select";
 
-import { ReactComponent as AngleDownIcon } from "../../../assets/icons/svg/angle-down.svg";
-import { ReactComponent as AngleUpIcon } from "../../../assets/icons/svg/angle-up.svg";
+import IconAngleDown from "../../../icons/IconAngleDown";
+import IconAngleUp from "../../../icons/IconAngleUp";
 
 const components = {
   DropdownIndicator: (props: IndicatorProps<SelectOption>) => {
     return (
       <div className={"select__dropdown-indicator"}>
-        {props.selectProps.menuIsOpen ? <AngleUpIcon /> : <AngleDownIcon />}
+        {props.selectProps.menuIsOpen ? <IconAngleUp /> : <IconAngleDown />}
       </div>
     );
   },

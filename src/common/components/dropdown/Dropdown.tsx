@@ -1,7 +1,7 @@
 import React from "react";
 
-import { ReactComponent as AngleDownIcon } from "../../../assets/icons/svg/angle-down.svg";
-import { ReactComponent as AngleUpIcon } from "../../../assets/icons/svg/angle-up.svg";
+import IconAngleDown from "../../../icons/IconAngleDown";
+import IconAngleUp from "../../../icons/IconAngleUp";
 import Checkbox from "../input/Checkbox";
 import styles from "./dropdown.module.scss";
 import DropdownMenu from "./DropdownMenu";
@@ -107,7 +107,7 @@ const Dropdown: React.FC<Props> = ({
           />
         </div>
         <div className={styles.arrowWrapper}>
-          {isMenuOpen ? <AngleUpIcon /> : <AngleDownIcon />}
+          {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
         </div>
       </button>
       <DropdownMenu isOpen={isMenuOpen} onClear={handleClear}>

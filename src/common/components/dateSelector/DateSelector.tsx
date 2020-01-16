@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from "react";
 
-import { ReactComponent as AngleDownIcon } from "../../../assets/icons/svg/angle-down.svg";
-import { ReactComponent as AngleUpIcon } from "../../../assets/icons/svg/angle-up.svg";
-import { ReactComponent as CalendarIcon } from "../../../assets/icons/svg/calendar.svg";
+import IconAngleDown from "../../../icons/IconAngleDown";
+import IconAngleUp from "../../../icons/IconAngleUp";
+import IconCalendar from "../../../icons/IconCalendar";
 import { formatMessage } from "../../translation/TranslationUtils";
 import styles from "./dateSelector.module.scss";
 import DateSelectorMenu from "./DateSelectorMenu";
@@ -99,13 +99,13 @@ const DateSelector: FunctionComponent<Props> = ({
     <div className={styles.dateSelector} ref={dateSelector}>
       <button className={styles.button} onClick={toggleMenu} type="button">
         <div className={styles.iconWrapper}>
-          <CalendarIcon />
+          <IconCalendar />
         </div>
         <div className={styles.info}>
           {formatMessage("commons.dateSelector.title")}
         </div>
         <div className={styles.arrowWrapper}>
-          {isMenuOpen ? <AngleUpIcon /> : <AngleDownIcon />}
+          {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
         </div>
       </button>
       <DateSelectorMenu
