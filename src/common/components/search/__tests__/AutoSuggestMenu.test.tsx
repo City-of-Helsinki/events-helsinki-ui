@@ -6,10 +6,11 @@ import AutosuggestMenu from "../AutosuggestMenu";
 test("AutosuggestMenu matches snapshot", () => {
   const component = renderer.create(
     <AutosuggestMenu
-      items={[{ text: "foo", type: "bar" }]}
+      focusedOption={0}
+      options={[{ text: "foo", type: "bar", value: "foo" }]}
       isOpen={true}
       onClose={() => {}}
-      onItemClick={() => {}}
+      onOptionClick={() => {}}
     />
   );
   const tree = component.toJSON();

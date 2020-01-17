@@ -87,8 +87,75 @@ exports[`DateSelectorMenu matches snapshot 1`] = `
     className="button btnSelectDates"
     onClick={[Function]}
   >
-    <svg>
-      calendar-add.svg
+    <svg
+      className=""
+      height="100%"
+      viewBox="0 0 27 26"
+      width="100%"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fillRule="evenodd"
+        stroke="none"
+        strokeWidth="1"
+      >
+        <g
+          stroke="#000000"
+          strokeWidth="2"
+          transform="translate(-49.000000, -1173.000000)"
+        >
+          <g
+            transform="translate(25.000000, 850.000000)"
+          >
+            <g
+              transform="translate(25.000000, 324.000000)"
+            >
+              <line
+                strokeLinecap="square"
+                x1="12.5"
+                x2="12.5"
+                y1="19.1666667"
+                y2="12.5"
+              />
+              <line
+                strokeLinecap="square"
+                x1="15.8333333"
+                x2="9.16666667"
+                y1="15.8333333"
+                y2="15.8333333"
+              />
+              <line
+                x1="25"
+                x2="0"
+                y1="8.33333333"
+                y2="8.33333333"
+              />
+              <rect
+                height="20"
+                strokeLinecap="square"
+                width="25"
+                x="0"
+                y="3.33333333"
+              />
+              <line
+                strokeLinecap="square"
+                x1="6.66666667"
+                x2="6.66666667"
+                y1="0"
+                y2="3.33333333"
+              />
+              <line
+                strokeLinecap="square"
+                x1="18.3333333"
+                x2="18.3333333"
+                y1="0"
+                y2="3.33333333"
+              />
+            </g>
+          </g>
+        </g>
+      </g>
     </svg>
     <div
       className="buttonText"
@@ -113,8 +180,18 @@ exports[`DateSelectorMenu matches snapshot 1`] = `
     className="button btnBack hidden"
     onClick={[Function]}
   >
-    <svg>
-      angle-left.svg
+    <svg
+      className=""
+      height="100%"
+      viewBox="0 0 199.404 199.404"
+      width="100%"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g>
+        <polygon
+          points="135.412,0 35.709,99.702 135.412,199.404 163.695,171.119 92.277,99.702 163.695,28.285  "
+        />
+      </g>
     </svg>
     <div
       className="buttonText"
