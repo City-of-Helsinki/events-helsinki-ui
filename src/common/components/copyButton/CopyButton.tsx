@@ -2,30 +2,9 @@ import classNames from "classnames";
 import copy from "copy-to-clipboard";
 import React from "react";
 
+import useResetState from "../../../hooks/useResetState";
+
 const MESSAGE_DISPLAY_TIME = 4000; // 4s
-
-function useResetState<S>(
-  initialState: S | (() => S),
-  resetTime: number
-): [S, React.Dispatch<React.SetStateAction<S>>] {
-  const [state, setState] = React.useState<S>(initialState);
-
-  React.useEffect(() => {
-    let ignore = false;
-
-    setTimeout(() => {
-      if (!ignore) {
-        setState(initialState);
-      }
-    }, resetTime);
-
-    return () => {
-      ignore = true;
-    };
-  }, [initialState, resetTime, state]);
-
-  return [state, setState];
-}
 
 type ButtonProps = JSX.IntrinsicElements["button"];
 interface Props extends ButtonProps {
