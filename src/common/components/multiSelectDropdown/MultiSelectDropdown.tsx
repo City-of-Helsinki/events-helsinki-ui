@@ -6,8 +6,8 @@ import IconAngleDown from "../../../icons/IconAngleDown";
 import IconAngleUp from "../../../icons/IconAngleUp";
 import Checkbox from "../input/Checkbox";
 import ScrollIntoViewWithFocus from "../scrollIntoViewWithFocus/ScrollIntoViewWithFocus";
-import styles from "./dropdown.module.scss";
 import DropdownMenu from "./DropdownMenu";
+import styles from "./multiSelectDropdown.module.scss";
 
 type Option = {
   text: string;
