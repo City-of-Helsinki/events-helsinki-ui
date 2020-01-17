@@ -16,6 +16,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
 
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
+    ssr: false,
     variables: getEventFilters(searchParams, PAGE_SIZE)
   });
 
