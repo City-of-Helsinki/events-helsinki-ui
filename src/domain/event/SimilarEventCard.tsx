@@ -1,7 +1,7 @@
 import { IconArrowRight } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 
 import Keyword from "../../common/components/keyword/Keyword";
 import getDateRangeStr from "../../util/getDateRangeStr";
@@ -19,6 +19,7 @@ interface Props {
 }
 
 const SimilarEventCard: React.FC<Props> = ({ event }) => {
+  const { search } = useLocation();
   const { t } = useTranslation();
   const { push } = useHistory();
   const locale = getLocale();
@@ -29,7 +30,7 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
   const endTime = event.endTime;
 
   const moveToEventPage = () => {
-    push({ pathname: `/${locale}/event/${event.id}` });
+    push({ pathname: `/${locale}/event/${event.id}${search}` });
   };
 
   return (
