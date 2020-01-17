@@ -54,3 +54,16 @@
     }
   }
 }
+
+.dropdownItemPadding {
+  margin: 0;
+  padding: calc(#{$basePadding} / 2) 1rem;
+
+  &:first-child {
+    padding-top: 1rem;
+  }
+}
+
+.checkbox--isFocused {
+  background-color: $hel-fog;
+}

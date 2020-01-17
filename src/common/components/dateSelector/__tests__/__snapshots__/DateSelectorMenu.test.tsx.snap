@@ -10,61 +10,77 @@ exports[`DateSelectorMenu matches snapshot 1`] = `
     <label
       className="checkbox"
     >
-      <input
-        checked={false}
-        name="date"
-        onChange={[Function]}
-        type="checkbox"
-        value="today"
-      />
       <span
-        className="checkmark"
-      />
+        className="checkmarkWrapper"
+      >
+        <input
+          checked={false}
+          name="date"
+          onChange={[Function]}
+          type="checkbox"
+          value="today"
+        />
+        <span
+          className="checkmark"
+        />
+      </span>
       Tänään
     </label>
     <label
       className="checkbox"
     >
-      <input
-        checked={false}
-        name="date"
-        onChange={[Function]}
-        type="checkbox"
-        value="tomorrow"
-      />
       <span
-        className="checkmark"
-      />
+        className="checkmarkWrapper"
+      >
+        <input
+          checked={false}
+          name="date"
+          onChange={[Function]}
+          type="checkbox"
+          value="tomorrow"
+        />
+        <span
+          className="checkmark"
+        />
+      </span>
       Huomenna
     </label>
     <label
       className="checkbox"
     >
-      <input
-        checked={false}
-        name="date"
-        onChange={[Function]}
-        type="checkbox"
-        value="this_week"
-      />
       <span
-        className="checkmark"
-      />
+        className="checkmarkWrapper"
+      >
+        <input
+          checked={false}
+          name="date"
+          onChange={[Function]}
+          type="checkbox"
+          value="this_week"
+        />
+        <span
+          className="checkmark"
+        />
+      </span>
       Tällä viikolla
     </label>
     <label
       className="checkbox"
     >
-      <input
-        checked={false}
-        name="date"
-        onChange={[Function]}
-        type="checkbox"
-        value="weekend"
-      />
       <span
-        className="checkmark"
-      />
+        className="checkmarkWrapper"
+      >
+        <input
+          checked={false}
+          name="date"
+          onChange={[Function]}
+          type="checkbox"
+          value="weekend"
+        />
+        <span
+          className="checkmark"
+        />
+      </span>
       Viikonloppuna
     </label>
   </div>

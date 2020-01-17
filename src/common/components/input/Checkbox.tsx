@@ -14,8 +14,10 @@ const Checkbox: FunctionComponent<Props> = ({
 }) => {
   return (
     <label className={classNames(styles.checkbox, className)}>
-      <input type="checkbox" {...rest} />
-      <span className={styles.checkmark} />
+      <span className={styles.checkmarkWrapper}>
+        <input type="checkbox" {...rest} />
+        <span className={styles.checkmark} />
+      </span>
       {children}
     </label>
   );
