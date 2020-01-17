@@ -15,7 +15,6 @@
   }
 
   .dropdownMenuWrapper {
-    padding: 1rem 1rem 0;
 
     @include respond_above(sm) {
       max-height: 20rem;
