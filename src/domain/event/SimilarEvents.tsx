@@ -1,11 +1,14 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router";
 
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { EventDetailsQuery, useEventListQuery } from "../../generated/graphql";
 import isClient from "../../util/isClient";
+import { getSearchQuery } from "../../util/searchUtils";
 // Use same page size as on event search page
 import { PAGE_SIZE } from "../eventSearch/constants";
+import { getEventFilters } from "../eventSearch/EventListUtils";
 import { SIMILAR_EVENTS_AMOUNT } from "./constants";
 import SimilarEventCard from "./SimilarEventCard";
 import styles from "./similarEvents.module.scss";
@@ -16,14 +19,27 @@ interface Props {
 }
 
 const SimilarEvents: React.FC<Props> = ({ eventData }) => {
+  const { search } = useLocation();
+  const eventSearch = getSearchQuery({
+    categories: [],
+    dateTypes: [],
+    districts: [],
+    endDate: null,
+    isCustomDate: false,
+    keywords: eventData.eventDetails.keywords.map(keyword => keyword.id),
+    places: [],
+    publisher: null,
+    search: "",
+    startDate: null,
+    targets: []
+  });
+  // Filter by search query if exists, if not filter by event keywords
+  const searchParams = new URLSearchParams(search ? search : eventSearch);
   const { t } = useTranslation();
 
-  // TODO: Filter these results when filtering is implemented to GraphQL proxy
-  // Use url search params in case that coming from
-  // search page and eventData values in case that search params are missing
   const { data: eventsData, loading } = useEventListQuery({
     skip: !isClient,
-    variables: { pageSize: PAGE_SIZE }
+    variables: getEventFilters(searchParams, PAGE_SIZE)
   });
 
   // To display only certain amount of events.

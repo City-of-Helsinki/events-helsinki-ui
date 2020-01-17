@@ -11,7 +11,8 @@ import Search from "./Search";
 import SearchResultList from "./SearchResultList";
 
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
-  const searchParams = new URLSearchParams(useLocation().search);
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
 
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
