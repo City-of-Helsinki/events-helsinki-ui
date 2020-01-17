@@ -6,7 +6,7 @@ import { useHistory, useLocation } from "react-router";
 
 import Button from "../../common/components/button/Button";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
-import Dropdown from "../../common/components/dropdown/Dropdown";
+import MultiSelectDropdown from "../../common/components/multiSelectDropdown/MultiSelectDropdown";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import { AutosuggestMenuOption } from "../../common/types";
 import { CATEGORIES, DISTRICTS, TARGET_GROUPS } from "../../constants";
@@ -293,7 +293,7 @@ const Search: FunctionComponent = () => {
               <div className={styles.label}>
                 {t("eventSearch.search.labelCategory")}
               </div>
-              <Dropdown
+              <MultiSelectDropdown
                 icon={<IconRead />}
                 name="category"
                 onChange={setSelectedCategories}
@@ -321,7 +321,7 @@ const Search: FunctionComponent = () => {
               <div className={styles.label}>
                 {t("eventSearch.search.labelDistrict")}
               </div>
-              <Dropdown
+              <MultiSelectDropdown
                 icon={<IconLocation />}
                 name="district"
                 onChange={setDistricts}
@@ -334,7 +334,7 @@ const Search: FunctionComponent = () => {
               <div className={styles.label}>
                 {t("eventSearch.search.labelTargetGroup")}
               </div>
-              <Dropdown
+              <MultiSelectDropdown
                 icon={<IconPerson />}
                 name="targets"
                 onChange={setTargets}

@@ -1,7 +1,7 @@
 import { act, fireEvent, render, wait } from "@testing-library/react";
 import React from "react";
 
-import Dropdown from "../Dropdown";
+import MultiSelectDropdown from "../MultiSelectDropdown";
 
 const onChange = jest.fn();
 const options = [
@@ -21,13 +21,14 @@ const options = [
 const title = "test title";
 const defaultProps = {
   icon: <div />,
-  name: "test Dropdown",
+  name: "test MultiSelectDropdown",
   onChange,
   options,
   title,
   value: []
 };
-const getWrapper = props => render(<Dropdown {...defaultProps} {...props} />);
+const getWrapper = props =>
+  render(<MultiSelectDropdown {...defaultProps} {...props} />);
 const arrowUpKeyPressHelper = domNode =>
   fireEvent.keyDown(domNode, { code: 38, key: "ArrowUp" });
 const arrowDownKeyPressHelper = domNode =>
@@ -194,7 +195,7 @@ test("should close suggestions with escape", () => {
   fireEvent.click(searchInput);
   act(() => searchInput.focus());
 
-  // Check that we can find some of the content of the Dropdown: this suggests
+  // Check that we can find some of the content of the MultiSelectDropdown: this suggests
   // that it is open.
   expect(queryByLabelText(options[0].text)).not.toEqual(null);
 
