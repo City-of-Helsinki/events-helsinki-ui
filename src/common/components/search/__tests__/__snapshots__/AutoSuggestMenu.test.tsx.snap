@@ -28,10 +28,13 @@ exports[`AutosuggestMenu matches snapshot 1`] = `
     </button>
   </div>
   <ul
-    className="autosuggesItems"
+    className="autosuggestOptions"
+    role="listbox"
   >
     <li
-      className="autosuggesItem autosuggestItem--bar"
+      aria-selected={true}
+      className="autosuggestOption autosuggestOption--bar autosuggestOption--isFocused"
+      role="option"
     >
       <div
         className="colorIndicator"
@@ -41,16 +44,13 @@ exports[`AutosuggestMenu matches snapshot 1`] = `
       />
       <div
         className="textWrapper"
+        onClick={[Function]}
       >
-        <button
-          onClick={[Function]}
+        <div
+          className="text"
         >
-          <div
-            className="text"
-          >
-            foo
-          </div>
-        </button>
+          foo
+        </div>
       </div>
     </li>
   </ul>

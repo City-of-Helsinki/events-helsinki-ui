@@ -46,7 +46,6 @@ exports[`EventInfo matches snapshot 1`] = `
                   strokeLinecap="square"
                 />
                 <line
-                  id="Path"
                   stroke="#444444"
                   strokeLinecap="square"
                   x1="6.4"
@@ -55,7 +54,6 @@ exports[`EventInfo matches snapshot 1`] = `
                   y2="3.2"
                 />
                 <line
-                  id="Path"
                   stroke="#444444"
                   strokeLinecap="square"
                   x1="17.6"
@@ -64,7 +62,6 @@ exports[`EventInfo matches snapshot 1`] = `
                   y2="3.2"
                 />
                 <line
-                  id="Path"
                   stroke="#000000"
                   x1="24"
                   x2="0"
@@ -314,12 +311,10 @@ exports[`EventInfo matches snapshot 1`] = `
         <g
           fill="none"
           fillRule="evenodd"
-          id="MVP-layouts"
           strokeLinecap="square"
           strokeWidth="1"
         >
           <g
-            id="Single-event"
             stroke="#000"
             strokeWidth="2"
             transform="translate(-1119.000000, -1426.000000)"
@@ -330,7 +325,6 @@ exports[`EventInfo matches snapshot 1`] = `
               <ellipse
                 cx="22"
                 cy="16.2807018"
-                id="Oval"
                 rx="3"
                 ry="3.05263158"
               />
@@ -343,7 +337,6 @@ exports[`EventInfo matches snapshot 1`] = `
               <ellipse
                 cx="5.5"
                 cy="5.59649123"
-                id="Oval"
                 rx="1.5"
                 ry="1.52631579"
               />
