@@ -16,7 +16,7 @@ const EventPageMeta: React.FC<Props> = ({ eventData }) => {
     getLocalisedString(localizedObject, locale);
 
   const name = getLocal(eventData.eventDetails.name);
-  const description = getLocal(eventData.eventDetails.description || {});
+  const description = getLocal(eventData.eventDetails.shortDescription || {});
   const image = eventData.eventDetails.images.length
     ? eventData.eventDetails.images[0].url
     : null;
