@@ -94,7 +94,7 @@
       "shareOnTwitter": "Share on Twitter",
       "shareOnLinkedIn": "Share on LinkedIn"
     },
-    "supriseMe": "Yllätä minut (en)",
+    "supriseMe": "I'm Feeling Lucky",
     "targets": {
       "children": "Children",
       "youngPeople": "Young people"
@@ -182,17 +182,17 @@
       "titleDropdownDistrict": "Select area",
       "titleDropdownTargetGroup": "Select for whom"
     },
-    "textFoundEvents": "We found {{count}} things to do for you"
+    "textFoundEvents": "{{count}} search results"
   },
   "footer": {
     "titleCategories": "Kategoriat (en)",
-    "searchCollections": "Selaa kokoelmia (en)",
+    "searchCollections": "We recommend",
     "searchEvents": "Find something to do"
   },
   "header": {
     "ariaButtonCloseMenu": "Sulje valikko (en)",
     "ariaButtonOpenMenu": "Avaa valikko (en)",
-    "searchCollections": "Selaa kokoelmia (en)",
+    "searchCollections": "We recommend",
     "searchEvents": "Find something to do"
   },
   "home": {
