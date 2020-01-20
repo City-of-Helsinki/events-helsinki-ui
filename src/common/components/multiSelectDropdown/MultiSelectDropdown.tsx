@@ -131,7 +131,7 @@ const Dropdown: React.FC<Props> = ({
 
   return (
     <div className={styles.dropdown} ref={dropdown}>
-      <button className={styles.button} onClick={toggleMenu} type="button">
+      <div className={styles.inputWrapper} onClick={toggleMenu}>
         <div className={styles.iconWrapper}>{icon}</div>
         <div className={styles.title}>
           <input
@@ -143,7 +143,7 @@ const Dropdown: React.FC<Props> = ({
         <div className={styles.arrowWrapper}>
           {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
         </div>
-      </button>
+      </div>
       <DropdownMenu isOpen={isMenuOpen} onClear={handleClear}>
         {filteredOptions.map((option, index) => {
           const isFocused = index === focusedIndex;
