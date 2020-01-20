@@ -70,6 +70,7 @@ const DateRangePicker: FunctionComponent<Props> = ({
     <DatePicker
       ref={datePicker}
       locale={locale}
+      minDate={new Date()}
       inlineFocusSelectedMonth={false}
       selectsStart={true}
       selectsEnd={true}

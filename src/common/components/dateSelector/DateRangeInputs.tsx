@@ -1,3 +1,4 @@
+import { isPast } from "date-fns";
 import React, { ChangeEvent, MutableRefObject } from "react";
 
 import IconCalendarAdd from "../../../icons/IconCalendarAdd";
@@ -47,9 +48,12 @@ class DateRangeInputs extends React.Component<Props> {
       startDateRaw,
       startDateRef
     } = this.props;
-    const newDate = convertFinnishDateStrToDate(startDateRaw);
+    let newDate = convertFinnishDateStrToDate(startDateRaw);
 
     if (newDate) {
+      if (isPast(newDate)) {
+        newDate = startDate;
+      }
       if (startDateRef) {
         onBlurInput(startDateRef, newDate);
       }
@@ -68,9 +72,12 @@ class DateRangeInputs extends React.Component<Props> {
       onBlurInput,
       setEndDateRaw
     } = this.props;
-    const newDate = convertFinnishDateStrToDate(endDateRaw);
+    let newDate = convertFinnishDateStrToDate(endDateRaw);
 
     if (newDate) {
+      if (isPast(newDate)) {
+        newDate = endDate;
+      }
       if (endDateRef) {
         onBlurInput(endDateRef, newDate);
       }
