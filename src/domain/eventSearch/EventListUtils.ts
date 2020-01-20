@@ -1,4 +1,4 @@
-import { addDays, endOfWeek, startOfWeek, subDays } from "date-fns";
+import { addDays, endOfWeek, isPast, startOfWeek, subDays } from "date-fns";
 
 import {
   CATEGORIES,
@@ -69,11 +69,18 @@ const getFilterDates = (
  */
 export const getEventFilters = (params: URLSearchParams, pageSize: number) => {
   const dateTypes = getUrlParamAsString(params, "dateTypes");
-  const { startDate, endDate } = getFilterDates(
+  let { startDate, endDate } = getFilterDates(
     dateTypes,
     params.get("startDate"),
     params.get("endDate")
   );
+  if (!startDate || isPast(new Date(startDate))) {
+    startDate = formatDate(new Date());
+  }
+  if (endDate && isPast(new Date(endDate))) {
+    endDate = formatDate(new Date());
+  }
+
   const places = getUrlParamAsString(params, "places");
 
   const categories = getUrlParamAsString(params, "categories");
