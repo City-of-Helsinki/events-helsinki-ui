@@ -65,7 +65,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
             {formatMessage("commons.dateSelector.dateTypeToday")}
           </Checkbox>
           <Checkbox
-            checked={dateTypes.indexOf(DATE_TYPES.TOMORROW) !== -1}
+            checked={dateTypes.includes(DATE_TYPES.TOMORROW)}
             name="date"
             onChange={handleCheckboxChange}
             value={DATE_TYPES.TOMORROW}
@@ -73,7 +73,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
             {formatMessage("commons.dateSelector.dateTypeTomorrow")}
           </Checkbox>
           <Checkbox
-            checked={dateTypes.indexOf(DATE_TYPES.THIS_WEEK) !== -1}
+            checked={dateTypes.includes(DATE_TYPES.THIS_WEEK)}
             name="date"
             onChange={handleCheckboxChange}
             value={DATE_TYPES.THIS_WEEK}
@@ -81,7 +81,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
             {formatMessage("commons.dateSelector.dateTypeThisWeek")}
           </Checkbox>
           <Checkbox
-            checked={dateTypes.indexOf(DATE_TYPES.WEEKEND) !== -1}
+            checked={dateTypes.includes(DATE_TYPES.WEEKEND)}
             name="date"
             onChange={handleCheckboxChange}
             value={DATE_TYPES.WEEKEND}
