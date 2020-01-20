@@ -32,10 +32,10 @@ test("applies expected metadata", async () => {
   const eventImage = "https://localhost/example/path";
   const mockEventData = {
     eventDetails: {
-      description: {
+      images: [{ url: eventImage }],
+      shortDescription: {
         fi: eventDescription
       },
-      images: [{ url: eventImage }],
       name: {
         fi: eventName
       }
