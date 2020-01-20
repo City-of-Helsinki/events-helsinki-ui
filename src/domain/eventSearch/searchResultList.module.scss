@@ -48,6 +48,26 @@
         font-size: $h4-font-size;
         margin: 0 0 $baseMargin;
       }
+
+      .clearButton {
+        display: block;
+        width: 100%;
+        margin-top: 1.5rem;
+        margin-bottom: -0.5rem;
+        padding: 0.5rem;
+        color: $hel-black-50;
+        border: 2px solid transparent;
+
+        &:hover {
+          border-color: $light-gray;
+          background-color: $lightest-gray;
+        }
+
+        &:focus {
+          outline: 2px solid $hel-black;
+          outline-offset: 0 0 1rem 0;
+        }
+      }
     }
   }
 

@@ -102,6 +102,26 @@ const SearchResultList: React.FC<Props> = ({
     window.scrollTo(0, 0);
   };
 
+  const clearFilters = () => {
+    const search = getSearchQuery({
+      categories: [],
+      dateTypes: [],
+      districts: [],
+      endDate: null,
+      isCustomDate: !!(startDate || endDate),
+      keywords: [],
+      places: [],
+      publisher: null,
+      search: "",
+      startDate: null,
+      targets: []
+    });
+
+    push({ pathname: `/${locale}/events`, search });
+    // Scroll to top when changing filters. Ignore this on SSR becasue window doesn't exist
+    window.scrollTo(0, 0);
+  };
+
   // TODO: Uppdate this variable when adding new filters
   const hasFilters =
     !!searchParams.get("publisher") ||
@@ -208,6 +228,13 @@ const SearchResultList: React.FC<Props> = ({
                       value={target}
                     />
                   ))}
+                  <button
+                    className={styles.clearButton}
+                    onClick={clearFilters}
+                    type="button"
+                  >
+                    {t("eventSearch.buttonClearFilters")}
+                  </button>
                 </>
               ) : (
                 t("eventSearch.filters.textNoFilters")
