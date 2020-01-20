@@ -15,21 +15,6 @@ exports[`DateSelectorMenu matches snapshot 1`] = `
         name="date"
         onChange={[Function]}
         type="checkbox"
-        value="all"
-      />
-      <span
-        className="checkmark"
-      />
-      Koska tahansa
-    </label>
-    <label
-      className="checkbox"
-    >
-      <input
-        checked={false}
-        name="date"
-        onChange={[Function]}
-        type="checkbox"
         value="today"
       />
       <span
