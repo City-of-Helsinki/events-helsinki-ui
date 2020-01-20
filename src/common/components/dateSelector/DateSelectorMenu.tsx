@@ -57,14 +57,6 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
       {!isCustomDate && (
         <div className={styles.wrapper}>
           <Checkbox
-            checked={dateTypes.indexOf(DATE_TYPES.ALL) !== -1}
-            name="date"
-            onChange={handleCheckboxChange}
-            value={DATE_TYPES.ALL}
-          >
-            {formatMessage("commons.dateSelector.dateTypeAll")}
-          </Checkbox>
-          <Checkbox
             checked={dateTypes.indexOf(DATE_TYPES.TODAY) !== -1}
             name="date"
             onChange={handleCheckboxChange}
