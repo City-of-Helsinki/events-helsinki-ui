@@ -252,6 +252,7 @@ export type QueryEventListArgs = {
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   publisher?: Maybe<Scalars['ID']>,
+  sort?: Maybe<Scalars['String']>,
   startDate?: Maybe<Scalars['String']>,
   text?: Maybe<Scalars['String']>
 };
@@ -408,6 +409,7 @@ export type EventListQueryVariables = {
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   publisher?: Maybe<Scalars['ID']>,
+  sort?: Maybe<Scalars['String']>,
   startDate?: Maybe<Scalars['String']>,
   text?: Maybe<Scalars['String']>
 };
@@ -767,8 +769,8 @@ export type OrganizationDetailsQueryHookResult = ReturnType<typeof useOrganizati
 export type OrganizationDetailsLazyQueryHookResult = ReturnType<typeof useOrganizationDetailsLazyQuery>;
 export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($divisions: [String], $endDate: String, $keywords: [String], $locations: [String], $page: Int, $pageSize: Int, $publisher: ID, $startDate: String, $text: String) {
-  eventList(divisions: $divisions, endDate: $endDate, keywords: $keywords, locations: $locations, page: $page, pageSize: $pageSize, publisher: $publisher, startDate: $startDate, text: $text) {
+    query EventList($divisions: [String], $endDate: String, $keywords: [String], $locations: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $startDate: String, $text: String) {
+  eventList(divisions: $divisions, endDate: $endDate, keywords: $keywords, locations: $locations, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, startDate: $startDate, text: $text) {
     meta {
       count
       next
@@ -869,6 +871,7 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  *      page: // value for 'page'
  *      pageSize: // value for 'pageSize'
  *      publisher: // value for 'publisher'
+ *      sort: // value for 'sort'
  *      startDate: // value for 'startDate'
  *      text: // value for 'text'
  *   },

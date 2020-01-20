@@ -4,7 +4,7 @@ import { RouteComponentProps, useLocation, withRouter } from "react-router";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useEventListQuery } from "../../generated/graphql";
 import Layout from "../app/layout/Layout";
-import { PAGE_SIZE } from "./constants";
+import { EVENT_SORT_OPTIONS, PAGE_SIZE } from "./constants";
 import { getEventFilters, getNextPage } from "./EventListUtils";
 import styles from "./eventSearchPage.module.scss";
 import Search from "./Search";
@@ -18,7 +18,11 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
     ssr: false,
-    variables: getEventFilters(searchParams, PAGE_SIZE)
+    variables: getEventFilters(
+      searchParams,
+      PAGE_SIZE,
+      EVENT_SORT_OPTIONS.END_TIME
+    )
   });
 
   const handleLoadMore = async () => {
@@ -37,7 +41,11 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
           return fetchMoreResult;
         },
         variables: {
-          ...getEventFilters(searchParams, PAGE_SIZE),
+          ...getEventFilters(
+            searchParams,
+            PAGE_SIZE,
+            EVENT_SORT_OPTIONS.END_TIME
+          ),
           page: page
         }
       });
