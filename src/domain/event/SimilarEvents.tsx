@@ -7,7 +7,7 @@ import { EventDetailsQuery, useEventListQuery } from "../../generated/graphql";
 import isClient from "../../util/isClient";
 import { getSearchQuery } from "../../util/searchUtils";
 // Use same page size as on event search page
-import { PAGE_SIZE } from "../eventSearch/constants";
+import { EVENT_SORT_OPTIONS, PAGE_SIZE } from "../eventSearch/constants";
 import { getEventFilters } from "../eventSearch/EventListUtils";
 import { SIMILAR_EVENTS_AMOUNT } from "./constants";
 import SimilarEventCard from "./SimilarEventCard";
@@ -39,7 +39,11 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
 
   const { data: eventsData, loading } = useEventListQuery({
     skip: !isClient,
-    variables: getEventFilters(searchParams, PAGE_SIZE)
+    variables: getEventFilters(
+      searchParams,
+      PAGE_SIZE,
+      EVENT_SORT_OPTIONS.END_TIME
+    )
   });
 
   // To display only certain amount of events.

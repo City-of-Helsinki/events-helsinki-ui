@@ -9,6 +9,7 @@ import {
 import { EventListQuery } from "../../generated/graphql";
 import { formatDate } from "../../util/dateUtils";
 import getUrlParamAsString from "../../util/getUrlParamAsString";
+import { EVENT_SORT_OPTIONS } from "./constants";
 
 /**
  * Get start and end dates to event list filtering
@@ -67,7 +68,11 @@ const getFilterDates = (
  * @param pageSize {number}
  * @return {object}
  */
-export const getEventFilters = (params: URLSearchParams, pageSize: number) => {
+export const getEventFilters = (
+  params: URLSearchParams,
+  pageSize: number,
+  sortOrder: EVENT_SORT_OPTIONS
+) => {
   const dateTypes = getUrlParamAsString(params, "dateTypes");
   let { startDate, endDate } = getFilterDates(
     dateTypes,
@@ -150,6 +155,7 @@ export const getEventFilters = (params: URLSearchParams, pageSize: number) => {
     locations: places,
     pageSize,
     publisher: params.get("publisher"),
+    sort: sortOrder,
     startDate: startDate,
     text: params.get("search")
   };

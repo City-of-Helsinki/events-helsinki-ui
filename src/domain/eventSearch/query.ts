@@ -9,6 +9,7 @@ export const QUERY_EVENT_LIST = gql`
     $page: Int
     $pageSize: Int
     $publisher: ID
+    $sort: String
     $startDate: String
     $text: String
   ) {
@@ -20,6 +21,7 @@ export const QUERY_EVENT_LIST = gql`
       page: $page
       pageSize: $pageSize
       publisher: $publisher
+      sort: $sort
       startDate: $startDate
       text: $text
     ) {
