@@ -157,6 +157,7 @@
     }
   },
   "eventSearch": {
+    "buttonClearFilters": "Clear filters",
     "buttonLoadMore": "Load more events",
     "event": {
       "buttonBuyTickets": "Buy tickets",

@@ -157,6 +157,7 @@
     }
   },
   "eventSearch": {
+    "buttonClearFilters": "Tyhjennä hakuehdot",
     "buttonLoadMore": "Lataa lisää tapahtumia",
     "event": {
       "buttonBuyTickets": "Osta liput",

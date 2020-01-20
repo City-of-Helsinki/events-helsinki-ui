@@ -157,6 +157,7 @@
     }
   },
   "eventSearch": {
+    "buttonClearFilters": "Rensa filter",
     "buttonLoadMore": "Ladda ner fler evenemang",
     "event": {
       "buttonBuyTickets": "Köp biljetter",
