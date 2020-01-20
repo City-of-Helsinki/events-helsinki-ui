@@ -94,7 +94,7 @@
       "shareOnTwitter": "Dela på Twitter",
       "shareOnLinkedIn": "Dela på LinkedIn"
     },
-    "supriseMe": "Yllätä minut (sv)",
+    "supriseMe": "Jag har tur",
     "targets": {
       "children": "Barn",
       "youngPeople": "Unga människor"
@@ -182,17 +182,17 @@
       "titleDropdownDistrict": "Välj område",
       "titleDropdownTargetGroup": "Välj vem"
     },
-    "textFoundEvents": "Vi hittade {{count}} saker att göra för dig"
+    "textFoundEvents": "{{count}} sökresultat"
   },
   "footer": {
     "titleCategories": "Kategoriat (sv)",
-    "searchCollections": "Selaa kokoelmia (sv)",
+    "searchCollections": "Vi rekommenderar",
     "searchEvents": "Hitta något att göra"
   },
   "header": {
     "ariaButtonCloseMenu": "Sulje valikko (sv)",
     "ariaButtonOpenMenu": "Avaa valikko (sv)",
-    "searchCollections": "Selaa kokoelmia (sv)",
+    "searchCollections": "Vi rekommenderar",
     "searchEvents": "Hitta något att göra"
   },
   "home": {

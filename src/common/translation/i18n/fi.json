@@ -94,7 +94,7 @@
       "shareOnTwitter": "Jaa Twitterissä",
       "shareOnLinkedIn": "Jaa LinkedInissä"
     },
-    "supriseMe": "Yllätä minut",
+    "supriseMe": "Koeta onneasi",
     "targets": {
       "children": "Lapsille",
       "youngPeople": "Nuorille"
@@ -182,17 +182,17 @@
       "titleDropdownDistrict": "Valitse alue",
       "titleDropdownTargetGroup": "Valitse kenelle"
     },
-    "textFoundEvents": "Löysimme sinulle {{count}} tekemistä"
+    "textFoundEvents": "{{count}} hakutulosta"
   },
   "footer": {
     "titleCategories": "Kategoriat",
-    "searchCollections": "Selaa kokoelmia",
+    "searchCollections": "Suosittelemme",
     "searchEvents": "Etsi tekemistä"
   },
   "header": {
     "ariaButtonCloseMenu": "Sulje valikko",
     "ariaButtonOpenMenu": "Avaa valikko",
-    "searchCollections": "Selaa kokoelmia",
+    "searchCollections": "Suosittelemme",
     "searchEvents": "Etsi tekemistä"
   },
   "home": {
