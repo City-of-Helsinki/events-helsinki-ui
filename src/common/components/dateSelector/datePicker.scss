@@ -105,5 +105,10 @@
       color: $hel-white;
       background-color: $hel-bus;
     }
+
+    &--disabled {
+      color: $hel-black-40;
+      background-color: $hel-white;
+    }
   }
 }
