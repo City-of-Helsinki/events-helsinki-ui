@@ -32,6 +32,7 @@ const Dropdown: React.FC<Props> = ({
   value
 }) => {
   const [input, setInput] = React.useState("");
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
   const filteredOptions = React.useMemo(
     () =>
       options.filter(option =>
@@ -49,6 +50,16 @@ const Dropdown: React.FC<Props> = ({
     listLength: filteredOptions.length
   });
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const isComponentFocused = React.useCallback(() => {
+    const active = document.activeElement;
+    const current = dropdown && dropdown.current;
+
+    if (current && active instanceof Node && current.contains(active)) {
+      return true;
+    }
+    return false;
+  }, [dropdown]);
 
   const handleDocumentClick = (event: MouseEvent) => {
     const target = event.target;
@@ -71,8 +82,17 @@ const Dropdown: React.FC<Props> = ({
     [onChange, value]
   );
 
+  const ensureDropdownIsOpen = React.useCallback(() => {
+    if (!isMenuOpen) {
+      setIsMenuOpen(true);
+    }
+  }, [isMenuOpen]);
+
   const handleDocumentKeyDown = React.useCallback(
     (event: KeyboardEvent) => {
+      // Handle keyboard events only if current element is focused
+      if (!isComponentFocused()) return;
+
       switch (event.key) {
         // Close menu on ESC key
         case "Escape":
@@ -88,9 +108,21 @@ const Dropdown: React.FC<Props> = ({
           if (currentlyFocusedOption)
             toggleOption(currentlyFocusedOption.value);
           break;
+        case "ArrowUp":
+          ensureDropdownIsOpen();
+          break;
+        case "ArrowDown":
+          ensureDropdownIsOpen();
+          break;
       }
     },
-    [filteredOptions, focusedIndex, toggleOption]
+    [
+      ensureDropdownIsOpen,
+      filteredOptions,
+      focusedIndex,
+      isComponentFocused,
+      toggleOption
+    ]
   );
 
   const handleDocumentFocusin = (event: FocusEvent) => {
@@ -102,8 +134,8 @@ const Dropdown: React.FC<Props> = ({
     }
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const openMenu = () => {
+    setIsMenuOpen(true);
   };
 
   React.useEffect(() => {
@@ -129,14 +161,28 @@ const Dropdown: React.FC<Props> = ({
     onChange([]);
   };
 
+  const handleInputWrapperClick = () => {
+    if (inputRef && inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    ensureDropdownIsOpen();
+
+    setInput(event.target.value);
+  };
+
   return (
     <div className={styles.dropdown} ref={dropdown}>
-      <div className={styles.inputWrapper} onClick={toggleMenu}>
+      <div className={styles.inputWrapper} onClick={handleInputWrapperClick}>
         <div className={styles.iconWrapper}>{icon}</div>
         <div className={styles.title}>
           <input
+            ref={inputRef}
             placeholder={title}
-            onChange={event => setInput(event.target.value)}
+            onChange={handleInputChange}
+            onFocus={() => openMenu()}
             value={input}
           />
         </div>
