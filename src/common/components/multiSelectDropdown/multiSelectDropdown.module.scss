@@ -55,12 +55,16 @@
   }
 }
 
-.dropdownItemPadding {
+.dropdownItem {
   margin: 0;
   padding: calc(#{$basePadding} / 2) 1rem;
 
-  &:first-child {
+  &--first {
     padding-top: 1rem;
+  }
+
+  &--isFocused {
+    background-color: $hel-fog;
   }
 }
 
