@@ -29,12 +29,10 @@ const defaultProps = {
 };
 const getWrapper = props =>
   render(<MultiSelectDropdown {...defaultProps} {...props} />);
-const arrowUpKeyPressHelper = domNode =>
-  fireEvent.keyDown(domNode, { code: 38, key: "ArrowUp" });
-const arrowDownKeyPressHelper = domNode =>
-  fireEvent.keyDown(domNode, { code: 40, key: "ArrowDown" });
-const enterKeyPressHelper = domNode =>
-  fireEvent.keyDown(domNode, { code: 13, key: "Enter" });
+const arrowUpKeyPressHelper = () =>
+  fireEvent.keyDown(document, { code: 38, key: "ArrowUp" });
+const arrowDownKeyPressHelper = () =>
+  fireEvent.keyDown(document, { code: 40, key: "ArrowDown" });
 
 test("should filter results based on user search and options[].text field", async () => {
   const { getByPlaceholderText, queryByLabelText } = getWrapper();
@@ -56,11 +54,11 @@ test("should reset keyboard navigation position after a new search", async () =>
 
   fireEvent.click(searchInput);
   act(() => searchInput.focus());
-  arrowDownKeyPressHelper(searchInput);
+  arrowDownKeyPressHelper();
 
   expect(
     getByLabelText(options[0].text).parentElement.parentElement
-  ).toHaveClass("checkbox--isFocused");
+  ).toHaveClass("dropdownItem--isFocused");
 
   // Find something, then reset the search to ensure that all results are listed
   fireEvent.change(searchInput, { target: { value: "Ele" } });
@@ -71,7 +69,7 @@ test("should reset keyboard navigation position after a new search", async () =>
   // No element should have focus
   allOptions.forEach(text => {
     expect(getByLabelText(text).parentElement.parentElement).not.toHaveClass(
-      "checkbox--isFocused"
+      "dropdownItem--isFocused"
     );
   });
 });
@@ -83,33 +81,34 @@ describe("ArrowUp, ArrowDown", () => {
     fireEvent.click(searchInput);
     act(() => searchInput.focus());
 
-    arrowDownKeyPressHelper(searchInput);
-    arrowDownKeyPressHelper(searchInput);
+    arrowDownKeyPressHelper();
+    arrowDownKeyPressHelper();
 
     expect(
       getByLabelText(options[1].text).parentElement.parentElement
-    ).toHaveClass("checkbox--isFocused");
+    ).toHaveClass("dropdownItem--isFocused");
 
     arrowUpKeyPressHelper(searchInput);
 
     expect(
       getByLabelText(options[0].text).parentElement.parentElement
-    ).toHaveClass("checkbox--isFocused");
+    ).toHaveClass("dropdownItem--isFocused");
   });
 
-test("should select last item if the first keyboard navigation is button up", () => {
-  const { getByPlaceholderText, getByLabelText } = getWrapper();
-  const searchInput = getByPlaceholderText(title);
+  test("should select last item if the first keyboard navigation is button up", () => {
+    const { getByPlaceholderText, getByLabelText } = getWrapper();
+    const searchInput = getByPlaceholderText(title);
 
-  fireEvent.click(searchInput);
-  act(() => searchInput.focus());
+    fireEvent.click(searchInput);
+    act(() => searchInput.focus());
 
-  arrowUpKeyPressHelper(searchInput);
+    arrowUpKeyPressHelper(searchInput);
 
-  expect(
-    getByLabelText(options[options.length - 1].text).parentElement.parentElement
-  ).toHaveClass("checkbox--isFocused");
-});
+    expect(
+      getByLabelText(options[options.length - 1].text).parentElement
+        .parentElement
+    ).toHaveClass("dropdownItem--isFocused");
+  });
 
   test("should reset to start position when user goes up in the first member of the list", () => {
     const { getByPlaceholderText, getByLabelText } = getWrapper();
@@ -118,15 +117,15 @@ test("should select last item if the first keyboard navigation is button up", ()
     fireEvent.click(searchInput);
     act(() => searchInput.focus());
 
-    arrowDownKeyPressHelper(searchInput);
-    arrowUpKeyPressHelper(searchInput);
+    arrowDownKeyPressHelper();
+    arrowUpKeyPressHelper();
 
     const allOptions = options.map(({ text }) => text);
 
     // No element should have focus
     allOptions.forEach(text => {
       expect(getByLabelText(text).parentElement).not.toHaveClass(
-        "checkbox--isFocused"
+        "dropdownItem--isFocused"
       );
     });
   });
@@ -139,55 +138,20 @@ test("should select last item if the first keyboard navigation is button up", ()
     act(() => searchInput.focus());
 
     options.forEach(() => {
-      arrowDownKeyPressHelper(searchInput);
+      arrowDownKeyPressHelper();
     });
     // After we have selected the last item, press down once more to reset the
     // selection.
-    arrowDownKeyPressHelper(searchInput);
+    arrowDownKeyPressHelper();
 
     const allOptions = options.map(({ text }) => text);
 
     // No element should have focus
     allOptions.forEach(text => {
       expect(getByLabelText(text).parentElement).not.toHaveClass(
-        "checkbox--isFocused"
+        "dropdownItem--isFocused"
       );
     });
-  });
-})
-
-describe("Enter", () => {
-  test("should not select value with enter if user has not navigated with keyboard", () => {
-    const { getByPlaceholderText } = getWrapper();
-    const searchInput = getByPlaceholderText(title);
-
-    fireEvent.click(searchInput);
-    act(() => searchInput.focus());
-
-    // Try with no actions.
-    enterKeyPressHelper(searchInput);
-
-    expect(onChange).not.toHaveBeenCalled();
-
-    // Try by navigating, but then resetting the navigation.
-    arrowDownKeyPressHelper(searchInput);
-    arrowUpKeyPressHelper(searchInput);
-    enterKeyPressHelper(searchInput);
-
-    expect(onChange).not.toHaveBeenCalled();
-  });
-
-  test("should select value with enter when user has navigated with keyboard", () => {
-    const { getByPlaceholderText } = getWrapper();
-    const searchInput = getByPlaceholderText(title);
-
-    fireEvent.click(searchInput);
-    act(() => searchInput.focus());
-
-    arrowDownKeyPressHelper(searchInput);
-    enterKeyPressHelper(searchInput);
-
-    expect(onChange).toHaveBeenCalledWith([options[0].value]);
   });
 });
 
@@ -217,20 +181,20 @@ test("should open dropdown when user focuses input", () => {
   act(() => getByPlaceholderText(title).focus());
 
   expect(queryByLabelText(options[0].text)).not.toEqual(null);
-})
+});
 
 test("should open dropdown when user clicks on input", () => {
-    const { getByPlaceholderText, queryByLabelText } = getWrapper();
-    const searchInput = getByPlaceholderText(title);
+  const { getByPlaceholderText, queryByLabelText } = getWrapper();
+  const searchInput = getByPlaceholderText(title);
 
-    act(() => searchInput.focus());
-    fireEvent.click(searchInput);
+  act(() => searchInput.focus());
+  fireEvent.click(searchInput);
 
-    expect(queryByLabelText(options[0].text)).not.toEqual(null);
-})
+  expect(queryByLabelText(options[0].text)).not.toEqual(null);
+});
 
 describe("when dropdown has been closed, it should reopen with", () => {
-  const getClosedInput = (props) => {
+  const getClosedInput = props => {
     const helpers = getWrapper(props);
     const { getByPlaceholderText, queryByLabelText } = helpers;
     const searchInput = getByPlaceholderText(title);
@@ -240,23 +204,23 @@ describe("when dropdown has been closed, it should reopen with", () => {
     fireEvent.keyDown(searchInput, { code: 27, key: "Escape" });
 
     expect(queryByLabelText(options[0].text)).toEqual(null);
-    expect(searchInput).toHaveFocus()
+    expect(searchInput).toHaveFocus();
 
     return helpers;
-  }
+  };
 
   test("ArrowUp", () => {
-    const { getByPlaceholderText, queryByLabelText } = getClosedInput();
+    const { queryByLabelText } = getClosedInput();
 
-    arrowUpKeyPressHelper(getByPlaceholderText(title));
+    arrowUpKeyPressHelper();
 
     expect(queryByLabelText(options[0].text)).not.toEqual(null);
   });
 
   test("ArrowDown", () => {
-    const { getByPlaceholderText, queryByLabelText } = getClosedInput();
+    const { queryByLabelText } = getClosedInput();
 
-    arrowDownKeyPressHelper(getByPlaceholderText(title));
+    arrowDownKeyPressHelper();
 
     expect(queryByLabelText(options[0].text)).not.toEqual(null);
   });
@@ -268,4 +232,4 @@ describe("when dropdown has been closed, it should reopen with", () => {
 
     expect(queryByLabelText(options[0].text)).not.toEqual(null);
   });
-})
+});

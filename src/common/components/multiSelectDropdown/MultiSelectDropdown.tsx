@@ -98,16 +98,6 @@ const Dropdown: React.FC<Props> = ({
         case "Escape":
           setIsMenuOpen(false);
           break;
-        case "Enter":
-          if (focusedIndex < 0) {
-            break;
-          }
-
-          const currentlyFocusedOption = filteredOptions[focusedIndex];
-
-          if (currentlyFocusedOption)
-            toggleOption(currentlyFocusedOption.value);
-          break;
         case "ArrowUp":
           ensureDropdownIsOpen();
           break;
@@ -116,13 +106,7 @@ const Dropdown: React.FC<Props> = ({
           break;
       }
     },
-    [
-      ensureDropdownIsOpen,
-      filteredOptions,
-      focusedIndex,
-      isComponentFocused,
-      toggleOption
-    ]
+    [ensureDropdownIsOpen, isComponentFocused]
   );
 
   const handleDocumentFocusin = (event: FocusEvent) => {
@@ -194,15 +178,23 @@ const Dropdown: React.FC<Props> = ({
         {filteredOptions.map((option, index) => {
           const isFocused = index === focusedIndex;
 
+          const setFocus = (ref: HTMLLabelElement) => {
+            if (isFocused && ref) {
+              ref.focus();
+            }
+          };
+
           return (
             <ScrollIntoViewWithFocus key={option.value} isFocused={isFocused}>
               <Checkbox
+                ref={setFocus}
                 checked={value.includes(option.value)}
                 name={name}
                 onChange={handleValueChange}
                 value={option.value}
-                className={classNames(styles.dropdownItemPadding, {
-                  [styles["checkbox--isFocused"]]: isFocused
+                className={classNames(styles.dropdownItem, {
+                  [styles["dropdownItem--first"]]: index === 0,
+                  [styles["dropdownItem--isFocused"]]: isFocused
                 })}
               >
                 {option.text}
