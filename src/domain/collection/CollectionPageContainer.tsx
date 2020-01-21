@@ -3,7 +3,11 @@ import { useParams } from "react-router";
 
 import isClient from "../../util/isClient";
 import Layout from "../app/layout/Layout";
+import CollectionHero from "./collectionHero/CollectionHero";
 import styles from "./collectionPage.module.scss";
+import CurratedEventList from "./curratedEventList/CurratedEventList";
+import EventList from "./eventList/EventList";
+import SimilarCollections from "./similarCollections/SimilarCollections";
 
 interface RouteParams {
   id: string;
@@ -22,7 +26,12 @@ const CollectionPageContainer: React.FC = () => {
 
   return (
     <Layout>
-      <div className={styles.collectionPageWrapper}>COLLECTION</div>
+      <div className={styles.collectionPageWrapper}>
+        <CollectionHero />
+        <CurratedEventList />
+        <EventList />
+        <SimilarCollections />
+      </div>
     </Layout>
   );
 };
