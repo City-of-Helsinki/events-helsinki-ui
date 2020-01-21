@@ -118,8 +118,6 @@ const SearchResultList: React.FC<Props> = ({
     });
 
     push({ pathname: `/${locale}/events`, search });
-    // Scroll to top when changing filters. Ignore this on SSR becasue window doesn't exist
-    window.scrollTo(0, 0);
   };
 
   // TODO: Uppdate this variable when adding new filters
