@@ -19,7 +19,7 @@ import Container from "../app/layout/Container";
 import styles from "./eventHero.module.scss";
 import EventKeywords from "./EventKeywords";
 import LocationText from "./EventLocationText";
-import { getEventPrice } from "./EventUtils";
+import { getEventPrice, isEventFree } from "./EventUtils";
 
 interface Props extends RouteComponentProps {
   eventData: EventDetailsQuery;
@@ -59,6 +59,8 @@ const EventHero: React.FC<Props> = ({
   const name = eventData.eventDetails.name;
   const today = startTime ? isToday(new Date(startTime)) : false;
   const thisWeek = startTime ? isThisWeek(new Date(startTime)) : false;
+
+  const showBuyButton = !!offerInfoUrl && !isEventFree(eventData.eventDetails);
 
   return (
     <div className={styles.heroWrapper}>
@@ -127,7 +129,7 @@ const EventHero: React.FC<Props> = ({
                   ) || "-"}
                 </div>
               </div>
-              {!!offerInfoUrl && (
+              {showBuyButton && (
                 <>
                   <div
                     className={classNames(
