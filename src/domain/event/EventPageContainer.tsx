@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteComponentProps, useLocation, withRouter } from "react-router";
+import { useLocation, useParams } from "react-router";
 
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useEventDetailsQuery } from "../../generated/graphql";
@@ -14,11 +14,14 @@ import EventPageMeta from "./EventPageMeta";
 import { isEventClosed } from "./EventUtils";
 import SimilarEvents from "./SimilarEvents";
 
-const EventPageContainer: React.FC<RouteComponentProps<{
+interface RouteParams {
   id: string;
-}>> = props => {
+}
+
+const EventPageContainer: React.FC = () => {
   const { pathname } = useLocation();
-  const eventId = props.match.params.id;
+  const params = useParams<RouteParams>();
+  const eventId = params.id;
   const { data: eventData, loading } = useEventDetailsQuery({
     variables: { id: eventId }
   });
@@ -59,4 +62,4 @@ const EventPageContainer: React.FC<RouteComponentProps<{
   );
 };
 
-export default withRouter(EventPageContainer);
+export default EventPageContainer;
