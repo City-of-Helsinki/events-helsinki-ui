@@ -47,6 +47,8 @@ const EventCard: React.FC<Props> = ({ event }) => {
   const startTime = event.startTime;
   const endTime = event.endTime;
 
+  const showBuyButton = !!offerInfoUrl && !isEventFree(event);
+
   return (
     <div className={styles.eventCard}>
       <div
@@ -97,7 +99,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
         <div className={styles.buttonWrapper}>
           <>
             <div className={classNames(styles.buyButtonWrapper)}>
-              {!!offerInfoUrl && (
+              {showBuyButton && (
                 <Button
                   color="primary"
                   fullWidth
