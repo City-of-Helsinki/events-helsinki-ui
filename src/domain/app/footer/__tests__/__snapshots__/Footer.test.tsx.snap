@@ -80,7 +80,7 @@ exports[`Footer matches snapshot 1`] = `
               <div
                 className="textWrapper"
               >
-                Selaa kokoelmia
+                Suosittelemme
               </div>
             </a>
           </div>

@@ -83,7 +83,7 @@ exports[`ServerApp matches snapshot 1`] = `
               <div
                 className="textWrapper"
               >
-                Selaa kokoelmia
+                Suosittelemme
               </div>
             </a>
           </div>
@@ -335,7 +335,7 @@ exports[`ServerApp matches snapshot 1`] = `
           <div
             className="text"
           >
-            Yllätä minut
+            Koeta onneasi
           </div>
           <svg>
             suprise-me.svg
@@ -1385,7 +1385,7 @@ exports[`ServerApp matches snapshot 1`] = `
                 <div
                   className="textWrapper"
                 >
-                  Selaa kokoelmia
+                  Suosittelemme
                 </div>
               </a>
             </div>
