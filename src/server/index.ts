@@ -4,11 +4,13 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
 import { HttpLink } from "apollo-link-http";
 import express, { Request, Response } from "express";
+import i18nextMiddleware from "i18next-express-middleware";
 import React from "react";
 import { getDataFromTree } from "react-apollo";
 import ReactDOMServer from "react-dom/server";
 import Helmet from "react-helmet";
 
+import i18next from "../common/translation/i18n/init.server";
 import getDomainFromRequest from "../util/getDomainFromRequest";
 import { getAssets } from "./assets";
 import Html from "./Html";
@@ -39,6 +41,8 @@ const app = express();
 
 app.use(express.static(__dirname, { index: false }));
 
+app.use(i18nextMiddleware.handle(i18next));
+
 app.get("/healthz", (request, response) => {
   checkIsServerReady(response);
 });
@@ -57,7 +61,12 @@ app.use(async (req: Request, res: Response) => {
   });
 
   const context: StaticContext = {};
-  const el = React.createElement(ServerApp, { client, context, url: req.url });
+  const el = React.createElement(ServerApp, {
+    client,
+    context,
+    i18n: req.i18n,
+    url: req.url
+  });
 
   // Executes all graphql queries for the current state of application
   await getDataFromTree(el);
