@@ -14,9 +14,11 @@ import EventPageMeta from "./EventPageMeta";
 import { isEventClosed } from "./EventUtils";
 import SimilarEvents from "./SimilarEvents";
 
-const EventPageContainer: React.FC<RouteComponentProps<{
-  id: string;
-}>> = props => {
+const EventPageContainer: React.FC<
+  RouteComponentProps<{
+    id: string;
+  }>
+> = props => {
   const { pathname } = useLocation();
   const eventId = props.match.params.id;
   const { data: eventData, loading } = useEventDetailsQuery({
