@@ -1,12 +1,12 @@
 import classNames from "classnames";
 import { IconAngleRight } from "hds-react";
 import React, { ChangeEvent, FunctionComponent, MutableRefObject } from "react";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 
 import { DATE_TYPES } from "../../../constants";
 import IconAngleLeft from "../../../icons/IconAngleLeft";
 import IconCalendarAdd from "../../../icons/IconCalendarAdd";
-import { formatMessage } from "../../translation/TranslationUtils";
 import Checkbox from "../input/Checkbox";
 import DateRangePicker from "./DateRangePicker";
 import styles from "./dateSelectorMenu.module.scss"; // the locale you want
@@ -40,6 +40,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
   toggleIsCustomDate,
   toggleMenu
 }) => {
+  const { t } = useTranslation();
   const { pathname } = useLocation();
 
   if (!isOpen) return null;
@@ -62,7 +63,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
             onChange={handleCheckboxChange}
             value={DATE_TYPES.TODAY}
           >
-            {formatMessage("commons.dateSelector.dateTypeToday")}
+            {t("commons.dateSelector.dateTypeToday")}
           </Checkbox>
           <Checkbox
             checked={dateTypes.includes(DATE_TYPES.TOMORROW)}
@@ -70,7 +71,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
             onChange={handleCheckboxChange}
             value={DATE_TYPES.TOMORROW}
           >
-            {formatMessage("commons.dateSelector.dateTypeTomorrow")}
+            {t("commons.dateSelector.dateTypeTomorrow")}
           </Checkbox>
           <Checkbox
             checked={dateTypes.includes(DATE_TYPES.THIS_WEEK)}
@@ -78,7 +79,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
             onChange={handleCheckboxChange}
             value={DATE_TYPES.THIS_WEEK}
           >
-            {formatMessage("commons.dateSelector.dateTypeThisWeek")}
+            {t("commons.dateSelector.dateTypeThisWeek")}
           </Checkbox>
           <Checkbox
             checked={dateTypes.includes(DATE_TYPES.WEEKEND)}
@@ -86,7 +87,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
             onChange={handleCheckboxChange}
             value={DATE_TYPES.WEEKEND}
           >
-            {formatMessage("commons.dateSelector.dateTypeWeekend")}
+            {t("commons.dateSelector.dateTypeWeekend")}
           </Checkbox>
         </div>
       )}
@@ -100,7 +101,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
       >
         <IconCalendarAdd />
         <div className={styles.buttonText}>
-          {formatMessage("commons.dateSelector.menu.buttonCustom")}
+          {t("commons.dateSelector.menu.buttonCustom")}
         </div>
         <IconAngleRight />
       </button>
@@ -114,7 +115,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
       >
         <IconAngleLeft />
         <div className={styles.buttonText}>
-          {formatMessage("commons.dateSelector.menu.buttonBack")}
+          {t("commons.dateSelector.menu.buttonBack")}
         </div>
       </button>
 
@@ -136,7 +137,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         onClick={toggleMenu}
       >
         <div className={styles.buttonText}>
-          {formatMessage("commons.dateSelector.menu.buttonClose")}
+          {t("commons.dateSelector.menu.buttonClose")}
         </div>
       </button>
     </div>

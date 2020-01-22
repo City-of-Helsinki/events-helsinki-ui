@@ -1,9 +1,9 @@
 import classNames from "classnames";
 import { IconArrowRight } from "hds-react";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { formatMessage } from "../../../common/translation/TranslationUtils";
 import styles from "./collectionCard.module.scss";
 
 export interface CollectionCardType {
@@ -26,6 +26,8 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
   size,
   title
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div
       className={classNames(
@@ -37,7 +39,7 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
       <div className={styles.textWrapper}>
         <div className={styles.countWrapper}>
           <div className={styles.count}>
-            {formatMessage("commons.collectionCard.count", { count })}
+            {t("commons.collectionCard.count", { count })}
           </div>
         </div>
 
