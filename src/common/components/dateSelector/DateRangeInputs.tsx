@@ -1,5 +1,5 @@
 import { isPast } from "date-fns";
-import React, { ChangeEvent, MutableRefObject, Ref } from "react";
+import React, { ChangeEvent, MutableRefObject } from "react";
 import { useTranslation } from "react-i18next";
 
 import IconCalendarAdd from "../../../icons/IconCalendarAdd";
