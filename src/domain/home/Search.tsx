@@ -22,13 +22,13 @@ import SearchAutosuggest from "../../common/components/search/SearchAutosuggest"
 import SupriseMeButton from "../../common/components/search/SupriseMeButton";
 import { AutosuggestMenuOption, Category } from "../../common/types";
 import { CATEGORIES } from "../../constants";
-import getLocale from "../../util/getLocale";
+import useLocale from "../../hooks/useLocale";
 import { getSearchQuery } from "../../util/searchUtils";
 import styles from "./search.module.scss";
 
 const Search: FunctionComponent = () => {
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
   const [categories, setCategories] = React.useState<Category[]>([]);
   const [dateTypes, setDateTypes] = React.useState<string[]>([]);
   const [startDate, setStartDate] = React.useState<Date | null>(null);

@@ -10,8 +10,8 @@ import FilterButton, {
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { DISTRICTS, TARGET_GROUPS } from "../../constants";
 import { EventListQuery } from "../../generated/graphql";
+import useLocale from "../../hooks/useLocale";
 import { formatDate } from "../../util/dateUtils";
-import getLocale from "../../util/getLocale";
 import getUrlParamAsString from "../../util/getUrlParamAsString";
 import isClient from "../../util/isClient";
 import { getSearchQuery } from "../../util/searchUtils";
@@ -42,7 +42,7 @@ const SearchResultList: React.FC<Props> = ({
   onLoadMore
 }) => {
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
   const { push } = useHistory();
   const searchParams = new URLSearchParams(useLocation().search);
   const events = eventsData.eventList.data;

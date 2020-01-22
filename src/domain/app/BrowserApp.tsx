@@ -1,26 +1,18 @@
+import "../../common/translation/i18n/init.client";
+import "../../globals";
+
 import React, { FunctionComponent } from "react";
 import { ApolloProvider } from "react-apollo";
 import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
-import { Redirect, Route, Switch } from "react-router";
+import { useSSR } from "react-i18next";
 import { BrowserRouter } from "react-router-dom";
 
-import { SUPPORT_LANGUAGES } from "../../constants";
 import createGraphqlClient from "../../util/createGraphqlClient";
-import App from "./App";
-
-const localeParam = `:locale(${SUPPORT_LANGUAGES.EN}|${SUPPORT_LANGUAGES.FI}|${SUPPORT_LANGUAGES.SV})`;
-// Export for testing purpose
-export const appRoutes = (
-  <Switch>
-    <Redirect exact path="/" to="/fi/home" />
-    <Route path={`/${localeParam}/*`} component={App} />
-    <Route
-      render={props => <Redirect to={`/fi${props.location.pathname}`} />}
-    />
-  </Switch>
-);
+import appRoutes from "./appRoutes";
 
 const BrowserApp: FunctionComponent = () => {
+  useSSR(window.initialI18nStore, window.initialLanguage);
+
   const uri = process.env.REACT_APP_GRAPHQL_BASE_URL || "";
   const client = createGraphqlClient(uri);
 

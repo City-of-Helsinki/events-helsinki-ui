@@ -1,6 +1,6 @@
 import React from "react";
 
-import getLocale from "../../util/getLocale";
+import useLocale from "../../hooks/useLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import { getEventDistrict } from "./EventUtils";
 import { EventInList } from "./types";
@@ -16,9 +16,10 @@ const EventLocationText: React.FC<Props> = ({
   showDistrict,
   showLocationName
 }) => {
+  const locale = useLocale();
+
   const getLocationStr = () => {
     const location = event.location;
-    const locale = getLocale();
 
     const locationName = getLocalisedString(
       (location && location.name) || {},

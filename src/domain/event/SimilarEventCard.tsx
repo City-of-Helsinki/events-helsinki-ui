@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 
 import Keyword from "../../common/components/keyword/Keyword";
+import useLocale from "../../hooks/useLocale";
 import getDateRangeStr from "../../util/getDateRangeStr";
-import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import getTimeRangeStr from "../../util/getTimeRangeStr";
 import EventKeywords from "../event/EventKeywords";
@@ -22,7 +22,7 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
   const { search } = useLocation();
   const { t } = useTranslation();
   const { push } = useHistory();
-  const locale = getLocale();
+  const locale = useLocale();
 
   const image = event.images.length ? event.images[0] : null;
   const name = event.name;

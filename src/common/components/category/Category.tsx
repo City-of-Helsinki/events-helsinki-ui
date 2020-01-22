@@ -1,7 +1,7 @@
 import { IconClose } from "hds-react";
 import React, { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 
-import { formatMessage } from "../../translation/TranslationUtils";
 import { Category as CategoryType } from "../../types";
 import styles from "./category.module.scss";
 
@@ -11,6 +11,7 @@ interface Props {
 }
 
 const Category: FunctionComponent<Props> = ({ category, onRemove }) => {
+  const { t } = useTranslation();
   const handleRemove = () => {
     onRemove(category);
   };
@@ -21,7 +22,7 @@ const Category: FunctionComponent<Props> = ({ category, onRemove }) => {
         type="button"
         className={styles.closeButton}
         onClick={handleRemove}
-        aria-label={formatMessage("commons.category.ariaButtonRemove", {
+        aria-label={t("commons.category.ariaButtonRemove", {
           category: category.text
         })}
       >

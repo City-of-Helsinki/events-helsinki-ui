@@ -4,7 +4,8 @@ import React from "react";
 import { MemoryRouter } from "react-router";
 
 import App from "../App";
-import BrowserApp, { appRoutes } from "../BrowserApp";
+import appRoutes from "../appRoutes";
+import BrowserApp from "../BrowserApp";
 
 const wrapperCreator = (route: string) =>
   mount(

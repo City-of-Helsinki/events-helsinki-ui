@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 
 import IconAngleDown from "../../../icons/IconAngleDown";
 import IconAngleUp from "../../../icons/IconAngleUp";
 import IconCalendar from "../../../icons/IconCalendar";
-import { formatMessage } from "../../translation/TranslationUtils";
 import styles from "./dateSelector.module.scss";
 import DateSelectorMenu from "./DateSelectorMenu";
 
@@ -28,6 +28,7 @@ const DateSelector: FunctionComponent<Props> = ({
   startDate,
   toggleIsCustomDate
 }) => {
+  const { t } = useTranslation();
   const backBtnRef = React.useRef<HTMLButtonElement | null>(null);
   const toggleBtnRef = React.useRef<HTMLButtonElement | null>(null);
   const dateSelector = React.useRef<HTMLDivElement | null>(null);
@@ -101,9 +102,7 @@ const DateSelector: FunctionComponent<Props> = ({
         <div className={styles.iconWrapper}>
           <IconCalendar />
         </div>
-        <div className={styles.info}>
-          {formatMessage("commons.dateSelector.title")}
-        </div>
+        <div className={styles.info}>{t("commons.dateSelector.title")}</div>
         <div className={styles.arrowWrapper}>
           {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
         </div>

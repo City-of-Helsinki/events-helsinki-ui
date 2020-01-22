@@ -14,13 +14,13 @@ import { useTranslation } from "react-i18next";
 
 import Button from "../../common/components/button/Button";
 import { EventDetailsQuery } from "../../generated/graphql";
+import useLocale from "../../hooks/useLocale";
 import IconCalendar from "../../icons/IconCalendar";
 import IconDirections from "../../icons/IconDirections";
 import { formatDate } from "../../util/dateUtils";
 import getDateArray from "../../util/getDateArray";
 import getDateRangeStr from "../../util/getDateRangeStr";
 import getDomain from "../../util/getDomain";
-import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import getTimeRangeStr from "../../util/getTimeRangeStr";
 import { translateValue } from "../../util/translateUtils";
@@ -40,7 +40,7 @@ interface Props {
 
 const EventInfo: React.FC<Props> = ({ eventData }) => {
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
 
   const offerInfoUrl = React.useMemo(() => {
     const offer = eventData.eventDetails.offers.find(item =>

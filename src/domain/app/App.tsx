@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 
-import { changeLanguage } from "../../common/translation/TranslationUtils";
 import { SUPPORT_LANGUAGES } from "../../constants";
 import CollectionPageContainer from "../collection/CollectionPageContainer";
 import EventPageContainer from "../event/EventPageContainer";
@@ -15,7 +15,11 @@ const App: FunctionComponent<
     params: { locale }
   }
 }) => {
-  changeLanguage(locale);
+  const { i18n } = useTranslation();
+
+  React.useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [i18n, locale]);
 
   return (
     <Switch>
