@@ -135,11 +135,5 @@ const DateRangeInputs: React.FC<Props> = ({
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default React.forwardRef((props: Props, ref: any) => {
-  return (
-    <DateRangeInputs
-      {...props}
-      endDateRef={ref && ref.endDateRef}
-      startDateRef={ref && ref.startDateRef}
-    />
-  );
+  return <DateRangeInputs {...props} endDateRef={ref} startDateRef={ref} />;
 });
