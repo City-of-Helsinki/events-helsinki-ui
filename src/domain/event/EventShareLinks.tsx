@@ -1,12 +1,12 @@
 import classNames from "classnames";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { ReactComponent as LinkIcon } from "../../assets/icons/svg/link.svg";
 import CopyButton from "../../common/components/copyButton/CopyButton";
 import FacebookShareLink from "../../common/components/shareLink/FacebookShareLink";
 import LinkedInShareLink from "../../common/components/shareLink/LinkedInShareLink";
 import TwitterShareLink from "../../common/components/shareLink/TwitterShareLink";
-import { formatMessage } from "../../common/translation/TranslationUtils";
 import isClient from "../../util/isClient";
 import styles from "./eventShareLinks.module.scss";
 
@@ -15,6 +15,7 @@ function useClientHref(): string | null {
 }
 
 const ShareLinks: React.FunctionComponent = () => {
+  const { t } = useTranslation();
   // We are using the client only accessible href. By doing this, we do not need
   // to pass the original request from the server. This same pattern was used in
   // MyHelsinki. Limitations are that the first render of the page will not
@@ -28,7 +29,7 @@ const ShareLinks: React.FunctionComponent = () => {
   return (
     <div className={styles.shareSubSection}>
       <p className={styles.shareSubSectionTitle}>
-        {formatMessage("event.shareLinks.title")}
+        {t("event.shareLinks.title")}
       </p>
       <ul className={styles.shareLinkList}>
         <li
@@ -41,10 +42,10 @@ const ShareLinks: React.FunctionComponent = () => {
             successClass={styles.linkCopyButtonSuccess}
             successMessage={
               <span className={styles.successTooltip}>
-                {formatMessage("event.shareLinks.messageLinkCopySuccess")}
+                {t("event.shareLinks.messageLinkCopySuccess")}
               </span>
             }
-            aria-label={formatMessage("event.shareLinks.buttonCopyLink")}
+            aria-label={t("event.shareLinks.buttonCopyLink")}
           >
             <LinkIcon />
           </CopyButton>

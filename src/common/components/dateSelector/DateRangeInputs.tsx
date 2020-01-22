@@ -1,15 +1,15 @@
 import { isPast } from "date-fns";
 import React, { ChangeEvent, MutableRefObject } from "react";
+import { WithTranslation, withTranslation } from "react-i18next";
 
 import IconCalendarAdd from "../../../icons/IconCalendarAdd";
 import {
   convertFinnishDateStrToDate,
   formatDate
 } from "../../../util/dateUtils";
-import { formatMessage } from "../../translation/TranslationUtils";
 import styles from "./dateRangeInputs.module.scss";
 
-interface Props {
+interface Props extends WithTranslation {
   endDateRaw: string;
   endDateRef?: MutableRefObject<HTMLInputElement | null>;
   // onBlur method is overriden by ReactFatePicker so name this as onBlurInput
@@ -90,10 +90,13 @@ class DateRangeInputs extends React.Component<Props> {
 
   render() {
     const {
+      i18n,
       endDate,
       endDateRaw,
       endDateRef,
       onBlurInput,
+      t,
+      tReady,
       setCounter,
       setEndDateRaw,
       setStartDateRaw,
@@ -106,9 +109,9 @@ class DateRangeInputs extends React.Component<Props> {
     return (
       <div className={styles.dateRangeInputsContainer}>
         <div className={styles.dateInputWrapper}>
-          <label>{formatMessage("commons.dateSelector.labelStartDate")}</label>
+          <label>{t("commons.dateSelector.labelStartDate")}</label>
           <div className={styles.formatInfo}>
-            {formatMessage("commons.dateSelector.infoDate")}
+            {t("commons.dateSelector.infoDate")}
           </div>
           <div className={styles.inputWrapper}>
             <div className={styles.input}>
@@ -128,9 +131,9 @@ class DateRangeInputs extends React.Component<Props> {
         </div>
         <div className={styles.dateSeparator}>—</div>
         <div className={styles.dateInputWrapper}>
-          <label>{formatMessage("commons.dateSelector.labelEndDate")}</label>
+          <label>{t("commons.dateSelector.labelEndDate")}</label>
           <div className={styles.formatInfo}>
-            {formatMessage("commons.dateSelector.infoDate")}
+            {t("commons.dateSelector.infoDate")}
           </div>
           <div className={styles.inputWrapper}>
             <div className={styles.input}>
@@ -153,4 +156,4 @@ class DateRangeInputs extends React.Component<Props> {
   }
 }
 
-export default DateRangeInputs;
+export default withTranslation()(DateRangeInputs);
