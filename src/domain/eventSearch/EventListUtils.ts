@@ -9,7 +9,7 @@ import {
 import { EventListQuery } from "../../generated/graphql";
 import { formatDate } from "../../util/dateUtils";
 import getUrlParamAsString from "../../util/getUrlParamAsString";
-import { EVENT_SORT_OPTIONS } from "./constants";
+import { CULTURE_KEYWORDS, EVENT_SORT_OPTIONS } from "./constants";
 
 /**
  * Get start and end dates to event list filtering
@@ -108,7 +108,7 @@ export const getEventFilters = (
   const mappedCategories: string[] = categories.map(category => {
     switch (category) {
       case CATEGORIES.CULTURE:
-        return "yso:p360";
+        return Object.values(CULTURE_KEYWORDS).join(",");
       case CATEGORIES.DANCE:
         return "yso:p1278";
       case CATEGORIES.FOOD:
