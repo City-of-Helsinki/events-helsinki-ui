@@ -8,6 +8,7 @@ import Button from "../../common/components/button/Button";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import MultiSelectDropdown from "../../common/components/multiSelectDropdown/MultiSelectDropdown";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
+import SearchLabel from "../../common/components/search/searchLabel/SearchLabel";
 import { AutosuggestMenuOption } from "../../common/types";
 import { CATEGORIES, DISTRICTS, TARGET_GROUPS } from "../../constants";
 import useLocale from "../../hooks/useLocale";
@@ -279,9 +280,12 @@ const Search: FunctionComponent = () => {
       <div className={styles.searchContainer}>
         <Container>
           <div className={styles.firstRow}>
-            <label>{t("eventSearch.search.labelSearchField")}</label>
+            <SearchLabel color="black" htmlFor="search">
+              {t("eventSearch.search.labelSearchField")}
+            </SearchLabel>
             <SearchAutosuggest
               categories={[]}
+              name="search"
               onChangeSearchValue={setSearchValue}
               onOptionClick={handleMenuOptionClick}
               placeholder={t("eventSearch.search.placeholder")}
@@ -290,9 +294,9 @@ const Search: FunctionComponent = () => {
           </div>
           <div className={styles.secondRow}>
             <div>
-              <div className={styles.label}>
+              <SearchLabel color="black" htmlFor="category" srOnly={true}>
                 {t("eventSearch.search.labelCategory")}
-              </div>
+              </SearchLabel>
               <MultiSelectDropdown
                 icon={<IconRead />}
                 name="category"
@@ -303,13 +307,14 @@ const Search: FunctionComponent = () => {
               />
             </div>
             <div className={styles.dateSelectorWrapper}>
-              <div className={styles.label}>
+              <SearchLabel color="black" htmlFor="date" srOnly={true}>
                 {t("eventSearch.search.labelDateRange")}
-              </div>
+              </SearchLabel>
               <DateSelector
                 dateTypes={dateTypes}
                 endDate={endDate}
                 isCustomDate={isCustomDate}
+                name="date"
                 onChangeDateTypes={handleChangeDateTypes}
                 onChangeEndDate={setEndDate}
                 onChangeStartDate={setStartDate}
@@ -318,9 +323,9 @@ const Search: FunctionComponent = () => {
               />
             </div>
             <div>
-              <div className={styles.label}>
+              <SearchLabel color="black" htmlFor="district" srOnly={true}>
                 {t("eventSearch.search.labelDistrict")}
-              </div>
+              </SearchLabel>
               <MultiSelectDropdown
                 icon={<IconLocation />}
                 name="district"
@@ -331,9 +336,9 @@ const Search: FunctionComponent = () => {
               />
             </div>
             <div>
-              <div className={styles.label}>
+              <SearchLabel color="black" htmlFor="targets" srOnly={true}>
                 {t("eventSearch.search.labelTargetGroup")}
-              </div>
+              </SearchLabel>
               <MultiSelectDropdown
                 icon={<IconPerson />}
                 name="targets"

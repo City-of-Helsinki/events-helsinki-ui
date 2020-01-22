@@ -351,7 +351,10 @@ exports[`Home matches snapshot 1`] = `
         <div
           className="autosuggestWrapper"
         >
-          <label>
+          <label
+            className="searchLabel white"
+            htmlFor="search"
+          >
             Mitä etsit?
           </label>
           <div
@@ -378,6 +381,8 @@ exports[`Home matches snapshot 1`] = `
               className="inputWrapper"
             >
               <input
+                id="search"
+                name="search"
                 onChange={[Function]}
                 onFocus={[Function]}
                 placeholder="Aloita kirjoittamalla tähän, esim. teatteri"
@@ -390,7 +395,10 @@ exports[`Home matches snapshot 1`] = `
         <div
           className="dateSelectorWrapper"
         >
-          <label>
+          <label
+            className="searchLabel black srOnly"
+            htmlFor="date"
+          >
             Mille ajankohdalle etsit?
           </label>
           <div

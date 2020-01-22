@@ -29,7 +29,10 @@ Array [
     <div
       className="autosuggestWrapper"
     >
-      <label>
+      <label
+        className="searchLabel white"
+        htmlFor="search"
+      >
         Mitä etsit?
       </label>
       <div
@@ -56,6 +59,8 @@ Array [
           className="inputWrapper"
         >
           <input
+            id="search"
+            name="search"
             onChange={[Function]}
             onFocus={[Function]}
             placeholder="Aloita kirjoittamalla tähän, esim. teatteri"
@@ -68,7 +73,10 @@ Array [
     <div
       className="dateSelectorWrapper"
     >
-      <label>
+      <label
+        className="searchLabel black srOnly"
+        htmlFor="date"
+      >
         Mille ajankohdalle etsit?
       </label>
       <div

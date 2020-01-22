@@ -11,6 +11,7 @@ interface Props {
   dateTypes: string[];
   endDate: Date | null;
   isCustomDate: boolean;
+  name: string;
   onChangeDateTypes: (value: string[]) => void;
   onChangeEndDate: (date: Date | null) => void;
   onChangeStartDate: (date: Date | null) => void;
@@ -22,6 +23,7 @@ const DateSelector: FunctionComponent<Props> = ({
   dateTypes,
   endDate,
   isCustomDate,
+  name,
   onChangeDateTypes,
   onChangeEndDate,
   onChangeStartDate,
@@ -113,6 +115,7 @@ const DateSelector: FunctionComponent<Props> = ({
         endDate={endDate}
         isCustomDate={isCustomDate}
         isOpen={isMenuOpen}
+        name={name}
         onChangeDateTypes={onChangeDateTypes}
         onChangeEndDate={onChangeEndDate}
         onChangeStartDate={onChangeStartDate}
