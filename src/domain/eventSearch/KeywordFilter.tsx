@@ -5,7 +5,7 @@ import FilterButton, {
   FilterType
 } from "../../common/components/filterButton/FilterButton";
 import { useKeywordDetailsQuery } from "../../generated/graphql";
-import getLocale from "../../util/getLocale";
+import useLocale from "../../hooks/useLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 
 const KeywordFilter: React.FC<Props> = ({ id, onRemove }) => {
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
   const { data, loading } = useKeywordDetailsQuery({
     variables: { id }
   });

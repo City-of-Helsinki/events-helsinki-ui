@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 
 import { EventDetailsQuery, LocalizedObject } from "../../generated/graphql";
-import getLocale from "../../util/getLocale";
+import useLocale from "../../hooks/useLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const EventPageMeta: React.FC<Props> = ({ eventData }) => {
-  const locale = getLocale();
+  const locale = useLocale();
 
   const getLocal = (localizedObject: LocalizedObject) =>
     getLocalisedString(localizedObject, locale);

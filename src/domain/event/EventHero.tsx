@@ -12,8 +12,8 @@ import { RouteComponentProps, withRouter } from "react-router";
 
 import Button from "../../common/components/button/Button";
 import { EventDetailsQuery } from "../../generated/graphql";
+import useLocale from "../../hooks/useLocale";
 import getDateRangeStr from "../../util/getDateRangeStr";
-import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import Container from "../app/layout/Container";
 import styles from "./eventHero.module.scss";
@@ -31,7 +31,7 @@ const EventHero: React.FC<Props> = ({
   location: { search }
 }) => {
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
 
   const offerInfoUrl = React.useMemo(() => {
     const offer = eventData.eventDetails.offers.find(item =>

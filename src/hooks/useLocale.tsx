@@ -1,7 +1,9 @@
-import i18n from "../common/translation/i18n/i18nInit";
+import { useTranslation } from "react-i18next";
+
 import { Language } from "../types";
 
 export default (): Language => {
+  const { i18n } = useTranslation();
   const language = i18n.language;
 
   switch (language) {

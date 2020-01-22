@@ -3,7 +3,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import Keyword from "../../common/components/keyword/Keyword";
-import getLocale from "../../util/getLocale";
+import useLocale from "../../hooks/useLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import { isEventFree } from "./EventUtils";
 import { EventInList } from "./types";
@@ -19,7 +19,7 @@ const EventKeywords: React.FC<Props> = ({
   showIsFree
 }) => {
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
 
   const startTime = event.startTime;
   const today = startTime ? isToday(new Date(startTime)) : false;

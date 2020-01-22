@@ -6,8 +6,8 @@ import { useHistory, useLocation } from "react-router";
 
 import Button from "../../common/components/button/Button";
 import Keyword from "../../common/components/keyword/Keyword";
+import useLocale from "../../hooks/useLocale";
 import getDateRangeStr from "../../util/getDateRangeStr";
-import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import getTimeRangeStr from "../../util/getTimeRangeStr";
 import EventKeywords from "../event/EventKeywords";
@@ -24,7 +24,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
   const { search } = useLocation();
-  const locale = getLocale();
+  const locale = useLocale();
 
   const offerInfoUrl = React.useMemo(() => {
     const offer = event.offers.find(item =>
