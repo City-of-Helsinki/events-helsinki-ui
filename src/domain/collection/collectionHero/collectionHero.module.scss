@@ -1,0 +1,10 @@
+@import "colors";
+@import "layout";
+
+$heroHeight: 30.6875rem; 
+
+.collectionHero {
+  background: $hel-white;
+  min-height: $heroHeight;
+  height: auto;
+}
