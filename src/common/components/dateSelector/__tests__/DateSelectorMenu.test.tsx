@@ -12,6 +12,7 @@ test("DateSelectorMenu matches snapshot", () => {
         endDate={new Date("2019-09-31")}
         isCustomDate={false}
         isOpen={true}
+        name="date"
         onChangeDateTypes={() => {}}
         onChangeEndDate={() => {}}
         onChangeStartDate={() => {}}

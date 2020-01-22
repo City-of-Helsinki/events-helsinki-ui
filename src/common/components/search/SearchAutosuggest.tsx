@@ -19,6 +19,7 @@ import styles from "./searchAutosuggest.module.scss";
 
 interface Props {
   categories: CategoryType[];
+  name: string;
   onChangeSearchValue: (value: string) => void;
   onOptionClick: (item: AutosuggestMenuOption) => void;
   onRemoveCategory?: (category: CategoryType) => void;
@@ -28,6 +29,7 @@ interface Props {
 
 const SearchAutosuggest: FunctionComponent<Props> = ({
   categories,
+  name,
   onOptionClick,
   onRemoveCategory,
   onChangeSearchValue,
@@ -335,6 +337,8 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       <div className={styles.inputWrapper}>
         <input
           ref={input}
+          id={name}
+          name={name}
           onChange={handleInputChange}
           onFocus={handleInputFocus}
           placeholder={placeholder}
