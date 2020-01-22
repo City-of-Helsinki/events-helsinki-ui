@@ -10,9 +10,9 @@ import Dropdown from "../../common/components/dropdown/Dropdown";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import { AutosuggestMenuOption } from "../../common/types";
 import { CATEGORIES, DISTRICTS, TARGET_GROUPS } from "../../constants";
+import useLocale from "../../hooks/useLocale";
 import IconPerson from "../../icons/IconPerson";
 import IconRead from "../../icons/IconRead";
-import getLocale from "../../util/getLocale";
 import getUrlParamAsArray from "../../util/getUrlParamAsString";
 import { getSearchQuery } from "../../util/searchUtils";
 import { translateValue } from "../../util/translateUtils";
@@ -25,7 +25,7 @@ const Search: FunctionComponent = () => {
     search
   ]);
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
   const [searchValue, setSearchValue] = React.useState("");
   const [dateTypes, setDateTypes] = React.useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = React.useState<string[]>(

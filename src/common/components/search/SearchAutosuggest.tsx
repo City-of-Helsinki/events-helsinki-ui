@@ -9,7 +9,7 @@ import {
   usePlaceListQuery
 } from "../../../generated/graphql";
 import useDebounce from "../../../hooks/useDebounce";
-import getLocale from "../../../util/getLocale";
+import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
 import { translateValue } from "../../../util/translateUtils";
 import { AutosuggestMenuOption, Category as CategoryType } from "../../types";
@@ -36,7 +36,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
 }) => {
   const { t } = useTranslation();
   const [focusedOption, setFocusedOption] = React.useState(-1);
-  const locale = getLocale();
+  const locale = useLocale();
   const container = React.useRef<HTMLDivElement | null>(null);
   const categoryWrapper = React.useRef<HTMLDivElement | null>(null);
   const input = React.useRef<HTMLInputElement | null>(null);

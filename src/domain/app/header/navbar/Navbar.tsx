@@ -4,13 +4,13 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
 import IconLink from "../../../../common/components/link/IconLink";
-import getLocale from "../../../../util/getLocale";
+import useLocale from "../../../../hooks/useLocale";
 import LanguageDropdown from "./languageDropdown/LanguageDropdown";
 import styles from "./navbar.module.scss";
 
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
   const history = useHistory();
 
   return (
