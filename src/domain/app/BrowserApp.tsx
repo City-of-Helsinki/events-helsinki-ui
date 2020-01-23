@@ -8,7 +8,7 @@ import { useSSR } from "react-i18next";
 import { BrowserRouter } from "react-router-dom";
 
 import createGraphqlClient from "../../util/createGraphqlClient";
-import appRoutes from "./appRoutes";
+import AppRoutes from "./AppRoutes";
 
 const BrowserApp: FunctionComponent = () => {
   useSSR(window.initialI18nStore, window.initialLanguage);
@@ -19,7 +19,9 @@ const BrowserApp: FunctionComponent = () => {
   return (
     <BrowserRouter>
       <ApolloProvider client={client}>
-        <ApolloHooksProvider client={client}>{appRoutes}</ApolloHooksProvider>
+        <ApolloHooksProvider client={client}>
+          <AppRoutes />
+        </ApolloHooksProvider>
       </ApolloProvider>
     </BrowserRouter>
   );
