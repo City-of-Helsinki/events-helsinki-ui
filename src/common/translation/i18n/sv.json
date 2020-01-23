@@ -186,9 +186,11 @@
     "textFoundEvents": "{{count}} sökresultat"
   },
   "footer": {
-    "titleCategories": "Kategoriat (sv)",
+    "linkAbout": "About",
+    "linkFeedback": "Ge feedback",
     "searchCollections": "Vi rekommenderar",
-    "searchEvents": "Hitta något att göra"
+    "searchEvents": "Hitta något att göra",
+    "titleCategories": "Kategorier"
   },
   "header": {
     "ariaButtonCloseMenu": "Sulje valikko (sv)",
@@ -227,9 +229,9 @@
     }
   },
   "menu": {
-    "aboutService": "Tietoa palvelusta (sv)",
-    "mostPopular": "Suosituimmat haut (sv)",
-    "searchCategories": "Selaa kategorioita (sv)",
+    "aboutService": "About",
+    "mostPopular": "Toppsökningar",
+    "searchCategories": "Bläddra i kategorier",
     "searchEvents": "Hitta något att göra"
   }
 }

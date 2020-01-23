@@ -186,9 +186,11 @@
     "textFoundEvents": "{{count}} search results"
   },
   "footer": {
-    "titleCategories": "Kategoriat (en)",
+    "linkAbout": "About",
+    "linkFeedback": "Give feedback",
     "searchCollections": "We recommend",
-    "searchEvents": "Find something to do"
+    "searchEvents": "Find something to do",
+    "titleCategories": "Categories"
   },
   "header": {
     "ariaButtonCloseMenu": "Sulje valikko (en)",
@@ -227,9 +229,9 @@
     }
   },
   "menu": {
-    "aboutService": "Tietoa palvelusta (en)",
-    "mostPopular": "Suosituimmat haut (en)",
-    "searchCategories": "Selaa kategorioita (en)",
+    "aboutService": "About",
+    "mostPopular": "Top searches",
+    "searchCategories": "Browse Categories",
     "searchEvents": "Find something to do"
   }
 }

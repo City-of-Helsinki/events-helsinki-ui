@@ -186,9 +186,12 @@
     "textFoundEvents": "{{count}} hakutulosta"
   },
   "footer": {
-    "titleCategories": "Kategoriat",
+    "linkAbout": "Tietoa palvelusta",
+    "linkFeedback": "Anna palautetta",
     "searchCollections": "Suosittelemme",
-    "searchEvents": "Etsi tekemistä"
+    "searchEvents": "Etsi tekemistä",
+    "titleCategories": "Kategoriat"
+
   },
   "header": {
     "ariaButtonCloseMenu": "Sulje valikko",
