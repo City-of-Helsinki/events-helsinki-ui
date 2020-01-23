@@ -178,7 +178,7 @@
       "labelDistrict": "From where are you looking for?",
       "labelSearchField": "What you are looking for?",
       "labelTargetGroup": "Whom you are looking for?",
-      "placeholder": "Start typing here, eg theater",
+      "placeholder": "Enter a keyword, eg rock or yoga",
       "titleDropdownCategory": "Select category",
       "titleDropdownDistrict": "Select area",
       "titleDropdownTargetGroup": "Select for whom"
@@ -224,8 +224,8 @@
       "buttonSearch": "Search",
       "labelDateRange": "For what period you are looking for?",
       "labelSearchField": "What you are looking for?",
-      "placeholder": "Start typing here, eg theater",
-      "title": "Find something to do!"
+      "placeholder": "Enter a keyword, eg rock or yoga",
+      "title": "Find something to do"
     }
   },
   "menu": {

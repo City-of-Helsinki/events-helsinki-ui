@@ -26,7 +26,7 @@
       "menu": {
         "buttonBack": "Tillbaka",
         "buttonClose": "Stänga",
-        "buttonCustom": "Välj datu,"
+        "buttonCustom": "Välj datum"
       },
       "title": "Välj period"
     },
@@ -178,7 +178,7 @@
       "labelDistrict": "Varifrån letar du efter??",
       "labelSearchField": "Vad du letar efter?",
       "labelTargetGroup": "Vem du letar efter?",
-      "placeholder": "Börja skriva här, t.ex. teater",
+      "placeholder": "Ange ett nyckelord, t.ex. rock eller yoga",
       "titleDropdownCategory": "Välj kategori",
       "titleDropdownDistrict": "Välj område",
       "titleDropdownTargetGroup": "Välj vem"
@@ -224,8 +224,8 @@
       "buttonSearch": "Sök",
       "labelDateRange": "För vilken period du letar efter?",
       "labelSearchField": "Vad du letar efter?",
-      "placeholder": "Börja skriva här, t.ex. teater",
-      "title": "Hitta något att göra!"
+      "placeholder": "Ange ett nyckelord, t.ex. rock eller yoga",
+      "title": "Hitta något att göra"
     }
   },
   "menu": {
