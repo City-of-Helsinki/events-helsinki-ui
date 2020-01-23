@@ -37,6 +37,16 @@ const checkIsServerReady = (response: Response) => {
   }
 };
 
+const getInitialI18nStore = (req: Request) => {
+  const initialI18nStore: { [key: string]: string | object } = {};
+
+  req.i18n.languages.forEach((l: string) => {
+    initialI18nStore[l] = req.i18n.services.resourceStore.data[l];
+  });
+
+  return initialI18nStore;
+};
+
 const app = express();
 
 app.use(express.static(__dirname, { index: false }));
@@ -76,11 +86,15 @@ app.use(async (req: Request, res: Response) => {
   const content = ReactDOMServer.renderToString(el);
   const helmet = Helmet.renderStatic();
   const assets = getAssets();
+  const initialI18nStore = getInitialI18nStore(req);
+  const initialLanguage = req.i18n.languages[0];
   const htmlEl = React.createElement(Html, {
     assets,
     canonicalUrl: `${getDomainFromRequest(req)}${req.url}`,
     content,
     helmet,
+    initialI18nStore,
+    initialLanguage,
     state
   });
   const html = ReactDOMServer.renderToString(htmlEl);

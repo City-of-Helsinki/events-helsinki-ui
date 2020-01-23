@@ -64,6 +64,14 @@ exports[`Html matches snapshot 1`] = `
       }
     />
     <script
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "window.initialI18nStore={\\"en\\":{},\\"fi\\":{},\\"sv\\":{}};
+window.initialLanguage=\\"fi\\";",
+        }
+      }
+    />
+    <script
       src="test1.js"
     />
     <script

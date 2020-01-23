@@ -1,4 +1,5 @@
 import React from "react";
+import serialize from "serialize-javascript";
 
 interface Props {
   assets: {
@@ -19,6 +20,8 @@ interface Props {
   };
   state: object;
   canonicalUrl: string;
+  initialI18nStore: object;
+  initialLanguage: string;
 }
 
 const Html: React.FC<Props> = ({
@@ -26,7 +29,9 @@ const Html: React.FC<Props> = ({
   content,
   helmet,
   state,
-  canonicalUrl
+  canonicalUrl,
+  initialI18nStore,
+  initialLanguage
 }) => {
   return (
     <html lang="en">
@@ -59,6 +64,16 @@ const Html: React.FC<Props> = ({
               /</g,
               "\\u003c"
             )};`
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: [
+              `window.initialI18nStore=${serialize(initialI18nStore, {
+                isJSON: true
+              })};`,
+              `window.initialLanguage="${initialLanguage}";`
+            ].join("\n")
           }}
         />
         {assets.js &&

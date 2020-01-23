@@ -31,6 +31,12 @@ test("Html matches snapshot", () => {
       helmet={helmet}
       state={{}}
       canonicalUrl={canonicalUrl}
+      initialI18nStore={{
+        en: {},
+        fi: {},
+        sv: {}
+      }}
+      initialLanguage="fi"
     />
   );
   const tree = component.toJSON();
