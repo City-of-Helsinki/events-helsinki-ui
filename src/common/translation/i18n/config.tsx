@@ -1,12 +1,16 @@
-export default {
+import { InitOptions } from "i18next";
+
+const i18Config: InitOptions = {
   fallbackLng: "fi",
   interpolation: {
     escapeValue: false
   },
-  lng: "fi",
+  load: "languageOnly",
   preload: ["fi", "en", "sv"],
   react: {
     useSuspense: false
   },
   saveMissing: true
 };
+
+export default i18Config;
