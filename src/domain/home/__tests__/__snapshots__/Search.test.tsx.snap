@@ -23,7 +23,7 @@ Array [
       className="titleWrapper"
     >
       <h3>
-        Löydä itsellesi tekemistä!
+        Löydä tekemistä
       </h3>
     </div>
     <div
@@ -63,7 +63,7 @@ Array [
             name="search"
             onChange={[Function]}
             onFocus={[Function]}
-            placeholder="Aloita kirjoittamalla tähän, esim. teatteri"
+            placeholder="Kirjoita hakusana, esim. rock tai jooga"
             type="text"
             value=""
           />

@@ -470,12 +470,6 @@ exports[`Footer matches snapshot 1`] = `
             Tietoa palvelusta
           </a>
           <a
-            href="/faq"
-            onClick={[Function]}
-          >
-            Usein kysyttyä
-          </a>
-          <a
             href="/feedback"
             onClick={[Function]}
           >
