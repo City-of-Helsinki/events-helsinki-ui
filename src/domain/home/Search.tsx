@@ -20,7 +20,6 @@ import CategoryFilters from "../../common/components/category/CategoryFilters";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import SearchLabel from "../../common/components/search/searchLabel/SearchLabel";
-import SupriseMeButton from "../../common/components/search/SupriseMeButton";
 import { AutosuggestMenuOption, Category } from "../../common/types";
 import { CATEGORIES } from "../../constants";
 import useLocale from "../../hooks/useLocale";
@@ -88,11 +87,6 @@ const Search: FunctionComponent = () => {
     startDate
   ]);
 
-  const handleClickSupriseMe = () => {
-    // TODO: Add suprise me feature
-    alert("TODO: suprise me");
-  };
-
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
     const type = option.type;
     const value = option.value;
@@ -118,7 +112,8 @@ const Search: FunctionComponent = () => {
   return (
     <>
       <div className={styles.searchContainer}>
-        <SupriseMeButton onClick={handleClickSupriseMe} />
+        {/* Hide Suprise me button on MVP version */}
+        {/* <SupriseMeButton onClick={handleClickSupriseMe} /> */}
         <div className={styles.titleWrapper}>
           <h3>{t("home.search.title")}</h3>
         </div>
