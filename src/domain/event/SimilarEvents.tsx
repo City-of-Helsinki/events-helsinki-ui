@@ -35,15 +35,18 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
   });
   // Filter by search query if exists, if not filter by event keywords
   const searchParams = new URLSearchParams(search ? search : eventSearch);
+  const eventFilters = React.useMemo(() => {
+    return getEventFilters(
+      searchParams,
+      PAGE_SIZE,
+      EVENT_SORT_OPTIONS.END_TIME
+    );
+  }, [searchParams]);
   const { t } = useTranslation();
 
   const { data: eventsData, loading } = useEventListQuery({
     skip: !isClient,
-    variables: getEventFilters(
-      searchParams,
-      PAGE_SIZE,
-      EVENT_SORT_OPTIONS.END_TIME
-    )
+    variables: eventFilters
   });
 
   // To display only certain amount of events.

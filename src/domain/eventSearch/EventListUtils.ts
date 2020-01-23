@@ -63,6 +63,15 @@ const getFilterDates = (
 };
 
 /**
+ * Get current hour as string to event query
+ * @return {string}
+ */
+const getCurrentHour = (): string => {
+  const now = new Date();
+  return `${formatDate(now)}T${formatDate(now, "HH")}`;
+};
+
+/**
  * Get event list request filters from url parameters
  * @param params
  * @param pageSize {number}
@@ -80,14 +89,13 @@ export const getEventFilters = (
     params.get("endDate")
   );
   if (!startDate || isPast(new Date(startDate))) {
-    startDate = formatDate(new Date());
+    startDate = getCurrentHour();
   }
   if (endDate && isPast(new Date(endDate))) {
-    endDate = formatDate(new Date());
+    endDate = getCurrentHour();
   }
 
   const places = getUrlParamAsString(params, "places");
-
   const categories = getUrlParamAsString(params, "categories");
   const districts = getUrlParamAsString(params, "districts");
   const mappedDistricts: string[] = districts.map(district => {
