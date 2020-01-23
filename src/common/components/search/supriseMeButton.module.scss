@@ -2,23 +2,27 @@
 @import "layout";
 
 .supriseMeButton {
-  height: 6.25rem;
-  width: 6.25rem;
+  height: 4.75rem;
+  width: 4.75rem;  
   border-radius: 50%;
   position: absolute;
-  top: -4.75rem;
+  top: -3.75rem;
   right: 2.5rem;
   overflow: hidden;
   background-color: $hel-suomenlinna;
   border: none;
   cursor: pointer;
-
+  
   .text {
-    font-size: 0.875rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.6875rem;
     position: absolute;
-    top: 1.875rem;
-    width: 6.25rem;
-    left: 0;
+    top: 0.75rem;
+    width: 4.125rem;
+    left: 0.3125rem;
     font-weight: 600;
     color: $hel-black;
   }
@@ -26,26 +30,26 @@
   svg {
     position: absolute;
     bottom: 0;
-    height: 3rem;
-    width: 3rem;
+    height: 2.25rem;
+    width: 2.25rem;
     transform: translateX(-50%);
   }
 
-  @include respond-below(sm) {
-    height: 4.75rem;
-    width: 4.75rem;
-    top: -3.75rem;
+  @include respond-above(sm) {
+    height: 6.25rem;
+    width: 6.25rem;
+    top: -4.75rem;
 
     .text {
-      font-size: 0.6875rem;
-      top: 0.75rem;
-      width: 3.125rem;
-      left: 0.8125rem;
+      font-size: 0.875rem;
+      top: 1.25rem;
+      width: 6.25rem;
+      left: 0;
     }
 
     svg {
-      height: 2.25rem;
-      width: 2.25rem;
+      height: 3rem;
+      width: 3rem;
     }
   }
 }

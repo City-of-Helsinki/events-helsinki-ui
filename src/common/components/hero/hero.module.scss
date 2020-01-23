@@ -50,13 +50,18 @@
   }
 
   .title {
-    font-size: 5rem;
-    max-width: 19.625rem;
+    font-size: 3.25rem;
     color: $hel-black;
     font-weight: 600;
+    margin-bottom: 1rem;
 
-    @include respond-below(md) {
-      font-size: 3.25rem;
+    @include respond-above(md) {
+      max-width: 19.625rem;
+    }
+
+    @include respond-above(lg) {
+      font-size: 5rem;
+      max-width: 38rem;
     }
   }
 }
