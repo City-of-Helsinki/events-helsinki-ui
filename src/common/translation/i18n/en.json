@@ -1,15 +1,15 @@
 {
-  "appName": "Tapahtumat (en)",
+  "appName": "Events",
   "commons": {
     "autosuggest": {
       "menu": {
-        "ariaButtonClose": "Sulje valikko (en)",
-        "info": "Voit myös etsiä kirjoittamallasi hakusanalla (en)",
-        "title": "Hakuehdotuksia (en)"
+        "ariaButtonClose": "Close menu",
+        "info": "You can also search by the keyword you entered",
+        "title": "Search suggestions"
       }
     },
     "category": {
-      "ariaButtonRemove": "Poista kategoria: {{category}} (en)"
+      "ariaButtonRemove": "Remove category: {{category}}"
     },
     "collectionCard": {
       "count": "{{count}} pcs"
@@ -193,8 +193,8 @@
     "titleCategories": "Categories"
   },
   "header": {
-    "ariaButtonCloseMenu": "Sulje valikko (en)",
-    "ariaButtonOpenMenu": "Avaa valikko (en)",
+    "ariaButtonCloseMenu": "Close menu",
+    "ariaButtonOpenMenu": "Open menu",
     "searchCollections": "We recommend",
     "searchEvents": "Find something to do"
   },
@@ -216,9 +216,9 @@
       "title": "We recommend"
     },
     "hero": {
-      "buttonText": "Katso vinkit (en)",
-      "subTitle": "Kokosimme yhteen (en)",
-      "title": "Syysloman riehakkaimmat riennot! (en)"
+      "buttonText": "See tips",
+      "subTitle": "We put it together",
+      "title": "The most tragic treats of an autumn holiday!"
     },
     "search": {
       "buttonSearch": "Search",
