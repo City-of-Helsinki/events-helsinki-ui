@@ -1,11 +1,12 @@
 import { InitOptions } from "i18next";
 
+import { DEFAULT_LANGUAGE } from "../../../constants";
 import en from "./en.json";
 import fi from "./fi.json";
 import sv from "./sv.json";
 
 const i18Config: InitOptions = {
-  fallbackLng: "fi",
+  fallbackLng: DEFAULT_LANGUAGE,
   interpolation: {
     escapeValue: false
   },

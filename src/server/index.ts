@@ -11,7 +11,9 @@ import ReactDOMServer from "react-dom/server";
 import Helmet from "react-helmet";
 
 import i18next from "../common/translation/i18n/init.server";
+import { SUPPORT_LANGUAGES } from "../constants";
 import getDomainFromRequest from "../util/getDomainFromRequest";
+import { getLanguageFromUrl } from "../util/translateUtils";
 import { getAssets } from "./assets";
 import Html from "./Html";
 import ServerApp from "./ServerApp";
@@ -40,7 +42,7 @@ const checkIsServerReady = (response: Response) => {
 const getInitialI18nStore = (req: Request) => {
   const initialI18nStore: { [key: string]: string | object } = {};
 
-  req.i18n.languages.forEach((l: string) => {
+  Object.values(SUPPORT_LANGUAGES).forEach((l: string) => {
     initialI18nStore[l] = req.i18n.services.resourceStore.data[l];
   });
 
@@ -71,6 +73,7 @@ app.use(async (req: Request, res: Response) => {
   });
 
   const context: StaticContext = {};
+  req.i18n.changeLanguage(getLanguageFromUrl(req.url));
   const el = React.createElement(ServerApp, {
     client,
     context,
