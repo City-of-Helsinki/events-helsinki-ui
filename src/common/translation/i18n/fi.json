@@ -178,7 +178,7 @@
       "labelDistrict": "Mistä etsit?",
       "labelSearchField": "Mitä etsit?",
       "labelTargetGroup": "Kenelle etsit?",
-      "placeholder": "Aloita kirjoittamalla tähän, esim. teatteri",
+      "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
       "titleDropdownCategory": "Valitse kategoria",
       "titleDropdownDistrict": "Valitse alue",
       "titleDropdownTargetGroup": "Valitse kenelle"
@@ -186,9 +186,12 @@
     "textFoundEvents": "{{count}} hakutulosta"
   },
   "footer": {
-    "titleCategories": "Kategoriat",
+    "linkAbout": "Tietoa palvelusta",
+    "linkFeedback": "Anna palautetta",
     "searchCollections": "Suosittelemme",
-    "searchEvents": "Etsi tekemistä"
+    "searchEvents": "Etsi tekemistä",
+    "titleCategories": "Kategoriat"
+
   },
   "header": {
     "ariaButtonCloseMenu": "Sulje valikko",
@@ -211,7 +214,7 @@
       "theatre": "Teatteri"
     },
     "collections": {
-      "title": "Kokoelmat"
+      "title": "Suosittelemme"
     },
     "hero": {
       "buttonText": "Katso vinkit",
@@ -222,8 +225,8 @@
       "buttonSearch": "Hae",
       "labelDateRange": "Mille ajankohdalle etsit?",
       "labelSearchField": "Mitä etsit?",
-      "placeholder": "Aloita kirjoittamalla tähän, esim. teatteri",
-      "title": "Löydä itsellesi tekemistä!"
+      "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
+      "title": "Löydä tekemistä"
     }
   },
   "menu": {

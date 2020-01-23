@@ -1,15 +1,15 @@
 {
-  "appName": "Tapahtumat (sv)",
+  "appName": "Evenemang",
   "commons": {
     "autosuggest": {
       "menu": {
-        "ariaButtonClose": "Sulje valikko (sv)",
-        "info": "Voit myös etsiä kirjoittamallasi hakusanalla (sv)",
-        "title": "Hakuehdotuksia (sv)"
+        "ariaButtonClose": "Stäng menyn",
+        "info": "Du kan också söka efter nyckelordet du angav",
+        "title": "Sökförslag"
       }
     },
     "category": {
-      "ariaButtonRemove": "Poista kategoria: {{category}} (sv)"
+      "ariaButtonRemove": "Radera kategori: {{category}}"
     },
     "collectionCard": {
       "count": "{{count}} st"
@@ -26,7 +26,7 @@
       "menu": {
         "buttonBack": "Tillbaka",
         "buttonClose": "Stänga",
-        "buttonCustom": "Välj datu,"
+        "buttonCustom": "Välj datum"
       },
       "title": "Välj period"
     },
@@ -149,8 +149,8 @@
     },
     "shareLinks": {
       "buttonCopyLink": "Kopiera länk adress",
-      "messageLinkCopySuccess": "SV Linkki kopioitu leikepöydälle",
-      "title": "SV Jaa tapahtuma"
+      "messageLinkCopySuccess": "Länk kopierad till urklipp",
+      "title": "Dela händelsen"
     },
     "similarEvents": {
       "title": "Andra liknande händelser"
@@ -178,7 +178,7 @@
       "labelDistrict": "Varifrån letar du efter??",
       "labelSearchField": "Vad du letar efter?",
       "labelTargetGroup": "Vem du letar efter?",
-      "placeholder": "Börja skriva här, t.ex. teater",
+      "placeholder": "Ange ett nyckelord, t.ex. rock eller yoga",
       "titleDropdownCategory": "Välj kategori",
       "titleDropdownDistrict": "Välj område",
       "titleDropdownTargetGroup": "Välj vem"
@@ -186,13 +186,15 @@
     "textFoundEvents": "{{count}} sökresultat"
   },
   "footer": {
-    "titleCategories": "Kategoriat (sv)",
+    "linkAbout": "About",
+    "linkFeedback": "Ge feedback",
     "searchCollections": "Vi rekommenderar",
-    "searchEvents": "Hitta något att göra"
+    "searchEvents": "Hitta något att göra",
+    "titleCategories": "Kategorier"
   },
   "header": {
-    "ariaButtonCloseMenu": "Sulje valikko (sv)",
-    "ariaButtonOpenMenu": "Avaa valikko (sv)",
+    "ariaButtonCloseMenu": "Stäng menyn",
+    "ariaButtonOpenMenu": "Öppna menyn",
     "searchCollections": "Vi rekommenderar",
     "searchEvents": "Hitta något att göra"
   },
@@ -211,25 +213,25 @@
       "theatre": "Teater"
     },
     "collections": {
-      "title": "Kollektioner"
+      "title": "Vi rekommenderar"
     },
     "hero": {
-      "buttonText": "Katso vinkit (sv)",
-      "subTitle": "Kokosimme yhteen (sv)",
-      "title": "Syysloman riehakkaimmat riennot! (sv)"
+      "buttonText": "Se tips",
+      "subTitle": "Vi sätter ihop det",
+      "title": "Höstlovets fantastiska godsaker!"
     },
     "search": {
       "buttonSearch": "Sök",
       "labelDateRange": "För vilken period du letar efter?",
       "labelSearchField": "Vad du letar efter?",
-      "placeholder": "Börja skriva här, t.ex. teater",
-      "title": "Hitta något att göra!"
+      "placeholder": "Ange ett nyckelord, t.ex. rock eller yoga",
+      "title": "Hitta något att göra"
     }
   },
   "menu": {
-    "aboutService": "Tietoa palvelusta (sv)",
-    "mostPopular": "Suosituimmat haut (sv)",
-    "searchCategories": "Selaa kategorioita (sv)",
+    "aboutService": "About",
+    "mostPopular": "Toppsökningar",
+    "searchCategories": "Bläddra i kategorier",
     "searchEvents": "Hitta något att göra"
   }
 }

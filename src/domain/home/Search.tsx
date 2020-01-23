@@ -19,6 +19,7 @@ import Button from "../../common/components/button/Button";
 import CategoryFilters from "../../common/components/category/CategoryFilters";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
+import SearchLabel from "../../common/components/search/searchLabel/SearchLabel";
 import SupriseMeButton from "../../common/components/search/SupriseMeButton";
 import { AutosuggestMenuOption, Category } from "../../common/types";
 import { CATEGORIES } from "../../constants";
@@ -122,9 +123,12 @@ const Search: FunctionComponent = () => {
           <h3>{t("home.search.title")}</h3>
         </div>
         <div className={styles.autosuggestWrapper}>
-          <label>{t("home.search.labelSearchField")}</label>
+          <SearchLabel htmlFor={"search"}>
+            {t("home.search.labelSearchField")}
+          </SearchLabel>
           <SearchAutosuggest
             categories={categories}
+            name="search"
             onChangeSearchValue={setSearchValue}
             onOptionClick={handleMenuOptionClick}
             onRemoveCategory={handleRemoveCategory}
@@ -133,11 +137,14 @@ const Search: FunctionComponent = () => {
           />
         </div>
         <div className={styles.dateSelectorWrapper}>
-          <label>{t("home.search.labelDateRange")}</label>
+          <SearchLabel color="black" htmlFor="date" srOnly={true}>
+            {t("home.search.labelDateRange")}
+          </SearchLabel>
           <DateSelector
             dateTypes={dateTypes}
             endDate={endDate}
             isCustomDate={isCustomDate}
+            name="date"
             onChangeDateTypes={handleChangeDateTypes}
             onChangeEndDate={setEndDate}
             onChangeStartDate={setStartDate}

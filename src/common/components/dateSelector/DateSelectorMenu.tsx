@@ -17,6 +17,7 @@ interface Props {
   endDate: Date | null;
   isCustomDate: boolean;
   isOpen: boolean;
+  name: string;
   onChangeDateTypes: (value: string[]) => void;
   onChangeEndDate: (date: Date | null) => void;
   onChangeStartDate: (date: Date | null) => void;
@@ -32,6 +33,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
   endDate,
   isCustomDate,
   isOpen,
+  name,
   onChangeDateTypes,
   onChangeEndDate,
   onChangeStartDate,
@@ -59,7 +61,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         <div className={styles.wrapper}>
           <Checkbox
             checked={dateTypes.indexOf(DATE_TYPES.TODAY) !== -1}
-            name="date"
+            name={name}
             onChange={handleCheckboxChange}
             value={DATE_TYPES.TODAY}
           >
@@ -67,7 +69,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
           </Checkbox>
           <Checkbox
             checked={dateTypes.includes(DATE_TYPES.TOMORROW)}
-            name="date"
+            name={name}
             onChange={handleCheckboxChange}
             value={DATE_TYPES.TOMORROW}
           >
@@ -75,7 +77,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
           </Checkbox>
           <Checkbox
             checked={dateTypes.includes(DATE_TYPES.THIS_WEEK)}
-            name="date"
+            name={name}
             onChange={handleCheckboxChange}
             value={DATE_TYPES.THIS_WEEK}
           >
@@ -83,7 +85,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
           </Checkbox>
           <Checkbox
             checked={dateTypes.includes(DATE_TYPES.WEEKEND)}
-            name="date"
+            name={name}
             onChange={handleCheckboxChange}
             value={DATE_TYPES.WEEKEND}
           >

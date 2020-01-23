@@ -1,15 +1,15 @@
 {
-  "appName": "Tapahtumat (en)",
+  "appName": "Events",
   "commons": {
     "autosuggest": {
       "menu": {
-        "ariaButtonClose": "Sulje valikko (en)",
-        "info": "Voit myös etsiä kirjoittamallasi hakusanalla (en)",
-        "title": "Hakuehdotuksia (en)"
+        "ariaButtonClose": "Close menu",
+        "info": "You can also search by the keyword you entered",
+        "title": "Search suggestions"
       }
     },
     "category": {
-      "ariaButtonRemove": "Poista kategoria: {{category}} (en)"
+      "ariaButtonRemove": "Remove category: {{category}}"
     },
     "collectionCard": {
       "count": "{{count}} pcs"
@@ -178,7 +178,7 @@
       "labelDistrict": "From where are you looking for?",
       "labelSearchField": "What you are looking for?",
       "labelTargetGroup": "Whom you are looking for?",
-      "placeholder": "Start typing here, eg theater",
+      "placeholder": "Enter a keyword, eg rock or yoga",
       "titleDropdownCategory": "Select category",
       "titleDropdownDistrict": "Select area",
       "titleDropdownTargetGroup": "Select for whom"
@@ -186,13 +186,15 @@
     "textFoundEvents": "{{count}} search results"
   },
   "footer": {
-    "titleCategories": "Kategoriat (en)",
+    "linkAbout": "About",
+    "linkFeedback": "Give feedback",
     "searchCollections": "We recommend",
-    "searchEvents": "Find something to do"
+    "searchEvents": "Find something to do",
+    "titleCategories": "Categories"
   },
   "header": {
-    "ariaButtonCloseMenu": "Sulje valikko (en)",
-    "ariaButtonOpenMenu": "Avaa valikko (en)",
+    "ariaButtonCloseMenu": "Close menu",
+    "ariaButtonOpenMenu": "Open menu",
     "searchCollections": "We recommend",
     "searchEvents": "Find something to do"
   },
@@ -211,25 +213,25 @@
       "theatre": "Theater"
     },
     "collections": {
-      "title": "Collections"
+      "title": "We recommend"
     },
     "hero": {
-      "buttonText": "Katso vinkit (en)",
-      "subTitle": "Kokosimme yhteen (en)",
-      "title": "Syysloman riehakkaimmat riennot! (en)"
+      "buttonText": "See tips",
+      "subTitle": "We put it together",
+      "title": "The most tragic treats of an autumn holiday!"
     },
     "search": {
       "buttonSearch": "Search",
       "labelDateRange": "For what period you are looking for?",
       "labelSearchField": "What you are looking for?",
-      "placeholder": "Start typing here, eg theater",
-      "title": "Find something to do!"
+      "placeholder": "Enter a keyword, eg rock or yoga",
+      "title": "Find something to do"
     }
   },
   "menu": {
-    "aboutService": "Tietoa palvelusta (en)",
-    "mostPopular": "Suosituimmat haut (en)",
-    "searchCategories": "Selaa kategorioita (en)",
+    "aboutService": "About",
+    "mostPopular": "Top searches",
+    "searchCategories": "Browse Categories",
     "searchEvents": "Find something to do"
   }
 }
