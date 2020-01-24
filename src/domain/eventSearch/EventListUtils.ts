@@ -113,7 +113,9 @@ export const getEventFilters = (
     }
   });
   // Get only events in Helsinki
-  mappedDistricts.push("kunta:helsinki");
+  if (!mappedDistricts.length) {
+    mappedDistricts.push("kunta:helsinki");
+  }
 
   const keywords = getUrlParamAsString(params, "keywords");
   const mappedCategories: string[] = categories.map(category => {
