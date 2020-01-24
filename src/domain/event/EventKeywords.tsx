@@ -11,11 +11,13 @@ interface Props {
   blackOnMobile?: boolean;
   event: EventInList;
   showIsFree: boolean;
+  showKeywords?: boolean;
 }
 const EventKeywords: React.FC<Props> = ({
   blackOnMobile,
   event,
-  showIsFree
+  showIsFree,
+  showKeywords = true
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
@@ -32,7 +34,8 @@ const EventKeywords: React.FC<Props> = ({
 
   return (
     <div>
-      {keywords &&
+      {!!keywords.length &&
+        showKeywords &&
         keywords.map(keyword => {
           return (
             <Keyword
@@ -42,7 +45,7 @@ const EventKeywords: React.FC<Props> = ({
             />
           );
         })}
-      {!today && !thisWeek && (
+      {today && (
         <Keyword
           color="engelLight50"
           keyword={t("event.categories.labelToday")}

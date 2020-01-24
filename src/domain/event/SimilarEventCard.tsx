@@ -50,14 +50,22 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
           </div>
 
           <div className={styles.categoryWrapper}>
-            <EventKeywords event={event} showIsFree={false} />
+            <EventKeywords
+              event={event}
+              showIsFree={false}
+              showKeywords={false}
+            />
           </div>
         </div>
       </div>
       <div className={styles.infoWrapper}>
         <div>
           <div className={styles.categoryWrapperMobile}>
-            <EventKeywords event={event} showIsFree={true} />
+            <EventKeywords
+              event={event}
+              showIsFree={true}
+              showKeywords={false}
+            />
           </div>
           <div className={styles.textWrapper}>
             <div className={styles.eventDateAndTime}>
