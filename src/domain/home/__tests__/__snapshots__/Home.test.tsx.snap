@@ -327,20 +327,6 @@ exports[`Home matches snapshot 1`] = `
       <div
         className="searchContainer"
       >
-        <button
-          className="supriseMeButton"
-          onClick={[Function]}
-          type="button"
-        >
-          <div
-            className="text"
-          >
-            Koeta onneasi
-          </div>
-          <svg>
-            suprise-me.svg
-          </svg>
-        </button>
         <div
           className="titleWrapper"
         >

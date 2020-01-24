@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 
 import Keyword from "../../common/components/keyword/Keyword";
 import useLocale from "../../hooks/useLocale";
-import getLocalisedString from "../../util/getLocalisedString";
 import { getEventKeywords, isEventFree } from "./EventUtils";
 import { EventInList } from "./types";
 
