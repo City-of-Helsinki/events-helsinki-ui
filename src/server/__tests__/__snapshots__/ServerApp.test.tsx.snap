@@ -327,25 +327,11 @@ exports[`ServerApp matches snapshot 1`] = `
       <div
         className="searchContainer"
       >
-        <button
-          className="supriseMeButton"
-          onClick={[Function]}
-          type="button"
-        >
-          <div
-            className="text"
-          >
-            Koeta onneasi
-          </div>
-          <svg>
-            suprise-me.svg
-          </svg>
-        </button>
         <div
           className="titleWrapper"
         >
           <h3>
-            Löydä itsellesi tekemistä!
+            Löydä tekemistä
           </h3>
         </div>
         <div
@@ -385,7 +371,7 @@ exports[`ServerApp matches snapshot 1`] = `
                 name="search"
                 onChange={[Function]}
                 onFocus={[Function]}
-                placeholder="Aloita kirjoittamalla tähän, esim. teatteri"
+                placeholder="Kirjoita hakusana, esim. rock tai jooga"
                 type="text"
                 value=""
               />
@@ -905,7 +891,7 @@ exports[`ServerApp matches snapshot 1`] = `
         className="container"
       >
         <h2>
-          Kokoelmat
+          Suosittelemme
         </h2>
         <div
           className="collectionCardContainer lgSize"
@@ -1781,12 +1767,6 @@ exports[`ServerApp matches snapshot 1`] = `
               onClick={[Function]}
             >
               Tietoa palvelusta
-            </a>
-            <a
-              href="/fi/faq"
-              onClick={[Function]}
-            >
-              Usein kysyttyä
             </a>
             <a
               href="/fi/feedback"

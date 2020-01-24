@@ -10,21 +10,13 @@ import TwitterShareLink from "../../common/components/shareLink/TwitterShareLink
 import isClient from "../../util/isClient";
 import styles from "./eventShareLinks.module.scss";
 
-function useClientHref(): string | null {
-  return isClient ? window.location.href : null;
-}
-
 const ShareLinks: React.FunctionComponent = () => {
   const { t } = useTranslation();
   // We are using the client only accessible href. By doing this, we do not need
   // to pass the original request from the server. This same pattern was used in
-  // MyHelsinki. Limitations are that the first render of the page will not
-  // include the sharing buttons.
-  const href = useClientHref();
-
-  if (href === null) {
-    return null;
-  }
+  // MyHelsinki. Limitation is that sharing buttons will be re-rendered on client
+  // side because href value is different
+  const href = isClient ? window.location.href : "";
 
   return (
     <div className={styles.shareSubSection}>
