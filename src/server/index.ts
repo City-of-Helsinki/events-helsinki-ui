@@ -13,7 +13,6 @@ import Helmet from "react-helmet";
 import i18next from "../common/translation/i18n/init.server";
 import { SUPPORT_LANGUAGES } from "../constants";
 import getDomainFromRequest from "../util/getDomainFromRequest";
-import { getLanguageFromUrl } from "../util/translateUtils";
 import { getAssets } from "./assets";
 import Html from "./Html";
 import ServerApp from "./ServerApp";
@@ -73,7 +72,7 @@ app.use(async (req: Request, res: Response) => {
   });
 
   const context: StaticContext = {};
-  req.i18n.changeLanguage(getLanguageFromUrl(req.url));
+
   const el = React.createElement(ServerApp, {
     client,
     context,
