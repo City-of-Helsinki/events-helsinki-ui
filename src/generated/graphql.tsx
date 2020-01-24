@@ -12,6 +12,13 @@ export type Scalars = {
   Float: number,
 };
 
+export type CollectionDetails = {
+   __typename?: 'CollectionDetails',
+  id: Scalars['ID'],
+  eventListQuery: Scalars['String'],
+  eventListTitle: LocalizedObject,
+};
+
 export type Division = {
    __typename?: 'Division',
   type: Scalars['String'],
@@ -229,6 +236,7 @@ export type PlacePosition = {
 export type Query = {
    __typename?: 'Query',
   _empty?: Maybe<Scalars['String']>,
+  collectionDetails: CollectionDetails,
   eventDetails: EventDetails,
   eventList: EventListResponse,
   keywordDetails: Keyword,
@@ -236,6 +244,11 @@ export type Query = {
   organizationDetails: OrganizationDetails,
   placeDetails: Place,
   placeList: PlaceListResponse,
+};
+
+
+export type QueryCollectionDetailsArgs = {
+  id?: Maybe<Scalars['ID']>
 };
 
 
@@ -297,6 +310,23 @@ export type Subscription = {
    __typename?: 'Subscription',
   _empty?: Maybe<Scalars['String']>,
 };
+
+export type CollectionDetailsQueryVariables = {
+  id: Scalars['ID']
+};
+
+
+export type CollectionDetailsQuery = (
+  { __typename?: 'Query' }
+  & { collectionDetails: (
+    { __typename?: 'CollectionDetails' }
+    & Pick<CollectionDetails, 'id' | 'eventListQuery'>
+    & { eventListTitle: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ) }
+  ) }
+);
 
 export type EventDetailsQueryVariables = {
   id: Scalars['ID']
@@ -564,6 +594,56 @@ export type PlaceListQuery = (
 );
 
 
+export const CollectionDetailsDocument = gql`
+    query CollectionDetails($id: ID!) {
+  collectionDetails(id: $id) {
+    id
+    eventListQuery
+    eventListTitle {
+      en
+      fi
+      sv
+    }
+  }
+}
+    `;
+export type CollectionDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<CollectionDetailsQuery, CollectionDetailsQueryVariables> | TChildProps;
+export function withCollectionDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  CollectionDetailsQuery,
+  CollectionDetailsQueryVariables,
+  CollectionDetailsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, CollectionDetailsQuery, CollectionDetailsQueryVariables, CollectionDetailsProps<TChildProps>>(CollectionDetailsDocument, {
+      alias: 'collectionDetails',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useCollectionDetailsQuery__
+ *
+ * To run a query within a React component, call `useCollectionDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCollectionDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCollectionDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useCollectionDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CollectionDetailsQuery, CollectionDetailsQueryVariables>) {
+        return ApolloReactHooks.useQuery<CollectionDetailsQuery, CollectionDetailsQueryVariables>(CollectionDetailsDocument, baseOptions);
+      }
+export function useCollectionDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CollectionDetailsQuery, CollectionDetailsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CollectionDetailsQuery, CollectionDetailsQueryVariables>(CollectionDetailsDocument, baseOptions);
+        }
+export type CollectionDetailsQueryHookResult = ReturnType<typeof useCollectionDetailsQuery>;
+export type CollectionDetailsLazyQueryHookResult = ReturnType<typeof useCollectionDetailsLazyQuery>;
+export type CollectionDetailsQueryResult = ApolloReactCommon.QueryResult<CollectionDetailsQuery, CollectionDetailsQueryVariables>;
 export const EventDetailsDocument = gql`
     query EventDetails($id: ID!) {
   eventDetails(id: $id) {
