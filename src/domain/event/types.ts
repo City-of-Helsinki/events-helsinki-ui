@@ -30,6 +30,11 @@ type LocationInList = {
   streetAddress: Maybe<Pick<LocalizedObject, "fi" | "sv" | "en">>;
 };
 
+export type EventUiKeyword = {
+  id: string;
+  name: string;
+};
+
 export type EventInList = Pick<EventDetails, "id" | "startTime" | "endTime"> & {
   images: Array<Pick<Image, "id" | "name" | "url">>;
   keywords: Array<KeywordInList>;

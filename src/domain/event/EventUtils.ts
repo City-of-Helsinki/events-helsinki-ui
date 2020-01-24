@@ -3,7 +3,8 @@ import { isPast } from "date-fns";
 import { EventDetailsQuery } from "../../generated/graphql";
 import { Language } from "../../types";
 import getLocalisedString from "../../util/getLocalisedString";
-import { EventInList } from "./types";
+import { EVENT_KEYWORD_BLACK_LIST } from "./constants";
+import { EventInList, EventUiKeyword } from "./types";
 
 /**
  * Check is event closed
@@ -65,6 +66,29 @@ export const getEventPrice = (
         .filter(e => e)
         .sort()
         .join(", ");
+};
+
+/**
+ * Get event keywords
+ * @param {object} event
+ * @param {string} locale
+ * @return {object[]}
+ */
+export const getEventKeywords = (
+  event: EventInList,
+  locale: Language
+): EventUiKeyword[] => {
+  return event.keywords
+    .map(keyword => ({
+      id: keyword.id,
+      name: getLocalisedString(keyword.name, locale)
+    }))
+    .filter(
+      (keyword, index, arr) =>
+        !EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
+        arr.findIndex(item => item.name === keyword.name) === index
+    )
+    .sort((a, b) => (a.name > b.name ? 1 : -1));
 };
 
 /**
