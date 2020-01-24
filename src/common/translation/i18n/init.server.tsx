@@ -6,7 +6,7 @@ import config from "./config";
 
 const languageDetectorOptions = {
   // order and from where user language should be detected
-  order: ["path", "cookie", "navigator"]
+  order: ["path", "cookie", "header"]
 };
 
 i18next
