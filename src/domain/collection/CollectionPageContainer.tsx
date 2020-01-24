@@ -1,6 +1,8 @@
 import React from "react";
 import { useParams } from "react-router";
 
+import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
+import { useCollectionDetailsQuery } from "../../generated/graphql";
 import isClient from "../../util/isClient";
 import Layout from "../app/layout/Layout";
 import CollectionHero from "./collectionHero/CollectionHero";
@@ -15,7 +17,9 @@ interface RouteParams {
 
 const CollectionPageContainer: React.FC = () => {
   const params = useParams<RouteParams>();
-  console.log("Collection:", params.id);
+  const { data: collectionData, loading } = useCollectionDetailsQuery({
+    variables: { id: params.id }
+  });
 
   React.useEffect(() => {
     // Scroll to top when collection changes. Ignore this on SSR because window doesn't exist
@@ -27,10 +31,16 @@ const CollectionPageContainer: React.FC = () => {
   return (
     <Layout>
       <div className={styles.collectionPageWrapper}>
-        <CollectionHero />
-        <CurratedEventList />
-        <EventList />
-        <SimilarCollections />
+        <LoadingSpinner isLoading={loading}>
+          {collectionData && (
+            <>
+              <CollectionHero />
+              <CurratedEventList />
+              <EventList collectionData={collectionData} />
+              <SimilarCollections />
+            </>
+          )}
+        </LoadingSpinner>
       </div>
     </Layout>
   );
