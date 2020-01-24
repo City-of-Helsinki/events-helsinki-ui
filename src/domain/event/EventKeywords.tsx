@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import Keyword from "../../common/components/keyword/Keyword";
 import useLocale from "../../hooks/useLocale";
 import getLocalisedString from "../../util/getLocalisedString";
-import { isEventFree } from "./EventUtils";
+import { getEventKeywords, isEventFree } from "./EventUtils";
 import { EventInList } from "./types";
 
 interface Props {
@@ -23,8 +23,10 @@ const EventKeywords: React.FC<Props> = ({
 
   const startTime = event.startTime;
   const today = startTime ? isToday(new Date(startTime)) : false;
-  const keywords = event.keywords;
+  const keywords = getEventKeywords(event, locale);
+
   const thisWeek = startTime ? isThisWeek(new Date(startTime)) : false;
+
   if (!today && !thisWeek && (!keywords || !keywords.length)) {
     return null;
   }
@@ -37,7 +39,7 @@ const EventKeywords: React.FC<Props> = ({
             <Keyword
               blackOnMobile={blackOnMobile}
               key={keyword.id}
-              keyword={getLocalisedString(keyword.name, locale)}
+              keyword={keyword.name}
             />
           );
         })}

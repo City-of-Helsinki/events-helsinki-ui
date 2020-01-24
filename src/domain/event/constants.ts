@@ -84,3 +84,12 @@ export const mockEventData = {
 
 // Amount of the similar events
 export const SIMILAR_EVENTS_AMOUNT = 8;
+
+export const EVENT_KEYWORD_BLACK_LIST = [
+  "kulke:53", // Suomi
+  "kulke:54", // Ruotsi
+  "kulke:55", // Englanti
+  "kulke:616", // Näkyy TV-sovelluksessa
+  "kulke:671", // Normaali
+  "kulke:673" // Suomi (TV)
+];
