@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EventList should match snapshot 1`] = `
+exports[`EventCards should match snapshot 1`] = `
 "<div class=\\"eventCards\\">
   <div class=\\"eventCard\\">
     <div class=\\"similarEventCard\\">

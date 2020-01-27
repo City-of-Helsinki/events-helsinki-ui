@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EventList should match snapshot 1`] = `
+exports[`EventCard should match snapshot 1`] = `
 "<div class=\\"eventCard\\">
   <div class=\\"similarEventCard\\">
     <div class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\">
