@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventList should match snapshot 1`] = `
+"<div class=\\"eventCards\\">
+  <div class=\\"eventCard\\">
+    <div class=\\"similarEventCard\\">
+      <div class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\">
+        <div class=\\"tagWrapperDesktop\\">
+          <div class=\\"priceWrapper\\">
+            <div class=\\"keyword tramLight20\\">Ilmainen</div>
+          </div>
+          <div class=\\"categoryWrapper\\"></div>
+        </div>
+      </div>
+      <div class=\\"infoWrapper\\">
+        <div>
+          <div class=\\"categoryWrapperMobile\\"></div>
+          <div class=\\"textWrapper\\">
+            <div class=\\"eventDateAndTime\\"> 13. joulukuuta 2019 10.00</div>
+            <div class=\\"eventName\\">name fi</div>
+            <div class=\\"eventLocation\\">name fi, streetAddress fi, locality fi</div>
+            <div class=\\"eventPrice\\">Ilmainen</div>
+          </div>
+        </div>
+        <div class=\\"buttonWrapper\\"><button><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
+              <g>
+                <polygon points=\\"13.3706831 2 11.5237192 3.84696395 18.0000474 10.3242884 2 10.3242884 2 12.937334 17.9990512 12.937334 11.5237192 19.412666 13.3706831 21.2586338 23 11.6293169\\"></polygon>
+              </g>
+            </svg></button></div>
+      </div>
+    </div>
+  </div>
+</div>"
+`;
