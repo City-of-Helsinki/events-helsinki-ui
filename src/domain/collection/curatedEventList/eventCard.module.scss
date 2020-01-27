@@ -1,0 +1,13 @@
+@import "colors";
+@import "layout";
+
+.eventCard {
+  min-height: 8rem;
+  display: flex;
+  align-items: center;
+  background: $lightest-gray;
+
+  @include respond_above(sm) {
+    min-height: 25.125rem;
+  }
+}

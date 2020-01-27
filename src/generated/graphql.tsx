@@ -15,6 +15,8 @@ export type Scalars = {
 export type CollectionDetails = {
    __typename?: 'CollectionDetails',
   id: Scalars['ID'],
+  curatedEvents: Array<Scalars['String']>,
+  curatedEventsTitle: LocalizedObject,
   eventListQuery: Scalars['String'],
   eventListTitle: LocalizedObject,
 };
@@ -320,8 +322,11 @@ export type CollectionDetailsQuery = (
   { __typename?: 'Query' }
   & { collectionDetails: (
     { __typename?: 'CollectionDetails' }
-    & Pick<CollectionDetails, 'id' | 'eventListQuery'>
-    & { eventListTitle: (
+    & Pick<CollectionDetails, 'id' | 'curatedEvents' | 'eventListQuery'>
+    & { curatedEventsTitle: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ), eventListTitle: (
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
     ) }
@@ -598,6 +603,12 @@ export const CollectionDetailsDocument = gql`
     query CollectionDetails($id: ID!) {
   collectionDetails(id: $id) {
     id
+    curatedEvents
+    curatedEventsTitle {
+      en
+      fi
+      sv
+    }
     eventListQuery
     eventListTitle {
       en

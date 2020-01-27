@@ -14,7 +14,6 @@ import SimilarEventCard from "./SimilarEventCard";
 import styles from "./similarEvents.module.scss";
 
 interface Props {
-  // TODO: Use event data to get similar events when filtering is implemented to GraphQL proxy
   eventData: EventDetailsQuery;
 }
 
