@@ -21,7 +21,7 @@ const EventCard: React.FC<Props> = ({ eventId }) => {
   return (
     <div className={styles.eventCard}>
       <LoadingSpinner isLoading={loading}>
-        {eventData && <SimilarEventCard event={eventData.eventDetails} />}
+        {!!eventData && <SimilarEventCard event={eventData.eventDetails} />}
         {error && <div>{t("collection.curatedEvents.textEventNotFound")}</div>}
       </LoadingSpinner>
     </div>

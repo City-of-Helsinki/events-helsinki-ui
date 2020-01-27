@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventList should match snapshot 1`] = `
+"<div class=\\"eventList\\">
+  <div class=\\"container\\">
+    <h2>Kaikki syksyn parhaat tapahtumat</h2>
+    <div>
+      <div class=\\"searchResultListContainer\\">
+        <div class=\\"container\\">
+          <div class=\\"searchResultWrapper\\">
+            <div class=\\"eventListWrapper\\">
+              <div class=\\"eventCard\\">
+                <div class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\">
+                  <div class=\\"tagWrapper\\">
+                    <div class=\\"priceWrapper\\">
+                      <div class=\\"keyword tramLight20\\">Ilmainen</div>
+                    </div>
+                    <div class=\\"categoryWrapper\\"></div>
+                  </div>
+                </div>
+                <div class=\\"infoWrapper\\">
+                  <div class=\\"categoryWrapperDesktop\\"></div>
+                  <div class=\\"textWrapper\\">
+                    <div class=\\"eventDateAndTime\\">Perjantai 13. joulukuuta 2019, kello 10.00</div>
+                    <div class=\\"eventName\\">name fi</div>
+                    <div class=\\"eventLocation\\">name fi, streetAddress fi, locality fi</div>
+                    <div class=\\"eventPrice\\">Ilmainen</div>
+                  </div>
+                  <div class=\\"buttonWrapper\\">
+                    <div class=\\"buyButtonWrapper\\"></div>
+                    <div class=\\"readMoreButtonWrapper\\"><button type=\\"button\\" class=\\"_3wgeeaHxiHujNcKzeML5j4 _3aSBFzRPhZcNdul13_gERo _399Vd_uWgH-92CTowU70kQ _2AR2oE9bnVLLmiLEmYiWNc secondary\\"><span class=\\"_2zMLCVF6mmvV2UqfaBF5K\\">Lue lisää</span></button></div>
+                  </div>
+                </div>
+              </div>
+              <div class=\\"loadMoreWrapper\\"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>"
+`;

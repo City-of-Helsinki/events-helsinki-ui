@@ -20,18 +20,23 @@ export const mockEventData = {
         url: "https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg"
       }
     ],
-
     inLanguage: [
       {
         id: "fi",
         name: {
-          fi: "suomi"
+          en: "Finnish",
+          fi: "suomi",
+          sv: "finska"
         },
         translationAvailable: true
       }
     ],
     infoUrl: {
+      en:
+        "https://www.lippu.fi/tickets.html?affiliate=adv&doc=erdetaila&fun=erdetail&erid=2640080",
       fi:
+        "https://www.lippu.fi/tickets.html?affiliate=adv&doc=erdetaila&fun=erdetail&erid=2640080",
+      sv:
         "https://www.lippu.fi/tickets.html?affiliate=adv&doc=erdetaila&fun=erdetail&erid=2640080"
     },
     keywords: [],
@@ -44,10 +49,19 @@ export const mockEventData = {
       divisions: [],
       email: "location@info.com",
       infoUrl: {
-        fi: "http://www.infourl.com"
+        en: "http://www.infourl.com",
+        fi: "http://www.infourl.com",
+        sv: "http://www.infourl.com"
       },
-      name: { en: "name en", fi: "name fi", sv: "name sv" },
-      position: { coordinates: [25.01497, 60.250507], type: "Point" },
+      name: {
+        en: "name en",
+        fi: "name fi",
+        sv: "name sv"
+      },
+      position: {
+        coordinates: [25.01497, 60.250507],
+        type: "Point"
+      },
       postalCode: "01234",
       streetAddress: {
         en: "streetAddress en",
@@ -55,7 +69,9 @@ export const mockEventData = {
         sv: "streetAddress sv"
       },
       telephone: {
-        fi: "044 123 4567"
+        en: "044 123 4567",
+        fi: "044 123 4567",
+        sv: "044 123 4567"
       }
     },
     name: {

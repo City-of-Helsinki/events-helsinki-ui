@@ -48,9 +48,10 @@ test("SearchAutosuggest matches snapshot", () => {
     <MockedProvider mocks={mocks}>
       <SearchAutosuggest
         categories={[{ text: "bar", value: "foo" }]}
+        name="search"
         onRemoveCategory={category => {}}
         onChangeSearchValue={value => {}}
-        onMenuItemClick={() => {}}
+        onOptionClick={() => {}}
         placeholder="Lorem ipsum"
         searchValue={"search value"}
       />
