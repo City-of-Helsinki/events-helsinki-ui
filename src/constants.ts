@@ -84,6 +84,8 @@ export enum SUPPORT_LANGUAGES {
   EN = "en"
 }
 
+export const DEFAULT_LANGUAGE = SUPPORT_LANGUAGES.FI;
+
 export const TARGET_GROUPS = {
   CHILDREN: "children",
   YOUNG_PEOPLE: "young_people"
