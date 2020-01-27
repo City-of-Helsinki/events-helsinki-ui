@@ -38,7 +38,7 @@ afterEach(() => {
   container = null;
 });
 
-test("EventList should match snapshot", async () => {
+test("EventCard should match snapshot", async () => {
   await act(async () => {
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
