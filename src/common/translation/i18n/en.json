@@ -100,6 +100,11 @@
       "youngPeople": "Young people"
     }
   },
+  "collection": {
+    "curatedEvents": {
+      "textEventNotFound": "Event not found"
+    }
+  },
   "event": {
     "categories": {
       "labelFree": "Free",

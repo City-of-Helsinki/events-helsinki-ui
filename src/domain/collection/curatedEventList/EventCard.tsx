@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
 import { useEventDetailsQuery } from "../../../generated/graphql";
@@ -10,7 +11,8 @@ interface Props {
 }
 
 const EventCard: React.FC<Props> = ({ eventId }) => {
-  const { data: eventData, loading } = useEventDetailsQuery({
+  const { t } = useTranslation();
+  const { data: eventData, error, loading } = useEventDetailsQuery({
     variables: {
       id: eventId
     }
@@ -20,6 +22,7 @@ const EventCard: React.FC<Props> = ({ eventId }) => {
     <div className={styles.eventCard}>
       <LoadingSpinner isLoading={loading}>
         {eventData && <SimilarEventCard event={eventData.eventDetails} />}
+        {error && <div>{t("collection.curatedEvents.textEventNotFound")}</div>}
       </LoadingSpinner>
     </div>
   );
