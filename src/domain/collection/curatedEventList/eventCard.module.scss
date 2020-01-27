@@ -5,6 +5,7 @@
   min-height: 8rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   background: $lightest-gray;
 
   @include respond_above(sm) {
