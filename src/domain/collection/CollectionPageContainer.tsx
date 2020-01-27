@@ -7,7 +7,7 @@ import isClient from "../../util/isClient";
 import Layout from "../app/layout/Layout";
 import CollectionHero from "./collectionHero/CollectionHero";
 import styles from "./collectionPage.module.scss";
-import CurratedEventList from "./curratedEventList/CurratedEventList";
+import CuratedEventList from "./curatedEventList/CuratedEventList";
 import EventList from "./eventList/EventList";
 import SimilarCollections from "./similarCollections/SimilarCollections";
 
@@ -35,7 +35,7 @@ const CollectionPageContainer: React.FC = () => {
           {collectionData && (
             <>
               <CollectionHero />
-              <CurratedEventList />
+              <CuratedEventList collectionData={collectionData} />
               <EventList collectionData={collectionData} />
               <SimilarCollections />
             </>

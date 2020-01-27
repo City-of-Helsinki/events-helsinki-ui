@@ -12,6 +12,8 @@ $imageWidth: 6.375rem;
   display: grid;
   margin-bottom: 0.625rem;
   grid-template-columns: $imageWidth 1fr;
+  height: 100%;
+  width: 100%;
 
   @include respond_above(sm) {
     grid-template-columns: none;
