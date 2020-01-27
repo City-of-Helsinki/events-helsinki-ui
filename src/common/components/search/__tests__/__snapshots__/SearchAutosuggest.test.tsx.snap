@@ -50,6 +50,8 @@ exports[`SearchAutosuggest matches snapshot 1`] = `
     className="inputWrapper"
   >
     <input
+      id="search"
+      name="search"
       onChange={[Function]}
       onFocus={[Function]}
       placeholder="Lorem ipsum"
