@@ -17,8 +17,18 @@ export type CollectionDetails = {
   id: Scalars['ID'],
   curatedEvents: Array<Scalars['String']>,
   curatedEventsTitle: LocalizedObject,
+  description: LocalizedObject,
   eventListQuery: Scalars['String'],
   eventListTitle: LocalizedObject,
+  link: CollectionLink,
+  shortDescription: LocalizedObject,
+  title: LocalizedObject,
+};
+
+export type CollectionLink = {
+   __typename?: 'CollectionLink',
+  text: LocalizedObject,
+  url: LocalizedObject,
 };
 
 export type Division = {
@@ -326,7 +336,25 @@ export type CollectionDetailsQuery = (
     & { curatedEventsTitle: (
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ), description: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
     ), eventListTitle: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ), link: (
+      { __typename?: 'CollectionLink' }
+      & { text: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ), url: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ) }
+    ), shortDescription: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ), title: (
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
     ) }
@@ -609,8 +637,35 @@ export const CollectionDetailsDocument = gql`
       fi
       sv
     }
+    description {
+      en
+      fi
+      sv
+    }
     eventListQuery
     eventListTitle {
+      en
+      fi
+      sv
+    }
+    link {
+      text {
+        en
+        fi
+        sv
+      }
+      url {
+        en
+        fi
+        sv
+      }
+    }
+    shortDescription {
+      en
+      fi
+      sv
+    }
+    title {
       en
       fi
       sv
