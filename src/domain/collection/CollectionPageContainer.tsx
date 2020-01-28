@@ -34,7 +34,7 @@ const CollectionPageContainer: React.FC = () => {
         <LoadingSpinner isLoading={loading}>
           {collectionData && (
             <>
-              <CollectionHero />
+              <CollectionHero collectionData={collectionData} />
               <CuratedEventList collectionData={collectionData} />
               <EventList collectionData={collectionData} />
               <SimilarCollections />
