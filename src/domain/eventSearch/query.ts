@@ -4,7 +4,9 @@ export const QUERY_EVENT_LIST = gql`
   query EventList(
     $divisions: [String]
     $endDate: String
+    $inLanguage: String
     $keywords: [String]
+    $language: String
     $locations: [String]
     $page: Int
     $pageSize: Int
@@ -12,11 +14,14 @@ export const QUERY_EVENT_LIST = gql`
     $sort: String
     $startDate: String
     $text: String
+    $translation: String
   ) {
     eventList(
       divisions: $divisions
       endDate: $endDate
+      inLanguage: $inLanguage
       keywords: $keywords
+      language: $language
       locations: $locations
       page: $page
       pageSize: $pageSize
@@ -24,6 +29,7 @@ export const QUERY_EVENT_LIST = gql`
       sort: $sort
       startDate: $startDate
       text: $text
+      translation: $translation
     ) {
       meta {
         count

@@ -6,6 +6,7 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router";
 import wait from "waait";
 
+import { SUPPORT_LANGUAGES } from "../../../../constants";
 import { EventListDocument } from "../../../../generated/graphql";
 import { mockEventData } from "../../../event/constants";
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from "../../../eventSearch/constants";
@@ -25,7 +26,8 @@ const mocks = [
       variables: getEventFilters(
         searchParams,
         PAGE_SIZE,
-        EVENT_SORT_OPTIONS.END_TIME
+        EVENT_SORT_OPTIONS.END_TIME,
+        SUPPORT_LANGUAGES.FI
       )
     },
     result: {

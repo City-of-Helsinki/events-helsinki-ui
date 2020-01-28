@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { EventDetailsQuery, useEventListQuery } from "../../generated/graphql";
+import useLocale from "../../hooks/useLocale";
 import isClient from "../../util/isClient";
 import { getSearchQuery } from "../../util/searchUtils";
 // Use same page size as on event search page
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const SimilarEvents: React.FC<Props> = ({ eventData }) => {
+  const locale = useLocale();
   const { search } = useLocation();
   const eventSearch = getSearchQuery({
     categories: [],
@@ -38,9 +40,10 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
     return getEventFilters(
       searchParams,
       PAGE_SIZE,
-      EVENT_SORT_OPTIONS.END_TIME
+      EVENT_SORT_OPTIONS.END_TIME,
+      locale
     );
-  }, [searchParams]);
+  }, [locale, searchParams]);
   const { t } = useTranslation();
 
   const { data: eventsData, loading } = useEventListQuery({
