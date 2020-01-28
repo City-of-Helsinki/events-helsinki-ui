@@ -75,12 +75,15 @@ const getCurrentHour = (): string => {
  * Get event list request filters from url parameters
  * @param params
  * @param pageSize {number}
+ * @param sortOrder {string}
+ * @param language {string}
  * @return {object}
  */
 export const getEventFilters = (
   params: URLSearchParams,
   pageSize: number,
-  sortOrder: EVENT_SORT_OPTIONS
+  sortOrder: EVENT_SORT_OPTIONS,
+  language: "en" | "fi" | "sv"
 ) => {
   const dateTypes = getUrlParamAsString(params, "dateTypes");
   let { startDate, endDate } = getFilterDates(
@@ -165,6 +168,7 @@ export const getEventFilters = (
     divisions: mappedDistricts,
     endDate: endDate,
     keywords: mappedCategories,
+    language,
     locations: places,
     pageSize,
     publisher: params.get("publisher"),

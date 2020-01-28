@@ -27,9 +27,10 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
     return getEventFilters(
       searchParams,
       PAGE_SIZE,
-      EVENT_SORT_OPTIONS.END_TIME
+      EVENT_SORT_OPTIONS.END_TIME,
+      locale
     );
-  }, [searchParams]);
+  }, [locale, searchParams]);
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
     ssr: false,
