@@ -29,7 +29,6 @@ import styles from "./search.module.scss";
 const Search: FunctionComponent = () => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const [categories, setCategories] = React.useState<Category[]>([]);
   const [dateTypes, setDateTypes] = React.useState<string[]>([]);
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
@@ -37,23 +36,26 @@ const Search: FunctionComponent = () => {
   const [searchValue, setSearchValue] = React.useState("");
   const { push } = useHistory();
 
-  const handleCategoryClick = (newCategory: Category) => {
-    if (
-      categories.findIndex(category => category.value === newCategory.value) ===
-      -1
-    ) {
-      setCategories([...categories, newCategory]);
-    }
+  const handleCategoryClick = (category: Category) => {
+    const search = getSearchQuery({
+      categories: [category.value],
+      dateTypes,
+      districts: [],
+      endDate,
+      isCustomDate,
+      keywords: [],
+      places: [],
+      publisher: null,
+      search: "",
+      startDate,
+      targets: []
+    });
+
+    push({ pathname: `/${locale}/events`, search });
   };
 
   const handleChangeDateTypes = (value: string[]) => {
     setDateTypes(value);
-  };
-
-  const handleRemoveCategory = (removedCategory: Category) => {
-    setCategories(
-      categories.filter(category => category.value !== removedCategory.value)
-    );
   };
 
   const toggleIsCustomDate = () => {
@@ -62,7 +64,7 @@ const Search: FunctionComponent = () => {
 
   const moveToSearchPage = React.useCallback(() => {
     const search = getSearchQuery({
-      categories: categories.map(category => category.value),
+      categories: [],
       dateTypes,
       districts: [],
       endDate,
@@ -76,23 +78,14 @@ const Search: FunctionComponent = () => {
     });
 
     push({ pathname: `/${locale}/events`, search });
-  }, [
-    categories,
-    dateTypes,
-    endDate,
-    isCustomDate,
-    locale,
-    push,
-    searchValue,
-    startDate
-  ]);
+  }, [dateTypes, endDate, isCustomDate, locale, push, searchValue, startDate]);
 
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
     const type = option.type;
     const value = option.value;
 
     const search = getSearchQuery({
-      categories: categories.map(category => category.value),
+      categories: [],
       dateTypes,
       districts: type === "district" ? [value] : [],
       endDate,
@@ -106,7 +99,6 @@ const Search: FunctionComponent = () => {
     });
 
     push({ pathname: `/${locale}/events`, search });
-    setSearchValue("");
   };
 
   return (
@@ -122,11 +114,10 @@ const Search: FunctionComponent = () => {
             {t("home.search.labelSearchField")}
           </SearchLabel>
           <SearchAutosuggest
-            categories={categories}
+            categories={[]}
             name="search"
             onChangeSearchValue={setSearchValue}
             onOptionClick={handleMenuOptionClick}
-            onRemoveCategory={handleRemoveCategory}
             placeholder={t("home.search.placeholder")}
             searchValue={searchValue}
           />
