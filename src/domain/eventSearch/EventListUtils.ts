@@ -1,4 +1,11 @@
-import { addDays, endOfWeek, isPast, startOfWeek, subDays } from "date-fns";
+import {
+  addDays,
+  endOfWeek,
+  isPast,
+  isToday,
+  startOfWeek,
+  subDays
+} from "date-fns";
 
 import {
   CATEGORIES,
@@ -23,13 +30,14 @@ const getFilterDates = (
   startDate: string | null,
   endDate: string | null
 ) => {
+  const dateFormat = "yyyy-MM-dd";
   if (startDate || endDate) {
     return { endDate, startDate };
   }
 
   const today = new Date();
   const sunday = endOfWeek(today, { weekStartsOn: 1 });
-  const friday = formatDate(subDays(sunday, 2));
+  const friday = formatDate(subDays(sunday, 2), dateFormat);
   const monday = startOfWeek(today, { weekStartsOn: 1 });
 
   let end = "";
@@ -40,23 +48,29 @@ const getFilterDates = (
   }
 
   if (dayTypes.includes(DATE_TYPES.TODAY)) {
-    end = formatDate(today);
-    start = formatDate(today);
+    end = formatDate(today, dateFormat);
+    start = formatDate(today, dateFormat);
   }
 
   if (dayTypes.includes(DATE_TYPES.TOMORROW)) {
-    end = formatDate(addDays(today, 1));
-    start = start ? start : formatDate(addDays(today, 1));
+    end = formatDate(addDays(today, 1), dateFormat);
+    start = start ? start : formatDate(addDays(today, 1), dateFormat);
   }
 
   if (dayTypes.includes(DATE_TYPES.WEEKEND)) {
-    end = end && end > formatDate(sunday) ? end : formatDate(sunday);
+    end =
+      end && end > formatDate(sunday, dateFormat)
+        ? end
+        : formatDate(sunday, dateFormat);
     start = start && start < friday ? start : friday;
   }
 
   if (dayTypes.includes(DATE_TYPES.THIS_WEEK)) {
-    end = end && end > formatDate(sunday) ? end : formatDate(sunday);
-    start = formatDate(monday);
+    end =
+      end && end > formatDate(sunday, dateFormat)
+        ? end
+        : formatDate(sunday, dateFormat);
+    start = formatDate(monday, dateFormat);
   }
 
   return { endDate: end, startDate: start };
@@ -91,11 +105,12 @@ export const getEventFilters = (
     params.get("startDate"),
     params.get("endDate")
   );
+
   if (!startDate || isPast(new Date(startDate))) {
     startDate = getCurrentHour();
   }
   if (endDate && isPast(new Date(endDate))) {
-    endDate = getCurrentHour();
+    endDate = formatDate(new Date(), "yyyy-MM-dd");
   }
 
   const places = getUrlParamAsString(params, "places");
