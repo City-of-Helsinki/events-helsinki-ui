@@ -3,9 +3,11 @@ import { IconAngleRight } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
+import { Link } from "react-router-dom";
 
 import Button from "../../common/components/button/Button";
 import Keyword from "../../common/components/keyword/Keyword";
+import SrOnly from "../../common/components/srOnly/SrOnly";
 import useLocale from "../../hooks/useLocale";
 import getDateRangeStr from "../../util/getDateRangeStr";
 import getLocalisedString from "../../util/getLocalisedString";
@@ -46,14 +48,19 @@ const EventCard: React.FC<Props> = ({ event }) => {
   const name = event.name;
   const startTime = event.startTime;
   const endTime = event.endTime;
+  const eventUrl = React.useMemo(() => {
+    return `/${locale}/event/${event.id}${search}`;
+  }, [event.id, locale, search]);
 
   const showBuyButton = !!offerInfoUrl && !isEventFree(event);
 
   return (
     <div className={styles.eventCard}>
-      <div
+      <Link
+        aria-hidden={true}
         className={styles.imageWrapper}
         style={{ backgroundImage: image ? `url(${image.url})` : undefined }}
+        to={eventUrl}
       >
         <div className={styles.tagWrapper}>
           <div className={styles.priceWrapper}>
@@ -73,7 +80,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
             />
           </div>
         </div>
-      </div>
+      </Link>
       <div className={styles.infoWrapper}>
         <div className={styles.categoryWrapperDesktop}>
           <EventKeywords
@@ -90,9 +97,11 @@ const EventCard: React.FC<Props> = ({ event }) => {
                 time: getTimeRangeStr(startTime, endTime, locale)
               })}
           </div>
-          <div className={styles.eventName}>
+          <Link aria-hidden="true" className={styles.eventName} to={eventUrl}>
             {getLocalisedString(name, locale)}
-          </div>
+          </Link>
+          {/* Event name for screen readers  */}
+          <SrOnly>{getLocalisedString(name, locale)}</SrOnly>
           <div className={styles.eventLocation}>
             <LocationText
               event={event}
