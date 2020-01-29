@@ -1,5 +1,6 @@
 import { IconSearch } from "hds-react";
 import get from "lodash/get";
+import map from "lodash/map";
 import React, { ChangeEvent, FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -75,9 +76,13 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   });
 
   const autosuggestItems: AutosuggestMenuOption[] = React.useMemo(() => {
-    const items = [];
+    const items: AutosuggestMenuOption[] = [];
+    const keywordItems: AutosuggestMenuOption[] = [];
+    const districtItems: AutosuggestMenuOption[] = [];
+    const placeItems: AutosuggestMenuOption[] = [];
+
     if (keywordsData) {
-      items.push(
+      keywordItems.push(
         ...keywordsData.keywordList.data.map(keyword => ({
           text: getLocalisedString(keyword.name, locale),
           type: keyword.id.startsWith("yso")
@@ -88,7 +93,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       );
     }
     if (internalInputValue) {
-      items.push(
+      districtItems.push(
         ...districtOptions
           .filter(item =>
             item.text.toLowerCase().includes(internalInputValue.toLowerCase())
@@ -102,7 +107,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       );
     }
     if (placesData) {
-      items.push(
+      placeItems.push(
         ...placesData.placeList.data.map(place => ({
           text: place.name ? getLocalisedString(place.name, locale) : "",
           type: AUTOSUGGEST_TYPES.PLACE,
@@ -110,7 +115,13 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
         }))
       );
     }
+    const placeNames = map(placeItems, "text");
 
+    items.push(
+      ...keywordItems.filter(item => !placeNames.includes(item.text.trim())),
+      ...districtItems,
+      ...placeItems
+    );
     return items.filter(item => item.text);
   }, [districtOptions, internalInputValue, keywordsData, locale, placesData]);
 
