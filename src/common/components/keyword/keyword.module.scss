@@ -23,6 +23,12 @@
     }
   }
 
+  &.hideOnMobile {
+    @include respond_below(sm) {
+      display: none;
+    }
+  }
+
   &.engelLight50 {
     background-color: $hel-engel-light-50;
     color: $hel-black;

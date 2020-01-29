@@ -66,13 +66,21 @@ const EventCard: React.FC<Props> = ({ event }) => {
           </div>
 
           <div className={styles.categoryWrapper}>
-            <EventKeywords event={event} showIsFree={false} />
+            <EventKeywords
+              event={event}
+              hideKeywordsOnMobile={true}
+              showIsFree={false}
+            />
           </div>
         </div>
       </div>
       <div className={styles.infoWrapper}>
         <div className={styles.categoryWrapperDesktop}>
-          <EventKeywords event={event} showIsFree={true} />
+          <EventKeywords
+            event={event}
+            hideKeywordsOnMobile={true}
+            showIsFree={true}
+          />
         </div>
         <div className={styles.textWrapper}>
           <div className={styles.eventDateAndTime}>

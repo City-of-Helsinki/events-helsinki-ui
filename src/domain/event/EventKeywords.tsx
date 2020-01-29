@@ -10,12 +10,14 @@ import { EventInList } from "./types";
 interface Props {
   blackOnMobile?: boolean;
   event: EventInList;
+  hideKeywordsOnMobile?: boolean;
   showIsFree: boolean;
   showKeywords?: boolean;
 }
 const EventKeywords: React.FC<Props> = ({
   blackOnMobile,
   event,
+  hideKeywordsOnMobile = false,
   showIsFree,
   showKeywords = true
 }) => {
@@ -40,6 +42,7 @@ const EventKeywords: React.FC<Props> = ({
           return (
             <Keyword
               blackOnMobile={blackOnMobile}
+              hideOnMobile={hideKeywordsOnMobile}
               key={keyword.id}
               keyword={keyword.name}
             />
