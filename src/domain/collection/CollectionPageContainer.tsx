@@ -7,6 +7,7 @@ import isClient from "../../util/isClient";
 import Layout from "../app/layout/Layout";
 import CollectionHero from "./collectionHero/CollectionHero";
 import styles from "./collectionPage.module.scss";
+import CollectionPageMeta from "./collectionPageMeta/CollectionPageMeta";
 import CuratedEventList from "./curatedEventList/CuratedEventList";
 import EventList from "./eventList/EventList";
 import SimilarCollections from "./similarCollections/SimilarCollections";
@@ -34,6 +35,7 @@ const CollectionPageContainer: React.FC = () => {
         <LoadingSpinner isLoading={loading}>
           {collectionData && (
             <>
+              <CollectionPageMeta collectionData={collectionData} />
               <CollectionHero collectionData={collectionData} />
               <CuratedEventList collectionData={collectionData} />
               <EventList collectionData={collectionData} />

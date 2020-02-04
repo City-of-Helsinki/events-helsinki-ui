@@ -1,11 +1,4 @@
-import {
-  addDays,
-  endOfWeek,
-  isPast,
-  isToday,
-  startOfWeek,
-  subDays
-} from "date-fns";
+import { addDays, endOfWeek, isPast, startOfWeek, subDays } from "date-fns";
 
 import {
   CATEGORIES,
