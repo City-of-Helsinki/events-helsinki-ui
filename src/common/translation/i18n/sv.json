@@ -94,6 +94,10 @@
       "shareOnTwitter": "Dela på Twitter",
       "shareOnLinkedIn": "Dela på LinkedIn"
     },
+    "shareLinks": {
+      "buttonCopyLink": "Kopiera länk adress",
+      "messageLinkCopySuccess": "Länk kopierad till urklipp"
+    },
     "supriseMe": "Jag har tur",
     "targets": {
       "children": "Barn",
@@ -103,6 +107,9 @@
   "collection": {
     "curatedEvents": {
       "textEventNotFound": "Samlingen hittades inte"
+    },
+    "shareLinks": {
+      "title": "Dela samling"
     }
   },
   "event": {
@@ -153,8 +160,6 @@
       "title": "Lokalisering"
     },
     "shareLinks": {
-      "buttonCopyLink": "Kopiera länk adress",
-      "messageLinkCopySuccess": "Länk kopierad till urklipp",
       "title": "Dela händelsen"
     },
     "similarEvents": {

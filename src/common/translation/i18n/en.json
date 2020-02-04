@@ -94,6 +94,10 @@
       "shareOnTwitter": "Share on Twitter",
       "shareOnLinkedIn": "Share on LinkedIn"
     },
+    "shareLinks": {
+      "buttonCopyLink": "Copy link address",
+      "messageLinkCopySuccess": "Link copied into clipboard"
+    },
     "supriseMe": "I'm Feeling Lucky",
     "targets": {
       "children": "Children",
@@ -103,6 +107,9 @@
   "collection": {
     "curatedEvents": {
       "textEventNotFound": "Event not found"
+    },
+    "shareLinks": {
+      "title": "Share Collection"
     }
   },
   "event": {
@@ -153,8 +160,6 @@
       "title": "Location"
     },
     "shareLinks": {
-      "buttonCopyLink": "Copy link address",
-      "messageLinkCopySuccess": "Link copied into clipboard",
       "title": "Share Event"
     },
     "similarEvents": {
