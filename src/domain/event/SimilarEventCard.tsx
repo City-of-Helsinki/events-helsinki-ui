@@ -2,8 +2,10 @@ import { IconArrowRight } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
+import { Link } from "react-router-dom";
 
 import Keyword from "../../common/components/keyword/Keyword";
+import SrOnly from "../../common/components/srOnly/SrOnly";
 import useLocale from "../../hooks/useLocale";
 import getDateRangeStr from "../../util/getDateRangeStr";
 import getLocalisedString from "../../util/getLocalisedString";
@@ -29,15 +31,22 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
   const startTime = event.startTime;
   const endTime = event.endTime;
 
+  const eventUrl = React.useMemo(() => {
+    return `/${locale}/event/${event.id}${search}`;
+  }, [event.id, locale, search]);
+
   const moveToEventPage = () => {
-    push({ pathname: `/${locale}/event/${event.id}${search}` });
+    push(eventUrl);
   };
 
   return (
     <div className={styles.similarEventCard}>
-      <div
+      <Link
+        aria-hidden={true}
         className={styles.imageWrapper}
         style={{ backgroundImage: image ? `url(${image.url})` : undefined }}
+        tabIndex={-1}
+        to={eventUrl}
       >
         <div className={styles.tagWrapperDesktop}>
           <div className={styles.priceWrapper}>
@@ -57,7 +66,7 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
             />
           </div>
         </div>
-      </div>
+      </Link>
       <div className={styles.infoWrapper}>
         <div>
           <div className={styles.categoryWrapperMobile}>
@@ -77,9 +86,16 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
                   false
                 )} ${getTimeRangeStr(startTime, endTime, locale)}`}
             </div>
-            <div className={styles.eventName}>
+            <Link
+              aria-hidden="true"
+              className={styles.eventName}
+              tabIndex={-1}
+              to={eventUrl}
+            >
               {getLocalisedString(name, locale)}
-            </div>
+            </Link>
+            {/* Event name for screen readers  */}
+            <SrOnly>{getLocalisedString(name, locale)}</SrOnly>
             <div className={styles.eventLocation}>
               <LocationText
                 event={event}

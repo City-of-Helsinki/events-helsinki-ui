@@ -60,6 +60,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
         aria-hidden={true}
         className={styles.imageWrapper}
         style={{ backgroundImage: image ? `url(${image.url})` : undefined }}
+        tabIndex={-1}
         to={eventUrl}
       >
         <div className={styles.tagWrapper}>
@@ -97,7 +98,12 @@ const EventCard: React.FC<Props> = ({ event }) => {
                 time: getTimeRangeStr(startTime, endTime, locale)
               })}
           </div>
-          <Link aria-hidden="true" className={styles.eventName} to={eventUrl}>
+          <Link
+            aria-hidden="true"
+            className={styles.eventName}
+            tabIndex={-1}
+            to={eventUrl}
+          >
             {getLocalisedString(name, locale)}
           </Link>
           {/* Event name for screen readers  */}
