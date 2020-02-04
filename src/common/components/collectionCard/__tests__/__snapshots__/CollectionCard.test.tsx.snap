@@ -4,8 +4,12 @@ exports[`CollectionCard matches snapshot 1`] = `
 <div
   className="collectionCardWrapper mdSize"
 >
-  <div
+  <a
+    aria-hidden={true}
     className="imageWrapper"
+    href="/fi/collection/1"
+    onClick={[Function]}
+    tabIndex={-1}
   />
   <div
     className="textWrapper"
@@ -22,8 +26,17 @@ exports[`CollectionCard matches snapshot 1`] = `
     <div
       className="titleWrapper"
     >
-      <div
+      <a
+        aria-hidden={true}
         className="title"
+        href="/fi/collection/1"
+        onClick={[Function]}
+        tabIndex={-1}
+      >
+        Test title
+      </a>
+      <div
+        className="srOnly"
       >
         Test title
       </div>
@@ -37,7 +50,7 @@ exports[`CollectionCard matches snapshot 1`] = `
       className="linkWrapper"
     >
       <a
-        href="/collection/1"
+        href="/fi/collection/1"
         onClick={[Function]}
       >
         <svg

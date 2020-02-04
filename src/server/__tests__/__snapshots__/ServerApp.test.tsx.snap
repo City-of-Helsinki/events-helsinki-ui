@@ -899,8 +899,12 @@ exports[`ServerApp matches snapshot 1`] = `
           <div
             className="collectionCardWrapper lgSize"
           >
-            <div
+            <a
+              aria-hidden={true}
               className="imageWrapper"
+              href="/fi/collection/1"
+              onClick={[Function]}
+              tabIndex={-1}
             />
             <div
               className="textWrapper"
@@ -917,8 +921,17 @@ exports[`ServerApp matches snapshot 1`] = `
               <div
                 className="titleWrapper"
               >
-                <div
+                <a
+                  aria-hidden={true}
                   className="title"
+                  href="/fi/collection/1"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                >
+                  Paras kesä ikinä
+                </a>
+                <div
+                  className="srOnly"
                 >
                   Paras kesä ikinä
                 </div>
@@ -959,8 +972,12 @@ exports[`ServerApp matches snapshot 1`] = `
           <div
             className="collectionCardWrapper mdSize"
           >
-            <div
+            <a
+              aria-hidden={true}
               className="imageWrapper"
+              href="/fi/collection/2"
+              onClick={[Function]}
+              tabIndex={-1}
             />
             <div
               className="textWrapper"
@@ -977,8 +994,17 @@ exports[`ServerApp matches snapshot 1`] = `
               <div
                 className="titleWrapper"
               >
-                <div
+                <a
+                  aria-hidden={true}
                   className="title"
+                  href="/fi/collection/2"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                >
+                  Olipa kerra ihana kesä ja tuleva syksy.
+                </a>
+                <div
+                  className="srOnly"
                 >
                   Olipa kerra ihana kesä ja tuleva syksy.
                 </div>
@@ -1015,8 +1041,12 @@ exports[`ServerApp matches snapshot 1`] = `
           <div
             className="collectionCardWrapper mdSize"
           >
-            <div
+            <a
+              aria-hidden={true}
               className="imageWrapper"
+              href="/fi/collection/3"
+              onClick={[Function]}
+              tabIndex={-1}
             />
             <div
               className="textWrapper"
@@ -1033,8 +1063,17 @@ exports[`ServerApp matches snapshot 1`] = `
               <div
                 className="titleWrapper"
               >
-                <div
+                <a
+                  aria-hidden={true}
                   className="title"
+                  href="/fi/collection/3"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                >
+                  Olipa kerra ihana kesä ja tuleva syksy.
+                </a>
+                <div
+                  className="srOnly"
                 >
                   Olipa kerra ihana kesä ja tuleva syksy.
                 </div>
@@ -1075,8 +1114,12 @@ exports[`ServerApp matches snapshot 1`] = `
           <div
             className="collectionCardWrapper smSize"
           >
-            <div
+            <a
+              aria-hidden={true}
               className="imageWrapper"
+              href="/fi/collection/4"
+              onClick={[Function]}
+              tabIndex={-1}
             />
             <div
               className="textWrapper"
@@ -1093,8 +1136,17 @@ exports[`ServerApp matches snapshot 1`] = `
               <div
                 className="titleWrapper"
               >
-                <div
+                <a
+                  aria-hidden={true}
                   className="title"
+                  href="/fi/collection/4"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                >
+                  Menoa ja meininkiä viikon lopuksi
+                </a>
+                <div
+                  className="srOnly"
                 >
                   Menoa ja meininkiä viikon lopuksi
                 </div>
@@ -1131,8 +1183,12 @@ exports[`ServerApp matches snapshot 1`] = `
           <div
             className="collectionCardWrapper smSize"
           >
-            <div
+            <a
+              aria-hidden={true}
               className="imageWrapper"
+              href="/fi/collection/5"
+              onClick={[Function]}
+              tabIndex={-1}
             />
             <div
               className="textWrapper"
@@ -1149,8 +1205,17 @@ exports[`ServerApp matches snapshot 1`] = `
               <div
                 className="titleWrapper"
               >
-                <div
+                <a
+                  aria-hidden={true}
                   className="title"
+                  href="/fi/collection/5"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                >
+                  Vastinetta Netflixille
+                </a>
+                <div
+                  className="srOnly"
                 >
                   Vastinetta Netflixille
                 </div>
@@ -1187,8 +1252,12 @@ exports[`ServerApp matches snapshot 1`] = `
           <div
             className="collectionCardWrapper smSize"
           >
-            <div
+            <a
+              aria-hidden={true}
               className="imageWrapper"
+              href="/fi/collection/6"
+              onClick={[Function]}
+              tabIndex={-1}
             />
             <div
               className="textWrapper"
@@ -1205,8 +1274,17 @@ exports[`ServerApp matches snapshot 1`] = `
               <div
                 className="titleWrapper"
               >
-                <div
+                <a
+                  aria-hidden={true}
                   className="title"
+                  href="/fi/collection/6"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                >
+                  Menoa ja meininkiä viikon lopuksi
+                </a>
+                <div
+                  className="srOnly"
                 >
                   Menoa ja meininkiä viikon lopuksi
                 </div>
@@ -1243,8 +1321,12 @@ exports[`ServerApp matches snapshot 1`] = `
           <div
             className="collectionCardWrapper smSize"
           >
-            <div
+            <a
+              aria-hidden={true}
               className="imageWrapper"
+              href="/fi/collection/7"
+              onClick={[Function]}
+              tabIndex={-1}
             />
             <div
               className="textWrapper"
@@ -1261,8 +1343,17 @@ exports[`ServerApp matches snapshot 1`] = `
               <div
                 className="titleWrapper"
               >
-                <div
+                <a
+                  aria-hidden={true}
                   className="title"
+                  href="/fi/collection/7"
+                  onClick={[Function]}
+                  tabIndex={-1}
+                >
+                  Vastinetta Netflixille
+                </a>
+                <div
+                  className="srOnly"
                 >
                   Vastinetta Netflixille
                 </div>
