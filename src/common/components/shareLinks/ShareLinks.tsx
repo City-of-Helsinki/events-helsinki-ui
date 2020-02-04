@@ -2,15 +2,19 @@ import classNames from "classnames";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { ReactComponent as LinkIcon } from "../../assets/icons/svg/link.svg";
-import CopyButton from "../../common/components/copyButton/CopyButton";
-import FacebookShareLink from "../../common/components/shareLink/FacebookShareLink";
-import LinkedInShareLink from "../../common/components/shareLink/LinkedInShareLink";
-import TwitterShareLink from "../../common/components/shareLink/TwitterShareLink";
-import isClient from "../../util/isClient";
-import styles from "./eventShareLinks.module.scss";
+import { ReactComponent as LinkIcon } from "../../../assets/icons/svg/link.svg";
+import isClient from "../../../util/isClient";
+import CopyButton from "../copyButton/CopyButton";
+import FacebookShareLink from "./FacebookShareLink";
+import LinkedInShareLink from "./LinkedInShareLink";
+import styles from "./shareLinks.module.scss";
+import TwitterShareLink from "./TwitterShareLink";
 
-const ShareLinks: React.FunctionComponent = () => {
+export interface ShareLinksProps {
+  title: string;
+}
+
+const ShareLinks: React.FC<ShareLinksProps> = ({ title }) => {
   const { t } = useTranslation();
   // We are using the client only accessible href. By doing this, we do not need
   // to pass the original request from the server. This same pattern was used in
@@ -20,9 +24,7 @@ const ShareLinks: React.FunctionComponent = () => {
 
   return (
     <div className={styles.shareSubSection}>
-      <p className={styles.shareSubSectionTitle}>
-        {t("event.shareLinks.title")}
-      </p>
+      <p className={styles.shareSubSectionTitle}>{title}</p>
       <ul className={styles.shareLinkList}>
         <li
           className={classNames(styles.shareLinkItem, styles.relativePosition)}
@@ -34,10 +36,10 @@ const ShareLinks: React.FunctionComponent = () => {
             successClass={styles.linkCopyButtonSuccess}
             successMessage={
               <span className={styles.successTooltip}>
-                {t("event.shareLinks.messageLinkCopySuccess")}
+                {t("commons.shareLinks.messageLinkCopySuccess")}
               </span>
             }
-            aria-label={t("event.shareLinks.buttonCopyLink")}
+            aria-label={t("commons.shareLinks.buttonCopyLink")}
           >
             <LinkIcon />
           </CopyButton>

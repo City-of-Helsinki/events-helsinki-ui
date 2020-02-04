@@ -4,13 +4,13 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import sanitizeHtml from "sanitize-html";
 
+import ShareLinks from "../../common/components/shareLinks/ShareLinks";
 import { EventDetailsQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import styles from "./eventContent.module.scss";
 import EventInfo from "./EventInfo";
 import EventLocation from "./EventLocation";
-import EventShareLinks from "./EventShareLinks";
 
 interface Props {
   eventData: EventDetailsQuery;
@@ -42,7 +42,7 @@ const EventContent: React.FC<Props> = ({ eventData }) => {
             />
           </>
         )}
-        <EventShareLinks />
+        <ShareLinks title={t("event.shareLinks.title")} />
         <div
           className={classNames(
             styles.horizontalDivider,

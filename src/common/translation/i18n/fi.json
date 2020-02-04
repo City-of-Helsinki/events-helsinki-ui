@@ -94,6 +94,10 @@
       "shareOnTwitter": "Jaa Twitterissä",
       "shareOnLinkedIn": "Jaa LinkedInissä"
     },
+    "shareLinks": {
+      "buttonCopyLink": "Kopioi linkin osoite",
+      "messageLinkCopySuccess": "Linkki kopioitu leikepöydälle"
+    },
     "supriseMe": "Koeta onneasi",
     "targets": {
       "children": "Lapsille",
@@ -103,6 +107,9 @@
   "collection": {
     "curatedEvents": {
       "textEventNotFound": "Tapahtumaa ei löydy"
+    },
+    "shareLinks": {
+      "title": "Jaa kokoelma"
     }
   },
   "event": {
@@ -153,8 +160,6 @@
       "title": "Sijainti"
     },
     "shareLinks": {
-      "buttonCopyLink": "Kopioi linkin osoite",
-      "messageLinkCopySuccess": "Linkki kopioitu leikepöydälle",
       "title": "Jaa tapahtuma"
     },
     "similarEvents": {
