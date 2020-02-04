@@ -1,6 +1,5 @@
 import { IconAngleRight, ImageWithCard } from "hds-react";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 import bgImage from "../../../assets/images/png/collection-background.png";
 import { CollectionDetailsQuery } from "../../../generated/graphql";
@@ -14,7 +13,6 @@ interface Props {
 
 const CollectionHero: React.FC<Props> = ({ collectionData }) => {
   const locale = useLocale();
-  const { t } = useTranslation();
 
   return (
     <div className={styles.collectionHero}>
