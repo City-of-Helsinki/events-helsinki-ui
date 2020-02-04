@@ -24,6 +24,7 @@ $imageWidth: 22.75rem;
   background-size: cover;
   padding: $basePadding $basePadding 1rem;
   display: flex;
+  text-decoration: none;
 
   .tagWrapper {
     display: grid;
