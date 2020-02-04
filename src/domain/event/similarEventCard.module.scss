@@ -30,7 +30,7 @@ $imageWidth: 6.375rem;
   padding: $basePadding $basePadding 1rem;
   display: flex;
   box-sizing: border-box;
-
+  text-decoration: none;
 
   @include respond_above(sm) {
     min-height: $imageHeightDesktop;
