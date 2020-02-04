@@ -6,21 +6,20 @@ exports[`CuratedEventList should match snapshot 1`] = `
     <h2>Käy ainakin näissä</h2>
     <div class=\\"eventCards\\">
       <div class=\\"eventCard\\">
-        <div class=\\"similarEventCard\\">
-          <div class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\">
+        <div class=\\"similarEventCard\\"><a aria-hidden=\\"true\\" class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">
             <div class=\\"tagWrapperDesktop\\">
               <div class=\\"priceWrapper\\">
                 <div class=\\"keyword tramLight20\\">Ilmainen</div>
               </div>
               <div class=\\"categoryWrapper\\"></div>
             </div>
-          </div>
+          </a>
           <div class=\\"infoWrapper\\">
             <div>
               <div class=\\"categoryWrapperMobile\\"></div>
               <div class=\\"textWrapper\\">
-                <div class=\\"eventDateAndTime\\"> 13. joulukuuta 2019 10.00</div>
-                <div class=\\"eventName\\">name fi</div>
+                <div class=\\"eventDateAndTime\\"> 13. joulukuuta 2019 10.00</div><a aria-hidden=\\"true\\" class=\\"eventName\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">name fi</a>
+                <div class=\\"srOnly\\">name fi</div>
                 <div class=\\"eventLocation\\">name fi, streetAddress fi, locality fi</div>
                 <div class=\\"eventPrice\\">Ilmainen</div>
               </div>

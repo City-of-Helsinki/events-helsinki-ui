@@ -9,7 +9,7 @@ exports[`EventList should match snapshot 1`] = `
         <div class=\\"container\\">
           <div class=\\"searchResultWrapper\\">
             <div class=\\"eventListWrapper\\">
-              <div class=\\"eventCard\\"><a aria-hidden=\\"true\\" class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\" href=\\"/fi/event/123\\">
+              <div class=\\"eventCard\\"><a aria-hidden=\\"true\\" class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">
                   <div class=\\"tagWrapper\\">
                     <div class=\\"priceWrapper\\">
                       <div class=\\"keyword tramLight20\\">Ilmainen</div>
@@ -20,7 +20,7 @@ exports[`EventList should match snapshot 1`] = `
                 <div class=\\"infoWrapper\\">
                   <div class=\\"categoryWrapperDesktop\\"></div>
                   <div class=\\"textWrapper\\">
-                    <div class=\\"eventDateAndTime\\">Perjantai 13. joulukuuta 2019, kello 10.00</div><a aria-hidden=\\"true\\" class=\\"eventName\\" href=\\"/fi/event/123\\">name fi</a>
+                    <div class=\\"eventDateAndTime\\">Perjantai 13. joulukuuta 2019, kello 10.00</div><a aria-hidden=\\"true\\" class=\\"eventName\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">name fi</a>
                     <div class=\\"srOnly\\">name fi</div>
                     <div class=\\"eventLocation\\">name fi, streetAddress fi, locality fi</div>
                     <div class=\\"eventPrice\\">Ilmainen</div>

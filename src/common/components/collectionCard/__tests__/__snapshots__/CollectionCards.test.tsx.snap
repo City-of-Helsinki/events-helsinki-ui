@@ -7,8 +7,12 @@ exports[`CollectionCardContainer matches snapshot 1`] = `
   <div
     className="collectionCardWrapper lgSize"
   >
-    <div
+    <a
+      aria-hidden={true}
       className="imageWrapper"
+      href="/fi/collection/1"
+      onClick={[Function]}
+      tabIndex={-1}
     />
     <div
       className="textWrapper"
@@ -25,8 +29,17 @@ exports[`CollectionCardContainer matches snapshot 1`] = `
       <div
         className="titleWrapper"
       >
-        <div
+        <a
+          aria-hidden={true}
           className="title"
+          href="/fi/collection/1"
+          onClick={[Function]}
+          tabIndex={-1}
+        >
+          Title 1
+        </a>
+        <div
+          className="srOnly"
         >
           Title 1
         </div>
@@ -40,7 +53,7 @@ exports[`CollectionCardContainer matches snapshot 1`] = `
         className="linkWrapper"
       >
         <a
-          href="/collection/1"
+          href="/fi/collection/1"
           onClick={[Function]}
         >
           <svg
@@ -63,8 +76,12 @@ exports[`CollectionCardContainer matches snapshot 1`] = `
   <div
     className="collectionCardWrapper lgSize"
   >
-    <div
+    <a
+      aria-hidden={true}
       className="imageWrapper"
+      href="/fi/collection/2"
+      onClick={[Function]}
+      tabIndex={-1}
     />
     <div
       className="textWrapper"
@@ -81,8 +98,17 @@ exports[`CollectionCardContainer matches snapshot 1`] = `
       <div
         className="titleWrapper"
       >
-        <div
+        <a
+          aria-hidden={true}
           className="title"
+          href="/fi/collection/2"
+          onClick={[Function]}
+          tabIndex={-1}
+        >
+          Title 2
+        </a>
+        <div
+          className="srOnly"
         >
           Title 2
         </div>
@@ -96,7 +122,7 @@ exports[`CollectionCardContainer matches snapshot 1`] = `
         className="linkWrapper"
       >
         <a
-          href="/collection/2"
+          href="/fi/collection/2"
           onClick={[Function]}
         >
           <svg
