@@ -102,6 +102,9 @@ export const mockEventData = {
 export const SIMILAR_EVENTS_AMOUNT = 8;
 
 export const EVENT_KEYWORD_BLACK_LIST = [
+  "helmet:10592", // Yleinen
+  "helmet:10689", // Helsinki
+  "helmet:11916", // Infonäytöt (Helsinki)
   "kulke:53", // Suomi
   "kulke:54", // Ruotsi
   "kulke:55", // Englanti
