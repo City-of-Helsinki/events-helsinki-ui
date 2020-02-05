@@ -12,30 +12,33 @@ export enum EVENT_SORT_OPTIONS {
   START_TIME_DESC = "-start_time"
 }
 
-// Finnish keys are used for keywords that do not have an official English
-// translation. An approximate translation has been provided on the comment row.
-export const CULTURE_KEYWORDS = {
-  "Elokuva ja media": "kulke:205", // Films and Media
-  Sirkus: "kulke:51", // Circus
-  Teatteri: "kulke:33", // theatre
-  "Teatteri ja sirkus": "kulke:351", // Theatre and Circus
-  art: "yso:p2851",
-  "art exhibitions": "yso:p6889",
-  "art museums": "yso:p8144",
-  "cinema (art forms)": "yso:p16327",
-  "contemporary art": "yso:p9593",
-  "contemporary dance": "yso:p10105",
-  "cultural events": "yso:p360",
-  "dance (performing arts)": "yso:p1278",
-  exhibitions: "yso:p5121",
-  films: "yso:p1235",
-  "fine arts": "yso:p2739",
-  "literary art": "yso:p7969",
-  literature: "yso:p8113",
-  "modern art": "yso:p9592",
-  museums: "yso:p4934",
-  music: "yso:p1808",
-  "performing arts": "yso:p2850",
-  teatteri: "matko:teatteri", // theatre
-  theatre: "yso:p2625" // in Finnish teatteritaide, "theatre arts"
-};
+export const CULTURE_KEYWORDS = [
+  "kulke:33", // Teatteri
+  "kulke:51", // Sirkus
+  "kulke:205", // Elokuva ja media
+  "kulke:351", // Teatteri ja sirkus
+  "matko:teatteri", // teatteri
+  "yso:p360", // cultural events
+  "yso:p1235", // films
+  "yso:p1278", // dance (performing arts)
+  "yso:p1808", // music
+  "yso:p2625", // in Finnish teatteritaide, "theatre arts"
+  "yso:p2739", // fine arts
+  "yso:p2850", // performing arts
+  "yso:p2851", // art
+  "yso:p4934", // museums
+  "yso:p5121", // exhibitions
+  "yso:p6889", // art exhibitions
+  "yso:p7969", // literary art
+  "yso:p8113", // literature
+  "yso:p8144", // art museums
+  "yso:p9592", // modern art
+  "yso:p9593", // contemporary art
+  "yso:p10105", // contemporary dance
+  "yso:p16327" // cinema (art forms)
+];
+
+export const MUSEUM_KEYWORDS = [
+  "matko:museo", // Museo
+  "yso:p4934" // Museot
+];

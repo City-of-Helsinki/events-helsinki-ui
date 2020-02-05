@@ -9,7 +9,11 @@ import {
 import { EventListQuery } from "../../generated/graphql";
 import { formatDate } from "../../util/dateUtils";
 import getUrlParamAsString from "../../util/getUrlParamAsString";
-import { CULTURE_KEYWORDS, EVENT_SORT_OPTIONS } from "./constants";
+import {
+  CULTURE_KEYWORDS,
+  EVENT_SORT_OPTIONS,
+  MUSEUM_KEYWORDS
+} from "./constants";
 
 /**
  * Get start and end dates to event list filtering
@@ -135,7 +139,7 @@ export const getEventFilters = (
   const mappedCategories: string[] = categories.map(category => {
     switch (category) {
       case CATEGORIES.CULTURE:
-        return Object.values(CULTURE_KEYWORDS).join(",");
+        return CULTURE_KEYWORDS.join(",");
       case CATEGORIES.DANCE:
         return "yso:p1278";
       case CATEGORIES.FOOD:
@@ -147,7 +151,7 @@ export const getEventFilters = (
       case CATEGORIES.MOVIE:
         return "yso:p1235";
       case CATEGORIES.MUSEUM:
-        return "yso:p4934";
+        return MUSEUM_KEYWORDS.join(",");
       case CATEGORIES.MUSIC:
         return "yso:p1808";
       case CATEGORIES.NATURE:
