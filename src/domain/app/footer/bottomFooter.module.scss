@@ -35,8 +35,8 @@ $logoWidth: 7rem;
       margin-right: 2.5rem;
       font-size: 1.125rem;
       color: $hel-black;
-      text-decoration: none;
-      font-weight: 600;
+      text-decoration: underline;
+      font-weight: normal;
 
       @include respond-below(sm) {
         margin-right: 0;
