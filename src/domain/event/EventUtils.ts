@@ -1,4 +1,5 @@
 import { isPast } from "date-fns";
+import capitalize from "lodash/capitalize";
 
 import { EventDetailsQuery } from "../../generated/graphql";
 import { Language } from "../../types";
@@ -81,7 +82,7 @@ export const getEventKeywords = (
   return event.keywords
     .map(keyword => ({
       id: keyword.id,
-      name: getLocalisedString(keyword.name, locale)
+      name: capitalize(getLocalisedString(keyword.name, locale)).trim()
     }))
     .filter(
       (keyword, index, arr) =>
