@@ -45,6 +45,7 @@ const mocks = [
   }
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let container: any = null;
 beforeEach(() => {
   // setup a DOM element as a render target

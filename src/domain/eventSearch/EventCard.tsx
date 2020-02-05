@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { IconAngleRight } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
@@ -126,9 +125,8 @@ const EventCard: React.FC<Props> = ({ event }) => {
                 <Button
                   color="primary"
                   fullWidth
-                  iconLeft={<IconAngleRight />}
                   onClick={moveToBuyTicketsPage}
-                  size="default"
+                  size="small"
                 >
                   {t("eventSearch.event.buttonBuyTickets")}
                 </Button>
@@ -139,7 +137,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
                 color="secondary"
                 fullWidth
                 onClick={moveToEventPage}
-                size="default"
+                size="small"
               >
                 {t("eventSearch.event.buttonReadMore")}
               </Button>

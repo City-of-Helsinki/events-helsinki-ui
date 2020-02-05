@@ -1,11 +1,6 @@
 import classNames from "classnames";
 import { isThisWeek, isToday } from "date-fns";
-import {
-  IconAngleRight,
-  IconArrowLeft,
-  IconLocation,
-  IconTicket
-} from "hds-react";
+import { IconArrowLeft, IconLocation, IconTicket } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps, withRouter } from "react-router";
@@ -139,7 +134,6 @@ const EventHero: React.FC<Props> = ({
                   >
                     <Button
                       color="primary"
-                      iconRight={<IconAngleRight />}
                       onClick={moveToBuyTicketsPage}
                       size="default"
                     >

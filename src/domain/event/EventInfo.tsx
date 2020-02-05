@@ -108,6 +108,8 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
       };
       createEvent(event, (error: Error | undefined, value: string) => {
         if (error) {
+          // TODO: Handle error
+          // eslint-disable-next-line no-console
           console.error(error);
         } else {
           const blob = new Blob([value], { type: "text/calendar" });
@@ -291,7 +293,6 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           <Button
             color="primary"
             fullWidth={true}
-            iconLeft={<IconTicket />}
             onClick={moveToBuyTicketsPage}
             size="default"
           >

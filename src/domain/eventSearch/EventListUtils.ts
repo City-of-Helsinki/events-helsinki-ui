@@ -120,6 +120,7 @@ export const getEventFilters = (
       case DISTRICTS.SUOMENLINNA:
         return "kaupunginosa:suomenlinna,kaupunginosa:ulkosaaret";
       case DISTRICTS.ÖSTERSUNDOM:
+        // eslint-disable-next-line max-len
         return "kaupunginosa:östersundom,kaupunginosa:salmenkallio,kaupunginosa:talosaari,kaupunginosa:karhusaari,kaupunginosa:ultuna";
       default:
         return district;
