@@ -74,8 +74,9 @@ const getFilterDates = (
  * @return {string}
  */
 const getCurrentHour = (): string => {
+  const dateFormat = "yyyy-MM-dd";
   const now = new Date();
-  return `${formatDate(now)}T${formatDate(now, "HH")}`;
+  return `${formatDate(now, dateFormat)}T${formatDate(now, "HH")}`;
 };
 
 /**
@@ -92,6 +93,7 @@ export const getEventFilters = (
   sortOrder: EVENT_SORT_OPTIONS,
   language: "en" | "fi" | "sv"
 ) => {
+  const dateFormat = "yyyy-MM-dd";
   const dateTypes = getUrlParamAsString(params, "dateTypes");
   let { startDate, endDate } = getFilterDates(
     dateTypes,
@@ -103,7 +105,7 @@ export const getEventFilters = (
     startDate = getCurrentHour();
   }
   if (endDate && isPast(new Date(endDate))) {
-    endDate = formatDate(new Date(), "yyyy-MM-dd");
+    endDate = formatDate(new Date(), dateFormat);
   }
 
   const places = getUrlParamAsString(params, "places");
