@@ -1,10 +1,11 @@
-import { IconSearch, IconSmile } from "hds-react";
+import { IconSearch } from "hds-react";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
 import IconLink from "../../../../common/components/link/IconLink";
 import useLocale from "../../../../hooks/useLocale";
+import IconStar from "../../../../icons/IconStar";
 import LanguageDropdown from "./languageDropdown/LanguageDropdown";
 import styles from "./navbar.module.scss";
 
@@ -26,7 +27,7 @@ const Navbar: React.FC = () => {
           to={`/${locale}/events`}
         />
         <IconLink
-          icon={<IconSmile />}
+          icon={<IconStar />}
           text={t("header.searchCollections")}
           to={`/${locale}/collections`}
         />

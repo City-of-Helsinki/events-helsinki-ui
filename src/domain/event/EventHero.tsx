@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { isThisWeek, isToday } from "date-fns";
-import { IconArrowLeft, IconLocation, IconTicket } from "hds-react";
+import { IconArrowLeft, IconLocation } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps, withRouter } from "react-router";
@@ -8,6 +8,7 @@ import { RouteComponentProps, withRouter } from "react-router";
 import Button from "../../common/components/button/Button";
 import { EventDetailsQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
+import IconTicket from "../../icons/IconTicket";
 import getDateRangeStr from "../../util/getDateRangeStr";
 import getLocalisedString from "../../util/getLocalisedString";
 import Container from "../app/layout/Container";

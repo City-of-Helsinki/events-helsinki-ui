@@ -7,8 +7,7 @@ import { useTranslation } from "react-i18next";
 
 import { AUTOSUGGEST_TYPES } from "../../../constants";
 import IconHome from "../../../icons/IconHome";
-import IconKeyword from "../../../icons/IconKeyword";
-import IconYso from "../../../icons/IconYso";
+import IconTag from "../../../icons/IconTag";
 import { AutosuggestMenuOption } from "../../types";
 import styles from "./autosuggestMenu.module.scss";
 
@@ -65,9 +64,9 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
               <div className={styles.colorIndicator} />
               <div className={styles.icon}>
                 {option.type === AUTOSUGGEST_TYPES.DISTRICT && <IconLocation />}
-                {option.type === AUTOSUGGEST_TYPES.KEYWORD && <IconKeyword />}
+                {option.type === AUTOSUGGEST_TYPES.KEYWORD && <IconTag />}
                 {option.type === AUTOSUGGEST_TYPES.PLACE && <IconHome />}
-                {option.type === AUTOSUGGEST_TYPES.YSO && <IconYso />}
+                {option.type === AUTOSUGGEST_TYPES.YSO && <IconTag />}
               </div>
               <div className={styles.textWrapper} onClick={handleClick}>
                 <div className={styles.text}>{option.text}</div>

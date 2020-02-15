@@ -1,16 +1,4 @@
-import {
-  IconBoots,
-  IconDoubleLike,
-  IconFemale,
-  IconFill,
-  IconFood,
-  IconLanguage,
-  IconLips,
-  IconSearch,
-  IconTree,
-  IconVolume,
-  IconWine
-} from "hds-react";
+import { IconSearch, IconTree } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
@@ -23,6 +11,15 @@ import SearchLabel from "../../common/components/search/searchLabel/SearchLabel"
 import { AutosuggestMenuOption, Category } from "../../common/types";
 import { CATEGORIES } from "../../constants";
 import useLocale from "../../hooks/useLocale";
+import IconCultureAndArts from "../../icons/IconCultureAndArts";
+import IconDance from "../../icons/IconDance";
+import IconFood from "../../icons/IconFood";
+import IconMovies from "../../icons/IconMovies";
+import IconMuseum from "../../icons/IconMuseum";
+import IconMusic from "../../icons/IconMusic";
+import IconParticipate from "../../icons/IconParticipate";
+import IconSports from "../../icons/IconSports";
+import IconTheatre from "../../icons/IconTheatre";
 import { getSearchQuery } from "../../util/searchUtils";
 import styles from "./search.module.scss";
 
@@ -154,32 +151,32 @@ const Search: FunctionComponent = () => {
         <CategoryFilters
           categories={[
             {
-              icon: <IconVolume />,
+              icon: <IconMovies />,
               text: t("home.category.movie"),
               value: CATEGORIES.MOVIE
             },
             {
-              icon: <IconLips />,
+              icon: <IconMusic />,
               text: t("home.category.music"),
               value: CATEGORIES.MUSIC
             },
             {
-              icon: <IconBoots />,
+              icon: <IconSports />,
               text: t("home.category.sport"),
               value: CATEGORIES.SPORT
             },
             {
-              icon: <IconLanguage />,
+              icon: <IconMuseum />,
               text: t("home.category.museum"),
               value: CATEGORIES.MUSEUM
             },
             {
-              icon: <IconFemale />,
+              icon: <IconDance />,
               text: t("home.category.dance"),
               value: CATEGORIES.DANCE
             },
             {
-              icon: <IconWine />,
+              icon: <IconCultureAndArts />,
               text: t("home.category.culture"),
               value: CATEGORIES.CULTURE
             },
@@ -189,12 +186,12 @@ const Search: FunctionComponent = () => {
               value: CATEGORIES.NATURE
             },
             {
-              icon: <IconFill />,
+              icon: <IconParticipate />,
               text: t("home.category.influence"),
               value: CATEGORIES.INFLUENCE
             },
             {
-              icon: <IconDoubleLike />,
+              icon: <IconTheatre />,
               text: t("home.category.theatre"),
               value: CATEGORIES.THEATRE
             },

@@ -4,8 +4,7 @@ import {
   IconAngleRight,
   IconInfo,
   IconLanguage,
-  IconLocation,
-  IconTicket
+  IconLocation
 } from "hds-react";
 import { createEvent, EventAttributes } from "ics";
 import capitalize from "lodash/capitalize";
@@ -17,6 +16,7 @@ import { EventDetailsQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
 import IconCalendar from "../../icons/IconCalendar";
 import IconDirections from "../../icons/IconDirections";
+import IconTicket from "../../icons/IconTicket";
 import { formatDate } from "../../util/dateUtils";
 import getDateArray from "../../util/getDateArray";
 import getDateRangeStr from "../../util/getDateRangeStr";
