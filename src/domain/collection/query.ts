@@ -38,10 +38,69 @@ export const QUERY_COLLECTION_DETAILS = gql`
         fi
         sv
       }
+      similarCollectionsTitle {
+        en
+        fi
+        sv
+      }
       title {
         en
         fi
         sv
+      }
+    }
+  }
+  query CollectionList {
+    collectionList {
+      meta {
+        count
+      }
+      data {
+        id
+        curatedEvents
+        curatedEventsTitle {
+          en
+          fi
+          sv
+        }
+        description {
+          en
+          fi
+          sv
+        }
+        eventListQuery
+        eventListTitle {
+          en
+          fi
+          sv
+        }
+        link {
+          text {
+            en
+            fi
+            sv
+          }
+          url {
+            en
+            fi
+            sv
+          }
+        }
+        shortDescription {
+          en
+          fi
+          sv
+        }
+        similarCollectionsTitle {
+          en
+          fi
+          sv
+        }
+        title {
+          en
+          fi
+          sv
+        }
       }
     }
   }
