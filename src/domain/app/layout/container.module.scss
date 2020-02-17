@@ -13,7 +13,7 @@
 
 @include respond-below(sm) {
     .container {
-        grid-template-columns: $basePadding 1fr $basePadding;
+        grid-template-columns: 0.75rem 1fr 0.75rem;
     }
 }
 
