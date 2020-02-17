@@ -234,6 +234,7 @@
       "buttonSearch": "Search",
       "labelDateRange": "For what period you are looking for?",
       "labelSearchField": "What you are looking for?",
+      "linkAdvancedSearch": "Advanced Search",
       "placeholder": "Enter a keyword, eg rock or yoga",
       "title": "Find something to do"
     }

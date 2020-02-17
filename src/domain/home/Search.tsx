@@ -1,7 +1,8 @@
-import { IconSearch, IconTree } from "hds-react";
+import { IconAngleRight, IconSearch, IconTree } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 import Button from "../../common/components/button/Button";
 import CategoryFilters from "../../common/components/category/CategoryFilters";
@@ -103,48 +104,56 @@ const Search: FunctionComponent = () => {
       <div className={styles.searchContainer}>
         {/* Hide Suprise me button on MVP version */}
         {/* <SupriseMeButton onClick={handleClickSupriseMe} /> */}
-        <div className={styles.titleWrapper}>
-          <h3>{t("home.search.title")}</h3>
+        <div className={styles.searchRow}>
+          <div className={styles.titleWrapper}>
+            <h3>{t("home.search.title")}</h3>
+          </div>
+          <div className={styles.autosuggestWrapper}>
+            <SearchLabel htmlFor={"search"}>
+              {t("home.search.labelSearchField")}
+            </SearchLabel>
+            <SearchAutosuggest
+              categories={[]}
+              name="search"
+              onChangeSearchValue={setSearchValue}
+              onOptionClick={handleMenuOptionClick}
+              placeholder={t("home.search.placeholder")}
+              searchValue={searchValue}
+            />
+          </div>
+          <div className={styles.dateSelectorWrapper}>
+            <SearchLabel color="black" htmlFor="date" srOnly={true}>
+              {t("home.search.labelDateRange")}
+            </SearchLabel>
+            <DateSelector
+              dateTypes={dateTypes}
+              endDate={endDate}
+              isCustomDate={isCustomDate}
+              name="date"
+              onChangeDateTypes={handleChangeDateTypes}
+              onChangeEndDate={setEndDate}
+              onChangeStartDate={setStartDate}
+              startDate={startDate}
+              toggleIsCustomDate={toggleIsCustomDate}
+            />
+          </div>
+          <div className={styles.buttonWrapper}>
+            <Button
+              color="primary"
+              fullWidth={true}
+              iconLeft={<IconSearch />}
+              onClick={moveToSearchPage}
+              size="default"
+            >
+              {t("home.search.buttonSearch")}
+            </Button>
+          </div>
         </div>
-        <div className={styles.autosuggestWrapper}>
-          <SearchLabel htmlFor={"search"}>
-            {t("home.search.labelSearchField")}
-          </SearchLabel>
-          <SearchAutosuggest
-            categories={[]}
-            name="search"
-            onChangeSearchValue={setSearchValue}
-            onOptionClick={handleMenuOptionClick}
-            placeholder={t("home.search.placeholder")}
-            searchValue={searchValue}
-          />
-        </div>
-        <div className={styles.dateSelectorWrapper}>
-          <SearchLabel color="black" htmlFor="date" srOnly={true}>
-            {t("home.search.labelDateRange")}
-          </SearchLabel>
-          <DateSelector
-            dateTypes={dateTypes}
-            endDate={endDate}
-            isCustomDate={isCustomDate}
-            name="date"
-            onChangeDateTypes={handleChangeDateTypes}
-            onChangeEndDate={setEndDate}
-            onChangeStartDate={setStartDate}
-            startDate={startDate}
-            toggleIsCustomDate={toggleIsCustomDate}
-          />
-        </div>
-        <div className={styles.buttonWrapper}>
-          <Button
-            color="primary"
-            fullWidth={true}
-            iconLeft={<IconSearch />}
-            onClick={moveToSearchPage}
-            size="default"
-          >
-            {t("home.search.buttonSearch")}
-          </Button>
+        <div className={styles.linkRow}>
+          <Link to={`/${locale}/events`}>
+            {t("home.search.linkAdvancedSearch")}
+            <IconAngleRight />
+          </Link>
         </div>
       </div>
       <div className={styles.categoriesWrapper}>
