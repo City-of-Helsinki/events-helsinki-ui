@@ -39,7 +39,6 @@ const SearchResultList: React.FC<Props> = ({
             count: eventsData.eventList.meta.count
           })}
         </div>
-        )}
         <div className={classNames(styles.searchResultWrapper)}>
           <FilterSummary />
           <EventList
