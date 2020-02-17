@@ -4,9 +4,7 @@ exports[`EventCard should match snapshot 1`] = `
 "<div class=\\"eventCard\\">
   <div class=\\"similarEventCard\\"><a aria-hidden=\\"true\\" class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">
       <div class=\\"tagWrapperDesktop\\">
-        <div class=\\"priceWrapper\\">
-          <div class=\\"keyword tramLight20\\">Ilmainen</div>
-        </div>
+        <div class=\\"priceWrapper\\"></div>
         <div class=\\"categoryWrapper\\"></div>
       </div>
     </a>
