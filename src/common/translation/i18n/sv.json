@@ -234,6 +234,7 @@
       "buttonSearch": "Sök",
       "labelDateRange": "För vilken period du letar efter?",
       "labelSearchField": "Vad du letar efter?",
+      "linkAdvancedSearch": "Avancerad sökning",
       "placeholder": "Ange ett nyckelord, t.ex. rock eller yoga",
       "title": "Hitta något att göra"
     }
