@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import Button from "../../../common/components/button/Button";
 import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
 import { EventListQuery } from "../../../generated/graphql";
-import isClient from "../../../util/isClient";
 import EventCard from "../EventCard";
 import styles from "./eventList.module.scss";
 
@@ -17,13 +16,6 @@ interface Props {
 const EventList: React.FC<Props> = ({ eventsData, loading, onLoadMore }) => {
   const { t } = useTranslation();
   const events = eventsData.eventList.data;
-
-  React.useEffect(() => {
-    // Scroll to top when page loads. Ignore this on SSR because window doesn't exist
-    if (isClient) {
-      window.scrollTo(0, 0);
-    }
-  }, []);
 
   return (
     <div className={styles.eventListWrapper}>

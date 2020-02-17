@@ -5,7 +5,6 @@ import { useHistory, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
 import Button from "../../common/components/button/Button";
-import Keyword from "../../common/components/keyword/Keyword";
 import SrOnly from "../../common/components/srOnly/SrOnly";
 import useLocale from "../../hooks/useLocale";
 import getDateRangeStr from "../../util/getDateRangeStr";
@@ -63,20 +62,13 @@ const EventCard: React.FC<Props> = ({ event }) => {
         to={eventUrl}
       >
         <div className={styles.tagWrapper}>
-          <div className={styles.priceWrapper}>
-            {isEventFree(event) && (
-              <Keyword
-                color="tramLight20"
-                keyword={t("eventSearch.event.offers.isFree")}
-              />
-            )}
-          </div>
+          <div className={styles.priceWrapper}></div>
 
           <div className={styles.categoryWrapper}>
             <EventKeywords
               event={event}
               hideKeywordsOnMobile={true}
-              showIsFree={false}
+              showIsFree={true}
             />
           </div>
         </div>

@@ -82,7 +82,7 @@ const EventHero: React.FC<Props> = ({
                   <EventKeywords
                     blackOnMobile={true}
                     event={eventData.eventDetails}
-                    showIsFree={false}
+                    showIsFree={true}
                   />
                 </div>
               )}
