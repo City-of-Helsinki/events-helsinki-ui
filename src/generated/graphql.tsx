@@ -22,6 +22,7 @@ export type CollectionDetails = {
   eventListTitle: LocalizedObject,
   link: CollectionLink,
   shortDescription: LocalizedObject,
+  similarCollectionsTitle: LocalizedObject,
   title: LocalizedObject,
 };
 
@@ -29,6 +30,12 @@ export type CollectionLink = {
    __typename?: 'CollectionLink',
   text: LocalizedObject,
   url: LocalizedObject,
+};
+
+export type CollectionListResponse = {
+   __typename?: 'CollectionListResponse',
+  meta: Meta,
+  data: Array<CollectionDetails>,
 };
 
 export type Division = {
@@ -249,6 +256,7 @@ export type Query = {
    __typename?: 'Query',
   _empty?: Maybe<Scalars['String']>,
   collectionDetails: CollectionDetails,
+  collectionList: CollectionListResponse,
   eventDetails: EventDetails,
   eventList: EventListResponse,
   keywordDetails: Keyword,
@@ -357,10 +365,58 @@ export type CollectionDetailsQuery = (
     ), shortDescription: (
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ), similarCollectionsTitle: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
     ), title: (
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
     ) }
+  ) }
+);
+
+export type CollectionListQueryVariables = {};
+
+
+export type CollectionListQuery = (
+  { __typename?: 'Query' }
+  & { collectionList: (
+    { __typename?: 'CollectionListResponse' }
+    & { meta: (
+      { __typename?: 'Meta' }
+      & Pick<Meta, 'count'>
+    ), data: Array<(
+      { __typename?: 'CollectionDetails' }
+      & Pick<CollectionDetails, 'id' | 'curatedEvents' | 'eventListQuery'>
+      & { curatedEventsTitle: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ), description: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ), eventListTitle: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ), link: (
+        { __typename?: 'CollectionLink' }
+        & { text: (
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+        ), url: (
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+        ) }
+      ), shortDescription: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ), similarCollectionsTitle: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ), title: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ) }
+    )> }
   ) }
 );
 
@@ -671,6 +727,11 @@ export const CollectionDetailsDocument = gql`
       fi
       sv
     }
+    similarCollectionsTitle {
+      en
+      fi
+      sv
+    }
     title {
       en
       fi
@@ -716,6 +777,98 @@ export function useCollectionDetailsLazyQuery(baseOptions?: ApolloReactHooks.Laz
 export type CollectionDetailsQueryHookResult = ReturnType<typeof useCollectionDetailsQuery>;
 export type CollectionDetailsLazyQueryHookResult = ReturnType<typeof useCollectionDetailsLazyQuery>;
 export type CollectionDetailsQueryResult = ApolloReactCommon.QueryResult<CollectionDetailsQuery, CollectionDetailsQueryVariables>;
+export const CollectionListDocument = gql`
+    query CollectionList {
+  collectionList {
+    meta {
+      count
+    }
+    data {
+      id
+      curatedEvents
+      curatedEventsTitle {
+        en
+        fi
+        sv
+      }
+      description {
+        en
+        fi
+        sv
+      }
+      eventListQuery
+      eventListTitle {
+        en
+        fi
+        sv
+      }
+      link {
+        text {
+          en
+          fi
+          sv
+        }
+        url {
+          en
+          fi
+          sv
+        }
+      }
+      shortDescription {
+        en
+        fi
+        sv
+      }
+      similarCollectionsTitle {
+        en
+        fi
+        sv
+      }
+      title {
+        en
+        fi
+        sv
+      }
+    }
+  }
+}
+    `;
+export type CollectionListProps<TChildProps = {}> = ApolloReactHoc.DataProps<CollectionListQuery, CollectionListQueryVariables> | TChildProps;
+export function withCollectionList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  CollectionListQuery,
+  CollectionListQueryVariables,
+  CollectionListProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, CollectionListQuery, CollectionListQueryVariables, CollectionListProps<TChildProps>>(CollectionListDocument, {
+      alias: 'collectionList',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useCollectionListQuery__
+ *
+ * To run a query within a React component, call `useCollectionListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCollectionListQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCollectionListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCollectionListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CollectionListQuery, CollectionListQueryVariables>) {
+        return ApolloReactHooks.useQuery<CollectionListQuery, CollectionListQueryVariables>(CollectionListDocument, baseOptions);
+      }
+export function useCollectionListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CollectionListQuery, CollectionListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CollectionListQuery, CollectionListQueryVariables>(CollectionListDocument, baseOptions);
+        }
+export type CollectionListQueryHookResult = ReturnType<typeof useCollectionListQuery>;
+export type CollectionListLazyQueryHookResult = ReturnType<typeof useCollectionListLazyQuery>;
+export type CollectionListQueryResult = ApolloReactCommon.QueryResult<CollectionListQuery, CollectionListQueryVariables>;
 export const EventDetailsDocument = gql`
     query EventDetails($id: ID!) {
   eventDetails(id: $id) {

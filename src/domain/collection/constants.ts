@@ -53,3 +53,6 @@ export const mockCollection = {
     }
   }
 };
+
+// Amount of the similar collections
+export const SIMILAR_COLLECTIONS_AMOUNT = 8;

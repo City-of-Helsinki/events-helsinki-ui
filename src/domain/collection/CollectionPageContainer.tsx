@@ -41,7 +41,7 @@ const CollectionPageContainer: React.FC = () => {
               <CuratedEventList collectionData={collectionData} />
               <CollectionShareLinks />
               <EventList collectionData={collectionData} />
-              <SimilarCollections />
+              <SimilarCollections collectionData={collectionData} />
             </>
           )}
         </LoadingSpinner>
