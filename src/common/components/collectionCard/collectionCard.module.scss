@@ -59,6 +59,7 @@
 
   &.smSize {
     flex-direction: column;
+    grid-template-columns: 6.375rem 1fr;
 
     @include respond-below(sm) {
       flex-direction: row;
@@ -73,7 +74,7 @@
 
       @include respond-below(sm) {
         min-height: 7.25rem;
-        flex: 1 1 0%;
+        width: 6.375rem;
       }
     }
   

@@ -1,0 +1,11 @@
+@import "layout";
+
+.eventList {
+  .loadMoreWrapper {
+    margin-top: 1.5rem;
+
+    @include respond_above(sm) {
+      margin-top: 0;
+    }
+  }
+}

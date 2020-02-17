@@ -9,7 +9,7 @@ import { EVENT_SORT_OPTIONS, PAGE_SIZE } from "./constants";
 import { getEventFilters, getNextPage } from "./EventListUtils";
 import styles from "./eventSearchPage.module.scss";
 import Search from "./Search";
-import SearchResultList from "./SearchResultList";
+import SearchResultList from "./searchResultList/SearchResultList";
 
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const locale = useLocale();

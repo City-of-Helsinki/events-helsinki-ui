@@ -10,7 +10,7 @@ import getLocalisedString from "../../../util/getLocalisedString";
 import Container from "../../app/layout/Container";
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from "../../eventSearch/constants";
 import { getEventFilters, getNextPage } from "../../eventSearch/EventListUtils";
-import SearchResultList from "../../eventSearch/SearchResultList";
+import EventSearchList from "../../eventSearch/searchResultList/EventList";
 import styles from "./eventList.module.scss";
 
 interface Props {
@@ -72,13 +72,11 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
         </h2>
         <LoadingSpinner isLoading={!isFetchingMore && loading}>
           {eventsData && (
-            <div>
-              <SearchResultList
+            <div className={styles.eventSearchListWrapper}>
+              <EventSearchList
                 eventsData={eventsData}
                 loading={isFetchingMore}
                 onLoadMore={handleLoadMore}
-                showCount={false}
-                showFilterSummary={false}
               />
             </div>
           )}

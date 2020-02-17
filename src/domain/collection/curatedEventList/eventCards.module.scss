@@ -4,7 +4,7 @@
 
 .eventCards {
   display: grid;
-  margin: 0 -0.625rem;
+  margin: 0;
 
   @include respond_above(sm) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
