@@ -49,19 +49,12 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
         to={eventUrl}
       >
         <div className={styles.tagWrapperDesktop}>
-          <div className={styles.priceWrapper}>
-            {isEventFree(event) && (
-              <Keyword
-                color="tramLight20"
-                keyword={t("eventSearch.event.offers.isFree")}
-              />
-            )}
-          </div>
+          <div className={styles.priceWrapper}></div>
 
           <div className={styles.categoryWrapper}>
             <EventKeywords
               event={event}
-              showIsFree={false}
+              showIsFree={true}
               showKeywords={false}
             />
           </div>

@@ -35,7 +35,7 @@ const EventKeywords: React.FC<Props> = ({
   }
 
   return (
-    <div>
+    <>
       {!!keywords.length &&
         showKeywords &&
         keywords.map(keyword => {
@@ -66,7 +66,7 @@ const EventKeywords: React.FC<Props> = ({
           keyword={t("event.categories.labelFree")}
         />
       )}
-    </div>
+    </>
   );
 };
 
