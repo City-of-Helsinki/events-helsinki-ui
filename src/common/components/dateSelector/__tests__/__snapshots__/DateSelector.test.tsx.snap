@@ -104,5 +104,8 @@ exports[`DateSelector matches snapshot 1`] = `
       </svg>
     </div>
   </button>
+  <div
+    className="isSelectedIndicator"
+  />
 </div>
 `;
