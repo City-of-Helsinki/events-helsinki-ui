@@ -180,7 +180,7 @@
     "filters": {
       "buttonRemoveSearchWord": "Ta bort sökordet",
       "textNoFilters": "Inga sökkriterier",
-      "titleSummary": "Valda sökkriterier"
+      "titleSummary": "Valda sökkriterier:"
     },
     "search": {
       "buttonSearch": "Sök",
