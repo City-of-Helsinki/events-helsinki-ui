@@ -98,6 +98,10 @@ const DateSelector: FunctionComponent<Props> = ({
     toggleIsCustomDate();
   };
 
+  const isSelected = isCustomDate
+    ? !!startDate || !!endDate
+    : !!dateTypes.length;
+
   return (
     <div className={styles.dateSelector} ref={dateSelector}>
       <button className={styles.button} onClick={toggleMenu} type="button">
@@ -109,6 +113,7 @@ const DateSelector: FunctionComponent<Props> = ({
           {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
         </div>
       </button>
+      {isSelected && <div className={styles.isSelectedIndicator} />}
       <DateSelectorMenu
         backBtnRef={backBtnRef}
         dateTypes={dateTypes}

@@ -44,3 +44,12 @@
     }
   }
 }
+
+.isSelectedIndicator {
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: $dark-green;
+}

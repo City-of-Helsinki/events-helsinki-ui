@@ -160,6 +160,7 @@ const Dropdown: React.FC<Props> = ({
   return (
     <div className={styles.dropdown} ref={dropdown}>
       <div className={styles.inputWrapper} onClick={handleInputWrapperClick}>
+        {!!value.length && <div className={styles.isSelectedIndicator} />}
         <div className={styles.iconWrapper}>{icon}</div>
         <div className={styles.title}>
           <input
