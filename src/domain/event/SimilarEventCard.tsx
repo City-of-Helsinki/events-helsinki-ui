@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
-import Keyword from "../../common/components/keyword/Keyword";
 import SrOnly from "../../common/components/srOnly/SrOnly";
 import useLocale from "../../hooks/useLocale";
 import getDateRangeStr from "../../util/getDateRangeStr";
@@ -12,7 +11,7 @@ import getLocalisedString from "../../util/getLocalisedString";
 import getTimeRangeStr from "../../util/getTimeRangeStr";
 import EventKeywords from "../event/EventKeywords";
 import LocationText from "../event/EventLocationText";
-import { getEventPrice, isEventFree } from "../event/EventUtils";
+import { getEventPrice } from "../event/EventUtils";
 import { EventInList } from "../event/types";
 import styles from "./similarEventCard.module.scss";
 
