@@ -178,6 +178,7 @@
       }
     },
     "filters": {
+      "buttonRemoveSearchWord": "Remove search word",
       "textNoFilters": "No search criteria",
       "titleSummary": "Selected search criteria"
     },

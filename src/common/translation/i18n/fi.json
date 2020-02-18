@@ -178,6 +178,7 @@
       }
     },
     "filters": {
+      "buttonRemoveSearchWord": "Poista hakusana",
       "textNoFilters": "Ei hakuehtoja",
       "titleSummary": "Valitsemasi hakuehdot"
     },
