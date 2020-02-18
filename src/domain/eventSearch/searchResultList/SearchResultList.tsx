@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 import { EventListQuery } from "../../../generated/graphql";
 import isClient from "../../../util/isClient";
 import Container from "../../app/layout/Container";
-import FilterSummary from "../FilterSummary";
 import EventList from "./EventList";
+import FilterSummary from "./FilterSummary";
 import styles from "./searchResultList.module.scss";
 
 interface Props {
