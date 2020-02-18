@@ -277,74 +277,80 @@ const Search: FunctionComponent = () => {
     <>
       <div className={styles.searchContainer}>
         <Container>
-          <div className={styles.firstRow}>
-            <SearchLabel color="black" htmlFor="search">
-              {t("eventSearch.search.labelSearchField")}
-            </SearchLabel>
-            <SearchAutosuggest
-              categories={[]}
-              name="search"
-              onChangeSearchValue={setSearchValue}
-              onOptionClick={handleMenuOptionClick}
-              placeholder={t("eventSearch.search.placeholder")}
-              searchValue={searchValue}
-            />
-          </div>
-          <div className={styles.secondRow}>
-            <div>
-              <SearchLabel color="black" htmlFor="category" srOnly={true}>
-                {t("eventSearch.search.labelCategory")}
-              </SearchLabel>
-              <MultiSelectDropdown
-                icon={<IconRead />}
-                name="category"
-                onChange={setSelectedCategories}
-                options={categories}
-                title={t("eventSearch.search.titleDropdownCategory")}
-                value={selectedCategories}
-              />
-            </div>
-            <div className={styles.dateSelectorWrapper}>
-              <SearchLabel color="black" htmlFor="date" srOnly={true}>
-                {t("eventSearch.search.labelDateRange")}
-              </SearchLabel>
-              <DateSelector
-                dateTypes={dateTypes}
-                endDate={endDate}
-                isCustomDate={isCustomDate}
-                name="date"
-                onChangeDateTypes={handleChangeDateTypes}
-                onChangeEndDate={setEndDate}
-                onChangeStartDate={setStartDate}
-                startDate={startDate}
-                toggleIsCustomDate={toggleIsCustomDate}
-              />
-            </div>
-            <div>
-              <SearchLabel color="black" htmlFor="district" srOnly={true}>
-                {t("eventSearch.search.labelDistrict")}
-              </SearchLabel>
-              <MultiSelectDropdown
-                icon={<IconLocation />}
-                name="district"
-                onChange={setDistricts}
-                options={districtOptions}
-                title={t("eventSearch.search.titleDropdownDistrict")}
-                value={districts}
-              />
-            </div>
-            <div>
-              <SearchLabel color="black" htmlFor="targets" srOnly={true}>
-                {t("eventSearch.search.labelTargetGroup")}
-              </SearchLabel>
-              <MultiSelectDropdown
-                icon={<IconPerson />}
-                name="targets"
-                onChange={setTargets}
-                options={targetOptions}
-                title={t("eventSearch.search.titleDropdownTargetGroup")}
-                value={targets}
-              />
+          <div className={styles.searchWrapper}>
+            <div className={styles.fieldsWrapper}>
+              <div className={styles.firstRow}>
+                <div>
+                  <SearchLabel color="black" htmlFor="search">
+                    {t("eventSearch.search.labelSearchField")}
+                  </SearchLabel>
+                  <SearchAutosuggest
+                    categories={[]}
+                    name="search"
+                    onChangeSearchValue={setSearchValue}
+                    onOptionClick={handleMenuOptionClick}
+                    placeholder={t("eventSearch.search.placeholder")}
+                    searchValue={searchValue}
+                  />
+                </div>
+              </div>
+              <div className={styles.secondRow}>
+                <div>
+                  <SearchLabel color="black" htmlFor="category" srOnly={true}>
+                    {t("eventSearch.search.labelCategory")}
+                  </SearchLabel>
+                  <MultiSelectDropdown
+                    icon={<IconRead />}
+                    name="category"
+                    onChange={setSelectedCategories}
+                    options={categories}
+                    title={t("eventSearch.search.titleDropdownCategory")}
+                    value={selectedCategories}
+                  />
+                </div>
+                <div className={styles.dateSelectorWrapper}>
+                  <SearchLabel color="black" htmlFor="date" srOnly={true}>
+                    {t("eventSearch.search.labelDateRange")}
+                  </SearchLabel>
+                  <DateSelector
+                    dateTypes={dateTypes}
+                    endDate={endDate}
+                    isCustomDate={isCustomDate}
+                    name="date"
+                    onChangeDateTypes={handleChangeDateTypes}
+                    onChangeEndDate={setEndDate}
+                    onChangeStartDate={setStartDate}
+                    startDate={startDate}
+                    toggleIsCustomDate={toggleIsCustomDate}
+                  />
+                </div>
+                <div>
+                  <SearchLabel color="black" htmlFor="district" srOnly={true}>
+                    {t("eventSearch.search.labelDistrict")}
+                  </SearchLabel>
+                  <MultiSelectDropdown
+                    icon={<IconLocation />}
+                    name="district"
+                    onChange={setDistricts}
+                    options={districtOptions}
+                    title={t("eventSearch.search.titleDropdownDistrict")}
+                    value={districts}
+                  />
+                </div>
+                <div>
+                  <SearchLabel color="black" htmlFor="targets" srOnly={true}>
+                    {t("eventSearch.search.labelTargetGroup")}
+                  </SearchLabel>
+                  <MultiSelectDropdown
+                    icon={<IconPerson />}
+                    name="targets"
+                    onChange={setTargets}
+                    options={targetOptions}
+                    title={t("eventSearch.search.titleDropdownTargetGroup")}
+                    value={targets}
+                  />
+                </div>
+              </div>
             </div>
             <div className={styles.buttonWrapper}>
               <Button
