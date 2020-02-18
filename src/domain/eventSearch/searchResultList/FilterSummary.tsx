@@ -5,18 +5,18 @@ import { useHistory, useLocation } from "react-router";
 
 import FilterButton, {
   FilterType
-} from "../../common/components/filterButton/FilterButton";
-import { DISTRICTS, TARGET_GROUPS } from "../../constants";
-import useLocale from "../../hooks/useLocale";
-import { formatDate } from "../../util/dateUtils";
-import getUrlParamAsString from "../../util/getUrlParamAsString";
-import { getSearchQuery } from "../../util/searchUtils";
-import { translateValue } from "../../util/translateUtils";
-import DateFilter from "./DateFilter";
+} from "../../../common/components/filterButton/FilterButton";
+import { DISTRICTS, TARGET_GROUPS } from "../../../constants";
+import useLocale from "../../../hooks/useLocale";
+import { formatDate } from "../../../util/dateUtils";
+import getUrlParamAsString from "../../../util/getUrlParamAsString";
+import { getSearchQuery } from "../../../util/searchUtils";
+import { translateValue } from "../../../util/translateUtils";
+import DateFilter from "../DateFilter";
+import KeywordFilter from "../KeywordFilter";
+import PlaceFilter from "../PlaceFilter";
+import PublisherFilter from "../PublisherFilter";
 import styles from "./filterSummary.module.scss";
-import KeywordFilter from "./KeywordFilter";
-import PlaceFilter from "./PlaceFilter";
-import PublisherFilter from "./PublisherFilter";
 
 const findKeyOfDistrict = (value: string) =>
   Object.keys(DISTRICTS).find(key => get(DISTRICTS, key) === value);
