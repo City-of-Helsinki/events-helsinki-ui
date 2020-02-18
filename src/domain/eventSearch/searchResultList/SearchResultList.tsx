@@ -34,18 +34,22 @@ const SearchResultList: React.FC<Props> = ({
   return (
     <div className={styles.searchResultListContainer}>
       <Container>
-        <div className={styles.count}>
-          {t("eventSearch.textFoundEvents", {
-            count: eventsData.eventList.meta.count
-          })}
-        </div>
         <div className={classNames(styles.searchResultWrapper)}>
-          <FilterSummary />
-          <EventList
-            eventsData={eventsData}
-            loading={loading}
-            onLoadMore={onLoadMore}
-          />
+          <div>
+            <FilterSummary />
+          </div>
+          <div>
+            <div className={styles.count}>
+              {t("eventSearch.textFoundEvents", {
+                count: eventsData.eventList.meta.count
+              })}
+            </div>
+            <EventList
+              eventsData={eventsData}
+              loading={loading}
+              onLoadMore={onLoadMore}
+            />
+          </div>
         </div>
       </Container>
     </div>

@@ -9,13 +9,19 @@
 }
 
 .count {
-  font-size: 1.5rem;
+  font-size: 1.125rem;
   font-weight: $font-weight-bold;
+  margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+  text-align: center;
 
   @include respond_above(sm) {
-    font-size: 2.25rem;
-    margin-bottom: 4rem;
+    text-align: left;
+  }
+
+  @include respond_above(md) {
+    margin-top: 0;
+    margin-bottom: 2rem;
   }
 }
 
@@ -26,7 +32,7 @@
   margin-left: -0.75rem;
   margin-right: -0.75rem;
 
-  @include respond_above(sm) {
+  @include respond_above(md) {
     grid-row-gap: unset;
     grid-column-gap: $largeMargin;
     grid-template-columns: 2fr 5fr;
