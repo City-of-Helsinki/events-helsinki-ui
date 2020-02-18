@@ -1,6 +1,8 @@
+@import "colors";
+
 .searchWordFilter {
   display: flex;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 
   div {
     font-size: 1.5rem;
@@ -16,6 +18,11 @@
     svg {
       height: 1.5rem;
       width: 1.5rem;
+    }
+
+    &:focus {
+      outline: 2px solid $hel-black;
+      outline-offset: 0.125rem;
     }
   }
 }

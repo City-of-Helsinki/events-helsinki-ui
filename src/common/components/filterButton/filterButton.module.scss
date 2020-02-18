@@ -5,9 +5,9 @@
   min-height: 1.5rem;
   background-color: $hel-black-70;
   color: $hel-white;
-  margin: 0.1875rem 0.375rem 0.1875rem 0;
+  margin: 0.5rem 0.5rem 0.5rem 0;
   display: inline-flex;
-  padding: 0.125rem 0.5rem;
+  padding: 0.125rem 0.5rem 0.125rem 0.25rem;
   align-items: center;
   font-size: 0.875rem;
   font-weight: 500;
@@ -18,12 +18,18 @@
     border: none;
     margin-right: 0.375rem;
     cursor: pointer;
+    width: 1rem;
 
     svg {
       fill: $hel-white;
       height: 0.625rem;
       width: 0.625rem;
       margin: 0;
+    }
+
+    &:focus {
+      outline: 2px solid $hel-white;
+      outline-offset: 0;
     }
   }
 }
@@ -36,6 +42,10 @@
   .closeButton {
     svg {
       fill: $hel-black;
+    }
+
+    &:focus {
+      outline: 2px solid $hel-black;
     }
   }
 }
@@ -50,6 +60,10 @@
   .closeButton {
     svg {
       fill: $hel-white;
+    }
+
+    &:focus {
+      outline: 2px solid $hel-white;
     }
   }
 }

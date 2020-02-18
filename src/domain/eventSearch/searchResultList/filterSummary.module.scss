@@ -19,26 +19,23 @@
 
     .titleFilterSummary {
       font-size: 1.125rem;
-      margin: 0 0 $baseMargin;
+      margin: 0 0 0.875rem;
     }
 
     .clearButton {
       display: block;
-      width: 100%;
-      margin-top: 1.5rem;
-      margin-bottom: -0.5rem;
-      padding: 0.5rem;
-      color: $hel-black-50;
+      margin-top: 1rem;
+      padding: 0;
+      color: $hel-black;
+      font-size: 0.875rem;
+      font-weight: 500;
       border: 2px solid transparent;
-
-      &:hover {
-        border-color: $light-gray;
-        background-color: $lightest-gray;
-      }
+      text-decoration: underline;
+      text-align: left;
 
       &:focus {
         outline: 2px solid $hel-black;
-        outline-offset: 0 0 1rem 0;
+        outline-offset: 0.25rem;
       }
     }
   }
