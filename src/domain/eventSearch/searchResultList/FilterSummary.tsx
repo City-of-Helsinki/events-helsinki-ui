@@ -17,6 +17,7 @@ import KeywordFilter from "../KeywordFilter";
 import PlaceFilter from "../PlaceFilter";
 import PublisherFilter from "../PublisherFilter";
 import styles from "./filterSummary.module.scss";
+import SearchWordFilter from "./SearchWordFilter";
 
 const findKeyOfDistrict = (value: string) =>
   Object.keys(DISTRICTS).find(key => get(DISTRICTS, key) === value);
@@ -38,6 +39,7 @@ const FilterSummary = () => {
   const targets = getUrlParamAsString(searchParams, "targets");
   const startDate = searchParams.get("startDate");
   const endDate = searchParams.get("endDate");
+  const searchWord = searchParams.get("search");
   const dateText = startDate
     ? endDate
       ? `${formatDate(new Date(startDate))} - ${formatDate(new Date(endDate))}`
@@ -48,6 +50,7 @@ const FilterSummary = () => {
 
   const handleFilterRemove = (value: string, type: FilterType) => {
     const endDate = searchParams.get("endDate");
+    const searchWord = searchParams.get("search") || "";
     const startDate = searchParams.get("startDate");
 
     const search = getSearchQuery({
@@ -72,7 +75,7 @@ const FilterSummary = () => {
       places:
         type === "place" ? places.filter(place => place !== value) : places,
       publisher: type !== "publisher" ? searchParams.get("publisher") : null,
-      search: "",
+      search: type === "searchWord" ? "" : searchWord,
       startDate:
         type === "date" ? null : startDate ? new Date(startDate) : null,
       targets:
@@ -80,6 +83,10 @@ const FilterSummary = () => {
     });
 
     push({ pathname: `/${locale}/events`, search });
+  };
+
+  const deleteSearchWord = () => {
+    handleFilterRemove("", "searchWord");
   };
 
   const clearFilters = () => {
@@ -108,6 +115,7 @@ const FilterSummary = () => {
     !!districts.length ||
     !!keywords.length ||
     !!places.length ||
+    !!searchWord ||
     !!targets.length;
 
   return (
@@ -116,7 +124,12 @@ const FilterSummary = () => {
         <h4 className={styles.titleFilterSummary}>
           {t("eventSearch.filters.titleSummary")}
         </h4>
-        {/* TODO: Add filters summary here */}
+        {!!searchWord && (
+          <SearchWordFilter
+            onRemove={deleteSearchWord}
+            searchWord={searchWord}
+          />
+        )}
         {hasFilters ? (
           <>
             {categories.map(category => (
