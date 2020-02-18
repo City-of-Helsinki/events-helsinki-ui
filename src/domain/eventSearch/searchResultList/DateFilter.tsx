@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 
 import FilterButton, {
   FilterType
-} from "../../common/components/filterButton/FilterButton";
-import { translateValue } from "../../util/translateUtils";
+} from "../../../common/components/filterButton/FilterButton";
+import { translateValue } from "../../../util/translateUtils";
 
 interface Props {
   onRemove: (value: string, type: FilterType) => void;

@@ -12,11 +12,11 @@ import { formatDate } from "../../../util/dateUtils";
 import getUrlParamAsString from "../../../util/getUrlParamAsString";
 import { getSearchQuery } from "../../../util/searchUtils";
 import { translateValue } from "../../../util/translateUtils";
-import DateFilter from "../DateFilter";
-import KeywordFilter from "../KeywordFilter";
-import PlaceFilter from "../PlaceFilter";
-import PublisherFilter from "../PublisherFilter";
+import DateFilter from "./DateFilter";
 import styles from "./filterSummary.module.scss";
+import KeywordFilter from "./KeywordFilter";
+import PlaceFilter from "./PlaceFilter";
+import PublisherFilter from "./PublisherFilter";
 import SearchWordFilter from "./SearchWordFilter";
 
 const findKeyOfDistrict = (value: string) =>
@@ -40,13 +40,12 @@ const FilterSummary = () => {
   const startDate = searchParams.get("startDate");
   const endDate = searchParams.get("endDate");
   const searchWord = searchParams.get("search");
-  const dateText = startDate
-    ? endDate
-      ? `${formatDate(new Date(startDate))} - ${formatDate(new Date(endDate))}`
-      : formatDate(new Date(startDate))
-    : endDate
-    ? formatDate(new Date(endDate))
-    : "";
+  const dateText =
+    startDate || endDate
+      ? `${startDate ? formatDate(new Date(startDate)) : ""} - ${
+          endDate ? formatDate(new Date(endDate)) : ""
+        }`.trim()
+      : "";
 
   const handleFilterRemove = (value: string, type: FilterType) => {
     const endDate = searchParams.get("endDate");
@@ -151,22 +150,6 @@ const FilterSummary = () => {
             {publisher && (
               <PublisherFilter id={publisher} onRemove={handleFilterRemove} />
             )}
-            {dateText && (
-              <DateFilter
-                onRemove={handleFilterRemove}
-                text={dateText}
-                type="date"
-                value="date"
-              />
-            )}
-            {dateTypes.map(dateType => (
-              <DateFilter
-                key={dateType}
-                onRemove={handleFilterRemove}
-                type="dateType"
-                value={dateType}
-              />
-            ))}
             {districts.map(district => (
               <FilterButton
                 key={district}
@@ -198,6 +181,22 @@ const FilterSummary = () => {
                 )}
                 type="target"
                 value={target}
+              />
+            ))}
+            {dateText && (
+              <DateFilter
+                onRemove={handleFilterRemove}
+                text={dateText}
+                type="date"
+                value="date"
+              />
+            )}
+            {dateTypes.map(dateType => (
+              <DateFilter
+                key={dateType}
+                onRemove={handleFilterRemove}
+                type="dateType"
+                value={dateType}
               />
             ))}
             <button

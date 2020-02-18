@@ -3,10 +3,8 @@ import { useTranslation } from "react-i18next";
 
 import FilterButton, {
   FilterType
-} from "../../common/components/filterButton/FilterButton";
-import { usePlaceDetailsQuery } from "../../generated/graphql";
-import useLocale from "../../hooks/useLocale";
-import getLocalisedString from "../../util/getLocalisedString";
+} from "../../../common/components/filterButton/FilterButton";
+import { useOrganizationDetailsQuery } from "../../../generated/graphql";
 
 interface Props {
   id: string;
@@ -15,8 +13,7 @@ interface Props {
 
 const PublisherFilter: React.FC<Props> = ({ id, onRemove }) => {
   const { t } = useTranslation();
-  const locale = useLocale();
-  const { data, loading } = usePlaceDetailsQuery({
+  const { data, loading } = useOrganizationDetailsQuery({
     variables: { id }
   });
 
@@ -24,14 +21,14 @@ const PublisherFilter: React.FC<Props> = ({ id, onRemove }) => {
     <FilterButton
       onRemove={onRemove}
       text={t("commons.loading")}
-      type="place"
+      type="publisher"
       value={id}
     />
-  ) : data && data.placeDetails.name ? (
+  ) : data && data.organizationDetails.name ? (
     <FilterButton
       onRemove={onRemove}
-      text={getLocalisedString(data.placeDetails.name, locale)}
-      type="place"
+      text={data.organizationDetails.name}
+      type="publisher"
       value={id}
     />
   ) : null;

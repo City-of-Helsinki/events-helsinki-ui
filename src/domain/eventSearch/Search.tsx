@@ -168,9 +168,7 @@ const Search: FunctionComponent = () => {
     const places = getUrlParamAsArray(searchParams, "places");
     const targets = getUrlParamAsArray(searchParams, "targets");
 
-    if (searchVal) {
-      setSearchValue(searchVal);
-    }
+    setSearchValue(searchVal || "");
 
     if (end) {
       setEndDate(new Date(end));
