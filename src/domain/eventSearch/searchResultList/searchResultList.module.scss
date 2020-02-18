@@ -29,9 +29,6 @@
   display: grid;
   grid-row-gap: 0.625rem;
 
-  margin-left: -0.75rem;
-  margin-right: -0.75rem;
-
   @include respond_above(md) {
     grid-row-gap: unset;
     grid-column-gap: $largeMargin;
