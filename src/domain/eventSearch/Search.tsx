@@ -198,79 +198,57 @@ const Search: FunctionComponent = () => {
   const handleMenuOptionClick = async (option: AutosuggestMenuOption) => {
     const type = option.type;
     const value = option.value;
+    const text = option.text;
 
-    let search = "";
+    const newSearchValue = text;
+
+    // Get new districts
+    const newDistricts = getUrlParamAsArray(searchParams, "districts");
+    if (type === "district" && !newDistricts.includes(value)) {
+      newDistricts.push(value);
+    }
+
+    // Get new keywords
+    const newKeywords = getUrlParamAsArray(searchParams, "keywords");
+    if (
+      (type === "keyword" || type === "yso") &&
+      !newKeywords.includes(value)
+    ) {
+      newKeywords.push(value);
+    }
+
+    // Get new keywords
+    const newPlaces = getUrlParamAsArray(searchParams, "places");
+    if (type === "place" && !newPlaces.includes(value)) {
+      newPlaces.push(value);
+    }
+    const search = getSearchQuery({
+      categories: selectedCategories,
+      dateTypes,
+      districts: newDistricts,
+      endDate,
+      isCustomDate,
+      keywords: newKeywords,
+      places: newPlaces,
+      publisher: null,
+      search: newSearchValue,
+      startDate,
+      targets
+    });
     switch (type) {
       case "district":
-        const newDistricts = getUrlParamAsArray(searchParams, "districts");
-        if (!newDistricts.includes(value)) {
-          newDistricts.push(value);
-        }
-
         setDistricts(newDistricts);
-        setSearchValue("");
-        search = getSearchQuery({
-          categories: selectedCategories,
-          dateTypes,
-          districts: newDistricts,
-          endDate,
-          isCustomDate,
-          keywords,
-          places,
-          publisher: null,
-          search: "",
-          startDate,
-          targets
-        });
-        push({ pathname: `/${locale}/events`, search });
         break;
       case "keyword":
       case "yso":
-        const newKeywords = getUrlParamAsArray(searchParams, "keywords");
-        if (!newKeywords.includes(value)) {
-          newKeywords.push(value);
-        }
-
         setKeywords(newKeywords);
-        setSearchValue("");
-        search = getSearchQuery({
-          categories: selectedCategories,
-          dateTypes,
-          districts,
-          endDate,
-          isCustomDate,
-          keywords: newKeywords,
-          places,
-          publisher: null,
-          search: "",
-          startDate,
-          targets
-        });
-        push({ pathname: `/${locale}/events`, search });
         break;
       case "place":
-        const newPlaces = getUrlParamAsArray(searchParams, "places");
-        if (!newPlaces.includes(value)) {
-          newPlaces.push(value);
-        }
-
         setPlaces(newPlaces);
-        setSearchValue("");
-        search = getSearchQuery({
-          categories: selectedCategories,
-          dateTypes,
-          districts,
-          endDate,
-          isCustomDate,
-          keywords,
-          places: newPlaces,
-          publisher: null,
-          search: "",
-          startDate,
-          targets
-        });
-        push({ pathname: `/${locale}/events`, search });
+        break;
     }
+    setSearchValue(newSearchValue);
+    push({ pathname: `/${locale}/events`, search });
   };
 
   const handleSubmit = (event?: FormEvent) => {

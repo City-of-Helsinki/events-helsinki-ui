@@ -77,6 +77,11 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
 
   const autosuggestItems: AutosuggestMenuOption[] = React.useMemo(() => {
     const items: AutosuggestMenuOption[] = [];
+    const textItem: AutosuggestMenuOption = {
+      text: internalInputValue,
+      type: "search",
+      value: internalInputValue
+    };
     const keywordItems: AutosuggestMenuOption[] = [];
     const districtItems: AutosuggestMenuOption[] = [];
     const placeItems: AutosuggestMenuOption[] = [];
@@ -118,6 +123,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     const placeNames = map(placeItems, "text");
 
     items.push(
+      textItem,
       ...keywordItems.filter(item => !placeNames.includes(item.text.trim())),
       ...districtItems,
       ...placeItems
@@ -229,6 +235,13 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
 
             if (selectedItem) {
               handleMenuOptionClick(selectedItem);
+            } else {
+              // Search by text if no option is selected
+              handleMenuOptionClick({
+                text: searchValue,
+                type: "search",
+                value: searchValue
+              });
             }
           } else {
             handleCloseMenu();
@@ -244,7 +257,8 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       handleCloseMenu,
       handleMenuOptionClick,
       isMenuOpen,
-      openMenu
+      openMenu,
+      searchValue
     ]
   );
 
