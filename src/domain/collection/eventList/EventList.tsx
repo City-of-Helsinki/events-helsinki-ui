@@ -27,7 +27,7 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
     return getEventFilters(
       searchParams,
       PAGE_SIZE,
-      EVENT_SORT_OPTIONS.END_TIME,
+      EVENT_SORT_OPTIONS.START_TIME,
       locale
     );
   }, [locale, searchParams]);
