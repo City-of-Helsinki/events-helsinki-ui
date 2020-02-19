@@ -182,6 +182,10 @@
       "textNoFilters": "Ei hakuehtoja",
       "titleSummary": "Valitsemasi hakuehdot:"
     },
+    "noResultsInfo": {
+      "bigText": "Voi vitsi, valitsemillasi hakuehdoilla ei löytynyt yhtään hakutulosta",
+      "smallText": "Kokeile muuttamalla hakuehtoja ja varmasti löydät jotain kiinnostavaa tekemistä!"
+    },
     "search": {
       "buttonSearch": "Hae",
       "labelCategory": "Millaista haet?",

@@ -182,6 +182,10 @@
       "textNoFilters": "Inga sökkriterier",
       "titleSummary": "Valda sökkriterier:"
     },
+    "noResultsInfo": {
+      "bigText": "Tyvärr, inga sökresultat hittades för de sökkriterier du har valt",
+      "smallText": "Försök ändra dina sökkriterier så kommer du säkert att hitta något att göra!"
+    },
     "search": {
       "buttonSearch": "Sök",
       "labelCategory": "Vilken typ av evenemang du letar efter?",

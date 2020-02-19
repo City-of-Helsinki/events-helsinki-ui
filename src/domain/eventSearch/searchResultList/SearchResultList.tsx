@@ -7,6 +7,7 @@ import isClient from "../../../util/isClient";
 import Container from "../../app/layout/Container";
 import EventList from "./EventList";
 import FilterSummary from "./FilterSummary";
+import NoResultsInfo from "./NoResultsInfo";
 import styles from "./searchResultList.module.scss";
 
 interface Props {
@@ -23,6 +24,7 @@ const SearchResultList: React.FC<Props> = ({
   onLoadMore
 }) => {
   const { t } = useTranslation();
+  const count = eventsData.eventList.meta.count;
 
   React.useEffect(() => {
     // Scroll to top when page loads. Ignore this on SSR because window doesn't exist
@@ -41,9 +43,10 @@ const SearchResultList: React.FC<Props> = ({
           <div>
             <div className={styles.count}>
               {t("eventSearch.textFoundEvents", {
-                count: eventsData.eventList.meta.count
+                count
               })}
             </div>
+            {!count && !loading && <NoResultsInfo />}
             <EventList
               eventsData={eventsData}
               loading={loading}

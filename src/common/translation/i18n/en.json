@@ -182,6 +182,10 @@
       "textNoFilters": "No search criteria",
       "titleSummary": "Selected search criteria:"
     },
+    "noResultsInfo": {
+      "bigText": "Sorry, no search results were found for the search criteria you selected",
+      "smallText": "Try changing your search criteria and you're sure to find something to do!"
+    },
     "search": {
       "buttonSearch": "Search",
       "labelCategory": "What kind of event you are looking for?",
