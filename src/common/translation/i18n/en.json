@@ -210,6 +210,7 @@
   "header": {
     "ariaButtonCloseMenu": "Close menu",
     "ariaButtonOpenMenu": "Open menu",
+    "ariaLabelLogo": "Home",
     "searchCollections": "We recommend",
     "searchEvents": "Find something to do"
   },

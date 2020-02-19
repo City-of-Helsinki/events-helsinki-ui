@@ -13,19 +13,21 @@ exports[`Home matches snapshot 1`] = `
       <div
         className="navbarTop"
       >
-        <div
+        <a
+          aria-label="Etusivu"
           className="logoWrapper"
+          href="/"
+          onClick={[Function]}
         >
           <div
             className="logo"
-            onClick={[Function]}
           />
-          <h1
+          <div
             className="appName"
           >
             Tapahtumat
-          </h1>
-        </div>
+          </div>
+        </a>
         <div
           className="linkWrapper"
         >

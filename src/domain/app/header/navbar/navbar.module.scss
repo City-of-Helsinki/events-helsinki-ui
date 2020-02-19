@@ -15,6 +15,7 @@ $logoWidth: 5.5rem;
   flex-direction: row;
   align-items: center;
   padding: 0.75rem 0;
+  text-decoration: none;
 }
 
 .linkWrapper {
@@ -37,6 +38,8 @@ $logoWidth: 5.5rem;
   margin-left: 1.875rem;
   margin-right: 5rem;
   font-size: 1.25rem;
+  color: $hel-black;
+  font-weight: 600;
 }
 
 .logo {

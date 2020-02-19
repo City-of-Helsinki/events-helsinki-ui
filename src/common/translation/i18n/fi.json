@@ -211,6 +211,7 @@
   "header": {
     "ariaButtonCloseMenu": "Sulje valikko",
     "ariaButtonOpenMenu": "Avaa valikko",
+    "ariaLabelLogo": "Etusivu",
     "searchCollections": "Suosittelemme",
     "searchEvents": "Etsi tekemistä"
   },
