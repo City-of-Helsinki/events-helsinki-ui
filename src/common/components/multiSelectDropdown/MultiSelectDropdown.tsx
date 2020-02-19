@@ -18,7 +18,9 @@ interface Props {
   icon: React.ReactElement;
   name: string;
   onChange: (values: string[]) => void;
+  onSubmit?: () => void;
   options: Option[];
+  submitOnEnter?: boolean;
   title: string;
   value: string[];
 }
@@ -27,12 +29,15 @@ const Dropdown: React.FC<Props> = ({
   icon,
   name,
   onChange,
+  onSubmit,
   options,
+  submitOnEnter = false,
   title,
   value
 }) => {
   const [input, setInput] = React.useState("");
   const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const clearButtonRef = React.useRef<HTMLButtonElement | null>(null);
   const filteredOptions = React.useMemo(
     () =>
       options.filter(option =>
@@ -61,6 +66,16 @@ const Dropdown: React.FC<Props> = ({
     return false;
   }, [dropdown]);
 
+  const isClearButtonFocused = React.useCallback(() => {
+    const active = document.activeElement;
+    const current = clearButtonRef.current;
+
+    if (current && active instanceof Node && current.contains(active)) {
+      return true;
+    }
+    return false;
+  }, []);
+
   const handleDocumentClick = (event: MouseEvent) => {
     const target = event.target;
     const current = dropdown && dropdown.current;
@@ -88,11 +103,17 @@ const Dropdown: React.FC<Props> = ({
     }
   }, [isMenuOpen]);
 
+  const handleSubmit = React.useCallback(() => {
+    if (!submitOnEnter || !onSubmit || isClearButtonFocused()) return;
+
+    onSubmit();
+    setIsMenuOpen(false);
+  }, [isClearButtonFocused, onSubmit, submitOnEnter]);
+
   const handleDocumentKeyDown = React.useCallback(
     (event: KeyboardEvent) => {
       // Handle keyboard events only if current element is focused
       if (!isComponentFocused()) return;
-
       switch (event.key) {
         // Close menu on ESC key
         case "Escape":
@@ -104,9 +125,12 @@ const Dropdown: React.FC<Props> = ({
         case "ArrowDown":
           ensureDropdownIsOpen();
           break;
+        case "Enter":
+          handleSubmit();
+          break;
       }
     },
-    [ensureDropdownIsOpen, isComponentFocused]
+    [ensureDropdownIsOpen, handleSubmit, isComponentFocused]
   );
 
   const handleDocumentFocusin = (event: FocusEvent) => {
@@ -153,7 +177,6 @@ const Dropdown: React.FC<Props> = ({
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     ensureDropdownIsOpen();
-
     setInput(event.target.value);
   };
 
@@ -175,7 +198,11 @@ const Dropdown: React.FC<Props> = ({
           {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
         </div>
       </div>
-      <DropdownMenu isOpen={isMenuOpen} onClear={handleClear}>
+      <DropdownMenu
+        buttonRef={clearButtonRef}
+        isOpen={isMenuOpen}
+        onClear={handleClear}
+      >
         {filteredOptions.map((option, index) => {
           const isFocused = index === focusedIndex;
 
