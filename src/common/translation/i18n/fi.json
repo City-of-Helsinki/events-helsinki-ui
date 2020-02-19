@@ -123,11 +123,11 @@
     },
     "hero": {
       "buttonBuyTickets": "Osta liput",
-      "buttonToHomePage": "Kotisivulle",
+      "buttonToHomePage": "Siirry etusivulle",
       "offers": {
         "isFree": "Ilmainen"
       },
-      "textEventClosed": "Etsimäsi tapahtuma on ehtinyt jo päättymään"
+      "textEventClosed": "Etsimäsi tapahtuma on jo ehtinyt päättyä"
     },
     "info": {
       "buttonAddToCalendar": "Lisää kalenteriin",
