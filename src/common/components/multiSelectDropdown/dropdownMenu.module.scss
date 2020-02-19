@@ -30,5 +30,10 @@
     width: 100%;
     padding: 1rem;
     color: $hel-black-50;
+
+    &:focus {
+      outline: 2px solid $hel-black;
+      outline-offset: 0;
+    }
   }
 }

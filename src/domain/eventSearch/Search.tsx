@@ -1,6 +1,6 @@
 import { IconLocation, IconSearch } from "hds-react";
 import get from "lodash/get";
-import React, { FunctionComponent } from "react";
+import React, { FormEvent, FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 
@@ -273,97 +273,113 @@ const Search: FunctionComponent = () => {
     }
   };
 
+  const handleSubmit = (event?: FormEvent) => {
+    if (event) {
+      event.preventDefault();
+    }
+
+    moveToSearchPage();
+  };
+
   return (
     <>
       <div className={styles.searchContainer}>
         <Container>
-          <div className={styles.searchWrapper}>
-            <div className={styles.fieldsWrapper}>
-              <div className={styles.firstRow}>
-                <div>
-                  <SearchLabel color="black" htmlFor="search">
-                    {t("eventSearch.search.labelSearchField")}
-                  </SearchLabel>
-                  <SearchAutosuggest
-                    categories={[]}
-                    name="search"
-                    onChangeSearchValue={setSearchValue}
-                    onOptionClick={handleMenuOptionClick}
-                    placeholder={t("eventSearch.search.placeholder")}
-                    searchValue={searchValue}
-                  />
+          <form onSubmit={handleSubmit}>
+            <div className={styles.searchWrapper}>
+              <div className={styles.fieldsWrapper}>
+                <div className={styles.firstRow}>
+                  <div>
+                    <SearchLabel color="black" htmlFor="search">
+                      {t("eventSearch.search.labelSearchField")}
+                    </SearchLabel>
+                    <SearchAutosuggest
+                      categories={[]}
+                      name="search"
+                      onChangeSearchValue={setSearchValue}
+                      onOptionClick={handleMenuOptionClick}
+                      placeholder={t("eventSearch.search.placeholder")}
+                      searchValue={searchValue}
+                    />
+                  </div>
+                </div>
+                <div className={styles.secondRow}>
+                  <div>
+                    <SearchLabel color="black" htmlFor="category" srOnly={true}>
+                      {t("eventSearch.search.labelCategory")}
+                    </SearchLabel>
+                    <MultiSelectDropdown
+                      icon={<IconRead />}
+                      name="category"
+                      onChange={setSelectedCategories}
+                      onSubmit={handleSubmit}
+                      options={categories}
+                      title={t("eventSearch.search.titleDropdownCategory")}
+                      submitOnEnter={true}
+                      value={selectedCategories}
+                    />
+                  </div>
+                  <div className={styles.dateSelectorWrapper}>
+                    <SearchLabel color="black" htmlFor="date" srOnly={true}>
+                      {t("eventSearch.search.labelDateRange")}
+                    </SearchLabel>
+                    <DateSelector
+                      dateTypes={dateTypes}
+                      endDate={endDate}
+                      isCustomDate={isCustomDate}
+                      name="date"
+                      onChangeDateTypes={handleChangeDateTypes}
+                      onChangeEndDate={setEndDate}
+                      onChangeStartDate={setStartDate}
+                      startDate={startDate}
+                      toggleIsCustomDate={toggleIsCustomDate}
+                    />
+                  </div>
+                  <div>
+                    <SearchLabel color="black" htmlFor="district" srOnly={true}>
+                      {t("eventSearch.search.labelDistrict")}
+                    </SearchLabel>
+                    <MultiSelectDropdown
+                      icon={<IconLocation />}
+                      name="district"
+                      onChange={setDistricts}
+                      onSubmit={handleSubmit}
+                      options={districtOptions}
+                      submitOnEnter={true}
+                      title={t("eventSearch.search.titleDropdownDistrict")}
+                      value={districts}
+                    />
+                  </div>
+                  <div>
+                    <SearchLabel color="black" htmlFor="targets" srOnly={true}>
+                      {t("eventSearch.search.labelTargetGroup")}
+                    </SearchLabel>
+                    <MultiSelectDropdown
+                      icon={<IconPerson />}
+                      name="targets"
+                      onChange={setTargets}
+                      onSubmit={handleSubmit}
+                      options={targetOptions}
+                      submitOnEnter={true}
+                      title={t("eventSearch.search.titleDropdownTargetGroup")}
+                      value={targets}
+                    />
+                  </div>
                 </div>
               </div>
-              <div className={styles.secondRow}>
-                <div>
-                  <SearchLabel color="black" htmlFor="category" srOnly={true}>
-                    {t("eventSearch.search.labelCategory")}
-                  </SearchLabel>
-                  <MultiSelectDropdown
-                    icon={<IconRead />}
-                    name="category"
-                    onChange={setSelectedCategories}
-                    options={categories}
-                    title={t("eventSearch.search.titleDropdownCategory")}
-                    value={selectedCategories}
-                  />
-                </div>
-                <div className={styles.dateSelectorWrapper}>
-                  <SearchLabel color="black" htmlFor="date" srOnly={true}>
-                    {t("eventSearch.search.labelDateRange")}
-                  </SearchLabel>
-                  <DateSelector
-                    dateTypes={dateTypes}
-                    endDate={endDate}
-                    isCustomDate={isCustomDate}
-                    name="date"
-                    onChangeDateTypes={handleChangeDateTypes}
-                    onChangeEndDate={setEndDate}
-                    onChangeStartDate={setStartDate}
-                    startDate={startDate}
-                    toggleIsCustomDate={toggleIsCustomDate}
-                  />
-                </div>
-                <div>
-                  <SearchLabel color="black" htmlFor="district" srOnly={true}>
-                    {t("eventSearch.search.labelDistrict")}
-                  </SearchLabel>
-                  <MultiSelectDropdown
-                    icon={<IconLocation />}
-                    name="district"
-                    onChange={setDistricts}
-                    options={districtOptions}
-                    title={t("eventSearch.search.titleDropdownDistrict")}
-                    value={districts}
-                  />
-                </div>
-                <div>
-                  <SearchLabel color="black" htmlFor="targets" srOnly={true}>
-                    {t("eventSearch.search.labelTargetGroup")}
-                  </SearchLabel>
-                  <MultiSelectDropdown
-                    icon={<IconPerson />}
-                    name="targets"
-                    onChange={setTargets}
-                    options={targetOptions}
-                    title={t("eventSearch.search.titleDropdownTargetGroup")}
-                    value={targets}
-                  />
-                </div>
+              <div className={styles.buttonWrapper}>
+                <Button
+                  color="primary"
+                  fullWidth={true}
+                  iconLeft={<IconSearch />}
+                  onClick={moveToSearchPage}
+                  size="default"
+                >
+                  {t("eventSearch.search.buttonSearch")}
+                </Button>
               </div>
             </div>
-            <div className={styles.buttonWrapper}>
-              <Button
-                color="primary"
-                fullWidth={true}
-                iconLeft={<IconSearch />}
-                onClick={moveToSearchPage}
-                size="default"
-              >
-                {t("eventSearch.search.buttonSearch")}
-              </Button>
-            </div>
-          </div>
+          </form>
         </Container>
       </div>
     </>
