@@ -81,6 +81,7 @@ const Search: FunctionComponent = () => {
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
     const type = option.type;
     const value = option.value;
+    const searchValue = option.text;
 
     const search = getSearchQuery({
       categories: [],
@@ -91,7 +92,7 @@ const Search: FunctionComponent = () => {
       keywords: type === "keyword" || type === "yso" ? [value] : [],
       places: type === "place" ? [value] : [],
       publisher: null,
-      search: "",
+      search: searchValue,
       startDate,
       targets: []
     });

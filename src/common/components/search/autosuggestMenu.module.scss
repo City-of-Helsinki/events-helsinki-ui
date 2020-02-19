@@ -114,6 +114,12 @@
     } 
   }
 
+  .autosuggestOption--search {
+    .colorIndicator {
+      background-color: $hel-white;
+    } 
+  }
+
   .autosuggestOption--yso {
     .colorIndicator {
       background-color: $hel-metro-light-20;
