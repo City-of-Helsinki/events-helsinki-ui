@@ -45,6 +45,12 @@ const Html: React.FC<Props> = ({
         <meta property="og:url" content={canonicalUrl} />
         <link rel="manifest" href="/manifest.json" />
         <link rel="shortcut icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/images/apple-touch-icon.png"
+        />
+        <meta name="msapplication-TileColor" content="#da532c" />
         <link rel="canonical" href={canonicalUrl} />
         {helmet.meta.toComponent()}
         {helmet.title.toComponent()}
