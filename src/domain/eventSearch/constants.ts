@@ -38,6 +38,11 @@ export const CULTURE_KEYWORDS = [
   "yso:p16327" // cinema (art forms)
 ];
 
+export const INFLUENCE_KEYWORDS = [
+  "yso:p1657", // Vaikuttaminen
+  "yso:p10727" // Osallistuminen
+];
+
 export const MUSEUM_KEYWORDS = [
   "matko:museo", // Museo
   "yso:p4934" // Museot

@@ -12,6 +12,7 @@ import getUrlParamAsString from "../../util/getUrlParamAsString";
 import {
   CULTURE_KEYWORDS,
   EVENT_SORT_OPTIONS,
+  INFLUENCE_KEYWORDS,
   MUSEUM_KEYWORDS
 } from "./constants";
 
@@ -145,7 +146,7 @@ export const getEventFilters = (
       case CATEGORIES.FOOD:
         return "yso:p3670";
       case CATEGORIES.INFLUENCE:
-        return "yso:p1657";
+        return INFLUENCE_KEYWORDS.join(",");
       case CATEGORIES.MISC:
         return "yso:p2108";
       case CATEGORIES.MOVIE:
