@@ -122,32 +122,34 @@ const Search: FunctionComponent = () => {
               searchValue={searchValue}
             />
           </div>
-          <div className={styles.dateSelectorWrapper}>
-            <SearchLabel color="black" htmlFor="date" srOnly={true}>
-              {t("home.search.labelDateRange")}
-            </SearchLabel>
-            <DateSelector
-              dateTypes={dateTypes}
-              endDate={endDate}
-              isCustomDate={isCustomDate}
-              name="date"
-              onChangeDateTypes={handleChangeDateTypes}
-              onChangeEndDate={setEndDate}
-              onChangeStartDate={setStartDate}
-              startDate={startDate}
-              toggleIsCustomDate={toggleIsCustomDate}
-            />
-          </div>
-          <div className={styles.buttonWrapper}>
-            <Button
-              color="primary"
-              fullWidth={true}
-              iconLeft={<IconSearch />}
-              onClick={moveToSearchPage}
-              size="default"
-            >
-              {t("home.search.buttonSearch")}
-            </Button>
+          <div className={styles.dateAndButtonWrapper}>
+            <div className={styles.dateSelectorWrapper}>
+              <SearchLabel color="black" htmlFor="date" srOnly={true}>
+                {t("home.search.labelDateRange")}
+              </SearchLabel>
+              <DateSelector
+                dateTypes={dateTypes}
+                endDate={endDate}
+                isCustomDate={isCustomDate}
+                name="date"
+                onChangeDateTypes={handleChangeDateTypes}
+                onChangeEndDate={setEndDate}
+                onChangeStartDate={setStartDate}
+                startDate={startDate}
+                toggleIsCustomDate={toggleIsCustomDate}
+              />
+            </div>
+            <div className={styles.buttonWrapper}>
+              <Button
+                color="primary"
+                fullWidth={true}
+                iconLeft={<IconSearch />}
+                onClick={moveToSearchPage}
+                size="default"
+              >
+                {t("home.search.buttonSearch")}
+              </Button>
+            </div>
           </div>
         </div>
         <div className={styles.linkRow}>
