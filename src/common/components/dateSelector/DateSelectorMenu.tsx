@@ -12,7 +12,7 @@ import DateRangePicker from "./DateRangePicker";
 import styles from "./dateSelectorMenu.module.scss"; // the locale you want
 
 interface Props {
-  backBtnRef: MutableRefObject<HTMLButtonElement | null>;
+  backBtnRef?: MutableRefObject<HTMLButtonElement | null>;
   dateTypes: string[];
   endDate: Date | null;
   isCustomDate: boolean;
@@ -23,7 +23,7 @@ interface Props {
   onChangeStartDate: (date: Date | null) => void;
   onCloseMenu: () => void;
   startDate: Date | null;
-  toggleBtnRef: MutableRefObject<HTMLButtonElement | null>;
+  toggleBtnRef?: MutableRefObject<HTMLButtonElement | null>;
   toggleIsCustomDate: () => void;
 }
 

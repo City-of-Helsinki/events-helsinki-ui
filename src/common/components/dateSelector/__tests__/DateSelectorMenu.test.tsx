@@ -16,9 +16,9 @@ test("DateSelectorMenu matches snapshot", () => {
         onChangeDateTypes={() => {}}
         onChangeEndDate={() => {}}
         onChangeStartDate={() => {}}
+        onCloseMenu={() => {}}
         startDate={new Date("2019-08-01")}
         toggleIsCustomDate={() => {}}
-        toggleMenu={() => {}}
       />
     </MemoryRouter>
   );
