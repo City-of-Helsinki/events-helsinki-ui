@@ -29,6 +29,15 @@ exports[`Html matches snapshot 1`] = `
       rel="shortcut icon"
     />
     <link
+      href="/images/apple-touch-icon.png"
+      rel="apple-touch-icon"
+      sizes="180x180"
+    />
+    <meta
+      content="#da532c"
+      name="msapplication-TileColor"
+    />
+    <link
       href="http://localhost:3000"
       rel="canonical"
     />
