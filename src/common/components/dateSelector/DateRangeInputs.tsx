@@ -11,7 +11,7 @@ import styles from "./dateRangeInputs.module.scss";
 
 interface Props {
   endDateRaw: string;
-  endDateRef: MutableRefObject<HTMLInputElement | null>;
+  endDateRef?: MutableRefObject<HTMLInputElement | null>;
   // onBlur method is overriden by ReactDatePicker so name this as onBlurInput
   onBlurInput: (
     ref: MutableRefObject<HTMLInputElement | null>,
@@ -23,7 +23,7 @@ interface Props {
   setStartDateRaw: (val: string) => void;
   startDate: Date | null;
   startDateRaw: string;
-  startDateRef: MutableRefObject<HTMLInputElement | null>;
+  startDateRef?: MutableRefObject<HTMLInputElement | null>;
 }
 
 // Use class instead of function component so the ref is passed correctly by ReactDatePicker
