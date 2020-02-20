@@ -67,7 +67,7 @@ const DateSelector: FunctionComponent<Props> = ({
     return true;
   };
 
-  const ensureDropdownIsOpen = React.useCallback(() => {
+  const ensureMenuIsOpen = React.useCallback(() => {
     if (!isMenuOpen) {
       setIsMenuOpen(true);
     }
@@ -104,11 +104,11 @@ const DateSelector: FunctionComponent<Props> = ({
 
       switch (event.key) {
         case "ArrowUp":
-          ensureDropdownIsOpen();
+          ensureMenuIsOpen();
           event.preventDefault();
           break;
         case "ArrowDown":
-          ensureDropdownIsOpen();
+          ensureMenuIsOpen();
           event.preventDefault();
           break;
         case "Escape":
@@ -124,7 +124,7 @@ const DateSelector: FunctionComponent<Props> = ({
           break;
       }
     },
-    [ensureDropdownIsOpen, handleSubmit, isComponentFocused]
+    [ensureMenuIsOpen, handleSubmit, isComponentFocused]
   );
 
   const closeMenu = () => {
@@ -169,7 +169,7 @@ const DateSelector: FunctionComponent<Props> = ({
     <div className={styles.dateSelector} ref={dateSelector}>
       <button
         className={styles.button}
-        onClick={ensureDropdownIsOpen}
+        onClick={ensureMenuIsOpen}
         type="button"
       >
         <div className={styles.iconWrapper}>
