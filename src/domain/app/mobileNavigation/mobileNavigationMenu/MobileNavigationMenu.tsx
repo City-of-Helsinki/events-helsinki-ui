@@ -1,11 +1,14 @@
 import classNames from "classnames";
+import { IconSearch } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { Link, useLocation } from "react-router-dom";
 
-import { ReactComponent as FlagInformationIcon } from "../../../../assets/icons/svg/flag-information.svg";
-import { ReactComponent as OneEyeSmileyIcon } from "../../../../assets/icons/svg/one-eye-smiley.svg";
-import { ReactComponent as RankingStartsRibbonIcon } from "../../../../assets/icons/svg/ranking-stars-ribbon.svg";
-import { ReactComponent as TagsSearchIcon } from "../../../../assets/icons/svg/tags-search.svg";
+import { updateLocaleParam } from "../../../../common/route/RouteUtils";
+import { getCurrentLanguage } from "../../../../common/translation/TranslationUtils";
+import { SUPPORT_LANGUAGES } from "../../../../constants";
+import useLocale from "../../../../hooks/useLocale";
+import IconStar from "../../../../icons/IconStar";
 import styles from "./mobileNavigationMenu.module.scss";
 
 interface Props {
@@ -14,7 +17,19 @@ interface Props {
 }
 
 const NavbarMobile: React.FC<Props> = ({ isMenuOpen, onMenuClose }) => {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
+  const locale = useLocale();
+  const location = useLocation();
+
+  const currentLanguage = getCurrentLanguage(i18n);
+
+  const getUrl = (newLanguage: string) => {
+    return `${updateLocaleParam(
+      location.pathname,
+      currentLanguage,
+      newLanguage
+    )}${location.search}`;
+  };
 
   return (
     <div
@@ -22,44 +37,52 @@ const NavbarMobile: React.FC<Props> = ({ isMenuOpen, onMenuClose }) => {
         [styles.menuOpen]: isMenuOpen
       })}
     >
-      <div
-        className={classNames(styles.menuItem, styles.searchCategories)}
-        onClick={onMenuClose}
-      >
-        <div className={styles.text}>{t("menu.searchCategories")}</div>
-        <div className={styles.iconWrapper}>
-          <TagsSearchIcon />
-        </div>
+      <div className={styles.linkWrapper}>
+        <ul>
+          <li className={styles.link}>
+            <Link to={`/${locale}/events`}>
+              <IconSearch />
+              {t("header.searchEvents")}
+            </Link>
+          </li>
+          <li className={styles.link}>
+            <Link to={`/${locale}/collections`}>
+              <IconStar />
+              {t("header.searchCollections")}
+            </Link>
+          </li>
+        </ul>
       </div>
-      <div
-        className={classNames(styles.menuItem, styles.searchEvents)}
-        onClick={onMenuClose}
-      >
-        <div className={styles.text}>{t("menu.searchEvents")}</div>
-        <div className={styles.iconWrapper}>
-          <OneEyeSmileyIcon />
-        </div>
-      </div>
-      <div
-        className={classNames(styles.menuItem, styles.mostPopular)}
-        onClick={onMenuClose}
-      >
-        <div className={styles.text}>{t("menu.mostPopular")}</div>
-        <div className={styles.iconWrapper}>
-          <RankingStartsRibbonIcon />
-        </div>
-      </div>
-      <div
-        className={classNames(styles.menuItem, styles.aboutService)}
-        onClick={onMenuClose}
-      >
-        <div className={styles.text}>{t("menu.aboutService")}</div>
-        <div className={styles.iconWrapper}>
-          <FlagInformationIcon />
-        </div>
-      </div>
-      <div className={styles.login} onClick={onMenuClose}>
-        <div className={styles.squareExtension}></div>
+      <div className={styles.languageSelectWrapper}>
+        <ul>
+          <li
+            className={classNames(styles.languageLink, {
+              [styles.isSelected]: currentLanguage === SUPPORT_LANGUAGES.FI
+            })}
+          >
+            <Link onClick={onMenuClose} to={getUrl(SUPPORT_LANGUAGES.FI)}>
+              {t("header.languages.finnish")}
+            </Link>
+          </li>
+          <li
+            className={classNames(styles.languageLink, {
+              [styles.isSelected]: currentLanguage === SUPPORT_LANGUAGES.SV
+            })}
+          >
+            <Link onClick={onMenuClose} to={getUrl(SUPPORT_LANGUAGES.SV)}>
+              {t("header.languages.swedish")}
+            </Link>
+          </li>
+          <li
+            className={classNames(styles.languageLink, {
+              [styles.isSelected]: currentLanguage === SUPPORT_LANGUAGES.EN
+            })}
+          >
+            <Link onClick={onMenuClose} to={getUrl(SUPPORT_LANGUAGES.EN)}>
+              {t("header.languages.english")}
+            </Link>
+          </li>
+        </ul>
       </div>
     </div>
   );

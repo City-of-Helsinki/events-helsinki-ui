@@ -211,6 +211,11 @@
     "ariaButtonCloseMenu": "Close menu",
     "ariaButtonOpenMenu": "Open menu",
     "ariaLabelLogo": "Home",
+    "languages": {
+      "english": "In English",
+      "finnish": "Suomeksi",
+      "swedish": "På svenska"
+    },
     "searchCollections": "We recommend",
     "searchEvents": "Find something to do"
   },
