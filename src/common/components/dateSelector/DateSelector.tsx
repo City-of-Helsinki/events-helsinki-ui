@@ -15,6 +15,7 @@ interface Props {
   onChangeDateTypes: (value: string[]) => void;
   onChangeEndDate: (date: Date | null) => void;
   onChangeStartDate: (date: Date | null) => void;
+  onSubmit?: () => void;
   startDate: Date | null;
   toggleIsCustomDate: () => void;
 }
@@ -27,6 +28,7 @@ const DateSelector: FunctionComponent<Props> = ({
   onChangeDateTypes,
   onChangeEndDate,
   onChangeStartDate,
+  onSubmit,
   startDate,
   toggleIsCustomDate
 }) => {
@@ -46,26 +48,87 @@ const DateSelector: FunctionComponent<Props> = ({
     }
   };
 
-  const handleDocumentKeyDown = (event: KeyboardEvent) => {
-    switch (event.keyCode) {
-      // Close menu on ESC key
-      case 27:
-        setIsMenuOpen(false);
-        break;
+  const shouldSubmit = () => {
+    const active = document.activeElement;
+    if (
+      backBtnRef.current &&
+      active instanceof Node &&
+      backBtnRef.current.contains(active)
+    ) {
+      return false;
     }
+    if (
+      toggleBtnRef.current &&
+      active instanceof Node &&
+      toggleBtnRef.current.contains(active)
+    ) {
+      return false;
+    }
+    return true;
   };
 
-  const handleDocumentFocusin = (event: FocusEvent) => {
-    const target = event.target;
+  const ensureDropdownIsOpen = React.useCallback(() => {
+    if (!isMenuOpen) {
+      setIsMenuOpen(true);
+    }
+  }, [isMenuOpen]);
+
+  const isComponentFocused = React.useCallback(() => {
+    const active = document.activeElement;
     const current = dateSelector && dateSelector.current;
 
-    if (!(current && target instanceof Node && current.contains(target))) {
+    if (current && active instanceof Node && current.contains(active)) {
+      return true;
+    }
+    return false;
+  }, [dateSelector]);
+
+  const handleSubmit = React.useCallback(() => {
+    if (onSubmit) {
+      onSubmit();
+    }
+    closeMenu();
+  }, [onSubmit]);
+
+  const handleDocumentFocusin = React.useCallback(() => {
+    if (isComponentFocused()) {
+      setIsMenuOpen(true);
+    } else {
       setIsMenuOpen(false);
     }
-  };
+  }, [isComponentFocused]);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const handleDocumentKeyDown = React.useCallback(
+    (event: KeyboardEvent) => {
+      if (!isComponentFocused()) return;
+
+      switch (event.key) {
+        case "ArrowUp":
+          ensureDropdownIsOpen();
+          event.preventDefault();
+          break;
+        case "ArrowDown":
+          ensureDropdownIsOpen();
+          event.preventDefault();
+          break;
+        case "Escape":
+          setIsMenuOpen(false);
+          event.preventDefault();
+          break;
+        case "Enter":
+          if (shouldSubmit()) {
+            handleSubmit();
+            event.preventDefault();
+          }
+
+          break;
+      }
+    },
+    [ensureDropdownIsOpen, handleSubmit, isComponentFocused]
+  );
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
   };
 
   React.useEffect(() => {
@@ -78,7 +141,7 @@ const DateSelector: FunctionComponent<Props> = ({
       document.removeEventListener("keydown", handleDocumentKeyDown);
       document.removeEventListener("focusin", handleDocumentFocusin);
     };
-  }, []);
+  }, [handleDocumentFocusin, handleDocumentKeyDown]);
 
   const handleToggleIsCustomDate = () => {
     if (isCustomDate) {
@@ -104,7 +167,11 @@ const DateSelector: FunctionComponent<Props> = ({
 
   return (
     <div className={styles.dateSelector} ref={dateSelector}>
-      <button className={styles.button} onClick={toggleMenu} type="button">
+      <button
+        className={styles.button}
+        onClick={ensureDropdownIsOpen}
+        type="button"
+      >
         <div className={styles.iconWrapper}>
           <IconCalendar />
         </div>
@@ -127,7 +194,7 @@ const DateSelector: FunctionComponent<Props> = ({
         startDate={startDate}
         toggleBtnRef={toggleBtnRef}
         toggleIsCustomDate={handleToggleIsCustomDate}
-        toggleMenu={toggleMenu}
+        onCloseMenu={closeMenu}
       />
     </div>
   );

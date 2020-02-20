@@ -191,6 +191,7 @@ const Search: FunctionComponent = () => {
                 onChangeDateTypes={handleChangeDateTypes}
                 onChangeEndDate={setEndDate}
                 onChangeStartDate={setStartDate}
+                onSubmit={moveToSearchPage}
                 startDate={startDate}
                 toggleIsCustomDate={toggleIsCustomDate}
               />
