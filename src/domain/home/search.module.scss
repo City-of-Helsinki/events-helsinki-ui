@@ -23,9 +23,9 @@
     align-items: center;
     position: relative;
 
-    @include respond-above(sm) {
+    @include respond-above(md) {
       grid-gap: 2.5rem;
-      grid-template-columns: 1fr 3fr 2fr 1fr;
+      grid-template-columns: 1fr 3fr 3fr;
     }
   }
 
@@ -65,8 +65,34 @@
     align-self: flex-end;
   }
 
+  .dateAndButtonWrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1.25rem;
+    height: fit-content;
+    align-self: flex-end;
+
+    @include respond-above(sm) {
+      grid-gap: 2.5rem;
+      grid-template-columns: 2fr 2fr 1fr;
+    }
+
+    @include respond-above(md) {
+      grid-gap: 2.5rem;
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
   .dateSelectorWrapper {
     align-self: flex-end;
+
+    @include respond-above(sm) {
+      grid-column-start: 2;
+    }
+
+    @include respond-above(md) {
+      grid-column-start: 1;
+    }
   }
 
   .buttonWrapper {
