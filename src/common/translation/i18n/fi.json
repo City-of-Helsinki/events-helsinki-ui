@@ -212,6 +212,11 @@
     "ariaButtonCloseMenu": "Sulje valikko",
     "ariaButtonOpenMenu": "Avaa valikko",
     "ariaLabelLogo": "Etusivu",
+    "languages": {
+      "english": "In English",
+      "finnish": "Suomeksi",
+      "swedish": "På svenska"
+    },
     "searchCollections": "Suosittelemme",
     "searchEvents": "Etsi tekemistä"
   },
