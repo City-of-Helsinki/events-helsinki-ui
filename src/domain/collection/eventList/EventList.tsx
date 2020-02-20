@@ -74,6 +74,7 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
           {eventsData && (
             <div className={styles.eventSearchListWrapper}>
               <EventSearchList
+                buttonCentered={true}
                 eventsData={eventsData}
                 loading={isFetchingMore}
                 onLoadMore={handleLoadMore}
