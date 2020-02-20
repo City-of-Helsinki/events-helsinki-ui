@@ -12,7 +12,7 @@ import DateRangePicker from "./DateRangePicker";
 import styles from "./dateSelectorMenu.module.scss"; // the locale you want
 
 interface Props {
-  backBtnRef?: MutableRefObject<HTMLButtonElement | null>;
+  backBtnRef: MutableRefObject<HTMLButtonElement | null>;
   dateTypes: string[];
   endDate: Date | null;
   isCustomDate: boolean;
@@ -21,10 +21,10 @@ interface Props {
   onChangeDateTypes: (value: string[]) => void;
   onChangeEndDate: (date: Date | null) => void;
   onChangeStartDate: (date: Date | null) => void;
+  onCloseMenu: () => void;
   startDate: Date | null;
-  toggleBtnRef?: MutableRefObject<HTMLButtonElement | null>;
+  toggleBtnRef: MutableRefObject<HTMLButtonElement | null>;
   toggleIsCustomDate: () => void;
-  toggleMenu: () => void;
 }
 
 const DateSelectorMenu: FunctionComponent<Props> = ({
@@ -37,10 +37,10 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
   onChangeDateTypes,
   onChangeEndDate,
   onChangeStartDate,
+  onCloseMenu,
   startDate,
   toggleBtnRef,
-  toggleIsCustomDate,
-  toggleMenu
+  toggleIsCustomDate
 }) => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
@@ -136,7 +136,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         className={classNames(styles.button, styles.btnClose, {
           [styles.hidden]: !isCustomDate
         })}
-        onClick={toggleMenu}
+        onClick={onCloseMenu}
       >
         <div className={styles.buttonText}>
           {t("commons.dateSelector.menu.buttonClose")}
