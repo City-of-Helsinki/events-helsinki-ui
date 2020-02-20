@@ -102,8 +102,23 @@
 
 .categoriesWrapper {
   padding: 4rem 0 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1rem 3.25rem;
+  height: fit-content;
+  align-items: center;
 
   @include respond-below(sm) {
     display: none;
+  }
+
+  @include respond-above(md) {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  .categoryFood {
+    @include respond-below(md) {
+      grid-column-start: 2;
+    }
   }
 }

@@ -14,12 +14,12 @@ $logoWidth: 9.5rem;
 
 .companyInfoWrapper {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     border-bottom: 1px solid $hel-silver;
     justify-content: space-between;
 
-    @include respond-below(sm) {
-        flex-direction: column;
+    @include respond-above(md) {
+        flex-direction: row;
     }
 
     @include respond-above(sm) {
@@ -48,30 +48,56 @@ $logoWidth: 9.5rem;
 
 .iconLinkWrapper {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    margin-top: 1.25rem;
+    flex-direction: column;
 
-    @include respond-below(sm) {
-        margin-top: 1.25rem;
-        align-items: flex-start;
-        flex-direction: column;
+    @include respond-above(sm) {
+        align-items: center;
+        flex-direction: row;
+    }
+
+    @include respond-above(md) {
+        margin-top: 0;
     }
 
     a {
-        margin-left: 2.5rem;
+        margin-left: 0;
+        margin-bottom: 1.25rem;
+        
+        @include respond-above(sm) {
+            margin-left: 2.5rem;  
+        }
 
-        @include respond-below(sm) {
+        &:first-child {
             margin-left: 0;
-            margin-bottom: 1.25rem;
         }
     }
+}
 
-    .categoriesWrapper {
-        padding-top: 1.25rem;
+.categoriesWrapper {
+    padding-top: 1.25rem;
+}
+
+.categoriesTitle {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.categoriesInnerWrapper {
+    padding: 1.5rem 0 0;
+    display: grid;
+    align-items: center;
+    height: fit-content;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem 3.25rem;
+    
+    @include respond-above(sm) {
+        grid-template-columns: 1fr 1fr;
     }
-
-    .categoriesTitle {
-        font-size: 2rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
+    
+    @include respond-above(md) {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
 }

@@ -5,7 +5,7 @@ import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
 import Button from "../../common/components/button/Button";
-import CategoryFilters from "../../common/components/category/CategoryFilters";
+import CategoryFilter from "../../common/components/category/CategoryFilter";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import SearchLabel from "../../common/components/search/searchLabel/SearchLabel";
@@ -51,6 +51,62 @@ const Search: FunctionComponent = () => {
 
     push({ pathname: `/${locale}/events`, search });
   };
+
+  const categories = React.useMemo(() => {
+    return [
+      {
+        icon: <IconMovies />,
+        text: t("home.category.movie"),
+        value: CATEGORIES.MOVIE
+      },
+      {
+        icon: <IconMusic />,
+        text: t("home.category.music"),
+        value: CATEGORIES.MUSIC
+      },
+      {
+        icon: <IconSports />,
+        text: t("home.category.sport"),
+        value: CATEGORIES.SPORT
+      },
+      {
+        icon: <IconMuseum />,
+        text: t("home.category.museum"),
+        value: CATEGORIES.MUSEUM
+      },
+      {
+        icon: <IconDance />,
+        text: t("home.category.dance"),
+        value: CATEGORIES.DANCE
+      },
+      {
+        icon: <IconCultureAndArts />,
+        text: t("home.category.culture"),
+        value: CATEGORIES.CULTURE
+      },
+      {
+        icon: <IconTree />,
+        text: t("home.category.nature"),
+        value: CATEGORIES.NATURE
+      },
+      {
+        icon: <IconParticipate />,
+        text: t("home.category.influence"),
+        value: CATEGORIES.INFLUENCE
+      },
+      {
+        icon: <IconTheatre />,
+        text: t("home.category.theatre"),
+        value: CATEGORIES.THEATRE
+      },
+      {
+        className: styles.categoryFood,
+        icon: <IconFood />,
+        text: t("home.category.food"),
+        value: CATEGORIES.FOOD
+      }
+    ];
+  }, [t]);
 
   const handleChangeDateTypes = (value: string[]) => {
     setDateTypes(value);
@@ -160,61 +216,18 @@ const Search: FunctionComponent = () => {
         </div>
       </div>
       <div className={styles.categoriesWrapper}>
-        <CategoryFilters
-          categories={[
-            {
-              icon: <IconMovies />,
-              text: t("home.category.movie"),
-              value: CATEGORIES.MOVIE
-            },
-            {
-              icon: <IconMusic />,
-              text: t("home.category.music"),
-              value: CATEGORIES.MUSIC
-            },
-            {
-              icon: <IconSports />,
-              text: t("home.category.sport"),
-              value: CATEGORIES.SPORT
-            },
-            {
-              icon: <IconMuseum />,
-              text: t("home.category.museum"),
-              value: CATEGORIES.MUSEUM
-            },
-            {
-              icon: <IconDance />,
-              text: t("home.category.dance"),
-              value: CATEGORIES.DANCE
-            },
-            {
-              icon: <IconCultureAndArts />,
-              text: t("home.category.culture"),
-              value: CATEGORIES.CULTURE
-            },
-            {
-              icon: <IconTree />,
-              text: t("home.category.nature"),
-              value: CATEGORIES.NATURE
-            },
-            {
-              icon: <IconParticipate />,
-              text: t("home.category.influence"),
-              value: CATEGORIES.INFLUENCE
-            },
-            {
-              icon: <IconTheatre />,
-              text: t("home.category.theatre"),
-              value: CATEGORIES.THEATRE
-            },
-            {
-              icon: <IconFood />,
-              text: t("home.category.food"),
-              value: CATEGORIES.FOOD
-            }
-          ]}
-          onClickCategory={handleCategoryClick}
-        />
+        {categories.map(category => {
+          return (
+            <CategoryFilter
+              className={category.className}
+              key={category.value}
+              icon={category.icon}
+              onClick={handleCategoryClick}
+              text={category.text}
+              value={category.value}
+            />
+          );
+        })}
       </div>
     </>
   );
