@@ -15,6 +15,11 @@
     height: 100%;
     display: flex;
     align-items: center;
+
+    &:focus {
+      outline: 2px solid $hel-black;
+      outline-offset: -2px;
+    }
   }
   svg {
     height: 1.25rem;
