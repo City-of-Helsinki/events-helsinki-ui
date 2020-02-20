@@ -1,9 +1,10 @@
+import classNames from "classnames";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+import SimilarEventCard from "../../../common/components/eventCard/LargeEventCard";
 import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
 import { useEventDetailsQuery } from "../../../generated/graphql";
-import SimilarEventCard from "../../event/SimilarEventCard";
 import styles from "./eventCard.module.scss";
 
 interface Props {
@@ -19,7 +20,9 @@ const EventCard: React.FC<Props> = ({ eventId }) => {
   });
 
   return (
-    <div className={styles.eventCard}>
+    <div
+      className={classNames(styles.eventCard, { [styles.isLoading]: loading })}
+    >
       <LoadingSpinner isLoading={loading}>
         {!!eventData && <SimilarEventCard event={eventData.eventDetails} />}
         {error && <div>{t("collection.curatedEvents.textEventNotFound")}</div>}

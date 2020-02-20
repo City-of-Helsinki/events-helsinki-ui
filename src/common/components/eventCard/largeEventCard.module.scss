@@ -8,12 +8,11 @@ $imageWidth: 22.75rem;
 
 .eventCard {
   background-color: $hel-white;
-  margin-bottom: 0.625rem;
   display: grid;
+  height: 100%;
 
   @include respond_above(sm) {
-    grid-template-columns: $imageWidth 1fr;
-    margin-bottom: 2rem;
+    grid-template-columns: 4fr 5fr;
   }
 }
 

@@ -6,23 +6,25 @@ exports[`EventList should match snapshot 1`] = `
     <h2>Kaikki syksyn parhaat tapahtumat</h2>
     <div class=\\"eventSearchListWrapper\\">
       <div class=\\"eventListWrapper\\">
-        <div class=\\"eventCard\\"><a aria-hidden=\\"true\\" class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">
-            <div class=\\"tagWrapper\\">
-              <div class=\\"priceWrapper\\"></div>
-              <div class=\\"categoryWrapper\\"></div>
-            </div>
-          </a>
-          <div class=\\"infoWrapper\\">
-            <div class=\\"categoryWrapperDesktop\\"></div>
-            <div class=\\"textWrapper\\">
-              <div class=\\"eventDateAndTime\\">Perjantai 13. joulukuuta 2019, kello 10.00</div><a aria-hidden=\\"true\\" class=\\"eventName\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">name fi</a>
-              <div class=\\"srOnly\\">name fi</div>
-              <div class=\\"eventLocation\\">name fi, streetAddress fi, locality fi</div>
-              <div class=\\"eventPrice\\">Ilmainen</div>
-            </div>
-            <div class=\\"buttonWrapper\\">
-              <div class=\\"buyButtonWrapper\\"></div>
-              <div class=\\"readMoreButtonWrapper\\"><button type=\\"button\\" class=\\"_3wgeeaHxiHujNcKzeML5j4 _3aSBFzRPhZcNdul13_gERo _399Vd_uWgH-92CTowU70kQ _3HrcdU2U-mUB4lgurXreR2 _2AR2oE9bnVLLmiLEmYiWNc secondary\\"><span class=\\"_2zMLCVF6mmvV2UqfaBF5K\\">Lue lisää</span></button></div>
+        <div class=\\"eventsWrapper\\">
+          <div class=\\"eventCard\\"><a aria-hidden=\\"true\\" class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">
+              <div class=\\"tagWrapper\\">
+                <div class=\\"priceWrapper\\"></div>
+                <div class=\\"categoryWrapper\\"></div>
+              </div>
+            </a>
+            <div class=\\"infoWrapper\\">
+              <div class=\\"categoryWrapperDesktop\\"></div>
+              <div class=\\"textWrapper\\">
+                <div class=\\"eventDateAndTime\\">Perjantai 13. joulukuuta 2019, kello 10.00</div><a aria-hidden=\\"true\\" class=\\"eventName\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">name fi</a>
+                <div class=\\"srOnly\\">name fi</div>
+                <div class=\\"eventLocation\\">name fi, streetAddress fi, locality fi</div>
+                <div class=\\"eventPrice\\">Ilmainen</div>
+              </div>
+              <div class=\\"buttonWrapper\\">
+                <div class=\\"buyButtonWrapper\\"></div>
+                <div class=\\"readMoreButtonWrapper\\"><button type=\\"button\\" class=\\"_3wgeeaHxiHujNcKzeML5j4 _3aSBFzRPhZcNdul13_gERo _399Vd_uWgH-92CTowU70kQ _3HrcdU2U-mUB4lgurXreR2 _2AR2oE9bnVLLmiLEmYiWNc secondary\\"><span class=\\"_2zMLCVF6mmvV2UqfaBF5K\\">Lue lisää</span></button></div>
+              </div>
             </div>
           </div>
         </div>

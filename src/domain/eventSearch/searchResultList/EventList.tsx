@@ -2,9 +2,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import Button from "../../../common/components/button/Button";
+import EventCard from "../../../common/components/eventCard/LargeEventCard";
 import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
 import { EventListQuery } from "../../../generated/graphql";
-import EventCard from "../EventCard";
 import styles from "./eventList.module.scss";
 
 interface Props {
@@ -19,9 +19,11 @@ const EventList: React.FC<Props> = ({ eventsData, loading, onLoadMore }) => {
 
   return (
     <div className={styles.eventListWrapper}>
-      {events.map(event => {
-        return <EventCard key={event.id} event={event} />;
-      })}
+      <div className={styles.eventsWrapper}>
+        {events.map(event => {
+          return <EventCard key={event.id} event={event} />;
+        })}
+      </div>
       <div className={styles.loadMoreWrapper}>
         <LoadingSpinner isLoading={loading}>
           {!!eventsData.eventList.meta.next && (

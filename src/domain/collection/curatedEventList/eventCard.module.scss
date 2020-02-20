@@ -2,13 +2,11 @@
 @import "layout";
 
 .eventCard {
-  min-height: 8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: $lightest-gray;
-
-  @include respond_above(sm) {
-    min-height: 25.125rem;
+  &.isLoading {
+    min-height: 17.875rem;
+    display: flex;
+    background: $lightest-gray;
+    align-items: center;
+    justify-content: center;
   }
 }
