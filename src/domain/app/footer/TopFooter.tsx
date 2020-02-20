@@ -3,7 +3,7 @@ import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 
-import CategoryFilters from "../../../common/components/category/CategoryFilters";
+import CategoryFilter from "../../../common/components/category/CategoryFilter";
 import IconLink from "../../../common/components/link/IconLink";
 import { Category } from "../../../common/types";
 import { CATEGORIES } from "../../../constants";
@@ -45,6 +45,61 @@ const TopFooter: FunctionComponent = () => {
     push({ pathname: `/${locale}/events`, search });
   };
 
+  const categories = React.useMemo(() => {
+    return [
+      {
+        icon: <IconMovies />,
+        text: t("home.category.movie"),
+        value: CATEGORIES.MOVIE
+      },
+      {
+        icon: <IconMusic />,
+        text: t("home.category.music"),
+        value: CATEGORIES.MUSIC
+      },
+      {
+        icon: <IconSports />,
+        text: t("home.category.sport"),
+        value: CATEGORIES.SPORT
+      },
+      {
+        icon: <IconMuseum />,
+        text: t("home.category.museum"),
+        value: CATEGORIES.MUSEUM
+      },
+      {
+        icon: <IconDance />,
+        text: t("home.category.dance"),
+        value: CATEGORIES.DANCE
+      },
+      {
+        icon: <IconCultureAndArts />,
+        text: t("home.category.culture"),
+        value: CATEGORIES.CULTURE
+      },
+      {
+        icon: <IconTree />,
+        text: t("home.category.nature"),
+        value: CATEGORIES.NATURE
+      },
+      {
+        icon: <IconParticipate />,
+        text: t("home.category.influence"),
+        value: CATEGORIES.INFLUENCE
+      },
+      {
+        icon: <IconTheatre />,
+        text: t("home.category.theatre"),
+        value: CATEGORIES.THEATRE
+      },
+      {
+        icon: <IconFood />,
+        text: t("home.category.food"),
+        value: CATEGORIES.FOOD
+      }
+    ];
+  }, [t]);
+
   return (
     <footer className={styles.topFooterWrapper}>
       <Container>
@@ -71,62 +126,20 @@ const TopFooter: FunctionComponent = () => {
             {t("footer.titleCategories")}
           </h2>
 
-          <CategoryFilters
-            categories={[
-              {
-                icon: <IconMovies />,
-                text: t("home.category.movie"),
-                value: CATEGORIES.MOVIE
-              },
-              {
-                icon: <IconMusic />,
-                text: t("home.category.music"),
-                value: CATEGORIES.MUSIC
-              },
-              {
-                icon: <IconSports />,
-                text: t("home.category.sport"),
-                value: CATEGORIES.SPORT
-              },
-              {
-                icon: <IconMuseum />,
-                text: t("home.category.museum"),
-                value: CATEGORIES.MUSEUM
-              },
-              {
-                icon: <IconDance />,
-                text: t("home.category.dance"),
-                value: CATEGORIES.DANCE
-              },
-              {
-                icon: <IconCultureAndArts />,
-                text: t("home.category.culture"),
-                value: CATEGORIES.CULTURE
-              },
-              {
-                icon: <IconTree />,
-                text: t("home.category.nature"),
-                value: CATEGORIES.NATURE
-              },
-              {
-                icon: <IconParticipate />,
-                text: t("home.category.influence"),
-                value: CATEGORIES.INFLUENCE
-              },
-              {
-                icon: <IconTheatre />,
-                text: t("home.category.theatre"),
-                value: CATEGORIES.THEATRE
-              },
-              {
-                icon: <IconFood />,
-                text: t("home.category.food"),
-                value: CATEGORIES.FOOD
-              }
-            ]}
-            hasHorizontalPadding={true}
-            onClickCategory={handleCategoryClick}
-          />
+          <div className={styles.categoriesInnerWrapper}>
+            {categories.map(category => {
+              return (
+                <CategoryFilter
+                  key={category.value}
+                  hasHorizontalPadding={true}
+                  icon={category.icon}
+                  onClick={handleCategoryClick}
+                  text={category.text}
+                  value={category.value}
+                />
+              );
+            })}
+          </div>
         </div>
       </Container>
     </footer>
