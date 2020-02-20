@@ -12,4 +12,25 @@
       margin-bottom: $largePadding;
     }
   }
+  .loadMoreWrapper {
+    &.buttonCentered {
+      text-align: center;
+    }
+  }
+}
+
+.default {
+  .eventsWrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    
+    @include respond_above(sm) {
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 1.75rem 3rem;
+    }
+
+    @include respond_above(md) {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
 }

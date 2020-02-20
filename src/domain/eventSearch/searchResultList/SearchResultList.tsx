@@ -48,6 +48,7 @@ const SearchResultList: React.FC<Props> = ({
             </div>
             {!count && !loading && <NoResultsInfo />}
             <EventList
+              cardSize="large"
               eventsData={eventsData}
               loading={loading}
               onLoadMore={onLoadMore}
