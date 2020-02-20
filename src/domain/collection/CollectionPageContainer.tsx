@@ -8,7 +8,6 @@ import Layout from "../app/layout/Layout";
 import CollectionHero from "./collectionHero/CollectionHero";
 import styles from "./collectionPage.module.scss";
 import CollectionPageMeta from "./collectionPageMeta/CollectionPageMeta";
-import CollectionShareLinks from "./collectionShareLinks/CollectionShareLinks";
 import CuratedEventList from "./curatedEventList/CuratedEventList";
 import EventList from "./eventList/EventList";
 import SimilarCollections from "./similarCollections/SimilarCollections";
@@ -39,7 +38,6 @@ const CollectionPageContainer: React.FC = () => {
               <CollectionPageMeta collectionData={collectionData} />
               <CollectionHero collectionData={collectionData} />
               <CuratedEventList collectionData={collectionData} />
-              <CollectionShareLinks />
               <EventList collectionData={collectionData} />
               <SimilarCollections collectionData={collectionData} />
             </>

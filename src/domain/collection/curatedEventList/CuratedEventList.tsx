@@ -25,13 +25,15 @@ const CuratedEventList: React.FC<Props> = ({ collectionData }) => {
   return (
     <div className={styles.curatedEventList}>
       <Container>
-        <h2>
-          {getLocalisedString(
-            collectionData.collectionDetails.curatedEventsTitle,
-            locale
-          )}
-        </h2>
-        <EventCards eventIds={eventIds} />
+        <div className={styles.contentWrapper}>
+          <h2>
+            {getLocalisedString(
+              collectionData.collectionDetails.curatedEventsTitle,
+              locale
+            )}
+          </h2>
+          <EventCards eventIds={eventIds} />
+        </div>
       </Container>
     </div>
   );

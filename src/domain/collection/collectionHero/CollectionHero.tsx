@@ -5,6 +5,7 @@ import bgImage from "../../../assets/images/png/collection-background.png";
 import { CollectionDetailsQuery } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
+import CollectionShareLinks from "../collectionShareLinks/CollectionShareLinks";
 import styles from "./collectionHero.module.scss";
 
 interface Props {
@@ -51,6 +52,7 @@ const CollectionHero: React.FC<Props> = ({ collectionData }) => {
           )}
           <IconAngleRight className={styles.linkIcon} />
         </a>
+        <CollectionShareLinks />
       </ImageWithCard>
     </div>
   );

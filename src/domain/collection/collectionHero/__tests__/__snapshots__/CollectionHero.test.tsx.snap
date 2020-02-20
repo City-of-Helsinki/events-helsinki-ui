@@ -13,6 +13,17 @@ exports[`CollectionHero should match snapshot 1`] = `
               <polygon points=\\"63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  \\"></polygon>
             </g>
           </svg></a>
+        <div class=\\"collectionShareLinks\\">
+          <div class=\\"shareSubSection\\">
+            <p class=\\"shareSubSectionTitle\\">Jaa kokoelma</p>
+            <ul class=\\"shareLinkList\\">
+              <li class=\\"shareLinkItem relativePosition\\"><button type=\\"button\\" class=\\"copyButton\\" aria-label=\\"Kopioi linkin osoite\\"><svg>link.svg</svg></button></li>
+              <li class=\\"shareLinkItem\\"><button type=\\"button\\" aria-label=\\"Jaa Facebookissa\\"><svg>facebook.svg</svg></button></li>
+              <li class=\\"shareLinkItem\\"><button type=\\"button\\" aria-label=\\"Jaa Twitterissä\\"><svg>twitter.svg</svg></button></li>
+              <li class=\\"shareLinkItem\\"><button type=\\"button\\" aria-label=\\"Jaa LinkedInissä\\"><svg>linkedin.svg</svg></button></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
