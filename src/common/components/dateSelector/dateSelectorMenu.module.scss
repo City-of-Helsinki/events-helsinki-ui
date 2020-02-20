@@ -33,6 +33,11 @@
       height: 0.75rem;
       width: 0.75rem;
     }
+
+    &:focus {
+      outline: 2px solid $hel-black;
+      outline-offset: -2px;
+    }
   }
 
   .hidden {
