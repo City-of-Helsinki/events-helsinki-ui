@@ -83,6 +83,11 @@ export const QUERY_EVENT_LIST = gql`
         }
         offers {
           isFree
+          description {
+            fi
+            sv
+            en
+          }
           price {
             fi
             sv

@@ -63,7 +63,9 @@ export const getEventPrice = (
   return isEventFree(event)
     ? isFreeText
     : event.offers
-        .map(offer => getLocalisedString(offer.price || {}, locale))
+        .map(offer =>
+          getLocalisedString(offer.price || offer.description || {}, locale)
+        )
         .filter(e => e)
         .sort()
         .join(", ");

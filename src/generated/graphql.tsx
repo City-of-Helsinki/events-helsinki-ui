@@ -585,7 +585,10 @@ export type EventListQuery = (
       ), offers: Array<(
         { __typename?: 'Offer' }
         & Pick<Offer, 'isFree'>
-        & { price: Maybe<(
+        & { description: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+        )>, price: Maybe<(
           { __typename?: 'LocalizedObject' }
           & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
         )>, infoUrl: Maybe<(
@@ -1128,6 +1131,11 @@ export const EventListDocument = gql`
       }
       offers {
         isFree
+        description {
+          fi
+          sv
+          en
+        }
         price {
           fi
           sv
