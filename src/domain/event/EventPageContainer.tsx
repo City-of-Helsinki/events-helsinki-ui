@@ -23,7 +23,7 @@ const EventPageContainer: React.FC = () => {
   const params = useParams<RouteParams>();
   const eventId = params.id;
   const { data: eventData, loading } = useEventDetailsQuery({
-    variables: { id: eventId }
+    variables: { id: eventId, include: ["in_lnguage", "keywords", "location"] }
   });
 
   React.useEffect(() => {

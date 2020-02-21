@@ -121,9 +121,9 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     if (placesData) {
       placeItems.push(
         ...placesData.placeList.data.map(place => ({
-          text: place.name ? getLocalisedString(place.name, locale) : "",
+          text: place.name ? getLocalisedString(place.name || {}, locale) : "",
           type: AUTOSUGGEST_TYPES.PLACE,
-          value: place.id
+          value: place.id || ""
         }))
       );
     }
