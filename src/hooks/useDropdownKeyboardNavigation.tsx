@@ -16,12 +16,10 @@ const useDropdownKeyboardNavigation = ({
     (direction: "down" | "up") => {
       switch (direction) {
         case "down":
-          setFocusedIndex(
-            focusedIndex < listLength - 1 ? focusedIndex + 1 : -1
-          );
+          setFocusedIndex(focusedIndex < listLength - 1 ? focusedIndex + 1 : 0);
           break;
         case "up":
-          setFocusedIndex(focusedIndex > -1 ? focusedIndex - 1 : -1);
+          setFocusedIndex(focusedIndex > 0 ? focusedIndex - 1 : listLength - 1);
           break;
       }
     },
