@@ -15,7 +15,8 @@ const EventCard: React.FC<Props> = ({ eventId }) => {
   const { t } = useTranslation();
   const { data: eventData, error, loading } = useEventDetailsQuery({
     variables: {
-      id: eventId
+      id: eventId,
+      include: ["keywords", "location"]
     }
   });
 

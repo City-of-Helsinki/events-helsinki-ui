@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const QUERY_EVENT_DETAILS = gql`
-  query EventDetails($id: ID!) {
-    eventDetails(id: $id) {
+  query EventDetails($id: ID!, $include: [String]) {
+    eventDetails(id: $id, include: $include) {
       id
       externalLinks {
         name
@@ -12,6 +12,9 @@ export const QUERY_EVENT_DETAILS = gql`
         id
         name
         url
+      }
+      superEvent {
+        internalId
       }
       inLanguage {
         name {

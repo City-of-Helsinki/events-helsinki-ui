@@ -124,7 +124,7 @@ export type Image = {
 
 export type InLanguage = {
    __typename?: 'InLanguage',
-  id: Scalars['ID'],
+  id?: Maybe<Scalars['ID']>,
   translationAvailable?: Maybe<Scalars['Boolean']>,
   name?: Maybe<LocalizedObject>,
   internalId?: Maybe<Scalars['String']>,
@@ -210,7 +210,7 @@ export type OrganizationDetails = {
 
 export type Place = {
    __typename?: 'Place',
-  id: Scalars['ID'],
+  id?: Maybe<Scalars['ID']>,
   divisions?: Maybe<Array<Division>>,
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
@@ -273,7 +273,8 @@ export type QueryCollectionDetailsArgs = {
 
 
 export type QueryEventDetailsArgs = {
-  id?: Maybe<Scalars['ID']>
+  id?: Maybe<Scalars['ID']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>
 };
 
 
@@ -422,7 +423,8 @@ export type CollectionListQuery = (
 );
 
 export type EventDetailsQueryVariables = {
-  id: Scalars['ID']
+  id: Scalars['ID'],
+  include?: Maybe<Array<Maybe<Scalars['String']>>>
 };
 
 
@@ -437,6 +439,9 @@ export type EventDetailsQuery = (
     )>, images: Array<(
       { __typename?: 'Image' }
       & Pick<Image, 'id' | 'name' | 'url'>
+    )>, superEvent: Maybe<(
+      { __typename?: 'InternalIdObject' }
+      & Pick<InternalIdObject, 'internalId'>
     )>, inLanguage: Array<(
       { __typename?: 'InLanguage' }
       & { name: Maybe<(
@@ -875,8 +880,8 @@ export type CollectionListQueryHookResult = ReturnType<typeof useCollectionListQ
 export type CollectionListLazyQueryHookResult = ReturnType<typeof useCollectionListLazyQuery>;
 export type CollectionListQueryResult = ApolloReactCommon.QueryResult<CollectionListQuery, CollectionListQueryVariables>;
 export const EventDetailsDocument = gql`
-    query EventDetails($id: ID!) {
-  eventDetails(id: $id) {
+    query EventDetails($id: ID!, $include: [String]) {
+  eventDetails(id: $id, include: $include) {
     id
     externalLinks {
       name
@@ -886,6 +891,9 @@ export const EventDetailsDocument = gql`
       id
       name
       url
+    }
+    superEvent {
+      internalId
     }
     inLanguage {
       name {
@@ -1021,6 +1029,7 @@ export function withEventDetails<TProps, TChildProps = {}>(operationOptions?: Ap
  * const { data, loading, error } = useEventDetailsQuery({
  *   variables: {
  *      id: // value for 'id'
+ *      include: // value for 'include'
  *   },
  * });
  */
