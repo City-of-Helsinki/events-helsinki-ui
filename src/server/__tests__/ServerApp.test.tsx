@@ -1,9 +1,10 @@
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
 import { MockLink } from "apollo-link-mock";
+import { mount } from "enzyme";
 import * as React from "react";
-import renderer from "react-test-renderer";
 
+import i18n from "../../common/translation/i18n/init.server";
 import ServerApp from "../ServerApp";
 
 test("ServerApp matches snapshot", () => {
@@ -15,11 +16,11 @@ test("ServerApp matches snapshot", () => {
   }
 
   const client = createClient();
-  const component = renderer.create(
-    <ServerApp client={client} context={{}} url="/fi/home" />
+
+  const tree = mount(
+    <ServerApp client={client} context={{}} i18n={i18n} url="/fi/home" />
   );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  expect(tree.html()).toMatchSnapshot();
 });
 
 export {};
