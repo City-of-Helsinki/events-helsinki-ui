@@ -13,6 +13,7 @@ const getWrapper = props =>
 
 test("should show buy button when event has an offer", () => {
   const mockEvent = {
+    id: "123",
     images: [],
     keywords: [],
     name: {},
@@ -31,6 +32,7 @@ test("should show buy button when event has an offer", () => {
 
 test("should hide buy button when event is free", () => {
   const mockEvent = {
+    id: "123",
     images: [],
     keywords: [],
     name: {},

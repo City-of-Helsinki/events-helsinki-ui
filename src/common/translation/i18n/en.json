@@ -159,6 +159,10 @@
       "openMap": "Open the map in a new window",
       "title": "Location"
     },
+    "otherTimes": {
+      "buttonReadMore": "Read more",
+      "title": "Other times of the event"
+    },
     "shareLinks": {
       "title": "Share Event"
     },

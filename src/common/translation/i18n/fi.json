@@ -159,6 +159,10 @@
       "openMap": "Avaa kartta uuteen ikkunaan",
       "title": "Sijainti"
     },
+    "otherTimes": {
+      "buttonReadMore": "Lue lisää",
+      "title": "Tapahtuman muut ajat"
+    },
     "shareLinks": {
       "title": "Jaa tapahtuma"
     },

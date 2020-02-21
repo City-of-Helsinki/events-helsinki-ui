@@ -1,10 +1,18 @@
 import { MockedProvider } from "@apollo/react-testing";
 import * as React from "react";
+import routeData, { MemoryRouter } from "react-router";
 import renderer from "react-test-renderer";
 
-import { OrganizationDetailsDocument } from "../../../generated/graphql";
-import { mockEventData } from "../constants";
+import { OrganizationDetailsDocument } from "../../../../generated/graphql";
+import { mockEventData } from "../../constants";
 import EventInfo from "../EventInfo";
+
+const mockHistory: any = {
+  push: () => {}
+};
+beforeEach(() => {
+  jest.spyOn(routeData, "useHistory").mockReturnValue(mockHistory);
+});
 
 const mocks = [
   {
@@ -25,7 +33,9 @@ const mocks = [
 test("EventInfo matches snapshot", () => {
   const component = renderer.create(
     <MockedProvider mocks={mocks}>
-      <EventInfo eventData={mockEventData} />
+      <MemoryRouter>
+        <EventInfo eventData={mockEventData} />
+      </MemoryRouter>
     </MockedProvider>
   );
   const tree = component.toJSON();

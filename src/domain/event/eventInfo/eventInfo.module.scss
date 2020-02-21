@@ -7,8 +7,15 @@
   padding: 0;
   font-size: 1.125rem;
 
+  display: grid;
+  grid-template-columns: 1fr;
+
   @include respond_above(sm) {
     padding: $largePadding;
+  }
+
+  @include respond_above(md) {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -38,7 +45,7 @@
 
     p {
       font-size: $font-size-lg;
-      font-weight: $label-font-weight;
+      font-weight: 600;
       margin: 0;
     }
   }

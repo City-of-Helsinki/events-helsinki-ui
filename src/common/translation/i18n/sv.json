@@ -159,6 +159,10 @@
       "openMap": "Öppna kartan i ett nytt fönster",
       "title": "Lokalisering"
     },
+    "otherTimes": {
+      "buttonReadMore": "Läs mer",
+      "title": "Andra tider av evenemanget"
+    },
     "shareLinks": {
       "title": "Dela händelsen"
     },

@@ -78,7 +78,7 @@ const getFilterDates = (
  * Get current hour as string to event query
  * @return {string}
  */
-const getCurrentHour = (): string => {
+export const getCurrentHour = (): string => {
   const dateFormat = "yyyy-MM-dd";
   const now = new Date();
   return `${formatDate(now, dateFormat)}T${formatDate(now, "HH")}`;
