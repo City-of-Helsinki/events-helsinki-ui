@@ -6,7 +6,6 @@ import SimilarEventCard from "../../common/components/eventCard/EventCard";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { EventDetailsQuery, useEventListQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
-import isClient from "../../util/isClient";
 import { getSearchQuery } from "../../util/searchUtils";
 // Use same page size as on event search page
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from "../eventSearch/constants";
@@ -47,7 +46,7 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
   const { t } = useTranslation();
 
   const { data: eventsData, loading } = useEventListQuery({
-    skip: !isClient,
+    ssr: false,
     variables: eventFilters
   });
 

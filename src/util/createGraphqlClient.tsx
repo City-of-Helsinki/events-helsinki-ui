@@ -14,6 +14,7 @@ export default function createClient(uri: string) {
   const link = ApolloLink.from([
     createPersistedQueryLink(),
     new BatchHttpLink({
+      batchMax: 1,
       fetch: customFetch
     })
   ]);
