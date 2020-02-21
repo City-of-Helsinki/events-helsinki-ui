@@ -44,7 +44,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   const categoryWrapper = React.useRef<HTMLDivElement | null>(null);
   const input = React.useRef<HTMLInputElement | null>(null);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const internalInputValue = useDebounce(searchValue, 500);
+  const internalInputValue = useDebounce(searchValue, 300);
 
   const districtOptions = React.useMemo(
     () =>
@@ -59,7 +59,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     [t]
   );
 
-  const { data: keywordsData } = useKeywordListQuery({
+  const { data: keywordsData, loading: loadingKeywords } = useKeywordListQuery({
     skip: !internalInputValue,
     variables: {
       pageSize: 5,
@@ -67,7 +67,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     }
   });
 
-  const { data: placesData } = usePlaceListQuery({
+  const { data: placesData, loading: loadingPlaces } = usePlaceListQuery({
     skip: !internalInputValue,
     variables: {
       pageSize: 5,
@@ -75,7 +75,13 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     }
   });
 
-  const autosuggestItems: AutosuggestMenuOption[] = React.useMemo(() => {
+  const [autoSuggestItems, setAutoSuggestItems] = React.useState<
+    AutosuggestMenuOption[]
+  >([]);
+
+  React.useEffect(() => {
+    if (loadingKeywords || loadingPlaces) return;
+
     const items: AutosuggestMenuOption[] = [];
     const textItem: AutosuggestMenuOption = {
       text: internalInputValue,
@@ -128,29 +134,38 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       ...districtItems,
       ...placeItems
     );
-    return items.filter(item => item.text);
-  }, [districtOptions, internalInputValue, keywordsData, locale, placesData]);
+
+    setAutoSuggestItems(items.filter(item => item.text));
+  }, [
+    districtOptions,
+    internalInputValue,
+    keywordsData,
+    loadingKeywords,
+    loadingPlaces,
+    locale,
+    placesData
+  ]);
 
   const openMenu = React.useCallback(
     (focusOption: "first" | "last") => {
       const openAtIndex =
-        focusOption === "first" ? 0 : autosuggestItems.length - 1;
+        focusOption === "first" ? 0 : autoSuggestItems.length - 1;
       setFocusedOption(openAtIndex);
 
       if (searchValue) {
         setIsMenuOpen(true);
       }
     },
-    [autosuggestItems.length, searchValue]
+    [autoSuggestItems.length, searchValue]
   );
 
   const focusOption = React.useCallback(
     (direction: "down" | "up") => {
-      if (!autosuggestItems.length) return;
+      if (!autoSuggestItems.length) return;
       switch (direction) {
         case "down":
           setFocusedOption(
-            focusedOption < autosuggestItems.length - 1
+            focusedOption < autoSuggestItems.length - 1
               ? focusedOption + 1
               : focusedOption >= 0
               ? focusedOption
@@ -162,7 +177,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
           break;
       }
     },
-    [autosuggestItems.length, focusedOption]
+    [autoSuggestItems.length, focusedOption]
   );
 
   const handleCloseMenu = React.useCallback(() => {
@@ -231,7 +246,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
           break;
         case "Enter":
           if (isInputFocused()) {
-            const selectedItem = autosuggestItems[focusedOption];
+            const selectedItem = autoSuggestItems[focusedOption];
 
             if (selectedItem) {
               handleMenuOptionClick(selectedItem);
@@ -251,7 +266,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       }
     },
     [
-      autosuggestItems,
+      autoSuggestItems,
       focusOption,
       focusedOption,
       handleCloseMenu,
@@ -376,7 +391,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
         isOpen={isMenuOpen}
         onClose={handleCloseMenu}
         onOptionClick={handleMenuOptionClick}
-        options={autosuggestItems}
+        options={autoSuggestItems}
       />
     </div>
   );
