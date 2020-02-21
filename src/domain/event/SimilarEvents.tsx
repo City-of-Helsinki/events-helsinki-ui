@@ -26,7 +26,9 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
     districts: [],
     endDate: null,
     isCustomDate: false,
-    keywords: eventData.eventDetails.keywords.map(keyword => keyword.id),
+    keywords: eventData.eventDetails.keywords
+      .map(keyword => keyword.id || "")
+      .filter(e => e),
     places: [],
     publisher: null,
     search: "",
@@ -38,6 +40,7 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
   const eventFilters = React.useMemo(() => {
     return getEventFilters(
       searchParams,
+      ["location"],
       PAGE_SIZE,
       EVENT_SORT_OPTIONS.START_TIME,
       locale

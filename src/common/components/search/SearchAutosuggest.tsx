@@ -95,11 +95,12 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     if (keywordsData) {
       keywordItems.push(
         ...keywordsData.keywordList.data.map(keyword => ({
-          text: getLocalisedString(keyword.name, locale),
-          type: keyword.id.startsWith("yso")
-            ? AUTOSUGGEST_TYPES.YSO
-            : AUTOSUGGEST_TYPES.KEYWORD,
-          value: keyword.id
+          text: getLocalisedString(keyword.name || {}, locale),
+          type:
+            keyword.id && keyword.id.startsWith("yso")
+              ? AUTOSUGGEST_TYPES.YSO
+              : AUTOSUGGEST_TYPES.KEYWORD,
+          value: keyword.id || ""
         }))
       );
     }

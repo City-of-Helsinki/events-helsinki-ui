@@ -4,6 +4,7 @@ export const QUERY_EVENT_LIST = gql`
   query EventList(
     $divisions: [String]
     $endDate: String
+    $include: [String]
     $inLanguage: String
     $keywords: [String]
     $language: String
@@ -19,6 +20,7 @@ export const QUERY_EVENT_LIST = gql`
     eventList(
       divisions: $divisions
       endDate: $endDate
+      include: $include
       inLanguage: $inLanguage
       keywords: $keywords
       language: $language

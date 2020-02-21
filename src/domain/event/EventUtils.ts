@@ -87,8 +87,8 @@ export const getEventKeywords = (
 ): EventUiKeyword[] => {
   return event.keywords
     .map(keyword => ({
-      id: keyword.id,
-      name: capitalize(keyword.name[locale] || "").trim()
+      id: keyword.id || "",
+      name: keyword.name ? capitalize(keyword.name[locale] || "").trim() : ""
     }))
     .filter(
       (keyword, index, arr) =>

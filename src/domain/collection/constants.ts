@@ -46,6 +46,11 @@ export const mockCollection = {
       fi: "Kokosimme parhaat tärpit syksylle",
       sv: "Vi sätter ihop det bästa bladverket för hösten"
     },
+    similarCollectionsTitle: {
+      en: "Check also these",
+      fi: "Katso myös nämä",
+      sv: "Se dessa också"
+    },
     title: {
       en: "The most bustling tricks of the fall",
       fi: "Syksyn riehakkaimmat riennot",
