@@ -181,11 +181,11 @@ export const getEventFilters = (
   mappedCategories.push(...mappedTargets);
 
   return {
-    divisions: mappedDistricts,
+    divisions: mappedDistricts.sort(),
     endDate: endDate,
-    keywords: mappedCategories,
+    keywords: mappedCategories.sort(),
     language,
-    locations: places,
+    locations: places.sort(),
     pageSize,
     publisher: params.get("publisher"),
     sort: sortOrder,
