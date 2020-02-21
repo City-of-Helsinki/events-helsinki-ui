@@ -139,18 +139,18 @@ export type InternalIdObject = {
 
 export type Keyword = {
    __typename?: 'Keyword',
-  id: Scalars['String'],
-  altLabels: Array<Scalars['String']>,
+  id?: Maybe<Scalars['String']>,
+  altLabels?: Maybe<Array<Maybe<Scalars['String']>>>,
   createdTime?: Maybe<Scalars['String']>,
-  lastModifiedTime: Scalars['String'],
+  lastModifiedTime?: Maybe<Scalars['String']>,
   aggregate?: Maybe<Scalars['Boolean']>,
   deprecated?: Maybe<Scalars['Boolean']>,
-  nEvents: Scalars['Int'],
+  nEvents?: Maybe<Scalars['Int']>,
   image?: Maybe<Image>,
-  dataSource: Scalars['String'],
+  dataSource?: Maybe<Scalars['String']>,
   publisher?: Maybe<Scalars['ID']>,
-  name: LocalizedObject,
-  internalId?: Maybe<Scalars['String']>,
+  name?: Maybe<LocalizedObject>,
+  internalId: Scalars['String'],
   internalContext?: Maybe<Scalars['String']>,
   internalType?: Maybe<Scalars['String']>,
 };
@@ -280,6 +280,7 @@ export type QueryEventDetailsArgs = {
 export type QueryEventListArgs = {
   divisions?: Maybe<Array<Maybe<Scalars['String']>>>,
   endDate?: Maybe<Scalars['String']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>,
   inLanguage?: Maybe<Scalars['String']>,
   keywords?: Maybe<Array<Maybe<Scalars['String']>>>,
   language?: Maybe<Scalars['String']>,
@@ -445,10 +446,10 @@ export type EventDetailsQuery = (
     )>, keywords: Array<(
       { __typename?: 'Keyword' }
       & Pick<Keyword, 'id' | 'altLabels' | 'createdTime' | 'lastModifiedTime' | 'nEvents' | 'dataSource'>
-      & { name: (
+      & { name: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      ) }
+      )> }
     )>, location: Maybe<(
       { __typename?: 'Place' }
       & Pick<Place, 'email' | 'postalCode'>
@@ -526,6 +527,7 @@ export type OrganizationDetailsQuery = (
 export type EventListQueryVariables = {
   divisions?: Maybe<Array<Maybe<Scalars['String']>>>,
   endDate?: Maybe<Scalars['String']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>,
   inLanguage?: Maybe<Scalars['String']>,
   keywords?: Maybe<Array<Maybe<Scalars['String']>>>,
   language?: Maybe<Scalars['String']>,
@@ -556,10 +558,10 @@ export type EventListQuery = (
       )>, keywords: Array<(
         { __typename?: 'Keyword' }
         & Pick<Keyword, 'id'>
-        & { name: (
+        & { name: Maybe<(
           { __typename?: 'LocalizedObject' }
           & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-        ) }
+        )> }
       )>, location: Maybe<(
         { __typename?: 'Place' }
         & { divisions: Maybe<Array<(
@@ -610,10 +612,10 @@ export type KeywordDetailsQuery = (
   & { keywordDetails: (
     { __typename?: 'Keyword' }
     & Pick<Keyword, 'id'>
-    & { name: (
+    & { name: Maybe<(
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    ) }
+    )> }
   ) }
 );
 
@@ -637,10 +639,10 @@ export type KeywordListQuery = (
     ), data: Array<(
       { __typename?: 'Keyword' }
       & Pick<Keyword, 'id'>
-      & { name: (
+      & { name: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      ) }
+      )> }
     )> }
   ) }
 );
@@ -1077,8 +1079,8 @@ export type OrganizationDetailsQueryHookResult = ReturnType<typeof useOrganizati
 export type OrganizationDetailsLazyQueryHookResult = ReturnType<typeof useOrganizationDetailsLazyQuery>;
 export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($divisions: [String], $endDate: String, $inLanguage: String, $keywords: [String], $language: String, $locations: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $startDate: String, $text: String, $translation: String) {
-  eventList(divisions: $divisions, endDate: $endDate, inLanguage: $inLanguage, keywords: $keywords, language: $language, locations: $locations, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, startDate: $startDate, text: $text, translation: $translation) {
+    query EventList($divisions: [String], $endDate: String, $include: [String], $inLanguage: String, $keywords: [String], $language: String, $locations: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $startDate: String, $text: String, $translation: String) {
+  eventList(divisions: $divisions, endDate: $endDate, include: $include, inLanguage: $inLanguage, keywords: $keywords, language: $language, locations: $locations, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, startDate: $startDate, text: $text, translation: $translation) {
     meta {
       count
       next
@@ -1179,6 +1181,7 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  *   variables: {
  *      divisions: // value for 'divisions'
  *      endDate: // value for 'endDate'
+ *      include: // value for 'include'
  *      inLanguage: // value for 'inLanguage'
  *      keywords: // value for 'keywords'
  *      language: // value for 'language'

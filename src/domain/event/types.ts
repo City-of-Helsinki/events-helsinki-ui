@@ -15,7 +15,7 @@ type OfferInList = Pick<Offer, "isFree"> & {
 };
 
 type KeywordInList = Pick<Keyword, "id"> & {
-  name: LocalizedObject;
+  name: Maybe<LocalizedObject>;
 };
 
 type LocationInList = {

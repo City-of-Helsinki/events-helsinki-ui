@@ -25,6 +25,7 @@ const mocks = [
       query: EventListDocument,
       variables: getEventFilters(
         searchParams,
+        ["keywords", "location"],
         PAGE_SIZE,
         EVENT_SORT_OPTIONS.START_TIME,
         SUPPORT_LANGUAGES.FI
