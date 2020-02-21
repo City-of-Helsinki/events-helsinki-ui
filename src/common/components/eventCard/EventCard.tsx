@@ -6,7 +6,10 @@ import { Link } from "react-router-dom";
 
 import EventKeywords from "../../../domain/event/EventKeywords";
 import LocationText from "../../../domain/event/EventLocationText";
-import { getEventPrice } from "../../../domain/event/EventUtils";
+import {
+  getEventImageUrl,
+  getEventPrice
+} from "../../../domain/event/EventUtils";
 import { EventInList } from "../../../domain/event/types";
 import useLocale from "../../../hooks/useLocale";
 import getDateRangeStr from "../../../util/getDateRangeStr";
@@ -25,7 +28,7 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
   const { push } = useHistory();
   const locale = useLocale();
 
-  const image = event.images.length ? event.images[0] : null;
+  const imageUrl = getEventImageUrl(event);
   const name = event.name;
   const startTime = event.startTime;
   const endTime = event.endTime;
@@ -43,7 +46,7 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
       <Link
         aria-hidden={true}
         className={styles.imageWrapper}
-        style={{ backgroundImage: image ? `url(${image.url})` : undefined }}
+        style={{ backgroundImage: `url(${imageUrl})` }}
         tabIndex={-1}
         to={eventUrl}
       >

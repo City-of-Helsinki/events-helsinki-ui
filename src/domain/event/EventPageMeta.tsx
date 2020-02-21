@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import { EventDetailsQuery, LocalizedObject } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
 import getLocalisedString from "../../util/getLocalisedString";
+import { getEventSomeImageUrl } from "./EventUtils";
 
 interface Props {
   eventData: EventDetailsQuery;
@@ -17,13 +18,11 @@ const EventPageMeta: React.FC<Props> = ({ eventData }) => {
 
   const name = getLocal(eventData.eventDetails.name);
   const description = getLocal(eventData.eventDetails.shortDescription || {});
-  const image = eventData.eventDetails.images.length
-    ? eventData.eventDetails.images[0].url
-    : null;
+  const image = getEventSomeImageUrl(eventData.eventDetails);
 
   const openGraphProperties: { [key: string]: string } = {
     description: description,
-    image: image || "",
+    image: image,
     title: name
   };
 

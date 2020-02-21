@@ -15,7 +15,7 @@ import Container from "../app/layout/Container";
 import styles from "./eventHero.module.scss";
 import EventKeywords from "./EventKeywords";
 import LocationText from "./EventLocationText";
-import { getEventPrice, isEventFree } from "./EventUtils";
+import { getEventImageUrl, getEventPrice, isEventFree } from "./EventUtils";
 
 interface Props extends RouteComponentProps {
   eventData: EventDetailsQuery;
@@ -45,9 +45,7 @@ const EventHero: React.FC<Props> = ({
     window.open(offerInfoUrl);
   };
 
-  const image = eventData.eventDetails.images.length
-    ? eventData.eventDetails.images[0]
-    : null;
+  const imageUrl = getEventImageUrl(eventData.eventDetails);
   const description = eventData.eventDetails.shortDescription || {};
   const keywords = eventData.eventDetails.keywords;
   const startTime = eventData.eventDetails.startTime;
@@ -68,12 +66,10 @@ const EventHero: React.FC<Props> = ({
             </button>
           </div>
           <div>
-            {image && (
-              <div
-                className={styles.image}
-                style={{ backgroundImage: `url(${image.url})` }}
-              />
-            )}
+            <div
+              className={styles.image}
+              style={{ backgroundImage: `url(${imageUrl})` }}
+            />
           </div>
           <div className={styles.leftPanel}>
             <div className={styles.textWrapper}>
