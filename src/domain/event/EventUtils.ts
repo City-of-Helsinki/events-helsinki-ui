@@ -94,7 +94,9 @@ export const getEventKeywords = (
       (keyword, index, arr) =>
         !!keyword.name &&
         (!EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
-          arr.findIndex(item => item.name === keyword.name) === index)
+          arr.findIndex(
+            item => item.name.toLowerCase() === keyword.name.toLowerCase()
+          ) === index)
     )
     .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
 };
