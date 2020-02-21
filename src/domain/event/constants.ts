@@ -112,3 +112,12 @@ export const EVENT_KEYWORD_BLACK_LIST = [
   "kulke:671", // Normaali
   "kulke:673" // Suomi (TV)
 ];
+
+export const EVENT_PLACEHOLDER_IMAGES = [
+  "/images/activities_placeholder_imgA.jpg",
+  "/images/activities_placeholder_imgB.jpg",
+  "/images/activities_placeholder_imgC.jpg",
+  "/images/activities_placeholder_imgD.jpg"
+];
+
+export const EVENT_SOME_IMAGE = "/images/activities_SoMe-share.jpg";

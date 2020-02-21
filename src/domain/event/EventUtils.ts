@@ -4,7 +4,11 @@ import capitalize from "lodash/capitalize";
 import { EventDetailsQuery } from "../../generated/graphql";
 import { Language } from "../../types";
 import getLocalisedString from "../../util/getLocalisedString";
-import { EVENT_KEYWORD_BLACK_LIST } from "./constants";
+import {
+  EVENT_KEYWORD_BLACK_LIST,
+  EVENT_PLACEHOLDER_IMAGES,
+  EVENT_SOME_IMAGE
+} from "./constants";
 import { EventInList, EventUiKeyword } from "./types";
 
 /**
@@ -92,6 +96,41 @@ export const getEventKeywords = (
         arr.findIndex(item => item.name === keyword.name) === index
     )
     .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
+};
+
+/**
+ * Get event placeholder image url
+ * @param {object} event
+ * @return {string}
+ */
+export const getEventPlaceholderImageUrl = (event: EventInList): string => {
+  const numbers = event.id.match(/\d+/g);
+  const sum = numbers
+    ? numbers.reduce((prev: number, cur: string) => prev + Number(cur), 0)
+    : 0;
+  const index = sum % 4;
+
+  return EVENT_PLACEHOLDER_IMAGES[index];
+};
+
+/**
+ * Get event image url
+ * @param {object} event
+ * @return {string}
+ */
+export const getEventImageUrl = (event: EventInList): string => {
+  const image = event.images.length ? event.images[0] : null;
+  return image ? image.url : getEventPlaceholderImageUrl(event);
+};
+
+/**
+ * Get event image url for social media
+ * @param {object} event
+ * @return {string}
+ */
+export const getEventSomeImageUrl = (event: EventInList): string => {
+  const image = event.images.length ? event.images[0] : null;
+  return image ? image.url : EVENT_SOME_IMAGE;
 };
 
 /**
