@@ -216,9 +216,9 @@
     "ariaButtonOpenMenu": "Open menu",
     "ariaLabelLogo": "Home",
     "languages": {
-      "english": "In English",
-      "finnish": "Suomeksi",
-      "swedish": "På svenska"
+      "en": "In English",
+      "fi": "Suomeksi",
+      "sv": "På svenska"
     },
     "searchCollections": "We recommend",
     "searchEvents": "Find something to do"

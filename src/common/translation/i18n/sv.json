@@ -215,6 +215,11 @@
     "ariaButtonCloseMenu": "Stäng menyn",
     "ariaButtonOpenMenu": "Öppna menyn",
     "ariaLabelLogo": "Framsidan",
+    "languages": {
+      "en": "In English",
+      "fi": "Suomeksi",
+      "sv": "På svenska"
+    },
     "searchCollections": "Vi rekommenderar",
     "searchEvents": "Hitta något att göra"
   },

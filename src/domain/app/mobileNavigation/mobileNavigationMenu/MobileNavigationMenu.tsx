@@ -61,7 +61,7 @@ const NavbarMobile: React.FC<Props> = ({ isMenuOpen, onMenuClose }) => {
             })}
           >
             <Link onClick={onMenuClose} to={getUrl(SUPPORT_LANGUAGES.FI)}>
-              {t("header.languages.finnish")}
+              {t("header.languages.fi")}
             </Link>
           </li>
           <li
@@ -70,7 +70,7 @@ const NavbarMobile: React.FC<Props> = ({ isMenuOpen, onMenuClose }) => {
             })}
           >
             <Link onClick={onMenuClose} to={getUrl(SUPPORT_LANGUAGES.SV)}>
-              {t("header.languages.swedish")}
+              {t("header.languages.sv")}
             </Link>
           </li>
           <li
@@ -79,7 +79,7 @@ const NavbarMobile: React.FC<Props> = ({ isMenuOpen, onMenuClose }) => {
             })}
           >
             <Link onClick={onMenuClose} to={getUrl(SUPPORT_LANGUAGES.EN)}>
-              {t("header.languages.english")}
+              {t("header.languages.en")}
             </Link>
           </li>
         </ul>
