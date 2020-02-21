@@ -88,12 +88,13 @@ export const getEventKeywords = (
   return event.keywords
     .map(keyword => ({
       id: keyword.id,
-      name: capitalize(getLocalisedString(keyword.name, locale)).trim()
+      name: capitalize(keyword.name[locale] || "").trim()
     }))
     .filter(
       (keyword, index, arr) =>
-        !EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
-        arr.findIndex(item => item.name === keyword.name) === index
+        !!keyword.name &&
+        (!EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
+          arr.findIndex(item => item.name === keyword.name) === index)
     )
     .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
 };
