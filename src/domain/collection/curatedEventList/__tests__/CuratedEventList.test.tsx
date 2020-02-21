@@ -16,7 +16,8 @@ const mocks = [
     request: {
       query: EventDetailsDocument,
       variables: {
-        id: mockEventData.eventDetails.id
+        id: mockEventData.eventDetails.id,
+        include: ["keywords", "location"]
       }
     },
     result: {

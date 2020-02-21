@@ -7,6 +7,7 @@ import { OrganizationDetailsDocument } from "../../../../generated/graphql";
 import { mockEventData } from "../../constants";
 import EventInfo from "../EventInfo";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mockHistory: any = {
   push: () => {}
 };
