@@ -9,7 +9,7 @@ import { EventDetailsQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import styles from "./eventContent.module.scss";
-import EventInfo from "./EventInfo";
+import EventInfo from "./eventInfo/EventInfo";
 import EventLocation from "./EventLocation";
 
 interface Props {

@@ -14,6 +14,7 @@ export const QUERY_EVENT_LIST = gql`
     $publisher: ID
     $sort: String
     $startDate: String
+    $superEvent: ID
     $text: String
     $translation: String
   ) {
@@ -30,6 +31,7 @@ export const QUERY_EVENT_LIST = gql`
       publisher: $publisher
       sort: $sort
       startDate: $startDate
+      superEvent: $superEvent
       text: $text
       translation: $translation
     ) {

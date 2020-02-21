@@ -94,7 +94,8 @@ export const mockEventData = {
       fi: "short description fi",
       sv: "short description sv"
     },
-    startTime: "2019-12-13T08:00:00Z"
+    startTime: "2019-12-13T08:00:00Z",
+    superEvent: null
   }
 };
 

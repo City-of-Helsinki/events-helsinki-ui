@@ -4,7 +4,7 @@ import { CollectionDetailsQuery } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
 import Container from "../../app/layout/Container";
-import { getEventIdFromUrl } from "../collectionUtils/CollectionUtils";
+import { getEventIdFromUrl } from "../../event/EventUtils";
 import styles from "./curatedEventList.module.scss";
 import EventCards from "./EventCards";
 
