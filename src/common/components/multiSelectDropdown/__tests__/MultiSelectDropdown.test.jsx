@@ -1,6 +1,11 @@
 import { act, fireEvent, render, wait } from "@testing-library/react";
 import React from "react";
 
+import {
+  arrowDownKeyPressHelper,
+  arrowUpKeyPressHelper,
+  escKeyPressHelper
+} from "../../../../util/testUtils";
 import MultiSelectDropdown from "../MultiSelectDropdown";
 
 const onChange = jest.fn();
@@ -29,10 +34,6 @@ const defaultProps = {
 };
 const getWrapper = props =>
   render(<MultiSelectDropdown {...defaultProps} {...props} />);
-const arrowUpKeyPressHelper = () =>
-  fireEvent.keyDown(document, { code: 38, key: "ArrowUp" });
-const arrowDownKeyPressHelper = () =>
-  fireEvent.keyDown(document, { code: 40, key: "ArrowDown" });
 
 test("should filter results based on user search and options[].text field", async () => {
   const { getByPlaceholderText, queryByLabelText } = getWrapper();
@@ -167,7 +168,7 @@ describe("Escape", () => {
     // that it is open.
     expect(queryByLabelText(options[0].text)).not.toEqual(null);
 
-    fireEvent.keyDown(searchInput, { code: 27, key: "Escape" });
+    escKeyPressHelper();
 
     // Assert that we can no longer find the menu content after we have pressed
     // Escape.
@@ -201,7 +202,7 @@ describe("when dropdown has been closed, it should reopen with", () => {
 
     act(() => searchInput.focus());
     fireEvent.click(searchInput);
-    fireEvent.keyDown(searchInput, { code: 27, key: "Escape" });
+    escKeyPressHelper();
 
     expect(queryByLabelText(options[0].text)).toEqual(null);
     expect(searchInput).toHaveFocus();
