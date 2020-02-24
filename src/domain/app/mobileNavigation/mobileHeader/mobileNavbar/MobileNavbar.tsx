@@ -18,11 +18,15 @@ const MobileNavbar: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const history = useHistory();
+  const moveHome = () => {
+    history.push("/");
+    onCloseMenu();
+  };
 
   return (
     <div className={styles.mobileNavbar}>
       <div className={styles.logoWrapper}>
-        <div className={styles.logo} onClick={() => history.push("/")}></div>
+        <div className={styles.logo} onClick={moveHome}></div>
         <h1 className={styles.appName}>{t("appName")}</h1>
       </div>
       <div className={styles.buttonWrapper}>

@@ -40,13 +40,13 @@ const NavbarMobile: React.FC<Props> = ({ isMenuOpen, onMenuClose }) => {
       <div className={styles.linkWrapper}>
         <ul>
           <li className={styles.link}>
-            <Link to={`/${locale}/events`}>
+            <Link onClick={onMenuClose} to={`/${locale}/events`}>
               <IconSearch />
               {t("header.searchEvents")}
             </Link>
           </li>
           <li className={styles.link}>
-            <Link to={`/${locale}/collections`}>
+            <Link onClick={onMenuClose} to={`/${locale}/collections`}>
               <IconStar />
               {t("header.searchCollections")}
             </Link>
