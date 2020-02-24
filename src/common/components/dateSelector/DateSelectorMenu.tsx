@@ -2,13 +2,13 @@ import classNames from "classnames";
 import { IconAngleRight } from "hds-react";
 import React, { ChangeEvent, FunctionComponent, MutableRefObject } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router";
 
 import { DATE_TYPES } from "../../../constants";
+import useLocale from "../../../hooks/useLocale";
 import IconAngleLeft from "../../../icons/IconAngleLeft";
 import IconCalendarAdd from "../../../icons/IconCalendarAdd";
+import DateRangePicker from "../dateRangePicker/DateRangePicker";
 import Checkbox from "../input/Checkbox";
-import DateRangePicker from "./DateRangePicker";
 import styles from "./dateSelectorMenu.module.scss"; // the locale you want
 
 interface Props {
@@ -43,7 +43,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
   toggleIsCustomDate
 }) => {
   const { t } = useTranslation();
-  const { pathname } = useLocation();
+  const locale = useLocale();
 
   if (!isOpen) return null;
 
@@ -125,7 +125,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         <div className={styles.wrapper}>
           <DateRangePicker
             endDate={endDate}
-            locale={pathname.split("/")[1]}
+            locale={locale}
             onChangeEndDate={onChangeEndDate}
             onChangeStartDate={onChangeStartDate}
             startDate={startDate}
