@@ -19,6 +19,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
     return getEventFilters(
       searchParams,
       ["keywords", "location"],
+      ["umbrella", "none"],
       PAGE_SIZE,
       EVENT_SORT_OPTIONS.START_TIME,
       locale

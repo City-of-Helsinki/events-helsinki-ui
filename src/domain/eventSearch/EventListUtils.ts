@@ -88,6 +88,7 @@ export const getCurrentHour = (): string => {
  * Get event list request filters from url parameters
  * @param params
  * @param include {string[]}
+ * @param superEventType {string[]}
  * @param pageSize {number}
  * @param sortOrder {string}
  * @param language {string}
@@ -96,6 +97,7 @@ export const getCurrentHour = (): string => {
 export const getEventFilters = (
   params: URLSearchParams,
   include: string[],
+  superEventType: string[],
   pageSize: number,
   sortOrder: EVENT_SORT_OPTIONS,
   language: "en" | "fi" | "sv"
@@ -193,6 +195,7 @@ export const getEventFilters = (
     publisher: params.get("publisher"),
     sort: sortOrder,
     startDate: startDate,
+    superEventType,
     text: params.get("search")
   };
 };

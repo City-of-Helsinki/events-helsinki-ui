@@ -27,6 +27,7 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
     return getEventFilters(
       searchParams,
       ["location"],
+      ["umbrella", "none"],
       PAGE_SIZE,
       EVENT_SORT_OPTIONS.START_TIME,
       locale
