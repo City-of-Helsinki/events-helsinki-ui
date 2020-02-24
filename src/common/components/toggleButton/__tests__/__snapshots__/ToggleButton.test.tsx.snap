@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToggleButton matches snapshot 1`] = `
+<button
+  aria-pressed={true}
+  className="toggleButton isSelected"
+  onClick={[Function]}
+  type="button"
+>
+  Test button
+</button>
+`;
