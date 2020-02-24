@@ -1,7 +1,7 @@
 import { IconClose, IconMenu } from "hds-react";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import styles from "./mobileNavbar.module.scss";
 
@@ -17,18 +17,18 @@ const MobileNavbar: React.FC<Props> = ({
   onOpenMenu
 }) => {
   const { t } = useTranslation();
-  const history = useHistory();
-  const moveHome = () => {
-    history.push("/");
-    onCloseMenu();
-  };
 
   return (
     <div className={styles.mobileNavbar}>
-      <div className={styles.logoWrapper}>
-        <div className={styles.logo} onClick={moveHome}></div>
-        <h1 className={styles.appName}>{t("appName")}</h1>
-      </div>
+      <Link
+        aria-label={t("header.ariaLabelLogo")}
+        onClick={onCloseMenu}
+        to={"/"}
+        className={styles.logoWrapper}
+      >
+        <div className={styles.logo} />
+        <div className={styles.appName}>{t("appName")}</div>
+      </Link>
       <div className={styles.buttonWrapper}>
         {isMenuOpen ? (
           <>
