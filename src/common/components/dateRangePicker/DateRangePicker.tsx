@@ -34,6 +34,8 @@ const DateRangePicker: FunctionComponent<Props> = ({
   const endDateRef = React.useRef<HTMLInputElement>(null);
   const startDateRef = React.useRef<HTMLInputElement>(null);
   // Variable to keep track on date field
+  // counter === 1 => start date selected
+  // counter === 2 => end date selected
   const [counter, setCounter] = React.useState(1);
   // Raw dates to be saved for input fields
   const [startDateRaw, setStartDateRaw] = React.useState<string>(
