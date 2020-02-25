@@ -32,6 +32,9 @@
   }
 
   .iconWrapper {
+    display: flex;
+    align-self: center;
+
     svg {
       margin-right: 1rem;
     }
@@ -55,6 +58,7 @@
 
   .arrowWrapper {
     display: flex;
+    align-self: center;
     
     svg {
       height: 0.75rem;
