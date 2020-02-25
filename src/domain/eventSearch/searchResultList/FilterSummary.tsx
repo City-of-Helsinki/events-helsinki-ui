@@ -66,7 +66,6 @@ const FilterSummary = () => {
           ? districts.filter(district => district !== value)
           : districts,
       endDate: type === "date" ? null : endDate ? new Date(endDate) : null,
-      isCustomDate: !!(startDate || endDate),
       keywords:
         type === "keyword" || type === "yso"
           ? keywords.filter(keyword => keyword !== value)
@@ -94,7 +93,6 @@ const FilterSummary = () => {
       dateTypes: [],
       districts: [],
       endDate: null,
-      isCustomDate: !!(startDate || endDate),
       keywords: [],
       places: [],
       publisher: null,

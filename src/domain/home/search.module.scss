@@ -94,6 +94,11 @@
       grid-column-start: 1;
     }
   }
+  .desktopDateSelector {
+    @include respond-below(sm) {
+      display: none;
+    }
+  }
 
   .buttonWrapper {
     align-self: flex-end;

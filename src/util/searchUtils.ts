@@ -10,7 +10,6 @@ interface Filters {
   dateTypes: string[];
   districts: string[];
   endDate: Date | null;
-  isCustomDate: boolean;
   keywords: string[];
   places: string[];
   publisher: string | null;
@@ -39,11 +38,8 @@ export const getSearchQuery = (filters: Filters): string => {
     startDate: formatDate(filters.startDate, "yyyy-MM-dd")
   };
 
-  if (filters.isCustomDate) {
+  if (newFilters.endDate || newFilters.startDate) {
     delete newFilters.dateTypes;
-  } else {
-    delete newFilters.startDate;
-    delete newFilters.endDate;
   }
   const query: string[] = [];
 

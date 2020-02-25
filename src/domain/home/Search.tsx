@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Button from "../../common/components/button/Button";
 import CategoryFilter from "../../common/components/category/CategoryFilter";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
+import MobileDateSelector from "../../common/components/mobileDateSelector/MobileDateSelector";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import SearchLabel from "../../common/components/search/searchLabel/SearchLabel";
 import { AutosuggestMenuOption, Category } from "../../common/types";
@@ -40,7 +41,6 @@ const Search: FunctionComponent = () => {
       dateTypes,
       districts: [],
       endDate,
-      isCustomDate,
       keywords: [],
       places: [],
       publisher: null,
@@ -122,7 +122,6 @@ const Search: FunctionComponent = () => {
       dateTypes,
       districts: [],
       endDate,
-      isCustomDate,
       keywords: [],
       places: [],
       publisher: null,
@@ -132,7 +131,7 @@ const Search: FunctionComponent = () => {
     });
 
     push({ pathname: `/${locale}/events`, search });
-  }, [dateTypes, endDate, isCustomDate, locale, push, searchValue, startDate]);
+  }, [dateTypes, endDate, locale, push, searchValue, startDate]);
 
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
     const type = option.type;
@@ -144,7 +143,6 @@ const Search: FunctionComponent = () => {
       dateTypes,
       districts: type === "district" ? [value] : [],
       endDate,
-      isCustomDate,
       keywords: type === "keyword" || type === "yso" ? [value] : [],
       places: type === "place" ? [value] : [],
       publisher: null,
@@ -183,17 +181,27 @@ const Search: FunctionComponent = () => {
               <SearchLabel color="black" htmlFor="date" srOnly={true}>
                 {t("home.search.labelDateRange")}
               </SearchLabel>
-              <DateSelector
+              <div className={styles.desktopDateSelector}>
+                <DateSelector
+                  dateTypes={dateTypes}
+                  endDate={endDate}
+                  isCustomDate={isCustomDate}
+                  name="date"
+                  onChangeDateTypes={handleChangeDateTypes}
+                  onChangeEndDate={setEndDate}
+                  onChangeStartDate={setStartDate}
+                  onSubmit={moveToSearchPage}
+                  startDate={startDate}
+                  toggleIsCustomDate={toggleIsCustomDate}
+                />
+              </div>
+              <MobileDateSelector
                 dateTypes={dateTypes}
                 endDate={endDate}
-                isCustomDate={isCustomDate}
-                name="date"
                 onChangeDateTypes={handleChangeDateTypes}
                 onChangeEndDate={setEndDate}
                 onChangeStartDate={setStartDate}
-                onSubmit={moveToSearchPage}
                 startDate={startDate}
-                toggleIsCustomDate={toggleIsCustomDate}
               />
             </div>
             <div className={styles.buttonWrapper}>
