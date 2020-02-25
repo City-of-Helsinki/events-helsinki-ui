@@ -1,12 +1,8 @@
 import { isPast } from "date-fns";
 import React, { ChangeEvent, MutableRefObject } from "react";
-import { useTranslation } from "react-i18next";
 
 import IconCalendarAdd from "../../../icons/IconCalendarAdd";
-import {
-  convertFinnishDateStrToDate,
-  formatDate
-} from "../../../util/dateUtils";
+import { convertFinnishDateStrToDate } from "../../../util/dateUtils";
 import styles from "./dateRangeInputs.module.scss";
 
 interface Props {
@@ -24,116 +20,119 @@ interface Props {
   startDate: Date | null;
   startDateRaw: string;
   startDateRef?: MutableRefObject<HTMLInputElement | null>;
+  t: (key: string) => string;
 }
 
 // Use class instead of function component so the ref is passed correctly by ReactDatePicker
-const DateRangeInputs: React.FC<Props> = ({
-  endDate,
-  endDateRaw,
-  endDateRef,
-  onBlurInput,
-  setCounter,
-  setEndDateRaw,
-  setStartDateRaw,
-  startDate,
-  startDateRaw,
-  startDateRef,
-  ...rest
-}) => {
-  const { t } = useTranslation();
-
-  const handleEndDateRawChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEndDateRaw(e.target.value);
-  };
-
-  const handleStartDateRawChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setStartDateRaw(e.target.value);
-  };
-
-  const handleBlurStartDate = () => {
-    let newDate = convertFinnishDateStrToDate(startDateRaw);
-
-    if (newDate) {
-      if (isPast(newDate)) {
-        newDate = startDate;
-      }
-      if (startDateRef) {
-        onBlurInput(startDateRef, newDate);
-      }
-
-      setStartDateRaw(formatDate(newDate));
-    } else {
-      setStartDateRaw(formatDate(startDate));
+class DateRangeInputs extends React.Component<Props> {
+  handleInputChange = (field: "end" | "start") => (
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    const { setEndDateRaw, setStartDateRaw } = this.props;
+    switch (field) {
+      case "end":
+        setEndDateRaw(e.target.value);
+        break;
+      case "start":
+        setStartDateRaw(e.target.value);
+        break;
     }
   };
 
-  const handleBlurEndDate = () => {
-    let newDate = convertFinnishDateStrToDate(endDateRaw);
+  handleInputBlur = (field: "end" | "start") => (
+    e: React.FocusEvent<HTMLInputElement>
+  ) => {
+    const {
+      endDate,
+      endDateRef,
+      onBlurInput,
+      startDate,
+      startDateRef
+    } = this.props;
+    let newDate = convertFinnishDateStrToDate(e.target.value);
 
-    if (newDate) {
-      if (isPast(newDate)) {
-        newDate = endDate;
-      }
-      if (endDateRef) {
-        onBlurInput(endDateRef, newDate);
-      }
+    if (newDate && isPast(newDate)) {
+      newDate = field === "start" ? startDate : endDate;
+    }
 
-      setEndDateRaw(formatDate(newDate));
-    } else {
-      setEndDateRaw(formatDate(endDate));
+    switch (field) {
+      case "end":
+        if (endDateRef) {
+          onBlurInput(endDateRef, newDate);
+        }
+        break;
+      case "start":
+        if (startDateRef) {
+          onBlurInput(startDateRef, newDate);
+        }
+        break;
     }
   };
 
-  return (
-    <div className={styles.dateRangeInputsContainer}>
-      <div className={styles.dateInputWrapper}>
-        <label>{t("commons.dateSelector.labelStartDate")}</label>
-        <div className={styles.formatInfo}>
-          {t("commons.dateSelector.infoDate")}
-        </div>
-        <div className={styles.inputWrapper}>
-          <div className={styles.input}>
-            <input
-              {...rest}
-              ref={startDateRef}
-              onBlur={handleBlurStartDate}
-              onChange={handleStartDateRawChange}
-              onFocus={() => setCounter(1)}
-              value={startDateRaw}
-            />
-          </div>
-          <div className={styles.icon}>
-            <IconCalendarAdd />
-          </div>
-        </div>
-      </div>
-      <div className={styles.dateSeparator}>—</div>
-      <div className={styles.dateInputWrapper}>
-        <label>{t("commons.dateSelector.labelEndDate")}</label>
-        <div className={styles.formatInfo}>
-          {t("commons.dateSelector.infoDate")}
-        </div>
-        <div className={styles.inputWrapper}>
-          <div className={styles.input}>
-            <input
-              {...rest}
-              ref={endDateRef}
-              onBlur={handleBlurEndDate}
-              onChange={handleEndDateRawChange}
-              onFocus={() => setCounter(2)}
-              value={endDateRaw}
-            />
-          </div>
-          <div className={styles.icon}>
-            <IconCalendarAdd />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+  render() {
+    const {
+      endDateRaw,
+      endDateRef,
+      onBlurInput,
+      setCounter,
+      endDate,
+      setEndDateRaw,
+      setStartDateRaw,
+      startDate,
+      startDateRaw,
+      startDateRef,
+      t,
+      ...rest
+    } = this.props;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default React.forwardRef((props: Props, ref: any) => {
-  return <DateRangeInputs {...props} endDateRef={ref} startDateRef={ref} />;
-});
+    return (
+      <div className={styles.dateRangeInputsContainer}>
+        <div className={styles.dateInputWrapper}>
+          <label>{t("commons.dateSelector.labelStartDate")}</label>
+          <div className={styles.formatInfo}>
+            {t("commons.dateSelector.infoDate")}
+          </div>
+          <div className={styles.inputWrapper}>
+            <div className={styles.input}>
+              <input
+                {...rest}
+                ref={startDateRef}
+                onBlur={this.handleInputBlur("start")}
+                onChange={this.handleInputChange("start")}
+                onFocus={() => setCounter(1)}
+                value={startDateRaw}
+              />
+            </div>
+            <div className={styles.icon}>
+              <IconCalendarAdd />
+            </div>
+          </div>
+        </div>
+        <div className={styles.dateSeparator}>—</div>
+        <div className={styles.dateInputWrapper}>
+          <label>{t("commons.dateSelector.labelEndDate")}</label>
+          <div className={styles.formatInfo}>
+            {t("commons.dateSelector.infoDate")}
+          </div>
+          <div className={styles.inputWrapper}>
+            <div className={styles.input}>
+              <input
+                {...rest}
+                ref={endDateRef}
+                onBlur={this.handleInputBlur("end")}
+                onChange={this.handleInputChange("end")}
+                onFocus={() => setCounter(2)}
+                value={endDateRaw}
+              />
+            </div>
+            <div className={styles.icon}>
+              <IconCalendarAdd />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default DateRangeInputs;
