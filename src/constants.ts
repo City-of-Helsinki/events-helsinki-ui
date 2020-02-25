@@ -89,6 +89,12 @@ export enum DATE_PICKER_INPUT {
   END = "end"
 }
 
+export enum DATE_PICKER_INPUT_STATE {
+  NOT_SELECTED = "not-selected",
+  START_TIME_SELECTED = "start-time-selected",
+  END_TIME_SELECTED = "end-time-selected"
+}
+
 export const DEFAULT_LANGUAGE = SUPPORT_LANGUAGES.FI;
 
 export const TARGET_GROUPS = {
