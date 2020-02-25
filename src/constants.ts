@@ -84,6 +84,11 @@ export enum SUPPORT_LANGUAGES {
   EN = "en"
 }
 
+export enum DATE_PICKER_INPUT {
+  START = "start",
+  END = "end"
+}
+
 export const DEFAULT_LANGUAGE = SUPPORT_LANGUAGES.FI;
 
 export const TARGET_GROUPS = {
