@@ -14,6 +14,7 @@ test("DateRangeInputs matches snapshot", () => {
       setStartDateRaw={val => {}}
       startDate={null}
       startDateRaw=""
+      t={s => s}
     />
   );
   const tree = component.toJSON();

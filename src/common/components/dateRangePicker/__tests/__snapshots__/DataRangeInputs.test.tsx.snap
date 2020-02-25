@@ -8,12 +8,12 @@ exports[`DateRangeInputs matches snapshot 1`] = `
     className="dateInputWrapper"
   >
     <label>
-      Alkamispäivä
+      commons.dateSelector.labelStartDate
     </label>
     <div
       className="formatInfo"
     >
-      pp.kk.vvvv
+      commons.dateSelector.infoDate
     </div>
     <div
       className="inputWrapper"
@@ -113,12 +113,12 @@ exports[`DateRangeInputs matches snapshot 1`] = `
     className="dateInputWrapper"
   >
     <label>
-      Loppumispäivä
+      commons.dateSelector.labelEndDate
     </label>
     <div
       className="formatInfo"
     >
-      pp.kk.vvvv
+      commons.dateSelector.infoDate
     </div>
     <div
       className="inputWrapper"

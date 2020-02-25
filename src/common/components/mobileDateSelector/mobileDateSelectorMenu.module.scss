@@ -2,11 +2,16 @@
 @import "layout";
 
 .mobileDateSelectorMenu {
+  display: none;
   background: $hel-white;
   color: $hel-black;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   min-width: 21rem;
+
+  &.isOpen {
+    display: block;
+  }
 
   .button {
     cursor: pointer;
