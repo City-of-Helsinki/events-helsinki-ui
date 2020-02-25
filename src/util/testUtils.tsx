@@ -8,3 +8,6 @@ export const arrowDownKeyPressHelper = () =>
 
 export const escKeyPressHelper = () =>
   fireEvent.keyDown(document, { code: 27, key: "Escape" });
+
+export const tabKeyPressHelper = () =>
+  fireEvent.keyDown(document, { code: 9, key: "Tab" });

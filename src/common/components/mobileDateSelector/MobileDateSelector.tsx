@@ -141,6 +141,7 @@ const MobileDateSelector: React.FC<Props> = ({
         <ToggleButton
           isSelected={!!endDate || !!startDate}
           onClick={ensureMenuIsOpen}
+          testId={"open-date-selector-button"}
           text={t("commons.dateSelector.menu.buttonCustom")}
           value={"customDate"}
         />

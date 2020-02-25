@@ -16,7 +16,7 @@ interface Props {
   startDate: Date | null;
 }
 
-const DateSelectorMenu: FunctionComponent<Props> = ({
+const MobileDateSelectorMenu: FunctionComponent<Props> = ({
   closeBtnRef,
   endDate,
   isOpen,
@@ -28,10 +28,13 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
   const { t } = useTranslation();
   const locale = useLocale();
 
-  if (!isOpen) return null;
-
   return (
-    <div className={styles.mobileDateSelectorMenu}>
+    <div
+      data-testid="mobile-date-selector-menu"
+      className={classNames(styles.mobileDateSelectorMenu, {
+        [styles.isOpen]: isOpen
+      })}
+    >
       <div className={styles.wrapper}>
         <DateRangePicker
           endDate={endDate}
@@ -54,4 +57,4 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
   );
 };
 
-export default DateSelectorMenu;
+export default MobileDateSelectorMenu;
