@@ -7,6 +7,7 @@ import React, { FunctionComponent, MutableRefObject } from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
 import { useTranslation } from "react-i18next";
 
+import { DATE_PICKER_INPUT_STATE } from "../../../constants";
 import { formatDate } from "../../../util/dateUtils";
 import DateRangeInputs from "./DateRangeInputs";
 
@@ -34,9 +35,9 @@ const DateRangePicker: FunctionComponent<Props> = ({
   const endDateRef = React.useRef<HTMLInputElement>(null);
   const startDateRef = React.useRef<HTMLInputElement>(null);
   // Variable to keep track on date field
-  // counter === 1 => start date selected
-  // counter === 2 => end date selected
-  const [counter, setCounter] = React.useState(1);
+  const [selectedDatePickerInput, setDatePickerInput] = React.useState<
+    DATE_PICKER_INPUT_STATE
+  >(DATE_PICKER_INPUT_STATE.NOT_SELECTED);
   // Raw dates to be saved for input fields
   const [startDateRaw, setStartDateRaw] = React.useState<string>(
     formatDate(startDate)
@@ -46,15 +47,15 @@ const DateRangePicker: FunctionComponent<Props> = ({
   );
 
   const handleInputBlur = (
-    ref: MutableRefObject<HTMLInputElement | null>,
+    selectedInput: DATE_PICKER_INPUT_STATE,
     date: Date | null
   ) => {
-    switch (ref) {
-      case endDateRef:
+    switch (selectedInput) {
+      case DATE_PICKER_INPUT_STATE.END_TIME_SELECTED:
         onChangeEndDate(date);
         setEndDateRaw(formatDate(date));
         break;
-      case startDateRef:
+      case DATE_PICKER_INPUT_STATE.START_TIME_SELECTED:
         onChangeStartDate(date);
         setStartDateRaw(formatDate(date));
         break;
@@ -98,6 +99,18 @@ const DateRangePicker: FunctionComponent<Props> = ({
     };
   }, [handleDocumentFocusin]);
 
+  const getSelectedDate = () => {
+    switch (selectedDatePickerInput) {
+      case DATE_PICKER_INPUT_STATE.END_TIME_SELECTED:
+        return startDate;
+      case DATE_PICKER_INPUT_STATE.START_TIME_SELECTED:
+        return endDate;
+      case DATE_PICKER_INPUT_STATE.NOT_SELECTED:
+        return null;
+    }
+  };
+  const selectedDate = getSelectedDate();
+
   return (
     <>
       <DatePicker
@@ -107,18 +120,21 @@ const DateRangePicker: FunctionComponent<Props> = ({
         inlineFocusSelectedMonth={false}
         selectsStart={true}
         selectsEnd={true}
-        selected={counter === 1 ? endDate : startDate}
+        selected={selectedDate}
         // Inline datepicker doesn't have field so keep datepicker alway open instead
         open
         popperClassName={"react-datepicker__no-popper"}
         showPopperArrow={false}
         onChange={(date: Date) => {
-          if (counter === 1) {
-            onChangeStartDate(date);
-            setStartDateRaw(formatDate(date));
-          } else {
-            onChangeEndDate(date);
-            setEndDateRaw(formatDate(date));
+          switch (selectedDatePickerInput) {
+            case DATE_PICKER_INPUT_STATE.START_TIME_SELECTED:
+              onChangeStartDate(date);
+              setStartDateRaw(formatDate(date));
+              break;
+            case DATE_PICKER_INPUT_STATE.END_TIME_SELECTED:
+              onChangeEndDate(date);
+              setEndDateRaw(formatDate(date));
+              break;
           }
         }}
         customInput={
@@ -127,7 +143,7 @@ const DateRangePicker: FunctionComponent<Props> = ({
             endDateRaw={endDateRaw}
             endDateRef={endDateRef}
             onBlurInput={handleInputBlur}
-            setCounter={setCounter}
+            setDatePickerInput={setDatePickerInput}
             setEndDateRaw={setEndDateRaw}
             setStartDateRaw={setStartDateRaw}
             startDate={startDate}

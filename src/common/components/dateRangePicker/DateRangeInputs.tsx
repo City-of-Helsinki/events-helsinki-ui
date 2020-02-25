@@ -1,7 +1,7 @@
 import { isPast } from "date-fns";
 import React, { ChangeEvent, MutableRefObject } from "react";
 
-import { DATE_PICKER_INPUT } from "../../../constants";
+import { DATE_PICKER_INPUT, DATE_PICKER_INPUT_STATE } from "../../../constants";
 import IconCalendarAdd from "../../../icons/IconCalendarAdd";
 import { convertFinnishDateStrToDate } from "../../../util/dateUtils";
 import styles from "./dateRangeInputs.module.scss";
@@ -11,10 +11,12 @@ interface Props {
   endDateRef?: MutableRefObject<HTMLInputElement | null>;
   // onBlur method is overriden by ReactDatePicker so name this as onBlurInput
   onBlurInput: (
-    ref: MutableRefObject<HTMLInputElement | null>,
+    selectedDatePickerInput: DATE_PICKER_INPUT_STATE,
     value: Date | null
   ) => void;
-  setCounter: (counter: number) => void;
+  setDatePickerInput: (
+    selectedDatePickerInput: DATE_PICKER_INPUT_STATE
+  ) => void;
   endDate: Date | null;
   setEndDateRaw: (val: string) => void;
   setStartDateRaw: (val: string) => void;
@@ -43,13 +45,7 @@ class DateRangeInputs extends React.Component<Props> {
   handleInputBlur = (field: DATE_PICKER_INPUT) => (
     e: React.FocusEvent<HTMLInputElement>
   ) => {
-    const {
-      endDate,
-      endDateRef,
-      onBlurInput,
-      startDate,
-      startDateRef
-    } = this.props;
+    const { endDate, onBlurInput, startDate } = this.props;
     let newDate = convertFinnishDateStrToDate(e.target.value);
 
     if (newDate && isPast(newDate)) {
@@ -58,14 +54,10 @@ class DateRangeInputs extends React.Component<Props> {
 
     switch (field) {
       case DATE_PICKER_INPUT.END:
-        if (endDateRef) {
-          onBlurInput(endDateRef, newDate);
-        }
+        onBlurInput(DATE_PICKER_INPUT_STATE.END_TIME_SELECTED, newDate);
         break;
       case DATE_PICKER_INPUT.START:
-        if (startDateRef) {
-          onBlurInput(startDateRef, newDate);
-        }
+        onBlurInput(DATE_PICKER_INPUT_STATE.START_TIME_SELECTED, newDate);
         break;
     }
   };
@@ -75,7 +67,7 @@ class DateRangeInputs extends React.Component<Props> {
       endDateRaw,
       endDateRef,
       onBlurInput,
-      setCounter,
+      setDatePickerInput,
       endDate,
       setEndDateRaw,
       setStartDateRaw,
@@ -100,7 +92,11 @@ class DateRangeInputs extends React.Component<Props> {
                 ref={startDateRef}
                 onBlur={this.handleInputBlur(DATE_PICKER_INPUT.START)}
                 onChange={this.handleInputChange(DATE_PICKER_INPUT.START)}
-                onFocus={() => setCounter(1)}
+                onFocus={() =>
+                  setDatePickerInput(
+                    DATE_PICKER_INPUT_STATE.START_TIME_SELECTED
+                  )
+                }
                 value={startDateRaw}
               />
             </div>
@@ -122,7 +118,9 @@ class DateRangeInputs extends React.Component<Props> {
                 ref={endDateRef}
                 onBlur={this.handleInputBlur(DATE_PICKER_INPUT.END)}
                 onChange={this.handleInputChange(DATE_PICKER_INPUT.END)}
-                onFocus={() => setCounter(2)}
+                onFocus={() =>
+                  setDatePickerInput(DATE_PICKER_INPUT_STATE.END_TIME_SELECTED)
+                }
                 value={endDateRaw}
               />
             </div>
