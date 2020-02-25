@@ -1,9 +1,10 @@
 import classNames from "classnames";
-import React from "react";
+import React, { MutableRefObject } from "react";
 
 import styles from "./toggleButton.module.scss";
 
 interface Props {
+  buttonRef?: MutableRefObject<HTMLButtonElement | null>;
   isSelected: boolean;
   onClick: (value: string) => void;
   text: string;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const ToggleButton: React.FC<Props> = ({
+  buttonRef,
   isSelected,
   onClick,
   text,
@@ -21,6 +23,7 @@ const ToggleButton: React.FC<Props> = ({
   };
   return (
     <button
+      ref={buttonRef}
       className={classNames(styles.toggleButton, {
         [styles.isSelected]: isSelected
       })}
