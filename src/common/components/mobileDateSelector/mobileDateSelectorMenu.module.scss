@@ -1,0 +1,52 @@
+@import "colors";
+@import "layout";
+
+.mobileDateSelectorMenu {
+  background: $hel-white;
+  color: $hel-black;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  min-width: 21rem;
+
+  .button {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+    align-items: center;
+
+    svg:first-child {
+      margin-right: 1rem;
+    }
+
+    svg:last-child {
+      margin-left: 0.75rem;
+      height: 0.75rem;
+      width: 0.75rem;
+    }
+
+    &:focus {
+      outline: 2px solid $hel-black;
+      outline-offset: -2px;
+    }
+  }
+
+  .wrapper {
+    padding: 1rem;
+  }
+
+  .buttonText {
+    flex: 1 1 0%;
+    text-align: left;
+  }
+
+  .btnClose {
+    border-top: 1px solid $hel-light; 
+
+    .buttonText {
+      text-align: center;
+    }
+  }
+}
