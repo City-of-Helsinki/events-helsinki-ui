@@ -287,10 +287,8 @@ const Search: FunctionComponent = () => {
                       icon={<IconRead />}
                       name="category"
                       onChange={setSelectedCategories}
-                      onSubmit={handleSubmit}
                       options={categories}
                       title={t("eventSearch.search.titleDropdownCategory")}
-                      submitOnEnter={true}
                       value={selectedCategories}
                     />
                   </div>
@@ -318,9 +316,7 @@ const Search: FunctionComponent = () => {
                       icon={<IconLocation />}
                       name="district"
                       onChange={setDistricts}
-                      onSubmit={handleSubmit}
                       options={districtOptions}
-                      submitOnEnter={true}
                       title={t("eventSearch.search.titleDropdownDistrict")}
                       value={districts}
                     />
@@ -333,9 +329,7 @@ const Search: FunctionComponent = () => {
                       icon={<IconPerson />}
                       name="targets"
                       onChange={setTargets}
-                      onSubmit={handleSubmit}
                       options={targetOptions}
-                      submitOnEnter={true}
                       title={t("eventSearch.search.titleDropdownTargetGroup")}
                       value={targets}
                     />

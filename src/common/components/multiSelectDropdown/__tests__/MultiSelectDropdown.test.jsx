@@ -176,12 +176,12 @@ describe("Escape", () => {
   });
 });
 
-test("should open dropdown when user focuses input", () => {
+test("should not open dropdown when user focuses input", () => {
   const { getByPlaceholderText, queryByLabelText } = getWrapper();
 
   act(() => getByPlaceholderText(title).focus());
 
-  expect(queryByLabelText(options[0].text)).not.toEqual(null);
+  expect(queryByLabelText(options[0].text)).toEqual(null);
 });
 
 test("should open dropdown when user clicks on input", () => {

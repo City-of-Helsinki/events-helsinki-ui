@@ -3,7 +3,7 @@ import "./datePicker.scss";
 
 import fi from "date-fns/locale/fi";
 import sv from "date-fns/locale/sv";
-import React, { FunctionComponent, MutableRefObject } from "react";
+import React, { FunctionComponent } from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
 import { useTranslation } from "react-i18next";
 
