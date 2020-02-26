@@ -3,7 +3,8 @@
 
 .toggleButton {
   border: 2px solid $hel-white;
-  padding: 0.4375rem 1rem;
+  padding: 0 1rem;
+  height: 2.25rem;
   margin: 0 0.75rem 1.25rem 0;
 
   &.isSelected {
@@ -18,5 +19,16 @@
 
   @include respond_above(sm) {
     display: none;
+  }
+
+  .innerWrapper {
+    display: flex;
+    align-items: center;
+    
+    svg {
+      height: 1.25rem;
+      width: 1.25rem;
+      margin-right: 1rem;
+    }
   }
 }

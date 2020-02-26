@@ -1,7 +1,9 @@
+import classNames from "classnames";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { DATE_TYPES } from "../../../constants";
+import IconCalendar from "../../../icons/IconCalendar";
 import ToggleButton from "../toggleButton/ToggleButton";
 import styles from "./mobileDateSelector.module.scss";
 import MobileDateSelectorMenu from "./MobileDateSelectorMenu";
@@ -111,7 +113,7 @@ const MobileDateSelector: React.FC<Props> = ({
   };
 
   return (
-    <div>
+    <div className={styles.mobileDateSelector}>
       <ToggleButton
         isSelected={dateTypes.indexOf(DATE_TYPES.TODAY) !== -1}
         onClick={handleClickButton}
@@ -136,9 +138,15 @@ const MobileDateSelector: React.FC<Props> = ({
         text={t("commons.dateSelector.dateTypeWeekend")}
         value={DATE_TYPES.WEEKEND}
       />
-
       <div ref={dateSelector} className={styles.menuWrapper}>
         <ToggleButton
+          icon={
+            <IconCalendar
+              className={classNames(styles.iconCalendar, {
+                [styles.isSelected]: !!endDate || !!startDate
+              })}
+            />
+          }
           isSelected={!!endDate || !!startDate}
           onClick={ensureMenuIsOpen}
           testId={"open-date-selector-button"}

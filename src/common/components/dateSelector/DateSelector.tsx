@@ -173,7 +173,7 @@ const DateSelector: FunctionComponent<Props> = ({
         type="button"
       >
         <div className={styles.iconWrapper}>
-          <IconCalendar />
+          <IconCalendar className={styles.iconCalendar} />
         </div>
         <div className={styles.info}>{t("commons.dateSelector.title")}</div>
         <div className={styles.arrowWrapper}>

@@ -5,6 +5,7 @@ import styles from "./toggleButton.module.scss";
 
 interface Props {
   buttonRef?: MutableRefObject<HTMLButtonElement | null>;
+  icon?: React.ReactElement;
   isSelected: boolean;
   onClick: (value: string) => void;
   testId?: string;
@@ -14,6 +15,7 @@ interface Props {
 
 const ToggleButton: React.FC<Props> = ({
   buttonRef,
+  icon,
   isSelected,
   onClick,
   testId,
@@ -34,7 +36,10 @@ const ToggleButton: React.FC<Props> = ({
       onClick={handleClick}
       type="button"
     >
-      {text}
+      <div className={styles.innerWrapper}>
+        {icon}
+        <span>{text}</span>
+      </div>
     </button>
   );
 };

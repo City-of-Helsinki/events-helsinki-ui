@@ -129,7 +129,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
         {/* Date info */}
         <div className={styles.infoWithIcon}>
           <div className={styles.iconWrapper}>
-            <IconCalendar className={styles.icon} />
+            <IconCalendar className={styles.iconCalendar} />
           </div>
           <div className={styles.iconTextWrapper}>
             <p>{t("event.info.labelDateAndTime")}</p>
