@@ -30,30 +30,44 @@ const openMenuButtonTestId = "open-date-selector-button";
 const dateSelectorMenuTestId = "mobile-date-selector-menu";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getWrapper = (props?: any) =>
+const getWrapper = props =>
   render(<MobileDateSelector {...defaultProps} {...props} />);
 
 describe("MobileDateSelector component", () => {
   test("should have correct date types selected", async () => {
     const { getByText } = getWrapper();
 
-    expect(getByText(dateTypeOptions[0])).toHaveClass("isSelected");
-    expect(getByText(dateTypeOptions[1])).not.toHaveClass("isSelected");
-    expect(getByText(dateTypeOptions[2])).toHaveClass("isSelected");
-    expect(getByText(dateTypeOptions[3])).not.toHaveClass("isSelected");
-    expect(getByText(dateTypeOptions[4])).not.toHaveClass("isSelected");
+    expect(
+      getByText(dateTypeOptions[0]).parentElement.parentElement
+    ).toHaveClass("isSelected");
+    expect(
+      getByText(dateTypeOptions[1]).parentElement.parentElement
+    ).not.toHaveClass("isSelected");
+    expect(
+      getByText(dateTypeOptions[2]).parentElement.parentElement
+    ).toHaveClass("isSelected");
+    expect(
+      getByText(dateTypeOptions[3]).parentElement.parentElement
+    ).not.toHaveClass("isSelected");
+    expect(
+      getByText(dateTypeOptions[4]).parentElement.parentElement
+    ).not.toHaveClass("isSelected");
   });
 
   test("custom date type should be selected when endDate is selected", async () => {
     const { getByText } = getWrapper({ endDate: new Date("2018-12-12") });
 
-    expect(getByText(dateTypeOptions[4])).toHaveClass("isSelected");
+    expect(
+      getByText(dateTypeOptions[4]).parentElement.parentElement
+    ).toHaveClass("isSelected");
   });
 
   test("custom date type should be selected when endDate is selected", async () => {
     const { getByText } = getWrapper({ startDate: new Date("2018-12-12") });
 
-    expect(getByText(dateTypeOptions[4])).toHaveClass("isSelected");
+    expect(
+      getByText(dateTypeOptions[4]).parentElement.parentElement
+    ).toHaveClass("isSelected");
   });
 });
 

@@ -5,6 +5,8 @@ exports[`DateSelector matches snapshot 1`] = `
   className="dateSelector"
 >
   <button
+    aria-expanded={false}
+    aria-haspopup="true"
     className="button"
     onClick={[Function]}
     type="button"
@@ -13,7 +15,7 @@ exports[`DateSelector matches snapshot 1`] = `
       className="iconWrapper"
     >
       <svg
-        className=""
+        className="iconCalendar"
         height="100%"
         viewBox="0 0 27 26"
         width="100%"
@@ -22,7 +24,6 @@ exports[`DateSelector matches snapshot 1`] = `
         <g
           fill="none"
           fillRule="evenodd"
-          stroke="none"
           strokeWidth="1"
         >
           <g
@@ -39,16 +40,13 @@ exports[`DateSelector matches snapshot 1`] = `
                   cx="17.6"
                   cy="18.4"
                   r="5.6"
-                  stroke="#000000"
                   strokeLinecap="square"
                 />
                 <polyline
                   points="17.6 16 17.6 18.4 20 18.4"
-                  stroke="#000000"
                   strokeLinecap="square"
                 />
                 <line
-                  stroke="#444444"
                   strokeLinecap="square"
                   x1="6.4"
                   x2="6.4"
@@ -56,7 +54,6 @@ exports[`DateSelector matches snapshot 1`] = `
                   y2="3.2"
                 />
                 <line
-                  stroke="#444444"
                   strokeLinecap="square"
                   x1="17.6"
                   x2="17.6"
@@ -64,7 +61,6 @@ exports[`DateSelector matches snapshot 1`] = `
                   y2="3.2"
                 />
                 <line
-                  stroke="#000000"
                   x1="24"
                   x2="0"
                   y1="8"
@@ -72,7 +68,6 @@ exports[`DateSelector matches snapshot 1`] = `
                 />
                 <polyline
                   points="8.8 22.4 0 22.4 0 3.2 24 3.2 24 11.2"
-                  stroke="#000000"
                   strokeLinecap="square"
                 />
               </g>

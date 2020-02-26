@@ -7,6 +7,12 @@ exports[`ToggleButton matches snapshot 1`] = `
   onClick={[Function]}
   type="button"
 >
-  Test button
+  <div
+    className="innerWrapper"
+  >
+    <span>
+      Test button
+    </span>
+  </div>
 </button>
 `;

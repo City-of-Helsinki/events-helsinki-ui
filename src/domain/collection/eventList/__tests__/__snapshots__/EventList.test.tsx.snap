@@ -7,7 +7,7 @@ exports[`EventList should match snapshot 1`] = `
     <div class=\\"eventSearchListWrapper\\">
       <div class=\\"eventListWrapper default\\">
         <div class=\\"eventsWrapper\\">
-          <div class=\\"similarEventCard\\"><a aria-hidden=\\"true\\" class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">
+          <div class=\\"eventCard\\"><a aria-hidden=\\"true\\" class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">
               <div class=\\"tagWrapperDesktop\\">
                 <div class=\\"priceWrapper\\"></div>
                 <div class=\\"categoryWrapper\\"></div>

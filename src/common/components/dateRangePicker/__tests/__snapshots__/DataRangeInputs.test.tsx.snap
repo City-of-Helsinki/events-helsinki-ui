@@ -25,6 +25,7 @@ exports[`DateRangeInputs matches snapshot 1`] = `
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
+          setCounter={[Function]}
           value=""
         />
       </div>
@@ -130,6 +131,7 @@ exports[`DateRangeInputs matches snapshot 1`] = `
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
+          setCounter={[Function]}
           value=""
         />
       </div>

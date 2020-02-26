@@ -78,6 +78,8 @@ Array [
               className="dateSelector"
             >
               <button
+                aria-expanded={false}
+                aria-haspopup="true"
                 className="button"
                 onClick={[Function]}
                 type="button"
@@ -86,7 +88,7 @@ Array [
                   className="iconWrapper"
                 >
                   <svg
-                    className=""
+                    className="iconCalendar"
                     height="100%"
                     viewBox="0 0 27 26"
                     width="100%"
@@ -95,7 +97,6 @@ Array [
                     <g
                       fill="none"
                       fillRule="evenodd"
-                      stroke="none"
                       strokeWidth="1"
                     >
                       <g
@@ -112,16 +113,13 @@ Array [
                               cx="17.6"
                               cy="18.4"
                               r="5.6"
-                              stroke="#000000"
                               strokeLinecap="square"
                             />
                             <polyline
                               points="17.6 16 17.6 18.4 20 18.4"
-                              stroke="#000000"
                               strokeLinecap="square"
                             />
                             <line
-                              stroke="#444444"
                               strokeLinecap="square"
                               x1="6.4"
                               x2="6.4"
@@ -129,7 +127,6 @@ Array [
                               y2="3.2"
                             />
                             <line
-                              stroke="#444444"
                               strokeLinecap="square"
                               x1="17.6"
                               x2="17.6"
@@ -137,7 +134,6 @@ Array [
                               y2="3.2"
                             />
                             <line
-                              stroke="#000000"
                               x1="24"
                               x2="0"
                               y1="8"
@@ -145,7 +141,6 @@ Array [
                             />
                             <polyline
                               points="8.8 22.4 0 22.4 0 3.2 24 3.2 24 11.2"
-                              stroke="#000000"
                               strokeLinecap="square"
                             />
                           </g>
@@ -179,14 +174,22 @@ Array [
               </button>
             </div>
           </div>
-          <div>
+          <div
+            className="mobileDateSelector"
+          >
             <button
               aria-pressed={false}
               className="toggleButton"
               onClick={[Function]}
               type="button"
             >
-              Tänään
+              <div
+                className="innerWrapper"
+              >
+                <span>
+                  Tänään
+                </span>
+              </div>
             </button>
             <button
               aria-pressed={false}
@@ -194,7 +197,13 @@ Array [
               onClick={[Function]}
               type="button"
             >
-              Huomenna
+              <div
+                className="innerWrapper"
+              >
+                <span>
+                  Huomenna
+                </span>
+              </div>
             </button>
             <button
               aria-pressed={false}
@@ -202,7 +211,13 @@ Array [
               onClick={[Function]}
               type="button"
             >
-              Tällä viikolla
+              <div
+                className="innerWrapper"
+              >
+                <span>
+                  Tällä viikolla
+                </span>
+              </div>
             </button>
             <button
               aria-pressed={false}
@@ -210,7 +225,13 @@ Array [
               onClick={[Function]}
               type="button"
             >
-              Viikonloppuna
+              <div
+                className="innerWrapper"
+              >
+                <span>
+                  Viikonloppuna
+                </span>
+              </div>
             </button>
             <div
               className="menuWrapper"
@@ -222,7 +243,74 @@ Array [
                 onClick={[Function]}
                 type="button"
               >
-                Valitse päivät
+                <div
+                  className="innerWrapper"
+                >
+                  <svg
+                    className="iconCalendar"
+                    height="100%"
+                    viewBox="0 0 27 26"
+                    width="100%"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      fill="none"
+                      fillRule="evenodd"
+                      strokeWidth="1"
+                    >
+                      <g
+                        strokeWidth="2"
+                        transform="translate(-785.000000, -171.000000)"
+                      >
+                        <g
+                          transform="translate(773.000000, 129.000000)"
+                        >
+                          <g
+                            transform="translate(13.000000, 43.000000)"
+                          >
+                            <circle
+                              cx="17.6"
+                              cy="18.4"
+                              r="5.6"
+                              strokeLinecap="square"
+                            />
+                            <polyline
+                              points="17.6 16 17.6 18.4 20 18.4"
+                              strokeLinecap="square"
+                            />
+                            <line
+                              strokeLinecap="square"
+                              x1="6.4"
+                              x2="6.4"
+                              y1="0"
+                              y2="3.2"
+                            />
+                            <line
+                              strokeLinecap="square"
+                              x1="17.6"
+                              x2="17.6"
+                              y1="0"
+                              y2="3.2"
+                            />
+                            <line
+                              x1="24"
+                              x2="0"
+                              y1="8"
+                              y2="8"
+                            />
+                            <polyline
+                              points="8.8 22.4 0 22.4 0 3.2 24 3.2 24 11.2"
+                              strokeLinecap="square"
+                            />
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                  <span>
+                    Valitse päivät
+                  </span>
+                </div>
               </button>
               <div
                 className="mobileDateSelectorMenu"
@@ -855,9 +943,9 @@ Array [
                                 24
                               </div>
                               <div
-                                aria-disabled={false}
+                                aria-disabled={true}
                                 aria-label="day-25"
-                                className="react-datepicker__day react-datepicker__day--025 react-datepicker__day--keyboard-selected react-datepicker__day--today"
+                                className="react-datepicker__day react-datepicker__day--025 react-datepicker__day--disabled"
                                 onClick={[Function]}
                                 onMouseEnter={[Function]}
                                 role="option"
@@ -867,7 +955,7 @@ Array [
                               <div
                                 aria-disabled={false}
                                 aria-label="day-26"
-                                className="react-datepicker__day react-datepicker__day--026"
+                                className="react-datepicker__day react-datepicker__day--026 react-datepicker__day--keyboard-selected react-datepicker__day--today"
                                 onClick={[Function]}
                                 onMouseEnter={[Function]}
                                 role="option"

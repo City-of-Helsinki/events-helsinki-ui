@@ -46,25 +46,6 @@ const DateSelector: FunctionComponent<Props> = ({
     }
   };
 
-  const shouldSubmit = () => {
-    const active = document.activeElement;
-    if (
-      backBtnRef.current &&
-      active instanceof Node &&
-      backBtnRef.current.contains(active)
-    ) {
-      return false;
-    }
-    if (
-      toggleBtnRef.current &&
-      active instanceof Node &&
-      toggleBtnRef.current.contains(active)
-    ) {
-      return false;
-    }
-    return true;
-  };
-
   const ensureMenuIsOpen = React.useCallback(() => {
     if (!isMenuOpen) {
       setIsMenuOpen(true);
