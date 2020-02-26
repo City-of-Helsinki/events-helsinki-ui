@@ -15,7 +15,6 @@ interface Props {
   onChangeDateTypes: (value: string[]) => void;
   onChangeEndDate: (date: Date | null) => void;
   onChangeStartDate: (date: Date | null) => void;
-  onSubmit?: () => void;
   startDate: Date | null;
   toggleIsCustomDate: () => void;
 }
@@ -28,7 +27,6 @@ const DateSelector: FunctionComponent<Props> = ({
   onChangeDateTypes,
   onChangeEndDate,
   onChangeStartDate,
-  onSubmit,
   startDate,
   toggleIsCustomDate
 }) => {
@@ -83,17 +81,8 @@ const DateSelector: FunctionComponent<Props> = ({
     return false;
   }, [dateSelector]);
 
-  const handleSubmit = React.useCallback(() => {
-    if (onSubmit) {
-      onSubmit();
-    }
-    closeMenu();
-  }, [onSubmit]);
-
   const handleDocumentFocusin = React.useCallback(() => {
-    if (isComponentFocused()) {
-      setIsMenuOpen(true);
-    } else {
+    if (!isComponentFocused()) {
       setIsMenuOpen(false);
     }
   }, [isComponentFocused]);
@@ -115,20 +104,17 @@ const DateSelector: FunctionComponent<Props> = ({
           setIsMenuOpen(false);
           event.preventDefault();
           break;
-        case "Enter":
-          if (shouldSubmit()) {
-            handleSubmit();
-            event.preventDefault();
-          }
-
-          break;
       }
     },
-    [ensureMenuIsOpen, handleSubmit, isComponentFocused]
+    [ensureMenuIsOpen, isComponentFocused]
   );
 
   const closeMenu = () => {
     setIsMenuOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   React.useEffect(() => {
@@ -168,8 +154,10 @@ const DateSelector: FunctionComponent<Props> = ({
   return (
     <div className={styles.dateSelector} ref={dateSelector}>
       <button
+        aria-haspopup="true"
+        aria-expanded={isMenuOpen}
         className={styles.button}
-        onClick={ensureMenuIsOpen}
+        onClick={toggleMenu}
         type="button"
       >
         <div className={styles.iconWrapper}>
