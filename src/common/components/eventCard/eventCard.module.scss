@@ -7,10 +7,9 @@ $imageHeight: 8rem;
 $imageHeightDesktop: 14.5rem;
 $imageWidth: 6.375rem;
 
-.similarEventCard {
+.eventCard {
   background-color: $hel-white;
   display: grid;
-  margin-bottom: 0.625rem;
   grid-template-columns: $imageWidth 1fr;
   height: 100%;
   width: 100%;

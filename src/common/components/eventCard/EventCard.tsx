@@ -42,7 +42,7 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
   };
 
   return (
-    <div className={styles.similarEventCard}>
+    <div className={styles.eventCard}>
       <Link
         aria-hidden={true}
         className={styles.imageWrapper}

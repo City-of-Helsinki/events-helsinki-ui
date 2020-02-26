@@ -15,9 +15,14 @@
 .similarEventList {
   display: grid;
   margin: 0;
+  grid-gap: 0.625rem;
 
   @include respond_above(sm) {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1.75rem 3rem;;
+  }
+
+  @include respond_above(md) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: $largePadding;
   }
 }
