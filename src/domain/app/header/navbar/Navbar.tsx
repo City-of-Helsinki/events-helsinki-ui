@@ -40,14 +40,13 @@ const Navbar: React.FC = () => {
 
   return (
     <div className={styles.navbarTop}>
-      <Link
-        aria-label={t("header.ariaLabelLogo")}
-        to={"/"}
-        className={styles.logoWrapper}
-      >
-        <div className={styles.logo} />
-        <div className={styles.appName}>{t("appName")}</div>
-      </Link>
+      <div className={styles.logoWrapper}>
+        <Link aria-label={t("header.ariaLabelLogo")} to={"/"}>
+          <div className={styles.logo} />
+          <div className={styles.appName}>{t("appName")}</div>
+        </Link>
+      </div>
+
       <div className={styles.linkWrapper}>
         <IconLink
           icon={<IconSearch />}

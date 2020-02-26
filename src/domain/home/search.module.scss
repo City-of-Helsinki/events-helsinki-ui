@@ -45,6 +45,11 @@
         width: 0.75rem;
         margin-left: 0.5rem;
       }
+
+      &:focus {
+        outline-color: $hel-white;
+        outline-offset: 2px;
+      }
     }
   }
 

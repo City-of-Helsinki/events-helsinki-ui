@@ -11,11 +11,20 @@ $logoWidth: 5.5rem;
 }
 
 .logoWrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   padding: 0.75rem 0;
-  text-decoration: none;
+  margin-right: 5rem;
+
+  a {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+
+    &:focus {
+      outline-offset: 4px;;
+    }
+  }
+  
 }
 
 .linkWrapper {
@@ -25,6 +34,11 @@ $logoWidth: 5.5rem;
 
   a {
     margin-right: 5rem;
+    padding-right: 0.5rem;
+
+    &:focus {
+      outline: 2px solid $hel-black;
+    }
   }
 
   div:last-child {
@@ -36,7 +50,6 @@ $logoWidth: 5.5rem;
   
 .appName {
   margin-left: 1.875rem;
-  margin-right: 5rem;
   font-size: 1.25rem;
   color: $hel-black;
   font-weight: 600;
