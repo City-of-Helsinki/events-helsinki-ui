@@ -28,7 +28,7 @@ const mocks = [
         ["location"],
         ["umbrella", "none"],
         PAGE_SIZE,
-        EVENT_SORT_OPTIONS.START_TIME,
+        EVENT_SORT_OPTIONS.END_TIME,
         SUPPORT_LANGUAGES.FI
       )
     },
