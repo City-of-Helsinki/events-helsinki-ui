@@ -67,12 +67,10 @@ const MobileDateSelector: React.FC<Props> = ({
   };
 
   const handleDocumentFocusin = React.useCallback(() => {
-    if (isComponentFocused()) {
-      ensureMenuIsOpen();
-    } else {
+    if (!isComponentFocused()) {
       setIsMenuOpen(false);
     }
-  }, [ensureMenuIsOpen, isComponentFocused]);
+  }, [isComponentFocused]);
 
   const handleDocumentKeyDown = React.useCallback(
     (event: KeyboardEvent) => {
@@ -112,6 +110,10 @@ const MobileDateSelector: React.FC<Props> = ({
     setIsMenuOpen(false);
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className={styles.mobileDateSelector}>
       <ToggleButton
@@ -148,7 +150,7 @@ const MobileDateSelector: React.FC<Props> = ({
             />
           }
           isSelected={!!endDate || !!startDate}
-          onClick={ensureMenuIsOpen}
+          onClick={toggleMenu}
           testId={"open-date-selector-button"}
           text={t("commons.dateSelector.menu.buttonCustom")}
           value={"customDate"}
