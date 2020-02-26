@@ -1,8 +1,11 @@
+@import "colors";
+
 .categoryFilter {
   button {
     display: flex;
     align-items: center;
-    padding: 0.75rem 0;
+    padding: 0.5rem 0;
+    margin: 0.25rem 0;
     border: none;
     background-color: white;
     font-size: 1.125rem;
@@ -29,11 +32,21 @@
       flex: 1 1 0%;
       text-align: left;
     }
+
+    &:focus {
+      outline: 2px solid $hel-black;
+      outline-offset: 0.25rem;
+    }
   }
 
   &.withHorizontalPadding {
     button {
       padding: 0.75rem;
+      margin: 0;
+
+      &:focus {
+        outline-offset: 0;
+      }
     }
   }
 }
