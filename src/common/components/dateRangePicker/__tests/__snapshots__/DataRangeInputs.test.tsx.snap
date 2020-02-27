@@ -7,7 +7,10 @@ exports[`DateRangeInputs matches snapshot 1`] = `
   <div
     className="dateInputWrapper"
   >
-    <label>
+    <label
+      className="label"
+      htmlFor="undefined_start_date"
+    >
       commons.dateSelector.labelStartDate
     </label>
     <div
@@ -22,6 +25,8 @@ exports[`DateRangeInputs matches snapshot 1`] = `
         className="input"
       >
         <input
+          id="undefined_start_date"
+          name="undefined_start_date"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
@@ -113,7 +118,9 @@ exports[`DateRangeInputs matches snapshot 1`] = `
   <div
     className="dateInputWrapper"
   >
-    <label>
+    <label
+      htmlFor="undefined_end_date"
+    >
       commons.dateSelector.labelEndDate
     </label>
     <div
@@ -128,6 +135,8 @@ exports[`DateRangeInputs matches snapshot 1`] = `
         className="input"
       >
         <input
+          id="undefined_end_date"
+          name="undefined_end_date"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}

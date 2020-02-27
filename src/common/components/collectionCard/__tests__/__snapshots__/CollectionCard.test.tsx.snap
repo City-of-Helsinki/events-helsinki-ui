@@ -6,6 +6,7 @@ exports[`CollectionCard matches snapshot 1`] = `
 >
   <a
     aria-hidden={true}
+    aria-label="Siirry tapahtumaan: "
     className="imageWrapper"
     href="/fi/collection/1"
     onClick={[Function]}

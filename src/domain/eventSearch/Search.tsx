@@ -280,9 +280,6 @@ const Search: FunctionComponent = () => {
                 </div>
                 <div className={styles.secondRow}>
                   <div>
-                    <SearchLabel color="black" htmlFor="category" srOnly={true}>
-                      {t("eventSearch.search.labelCategory")}
-                    </SearchLabel>
                     <MultiSelectDropdown
                       checkboxName="categoryOptions"
                       icon={<IconRead />}
@@ -294,9 +291,6 @@ const Search: FunctionComponent = () => {
                     />
                   </div>
                   <div className={styles.dateSelectorWrapper}>
-                    <SearchLabel color="black" htmlFor="date" srOnly={true}>
-                      {t("eventSearch.search.labelDateRange")}
-                    </SearchLabel>
                     <DateSelector
                       dateTypes={dateTypes}
                       endDate={endDate}
@@ -310,9 +304,6 @@ const Search: FunctionComponent = () => {
                     />
                   </div>
                   <div>
-                    <SearchLabel color="black" htmlFor="district" srOnly={true}>
-                      {t("eventSearch.search.labelDistrict")}
-                    </SearchLabel>
                     <MultiSelectDropdown
                       checkboxName="districtOptions"
                       icon={<IconLocation />}
@@ -324,9 +315,6 @@ const Search: FunctionComponent = () => {
                     />
                   </div>
                   <div>
-                    <SearchLabel color="black" htmlFor="targets" srOnly={true}>
-                      {t("eventSearch.search.labelTargetGroup")}
-                    </SearchLabel>
                     <MultiSelectDropdown
                       checkboxName="targetOptions"
                       icon={<IconPerson />}

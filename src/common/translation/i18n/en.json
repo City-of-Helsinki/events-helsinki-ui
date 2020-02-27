@@ -12,7 +12,7 @@
       "ariaButtonRemove": "Remove category: {{category}}"
     },
     "collectionCard": {
-      "ariaLabelLink": "Go to collection: {{name}}",
+      "ariaLabelLink": "Go to collection: {{title}}",
       "count": "{{count}} pcs"
     },
     "dateSelector": {
@@ -87,7 +87,7 @@
       }
     },
     "eventCard": {
-      "ariaLabelLink": "Go to event: {{title}}" 
+      "ariaLabelLink": "Go to event: {{name}}" 
     },
     "filter": {
       "ariaButtonRemove": "Remove filter: {{filter}}"

@@ -17,6 +17,7 @@ registerLocale("sv", sv);
 interface Props {
   endDate: Date | null;
   locale: string;
+  name: string;
   onChangeEndDate: (date: Date | null) => void;
   onChangeStartDate: (date: Date | null) => void;
   startDate: Date | null;
@@ -25,6 +26,7 @@ interface Props {
 const DateRangePicker: FunctionComponent<Props> = ({
   endDate,
   locale,
+  name,
   onChangeEndDate,
   onChangeStartDate,
   startDate
@@ -142,6 +144,7 @@ const DateRangePicker: FunctionComponent<Props> = ({
             endDate={endDate}
             endDateRaw={endDateRaw}
             endDateRef={endDateRef}
+            inputName={name}
             onBlurInput={handleInputBlur}
             setDatePickerInput={setDatePickerInput}
             setEndDateRaw={setEndDateRaw}

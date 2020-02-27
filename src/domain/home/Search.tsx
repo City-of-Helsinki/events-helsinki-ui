@@ -197,6 +197,7 @@ const Search: FunctionComponent = () => {
               <MobileDateSelector
                 dateTypes={dateTypes}
                 endDate={endDate}
+                name={"mobile_date"}
                 onChangeDateTypes={handleChangeDateTypes}
                 onChangeEndDate={setEndDate}
                 onChangeStartDate={setStartDate}

@@ -331,7 +331,10 @@ Array [
                         <div
                           className="dateInputWrapper"
                         >
-                          <label>
+                          <label
+                            className="label"
+                            htmlFor="mobile_date_start_date"
+                          >
                             Alkamispäivä
                           </label>
                           <div
@@ -348,6 +351,8 @@ Array [
                               <input
                                 className=""
                                 disabled={false}
+                                id="mobile_date_start_date"
+                                name="mobile_date_start_date"
                                 onBlur={[Function]}
                                 onChange={[Function]}
                                 onClick={[Function]}
@@ -441,7 +446,9 @@ Array [
                         <div
                           className="dateInputWrapper"
                         >
-                          <label>
+                          <label
+                            htmlFor="mobile_date_end_date"
+                          >
                             Loppumispäivä
                           </label>
                           <div
@@ -458,6 +465,8 @@ Array [
                               <input
                                 className=""
                                 disabled={false}
+                                id="mobile_date_end_date"
+                                name="mobile_date_end_date"
                                 onBlur={[Function]}
                                 onChange={[Function]}
                                 onClick={[Function]}

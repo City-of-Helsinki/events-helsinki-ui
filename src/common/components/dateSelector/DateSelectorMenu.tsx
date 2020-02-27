@@ -126,6 +126,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
           <DateRangePicker
             endDate={endDate}
             locale={locale}
+            name={name}
             onChangeEndDate={onChangeEndDate}
             onChangeStartDate={onChangeStartDate}
             startDate={startDate}

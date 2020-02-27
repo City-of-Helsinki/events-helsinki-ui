@@ -9,6 +9,7 @@ import styles from "./dateRangeInputs.module.scss";
 interface Props {
   endDateRaw: string;
   endDateRef?: MutableRefObject<HTMLInputElement | null>;
+  inputName: string;
   // onBlur method is overriden by ReactDatePicker so name this as onBlurInput
   onBlurInput: (
     selectedDatePickerInput: DATE_PICKER_INPUT_STATE,
@@ -66,6 +67,7 @@ class DateRangeInputs extends React.Component<Props> {
     const {
       endDateRaw,
       endDateRef,
+      inputName,
       onBlurInput,
       setDatePickerInput,
       endDate,
@@ -81,7 +83,9 @@ class DateRangeInputs extends React.Component<Props> {
     return (
       <div className={styles.dateRangeInputsContainer}>
         <div className={styles.dateInputWrapper}>
-          <label>{t("commons.dateSelector.labelStartDate")}</label>
+          <label className={styles.label} htmlFor={`${inputName}_start_date`}>
+            {t("commons.dateSelector.labelStartDate")}
+          </label>
           <div className={styles.formatInfo}>
             {t("commons.dateSelector.infoDate")}
           </div>
@@ -90,6 +94,8 @@ class DateRangeInputs extends React.Component<Props> {
               <input
                 {...rest}
                 ref={startDateRef}
+                id={`${inputName}_start_date`}
+                name={`${inputName}_start_date`}
                 onBlur={this.handleInputBlur(DATE_PICKER_INPUT.START)}
                 onChange={this.handleInputChange(DATE_PICKER_INPUT.START)}
                 onFocus={() =>
@@ -107,7 +113,9 @@ class DateRangeInputs extends React.Component<Props> {
         </div>
         <div className={styles.dateSeparator}>—</div>
         <div className={styles.dateInputWrapper}>
-          <label>{t("commons.dateSelector.labelEndDate")}</label>
+          <label htmlFor={`${inputName}_end_date`}>
+            {t("commons.dateSelector.labelEndDate")}
+          </label>
           <div className={styles.formatInfo}>
             {t("commons.dateSelector.infoDate")}
           </div>
@@ -116,6 +124,8 @@ class DateRangeInputs extends React.Component<Props> {
               <input
                 {...rest}
                 ref={endDateRef}
+                id={`${inputName}_end_date`}
+                name={`${inputName}_end_date`}
                 onBlur={this.handleInputBlur(DATE_PICKER_INPUT.END)}
                 onChange={this.handleInputChange(DATE_PICKER_INPUT.END)}
                 onFocus={() =>

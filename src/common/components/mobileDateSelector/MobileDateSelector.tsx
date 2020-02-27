@@ -11,6 +11,7 @@ import MobileDateSelectorMenu from "./MobileDateSelectorMenu";
 interface Props {
   dateTypes: string[];
   endDate: Date | null;
+  name: string;
   onChangeDateTypes: (values: string[]) => void;
   onChangeEndDate: (date: Date | null) => void;
   onChangeStartDate: (date: Date | null) => void;
@@ -20,6 +21,7 @@ interface Props {
 const MobileDateSelector: React.FC<Props> = ({
   dateTypes,
   endDate,
+  name,
   onChangeDateTypes,
   onChangeEndDate,
   onChangeStartDate,
@@ -159,6 +161,7 @@ const MobileDateSelector: React.FC<Props> = ({
           closeBtnRef={closeBtnRef}
           endDate={endDate}
           isOpen={isMenuOpen}
+          name={name}
           onChangeEndDate={onChangeEndDate}
           onChangeStartDate={onChangeStartDate}
           onCloseMenu={closeMenu}

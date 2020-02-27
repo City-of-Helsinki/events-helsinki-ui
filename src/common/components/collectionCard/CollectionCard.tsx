@@ -47,6 +47,9 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
     >
       <Link
         aria-hidden={true}
+        aria-label={t("commons.eventCard.ariaLabelLink", {
+          title
+        })}
         className={styles.imageWrapper}
         tabIndex={-1}
         to={collectionUrl}

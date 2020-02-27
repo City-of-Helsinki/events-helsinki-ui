@@ -41,6 +41,9 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
     <div className={styles.eventCard}>
       <Link
         aria-hidden={true}
+        aria-label={t("commons.eventCard.ariaLabelLink", {
+          name: getLocalisedString(name, locale)
+        })}
         className={styles.imageWrapper}
         style={{ backgroundImage: `url(${imageUrl})` }}
         tabIndex={-1}
