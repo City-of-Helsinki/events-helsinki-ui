@@ -12,6 +12,7 @@
       "ariaButtonRemove": "Radera kategori: {{category}}"
     },
     "collectionCard": {
+      "ariaLabelLink": "Gå till samlingen: {{title}}",
       "count": "{{count}} st"
     },
     "dateSelector": {
@@ -84,6 +85,9 @@
       "menu": {
         "buttonClear": "Rensa val"
       }
+    },
+    "eventCard": {
+      "ariaLabelLink": "Gå till evenemanget: {{name}}" 
     },
     "filter": {
       "ariaButtonRemove": "Ta bort filter: {{filter}}"

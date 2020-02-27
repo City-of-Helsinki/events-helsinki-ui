@@ -1,7 +1,7 @@
 @import "colors";
 
 .iconLink {
-  display: flex;
+  display: inline-flex;
   text-decoration: none;
   color: $hel-black;
 
@@ -12,12 +12,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: .75rem;
   }
   .textWrapper {
     align-self: center;
     font-size: 1.125rem;
     font-weight: 600;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 
   svg {

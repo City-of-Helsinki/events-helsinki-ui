@@ -6,6 +6,7 @@ import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
 import useLocale from "../../../hooks/useLocale";
+import IconLink from "../../components/link/IconLink";
 import SrOnly from "../srOnly/SrOnly";
 import styles from "./collectionCard.module.scss";
 
@@ -71,9 +72,13 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
         </div>
 
         <div className={styles.linkWrapper}>
-          <Link to={collectionUrl}>
-            <IconArrowRight />
-          </Link>
+          <IconLink
+            aria-label={t("commons.eventCard.ariaLabelLink", {
+              title
+            })}
+            icon={<IconArrowRight />}
+            to={collectionUrl}
+          />
         </div>
       </div>
     </div>

@@ -24,6 +24,14 @@
   &:last-child {
     margin-right: unset;
   }
+
+  button {
+    line-height: 1;
+    
+    &:focus {
+      outline: 2px solid $hel-black;
+    }
+  }
 }
 
 .relativePosition {

@@ -1,19 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, LinkProps } from "react-router-dom";
 
 import styles from "./iconLink.module.scss";
 
-interface Props {
+interface Props extends LinkProps {
   icon: React.ReactElement;
-  text: string;
-  to: string;
+  text?: string;
 }
 
-const IconLink: React.FC<Props> = ({ icon, text, to }) => {
+const IconLink: React.FC<Props> = ({ icon, text, ...rest }) => {
   return (
-    <Link className={styles.iconLink} to={to}>
+    <Link {...rest} className={styles.iconLink}>
       <div className={styles.iconWrapper}>{icon}</div>
-      <div className={styles.textWrapper}>{text}</div>
+      {text && <div className={styles.textWrapper}>{text}</div>}
     </Link>
   );
 };

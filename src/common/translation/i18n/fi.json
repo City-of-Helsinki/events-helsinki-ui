@@ -12,6 +12,7 @@
       "ariaButtonRemove": "Poista kategoria: {{category}}"
     },
     "collectionCard": {
+      "ariaLabelLink": "Siirry kokoelmaan: {{title}}",
       "count": "{{count}} kpl"
     },
     "dateSelector": {
@@ -84,6 +85,9 @@
       "menu": {
         "buttonClear": "Tyhjennä valinnat"
       }
+    },
+    "eventCard": {
+      "ariaLabelLink": "Siirry tapahtumaan: {{name}}" 
     },
     "filter": {
       "ariaButtonRemove": "Poista suodatin: {{filter}}"

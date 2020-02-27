@@ -1,7 +1,7 @@
 import { IconArrowRight } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
 import EventKeywords from "../../../domain/event/EventKeywords";
@@ -15,6 +15,7 @@ import useLocale from "../../../hooks/useLocale";
 import getDateRangeStr from "../../../util/getDateRangeStr";
 import getLocalisedString from "../../../util/getLocalisedString";
 import getTimeRangeStr from "../../../util/getTimeRangeStr";
+import IconLink from "../link/IconLink";
 import SrOnly from "../srOnly/SrOnly";
 import styles from "./eventCard.module.scss";
 
@@ -25,7 +26,6 @@ interface Props {
 const SimilarEventCard: React.FC<Props> = ({ event }) => {
   const { search } = useLocation();
   const { t } = useTranslation();
-  const { push } = useHistory();
   const locale = useLocale();
 
   const imageUrl = getEventImageUrl(event);
@@ -36,10 +36,6 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
   const eventUrl = React.useMemo(() => {
     return `/${locale}/event/${event.id}${search}`;
   }, [event.id, locale, search]);
-
-  const moveToEventPage = () => {
-    push(eventUrl);
-  };
 
   return (
     <div className={styles.eventCard}>
@@ -108,9 +104,13 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
           </div>
         </div>
         <div className={styles.buttonWrapper}>
-          <button onClick={moveToEventPage}>
-            <IconArrowRight />
-          </button>
+          <IconLink
+            aria-label={t("commons.eventCard.ariaLabelLink", {
+              name: getLocalisedString(name, locale)
+            })}
+            icon={<IconArrowRight />}
+            to={eventUrl}
+          />
         </div>
       </div>
     </div>
