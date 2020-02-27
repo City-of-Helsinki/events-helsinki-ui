@@ -126,6 +126,7 @@
       "title": "Kuvaus"
     },
     "hero": {
+      "ariaLabelBackButton": "Takaisin tapahtumahakuun",
       "buttonBuyTickets": "Osta liput",
       "buttonToHomePage": "Siirry etusivulle",
       "offers": {

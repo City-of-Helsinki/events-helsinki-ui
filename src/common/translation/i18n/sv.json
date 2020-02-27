@@ -126,6 +126,7 @@
       "title": "Beskrivning"
     },
     "hero": {
+      "ariaLabelBackButton": "Tillbaka till händelsessökning",
       "buttonBuyTickets": "Köp biljetter",
       "buttonToHomePage": "Gå till framsidan",
       "offers": {

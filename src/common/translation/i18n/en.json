@@ -126,6 +126,7 @@
       "title": "Description"
     },
     "hero": {
+      "ariaLabelBackButton": "Back to event search",
       "buttonBuyTickets": "Buy tickets",
       "buttonToHomePage": "Go to the homepage",
       "offers": {

@@ -26,7 +26,7 @@ exports[`TopFooter matches snapshot 1`] = `
         className="iconLinkWrapper"
       >
         <a
-          className="iconLink"
+          className="iconLink default"
           href="/fi/events"
           onClick={[Function]}
         >
@@ -52,7 +52,7 @@ exports[`TopFooter matches snapshot 1`] = `
           </div>
         </a>
         <a
-          className="iconLink"
+          className="iconLink default"
           href="/fi/collections"
           onClick={[Function]}
         >

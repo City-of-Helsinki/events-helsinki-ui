@@ -3,9 +3,10 @@ import { isThisWeek, isToday } from "date-fns";
 import { IconArrowLeft, IconLocation } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { RouteComponentProps, withRouter } from "react-router";
+import { useLocation } from "react-router-dom";
 
 import Button from "../../common/components/button/Button";
+import IconLink from "../../common/components/link/IconLink";
 import { EventDetailsQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
 import IconTicket from "../../icons/IconTicket";
@@ -17,17 +18,14 @@ import EventKeywords from "./EventKeywords";
 import LocationText from "./EventLocationText";
 import { getEventImageUrl, getEventPrice, isEventFree } from "./EventUtils";
 
-interface Props extends RouteComponentProps {
+interface Props {
   eventData: EventDetailsQuery;
 }
 
-const EventHero: React.FC<Props> = ({
-  eventData,
-  history: { push },
-  location: { search }
-}) => {
+const EventHero: React.FC<Props> = ({ eventData }) => {
   const { t } = useTranslation();
   const locale = useLocale();
+  const location = useLocation();
 
   const offerInfoUrl = React.useMemo(() => {
     const offer = eventData.eventDetails.offers.find(item =>
@@ -37,9 +35,9 @@ const EventHero: React.FC<Props> = ({
     return offer ? getLocalisedString(offer.infoUrl || {}, locale) : "";
   }, [eventData.eventDetails.offers, locale]);
 
-  const handleBack = () => {
-    push({ pathname: `/${locale}/events`, search });
-  };
+  const eventSearchUrl = React.useMemo(() => {
+    return `/${locale}/events/${location.search}`;
+  }, [locale, location.search]);
 
   const moveToBuyTicketsPage = () => {
     window.open(offerInfoUrl);
@@ -61,9 +59,12 @@ const EventHero: React.FC<Props> = ({
       <Container>
         <div className={styles.contentWrapper}>
           <div className={styles.backButtonWrapper}>
-            <button className={styles.backButton} onClick={handleBack}>
-              <IconArrowLeft />
-            </button>
+            <IconLink
+              aria-label={t("event.hero.ariaLabelBackButton")}
+              backgroundColor="white"
+              icon={<IconArrowLeft />}
+              to={eventSearchUrl}
+            />
           </div>
           <div>
             <div
@@ -147,4 +148,4 @@ const EventHero: React.FC<Props> = ({
   );
 };
 
-export default withRouter(EventHero);
+export default EventHero;

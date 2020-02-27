@@ -80,6 +80,10 @@
     text-decoration: underline;
   }
 
+  &:focus {
+    outline: 2px solid $hel-black;
+  }
+
   svg {
     margin-left: 1rem;
     height: 0.75rem;
