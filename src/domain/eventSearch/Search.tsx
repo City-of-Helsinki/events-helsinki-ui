@@ -284,6 +284,7 @@ const Search: FunctionComponent = () => {
                       {t("eventSearch.search.labelCategory")}
                     </SearchLabel>
                     <MultiSelectDropdown
+                      checkboxName="categoryOptions"
                       icon={<IconRead />}
                       name="category"
                       onChange={setSelectedCategories}
@@ -313,6 +314,7 @@ const Search: FunctionComponent = () => {
                       {t("eventSearch.search.labelDistrict")}
                     </SearchLabel>
                     <MultiSelectDropdown
+                      checkboxName="districtOptions"
                       icon={<IconLocation />}
                       name="district"
                       onChange={setDistricts}
@@ -326,6 +328,7 @@ const Search: FunctionComponent = () => {
                       {t("eventSearch.search.labelTargetGroup")}
                     </SearchLabel>
                     <MultiSelectDropdown
+                      checkboxName="targetOptions"
                       icon={<IconPerson />}
                       name="targets"
                       onChange={setTargets}

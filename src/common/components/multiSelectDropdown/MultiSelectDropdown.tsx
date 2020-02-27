@@ -6,6 +6,7 @@ import IconAngleDown from "../../../icons/IconAngleDown";
 import IconAngleUp from "../../../icons/IconAngleUp";
 import Checkbox from "../input/Checkbox";
 import ScrollIntoViewWithFocus from "../scrollIntoViewWithFocus/ScrollIntoViewWithFocus";
+import SearchLabel from "../search/searchLabel/SearchLabel";
 import DropdownMenu from "./DropdownMenu";
 import styles from "./multiSelectDropdown.module.scss";
 
@@ -15,6 +16,7 @@ type Option = {
 };
 
 interface Props {
+  checkboxName: string;
   icon: React.ReactElement;
   name: string;
   onChange: (values: string[]) => void;
@@ -24,6 +26,7 @@ interface Props {
 }
 
 const Dropdown: React.FC<Props> = ({
+  checkboxName,
   icon,
   name,
   onChange,
@@ -184,8 +187,13 @@ const Dropdown: React.FC<Props> = ({
         {!!value.length && <div className={styles.isSelectedIndicator} />}
         <div className={styles.iconWrapper}>{icon}</div>
         <div className={styles.title}>
+          <SearchLabel htmlFor={name} srOnly={true}>
+            {title}
+          </SearchLabel>
           <input
             ref={inputRef}
+            id={name}
+            name={name}
             placeholder={title}
             onChange={handleInputChange}
             value={input}
@@ -214,7 +222,7 @@ const Dropdown: React.FC<Props> = ({
               <Checkbox
                 ref={setFocus}
                 checked={value.includes(option.value)}
-                name={name}
+                name={checkboxName}
                 onChange={handleValueChange}
                 value={option.value}
                 className={classNames(styles.dropdownItem, {
