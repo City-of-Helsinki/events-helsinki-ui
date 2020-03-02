@@ -3,10 +3,10 @@ import { IconAngleRight } from "hds-react";
 import React, { ChangeEvent, FunctionComponent, MutableRefObject } from "react";
 import { useTranslation } from "react-i18next";
 
-import { DATE_TYPES } from "../../../constants";
 import useLocale from "../../../hooks/useLocale";
 import IconAngleLeft from "../../../icons/IconAngleLeft";
 import IconCalendarAdd from "../../../icons/IconCalendarAdd";
+import { translateValue } from "../../../util/translateUtils";
 import DateRangePicker from "../dateRangePicker/DateRangePicker";
 import Checkbox from "../input/Checkbox";
 import styles from "./dateSelectorMenu.module.scss"; // the locale you want
@@ -14,6 +14,7 @@ import styles from "./dateSelectorMenu.module.scss"; // the locale you want
 interface Props {
   backBtnRef?: MutableRefObject<HTMLButtonElement | null>;
   dateTypes: string[];
+  dateTypeOptions: string[];
   endDate: Date | null;
   isCustomDate: boolean;
   isOpen: boolean;
@@ -30,6 +31,7 @@ interface Props {
 const DateSelectorMenu: FunctionComponent<Props> = ({
   backBtnRef,
   dateTypes,
+  dateTypeOptions,
   endDate,
   isCustomDate,
   isOpen,
@@ -56,41 +58,26 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
   };
 
   return (
-    <div className={styles.dateSelectorMenu}>
+    <div
+      className={classNames(styles.dateSelectorMenu, {
+        [styles.isCustomDate]: isCustomDate
+      })}
+    >
       {!isCustomDate && (
         <div className={styles.wrapper}>
-          <Checkbox
-            checked={dateTypes.indexOf(DATE_TYPES.TODAY) !== -1}
-            name={name}
-            onChange={handleCheckboxChange}
-            value={DATE_TYPES.TODAY}
-          >
-            {t("commons.dateSelector.dateTypeToday")}
-          </Checkbox>
-          <Checkbox
-            checked={dateTypes.includes(DATE_TYPES.TOMORROW)}
-            name={name}
-            onChange={handleCheckboxChange}
-            value={DATE_TYPES.TOMORROW}
-          >
-            {t("commons.dateSelector.dateTypeTomorrow")}
-          </Checkbox>
-          <Checkbox
-            checked={dateTypes.includes(DATE_TYPES.THIS_WEEK)}
-            name={name}
-            onChange={handleCheckboxChange}
-            value={DATE_TYPES.THIS_WEEK}
-          >
-            {t("commons.dateSelector.dateTypeThisWeek")}
-          </Checkbox>
-          <Checkbox
-            checked={dateTypes.includes(DATE_TYPES.WEEKEND)}
-            name={name}
-            onChange={handleCheckboxChange}
-            value={DATE_TYPES.WEEKEND}
-          >
-            {t("commons.dateSelector.dateTypeWeekend")}
-          </Checkbox>
+          {dateTypeOptions.map(option => {
+            return (
+              <Checkbox
+                key={option}
+                checked={dateTypes.indexOf(option) !== -1}
+                name={name}
+                onChange={handleCheckboxChange}
+                value={option}
+              >
+                {translateValue("commons.dateSelector.dateType", option, t)}
+              </Checkbox>
+            );
+          })}
         </div>
       )}
 

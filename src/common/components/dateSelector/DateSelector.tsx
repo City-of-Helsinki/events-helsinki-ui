@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 
+import { DATE_TYPES } from "../../../constants";
 import useLocale from "../../../hooks/useLocale";
 import IconAngleDown from "../../../icons/IconAngleDown";
 import IconAngleUp from "../../../icons/IconAngleUp";
@@ -9,6 +10,13 @@ import { formatDate } from "../../../util/dateUtils";
 import { translateValue } from "../../../util/translateUtils";
 import styles from "./dateSelector.module.scss";
 import DateSelectorMenu from "./DateSelectorMenu";
+
+const dateTypeOptions = [
+  DATE_TYPES.TODAY,
+  DATE_TYPES.TOMORROW,
+  DATE_TYPES.THIS_WEEK,
+  DATE_TYPES.WEEKEND
+];
 
 interface Props {
   dateTypes: string[];
@@ -137,23 +145,23 @@ const DateSelector: FunctionComponent<Props> = ({
     : !!dateTypes.length;
 
   const selectedText = React.useMemo(() => {
-    if (isCustomDate) {
-      return !!startDate || !!endDate
-        ? `${formatDate(startDate, undefined, locale)} -
-            ${formatDate(endDate, undefined, locale)}`
-        : "";
+    if (!!startDate || !!endDate) {
+      return `${formatDate(startDate, undefined, locale)} -
+            ${formatDate(endDate, undefined, locale)}`;
     }
-    const dateTypeLabels = dateTypes
-      .map(val => {
-        return translateValue("commons.dateSelector.dateType", val, t);
-      })
-      .sort();
+
+    const sortDateTypes = (a: string, b: string): number =>
+      dateTypeOptions.indexOf(a) < dateTypeOptions.indexOf(b) ? -1 : 1;
+
+    const dateTypeLabels = dateTypes.sort(sortDateTypes).map(val => {
+      return translateValue("commons.dateSelector.dateType", val, t);
+    });
     if (dateTypeLabels.length > 1) {
       return `${dateTypeLabels[0]} + ${dateTypeLabels.length - 1}`;
     } else {
       return dateTypeLabels.join();
     }
-  }, [dateTypes, endDate, isCustomDate, locale, startDate, t]);
+  }, [dateTypes, endDate, locale, startDate, t]);
 
   return (
     <div className={styles.dateSelector} ref={dateSelector}>
@@ -181,6 +189,7 @@ const DateSelector: FunctionComponent<Props> = ({
       <DateSelectorMenu
         backBtnRef={backBtnRef}
         dateTypes={dateTypes}
+        dateTypeOptions={dateTypeOptions}
         endDate={endDate}
         isCustomDate={isCustomDate}
         isOpen={isMenuOpen}
