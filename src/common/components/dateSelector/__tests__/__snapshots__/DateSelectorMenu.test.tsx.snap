@@ -87,6 +87,7 @@ exports[`DateSelectorMenu matches snapshot 1`] = `
   <button
     className="button btnSelectDates"
     onClick={[Function]}
+    type="button"
   >
     <svg
       className=""
@@ -180,6 +181,7 @@ exports[`DateSelectorMenu matches snapshot 1`] = `
   <button
     className="button btnBack hidden"
     onClick={[Function]}
+    type="button"
   >
     <svg
       className=""
@@ -203,6 +205,7 @@ exports[`DateSelectorMenu matches snapshot 1`] = `
   <button
     className="button btnClose hidden"
     onClick={[Function]}
+    type="button"
   >
     <div
       className="buttonText"

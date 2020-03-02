@@ -7,6 +7,7 @@ exports[`DateSelector matches snapshot 1`] = `
   <button
     aria-expanded={false}
     aria-haspopup="true"
+    aria-label="Valitse ajankohta"
     className="button"
     onClick={[Function]}
     type="button"
@@ -79,7 +80,11 @@ exports[`DateSelector matches snapshot 1`] = `
     <div
       className="info"
     >
-      Valitse ajankohta
+      <div
+        className="buttonTextWrapper"
+      >
+        commons.dateSelector.dateTypeType1 + 1
+      </div>
     </div>
     <div
       className="arrowWrapper"

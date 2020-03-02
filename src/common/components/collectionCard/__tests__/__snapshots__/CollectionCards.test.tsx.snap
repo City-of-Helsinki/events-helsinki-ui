@@ -54,7 +54,7 @@ exports[`CollectionCardContainer matches snapshot 1`] = `
         className="linkWrapper"
       >
         <a
-          aria-label="Siirry tapahtumaan: "
+          aria-label="Siirry kokoelmaan: Title 1"
           className="iconLink default"
           href="/fi/collection/1"
           onClick={[Function]}
@@ -130,7 +130,7 @@ exports[`CollectionCardContainer matches snapshot 1`] = `
         className="linkWrapper"
       >
         <a
-          aria-label="Siirry tapahtumaan: "
+          aria-label="Siirry kokoelmaan: Title 2"
           className="iconLink default"
           href="/fi/collection/2"
           onClick={[Function]}
