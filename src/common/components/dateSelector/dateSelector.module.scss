@@ -43,6 +43,19 @@
     flex: 1 1 0%;
     text-align: left;
     color: $hel-black;
+    position: relative;
+    height: 1.25rem;
+
+    .buttonTextWrapper {
+      white-space: nowrap;
+      overflow: hidden;
+      position: absolute;
+      left: 0;
+      top: 0;
+      line-height: 1.25rem;
+      right: 0;
+      text-overflow: ellipsis;
+    }
   }
 
   .arrowWrapper {

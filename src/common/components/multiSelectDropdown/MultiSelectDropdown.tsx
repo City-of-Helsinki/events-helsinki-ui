@@ -177,6 +177,18 @@ const Dropdown: React.FC<Props> = ({
     setInput(event.target.value);
   };
 
+  const selectedText = React.useMemo(() => {
+    const valueLabels = value.map(val => {
+      const result = options.find(option => option.value === val);
+      return result ? result.text : null;
+    });
+    if (valueLabels.length > 1) {
+      return `${valueLabels[0]} + ${valueLabels.length - 1}`;
+    } else {
+      return valueLabels.join();
+    }
+  }, [options, value]);
+
   return (
     <div className={styles.dropdown} ref={dropdown}>
       <div
@@ -190,11 +202,14 @@ const Dropdown: React.FC<Props> = ({
           <SearchLabel htmlFor={name} srOnly={true}>
             {title}
           </SearchLabel>
+          {selectedText && !input && (
+            <div className={styles.selectedText}>{selectedText}</div>
+          )}
           <input
             ref={inputRef}
             id={name}
             name={name}
-            placeholder={title}
+            placeholder={selectedText ? "" : title}
             onChange={handleInputChange}
             value={input}
           />

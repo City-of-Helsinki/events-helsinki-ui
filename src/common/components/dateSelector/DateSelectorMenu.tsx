@@ -100,6 +100,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
           [styles.hidden]: isCustomDate
         })}
         onClick={toggleIsCustomDate}
+        type="button"
       >
         <IconCalendarAdd />
         <div className={styles.buttonText}>
@@ -114,6 +115,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
           [styles.hidden]: !isCustomDate
         })}
         onClick={toggleIsCustomDate}
+        type="button"
       >
         <IconAngleLeft />
         <div className={styles.buttonText}>
@@ -138,6 +140,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
           [styles.hidden]: !isCustomDate
         })}
         onClick={onCloseMenu}
+        type="button"
       >
         <div className={styles.buttonText}>
           {t("commons.dateSelector.menu.buttonClose")}

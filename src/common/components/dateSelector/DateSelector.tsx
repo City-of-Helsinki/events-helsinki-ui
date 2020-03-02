@@ -1,9 +1,12 @@
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 
+import useLocale from "../../../hooks/useLocale";
 import IconAngleDown from "../../../icons/IconAngleDown";
 import IconAngleUp from "../../../icons/IconAngleUp";
 import IconCalendar from "../../../icons/IconCalendar";
+import { formatDate } from "../../../util/dateUtils";
+import { translateValue } from "../../../util/translateUtils";
 import styles from "./dateSelector.module.scss";
 import DateSelectorMenu from "./DateSelectorMenu";
 
@@ -31,6 +34,7 @@ const DateSelector: FunctionComponent<Props> = ({
   toggleIsCustomDate
 }) => {
   const { t } = useTranslation();
+  const locale = useLocale();
   const backBtnRef = React.useRef<HTMLButtonElement | null>(null);
   const toggleBtnRef = React.useRef<HTMLButtonElement | null>(null);
   const dateSelector = React.useRef<HTMLDivElement | null>(null);
@@ -132,11 +136,31 @@ const DateSelector: FunctionComponent<Props> = ({
     ? !!startDate || !!endDate
     : !!dateTypes.length;
 
+  const selectedText = React.useMemo(() => {
+    if (isCustomDate) {
+      return !!startDate || !!endDate
+        ? `${formatDate(startDate, undefined, locale)} -
+            ${formatDate(endDate, undefined, locale)}`
+        : "";
+    }
+    const dateTypeLabels = dateTypes
+      .map(val => {
+        return translateValue("commons.dateSelector.dateType", val, t);
+      })
+      .sort();
+    if (dateTypeLabels.length > 1) {
+      return `${dateTypeLabels[0]} + ${dateTypeLabels.length - 1}`;
+    } else {
+      return dateTypeLabels.join();
+    }
+  }, [dateTypes, endDate, isCustomDate, locale, startDate, t]);
+
   return (
     <div className={styles.dateSelector} ref={dateSelector}>
       <button
         aria-haspopup="true"
         aria-expanded={isMenuOpen}
+        aria-label={t("commons.dateSelector.title")}
         className={styles.button}
         onClick={toggleMenu}
         type="button"
@@ -144,7 +168,11 @@ const DateSelector: FunctionComponent<Props> = ({
         <div className={styles.iconWrapper}>
           <IconCalendar className={styles.iconCalendar} />
         </div>
-        <div className={styles.info}>{t("commons.dateSelector.title")}</div>
+        <div className={styles.info}>
+          <div className={styles.buttonTextWrapper}>
+            {selectedText || t("commons.dateSelector.title")}
+          </div>
+        </div>
         <div className={styles.arrowWrapper}>
           {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
         </div>

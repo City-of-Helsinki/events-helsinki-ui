@@ -45,6 +45,7 @@
     flex: 1 1 0%;
     text-align: left;
     color: $hel-black;
+    position: relative;
 
     input {
       height: 100%;
@@ -57,6 +58,18 @@
       
       @include placeholder($hel-black);
     }
+
+
+    .selectedText {
+      position: absolute;
+      line-height: 1.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      left: 0;
+      right: 0;
+      text-overflow: ellipsis;
+    }
+    
   }
 
   .arrowWrapper {

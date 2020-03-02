@@ -76,7 +76,7 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
 
         <div className={styles.linkWrapper}>
           <IconLink
-            aria-label={t("commons.eventCard.ariaLabelLink", {
+            aria-label={t("commons.collectionCard.ariaLabelLink", {
               title
             })}
             icon={<IconArrowRight />}
