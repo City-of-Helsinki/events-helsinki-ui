@@ -40,6 +40,7 @@ const MobileDateSelectorMenu: FunctionComponent<Props> = ({
       <div className={styles.wrapper}>
         <DateRangePicker
           endDate={endDate}
+          isMenuOpen={isOpen}
           locale={locale}
           name={name}
           onChangeEndDate={onChangeEndDate}

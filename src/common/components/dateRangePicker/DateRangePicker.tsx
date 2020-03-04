@@ -1,6 +1,7 @@
 import "react-datepicker/dist/react-datepicker.css";
 import "./datePicker.scss";
 
+import isEqual from "date-fns/isEqual";
 import fi from "date-fns/locale/fi";
 import sv from "date-fns/locale/sv";
 import React, { FunctionComponent } from "react";
@@ -16,6 +17,7 @@ registerLocale("sv", sv);
 
 interface Props {
   endDate: Date | null;
+  isMenuOpen: boolean;
   locale: string;
   name: string;
   onChangeEndDate: (date: Date | null) => void;
@@ -25,6 +27,7 @@ interface Props {
 
 const DateRangePicker: FunctionComponent<Props> = ({
   endDate,
+  isMenuOpen,
   locale,
   name,
   onChangeEndDate,
@@ -47,6 +50,9 @@ const DateRangePicker: FunctionComponent<Props> = ({
   const [endDateRaw, setEndDateRaw] = React.useState<string>(
     formatDate(endDate)
   );
+  const [shouldChangeFocusToEnd, setShouldChangeFocusToEnd] = React.useState(
+    false
+  );
 
   const handleInputBlur = (
     selectedInput: DATE_PICKER_INPUT_STATE,
@@ -54,11 +60,16 @@ const DateRangePicker: FunctionComponent<Props> = ({
   ) => {
     switch (selectedInput) {
       case DATE_PICKER_INPUT_STATE.END_TIME_SELECTED:
-        onChangeEndDate(date);
+        if (!endDate || !date || !isEqual(date, endDate)) {
+          onChangeEndDate(date);
+        }
         setEndDateRaw(formatDate(date));
         break;
       case DATE_PICKER_INPUT_STATE.START_TIME_SELECTED:
-        onChangeStartDate(date);
+        if (!startDate || !date || !isEqual(date, startDate)) {
+          onChangeStartDate(date);
+        }
+
         setStartDateRaw(formatDate(date));
         break;
     }
@@ -101,6 +112,21 @@ const DateRangePicker: FunctionComponent<Props> = ({
     };
   }, [handleDocumentFocusin]);
 
+  React.useEffect(() => {
+    if (isMenuOpen && startDateRef.current) {
+      startDateRef.current.focus();
+    }
+  }, [isMenuOpen]);
+
+  // Change focus to end date input on this hook so
+  // all other states has been changed as well
+  React.useEffect(() => {
+    if (shouldChangeFocusToEnd && endDateRef.current) {
+      endDateRef.current.focus();
+      setShouldChangeFocusToEnd(false);
+    }
+  }, [shouldChangeFocusToEnd]);
+
   const getSelectedDate = () => {
     switch (selectedDatePickerInput) {
       case DATE_PICKER_INPUT_STATE.END_TIME_SELECTED:
@@ -112,7 +138,6 @@ const DateRangePicker: FunctionComponent<Props> = ({
     }
   };
   const selectedDate = getSelectedDate();
-
   return (
     <>
       <DatePicker
@@ -132,6 +157,10 @@ const DateRangePicker: FunctionComponent<Props> = ({
             case DATE_PICKER_INPUT_STATE.START_TIME_SELECTED:
               onChangeStartDate(date);
               setStartDateRaw(formatDate(date));
+
+              if (!startDate || !isEqual(startDate, date)) {
+                setShouldChangeFocusToEnd(true);
+              }
               break;
             case DATE_PICKER_INPUT_STATE.END_TIME_SELECTED:
               onChangeEndDate(date);

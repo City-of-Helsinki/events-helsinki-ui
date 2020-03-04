@@ -129,12 +129,6 @@ const DateSelector: FunctionComponent<Props> = ({
           toggleBtnRef.current.focus();
         }
       }, 1);
-    } else {
-      setTimeout(() => {
-        if (backBtnRef && backBtnRef.current) {
-          backBtnRef.current.focus();
-        }
-      }, 1);
     }
 
     toggleIsCustomDate();

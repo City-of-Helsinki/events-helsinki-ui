@@ -114,6 +114,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         <div className={styles.wrapper}>
           <DateRangePicker
             endDate={endDate}
+            isMenuOpen={isCustomDate}
             locale={locale}
             name={name}
             onChangeEndDate={onChangeEndDate}
