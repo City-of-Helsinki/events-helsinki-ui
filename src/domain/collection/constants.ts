@@ -29,17 +29,15 @@ export const mockCollection = {
       sv: "Höstens bästa händelser"
     },
     id: "1",
-    link: {
-      text: {
-        en: "Read more on the project website",
-        fi: "Lue lisää hankkeen omilta sivuilta",
-        sv: "Läs mer på projektets webbplats"
-      },
-      url: {
-        en: "http://www.google.com",
-        fi: "http://www.google.com",
-        sv: "http://www.google.com"
-      }
+    linkText: {
+      en: "Read more on the project website",
+      fi: "Lue lisää hankkeen omilta sivuilta",
+      sv: "Läs mer på projektets webbplats"
+    },
+    linkUrl: {
+      en: "http://www.google.com",
+      fi: "http://www.google.com",
+      sv: "http://www.google.com"
     },
     shortDescription: {
       en: "We put together the best foliage for the fall",

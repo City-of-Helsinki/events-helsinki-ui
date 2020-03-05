@@ -40,14 +40,14 @@ const CollectionHero: React.FC<Props> = ({ collectionData }) => {
         </p>
         <a
           href={getLocalisedString(
-            collectionData.collectionDetails.link.url,
+            collectionData.collectionDetails.linkUrl,
             locale
           )}
           target="_blank"
           rel="noopener noreferrer"
         >
           {getLocalisedString(
-            collectionData.collectionDetails.link.text,
+            collectionData.collectionDetails.linkText,
             locale
           )}
           <IconAngleRight className={styles.linkIcon} />

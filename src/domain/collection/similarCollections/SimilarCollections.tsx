@@ -38,12 +38,15 @@ const SimilarCollections: React.FC<Props> = ({ collectionData }) => {
         <LoadingSpinner isLoading={loading}>
           {!!collections.length && (
             <>
-              <h2>
-                {getLocalisedString(
-                  collectionData.collectionDetails.similarCollectionsTitle,
-                  locale
-                )}
-              </h2>
+              {collectionData.collectionDetails.similarCollectionsTitle && (
+                <h2>
+                  {getLocalisedString(
+                    collectionData.collectionDetails.similarCollectionsTitle,
+                    locale
+                  )}
+                </h2>
+              )}
+
               <CollectionCardContainer
                 size="sm"
                 cards={collections.map(collection => ({

@@ -15,26 +15,43 @@ export type Scalars = {
 export type CollectionDetails = {
    __typename?: 'CollectionDetails',
   id: Scalars['ID'],
+  contentType?: Maybe<Scalars['Int']>,
   curatedEvents: Array<Scalars['String']>,
   curatedEventsTitle: LocalizedObject,
+  depth?: Maybe<Scalars['Int']>,
   description: LocalizedObject,
-  eventListQuery: Scalars['String'],
+  draftTitle?: Maybe<Scalars['String']>,
+  eventListQuery?: Maybe<Scalars['String']>,
   eventListTitle: LocalizedObject,
-  link: CollectionLink,
+  expireAt?: Maybe<Scalars['String']>,
+  expired?: Maybe<Scalars['Boolean']>,
+  firstPublishedAt?: Maybe<Scalars['String']>,
+  goLiveAt?: Maybe<Scalars['String']>,
+  hasUnpublishedChanges?: Maybe<Scalars['Boolean']>,
+  lastPublishedAt?: Maybe<Scalars['String']>,
+  latestRevisionCreatedAt?: Maybe<Scalars['String']>,
+  linkText: LocalizedObject,
+  linkUrl: LocalizedObject,
+  live?: Maybe<Scalars['Boolean']>,
+  liveRevision?: Maybe<Scalars['Int']>,
+  locked?: Maybe<Scalars['Boolean']>,
+  lockedAt?: Maybe<Scalars['String']>,
+  lockedBy?: Maybe<Scalars['Int']>,
+  numchild?: Maybe<Scalars['Int']>,
+  owner?: Maybe<Scalars['Int']>,
+  path?: Maybe<Scalars['String']>,
+  searchDescription?: Maybe<Scalars['String']>,
+  seoTitle?: Maybe<Scalars['String']>,
   shortDescription: LocalizedObject,
-  similarCollectionsTitle: LocalizedObject,
+  showInMenus?: Maybe<Scalars['Boolean']>,
+  similarCollectionsTitle?: Maybe<LocalizedObject>,
+  slug?: Maybe<Scalars['String']>,
   title: LocalizedObject,
-};
-
-export type CollectionLink = {
-   __typename?: 'CollectionLink',
-  text: LocalizedObject,
-  url: LocalizedObject,
+  urlPath?: Maybe<Scalars['String']>,
 };
 
 export type CollectionListResponse = {
    __typename?: 'CollectionListResponse',
-  meta: Meta,
   data: Array<CollectionDetails>,
 };
 
@@ -357,22 +374,19 @@ export type CollectionDetailsQuery = (
     ), eventListTitle: (
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    ), link: (
-      { __typename?: 'CollectionLink' }
-      & { text: (
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      ), url: (
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      ) }
+    ), linkText: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ), linkUrl: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
     ), shortDescription: (
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    ), similarCollectionsTitle: (
+    ), similarCollectionsTitle: Maybe<(
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    ), title: (
+    )>, title: (
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
     ) }
@@ -386,10 +400,7 @@ export type CollectionListQuery = (
   { __typename?: 'Query' }
   & { collectionList: (
     { __typename?: 'CollectionListResponse' }
-    & { meta: (
-      { __typename?: 'Meta' }
-      & Pick<Meta, 'count'>
-    ), data: Array<(
+    & { data: Array<(
       { __typename?: 'CollectionDetails' }
       & Pick<CollectionDetails, 'id' | 'curatedEvents' | 'eventListQuery'>
       & { curatedEventsTitle: (
@@ -401,22 +412,19 @@ export type CollectionListQuery = (
       ), eventListTitle: (
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      ), link: (
-        { __typename?: 'CollectionLink' }
-        & { text: (
-          { __typename?: 'LocalizedObject' }
-          & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-        ), url: (
-          { __typename?: 'LocalizedObject' }
-          & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-        ) }
+      ), linkText: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ), linkUrl: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
       ), shortDescription: (
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      ), similarCollectionsTitle: (
+      ), similarCollectionsTitle: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      ), title: (
+      )>, title: (
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
       ) }
@@ -724,17 +732,15 @@ export const CollectionDetailsDocument = gql`
       fi
       sv
     }
-    link {
-      text {
-        en
-        fi
-        sv
-      }
-      url {
-        en
-        fi
-        sv
-      }
+    linkText {
+      en
+      fi
+      sv
+    }
+    linkUrl {
+      en
+      fi
+      sv
     }
     shortDescription {
       en
@@ -794,9 +800,6 @@ export type CollectionDetailsQueryResult = ApolloReactCommon.QueryResult<Collect
 export const CollectionListDocument = gql`
     query CollectionList {
   collectionList {
-    meta {
-      count
-    }
     data {
       id
       curatedEvents
@@ -816,17 +819,15 @@ export const CollectionListDocument = gql`
         fi
         sv
       }
-      link {
-        text {
-          en
-          fi
-          sv
-        }
-        url {
-          en
-          fi
-          sv
-        }
+      linkText {
+        en
+        fi
+        sv
+      }
+      linkUrl {
+        en
+        fi
+        sv
       }
       shortDescription {
         en

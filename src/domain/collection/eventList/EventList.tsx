@@ -21,7 +21,7 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const locale = useLocale();
   const searchParams = new URLSearchParams(
-    collectionData.collectionDetails.eventListQuery
+    collectionData.collectionDetails.eventListQuery || ""
   );
   const eventFilters = React.useMemo(() => {
     return getEventFilters(

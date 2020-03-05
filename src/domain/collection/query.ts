@@ -21,17 +21,15 @@ export const QUERY_COLLECTION_DETAILS = gql`
         fi
         sv
       }
-      link {
-        text {
-          en
-          fi
-          sv
-        }
-        url {
-          en
-          fi
-          sv
-        }
+      linkText {
+        en
+        fi
+        sv
+      }
+      linkUrl {
+        en
+        fi
+        sv
       }
       shortDescription {
         en
@@ -52,9 +50,6 @@ export const QUERY_COLLECTION_DETAILS = gql`
   }
   query CollectionList {
     collectionList {
-      meta {
-        count
-      }
       data {
         id
         curatedEvents
@@ -74,17 +69,15 @@ export const QUERY_COLLECTION_DETAILS = gql`
           fi
           sv
         }
-        link {
-          text {
-            en
-            fi
-            sv
-          }
-          url {
-            en
-            fi
-            sv
-          }
+        linkText {
+          en
+          fi
+          sv
+        }
+        linkUrl {
+          en
+          fi
+          sv
         }
         shortDescription {
           en
