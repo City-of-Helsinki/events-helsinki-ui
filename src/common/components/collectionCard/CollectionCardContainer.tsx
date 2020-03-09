@@ -1,21 +1,22 @@
 import classNames from "classnames";
 import React from "react";
 
-import CollectionCard, {
-  CollectionCardSize,
-  CollectionCardType
-} from "./CollectionCard";
+import { CollectionDetails } from "../../../generated/graphql";
+import useLocale from "../../../hooks/useLocale";
+import getLocalisedString from "../../../util/getLocalisedString";
+import CollectionCard, { CollectionCardSize } from "./CollectionCard";
 import styles from "./collectionCardContainer.module.scss";
 
 interface CollectionCardContainerProps {
-  cards: CollectionCardType[];
+  collections: CollectionDetails[];
   size: CollectionCardSize;
 }
 
 const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
-  cards,
+  collections,
   size
 }) => {
+  const locale = useLocale();
   return (
     <div
       className={classNames(
@@ -23,15 +24,15 @@ const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
         styles[`${size}Size`]
       )}
     >
-      {cards.map((card, index) => {
+      {collections.map((collection, index) => {
         return (
           <CollectionCard
             key={index}
-            count={card.count}
-            description={card.description}
-            id={card.id}
+            count={collection.curatedEvents.length}
+            description={getLocalisedString(collection.description, locale)}
+            id={collection.id}
             size={size}
-            title={card.title}
+            title={getLocalisedString(collection.title, locale)}
           />
         );
       })}

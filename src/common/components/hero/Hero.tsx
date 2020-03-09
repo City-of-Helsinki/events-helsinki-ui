@@ -19,7 +19,7 @@ const Hero: React.FC<Props> = ({ buttonText, subTitle, title }) => {
 
   // TODO: Modify this function to use id from CMS
   const moveToCollectionPage = () => {
-    push(`/${locale}/collection/1`);
+    push(`/${locale}/collection/5`);
   };
   return (
     <div className={styles.heroWrapper}>

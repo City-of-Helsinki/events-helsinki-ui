@@ -47,18 +47,7 @@ const SimilarCollections: React.FC<Props> = ({ collectionData }) => {
                 </h2>
               )}
 
-              <CollectionCardContainer
-                size="sm"
-                cards={collections.map(collection => ({
-                  count: collection.curatedEvents.length,
-                  description: getLocalisedString(
-                    collection.shortDescription,
-                    locale
-                  ),
-                  id: collection.id,
-                  title: getLocalisedString(collection.title, locale)
-                }))}
-              />
+              <CollectionCardContainer size="sm" collections={collections} />
             </>
           )}
         </LoadingSpinner>

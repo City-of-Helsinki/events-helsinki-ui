@@ -5,14 +5,32 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router";
 
+import { CollectionListDocument } from "../../../generated/graphql";
 import App from "../App";
 import AppRoutes from "../AppRoutes";
 import BrowserApp from "../BrowserApp";
 
+const mocks = [
+  {
+    request: {
+      query: CollectionListDocument
+    },
+    result: {
+      data: {
+        collectionList: {
+          results: {
+            data: []
+          }
+        }
+      }
+    }
+  }
+];
+
 const wrapperCreator = (route: string) =>
   mount(
     <MemoryRouter initialEntries={[route]}>
-      <MockedProvider mocks={[]}>
+      <MockedProvider mocks={mocks}>
         <AppRoutes />
       </MockedProvider>
     </MemoryRouter>
