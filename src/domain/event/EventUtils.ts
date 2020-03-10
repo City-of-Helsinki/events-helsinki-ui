@@ -1,9 +1,15 @@
 import { isPast } from "date-fns";
+import capitalize from "lodash/capitalize";
 
 import { EventDetailsQuery } from "../../generated/graphql";
 import { Language } from "../../types";
 import getLocalisedString from "../../util/getLocalisedString";
-import { EventInList } from "./types";
+import {
+  EVENT_KEYWORD_BLACK_LIST,
+  EVENT_PLACEHOLDER_IMAGES,
+  EVENT_SOME_IMAGE
+} from "./constants";
+import { EventInList, EventUiKeyword } from "./types";
 
 /**
  * Check is event closed
@@ -47,6 +53,18 @@ export const getEventDistrict = (
 };
 
 /**
+ * Get event id from url
+ * @param {string} url
+ * @return {string}
+ */
+export const getEventIdFromUrl = (url: string): string | null => {
+  const trimmedUrl = url.replace(/\?(.*)/, "");
+  const eventId = trimmedUrl.match(/event\/(.*)/);
+
+  return eventId && eventId.length ? eventId[1].replace("/", "") : null;
+};
+
+/**
  * Get event price as a string
  * @param {object} event
  * @param {string} locale
@@ -61,10 +79,73 @@ export const getEventPrice = (
   return isEventFree(event)
     ? isFreeText
     : event.offers
-        .map(offer => getLocalisedString(offer.price || {}, locale))
+        .map(offer =>
+          getLocalisedString(offer.price || offer.description || {}, locale)
+        )
         .filter(e => e)
         .sort()
         .join(", ");
+};
+
+/**
+ * Get event keywords
+ * @param {object} event
+ * @param {string} locale
+ * @return {object[]}
+ */
+export const getEventKeywords = (
+  event: EventInList,
+  locale: Language
+): EventUiKeyword[] => {
+  return event.keywords
+    .map(keyword => ({
+      id: keyword.id || "",
+      name: keyword.name ? capitalize(keyword.name[locale] || "").trim() : ""
+    }))
+    .filter(
+      (keyword, index, arr) =>
+        !!keyword.name &&
+        (!EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
+          arr.findIndex(
+            item => item.name.toLowerCase() === keyword.name.toLowerCase()
+          ) === index)
+    )
+    .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
+};
+
+/**
+ * Get event placeholder image url
+ * @param {object} event
+ * @return {string}
+ */
+export const getEventPlaceholderImageUrl = (event: EventInList): string => {
+  const numbers = event.id.match(/\d+/g);
+  const sum = numbers
+    ? numbers.reduce((prev: number, cur: string) => prev + Number(cur), 0)
+    : 0;
+  const index = sum % 4;
+
+  return EVENT_PLACEHOLDER_IMAGES[index];
+};
+
+/**
+ * Get event image url
+ * @param {object} event
+ * @return {string}
+ */
+export const getEventImageUrl = (event: EventInList): string => {
+  const image = event.images.length ? event.images[0] : null;
+  return image ? image.url : getEventPlaceholderImageUrl(event);
+};
+
+/**
+ * Get event image url for social media
+ * @param {object} event
+ * @return {string}
+ */
+export const getEventSomeImageUrl = (event: EventInList): string => {
+  const image = event.images.length ? event.images[0] : null;
+  return image ? image.url : EVENT_SOME_IMAGE;
 };
 
 /**

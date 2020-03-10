@@ -1,4 +1,5 @@
 import React from "react";
+import serialize from "serialize-javascript";
 
 interface Props {
   assets: {
@@ -19,6 +20,8 @@ interface Props {
   };
   state: object;
   canonicalUrl: string;
+  initialI18nStore: object;
+  initialLanguage: string;
 }
 
 const Html: React.FC<Props> = ({
@@ -26,7 +29,9 @@ const Html: React.FC<Props> = ({
   content,
   helmet,
   state,
-  canonicalUrl
+  canonicalUrl,
+  initialI18nStore,
+  initialLanguage
 }) => {
   return (
     <html lang="en">
@@ -40,6 +45,12 @@ const Html: React.FC<Props> = ({
         <meta property="og:url" content={canonicalUrl} />
         <link rel="manifest" href="/manifest.json" />
         <link rel="shortcut icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/images/apple-touch-icon.png"
+        />
+        <meta name="msapplication-TileColor" content="#da532c" />
         <link rel="canonical" href={canonicalUrl} />
         {helmet.meta.toComponent()}
         {helmet.title.toComponent()}
@@ -59,6 +70,16 @@ const Html: React.FC<Props> = ({
               /</g,
               "\\u003c"
             )};`
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: [
+              `window.initialI18nStore=${serialize(initialI18nStore, {
+                isJSON: true
+              })};`,
+              `window.initialLanguage="${initialLanguage}";`
+            ].join("\n")
           }}
         />
         {assets.js &&

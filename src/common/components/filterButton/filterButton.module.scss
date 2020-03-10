@@ -3,11 +3,11 @@
 .filter {
   height: auto;
   min-height: 1.5rem;
-  background-color: $hel-metro-light-50;
-  color: $hel-black;
-  margin: 0.1875rem 0.375rem 0.1875rem 0;
+  background-color: $hel-black-70;
+  color: $hel-white;
+  margin: 0.5rem 0.5rem 0.5rem 0;
   display: inline-flex;
-  padding: 0.125rem 0.5rem;
+  padding: 0.125rem 0.5rem 0.125rem 0.25rem;
   align-items: center;
   font-size: 0.875rem;
   font-weight: 500;
@@ -18,12 +18,18 @@
     border: none;
     margin-right: 0.375rem;
     cursor: pointer;
+    width: 1rem;
 
     svg {
-      fill: $hel-black;
+      fill: $hel-white;
       height: 0.625rem;
       width: 0.625rem;
       margin: 0;
+    }
+
+    &:focus {
+      outline: 2px solid $hel-white;
+      outline-offset: 0;
     }
   }
 }
@@ -31,30 +37,33 @@
 .date,
 .dateType {
   background-color: $hel-engel-light-50;
-}
-.district {
-  background-color: $hel-metro;
-  color: $hel-white;
+  color: $hel-black;
 
   .closeButton {
     svg {
-      fill: $hel-white;
+      fill: $hel-black;
     }
-  }
-}
-.keyword {
-  background-color: $hel-metro-light-50;
-}
-.place {
-  background-color: $hel-tram;
-  color: $hel-white;
 
-  .closeButton {
-    svg {
-      fill: $hel-white;
+    &:focus {
+      outline: 2px solid $hel-black;
     }
   }
 }
+
+.district,
+.keyword,
+.place,
 .yso {
-  background-color: $hel-metro-light-20;
+  background-color: $hel-black-70;
+  color: $hel-white;
+
+  .closeButton {
+    svg {
+      fill: $hel-white;
+    }
+
+    &:focus {
+      outline: 2px solid $hel-white;
+    }
+  }
 }

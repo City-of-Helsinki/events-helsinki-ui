@@ -1,0 +1,17 @@
+@import "fonts";
+@import "layout";
+@import "variables";
+
+.eventCards {
+  display: grid;
+  margin: 0;
+
+  @include respond_above(sm) {
+    grid-gap: 1.75rem 3rem;
+  }
+
+
+  @include respond_above(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}

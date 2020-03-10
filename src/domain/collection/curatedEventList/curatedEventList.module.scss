@@ -1,0 +1,11 @@
+@import "colors";
+@import "variables";
+
+.curatedEventList {
+  background-color: $hel-black-5;
+  padding: $largePadding 0;
+
+  .contentWrapper {
+    margin-top: -13rem;
+  }
+}

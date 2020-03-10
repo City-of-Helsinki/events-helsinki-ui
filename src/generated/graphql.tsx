@@ -12,6 +12,49 @@ export type Scalars = {
   Float: number,
 };
 
+export type CollectionDetails = {
+   __typename?: 'CollectionDetails',
+  id: Scalars['ID'],
+  contentType?: Maybe<Scalars['Int']>,
+  curatedEvents: Array<Scalars['String']>,
+  curatedEventsTitle: LocalizedObject,
+  depth?: Maybe<Scalars['Int']>,
+  description: LocalizedObject,
+  draftTitle?: Maybe<Scalars['String']>,
+  eventListQuery?: Maybe<Scalars['String']>,
+  eventListTitle: LocalizedObject,
+  expireAt?: Maybe<Scalars['String']>,
+  expired?: Maybe<Scalars['Boolean']>,
+  firstPublishedAt?: Maybe<Scalars['String']>,
+  goLiveAt?: Maybe<Scalars['String']>,
+  hasUnpublishedChanges?: Maybe<Scalars['Boolean']>,
+  lastPublishedAt?: Maybe<Scalars['String']>,
+  latestRevisionCreatedAt?: Maybe<Scalars['String']>,
+  linkText: LocalizedObject,
+  linkUrl: LocalizedObject,
+  live?: Maybe<Scalars['Boolean']>,
+  liveRevision?: Maybe<Scalars['Int']>,
+  locked?: Maybe<Scalars['Boolean']>,
+  lockedAt?: Maybe<Scalars['String']>,
+  lockedBy?: Maybe<Scalars['Int']>,
+  numchild?: Maybe<Scalars['Int']>,
+  owner?: Maybe<Scalars['Int']>,
+  path?: Maybe<Scalars['String']>,
+  searchDescription?: Maybe<Scalars['String']>,
+  seoTitle?: Maybe<Scalars['String']>,
+  shortDescription: LocalizedObject,
+  showInMenus?: Maybe<Scalars['Boolean']>,
+  similarCollectionsTitle?: Maybe<LocalizedObject>,
+  slug?: Maybe<Scalars['String']>,
+  title: LocalizedObject,
+  urlPath?: Maybe<Scalars['String']>,
+};
+
+export type CollectionListResponse = {
+   __typename?: 'CollectionListResponse',
+  data: Array<CollectionDetails>,
+};
+
 export type Division = {
    __typename?: 'Division',
   type: Scalars['String'],
@@ -98,7 +141,7 @@ export type Image = {
 
 export type InLanguage = {
    __typename?: 'InLanguage',
-  id: Scalars['ID'],
+  id?: Maybe<Scalars['ID']>,
   translationAvailable?: Maybe<Scalars['Boolean']>,
   name?: Maybe<LocalizedObject>,
   internalId?: Maybe<Scalars['String']>,
@@ -113,18 +156,18 @@ export type InternalIdObject = {
 
 export type Keyword = {
    __typename?: 'Keyword',
-  id: Scalars['String'],
-  altLabels: Array<Scalars['String']>,
+  id?: Maybe<Scalars['String']>,
+  altLabels?: Maybe<Array<Maybe<Scalars['String']>>>,
   createdTime?: Maybe<Scalars['String']>,
-  lastModifiedTime: Scalars['String'],
+  lastModifiedTime?: Maybe<Scalars['String']>,
   aggregate?: Maybe<Scalars['Boolean']>,
   deprecated?: Maybe<Scalars['Boolean']>,
-  nEvents: Scalars['Int'],
+  nEvents?: Maybe<Scalars['Int']>,
   image?: Maybe<Image>,
-  dataSource: Scalars['String'],
+  dataSource?: Maybe<Scalars['String']>,
   publisher?: Maybe<Scalars['ID']>,
-  name: LocalizedObject,
-  internalId?: Maybe<Scalars['String']>,
+  name?: Maybe<LocalizedObject>,
+  internalId: Scalars['String'],
   internalContext?: Maybe<Scalars['String']>,
   internalType?: Maybe<Scalars['String']>,
 };
@@ -184,7 +227,7 @@ export type OrganizationDetails = {
 
 export type Place = {
    __typename?: 'Place',
-  id: Scalars['ID'],
+  id?: Maybe<Scalars['ID']>,
   divisions?: Maybe<Array<Division>>,
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
@@ -229,6 +272,8 @@ export type PlacePosition = {
 export type Query = {
    __typename?: 'Query',
   _empty?: Maybe<Scalars['String']>,
+  collectionDetails: CollectionDetails,
+  collectionList: CollectionListResponse,
   eventDetails: EventDetails,
   eventList: EventListResponse,
   keywordDetails: Keyword,
@@ -239,21 +284,34 @@ export type Query = {
 };
 
 
-export type QueryEventDetailsArgs = {
+export type QueryCollectionDetailsArgs = {
   id?: Maybe<Scalars['ID']>
+};
+
+
+export type QueryEventDetailsArgs = {
+  id?: Maybe<Scalars['ID']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>
 };
 
 
 export type QueryEventListArgs = {
   divisions?: Maybe<Array<Maybe<Scalars['String']>>>,
   endDate?: Maybe<Scalars['String']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>,
+  inLanguage?: Maybe<Scalars['String']>,
   keywords?: Maybe<Array<Maybe<Scalars['String']>>>,
+  language?: Maybe<Scalars['String']>,
   locations?: Maybe<Array<Maybe<Scalars['String']>>>,
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   publisher?: Maybe<Scalars['ID']>,
+  sort?: Maybe<Scalars['String']>,
   startDate?: Maybe<Scalars['String']>,
-  text?: Maybe<Scalars['String']>
+  superEvent?: Maybe<Scalars['ID']>,
+  superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
+  text?: Maybe<Scalars['String']>,
+  translation?: Maybe<Scalars['String']>
 };
 
 
@@ -297,8 +355,86 @@ export type Subscription = {
   _empty?: Maybe<Scalars['String']>,
 };
 
-export type EventDetailsQueryVariables = {
+export type CollectionDetailsQueryVariables = {
   id: Scalars['ID']
+};
+
+
+export type CollectionDetailsQuery = (
+  { __typename?: 'Query' }
+  & { collectionDetails: (
+    { __typename?: 'CollectionDetails' }
+    & Pick<CollectionDetails, 'id' | 'curatedEvents' | 'eventListQuery'>
+    & { curatedEventsTitle: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ), description: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ), eventListTitle: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ), linkText: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ), linkUrl: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ), shortDescription: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ), similarCollectionsTitle: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    )>, title: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ) }
+  ) }
+);
+
+export type CollectionListQueryVariables = {};
+
+
+export type CollectionListQuery = (
+  { __typename?: 'Query' }
+  & { collectionList: (
+    { __typename?: 'CollectionListResponse' }
+    & { data: Array<(
+      { __typename?: 'CollectionDetails' }
+      & Pick<CollectionDetails, 'id' | 'curatedEvents' | 'eventListQuery'>
+      & { curatedEventsTitle: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ), description: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ), eventListTitle: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ), linkText: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ), linkUrl: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ), shortDescription: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ), similarCollectionsTitle: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      )>, title: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ) }
+    )> }
+  ) }
+);
+
+export type EventDetailsQueryVariables = {
+  id: Scalars['ID'],
+  include?: Maybe<Array<Maybe<Scalars['String']>>>
 };
 
 
@@ -313,6 +449,9 @@ export type EventDetailsQuery = (
     )>, images: Array<(
       { __typename?: 'Image' }
       & Pick<Image, 'id' | 'name' | 'url'>
+    )>, superEvent: Maybe<(
+      { __typename?: 'InternalIdObject' }
+      & Pick<InternalIdObject, 'internalId'>
     )>, inLanguage: Array<(
       { __typename?: 'InLanguage' }
       & { name: Maybe<(
@@ -322,10 +461,10 @@ export type EventDetailsQuery = (
     )>, keywords: Array<(
       { __typename?: 'Keyword' }
       & Pick<Keyword, 'id' | 'altLabels' | 'createdTime' | 'lastModifiedTime' | 'nEvents' | 'dataSource'>
-      & { name: (
+      & { name: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      ) }
+      )> }
     )>, location: Maybe<(
       { __typename?: 'Place' }
       & Pick<Place, 'email' | 'postalCode'>
@@ -403,13 +542,20 @@ export type OrganizationDetailsQuery = (
 export type EventListQueryVariables = {
   divisions?: Maybe<Array<Maybe<Scalars['String']>>>,
   endDate?: Maybe<Scalars['String']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>,
+  inLanguage?: Maybe<Scalars['String']>,
   keywords?: Maybe<Array<Maybe<Scalars['String']>>>,
+  language?: Maybe<Scalars['String']>,
   locations?: Maybe<Array<Maybe<Scalars['String']>>>,
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   publisher?: Maybe<Scalars['ID']>,
+  sort?: Maybe<Scalars['String']>,
   startDate?: Maybe<Scalars['String']>,
-  text?: Maybe<Scalars['String']>
+  superEvent?: Maybe<Scalars['ID']>,
+  superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
+  text?: Maybe<Scalars['String']>,
+  translation?: Maybe<Scalars['String']>
 };
 
 
@@ -429,10 +575,10 @@ export type EventListQuery = (
       )>, keywords: Array<(
         { __typename?: 'Keyword' }
         & Pick<Keyword, 'id'>
-        & { name: (
+        & { name: Maybe<(
           { __typename?: 'LocalizedObject' }
           & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-        ) }
+        )> }
       )>, location: Maybe<(
         { __typename?: 'Place' }
         & { divisions: Maybe<Array<(
@@ -458,7 +604,10 @@ export type EventListQuery = (
       ), offers: Array<(
         { __typename?: 'Offer' }
         & Pick<Offer, 'isFree'>
-        & { price: Maybe<(
+        & { description: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+        )>, price: Maybe<(
           { __typename?: 'LocalizedObject' }
           & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
         )>, infoUrl: Maybe<(
@@ -480,10 +629,10 @@ export type KeywordDetailsQuery = (
   & { keywordDetails: (
     { __typename?: 'Keyword' }
     & Pick<Keyword, 'id'>
-    & { name: (
+    & { name: Maybe<(
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    ) }
+    )> }
   ) }
 );
 
@@ -507,10 +656,10 @@ export type KeywordListQuery = (
     ), data: Array<(
       { __typename?: 'Keyword' }
       & Pick<Keyword, 'id'>
-      & { name: (
+      & { name: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      ) }
+      )> }
     )> }
   ) }
 );
@@ -562,9 +711,182 @@ export type PlaceListQuery = (
 );
 
 
+export const CollectionDetailsDocument = gql`
+    query CollectionDetails($id: ID!) {
+  collectionDetails(id: $id) {
+    id
+    curatedEvents
+    curatedEventsTitle {
+      en
+      fi
+      sv
+    }
+    description {
+      en
+      fi
+      sv
+    }
+    eventListQuery
+    eventListTitle {
+      en
+      fi
+      sv
+    }
+    linkText {
+      en
+      fi
+      sv
+    }
+    linkUrl {
+      en
+      fi
+      sv
+    }
+    shortDescription {
+      en
+      fi
+      sv
+    }
+    similarCollectionsTitle {
+      en
+      fi
+      sv
+    }
+    title {
+      en
+      fi
+      sv
+    }
+  }
+}
+    `;
+export type CollectionDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<CollectionDetailsQuery, CollectionDetailsQueryVariables> | TChildProps;
+export function withCollectionDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  CollectionDetailsQuery,
+  CollectionDetailsQueryVariables,
+  CollectionDetailsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, CollectionDetailsQuery, CollectionDetailsQueryVariables, CollectionDetailsProps<TChildProps>>(CollectionDetailsDocument, {
+      alias: 'collectionDetails',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useCollectionDetailsQuery__
+ *
+ * To run a query within a React component, call `useCollectionDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCollectionDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCollectionDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useCollectionDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CollectionDetailsQuery, CollectionDetailsQueryVariables>) {
+        return ApolloReactHooks.useQuery<CollectionDetailsQuery, CollectionDetailsQueryVariables>(CollectionDetailsDocument, baseOptions);
+      }
+export function useCollectionDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CollectionDetailsQuery, CollectionDetailsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CollectionDetailsQuery, CollectionDetailsQueryVariables>(CollectionDetailsDocument, baseOptions);
+        }
+export type CollectionDetailsQueryHookResult = ReturnType<typeof useCollectionDetailsQuery>;
+export type CollectionDetailsLazyQueryHookResult = ReturnType<typeof useCollectionDetailsLazyQuery>;
+export type CollectionDetailsQueryResult = ApolloReactCommon.QueryResult<CollectionDetailsQuery, CollectionDetailsQueryVariables>;
+export const CollectionListDocument = gql`
+    query CollectionList {
+  collectionList {
+    data {
+      id
+      curatedEvents
+      curatedEventsTitle {
+        en
+        fi
+        sv
+      }
+      description {
+        en
+        fi
+        sv
+      }
+      eventListQuery
+      eventListTitle {
+        en
+        fi
+        sv
+      }
+      linkText {
+        en
+        fi
+        sv
+      }
+      linkUrl {
+        en
+        fi
+        sv
+      }
+      shortDescription {
+        en
+        fi
+        sv
+      }
+      similarCollectionsTitle {
+        en
+        fi
+        sv
+      }
+      title {
+        en
+        fi
+        sv
+      }
+    }
+  }
+}
+    `;
+export type CollectionListProps<TChildProps = {}> = ApolloReactHoc.DataProps<CollectionListQuery, CollectionListQueryVariables> | TChildProps;
+export function withCollectionList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  CollectionListQuery,
+  CollectionListQueryVariables,
+  CollectionListProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, CollectionListQuery, CollectionListQueryVariables, CollectionListProps<TChildProps>>(CollectionListDocument, {
+      alias: 'collectionList',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useCollectionListQuery__
+ *
+ * To run a query within a React component, call `useCollectionListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCollectionListQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCollectionListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCollectionListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CollectionListQuery, CollectionListQueryVariables>) {
+        return ApolloReactHooks.useQuery<CollectionListQuery, CollectionListQueryVariables>(CollectionListDocument, baseOptions);
+      }
+export function useCollectionListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CollectionListQuery, CollectionListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CollectionListQuery, CollectionListQueryVariables>(CollectionListDocument, baseOptions);
+        }
+export type CollectionListQueryHookResult = ReturnType<typeof useCollectionListQuery>;
+export type CollectionListLazyQueryHookResult = ReturnType<typeof useCollectionListLazyQuery>;
+export type CollectionListQueryResult = ApolloReactCommon.QueryResult<CollectionListQuery, CollectionListQueryVariables>;
 export const EventDetailsDocument = gql`
-    query EventDetails($id: ID!) {
-  eventDetails(id: $id) {
+    query EventDetails($id: ID!, $include: [String]) {
+  eventDetails(id: $id, include: $include) {
     id
     externalLinks {
       name
@@ -574,6 +896,9 @@ export const EventDetailsDocument = gql`
       id
       name
       url
+    }
+    superEvent {
+      internalId
     }
     inLanguage {
       name {
@@ -709,6 +1034,7 @@ export function withEventDetails<TProps, TChildProps = {}>(operationOptions?: Ap
  * const { data, loading, error } = useEventDetailsQuery({
  *   variables: {
  *      id: // value for 'id'
+ *      include: // value for 'include'
  *   },
  * });
  */
@@ -767,8 +1093,8 @@ export type OrganizationDetailsQueryHookResult = ReturnType<typeof useOrganizati
 export type OrganizationDetailsLazyQueryHookResult = ReturnType<typeof useOrganizationDetailsLazyQuery>;
 export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($divisions: [String], $endDate: String, $keywords: [String], $locations: [String], $page: Int, $pageSize: Int, $publisher: ID, $startDate: String, $text: String) {
-  eventList(divisions: $divisions, endDate: $endDate, keywords: $keywords, locations: $locations, page: $page, pageSize: $pageSize, publisher: $publisher, startDate: $startDate, text: $text) {
+    query EventList($divisions: [String], $endDate: String, $include: [String], $inLanguage: String, $keywords: [String], $language: String, $locations: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $startDate: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+  eventList(divisions: $divisions, endDate: $endDate, include: $include, inLanguage: $inLanguage, keywords: $keywords, language: $language, locations: $locations, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, startDate: $startDate, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
     meta {
       count
       next
@@ -821,6 +1147,11 @@ export const EventListDocument = gql`
       }
       offers {
         isFree
+        description {
+          fi
+          sv
+          en
+        }
         price {
           fi
           sv
@@ -864,13 +1195,20 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  *   variables: {
  *      divisions: // value for 'divisions'
  *      endDate: // value for 'endDate'
+ *      include: // value for 'include'
+ *      inLanguage: // value for 'inLanguage'
  *      keywords: // value for 'keywords'
+ *      language: // value for 'language'
  *      locations: // value for 'locations'
  *      page: // value for 'page'
  *      pageSize: // value for 'pageSize'
  *      publisher: // value for 'publisher'
+ *      sort: // value for 'sort'
  *      startDate: // value for 'startDate'
+ *      superEvent: // value for 'superEvent'
+ *      superEventType: // value for 'superEventType'
  *      text: // value for 'text'
+ *      translation: // value for 'translation'
  *   },
  * });
  */

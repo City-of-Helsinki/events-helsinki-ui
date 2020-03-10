@@ -1,0 +1,47 @@
+@import "colors";
+@import "fonts";
+@import "layout";
+@import "variables";
+
+.searchResultListContainer {
+  background-color: $hel-black-5;
+  padding: $largePadding 0;
+}
+
+.count {
+  font-size: 1.125rem;
+  font-weight: $font-weight-bold;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+
+  @include respond_above(sm) {
+    text-align: left;
+  }
+
+  @include respond_above(md) {
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+}
+
+.searchResultWrapper {
+  display: grid;
+  grid-row-gap: 0.625rem;
+
+  @include respond_above(md) {
+    grid-row-gap: unset;
+    grid-column-gap: $largeMargin;
+    grid-template-columns: 2fr 5fr;
+  }
+
+  .eventListWrapper {
+    .loadMoreWrapper {
+      margin-top: 1.5rem;
+
+      @include respond_above(sm) {
+        margin-top: 0;
+      }
+    }
+  }
+}

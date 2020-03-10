@@ -6,7 +6,12 @@
   color: $hel-black;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  min-width: 21rem;
+
+  min-width: fit-content;
+
+  &.isCustomDate {
+    min-width: 21rem;
+  }
 
   @include respond_above(sm) {
     position: absolute;
@@ -32,6 +37,11 @@
       margin-left: 0.75rem;
       height: 0.75rem;
       width: 0.75rem;
+    }
+
+    &:focus {
+      outline: 2px solid $hel-black;
+      outline-offset: -2px;
     }
   }
 

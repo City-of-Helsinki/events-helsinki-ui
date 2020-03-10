@@ -1,13 +1,15 @@
+import classNames from "classnames";
 import unescape from "lodash/unescape";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import sanitizeHtml from "sanitize-html";
 
+import ShareLinks from "../../common/components/shareLinks/ShareLinks";
 import { EventDetailsQuery } from "../../generated/graphql";
-import getLocale from "../../util/getLocale";
+import useLocale from "../../hooks/useLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import styles from "./eventContent.module.scss";
-import EventInfo from "./EventInfo";
+import EventInfo from "./eventInfo/EventInfo";
 import EventLocation from "./EventLocation";
 
 interface Props {
@@ -16,7 +18,7 @@ interface Props {
 
 const EventContent: React.FC<Props> = ({ eventData }) => {
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
   const description = eventData.eventDetails.description
     ? getLocalisedString(eventData.eventDetails.description, locale)
     : null;
@@ -40,7 +42,13 @@ const EventContent: React.FC<Props> = ({ eventData }) => {
             />
           </>
         )}
-
+        <ShareLinks title={t("event.shareLinks.title")} />
+        <div
+          className={classNames(
+            styles.horizontalDivider,
+            styles.largeWhiteSpace
+          )}
+        />
         <EventLocation eventData={eventData} />
       </div>
       {/* Dummy div to keep layout consistent with EventHero */}

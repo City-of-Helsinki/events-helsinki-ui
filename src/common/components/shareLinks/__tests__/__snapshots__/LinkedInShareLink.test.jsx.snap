@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LinkedInShareLink /> matches snapshot 1`] = `
+<button
+  aria-label="Jaa LinkedInissä"
+  type="button"
+>
+  <svg>
+    linkedin.svg
+  </svg>
+</button>
+`;

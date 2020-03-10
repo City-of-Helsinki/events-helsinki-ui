@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventList should match snapshot 1`] = `
+"<div class=\\"eventList\\">
+  <div class=\\"container\\">
+    <h2>Kaikki syksyn parhaat tapahtumat</h2>
+    <div class=\\"eventSearchListWrapper\\">
+      <div class=\\"eventListWrapper default\\">
+        <div class=\\"eventsWrapper\\">
+          <div class=\\"eventCard\\"><a aria-hidden=\\"true\\" aria-label=\\"Siirry tapahtumaan: name fi\\" class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">
+              <div class=\\"tagWrapperDesktop\\">
+                <div class=\\"priceWrapper\\"></div>
+                <div class=\\"categoryWrapper\\"></div>
+              </div>
+            </a>
+            <div class=\\"infoWrapper\\">
+              <div>
+                <div class=\\"categoryWrapperMobile\\"></div>
+                <div class=\\"textWrapper\\">
+                  <div class=\\"eventDateAndTime\\"> 13. joulukuuta 2019 10.00</div><a aria-hidden=\\"true\\" class=\\"eventName\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">name fi</a>
+                  <div class=\\"srOnly\\">name fi</div>
+                  <div class=\\"eventLocation\\">name fi, streetAddress fi, locality fi</div>
+                  <div class=\\"eventPrice\\">Ilmainen</div>
+                </div>
+              </div>
+              <div class=\\"buttonWrapper\\"><a aria-label=\\"Siirry tapahtumaan: name fi\\" class=\\"iconLink default\\" href=\\"/fi/event/123\\">
+                  <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
+                      <g>
+                        <polygon points=\\"13.3706831 2 11.5237192 3.84696395 18.0000474 10.3242884 2 10.3242884 2 12.937334 17.9990512 12.937334 11.5237192 19.412666 13.3706831 21.2586338 23 11.6293169\\"></polygon>
+                      </g>
+                    </svg></div>
+                </a></div>
+            </div>
+          </div>
+        </div>
+        <div class=\\"loadMoreWrapper buttonCentered\\"></div>
+      </div>
+    </div>
+  </div>
+</div>"
+`;

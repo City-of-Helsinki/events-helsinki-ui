@@ -8,7 +8,7 @@ USER appuser
 COPY --chown=appuser:appuser package.json yarn.lock /app/
 RUN yarn
 
-# Copy all files 
+# Copy all files
 COPY --chown=appuser:appuser . .
 
 # set graphql server base url

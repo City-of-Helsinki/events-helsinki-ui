@@ -1,15 +1,24 @@
 import { shallow } from "enzyme";
 import React from "react";
-import { I18nextProvider } from "react-i18next";
+import routeData, { MemoryRouter } from "react-router";
 
-import i18 from "../../../../../common/translation/i18n/i18nInit";
 import MobileNavigationMenu from "../MobileNavigationMenu";
+
+const mockLocation = {
+  hash: "",
+  pathname: "/fi/home",
+  search: "",
+  state: ""
+};
+beforeEach(() => {
+  jest.spyOn(routeData, "useLocation").mockReturnValue(mockLocation);
+});
 
 it("MobileNavigationMenu matches snapshot", () => {
   const container = shallow(
-    <I18nextProvider i18n={i18}>
+    <MemoryRouter>
       <MobileNavigationMenu isMenuOpen={true} onMenuClose={() => {}} />
-    </I18nextProvider>
+    </MemoryRouter>
   );
   expect(container.html()).toMatchSnapshot();
 });

@@ -11,6 +11,7 @@ test("DateSelector matches snapshot", () => {
         dateTypes={["type1", "type2"]}
         endDate={new Date("2019-12-01")}
         isCustomDate={false}
+        name="date"
         onChangeDateTypes={() => {}}
         onChangeEndDate={() => {}}
         onChangeStartDate={() => {}}

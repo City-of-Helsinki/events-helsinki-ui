@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-export interface AutosuggestMenuItem {
+export interface AutosuggestMenuOption {
   text: string;
   type: string;
   value: string;

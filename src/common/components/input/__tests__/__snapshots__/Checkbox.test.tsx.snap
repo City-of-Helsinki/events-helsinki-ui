@@ -4,13 +4,17 @@ exports[`Checkbox matches snapshot 1`] = `
 <label
   className="checkbox test-class-name"
 >
-  <input
-    checked={true}
-    type="checkbox"
-  />
   <span
-    className="checkmark"
-  />
+    className="checkmarkWrapper"
+  >
+    <input
+      checked={true}
+      type="checkbox"
+    />
+    <span
+      className="checkmark"
+    />
+  </span>
   Test
 </label>
 `;

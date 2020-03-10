@@ -1,0 +1,24 @@
+@import "colors";
+@import "layout";
+
+.mobileDateSelector {
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin-bottom: -1.25rem;
+
+  @include respond_above(sm) {
+    display: none;
+  }
+
+  .iconCalendar {
+    stroke: $hel-white;
+
+    &.isSelected {
+      stroke: #464646;
+    }
+  }
+}
+
+.menuWrapper {
+  display: inline;
+}

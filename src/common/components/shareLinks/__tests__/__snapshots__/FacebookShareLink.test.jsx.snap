@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FacebookShareLink /> matches snapshot 1`] = `
+<button
+  aria-label="Jaa Facebookissa"
+  type="button"
+>
+  <svg>
+    facebook.svg
+  </svg>
+</button>
+`;

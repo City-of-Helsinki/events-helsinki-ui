@@ -1,0 +1,42 @@
+@import "colors";
+@import "fonts";
+@import "layout";
+@import "variables";
+
+.filterSummary {
+  .filtersWrapper {
+    padding: $basePadding;
+    background-color: $hel-white;
+    margin-bottom: 0.625rem;
+
+    @include respond_above(sm) {
+      margin-bottom: $largeMargin;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .titleFilterSummary {
+      font-size: 1.125rem;
+      margin: 0 0 0.875rem;
+    }
+
+    .clearButton {
+      display: block;
+      margin-top: 1rem;
+      padding: 0;
+      color: $hel-black;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: 2px solid transparent;
+      text-decoration: underline;
+      text-align: left;
+
+      &:focus {
+        outline: 2px solid $hel-black;
+        outline-offset: 0.25rem;
+      }
+    }
+  }
+}

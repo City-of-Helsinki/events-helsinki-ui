@@ -15,6 +15,11 @@
     height: 100%;
     display: flex;
     align-items: center;
+
+    &:focus {
+      outline: 2px solid $hel-black;
+      outline-offset: -2px;
+    }
   }
   svg {
     height: 1.25rem;
@@ -22,8 +27,15 @@
   }
 
   .iconWrapper {
+    display: flex;
+    align-self: center;
+
     svg {
       margin-right: 1rem;
+    }
+
+    .iconCalendar {
+      stroke: $hel-black;
     }
   }
 
@@ -31,15 +43,39 @@
     flex: 1 1 0%;
     text-align: left;
     color: $hel-black;
+    position: relative;
+    height: 1.25rem;
+
+    .buttonTextWrapper {
+      white-space: nowrap;
+      overflow: hidden;
+      position: absolute;
+      left: 0;
+      top: 0;
+      line-height: 1.25rem;
+      right: 0;
+      text-overflow: ellipsis;
+    }
   }
 
   .arrowWrapper {
     display: flex;
+    align-self: center;
     
     svg {
       height: 0.75rem;
       width: 0.75rem;
       margin-left: 0.75rem;
+      pointer-events: none;
     }
   }
+}
+
+.isSelectedIndicator {
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: $dark-green;
 }

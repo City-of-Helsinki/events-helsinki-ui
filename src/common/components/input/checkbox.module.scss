@@ -1,9 +1,9 @@
 @import "colors";
+@import "variables";
 
 .checkbox {
-  display: block;
+  display: flex;
   position: relative;
-  padding-left: 2rem;
   margin-bottom: 1.25rem;
   cursor: pointer;
   font-size: 1rem;
@@ -26,6 +26,15 @@
   cursor: pointer;
   height: 0;
   width: 0;
+}
+
+.checkmarkWrapper {
+  position: relative;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-right: 0.5rem;
 }
 
 .checkmark {

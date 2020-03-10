@@ -1,38 +1,31 @@
 import classNames from "classnames";
 import { isThisWeek, isToday } from "date-fns";
-import {
-  IconAngleRight,
-  IconArrowLeft,
-  IconLocation,
-  IconShare,
-  IconTicket
-} from "hds-react";
+import { IconArrowLeft, IconLocation } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { RouteComponentProps, withRouter } from "react-router";
+import { useLocation } from "react-router-dom";
 
 import Button from "../../common/components/button/Button";
+import IconLink from "../../common/components/link/IconLink";
 import { EventDetailsQuery } from "../../generated/graphql";
+import useLocale from "../../hooks/useLocale";
+import IconTicket from "../../icons/IconTicket";
 import getDateRangeStr from "../../util/getDateRangeStr";
-import getLocale from "../../util/getLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import Container from "../app/layout/Container";
 import styles from "./eventHero.module.scss";
 import EventKeywords from "./EventKeywords";
 import LocationText from "./EventLocationText";
-import { getEventPrice } from "./EventUtils";
+import { getEventImageUrl, getEventPrice, isEventFree } from "./EventUtils";
 
-interface Props extends RouteComponentProps {
+interface Props {
   eventData: EventDetailsQuery;
 }
 
-const EventHero: React.FC<Props> = ({
-  eventData,
-  history: { push },
-  location: { search }
-}) => {
+const EventHero: React.FC<Props> = ({ eventData }) => {
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
+  const location = useLocation();
 
   const offerInfoUrl = React.useMemo(() => {
     const offer = eventData.eventDetails.offers.find(item =>
@@ -42,21 +35,15 @@ const EventHero: React.FC<Props> = ({
     return offer ? getLocalisedString(offer.infoUrl || {}, locale) : "";
   }, [eventData.eventDetails.offers, locale]);
 
-  const handleBack = () => {
-    push({ pathname: `/${locale}/events`, search });
-  };
+  const eventSearchUrl = React.useMemo(() => {
+    return `/${locale}/events/${location.search}`;
+  }, [locale, location.search]);
 
   const moveToBuyTicketsPage = () => {
     window.open(offerInfoUrl);
   };
 
-  const handleShare = () => {
-    alert("TODO: Share event");
-  };
-
-  const image = eventData.eventDetails.images.length
-    ? eventData.eventDetails.images[0]
-    : null;
+  const imageUrl = getEventImageUrl(eventData.eventDetails);
   const description = eventData.eventDetails.shortDescription || {};
   const keywords = eventData.eventDetails.keywords;
   const startTime = eventData.eventDetails.startTime;
@@ -65,22 +52,25 @@ const EventHero: React.FC<Props> = ({
   const today = startTime ? isToday(new Date(startTime)) : false;
   const thisWeek = startTime ? isThisWeek(new Date(startTime)) : false;
 
+  const showBuyButton = !!offerInfoUrl && !isEventFree(eventData.eventDetails);
+
   return (
     <div className={styles.heroWrapper}>
       <Container>
         <div className={styles.contentWrapper}>
           <div className={styles.backButtonWrapper}>
-            <button className={styles.backButton} onClick={handleBack}>
-              <IconArrowLeft />
-            </button>
+            <IconLink
+              aria-label={t("event.hero.ariaLabelBackButton")}
+              backgroundColor="white"
+              icon={<IconArrowLeft />}
+              to={eventSearchUrl}
+            />
           </div>
           <div>
-            {image && (
-              <div
-                className={styles.image}
-                style={{ backgroundImage: `url(${image.url})` }}
-              />
-            )}
+            <div
+              className={styles.image}
+              style={{ backgroundImage: `url(${imageUrl})` }}
+            />
           </div>
           <div className={styles.leftPanel}>
             <div className={styles.textWrapper}>
@@ -89,7 +79,7 @@ const EventHero: React.FC<Props> = ({
                   <EventKeywords
                     blackOnMobile={true}
                     event={eventData.eventDetails}
-                    showIsFree={false}
+                    showIsFree={true}
                   />
                 </div>
               )}
@@ -132,7 +122,7 @@ const EventHero: React.FC<Props> = ({
                   ) || "-"}
                 </div>
               </div>
-              {!!offerInfoUrl && (
+              {showBuyButton && (
                 <>
                   <div
                     className={classNames(
@@ -142,7 +132,6 @@ const EventHero: React.FC<Props> = ({
                   >
                     <Button
                       color="primary"
-                      iconRight={<IconAngleRight />}
                       onClick={moveToBuyTicketsPage}
                       size="default"
                     >
@@ -152,11 +141,6 @@ const EventHero: React.FC<Props> = ({
                 </>
               )}
             </div>
-            <div className={styles.shareWrapper}>
-              <button className={styles.shareButton} onClick={handleShare}>
-                <IconShare />
-              </button>
-            </div>
           </div>
         </div>
       </Container>
@@ -164,4 +148,4 @@ const EventHero: React.FC<Props> = ({
   );
 };
 
-export default withRouter(EventHero);
+export default EventHero;

@@ -5,6 +5,9 @@ exports[`DateSelector matches snapshot 1`] = `
   className="dateSelector"
 >
   <button
+    aria-expanded={false}
+    aria-haspopup="true"
+    aria-label="Valitse ajankohta"
     className="button"
     onClick={[Function]}
     type="button"
@@ -12,22 +15,98 @@ exports[`DateSelector matches snapshot 1`] = `
     <div
       className="iconWrapper"
     >
-      <svg>
-        calendar.svg
+      <svg
+        className="iconCalendar"
+        height="100%"
+        viewBox="0 0 27 26"
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g
+          fill="none"
+          fillRule="evenodd"
+          strokeWidth="1"
+        >
+          <g
+            strokeWidth="2"
+            transform="translate(-785.000000, -171.000000)"
+          >
+            <g
+              transform="translate(773.000000, 129.000000)"
+            >
+              <g
+                transform="translate(13.000000, 43.000000)"
+              >
+                <circle
+                  cx="17.6"
+                  cy="18.4"
+                  r="5.6"
+                  strokeLinecap="square"
+                />
+                <polyline
+                  points="17.6 16 17.6 18.4 20 18.4"
+                  strokeLinecap="square"
+                />
+                <line
+                  strokeLinecap="square"
+                  x1="6.4"
+                  x2="6.4"
+                  y1="0"
+                  y2="3.2"
+                />
+                <line
+                  strokeLinecap="square"
+                  x1="17.6"
+                  x2="17.6"
+                  y1="0"
+                  y2="3.2"
+                />
+                <line
+                  x1="24"
+                  x2="0"
+                  y1="8"
+                  y2="8"
+                />
+                <polyline
+                  points="8.8 22.4 0 22.4 0 3.2 24 3.2 24 11.2"
+                  strokeLinecap="square"
+                />
+              </g>
+            </g>
+          </g>
+        </g>
       </svg>
     </div>
     <div
       className="info"
     >
-      Valitse ajankohta
+      <div
+        className="buttonTextWrapper"
+      >
+        01.11.2019 -
+            01.12.2019
+      </div>
     </div>
     <div
       className="arrowWrapper"
     >
-      <svg>
-        angle-down.svg
+      <svg
+        className=""
+        height="100%"
+        viewBox="0 0 199.404 199.404"
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g>
+          <polygon
+            points="199.404,63.993 171.12,35.709 99.702,107.127 28.284,35.709 0,63.993 99.702,163.695"
+          />
+        </g>
       </svg>
     </div>
   </button>
+  <div
+    className="isSelectedIndicator"
+  />
 </div>
 `;

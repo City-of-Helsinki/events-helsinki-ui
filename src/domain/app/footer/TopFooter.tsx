@@ -1,27 +1,30 @@
-import { IconFill, IconFood, IconSearch, IconSmile, IconTree } from "hds-react";
+import { IconSearch, IconTree } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 
-import { ReactComponent as CultureIcon } from "../../../assets/icons/svg/culture.svg";
-import { ReactComponent as DanceIcon } from "../../../assets/icons/svg/dance.svg";
-import { ReactComponent as MovieIcon } from "../../../assets/icons/svg/movie.svg";
-import { ReactComponent as MuseumIcon } from "../../../assets/icons/svg/museum.svg";
-import { ReactComponent as MusicIcon } from "../../../assets/icons/svg/music.svg";
-import { ReactComponent as SportIcon } from "../../../assets/icons/svg/sport.svg";
-import { ReactComponent as TheatreIcon } from "../../../assets/icons/svg/theatre.svg";
-import CategoryFilters from "../../../common/components/category/CategoryFilters";
+import CategoryFilter from "../../../common/components/category/CategoryFilter";
 import IconLink from "../../../common/components/link/IconLink";
 import { Category } from "../../../common/types";
 import { CATEGORIES } from "../../../constants";
-import getLocale from "../../../util/getLocale";
+import useLocale from "../../../hooks/useLocale";
+import IconCultureAndArts from "../../../icons/IconCultureAndArts";
+import IconDance from "../../../icons/IconDance";
+import IconFood from "../../../icons/IconFood";
+import IconMovies from "../../../icons/IconMovies";
+import IconMuseum from "../../../icons/IconMuseum";
+import IconMusic from "../../../icons/IconMusic";
+import IconParticipate from "../../../icons/IconParticipate";
+import IconSports from "../../../icons/IconSports";
+import IconStar from "../../../icons/IconStar";
+import IconTheatre from "../../../icons/IconTheatre";
 import { getSearchQuery } from "../../../util/searchUtils";
 import Container from "../layout/Container";
 import styles from "./topFooter.module.scss";
 
 const TopFooter: FunctionComponent = () => {
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
   const { push } = useHistory();
 
   const handleCategoryClick = (category: Category) => {
@@ -30,16 +33,71 @@ const TopFooter: FunctionComponent = () => {
       dateTypes: [],
       districts: [],
       endDate: null,
-      isCustomDate: false,
       keywords: [],
       places: [],
       publisher: null,
       search: "",
-      startDate: null
+      startDate: null,
+      targets: []
     });
 
     push({ pathname: `/${locale}/events`, search });
   };
+
+  const categories = React.useMemo(() => {
+    return [
+      {
+        icon: <IconMovies />,
+        text: t("home.category.movie"),
+        value: CATEGORIES.MOVIE
+      },
+      {
+        icon: <IconMusic />,
+        text: t("home.category.music"),
+        value: CATEGORIES.MUSIC
+      },
+      {
+        icon: <IconSports />,
+        text: t("home.category.sport"),
+        value: CATEGORIES.SPORT
+      },
+      {
+        icon: <IconMuseum />,
+        text: t("home.category.museum"),
+        value: CATEGORIES.MUSEUM
+      },
+      {
+        icon: <IconDance />,
+        text: t("home.category.dance"),
+        value: CATEGORIES.DANCE
+      },
+      {
+        icon: <IconCultureAndArts />,
+        text: t("home.category.culture"),
+        value: CATEGORIES.CULTURE
+      },
+      {
+        icon: <IconTree />,
+        text: t("home.category.nature"),
+        value: CATEGORIES.NATURE
+      },
+      {
+        icon: <IconParticipate />,
+        text: t("home.category.influence"),
+        value: CATEGORIES.INFLUENCE
+      },
+      {
+        icon: <IconTheatre />,
+        text: t("home.category.theatre"),
+        value: CATEGORIES.THEATRE
+      },
+      {
+        icon: <IconFood />,
+        text: t("home.category.food"),
+        value: CATEGORIES.FOOD
+      }
+    ];
+  }, [t]);
 
   return (
     <footer className={styles.topFooterWrapper}>
@@ -56,7 +114,7 @@ const TopFooter: FunctionComponent = () => {
               to={`/${locale}/events`}
             />
             <IconLink
-              icon={<IconSmile />}
+              icon={<IconStar />}
               text={t("footer.searchCollections")}
               to={`/${locale}/collections`}
             />
@@ -67,62 +125,20 @@ const TopFooter: FunctionComponent = () => {
             {t("footer.titleCategories")}
           </h2>
 
-          <CategoryFilters
-            categories={[
-              {
-                icon: <MovieIcon />,
-                text: t("home.category.movie"),
-                value: CATEGORIES.MOVIE
-              },
-              {
-                icon: <MusicIcon />,
-                text: t("home.category.music"),
-                value: CATEGORIES.MUSIC
-              },
-              {
-                icon: <SportIcon />,
-                text: t("home.category.sport"),
-                value: CATEGORIES.SPORT
-              },
-              {
-                icon: <MuseumIcon />,
-                text: t("home.category.museum"),
-                value: CATEGORIES.MUSEUM
-              },
-              {
-                icon: <DanceIcon />,
-                text: t("home.category.dance"),
-                value: CATEGORIES.DANCE
-              },
-              {
-                icon: <CultureIcon />,
-                text: t("home.category.culture"),
-                value: CATEGORIES.CULTURE
-              },
-              {
-                icon: <IconTree />,
-                text: t("home.category.nature"),
-                value: CATEGORIES.NATURE
-              },
-              {
-                icon: <IconFill />,
-                text: t("home.category.influence"),
-                value: CATEGORIES.INFLUENCE
-              },
-              {
-                icon: <TheatreIcon />,
-                text: t("home.category.theatre"),
-                value: CATEGORIES.THEATRE
-              },
-              {
-                icon: <IconFood />,
-                text: t("home.category.food"),
-                value: CATEGORIES.FOOD
-              }
-            ]}
-            hasHorizontalPadding={true}
-            onClickCategory={handleCategoryClick}
-          />
+          <div className={styles.categoriesInnerWrapper}>
+            {categories.map(category => {
+              return (
+                <CategoryFilter
+                  key={category.value}
+                  hasHorizontalPadding={true}
+                  icon={category.icon}
+                  onClick={handleCategoryClick}
+                  text={category.text}
+                  value={category.value}
+                />
+              );
+            })}
+          </div>
         </div>
       </Container>
     </footer>

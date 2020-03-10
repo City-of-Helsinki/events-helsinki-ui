@@ -1,0 +1,74 @@
+@import "colors";
+@import "fonts";
+@import "layout";
+@import "variables";
+
+.collectionHero {
+  @include respond-above(sm) {
+    display: grid;
+    grid-row: span;
+    place-content: flex-start;
+
+    & > * {
+        grid-column: 2;
+    }
+  }
+
+  @include respond-above(sm) {
+    grid-template-columns: 1fr 10fr 1fr;
+  }
+
+  @include respond-above(xlg) {
+    grid-template-columns: 1fr 91.875rem 1fr;
+  }
+}
+
+.collectionHero {
+  background: $hel-white;
+  padding-bottom: 11rem;
+}
+
+.imageWithCard {
+  max-width: 100%;
+  width: 100%;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    margin: 1rem 0;
+    font-weight: normal;
+  }
+
+  p {
+    margin: 1rem 0;
+  }
+
+  a {
+    color: $hel-black;
+    text-decoration: none;
+    font-weight: $link-font-weight;
+    display: flex;
+
+    .linkIcon {
+      height: 0.75rem;
+      width: 0.75rem;
+      margin-left: 0.5rem;
+      align-self: center;
+    }
+  }
+
+  div:last-child {
+    max-width: unset;
+    
+    > div {
+      background-color: $hel-engel-light-50;
+      color: $hel-black;
+
+      @include respond-above(sm) {
+        width: 50%;
+      }
+    }
+  }
+}

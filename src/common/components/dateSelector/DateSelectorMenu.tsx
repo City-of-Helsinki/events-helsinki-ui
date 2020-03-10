@@ -1,46 +1,51 @@
 import classNames from "classnames";
 import { IconAngleRight } from "hds-react";
 import React, { ChangeEvent, FunctionComponent, MutableRefObject } from "react";
-import { useLocation } from "react-router";
+import { useTranslation } from "react-i18next";
 
-import { ReactComponent as AngleLeftIcon } from "../../../assets/icons/svg/angle-left.svg";
-import { ReactComponent as CalendarAddIcon } from "../../../assets/icons/svg/calendar-add.svg";
-import { DATE_TYPES } from "../../../constants";
-import { formatMessage } from "../../translation/TranslationUtils";
+import useLocale from "../../../hooks/useLocale";
+import IconAngleLeft from "../../../icons/IconAngleLeft";
+import IconCalendarAdd from "../../../icons/IconCalendarAdd";
+import { translateValue } from "../../../util/translateUtils";
+import DateRangePicker from "../dateRangePicker/DateRangePicker";
 import Checkbox from "../input/Checkbox";
-import DateRangePicker from "./DateRangePicker";
 import styles from "./dateSelectorMenu.module.scss"; // the locale you want
 
 interface Props {
   backBtnRef?: MutableRefObject<HTMLButtonElement | null>;
   dateTypes: string[];
+  dateTypeOptions: string[];
   endDate: Date | null;
   isCustomDate: boolean;
   isOpen: boolean;
+  name: string;
   onChangeDateTypes: (value: string[]) => void;
   onChangeEndDate: (date: Date | null) => void;
   onChangeStartDate: (date: Date | null) => void;
+  onCloseMenu: () => void;
   startDate: Date | null;
   toggleBtnRef?: MutableRefObject<HTMLButtonElement | null>;
   toggleIsCustomDate: () => void;
-  toggleMenu: () => void;
 }
 
 const DateSelectorMenu: FunctionComponent<Props> = ({
   backBtnRef,
   dateTypes,
+  dateTypeOptions,
   endDate,
   isCustomDate,
   isOpen,
+  name,
   onChangeDateTypes,
   onChangeEndDate,
   onChangeStartDate,
+  onCloseMenu,
   startDate,
   toggleBtnRef,
-  toggleIsCustomDate,
-  toggleMenu
+  toggleIsCustomDate
 }) => {
-  const { pathname } = useLocation();
+  const { t } = useTranslation();
+  const locale = useLocale();
 
   if (!isOpen) return null;
 
@@ -53,49 +58,26 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
   };
 
   return (
-    <div className={styles.dateSelectorMenu}>
+    <div
+      className={classNames(styles.dateSelectorMenu, {
+        [styles.isCustomDate]: isCustomDate
+      })}
+    >
       {!isCustomDate && (
         <div className={styles.wrapper}>
-          <Checkbox
-            checked={dateTypes.indexOf(DATE_TYPES.ALL) !== -1}
-            name="date"
-            onChange={handleCheckboxChange}
-            value={DATE_TYPES.ALL}
-          >
-            {formatMessage("commons.dateSelector.dateTypeAll")}
-          </Checkbox>
-          <Checkbox
-            checked={dateTypes.indexOf(DATE_TYPES.TODAY) !== -1}
-            name="date"
-            onChange={handleCheckboxChange}
-            value={DATE_TYPES.TODAY}
-          >
-            {formatMessage("commons.dateSelector.dateTypeToday")}
-          </Checkbox>
-          <Checkbox
-            checked={dateTypes.indexOf(DATE_TYPES.TOMORROW) !== -1}
-            name="date"
-            onChange={handleCheckboxChange}
-            value={DATE_TYPES.TOMORROW}
-          >
-            {formatMessage("commons.dateSelector.dateTypeTomorrow")}
-          </Checkbox>
-          <Checkbox
-            checked={dateTypes.indexOf(DATE_TYPES.THIS_WEEK) !== -1}
-            name="date"
-            onChange={handleCheckboxChange}
-            value={DATE_TYPES.THIS_WEEK}
-          >
-            {formatMessage("commons.dateSelector.dateTypeThisWeek")}
-          </Checkbox>
-          <Checkbox
-            checked={dateTypes.indexOf(DATE_TYPES.WEEKEND) !== -1}
-            name="date"
-            onChange={handleCheckboxChange}
-            value={DATE_TYPES.WEEKEND}
-          >
-            {formatMessage("commons.dateSelector.dateTypeWeekend")}
-          </Checkbox>
+          {dateTypeOptions.map(option => {
+            return (
+              <Checkbox
+                key={option}
+                checked={dateTypes.indexOf(option) !== -1}
+                name={name}
+                onChange={handleCheckboxChange}
+                value={option}
+              >
+                {translateValue("commons.dateSelector.dateType", option, t)}
+              </Checkbox>
+            );
+          })}
         </div>
       )}
 
@@ -105,10 +87,11 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
           [styles.hidden]: isCustomDate
         })}
         onClick={toggleIsCustomDate}
+        type="button"
       >
-        <CalendarAddIcon />
+        <IconCalendarAdd />
         <div className={styles.buttonText}>
-          {formatMessage("commons.dateSelector.menu.buttonCustom")}
+          {t("commons.dateSelector.menu.buttonCustom")}
         </div>
         <IconAngleRight />
       </button>
@@ -119,10 +102,11 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
           [styles.hidden]: !isCustomDate
         })}
         onClick={toggleIsCustomDate}
+        type="button"
       >
-        <AngleLeftIcon />
+        <IconAngleLeft />
         <div className={styles.buttonText}>
-          {formatMessage("commons.dateSelector.menu.buttonBack")}
+          {t("commons.dateSelector.menu.buttonBack")}
         </div>
       </button>
 
@@ -130,7 +114,9 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         <div className={styles.wrapper}>
           <DateRangePicker
             endDate={endDate}
-            locale={pathname.split("/")[1]}
+            isMenuOpen={isCustomDate}
+            locale={locale}
+            name={name}
             onChangeEndDate={onChangeEndDate}
             onChangeStartDate={onChangeStartDate}
             startDate={startDate}
@@ -141,10 +127,11 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         className={classNames(styles.button, styles.btnClose, {
           [styles.hidden]: !isCustomDate
         })}
-        onClick={toggleMenu}
+        onClick={onCloseMenu}
+        type="button"
       >
         <div className={styles.buttonText}>
-          {formatMessage("commons.dateSelector.menu.buttonClose")}
+          {t("commons.dateSelector.menu.buttonClose")}
         </div>
       </button>
     </div>

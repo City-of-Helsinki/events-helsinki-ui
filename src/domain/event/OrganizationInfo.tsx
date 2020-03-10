@@ -8,9 +8,9 @@ import {
   EventDetailsQuery,
   useOrganizationDetailsQuery
 } from "../../generated/graphql";
-import getLocale from "../../util/getLocale";
+import useLocale from "../../hooks/useLocale";
 import getLocalisedString from "../../util/getLocalisedString";
-import styles from "./eventInfo.module.scss";
+import styles from "./eventInfo/eventInfo.module.scss";
 
 interface Props {
   eventData: EventDetailsQuery;
@@ -18,7 +18,7 @@ interface Props {
 
 const OrganizationInfo: React.FC<Props> = ({ eventData }) => {
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
   const { data: organizationData, loading } = useOrganizationDetailsQuery({
     skip: !eventData.eventDetails.publisher,
     ssr: false,

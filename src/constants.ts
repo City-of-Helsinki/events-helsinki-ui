@@ -15,7 +15,7 @@ export const CATEGORIES = {
 export const DISTRICTS = {
   ALPPIHARJU: "kaupunginosa:alppiharju",
   EIRA: "kaupunginosa:eira",
-  ETU_TÖÖLÖ: "kaupunginosa:etu-t%C3%B6%C3%B6l%C3%B6",
+  ETU_TÖÖLÖ: "kaupunginosa:etu-töölö",
   HAAGA: "kaupunginosa:haaga",
   HERMANNI: "kaupunginosa:hermanni",
   HERTTONIEMI: "kaupunginosa:herttoniemi",
@@ -29,40 +29,38 @@ export const DISTRICTS = {
   KONALA: "kaupunginosa:konala",
   KOSKELA: "kaupunginosa:koskela",
   KRUUNUNHAKA: "kaupunginosa:kruununhaka",
-  KULOSAARI: "kaupunginosa:mustikkamaa-korkeasaari,kaupunginosa:kulosaari",
+  KULOSAARI: "kaupunginosa:kulosaari",
   KUMPULA: "kaupunginosa:kumpula",
-  KÄPYLÄ: "kaupunginosa:k%C3%A4pyl%C3%A4",
-  LAAJASALO:
-    "kaupunginosa:laajasalo,kaupunginosa:villinki,kaupunginosa:santahamina",
+  KÄPYLÄ: "kaupunginosa:käpylä",
+  LAAJASALO: "kaupunginosa:laajasalo",
   LAAKSO: "kaupunginosa:laakso",
   LAUTTASAARI: "kaupunginosa:lauttasaari",
-  LÄNSISATAMA: "kaupunginosa:l%C3%A4nsisatama",
+  LÄNSISATAMA: "kaupunginosa:länsisatama",
   MALMI: "kaupunginosa:malmi",
   MEILAHTI: "kaupunginosa:meilahti",
-  MELLUNKYLÄ: "kaupunginosa:mellunkyl%C3%A4",
+  MELLUNKYLÄ: "kaupunginosa:mellunkylä",
   MUNKKINIEMI: "kaupunginosa:munkkiniemi",
-  OULUNKYLÄ: "kaupunginosa:oulunkyl%C3%A4",
+  OULUNKYLÄ: "kaupunginosa:oulunkylä",
   PAKILA: "kaupunginosa:pakila",
-  PITÄJÄMÄKI: "kaupunginosa:pit%C3%A4j%C3%A4nm%C3%A4ki",
-  PUKINMÄKI: "kaupunginosa:pukinm%C3%A4ki",
+  PITÄJÄMÄKI: "kaupunginosa:pitäjänmäki",
+  PUKINMÄKI: "kaupunginosa:pukinmäki",
   PUNAVUORI: "kaupunginosa:punavuori",
   RUSKEASUO: "kaupunginosa:ruskeasuo",
-  SUOMENLINNA: "kaupunginosa:suomenlinna,kaupunginosa:ulkosaaret",
-  SUURMETSÄ: "kaupunginosa:suurmets%C3%A4",
+  SUOMENLINNA: "kaupunginosa:suomenlinna",
+  SUURMETSÄ: "kaupunginosa:suurmets%ä",
   SUUTARILA: "kaupunginosa:suutarila",
-  SÖRNÄINEN: "kaupunginosa:s%C3%B6rn%C3%A4inen",
-  TAKA_TÖÖLÖ: "kaupunginosa:taka-t%C3%B6%C3%B6l%C3%B6",
+  SÖRNÄINEN: "kaupunginosa:sörnäinen",
+  TAKA_TÖÖLÖ: "kaupunginosa:taka-töölö",
   TAMMISALO: "kaupunginosa:tammisalo",
-  TAPANINKYLÄ: "kaupunginosa:tapaninkyl%C3%A4",
+  TAPANINKYLÄ: "kaupunginosa:tapaninkylä",
   ULLANLINNA: "kaupunginosa:ullanlinna",
   VALLILA: "kaupunginosa:vallila",
   VANHAKAUPUNKI: "kaupunginosa:vanhakaupunki",
-  VARTIOKYLÄ: "kaupunginosa:vartiokyl%C3%A4",
+  VARTIOKYLÄ: "kaupunginosa:vartiokylä",
   VARTIOSAARI: "kaupunginosa:vartiosaari",
   VIIKKI: "kaupunginosa:viikki",
   VUOSAARI: "kaupunginosa:vuosaari",
-  ÖSTERSUNDOM:
-    "kaupunginosa:%C3%B6stersundom,kaupunginosa:salmenkallio,kaupunginosa:talosaari,kaupunginosa:karhusaari,kaupunginosa:ultuna"
+  ÖSTERSUNDOM: "kaupunginosa:östersundom"
 };
 
 export const DATE_TYPES = {
@@ -73,7 +71,7 @@ export const DATE_TYPES = {
   WEEKEND: "weekend"
 };
 
-export const KEYWORD_TYPES = {
+export const AUTOSUGGEST_TYPES = {
   DISTRICT: "district",
   KEYWORD: "keyword",
   PLACE: "place",
@@ -85,3 +83,21 @@ export enum SUPPORT_LANGUAGES {
   SV = "sv",
   EN = "en"
 }
+
+export enum DATE_PICKER_INPUT {
+  START = "start",
+  END = "end"
+}
+
+export enum DATE_PICKER_INPUT_STATE {
+  NOT_SELECTED = "not-selected",
+  START_TIME_SELECTED = "start-time-selected",
+  END_TIME_SELECTED = "end-time-selected"
+}
+
+export const DEFAULT_LANGUAGE = SUPPORT_LANGUAGES.FI;
+
+export const TARGET_GROUPS = {
+  CHILDREN: "children",
+  YOUNG_PEOPLE: "young_people"
+};

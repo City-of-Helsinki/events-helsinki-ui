@@ -1,0 +1,12 @@
+@import "colors";
+@import "layout";
+
+.eventCard {
+  &.isLoading {
+    min-height: 17.875rem;
+    display: flex;
+    background: $lightest-gray;
+    align-items: center;
+    justify-content: center;
+  }
+}

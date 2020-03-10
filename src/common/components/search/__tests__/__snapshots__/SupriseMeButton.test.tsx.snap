@@ -9,7 +9,7 @@ exports[`SupriseMeButton matches snapshot 1`] = `
   <div
     className="text"
   >
-    Yllätä minut
+    Koeta onneasi
   </div>
   <svg>
     suprise-me.svg

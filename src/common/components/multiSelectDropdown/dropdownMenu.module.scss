@@ -1,0 +1,39 @@
+@import "colors";
+@import "layout";
+
+.dropdownMenu {
+  background: $hel-white;
+  color: $hel-black;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+
+  @include respond_above(sm) {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  .dropdownMenuWrapper {
+
+    @include respond_above(sm) {
+      max-height: 20rem;
+      overflow: auto;
+    }
+  }
+
+  .btnClear {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border-top: 1px solid $hel-light; 
+    width: 100%;
+    padding: 1rem;
+    color: $hel-black-50;
+
+    &:focus {
+      outline: 2px solid $hel-black;
+      outline-offset: 0;
+    }
+  }
+}

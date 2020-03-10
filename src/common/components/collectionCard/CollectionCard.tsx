@@ -1,9 +1,13 @@
 import classNames from "classnames";
 import { IconArrowRight } from "hds-react";
 import React from "react";
+import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
-import { formatMessage } from "../../../common/translation/TranslationUtils";
+import useLocale from "../../../hooks/useLocale";
+import IconLink from "../../components/link/IconLink";
+import SrOnly from "../srOnly/SrOnly";
 import styles from "./collectionCard.module.scss";
 
 export interface CollectionCardType {
@@ -26,6 +30,14 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
   size,
   title
 }) => {
+  const { search } = useLocation();
+  const { t } = useTranslation();
+  const locale = useLocale();
+
+  const collectionUrl = React.useMemo(() => {
+    return `/${locale}/collection/${id}${search}`;
+  }, [id, locale, search]);
+
   return (
     <div
       className={classNames(
@@ -33,23 +45,43 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
         styles[`${size}Size`]
       )}
     >
-      <div className={styles.imageWrapper}></div>
+      <Link
+        aria-hidden={true}
+        aria-label={t("commons.eventCard.ariaLabelLink", {
+          title
+        })}
+        className={styles.imageWrapper}
+        tabIndex={-1}
+        to={collectionUrl}
+      ></Link>
       <div className={styles.textWrapper}>
         <div className={styles.countWrapper}>
           <div className={styles.count}>
-            {formatMessage("commons.collectionCard.count", { count })}
+            {t("commons.collectionCard.count", { count })}
           </div>
         </div>
 
         <div className={styles.titleWrapper}>
-          <div className={styles.title}>{title}</div>
+          <Link
+            aria-hidden={true}
+            className={styles.title}
+            tabIndex={-1}
+            to={collectionUrl}
+          >
+            {title}
+          </Link>
+          <SrOnly>{title}</SrOnly>
           <div className={styles.description}>{description}</div>
         </div>
 
         <div className={styles.linkWrapper}>
-          <Link to={`collection/${id}`}>
-            <IconArrowRight />
-          </Link>
+          <IconLink
+            aria-label={t("commons.collectionCard.ariaLabelLink", {
+              title
+            })}
+            icon={<IconArrowRight />}
+            to={collectionUrl}
+          />
         </div>
       </div>
     </div>

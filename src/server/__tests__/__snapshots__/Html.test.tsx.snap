@@ -29,6 +29,15 @@ exports[`Html matches snapshot 1`] = `
       rel="shortcut icon"
     />
     <link
+      href="/images/apple-touch-icon.png"
+      rel="apple-touch-icon"
+      sizes="180x180"
+    />
+    <meta
+      content="#da532c"
+      name="msapplication-TileColor"
+    />
+    <link
       href="http://localhost:3000"
       rel="canonical"
     />
@@ -60,6 +69,14 @@ exports[`Html matches snapshot 1`] = `
       dangerouslySetInnerHTML={
         Object {
           "__html": "window.__APOLLO_STATE__={};",
+        }
+      }
+    />
+    <script
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "window.initialI18nStore={\\"en\\":{},\\"fi\\":{},\\"sv\\":{}};
+window.initialLanguage=\\"fi\\";",
         }
       }
     />

@@ -1,6 +1,6 @@
 include:
   - project: 'city-of-helsinki/kuva/ci-cd-config/ci-configuration'
-    ref: v1
+    ref: v2
     file: '/.gitlab-ci-template.yml'
 
 variables:
@@ -34,21 +34,26 @@ build-production:
   variables:
     DOCKER_IMAGE_NAME: "$CI_PROJECT_NAME-production"
     DOCKER_BUILD_ARG_SASS_PATH: "./src/assets/styles"
-    DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: "https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql"
+    DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: "https://tapahtumat-proxy.prod.kuva.hel.ninja/proxy/graphql"
     DOCKER_BUILD_ARG_REACT_APP_SSR_PORT: 3000
   only:
     refs:
       - master
+      - /^release-.*$/
 
 review:
   variables:
     DOCKER_IMAGE_NAME: "$CI_PROJECT_NAME-review"
     POSTGRES_ENABLED: 0
 
-# This will enable staging ci-pipeline
+
 staging:
   variables:
     DOCKER_IMAGE_NAME: "$CI_PROJECT_NAME-staging"
   only:
     refs:
       - develop
+
+production:
+  variables:
+    DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-production'

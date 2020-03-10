@@ -30,9 +30,6 @@ $logoWidth: 5.5rem;
 }
 
 .description {
-  border-bottom: 2px solid $hel-black-40;
-  margin-bottom: $largeMargin;
-  padding-bottom: $largePadding - 1rem;
   line-height: 1.5;
 
   p {
@@ -44,4 +41,15 @@ $logoWidth: 5.5rem;
     color: $hel-black;
     text-decoration: underline;
   }
+}
+
+.horizontalDivider {
+  height: 2px;
+
+  border-bottom: 2px solid $hel-black-40;
+}
+
+.largeWhiteSpace {
+  padding-top: $largePadding;
+  margin-bottom: $largeMargin;
 }

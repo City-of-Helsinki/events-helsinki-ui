@@ -12,6 +12,7 @@
       "ariaButtonRemove": "Poista kategoria: {{category}}"
     },
     "collectionCard": {
+      "ariaLabelLink": "Siirry kokoelmaan: {{title}}",
       "count": "{{count}} kpl"
     },
     "dateSelector": {
@@ -85,11 +86,35 @@
         "buttonClear": "Tyhjennä valinnat"
       }
     },
+    "eventCard": {
+      "ariaLabelLink": "Siirry tapahtumaan: {{name}}" 
+    },
     "filter": {
       "ariaButtonRemove": "Poista suodatin: {{filter}}"
     },
     "loading": "Ladataan...",
-    "supriseMe": "Yllätä minut"
+    "shareLink": {
+      "shareOnFacebook": "Jaa Facebookissa",
+      "shareOnTwitter": "Jaa Twitterissä",
+      "shareOnLinkedIn": "Jaa LinkedInissä"
+    },
+    "shareLinks": {
+      "buttonCopyLink": "Kopioi linkin osoite",
+      "messageLinkCopySuccess": "Linkki kopioitu leikepöydälle"
+    },
+    "supriseMe": "Koeta onneasi",
+    "targets": {
+      "children": "Lapsille",
+      "youngPeople": "Nuorille"
+    }
+  },
+  "collection": {
+    "curatedEvents": {
+      "textEventNotFound": "Tapahtumaa ei löydy"
+    },
+    "shareLinks": {
+      "title": "Jaa kokoelma"
+    }
   },
   "event": {
     "categories": {
@@ -101,12 +126,13 @@
       "title": "Kuvaus"
     },
     "hero": {
+      "ariaLabelBackButton": "Takaisin tapahtumahakuun",
       "buttonBuyTickets": "Osta liput",
-      "buttonToHomePage": "Kotisivulle",
+      "buttonToHomePage": "Siirry etusivulle",
       "offers": {
         "isFree": "Ilmainen"
       },
-      "textEventClosed": "Etsimäsi tapahtuma on ehtinyt jo päättymään"
+      "textEventClosed": "Etsimäsi tapahtuma on jo ehtinyt päättyä"
     },
     "info": {
       "buttonAddToCalendar": "Lisää kalenteriin",
@@ -138,11 +164,19 @@
       "openMap": "Avaa kartta uuteen ikkunaan",
       "title": "Sijainti"
     },
+    "otherTimes": {
+      "buttonReadMore": "Lue lisää",
+      "title": "Tapahtuman muut ajat"
+    },
+    "shareLinks": {
+      "title": "Jaa tapahtuma"
+    },
     "similarEvents": {
       "title": "Muita samankaltaisia tapahtumia"
     }
   },
   "eventSearch": {
+    "buttonClearFilters": "Tyhjennä hakuehdot",
     "buttonLoadMore": "Lataa lisää tapahtumia",
     "event": {
       "buttonBuyTickets": "Osta liput",
@@ -153,28 +187,46 @@
       }
     },
     "filters": {
+      "buttonRemoveSearchWord": "Poista hakusana",
       "textNoFilters": "Ei hakuehtoja",
-      "titleSummary": "Valitsemasi hakuehdot"
+      "titleSummary": "Valitsemasi hakuehdot:"
+    },
+    "noResultsInfo": {
+      "bigText": "Voi vitsi, valitsemillasi hakuehdoilla ei löytynyt yhtään hakutulosta",
+      "smallText": "Kokeile muuttamalla hakuehtoja ja varmasti löydät jotain kiinnostavaa tekemistä!"
     },
     "search": {
       "buttonSearch": "Hae",
       "labelCategory": "Millaista haet?",
       "labelDateRange": "Mille ajankohdalle etsit?",
+      "labelDistrict": "Mistä etsit?",
       "labelSearchField": "Mitä etsit?",
-      "placeholder": "Aloita kirjoittamalla tähän, esim. teatteri",
-      "titleDropdownCategory": "Valitse kategoria"
+      "labelTargetGroup": "Kenelle etsit?",
+      "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
+      "titleDropdownCategory": "Valitse kategoria",
+      "titleDropdownDistrict": "Valitse alue",
+      "titleDropdownTargetGroup": "Valitse kenelle"
     },
-    "textFoundEvents": "Löysimme sinulle {{count}} tekemistä"
+    "textFoundEvents": "{{count}} hakutulosta"
   },
   "footer": {
-    "titleCategories": "Kategoriat",
-    "searchCollections": "Selaa kokoelmia",
-    "searchEvents": "Etsi tekemistä"
+    "linkAbout": "Tietoa palvelusta",
+    "linkFeedback": "Anna palautetta",
+    "searchCollections": "Suosittelemme",
+    "searchEvents": "Etsi tekemistä",
+    "titleCategories": "Kategoriat"
+
   },
   "header": {
     "ariaButtonCloseMenu": "Sulje valikko",
     "ariaButtonOpenMenu": "Avaa valikko",
-    "searchCollections": "Selaa kokoelmia",
+    "ariaLabelLogo": "Etusivu",
+    "languages": {
+      "en": "In English",
+      "fi": "Suomeksi",
+      "sv": "På svenska"
+    },
+    "searchCollections": "Suosittelemme",
     "searchEvents": "Etsi tekemistä"
   },
   "home": {
@@ -192,19 +244,20 @@
       "theatre": "Teatteri"
     },
     "collections": {
-      "title": "Kokoelmat"
+      "title": "Suosittelemme"
     },
     "hero": {
       "buttonText": "Katso vinkit",
       "subTitle": "Kokosimme yhteen",
-      "title": "Syysloman riehakaimmat riennot!"
+      "title": "Syysloman riehakkaimmat riennot!"
     },
     "search": {
       "buttonSearch": "Hae",
       "labelDateRange": "Mille ajankohdalle etsit?",
       "labelSearchField": "Mitä etsit?",
-      "placeholder": "Aloita kirjoittamalla tähän, esim. teatteri",
-      "title": "Löydä itsellesi tekemistä!"
+      "linkAdvancedSearch": "Tarkennettu haku",
+      "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
+      "title": "Löydä tekemistä"
     }
   },
   "menu": {

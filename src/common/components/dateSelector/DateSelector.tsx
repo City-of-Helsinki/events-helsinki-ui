@@ -1,16 +1,28 @@
 import React, { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 
-import { ReactComponent as AngleDownIcon } from "../../../assets/icons/svg/angle-down.svg";
-import { ReactComponent as AngleUpIcon } from "../../../assets/icons/svg/angle-up.svg";
-import { ReactComponent as CalendarIcon } from "../../../assets/icons/svg/calendar.svg";
-import { formatMessage } from "../../translation/TranslationUtils";
+import { DATE_TYPES } from "../../../constants";
+import useLocale from "../../../hooks/useLocale";
+import IconAngleDown from "../../../icons/IconAngleDown";
+import IconAngleUp from "../../../icons/IconAngleUp";
+import IconCalendar from "../../../icons/IconCalendar";
+import { formatDate } from "../../../util/dateUtils";
+import { translateValue } from "../../../util/translateUtils";
 import styles from "./dateSelector.module.scss";
 import DateSelectorMenu from "./DateSelectorMenu";
+
+const dateTypeOptions = [
+  DATE_TYPES.TODAY,
+  DATE_TYPES.TOMORROW,
+  DATE_TYPES.THIS_WEEK,
+  DATE_TYPES.WEEKEND
+];
 
 interface Props {
   dateTypes: string[];
   endDate: Date | null;
   isCustomDate: boolean;
+  name: string;
   onChangeDateTypes: (value: string[]) => void;
   onChangeEndDate: (date: Date | null) => void;
   onChangeStartDate: (date: Date | null) => void;
@@ -22,12 +34,15 @@ const DateSelector: FunctionComponent<Props> = ({
   dateTypes,
   endDate,
   isCustomDate,
+  name,
   onChangeDateTypes,
   onChangeEndDate,
   onChangeStartDate,
   startDate,
   toggleIsCustomDate
 }) => {
+  const { t } = useTranslation();
+  const locale = useLocale();
   const backBtnRef = React.useRef<HTMLButtonElement | null>(null);
   const toggleBtnRef = React.useRef<HTMLButtonElement | null>(null);
   const dateSelector = React.useRef<HTMLDivElement | null>(null);
@@ -43,22 +58,52 @@ const DateSelector: FunctionComponent<Props> = ({
     }
   };
 
-  const handleDocumentKeyDown = (event: KeyboardEvent) => {
-    switch (event.keyCode) {
-      // Close menu on ESC key
-      case 27:
-        setIsMenuOpen(false);
-        break;
+  const ensureMenuIsOpen = React.useCallback(() => {
+    if (!isMenuOpen) {
+      setIsMenuOpen(true);
     }
-  };
+  }, [isMenuOpen]);
 
-  const handleDocumentFocusin = (event: FocusEvent) => {
-    const target = event.target;
+  const isComponentFocused = React.useCallback(() => {
+    const active = document.activeElement;
     const current = dateSelector && dateSelector.current;
 
-    if (!(current && target instanceof Node && current.contains(target))) {
+    if (current && active instanceof Node && current.contains(active)) {
+      return true;
+    }
+    return false;
+  }, [dateSelector]);
+
+  const handleDocumentFocusin = React.useCallback(() => {
+    if (!isComponentFocused()) {
       setIsMenuOpen(false);
     }
+  }, [isComponentFocused]);
+
+  const handleDocumentKeyDown = React.useCallback(
+    (event: KeyboardEvent) => {
+      if (!isComponentFocused()) return;
+
+      switch (event.key) {
+        case "ArrowUp":
+          ensureMenuIsOpen();
+          event.preventDefault();
+          break;
+        case "ArrowDown":
+          ensureMenuIsOpen();
+          event.preventDefault();
+          break;
+        case "Escape":
+          setIsMenuOpen(false);
+          event.preventDefault();
+          break;
+      }
+    },
+    [ensureMenuIsOpen, isComponentFocused]
+  );
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
   };
 
   const toggleMenu = () => {
@@ -75,7 +120,7 @@ const DateSelector: FunctionComponent<Props> = ({
       document.removeEventListener("keydown", handleDocumentKeyDown);
       document.removeEventListener("focusin", handleDocumentFocusin);
     };
-  }, []);
+  }, [handleDocumentFocusin, handleDocumentKeyDown]);
 
   const handleToggleIsCustomDate = () => {
     if (isCustomDate) {
@@ -84,43 +129,72 @@ const DateSelector: FunctionComponent<Props> = ({
           toggleBtnRef.current.focus();
         }
       }, 1);
-    } else {
-      setTimeout(() => {
-        if (backBtnRef && backBtnRef.current) {
-          backBtnRef.current.focus();
-        }
-      }, 1);
     }
 
     toggleIsCustomDate();
   };
 
+  const isSelected = isCustomDate
+    ? !!startDate || !!endDate
+    : !!dateTypes.length;
+
+  const selectedText = React.useMemo(() => {
+    if (!!startDate || !!endDate) {
+      return `${formatDate(startDate, undefined, locale)} -
+            ${formatDate(endDate, undefined, locale)}`;
+    }
+
+    const sortDateTypes = (a: string, b: string): number =>
+      dateTypeOptions.indexOf(a) < dateTypeOptions.indexOf(b) ? -1 : 1;
+
+    const dateTypeLabels = dateTypes.sort(sortDateTypes).map(val => {
+      return translateValue("commons.dateSelector.dateType", val, t);
+    });
+    if (dateTypeLabels.length > 1) {
+      return `${dateTypeLabels[0]} + ${dateTypeLabels.length - 1}`;
+    } else {
+      return dateTypeLabels.join();
+    }
+  }, [dateTypes, endDate, locale, startDate, t]);
+
   return (
     <div className={styles.dateSelector} ref={dateSelector}>
-      <button className={styles.button} onClick={toggleMenu} type="button">
+      <button
+        aria-haspopup="true"
+        aria-expanded={isMenuOpen}
+        aria-label={t("commons.dateSelector.title")}
+        className={styles.button}
+        onClick={toggleMenu}
+        type="button"
+      >
         <div className={styles.iconWrapper}>
-          <CalendarIcon />
+          <IconCalendar className={styles.iconCalendar} />
         </div>
         <div className={styles.info}>
-          {formatMessage("commons.dateSelector.title")}
+          <div className={styles.buttonTextWrapper}>
+            {selectedText || t("commons.dateSelector.title")}
+          </div>
         </div>
         <div className={styles.arrowWrapper}>
-          {isMenuOpen ? <AngleUpIcon /> : <AngleDownIcon />}
+          {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
         </div>
       </button>
+      {isSelected && <div className={styles.isSelectedIndicator} />}
       <DateSelectorMenu
         backBtnRef={backBtnRef}
         dateTypes={dateTypes}
+        dateTypeOptions={dateTypeOptions}
         endDate={endDate}
         isCustomDate={isCustomDate}
         isOpen={isMenuOpen}
+        name={name}
         onChangeDateTypes={onChangeDateTypes}
         onChangeEndDate={onChangeEndDate}
         onChangeStartDate={onChangeStartDate}
         startDate={startDate}
         toggleBtnRef={toggleBtnRef}
         toggleIsCustomDate={handleToggleIsCustomDate}
-        toggleMenu={toggleMenu}
+        onCloseMenu={closeMenu}
       />
     </div>
   );

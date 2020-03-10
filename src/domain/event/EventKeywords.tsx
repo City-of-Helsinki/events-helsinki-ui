@@ -3,45 +3,52 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import Keyword from "../../common/components/keyword/Keyword";
-import getLocale from "../../util/getLocale";
-import getLocalisedString from "../../util/getLocalisedString";
-import { isEventFree } from "./EventUtils";
+import useLocale from "../../hooks/useLocale";
+import { getEventKeywords, isEventFree } from "./EventUtils";
 import { EventInList } from "./types";
 
 interface Props {
   blackOnMobile?: boolean;
   event: EventInList;
+  hideKeywordsOnMobile?: boolean;
   showIsFree: boolean;
+  showKeywords?: boolean;
 }
 const EventKeywords: React.FC<Props> = ({
   blackOnMobile,
   event,
-  showIsFree
+  hideKeywordsOnMobile = false,
+  showIsFree,
+  showKeywords = true
 }) => {
   const { t } = useTranslation();
-  const locale = getLocale();
+  const locale = useLocale();
 
   const startTime = event.startTime;
   const today = startTime ? isToday(new Date(startTime)) : false;
-  const keywords = event.keywords;
+  const keywords = getEventKeywords(event, locale);
+
   const thisWeek = startTime ? isThisWeek(new Date(startTime)) : false;
+
   if (!today && !thisWeek && (!keywords || !keywords.length)) {
     return null;
   }
 
   return (
-    <div>
-      {keywords &&
+    <>
+      {!!keywords.length &&
+        showKeywords &&
         keywords.map(keyword => {
           return (
             <Keyword
               blackOnMobile={blackOnMobile}
+              hideOnMobile={hideKeywordsOnMobile}
               key={keyword.id}
-              keyword={getLocalisedString(keyword.name, locale)}
+              keyword={keyword.name}
             />
           );
         })}
-      {!today && !thisWeek && (
+      {today && (
         <Keyword
           color="engelLight50"
           keyword={t("event.categories.labelToday")}
@@ -59,7 +66,7 @@ const EventKeywords: React.FC<Props> = ({
           keyword={t("event.categories.labelFree")}
         />
       )}
-    </div>
+    </>
   );
 };
 

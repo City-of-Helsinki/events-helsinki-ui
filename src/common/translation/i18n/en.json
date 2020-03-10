@@ -1,17 +1,18 @@
 {
-  "appName": "Tapahtumat (en)",
+  "appName": "Events",
   "commons": {
     "autosuggest": {
       "menu": {
-        "ariaButtonClose": "Sulje valikko (en)",
-        "info": "Voit myös etsiä kirjoittamallasi hakusanalla (en)",
-        "title": "Hakuehdotuksia (en)"
+        "ariaButtonClose": "Close menu",
+        "info": "You can also search by the keyword you entered",
+        "title": "Search suggestions"
       }
     },
     "category": {
-      "ariaButtonRemove": "Poista kategoria: {{category}} (en)"
+      "ariaButtonRemove": "Remove category: {{category}}"
     },
     "collectionCard": {
+      "ariaLabelLink": "Go to collection: {{title}}",
       "count": "{{count}} pcs"
     },
     "dateSelector": {
@@ -85,11 +86,35 @@
         "buttonClear": "Clear selection"
       }
     },
+    "eventCard": {
+      "ariaLabelLink": "Go to event: {{name}}" 
+    },
     "filter": {
       "ariaButtonRemove": "Remove filter: {{filter}}"
     },
     "loading": "Loading...",
-    "supriseMe": "Yllätä minut (en)"
+    "shareLink": {
+      "shareOnFacebook": "Share on Facebook",
+      "shareOnTwitter": "Share on Twitter",
+      "shareOnLinkedIn": "Share on LinkedIn"
+    },
+    "shareLinks": {
+      "buttonCopyLink": "Copy link address",
+      "messageLinkCopySuccess": "Link copied into clipboard"
+    },
+    "supriseMe": "I'm Feeling Lucky",
+    "targets": {
+      "children": "Children",
+      "youngPeople": "Young people"
+    }
+  },
+  "collection": {
+    "curatedEvents": {
+      "textEventNotFound": "Event not found"
+    },
+    "shareLinks": {
+      "title": "Share Collection"
+    }
   },
   "event": {
     "categories": {
@@ -101,8 +126,9 @@
       "title": "Description"
     },
     "hero": {
+      "ariaLabelBackButton": "Back to event search",
       "buttonBuyTickets": "Buy tickets",
-      "buttonToHomePage": "To front page",
+      "buttonToHomePage": "Go to the homepage",
       "offers": {
         "isFree": "Free"
       },
@@ -138,11 +164,19 @@
       "openMap": "Open the map in a new window",
       "title": "Location"
     },
+    "otherTimes": {
+      "buttonReadMore": "Read more",
+      "title": "Other times of the event"
+    },
+    "shareLinks": {
+      "title": "Share Event"
+    },
     "similarEvents": {
       "title": "Other similar events"
     }
   },
   "eventSearch": {
+    "buttonClearFilters": "Clear filters",
     "buttonLoadMore": "Load more events",
     "event": {
       "buttonBuyTickets": "Buy tickets",
@@ -153,28 +187,45 @@
       }
     },
     "filters": {
+      "buttonRemoveSearchWord": "Remove search word",
       "textNoFilters": "No search criteria",
-      "titleSummary": "Selected search criteria"
+      "titleSummary": "Selected search criteria:"
+    },
+    "noResultsInfo": {
+      "bigText": "Sorry, no search results were found for the search criteria you selected",
+      "smallText": "Try changing your search criteria and you're sure to find something to do!"
     },
     "search": {
       "buttonSearch": "Search",
       "labelCategory": "What kind of event you are looking for?",
       "labelDateRange": "For what period you are looking for?",
+      "labelDistrict": "From where are you looking for?",
       "labelSearchField": "What you are looking for?",
-      "placeholder": "Start typing here, eg theater",
-      "titleDropdownCategory": "Select category"
+      "labelTargetGroup": "Whom you are looking for?",
+      "placeholder": "Enter a keyword, eg rock or yoga",
+      "titleDropdownCategory": "Select category",
+      "titleDropdownDistrict": "Select area",
+      "titleDropdownTargetGroup": "Select for whom"
     },
-    "textFoundEvents": "We found {{count}} things to do for you"
+    "textFoundEvents": "{{count}} search results"
   },
   "footer": {
-    "titleCategories": "Kategoriat (en)",
-    "searchCollections": "Selaa kokoelmia (en)",
-    "searchEvents": "Find something to do"
+    "linkAbout": "About",
+    "linkFeedback": "Give feedback",
+    "searchCollections": "We recommend",
+    "searchEvents": "Find something to do",
+    "titleCategories": "Categories"
   },
   "header": {
-    "ariaButtonCloseMenu": "Sulje valikko (en)",
-    "ariaButtonOpenMenu": "Avaa valikko (en)",
-    "searchCollections": "Selaa kokoelmia (en)",
+    "ariaButtonCloseMenu": "Close menu",
+    "ariaButtonOpenMenu": "Open menu",
+    "ariaLabelLogo": "Home",
+    "languages": {
+      "en": "In English",
+      "fi": "Suomeksi",
+      "sv": "På svenska"
+    },
+    "searchCollections": "We recommend",
     "searchEvents": "Find something to do"
   },
   "home": {
@@ -192,25 +243,26 @@
       "theatre": "Theater"
     },
     "collections": {
-      "title": "Collections"
+      "title": "We recommend"
     },
     "hero": {
-      "buttonText": "Katso vinkit (en)",
-      "subTitle": "Kokosimme yhteen (en)",
-      "title": "Syysloman riehakaimmat riennot! (en)"
+      "buttonText": "See tips",
+      "subTitle": "We put it together",
+      "title": "The most tragic treats of an autumn holiday!"
     },
     "search": {
       "buttonSearch": "Search",
       "labelDateRange": "For what period you are looking for?",
       "labelSearchField": "What you are looking for?",
-      "placeholder": "Start typing here, eg theater",
-      "title": "Find something to do!"
+      "linkAdvancedSearch": "Advanced Search",
+      "placeholder": "Enter a keyword, eg rock or yoga",
+      "title": "Find something to do"
     }
   },
   "menu": {
-    "aboutService": "Tietoa palvelusta (en)",
-    "mostPopular": "Suosituimmat haut (en)",
-    "searchCategories": "Selaa kategorioita (en)",
+    "aboutService": "About",
+    "mostPopular": "Top searches",
+    "searchCategories": "Browse Categories",
     "searchEvents": "Find something to do"
   }
 }

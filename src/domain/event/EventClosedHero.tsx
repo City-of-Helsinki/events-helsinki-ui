@@ -3,13 +3,13 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 
 import Button from "../../common/components/button/Button";
-import getLocale from "../../util/getLocale";
+import useLocale from "../../hooks/useLocale";
 import styles from "./eventClosedHero.module.scss";
 
 const EventClosedHero: React.FC = () => {
   const { t } = useTranslation();
   const { push } = useHistory();
-  const locale = getLocale();
+  const locale = useLocale();
 
   const moveToHomePage = () => {
     push(`/${locale}/home`);

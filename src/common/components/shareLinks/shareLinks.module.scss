@@ -1,0 +1,60 @@
+@import "colors";
+@import "fonts";
+@import "variables";
+
+.shareSubSection {
+  padding-top: $baseMargin;
+}
+
+.shareSubSectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+}
+
+.shareLinkList {
+  list-style: none;
+  margin: unset;
+  padding: unset;
+  display: flex;
+}
+
+.shareLinkItem {
+  margin-right: $baseMargin;
+
+  &:last-child {
+    margin-right: unset;
+  }
+
+  button {
+    line-height: 1;
+    
+    &:focus {
+      outline: 2px solid $hel-black;
+    }
+  }
+}
+
+.relativePosition {
+  position: relative;
+}
+
+.copyButton {
+  fill: $hel-black;
+}
+
+.linkCopyButtonSuccess {
+  fill: $hds-ui-color-success;
+}
+
+.successTooltip {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  padding: 0.25rem 0.60rem;
+
+  font-size: $font-size-sm;
+  color: $hel-white;
+  white-space: nowrap;
+
+  background-color: $hds-ui-color-success;
+}

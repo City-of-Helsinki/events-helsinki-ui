@@ -14,14 +14,16 @@ $logoWidth: 5.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  flex: 1 1 0%;
+  text-decoration: none;
 }
-  
+
 .appName {
-  margin-left: 1.875rem;
-  margin-right: 1.875rem;
+  margin: 0.67em 1.875rem;
   font-size: 1.25rem;
+  color: $hel-black;
+  font-weight: 600;
   white-space: nowrap;
+  color: $hel-black;
 }
 
 .logo {
@@ -30,9 +32,11 @@ $logoWidth: 5.5rem;
     height: $logoHeight;
     width: $logoWidth;
 }
-
+  
 .buttonWrapper {
   display: flex;
+  flex: 1 1 0%;
+  justify-content: flex-end;
 
   .closeButton {
     background: none;

@@ -9,31 +9,37 @@ import {
 } from "../../generated/graphql";
 
 type OfferInList = Pick<Offer, "isFree"> & {
-  price: Maybe<Pick<LocalizedObject, "fi" | "sv" | "en">>;
-  infoUrl: Maybe<Pick<LocalizedObject, "fi" | "sv" | "en">>;
+  description: Maybe<LocalizedObject>;
+  price: Maybe<LocalizedObject>;
+  infoUrl: Maybe<LocalizedObject>;
 };
 
 type KeywordInList = Pick<Keyword, "id"> & {
-  name: Pick<LocalizedObject, "fi" | "sv" | "en">;
+  name: Maybe<LocalizedObject>;
 };
 
 type LocationInList = {
-  addressLocality: Maybe<Pick<LocalizedObject, "fi" | "sv" | "en">>;
+  addressLocality: Maybe<LocalizedObject>;
   divisions: Maybe<
     Array<
       Pick<Division, "type"> & {
-        name: Maybe<Pick<LocalizedObject, "fi" | "sv" | "en">>;
+        name: Maybe<LocalizedObject>;
       }
     >
   >;
-  name: Maybe<Pick<LocalizedObject, "fi" | "en" | "sv">>;
-  streetAddress: Maybe<Pick<LocalizedObject, "fi" | "sv" | "en">>;
+  name: Maybe<LocalizedObject>;
+  streetAddress: Maybe<LocalizedObject>;
+};
+
+export type EventUiKeyword = {
+  id: string;
+  name: string;
 };
 
 export type EventInList = Pick<EventDetails, "id" | "startTime" | "endTime"> & {
   images: Array<Pick<Image, "id" | "name" | "url">>;
   keywords: Array<KeywordInList>;
   location: Maybe<LocationInList>;
-  name: Pick<LocalizedObject, "fi" | "en" | "sv">;
+  name: LocalizedObject;
   offers: Array<OfferInList>;
 };

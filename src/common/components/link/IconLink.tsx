@@ -1,22 +1,29 @@
+import classNames from "classnames";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, LinkProps } from "react-router-dom";
 
 import styles from "./iconLink.module.scss";
 
-interface Props {
+interface Props extends LinkProps {
+  backgroundColor?: "default" | "white";
   icon: React.ReactElement;
-  text: string;
-  to: string;
+  text?: string;
 }
 
-const IconLink: React.FC<Props> = ({ icon, text, to }) => {
+const IconLink: React.FC<Props> = ({
+  backgroundColor = "default",
+  icon,
+  text,
+  ...rest
+}) => {
   return (
-    <div className={styles.iconLink}>
-      <Link to={to}>
-        <div className={styles.iconWrapper}>{icon}</div>
-        <div className={styles.textWrapper}>{text}</div>
-      </Link>
-    </div>
+    <Link
+      {...rest}
+      className={classNames(styles.iconLink, styles[backgroundColor])}
+    >
+      <div className={styles.iconWrapper}>{icon}</div>
+      {text && <div className={styles.textWrapper}>{text}</div>}
+    </Link>
   );
 };
 

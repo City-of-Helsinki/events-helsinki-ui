@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Select matches snapshot 1`] = `"<div class=\\"select css-2b097c-container\\"><div class=\\"select__control css-yk16xz-control\\"><div class=\\"select__value-container select__value-container--has-value css-1hwfws3\\"><div class=\\"select__single-value css-1uccc91-singleValue\\">label2</div><input id=\\"react-select-2-input\\" readonly=\\"\\" tabindex=\\"0\\" value=\\"\\" class=\\"css-62g3xt-dummyInput\\"/></div><div class=\\"select__indicators css-1hb7zxy-IndicatorsContainer\\"><div class=\\"select__dropdown-indicator\\"><svg>angle-down.svg</svg></div></div></div></div>"`;

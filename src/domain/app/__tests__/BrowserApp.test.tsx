@@ -1,30 +1,66 @@
+import { MockedProvider } from "@apollo/react-testing";
 import { mount } from "enzyme";
+import i18n from "i18next";
 import React from "react";
+import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router";
 
+import { CollectionListDocument } from "../../../generated/graphql";
 import App from "../App";
-import BrowserApp, { appRoutes } from "../BrowserApp";
+import AppRoutes from "../AppRoutes";
+import BrowserApp from "../BrowserApp";
+
+const mocks = [
+  {
+    request: {
+      query: CollectionListDocument
+    },
+    result: {
+      data: {
+        collectionList: {
+          results: {
+            data: []
+          }
+        }
+      }
+    }
+  }
+];
 
 const wrapperCreator = (route: string) =>
-  mount(<MemoryRouter initialEntries={[route]}>{appRoutes}</MemoryRouter>);
+  mount(
+    <MemoryRouter initialEntries={[route]}>
+      <MockedProvider mocks={mocks}>
+        <AppRoutes />
+      </MockedProvider>
+    </MemoryRouter>
+  );
+
+beforeEach(() => {
+  act(() => {
+    i18n.changeLanguage("fi");
+  });
+});
 
 it("renders snapshot correctly", () => {
   const tree = mount(<BrowserApp />);
   expect(tree.html()).toMatchSnapshot();
 });
 
-it("redirect user from root to /fi/home by default", () => {
+it("redirect user from root to /:language/home by default based on current language", () => {
   const wrapper = wrapperCreator("/");
 
   expect(wrapper.children().props().history.location.pathname).toBe("/fi/home");
-});
 
-it("user from root will be redirect to App with guarantee fi locale", () => {
-  const wrapper = wrapperCreator("/");
-  const app = wrapper.find(App);
+  act(() => {
+    i18n.changeLanguage("en");
+  });
 
-  expect(app).toBeDefined();
-  expect(app.props().match.params.locale).toEqual("fi");
+  expect(
+    wrapperCreator("/")
+      .children()
+      .props().history.location.pathname
+  ).toBe("/en/home");
 });
 
 it("user from supported locale will be redirect to App with that locale", () => {
