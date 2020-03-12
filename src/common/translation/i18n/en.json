@@ -264,5 +264,10 @@
     "mostPopular": "Top searches",
     "searchCategories": "Browse Categories",
     "searchEvents": "Find something to do"
+  },
+  "notFound": {
+    "linkSearchEvents": "Find something to do",
+    "text": "Could not find the page you requested for one reason or another. Find something to do for yourself here:",
+    "title": "Oops, now hit 404!"
   }
 }

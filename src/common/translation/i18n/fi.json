@@ -265,5 +265,10 @@
     "mostPopular": "Suosituimmat haut",
     "searchCategories": "Selaa kategorioita",
     "searchEvents": "Etsi tekemistä"
+  },
+  "notFound": {
+    "linkSearchEvents": "Hae itsellesi tekemistä",
+    "text": "Syystä tai toisesta hakemaasi sivua ei löydy. Löydä itsellesi tekemistä vaikkapa täältä:",
+    "title": "Oho, nyt iski 404!"
   }
 }

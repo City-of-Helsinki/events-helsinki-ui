@@ -264,5 +264,10 @@
     "mostPopular": "Toppsökningar",
     "searchCategories": "Bläddra i kategorier",
     "searchEvents": "Hitta något att göra"
+  },
+  "notFound": {
+    "linkSearchEvents": "Hitta något att göra",
+    "text": "Det gick inte att hitta den sida du begärde av en eller annan anledning. Hitta något att göra själv här:",
+    "title": "Oj, nu slog 404!"
   }
 }
