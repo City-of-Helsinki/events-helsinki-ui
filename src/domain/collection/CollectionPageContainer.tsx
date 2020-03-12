@@ -1,8 +1,12 @@
 import React from "react";
-import { useParams } from "react-router";
+import { useTranslation } from "react-i18next";
+import { useLocation, useParams } from "react-router";
+import { Link } from "react-router-dom";
 
+import ErrorHero from "../../common/components/error/ErrorHero";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useCollectionDetailsQuery } from "../../generated/graphql";
+import useLocale from "../../hooks/useLocale";
 import isClient from "../../util/isClient";
 import Layout from "../app/layout/Layout";
 import CollectionHero from "./collectionHero/CollectionHero";
@@ -17,7 +21,11 @@ interface RouteParams {
 }
 
 const CollectionPageContainer: React.FC = () => {
+  const { search } = useLocation();
   const params = useParams<RouteParams>();
+  const { t } = useTranslation();
+  const locale = useLocale();
+
   const { data: collectionData, loading } = useCollectionDetailsQuery({
     variables: { id: params.id }
   });
@@ -33,7 +41,7 @@ const CollectionPageContainer: React.FC = () => {
     <Layout>
       <div className={styles.collectionPageWrapper}>
         <LoadingSpinner isLoading={loading}>
-          {collectionData && (
+          {collectionData ? (
             <>
               <CollectionPageMeta collectionData={collectionData} />
               <CollectionHero collectionData={collectionData} />
@@ -41,6 +49,15 @@ const CollectionPageContainer: React.FC = () => {
               <EventList collectionData={collectionData} />
               <SimilarCollections collectionData={collectionData} />
             </>
+          ) : (
+            <ErrorHero
+              text={t("collection.notFound.text")}
+              title={t("collection.notFound.title")}
+            >
+              <Link to={`/${locale}/events${search}`}>
+                {t("collection.notFound.linkSearchEvents")}
+              </Link>
+            </ErrorHero>
           )}
         </LoadingSpinner>
       </div>
