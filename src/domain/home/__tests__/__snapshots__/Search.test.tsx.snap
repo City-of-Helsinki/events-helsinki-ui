@@ -799,9 +799,9 @@ Array [
                               className="react-datepicker__week"
                             >
                               <div
-                                aria-disabled={false}
+                                aria-disabled={true}
                                 aria-label="day-9"
-                                className="react-datepicker__day react-datepicker__day--009 react-datepicker__day--keyboard-selected react-datepicker__day--today"
+                                className="react-datepicker__day react-datepicker__day--009 react-datepicker__day--disabled"
                                 onClick={[Function]}
                                 onMouseEnter={[Function]}
                                 role="option"
@@ -809,9 +809,9 @@ Array [
                                 9
                               </div>
                               <div
-                                aria-disabled={false}
+                                aria-disabled={true}
                                 aria-label="day-10"
-                                className="react-datepicker__day react-datepicker__day--010"
+                                className="react-datepicker__day react-datepicker__day--010 react-datepicker__day--disabled"
                                 onClick={[Function]}
                                 onMouseEnter={[Function]}
                                 role="option"
@@ -819,9 +819,9 @@ Array [
                                 10
                               </div>
                               <div
-                                aria-disabled={false}
+                                aria-disabled={true}
                                 aria-label="day-11"
-                                className="react-datepicker__day react-datepicker__day--011"
+                                className="react-datepicker__day react-datepicker__day--011 react-datepicker__day--disabled"
                                 onClick={[Function]}
                                 onMouseEnter={[Function]}
                                 role="option"
@@ -831,7 +831,7 @@ Array [
                               <div
                                 aria-disabled={false}
                                 aria-label="day-12"
-                                className="react-datepicker__day react-datepicker__day--012"
+                                className="react-datepicker__day react-datepicker__day--012 react-datepicker__day--keyboard-selected react-datepicker__day--today"
                                 onClick={[Function]}
                                 onMouseEnter={[Function]}
                                 role="option"

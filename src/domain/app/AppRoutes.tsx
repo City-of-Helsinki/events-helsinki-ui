@@ -15,6 +15,7 @@ const AppRoutes = () => {
   return (
     <Switch>
       <Redirect exact path="/" to={`/${currentLanguage}/home`} />
+      <Redirect exact path={`/${localeParam}`} to={`/${localeParam}/home`} />
       <Route path={`/${localeParam}/*`} component={App} />
       <Route
         render={props => (
