@@ -5,6 +5,7 @@ import CollectionCardContainer from "../../common/components/collectionCard/Coll
 import Hero from "../../common/components/hero/Hero";
 import { useCollectionListQuery } from "../../generated/graphql";
 import Container from "../app/layout/Container";
+import PageWrapper from "../app/layout/PageWrapper";
 import styles from "./home.module.scss";
 import Search from "./Search";
 
@@ -20,7 +21,7 @@ const Home: React.FC = () => {
   const smCollections = collections.slice(3);
 
   return (
-    <>
+    <PageWrapper>
       <Hero
         buttonText={t("home.hero.buttonText")}
         subTitle={t("home.hero.subTitle")}
@@ -39,7 +40,7 @@ const Home: React.FC = () => {
           <CollectionCardContainer collections={smCollections} size="sm" />
         </Container>
       </div>
-    </>
+    </PageWrapper>
   );
 };
 

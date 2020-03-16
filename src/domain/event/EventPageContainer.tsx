@@ -9,6 +9,7 @@ import { useEventDetailsQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
 import isClient from "../../util/isClient";
 import Container from "../app/layout/Container";
+import PageWrapper from "../app/layout/PageWrapper";
 import EventClosedHero from "./EventClosedHero";
 import EventContent from "./EventContent";
 import EventHero from "./EventHero";
@@ -42,7 +43,7 @@ const EventPageContainer: React.FC = () => {
   const eventClosed = !eventData || isEventClosed(eventData.eventDetails);
 
   return (
-    <div className={styles.eventPageWrapper}>
+    <PageWrapper className={styles.eventPageWrapper} title="event.title">
       <LoadingSpinner isLoading={loading}>
         {eventData ? (
           <>
@@ -71,7 +72,7 @@ const EventPageContainer: React.FC = () => {
           </ErrorHero>
         )}
       </LoadingSpinner>
-    </div>
+    </PageWrapper>
   );
 };
 

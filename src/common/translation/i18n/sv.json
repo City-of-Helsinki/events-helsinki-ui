@@ -119,7 +119,8 @@
     },
     "shareLinks": {
       "title": "Dela samling"
-    }
+    },
+    "title": "Laddar samling..."
   },
   "event": {
     "categories": {
@@ -183,7 +184,8 @@
     },
     "similarEvents": {
       "title": "Andra liknande händelser"
-    }
+    },
+    "title": "Laddar evenemang..."
   },
   "eventSearch": {
     "buttonClearFilters": "Rensa filter",
@@ -217,7 +219,8 @@
       "titleDropdownDistrict": "Välj område",
       "titleDropdownTargetGroup": "Välj vem"
     },
-    "textFoundEvents": "{{count}} sökresultat"
+    "textFoundEvents": "{{count}} sökresultat",
+    "title": "Evenemang sök"
   },
   "footer": {
     "linkAbout": "About",

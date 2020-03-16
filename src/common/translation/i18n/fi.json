@@ -119,7 +119,8 @@
     },
     "shareLinks": {
       "title": "Jaa kokoelma"
-    }
+    },
+    "title": "Ladataan kokoelmaa..."
   },
   "event": {
     "categories": {
@@ -183,7 +184,8 @@
     },
     "similarEvents": {
       "title": "Muita samankaltaisia tapahtumia"
-    }
+    },
+    "title": "Ladataan tapahtumaa..."
   },
   "eventSearch": {
     "buttonClearFilters": "Tyhjennä hakuehdot",
@@ -217,7 +219,8 @@
       "titleDropdownDistrict": "Valitse alue",
       "titleDropdownTargetGroup": "Valitse kenelle"
     },
-    "textFoundEvents": "{{count}} hakutulosta"
+    "textFoundEvents": "{{count}} hakutulosta",
+    "title": "Tapahtumahaku"
   },
   "footer": {
     "linkAbout": "Tietoa palvelusta",
