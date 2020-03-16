@@ -33,7 +33,7 @@ interface SimpleEvent {
  * @return {string}
  */
 export const formatDate = (date: string): string =>
-  formatDateStr(new Date(date), "yyyy-DD-mm");
+  formatDateStr(new Date(date), "yyyy-MM-dd");
 
 /**
  * Write object to a xml file
@@ -44,7 +44,7 @@ const writeXMLFile = async (path: string, data: object) => {
   const options = { compact: true, ignoreComment: true, spaces: 4 };
   const xml = convert.js2xml(data, options);
 
-  await writeFile(path, xml, "utf8");
+  return writeFile(path, xml, "utf8");
 };
 
 /**
@@ -109,22 +109,17 @@ const generateEventSitemap = async (
     }
   };
 
-  await writeXMLFile(`${pathToSitemaps}/sitemap_events_${language}.xml`, data);
+  return writeXMLFile(`${pathToSitemaps}/sitemap_events_${language}.xml`, data);
 };
 
 /**
  * Generate sitemap in xml format for events in all languages
  */
 const generateEventSitemaps = async () => {
-  await Promise.all(
+  return Promise.all(
     languages.map(async lang => {
-      try {
-        const events = await getEvents(lang);
-        // eslint-disable-next-line no-console
-        await generateEventSitemap(events, lang);
-      } catch (err) {
-        throw err;
-      }
+      const events = await getEvents(lang);
+      return generateEventSitemap(events, lang);
     })
   );
 };
@@ -178,7 +173,7 @@ const generateCollectionSitemap = async (
     }
   };
 
-  await writeXMLFile(
+  return writeXMLFile(
     `${pathToSitemaps}/sitemap_collections_${language}.xml`,
     data
   );
@@ -189,14 +184,8 @@ const generateCollectionSitemap = async (
  */
 const generateCollectionSitemaps = async () => {
   const collections = await getCollections();
-  await Promise.all(
-    languages.map(async lang => {
-      try {
-        await generateCollectionSitemap(collections, lang);
-      } catch (err) {
-        throw err;
-      }
-    })
+  return Promise.all(
+    languages.map(async lang => generateCollectionSitemap(collections, lang))
   );
 };
 
@@ -219,7 +208,7 @@ const generateSitemapIndex = async () => {
     }
   };
 
-  await writeXMLFile(`${pathToSitemaps}/sitemap.xml`, data);
+  return writeXMLFile(`${pathToSitemaps}/sitemap.xml`, data);
 };
 
 /**
@@ -227,10 +216,12 @@ const generateSitemapIndex = async () => {
  */
 const generateSitemaps = async () => {
   try {
-    await generateEventSitemaps();
-    await generateCollectionSitemaps();
-    await generateSitemapIndex();
-    console.log('Sitemaps generated!'); // eslint-disable-line
+    await Promise.all([
+      generateEventSitemaps(),
+      generateCollectionSitemaps(),
+      generateSitemapIndex()
+    ]);
+    console.log("Sitemaps generated!"); // eslint-disable-line
   } catch (err) {
     console.error(err.message); // eslint-disable-line
     process.exit(1);
