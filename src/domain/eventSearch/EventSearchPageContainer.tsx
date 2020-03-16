@@ -4,7 +4,7 @@ import { RouteComponentProps, useLocation, withRouter } from "react-router";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useEventListQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
-import Layout from "../app/layout/Layout";
+import PageLayout from "../app/layout/PageLayout";
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from "./constants";
 import { getEventFilters, getNextPage } from "./EventListUtils";
 import styles from "./eventSearchPage.module.scss";
@@ -58,7 +58,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   };
 
   return (
-    <Layout>
+    <PageLayout>
       <div className={styles.eventSearchPageWrapper}>
         <Search />
         <LoadingSpinner isLoading={!isFetchingMore && loading}>
@@ -73,7 +73,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
           )}
         </LoadingSpinner>
       </div>
-    </Layout>
+    </PageLayout>
   );
 };
 

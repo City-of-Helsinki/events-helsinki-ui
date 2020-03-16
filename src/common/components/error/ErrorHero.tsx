@@ -3,6 +3,7 @@ import React, { FunctionComponent } from "react";
 
 import Container from "../../../domain/app/layout/Container";
 import Icon404 from "../../../icons/Icon404";
+import isTestEnv from "../../../util/isTestEnv";
 import styles from "./errorHero.module.scss";
 
 interface Props {
@@ -21,7 +22,9 @@ const NotFound: FunctionComponent<Props> = ({ children, text, title }) => {
           <div className={styles.linkWrapper}>{children}</div>
         </Container>
       </div>
-      <Koros className={styles.koros} flipHorizontal={true} type="pulse" />
+      {!isTestEnv && (
+        <Koros className={styles.koros} flipHorizontal={true} type="basic" />
+      )}
     </>
   );
 };

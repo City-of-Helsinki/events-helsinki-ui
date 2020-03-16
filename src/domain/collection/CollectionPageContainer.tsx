@@ -8,7 +8,7 @@ import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useCollectionDetailsQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
 import isClient from "../../util/isClient";
-import Layout from "../app/layout/Layout";
+import PageLayout from "../app/layout/PageLayout";
 import CollectionHero from "./collectionHero/CollectionHero";
 import styles from "./collectionPage.module.scss";
 import CollectionPageMeta from "./collectionPageMeta/CollectionPageMeta";
@@ -38,7 +38,7 @@ const CollectionPageContainer: React.FC = () => {
   }, []);
 
   return (
-    <Layout>
+    <PageLayout>
       <div className={styles.collectionPageWrapper}>
         <LoadingSpinner isLoading={loading}>
           {collectionData ? (
@@ -61,7 +61,7 @@ const CollectionPageContainer: React.FC = () => {
           )}
         </LoadingSpinner>
       </div>
-    </Layout>
+    </PageLayout>
   );
 };
 
