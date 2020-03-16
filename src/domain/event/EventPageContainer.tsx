@@ -9,7 +9,6 @@ import { useEventDetailsQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
 import isClient from "../../util/isClient";
 import Container from "../app/layout/Container";
-import PageLayout from "../app/layout/PageLayout";
 import EventClosedHero from "./EventClosedHero";
 import EventContent from "./EventContent";
 import EventHero from "./EventHero";
@@ -43,38 +42,36 @@ const EventPageContainer: React.FC = () => {
   const eventClosed = !eventData || isEventClosed(eventData.eventDetails);
 
   return (
-    <PageLayout>
-      <div className={styles.eventPageWrapper}>
-        <LoadingSpinner isLoading={loading}>
-          {eventData ? (
-            <>
-              {/* Wait for data to be accessible before updating metadata */}
-              <EventPageMeta eventData={eventData} />
-              {!!eventClosed ? (
-                <EventClosedHero />
-              ) : (
-                <EventHero eventData={eventData} />
-              )}
-              <Container>
-                {/* Show event content only if event is open */}
-                {!eventClosed && <EventContent eventData={eventData} />}
-                {/* Hide similar event on SSR to make initial load faster */}
-                {isClient && <SimilarEvents eventData={eventData} />}
-              </Container>
-            </>
-          ) : (
-            <ErrorHero
-              text={t("event.notFound.text")}
-              title={t("event.notFound.title")}
-            >
-              <Link to={`/${locale}/events${search}`}>
-                {t("event.notFound.linkSearchEvents")}
-              </Link>
-            </ErrorHero>
-          )}
-        </LoadingSpinner>
-      </div>
-    </PageLayout>
+    <div className={styles.eventPageWrapper}>
+      <LoadingSpinner isLoading={loading}>
+        {eventData ? (
+          <>
+            {/* Wait for data to be accessible before updating metadata */}
+            <EventPageMeta eventData={eventData} />
+            {!!eventClosed ? (
+              <EventClosedHero />
+            ) : (
+              <EventHero eventData={eventData} />
+            )}
+            <Container>
+              {/* Show event content only if event is open */}
+              {!eventClosed && <EventContent eventData={eventData} />}
+              {/* Hide similar event on SSR to make initial load faster */}
+              {isClient && <SimilarEvents eventData={eventData} />}
+            </Container>
+          </>
+        ) : (
+          <ErrorHero
+            text={t("event.notFound.text")}
+            title={t("event.notFound.title")}
+          >
+            <Link to={`/${locale}/events${search}`}>
+              {t("event.notFound.linkSearchEvents")}
+            </Link>
+          </ErrorHero>
+        )}
+      </LoadingSpinner>
+    </div>
   );
 };
 

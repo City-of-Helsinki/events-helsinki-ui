@@ -38,30 +38,28 @@ const CollectionPageContainer: React.FC = () => {
   }, []);
 
   return (
-    <PageLayout>
-      <div className={styles.collectionPageWrapper}>
-        <LoadingSpinner isLoading={loading}>
-          {collectionData ? (
-            <>
-              <CollectionPageMeta collectionData={collectionData} />
-              <CollectionHero collectionData={collectionData} />
-              <CuratedEventList collectionData={collectionData} />
-              <EventList collectionData={collectionData} />
-              <SimilarCollections collectionData={collectionData} />
-            </>
-          ) : (
-            <ErrorHero
-              text={t("collection.notFound.text")}
-              title={t("collection.notFound.title")}
-            >
-              <Link to={`/${locale}/events${search}`}>
-                {t("collection.notFound.linkSearchEvents")}
-              </Link>
-            </ErrorHero>
-          )}
-        </LoadingSpinner>
-      </div>
-    </PageLayout>
+    <div className={styles.collectionPageWrapper}>
+      <LoadingSpinner isLoading={loading}>
+        {collectionData ? (
+          <>
+            <CollectionPageMeta collectionData={collectionData} />
+            <CollectionHero collectionData={collectionData} />
+            <CuratedEventList collectionData={collectionData} />
+            <EventList collectionData={collectionData} />
+            <SimilarCollections collectionData={collectionData} />
+          </>
+        ) : (
+          <ErrorHero
+            text={t("collection.notFound.text")}
+            title={t("collection.notFound.title")}
+          >
+            <Link to={`/${locale}/events${search}`}>
+              {t("collection.notFound.linkSearchEvents")}
+            </Link>
+          </ErrorHero>
+        )}
+      </LoadingSpinner>
+    </div>
   );
 };
 
