@@ -101,3 +101,5 @@ export const TARGET_GROUPS = {
   CHILDREN: "children",
   YOUNG_PEOPLE: "young_people"
 };
+
+export const DEFAULT_SOME_IMAGE = "/images/activities_SoMe-share.jpg";
