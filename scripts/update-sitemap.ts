@@ -40,7 +40,7 @@ export const formatDate = (date: string): string =>
  * @param {string} path
  * @param {object} data
  */
-const writeXMLFile = async (path: string, data: object) => {
+const writeXMLFile = (path: string, data: object) => {
   const options = { compact: true, ignoreComment: true, spaces: 4 };
   const xml = convert.js2xml(data, options);
 
@@ -92,10 +92,7 @@ const getEvents = async (language: string) => {
  * @param {object[]} events
  * @param {string} language
  */
-const generateEventSitemap = async (
-  events: SimpleEvent[],
-  language: string
-) => {
+const generateEventSitemap = (events: SimpleEvent[], language: string) => {
   const data = {
     _declaration: { _attributes: { encoding: "utf-8", version: "1.0" } },
     urlset: {
@@ -156,7 +153,7 @@ const getCollections = async (): Promise<SimpleCollection[]> => {
  * @param {object[]} collections
  * @param {string} language
  */
-const generateCollectionSitemap = async (
+const generateCollectionSitemap = (
   events: SimpleCollection[],
   language: string
 ) => {
@@ -185,14 +182,14 @@ const generateCollectionSitemap = async (
 const generateCollectionSitemaps = async () => {
   const collections = await getCollections();
   return Promise.all(
-    languages.map(async lang => generateCollectionSitemap(collections, lang))
+    languages.map(lang => generateCollectionSitemap(collections, lang))
   );
 };
 
 /**
  * Generate a sitemap index in xml format that lists all sitemaps
  */
-const generateSitemapIndex = async () => {
+const generateSitemapIndex = () => {
   const data = {
     _declaration: { _attributes: { encoding: "utf-8", version: "1.0" } },
     sitemapindex: {
