@@ -41,7 +41,9 @@
     "react-scripts": "^3.4.0",
     "sanitize-html": "^1.20.1",
     "serialize-javascript": "^2.1.2",
-    "typescript": "3.6.4"
+    "ts-node": "^8.6.2",
+    "typescript": "3.6.4",
+    "xml-js": "^1.6.11"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -52,6 +54,7 @@
     "codegen": "graphql-codegen --config codegen.yml",
     "test": "react-scripts test",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
+    "update-sitemap": "ts-node  -P ./scripts/tsconfig.json -r dotenv/config scripts/update-sitemap.ts",
     "lint": "eslint --ext js,ts,tsx src",
     "format-code": "eslint --ext js,ts,tsx src --fix"
   },
@@ -86,6 +89,7 @@
     "@types/jest": "^24.0.22",
     "@types/lodash": "^4.14.145",
     "@types/node": "12.11.6",
+    "@types/node-fetch": "^2.5.5",
     "@types/pretty": "^2.0.0",
     "@types/query-string": "^6.3.0",
     "@types/react": "16.9.9",
@@ -116,6 +120,7 @@
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7",
     "eslint-plugin-simple-import-sort": "^4.0.0",
+    "node-fetch": "^2.6.0",
     "node-sass": "^4.13.0",
     "prettier": "^1.18.2",
     "pretty": "^2.0.0",
