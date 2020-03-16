@@ -233,6 +233,7 @@
     "ariaButtonCloseMenu": "Close menu",
     "ariaButtonOpenMenu": "Open menu",
     "ariaLabelLogo": "Home",
+    "changeLanguage": "Change language",
     "languages": {
       "en": "In English",
       "fi": "Suomeksi",
