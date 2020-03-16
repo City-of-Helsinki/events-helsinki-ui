@@ -112,9 +112,15 @@
     "curatedEvents": {
       "textEventNotFound": "Tapahtumaa ei löydy"
     },
+    "notFound": {
+      "linkSearchEvents": "Hae itsellesi tekemistä",
+      "text": "Syystä tai toisesta hakemaasi kokoelmaa ei löydy. Löydä itsellesi tekemistä vaikkapa täältä:",
+      "title": "Oho, nyt iski 404!"
+    },
     "shareLinks": {
       "title": "Jaa kokoelma"
-    }
+    },
+    "title": "Ladataan kokoelmaa..."
   },
   "event": {
     "categories": {
@@ -164,6 +170,11 @@
       "openMap": "Avaa kartta uuteen ikkunaan",
       "title": "Sijainti"
     },
+    "notFound": {
+      "linkSearchEvents": "Hae itsellesi tekemistä",
+      "text": "Syystä tai toisesta hakemaasi tapahtumaa ei löydy. Löydä itsellesi tekemistä vaikkapa täältä:",
+      "title": "Oho, nyt iski 404!"
+    },
     "otherTimes": {
       "buttonReadMore": "Lue lisää",
       "title": "Tapahtuman muut ajat"
@@ -173,7 +184,8 @@
     },
     "similarEvents": {
       "title": "Muita samankaltaisia tapahtumia"
-    }
+    },
+    "title": "Ladataan tapahtumaa..."
   },
   "eventSearch": {
     "buttonClearFilters": "Tyhjennä hakuehdot",
@@ -207,7 +219,8 @@
       "titleDropdownDistrict": "Valitse alue",
       "titleDropdownTargetGroup": "Valitse kenelle"
     },
-    "textFoundEvents": "{{count}} hakutulosta"
+    "textFoundEvents": "{{count}} hakutulosta",
+    "title": "Tapahtumahaku"
   },
   "footer": {
     "linkAbout": "Tietoa palvelusta",
@@ -265,5 +278,10 @@
     "mostPopular": "Suosituimmat haut",
     "searchCategories": "Selaa kategorioita",
     "searchEvents": "Etsi tekemistä"
+  },
+  "notFound": {
+    "linkSearchEvents": "Hae itsellesi tekemistä",
+    "text": "Syystä tai toisesta hakemaasi sivua ei löydy. Löydä itsellesi tekemistä vaikkapa täältä:",
+    "title": "Oho, nyt iski 404!"
   }
 }

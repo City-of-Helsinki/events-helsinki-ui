@@ -3,11 +3,11 @@ import React, { FunctionComponent } from "react";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
 import MobileNavigation from "../mobileNavigation/MobileNavigation";
-import styles from "./layout.module.scss";
+import styles from "./pageLayout.module.scss";
 
 const PageLayout: FunctionComponent = ({ children }) => {
   return (
-    <div className={styles.pageWrapper}>
+    <div className={styles.pageLayout}>
       <Header />
       <MobileNavigation />
 

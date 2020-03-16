@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from "react-router";
 
 import { getCurrentLanguage } from "../../common/translation/TranslationUtils";
 import { SUPPORT_LANGUAGES } from "../../constants";
+import PageLayout from "../app/layout/PageLayout";
 import App from "./App";
 
 const localeParam = `:locale(${SUPPORT_LANGUAGES.EN}|${SUPPORT_LANGUAGES.FI}|${SUPPORT_LANGUAGES.SV})`;
@@ -13,16 +14,18 @@ const AppRoutes = () => {
   const currentLanguage = getCurrentLanguage(i18n);
 
   return (
-    <Switch>
-      <Redirect exact path="/" to={`/${currentLanguage}/home`} />
-      <Redirect exact path={`/${localeParam}`} to={`/${localeParam}/home`} />
-      <Route path={`/${localeParam}/*`} component={App} />
-      <Route
-        render={props => (
-          <Redirect to={`/${currentLanguage}${props.location.pathname}`} />
-        )}
-      />
-    </Switch>
+    <PageLayout>
+      <Switch>
+        <Redirect exact path="/" to={`/${currentLanguage}/home`} />
+        <Redirect exact path={`/${localeParam}`} to={`/${localeParam}/home`} />
+        <Route path={`/${localeParam}/*`} component={App} />
+        <Route
+          render={props => (
+            <Redirect to={`/${currentLanguage}${props.location.pathname}`} />
+          )}
+        />
+      </Switch>
+    </PageLayout>
   );
 };
 

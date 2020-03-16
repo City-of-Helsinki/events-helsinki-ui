@@ -11,6 +11,16 @@ RUN yarn
 # Copy all files
 COPY --chown=appuser:appuser . .
 
+# Set Application name and version (shown in Sentry)
+ARG REACT_APP_APPLICATION_NAME=events-helsinki-ui
+ARG REACT_APP_APPLICATION_VERSION=0.1.2
+
+# Set Sentry DSN
+ARG REACT_APP_SENTRY_DSN
+
+#Set Sentry environment
+ARG REACT_APP_SENTRY_ENVIRONMENT
+
 # set graphql server base url
 ARG REACT_APP_GRAPHQL_BASE_URL
 
@@ -22,7 +32,6 @@ ARG SASS_PATH
 
 # Build application
 RUN yarn build
-
 
 # Our Second stage, that creates an image for production
 FROM helsinkitest/node:12-slim AS react-prod

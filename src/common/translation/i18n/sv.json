@@ -112,9 +112,15 @@
     "curatedEvents": {
       "textEventNotFound": "Samlingen hittades inte"
     },
+    "notFound": {
+      "linkSearchEvents": "Hitta något att göra",
+      "text": "Det gick inte att hitta samlingen du begära av en eller annan anledning. Hitta något att göra här:",
+      "title": "Oj, nu slog 404!"
+    },
     "shareLinks": {
       "title": "Dela samling"
-    }
+    },
+    "title": "Laddar samling..."
   },
   "event": {
     "categories": {
@@ -164,6 +170,11 @@
       "openMap": "Öppna kartan i ett nytt fönster",
       "title": "Lokalisering"
     },
+    "notFound": {
+      "linkSearchEvents": "Hitta något att göra",
+      "text": "Det gick inte att hitta evenemänget du begära av en eller annan anledning. Hitta något att göra här:",
+      "title": "Oj, nu slog 404!"
+    },
     "otherTimes": {
       "buttonReadMore": "Läs mer",
       "title": "Andra tider av evenemanget"
@@ -173,7 +184,8 @@
     },
     "similarEvents": {
       "title": "Andra liknande händelser"
-    }
+    },
+    "title": "Laddar evenemang..."
   },
   "eventSearch": {
     "buttonClearFilters": "Rensa filter",
@@ -207,7 +219,8 @@
       "titleDropdownDistrict": "Välj område",
       "titleDropdownTargetGroup": "Välj vem"
     },
-    "textFoundEvents": "{{count}} sökresultat"
+    "textFoundEvents": "{{count}} sökresultat",
+    "title": "Evenemang sök"
   },
   "footer": {
     "linkAbout": "About",
@@ -264,5 +277,10 @@
     "mostPopular": "Toppsökningar",
     "searchCategories": "Bläddra i kategorier",
     "searchEvents": "Hitta något att göra"
+  },
+  "notFound": {
+    "linkSearchEvents": "Hitta något att göra",
+    "text": "Det gick inte att hitta den sida du begära av en eller annan anledning. Hitta något att göra här:",
+    "title": "Oj, nu slog 404!"
   }
 }
