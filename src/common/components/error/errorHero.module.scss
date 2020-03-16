@@ -1,0 +1,57 @@
+@import 'colors';
+@import 'layout';
+
+.errorHero {
+  background-color: $hel-copper-light-20;
+  text-align: center;
+  align-self: center;
+
+  padding-bottom: 4rem;
+  padding-top: 3rem;
+
+  @include respond_above(sm) {
+    padding-bottom: 7rem;
+    padding-top: 5rem;
+  }
+  
+
+  .icon {
+    height: 7rem;
+    width: 7rem;
+    margin: 0 auto;
+  }
+
+  h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    font-size: 1.25rem;
+    max-width: 610px;
+    margin: 0 auto 2rem;
+    line-height: 2rem;
+  }
+
+  a {
+    padding: 1rem 2rem;
+    border: 2px solid $hel-black;
+    text-decoration: none;
+    color: $hel-black;
+    font-size: 1rem;
+    font-weight: bold;
+
+    &:hover, &:focus {
+      text-decoration: underline;
+    }
+  }
+
+  .linkWrapper {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.koros {
+  fill: $hel-copper-light-20;
+  margin-bottom: 10rem;
+}

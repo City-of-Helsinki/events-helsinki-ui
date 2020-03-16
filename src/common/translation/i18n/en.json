@@ -112,6 +112,11 @@
     "curatedEvents": {
       "textEventNotFound": "Event not found"
     },
+    "notFound": {
+      "linkSearchEvents": "Find something to do",
+      "text": "The collection you requested could not be found for one reason or another. Find something to do for yourself here:",
+      "title": "Oops, now hit 404!"
+    },
     "shareLinks": {
       "title": "Share Collection"
     }
@@ -163,6 +168,11 @@
       "directionsHSL": "Directions (HSL)",
       "openMap": "Open the map in a new window",
       "title": "Location"
+    },
+    "notFound": {
+      "linkSearchEvents": "Find something to do",
+      "text": "The event you requested could not be found for one reason or another. Find something to do for yourself here:",
+      "title": "Oops, now hit 404!"
     },
     "otherTimes": {
       "buttonReadMore": "Read more",
@@ -264,5 +274,10 @@
     "mostPopular": "Top searches",
     "searchCategories": "Browse Categories",
     "searchEvents": "Find something to do"
+  },
+  "notFound": {
+    "linkSearchEvents": "Find something to do",
+    "text": "Page you requested could not be found for one reason or another. Find something to do for yourself here:",
+    "title": "Oops, now hit 404!"
   }
 }
