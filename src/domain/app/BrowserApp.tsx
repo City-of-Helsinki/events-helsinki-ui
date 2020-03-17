@@ -9,7 +9,6 @@ import { BrowserRouter } from "react-router-dom";
 
 import createGraphqlClient from "../../util/createGraphqlClient";
 import AppRoutes from "./AppRoutes";
-import CommonMeta from "./CommonMeta";
 
 const BrowserApp: FunctionComponent = () => {
   useSSR(window.initialI18nStore, window.initialLanguage);
@@ -21,7 +20,6 @@ const BrowserApp: FunctionComponent = () => {
     <BrowserRouter>
       <ApolloProvider client={client}>
         <ApolloHooksProvider client={client}>
-          <CommonMeta />
           <AppRoutes />
         </ApolloHooksProvider>
       </ApolloProvider>

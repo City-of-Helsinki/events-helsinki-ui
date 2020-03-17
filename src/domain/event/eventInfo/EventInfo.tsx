@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/browser";
 import classNames from "classnames";
 import { saveAs } from "file-saver";
 import {
@@ -109,9 +110,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
       };
       createEvent(event, (error: Error | undefined, value: string) => {
         if (error) {
-          // TODO: Handle error
-          // eslint-disable-next-line no-console
-          console.error(error);
+          Sentry.captureException(error);
         } else {
           const blob = new Blob([value], { type: "text/calendar" });
           saveAs(

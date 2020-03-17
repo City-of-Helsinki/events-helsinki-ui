@@ -2,14 +2,14 @@ import { shallow } from "enzyme";
 import React from "react";
 import { MemoryRouter } from "react-router";
 
-import Layout from "../Layout";
+import PageLayout from "../PageLayout";
 
-it("Layout matched snapshot", () => {
+it("PageLayout matched snapshot", () => {
   const layout = shallow(
     <MemoryRouter>
-      <Layout>
+      <PageLayout>
         <></>
-      </Layout>
+      </PageLayout>
     </MemoryRouter>
   );
   expect(layout.html()).toMatchSnapshot();

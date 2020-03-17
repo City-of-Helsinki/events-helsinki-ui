@@ -7,6 +7,7 @@ import CollectionPageContainer from "../collection/CollectionPageContainer";
 import EventPageContainer from "../event/EventPageContainer";
 import EventSearchPageContainer from "../eventSearch/EventSearchPageContainer";
 import Home from "../home/Home";
+import NotFound from "../notFound/NotFound";
 
 const App: FunctionComponent<
   RouteComponentProps<{ locale: SUPPORT_LANGUAGES }>
@@ -40,6 +41,7 @@ const App: FunctionComponent<
         path={`/${locale}/event/:id`}
         component={EventPageContainer}
       />
+      <Route component={NotFound} />
     </Switch>
   );
 };

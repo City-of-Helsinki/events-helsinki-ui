@@ -112,9 +112,15 @@
     "curatedEvents": {
       "textEventNotFound": "Samlingen hittades inte"
     },
+    "notFound": {
+      "linkSearchEvents": "Sök efter evenemang",
+      "text": "Av en eller annan orsak så hittas inte samlingen du letade efter. Försök istället att hitta något att göra härifrån:",
+      "title": "Oj nej, nu blev det 404!"
+    },
     "shareLinks": {
       "title": "Dela samling"
-    }
+    },
+    "title": "Laddar samling..."
   },
   "event": {
     "categories": {
@@ -164,6 +170,11 @@
       "openMap": "Öppna kartan i ett nytt fönster",
       "title": "Lokalisering"
     },
+    "notFound": {
+      "linkSearchEvents": "Sök efter evenemang",
+      "text": "Av en eller annan orsak så hittas inte evenemänget du letade efter. Försök istället att hitta något att göra härifrån:",
+      "title": "Oj nej, nu blev det 404!"
+    },
     "otherTimes": {
       "buttonReadMore": "Läs mer",
       "title": "Andra tider av evenemanget"
@@ -173,7 +184,8 @@
     },
     "similarEvents": {
       "title": "Andra liknande händelser"
-    }
+    },
+    "title": "Laddar evenemang..."
   },
   "eventSearch": {
     "buttonClearFilters": "Rensa filter",
@@ -207,26 +219,28 @@
       "titleDropdownDistrict": "Välj område",
       "titleDropdownTargetGroup": "Välj vem"
     },
-    "textFoundEvents": "{{count}} sökresultat"
+    "textFoundEvents": "{{count}} sökresultat",
+    "title": "Evenemang sök"
   },
   "footer": {
     "linkAbout": "About",
     "linkFeedback": "Ge feedback",
     "searchCollections": "Vi rekommenderar",
-    "searchEvents": "Hitta något att göra",
+    "searchEvents": "Sök efter evenemang",
     "titleCategories": "Kategorier"
   },
   "header": {
     "ariaButtonCloseMenu": "Stäng menyn",
     "ariaButtonOpenMenu": "Öppna menyn",
     "ariaLabelLogo": "Framsidan",
+    "changeLanguage": "Ändra språk",
     "languages": {
       "en": "In English",
       "fi": "Suomeksi",
       "sv": "På svenska"
     },
     "searchCollections": "Vi rekommenderar",
-    "searchEvents": "Hitta något att göra"
+    "searchEvents": "Sök efter evenemang"
   },
   "home": {
     "category": {
@@ -256,13 +270,18 @@
       "labelSearchField": "Vad du letar efter?",
       "linkAdvancedSearch": "Avancerad sökning",
       "placeholder": "Ange ett nyckelord, t.ex. rock eller yoga",
-      "title": "Hitta något att göra"
+      "title": "Sök efter evenemang"
     }
   },
   "menu": {
     "aboutService": "About",
     "mostPopular": "Toppsökningar",
     "searchCategories": "Bläddra i kategorier",
-    "searchEvents": "Hitta något att göra"
+    "searchEvents": "Sök efter evenemang"
+  },
+  "notFound": {
+    "linkSearchEvents": "Sök efter evenemang",
+    "text": "Av en eller annan orsak så hittas inte sidan du letade efter. Försök istället att hitta något att göra härifrån:",
+    "title": "Oj nej, nu blev det 404!"
   }
 }

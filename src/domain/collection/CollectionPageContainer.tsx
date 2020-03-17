@@ -1,10 +1,14 @@
 import React from "react";
-import { useParams } from "react-router";
+import { useTranslation } from "react-i18next";
+import { useLocation, useParams } from "react-router";
+import { Link } from "react-router-dom";
 
+import ErrorHero from "../../common/components/error/ErrorHero";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useCollectionDetailsQuery } from "../../generated/graphql";
+import useLocale from "../../hooks/useLocale";
 import isClient from "../../util/isClient";
-import Layout from "../app/layout/Layout";
+import PageWrapper from "../app/layout/PageWrapper";
 import CollectionHero from "./collectionHero/CollectionHero";
 import styles from "./collectionPage.module.scss";
 import CollectionPageMeta from "./collectionPageMeta/CollectionPageMeta";
@@ -17,7 +21,11 @@ interface RouteParams {
 }
 
 const CollectionPageContainer: React.FC = () => {
+  const { search } = useLocation();
   const params = useParams<RouteParams>();
+  const { t } = useTranslation();
+  const locale = useLocale();
+
   const { data: collectionData, loading } = useCollectionDetailsQuery({
     variables: { id: params.id }
   });
@@ -30,21 +38,31 @@ const CollectionPageContainer: React.FC = () => {
   }, []);
 
   return (
-    <Layout>
-      <div className={styles.collectionPageWrapper}>
-        <LoadingSpinner isLoading={loading}>
-          {collectionData && (
-            <>
-              <CollectionPageMeta collectionData={collectionData} />
-              <CollectionHero collectionData={collectionData} />
-              <CuratedEventList collectionData={collectionData} />
-              <EventList collectionData={collectionData} />
-              <SimilarCollections collectionData={collectionData} />
-            </>
-          )}
-        </LoadingSpinner>
-      </div>
-    </Layout>
+    <PageWrapper
+      className={styles.collectionPageWrapper}
+      title="collection.title"
+    >
+      <LoadingSpinner isLoading={loading}>
+        {collectionData ? (
+          <>
+            <CollectionPageMeta collectionData={collectionData} />
+            <CollectionHero collectionData={collectionData} />
+            <CuratedEventList collectionData={collectionData} />
+            <EventList collectionData={collectionData} />
+            <SimilarCollections collectionData={collectionData} />
+          </>
+        ) : (
+          <ErrorHero
+            text={t("collection.notFound.text")}
+            title={t("collection.notFound.title")}
+          >
+            <Link to={`/${locale}/events${search}`}>
+              {t("collection.notFound.linkSearchEvents")}
+            </Link>
+          </ErrorHero>
+        )}
+      </LoadingSpinner>
+    </PageWrapper>
   );
 };
 
