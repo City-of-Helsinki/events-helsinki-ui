@@ -114,8 +114,8 @@
     },
     "notFound": {
       "linkSearchEvents": "Find something to do",
-      "text": "The collection you requested could not be found for one reason or another. Find something to do for yourself here:",
-      "title": "Oops, now hit 404!"
+      "text": "For one reason or another we can't find the collection you are looking for. Instead, try searching for something interesting to do from here:",
+      "title": "Oops, you got hit by a 404!"
     },
     "shareLinks": {
       "title": "Share Collection"
@@ -173,8 +173,8 @@
     },
     "notFound": {
       "linkSearchEvents": "Find something to do",
-      "text": "The event you requested could not be found for one reason or another. Find something to do for yourself here:",
-      "title": "Oops, now hit 404!"
+      "text": "For one reason or another we can't find the event you are looking for. Instead, try searching for something interesting to do from here: ",
+      "title": "Oops, you got hit by a 404!"
     },
     "otherTimes": {
       "buttonReadMore": "Read more",
@@ -281,7 +281,7 @@
   },
   "notFound": {
     "linkSearchEvents": "Find something to do",
-    "text": "Page you requested could not be found for one reason or another. Find something to do for yourself here:",
-    "title": "Oops, now hit 404!"
+    "text": "For one reason or another we can't find the page you are looking for. Instead, try searching for something interesting to do from here:",
+    "title": "Oops, you got hit by a 404!"
   }
 }

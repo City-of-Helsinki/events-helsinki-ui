@@ -113,9 +113,9 @@
       "textEventNotFound": "Samlingen hittades inte"
     },
     "notFound": {
-      "linkSearchEvents": "Hitta något att göra",
-      "text": "Det gick inte att hitta samlingen du begära av en eller annan anledning. Hitta något att göra här:",
-      "title": "Oj, nu slog 404!"
+      "linkSearchEvents": "Sök efter evenemang",
+      "text": "Av en eller annan orsak så hittas inte samlingen du letade efter. Försök istället att hitta något att göra härifrån:",
+      "title": "Oj nej, nu blev det 404!"
     },
     "shareLinks": {
       "title": "Dela samling"
@@ -171,9 +171,9 @@
       "title": "Lokalisering"
     },
     "notFound": {
-      "linkSearchEvents": "Hitta något att göra",
-      "text": "Det gick inte att hitta evenemänget du begära av en eller annan anledning. Hitta något att göra här:",
-      "title": "Oj, nu slog 404!"
+      "linkSearchEvents": "Sök efter evenemang",
+      "text": "Av en eller annan orsak så hittas inte evenemänget du letade efter. Försök istället att hitta något att göra härifrån:",
+      "title": "Oj nej, nu blev det 404!"
     },
     "otherTimes": {
       "buttonReadMore": "Läs mer",
@@ -226,7 +226,7 @@
     "linkAbout": "About",
     "linkFeedback": "Ge feedback",
     "searchCollections": "Vi rekommenderar",
-    "searchEvents": "Hitta något att göra",
+    "searchEvents": "Sök efter evenemang",
     "titleCategories": "Kategorier"
   },
   "header": {
@@ -240,7 +240,7 @@
       "sv": "På svenska"
     },
     "searchCollections": "Vi rekommenderar",
-    "searchEvents": "Hitta något att göra"
+    "searchEvents": "Sök efter evenemang"
   },
   "home": {
     "category": {
@@ -270,18 +270,18 @@
       "labelSearchField": "Vad du letar efter?",
       "linkAdvancedSearch": "Avancerad sökning",
       "placeholder": "Ange ett nyckelord, t.ex. rock eller yoga",
-      "title": "Hitta något att göra"
+      "title": "Sök efter evenemang"
     }
   },
   "menu": {
     "aboutService": "About",
     "mostPopular": "Toppsökningar",
     "searchCategories": "Bläddra i kategorier",
-    "searchEvents": "Hitta något att göra"
+    "searchEvents": "Sök efter evenemang"
   },
   "notFound": {
-    "linkSearchEvents": "Hitta något att göra",
-    "text": "Det gick inte att hitta den sida du begära av en eller annan anledning. Hitta något att göra här:",
-    "title": "Oj, nu slog 404!"
+    "linkSearchEvents": "Sök efter evenemang",
+    "text": "Av en eller annan orsak så hittas inte sidan du letade efter. Försök istället att hitta något att göra härifrån:",
+    "title": "Oj nej, nu blev det 404!"
   }
 }
