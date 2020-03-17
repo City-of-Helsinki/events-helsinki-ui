@@ -4,36 +4,45 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const postcssNormalize = require("postcss-normalize");
 const getCSSModuleLocalIdent = require("react-dev-utils/getCSSModuleLocalIdent");
 const nodeExternals = require("webpack-node-externals");
-const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
+const getCacheIdentifier = require("react-dev-utils/getCacheIdentifier");
 
 const getClientEnvironment = require("./env");
 const paths = require("./paths");
+
+
+// Source maps are resource heavy and can cause out of memory issue for large source files.
+const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
 
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
-// Webpack uses `publicPath` to determine where the app is being served from.
-// It requires a trailing slash, or the file assets will get an incorrect path.
-// In development, we always serve from the root. This makes config easier.
-const publicPath = paths.servedPath;
-// `publicUrl` is just like `publicPath`, but we will provide it to our app
-// as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
-// Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
-const publicUrl = publicPath.slice(0, -1);
-// Get environment variables to inject into our app.
-const env = getClientEnvironment(publicUrl);
-
 module.exports = function() {
+  const isEnvDevelopment = false;
+  const isEnvProduction = true;
+
+  // We will provide `paths.publicUrlOrPath` to our app
+  // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
+  // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
+  // Get environment variables to inject into our app.
+  const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
+
+  // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
-      {
-        loader: MiniCssExtractPlugin.loader
+      isEnvDevelopment && require.resolve("style-loader"),
+      isEnvProduction && {
+        loader: MiniCssExtractPlugin.loader,
+        // css is located in `static/css`, use "../../" to locate index.html folder
+        // in production `paths.publicUrlOrPath` can be a relative path
+        options: paths.publicUrlOrPath.startsWith(".")
+          ? { publicPath: "../../" }
+          : {},
       },
       {
         loader: require.resolve("css-loader"),
-        options: cssOptions
+        options: cssOptions,
       },
       {
         // Options for PostCSS as we reference these options twice
@@ -48,32 +57,32 @@ module.exports = function() {
             require("postcss-flexbugs-fixes"),
             require("postcss-preset-env")({
               autoprefixer: {
-                flexbox: "no-2009"
+                flexbox: "no-2009",
               },
-              stage: 3
+              stage: 3,
             }),
             // Adds PostCSS Normalize as the reset css with default options,
             // so that it honors browserslist config in package.json
             // which in turn let's users customize the target behavior as per their needs.
-            postcssNormalize()
+            postcssNormalize(),
           ],
-          sourceMap: false
-        }
-      }
+          sourceMap: isEnvProduction && shouldUseSourceMap,
+        },
+      },
     ].filter(Boolean);
     if (preProcessor) {
       loaders.push(
         {
           loader: require.resolve("resolve-url-loader"),
           options: {
-            sourceMap: false
-          }
+            sourceMap: isEnvProduction && shouldUseSourceMap,
+          },
         },
         {
           loader: require.resolve(preProcessor),
           options: {
-            sourceMap: true
-          }
+            sourceMap: true,
+          },
         }
       );
     }
@@ -119,36 +128,36 @@ module.exports = function() {
             {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
               include: paths.appServerSrc,
-              loader: require.resolve('babel-loader'),
+              loader: require.resolve("babel-loader"),
               options: {
                 customize: require.resolve(
-                  'babel-preset-react-app/webpack-overrides'
+                  "babel-preset-react-app/webpack-overrides"
                 ),
                 babelrc: false,
                 configFile: false,
-                presets: [require.resolve('babel-preset-react-app')],
+                presets: [require.resolve("babel-preset-react-app")],
                 // Make sure we have a unique cache identifier, erring on the
                 // side of caution.
                 // We remove this when the user ejects because the default
                 // is sane and uses Babel options. Instead of options, we use
                 // the react-scripts and babel-preset-react-app versions.
                 cacheIdentifier: getCacheIdentifier(
-                  'production',
+                  "production",
                   [
-                    'babel-plugin-named-asset-import',
-                    'babel-preset-react-app',
-                    'react-dev-utils',
-                    'react-scripts',
+                    "babel-plugin-named-asset-import",
+                    "babel-preset-react-app",
+                    "react-dev-utils",
+                    "react-scripts",
                   ]
                 ),
                 plugins: [
                   [
-                    require.resolve('babel-plugin-named-asset-import'),
+                    require.resolve("babel-plugin-named-asset-import"),
                     {
                       loaderMap: {
                         svg: {
                           ReactComponent:
-                            '@svgr/webpack?-svgo,+titleProp,+ref![path]',
+                            "@svgr/webpack?-svgo,+titleProp,+ref![path]",
                         },
                       },
                     },
@@ -163,28 +172,36 @@ module.exports = function() {
                 compact: true,
               },
             },
+            // "postcss" loader applies autoprefixer to our CSS.
+            // "css" loader resolves paths in CSS and adds assets as dependencies.
+            // "style" loader turns CSS into JS modules that inject <style> tags.
+            // In production, we use MiniCSSExtractPlugin to extract that CSS
+            // to a file, but in development "style" loader enables hot editing
+            // of CSS.
+            // By default we support CSS Modules with the extension .module.css
             {
               test: cssRegex,
               exclude: cssModuleRegex,
               use: getStyleLoaders({
                 importLoaders: 1,
-                sourceMap: false
+                sourceMap: isEnvProduction && shouldUseSourceMap,
               }),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
               // Remove this when webpack adds a warning or an error for this.
               // See https://github.com/webpack/webpack/issues/6571
-              sideEffects: true
+              sideEffects: true,
             },
             // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
             // using the extension .module.css
             {
               test: cssModuleRegex,
               use: getStyleLoaders({
-                getLocalIdent: getCSSModuleLocalIdent,
                 importLoaders: 1,
-                sourceMap: false,
-                modules: true,
+                sourceMap: isEnvProduction && shouldUseSourceMap,
+                modules: {
+                  getLocalIdent: getCSSModuleLocalIdent,
+                },
               }),
             },
             // Opt-in support for SASS (using .scss or .sass extensions).
@@ -195,10 +212,10 @@ module.exports = function() {
               exclude: sassModuleRegex,
               use: getStyleLoaders(
                 {
-                  importLoaders: 2,
-                  sourceMap: false,
+                  importLoaders: 3,
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
                 },
-                'sass-loader'
+                "sass-loader"
               ),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
@@ -212,12 +229,13 @@ module.exports = function() {
               test: sassModuleRegex,
               use: getStyleLoaders(
                 {
-                  getLocalIdent: getCSSModuleLocalIdent,
-                  importLoaders: 2,
-                  sourceMap: false,
-                  modules: true,
+                  importLoaders: 3,
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
+                  modules: {
+                    getLocalIdent: getCSSModuleLocalIdent,
+                  },
                 },
-                'sass-loader'
+                "sass-loader"
               ),
             },
             // In production, assets are copied to the `build` folder.
