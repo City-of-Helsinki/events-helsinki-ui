@@ -16,7 +16,7 @@ import EventHero from "./eventHero/EventHero";
 import styles from "./eventPage.module.scss";
 import EventPageMeta from "./EventPageMeta";
 import { isEventClosed } from "./EventUtils";
-import SimilarEvents from "./SimilarEvents";
+import SimilarEvents from "./similarEvents/SimilarEvents";
 
 interface RouteParams {
   id: string;

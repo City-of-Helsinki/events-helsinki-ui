@@ -2,15 +2,18 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 
-import SimilarEventCard from "../../common/components/eventCard/EventCard";
-import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
-import { EventDetailsQuery, useEventListQuery } from "../../generated/graphql";
-import useLocale from "../../hooks/useLocale";
-import { getSearchQuery } from "../../util/searchUtils";
+import SimilarEventCard from "../../../common/components/eventCard/EventCard";
+import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
+import {
+  EventDetailsQuery,
+  useEventListQuery
+} from "../../../generated/graphql";
+import useLocale from "../../../hooks/useLocale";
+import { getSearchQuery } from "../../../util/searchUtils";
 // Use same page size as on event search page
-import { EVENT_SORT_OPTIONS, PAGE_SIZE } from "../eventSearch/constants";
-import { getEventFilters } from "../eventSearch/EventListUtils";
-import { SIMILAR_EVENTS_AMOUNT } from "./constants";
+import { EVENT_SORT_OPTIONS, PAGE_SIZE } from "../../eventSearch/constants";
+import { getEventFilters } from "../../eventSearch/EventListUtils";
+import { SIMILAR_EVENTS_AMOUNT } from "../constants";
 import styles from "./similarEvents.module.scss";
 
 interface Props {
