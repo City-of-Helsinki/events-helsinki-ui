@@ -1,7 +1,7 @@
 import * as React from "react";
 import renderer from "react-test-renderer";
 
-import { mockEventData } from "../constants";
+import { mockEventData } from "../../constants";
 import EventLocationText from "../EventLocationText";
 
 test("EventLocationText matches snapshot", () => {

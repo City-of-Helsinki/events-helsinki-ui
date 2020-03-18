@@ -2,18 +2,18 @@ import { IconAngleRight, IconLocation } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import Map from "../../common/components/map/Map";
-import { EventDetailsQuery } from "../../generated/graphql";
-import useLocale from "../../hooks/useLocale";
-import IconExternalLink from "../../icons/IconExternalLink";
-import getLocalisedString from "../../util/getLocalisedString";
-import styles from "./eventLocation.module.scss";
-import LocationText from "./EventLocationText";
+import Map from "../../../common/components/map/Map";
+import { EventDetailsQuery } from "../../../generated/graphql";
+import useLocale from "../../../hooks/useLocale";
+import IconExternalLink from "../../../icons/IconExternalLink";
+import getLocalisedString from "../../../util/getLocalisedString";
 import {
   getGoogleDirectionsLink,
   getGoogleLink,
   getHslDirectionsLink
-} from "./EventUtils";
+} from "../EventUtils";
+import styles from "./eventLocation.module.scss";
+import LocationText from "./EventLocationText";
 
 interface Props {
   eventData: EventDetailsQuery;

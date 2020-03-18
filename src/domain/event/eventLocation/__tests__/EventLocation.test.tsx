@@ -1,7 +1,7 @@
 import { mount } from "enzyme";
 import * as React from "react";
 
-import { mockEventData } from "../constants";
+import { mockEventData } from "../../constants";
 import EventLocation from "../EventLocation";
 
 // React-leaflet renders over 11000 lines of html, so no snapshot for this component

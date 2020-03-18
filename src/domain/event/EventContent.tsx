@@ -10,7 +10,7 @@ import useLocale from "../../hooks/useLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import styles from "./eventContent.module.scss";
 import EventInfo from "./eventInfo/EventInfo";
-import EventLocation from "./EventLocation";
+import EventLocation from "./eventLocation/EventLocation";
 
 interface Props {
   eventData: EventDetailsQuery;

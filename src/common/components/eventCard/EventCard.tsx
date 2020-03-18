@@ -5,7 +5,7 @@ import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
 import EventKeywords from "../../../domain/event/EventKeywords";
-import LocationText from "../../../domain/event/EventLocationText";
+import LocationText from "../../../domain/event/eventLocation/EventLocationText";
 import {
   getEventImageUrl,
   getEventPrice

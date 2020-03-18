@@ -1,9 +1,9 @@
 import React from "react";
 
-import useLocale from "../../hooks/useLocale";
-import getLocalisedString from "../../util/getLocalisedString";
-import { getEventDistrict } from "./EventUtils";
-import { EventInList } from "./types";
+import useLocale from "../../../hooks/useLocale";
+import getLocalisedString from "../../../util/getLocalisedString";
+import { getEventDistrict } from "../EventUtils";
+import { EventInList } from "../types";
 
 interface Props {
   event: EventInList;
