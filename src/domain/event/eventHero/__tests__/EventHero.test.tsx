@@ -3,7 +3,7 @@ import * as React from "react";
 import { MemoryRouter } from "react-router";
 import renderer from "react-test-renderer";
 
-import { mockEventData } from "../constants";
+import { mockEventData } from "../../constants";
 import EventHero from "../EventHero";
 
 test("EventHero matches snapshot", () => {

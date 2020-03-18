@@ -12,7 +12,7 @@ import Container from "../app/layout/Container";
 import PageWrapper from "../app/layout/PageWrapper";
 import EventClosedHero from "./EventClosedHero";
 import EventContent from "./EventContent";
-import EventHero from "./EventHero";
+import EventHero from "./eventHero/EventHero";
 import styles from "./eventPage.module.scss";
 import EventPageMeta from "./EventPageMeta";
 import { isEventClosed } from "./EventUtils";

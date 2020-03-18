@@ -5,18 +5,18 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 
-import Button from "../../common/components/button/Button";
-import IconLink from "../../common/components/link/IconLink";
-import { EventDetailsQuery } from "../../generated/graphql";
-import useLocale from "../../hooks/useLocale";
-import IconTicket from "../../icons/IconTicket";
-import getDateRangeStr from "../../util/getDateRangeStr";
-import getLocalisedString from "../../util/getLocalisedString";
-import Container from "../app/layout/Container";
+import Button from "../../../common/components/button/Button";
+import IconLink from "../../../common/components/link/IconLink";
+import { EventDetailsQuery } from "../../../generated/graphql";
+import useLocale from "../../../hooks/useLocale";
+import IconTicket from "../../../icons/IconTicket";
+import getDateRangeStr from "../../../util/getDateRangeStr";
+import getLocalisedString from "../../../util/getLocalisedString";
+import Container from "../../app/layout/Container";
+import EventKeywords from "../EventKeywords";
+import LocationText from "../EventLocationText";
+import { getEventImageUrl, getEventPrice, isEventFree } from "../EventUtils";
 import styles from "./eventHero.module.scss";
-import EventKeywords from "./EventKeywords";
-import LocationText from "./EventLocationText";
-import { getEventImageUrl, getEventPrice, isEventFree } from "./EventUtils";
 
 interface Props {
   eventData: EventDetailsQuery;
