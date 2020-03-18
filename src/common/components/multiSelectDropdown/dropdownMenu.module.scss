@@ -17,7 +17,7 @@
   .dropdownMenuWrapper {
 
     @include respond_above(sm) {
-      max-height: 20rem;
+      max-height: 18.35rem;
       overflow: auto;
     }
   }
