@@ -442,7 +442,7 @@ export type EventDetailsQuery = (
   { __typename?: 'Query' }
   & { eventDetails: (
     { __typename?: 'EventDetails' }
-    & Pick<EventDetails, 'id' | 'endTime' | 'startTime' | 'publisher'>
+    & Pick<EventDetails, 'id' | 'eventStatus' | 'endTime' | 'startTime' | 'publisher'>
     & { externalLinks: Array<(
       { __typename?: 'ExternalLink' }
       & Pick<ExternalLink, 'name' | 'link'>
@@ -568,7 +568,7 @@ export type EventListQuery = (
       & Pick<Meta, 'count' | 'next' | 'previous'>
     ), data: Array<(
       { __typename?: 'EventDetails' }
-      & Pick<EventDetails, 'id' | 'startTime' | 'endTime'>
+      & Pick<EventDetails, 'id' | 'eventStatus' | 'startTime' | 'endTime'>
       & { images: Array<(
         { __typename?: 'Image' }
         & Pick<Image, 'id' | 'name' | 'url'>
@@ -888,6 +888,7 @@ export const EventDetailsDocument = gql`
     query EventDetails($id: ID!, $include: [String]) {
   eventDetails(id: $id, include: $include) {
     id
+    eventStatus
     externalLinks {
       name
       link
@@ -1102,6 +1103,7 @@ export const EventListDocument = gql`
     }
     data {
       id
+      eventStatus
       images {
         id
         name

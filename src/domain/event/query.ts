@@ -4,6 +4,7 @@ export const QUERY_EVENT_DETAILS = gql`
   query EventDetails($id: ID!, $include: [String]) {
     eventDetails(id: $id, include: $include) {
       id
+      eventStatus
       externalLinks {
         name
         link

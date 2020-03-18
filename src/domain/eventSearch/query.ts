@@ -44,6 +44,7 @@ export const QUERY_EVENT_LIST = gql`
       }
       data {
         id
+        eventStatus
         images {
           id
           name

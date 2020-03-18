@@ -131,6 +131,7 @@
     "description": {
       "title": "Kuvaus"
     },
+    "eventCancelled": "Tapahtuma peruttu",
     "hero": {
       "ariaLabelBackButton": "Takaisin tapahtumahakuun",
       "buttonBuyTickets": "Osta liput",

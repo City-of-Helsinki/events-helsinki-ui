@@ -37,6 +37,7 @@ export type EventUiKeyword = {
 };
 
 export type EventInList = Pick<EventDetails, "id" | "startTime" | "endTime"> & {
+  eventStatus?: Maybe<string>;
   images: Array<Pick<Image, "id" | "name" | "url">>;
   keywords: Array<KeywordInList>;
   location: Maybe<LocationInList>;

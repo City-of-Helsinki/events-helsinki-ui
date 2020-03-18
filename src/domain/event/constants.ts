@@ -6,6 +6,8 @@ export const mockEventData = {
       sv: "description sv"
     },
     endTime: null,
+
+    eventStatus: "EventScheduled",
     externalLinks: [
       {
         link: "https://www.facebook.com/events/12345687/",

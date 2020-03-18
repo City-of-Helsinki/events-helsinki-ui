@@ -15,6 +15,7 @@ import getLocalisedString from "../../../util/getLocalisedString";
 import Container from "../../app/layout/Container";
 import EventKeywords from "../eventKeywords/EventKeywords";
 import LocationText from "../eventLocation/EventLocationText";
+import EventName from "../eventName/EventName";
 import { getEventImageUrl, getEventPrice, isEventFree } from "../EventUtils";
 import styles from "./eventHero.module.scss";
 
@@ -48,7 +49,6 @@ const EventHero: React.FC<Props> = ({ eventData }) => {
   const keywords = eventData.eventDetails.keywords;
   const startTime = eventData.eventDetails.startTime;
   const endTime = eventData.eventDetails.endTime;
-  const name = eventData.eventDetails.name;
   const today = startTime ? isToday(new Date(startTime)) : false;
   const thisWeek = startTime ? isThisWeek(new Date(startTime)) : false;
 
@@ -87,7 +87,7 @@ const EventHero: React.FC<Props> = ({ eventData }) => {
                 {!!startTime && getDateRangeStr(startTime, endTime, locale)}
               </div>
               <div className={styles.title}>
-                {getLocalisedString(name, locale)}
+                <EventName event={eventData.eventDetails} />
               </div>
               <div className={styles.description}>
                 {getLocalisedString(description, locale)}

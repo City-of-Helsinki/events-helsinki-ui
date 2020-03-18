@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import EventKeywords from "../../../domain/event/eventKeywords/EventKeywords";
 import LocationText from "../../../domain/event/eventLocation/EventLocationText";
+import EventName from "../../../domain/event/eventName/EventName";
 import {
   getEventImageUrl,
   getEventPrice,
@@ -47,7 +48,6 @@ const EventCard: React.FC<Props> = ({ event }) => {
   }, [event.id, locale, push, search]);
 
   const imageUrl = getEventImageUrl(event);
-  const name = event.name;
   const startTime = event.startTime;
   const endTime = event.endTime;
   const eventUrl = React.useMemo(() => {
@@ -99,10 +99,12 @@ const EventCard: React.FC<Props> = ({ event }) => {
             tabIndex={-1}
             to={eventUrl}
           >
-            {getLocalisedString(name, locale)}
+            <EventName event={event} />
           </Link>
           {/* Event name for screen readers  */}
-          <SrOnly>{getLocalisedString(name, locale)}</SrOnly>
+          <SrOnly>
+            <EventName event={event} />
+          </SrOnly>
           <div className={styles.eventLocation}>
             <LocationText
               event={event}

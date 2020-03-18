@@ -131,6 +131,7 @@
     "description": {
       "title": "Beskrivning"
     },
+    "eventCancelled": "Evenemang avbrutet",
     "hero": {
       "ariaLabelBackButton": "Tillbaka till händelsessökning",
       "buttonBuyTickets": "Köp biljetter",

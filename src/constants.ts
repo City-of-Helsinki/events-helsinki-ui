@@ -71,6 +71,11 @@ export const DATE_TYPES = {
   WEEKEND: "weekend"
 };
 
+export const EVENT_STATUS = {
+  EVENT_CANCELLED: "EventCancelled",
+  EVENT_SCHEDULED: "EventScheduled"
+};
+
 export const AUTOSUGGEST_TYPES = {
   DISTRICT: "district",
   KEYWORD: "keyword",
