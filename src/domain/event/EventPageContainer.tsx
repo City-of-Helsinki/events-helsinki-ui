@@ -14,7 +14,7 @@ import EventClosedHero from "./eventClosedHero/EventClosedHero";
 import EventContent from "./eventContent/EventContent";
 import EventHero from "./eventHero/EventHero";
 import styles from "./eventPage.module.scss";
-import EventPageMeta from "./EventPageMeta";
+import EventPageMeta from "./eventPageMeta/EventPageMeta";
 import { isEventClosed } from "./EventUtils";
 import SimilarEvents from "./similarEvents/SimilarEvents";
 

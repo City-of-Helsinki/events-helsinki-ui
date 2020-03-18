@@ -1,10 +1,10 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-import { EventDetailsQuery, LocalizedObject } from "../../generated/graphql";
-import useLocale from "../../hooks/useLocale";
-import getLocalisedString from "../../util/getLocalisedString";
-import { getEventSomeImageUrl } from "./EventUtils";
+import { EventDetailsQuery, LocalizedObject } from "../../../generated/graphql";
+import useLocale from "../../../hooks/useLocale";
+import getLocalisedString from "../../../util/getLocalisedString";
+import { getEventSomeImageUrl } from "../EventUtils";
 
 interface Props {
   eventData: EventDetailsQuery;
