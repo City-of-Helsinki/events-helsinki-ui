@@ -1,7 +1,7 @@
 import * as React from "react";
 import renderer from "react-test-renderer";
 
-import { mockEventData } from "../constants";
+import { mockEventData } from "../../constants";
 import EventKeywords from "../EventKeywords";
 
 test("EventKeywords matches snapshot", () => {

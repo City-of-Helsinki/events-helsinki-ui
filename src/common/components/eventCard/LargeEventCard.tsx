@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
-import EventKeywords from "../../../domain/event/EventKeywords";
+import EventKeywords from "../../../domain/event/eventKeywords/EventKeywords";
 import LocationText from "../../../domain/event/eventLocation/EventLocationText";
 import {
   getEventImageUrl,

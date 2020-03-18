@@ -13,7 +13,7 @@ import IconTicket from "../../../icons/IconTicket";
 import getDateRangeStr from "../../../util/getDateRangeStr";
 import getLocalisedString from "../../../util/getLocalisedString";
 import Container from "../../app/layout/Container";
-import EventKeywords from "../EventKeywords";
+import EventKeywords from "../eventKeywords/EventKeywords";
 import LocationText from "../eventLocation/EventLocationText";
 import { getEventImageUrl, getEventPrice, isEventFree } from "../EventUtils";
 import styles from "./eventHero.module.scss";

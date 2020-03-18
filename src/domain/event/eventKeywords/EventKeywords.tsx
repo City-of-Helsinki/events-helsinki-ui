@@ -2,10 +2,10 @@ import { isThisWeek, isToday } from "date-fns";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import Keyword from "../../common/components/keyword/Keyword";
-import useLocale from "../../hooks/useLocale";
-import { getEventKeywords, isEventFree } from "./EventUtils";
-import { EventInList } from "./types";
+import Keyword from "../../../common/components/keyword/Keyword";
+import useLocale from "../../../hooks/useLocale";
+import { getEventKeywords, isEventFree } from "../EventUtils";
+import { EventInList } from "../types";
 
 interface Props {
   blackOnMobile?: boolean;
