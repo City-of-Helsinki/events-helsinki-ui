@@ -60,7 +60,11 @@ const NavbarMobile: React.FC<Props> = ({ isMenuOpen, onMenuClose }) => {
               [styles.isSelected]: currentLanguage === SUPPORT_LANGUAGES.FI
             })}
           >
-            <Link onClick={onMenuClose} to={getUrl(SUPPORT_LANGUAGES.FI)}>
+            <Link
+              lang="fi"
+              onClick={onMenuClose}
+              to={getUrl(SUPPORT_LANGUAGES.FI)}
+            >
               {t("header.languages.fi")}
             </Link>
           </li>
@@ -69,7 +73,11 @@ const NavbarMobile: React.FC<Props> = ({ isMenuOpen, onMenuClose }) => {
               [styles.isSelected]: currentLanguage === SUPPORT_LANGUAGES.SV
             })}
           >
-            <Link onClick={onMenuClose} to={getUrl(SUPPORT_LANGUAGES.SV)}>
+            <Link
+              lang="sv"
+              onClick={onMenuClose}
+              to={getUrl(SUPPORT_LANGUAGES.SV)}
+            >
               {t("header.languages.sv")}
             </Link>
           </li>
@@ -78,7 +86,11 @@ const NavbarMobile: React.FC<Props> = ({ isMenuOpen, onMenuClose }) => {
               [styles.isSelected]: currentLanguage === SUPPORT_LANGUAGES.EN
             })}
           >
-            <Link onClick={onMenuClose} to={getUrl(SUPPORT_LANGUAGES.EN)}>
+            <Link
+              lang="en"
+              onClick={onMenuClose}
+              to={getUrl(SUPPORT_LANGUAGES.EN)}
+            >
               {t("header.languages.en")}
             </Link>
           </li>
