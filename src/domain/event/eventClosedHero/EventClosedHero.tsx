@@ -2,8 +2,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 
-import Button from "../../common/components/button/Button";
-import useLocale from "../../hooks/useLocale";
+import Button from "../../../common/components/button/Button";
+import useLocale from "../../../hooks/useLocale";
 import styles from "./eventClosedHero.module.scss";
 
 const EventClosedHero: React.FC = () => {
