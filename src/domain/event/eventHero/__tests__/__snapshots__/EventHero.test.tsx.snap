@@ -56,6 +56,25 @@ exports[`EventHero matches snapshot 1`] = `
           className="textWrapper"
         >
           <div
+            className="categoryWrapper"
+          >
+            <div
+              className="keyword blackOnMobile"
+            >
+              Keyword 1 fi
+            </div>
+            <div
+              className="keyword blackOnMobile"
+            >
+              Keyword 2 fi
+            </div>
+            <div
+              className="keyword tramLight20"
+            >
+              Ilmainen
+            </div>
+          </div>
+          <div
             className="date desktopOnly"
           >
             Perjantai 13. joulukuuta 2019

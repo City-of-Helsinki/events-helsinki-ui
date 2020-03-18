@@ -39,7 +39,34 @@ export const mockEventData = {
       sv:
         "https://www.lippu.fi/tickets.html?affiliate=adv&doc=erdetaila&fun=erdetail&erid=2640080"
     },
-    keywords: [],
+    keywords: [
+      {
+        altLabels: [],
+        createdTime: "2017-09-06T05:20:25.832872Z",
+        dataSource: "yso",
+        id: "yso:1",
+        lastModifiedTime: "2017-09-06T05:20:25.832872Z",
+        nEvents: 1,
+        name: {
+          en: "Keyword 1 en",
+          fi: "Keyword 1 fi",
+          sv: "Keyword 1 sv"
+        }
+      },
+      {
+        altLabels: [],
+        createdTime: "2017-09-06T05:20:25.832872Z",
+        dataSource: "yso",
+        id: "yso:2",
+        lastModifiedTime: "2017-09-06T05:20:25.832872Z",
+        nEvents: 2,
+        name: {
+          en: "Keyword 2 en",
+          fi: "Keyword 2 fi",
+          sv: "Keyword 2 sv"
+        }
+      }
+    ],
     location: {
       addressLocality: {
         en: "locality en",
