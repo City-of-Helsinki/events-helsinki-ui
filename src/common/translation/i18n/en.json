@@ -169,6 +169,7 @@
     "location": {
       "directionsGoogle": "Directions (Google)",
       "directionsHSL": "Directions (HSL)",
+      "mapTitle": "Location",
       "openMap": "Open the map in a new window",
       "title": "Location"
     },

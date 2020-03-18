@@ -1,4 +1,16 @@
-import { getEventIdFromUrl } from "../EventUtils";
+import { mockEventData } from "../constants";
+import { getEventIdFromUrl, getServiceMapUrl } from "../EventUtils";
+
+describe("getServiceMapUrl function", () => {
+  it("get service map url", () => {
+    expect(getServiceMapUrl(mockEventData, "fi", false)).toBe(
+      "https://palvelukartta.hel.fi/fi/unit/123"
+    );
+    expect(getServiceMapUrl(mockEventData, "sv", true)).toBe(
+      "https://palvelukartta.hel.fi/sv/embed/unit/123"
+    );
+  });
+});
 
 describe("getEventIdFromUrl function", () => {
   it("get event id", () => {

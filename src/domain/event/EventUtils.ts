@@ -1,7 +1,7 @@
 import { isPast } from "date-fns";
 import capitalize from "lodash/capitalize";
 
-import { EventDetailsQuery } from "../../generated/graphql";
+import { EventDetailsQuery, Place } from "../../generated/graphql";
 import { Language } from "../../types";
 import getLocalisedString from "../../util/getLocalisedString";
 import {
@@ -177,6 +177,38 @@ export const getGoogleLink = (
   return `https://www.google.com/maps/place/${streetAddress},+${postalCode}+${addressLocality}/@${coordinates.join(
     ","
   )}`.replace(/\s/g, "+");
+};
+/**
+ * Get palvelukartta compatible id for the location
+ * @param {object} location
+ * @return {string}
+ */
+const getLocationId = (location?: Place | null) => {
+  return location && location.id
+    ? location.id
+        .split(":")
+        .slice(1)
+        .join()
+    : "";
+};
+
+/**
+ * Get service map url
+ * @param {object} eventData
+ * @param {string} locale
+ * @param {boolean} isEmbedded
+ * @return {string}
+ */
+export const getServiceMapUrl = (
+  eventData: EventDetailsQuery,
+  locale: Language,
+  isEmbedded?: boolean
+): string => {
+  const location = eventData.eventDetails.location;
+  const locationId = getLocationId(location);
+  return `https://palvelukartta.hel.fi/${locale}${
+    isEmbedded ? "/embed" : ""
+  }/unit/${locationId}`;
 };
 
 /**

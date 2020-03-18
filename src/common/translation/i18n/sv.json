@@ -168,6 +168,7 @@
     "location": {
       "directionsGoogle": "Vägbeskrivning (Google)",
       "directionsHSL": "Vägbeskrivning (HSL)",
+      "mapTitle": "Lokalisering",
       "openMap": "Öppna kartan i ett nytt fönster",
       "title": "Lokalisering"
     },

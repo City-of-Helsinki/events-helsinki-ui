@@ -166,7 +166,7 @@ exports[`EventInfo matches snapshot 1`] = `
         </div>
         <a
           className="link"
-          href="https://www.google.com/maps/place/streetAddress+fi,+01234+locality+fi/@60.250507,25.01497"
+          href="https://palvelukartta.hel.fi/fi/unit/123"
           rel="noopener noreferrer"
           target="_blank"
         >

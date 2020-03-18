@@ -77,6 +77,7 @@ export const mockEventData = {
       },
       divisions: [],
       email: "location@info.com",
+      id: "tprek:123",
       infoUrl: {
         en: "http://www.infourl.com",
         fi: "http://www.infourl.com",

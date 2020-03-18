@@ -29,8 +29,8 @@ import {
   getEventDistrict,
   getEventPrice,
   getGoogleDirectionsLink,
-  getGoogleLink,
-  getHslDirectionsLink
+  getHslDirectionsLink,
+  getServiceMapUrl
 } from "../EventUtils";
 import styles from "./eventInfo.module.scss";
 import OrganizationInfo from "./OrganizationInfo";
@@ -183,7 +183,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             )}
             <a
               className={styles.link}
-              href={getGoogleLink(eventData, locale)}
+              href={getServiceMapUrl(eventData, locale, false)}
               rel="noopener noreferrer"
               target="_blank"
             >

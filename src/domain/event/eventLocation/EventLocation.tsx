@@ -2,15 +2,14 @@ import { IconAngleRight, IconLocation } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import Map from "../../../common/components/map/Map";
 import { EventDetailsQuery } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import IconExternalLink from "../../../icons/IconExternalLink";
 import getLocalisedString from "../../../util/getLocalisedString";
 import {
   getGoogleDirectionsLink,
-  getGoogleLink,
-  getHslDirectionsLink
+  getHslDirectionsLink,
+  getServiceMapUrl
 } from "../EventUtils";
 import styles from "./eventLocation.module.scss";
 import LocationText from "./EventLocationText";
@@ -22,11 +21,6 @@ interface Props {
 const EventLocation: React.FC<Props> = ({ eventData }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-
-  const coordinates =
-    eventData.eventDetails.location && eventData.eventDetails.location.position
-      ? eventData.eventDetails.location.position.coordinates
-      : null;
   const name = eventData.eventDetails.name;
 
   return (
@@ -38,7 +32,7 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
         </div>
         <a
           className={styles.mapLink}
-          href={getGoogleLink(eventData, locale)}
+          href={getServiceMapUrl(eventData, locale, false)}
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -47,7 +41,12 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
         </a>
       </div>
 
-      <Map coordinates={coordinates} zoom={16} />
+      <iframe
+        title={t("event.location.mapTitle")}
+        className={styles.mapContainer}
+        src={getServiceMapUrl(eventData, locale, true)}
+      ></iframe>
+
       <div className={styles.eventName}>{getLocalisedString(name, locale)}</div>
       <div className={styles.location}>
         <LocationText
