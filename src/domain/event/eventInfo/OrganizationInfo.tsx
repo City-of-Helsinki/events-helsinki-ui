@@ -3,14 +3,14 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
+import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
 import {
   EventDetailsQuery,
   useOrganizationDetailsQuery
-} from "../../generated/graphql";
-import useLocale from "../../hooks/useLocale";
-import getLocalisedString from "../../util/getLocalisedString";
-import styles from "./eventInfo/eventInfo.module.scss";
+} from "../../../generated/graphql";
+import useLocale from "../../../hooks/useLocale";
+import getLocalisedString from "../../../util/getLocalisedString";
+import styles from "./eventInfo.module.scss";
 
 interface Props {
   eventData: EventDetailsQuery;

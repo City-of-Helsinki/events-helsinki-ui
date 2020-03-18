@@ -32,8 +32,8 @@ import {
   getGoogleLink,
   getHslDirectionsLink
 } from "../EventUtils";
-import OrganizationInfo from "../OrganizationInfo";
 import styles from "./eventInfo.module.scss";
+import OrganizationInfo from "./OrganizationInfo";
 import OtherEventTimes from "./OtherEventTimes";
 
 interface Props {

@@ -11,7 +11,7 @@ import isClient from "../../util/isClient";
 import Container from "../app/layout/Container";
 import PageWrapper from "../app/layout/PageWrapper";
 import EventClosedHero from "./eventClosedHero/EventClosedHero";
-import EventContent from "./EventContent";
+import EventContent from "./eventContent/EventContent";
 import EventHero from "./eventHero/EventHero";
 import styles from "./eventPage.module.scss";
 import EventPageMeta from "./EventPageMeta";

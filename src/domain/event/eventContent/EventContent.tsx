@@ -4,13 +4,13 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import sanitizeHtml from "sanitize-html";
 
-import ShareLinks from "../../common/components/shareLinks/ShareLinks";
-import { EventDetailsQuery } from "../../generated/graphql";
-import useLocale from "../../hooks/useLocale";
-import getLocalisedString from "../../util/getLocalisedString";
+import ShareLinks from "../../../common/components/shareLinks/ShareLinks";
+import { EventDetailsQuery } from "../../../generated/graphql";
+import useLocale from "../../../hooks/useLocale";
+import getLocalisedString from "../../../util/getLocalisedString";
+import EventInfo from "../eventInfo/EventInfo";
+import EventLocation from "../eventLocation/EventLocation";
 import styles from "./eventContent.module.scss";
-import EventInfo from "./eventInfo/EventInfo";
-import EventLocation from "./eventLocation/EventLocation";
 
 interface Props {
   eventData: EventDetailsQuery;
