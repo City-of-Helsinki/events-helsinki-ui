@@ -134,6 +134,7 @@
     "eventCancelled": "Tapahtuma peruttu",
     "hero": {
       "ariaLabelBackButton": "Takaisin tapahtumahakuun",
+      "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
       "buttonBuyTickets": "Osta liput",
       "buttonToHomePage": "Siirry etusivulle",
       "offers": {
@@ -142,6 +143,7 @@
       "textEventClosed": "Etsimäsi tapahtuma on jo ehtinyt päättyä"
     },
     "info": {
+      "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
       "buttonAddToCalendar": "Lisää kalenteriin",
       "buttonBuyTickets": "Osta liput",
       "directionsGoogle": "Reittiohjeet (Google)",
@@ -193,6 +195,7 @@
     "buttonClearFilters": "Tyhjennä hakuehdot",
     "buttonLoadMore": "Lataa lisää tapahtumia",
     "event": {
+      "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
       "buttonBuyTickets": "Osta liput",
       "buttonReadMore": "Lue lisää",
       "dateAndTime": "{{date}}, klo {{time}}",

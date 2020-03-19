@@ -134,6 +134,7 @@
     },
     "hero": {
       "ariaLabelBackButton": "Back to event search",
+      "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
       "buttonBuyTickets": "Buy tickets",
       "buttonToHomePage": "Go to the homepage",
       "offers": {
@@ -142,6 +143,7 @@
       "textEventClosed": "The event you are looking for has already ended"
     },
     "info": {
+      "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
       "buttonAddToCalendar": "Add to calendar",
       "buttonBuyTickets": "Buy tickets",
       "directionsGoogle": "Directions (Google)",
@@ -193,6 +195,7 @@
     "buttonClearFilters": "Clear filters",
     "buttonLoadMore": "Load more events",
     "event": {
+      "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
       "buttonBuyTickets": "Buy tickets",
       "buttonReadMore": "Read more",
       "dateAndTime": "{{date}}, at {{time}}",

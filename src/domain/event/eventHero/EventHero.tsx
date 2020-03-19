@@ -131,6 +131,7 @@ const EventHero: React.FC<Props> = ({ eventData }) => {
                     )}
                   >
                     <Button
+                      aria-label={t("event.hero.ariaLabelBuyTickets")}
                       color="primary"
                       onClick={moveToBuyTicketsPage}
                       size="default"

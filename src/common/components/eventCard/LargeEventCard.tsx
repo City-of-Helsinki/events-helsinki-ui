@@ -121,6 +121,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
             <div className={classNames(styles.buyButtonWrapper)}>
               {showBuyButton && (
                 <Button
+                  aria-label={t("eventSearch.event.ariaLabelBuyTickets")}
                   color="primary"
                   fullWidth
                   onClick={moveToBuyTicketsPage}

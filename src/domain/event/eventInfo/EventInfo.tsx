@@ -302,6 +302,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             className={classNames(styles.buyButtonWrapper, styles.mobileOnly)}
           >
             <Button
+              aria-label={t("event.info.ariaLabelBuyTickets")}
               color="primary"
               fullWidth={true}
               onClick={moveToBuyTicketsPage}

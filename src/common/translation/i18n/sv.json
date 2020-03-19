@@ -134,6 +134,7 @@
     "eventCancelled": "Evenemang avbrutet",
     "hero": {
       "ariaLabelBackButton": "Tillbaka till händelsessökning",
+      "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
       "buttonBuyTickets": "Köp biljetter",
       "buttonToHomePage": "Gå till framsidan",
       "offers": {
@@ -142,6 +143,7 @@
       "textEventClosed": "Händelsen du letar efter är redan slut"
     },
     "info": {
+      "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
       "buttonAddToCalendar": "Lägg till i kalendern",
       "buttonBuyTickets": "Köp biljetter",
       "directionsGoogle": "Vägbeskrivning (Google)",
@@ -193,6 +195,7 @@
     "buttonClearFilters": "Rensa filter",
     "buttonLoadMore": "Ladda ner fler evenemang",
     "event": {
+      "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
       "buttonBuyTickets": "Köp biljetter",
       "buttonReadMore": "Läs mer",
       "dateAndTime": "{{date}}, kl. {{time}}",
