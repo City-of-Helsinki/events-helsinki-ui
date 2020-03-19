@@ -16,7 +16,7 @@ exports[`EventHero matches snapshot 1`] = `
         <a
           aria-label="Takaisin tapahtumahakuun"
           className="iconLink white"
-          href="/fi/events/"
+          href="/fi/events"
           onClick={[Function]}
         >
           <div

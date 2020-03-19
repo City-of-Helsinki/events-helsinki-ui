@@ -14,8 +14,6 @@ import { getEventFilters } from "../../../eventSearch/EventListUtils";
 import { mockCollection } from "../../constants";
 import EventList from "../EventList";
 
-window.scrollTo = jest.fn();
-
 const searchParams = new URLSearchParams(
   mockCollection.collectionDetails.eventListQuery
 );
