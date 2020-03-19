@@ -195,7 +195,7 @@
     "event": {
       "buttonBuyTickets": "Osta liput",
       "buttonReadMore": "Lue lisää",
-      "dateAndTime": "{{date}}, kello {{time}}",
+      "dateAndTime": "{{date}}, klo {{time}}",
       "offers": {
         "isFree": "Ilmainen"
       }

@@ -19,7 +19,7 @@ exports[`EventCard should match snapshot 1`] = `
         <div class=\\"keyword tramLight20\\">Ilmainen</div>
       </div>
       <div class=\\"textWrapper\\">
-        <div class=\\"eventDateAndTime\\">Perjantai 13. joulukuuta 2019, kello 10.00</div><a aria-hidden=\\"true\\" class=\\"eventName\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">name fi</a>
+        <div class=\\"eventDateAndTime\\">Pe 13.12.2019, klo 10.00</div><a aria-hidden=\\"true\\" class=\\"eventName\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">name fi</a>
         <div class=\\"srOnly\\">name fi</div>
         <div class=\\"eventLocation\\">name fi, streetAddress fi, locality fi</div>
         <div class=\\"eventPrice\\">Ilmainen</div>

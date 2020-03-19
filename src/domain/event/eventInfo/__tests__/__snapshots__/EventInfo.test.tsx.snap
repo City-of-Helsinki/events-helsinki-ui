@@ -84,12 +84,12 @@ exports[`EventInfo matches snapshot 1`] = `
         <div
           className="mobileOnly"
         >
-          Perjantai 13. joulukuuta 2019
+          Pe 13.12.2019
         </div>
         <div
           className="desktopOnly"
         >
-           13. joulukuuta 2019
+           13.12.2019
         </div>
         <div
           className="desktopOnly"

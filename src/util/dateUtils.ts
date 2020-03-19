@@ -1,13 +1,14 @@
 import { format as formatDateStr } from "date-fns";
 import isAfter from "date-fns/isAfter";
 import isValid from "date-fns/isValid";
-import { enGB as en, fi, sv } from "date-fns/locale";
+import { enGB as en, fi } from "date-fns/locale";
 import parse from "date-fns/parse";
 import get from "lodash/get";
 import isNumber from "lodash/isNumber";
 
-const locales = { en, fi, sv };
+import sv from "./date-fns/locale/sv";
 
+const locales = { en, fi, sv };
 /**
  * Format date string
  * @param date

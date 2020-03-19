@@ -29,7 +29,7 @@ describe("getDateRangeStr function", () => {
 
   it("should return time range string in English", () => {
     expect(getTimeRangeStr("2019-12-03T08:42:36.318755Z", null, "en")).toBe(
-      "10:42 AM"
+      "10:42 a.m."
     );
     expect(
       getTimeRangeStr(
@@ -37,6 +37,6 @@ describe("getDateRangeStr function", () => {
         "2019-12-03T10:42:36.318755Z",
         "en"
       )
-    ).toBe("10:42 AM – 12:42 PM");
+    ).toBe("10:42 a.m. – 12:42 p.m.");
   });
 });

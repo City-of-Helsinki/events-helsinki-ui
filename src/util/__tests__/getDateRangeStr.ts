@@ -3,7 +3,7 @@ import getDateRangeStr from "../getDateRangeStr";
 describe("getDateRangeStr function", () => {
   it("should return date range string in Finnish", () => {
     expect(getDateRangeStr("2019-12-03T08:42:36.318755Z", null, "fi")).toBe(
-      "Tiistai 3. joulukuuta 2019"
+      "Ti 3.12.2019"
     );
     expect(
       getDateRangeStr(
@@ -11,7 +11,7 @@ describe("getDateRangeStr function", () => {
         "2019-12-03T10:42:36.318755Z",
         "fi"
       )
-    ).toBe("Tiistai 3. joulukuuta 2019");
+    ).toBe("Ti 3.12.2019");
     expect(
       getDateRangeStr(
         "2019-12-03T08:42:36.318755Z",
@@ -37,7 +37,7 @@ describe("getDateRangeStr function", () => {
 
   it("should return date range string in Swedish", () => {
     expect(getDateRangeStr("2019-12-03T08:42:36.318755Z", null, "sv")).toBe(
-      "Tisdag 3. december 2019"
+      "Ti 3.12.2019"
     );
     expect(
       getDateRangeStr(
@@ -45,7 +45,7 @@ describe("getDateRangeStr function", () => {
         "2019-12-03T10:42:36.318755Z",
         "sv"
       )
-    ).toBe("Tisdag 3. december 2019");
+    ).toBe("Ti 3.12.2019");
     expect(
       getDateRangeStr(
         "2019-12-03T08:42:36.318755Z",
@@ -71,7 +71,7 @@ describe("getDateRangeStr function", () => {
 
   it("should return date range string in English", () => {
     expect(getDateRangeStr("2019-12-03T08:42:36.318755Z", null, "en")).toBe(
-      "Tuesday 3. December 2019"
+      "Tue 3.12.2019"
     );
     expect(
       getDateRangeStr(
@@ -79,7 +79,7 @@ describe("getDateRangeStr function", () => {
         "2019-12-03T10:42:36.318755Z",
         "en"
       )
-    ).toBe("Tuesday 3. December 2019");
+    ).toBe("Tue 3.12.2019");
     expect(
       getDateRangeStr(
         "2019-12-03T08:42:36.318755Z",

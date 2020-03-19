@@ -1,6 +1,7 @@
 import { isSameDay, isSameMonth, isSameYear } from "date-fns";
 import capitalize from "lodash/capitalize";
 
+import { SUPPORT_LANGUAGES } from "../constants";
 import { formatDate } from "./dateUtils";
 
 /**
@@ -12,19 +13,20 @@ export default (
   locale: string,
   includeWeekday = true
 ) => {
-  const dateFormat = "d. MMMM yyyy ";
+  const weekdayFormat = locale === SUPPORT_LANGUAGES.EN ? "eee" : "eeeeee";
+  const dateFormat = "d.M.yyyy ";
 
   if (!end) {
     return `${
       includeWeekday
-        ? `${capitalize(formatDate(new Date(start), "cccc", locale))}`
+        ? `${capitalize(formatDate(new Date(start), weekdayFormat, locale))}`
         : ""
     } ${formatDate(new Date(start), dateFormat, locale)}`;
   } else {
     if (isSameDay(new Date(start), new Date(end))) {
       return `${
         includeWeekday
-          ? `${capitalize(formatDate(new Date(start), "cccc", locale))}`
+          ? `${capitalize(formatDate(new Date(start), weekdayFormat, locale))}`
           : ""
       } ${formatDate(new Date(start), dateFormat, locale)}`;
     } else if (isSameMonth(new Date(start), new Date(end))) {

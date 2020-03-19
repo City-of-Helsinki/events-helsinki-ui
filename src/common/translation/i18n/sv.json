@@ -195,7 +195,7 @@
     "event": {
       "buttonBuyTickets": "Köp biljetter",
       "buttonReadMore": "Läs mer",
-      "dateAndTime": "{{date}}, kl {{time}}",
+      "dateAndTime": "{{date}}, kl. {{time}}",
       "offers": {
         "isFree": "Gratis"
       }
