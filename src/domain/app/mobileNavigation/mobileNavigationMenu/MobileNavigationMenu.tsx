@@ -9,6 +9,7 @@ import { getCurrentLanguage } from "../../../../common/translation/TranslationUt
 import { SUPPORT_LANGUAGES } from "../../../../constants";
 import useLocale from "../../../../hooks/useLocale";
 import IconStar from "../../../../icons/IconStar";
+import scrollToTop from "../../../../util/scrollToTop";
 import styles from "./mobileNavigationMenu.module.scss";
 
 interface Props {
@@ -31,6 +32,11 @@ const NavbarMobile: React.FC<Props> = ({ isMenuOpen, onMenuClose }) => {
     )}${location.search}`;
   };
 
+  const onLinkClick = () => {
+    onMenuClose();
+    scrollToTop();
+  };
+
   return (
     <div
       className={classNames(styles.mobileNavigationMenu, {
@@ -40,13 +46,13 @@ const NavbarMobile: React.FC<Props> = ({ isMenuOpen, onMenuClose }) => {
       <div className={styles.linkWrapper}>
         <ul>
           <li className={styles.link}>
-            <Link onClick={onMenuClose} to={`/${locale}/events`}>
+            <Link onClick={onLinkClick} to={`/${locale}/events`}>
               <IconSearch />
               {t("header.searchEvents")}
             </Link>
           </li>
           <li className={styles.link}>
-            <Link onClick={onMenuClose} to={`/${locale}/collections`}>
+            <Link onClick={onLinkClick} to={`/${locale}/collections`}>
               <IconStar />
               {t("header.searchCollections")}
             </Link>

@@ -18,6 +18,7 @@ import IconParticipate from "../../../icons/IconParticipate";
 import IconSports from "../../../icons/IconSports";
 import IconStar from "../../../icons/IconStar";
 import IconTheatre from "../../../icons/IconTheatre";
+import scrollToTop from "../../../util/scrollToTop";
 import { getSearchQuery } from "../../../util/searchUtils";
 import Container from "../layout/Container";
 import styles from "./topFooter.module.scss";
@@ -42,6 +43,7 @@ const TopFooter: FunctionComponent = () => {
     });
 
     push({ pathname: `/${locale}/events`, search });
+    scrollToTop();
   };
 
   const categories = React.useMemo(() => {
@@ -110,11 +112,13 @@ const TopFooter: FunctionComponent = () => {
           <div className={styles.iconLinkWrapper}>
             <IconLink
               icon={<IconSearch />}
+              onClick={scrollToTop}
               text={t("footer.searchEvents")}
               to={`/${locale}/events`}
             />
             <IconLink
               icon={<IconStar />}
+              onClick={scrollToTop}
               text={t("footer.searchCollections")}
               to={`/${locale}/collections`}
             />

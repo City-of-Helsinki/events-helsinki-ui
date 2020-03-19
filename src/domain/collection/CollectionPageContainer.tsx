@@ -7,7 +7,6 @@ import ErrorHero from "../../common/components/error/ErrorHero";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useCollectionDetailsQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
-import isClient from "../../util/isClient";
 import PageWrapper from "../app/layout/PageWrapper";
 import CollectionHero from "./collectionHero/CollectionHero";
 import styles from "./collectionPage.module.scss";

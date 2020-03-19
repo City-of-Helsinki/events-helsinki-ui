@@ -3,7 +3,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { EventListQuery } from "../../../generated/graphql";
-import isClient from "../../../util/isClient";
 import Container from "../../app/layout/Container";
 import EventList from "./EventList";
 import FilterSummary from "./FilterSummary";

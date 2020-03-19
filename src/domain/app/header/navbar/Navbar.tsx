@@ -11,6 +11,7 @@ import { SUPPORT_LANGUAGES } from "../../../../constants";
 import useLocale from "../../../../hooks/useLocale";
 import IconStar from "../../../../icons/IconStar";
 import { Language } from "../../../../types";
+import scrollToTop from "../../../../util/scrollToTop";
 import styles from "./navbar.module.scss";
 
 const Navbar: React.FC = () => {
@@ -50,11 +51,13 @@ const Navbar: React.FC = () => {
       <div className={styles.linkWrapper}>
         <IconLink
           icon={<IconSearch />}
+          onClick={scrollToTop}
           text={t("header.searchEvents")}
           to={`/${locale}/events`}
         />
         <IconLink
           icon={<IconStar />}
+          onClick={scrollToTop}
           text={t("header.searchCollections")}
           to={`/${locale}/collections`}
         />
