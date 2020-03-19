@@ -581,6 +581,7 @@ export type EventListQuery = (
         )> }
       )>, location: Maybe<(
         { __typename?: 'Place' }
+        & Pick<Place, 'id'>
         & { divisions: Maybe<Array<(
           { __typename?: 'Division' }
           & Pick<Division, 'type'>
@@ -1119,6 +1120,7 @@ export const EventListDocument = gql`
         }
       }
       location {
+        id
         divisions {
           type
           name {

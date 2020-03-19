@@ -59,6 +59,7 @@ export const QUERY_EVENT_LIST = gql`
           }
         }
         location {
+          id
           divisions {
             type
             name {
