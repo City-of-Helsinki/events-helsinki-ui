@@ -26,13 +26,6 @@ const SearchResultList: React.FC<Props> = ({
   const { t } = useTranslation();
   const count = eventsData.eventList.meta.count;
 
-  React.useEffect(() => {
-    // Scroll to top when page loads. Ignore this on SSR because window doesn't exist
-    if (isClient) {
-      window.scrollTo(0, 0);
-    }
-  }, []);
-
   return (
     <div className={styles.searchResultListContainer}>
       <Container>

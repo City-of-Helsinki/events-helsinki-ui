@@ -30,13 +30,6 @@ const CollectionPageContainer: React.FC = () => {
     variables: { id: params.id }
   });
 
-  React.useEffect(() => {
-    // Scroll to top when collection changes. Ignore this on SSR because window doesn't exist
-    if (isClient) {
-      window.scrollTo(0, 0);
-    }
-  }, []);
-
   return (
     <PageWrapper
       className={styles.collectionPageWrapper}

@@ -24,7 +24,7 @@ interface RouteParams {
 
 const EventPageContainer: React.FC = () => {
   const { t } = useTranslation();
-  const { pathname, search } = useLocation();
+  const { search } = useLocation();
   const params = useParams<RouteParams>();
   const eventId = params.id;
   const locale = useLocale();
@@ -32,13 +32,6 @@ const EventPageContainer: React.FC = () => {
   const { data: eventData, loading } = useEventDetailsQuery({
     variables: { id: eventId, include: ["in_language", "keywords", "location"] }
   });
-
-  React.useEffect(() => {
-    // Scroll to top when event changes. Ignore this on SSR because window doesn't exist
-    if (isClient) {
-      window.scrollTo(0, 0);
-    }
-  }, [pathname]);
 
   const eventClosed = !eventData || isEventClosed(eventData.eventDetails);
 

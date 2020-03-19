@@ -37,7 +37,7 @@ const EventHero: React.FC<Props> = ({ eventData }) => {
   }, [eventData.eventDetails.offers, locale]);
 
   const eventSearchUrl = React.useMemo(() => {
-    return `/${locale}/events/${location.search}`;
+    return `/${locale}/events${location.search}`;
   }, [locale, location.search]);
 
   const moveToBuyTicketsPage = () => {
