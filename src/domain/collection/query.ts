@@ -31,12 +31,17 @@ export const QUERY_COLLECTION_DETAILS = gql`
         fi
         sv
       }
-      shortDescription {
+      socialMediaDescription {
         en
         fi
         sv
       }
       similarCollectionsTitle {
+        en
+        fi
+        sv
+      }
+      subtitles {
         en
         fi
         sv
@@ -79,12 +84,17 @@ export const QUERY_COLLECTION_DETAILS = gql`
           fi
           sv
         }
-        shortDescription {
+        similarCollectionsTitle {
           en
           fi
           sv
         }
-        similarCollectionsTitle {
+        socialMediaDescription {
+          en
+          fi
+          sv
+        }
+        subtitles {
           en
           fi
           sv

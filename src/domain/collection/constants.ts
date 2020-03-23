@@ -39,15 +39,20 @@ export const mockCollection = {
       fi: "http://www.google.com",
       sv: "http://www.google.com"
     },
-    shortDescription: {
-      en: "We put together the best foliage for the fall",
-      fi: "Kokosimme parhaat tärpit syksylle",
-      sv: "Vi sätter ihop det bästa bladverket för hösten"
-    },
     similarCollectionsTitle: {
       en: "Check also these",
       fi: "Katso myös nämä",
       sv: "Se dessa också"
+    },
+    socialMediaDescription: {
+      en: "We put together the best foliage for the fall",
+      fi: "Kokosimme parhaat tärpit syksylle",
+      sv: "Vi sätter ihop det bästa bladverket för hösten"
+    },
+    subtitles: {
+      en: "Subtitles en",
+      fi: "Subtitles fi",
+      sv: "Subtitles sv"
     },
     title: {
       en: "The most bustling tricks of the fall",

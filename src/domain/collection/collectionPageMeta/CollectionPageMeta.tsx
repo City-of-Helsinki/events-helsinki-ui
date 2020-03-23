@@ -20,7 +20,7 @@ const CollectionPageMeta: React.FC<CollectionPageMetaProps> = ({
     locale
   );
   const description = getLocalisedString(
-    collectionData.collectionDetails.shortDescription || {},
+    collectionData.collectionDetails.socialMediaDescription || {},
     locale
   );
 

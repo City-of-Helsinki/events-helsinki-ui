@@ -42,10 +42,11 @@ export type CollectionDetails = {
   path?: Maybe<Scalars['String']>,
   searchDescription?: Maybe<Scalars['String']>,
   seoTitle?: Maybe<Scalars['String']>,
-  shortDescription: LocalizedObject,
   showInMenus?: Maybe<Scalars['Boolean']>,
   similarCollectionsTitle?: Maybe<LocalizedObject>,
   slug?: Maybe<Scalars['String']>,
+  socialMediaDescription?: Maybe<LocalizedObject>,
+  subtitles: LocalizedObject,
   title: LocalizedObject,
   urlPath?: Maybe<Scalars['String']>,
 };
@@ -380,13 +381,16 @@ export type CollectionDetailsQuery = (
     ), linkUrl: (
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    ), shortDescription: (
+    ), socialMediaDescription: Maybe<(
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    ), similarCollectionsTitle: Maybe<(
+    )>, similarCollectionsTitle: Maybe<(
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    )>, title: (
+    )>, subtitles: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    ), title: (
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
     ) }
@@ -418,13 +422,16 @@ export type CollectionListQuery = (
       ), linkUrl: (
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      ), shortDescription: (
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
       ), similarCollectionsTitle: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      )>, title: (
+      )>, socialMediaDescription: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      )>, subtitles: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+      ), title: (
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
       ) }
@@ -743,12 +750,17 @@ export const CollectionDetailsDocument = gql`
       fi
       sv
     }
-    shortDescription {
+    socialMediaDescription {
       en
       fi
       sv
     }
     similarCollectionsTitle {
+      en
+      fi
+      sv
+    }
+    subtitles {
       en
       fi
       sv
@@ -830,12 +842,17 @@ export const CollectionListDocument = gql`
         fi
         sv
       }
-      shortDescription {
+      similarCollectionsTitle {
         en
         fi
         sv
       }
-      similarCollectionsTitle {
+      socialMediaDescription {
+        en
+        fi
+        sv
+      }
+      subtitles {
         en
         fi
         sv

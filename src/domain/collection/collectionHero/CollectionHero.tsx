@@ -15,6 +15,31 @@ interface Props {
 const CollectionHero: React.FC<Props> = ({ collectionData }) => {
   const locale = useLocale();
 
+  const title = getLocalisedString(
+    collectionData.collectionDetails.title,
+    locale
+  );
+
+  const subtitles = getLocalisedString(
+    collectionData.collectionDetails.subtitles,
+    locale
+  );
+
+  const description = getLocalisedString(
+    collectionData.collectionDetails.description,
+    locale
+  );
+
+  const linkUrl = getLocalisedString(
+    collectionData.collectionDetails.linkUrl,
+    locale
+  );
+
+  const linkText = getLocalisedString(
+    collectionData.collectionDetails.linkText,
+    locale
+  );
+
   return (
     <div className={styles.collectionHero}>
       <ImageWithCard
@@ -23,35 +48,16 @@ const CollectionHero: React.FC<Props> = ({ collectionData }) => {
         cardLayout="hover"
         color="tertiary"
       >
-        <h2>
-          {getLocalisedString(collectionData.collectionDetails.title, locale)}
-        </h2>
-        <h3>
-          {getLocalisedString(
-            collectionData.collectionDetails.shortDescription,
-            locale
-          )}
-        </h3>
-        <p>
-          {getLocalisedString(
-            collectionData.collectionDetails.description,
-            locale
-          )}
-        </p>
-        <a
-          href={getLocalisedString(
-            collectionData.collectionDetails.linkUrl,
-            locale
-          )}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {getLocalisedString(
-            collectionData.collectionDetails.linkText,
-            locale
-          )}
-          <IconAngleRight className={styles.linkIcon} />
-        </a>
+        <h2>{title}</h2>
+        {!!subtitles && <h3>{subtitles}</h3>}
+        {!!description && <p>{description}</p>}
+        {!!linkText && !!linkText && (
+          <a href={linkUrl} target="_blank" rel="noopener noreferrer">
+            {linkText}
+            <IconAngleRight className={styles.linkIcon} />
+          </a>
+        )}
+
         <CollectionShareLinks />
       </ImageWithCard>
     </div>

@@ -35,7 +35,7 @@ afterEach(() => {
 test("applies expected metadata", async () => {
   const collectionTitle = mockCollection.collectionDetails.title.fi;
   const collectionDescription =
-    mockCollection.collectionDetails.shortDescription.fi;
+    mockCollection.collectionDetails.socialMediaDescription.fi;
 
   // This function is usually used for the helpers it returns. However, the
   // scope f the helpers is limited to `body`. As we need to assert against
