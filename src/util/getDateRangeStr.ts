@@ -5,6 +5,7 @@ import {
   isSameMonth,
   isSameYear
 } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
 import capitalize from "lodash/capitalize";
 
 import { SUPPORT_LANGUAGES } from "../constants";
@@ -22,8 +23,9 @@ export default (
   includeTime = false,
   timeAbbreviation = ""
 ) => {
-  const startDate = new Date(start);
-  const nextDay = addDays(startDate, 1);
+  const timeZone = "Europe/Helsinki";
+  const startDate = utcToZonedTime(new Date(start), timeZone);
+  const nextDay = utcToZonedTime(addDays(startDate, 1), timeZone);
   nextDay.setHours(5, 0, 0, 0);
   const weekdayFormat = locale === SUPPORT_LANGUAGES.EN ? "eee" : "eeeeee";
   const dateFormat = "d.M.yyyy ";
@@ -44,7 +46,7 @@ export default (
         : ""
     }`;
   } else {
-    const endDate = new Date(end);
+    const endDate = utcToZonedTime(new Date(end), timeZone);
 
     if (isSameDay(startDate, endDate) || isBefore(endDate, nextDay)) {
       return `${
@@ -78,19 +80,19 @@ export default (
             )}`
           : ""
       }`;
-    } else if (isSameMonth(new Date(start), new Date(end))) {
-      return `${formatDate(new Date(start), "d")} – ${formatDate(
-        new Date(end),
+    } else if (isSameMonth(startDate, endDate)) {
+      return `${formatDate(startDate, "d")} – ${formatDate(
+        endDate,
         "d.M.yyyy"
       )}`;
-    } else if (isSameYear(new Date(start), new Date(end))) {
-      return `${formatDate(new Date(start), "d.M")} – ${formatDate(
-        new Date(end),
+    } else if (isSameYear(startDate, endDate)) {
+      return `${formatDate(startDate, "d.M")} – ${formatDate(
+        endDate,
         "d.M.yyyy"
       )}`;
     } else {
-      return `${formatDate(new Date(start), "d.M.yyyy")} – ${formatDate(
-        new Date(end),
+      return `${formatDate(startDate, "d.M.yyyy")} – ${formatDate(
+        endDate,
         "d.M.yyyy"
       )}`;
     }
