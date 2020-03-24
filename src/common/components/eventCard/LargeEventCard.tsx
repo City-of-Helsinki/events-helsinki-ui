@@ -16,7 +16,6 @@ import { EventInList } from "../../../domain/event/types";
 import useLocale from "../../../hooks/useLocale";
 import getDateRangeStr from "../../../util/getDateRangeStr";
 import getLocalisedString from "../../../util/getLocalisedString";
-import getTimeRangeStr from "../../../util/getTimeRangeStr";
 import Button from "../button/Button";
 import SrOnly from "../srOnly/SrOnly";
 import styles from "./largeEventCard.module.scss";
@@ -88,10 +87,14 @@ const EventCard: React.FC<Props> = ({ event }) => {
         <div className={styles.textWrapper}>
           <div className={styles.eventDateAndTime}>
             {!!startTime &&
-              t("eventSearch.event.dateAndTime", {
-                date: getDateRangeStr(startTime, endTime, locale),
-                time: getTimeRangeStr(startTime, endTime, locale)
-              })}
+              getDateRangeStr(
+                startTime,
+                endTime,
+                locale,
+                true,
+                true,
+                t("commons.timeAbbreviation")
+              )}
           </div>
           <Link
             aria-hidden="true"

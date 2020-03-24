@@ -84,7 +84,15 @@ const EventHero: React.FC<Props> = ({ eventData }) => {
                 </div>
               )}
               <div className={classNames(styles.date, styles.desktopOnly)}>
-                {!!startTime && getDateRangeStr(startTime, endTime, locale)}
+                {!!startTime &&
+                  getDateRangeStr(
+                    startTime,
+                    endTime,
+                    locale,
+                    true,
+                    true,
+                    t("commons.timeAbbreviation")
+                  )}
               </div>
               <div className={styles.title}>
                 <EventName event={eventData.eventDetails} />

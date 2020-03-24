@@ -18,12 +18,10 @@ import useLocale from "../../../hooks/useLocale";
 import IconCalendar from "../../../icons/IconCalendar";
 import IconDirections from "../../../icons/IconDirections";
 import IconTicket from "../../../icons/IconTicket";
-import { formatDate } from "../../../util/dateUtils";
 import getDateArray from "../../../util/getDateArray";
 import getDateRangeStr from "../../../util/getDateRangeStr";
 import getDomain from "../../../util/getDomain";
 import getLocalisedString from "../../../util/getLocalisedString";
-import getTimeRangeStr from "../../../util/getTimeRangeStr";
 import { translateValue } from "../../../util/translateUtils";
 import {
   getEventDistrict,
@@ -132,21 +130,16 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           </div>
           <div className={styles.iconTextWrapper}>
             <p>{t("event.info.labelDateAndTime")}</p>
-            <div className={styles.mobileOnly}>
-              {!!startTime && getDateRangeStr(startTime, endTime, locale)}
-            </div>
 
-            <div className={styles.desktopOnly}>
-              {!!startTime &&
-                getDateRangeStr(startTime, endTime, locale, false)}
-            </div>
-            <div className={styles.desktopOnly}>
-              {!!startTime &&
-                capitalize(formatDate(new Date(startTime), "cccc", locale))}
-            </div>
-            <div>
-              {!!startTime && getTimeRangeStr(startTime, endTime, locale)}
-            </div>
+            {!!startTime &&
+              getDateRangeStr(
+                startTime,
+                endTime,
+                locale,
+                true,
+                true,
+                t("commons.timeAbbreviation")
+              )}
             {eventData.eventDetails.startTime && (
               <button className={styles.link} onClick={downloadIcsFile}>
                 {t("event.info.buttonAddToCalendar")}

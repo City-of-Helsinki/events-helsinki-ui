@@ -13,7 +13,6 @@ import {
 import useLocale from "../../../hooks/useLocale";
 import IconAngleDown from "../../../icons/IconAngleDown";
 import getDateRangeStr from "../../../util/getDateRangeStr";
-import getTimeRangeStr from "../../../util/getTimeRangeStr";
 import { EVENT_SORT_OPTIONS } from "../../eventSearch/constants";
 import { getCurrentHour, getNextPage } from "../../eventSearch/EventListUtils";
 import { getEventIdFromUrl } from "../EventUtils";
@@ -117,16 +116,14 @@ const OtherEventTimes: React.FC<Props> = ({ eventData }) => {
                 <li key={subEvent.id}>
                   <span>
                     {!!subEvent.startTime &&
-                      `${getDateRangeStr(
+                      getDateRangeStr(
                         subEvent.startTime,
                         subEvent.endTime,
                         locale,
-                        false
-                      )}, ${getTimeRangeStr(
-                        subEvent.startTime,
-                        subEvent.endTime,
-                        locale
-                      )}`}
+                        true,
+                        true,
+                        t("commons.timeAbbreviation")
+                      )}
                   </span>
                   <IconButton
                     ariaLabel={t("event.otherTimes.buttonReadMore")}

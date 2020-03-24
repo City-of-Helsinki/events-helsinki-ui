@@ -106,7 +106,8 @@
     "targets": {
       "children": "Barn",
       "youngPeople": "Unga människor"
-    }
+    },
+    "timeAbbreviation": "kl."
   },
   "collection": {
     "curatedEvents": {

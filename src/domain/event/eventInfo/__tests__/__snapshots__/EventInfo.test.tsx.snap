@@ -81,24 +81,7 @@ exports[`EventInfo matches snapshot 1`] = `
         <p>
           Päivä ja aika
         </p>
-        <div
-          className="mobileOnly"
-        >
-          Pe 13.12.2019
-        </div>
-        <div
-          className="desktopOnly"
-        >
-           13.12.2019
-        </div>
-        <div
-          className="desktopOnly"
-        >
-          Perjantai
-        </div>
-        <div>
-          10.00
-        </div>
+        Pe 13.12.2019, klo 10.00
         <button
           className="link"
           onClick={[Function]}

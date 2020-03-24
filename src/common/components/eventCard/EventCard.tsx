@@ -15,7 +15,6 @@ import { EventInList } from "../../../domain/event/types";
 import useLocale from "../../../hooks/useLocale";
 import getDateRangeStr from "../../../util/getDateRangeStr";
 import getLocalisedString from "../../../util/getLocalisedString";
-import getTimeRangeStr from "../../../util/getTimeRangeStr";
 import IconLink from "../link/IconLink";
 import SrOnly from "../srOnly/SrOnly";
 import styles from "./eventCard.module.scss";
@@ -74,12 +73,14 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
           <div className={styles.textWrapper}>
             <div className={styles.eventDateAndTime}>
               {!!startTime &&
-                `${getDateRangeStr(
+                getDateRangeStr(
                   startTime,
                   endTime,
                   locale,
-                  false
-                )} ${getTimeRangeStr(startTime, endTime, locale)}`}
+                  false,
+                  true,
+                  t("commons.timeAbbreviation")
+                )}
             </div>
             <Link
               aria-hidden="true"

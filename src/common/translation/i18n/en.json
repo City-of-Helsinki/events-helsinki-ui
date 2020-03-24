@@ -106,7 +106,8 @@
     "targets": {
       "children": "Children",
       "youngPeople": "Young people"
-    }
+    },
+    "timeAbbreviation": "at"
   },
   "collection": {
     "curatedEvents": {
