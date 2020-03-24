@@ -70,7 +70,6 @@ app.use(async (req: Request, res: Response) => {
     }),
     ssrMode: true
   });
-
   const context: StaticContext = {};
 
   const el = React.createElement(ServerApp, {
@@ -80,33 +79,51 @@ app.use(async (req: Request, res: Response) => {
     url: req.url
   });
 
-  // Executes all graphql queries for the current state of application
-  await getDataFromTree(el);
+  // Function to generate html and send response to client
+  // Use this also if any GraphQl request fails
+  const generateHtmlAndSendResponse = () => {
+    // Extracts apollo client cache
+    const state = client.extract();
+    const content = ReactDOMServer.renderToString(el);
+    const helmet = Helmet.renderStatic();
+    const assets = getAssets();
+    const initialI18nStore = getInitialI18nStore(req);
+    const initialLanguage = req.i18n.languages[0];
+    const htmlEl = React.createElement(Html, {
+      assets,
+      canonicalUrl: `${getDomainFromRequest(req)}${req.url}`,
+      content,
+      helmet,
+      initialI18nStore,
+      initialLanguage,
+      state
+    });
 
-  // Extracts apollo client cache
-  const state = client.extract();
-  const content = ReactDOMServer.renderToString(el);
-  const helmet = Helmet.renderStatic();
-  const assets = getAssets();
-  const initialI18nStore = getInitialI18nStore(req);
-  const initialLanguage = req.i18n.languages[0];
-  const htmlEl = React.createElement(Html, {
-    assets,
-    canonicalUrl: `${getDomainFromRequest(req)}${req.url}`,
-    content,
-    helmet,
-    initialI18nStore,
-    initialLanguage,
-    state
-  });
-  const html = ReactDOMServer.renderToString(htmlEl);
+    const html = ReactDOMServer.renderToString(htmlEl);
 
-  if (context.url) {
-    res.redirect(301, context.url);
-  } else {
-    res.status(200);
-    res.send(`<!doctype html>${html}`);
-    res.end();
+    if (context.url) {
+      res.redirect(301, context.url);
+    } else {
+      res.status(200);
+      res.send(`<!doctype html>${html}`);
+      res.end();
+    }
+  };
+
+  try {
+    // Executes all graphql queries for the current state of application
+    await getDataFromTree(el);
+
+    generateHtmlAndSendResponse();
+  } catch (e) {
+    // await getDataFromTree(el) fails if any GraphQl request fails.
+    // Try to generate html withour apollo state
+    // TODO: Downside is that page is re-rendered on client which causes blinking
+    try {
+      generateHtmlAndSendResponse();
+    } catch (e) {
+      res.send("Something went very very wrong. Failed to catch error.");
+    }
   }
 });
 
