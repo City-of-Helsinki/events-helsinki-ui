@@ -1,4 +1,4 @@
-import { format as formatDateStr, utcToZonedTime } from "date-fns-tz";
+import { format as formatDateStr } from "date-fns";
 import isAfter from "date-fns/isAfter";
 import isValid from "date-fns/isValid";
 import { enGB as en, fi } from "date-fns/locale";
@@ -23,12 +23,8 @@ export const formatDate = (
     return "";
   }
 
-  const timeZone = "Europe/Helsinki";
-  const d = utcToZonedTime(date, timeZone);
-
-  return formatDateStr(d, format, {
-    locale: get(locales, locale),
-    timeZone: timeZone
+  return formatDateStr(date, format, {
+    locale: get(locales, locale)
   }).trim();
 };
 
