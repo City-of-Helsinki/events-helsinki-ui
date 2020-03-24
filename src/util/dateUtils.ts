@@ -1,10 +1,9 @@
-import { format as formatDateStr } from "date-fns";
+import { format as formatDateStr, utcToZonedTime } from "date-fns-tz";
 import isAfter from "date-fns/isAfter";
 import isValid from "date-fns/isValid";
 import { enGB as en, fi } from "date-fns/locale";
 import parse from "date-fns/parse";
 import get from "lodash/get";
-import isNumber from "lodash/isNumber";
 
 import sv from "./date-fns/locale/sv";
 
@@ -16,7 +15,7 @@ const locales = { en, fi, sv };
  * @returns {string}
  */
 export const formatDate = (
-  date: Date | number | null,
+  date: Date | null,
   format = "dd.MM.yyyy",
   locale = "fi"
 ): string => {
@@ -24,9 +23,12 @@ export const formatDate = (
     return "";
   }
 
-  const d = isNumber(date) ? date : new Date(date);
+  const timeZone = "Europe/Helsinki";
+  const d = utcToZonedTime(date, timeZone);
+
   return formatDateStr(d, format, {
-    locale: get(locales, locale)
+    locale: get(locales, locale),
+    timeZone: timeZone
   }).trim();
 };
 
