@@ -11,6 +11,10 @@ RUN yarn
 # Copy all files
 COPY --chown=appuser:appuser . .
 
+# set sass path to support scss import
+ARG SASS_PATH=./src/assets/styles
+ENV SASS_PATH $SASS_PATH
+
 # Set Application name and version (shown in Sentry)
 ARG REACT_APP_APPLICATION_NAME=events-helsinki-ui
 ARG REACT_APP_APPLICATION_VERSION=0.1.2
@@ -26,9 +30,6 @@ ARG REACT_APP_GRAPHQL_BASE_URL
 
 # set ssr server port
 ARG REACT_APP_SSR_PORT
-
-# set sass path
-ARG SASS_PATH
 
 # Build application
 RUN yarn build
