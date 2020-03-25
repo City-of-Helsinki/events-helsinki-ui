@@ -10,6 +10,10 @@ $logoWidth: 9.5rem;
     padding: 3.75rem 0 5rem;
     display: grid;
     align-items: center;
+
+    &.mobileMenuOpen {
+        visibility: hidden;
+    }
 }
 
 .companyInfoWrapper {

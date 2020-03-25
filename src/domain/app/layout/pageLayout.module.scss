@@ -10,4 +10,8 @@
 .pageBody {
     display: grid;
     align-content: flex-start;
+
+    &.mobileMenuOpen {
+        visibility: hidden;
+    }
 }
