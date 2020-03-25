@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router";
 
 import MobileMenu from "../MobileMenu";
 
-it("MobileNavigationMenu matches snapshot", () => {
+it("MobileMenu matches snapshot", () => {
   const container = shallow(
     <MemoryRouter>
       <MobileMenu isMenuOpen={true} onClose={() => {}} />

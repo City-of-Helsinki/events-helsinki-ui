@@ -2,6 +2,7 @@
 
 exports[`TopFooter matches snapshot 1`] = `
 <footer
+  aria-hidden={false}
   className="topFooterWrapper"
 >
   <div

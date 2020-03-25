@@ -3,6 +3,7 @@
 exports[`Footer matches snapshot 1`] = `
 <footer>
   <footer
+    aria-hidden={false}
     className="topFooterWrapper"
   >
     <div
@@ -496,6 +497,7 @@ exports[`Footer matches snapshot 1`] = `
     </div>
   </footer>
   <div
+    aria-hidden={false}
     className="bottomFooter"
   >
     <div
@@ -508,13 +510,13 @@ exports[`Footer matches snapshot 1`] = `
           className="linkContainer"
         >
           <a
-            href="/about"
+            href="/fi/about"
             onClick={[Function]}
           >
             Tietoa palvelusta
           </a>
           <a
-            href="/feedback"
+            href="/fi/feedback"
             onClick={[Function]}
           >
             Anna palautetta
