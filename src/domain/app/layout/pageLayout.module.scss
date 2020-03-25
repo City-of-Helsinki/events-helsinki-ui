@@ -10,8 +10,12 @@
 .pageBody {
     display: grid;
     align-content: flex-start;
+    transition: visibility 0.2s, opacity 0.2s;
+    opacity: 1;
 
     &.mobileMenuOpen {
         visibility: hidden;
+        opacity: 0;     
+        transition: visibility 0.5s, opacity 0.5s;
     }
 }
