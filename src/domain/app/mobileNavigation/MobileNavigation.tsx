@@ -1,11 +1,17 @@
 import React from "react";
 
+import MobileNavigation, {
+  useMobileMenuContext
+} from "../../../common/components/mobileMenu/MobileMenu";
 import MobileHeader from "./mobileHeader/MobileHeader";
 import styles from "./mobileNavigation.module.scss";
-import MobileNavigationMenu from "./mobileNavigationMenu/MobileNavigationMenu";
 
 const HeaderMobile: React.FC = () => {
-  const [isMenuOpen, setIsmenuOpen] = React.useState(false);
+  const {
+    closeMobileMenu,
+    isMobileMenuOpen,
+    openMobileMenu
+  } = useMobileMenuContext();
 
   const disabledBodyScrolling = () => {
     const body = document.body;
@@ -20,25 +26,25 @@ const HeaderMobile: React.FC = () => {
   };
 
   const handleCloseMenu = () => {
-    setIsmenuOpen(false);
+    closeMobileMenu();
     enableBodyScrolling();
   };
 
   const handleOpenMenu = () => {
-    setIsmenuOpen(true);
+    openMobileMenu();
     disabledBodyScrolling();
   };
 
   return (
     <div className={styles.mobileNavigation}>
       <MobileHeader
-        isMenuOpen={isMenuOpen}
+        isMenuOpen={isMobileMenuOpen}
         onCloseMenu={handleCloseMenu}
         onOpenMenu={handleOpenMenu}
       />
-      <MobileNavigationMenu
-        isMenuOpen={isMenuOpen}
-        onMenuClose={handleCloseMenu}
+      <MobileNavigation
+        isMenuOpen={isMobileMenuOpen}
+        onClose={handleCloseMenu}
       />
     </div>
   );

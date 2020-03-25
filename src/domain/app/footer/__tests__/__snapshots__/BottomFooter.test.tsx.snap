@@ -2,6 +2,7 @@
 
 exports[`BottomFooter matches snapshot 1`] = `
 <div
+  aria-hidden={false}
   className="bottomFooter"
 >
   <div
@@ -14,13 +15,13 @@ exports[`BottomFooter matches snapshot 1`] = `
         className="linkContainer"
       >
         <a
-          href="/about"
+          href="/fi/about"
           onClick={[Function]}
         >
           Tietoa palvelusta
         </a>
         <a
-          href="/feedback"
+          href="/fi/feedback"
           onClick={[Function]}
         >
           Anna palautetta

@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { IconSearch, IconTree } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
@@ -5,6 +6,7 @@ import { useHistory } from "react-router";
 
 import CategoryFilter from "../../../common/components/category/CategoryFilter";
 import IconLink from "../../../common/components/link/IconLink";
+import { useMobileMenuContext } from "../../../common/components/mobileMenu/MobileMenu";
 import { Category } from "../../../common/types";
 import { CATEGORIES } from "../../../constants";
 import useLocale from "../../../hooks/useLocale";
@@ -24,6 +26,7 @@ import Container from "../layout/Container";
 import styles from "./topFooter.module.scss";
 
 const TopFooter: FunctionComponent = () => {
+  const { isMobileMenuOpen } = useMobileMenuContext();
   const { t } = useTranslation();
   const locale = useLocale();
   const { push } = useHistory();
@@ -102,7 +105,12 @@ const TopFooter: FunctionComponent = () => {
   }, [t]);
 
   return (
-    <footer className={styles.topFooterWrapper}>
+    <footer
+      aria-hidden={isMobileMenuOpen}
+      className={classNames(styles.topFooterWrapper, {
+        [styles.mobileMenuOpen]: isMobileMenuOpen
+      })}
+    >
       <Container>
         <div className={styles.companyInfoWrapper}>
           <div className={styles.logoWrapper}>
