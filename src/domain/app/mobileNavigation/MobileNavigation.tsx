@@ -1,8 +1,8 @@
 import React from "react";
 
+import MobileNavigation from "../../../common/components/mobileMenu/MobileMenu";
 import MobileHeader from "./mobileHeader/MobileHeader";
 import styles from "./mobileNavigation.module.scss";
-import MobileNavigationMenu from "./mobileNavigationMenu/MobileNavigationMenu";
 
 const HeaderMobile: React.FC = () => {
   const [isMenuOpen, setIsmenuOpen] = React.useState(false);
@@ -36,10 +36,7 @@ const HeaderMobile: React.FC = () => {
         onCloseMenu={handleCloseMenu}
         onOpenMenu={handleOpenMenu}
       />
-      <MobileNavigationMenu
-        isMenuOpen={isMenuOpen}
-        onMenuClose={handleCloseMenu}
-      />
+      <MobileNavigation isMenuOpen={isMenuOpen} onClose={handleCloseMenu} />
     </div>
   );
 };

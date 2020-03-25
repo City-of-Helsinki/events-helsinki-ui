@@ -1,0 +1,81 @@
+@import "colors";
+
+.mobileMenu {
+  position: fixed;
+  top: -100vh;
+  bottom: 100vh;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  background-color: transparent;
+  transition: background-color 0.2s;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  visibility: hidden;
+
+  &.menuOpen {
+    top: 3.125rem;
+    bottom: 0;
+    background-color: $hel-white;
+    transition: background-color 0.5s;
+    z-index: 2;
+    visibility: unset;
+  }
+
+  .linkWrapper {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 4rem;
+    }
+
+    .link {
+      background-color: $hel-copper-light-20;
+      padding: 1.5rem 2rem;
+      margin-bottom: 0.5rem;
+
+      a {
+        display: flex;
+        align-items: center;
+        color: $hel-black-90;
+        text-decoration: none;
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+      svg {
+        height: 1.5rem;
+        width: 1.5rem;
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  .languageSelectWrapper {
+    padding-bottom: 3.5rem;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 4rem;
+
+      .languageLink {
+        text-align: center;
+        margin-bottom: 1.5rem;
+
+        a {
+          color: $hel-black-90;
+          text-decoration: underline;
+          font-size: 1.125rem;
+          font-weight: normal;
+        }
+
+        &.isSelected {
+          a {
+            font-weight: bold;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+} 

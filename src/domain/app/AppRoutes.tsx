@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Redirect, Route, Switch } from "react-router";
 
+import { MobileMenuProvider } from "../../common/components/mobileMenu/MobileMenu";
 import { getCurrentLanguage } from "../../common/translation/TranslationUtils";
 import { SUPPORT_LANGUAGES } from "../../constants";
 import PageLayout from "../app/layout/PageLayout";
@@ -14,18 +15,24 @@ const AppRoutes = () => {
   const currentLanguage = getCurrentLanguage(i18n);
 
   return (
-    <PageLayout>
-      <Switch>
-        <Redirect exact path="/" to={`/${currentLanguage}/home`} />
-        <Redirect exact path={`/${localeParam}`} to={`/${localeParam}/home`} />
-        <Route path={`/${localeParam}/*`} component={App} />
-        <Route
-          render={props => (
-            <Redirect to={`/${currentLanguage}${props.location.pathname}`} />
-          )}
-        />
-      </Switch>
-    </PageLayout>
+    <MobileMenuProvider>
+      <PageLayout>
+        <Switch>
+          <Redirect exact path="/" to={`/${currentLanguage}/home`} />
+          <Redirect
+            exact
+            path={`/${localeParam}`}
+            to={`/${localeParam}/home`}
+          />
+          <Route path={`/${localeParam}/*`} component={App} />
+          <Route
+            render={props => (
+              <Redirect to={`/${currentLanguage}${props.location.pathname}`} />
+            )}
+          />
+        </Switch>
+      </PageLayout>
+    </MobileMenuProvider>
   );
 };
 
