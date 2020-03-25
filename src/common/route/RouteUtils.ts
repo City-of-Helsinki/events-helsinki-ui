@@ -31,3 +31,21 @@ export function ScrollToTop() {
 
   return null;
 }
+
+/**
+ * Ensure that browser focus is set to body when navigating using
+ * <Link> from react-router-dom.
+ *
+ * @return  {null}
+ */
+export function SetFocusToBody() {
+  const { pathname } = useLocation();
+
+  React.useEffect(() => {
+    if (isClient) {
+      document.body.focus();
+    }
+  }, [pathname]);
+
+  return null;
+}
