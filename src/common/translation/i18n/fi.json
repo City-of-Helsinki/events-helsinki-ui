@@ -267,11 +267,6 @@
     "collections": {
       "title": "Suosittelemme"
     },
-    "hero": {
-      "buttonText": "Katso vinkit",
-      "subTitle": "Kokosimme yhteen",
-      "title": "Syysloman riehakkaimmat riennot!"
-    },
     "search": {
       "buttonSearch": "Hae",
       "labelDateRange": "Mille ajankohdalle etsit?",

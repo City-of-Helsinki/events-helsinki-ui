@@ -266,11 +266,6 @@
     "collections": {
       "title": "Rekommendationer"
     },
-    "hero": {
-      "buttonText": "Se tips",
-      "subTitle": "Vi sätter ihop det",
-      "title": "Höstlovets fantastiska godsaker!"
-    },
     "search": {
       "buttonSearch": "Sök",
       "labelDateRange": "För vilken period du letar efter?",

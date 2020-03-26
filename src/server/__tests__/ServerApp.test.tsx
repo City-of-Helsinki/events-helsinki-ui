@@ -5,7 +5,12 @@ import { mount } from "enzyme";
 import * as React from "react";
 
 import i18n from "../../common/translation/i18n/init.server";
-import { CollectionListDocument } from "../../generated/graphql";
+import { mockCollection } from "../../domain/collection/constants";
+import { mockLandingPage } from "../../domain/landingPage/constants";
+import {
+  CollectionListDocument,
+  LandingPageDocument
+} from "../../generated/graphql";
 import ServerApp from "../ServerApp";
 
 const mocks = [
@@ -16,12 +21,16 @@ const mocks = [
     result: {
       data: {
         collectionList: {
-          results: {
-            data: []
-          }
+          data: [mockCollection.collectionDetails]
         }
       }
     }
+  },
+  {
+    request: {
+      query: LandingPageDocument
+    },
+    result: { data: mockLandingPage }
   }
 ];
 

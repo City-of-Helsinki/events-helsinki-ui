@@ -4,26 +4,26 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
-import Button from "../../common/components/button/Button";
-import CategoryFilter from "../../common/components/category/CategoryFilter";
-import DateSelector from "../../common/components/dateSelector/DateSelector";
-import MobileDateSelector from "../../common/components/mobileDateSelector/MobileDateSelector";
-import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
-import SearchLabel from "../../common/components/search/searchLabel/SearchLabel";
-import { AutosuggestMenuOption, Category } from "../../common/types";
-import { CATEGORIES } from "../../constants";
-import useLocale from "../../hooks/useLocale";
-import IconCultureAndArts from "../../icons/IconCultureAndArts";
-import IconDance from "../../icons/IconDance";
-import IconFood from "../../icons/IconFood";
-import IconMovies from "../../icons/IconMovies";
-import IconMuseum from "../../icons/IconMuseum";
-import IconMusic from "../../icons/IconMusic";
-import IconParticipate from "../../icons/IconParticipate";
-import IconSports from "../../icons/IconSports";
-import IconTheatre from "../../icons/IconTheatre";
-import { getSearchQuery } from "../../util/searchUtils";
-import styles from "./search.module.scss";
+import Button from "../../../common/components/button/Button";
+import CategoryFilter from "../../../common/components/category/CategoryFilter";
+import DateSelector from "../../../common/components/dateSelector/DateSelector";
+import MobileDateSelector from "../../../common/components/mobileDateSelector/MobileDateSelector";
+import SearchAutosuggest from "../../../common/components/search/SearchAutosuggest";
+import SearchLabel from "../../../common/components/search/searchLabel/SearchLabel";
+import { AutosuggestMenuOption, Category } from "../../../common/types";
+import { CATEGORIES } from "../../../constants";
+import useLocale from "../../../hooks/useLocale";
+import IconCultureAndArts from "../../../icons/IconCultureAndArts";
+import IconDance from "../../../icons/IconDance";
+import IconFood from "../../../icons/IconFood";
+import IconMovies from "../../../icons/IconMovies";
+import IconMuseum from "../../../icons/IconMuseum";
+import IconMusic from "../../../icons/IconMusic";
+import IconParticipate from "../../../icons/IconParticipate";
+import IconSports from "../../../icons/IconSports";
+import IconTheatre from "../../../icons/IconTheatre";
+import { getSearchQuery } from "../../../util/searchUtils";
+import styles from "./landingPageSearch.module.scss";
 
 const Search: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -156,7 +156,7 @@ const Search: FunctionComponent = () => {
 
   return (
     <>
-      <div className={styles.searchContainer}>
+      <div className={styles.landingPageSearch}>
         {/* Hide Suprise me button on MVP version */}
         {/* <SupriseMeButton onClick={handleClickSupriseMe} /> */}
         <div className={styles.searchRow}>

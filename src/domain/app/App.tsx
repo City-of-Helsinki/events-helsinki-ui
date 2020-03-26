@@ -6,7 +6,7 @@ import { SUPPORT_LANGUAGES } from "../../constants";
 import CollectionPageContainer from "../collection/CollectionPageContainer";
 import EventPageContainer from "../event/EventPageContainer";
 import EventSearchPageContainer from "../eventSearch/EventSearchPageContainer";
-import Home from "../home/Home";
+import LandingPage from "../landingPage/LandingPage";
 import NotFound from "../notFound/NotFound";
 
 const App: FunctionComponent<
@@ -25,7 +25,7 @@ const App: FunctionComponent<
   return (
     <Switch>
       <Redirect exact path={`/${locale}/`} to={`/${locale}/home`} />
-      <Route exact path={`/${locale}/home`} component={Home} />
+      <Route exact path={`/${locale}/home`} component={LandingPage} />
       <Route
         exact
         path={`/${locale}/collection/:id`}

@@ -179,6 +179,40 @@ export type KeywordListResponse = {
   data: Array<Keyword>,
 };
 
+export type LandingPage = {
+   __typename?: 'LandingPage',
+  id: Scalars['ID'],
+  path?: Maybe<Scalars['String']>,
+  depth?: Maybe<Scalars['Int']>,
+  numchild?: Maybe<Scalars['Int']>,
+  draftTitle?: Maybe<Scalars['String']>,
+  slug?: Maybe<Scalars['String']>,
+  live?: Maybe<Scalars['Boolean']>,
+  hasUnpublishedChanges?: Maybe<Scalars['Boolean']>,
+  urlPath?: Maybe<Scalars['String']>,
+  seoTitle?: Maybe<Scalars['String']>,
+  showInMenus?: Maybe<Scalars['Boolean']>,
+  searchDescription?: Maybe<Scalars['String']>,
+  goLiveAt?: Maybe<Scalars['String']>,
+  expireAt?: Maybe<Scalars['String']>,
+  expired?: Maybe<Scalars['Boolean']>,
+  locked?: Maybe<Scalars['Boolean']>,
+  lockedAt?: Maybe<Scalars['String']>,
+  firstPublishedAt?: Maybe<Scalars['String']>,
+  lastPublishedAt?: Maybe<Scalars['String']>,
+  latestRevisionCreatedAt?: Maybe<Scalars['String']>,
+  title?: Maybe<LocalizedObject>,
+  description?: Maybe<LocalizedObject>,
+  buttonText?: Maybe<LocalizedObject>,
+  buttonUrl?: Maybe<LocalizedObject>,
+  metaInformation?: Maybe<LocalizedObject>,
+  pageTitle?: Maybe<LocalizedObject>,
+  contentType?: Maybe<Scalars['Int']>,
+  owner?: Maybe<Scalars['Int']>,
+  lockedBy?: Maybe<Scalars['Int']>,
+  liveRevision?: Maybe<Scalars['Int']>,
+};
+
 export type LocalizedObject = {
    __typename?: 'LocalizedObject',
   fi?: Maybe<Scalars['String']>,
@@ -279,6 +313,7 @@ export type Query = {
   eventList: EventListResponse,
   keywordDetails: Keyword,
   keywordList: KeywordListResponse,
+  landingPage: LandingPage,
   organizationDetails: OrganizationDetails,
   placeDetails: Place,
   placeList: PlaceListResponse,
@@ -668,6 +703,35 @@ export type KeywordListQuery = (
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
       )> }
+    )> }
+  ) }
+);
+
+export type LandingPageQueryVariables = {};
+
+
+export type LandingPageQuery = (
+  { __typename?: 'Query' }
+  & { landingPage: (
+    { __typename?: 'LandingPage' }
+    & { pageTitle: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )>, metaInformation: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )>, title: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )>, description: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )>, buttonText: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )>, buttonUrl: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
     )> }
   ) }
 );
@@ -1353,6 +1417,78 @@ export function useKeywordListLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type KeywordListQueryHookResult = ReturnType<typeof useKeywordListQuery>;
 export type KeywordListLazyQueryHookResult = ReturnType<typeof useKeywordListLazyQuery>;
 export type KeywordListQueryResult = ApolloReactCommon.QueryResult<KeywordListQuery, KeywordListQueryVariables>;
+export const LandingPageDocument = gql`
+    query LandingPage {
+  landingPage {
+    pageTitle {
+      fi
+      sv
+      en
+    }
+    metaInformation {
+      fi
+      sv
+      en
+    }
+    title {
+      fi
+      sv
+      en
+    }
+    description {
+      fi
+      sv
+      en
+    }
+    buttonText {
+      fi
+      sv
+      en
+    }
+    buttonUrl {
+      fi
+      sv
+      en
+    }
+  }
+}
+    `;
+export type LandingPageProps<TChildProps = {}> = ApolloReactHoc.DataProps<LandingPageQuery, LandingPageQueryVariables> | TChildProps;
+export function withLandingPage<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  LandingPageQuery,
+  LandingPageQueryVariables,
+  LandingPageProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, LandingPageQuery, LandingPageQueryVariables, LandingPageProps<TChildProps>>(LandingPageDocument, {
+      alias: 'landingPage',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useLandingPageQuery__
+ *
+ * To run a query within a React component, call `useLandingPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLandingPageQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLandingPageQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLandingPageQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<LandingPageQuery, LandingPageQueryVariables>) {
+        return ApolloReactHooks.useQuery<LandingPageQuery, LandingPageQueryVariables>(LandingPageDocument, baseOptions);
+      }
+export function useLandingPageLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<LandingPageQuery, LandingPageQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<LandingPageQuery, LandingPageQueryVariables>(LandingPageDocument, baseOptions);
+        }
+export type LandingPageQueryHookResult = ReturnType<typeof useLandingPageQuery>;
+export type LandingPageLazyQueryHookResult = ReturnType<typeof useLandingPageLazyQuery>;
+export type LandingPageQueryResult = ApolloReactCommon.QueryResult<LandingPageQuery, LandingPageQueryVariables>;
 export const PlaceDetailsDocument = gql`
     query PlaceDetails($id: ID!) {
   placeDetails(id: $id) {
