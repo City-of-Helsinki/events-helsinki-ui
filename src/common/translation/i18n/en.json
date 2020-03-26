@@ -20,7 +20,7 @@
       "dateTypeThisWeek": "This week",
       "dateTypeToday": "Today",
       "dateTypeTomorrow": "Tomorrow",
-      "dateTypeWeekend": "Weekend",
+      "dateTypeWeekend": "This weekend",
       "infoDate": "dd.mm.yyyy",
       "labelEndDate": "End date",
       "labelStartDate": "Start date",
@@ -29,7 +29,7 @@
         "buttonClose": "Close",
         "buttonCustom": "Select dates"
       },
-      "title": "Select period"
+      "title": "Select dates"
     },
     "districts": {
       "alppiharju": "Alppiharju",
@@ -104,8 +104,8 @@
     },
     "supriseMe": "I'm Feeling Lucky",
     "targets": {
-      "children": "Children",
-      "youngPeople": "Young people"
+      "children": "For kids",
+      "youngPeople": "For youths"
     },
     "timeAbbreviation": "at"
   },
@@ -119,7 +119,7 @@
       "title": "Oops, you got hit by a 404!"
     },
     "shareLinks": {
-      "title": "Share Collection"
+      "title": "Share collection"
     },
     "title": "Loading collection..."
   },
@@ -137,11 +137,12 @@
       "ariaLabelBackButton": "Back to event search",
       "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
       "buttonBuyTickets": "Buy tickets",
-      "buttonToHomePage": "Go to the homepage",
+      "buttonToHomePage": "Visit the landing page",
       "offers": {
         "isFree": "Free"
       },
-      "textEventClosed": "The event you are looking for has already ended"
+      "textEventClosed": "Worry not, there are lots of ther things to do in Helsinki. ",
+      "titleEventClosed": "Oh no, the event you are looking for has already ended"
     },
     "info": {
       "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
@@ -189,12 +190,12 @@
       "title": "Share Event"
     },
     "similarEvents": {
-      "title": "Other similar events"
+      "title": "Similar events"
     }
   },
   "eventSearch": {
     "buttonClearFilters": "Clear filters",
-    "buttonLoadMore": "Load more events",
+    "buttonLoadMore": "Show more events",
     "event": {
       "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
       "buttonBuyTickets": "Buy tickets",
@@ -206,7 +207,7 @@
     },
     "filters": {
       "buttonRemoveSearchWord": "Remove search word",
-      "textNoFilters": "No search criteria",
+      "textNoFilters": "No active search criterias",
       "titleSummary": "Selected search criteria:"
     },
     "noResultsInfo": {
@@ -218,20 +219,20 @@
       "labelCategory": "What kind of event you are looking for?",
       "labelDateRange": "For what period you are looking for?",
       "labelDistrict": "From where are you looking for?",
-      "labelSearchField": "What you are looking for?",
+      "labelSearchField": "What are you looking for",
       "labelTargetGroup": "Whom you are looking for?",
       "placeholder": "Enter a keyword, eg rock or yoga",
       "titleDropdownCategory": "Select category",
       "titleDropdownDistrict": "Select area",
-      "titleDropdownTargetGroup": "Select for whom"
+      "titleDropdownTargetGroup": "Select audience"
     },
     "textFoundEvents": "{{count}} search results",
     "title": "Event search"
   },
   "footer": {
-    "linkAbout": "About",
+    "linkAbout": "About the service",
     "linkFeedback": "Give feedback",
-    "searchCollections": "We recommend",
+    "searchCollections": "Recommendations",
     "searchEvents": "Find something to do",
     "titleCategories": "Categories"
   },
@@ -245,17 +246,17 @@
       "fi": "Suomeksi",
       "sv": "På svenska"
     },
-    "searchCollections": "We recommend",
+    "searchCollections": "Recommendations",
     "searchEvents": "Find something to do"
   },
   "home": {
     "category": {
-      "culture": "Culture and art",
+      "culture": "Culture and arts",
       "dance": "Dance",
       "food": "Food",
       "influence": "Participate and influence",
       "misc": "Other",
-      "movie": "Movie",
+      "movie": "Movies",
       "museum": "Museums",
       "music": "Music",
       "nature": "Nature and outdoor activities",
@@ -263,7 +264,7 @@
       "theatre": "Theater"
     },
     "collections": {
-      "title": "We recommend"
+      "title": "Recommendations"
     },
     "hero": {
       "buttonText": "See tips",
@@ -273,14 +274,14 @@
     "search": {
       "buttonSearch": "Search",
       "labelDateRange": "For what period you are looking for?",
-      "labelSearchField": "What you are looking for?",
-      "linkAdvancedSearch": "Advanced Search",
+      "labelSearchField": "What are you looking for",
+      "linkAdvancedSearch": "Advanced search",
       "placeholder": "Enter a keyword, eg rock or yoga",
       "title": "Find something to do"
     }
   },
   "menu": {
-    "aboutService": "About",
+    "aboutService": "About the service",
     "mostPopular": "Top searches",
     "searchCategories": "Browse Categories",
     "searchEvents": "Find something to do"

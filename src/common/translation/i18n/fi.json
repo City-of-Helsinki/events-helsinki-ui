@@ -141,7 +141,8 @@
       "offers": {
         "isFree": "Ilmainen"
       },
-      "textEventClosed": "Etsimäsi tapahtuma on jo ehtinyt päättyä"
+      "textEventClosed": "Älä huoli, Helsingistä löytyy paljon muuta tekemistä. ",
+      "titleEventClosed": "Höh, etsimäsi tapahtuma on jo ehtinyt päättyä"
     },
     "info": {
       "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
@@ -194,7 +195,7 @@
   },
   "eventSearch": {
     "buttonClearFilters": "Tyhjennä hakuehdot",
-    "buttonLoadMore": "Lataa lisää tapahtumia",
+    "buttonLoadMore": "Näytä lisää tapahtumia",
     "event": {
       "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
       "buttonBuyTickets": "Osta liput",

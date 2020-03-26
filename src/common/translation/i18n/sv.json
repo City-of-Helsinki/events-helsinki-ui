@@ -20,16 +20,16 @@
       "dateTypeThisWeek": "Denna vecka",
       "dateTypeToday": "I dag",
       "dateTypeTomorrow": "I morgon",
-      "dateTypeWeekend": "På veckoslut",
+      "dateTypeWeekend": "På veckoslutet",
       "infoDate": "dd.mm.åååå",
       "labelEndDate": "Slutdatum",
       "labelStartDate": "Startdatum",
       "menu": {
         "buttonBack": "Tillbaka",
-        "buttonClose": "Stänga",
+        "buttonClose": "Stäng",
         "buttonCustom": "Välj datum"
       },
-      "title": "Välj period"
+      "title": "Välj tidpunkt"
     },
     "districts": {
       "alppiharju": "Åshöjden",
@@ -83,7 +83,7 @@
     },
     "dropdown": {
       "menu": {
-        "buttonClear": "Rensa val"
+        "buttonClear": "Töm valda"
       }
     },
     "eventCard": {
@@ -104,8 +104,8 @@
     },
     "supriseMe": "Jag har tur",
     "targets": {
-      "children": "Barn",
-      "youngPeople": "Unga människor"
+      "children": "För barn",
+      "youngPeople": "För ungdomar"
     },
     "timeAbbreviation": "kl."
   },
@@ -114,12 +114,12 @@
       "textEventNotFound": "Samlingen hittades inte"
     },
     "notFound": {
-      "linkSearchEvents": "Sök efter evenemang",
+      "linkSearchEvents": "Sök evenemang",
       "text": "Av en eller annan orsak så hittas inte samlingen du letade efter. Försök istället att hitta något att göra härifrån:",
       "title": "Oj nej, nu blev det 404!"
     },
     "shareLinks": {
-      "title": "Dela samling"
+      "title": "Dela denna kollektion"
     },
     "title": "Laddar samling..."
   },
@@ -132,16 +132,17 @@
     "description": {
       "title": "Beskrivning"
     },
-    "eventCancelled": "Evenemang avbrutet",
+    "eventCancelled": "Evenemanget inställt",
     "hero": {
       "ariaLabelBackButton": "Tillbaka till händelsessökning",
       "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
       "buttonBuyTickets": "Köp biljetter",
-      "buttonToHomePage": "Gå till framsidan",
+      "buttonToHomePage": "Till framsidan",
       "offers": {
         "isFree": "Gratis"
       },
-      "textEventClosed": "Händelsen du letar efter är redan slut"
+      "textEventClosed": "Oroa dig inte, det finns många andra saker du kan göra i Helsingfors.",
+      "titleEventClosed": "Äsch då, evenemanget du textEventClosedletar efter har redan tagit slut"
     },
     "info": {
       "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
@@ -176,7 +177,7 @@
       "title": "Lokalisering"
     },
     "notFound": {
-      "linkSearchEvents": "Sök efter evenemang",
+      "linkSearchEvents": "Sök evenemang",
       "text": "Av en eller annan orsak så hittas inte evenemänget du letade efter. Försök istället att hitta något att göra härifrån:",
       "title": "Oj nej, nu blev det 404!"
     },
@@ -188,13 +189,13 @@
       "title": "Dela händelsen"
     },
     "similarEvents": {
-      "title": "Andra liknande händelser"
+      "title": "Liknande evenemang"
     },
     "title": "Laddar evenemang..."
   },
   "eventSearch": {
     "buttonClearFilters": "Rensa filter",
-    "buttonLoadMore": "Ladda ner fler evenemang",
+    "buttonLoadMore": "Visa fler evenemang",
     "event": {
       "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
       "buttonBuyTickets": "Köp biljetter",
@@ -206,7 +207,7 @@
     },
     "filters": {
       "buttonRemoveSearchWord": "Ta bort sökordet",
-      "textNoFilters": "Inga sökkriterier",
+      "textNoFilters": "Inga aktiva sökkriterier",
       "titleSummary": "Valda sökkriterier:"
     },
     "noResultsInfo": {
@@ -218,21 +219,21 @@
       "labelCategory": "Vilken typ av evenemang du letar efter?",
       "labelDateRange": "För vilken period du letar efter?",
       "labelDistrict": "Varifrån letar du efter??",
-      "labelSearchField": "Vad du letar efter?",
+      "labelSearchField": "Vad letar du efter?",
       "labelTargetGroup": "Vem du letar efter?",
       "placeholder": "Ange ett nyckelord, t.ex. rock eller yoga",
       "titleDropdownCategory": "Välj kategori",
       "titleDropdownDistrict": "Välj område",
-      "titleDropdownTargetGroup": "Välj vem"
+      "titleDropdownTargetGroup": "Välj målgrupp"
     },
     "textFoundEvents": "{{count}} sökresultat",
     "title": "Evenemang sök"
   },
   "footer": {
-    "linkAbout": "About",
+    "linkAbout": "Om tjänsten",
     "linkFeedback": "Ge feedback",
-    "searchCollections": "Vi rekommenderar",
-    "searchEvents": "Sök efter evenemang",
+    "searchCollections": "Rekommendationer",
+    "searchEvents": "Sök evenemang",
     "titleCategories": "Kategorier"
   },
   "header": {
@@ -245,8 +246,8 @@
       "fi": "Suomeksi",
       "sv": "På svenska"
     },
-    "searchCollections": "Vi rekommenderar",
-    "searchEvents": "Sök efter evenemang"
+    "searchCollections": "Rekommendationer",
+    "searchEvents": "Sök evenemang"
   },
   "home": {
     "category": {
@@ -258,12 +259,12 @@
       "movie": "Film",
       "museum": "Museer",
       "music": "Musik",
-      "nature": "Natur och utomhusaktiviteter",
+      "nature": "Natur och friluftsliv",
       "sport": "Motion och sport",
       "theatre": "Teater"
     },
     "collections": {
-      "title": "Vi rekommenderar"
+      "title": "Rekommendationer"
     },
     "hero": {
       "buttonText": "Se tips",
@@ -273,20 +274,20 @@
     "search": {
       "buttonSearch": "Sök",
       "labelDateRange": "För vilken period du letar efter?",
-      "labelSearchField": "Vad du letar efter?",
+      "labelSearchField": "Vad letar du efter?",
       "linkAdvancedSearch": "Avancerad sökning",
       "placeholder": "Ange ett nyckelord, t.ex. rock eller yoga",
-      "title": "Sök efter evenemang"
+      "title": "Sök evenemang"
     }
   },
   "menu": {
-    "aboutService": "About",
+    "aboutService": "Om tjänsten",
     "mostPopular": "Toppsökningar",
     "searchCategories": "Bläddra i kategorier",
-    "searchEvents": "Sök efter evenemang"
+    "searchEvents": "Sök evenemang"
   },
   "notFound": {
-    "linkSearchEvents": "Sök efter evenemang",
+    "linkSearchEvents": "Sök evenemang",
     "text": "Av en eller annan orsak så hittas inte sidan du letade efter. Försök istället att hitta något att göra härifrån:",
     "title": "Oj nej, nu blev det 404!"
   }

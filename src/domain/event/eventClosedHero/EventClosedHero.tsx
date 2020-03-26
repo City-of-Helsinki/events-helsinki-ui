@@ -17,7 +17,8 @@ const EventClosedHero: React.FC = () => {
 
   return (
     <div className={styles.eventClosedHero}>
-      <div className={styles.text}>{t("event.hero.textEventClosed")}</div>
+      <h1>{t("event.hero.titleEventClosed")}</h1>
+      <p>{t("event.hero.textEventClosed")}</p>
       <Button color="primary" onClick={moveToHomePage} size="default">
         {t("event.hero.buttonToHomePage")}
       </Button>
