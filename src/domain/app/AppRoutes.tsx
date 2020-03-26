@@ -18,7 +18,6 @@ const AppRoutes = () => {
     <MobileMenuProvider>
       <PageLayout>
         <Switch>
-          <Redirect exact path="/" to={`/${currentLanguage}/home`} />
           <Redirect
             exact
             path={`/${localeParam}`}

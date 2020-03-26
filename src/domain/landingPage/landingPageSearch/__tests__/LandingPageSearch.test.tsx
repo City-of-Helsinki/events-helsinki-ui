@@ -3,13 +3,13 @@ import * as React from "react";
 import { MemoryRouter } from "react-router";
 import renderer from "react-test-renderer";
 
-import Search from "../Search";
+import LandingPageSearch from "../LandingPageSearch";
 
-test("Search matches snapshot", () => {
+test("LandingPageSearch matches snapshot", () => {
   const component = renderer.create(
     <MockedProvider mocks={[]}>
       <MemoryRouter>
-        <Search />
+        <LandingPageSearch />
       </MemoryRouter>
     </MockedProvider>
   );

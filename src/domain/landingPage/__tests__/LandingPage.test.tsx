@@ -4,7 +4,7 @@ import * as React from "react";
 import { MemoryRouter } from "react-router";
 
 import { CollectionListDocument } from "../../../generated/graphql";
-import Home from "../Home";
+import LandingPage from "../LandingPage";
 
 const mocks = [
   {
@@ -23,11 +23,11 @@ const mocks = [
   }
 ];
 
-test("Home matches snapshot", () => {
+test("LandingPage matches snapshot", () => {
   const tree = mount(
     <MockedProvider mocks={mocks}>
       <MemoryRouter>
-        <Home />
+        <LandingPage />
       </MemoryRouter>
     </MockedProvider>
   );

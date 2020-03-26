@@ -1,6 +1,6 @@
 import React from "react";
 
-import MobileNavigation, {
+import MobileMenu, {
   useMobileMenuContext
 } from "../../../common/components/mobileMenu/MobileMenu";
 import MobileHeader from "./mobileHeader/MobileHeader";
@@ -42,10 +42,7 @@ const HeaderMobile: React.FC = () => {
         onCloseMenu={handleCloseMenu}
         onOpenMenu={handleOpenMenu}
       />
-      <MobileNavigation
-        isMenuOpen={isMobileMenuOpen}
-        onClose={handleCloseMenu}
-      />
+      <MobileMenu isMenuOpen={isMobileMenuOpen} onClose={handleCloseMenu} />
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import React from "react";
 import { useHistory } from "react-router";
 
+import Button from "../../../common/components/button/Button";
 import Container from "../../../domain/app/layout/Container";
 import useLocale from "../../../hooks/useLocale";
-import Button from "../button/Button";
-import styles from "./hero.module.scss";
+import styles from "./landingPageHero.module.scss";
 
 interface Props {
   buttonText: string;
@@ -13,7 +13,7 @@ interface Props {
 }
 
 // TODO: Integrate this component with CMS when implemented
-const Hero: React.FC<Props> = ({ buttonText, subTitle, title }) => {
+const LandingPageHero: React.FC<Props> = ({ buttonText, subTitle, title }) => {
   const { push } = useHistory();
   const locale = useLocale();
 
@@ -22,10 +22,10 @@ const Hero: React.FC<Props> = ({ buttonText, subTitle, title }) => {
     push(`/${locale}/collection/5`);
   };
   return (
-    <div className={styles.heroWrapper}>
-      <div className={styles.heroImage}></div>
+    <div className={styles.landingPageHero}>
+      <div className={styles.image}></div>
       <Container>
-        <div className={styles.textWrapper}>
+        <div className={styles.content}>
           <div className={styles.subTitle}>{subTitle}</div>
           <div className={styles.title}>{title}</div>
           <Button color="primary" onClick={moveToCollectionPage} size="default">
@@ -37,4 +37,4 @@ const Hero: React.FC<Props> = ({ buttonText, subTitle, title }) => {
   );
 };
 
-export default Hero;
+export default LandingPageHero;

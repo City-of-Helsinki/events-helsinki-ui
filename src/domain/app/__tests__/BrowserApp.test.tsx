@@ -47,22 +47,6 @@ it("renders snapshot correctly", () => {
   expect(tree.html()).toMatchSnapshot();
 });
 
-it("redirect user from root to /:language/home by default based on current language", () => {
-  const wrapper = wrapperCreator("/");
-
-  expect(wrapper.children().props().history.location.pathname).toBe("/fi/home");
-
-  act(() => {
-    i18n.changeLanguage("en");
-  });
-
-  expect(
-    wrapperCreator("/")
-      .children()
-      .props().history.location.pathname
-  ).toBe("/en/home");
-});
-
 it("user from supported locale will be redirect to App with that locale", () => {
   const wrapper = wrapperCreator("/en/");
   const app = wrapper.find(App);

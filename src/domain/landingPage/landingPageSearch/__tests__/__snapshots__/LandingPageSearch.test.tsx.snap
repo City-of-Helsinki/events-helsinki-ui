@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Search matches snapshot 1`] = `
+exports[`LandingPageSearch matches snapshot 1`] = `
 Array [
   <div
-    className="searchContainer"
+    className="landingPageSearch"
   >
     <div
       className="searchRow"
@@ -967,9 +967,9 @@ Array [
                                 24
                               </div>
                               <div
-                                aria-disabled={false}
+                                aria-disabled={true}
                                 aria-label="day-25"
-                                className="react-datepicker__day react-datepicker__day--025 react-datepicker__day--keyboard-selected react-datepicker__day--today"
+                                className="react-datepicker__day react-datepicker__day--025 react-datepicker__day--disabled"
                                 onClick={[Function]}
                                 onMouseEnter={[Function]}
                                 role="option"
@@ -979,7 +979,7 @@ Array [
                               <div
                                 aria-disabled={false}
                                 aria-label="day-26"
-                                className="react-datepicker__day react-datepicker__day--026"
+                                className="react-datepicker__day react-datepicker__day--026 react-datepicker__day--keyboard-selected react-datepicker__day--today"
                                 onClick={[Function]}
                                 onMouseEnter={[Function]}
                                 role="option"
