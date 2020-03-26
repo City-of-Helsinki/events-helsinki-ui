@@ -1,11 +1,19 @@
 import { MockedProvider } from "@apollo/react-testing";
 import { mount } from "enzyme";
 import i18n from "i18next";
+import pretty from "pretty";
 import React from "react";
+import { render } from "react-dom";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router";
+import wait from "waait";
 
-import { CollectionListDocument } from "../../../generated/graphql";
+import {
+  CollectionListDocument,
+  LandingPageDocument
+} from "../../../generated/graphql";
+import { mockCollection } from "../../collection/constants";
+import { mockLandingPage } from "../../landingPage/constants";
 import App from "../App";
 import AppRoutes from "../AppRoutes";
 import BrowserApp from "../BrowserApp";
@@ -18,12 +26,16 @@ const mocks = [
     result: {
       data: {
         collectionList: {
-          results: {
-            data: []
-          }
+          data: [mockCollection.collectionDetails]
         }
       }
     }
+  },
+  {
+    request: {
+      query: LandingPageDocument
+    },
+    result: { data: mockLandingPage }
   }
 ];
 
@@ -42,9 +54,23 @@ beforeEach(() => {
   });
 });
 
-it("renders snapshot correctly", () => {
-  const tree = mount(<BrowserApp />);
-  expect(tree.html()).toMatchSnapshot();
+it("renders snapshot correctly", async () => {
+  const container = document.createElement("div");
+  document.body.appendChild(container);
+
+  await act(async () => {
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <MemoryRouter>
+          <BrowserApp />
+        </MemoryRouter>
+      </MockedProvider>,
+      container
+    );
+    await wait(500); // wait for response
+  });
+
+  expect(pretty(container.innerHTML)).toMatchSnapshot();
 });
 
 it("user from supported locale will be redirect to App with that locale", () => {

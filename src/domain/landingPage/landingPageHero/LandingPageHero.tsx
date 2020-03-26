@@ -1,36 +1,59 @@
 import React from "react";
-import { useHistory } from "react-router";
 
 import Button from "../../../common/components/button/Button";
 import Container from "../../../domain/app/layout/Container";
+import { LandingPageQuery } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
+import getLocalisedString from "../../../util/getLocalisedString";
 import styles from "./landingPageHero.module.scss";
 
 interface Props {
-  buttonText: string;
-  subTitle: string;
-  title: string;
+  landingPageData: LandingPageQuery;
 }
 
-// TODO: Integrate this component with CMS when implemented
-const LandingPageHero: React.FC<Props> = ({ buttonText, subTitle, title }) => {
-  const { push } = useHistory();
+const LandingPageHero: React.FC<Props> = ({ landingPageData }) => {
   const locale = useLocale();
 
-  // TODO: Modify this function to use id from CMS
+  const title = getLocalisedString(
+    landingPageData.landingPage.title || {},
+    locale
+  );
+
+  const subtitle = getLocalisedString(
+    landingPageData.landingPage.description || {},
+    locale
+  );
+
+  const buttonText = getLocalisedString(
+    landingPageData.landingPage.buttonText || {},
+    locale
+  );
+
+  const buttonUrl = getLocalisedString(
+    landingPageData.landingPage.buttonUrl || {},
+    locale
+  );
+
   const moveToCollectionPage = () => {
-    push(`/${locale}/collection/5`);
+    window.open(buttonUrl, "_self");
   };
+
   return (
     <div className={styles.landingPageHero}>
       <div className={styles.image}></div>
       <Container>
         <div className={styles.content}>
-          <div className={styles.subTitle}>{subTitle}</div>
+          <div className={styles.subTitle}>{subtitle}</div>
           <div className={styles.title}>{title}</div>
-          <Button color="primary" onClick={moveToCollectionPage} size="default">
-            {buttonText}
-          </Button>
+          {!!buttonText && !!buttonUrl && (
+            <Button
+              color="primary"
+              onClick={moveToCollectionPage}
+              size="default"
+            >
+              {buttonText}
+            </Button>
+          )}
         </div>
       </Container>
     </div>

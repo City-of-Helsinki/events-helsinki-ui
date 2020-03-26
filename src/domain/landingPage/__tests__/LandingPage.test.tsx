@@ -1,9 +1,17 @@
 import { MockedProvider } from "@apollo/react-testing";
-import { mount } from "enzyme";
-import * as React from "react";
+import pretty from "pretty";
+import React from "react";
+import { render, unmountComponentAtNode } from "react-dom";
+import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router";
+import wait from "waait";
 
-import { CollectionListDocument } from "../../../generated/graphql";
+import {
+  CollectionListDocument,
+  LandingPageDocument
+} from "../../../generated/graphql";
+import { mockCollection } from "../../collection/constants";
+import { mockLandingPage } from "../constants";
 import LandingPage from "../LandingPage";
 
 const mocks = [
@@ -14,24 +22,47 @@ const mocks = [
     result: {
       data: {
         collectionList: {
-          results: {
-            data: []
-          }
+          data: [mockCollection.collectionDetails]
         }
       }
     }
+  },
+  {
+    request: {
+      query: LandingPageDocument
+    },
+    result: { data: mockLandingPage }
   }
 ];
 
-test("LandingPage matches snapshot", () => {
-  const tree = mount(
-    <MockedProvider mocks={mocks}>
-      <MemoryRouter>
-        <LandingPage />
-      </MemoryRouter>
-    </MockedProvider>
-  );
-  expect(tree.html()).toMatchSnapshot();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let container: any = null;
+beforeEach(() => {
+  // setup a DOM element as a render target
+  container = document.createElement("div");
+  document.body.appendChild(container);
 });
 
-export {};
+afterEach(() => {
+  // cleanup on exiting
+  unmountComponentAtNode(container);
+  container.remove();
+  container = null;
+});
+
+test("CollectionHero should match snapshot", async () => {
+  await act(async () => {
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <MemoryRouter>
+          <LandingPage />
+        </MemoryRouter>
+      </MockedProvider>,
+      container
+    );
+
+    await wait(0); // wait for response
+  });
+
+  expect(pretty(container.innerHTML)).toMatchSnapshot();
+});
