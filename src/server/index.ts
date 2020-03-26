@@ -8,7 +8,7 @@ import i18nextMiddleware from "i18next-express-middleware";
 import React from "react";
 import { getDataFromTree } from "react-apollo";
 import ReactDOMServer from "react-dom/server";
-import Helmet from "react-helmet";
+import { Helmet } from "react-helmet";
 
 import i18next from "../common/translation/i18n/init.server";
 import { SUPPORT_LANGUAGES } from "../constants";
