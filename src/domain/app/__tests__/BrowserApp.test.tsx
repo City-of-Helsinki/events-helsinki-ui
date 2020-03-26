@@ -67,7 +67,7 @@ it("renders snapshot correctly", async () => {
       </MockedProvider>,
       container
     );
-    await wait(500); // wait for response
+    await wait(1000); // wait for response
   });
 
   expect(pretty(container.innerHTML)).toMatchSnapshot();

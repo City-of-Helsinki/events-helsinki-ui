@@ -28,3 +28,5 @@ export const mockLandingPage = {
     title: { en: "Title en:", fi: "Title fi:", sv: "Title sv:" }
   }
 };
+
+export const LANDING_PAGE_SOME_IMAGE = "/images/activities_SoMe-share.jpg";

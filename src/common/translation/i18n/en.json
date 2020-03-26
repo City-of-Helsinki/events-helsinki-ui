@@ -266,11 +266,6 @@
     "collections": {
       "title": "Recommendations"
     },
-    "hero": {
-      "buttonText": "See tips",
-      "subTitle": "We put it together",
-      "title": "The most tragic treats of an autumn holiday!"
-    },
     "search": {
       "buttonSearch": "Search",
       "labelDateRange": "For what period you are looking for?",

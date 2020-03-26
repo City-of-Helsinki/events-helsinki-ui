@@ -11,6 +11,7 @@ import Container from "../app/layout/Container";
 import PageWrapper from "../app/layout/PageWrapper";
 import styles from "./landingPage.module.scss";
 import LandingPageHero from "./landingPageHero/LandingPageHero";
+import LandingPageMeta from "./landingPageMeta/LandingPageMeta";
 import Search from "./landingPageSearch/LandingPageSearch";
 
 const Home: React.FC = () => {
@@ -30,6 +31,7 @@ const Home: React.FC = () => {
       <LoadingSpinner isLoading={loading}>
         {!!landingPageData && (
           <>
+            <LandingPageMeta landingPageData={landingPageData} />
             <LandingPageHero landingPageData={landingPageData} />
             <Container>
               <Search />

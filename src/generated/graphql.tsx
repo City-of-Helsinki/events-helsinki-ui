@@ -714,7 +714,13 @@ export type LandingPageQuery = (
   { __typename?: 'Query' }
   & { landingPage: (
     { __typename?: 'LandingPage' }
-    & { title: Maybe<(
+    & { pageTitle: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )>, metaInformation: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )>, title: Maybe<(
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
     )>, description: Maybe<(
@@ -1414,6 +1420,16 @@ export type KeywordListQueryResult = ApolloReactCommon.QueryResult<KeywordListQu
 export const LandingPageDocument = gql`
     query LandingPage {
   landingPage {
+    pageTitle {
+      fi
+      sv
+      en
+    }
+    metaInformation {
+      fi
+      sv
+      en
+    }
     title {
       fi
       sv
