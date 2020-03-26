@@ -8,13 +8,17 @@ $logoWidth: 7rem;
   background-color: #ffe28e;
   padding: 2.5rem 0 1.25rem;
   display: block;
-  opacity: 1;
-  transition: visibility 0.2s, opacity 0.2s;
+  @include respond-below(sm) {
+    opacity: 1;
+    transition: visibility 0.2s, opacity 0.2s;
+  }
 
   &.mobileMenuOpen {
-    visibility: hidden;
-    opacity: 0;     
-    transition: visibility 0.5s, opacity 0.5s;
+    @include respond-below(sm) {
+      visibility: hidden;
+      opacity: 0;     
+      transition: visibility 0.5s, opacity 0.5s;
+    }
   }
 
   @include respond-below(sm) {
