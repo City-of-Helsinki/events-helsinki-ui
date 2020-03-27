@@ -311,6 +311,7 @@ export type Query = {
   collectionList: CollectionListResponse,
   eventDetails: EventDetails,
   eventList: EventListResponse,
+  eventsByIds: Array<EventDetails>,
   keywordDetails: Keyword,
   keywordList: KeywordListResponse,
   landingPage: LandingPage,
@@ -348,6 +349,12 @@ export type QueryEventListArgs = {
   superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
   text?: Maybe<Scalars['String']>,
   translation?: Maybe<Scalars['String']>
+};
+
+
+export type QueryEventsByIdsArgs = {
+  ids: Array<Scalars['ID']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>
 };
 
 
@@ -660,6 +667,67 @@ export type EventListQuery = (
       )> }
     )> }
   ) }
+);
+
+export type EventsByIdsQueryVariables = {
+  ids: Array<Scalars['ID']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>
+};
+
+
+export type EventsByIdsQuery = (
+  { __typename?: 'Query' }
+  & { eventsByIds: Array<(
+    { __typename?: 'EventDetails' }
+    & Pick<EventDetails, 'id' | 'eventStatus' | 'startTime' | 'endTime'>
+    & { images: Array<(
+      { __typename?: 'Image' }
+      & Pick<Image, 'id' | 'name' | 'url'>
+    )>, keywords: Array<(
+      { __typename?: 'Keyword' }
+      & Pick<Keyword, 'id'>
+      & { name: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )> }
+    )>, location: Maybe<(
+      { __typename?: 'Place' }
+      & Pick<Place, 'id'>
+      & { divisions: Maybe<Array<(
+        { __typename?: 'Division' }
+        & Pick<Division, 'type'>
+        & { name: Maybe<(
+          { __typename?: 'LocalizedObject' }
+          & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+        )> }
+      )>>, name: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+      )>, addressLocality: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )>, streetAddress: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )> }
+    )>, name: (
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+    ), offers: Array<(
+      { __typename?: 'Offer' }
+      & Pick<Offer, 'isFree'>
+      & { description: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )>, price: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )>, infoUrl: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )> }
+    )> }
+  )> }
 );
 
 export type KeywordDetailsQueryVariables = {
@@ -1307,6 +1375,116 @@ export function useEventListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHo
 export type EventListQueryHookResult = ReturnType<typeof useEventListQuery>;
 export type EventListLazyQueryHookResult = ReturnType<typeof useEventListLazyQuery>;
 export type EventListQueryResult = ApolloReactCommon.QueryResult<EventListQuery, EventListQueryVariables>;
+export const EventsByIdsDocument = gql`
+    query EventsByIds($ids: [ID!]!, $include: [String]) {
+  eventsByIds(ids: $ids, include: $include) {
+    id
+    eventStatus
+    images {
+      id
+      name
+      url
+    }
+    keywords {
+      id
+      name {
+        fi
+        sv
+        en
+      }
+    }
+    location {
+      id
+      divisions {
+        type
+        name {
+          fi
+          en
+          sv
+        }
+      }
+      name {
+        fi
+        en
+        sv
+      }
+      addressLocality {
+        fi
+        sv
+        en
+      }
+      streetAddress {
+        fi
+        sv
+        en
+      }
+    }
+    name {
+      fi
+      en
+      sv
+    }
+    offers {
+      isFree
+      description {
+        fi
+        sv
+        en
+      }
+      price {
+        fi
+        sv
+        en
+      }
+      infoUrl {
+        fi
+        sv
+        en
+      }
+    }
+    startTime
+    endTime
+  }
+}
+    `;
+export type EventsByIdsProps<TChildProps = {}> = ApolloReactHoc.DataProps<EventsByIdsQuery, EventsByIdsQueryVariables> | TChildProps;
+export function withEventsByIds<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  EventsByIdsQuery,
+  EventsByIdsQueryVariables,
+  EventsByIdsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, EventsByIdsQuery, EventsByIdsQueryVariables, EventsByIdsProps<TChildProps>>(EventsByIdsDocument, {
+      alias: 'eventsByIds',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useEventsByIdsQuery__
+ *
+ * To run a query within a React component, call `useEventsByIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventsByIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventsByIdsQuery({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *      include: // value for 'include'
+ *   },
+ * });
+ */
+export function useEventsByIdsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<EventsByIdsQuery, EventsByIdsQueryVariables>) {
+        return ApolloReactHooks.useQuery<EventsByIdsQuery, EventsByIdsQueryVariables>(EventsByIdsDocument, baseOptions);
+      }
+export function useEventsByIdsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<EventsByIdsQuery, EventsByIdsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<EventsByIdsQuery, EventsByIdsQueryVariables>(EventsByIdsDocument, baseOptions);
+        }
+export type EventsByIdsQueryHookResult = ReturnType<typeof useEventsByIdsQuery>;
+export type EventsByIdsLazyQueryHookResult = ReturnType<typeof useEventsByIdsLazyQuery>;
+export type EventsByIdsQueryResult = ApolloReactCommon.QueryResult<EventsByIdsQuery, EventsByIdsQueryVariables>;
 export const KeywordDetailsDocument = gql`
     query KeywordDetails($id: ID!) {
   keywordDetails(id: $id) {

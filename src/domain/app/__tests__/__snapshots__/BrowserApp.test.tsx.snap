@@ -82,7 +82,7 @@ exports[`renders snapshot correctly 1`] = `
         <div class=\\"container\\">
           <div class=\\"content\\">
             <div class=\\"subTitle\\">Kokosimme yhteen</div>
-            <h1 class=\\"title\\">Syysloman riehakkaimmat riennot!</h1><button type=\\"button\\" class=\\"_3wgeeaHxiHujNcKzeML5j4 _3aSBFzRPhZcNdul13_gERo _3bo_TEhSbadoDUbxUTgx4J primary\\"><span class=\\"_2zMLCVF6mmvV2UqfaBF5K\\">Katso vinkit</span></button>
+            <h1 class=\\"title\\">Syysloman riehakkaimmat riennot! now</h1><button type=\\"button\\" class=\\"_3wgeeaHxiHujNcKzeML5j4 _3aSBFzRPhZcNdul13_gERo _3bo_TEhSbadoDUbxUTgx4J primary\\"><span class=\\"_2zMLCVF6mmvV2UqfaBF5K\\">Katso vinkit</span></button>
           </div>
         </div>
       </div>
@@ -407,7 +407,7 @@ exports[`renders snapshot correctly 1`] = `
             <div class=\\"collectionCardWrapper lgSize\\"><a aria-hidden=\\"true\\" aria-label=\\"Siirry tapahtumaan: \\" class=\\"imageWrapper\\" tabindex=\\"-1\\" href=\\"/fi/collection/7\\"></a>
               <div class=\\"textWrapper\\">
                 <div class=\\"countWrapper\\">
-                  <div class=\\"count\\">3 kpl</div>
+                  <div class=\\"count\\">6 kpl</div>
                 </div>
                 <div class=\\"titleWrapper\\"><a aria-hidden=\\"true\\" class=\\"title\\" tabindex=\\"-1\\" href=\\"/fi/collection/7\\">We're now testing FI</a>
                   <div class=\\"srOnly\\">We're now testing FI</div>

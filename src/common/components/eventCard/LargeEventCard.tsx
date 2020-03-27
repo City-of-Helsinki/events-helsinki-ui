@@ -10,6 +10,7 @@ import EventName from "../../../domain/event/eventName/EventName";
 import {
   getEventImageUrl,
   getEventPrice,
+  isEventClosed,
   isEventFree
 } from "../../../domain/event/EventUtils";
 import { EventInList } from "../../../domain/event/types";
@@ -29,6 +30,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
   const { push } = useHistory();
   const { search } = useLocation();
   const locale = useLocale();
+  const eventClosed = isEventClosed(event);
 
   const offerInfoUrl = React.useMemo(() => {
     const offer = event.offers.find(item =>
@@ -56,7 +58,11 @@ const EventCard: React.FC<Props> = ({ event }) => {
   const showBuyButton = !!offerInfoUrl && !isEventFree(event);
 
   return (
-    <div className={styles.eventCard}>
+    <div
+      className={classNames(styles.eventCard, {
+        [styles.eventClosed]: eventClosed
+      })}
+    >
       <Link
         aria-hidden={true}
         className={styles.imageWrapper}
