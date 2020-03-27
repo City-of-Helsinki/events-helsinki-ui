@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TopFooter matches snapshot 1`] = `
-<footer
+<div
   aria-hidden={false}
   className="topFooterWrapper"
 >
@@ -17,11 +17,11 @@ exports[`TopFooter matches snapshot 1`] = `
         <div
           className="helsinkiLogo"
         />
-        <h2
+        <div
           className="appName"
         >
           Tapahtumat
-        </h2>
+        </div>
       </div>
       <div
         className="iconLinkWrapper"
@@ -494,5 +494,5 @@ exports[`TopFooter matches snapshot 1`] = `
       </div>
     </div>
   </div>
-</footer>
+</div>
 `;

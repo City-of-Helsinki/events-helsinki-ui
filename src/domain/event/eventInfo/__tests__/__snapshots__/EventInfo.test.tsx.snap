@@ -78,9 +78,11 @@ exports[`EventInfo matches snapshot 1`] = `
       <div
         className="iconTextWrapper"
       >
-        <p>
+        <h2
+          className="title"
+        >
           Päivä ja aika
-        </p>
+        </h2>
         Pe 13.12.2019, klo 10.00
         <button
           className="link"
@@ -124,9 +126,11 @@ exports[`EventInfo matches snapshot 1`] = `
       <div
         className="iconTextWrapper"
       >
-        <p>
+        <h2
+          className="title"
+        >
           Paikka
-        </p>
+        </h2>
         <div
           className="mobileOnly"
         >
@@ -191,9 +195,11 @@ exports[`EventInfo matches snapshot 1`] = `
       <div
         className="iconTextWrapper"
       >
-        <p>
+        <h2
+          className="title"
+        >
           Kielet
-        </p>
+        </h2>
         <div>
           Suomi
         </div>
@@ -221,9 +227,11 @@ exports[`EventInfo matches snapshot 1`] = `
       <div
         className="iconTextWrapper"
       >
-        <p>
+        <h2
+          className="title"
+        >
           Muut tiedot
-        </p>
+        </h2>
         <div>
           location@info.com
         </div>
@@ -330,9 +338,11 @@ exports[`EventInfo matches snapshot 1`] = `
       <div
         className="iconTextWrapper"
       >
-        <p>
+        <h2
+          className="title"
+        >
           Löydä perille
-        </p>
+        </h2>
         <a
           className="link"
           href="https://www.google.com/maps/dir//streetAddress+fi,+01234+locality+fi/@60.250507,25.01497"
@@ -398,9 +408,11 @@ exports[`EventInfo matches snapshot 1`] = `
       <div
         className="iconTextWrapper"
       >
-        <p>
+        <h2
+          className="title"
+        >
           Järjestäjän tiedot
-        </p>
+        </h2>
         <div
           className="spinnerWrapper"
         >
@@ -438,9 +450,11 @@ exports[`EventInfo matches snapshot 1`] = `
       <div
         className="iconTextWrapper"
       >
-        <p>
+        <h2
+          className="title"
+        >
           Hinta
-        </p>
+        </h2>
         Ilmainen
       </div>
     </div>

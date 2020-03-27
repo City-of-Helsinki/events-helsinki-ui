@@ -2,7 +2,7 @@
 
 exports[`Footer matches snapshot 1`] = `
 <footer>
-  <footer
+  <div
     aria-hidden={false}
     className="topFooterWrapper"
   >
@@ -18,11 +18,11 @@ exports[`Footer matches snapshot 1`] = `
           <div
             className="helsinkiLogo"
           />
-          <h2
+          <div
             className="appName"
           >
             Tapahtumat
-          </h2>
+          </div>
         </div>
         <div
           className="iconLinkWrapper"
@@ -495,7 +495,7 @@ exports[`Footer matches snapshot 1`] = `
         </div>
       </div>
     </div>
-  </footer>
+  </div>
   <div
     aria-hidden={false}
     className="bottomFooter"

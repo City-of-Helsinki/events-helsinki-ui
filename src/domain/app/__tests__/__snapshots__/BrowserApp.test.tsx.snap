@@ -81,8 +81,8 @@ exports[`renders snapshot correctly 1`] = `
         <div class=\\"image\\"></div>
         <div class=\\"container\\">
           <div class=\\"content\\">
-            <div class=\\"subTitle\\">Description fi:</div>
-            <div class=\\"title\\">Title fi:</div><button type=\\"button\\" class=\\"_3wgeeaHxiHujNcKzeML5j4 _3aSBFzRPhZcNdul13_gERo _3bo_TEhSbadoDUbxUTgx4J primary\\"><span class=\\"_2zMLCVF6mmvV2UqfaBF5K\\">Button text fi:</span></button>
+            <div class=\\"subTitle\\">Kokosimme yhteen</div>
+            <h1 class=\\"title\\">Syysloman riehakkaimmat riennot!</h1><button type=\\"button\\" class=\\"_3wgeeaHxiHujNcKzeML5j4 _3aSBFzRPhZcNdul13_gERo _3bo_TEhSbadoDUbxUTgx4J primary\\"><span class=\\"_2zMLCVF6mmvV2UqfaBF5K\\">Katso vinkit</span></button>
           </div>
         </div>
       </div>
@@ -90,7 +90,7 @@ exports[`renders snapshot correctly 1`] = `
         <div class=\\"landingPageSearch\\">
           <div class=\\"searchRow\\">
             <div class=\\"titleWrapper\\">
-              <h3>Löydä tekemistä</h3>
+              <h2>Löydä tekemistä</h2>
             </div>
             <div class=\\"autosuggestWrapper\\"><label class=\\"searchLabel white\\" for=\\"search\\">Mitä etsit?</label>
               <div class=\\"searchAutosuggest\\">
@@ -270,8 +270,8 @@ exports[`renders snapshot correctly 1`] = `
                                     <div class=\\"react-datepicker__day react-datepicker__day--023 react-datepicker__day--disabled\\" aria-label=\\"day-23\\" role=\\"option\\" aria-disabled=\\"true\\">23</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--024 react-datepicker__day--disabled\\" aria-label=\\"day-24\\" role=\\"option\\" aria-disabled=\\"true\\">24</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--025 react-datepicker__day--disabled\\" aria-label=\\"day-25\\" role=\\"option\\" aria-disabled=\\"true\\">25</div>
-                                    <div class=\\"react-datepicker__day react-datepicker__day--026 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-26\\" role=\\"option\\" aria-disabled=\\"false\\">26</div>
-                                    <div class=\\"react-datepicker__day react-datepicker__day--027\\" aria-label=\\"day-27\\" role=\\"option\\" aria-disabled=\\"false\\">27</div>
+                                    <div class=\\"react-datepicker__day react-datepicker__day--026 react-datepicker__day--disabled\\" aria-label=\\"day-26\\" role=\\"option\\" aria-disabled=\\"true\\">26</div>
+                                    <div class=\\"react-datepicker__day react-datepicker__day--027 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-27\\" role=\\"option\\" aria-disabled=\\"false\\">27</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--028 react-datepicker__day--weekend\\" aria-label=\\"day-28\\" role=\\"option\\" aria-disabled=\\"false\\">28</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--029 react-datepicker__day--weekend\\" aria-label=\\"day-29\\" role=\\"option\\" aria-disabled=\\"false\\">29</div>
                                   </div>
@@ -467,12 +467,12 @@ exports[`renders snapshot correctly 1`] = `
     </div>
   </div>
   <footer>
-    <footer aria-hidden=\\"false\\" class=\\"topFooterWrapper\\">
+    <div aria-hidden=\\"false\\" class=\\"topFooterWrapper\\">
       <div class=\\"container\\">
         <div class=\\"companyInfoWrapper\\">
           <div class=\\"logoWrapper\\">
             <div class=\\"helsinkiLogo\\"></div>
-            <h2 class=\\"appName\\">Tapahtumat</h2>
+            <div class=\\"appName\\">Tapahtumat</div>
           </div>
           <div class=\\"iconLinkWrapper\\"><a class=\\"iconLink default\\" href=\\"/fi/events\\">
               <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
@@ -582,7 +582,7 @@ exports[`renders snapshot correctly 1`] = `
           </div>
         </div>
       </div>
-    </footer>
+    </div>
     <div aria-hidden=\\"false\\" class=\\"bottomFooter\\">
       <div class=\\"container\\">
         <div class=\\"contentWrapper\\">
