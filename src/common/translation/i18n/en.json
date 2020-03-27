@@ -110,6 +110,7 @@
     "timeAbbreviation": "at"
   },
   "collection": {
+    "buttonShowAllPastEvents": "Show all past recommendations",
     "curatedEvents": {
       "textEventNotFound": "Event not found"
     },
@@ -121,7 +122,8 @@
     "shareLinks": {
       "title": "Share collection"
     },
-    "title": "Loading collection..."
+    "title": "Loading collection...",
+    "titlePastRecommendations": "Past recommendations"
   },
   "event": {
     "categories": {

@@ -110,6 +110,7 @@
     "timeAbbreviation": "klo"
   },
   "collection": {
+    "buttonShowAllPastEvents": "Näytä kaikki menneet",
     "curatedEvents": {
       "textEventNotFound": "Tapahtumaa ei löydy"
     },
@@ -121,7 +122,8 @@
     "shareLinks": {
       "title": "Jaa kokoelma"
     },
-    "title": "Ladataan kokoelmaa..."
+    "title": "Ladataan kokoelmaa...",
+    "titlePastRecommendations": "Menneet suositukset"
   },
   "event": {
     "categories": {

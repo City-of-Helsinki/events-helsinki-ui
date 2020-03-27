@@ -6,22 +6,25 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router";
 import wait from "waait";
 
-import { EventDetailsDocument } from "../../../../generated/graphql";
+import { EventsByIdsDocument } from "../../../../generated/graphql";
 import { mockEventData } from "../../../event/constants";
+import { getEventIdFromUrl } from "../../../event/EventUtils";
 import { mockCollection } from "../../constants";
 import CuratedEventList from "../CuratedEventList";
 
 const mocks = [
   {
     request: {
-      query: EventDetailsDocument,
+      query: EventsByIdsDocument,
       variables: {
-        id: mockEventData.eventDetails.id,
+        ids: mockCollection.collectionDetails.curatedEvents
+          .map(url => getEventIdFromUrl(url) || "")
+          .filter(e => e),
         include: ["keywords", "location"]
       }
     },
     result: {
-      data: mockEventData
+      data: { eventsByIds: [mockEventData.eventDetails] }
     }
   }
 ];

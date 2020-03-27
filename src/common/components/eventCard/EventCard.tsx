@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { IconArrowRight } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -9,7 +10,8 @@ import LocationText from "../../../domain/event/eventLocation/EventLocationText"
 import EventName from "../../../domain/event/eventName/EventName";
 import {
   getEventImageUrl,
-  getEventPrice
+  getEventPrice,
+  isEventClosed
 } from "../../../domain/event/EventUtils";
 import { EventInList } from "../../../domain/event/types";
 import useLocale from "../../../hooks/useLocale";
@@ -37,8 +39,14 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
     return `/${locale}/event/${event.id}${search}`;
   }, [event.id, locale, search]);
 
+  const eventClosed = isEventClosed(event);
+
   return (
-    <div className={styles.eventCard}>
+    <div
+      className={classNames(styles.eventCard, {
+        [styles.eventClosed]: eventClosed
+      })}
+    >
       <Link
         aria-hidden={true}
         aria-label={t("commons.eventCard.ariaLabelLink", {

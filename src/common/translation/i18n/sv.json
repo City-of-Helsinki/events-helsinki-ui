@@ -110,6 +110,7 @@
     "timeAbbreviation": "kl."
   },
   "collection": {
+    "buttonShowAllPastEvents": "Visa alla tidigare rekommendationer",
     "curatedEvents": {
       "textEventNotFound": "Samlingen hittades inte"
     },
@@ -121,7 +122,8 @@
     "shareLinks": {
       "title": "Dela denna kollektion"
     },
-    "title": "Laddar samling..."
+    "title": "Laddar samling...",
+    "titlePastRecommendations": "Tidigare rekommendationer"
   },
   "event": {
     "categories": {

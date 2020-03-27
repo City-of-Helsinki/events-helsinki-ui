@@ -14,126 +14,133 @@ $imageWidth: 22.75rem;
   @include respond_above(sm) {
     grid-template-columns: 4fr 5fr;
   }
-}
 
-.imageWrapper {
-  min-height: $imageHeight;
-  background-repeat: no-repeat;
-  background-position: 50%;
-  background-size: cover;
-  padding: $basePadding $basePadding 1rem;
-  display: flex;
-  text-decoration: none;
-
-  .tagWrapper {
+  .imageWrapper {
+    min-height: $imageHeight;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
+    padding: $basePadding $basePadding 1rem;
+    display: flex;
+    text-decoration: none;
+  
+    .tagWrapper {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+  
+      @include respond_above(sm) {
+        display: none;
+      }
+  
+      .categoryWrapper {
+        align-self: flex-end;
+      }
+    }
+  }
+  
+  .infoWrapper {
     display: grid;
-    grid-template-rows: 1fr 1fr;
-
-    @include respond_above(sm) {
-      display: none;
+    padding: $basePadding;
+    grid-template-rows: auto 1fr auto;
+  
+    .categoryWrapperDesktop {
+      padding-bottom: $basePadding;
+      
+      @include respond_below(sm) {
+        display: none;
+      }
     }
+  
+    .textWrapper {
+      display: flex;
+      flex-direction: column;
+  
+      .eventDateAndTime {
+        font-size: $font-size-lg;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+  
+        @include respond_above(sm) {
+          font-weight: normal;
+          order: 2;
+        }
+      }
+  
+      .eventName {
+        font-size: 1.5rem;
+        line-height: 1.875rem;
+        font-weight: $font-weight-bold;
+        margin-bottom: 0.5rem;
+        color: $hel-black;
+        text-decoration: none;
+  
+        @include respond_above(sm) {
+          order: 1;
+        }
+      }
+      .eventLocation {
+        font-size: 1rem;
+        line-height: 1.875rem;
+        margin-bottom: 0.5rem;
+        color: $hel-black-80;
+  
+        @include respond_above(sm) {
+          order: 3;
+        }
+      }
+  
+      .eventPrice {
+        font-size: 1rem;
+        line-height: 1.875rem;
+        margin-bottom: 0.25rem;
+        color: $hel-black-80;
+  
+        @include respond_above(sm) {
+          order: 4;
+        }
+      }
+    }
+  
+    .buttonWrapper {
+      display: flex;
+      flex-wrap: wrap;
+  
+      @include respond_above(sm) {
+        justify-content: flex-end;
+      }
+  
+      .buyButtonWrapper {
+        flex: 1 1 0%;
+        margin-right: 0.25rem;
+  
+        @include respond_above(sm) {
+          flex: none;
+        }
+  
+        button {
+          margin-top: 0.25rem;
+        }
+      }
+  
+      .readMoreButtonWrapper {
+        flex: 1 1 0%;
+        margin-left: 0.25rem;
+  
+        @include respond_above(sm) {
+          flex: none;
+        }
+  
+        button {
+          margin-top: 0.25rem;
+        }
+      }
+    }
+  }
 
-    .categoryWrapper {
-      align-self: flex-end;
+  &.eventClosed {
+    .imageWrapper {
+      opacity: 0.5;
     }
   }
 }
 
-.infoWrapper {
-  display: grid;
-  padding: $basePadding;
-  grid-template-rows: auto 1fr auto;
-
-  .categoryWrapperDesktop {
-    padding-bottom: $basePadding;
-    
-    @include respond_below(sm) {
-      display: none;
-    }
-  }
-
-  .textWrapper {
-    display: flex;
-    flex-direction: column;
-
-    .eventDateAndTime {
-      font-size: $font-size-lg;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-
-      @include respond_above(sm) {
-        font-weight: normal;
-        order: 2;
-      }
-    }
-
-    .eventName {
-      font-size: 1.5rem;
-      line-height: 1.875rem;
-      font-weight: $font-weight-bold;
-      margin-bottom: 0.5rem;
-      color: $hel-black;
-      text-decoration: none;
-
-      @include respond_above(sm) {
-        order: 1;
-      }
-    }
-    .eventLocation {
-      font-size: 1rem;
-      line-height: 1.875rem;
-      margin-bottom: 0.5rem;
-      color: $hel-black-80;
-
-      @include respond_above(sm) {
-        order: 3;
-      }
-    }
-
-    .eventPrice {
-      font-size: 1rem;
-      line-height: 1.875rem;
-      margin-bottom: 0.25rem;
-      color: $hel-black-80;
-
-      @include respond_above(sm) {
-        order: 4;
-      }
-    }
-  }
-
-  .buttonWrapper {
-    display: flex;
-    flex-wrap: wrap;
-
-    @include respond_above(sm) {
-      justify-content: flex-end;
-    }
-
-    .buyButtonWrapper {
-      flex: 1 1 0%;
-      margin-right: 0.25rem;
-
-      @include respond_above(sm) {
-        flex: none;
-      }
-
-      button {
-        margin-top: 0.25rem;
-      }
-    }
-
-    .readMoreButtonWrapper {
-      flex: 1 1 0%;
-      margin-left: 0.25rem;
-
-      @include respond_above(sm) {
-        flex: none;
-      }
-
-      button {
-        margin-top: 0.25rem;
-      }
-    }
-  }
-}
