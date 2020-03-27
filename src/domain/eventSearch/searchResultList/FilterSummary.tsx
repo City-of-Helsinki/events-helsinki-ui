@@ -118,9 +118,9 @@ const FilterSummary = () => {
   return (
     <div className={styles.filterSummary}>
       <div className={styles.filtersWrapper}>
-        <h4 className={styles.titleFilterSummary}>
+        <h2 className={styles.titleFilterSummary}>
           {t("eventSearch.filters.titleSummary")}
-        </h4>
+        </h2>
         {!!searchWord && (
           <SearchWordFilter
             onRemove={deleteSearchWord}

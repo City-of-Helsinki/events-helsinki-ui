@@ -1,7 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { RouteComponentProps, useLocation, withRouter } from "react-router";
 
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
+import SrOnly from "../../common/components/srOnly/SrOnly";
 import { useEventListQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
 import PageWrapper from "../app/layout/PageWrapper";
@@ -12,6 +14,7 @@ import Search from "./Search";
 import SearchResultList from "./searchResultList/SearchResultList";
 
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
+  const { t } = useTranslation();
   const locale = useLocale();
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
@@ -62,6 +65,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
       className={styles.eventSearchPageWrapper}
       title="eventSearch.title"
     >
+      <SrOnly as="h1">{t("eventSearch.title")}</SrOnly>
       <Search />
       <LoadingSpinner isLoading={!isFetchingMore && loading}>
         {eventsData && (

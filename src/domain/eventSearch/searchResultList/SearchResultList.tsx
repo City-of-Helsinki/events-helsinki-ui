@@ -33,11 +33,11 @@ const SearchResultList: React.FC<Props> = ({
             <FilterSummary />
           </div>
           <div>
-            <div className={styles.count}>
+            <h2 className={styles.count}>
               {t("eventSearch.textFoundEvents", {
                 count
               })}
-            </div>
+            </h2>
             {!count && !loading && <NoResultsInfo />}
             <EventList
               cardSize="large"
