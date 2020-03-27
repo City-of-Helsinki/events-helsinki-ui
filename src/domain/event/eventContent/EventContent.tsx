@@ -31,9 +31,9 @@ const EventContent: React.FC<Props> = ({ eventData }) => {
       <div className={styles.descriptionColumn}>
         {description && (
           <>
-            <h3 className={styles.descriptionTitle}>
+            <h2 className={styles.descriptionTitle}>
               {t("event.description.title")}
-            </h3>
+            </h2>
             <div
               className={styles.description}
               dangerouslySetInnerHTML={{

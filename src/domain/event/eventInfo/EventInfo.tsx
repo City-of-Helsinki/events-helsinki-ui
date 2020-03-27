@@ -129,7 +129,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             <IconCalendar className={styles.iconCalendar} />
           </div>
           <div className={styles.iconTextWrapper}>
-            <p>{t("event.info.labelDateAndTime")}</p>
+            <h2 className={styles.title}>{t("event.info.labelDateAndTime")}</h2>
 
             {!!startTime &&
               getDateRangeStr(
@@ -158,7 +158,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             <IconLocation className={styles.icon} />
           </div>
           <div className={styles.iconTextWrapper}>
-            <p>{t("event.info.labelLocation")}</p>
+            <h2 className={styles.title}>{t("event.info.labelLocation")}</h2>
             <div className={styles.mobileOnly}>
               {[locationName, streetAddress, district, addressLocality]
                 .filter(e => e)
@@ -193,7 +193,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
               <IconLanguage className={styles.icon} />
             </div>
             <div className={styles.iconTextWrapper}>
-              <p>{t("event.info.labelLanguages")}</p>
+              <h2 className={styles.title}>{t("event.info.labelLanguages")}</h2>
               <div>{languages.join(", ")}</div>
             </div>
           </div>
@@ -206,7 +206,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
               <IconInfo className={styles.icon} />
             </div>
             <div className={styles.iconTextWrapper}>
-              <p>{t("event.info.labelOtherInfo")}</p>
+              <h2 className={styles.title}>{t("event.info.labelOtherInfo")}</h2>
               {email && <div>{email}</div>}
               {telephone && <div>{telephone}</div>}
               {infoUrl && (
@@ -251,7 +251,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             <IconDirections className={styles.icon} />
           </div>
           <div className={styles.iconTextWrapper}>
-            <p>{t("event.info.labelDistricts")}</p>
+            <h2 className={styles.title}>{t("event.info.labelDistricts")}</h2>
             <a
               className={styles.link}
               href={getGoogleDirectionsLink(eventData, locale)}
@@ -281,7 +281,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             <IconTicket className={styles.icon} />
           </div>
           <div className={styles.iconTextWrapper}>
-            <p>{t("event.info.labelPrice")}</p>
+            <h2 className={styles.title}>{t("event.info.labelPrice")}</h2>
             {getEventPrice(
               eventData.eventDetails,
               locale,

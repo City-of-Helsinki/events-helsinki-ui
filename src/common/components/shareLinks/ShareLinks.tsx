@@ -24,7 +24,7 @@ const ShareLinks: React.FC<ShareLinksProps> = ({ title }) => {
 
   return (
     <div className={styles.shareSubSection}>
-      <p className={styles.shareSubSectionTitle}>{title}</p>
+      <h2 className={styles.shareSubSectionTitle}>{title}</h2>
       <ul className={styles.shareLinkList}>
         <li
           className={classNames(styles.shareLinkItem, styles.relativePosition)}

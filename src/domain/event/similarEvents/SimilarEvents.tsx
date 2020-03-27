@@ -71,9 +71,9 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
       <LoadingSpinner isLoading={loading}>
         {!!events.length && (
           <>
-            <h3 className={styles.similarEventsTitle}>
+            <h2 className={styles.similarEventsTitle}>
               {t("event.similarEvents.title")}
-            </h3>
+            </h2>
             <div className={styles.similarEventList}>
               {events.map(event => {
                 return <SimilarEventCard key={event.id} event={event} />;

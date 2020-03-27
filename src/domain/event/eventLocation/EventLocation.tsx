@@ -28,7 +28,7 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
       <div className={styles.titleWrapper}>
         <div className={styles.title}>
           <IconLocation />
-          <h3>{t("event.location.title")}</h3>
+          <h2>{t("event.location.title")}</h2>
         </div>
         <a
           className={styles.mapLink}

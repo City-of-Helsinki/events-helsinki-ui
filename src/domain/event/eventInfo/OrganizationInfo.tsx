@@ -41,7 +41,7 @@ const OrganizationInfo: React.FC<Props> = ({ eventData }) => {
         <IconSmile className={styles.icon} />
       </div>
       <div className={styles.iconTextWrapper}>
-        <p>{t("event.info.labelOrganizer")}</p>
+        <h2 className={styles.title}>{t("event.info.labelOrganizer")}</h2>
         <LoadingSpinner isLoading={loading}>
           <>
             <div>{provider ? provider : name}</div>

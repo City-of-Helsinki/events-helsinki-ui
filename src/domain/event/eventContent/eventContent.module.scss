@@ -23,6 +23,7 @@ $logoWidth: 5.5rem;
 .descriptionTitle {
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
+  margin: 2rem 0 1rem;
 
   @include respond_above(sm) {
     font-size: $h2-font-size;
