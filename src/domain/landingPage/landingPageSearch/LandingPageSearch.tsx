@@ -161,7 +161,7 @@ const Search: FunctionComponent = () => {
         {/* <SupriseMeButton onClick={handleClickSupriseMe} /> */}
         <div className={styles.searchRow}>
           <div className={styles.titleWrapper}>
-            <h3>{t("home.search.title")}</h3>
+            <h2>{t("home.search.title")}</h2>
           </div>
           <div className={styles.autosuggestWrapper}>
             <SearchLabel htmlFor={"search"}>

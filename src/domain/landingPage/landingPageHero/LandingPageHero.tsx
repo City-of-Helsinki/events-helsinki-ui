@@ -44,7 +44,7 @@ const LandingPageHero: React.FC<Props> = ({ landingPageData }) => {
       <Container>
         <div className={styles.content}>
           <div className={styles.subTitle}>{subtitle}</div>
-          <div className={styles.title}>{title}</div>
+          <h1 className={styles.title}>{title}</h1>
           {!!buttonText && !!buttonUrl && (
             <Button
               color="primary"

@@ -105,7 +105,7 @@ const TopFooter: FunctionComponent = () => {
   }, [t]);
 
   return (
-    <footer
+    <div
       aria-hidden={isMobileMenuOpen}
       className={classNames(styles.topFooterWrapper, {
         [styles.mobileMenuOpen]: isMobileMenuOpen
@@ -115,7 +115,7 @@ const TopFooter: FunctionComponent = () => {
         <div className={styles.companyInfoWrapper}>
           <div className={styles.logoWrapper}>
             <div className={styles.helsinkiLogo}></div>
-            <h2 className={styles.appName}>{t("appName")}</h2>
+            <div className={styles.appName}>{t("appName")}</div>
           </div>
           <div className={styles.iconLinkWrapper}>
             <IconLink
@@ -153,7 +153,7 @@ const TopFooter: FunctionComponent = () => {
           </div>
         </div>
       </Container>
-    </footer>
+    </div>
   );
 };
 
