@@ -48,8 +48,8 @@ const CollectionHero: React.FC<Props> = ({ collectionData }) => {
         cardLayout="hover"
         color="tertiary"
       >
-        <h2>{title}</h2>
-        {!!subtitles && <h3>{subtitles}</h3>}
+        <h1>{title}</h1>
+        {!!subtitles && <div className={styles.subTitle}>{subtitles}</div>}
         {!!description && <p>{description}</p>}
         {!!linkText && !!linkText && (
           <a href={linkUrl} target="_blank" rel="noopener noreferrer">
