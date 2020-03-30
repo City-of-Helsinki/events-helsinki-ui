@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Redirect, Route, Switch } from "react-router";
 
 import { MobileMenuProvider } from "../../common/components/mobileMenu/MobileMenu";
+import { ResetFocus } from "../../common/route/RouteUtils";
 import { getCurrentLanguage } from "../../common/translation/TranslationUtils";
 import { SUPPORT_LANGUAGES } from "../../constants";
 import PageLayout from "../app/layout/PageLayout";
@@ -16,6 +17,7 @@ const AppRoutes = () => {
 
   return (
     <MobileMenuProvider>
+      <ResetFocus />
       <PageLayout>
         <Switch>
           <Redirect

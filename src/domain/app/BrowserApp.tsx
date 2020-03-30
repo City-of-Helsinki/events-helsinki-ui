@@ -7,7 +7,7 @@ import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
 import { useSSR } from "react-i18next";
 import { BrowserRouter } from "react-router-dom";
 
-import { ResetFocus, ScrollToTop } from "../../common/route/RouteUtils";
+import { ScrollToTop } from "../../common/route/RouteUtils";
 import createGraphqlClient from "../../util/createGraphqlClient";
 import AppRoutes from "./AppRoutes";
 
@@ -21,7 +21,6 @@ const BrowserApp: FunctionComponent = () => {
     <BrowserRouter>
       <ApolloProvider client={client}>
         <ApolloHooksProvider client={client}>
-          <ResetFocus />
           <ScrollToTop />
           <AppRoutes />
         </ApolloHooksProvider>
