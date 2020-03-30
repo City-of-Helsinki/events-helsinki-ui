@@ -169,7 +169,20 @@ export const getEventFilters = (
         return "";
     }
   });
-  mappedCategories.push(...keywords);
+
+  // Combine and add keywords
+  keywords.forEach(keyword => {
+    switch (keyword) {
+      // Seniorit tags
+      case "kulke:354":
+      case "helmet:10675":
+        mappedCategories.push(...["kulke:354", "helmet:10675"]);
+        break;
+      default:
+        mappedCategories.push(keyword);
+    }
+  });
+
   const targets = getUrlParamAsString(params, "targets");
   const mappedTargets: string[] = targets.map(target => {
     switch (target) {

@@ -4,7 +4,11 @@ import map from "lodash/map";
 import React, { ChangeEvent, FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 
-import { AUTOSUGGEST_TYPES, DISTRICTS } from "../../../constants";
+import {
+  AUTOSUGGEST_KEYWORD_BLACK_LIST,
+  AUTOSUGGEST_TYPES,
+  DISTRICTS
+} from "../../../constants";
 import {
   useKeywordListQuery,
   usePlaceListQuery
@@ -94,14 +98,18 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
 
     if (keywordsData) {
       keywordItems.push(
-        ...keywordsData.keywordList.data.map(keyword => ({
-          text: getLocalisedString(keyword.name || {}, locale),
-          type:
-            keyword.id && keyword.id.startsWith("yso")
-              ? AUTOSUGGEST_TYPES.YSO
-              : AUTOSUGGEST_TYPES.KEYWORD,
-          value: keyword.id || ""
-        }))
+        ...keywordsData.keywordList.data
+          .filter(keyword =>
+            AUTOSUGGEST_KEYWORD_BLACK_LIST.includes(keyword.id || "")
+          )
+          .map(keyword => ({
+            text: getLocalisedString(keyword.name || {}, locale),
+            type:
+              keyword.id && keyword.id.startsWith("yso")
+                ? AUTOSUGGEST_TYPES.YSO
+                : AUTOSUGGEST_TYPES.KEYWORD,
+            value: keyword.id || ""
+          }))
       );
     }
     if (internalInputValue) {

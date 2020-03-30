@@ -1,3 +1,7 @@
+export const AUTOSUGGEST_KEYWORD_BLACK_LIST = [
+  "kulke:354" // Seniorit
+];
+
 export const CATEGORIES = {
   CULTURE: "culture",
   DANCE: "dance",
