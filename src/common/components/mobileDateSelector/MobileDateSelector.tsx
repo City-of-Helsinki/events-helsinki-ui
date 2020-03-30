@@ -1,9 +1,9 @@
 import classNames from "classnames";
+import { IconCalendar } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { DATE_TYPES } from "../../../constants";
-import IconCalendar from "../../../icons/IconCalendar";
 import ToggleButton from "../toggleButton/ToggleButton";
 import styles from "./mobileDateSelector.module.scss";
 import MobileDateSelectorMenu from "./MobileDateSelectorMenu";

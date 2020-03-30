@@ -1,11 +1,9 @@
+import { IconAngleDown, IconAngleUp, IconCalendar } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 
 import { DATE_TYPES } from "../../../constants";
 import useLocale from "../../../hooks/useLocale";
-import IconAngleDown from "../../../icons/IconAngleDown";
-import IconAngleUp from "../../../icons/IconAngleUp";
-import IconCalendar from "../../../icons/IconCalendar";
 import { formatDate } from "../../../util/dateUtils";
 import { translateValue } from "../../../util/translateUtils";
 import styles from "./dateSelector.module.scss";
@@ -168,7 +166,7 @@ const DateSelector: FunctionComponent<Props> = ({
         type="button"
       >
         <div className={styles.iconWrapper}>
-          <IconCalendar className={styles.iconCalendar} />
+          <IconCalendar />
         </div>
         <div className={styles.info}>
           <div className={styles.buttonTextWrapper}>

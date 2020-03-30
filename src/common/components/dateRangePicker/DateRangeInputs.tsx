@@ -1,8 +1,8 @@
 import { isPast } from "date-fns";
+import { IconCalendarAdd } from "hds-react";
 import React, { ChangeEvent, MutableRefObject } from "react";
 
 import { DATE_PICKER_INPUT, DATE_PICKER_INPUT_STATE } from "../../../constants";
-import IconCalendarAdd from "../../../icons/IconCalendarAdd";
 import { convertFinnishDateStrToDate } from "../../../util/dateUtils";
 import styles from "./dateRangeInputs.module.scss";
 

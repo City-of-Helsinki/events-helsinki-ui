@@ -1,9 +1,8 @@
 import classNames from "classnames";
+import { IconAngleDown, IconAngleUp } from "hds-react";
 import React from "react";
 
 import useKeyboardNavigation from "../../../hooks/useDropdownKeyboardNavigation";
-import IconAngleDown from "../../../icons/IconAngleDown";
-import IconAngleUp from "../../../icons/IconAngleUp";
 import Checkbox from "../input/Checkbox";
 import ScrollIntoViewWithFocus from "../scrollIntoViewWithFocus/ScrollIntoViewWithFocus";
 import SearchLabel from "../search/searchLabel/SearchLabel";

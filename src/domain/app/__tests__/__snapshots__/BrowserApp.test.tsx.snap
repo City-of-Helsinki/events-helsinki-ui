@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders snapshot correctly 1`] = `
-"<div class=\\"pageLayout\\">
+"<div tabindex=\\"-1\\"></div>
+<div class=\\"pageLayout\\">
   <header class=\\"headerWrapper\\">
     <div class=\\"container\\">
       <div class=\\"navbarTop\\">
@@ -27,7 +28,7 @@ exports[`renders snapshot correctly 1`] = `
             </svg>
             <div class=\\"textWrapper\\">FI<svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 199.404 199.404\\" class=\\"iconAngleDown\\">
                 <g>
-                  <polygon points=\\"199.404,63.993 171.12,35.709 99.702,107.127 28.284,35.709 0,63.993 99.702,163.695\\"></polygon>
+                  <polygon points=\\"199.404,63.993 171.12,35.709 99.702,107.127 28.284,35.709 0,63.993 99.702,163.695  \\"></polygon>
                 </g>
               </svg></div>
           </button>
@@ -105,28 +106,15 @@ exports[`renders snapshot correctly 1`] = `
               <div class=\\"dateSelectorWrapper\\"><label class=\\"searchLabel black srOnly\\" for=\\"date\\">Mille ajankohdalle etsit?</label>
                 <div class=\\"desktopDateSelector\\">
                   <div class=\\"dateSelector\\"><button aria-haspopup=\\"true\\" aria-expanded=\\"false\\" aria-label=\\"Valitse ajankohta\\" class=\\"button\\" type=\\"button\\">
-                      <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 27 26\\" class=\\"iconCalendar\\">
-                          <g stroke-width=\\"1\\" fill=\\"none\\" fill-rule=\\"evenodd\\">
-                            <g transform=\\"translate(-785.000000, -171.000000)\\" stroke-width=\\"2\\">
-                              <g transform=\\"translate(773.000000, 129.000000)\\">
-                                <g transform=\\"translate(13.000000, 43.000000)\\">
-                                  <circle stroke-linecap=\\"square\\" cx=\\"17.6\\" cy=\\"18.4\\" r=\\"5.6\\"></circle>
-                                  <polyline stroke-linecap=\\"square\\" points=\\"17.6 16 17.6 18.4 20 18.4\\"></polyline>
-                                  <line x1=\\"6.4\\" y1=\\"0\\" x2=\\"6.4\\" y2=\\"3.2\\" stroke-linecap=\\"square\\"></line>
-                                  <line x1=\\"17.6\\" y1=\\"0\\" x2=\\"17.6\\" y2=\\"3.2\\" stroke-linecap=\\"square\\"></line>
-                                  <line x1=\\"24\\" y1=\\"8\\" x2=\\"0\\" y2=\\"8\\"></line>
-                                  <polyline stroke-linecap=\\"square\\" points=\\"8.8 22.4 0 22.4 0 3.2 24 3.2 24 11.2\\"></polyline>
-                                </g>
-                              </g>
-                            </g>
-                          </g>
+                      <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 26 25\\" fill-rule=\\"evenodd\\" class=\\"\\">
+                          <path d=\\"M18.643,11.8c2.402,0.023 4.737,1.454 5.834,3.595c0.925,1.805 0.951,4.042 0.071,5.866c-1.245,2.583 -4.281,4.18 -7.196,3.621c-2.008,-0.385 -3.807,-1.769 -4.7,-3.621c-0.879,-1.823 -0.855,-4.059 0.071,-5.866c1.094,-2.133 3.425,-3.572 5.834,-3.595c0.029,0 0.057,0 0.086,0Zm-10.243,-9.6l9.2,0l0,-2.2l2,0l0,2.2l6.4,0l0,9l-2,0l0,-2.2l-22,0l0,12.4l7.8,0l0,2l-9.8,0l0,-21.2l6.4,0l0,-2.2l2,0l0,2.2Zm10.17,11.6c-2.086,0.02 -4.054,1.61 -4.476,3.673c-0.31,1.509 0.202,3.165 1.313,4.237c1.278,1.233 3.296,1.63 4.956,0.94c1.468,-0.611 2.572,-2.032 2.792,-3.606c0.274,-1.952 -0.863,-4.023 -2.663,-4.838c-0.601,-0.272 -1.258,-0.408 -1.922,-0.406Zm2.43,5.6l-3.4,0l0,-3.4l2,0l0,1.4l1.4,0l0,2Zm-19,-15.2l0,2.8l22,0l0,-2.8l-22,0Z\\"></path>
                         </svg></div>
                       <div class=\\"info\\">
                         <div class=\\"buttonTextWrapper\\">Valitse ajankohta</div>
                       </div>
                       <div class=\\"arrowWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 199.404 199.404\\" class=\\"\\">
                           <g>
-                            <polygon points=\\"199.404,63.993 171.12,35.709 99.702,107.127 28.284,35.709 0,63.993 99.702,163.695\\"></polygon>
+                            <polygon points=\\"199.404,63.993 171.12,35.709 99.702,107.127 28.284,35.709 0,63.993 99.702,163.695  \\"></polygon>
                           </g>
                         </svg></div>
                     </button></div>
@@ -141,21 +129,8 @@ exports[`renders snapshot correctly 1`] = `
                     <div class=\\"innerWrapper\\"><span>Viikonloppuna</span></div>
                   </button>
                   <div class=\\"menuWrapper\\"><button data-testid=\\"open-date-selector-button\\" class=\\"toggleButton\\" aria-pressed=\\"false\\" type=\\"button\\">
-                      <div class=\\"innerWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 27 26\\" class=\\"iconCalendar\\">
-                          <g stroke-width=\\"1\\" fill=\\"none\\" fill-rule=\\"evenodd\\">
-                            <g transform=\\"translate(-785.000000, -171.000000)\\" stroke-width=\\"2\\">
-                              <g transform=\\"translate(773.000000, 129.000000)\\">
-                                <g transform=\\"translate(13.000000, 43.000000)\\">
-                                  <circle stroke-linecap=\\"square\\" cx=\\"17.6\\" cy=\\"18.4\\" r=\\"5.6\\"></circle>
-                                  <polyline stroke-linecap=\\"square\\" points=\\"17.6 16 17.6 18.4 20 18.4\\"></polyline>
-                                  <line x1=\\"6.4\\" y1=\\"0\\" x2=\\"6.4\\" y2=\\"3.2\\" stroke-linecap=\\"square\\"></line>
-                                  <line x1=\\"17.6\\" y1=\\"0\\" x2=\\"17.6\\" y2=\\"3.2\\" stroke-linecap=\\"square\\"></line>
-                                  <line x1=\\"24\\" y1=\\"8\\" x2=\\"0\\" y2=\\"8\\"></line>
-                                  <polyline stroke-linecap=\\"square\\" points=\\"8.8 22.4 0 22.4 0 3.2 24 3.2 24 11.2\\"></polyline>
-                                </g>
-                              </g>
-                            </g>
-                          </g>
+                      <div class=\\"innerWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 26 25\\" fill-rule=\\"evenodd\\" class=\\"iconCalendar\\">
+                          <path d=\\"M18.643,11.8c2.402,0.023 4.737,1.454 5.834,3.595c0.925,1.805 0.951,4.042 0.071,5.866c-1.245,2.583 -4.281,4.18 -7.196,3.621c-2.008,-0.385 -3.807,-1.769 -4.7,-3.621c-0.879,-1.823 -0.855,-4.059 0.071,-5.866c1.094,-2.133 3.425,-3.572 5.834,-3.595c0.029,0 0.057,0 0.086,0Zm-10.243,-9.6l9.2,0l0,-2.2l2,0l0,2.2l6.4,0l0,9l-2,0l0,-2.2l-22,0l0,12.4l7.8,0l0,2l-9.8,0l0,-21.2l6.4,0l0,-2.2l2,0l0,2.2Zm10.17,11.6c-2.086,0.02 -4.054,1.61 -4.476,3.673c-0.31,1.509 0.202,3.165 1.313,4.237c1.278,1.233 3.296,1.63 4.956,0.94c1.468,-0.611 2.572,-2.032 2.792,-3.606c0.274,-1.952 -0.863,-4.023 -2.663,-4.838c-0.601,-0.272 -1.258,-0.408 -1.922,-0.406Zm2.43,5.6l-3.4,0l0,-3.4l2,0l0,1.4l1.4,0l0,2Zm-19,-15.2l0,2.8l22,0l0,-2.8l-22,0Z\\"></path>
                         </svg><span>Valitse päivät</span></div>
                     </button>
                     <div data-testid=\\"mobile-date-selector-menu\\" class=\\"mobileDateSelectorMenu\\">
@@ -167,21 +142,8 @@ exports[`renders snapshot correctly 1`] = `
                                 <div class=\\"formatInfo\\">pp.kk.vvvv</div>
                                 <div class=\\"inputWrapper\\">
                                   <div class=\\"input\\"><input id=\\"mobile_date_start_date\\" name=\\"mobile_date_start_date\\" class=\\"\\" value=\\"\\"></div>
-                                  <div class=\\"icon\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 27 26\\" class=\\"\\">
-                                      <g stroke=\\"none\\" stroke-width=\\"1\\" fill=\\"none\\" fill-rule=\\"evenodd\\">
-                                        <g transform=\\"translate(-49.000000, -1173.000000)\\" stroke=\\"#000000\\" stroke-width=\\"2\\">
-                                          <g transform=\\"translate(25.000000, 850.000000)\\">
-                                            <g transform=\\"translate(25.000000, 324.000000)\\">
-                                              <line x1=\\"12.5\\" y1=\\"19.1666667\\" x2=\\"12.5\\" y2=\\"12.5\\" stroke-linecap=\\"square\\"></line>
-                                              <line x1=\\"15.8333333\\" y1=\\"15.8333333\\" x2=\\"9.16666667\\" y2=\\"15.8333333\\" stroke-linecap=\\"square\\"></line>
-                                              <line x1=\\"25\\" y1=\\"8.33333333\\" x2=\\"0\\" y2=\\"8.33333333\\"></line>
-                                              <rect stroke-linecap=\\"square\\" x=\\"0\\" y=\\"3.33333333\\" width=\\"25\\" height=\\"20\\"></rect>
-                                              <line x1=\\"6.66666667\\" y1=\\"0\\" x2=\\"6.66666667\\" y2=\\"3.33333333\\" stroke-linecap=\\"square\\"></line>
-                                              <line x1=\\"18.3333333\\" y1=\\"0\\" x2=\\"18.3333333\\" y2=\\"3.33333333\\" stroke-linecap=\\"square\\"></line>
-                                            </g>
-                                          </g>
-                                        </g>
-                                      </g>
+                                  <div class=\\"icon\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 26 26\\" fill-rule=\\"evenodd\\" class=\\"\\">
+                                      <path d=\\"M9.8,24.406l-9.8,0l0,-21.2l6.4,0l0,-2.2l2,0l0,2.2l9.2,0l0,-2.2l2,0l0,2.2l6.4,0l0,21.2l-16.2,0Zm14.2,-14.4l-22,0l0,12.4l7.791,0l0,0l14.209,0l0,-12.4Zm-9.5,5.327l2.333,0l0,2l-2.333,0l0,2.334l-2,0l0,-2.334l-2.333,0l0,-2l2.333,0l0,-2.333l2,0l0,2.333Zm9.5,-10.127l-22,0l0,2.8l22,0l0,-2.8Z\\"></path>
                                     </svg></div>
                                 </div>
                               </div>
@@ -190,21 +152,8 @@ exports[`renders snapshot correctly 1`] = `
                                 <div class=\\"formatInfo\\">pp.kk.vvvv</div>
                                 <div class=\\"inputWrapper\\">
                                   <div class=\\"input\\"><input id=\\"mobile_date_end_date\\" name=\\"mobile_date_end_date\\" class=\\"\\" value=\\"\\"></div>
-                                  <div class=\\"icon\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 27 26\\" class=\\"\\">
-                                      <g stroke=\\"none\\" stroke-width=\\"1\\" fill=\\"none\\" fill-rule=\\"evenodd\\">
-                                        <g transform=\\"translate(-49.000000, -1173.000000)\\" stroke=\\"#000000\\" stroke-width=\\"2\\">
-                                          <g transform=\\"translate(25.000000, 850.000000)\\">
-                                            <g transform=\\"translate(25.000000, 324.000000)\\">
-                                              <line x1=\\"12.5\\" y1=\\"19.1666667\\" x2=\\"12.5\\" y2=\\"12.5\\" stroke-linecap=\\"square\\"></line>
-                                              <line x1=\\"15.8333333\\" y1=\\"15.8333333\\" x2=\\"9.16666667\\" y2=\\"15.8333333\\" stroke-linecap=\\"square\\"></line>
-                                              <line x1=\\"25\\" y1=\\"8.33333333\\" x2=\\"0\\" y2=\\"8.33333333\\"></line>
-                                              <rect stroke-linecap=\\"square\\" x=\\"0\\" y=\\"3.33333333\\" width=\\"25\\" height=\\"20\\"></rect>
-                                              <line x1=\\"6.66666667\\" y1=\\"0\\" x2=\\"6.66666667\\" y2=\\"3.33333333\\" stroke-linecap=\\"square\\"></line>
-                                              <line x1=\\"18.3333333\\" y1=\\"0\\" x2=\\"18.3333333\\" y2=\\"3.33333333\\" stroke-linecap=\\"square\\"></line>
-                                            </g>
-                                          </g>
-                                        </g>
-                                      </g>
+                                  <div class=\\"icon\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 26 26\\" fill-rule=\\"evenodd\\" class=\\"\\">
+                                      <path d=\\"M9.8,24.406l-9.8,0l0,-21.2l6.4,0l0,-2.2l2,0l0,2.2l9.2,0l0,-2.2l2,0l0,2.2l6.4,0l0,21.2l-16.2,0Zm14.2,-14.4l-22,0l0,12.4l7.791,0l0,0l14.209,0l0,-12.4Zm-9.5,5.327l2.333,0l0,2l-2.333,0l0,2.334l-2,0l0,-2.334l-2.333,0l0,-2l2.333,0l0,-2.333l2,0l0,2.333Zm9.5,-10.127l-22,0l0,2.8l22,0l0,-2.8Z\\"></path>
                                     </svg></div>
                                 </div>
                               </div>
@@ -271,12 +220,12 @@ exports[`renders snapshot correctly 1`] = `
                                     <div class=\\"react-datepicker__day react-datepicker__day--024 react-datepicker__day--disabled\\" aria-label=\\"day-24\\" role=\\"option\\" aria-disabled=\\"true\\">24</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--025 react-datepicker__day--disabled\\" aria-label=\\"day-25\\" role=\\"option\\" aria-disabled=\\"true\\">25</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--026 react-datepicker__day--disabled\\" aria-label=\\"day-26\\" role=\\"option\\" aria-disabled=\\"true\\">26</div>
-                                    <div class=\\"react-datepicker__day react-datepicker__day--027 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-27\\" role=\\"option\\" aria-disabled=\\"false\\">27</div>
-                                    <div class=\\"react-datepicker__day react-datepicker__day--028 react-datepicker__day--weekend\\" aria-label=\\"day-28\\" role=\\"option\\" aria-disabled=\\"false\\">28</div>
-                                    <div class=\\"react-datepicker__day react-datepicker__day--029 react-datepicker__day--weekend\\" aria-label=\\"day-29\\" role=\\"option\\" aria-disabled=\\"false\\">29</div>
+                                    <div class=\\"react-datepicker__day react-datepicker__day--027 react-datepicker__day--disabled\\" aria-label=\\"day-27\\" role=\\"option\\" aria-disabled=\\"true\\">27</div>
+                                    <div class=\\"react-datepicker__day react-datepicker__day--028 react-datepicker__day--disabled react-datepicker__day--weekend\\" aria-label=\\"day-28\\" role=\\"option\\" aria-disabled=\\"true\\">28</div>
+                                    <div class=\\"react-datepicker__day react-datepicker__day--029 react-datepicker__day--disabled react-datepicker__day--weekend\\" aria-label=\\"day-29\\" role=\\"option\\" aria-disabled=\\"true\\">29</div>
                                   </div>
                                   <div class=\\"react-datepicker__week\\">
-                                    <div class=\\"react-datepicker__day react-datepicker__day--030\\" aria-label=\\"day-30\\" role=\\"option\\" aria-disabled=\\"false\\">30</div>
+                                    <div class=\\"react-datepicker__day react-datepicker__day--030 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-30\\" role=\\"option\\" aria-disabled=\\"false\\">30</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--031\\" aria-label=\\"day-31\\" role=\\"option\\" aria-disabled=\\"false\\">31</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--001 react-datepicker__day--outside-month\\" aria-label=\\"day-1\\" role=\\"option\\" aria-disabled=\\"false\\">1</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--002 react-datepicker__day--outside-month\\" aria-label=\\"day-2\\" role=\\"option\\" aria-disabled=\\"false\\">2</div>
@@ -403,64 +352,8 @@ exports[`renders snapshot correctly 1`] = `
       <div class=\\"collectionCardContainer\\">
         <div class=\\"container\\">
           <h2>Suosittelemme</h2>
-          <div class=\\"collectionCardContainer lgSize\\">
-            <div class=\\"collectionCardWrapper lgSize\\"><a aria-hidden=\\"true\\" aria-label=\\"Siirry tapahtumaan: \\" class=\\"imageWrapper\\" tabindex=\\"-1\\" href=\\"/fi/collection/7\\"></a>
-              <div class=\\"textWrapper\\">
-                <div class=\\"countWrapper\\">
-                  <div class=\\"count\\">6 kpl</div>
-                </div>
-                <div class=\\"titleWrapper\\"><a aria-hidden=\\"true\\" class=\\"title\\" tabindex=\\"-1\\" href=\\"/fi/collection/7\\">We're now testing FI</a>
-                  <div class=\\"srOnly\\">We're now testing FI</div>
-                  <div class=\\"description\\">Description fi:</div>
-                </div>
-                <div class=\\"linkWrapper\\"><a aria-label=\\"Siirry kokoelmaan: We&amp;#39;re now testing FI\\" class=\\"iconLink default\\" href=\\"/fi/collection/7\\">
-                    <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
-                        <g>
-                          <polygon points=\\"13.3706831 2 11.5237192 3.84696395 18.0000474 10.3242884 2 10.3242884 2 12.937334 17.9990512 12.937334 11.5237192 19.412666 13.3706831 21.2586338 23 11.6293169\\"></polygon>
-                        </g>
-                      </svg></div>
-                  </a></div>
-              </div>
-            </div>
-          </div>
-          <div class=\\"collectionCardContainer mdSize\\">
-            <div class=\\"collectionCardWrapper mdSize\\"><a aria-hidden=\\"true\\" aria-label=\\"Siirry tapahtumaan: \\" class=\\"imageWrapper\\" tabindex=\\"-1\\" href=\\"/fi/collection/5\\"></a>
-              <div class=\\"textWrapper\\">
-                <div class=\\"countWrapper\\">
-                  <div class=\\"count\\">4 kpl</div>
-                </div>
-                <div class=\\"titleWrapper\\"><a aria-hidden=\\"true\\" class=\\"title\\" tabindex=\\"-1\\" href=\\"/fi/collection/5\\">Kool Kids of Kurvi</a>
-                  <div class=\\"srOnly\\">Kool Kids of Kurvi</div>
-                  <div class=\\"description\\">Description in Finnish</div>
-                </div>
-                <div class=\\"linkWrapper\\"><a aria-label=\\"Siirry kokoelmaan: Kool Kids of Kurvi\\" class=\\"iconLink default\\" href=\\"/fi/collection/5\\">
-                    <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
-                        <g>
-                          <polygon points=\\"13.3706831 2 11.5237192 3.84696395 18.0000474 10.3242884 2 10.3242884 2 12.937334 17.9990512 12.937334 11.5237192 19.412666 13.3706831 21.2586338 23 11.6293169\\"></polygon>
-                        </g>
-                      </svg></div>
-                  </a></div>
-              </div>
-            </div>
-            <div class=\\"collectionCardWrapper mdSize\\"><a aria-hidden=\\"true\\" aria-label=\\"Siirry tapahtumaan: \\" class=\\"imageWrapper\\" tabindex=\\"-1\\" href=\\"/fi/collection/6\\"></a>
-              <div class=\\"textWrapper\\">
-                <div class=\\"countWrapper\\">
-                  <div class=\\"count\\">2 kpl</div>
-                </div>
-                <div class=\\"titleWrapper\\"><a aria-hidden=\\"true\\" class=\\"title\\" tabindex=\\"-1\\" href=\\"/fi/collection/6\\">Koolit Kidsit Kalliossa 2</a>
-                  <div class=\\"srOnly\\">Koolit Kidsit Kalliossa 2</div>
-                  <div class=\\"description\\">Tämä on suomenkielinen selite tälle kokoelmalle. Tervetuloa löytämään juuri sinulle kiinnostavia tapahtumia!</div>
-                </div>
-                <div class=\\"linkWrapper\\"><a aria-label=\\"Siirry kokoelmaan: Koolit Kidsit Kalliossa 2\\" class=\\"iconLink default\\" href=\\"/fi/collection/6\\">
-                    <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
-                        <g>
-                          <polygon points=\\"13.3706831 2 11.5237192 3.84696395 18.0000474 10.3242884 2 10.3242884 2 12.937334 17.9990512 12.937334 11.5237192 19.412666 13.3706831 21.2586338 23 11.6293169\\"></polygon>
-                        </g>
-                      </svg></div>
-                  </a></div>
-              </div>
-            </div>
-          </div>
+          <div class=\\"collectionCardContainer lgSize\\"></div>
+          <div class=\\"collectionCardContainer mdSize\\"></div>
           <div class=\\"collectionCardContainer smSize\\"></div>
         </div>
       </div>

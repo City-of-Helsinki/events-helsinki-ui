@@ -1,11 +1,9 @@
 import classNames from "classnames";
-import { IconAngleRight } from "hds-react";
+import { IconAngleLeft, IconAngleRight, IconCalendarAdd } from "hds-react";
 import React, { ChangeEvent, FunctionComponent, MutableRefObject } from "react";
 import { useTranslation } from "react-i18next";
 
 import useLocale from "../../../hooks/useLocale";
-import IconAngleLeft from "../../../icons/IconAngleLeft";
-import IconCalendarAdd from "../../../icons/IconCalendarAdd";
 import { translateValue } from "../../../util/translateUtils";
 import DateRangePicker from "../dateRangePicker/DateRangePicker";
 import Checkbox from "../input/Checkbox";

@@ -3,6 +3,8 @@ import classNames from "classnames";
 import { saveAs } from "file-saver";
 import {
   IconAngleRight,
+  IconCalendar,
+  IconDirections,
   IconInfo,
   IconLanguage,
   IconLocation
@@ -15,8 +17,6 @@ import { useTranslation } from "react-i18next";
 import Button from "../../../common/components/button/Button";
 import { EventDetailsQuery } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
-import IconCalendar from "../../../icons/IconCalendar";
-import IconDirections from "../../../icons/IconDirections";
 import IconTicket from "../../../icons/IconTicket";
 import getDateArray from "../../../util/getDateArray";
 import getDateRangeStr from "../../../util/getDateRangeStr";
@@ -126,7 +126,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
         {/* Date info */}
         <div className={styles.infoWithIcon}>
           <div className={styles.iconWrapper}>
-            <IconCalendar className={styles.iconCalendar} />
+            <IconCalendar className={styles.icon} />
           </div>
           <div className={styles.iconTextWrapper}>
             <h2 className={styles.title}>{t("event.info.labelDateAndTime")}</h2>

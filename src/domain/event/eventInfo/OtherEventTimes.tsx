@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { IconArrowRight } from "hds-react";
+import { IconAngleDown, IconArrowRight } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router-dom";
@@ -11,7 +11,6 @@ import {
   useEventListQuery
 } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
-import IconAngleDown from "../../../icons/IconAngleDown";
 import getDateRangeStr from "../../../util/getDateRangeStr";
 import { EVENT_SORT_OPTIONS } from "../../eventSearch/constants";
 import { getCurrentHour, getNextPage } from "../../eventSearch/EventListUtils";

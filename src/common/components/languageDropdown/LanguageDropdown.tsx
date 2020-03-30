@@ -1,10 +1,9 @@
 import classNames from "classnames";
-import { IconLanguage } from "hds-react";
+import { IconAngleDown, IconLanguage } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 import useKeyboardNavigation from "../../../hooks/useDropdownKeyboardNavigation";
-import IconAngleDown from "../../../icons/IconAngleDown";
 import { Language } from "../../../types";
 import styles from "./languageDropdown.module.scss";
 
