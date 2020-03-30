@@ -38,14 +38,15 @@ export function ScrollToTop() {
  *
  * @return  {null}
  */
-export function SetFocusToBody() {
+export function ResetFocus() {
   const { pathname } = useLocation();
+  const node = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    if (isClient) {
-      document.body.focus();
+    if (isClient && node.current) {
+      node.current.focus();
     }
   }, [pathname]);
 
-  return null;
+  return <div ref={node} tabIndex={-1}></div>;
 }
