@@ -18,7 +18,7 @@ const Home: React.FC = () => {
   const { t } = useTranslation();
 
   const { data: landingPageData, loading } = useLandingPageQuery();
-  const { data: collectionsData } = useCollectionListQuery({ ssr: false });
+  const { data: collectionsData } = useCollectionListQuery();
   const collections = collectionsData
     ? collectionsData.collectionList.data
     : [];
