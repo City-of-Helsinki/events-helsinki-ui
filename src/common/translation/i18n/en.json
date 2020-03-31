@@ -125,6 +125,10 @@
     "title": "Loading collection...",
     "titlePastRecommendations": "Past recommendations"
   },
+  "collectionList": {
+    "pageTitle": "Recommendations",
+    "title": "We put together things to do for you"
+  },
   "event": {
     "categories": {
       "labelFree": "Free",

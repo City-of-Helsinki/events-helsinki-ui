@@ -1,0 +1,19 @@
+@import "colors";
+@import "layout";
+
+.largeCardWrapper {
+  padding-bottom: 5rem;
+  background-color: $hel-copper-light-20;
+
+  @include respond_above(sm) {
+    padding-bottom: 12rem;
+  }
+}
+
+.otherCardsWrapper {
+  margin-top: -5rem;
+
+  @include respond_above(sm) {
+    margin-top: -12rem;
+  }
+}

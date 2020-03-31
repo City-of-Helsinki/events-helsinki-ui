@@ -125,6 +125,10 @@
     "title": "Ladataan kokoelmaa...",
     "titlePastRecommendations": "Menneet suositukset"
   },
+  "collectionList": {
+    "pageTitle": "Suosittelemme",
+    "title": "Kokosimme sinulle tekemistä"
+  },
   "event": {
     "categories": {
       "labelFree": "Ilmainen",

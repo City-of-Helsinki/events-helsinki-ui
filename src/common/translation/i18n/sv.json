@@ -125,6 +125,10 @@
     "title": "Laddar samling...",
     "titlePastRecommendations": "Tidigare rekommendationer"
   },
+  "collectionList": {
+    "pageTitle": "Rekommendationer",
+    "title": "Vi sätter ihop saker att göra åt dig"
+  },
   "event": {
     "categories": {
       "labelFree": "Gratis",
