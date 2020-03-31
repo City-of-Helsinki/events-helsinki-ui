@@ -136,7 +136,7 @@ const Search: FunctionComponent = () => {
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
     const type = option.type;
     const value = option.value;
-    const searchValue = option.text;
+    const searchValue = option.type === "search" ? option.text : "";
 
     const search = getSearchQuery({
       categories: [],

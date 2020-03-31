@@ -196,9 +196,8 @@ const Search: FunctionComponent = () => {
   const handleMenuOptionClick = async (option: AutosuggestMenuOption) => {
     const type = option.type;
     const value = option.value;
-    const text = option.text;
 
-    const newSearchValue = text;
+    const newSearchValue = option.type === "search" ? option.text : "";
 
     // Get new districts
     const newDistricts = getUrlParamAsArray(searchParams, "districts");
