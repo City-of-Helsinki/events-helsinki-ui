@@ -2,7 +2,7 @@
 
 exports[`CollectionCardContainer matches snapshot 1`] = `
 <div
-  className="collectionCardContainer lgSize"
+  className="collectionCardContainer lgLayout"
 >
   <div
     className="collectionCardWrapper lgSize"

@@ -41,17 +41,19 @@ const Home: React.FC = () => {
                 <h2>{t("home.collections.title")}</h2>
                 <CollectionCardContainer
                   collections={lgCollections}
-                  size="lg"
+                  layout="lg"
                 />
 
                 <CollectionCardContainer
                   collections={mdCollections}
-                  size="md"
+                  layout="md"
+                  showDescription={false}
                 />
 
                 <CollectionCardContainer
                   collections={smCollections}
-                  size="sm"
+                  layout="sm"
+                  showDescription={false}
                 />
               </Container>
             </div>

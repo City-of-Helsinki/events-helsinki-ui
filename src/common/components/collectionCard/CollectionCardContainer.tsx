@@ -7,24 +7,44 @@ import getLocalisedString from "../../../util/getLocalisedString";
 import CollectionCard, { CollectionCardSize } from "./CollectionCard";
 import styles from "./collectionCardContainer.module.scss";
 
+export type CollectionCardListLayout = "sm" | "md" | "mdAndSm" | "lg";
+
 interface CollectionCardContainerProps {
   collections: CollectionDetails[];
-  size: CollectionCardSize;
+  layout: CollectionCardListLayout;
+  showDescription?: boolean;
 }
 
 const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
   collections,
-  size
+  layout,
+  showDescription = true
 }) => {
   const locale = useLocale();
   return (
     <div
       className={classNames(
         styles.collectionCardContainer,
-        styles[`${size}Size`]
+        styles[`${layout}Layout`]
       )}
     >
       {collections.map((collection, index) => {
+        const getCardSize = (): CollectionCardSize => {
+          switch (layout) {
+            case "sm":
+              return "sm";
+            case "md":
+              return "md";
+            case "mdAndSm":
+              if (index % 3 === 0) {
+                return "md";
+              }
+              return "sm";
+            case "lg":
+              return "lg";
+          }
+        };
+        const size = getCardSize();
         return (
           <CollectionCard
             key={index}
@@ -32,6 +52,7 @@ const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
             description={getLocalisedString(collection.description, locale)}
             id={collection.id}
             size={size}
+            showDescription={showDescription}
             title={getLocalisedString(collection.title, locale)}
           />
         );

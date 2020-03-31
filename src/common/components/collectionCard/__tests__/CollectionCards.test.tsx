@@ -10,7 +10,7 @@ test("CollectionCardContainer matches snapshot", () => {
     <MemoryRouter>
       <CollectionCardContainer
         collections={[mockCollection.collectionDetails]}
-        size="lg"
+        layout="lg"
       />
     </MemoryRouter>
   );

@@ -47,7 +47,7 @@ const SimilarCollections: React.FC<Props> = ({ collectionData }) => {
                 </h2>
               )}
 
-              <CollectionCardContainer size="sm" collections={collections} />
+              <CollectionCardContainer collections={collections} layout="sm" />
             </>
           )}
         </LoadingSpinner>

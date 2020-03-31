@@ -14,6 +14,7 @@ export interface CollectionCardType {
   count: number;
   description: string;
   id: string;
+  showDescription?: boolean;
   title: string;
 }
 
@@ -28,6 +29,7 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
   description,
   id,
   size,
+  showDescription = true,
   title
 }) => {
   const { search } = useLocation();
@@ -71,7 +73,9 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
             {title}
           </Link>
           <SrOnly>{title}</SrOnly>
-          <div className={styles.description}>{description}</div>
+          {showDescription && !!description && (
+            <div className={styles.description}>{description}</div>
+          )}
         </div>
 
         <div className={styles.linkWrapper}>

@@ -6,6 +6,10 @@
   position: relative;
   background-color: $hel-white;
 
+  .imageWrapper {
+    outline: none;
+  }
+
   .textWrapper {
     background-color: $hel-white;
     padding: 1.25rem;
@@ -33,6 +37,7 @@
       font-weight: 600;
       color: $hel-black;
       text-decoration: none;
+      display: block;
     }
 
     .description {
@@ -42,7 +47,7 @@
     .linkWrapper {
       padding-top: 1rem;
     }
-  }  
+  } 
 
   &.smSize {
     flex-direction: column;
@@ -115,7 +120,7 @@
 
     .imageWrapper {
       background-image: url("../../../assets/images/svg/collection-background-large.svg");
-      min-height: 23.5rem;
+      min-height: 18rem;
       background-size: cover;
       background-repeat: no-repeat;
       text-decoration: none;

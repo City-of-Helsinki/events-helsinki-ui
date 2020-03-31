@@ -352,7 +352,7 @@ exports[`renders snapshot correctly 1`] = `
       <div class=\\"collectionCardContainer\\">
         <div class=\\"container\\">
           <h2>Suosittelemme</h2>
-          <div class=\\"collectionCardContainer lgSize\\">
+          <div class=\\"collectionCardContainer lgLayout\\">
             <div class=\\"collectionCardWrapper lgSize\\"><a aria-hidden=\\"true\\" aria-label=\\"Siirry tapahtumaan: \\" class=\\"imageWrapper\\" tabindex=\\"-1\\" href=\\"/fi/collection/7\\"></a>
               <div class=\\"textWrapper\\">
                 <div class=\\"countWrapper\\">
@@ -372,7 +372,7 @@ exports[`renders snapshot correctly 1`] = `
               </div>
             </div>
           </div>
-          <div class=\\"collectionCardContainer mdSize\\">
+          <div class=\\"collectionCardContainer mdLayout\\">
             <div class=\\"collectionCardWrapper mdSize\\"><a aria-hidden=\\"true\\" aria-label=\\"Siirry tapahtumaan: \\" class=\\"imageWrapper\\" tabindex=\\"-1\\" href=\\"/fi/collection/5\\"></a>
               <div class=\\"textWrapper\\">
                 <div class=\\"countWrapper\\">
@@ -380,7 +380,6 @@ exports[`renders snapshot correctly 1`] = `
                 </div>
                 <div class=\\"titleWrapper\\"><a aria-hidden=\\"true\\" class=\\"title\\" tabindex=\\"-1\\" href=\\"/fi/collection/5\\">Kool Kids of Kurvi</a>
                   <div class=\\"srOnly\\">Kool Kids of Kurvi</div>
-                  <div class=\\"description\\">Description in Finnish</div>
                 </div>
                 <div class=\\"linkWrapper\\"><a aria-label=\\"Siirry kokoelmaan: Kool Kids of Kurvi\\" class=\\"iconLink default\\" href=\\"/fi/collection/5\\">
                     <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
@@ -398,7 +397,6 @@ exports[`renders snapshot correctly 1`] = `
                 </div>
                 <div class=\\"titleWrapper\\"><a aria-hidden=\\"true\\" class=\\"title\\" tabindex=\\"-1\\" href=\\"/fi/collection/6\\">Koolit Kidsit Kalliossa 2</a>
                   <div class=\\"srOnly\\">Koolit Kidsit Kalliossa 2</div>
-                  <div class=\\"description\\">Tämä on suomenkielinen selite tälle kokoelmalle. Tervetuloa löytämään juuri sinulle kiinnostavia tapahtumia!</div>
                 </div>
                 <div class=\\"linkWrapper\\"><a aria-label=\\"Siirry kokoelmaan: Koolit Kidsit Kalliossa 2\\" class=\\"iconLink default\\" href=\\"/fi/collection/6\\">
                     <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
@@ -410,7 +408,7 @@ exports[`renders snapshot correctly 1`] = `
               </div>
             </div>
           </div>
-          <div class=\\"collectionCardContainer smSize\\"></div>
+          <div class=\\"collectionCardContainer smLayout\\"></div>
         </div>
       </div>
     </div>

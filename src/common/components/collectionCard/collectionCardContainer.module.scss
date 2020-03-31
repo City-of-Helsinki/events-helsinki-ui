@@ -12,13 +12,13 @@
     row-gap: 2.25rem;
   }
 
-  @include respond-above(lg) {
+  @include respond-above(md) {
     margin-bottom: 4rem;
     column-gap: 3rem;
     row-gap: 3rem;
   }
 
-  &.smSize {
+  &.smLayout {
     grid-template-columns: 1fr;
 
     @include respond-above(sm) {
@@ -30,7 +30,7 @@
     }
   }
 
-  &.mdSize {
+  &.mdLayout {
     grid-template-columns: 1fr;
 
     @include respond-above(sm) {
@@ -38,13 +38,27 @@
       grid-template-columns: 1fr 1fr;
     }
 
-    @include respond-above(sm) {
+    @include respond-above(md) {
       margin-bottom: 4rem;
       grid-template-columns: 1fr 1fr;
     }
   }
 
-  &.lgSize {
+  &.mdAndSmLayout {
+    grid-template-columns: 1fr;
+
+    @include respond-above(sm) {
+      margin-bottom: 2.25rem;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @include respond-above(md) {
+      margin-bottom: 4rem;
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+  }
+
+  &.lgLayout {
     grid-template-columns: 1fr;
   }
 }

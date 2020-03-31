@@ -276,7 +276,7 @@ exports[`CollectionHero should match snapshot 1`] = `
   <div class=\\"collectionCardContainer\\">
     <div class=\\"container\\">
       <h2>Suosittelemme</h2>
-      <div class=\\"collectionCardContainer lgSize\\">
+      <div class=\\"collectionCardContainer lgLayout\\">
         <div class=\\"collectionCardWrapper lgSize\\"><a aria-hidden=\\"true\\" aria-label=\\"Siirry tapahtumaan: \\" class=\\"imageWrapper\\" tabindex=\\"-1\\" href=\\"/fi/collection/1\\"></a>
           <div class=\\"textWrapper\\">
             <div class=\\"countWrapper\\">
@@ -296,8 +296,8 @@ exports[`CollectionHero should match snapshot 1`] = `
           </div>
         </div>
       </div>
-      <div class=\\"collectionCardContainer mdSize\\"></div>
-      <div class=\\"collectionCardContainer smSize\\"></div>
+      <div class=\\"collectionCardContainer mdLayout\\"></div>
+      <div class=\\"collectionCardContainer smLayout\\"></div>
     </div>
   </div>
 </div>"
