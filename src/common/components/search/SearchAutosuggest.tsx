@@ -99,8 +99,9 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     if (keywordsData) {
       keywordItems.push(
         ...keywordsData.keywordList.data
-          .filter(keyword =>
-            AUTOSUGGEST_KEYWORD_BLACK_LIST.includes(keyword.id || "")
+          .filter(
+            keyword =>
+              !AUTOSUGGEST_KEYWORD_BLACK_LIST.includes(keyword.id || "")
           )
           .map(keyword => ({
             text: getLocalisedString(keyword.name || {}, locale),
