@@ -225,8 +225,8 @@ exports[`renders snapshot correctly 1`] = `
                                     <div class=\\"react-datepicker__day react-datepicker__day--029 react-datepicker__day--disabled react-datepicker__day--weekend\\" aria-label=\\"day-29\\" role=\\"option\\" aria-disabled=\\"true\\">29</div>
                                   </div>
                                   <div class=\\"react-datepicker__week\\">
-                                    <div class=\\"react-datepicker__day react-datepicker__day--030 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-30\\" role=\\"option\\" aria-disabled=\\"false\\">30</div>
-                                    <div class=\\"react-datepicker__day react-datepicker__day--031\\" aria-label=\\"day-31\\" role=\\"option\\" aria-disabled=\\"false\\">31</div>
+                                    <div class=\\"react-datepicker__day react-datepicker__day--030 react-datepicker__day--disabled\\" aria-label=\\"day-30\\" role=\\"option\\" aria-disabled=\\"true\\">30</div>
+                                    <div class=\\"react-datepicker__day react-datepicker__day--031 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-31\\" role=\\"option\\" aria-disabled=\\"false\\">31</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--001 react-datepicker__day--outside-month\\" aria-label=\\"day-1\\" role=\\"option\\" aria-disabled=\\"false\\">1</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--002 react-datepicker__day--outside-month\\" aria-label=\\"day-2\\" role=\\"option\\" aria-disabled=\\"false\\">2</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--003 react-datepicker__day--outside-month\\" aria-label=\\"day-3\\" role=\\"option\\" aria-disabled=\\"false\\">3</div>
@@ -352,8 +352,64 @@ exports[`renders snapshot correctly 1`] = `
       <div class=\\"collectionCardContainer\\">
         <div class=\\"container\\">
           <h2>Suosittelemme</h2>
-          <div class=\\"collectionCardContainer lgSize\\"></div>
-          <div class=\\"collectionCardContainer mdSize\\"></div>
+          <div class=\\"collectionCardContainer lgSize\\">
+            <div class=\\"collectionCardWrapper lgSize\\"><a aria-hidden=\\"true\\" aria-label=\\"Siirry tapahtumaan: \\" class=\\"imageWrapper\\" tabindex=\\"-1\\" href=\\"/fi/collection/7\\"></a>
+              <div class=\\"textWrapper\\">
+                <div class=\\"countWrapper\\">
+                  <div class=\\"count\\">6 kpl</div>
+                </div>
+                <div class=\\"titleWrapper\\"><a aria-hidden=\\"true\\" class=\\"title\\" tabindex=\\"-1\\" href=\\"/fi/collection/7\\">We're now testing FI</a>
+                  <div class=\\"srOnly\\">We're now testing FI</div>
+                  <div class=\\"description\\">Description fi:</div>
+                </div>
+                <div class=\\"linkWrapper\\"><a aria-label=\\"Siirry kokoelmaan: We&amp;#39;re now testing FI\\" class=\\"iconLink default\\" href=\\"/fi/collection/7\\">
+                    <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
+                        <g>
+                          <polygon points=\\"13.3706831 2 11.5237192 3.84696395 18.0000474 10.3242884 2 10.3242884 2 12.937334 17.9990512 12.937334 11.5237192 19.412666 13.3706831 21.2586338 23 11.6293169\\"></polygon>
+                        </g>
+                      </svg></div>
+                  </a></div>
+              </div>
+            </div>
+          </div>
+          <div class=\\"collectionCardContainer mdSize\\">
+            <div class=\\"collectionCardWrapper mdSize\\"><a aria-hidden=\\"true\\" aria-label=\\"Siirry tapahtumaan: \\" class=\\"imageWrapper\\" tabindex=\\"-1\\" href=\\"/fi/collection/5\\"></a>
+              <div class=\\"textWrapper\\">
+                <div class=\\"countWrapper\\">
+                  <div class=\\"count\\">4 kpl</div>
+                </div>
+                <div class=\\"titleWrapper\\"><a aria-hidden=\\"true\\" class=\\"title\\" tabindex=\\"-1\\" href=\\"/fi/collection/5\\">Kool Kids of Kurvi</a>
+                  <div class=\\"srOnly\\">Kool Kids of Kurvi</div>
+                  <div class=\\"description\\">Description in Finnish</div>
+                </div>
+                <div class=\\"linkWrapper\\"><a aria-label=\\"Siirry kokoelmaan: Kool Kids of Kurvi\\" class=\\"iconLink default\\" href=\\"/fi/collection/5\\">
+                    <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
+                        <g>
+                          <polygon points=\\"13.3706831 2 11.5237192 3.84696395 18.0000474 10.3242884 2 10.3242884 2 12.937334 17.9990512 12.937334 11.5237192 19.412666 13.3706831 21.2586338 23 11.6293169\\"></polygon>
+                        </g>
+                      </svg></div>
+                  </a></div>
+              </div>
+            </div>
+            <div class=\\"collectionCardWrapper mdSize\\"><a aria-hidden=\\"true\\" aria-label=\\"Siirry tapahtumaan: \\" class=\\"imageWrapper\\" tabindex=\\"-1\\" href=\\"/fi/collection/6\\"></a>
+              <div class=\\"textWrapper\\">
+                <div class=\\"countWrapper\\">
+                  <div class=\\"count\\">2 kpl</div>
+                </div>
+                <div class=\\"titleWrapper\\"><a aria-hidden=\\"true\\" class=\\"title\\" tabindex=\\"-1\\" href=\\"/fi/collection/6\\">Koolit Kidsit Kalliossa 2</a>
+                  <div class=\\"srOnly\\">Koolit Kidsit Kalliossa 2</div>
+                  <div class=\\"description\\">Tämä on suomenkielinen selite tälle kokoelmalle. Tervetuloa löytämään juuri sinulle kiinnostavia tapahtumia!</div>
+                </div>
+                <div class=\\"linkWrapper\\"><a aria-label=\\"Siirry kokoelmaan: Koolit Kidsit Kalliossa 2\\" class=\\"iconLink default\\" href=\\"/fi/collection/6\\">
+                    <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
+                        <g>
+                          <polygon points=\\"13.3706831 2 11.5237192 3.84696395 18.0000474 10.3242884 2 10.3242884 2 12.937334 17.9990512 12.937334 11.5237192 19.412666 13.3706831 21.2586338 23 11.6293169\\"></polygon>
+                        </g>
+                      </svg></div>
+                  </a></div>
+              </div>
+            </div>
+          </div>
           <div class=\\"collectionCardContainer smSize\\"></div>
         </div>
       </div>
