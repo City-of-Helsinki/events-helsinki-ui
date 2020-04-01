@@ -35,7 +35,6 @@
 
     @include respond-above(sm) {
       margin-bottom: 2.25rem;
-      grid-template-columns: 1fr 1fr;
     }
 
     @include respond-above(md) {
@@ -50,11 +49,19 @@
     @include respond-above(sm) {
       margin-bottom: 2.25rem;
       grid-template-columns: 1fr 1fr;
+
+      :first-child {
+        grid-column: 1 / -1;
+      }
     }
 
     @include respond-above(md) {
       margin-bottom: 4rem;
       grid-template-columns: 2fr 1fr 1fr;
+
+      :first-child {
+        grid-column: 1;
+      }
     }
   }
 

@@ -35,8 +35,6 @@ exports[`CuratedEventList should match snapshot 1`] = `
           </div>
         </div>
       </div>
-      <h2 class=\\"titlePastRecommendations\\">Menneet suositukset</h2>
-      <div class=\\"eventCards\\"></div>
     </div>
   </div>
 </div>"
