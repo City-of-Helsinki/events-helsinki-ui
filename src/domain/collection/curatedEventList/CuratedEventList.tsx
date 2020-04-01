@@ -47,6 +47,11 @@ const CuratedEventList: React.FC<Props> = ({ collectionData }) => {
     setShowAllPastEvents(true);
   };
 
+  const visiblePastEvent = pastEvents.slice(
+    0,
+    showAllPastEvents ? undefined : PAST_EVENTS_DEFAULT_SIZE
+  );
+
   return (
     <LoadingSpinner isLoading={loading}>
       {!!eventsData && (
@@ -59,21 +64,23 @@ const CuratedEventList: React.FC<Props> = ({ collectionData }) => {
                   locale
                 )}
               </h2>
-              <EventCards events={events} />
-              <h2 className={styles.titlePastRecommendations}>
-                {t("collection.titlePastRecommendations")}
-              </h2>
-              <EventCards
-                events={pastEvents.slice(
-                  0,
-                  showAllPastEvents ? undefined : PAST_EVENTS_DEFAULT_SIZE
-                )}
-                onShowMore={handleShowAllPastEvents}
-                showMoreButton={
-                  !showAllPastEvents &&
-                  pastEvents.length > PAST_EVENTS_DEFAULT_SIZE
-                }
-              />
+              {!!events.length && <EventCards events={events} />}
+
+              {!!visiblePastEvent.length && (
+                <>
+                  <h3 className={styles.titlePastRecommendations}>
+                    {t("collection.titlePastRecommendations")}
+                  </h3>
+                  <EventCards
+                    events={visiblePastEvent}
+                    onShowMore={handleShowAllPastEvents}
+                    showMoreButton={
+                      !showAllPastEvents &&
+                      pastEvents.length > PAST_EVENTS_DEFAULT_SIZE
+                    }
+                  />
+                </>
+              )}
             </div>
           </Container>
         </div>
