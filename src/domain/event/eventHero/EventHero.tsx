@@ -12,11 +12,17 @@ import useLocale from "../../../hooks/useLocale";
 import IconTicket from "../../../icons/IconTicket";
 import getDateRangeStr from "../../../util/getDateRangeStr";
 import getLocalisedString from "../../../util/getLocalisedString";
+import testImage from "../../../util/testImage";
 import Container from "../../app/layout/Container";
 import EventKeywords from "../eventKeywords/EventKeywords";
 import LocationText from "../eventLocation/EventLocationText";
 import EventName from "../eventName/EventName";
-import { getEventImageUrl, getEventPrice, isEventFree } from "../EventUtils";
+import {
+  getEventImageUrl,
+  getEventPlaceholderImageUrl,
+  getEventPrice,
+  isEventFree
+} from "../EventUtils";
 import styles from "./eventHero.module.scss";
 
 interface Props {
@@ -25,6 +31,7 @@ interface Props {
 
 const EventHero: React.FC<Props> = ({ eventData }) => {
   const { t } = useTranslation();
+  const [showBackupImage, setShowBackupImage] = React.useState(false);
   const locale = useLocale();
   const location = useLocation();
 
@@ -45,6 +52,7 @@ const EventHero: React.FC<Props> = ({ eventData }) => {
   };
 
   const imageUrl = getEventImageUrl(eventData.eventDetails);
+  const placeholderImage = getEventPlaceholderImageUrl(eventData.eventDetails);
   const description = eventData.eventDetails.shortDescription || {};
   const keywords = eventData.eventDetails.keywords;
   const startTime = eventData.eventDetails.startTime;
@@ -53,6 +61,20 @@ const EventHero: React.FC<Props> = ({ eventData }) => {
   const thisWeek = startTime ? isThisWeek(new Date(startTime)) : false;
 
   const showBuyButton = !!offerInfoUrl && !isEventFree(eventData.eventDetails);
+
+  React.useEffect(() => {
+    if (imageUrl) {
+      const testThatImageExist = async () => {
+        try {
+          await testImage(imageUrl);
+        } catch {
+          setShowBackupImage(true);
+        }
+      };
+
+      testThatImageExist();
+    }
+  }, [imageUrl]);
 
   return (
     <div className={styles.heroWrapper}>
@@ -69,7 +91,11 @@ const EventHero: React.FC<Props> = ({ eventData }) => {
           <div>
             <div
               className={styles.image}
-              style={{ backgroundImage: `url(${imageUrl})` }}
+              style={{
+                backgroundImage: `url(${
+                  showBackupImage ? placeholderImage : imageUrl
+                })`
+              }}
             />
           </div>
           <div className={styles.leftPanel}>

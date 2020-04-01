@@ -9,6 +9,7 @@ import LocationText from "../../../domain/event/eventLocation/EventLocationText"
 import EventName from "../../../domain/event/eventName/EventName";
 import {
   getEventImageUrl,
+  getEventPlaceholderImageUrl,
   getEventPrice,
   isEventClosed,
   isEventFree
@@ -17,6 +18,7 @@ import { EventInList } from "../../../domain/event/types";
 import useLocale from "../../../hooks/useLocale";
 import getDateRangeStr from "../../../util/getDateRangeStr";
 import getLocalisedString from "../../../util/getLocalisedString";
+import testImage from "../../../util/testImage";
 import Button from "../button/Button";
 import SrOnly from "../srOnly/SrOnly";
 import styles from "./largeEventCard.module.scss";
@@ -28,6 +30,7 @@ interface Props {
 const EventCard: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
+  const [showBackupImage, setShowBackupImage] = React.useState(false);
   const { search } = useLocation();
   const locale = useLocale();
   const eventClosed = isEventClosed(event);
@@ -49,6 +52,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
   }, [event.id, locale, push, search]);
 
   const imageUrl = getEventImageUrl(event);
+  const placeholderImage = getEventPlaceholderImageUrl(event);
   const startTime = event.startTime;
   const endTime = event.endTime;
   const eventUrl = React.useMemo(() => {
@@ -56,6 +60,20 @@ const EventCard: React.FC<Props> = ({ event }) => {
   }, [event.id, locale, search]);
 
   const showBuyButton = !!offerInfoUrl && !isEventFree(event);
+
+  React.useEffect(() => {
+    if (imageUrl) {
+      const testThatImageExist = async () => {
+        try {
+          await testImage(imageUrl);
+        } catch {
+          setShowBackupImage(true);
+        }
+      };
+
+      testThatImageExist();
+    }
+  }, [imageUrl]);
 
   return (
     <div
@@ -66,7 +84,11 @@ const EventCard: React.FC<Props> = ({ event }) => {
       <Link
         aria-hidden={true}
         className={styles.imageWrapper}
-        style={{ backgroundImage: `url(${imageUrl})` }}
+        style={{
+          backgroundImage: `url(${
+            showBackupImage ? placeholderImage : imageUrl
+          })`
+        }}
         tabIndex={-1}
         to={eventUrl}
       >
