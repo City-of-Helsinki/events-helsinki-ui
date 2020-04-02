@@ -20,7 +20,9 @@ const ShareLinks: React.FC<ShareLinksProps> = ({ title }) => {
   // to pass the original request from the server. This same pattern was used in
   // MyHelsinki. Limitation is that sharing buttons will be re-rendered on client
   // side because href value is different
-  const href = isClient ? window.location.href : "";
+  const href = isClient
+    ? `${window.location.origin}${window.location.pathname}`
+    : "";
 
   return (
     <div className={styles.shareSubSection}>
