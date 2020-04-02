@@ -175,7 +175,7 @@
   border: $thickness solid $main-color;
   border-left-color: $hel-coat;
   border-top-color: $hel-coat;
-  animation: spinner 3s ease-in-out infinite;
+  animation: spinner 3.6s ease-in-out infinite;
 
   &::after {
     content: " ";
@@ -186,7 +186,7 @@
     width: $thickness;
     height: $thickness;
     border-radius: 50%;
-    animation: spinnercircles 3s ease-in-out infinite;
+    animation: spinnercircles 3.6s ease-in-out infinite;
   }
 
   &::before {
@@ -198,6 +198,6 @@
     width: $thickness;
     height: $thickness;
     border-radius: 50%;
-    animation: spinnercircles 3s ease-in-out infinite;
+    animation: spinnercircles 3.6s ease-in-out infinite;
   }
 }
