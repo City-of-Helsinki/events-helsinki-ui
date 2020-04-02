@@ -28,7 +28,7 @@ const Home: React.FC = () => {
 
   return (
     <PageWrapper>
-      <LoadingSpinner isLoading={loading}>
+      <LoadingSpinner isLoading={true}>
         {!!landingPageData && (
           <>
             <LandingPageMeta landingPageData={landingPageData} />

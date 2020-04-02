@@ -67,7 +67,91 @@
  * https://stephanwagner.me/only-css-loading-spinner
  */
  @keyframes spinner {
-  to {transform: rotate(360deg);}
+  0% {
+    transform: rotate(45deg);
+  }
+  8.33% {
+    border-left-color: $hel-coat;
+    border-top-color: $hel-coat;
+
+    &::after, &::before {
+      background-color: $hel-coat;
+    }
+  }
+  25% {
+    border-left-color: $hel-copper;
+    border-top-color: $hel-copper;
+    
+    &::after, &::before {
+      background-color: $hel-copper;
+    }
+  }
+  33.33% {
+    transform: rotate(405deg);
+  }
+  41.66% {
+    border-left-color: $hel-copper;
+    border-top-color: $hel-copper;
+
+    &::after, &::before {
+      background-color: $hel-copper;
+    }
+  }
+  58.33% {
+    border-left-color: $hel-suomenlinna;
+    border-top-color: $hel-suomenlinna;
+
+    &::after, &::before {
+      background-color: $hel-suomenlinna;
+    }
+  }
+  66.67% {
+    transform: rotate(765deg);
+  }
+  75% {
+    border-left-color: $hel-suomenlinna;
+    border-top-color: $hel-suomenlinna;
+
+    &::after, &::before {
+      background-color: $hel-suomenlinna;
+    }
+  }
+  91.67% {
+    border-left-color: $hel-coat;
+    border-top-color: $hel-coat;
+
+    &::after, &::before {
+      background-color: $hel-coat;
+    }
+  }
+  100% {
+    transform: rotate(1125deg);
+  }
+}
+
+/*
+ * Pure CSS spinner, taken from:
+ * https://stephanwagner.me/only-css-loading-spinner
+ */
+ @keyframes spinnercircles {
+  8.33% {
+    background-color: $hel-coat;
+  }
+  25% {
+    background-color: $hel-copper;
+  }
+  41.66% {
+    background-color: $hel-copper;
+  }
+  58.33% {
+    background-color: $hel-suomenlinna;
+  }
+  75% {
+    background-color: $hel-suomenlinna;
+  }
+  91.67% {
+    background-color: $hel-coat;
+  }
 }
 
 /*
@@ -77,9 +161,8 @@
 */
 @mixin add_spinner(
   $size: $spinnerHeight,
-  $main-color: $hel-gray,
-  $alt-color: $hel-black,
-  $thickness: 2px
+  $main-color: transparent,
+  $thickness: 15px
 ){
   content: '';
   box-sizing: border-box;
@@ -90,6 +173,31 @@
   top: 0;
   left: 0;
   border: $thickness solid $main-color;
-  border-top-color: $alt-color;
-  animation: spinner 1s linear infinite;
+  border-left-color: $hel-coat;
+  border-top-color: $hel-coat;
+  animation: spinner 3s ease-in-out infinite;
+
+  &::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    right: 1px;
+    background-color: $hel-coat;
+    width: $thickness;
+    height: $thickness;
+    border-radius: 50%;
+    animation: spinnercircles 3s ease-in-out infinite;
+  }
+
+  &::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    bottom: 1px;
+    background-color: $hel-coat;
+    width: $thickness;
+    height: $thickness;
+    border-radius: 50%;
+    animation: spinnercircles 3s ease-in-out infinite;
+  }
 }
