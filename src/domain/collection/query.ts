@@ -36,11 +36,6 @@ export const QUERY_COLLECTION_DETAILS = gql`
         fi
         sv
       }
-      similarCollectionsTitle {
-        en
-        fi
-        sv
-      }
       subtitles {
         en
         fi
@@ -80,11 +75,6 @@ export const QUERY_COLLECTION_DETAILS = gql`
           sv
         }
         linkUrl {
-          en
-          fi
-          sv
-        }
-        similarCollectionsTitle {
           en
           fi
           sv

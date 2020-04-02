@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import CollectionCardContainer from "../../../common/components/collectionCard/CollectionCardContainer";
 import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
@@ -6,8 +7,6 @@ import {
   CollectionDetailsQuery,
   useCollectionListQuery
 } from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import getLocalisedString from "../../../util/getLocalisedString";
 import isClient from "../../../util/isClient";
 import Container from "../../app/layout/Container";
 import { SIMILAR_COLLECTIONS_AMOUNT } from "../constants";
@@ -18,7 +17,7 @@ interface Props {
 }
 
 const SimilarCollections: React.FC<Props> = ({ collectionData }) => {
-  const locale = useLocale();
+  const { t } = useTranslation();
 
   const { data: collectionsData, loading } = useCollectionListQuery({
     skip: !isClient
@@ -38,15 +37,7 @@ const SimilarCollections: React.FC<Props> = ({ collectionData }) => {
         <LoadingSpinner isLoading={loading}>
           {!!collections.length && (
             <>
-              {collectionData.collectionDetails.similarCollectionsTitle && (
-                <h2>
-                  {getLocalisedString(
-                    collectionData.collectionDetails.similarCollectionsTitle,
-                    locale
-                  )}
-                </h2>
-              )}
-
+              <h2>{t("collection.titleSimilarCollections")}</h2>
               <CollectionCardContainer collections={collections} layout="sm" />
             </>
           )}

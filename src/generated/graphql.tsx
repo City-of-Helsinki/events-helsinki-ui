@@ -15,6 +15,7 @@ export type Scalars = {
 export type CollectionDetails = {
    __typename?: 'CollectionDetails',
   id: Scalars['ID'],
+  boxColor?: Maybe<Scalars['String']>,
   contentType?: Maybe<Scalars['Int']>,
   curatedEvents: Array<Scalars['String']>,
   curatedEventsTitle: LocalizedObject,
@@ -43,7 +44,6 @@ export type CollectionDetails = {
   searchDescription?: Maybe<Scalars['String']>,
   seoTitle?: Maybe<Scalars['String']>,
   showInMenus?: Maybe<Scalars['Boolean']>,
-  similarCollectionsTitle?: Maybe<LocalizedObject>,
   slug?: Maybe<Scalars['String']>,
   socialMediaDescription?: Maybe<LocalizedObject>,
   subtitles: LocalizedObject,
@@ -426,9 +426,6 @@ export type CollectionDetailsQuery = (
     ), socialMediaDescription: Maybe<(
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    )>, similarCollectionsTitle: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
     )>, subtitles: (
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
@@ -464,10 +461,7 @@ export type CollectionListQuery = (
       ), linkUrl: (
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      ), similarCollectionsTitle: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      )>, socialMediaDescription: Maybe<(
+      ), socialMediaDescription: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
       )>, subtitles: (
@@ -887,11 +881,6 @@ export const CollectionDetailsDocument = gql`
       fi
       sv
     }
-    similarCollectionsTitle {
-      en
-      fi
-      sv
-    }
     subtitles {
       en
       fi
@@ -970,11 +959,6 @@ export const CollectionListDocument = gql`
         sv
       }
       linkUrl {
-        en
-        fi
-        sv
-      }
-      similarCollectionsTitle {
         en
         fi
         sv

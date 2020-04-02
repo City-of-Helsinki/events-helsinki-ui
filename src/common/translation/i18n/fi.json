@@ -123,7 +123,8 @@
       "title": "Jaa kokoelma"
     },
     "title": "Ladataan kokoelmaa...",
-    "titlePastRecommendations": "Menneet suositukset"
+    "titlePastRecommendations": "Menneet suositukset",
+    "titleSimilarCollections": "Suosittelemme myös näitä"
   },
   "collectionList": {
     "pageTitle": "Suosittelemme",

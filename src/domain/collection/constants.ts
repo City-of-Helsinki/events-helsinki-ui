@@ -39,11 +39,6 @@ export const mockCollection = {
       fi: "http://www.google.com",
       sv: "http://www.google.com"
     },
-    similarCollectionsTitle: {
-      en: "Check also these",
-      fi: "Katso myös nämä",
-      sv: "Se dessa också"
-    },
     socialMediaDescription: {
       en: "We put together the best foliage for the fall",
       fi: "Kokosimme parhaat tärpit syksylle",

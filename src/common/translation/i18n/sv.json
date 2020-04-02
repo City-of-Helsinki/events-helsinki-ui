@@ -123,7 +123,8 @@
       "title": "Dela denna kollektion"
     },
     "title": "Laddar samling...",
-    "titlePastRecommendations": "Tidigare rekommendationer"
+    "titlePastRecommendations": "Tidigare rekommendationer",
+    "titleSimilarCollections": "Fler rekommendationer"
   },
   "collectionList": {
     "pageTitle": "Rekommendationer",
