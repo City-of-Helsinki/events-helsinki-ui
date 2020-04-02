@@ -278,7 +278,8 @@ const Search: FunctionComponent = () => {
                   </div>
                 </div>
                 <div className={styles.secondRow}>
-                  <div>
+                  {/* TODO: Hide category filter temporarily. Show when needed */}
+                  <div style={{ display: "none" }}>
                     <MultiSelectDropdown
                       checkboxName="categoryOptions"
                       icon={<IconRead />}
