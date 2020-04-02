@@ -7,6 +7,10 @@
 
     height: 100%;
     width: 100%;
+
+    &.hasPadding {
+        padding: 10rem 0;
+    }
 }
 
 .spinner{

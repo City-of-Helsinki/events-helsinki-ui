@@ -1,15 +1,26 @@
+import classNames from "classnames";
 import React, { FunctionComponent } from "react";
 
 import styles from "./loadingSpinner.module.scss";
 
-const LoadingSpinner: FunctionComponent<{ isLoading: boolean }> = ({
+interface Props {
+  hasPadding?: boolean;
+  isLoading: boolean;
+}
+
+const LoadingSpinner: FunctionComponent<Props> = ({
+  hasPadding = true,
   isLoading,
   children
 }) => {
   return (
     <>
       {isLoading ? (
-        <div className={styles.spinnerWrapper}>
+        <div
+          className={classNames(styles.spinnerWrapper, {
+            [styles.hasPadding]: hasPadding
+          })}
+        >
           <div className={styles.spinner}>
             <div />
           </div>

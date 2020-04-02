@@ -134,7 +134,10 @@ const OtherEventTimes: React.FC<Props> = ({ eventData }) => {
               );
             })}
           </ul>
-          <LoadingSpinner isLoading={loading || isFetchingMore} />
+          <LoadingSpinner
+            hasPadding={false}
+            isLoading={loading || isFetchingMore}
+          />
         </>
       )}
     </div>
