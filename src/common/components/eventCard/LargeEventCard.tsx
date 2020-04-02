@@ -59,7 +59,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
     return `/${locale}/event/${event.id}${search}`;
   }, [event.id, locale, search]);
 
-  const showBuyButton = !!offerInfoUrl && !isEventFree(event);
+  const showBuyButton = !eventClosed && !!offerInfoUrl && !isEventFree(event);
 
   React.useEffect(() => {
     if (imageUrl) {

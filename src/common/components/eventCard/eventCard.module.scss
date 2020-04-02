@@ -103,25 +103,11 @@ $imageWidth: 6.375rem;
         color: $hel-black-80;
       }
     }
+    
     .buttonWrapper {
       padding-left: 0.625rem;
       align-self: center;
       align-items: center;
-  
-      button {
-        height: $iconButtonSize;
-        width: $iconButtonSize;
-        background-color: $hel-copper-light-20;
-        border-color: $hel-copper-light-20;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-  
-        svg {
-          height: $iconButtonIconSize;
-          width: $iconButtonIconSize;
-        }
-      }
   
       @include respond_above(sm) {
         padding-left: 0;

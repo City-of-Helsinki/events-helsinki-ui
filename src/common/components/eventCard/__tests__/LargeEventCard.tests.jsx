@@ -49,3 +49,24 @@ test("should hide buy button when event is free", () => {
 
   expect(queryByText("Osta liput")).toEqual(null);
 });
+
+test("should hide buy button when event is closed", () => {
+  const mockEvent = {
+    endTime: "2017-01-01",
+    id: "123",
+    images: [],
+    keywords: [],
+    name: {},
+    offers: [
+      {
+        infoUrl: {
+          fi: "https://example.domain"
+        }
+      }
+    ],
+    startTime: "2017-01-01"
+  };
+  const { queryByText } = getWrapper({ event: mockEvent });
+
+  expect(queryByText("Osta liput")).toEqual(null);
+});
