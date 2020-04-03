@@ -42,7 +42,7 @@ const OrganizationInfo: React.FC<Props> = ({ eventData }) => {
       </div>
       <div className={styles.iconTextWrapper}>
         <h2 className={styles.title}>{t("event.info.labelOrganizer")}</h2>
-        <LoadingSpinner isLoading={loading}>
+        <LoadingSpinner hasPadding={false} isLoading={loading}>
           <>
             <div>{provider ? provider : name}</div>
           </>

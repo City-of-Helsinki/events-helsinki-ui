@@ -467,9 +467,9 @@ Array [
                                 1
                               </div>
                               <div
-                                aria-disabled={false}
+                                aria-disabled={true}
                                 aria-label="day-2"
-                                className="react-datepicker__day react-datepicker__day--002 react-datepicker__day--keyboard-selected react-datepicker__day--today"
+                                className="react-datepicker__day react-datepicker__day--002 react-datepicker__day--disabled"
                                 onClick={[Function]}
                                 onMouseEnter={[Function]}
                                 role="option"
@@ -479,7 +479,7 @@ Array [
                               <div
                                 aria-disabled={false}
                                 aria-label="day-3"
-                                className="react-datepicker__day react-datepicker__day--003"
+                                className="react-datepicker__day react-datepicker__day--003 react-datepicker__day--keyboard-selected react-datepicker__day--today"
                                 onClick={[Function]}
                                 onMouseEnter={[Function]}
                                 role="option"

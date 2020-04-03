@@ -34,7 +34,7 @@ const SimilarCollections: React.FC<Props> = ({ collectionData }) => {
   return (
     <div className={styles.similarCollections}>
       <Container>
-        <LoadingSpinner isLoading={loading}>
+        <LoadingSpinner hasPadding={false} isLoading={loading}>
           {!!collections.length && (
             <>
               <h2>{t("collection.titleSimilarCollections")}</h2>

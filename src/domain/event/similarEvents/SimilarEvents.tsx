@@ -68,7 +68,7 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
 
   return (
     <div className={styles.similarEvents}>
-      <LoadingSpinner isLoading={loading}>
+      <LoadingSpinner hasPadding={false} isLoading={loading}>
         {!!events.length && (
           <>
             <h2 className={styles.similarEventsTitle}>

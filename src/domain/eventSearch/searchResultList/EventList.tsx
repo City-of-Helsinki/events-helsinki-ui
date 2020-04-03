@@ -45,7 +45,7 @@ const EventList: React.FC<Props> = ({
           [styles.buttonCentered]: buttonCentered
         })}
       >
-        <LoadingSpinner isLoading={loading}>
+        <LoadingSpinner hasPadding={!events.length} isLoading={loading}>
           {!!eventsData.eventList.meta.next && (
             <Button color="primary" size="default" onClick={onLoadMore}>
               {t("eventSearch.buttonLoadMore")}
