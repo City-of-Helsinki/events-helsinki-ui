@@ -1,0 +1,70 @@
+@import "colors";
+@import "fonts";
+
+.link {
+  display: flex;
+  align-items: center;
+  color: $dark-green;
+  font-size: $font-size-lg;
+  font-weight: $link-font-weight;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  padding: unset;
+  text-align: left;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 2px solid $hel-black;
+  }
+
+  svg {
+    margin-left: 1rem;
+    height: 0.75rem;
+    width: 0.75rem;
+    fill: $dark-green;
+  }
+}
+
+.defaultColor {
+  color: $dark-green;
+
+  svg {
+    fill: $dark-green;
+  }
+}
+
+.whiteColor {
+  color: $hel-white;
+
+  svg {
+    fill: $hel-white;
+  }
+
+  &:focus {
+    outline-color: $hel-white;
+  }
+}
+
+.defaultSize {
+  font-size: $font-size-lg;
+
+  svg {
+    margin-left: 1rem;
+  }
+}
+
+.smallSize {
+  font-size: $font-size-base;
+
+  svg {
+    margin-left: 0.5rem;
+  }
+
+  &:focus {
+    outline-offset: 2px;
+  }
+}

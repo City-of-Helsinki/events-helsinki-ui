@@ -112,7 +112,9 @@
   "collection": {
     "buttonShowAllPastEvents": "Show all past recommendations",
     "curatedEvents": {
-      "textEventNotFound": "Event not found"
+      "linkOnlyExpiredEvents": "To all collections",
+      "textEventNotFound": "Event not found",
+      "textOnlyExpiredEvents": "Unfortunately all the events in this collection have already passed. Have a look at our other recommendations and collections to find more interesting events."
     },
     "notFound": {
       "linkSearchEvents": "Find something to do",

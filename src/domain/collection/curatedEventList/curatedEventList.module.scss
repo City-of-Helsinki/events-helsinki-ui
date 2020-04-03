@@ -3,11 +3,31 @@
 
 .curatedEventList {
   background-color: $hel-black-5;
-  padding: $largePadding 0;
+  padding: 0;
 
-  .contentWrapper {
-    margin-top: -13rem;
-    padding-bottom: 13rem;
+  h2 {
+    margin: 0;
+  }
+
+  .whiteBackground {
+    padding: $largePadding 0;
+    background-color: $hel-white;
+
+    p {
+      font-size: 1.25rem;
+      line-height: 2rem;
+      max-width: 65rem;
+    }
+
+    &.hasEvents {
+      padding-bottom: 10rem;
+    }
+  }
+
+  .content {
+    &.hasEvents {
+      margin-top: -8.125rem;
+    }
   }
 
   .titlePastRecommendations {

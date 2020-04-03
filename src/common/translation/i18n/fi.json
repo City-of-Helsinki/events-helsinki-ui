@@ -112,7 +112,9 @@
   "collection": {
     "buttonShowAllPastEvents": "Näytä kaikki menneet",
     "curatedEvents": {
-      "textEventNotFound": "Tapahtumaa ei löydy"
+      "linkOnlyExpiredEvents": "Tutustu kaikkiin kokoelmiin",
+      "textEventNotFound": "Tapahtumaa ei löydy",
+      "textOnlyExpiredEvents": "Valitettavasti tämän kokoelman kaikki suositellut tapahtumat ovat jo ehtineet päättyä. Käy tutustumassa muihin suosituksiimme ja löydä itsellesi tekemistä."
     },
     "notFound": {
       "linkSearchEvents": "Hae itsellesi tekemistä",

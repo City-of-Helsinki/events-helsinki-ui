@@ -1,12 +1,12 @@
-import { IconAngleRight, IconSearch, IconTree } from "hds-react";
+import { IconSearch, IconTree } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
 
 import Button from "../../../common/components/button/Button";
 import CategoryFilter from "../../../common/components/category/CategoryFilter";
 import DateSelector from "../../../common/components/dateSelector/DateSelector";
+import Link from "../../../common/components/link/Link";
 import MobileDateSelector from "../../../common/components/mobileDateSelector/MobileDateSelector";
 import SearchAutosuggest from "../../../common/components/search/SearchAutosuggest";
 import SearchLabel from "../../../common/components/search/searchLabel/SearchLabel";
@@ -218,9 +218,8 @@ const Search: FunctionComponent = () => {
           </div>
         </div>
         <div className={styles.linkRow}>
-          <Link to={`/${locale}/events`}>
+          <Link color="white" size="small" to={`/${locale}/events`}>
             {t("home.search.linkAdvancedSearch")}
-            <IconAngleRight />
           </Link>
         </div>
       </div>

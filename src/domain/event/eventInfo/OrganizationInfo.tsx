@@ -1,8 +1,8 @@
-import { IconAngleRight, IconSmile } from "hds-react";
+import { IconSmile } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
+import Link from "../../../common/components/link/Link";
 import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
 import {
   EventDetailsQuery,
@@ -46,9 +46,8 @@ const OrganizationInfo: React.FC<Props> = ({ eventData }) => {
           <>
             <div>{provider ? provider : name}</div>
           </>
-          <Link className={styles.link} to={getSearchLink()}>
+          <Link to={getSearchLink()}>
             {t("event.info.linkSearchByOrganization")}
-            <IconAngleRight />
           </Link>
         </LoadingSpinner>
       </div>

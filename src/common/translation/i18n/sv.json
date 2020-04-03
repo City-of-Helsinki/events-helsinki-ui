@@ -112,7 +112,9 @@
   "collection": {
     "buttonShowAllPastEvents": "Visa alla tidigare rekommendationer",
     "curatedEvents": {
-      "textEventNotFound": "Samlingen hittades inte"
+      "linkOnlyExpiredEvents": "Till alla kollektioner",
+      "textEventNotFound": "Samlingen hittades inte",
+      "textOnlyExpiredEvents": "Tyvärr har denna kollektions rekommenderade evenemang redan gått. Bekanta dig mig våra övriga rekommendationer och hitta fler intressanta evenemang."
     },
     "notFound": {
       "linkSearchEvents": "Sök evenemang",

@@ -861,6 +861,7 @@ Array [
       className="linkRow"
     >
       <a
+        className="link whiteColor smallSize"
         href="/fi/events"
         onClick={[Function]}
       >

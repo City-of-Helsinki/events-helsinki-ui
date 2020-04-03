@@ -31,26 +31,6 @@
 
   .linkRow {
     float: right;
-
-    a {
-      color: $hel-white;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      font-weight: $link-font-weight;
-
-      svg {
-        fill: $hel-white;
-        height: 0.75rem;
-        width: 0.75rem;
-        margin-left: 0.5rem;
-      }
-
-      &:focus {
-        outline-color: $hel-white;
-        outline-offset: 2px;
-      }
-    }
   }
 
   h2 {

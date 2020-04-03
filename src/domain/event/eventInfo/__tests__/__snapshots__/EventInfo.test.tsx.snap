@@ -103,7 +103,7 @@ exports[`EventInfo matches snapshot 1`] = `
           locality fi
         </div>
         <a
-          className="link"
+          className="link defaultColor defaultSize"
           href="https://palvelukartta.hel.fi/fi/unit/123"
           rel="noopener noreferrer"
           target="_blank"
@@ -190,7 +190,7 @@ exports[`EventInfo matches snapshot 1`] = `
           044 123 4567
         </div>
         <a
-          className="link"
+          className="link defaultColor defaultSize"
           href="https://www.lippu.fi/tickets.html?affiliate=adv&doc=erdetaila&fun=erdetail&erid=2640080"
           rel="noopener noreferrer"
           target="_blank"
@@ -211,7 +211,7 @@ exports[`EventInfo matches snapshot 1`] = `
           </svg>
         </a>
         <a
-          className="link"
+          className="link defaultColor defaultSize"
           href="https://www.facebook.com/events/12345687/"
           rel="noopener noreferrer"
           target="_blank"
@@ -261,7 +261,7 @@ exports[`EventInfo matches snapshot 1`] = `
           Löydä perille
         </h2>
         <a
-          className="link"
+          className="link defaultColor defaultSize"
           href="https://www.google.com/maps/dir//streetAddress+fi,+01234+locality+fi/@60.250507,25.01497"
           rel="noopener noreferrer"
           target="_blank"
@@ -282,7 +282,7 @@ exports[`EventInfo matches snapshot 1`] = `
           </svg>
         </a>
         <a
-          className="link"
+          className="link defaultColor defaultSize"
           href="https://reittiopas.hsl.fi/%20/streetAddress%20fi,%20locality%20fi::60.250507,25.01497?locale=fi"
           rel="noopener noreferrer"
           target="_blank"

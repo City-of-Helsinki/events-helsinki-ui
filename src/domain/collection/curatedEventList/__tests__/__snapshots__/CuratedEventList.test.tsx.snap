@@ -2,9 +2,13 @@
 
 exports[`CuratedEventList should match snapshot 1`] = `
 "<div class=\\"curatedEventList\\">
-  <div class=\\"container\\">
-    <div class=\\"contentWrapper\\">
+  <div class=\\"whiteBackground hasEvents\\">
+    <div class=\\"container\\">
       <h2>Käy ainakin näissä</h2>
+    </div>
+  </div>
+  <div class=\\"content hasEvents\\">
+    <div class=\\"container\\">
       <div class=\\"eventCards\\">
         <div class=\\"eventCard\\"><a aria-hidden=\\"true\\" class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">
             <div class=\\"tagWrapper\\">

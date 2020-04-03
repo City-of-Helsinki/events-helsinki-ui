@@ -15,6 +15,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import Button from "../../../common/components/button/Button";
+import Link from "../../../common/components/link/Link";
+import linkStyles from "../../../common/components/link/link.module.scss";
 import { EventDetailsQuery } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import IconTicket from "../../../icons/IconTicket";
@@ -141,7 +143,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
                 t("commons.timeAbbreviation")
               )}
             {eventData.eventDetails.startTime && (
-              <button className={styles.link} onClick={downloadIcsFile}>
+              <button className={linkStyles.link} onClick={downloadIcsFile}>
                 {t("event.info.buttonAddToCalendar")}
                 <IconAngleRight />
               </button>
@@ -174,15 +176,12 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             {addressLocality && (
               <div className={styles.desktopOnly}>{addressLocality}</div>
             )}
-            <a
-              className={styles.link}
-              href={getServiceMapUrl(eventData, locale, false)}
-              rel="noopener noreferrer"
-              target="_blank"
+            <Link
+              isExternal={true}
+              to={getServiceMapUrl(eventData, locale, false)}
             >
               {t("event.info.openMap")}
-              <IconAngleRight />
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -210,34 +209,21 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
               {email && <div>{email}</div>}
               {telephone && <div>{telephone}</div>}
               {infoUrl && (
-                <a
-                  className={styles.link}
-                  href={infoUrl}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
+                <Link isExternal={true} to={infoUrl}>
                   {t("event.info.linkWebPage")}
-                  <IconAngleRight />
-                </a>
+                </Link>
               )}
 
               {externalLinks.map((externalLink, index) => {
                 return (
                   !!externalLink.link && (
-                    <a
-                      key={index}
-                      className={styles.link}
-                      href={externalLink.link}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
+                    <Link key={index} isExternal={true} to={externalLink.link}>
                       {translateValue(
                         "event.info.",
                         externalLink.name || "",
                         t
                       )}
-                      <IconAngleRight />
-                    </a>
+                    </Link>
                   )
                 );
               })}
@@ -252,24 +238,18 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           </div>
           <div className={styles.iconTextWrapper}>
             <h2 className={styles.title}>{t("event.info.labelDistricts")}</h2>
-            <a
-              className={styles.link}
-              href={getGoogleDirectionsLink(eventData, locale)}
-              rel="noopener noreferrer"
-              target="_blank"
+            <Link
+              isExternal={true}
+              to={getGoogleDirectionsLink(eventData, locale)}
             >
               {t("event.info.directionsGoogle")}
-              <IconAngleRight />
-            </a>
-            <a
-              className={styles.link}
-              href={getHslDirectionsLink(eventData, locale)}
-              rel="noopener noreferrer"
-              target="_blank"
+            </Link>
+            <Link
+              isExternal={true}
+              to={getHslDirectionsLink(eventData, locale)}
             >
               {t("event.info.directionsHSL")}
-              <IconAngleRight />
-            </a>
+            </Link>
           </div>
         </div>
         {/* Organization info */}
