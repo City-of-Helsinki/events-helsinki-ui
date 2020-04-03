@@ -259,7 +259,7 @@ module.exports = function() {
               loader: require.resolve('url-loader'),
               options: {
                 limit: imageInlineSizeLimit,
-                name: 'static/media/[name].[hash:8].[ext]',
+                name: '/static/media/[name].[hash:8].[ext]',
               },
             },
             // Process application JS with Babel.
