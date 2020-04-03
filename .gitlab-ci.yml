@@ -14,6 +14,7 @@ build-review:
     DOCKER_BUILD_ARG_SASS_PATH: "./src/assets/styles"
     DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: "https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql"
     DOCKER_BUILD_ARG_REACT_APP_SSR_PORT: 3000
+    DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: "$GL_SENTRY_DSN"
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: "dev"
   only:
     refs:
@@ -26,6 +27,7 @@ build-staging:
     DOCKER_BUILD_ARG_SASS_PATH: "./src/assets/styles"
     DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: "https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql"
     DOCKER_BUILD_ARG_REACT_APP_SSR_PORT: 3000
+    DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: "$GL_SENTRY_DSN"
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: "test"
   only:
     refs:
@@ -38,6 +40,7 @@ build-production:
     DOCKER_BUILD_ARG_SASS_PATH: "./src/assets/styles"
     DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: "https://tapahtumat-proxy.prod.kuva.hel.ninja/proxy/graphql"
     DOCKER_BUILD_ARG_REACT_APP_SSR_PORT: 3000
+    DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: "$GL_SENTRY_DSN"
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: "production"
   only:
     refs:

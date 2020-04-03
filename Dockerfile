@@ -15,10 +15,6 @@ COPY --chown=appuser:appuser . .
 ARG SASS_PATH=./src/assets/styles
 ENV SASS_PATH $SASS_PATH
 
-# Set Application name and version (shown in Sentry)
-ARG REACT_APP_APPLICATION_NAME=events-helsinki-ui
-ARG REACT_APP_APPLICATION_VERSION=0.1.2
-
 # Set Sentry DSN
 ARG REACT_APP_SENTRY_DSN
 
