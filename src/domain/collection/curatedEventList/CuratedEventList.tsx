@@ -54,7 +54,7 @@ const CuratedEventList: React.FC<Props> = ({ collectionData }) => {
 
   return (
     <LoadingSpinner isLoading={loading}>
-      {!!eventsData && (
+      {!!eventsData && !!eventsData.eventsByIds.length && (
         <div className={styles.curatedEventList}>
           <Container>
             <div className={styles.contentWrapper}>

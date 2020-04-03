@@ -70,7 +70,7 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
       <Container>
         <LoadingSpinner isLoading={!isFetchingMore && loading}>
           {!!eventsData && !!eventsData.eventList.data.length && (
-            <>
+            <div className={styles.contentWrapper}>
               <h2>
                 {getLocalisedString(
                   collectionData.collectionDetails.eventListTitle,
@@ -85,7 +85,7 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
                   onLoadMore={handleLoadMore}
                 />
               </div>
-            </>
+            </div>
           )}
         </LoadingSpinner>
       </Container>
