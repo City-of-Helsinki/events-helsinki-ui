@@ -15,7 +15,7 @@ import { mockCollection } from "../../constants";
 import EventList from "../EventList";
 
 const searchParams = new URLSearchParams(
-  mockCollection.collectionDetails.eventListQuery
+  new URL(mockCollection.collectionDetails.eventListQuery).search
 );
 const mocks = [
   {

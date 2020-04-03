@@ -21,7 +21,7 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const locale = useLocale();
   const searchParams = new URLSearchParams(
-    collectionData.collectionDetails.eventListQuery || ""
+    new URL(collectionData.collectionDetails.eventListQuery || "").search
   );
   const eventFilters = React.useMemo(() => {
     return getEventFilters(
@@ -33,8 +33,10 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
       locale
     );
   }, [locale, searchParams]);
+
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
+    skip: !collectionData.collectionDetails.eventListQuery,
     ssr: false,
     variables: eventFilters
   });
@@ -66,22 +68,24 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
   return (
     <div className={styles.eventList}>
       <Container>
-        <h2>
-          {getLocalisedString(
-            collectionData.collectionDetails.eventListTitle,
-            locale
-          )}
-        </h2>
         <LoadingSpinner isLoading={!isFetchingMore && loading}>
-          {eventsData && (
-            <div className={styles.eventSearchListWrapper}>
-              <EventSearchList
-                buttonCentered={true}
-                eventsData={eventsData}
-                loading={isFetchingMore}
-                onLoadMore={handleLoadMore}
-              />
-            </div>
+          {!!eventsData && !!eventsData.eventList.data.length && (
+            <>
+              <h2>
+                {getLocalisedString(
+                  collectionData.collectionDetails.eventListTitle,
+                  locale
+                )}
+              </h2>
+              <div className={styles.eventSearchListWrapper}>
+                <EventSearchList
+                  buttonCentered={true}
+                  eventsData={eventsData}
+                  loading={isFetchingMore}
+                  onLoadMore={handleLoadMore}
+                />
+              </div>
+            </>
           )}
         </LoadingSpinner>
       </Container>
