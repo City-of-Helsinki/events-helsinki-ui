@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import React, { FunctionComponent } from "react";
 
+import IconLoadingSpinner from "../../../icons/IconLoadingSpinner";
 import styles from "./loadingSpinner.module.scss";
 
 interface Props {
@@ -22,7 +23,7 @@ const LoadingSpinner: FunctionComponent<Props> = ({
           })}
         >
           <div className={styles.spinner}>
-            <div />
+            <IconLoadingSpinner />
           </div>
         </div>
       ) : (

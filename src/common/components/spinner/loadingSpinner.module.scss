@@ -1,4 +1,6 @@
-@import 'mixins';
+@import "colors";
+
+$spinnerWidth: 4.375rem;
 
 .spinnerWrapper {
     display: flex;
@@ -13,12 +15,48 @@
     }
 }
 
-.spinner{
-    position: relative;
-    height: $spinnerHeight;
-    width: $spinnerHeight;
-
-    div {
-        @include add_spinner();
+@keyframes spinner {
+    0% {
+      transform: rotate(0deg);
     }
-}
+    8.33% {
+      fill: $hel-coat;
+    }
+    25% {
+    fill: $hel-copper;
+    }
+    33.33% {
+      transform: rotate(360deg);
+    }
+    41.66% {
+      fill: $hel-copper;
+    }
+    58.33% {
+      fill: $hel-suomenlinna;
+    }
+    66.67% {
+      transform: rotate(720deg);
+    }
+    75% {
+      fill: $hel-suomenlinna;
+    }
+    91.67% {
+      fill: $hel-coat;
+    }
+    100% {
+      transform: rotate(1080deg);
+    }
+  }
+  
+  .spinner {
+    width: $spinnerWidth;
+    height: $spinnerWidth;
+    border-radius: 50%;
+    fill: $hel-coat;
+    animation: spinner 3.6s ease-in-out infinite;
+  
+    svg {
+        width: $spinnerWidth;
+        height: 57.14%;
+    }
+  }
