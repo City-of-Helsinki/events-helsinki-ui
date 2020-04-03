@@ -183,8 +183,8 @@ exports[`renders snapshot correctly 1`] = `
                                     <div class=\\"react-datepicker__day react-datepicker__day--030 react-datepicker__day--disabled react-datepicker__day--outside-month\\" aria-label=\\"day-30\\" role=\\"option\\" aria-disabled=\\"true\\">30</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--031 react-datepicker__day--disabled react-datepicker__day--outside-month\\" aria-label=\\"day-31\\" role=\\"option\\" aria-disabled=\\"true\\">31</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--001 react-datepicker__day--disabled\\" aria-label=\\"day-1\\" role=\\"option\\" aria-disabled=\\"true\\">1</div>
-                                    <div class=\\"react-datepicker__day react-datepicker__day--002 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-2\\" role=\\"option\\" aria-disabled=\\"false\\">2</div>
-                                    <div class=\\"react-datepicker__day react-datepicker__day--003\\" aria-label=\\"day-3\\" role=\\"option\\" aria-disabled=\\"false\\">3</div>
+                                    <div class=\\"react-datepicker__day react-datepicker__day--002 react-datepicker__day--disabled\\" aria-label=\\"day-2\\" role=\\"option\\" aria-disabled=\\"true\\">2</div>
+                                    <div class=\\"react-datepicker__day react-datepicker__day--003 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-3\\" role=\\"option\\" aria-disabled=\\"false\\">3</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--004 react-datepicker__day--weekend\\" aria-label=\\"day-4\\" role=\\"option\\" aria-disabled=\\"false\\">4</div>
                                     <div class=\\"react-datepicker__day react-datepicker__day--005 react-datepicker__day--weekend\\" aria-label=\\"day-5\\" role=\\"option\\" aria-disabled=\\"false\\">5</div>
                                   </div>
@@ -426,6 +426,40 @@ exports[`renders snapshot correctly 1`] = `
                   <div class=\\"srOnly\\">Kesäleirien ilmoittautuminen alkoi!</div>
                 </div>
                 <div class=\\"linkWrapper\\"><a aria-label=\\"Siirry kokoelmaan: Kesäleirien ilmoittautuminen alkoi!\\" class=\\"iconLink default\\" href=\\"/fi/collection/10\\">
+                    <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
+                        <g>
+                          <polygon points=\\"13.3706831 2 11.5237192 3.84696395 18.0000474 10.3242884 2 10.3242884 2 12.937334 17.9990512 12.937334 11.5237192 19.412666 13.3706831 21.2586338 23 11.6293169\\"></polygon>
+                        </g>
+                      </svg></div>
+                  </a></div>
+              </div>
+            </div>
+            <div class=\\"collectionCardWrapper smSize\\"><a aria-hidden=\\"true\\" aria-label=\\"Siirry tapahtumaan: \\" class=\\"imageWrapper\\" tabindex=\\"-1\\" href=\\"/fi/collection/11\\"></a>
+              <div class=\\"textWrapper\\">
+                <div class=\\"countWrapper\\">
+                  <div class=\\"count\\">6 kpl</div>
+                </div>
+                <div class=\\"titleWrapper\\"><a aria-hidden=\\"true\\" class=\\"title\\" tabindex=\\"-1\\" href=\\"/fi/collection/11\\">Juhannus kaupungissa</a>
+                  <div class=\\"srOnly\\">Juhannus kaupungissa</div>
+                </div>
+                <div class=\\"linkWrapper\\"><a aria-label=\\"Siirry kokoelmaan: Juhannus kaupungissa\\" class=\\"iconLink default\\" href=\\"/fi/collection/11\\">
+                    <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
+                        <g>
+                          <polygon points=\\"13.3706831 2 11.5237192 3.84696395 18.0000474 10.3242884 2 10.3242884 2 12.937334 17.9990512 12.937334 11.5237192 19.412666 13.3706831 21.2586338 23 11.6293169\\"></polygon>
+                        </g>
+                      </svg></div>
+                  </a></div>
+              </div>
+            </div>
+            <div class=\\"collectionCardWrapper smSize\\"><a aria-hidden=\\"true\\" aria-label=\\"Siirry tapahtumaan: \\" class=\\"imageWrapper\\" tabindex=\\"-1\\" href=\\"/fi/collection/12\\"></a>
+              <div class=\\"textWrapper\\">
+                <div class=\\"countWrapper\\">
+                  <div class=\\"count\\">9 kpl</div>
+                </div>
+                <div class=\\"titleWrapper\\"><a aria-hidden=\\"true\\" class=\\"title\\" tabindex=\\"-1\\" href=\\"/fi/collection/12\\">Syksyn parhaimmat soundit</a>
+                  <div class=\\"srOnly\\">Syksyn parhaimmat soundit</div>
+                </div>
+                <div class=\\"linkWrapper\\"><a aria-label=\\"Siirry kokoelmaan: Syksyn parhaimmat soundit\\" class=\\"iconLink default\\" href=\\"/fi/collection/12\\">
                     <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
                         <g>
                           <polygon points=\\"13.3706831 2 11.5237192 3.84696395 18.0000474 10.3242884 2 10.3242884 2 12.937334 17.9990512 12.937334 11.5237192 19.412666 13.3706831 21.2586338 23 11.6293169\\"></polygon>
