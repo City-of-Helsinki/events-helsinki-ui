@@ -66,22 +66,24 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
   return (
     <div className={styles.eventList}>
       <Container>
-        <h2>
-          {getLocalisedString(
-            collectionData.collectionDetails.eventListTitle,
-            locale
-          )}
-        </h2>
         <LoadingSpinner isLoading={!isFetchingMore && loading}>
-          {eventsData && (
-            <div className={styles.eventSearchListWrapper}>
-              <EventSearchList
-                buttonCentered={true}
-                eventsData={eventsData}
-                loading={isFetchingMore}
-                onLoadMore={handleLoadMore}
-              />
-            </div>
+          {!!eventsData && !!eventsData.eventList.data.length && (
+            <>
+              <h2>
+                {getLocalisedString(
+                  collectionData.collectionDetails.eventListTitle,
+                  locale
+                )}
+              </h2>
+              <div className={styles.eventSearchListWrapper}>
+                <EventSearchList
+                  buttonCentered={true}
+                  eventsData={eventsData}
+                  loading={isFetchingMore}
+                  onLoadMore={handleLoadMore}
+                />
+              </div>
+            </>
           )}
         </LoadingSpinner>
       </Container>
