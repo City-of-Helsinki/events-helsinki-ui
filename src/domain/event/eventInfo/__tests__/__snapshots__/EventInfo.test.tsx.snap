@@ -348,7 +348,6 @@ exports[`EventInfo matches snapshot 1`] = `
                 strokeWidth="1"
               >
                 <g
-                  id="loader_spec"
                   transform="translate(-243.000000, -825.000000)"
                 >
                   <path
