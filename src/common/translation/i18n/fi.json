@@ -116,6 +116,11 @@
       "textEventNotFound": "Tapahtumaa ei löydy",
       "textOnlyExpiredEvents": "Valitettavasti tämän kokoelman kaikki suositellut tapahtumat ovat jo ehtineet päättyä. Käy tutustumassa muihin suosituksiimme ja löydä itsellesi tekemistä."
     },
+    "languageNotSupported": {
+      "linkSearchEvents": "Tutustu kaikkiin kokoelmiin",
+      "text": "Valitettavasti etsimääsi kokoelmaa ei ole saatavilla kaikilla kielillä. Onneksi tekeminen ei lopu tähän, käy selaamassa muita kokoelmia ja löydä kiinnostavia tapahtumia.",
+      "title": "Kokoelmaa ei löydy suomeksi"
+    },
     "notFound": {
       "linkSearchEvents": "Hae itsellesi tekemistä",
       "text": "Syystä tai toisesta hakemaasi kokoelmaa ei löydy. Löydä itsellesi tekemistä vaikkapa täältä:",
