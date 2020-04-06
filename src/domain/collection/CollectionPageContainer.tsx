@@ -11,6 +11,7 @@ import PageWrapper from "../app/layout/PageWrapper";
 import CollectionHero from "./collectionHero/CollectionHero";
 import styles from "./collectionPage.module.scss";
 import CollectionPageMeta from "./collectionPageMeta/CollectionPageMeta";
+import { isLanguageSupported } from "./CollectionUtils";
 import CuratedEventList from "./curatedEventList/CuratedEventList";
 import EventList from "./eventList/EventList";
 import SimilarCollections from "./similarCollections/SimilarCollections";
@@ -37,11 +38,27 @@ const CollectionPageContainer: React.FC = () => {
       <LoadingSpinner isLoading={loading}>
         {collectionData ? (
           <>
-            <CollectionPageMeta collectionData={collectionData} />
-            <CollectionHero collectionData={collectionData} />
-            <CuratedEventList collectionData={collectionData} />
-            <EventList collectionData={collectionData} />
-            <SimilarCollections collectionData={collectionData} />
+            {!!isLanguageSupported(collectionData.collectionDetails, locale) ? (
+              <>
+                <CollectionPageMeta collectionData={collectionData} />
+                <CollectionHero collectionData={collectionData} />
+                <CuratedEventList collectionData={collectionData} />
+                <EventList collectionData={collectionData} />
+                <SimilarCollections collectionData={collectionData} />
+              </>
+            ) : (
+              <>
+                <ErrorHero
+                  text={t("collection.languageNotSupported.text")}
+                  title={t("collection.languageNotSupported.title")}
+                >
+                  <Link to={`/${locale}/collections`}>
+                    {t("collection.languageNotSupported.linkSearchEvents")}
+                  </Link>
+                </ErrorHero>
+                <SimilarCollections collectionData={collectionData} />
+              </>
+            )}
           </>
         ) : (
           <ErrorHero

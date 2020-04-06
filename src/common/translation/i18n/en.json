@@ -116,6 +116,11 @@
       "textEventNotFound": "Event not found",
       "textOnlyExpiredEvents": "Unfortunately all the events in this collection have already passed. Have a look at our other recommendations and collections to find more interesting events."
     },
+    "languageNotSupported": {
+      "linkSearchEvents": "Go to all collections",
+      "text": "Unfortunately this collections has not been created in all different languages. Luckily there are many other recommendations, so have a look at the other collections and find loads of interesting events.",
+      "title": "This collection is not available in English"
+    },
     "notFound": {
       "linkSearchEvents": "Find something to do",
       "text": "For one reason or another we can't find the collection you are looking for. Instead, try searching for something interesting to do from here:",
