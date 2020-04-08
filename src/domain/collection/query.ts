@@ -4,6 +4,7 @@ export const QUERY_COLLECTION_DETAILS = gql`
   query CollectionDetails($id: ID!) {
     collectionDetails(id: $id) {
       id
+      boxColor
       curatedEvents
       curatedEventsTitle {
         en

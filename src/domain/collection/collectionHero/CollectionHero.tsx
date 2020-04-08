@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { IconAngleRight, ImageWithCard } from "hds-react";
 import React from "react";
 
@@ -6,6 +7,7 @@ import { CollectionDetailsQuery } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
 import CollectionShareLinks from "../collectionShareLinks/CollectionShareLinks";
+import { getHeroBackgroundColor } from "../CollectionUtils";
 import styles from "./collectionHero.module.scss";
 
 interface Props {
@@ -40,8 +42,17 @@ const CollectionHero: React.FC<Props> = ({ collectionData }) => {
     locale
   );
 
+  const backgroundColor = getHeroBackgroundColor(
+    collectionData.collectionDetails
+  );
+
   return (
-    <div className={styles.collectionHero}>
+    <div
+      className={classNames(
+        styles.collectionHero,
+        styles[`${backgroundColor}BackgroundColor`]
+      )}
+    >
       <ImageWithCard
         className={styles.imageWithCard}
         src={bgImage}

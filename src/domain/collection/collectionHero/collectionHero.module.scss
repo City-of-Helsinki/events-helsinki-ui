@@ -82,3 +82,61 @@
     }
   }
 }
+
+.copperBackgroundColor {
+  background: $hel-white;
+  padding-bottom: $largePadding;
+
+  .imageWithCard {
+    div:last-child {
+      > div {
+        background-color: $hel-copper-light-50;
+        color: $hel-black;
+      }
+    }
+  }
+}
+
+.engelBackgroundColor {
+  background: $hel-white;
+  padding-bottom: $largePadding;
+
+  .imageWithCard {
+    div:last-child {
+      > div {
+        background-color: $hel-engel;
+        color: $hel-black;
+      }
+    }
+  }
+}
+
+.fogBackgroundColor {
+  background: $hel-white;
+  padding-bottom: $largePadding;
+
+  .imageWithCard {
+    div:last-child {
+      > div {
+        background-color: $hel-fog-light-50;
+        color: $hel-black;
+      }
+    }
+  }
+}
+
+.suomenlinnaBackgroundColor {
+  background: $hel-white;
+  padding-bottom: $largePadding;
+
+  .imageWithCard {
+    div:last-child {
+      > div {
+        background-color: $hel-suomenlinna-light-50;
+        color: $hel-black;
+      }
+    }
+  }
+}
+
+

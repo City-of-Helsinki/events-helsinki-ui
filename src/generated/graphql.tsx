@@ -407,7 +407,7 @@ export type CollectionDetailsQuery = (
   { __typename?: 'Query' }
   & { collectionDetails: (
     { __typename?: 'CollectionDetails' }
-    & Pick<CollectionDetails, 'id' | 'curatedEvents' | 'eventListQuery'>
+    & Pick<CollectionDetails, 'id' | 'boxColor' | 'curatedEvents' | 'eventListQuery'>
     & { curatedEventsTitle: (
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
@@ -849,6 +849,7 @@ export const CollectionDetailsDocument = gql`
     query CollectionDetails($id: ID!) {
   collectionDetails(id: $id) {
     id
+    boxColor
     curatedEvents
     curatedEventsTitle {
       en

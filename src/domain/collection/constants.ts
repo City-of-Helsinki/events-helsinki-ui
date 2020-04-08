@@ -2,6 +2,7 @@ import { mockEventData } from "../event/constants";
 
 export const mockCollection = {
   collectionDetails: {
+    boxColor: "SUOMENLINNA",
     curatedEvents: [
       `http://localhost:3000/fi/event/${mockEventData.eventDetails.id}`
     ],
@@ -57,5 +58,11 @@ export const mockCollection = {
   }
 };
 
+export enum HERO_BACKGROUND_COLOR {
+  COPPER = "COPPER",
+  ENGEL = "ENGEL",
+  FOG = "FOG",
+  SUOMENLINNA = "SUOMENLINNA"
+}
 // Amount of the similar collections
 export const SIMILAR_COLLECTIONS_AMOUNT = 8;
