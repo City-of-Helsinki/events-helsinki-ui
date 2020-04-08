@@ -1,12 +1,9 @@
 import { MockedProvider } from "@apollo/react-testing";
 import { mount } from "enzyme";
 import i18n from "i18next";
-import pretty from "pretty";
 import React from "react";
-import { render } from "react-dom";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router";
-import wait from "waait";
 
 import {
   CollectionListDocument,
@@ -16,7 +13,6 @@ import { mockCollection } from "../../collection/constants";
 import { mockLandingPage } from "../../landingPage/constants";
 import App from "../App";
 import AppRoutes from "../AppRoutes";
-import BrowserApp from "../BrowserApp";
 
 const mocks = [
   {
@@ -41,36 +37,17 @@ const mocks = [
 
 const wrapperCreator = (route: string) =>
   mount(
-    <MemoryRouter initialEntries={[route]}>
-      <MockedProvider mocks={mocks}>
+    <MockedProvider mocks={mocks}>
+      <MemoryRouter initialEntries={[route]}>
         <AppRoutes />
-      </MockedProvider>
-    </MemoryRouter>
+      </MemoryRouter>
+    </MockedProvider>
   );
 
 beforeEach(() => {
   act(() => {
     i18n.changeLanguage("fi");
   });
-});
-
-it("renders snapshot correctly", async () => {
-  const container = document.createElement("div");
-  document.body.appendChild(container);
-
-  await act(async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <MemoryRouter>
-          <BrowserApp />
-        </MemoryRouter>
-      </MockedProvider>,
-      container
-    );
-    await wait(1000); // wait for response
-  });
-
-  expect(pretty(container.innerHTML)).toMatchSnapshot();
 });
 
 it("user from supported locale will be redirect to App with that locale", () => {

@@ -3,6 +3,7 @@ import { IconAngleRight, ImageWithCard } from "hds-react";
 import React from "react";
 
 import bgImage from "../../../assets/images/png/collection-background.png";
+import TextWithLineBreaks from "../../../common/components/textWithLineBreaks/TextWithLineBreaks";
 import { CollectionDetailsQuery } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
@@ -61,7 +62,7 @@ const CollectionHero: React.FC<Props> = ({ collectionData }) => {
       >
         <h1>{title}</h1>
         {!!subtitles && <div className={styles.subTitle}>{subtitles}</div>}
-        {!!description && <p>{description}</p>}
+        {!!description && <TextWithLineBreaks as="p" text={description} />}
         {!!linkText && !!linkText && (
           <a href={linkUrl} target="_blank" rel="noopener noreferrer">
             {linkText}
