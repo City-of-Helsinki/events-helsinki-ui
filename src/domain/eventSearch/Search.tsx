@@ -41,6 +41,8 @@ const Search: FunctionComponent = () => {
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
   const { push } = useHistory();
 
+  const isFree = searchParams.get("isFree") === "true" ? true : false;
+
   const districtOptions = React.useMemo(
     () =>
       Object.keys(DISTRICTS)
@@ -131,6 +133,7 @@ const Search: FunctionComponent = () => {
       dateTypes,
       districts,
       endDate,
+      isFree,
       keywords,
       places,
       publisher: null,
@@ -144,6 +147,7 @@ const Search: FunctionComponent = () => {
     dateTypes,
     districts,
     endDate,
+    isFree,
     keywords,
     locale,
     places,
@@ -224,6 +228,7 @@ const Search: FunctionComponent = () => {
       dateTypes,
       districts: newDistricts,
       endDate,
+      isFree,
       keywords: newKeywords,
       places: newPlaces,
       publisher: null,

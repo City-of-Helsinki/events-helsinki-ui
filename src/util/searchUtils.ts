@@ -10,6 +10,7 @@ interface Filters {
   dateTypes: string[];
   districts: string[];
   endDate: Date | null;
+  isFree: boolean;
   keywords: string[];
   places: string[];
   publisher: string | null;
@@ -23,6 +24,7 @@ interface MappedFilters {
   dateTypes?: string[];
   districts: string[];
   endDate?: string | null;
+  isFree?: boolean;
   keywords: string[];
   places: string[];
   publisher?: string | null;
@@ -35,6 +37,7 @@ export const getSearchQuery = (filters: Filters): string => {
   const newFilters: MappedFilters = {
     ...filters,
     endDate: formatDate(filters.endDate, "yyyy-MM-dd"),
+    isFree: filters.isFree ? true : undefined,
     startDate: formatDate(filters.startDate, "yyyy-MM-dd")
   };
 
@@ -44,7 +47,7 @@ export const getSearchQuery = (filters: Filters): string => {
   const query: string[] = [];
 
   forEach(newFilters, (filter, key) => {
-    if (!isEmpty(filter) || isNumber(filter)) {
+    if (!isEmpty(filter) || isNumber(filter) || typeof filter === "boolean") {
       if (isArray(filter)) {
         const items: Array<string | number> = [];
 

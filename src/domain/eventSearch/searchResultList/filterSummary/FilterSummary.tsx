@@ -5,13 +5,13 @@ import { useHistory, useLocation } from "react-router";
 
 import FilterButton, {
   FilterType
-} from "../../../common/components/filterButton/FilterButton";
-import { DISTRICTS, TARGET_GROUPS } from "../../../constants";
-import useLocale from "../../../hooks/useLocale";
-import { formatDate } from "../../../util/dateUtils";
-import getUrlParamAsString from "../../../util/getUrlParamAsString";
-import { getSearchQuery } from "../../../util/searchUtils";
-import { translateValue } from "../../../util/translateUtils";
+} from "../../../../common/components/filterButton/FilterButton";
+import { DISTRICTS, TARGET_GROUPS } from "../../../../constants";
+import useLocale from "../../../../hooks/useLocale";
+import { formatDate } from "../../../../util/dateUtils";
+import getUrlParamAsString from "../../../../util/getUrlParamAsString";
+import { getSearchQuery } from "../../../../util/searchUtils";
+import { translateValue } from "../../../../util/translateUtils";
 import DateFilter from "./DateFilter";
 import styles from "./filterSummary.module.scss";
 import KeywordFilter from "./KeywordFilter";
@@ -34,6 +34,7 @@ const FilterSummary = () => {
   const categories = getUrlParamAsString(searchParams, "categories");
   const dateTypes = getUrlParamAsString(searchParams, "dateTypes");
   const districts = getUrlParamAsString(searchParams, "districts");
+  const isFree = searchParams.get("isFree") === "true" ? true : false;
   const keywords = getUrlParamAsString(searchParams, "keywords");
   const places = getUrlParamAsString(searchParams, "places");
   const targets = getUrlParamAsString(searchParams, "targets");
@@ -66,6 +67,7 @@ const FilterSummary = () => {
           ? districts.filter(district => district !== value)
           : districts,
       endDate: type === "date" ? null : endDate ? new Date(endDate) : null,
+      isFree,
       keywords:
         type === "keyword" || type === "yso"
           ? keywords.filter(keyword => keyword !== value)
@@ -93,6 +95,7 @@ const FilterSummary = () => {
       dateTypes: [],
       districts: [],
       endDate: null,
+      isFree: false,
       keywords: [],
       places: [],
       publisher: null,

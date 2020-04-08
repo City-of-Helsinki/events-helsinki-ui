@@ -221,7 +221,9 @@
     },
     "filters": {
       "buttonRemoveSearchWord": "Poista hakusana",
+      "checkboxIsFree": "Maksuttomat",
       "textNoFilters": "Ei hakuehtoja",
+      "titleShowOnly": "Näytä vain:",
       "titleSummary": "Valitsemasi hakuehdot:"
     },
     "noResultsInfo": {

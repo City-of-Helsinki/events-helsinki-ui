@@ -28,6 +28,7 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
     dateTypes: [],
     districts: [],
     endDate: null,
+    isFree: false,
     keywords: eventData.eventDetails.keywords
       .map(keyword => keyword.id || "")
       .filter(e => e),

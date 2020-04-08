@@ -221,7 +221,9 @@
     },
     "filters": {
       "buttonRemoveSearchWord": "Remove search word",
+      "checkboxIsFree": "Free events",
       "textNoFilters": "No active search criterias",
+      "titleShowOnly": "Show only:",
       "titleSummary": "Selected search criteria:"
     },
     "noResultsInfo": {

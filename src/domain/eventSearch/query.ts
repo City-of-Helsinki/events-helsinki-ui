@@ -6,6 +6,7 @@ export const QUERY_EVENT_LIST = gql`
     $endDate: String
     $include: [String]
     $inLanguage: String
+    $isFree: Boolean
     $keywords: [String]
     $language: String
     $locations: [String]
@@ -24,6 +25,7 @@ export const QUERY_EVENT_LIST = gql`
       endDate: $endDate
       include: $include
       inLanguage: $inLanguage
+      isFree: $isFree
       keywords: $keywords
       language: $language
       locations: $locations

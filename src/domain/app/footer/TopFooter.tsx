@@ -37,6 +37,7 @@ const TopFooter: FunctionComponent = () => {
       dateTypes: [],
       districts: [],
       endDate: null,
+      isFree: false,
       keywords: [],
       places: [],
       publisher: null,

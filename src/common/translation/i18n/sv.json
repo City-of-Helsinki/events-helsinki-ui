@@ -221,7 +221,9 @@
     },
     "filters": {
       "buttonRemoveSearchWord": "Ta bort sökordet",
+      "checkboxIsFree": "Gratis evenemang",
       "textNoFilters": "Inga aktiva sökkriterier",
+      "titleShowOnly": "Visa endast:",
       "titleSummary": "Valda sökkriterier:"
     },
     "noResultsInfo": {

@@ -201,6 +201,7 @@ export const getEventFilters = (
     divisions: mappedDistricts.sort(),
     endDate: endDate,
     include,
+    isFree: params.get("isFree") === "true" ? true : undefined,
     keywords: mappedCategories.sort(),
     language,
     locations: places.sort(),
