@@ -33,8 +33,8 @@
     }
 
     .title {
-      font-size: 1.25rem;
-      line-height: 1.375rem;
+      font-size: var(--hds-text-xl);
+      line-height: var(--hds-text-base-line-height);
       font-weight: 600;
       color: $hel-black;
       text-decoration: none;
@@ -42,7 +42,7 @@
     }
 
     .description {
-      font-size: 1rem;
+      font-size: $body-medium-font-size;
     }
 
     .linkWrapper {
@@ -91,13 +91,6 @@
       .count {
         background-color: $hel-white;
         color: $hel-black;
-      }
-
-      .title {
-        @include respond-above(sm) {
-          font-size: 2rem;
-          line-height: 2.125rem;
-        }
       }
 
       .linkWrapper {
@@ -153,13 +146,6 @@
         @include respond-above(sm) {
           background-color: $hel-white;
           color: $hel-black;
-        }
-      }
-
-      .title {
-        @include respond-above(sm) {
-          font-size: 2.25rem;
-          line-height: 2.625rem;
         }
       }
 
