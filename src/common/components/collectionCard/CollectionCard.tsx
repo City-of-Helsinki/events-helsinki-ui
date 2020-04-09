@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import useLocale from "../../../hooks/useLocale";
 import IconLink from "../../components/link/IconLink";
 import SrOnly from "../srOnly/SrOnly";
+import TruncatedText from "../truncatedText/TruncatedText";
 import styles from "./collectionCard.module.scss";
 
 export interface CollectionCardType {
@@ -74,7 +75,12 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
           </Link>
           <SrOnly>{title}</SrOnly>
           {showDescription && !!description && (
-            <div className={styles.description}>{description}</div>
+            <TruncatedText
+              as="div"
+              className={styles.description}
+              maxLength={120}
+              text={description}
+            />
           )}
         </div>
 

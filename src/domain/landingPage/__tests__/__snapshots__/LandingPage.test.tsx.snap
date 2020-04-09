@@ -115,8 +115,8 @@ exports[`CollectionHero should match snapshot 1`] = `
                               <div class=\\"react-datepicker__week\\">
                                 <div class=\\"react-datepicker__day react-datepicker__day--006 react-datepicker__day--disabled\\" aria-label=\\"day-6\\" role=\\"option\\" aria-disabled=\\"true\\">6</div>
                                 <div class=\\"react-datepicker__day react-datepicker__day--007 react-datepicker__day--disabled\\" aria-label=\\"day-7\\" role=\\"option\\" aria-disabled=\\"true\\">7</div>
-                                <div class=\\"react-datepicker__day react-datepicker__day--008 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-8\\" role=\\"option\\" aria-disabled=\\"false\\">8</div>
-                                <div class=\\"react-datepicker__day react-datepicker__day--009\\" aria-label=\\"day-9\\" role=\\"option\\" aria-disabled=\\"false\\">9</div>
+                                <div class=\\"react-datepicker__day react-datepicker__day--008 react-datepicker__day--disabled\\" aria-label=\\"day-8\\" role=\\"option\\" aria-disabled=\\"true\\">8</div>
+                                <div class=\\"react-datepicker__day react-datepicker__day--009 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-9\\" role=\\"option\\" aria-disabled=\\"false\\">9</div>
                                 <div class=\\"react-datepicker__day react-datepicker__day--010\\" aria-label=\\"day-10\\" role=\\"option\\" aria-disabled=\\"false\\">10</div>
                                 <div class=\\"react-datepicker__day react-datepicker__day--011 react-datepicker__day--weekend\\" aria-label=\\"day-11\\" role=\\"option\\" aria-disabled=\\"false\\">11</div>
                                 <div class=\\"react-datepicker__day react-datepicker__day--012 react-datepicker__day--weekend\\" aria-label=\\"day-12\\" role=\\"option\\" aria-disabled=\\"false\\">12</div>
@@ -275,7 +275,7 @@ exports[`CollectionHero should match snapshot 1`] = `
             </div>
             <div class=\\"titleWrapper\\"><a aria-hidden=\\"true\\" class=\\"title\\" tabindex=\\"-1\\" href=\\"/fi/collection/1\\">Syksyn riehakkaimmat riennot</a>
               <div class=\\"srOnly\\">Syksyn riehakkaimmat riennot</div>
-              <div class=\\"description\\">Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.</div>
+              <div class=\\"description\\">Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque s...</div>
             </div>
             <div class=\\"linkWrapper\\"><a aria-label=\\"Siirry kokoelmaan: Syksyn riehakkaimmat riennot\\" class=\\"iconLink default\\" href=\\"/fi/collection/1\\">
                 <div class=\\"iconWrapper\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
