@@ -1,4 +1,5 @@
 @import "colors"; 
+@import "fonts"; 
 @import "layout"; 
 
 .collectionCardWrapper {
@@ -196,7 +197,7 @@
   
     .textWrapper {
       min-height: 40.5rem;
-      min-width: 20rem;;
+      min-width: 31.25rem;;
       flex: 1 1 0%;
 
       @include respond-below(sm) {
@@ -208,20 +209,21 @@
       }
 
       .title {
-        font-size: 3.25rem;
-        line-height: 2.875rem;
+        font-size: var(--hds-text-xxl);
+        line-height: var(--hds-text-base-line-height);
         margin-bottom: 1rem;
 
         @include respond-below(sm) {
-          font-size: 2rem;
-          line-height: 2.125rem;
+          font-size: var(--hds-text-xl);
           margin-bottom: 0.5rem;
         }
       }
 
       .description {
+        font-size: $body-large-font-size;
+
         @include respond-above(sm) {
-          font-size: 1.75rem;
+          font-size: $body-medium-font-size;
           line-height: 2.25rem;
         }
       }
