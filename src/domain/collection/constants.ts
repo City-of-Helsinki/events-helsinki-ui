@@ -65,4 +65,4 @@ export enum HERO_BACKGROUND_COLOR {
   SUOMENLINNA = "SUOMENLINNA"
 }
 // Amount of the similar collections
-export const SIMILAR_COLLECTIONS_AMOUNT = 8;
+export const SIMILAR_COLLECTIONS_AMOUNT = 4;
