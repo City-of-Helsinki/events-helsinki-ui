@@ -12,13 +12,11 @@ export type CollectionCardListLayout = "sm" | "md" | "mdAndSm" | "lg";
 interface CollectionCardContainerProps {
   collections: CollectionDetails[];
   layout: CollectionCardListLayout;
-  showDescription?: boolean;
 }
 
 const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
   collections,
-  layout,
-  showDescription = true
+  layout
 }) => {
   const locale = useLocale();
   return (
@@ -36,7 +34,7 @@ const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
             case "md":
               return "md";
             case "mdAndSm":
-              if (index % 3 === 0) {
+              if (index % 5 === 0 || index % 5 === 4) {
                 return "md";
               }
               return "sm";
@@ -52,7 +50,7 @@ const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
             description={getLocalisedString(collection.description, locale)}
             id={collection.id}
             size={size}
-            showDescription={showDescription}
+            showDescription={size === "lg"}
             title={getLocalisedString(collection.title, locale)}
           />
         );

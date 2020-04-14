@@ -116,14 +116,14 @@ exports[`CollectionHero should match snapshot 1`] = `
                                 <div class=\\"react-datepicker__day react-datepicker__day--006 react-datepicker__day--disabled\\" aria-label=\\"day-6\\" role=\\"option\\" aria-disabled=\\"true\\">6</div>
                                 <div class=\\"react-datepicker__day react-datepicker__day--007 react-datepicker__day--disabled\\" aria-label=\\"day-7\\" role=\\"option\\" aria-disabled=\\"true\\">7</div>
                                 <div class=\\"react-datepicker__day react-datepicker__day--008 react-datepicker__day--disabled\\" aria-label=\\"day-8\\" role=\\"option\\" aria-disabled=\\"true\\">8</div>
-                                <div class=\\"react-datepicker__day react-datepicker__day--009 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-9\\" role=\\"option\\" aria-disabled=\\"false\\">9</div>
-                                <div class=\\"react-datepicker__day react-datepicker__day--010\\" aria-label=\\"day-10\\" role=\\"option\\" aria-disabled=\\"false\\">10</div>
-                                <div class=\\"react-datepicker__day react-datepicker__day--011 react-datepicker__day--weekend\\" aria-label=\\"day-11\\" role=\\"option\\" aria-disabled=\\"false\\">11</div>
-                                <div class=\\"react-datepicker__day react-datepicker__day--012 react-datepicker__day--weekend\\" aria-label=\\"day-12\\" role=\\"option\\" aria-disabled=\\"false\\">12</div>
+                                <div class=\\"react-datepicker__day react-datepicker__day--009 react-datepicker__day--disabled\\" aria-label=\\"day-9\\" role=\\"option\\" aria-disabled=\\"true\\">9</div>
+                                <div class=\\"react-datepicker__day react-datepicker__day--010 react-datepicker__day--disabled\\" aria-label=\\"day-10\\" role=\\"option\\" aria-disabled=\\"true\\">10</div>
+                                <div class=\\"react-datepicker__day react-datepicker__day--011 react-datepicker__day--disabled react-datepicker__day--weekend\\" aria-label=\\"day-11\\" role=\\"option\\" aria-disabled=\\"true\\">11</div>
+                                <div class=\\"react-datepicker__day react-datepicker__day--012 react-datepicker__day--disabled react-datepicker__day--weekend\\" aria-label=\\"day-12\\" role=\\"option\\" aria-disabled=\\"true\\">12</div>
                               </div>
                               <div class=\\"react-datepicker__week\\">
-                                <div class=\\"react-datepicker__day react-datepicker__day--013\\" aria-label=\\"day-13\\" role=\\"option\\" aria-disabled=\\"false\\">13</div>
-                                <div class=\\"react-datepicker__day react-datepicker__day--014\\" aria-label=\\"day-14\\" role=\\"option\\" aria-disabled=\\"false\\">14</div>
+                                <div class=\\"react-datepicker__day react-datepicker__day--013 react-datepicker__day--disabled\\" aria-label=\\"day-13\\" role=\\"option\\" aria-disabled=\\"true\\">13</div>
+                                <div class=\\"react-datepicker__day react-datepicker__day--014 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-14\\" role=\\"option\\" aria-disabled=\\"false\\">14</div>
                                 <div class=\\"react-datepicker__day react-datepicker__day--015\\" aria-label=\\"day-15\\" role=\\"option\\" aria-disabled=\\"false\\">15</div>
                                 <div class=\\"react-datepicker__day react-datepicker__day--016\\" aria-label=\\"day-16\\" role=\\"option\\" aria-disabled=\\"false\\">16</div>
                                 <div class=\\"react-datepicker__day react-datepicker__day--017\\" aria-label=\\"day-17\\" role=\\"option\\" aria-disabled=\\"false\\">17</div>
@@ -287,8 +287,7 @@ exports[`CollectionHero should match snapshot 1`] = `
           </div>
         </div>
       </div>
-      <div class=\\"collectionCardContainer mdLayout\\"></div>
-      <div class=\\"collectionCardContainer smLayout\\"></div>
+      <div class=\\"collectionCardContainer mdAndSmLayout\\"></div>
     </div>
   </div>
 </div>"

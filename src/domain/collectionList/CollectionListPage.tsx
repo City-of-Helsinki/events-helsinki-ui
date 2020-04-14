@@ -19,9 +19,8 @@ const CollectionListPage: React.FC = () => {
   const collections = collectionsData
     ? collectionsData.collectionList.data
     : [];
-  const lgCollections = collections.slice(0, 1);
-  const mdAndSmCollections = collections.slice(1, 4);
-  const smCollections = collections.slice(4);
+  const largeCollections = collections.slice(0, 1);
+  const mdAndSmCollections = collections.slice(1);
 
   return (
     <PageWrapper
@@ -32,7 +31,10 @@ const CollectionListPage: React.FC = () => {
         <div className={styles.largeCardWrapper}>
           <Container>
             <h2>{t("collectionList.title")}</h2>
-            <CollectionCardContainer collections={lgCollections} layout="lg" />
+            <CollectionCardContainer
+              collections={largeCollections}
+              layout="lg"
+            />
           </Container>
         </div>
         <div className={styles.otherCardsWrapper}>
@@ -40,13 +42,6 @@ const CollectionListPage: React.FC = () => {
             <CollectionCardContainer
               collections={mdAndSmCollections}
               layout="mdAndSm"
-              showDescription={false}
-            />
-
-            <CollectionCardContainer
-              collections={smCollections}
-              layout="sm"
-              showDescription={false}
             />
           </Container>
         </div>
