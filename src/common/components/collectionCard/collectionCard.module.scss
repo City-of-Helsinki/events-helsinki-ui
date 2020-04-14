@@ -131,7 +131,8 @@
     }
   
     .textWrapper {
-      grid-template-columns: 1fr auto;
+      flex: 1 1 0%;
+      grid-template-rows: 1fr auto;
 
       @include respond-below(sm) {
         grid-template-columns: unset;
@@ -157,11 +158,6 @@
       .linkWrapper {
         display: flex;
         align-self: center;
-
-        @include respond-above(sm) { 
-          padding-top: 0;
-          padding-left: 1rem;
-        }
       }
     }
   }
