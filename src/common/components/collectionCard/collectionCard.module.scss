@@ -28,8 +28,7 @@
     }
 
     .titleWrapper {
-      align-self: center;
-      justify-content: center;
+      align-self: flex-start;
     }
 
     .title {
@@ -86,6 +85,12 @@
         position: absolute;
         top: 1rem;
         left: 1rem;
+      }
+
+      .titleWrapper {
+        @include respond-below(sm) {
+          align-self: center;
+        }
       }
 
       .count {
