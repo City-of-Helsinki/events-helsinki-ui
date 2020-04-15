@@ -10,10 +10,12 @@ import MultiSelectDropdown from "../../common/components/multiSelectDropdown/Mul
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import SearchLabel from "../../common/components/search/searchLabel/SearchLabel";
 import { AutosuggestMenuOption } from "../../common/types";
-import { CATEGORIES, DISTRICTS, TARGET_GROUPS } from "../../constants";
+import { CATEGORIES, TARGET_GROUPS } from "../../constants";
+import { useNeighborhoodListQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
 import IconPerson from "../../icons/IconPerson";
 import IconRead from "../../icons/IconRead";
+import getLocalisedString from "../../util/getLocalisedString";
 import getUrlParamAsArray from "../../util/getUrlParamAsString";
 import { getSearchQuery } from "../../util/searchUtils";
 import { translateValue } from "../../util/translateUtils";
@@ -43,17 +45,19 @@ const Search: FunctionComponent = () => {
 
   const isFree = searchParams.get("isFree") === "true" ? true : false;
 
+  const { data: neighborhoodsData } = useNeighborhoodListQuery();
+
   const districtOptions = React.useMemo(
     () =>
-      Object.keys(DISTRICTS)
-        .map(key => {
-          return {
-            text: translateValue("commons.districts.", key, t),
-            value: get(DISTRICTS, key)
-          };
-        })
-        .sort((a, b) => (a.text >= b.text ? 1 : -1)),
-    [t]
+      neighborhoodsData
+        ? neighborhoodsData.neighborhoodList.data
+            .map(neighborhood => ({
+              text: getLocalisedString(neighborhood.name, locale),
+              value: neighborhood.id
+            }))
+            .sort((a, b) => (a.text >= b.text ? 1 : -1))
+        : [],
+    [locale, neighborhoodsData]
   );
 
   const targetOptions = React.useMemo(

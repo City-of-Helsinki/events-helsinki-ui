@@ -1,11 +1,6 @@
 import { addDays, endOfWeek, isPast, startOfWeek, subDays } from "date-fns";
 
-import {
-  CATEGORIES,
-  DATE_TYPES,
-  DISTRICTS,
-  TARGET_GROUPS
-} from "../../constants";
+import { CATEGORIES, DATE_TYPES, TARGET_GROUPS } from "../../constants";
 import { EventListQuery } from "../../generated/graphql";
 import { formatDate } from "../../util/dateUtils";
 import getUrlParamAsString from "../../util/getUrlParamAsString";
@@ -120,21 +115,7 @@ export const getEventFilters = (
   const places = getUrlParamAsString(params, "places");
   const categories = getUrlParamAsString(params, "categories");
   const districts = getUrlParamAsString(params, "districts");
-  const mappedDistricts: string[] = districts.map(district => {
-    switch (district) {
-      case DISTRICTS.KULOSAARI:
-        return "kaupunginosa:mustikkamaa-korkeasaari,kaupunginosa:kulosaari";
-      case DISTRICTS.LAAJASALO:
-        return "kaupunginosa:laajasalo,kaupunginosa:villinki,kaupunginosa:santahamina";
-      case DISTRICTS.SUOMENLINNA:
-        return "kaupunginosa:suomenlinna,kaupunginosa:ulkosaaret";
-      case DISTRICTS.ÖSTERSUNDOM:
-        // eslint-disable-next-line max-len
-        return "kaupunginosa:östersundom,kaupunginosa:salmenkallio,kaupunginosa:talosaari,kaupunginosa:karhusaari,kaupunginosa:ultuna";
-      default:
-        return district;
-    }
-  });
+  const mappedDistricts: string[] = [...districts];
   // Get only events in Helsinki
   if (!mappedDistricts.length) {
     mappedDistricts.push("kunta:helsinki");

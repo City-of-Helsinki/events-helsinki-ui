@@ -6,9 +6,11 @@ import { useHistory, useLocation } from "react-router";
 import FilterButton, {
   FilterType
 } from "../../../../common/components/filterButton/FilterButton";
-import { DISTRICTS, TARGET_GROUPS } from "../../../../constants";
+import { TARGET_GROUPS } from "../../../../constants";
+import { useNeighborhoodListQuery } from "../../../../generated/graphql";
 import useLocale from "../../../../hooks/useLocale";
 import { formatDate } from "../../../../util/dateUtils";
+import getLocalisedString from "../../../../util/getLocalisedString";
 import getUrlParamAsString from "../../../../util/getUrlParamAsString";
 import { getSearchQuery } from "../../../../util/searchUtils";
 import { translateValue } from "../../../../util/translateUtils";
@@ -18,9 +20,6 @@ import KeywordFilter from "./KeywordFilter";
 import PlaceFilter from "./PlaceFilter";
 import PublisherFilter from "./PublisherFilter";
 import SearchWordFilter from "./SearchWordFilter";
-
-const findKeyOfDistrict = (value: string) =>
-  Object.keys(DISTRICTS).find(key => get(DISTRICTS, key) === value);
 
 const findKeyOfTarget = (value: string) =>
   Object.keys(TARGET_GROUPS).find(key => get(TARGET_GROUPS, key) === value);
@@ -47,6 +46,19 @@ const FilterSummary = () => {
           endDate ? formatDate(new Date(endDate)) : ""
         }`.trim()
       : "";
+
+  const { data: neighborhoodsData } = useNeighborhoodListQuery();
+
+  const getNeighorhoodName = React.useCallback(
+    (id: string) => {
+      const neighborhoods = neighborhoodsData
+        ? neighborhoodsData.neighborhoodList.data
+        : [];
+      const neighborhood = neighborhoods.find(item => item.id === id);
+      return getLocalisedString(neighborhood ? neighborhood.name : {}, locale);
+    },
+    [locale, neighborhoodsData]
+  );
 
   const handleFilterRemove = (value: string, type: FilterType) => {
     const endDate = searchParams.get("endDate");
@@ -155,11 +167,7 @@ const FilterSummary = () => {
               <FilterButton
                 key={district}
                 onRemove={handleFilterRemove}
-                text={translateValue(
-                  "commons.districts.",
-                  findKeyOfDistrict(district) || "",
-                  t
-                )}
+                text={getNeighorhoodName(district)}
                 type="district"
                 value={district}
               />

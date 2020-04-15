@@ -232,6 +232,18 @@ export type Mutation = {
   _empty?: Maybe<Scalars['String']>,
 };
 
+export type Neighborhood = {
+   __typename?: 'Neighborhood',
+  id: Scalars['ID'],
+  name: LocalizedObject,
+};
+
+export type NeighborhoodListResponse = {
+   __typename?: 'NeighborhoodListResponse',
+  meta: Meta,
+  data: Array<Neighborhood>,
+};
+
 export type Offer = {
    __typename?: 'Offer',
   isFree?: Maybe<Scalars['Boolean']>,
@@ -315,6 +327,7 @@ export type Query = {
   keywordDetails: Keyword,
   keywordList: KeywordListResponse,
   landingPage: LandingPage,
+  neighborhoodList: NeighborhoodListResponse,
   organizationDetails: OrganizationDetails,
   placeDetails: Place,
   placeList: PlaceListResponse,
@@ -796,6 +809,27 @@ export type LandingPageQuery = (
     )>, buttonUrl: Maybe<(
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )> }
+  ) }
+);
+
+export type NeighborhoodListQueryVariables = {};
+
+
+export type NeighborhoodListQuery = (
+  { __typename?: 'Query' }
+  & { neighborhoodList: (
+    { __typename?: 'NeighborhoodListResponse' }
+    & { meta: (
+      { __typename?: 'Meta' }
+      & Pick<Meta, 'count' | 'next' | 'previous'>
+    ), data: Array<(
+      { __typename?: 'Neighborhood' }
+      & Pick<Neighborhood, 'id'>
+      & { name: (
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      ) }
     )> }
   ) }
 );
@@ -1655,6 +1689,61 @@ export function useLandingPageLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type LandingPageQueryHookResult = ReturnType<typeof useLandingPageQuery>;
 export type LandingPageLazyQueryHookResult = ReturnType<typeof useLandingPageLazyQuery>;
 export type LandingPageQueryResult = ApolloReactCommon.QueryResult<LandingPageQuery, LandingPageQueryVariables>;
+export const NeighborhoodListDocument = gql`
+    query NeighborhoodList {
+  neighborhoodList {
+    meta {
+      count
+      next
+      previous
+    }
+    data {
+      id
+      name {
+        fi
+        sv
+        en
+      }
+    }
+  }
+}
+    `;
+export type NeighborhoodListProps<TChildProps = {}> = ApolloReactHoc.DataProps<NeighborhoodListQuery, NeighborhoodListQueryVariables> | TChildProps;
+export function withNeighborhoodList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  NeighborhoodListQuery,
+  NeighborhoodListQueryVariables,
+  NeighborhoodListProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, NeighborhoodListQuery, NeighborhoodListQueryVariables, NeighborhoodListProps<TChildProps>>(NeighborhoodListDocument, {
+      alias: 'neighborhoodList',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useNeighborhoodListQuery__
+ *
+ * To run a query within a React component, call `useNeighborhoodListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNeighborhoodListQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNeighborhoodListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNeighborhoodListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<NeighborhoodListQuery, NeighborhoodListQueryVariables>) {
+        return ApolloReactHooks.useQuery<NeighborhoodListQuery, NeighborhoodListQueryVariables>(NeighborhoodListDocument, baseOptions);
+      }
+export function useNeighborhoodListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NeighborhoodListQuery, NeighborhoodListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<NeighborhoodListQuery, NeighborhoodListQueryVariables>(NeighborhoodListDocument, baseOptions);
+        }
+export type NeighborhoodListQueryHookResult = ReturnType<typeof useNeighborhoodListQuery>;
+export type NeighborhoodListLazyQueryHookResult = ReturnType<typeof useNeighborhoodListLazyQuery>;
+export type NeighborhoodListQueryResult = ApolloReactCommon.QueryResult<NeighborhoodListQuery, NeighborhoodListQueryVariables>;
 export const PlaceDetailsDocument = gql`
     query PlaceDetails($id: ID!) {
   placeDetails(id: $id) {

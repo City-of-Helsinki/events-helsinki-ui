@@ -1,22 +1,19 @@
 import { IconSearch } from "hds-react";
-import get from "lodash/get";
 import map from "lodash/map";
 import React, { ChangeEvent, FunctionComponent } from "react";
-import { useTranslation } from "react-i18next";
 
 import {
   AUTOSUGGEST_KEYWORD_BLACK_LIST,
-  AUTOSUGGEST_TYPES,
-  DISTRICTS
+  AUTOSUGGEST_TYPES
 } from "../../../constants";
 import {
   useKeywordListQuery,
+  useNeighborhoodListQuery,
   usePlaceListQuery
 } from "../../../generated/graphql";
 import useDebounce from "../../../hooks/useDebounce";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
-import { translateValue } from "../../../util/translateUtils";
 import { AutosuggestMenuOption, Category as CategoryType } from "../../types";
 import Category from "../category/Category";
 import AutosuggestMenu from "./AutosuggestMenu";
@@ -41,7 +38,6 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   placeholder,
   searchValue
 }) => {
-  const { t } = useTranslation();
   const [focusedOption, setFocusedOption] = React.useState(-1);
   const locale = useLocale();
   const container = React.useRef<HTMLDivElement | null>(null);
@@ -50,17 +46,19 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const internalInputValue = useDebounce(searchValue, 300);
 
+  const { data: neighborhoodsData } = useNeighborhoodListQuery();
+
   const districtOptions = React.useMemo(
     () =>
-      Object.keys(DISTRICTS)
-        .map(key => {
-          return {
-            text: translateValue("commons.districts.", key, t),
-            value: get(DISTRICTS, key)
-          };
-        })
-        .sort((a, b) => (a.text >= b.text ? 1 : -1)),
-    [t]
+      neighborhoodsData
+        ? neighborhoodsData.neighborhoodList.data
+            .map(neighborhood => ({
+              text: getLocalisedString(neighborhood.name, locale),
+              value: neighborhood.id
+            }))
+            .sort((a, b) => (a.text >= b.text ? 1 : -1))
+        : [],
+    [locale, neighborhoodsData]
   );
 
   const { data: keywordsData, loading: loadingKeywords } = useKeywordListQuery({
