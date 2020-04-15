@@ -23,7 +23,9 @@ const Home: React.FC = () => {
     ? collectionsData.collectionList.data
     : [];
   const lgCollections = collections.slice(0, 1);
-  const mdAndSmCollections = collections.slice(1, 7);
+  // TODO: Change back after demo
+  // const mdAndSmCollections = collections.slice(1, 7);
+  const mdAndSmCollections = collections.slice(1, -1);
 
   return (
     <PageWrapper>
