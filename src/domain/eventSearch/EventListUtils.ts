@@ -3,7 +3,7 @@ import { addDays, endOfWeek, isPast, startOfWeek, subDays } from "date-fns";
 import { CATEGORIES, DATE_TYPES, TARGET_GROUPS } from "../../constants";
 import { EventListQuery } from "../../generated/graphql";
 import { formatDate } from "../../util/dateUtils";
-import getUrlParamAsString from "../../util/getUrlParamAsString";
+import getUrlParamAsArray from "../../util/getUrlParamAsArray";
 import {
   CULTURE_KEYWORDS,
   EVENT_SORT_OPTIONS,
@@ -98,7 +98,7 @@ export const getEventFilters = (
   language: "en" | "fi" | "sv"
 ) => {
   const dateFormat = "yyyy-MM-dd";
-  const dateTypes = getUrlParamAsString(params, "dateTypes");
+  const dateTypes = getUrlParamAsArray(params, "dateTypes");
   let { startDate, endDate } = getFilterDates(
     dateTypes,
     params.get("startDate"),
@@ -112,16 +112,16 @@ export const getEventFilters = (
     endDate = formatDate(new Date(), dateFormat);
   }
 
-  const places = getUrlParamAsString(params, "places");
-  const categories = getUrlParamAsString(params, "categories");
-  const districts = getUrlParamAsString(params, "districts");
+  const places = getUrlParamAsArray(params, "places");
+  const categories = getUrlParamAsArray(params, "categories");
+  const districts = getUrlParamAsArray(params, "districts");
   const mappedDistricts: string[] = [...districts];
   // Get only events in Helsinki
   if (!mappedDistricts.length) {
     mappedDistricts.push("kunta:helsinki");
   }
 
-  const keywords = getUrlParamAsString(params, "keywords");
+  const keywords = getUrlParamAsArray(params, "keywords");
   const mappedCategories: string[] = categories.map(category => {
     switch (category) {
       case CATEGORIES.CULTURE:
@@ -164,7 +164,7 @@ export const getEventFilters = (
     }
   });
 
-  const targets = getUrlParamAsString(params, "targets");
+  const targets = getUrlParamAsArray(params, "targets");
   const mappedTargets: string[] = targets.map(target => {
     switch (target) {
       case TARGET_GROUPS.CHILDREN:
@@ -183,6 +183,7 @@ export const getEventFilters = (
     endDate: endDate,
     include,
     isFree: params.get("isFree") === "true" ? true : undefined,
+    keywordNot: getUrlParamAsArray(params, "keywordNot"),
     keywords: mappedCategories.sort(),
     language,
     locations: places.sort(),

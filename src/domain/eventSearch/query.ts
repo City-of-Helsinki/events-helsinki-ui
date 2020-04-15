@@ -7,6 +7,7 @@ export const QUERY_EVENT_LIST = gql`
     $include: [String]
     $inLanguage: String
     $isFree: Boolean
+    $keywordNot: [String]
     $keywords: [String]
     $language: String
     $locations: [String]
@@ -26,6 +27,7 @@ export const QUERY_EVENT_LIST = gql`
       include: $include
       inLanguage: $inLanguage
       isFree: $isFree
+      keywordNot: $keywordNot
       keywords: $keywords
       language: $language
       locations: $locations

@@ -4,6 +4,7 @@ import renderer from "react-test-renderer";
 
 import {
   KeywordListDocument,
+  NeighborhoodListDocument,
   PlaceListDocument
 } from "../../../../generated/graphql";
 import SearchAutosuggest from "../SearchAutosuggest";
@@ -21,6 +22,18 @@ const mocks = [
       data: {
         keywordList: {
           result: [{ id: "1", name: { fi: "Test" } }]
+        }
+      }
+    }
+  },
+  {
+    request: {
+      query: NeighborhoodListDocument
+    },
+    result: {
+      data: {
+        neighborhoodList: {
+          data: []
         }
       }
     }

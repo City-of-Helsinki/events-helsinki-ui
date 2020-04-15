@@ -11,7 +11,7 @@ import { useNeighborhoodListQuery } from "../../../../generated/graphql";
 import useLocale from "../../../../hooks/useLocale";
 import { formatDate } from "../../../../util/dateUtils";
 import getLocalisedString from "../../../../util/getLocalisedString";
-import getUrlParamAsString from "../../../../util/getUrlParamAsString";
+import getUrlParamAsArray from "../../../../util/getUrlParamAsArray";
 import { getSearchQuery } from "../../../../util/searchUtils";
 import { translateValue } from "../../../../util/translateUtils";
 import DateFilter from "./DateFilter";
@@ -30,13 +30,13 @@ const FilterSummary = () => {
   const { push } = useHistory();
   const searchParams = new URLSearchParams(useLocation().search);
   const publisher = searchParams.get("publisher");
-  const categories = getUrlParamAsString(searchParams, "categories");
-  const dateTypes = getUrlParamAsString(searchParams, "dateTypes");
-  const districts = getUrlParamAsString(searchParams, "districts");
+  const categories = getUrlParamAsArray(searchParams, "categories");
+  const dateTypes = getUrlParamAsArray(searchParams, "dateTypes");
+  const districts = getUrlParamAsArray(searchParams, "districts");
   const isFree = searchParams.get("isFree") === "true" ? true : false;
-  const keywords = getUrlParamAsString(searchParams, "keywords");
-  const places = getUrlParamAsString(searchParams, "places");
-  const targets = getUrlParamAsString(searchParams, "targets");
+  const keywords = getUrlParamAsArray(searchParams, "keywords");
+  const places = getUrlParamAsArray(searchParams, "places");
+  const targets = getUrlParamAsArray(searchParams, "targets");
   const startDate = searchParams.get("startDate");
   const endDate = searchParams.get("endDate");
   const searchWord = searchParams.get("search");
@@ -80,6 +80,7 @@ const FilterSummary = () => {
           : districts,
       endDate: type === "date" ? null : endDate ? new Date(endDate) : null,
       isFree,
+      keywordNot: getUrlParamAsArray(searchParams, "keywordNot"),
       keywords:
         type === "keyword" || type === "yso"
           ? keywords.filter(keyword => keyword !== value)
@@ -108,6 +109,7 @@ const FilterSummary = () => {
       districts: [],
       endDate: null,
       isFree: false,
+      keywordNot: [],
       keywords: [],
       places: [],
       publisher: null,

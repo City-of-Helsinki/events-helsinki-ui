@@ -352,6 +352,7 @@ export type QueryEventListArgs = {
   inLanguage?: Maybe<Scalars['String']>,
   isFree?: Maybe<Scalars['Boolean']>,
   keywords?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>,
   language?: Maybe<Scalars['String']>,
   locations?: Maybe<Array<Maybe<Scalars['String']>>>,
   page?: Maybe<Scalars['Int']>,
@@ -602,6 +603,7 @@ export type EventListQueryVariables = {
   include?: Maybe<Array<Maybe<Scalars['String']>>>,
   inLanguage?: Maybe<Scalars['String']>,
   isFree?: Maybe<Scalars['Boolean']>,
+  keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>,
   keywords?: Maybe<Array<Maybe<Scalars['String']>>>,
   language?: Maybe<Scalars['String']>,
   locations?: Maybe<Array<Maybe<Scalars['String']>>>,
@@ -1266,8 +1268,8 @@ export type OrganizationDetailsQueryHookResult = ReturnType<typeof useOrganizati
 export type OrganizationDetailsLazyQueryHookResult = ReturnType<typeof useOrganizationDetailsLazyQuery>;
 export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($divisions: [String], $endDate: String, $include: [String], $inLanguage: String, $isFree: Boolean, $keywords: [String], $language: String, $locations: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $startDate: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
-  eventList(divisions: $divisions, endDate: $endDate, include: $include, inLanguage: $inLanguage, isFree: $isFree, keywords: $keywords, language: $language, locations: $locations, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, startDate: $startDate, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
+    query EventList($divisions: [String], $endDate: String, $include: [String], $inLanguage: String, $isFree: Boolean, $keywordNot: [String], $keywords: [String], $language: String, $locations: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $startDate: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+  eventList(divisions: $divisions, endDate: $endDate, include: $include, inLanguage: $inLanguage, isFree: $isFree, keywordNot: $keywordNot, keywords: $keywords, language: $language, locations: $locations, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, startDate: $startDate, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
     meta {
       count
       next
@@ -1373,6 +1375,7 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  *      include: // value for 'include'
  *      inLanguage: // value for 'inLanguage'
  *      isFree: // value for 'isFree'
+ *      keywordNot: // value for 'keywordNot'
  *      keywords: // value for 'keywords'
  *      language: // value for 'language'
  *      locations: // value for 'locations'

@@ -10,7 +10,8 @@ interface Filters {
   dateTypes: string[];
   districts: string[];
   endDate: Date | null;
-  isFree: boolean;
+  isFree?: boolean;
+  keywordNot: string[];
   keywords: string[];
   places: string[];
   publisher: string | null;
@@ -25,6 +26,7 @@ interface MappedFilters {
   districts: string[];
   endDate?: string | null;
   isFree?: boolean;
+  keywordNot: string[];
   keywords: string[];
   places: string[];
   publisher?: string | null;

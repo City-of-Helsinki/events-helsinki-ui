@@ -4,7 +4,7 @@ import { useHistory, useLocation } from "react-router";
 
 import Checkbox from "../../../../common/components/input/Checkbox";
 import useLocale from "../../../../hooks/useLocale";
-import getUrlParamAsString from "../../../../util/getUrlParamAsString";
+import getUrlParamAsString from "../../../../util/getUrlParamAsArray";
 import { getSearchQuery } from "../../../../util/searchUtils";
 import styles from "./extraFilters.module.scss";
 
@@ -33,6 +33,7 @@ const ExtraFilter: React.FC = () => {
       districts,
       endDate: endDate ? new Date(endDate) : null,
       isFree: e.target.checked,
+      keywordNot: getUrlParamAsString(searchParams, "keywordNot"),
       keywords,
       places,
       publisher,
@@ -41,7 +42,6 @@ const ExtraFilter: React.FC = () => {
       targets
     });
 
-    console.log(search);
     push({ pathname: `/${locale}/events`, search });
   };
 

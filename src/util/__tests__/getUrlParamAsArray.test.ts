@@ -1,9 +1,9 @@
-import getUrlParamAsString from "../getUrlParamAsString";
+import getUrlParamAsArray from "../getUrlParamAsArray";
 
-describe("getUrlParamAsString function", () => {
+describe("getUrlParamAsArray function", () => {
   it("should return url param as an array", () => {
     expect(
-      getUrlParamAsString(
+      getUrlParamAsArray(
         new URLSearchParams(
           "?param=value1, value2&param=value3, value4, value1 "
         ),

@@ -16,7 +16,7 @@ import useLocale from "../../hooks/useLocale";
 import IconPerson from "../../icons/IconPerson";
 import IconRead from "../../icons/IconRead";
 import getLocalisedString from "../../util/getLocalisedString";
-import getUrlParamAsArray from "../../util/getUrlParamAsString";
+import getUrlParamAsArray from "../../util/getUrlParamAsArray";
 import { getSearchQuery } from "../../util/searchUtils";
 import { translateValue } from "../../util/translateUtils";
 import Container from "../app/layout/Container";
@@ -138,9 +138,10 @@ const Search: FunctionComponent = () => {
       districts,
       endDate,
       isFree,
+      keywordNot: getUrlParamAsArray(searchParams, "keywordNot"),
       keywords,
       places,
-      publisher: null,
+      publisher: searchParams.get("publisher"),
       search: searchValue,
       startDate,
       targets
@@ -156,6 +157,7 @@ const Search: FunctionComponent = () => {
     locale,
     places,
     push,
+    searchParams,
     searchValue,
     selectedCategories,
     startDate,
@@ -233,9 +235,10 @@ const Search: FunctionComponent = () => {
       districts: newDistricts,
       endDate,
       isFree,
+      keywordNot: [],
       keywords: newKeywords,
       places: newPlaces,
-      publisher: null,
+      publisher: searchParams.get("publisher"),
       search: newSearchValue,
       startDate,
       targets

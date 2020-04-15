@@ -123,8 +123,8 @@ exports[`CollectionHero should match snapshot 1`] = `
                               </div>
                               <div class=\\"react-datepicker__week\\">
                                 <div class=\\"react-datepicker__day react-datepicker__day--013 react-datepicker__day--disabled\\" aria-label=\\"day-13\\" role=\\"option\\" aria-disabled=\\"true\\">13</div>
-                                <div class=\\"react-datepicker__day react-datepicker__day--014 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-14\\" role=\\"option\\" aria-disabled=\\"false\\">14</div>
-                                <div class=\\"react-datepicker__day react-datepicker__day--015\\" aria-label=\\"day-15\\" role=\\"option\\" aria-disabled=\\"false\\">15</div>
+                                <div class=\\"react-datepicker__day react-datepicker__day--014 react-datepicker__day--disabled\\" aria-label=\\"day-14\\" role=\\"option\\" aria-disabled=\\"true\\">14</div>
+                                <div class=\\"react-datepicker__day react-datepicker__day--015 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-15\\" role=\\"option\\" aria-disabled=\\"false\\">15</div>
                                 <div class=\\"react-datepicker__day react-datepicker__day--016\\" aria-label=\\"day-16\\" role=\\"option\\" aria-disabled=\\"false\\">16</div>
                                 <div class=\\"react-datepicker__day react-datepicker__day--017\\" aria-label=\\"day-17\\" role=\\"option\\" aria-disabled=\\"false\\">17</div>
                                 <div class=\\"react-datepicker__day react-datepicker__day--018 react-datepicker__day--weekend\\" aria-label=\\"day-18\\" role=\\"option\\" aria-disabled=\\"false\\">18</div>
