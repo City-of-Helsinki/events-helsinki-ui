@@ -9,13 +9,14 @@ function useResetState<S>(
   React.useEffect(() => {
     let ignore = false;
 
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       if (!ignore) {
         setState(initialState);
       }
     }, resetTime);
 
     return () => {
+      clearTimeout(timer);
       ignore = true;
     };
   }, [initialState, resetTime, state]);

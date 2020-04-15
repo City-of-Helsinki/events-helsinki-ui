@@ -26,12 +26,9 @@ const ListItem: React.FC<{
 
   React.useEffect(() => {
     if (isFocused && component.current) {
-      // Set short timeout to set focus correctly
-      setTimeout(() => {
-        if (component.current) {
-          component.current.focus();
-        }
-      }, 1);
+      if (component.current) {
+        component.current.focus();
+      }
     }
   }, [isFocused]);
 

@@ -121,14 +121,6 @@ const DateSelector: FunctionComponent<Props> = ({
   }, [handleDocumentFocusin, handleDocumentKeyDown]);
 
   const handleToggleIsCustomDate = () => {
-    if (isCustomDate) {
-      setTimeout(() => {
-        if (toggleBtnRef && toggleBtnRef.current) {
-          toggleBtnRef.current.focus();
-        }
-      }, 1);
-    }
-
     toggleIsCustomDate();
   };
 
@@ -154,6 +146,14 @@ const DateSelector: FunctionComponent<Props> = ({
       return dateTypeLabels.join();
     }
   }, [dateTypes, endDate, locale, startDate, t]);
+
+  React.useEffect(() => {
+    if (isComponentFocused() && !isCustomDate) {
+      if (toggleBtnRef.current) {
+        toggleBtnRef.current.focus();
+      }
+    }
+  }, [isComponentFocused, isCustomDate]);
 
   return (
     <div className={styles.dateSelector} ref={dateSelector}>
