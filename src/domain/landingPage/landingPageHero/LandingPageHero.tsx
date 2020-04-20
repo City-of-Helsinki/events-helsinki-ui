@@ -2,37 +2,25 @@ import React from "react";
 
 import Button from "../../../common/components/button/Button";
 import Container from "../../../domain/app/layout/Container";
-import { LandingPageQuery } from "../../../generated/graphql";
+import { LandingPage } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
 import styles from "./landingPageHero.module.scss";
 
 interface Props {
-  landingPageData: LandingPageQuery;
+  landingPage: LandingPage;
 }
 
-const LandingPageHero: React.FC<Props> = ({ landingPageData }) => {
+const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
   const locale = useLocale();
 
-  const title = getLocalisedString(
-    landingPageData.landingPage.title || {},
-    locale
-  );
+  const title = getLocalisedString(landingPage.title || {}, locale);
 
-  const subtitle = getLocalisedString(
-    landingPageData.landingPage.description || {},
-    locale
-  );
+  const subtitle = getLocalisedString(landingPage.description || {}, locale);
 
-  const buttonText = getLocalisedString(
-    landingPageData.landingPage.buttonText || {},
-    locale
-  );
+  const buttonText = getLocalisedString(landingPage.buttonText || {}, locale);
 
-  const buttonUrl = getLocalisedString(
-    landingPageData.landingPage.buttonUrl || {},
-    locale
-  );
+  const buttonUrl = getLocalisedString(landingPage.buttonUrl || {}, locale);
 
   const moveToCollectionPage = () => {
     window.open(buttonUrl, "_self");

@@ -1,24 +1,21 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-import { LandingPageQuery } from "../../../generated/graphql";
+import { LandingPage } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
 import { LANDING_PAGE_SOME_IMAGE } from "../constants";
 
 interface Props {
-  landingPageData: LandingPageQuery;
+  landingPage: LandingPage;
 }
 
-const EventPageMeta: React.FC<Props> = ({ landingPageData }) => {
+const EventPageMeta: React.FC<Props> = ({ landingPage }) => {
   const locale = useLocale();
 
-  const title = getLocalisedString(
-    landingPageData.landingPage.pageTitle || {},
-    locale
-  );
+  const title = getLocalisedString(landingPage.pageTitle || {}, locale);
   const description = getLocalisedString(
-    landingPageData.landingPage.metaInformation || {},
+    landingPage.metaInformation || {},
     locale
   );
 

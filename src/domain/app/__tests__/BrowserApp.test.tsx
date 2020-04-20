@@ -30,9 +30,10 @@ const mocks = [
   },
   {
     request: {
-      query: LandingPageDocument
+      query: LandingPageDocument,
+      variables: { visibleOnFrontpage: true }
     },
-    result: { data: mockLandingPage }
+    result: { data: { landingPage: { data: [mockLandingPage] } } }
   }
 ];
 

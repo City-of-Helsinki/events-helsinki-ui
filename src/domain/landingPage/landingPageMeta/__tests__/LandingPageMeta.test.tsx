@@ -5,7 +5,7 @@ import { LANDING_PAGE_SOME_IMAGE, mockLandingPage } from "../../constants";
 import LandingPageMeta from "../LandingPageMeta";
 
 const getWrapper = () =>
-  render(<LandingPageMeta landingPageData={mockLandingPage} />);
+  render(<LandingPageMeta landingPage={mockLandingPage} />);
 
 // Rendering EventPageMeta creates a side effect--the document head will be
 // mutated. This mutation will persist between tests. This can be problematic:
@@ -30,8 +30,8 @@ afterEach(() => {
 });
 
 test("applies expected metadata", async () => {
-  const landingPageTitle = mockLandingPage.landingPage.pageTitle.fi;
-  const landingPageDescription = mockLandingPage.landingPage.metaInformation.fi;
+  const landingPageTitle = mockLandingPage.pageTitle.fi;
+  const landingPageDescription = mockLandingPage.metaInformation.fi;
   const landingPageImage = LANDING_PAGE_SOME_IMAGE;
 
   // This function is usually used for the helpers it returns. However, the

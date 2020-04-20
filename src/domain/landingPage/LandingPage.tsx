@@ -17,10 +17,17 @@ import Search from "./landingPageSearch/LandingPageSearch";
 const Home: React.FC = () => {
   const { t } = useTranslation();
 
-  const { data: landingPageData, loading } = useLandingPageQuery();
+  const { data: landingPageData, loading } = useLandingPageQuery({
+    variables: { visibleOnFrontpage: true }
+  });
   const { data: collectionsData } = useCollectionListQuery({
     variables: { visibleOnFrontpage: true }
   });
+
+  const landingPage =
+    landingPageData && landingPageData.landingPage.data.length
+      ? landingPageData.landingPage.data[0]
+      : undefined;
   const collections = collectionsData
     ? collectionsData.collectionList.data
     : [];
@@ -32,10 +39,14 @@ const Home: React.FC = () => {
   return (
     <PageWrapper>
       <LoadingSpinner isLoading={loading}>
-        {!!landingPageData && (
+        {!!landingPage && (
           <>
-            <LandingPageMeta landingPageData={landingPageData} />
-            <LandingPageHero landingPageData={landingPageData} />
+            <LandingPageMeta landingPage={landingPage} />
+            <LandingPageHero landingPage={landingPage} />
+          </>
+        )}
+        {!!collectionsData && (
+          <>
             <Container>
               <Search />
             </Container>

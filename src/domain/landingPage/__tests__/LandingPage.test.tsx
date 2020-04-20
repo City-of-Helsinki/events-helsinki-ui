@@ -30,9 +30,10 @@ const mocks = [
   },
   {
     request: {
-      query: LandingPageDocument
+      query: LandingPageDocument,
+      variables: { visibleOnFrontpage: true }
     },
-    result: { data: mockLandingPage }
+    result: { data: { landingPage: { data: [mockLandingPage] } } }
   }
 ];
 
@@ -62,7 +63,7 @@ test("CollectionHero should match snapshot", async () => {
       container
     );
 
-    await wait(0); // wait for response
+    await wait(); // wait for response
   });
 
   expect(pretty(container.innerHTML)).toMatchSnapshot();

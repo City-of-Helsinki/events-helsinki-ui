@@ -213,6 +213,11 @@ export type LandingPage = {
   liveRevision?: Maybe<Scalars['Int']>,
 };
 
+export type LandingPageResponse = {
+   __typename?: 'LandingPageResponse',
+  data: Array<LandingPage>,
+};
+
 export type LocalizedObject = {
    __typename?: 'LocalizedObject',
   fi?: Maybe<Scalars['String']>,
@@ -326,7 +331,7 @@ export type Query = {
   eventsByIds: Array<EventDetails>,
   keywordDetails: Keyword,
   keywordList: KeywordListResponse,
-  landingPage: LandingPage,
+  landingPage: LandingPageResponse,
   neighborhoodList: NeighborhoodListResponse,
   organizationDetails: OrganizationDetails,
   placeDetails: Place,
@@ -390,6 +395,11 @@ export type QueryKeywordListArgs = {
   showAllKeywords?: Maybe<Scalars['Boolean']>,
   sort?: Maybe<Scalars['String']>,
   text?: Maybe<Scalars['String']>
+};
+
+
+export type QueryLandingPageArgs = {
+  visibleOnFrontpage?: Maybe<Scalars['Boolean']>
 };
 
 
@@ -793,31 +803,37 @@ export type KeywordListQuery = (
   ) }
 );
 
-export type LandingPageQueryVariables = {};
+export type LandingPageQueryVariables = {
+  visibleOnFrontpage?: Maybe<Scalars['Boolean']>
+};
 
 
 export type LandingPageQuery = (
   { __typename?: 'Query' }
   & { landingPage: (
-    { __typename?: 'LandingPage' }
-    & { pageTitle: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )>, metaInformation: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )>, title: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )>, description: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )>, buttonText: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )>, buttonUrl: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    { __typename?: 'LandingPageResponse' }
+    & { data: Array<(
+      { __typename?: 'LandingPage' }
+      & Pick<LandingPage, 'id'>
+      & { pageTitle: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )>, metaInformation: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )>, title: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )>, description: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )>, buttonText: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )>, buttonUrl: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )> }
     )> }
   ) }
 );
@@ -1629,37 +1645,40 @@ export type KeywordListQueryHookResult = ReturnType<typeof useKeywordListQuery>;
 export type KeywordListLazyQueryHookResult = ReturnType<typeof useKeywordListLazyQuery>;
 export type KeywordListQueryResult = ApolloReactCommon.QueryResult<KeywordListQuery, KeywordListQueryVariables>;
 export const LandingPageDocument = gql`
-    query LandingPage {
-  landingPage {
-    pageTitle {
-      fi
-      sv
-      en
-    }
-    metaInformation {
-      fi
-      sv
-      en
-    }
-    title {
-      fi
-      sv
-      en
-    }
-    description {
-      fi
-      sv
-      en
-    }
-    buttonText {
-      fi
-      sv
-      en
-    }
-    buttonUrl {
-      fi
-      sv
-      en
+    query LandingPage($visibleOnFrontpage: Boolean) {
+  landingPage(visibleOnFrontpage: $visibleOnFrontpage) {
+    data {
+      id
+      pageTitle {
+        fi
+        sv
+        en
+      }
+      metaInformation {
+        fi
+        sv
+        en
+      }
+      title {
+        fi
+        sv
+        en
+      }
+      description {
+        fi
+        sv
+        en
+      }
+      buttonText {
+        fi
+        sv
+        en
+      }
+      buttonUrl {
+        fi
+        sv
+        en
+      }
     }
   }
 }
@@ -1688,6 +1707,7 @@ export function withLandingPage<TProps, TChildProps = {}>(operationOptions?: Apo
  * @example
  * const { data, loading, error } = useLandingPageQuery({
  *   variables: {
+ *      visibleOnFrontpage: // value for 'visibleOnFrontpage'
  *   },
  * });
  */

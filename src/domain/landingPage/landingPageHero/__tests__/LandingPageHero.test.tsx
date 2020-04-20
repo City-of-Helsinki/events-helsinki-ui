@@ -5,7 +5,7 @@ import { mockLandingPage } from "../../constants";
 import LandingPageHero from "../LandingPageHero";
 
 test("LandingPageHero matches snapshot", () => {
-  const tree = mount(<LandingPageHero landingPageData={mockLandingPage} />);
+  const tree = mount(<LandingPageHero landingPage={mockLandingPage} />);
   expect(tree.html()).toMatchSnapshot();
 });
 
