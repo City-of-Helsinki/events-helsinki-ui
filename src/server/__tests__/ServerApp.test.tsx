@@ -16,7 +16,8 @@ import ServerApp from "../ServerApp";
 const mocks = [
   {
     request: {
-      query: CollectionListDocument
+      query: CollectionListDocument,
+      variables: { visibleOnFrontpage: true }
     },
     result: {
       data: {

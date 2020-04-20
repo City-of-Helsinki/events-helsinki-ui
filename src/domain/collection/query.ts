@@ -49,8 +49,8 @@ export const QUERY_COLLECTION_DETAILS = gql`
       }
     }
   }
-  query CollectionList {
-    collectionList {
+  query CollectionList($visibleOnFrontpage: Boolean) {
+    collectionList(visibleOnFrontpage: $visibleOnFrontpage) {
       data {
         id
         curatedEvents

@@ -17,7 +17,8 @@ import AppRoutes from "../AppRoutes";
 const mocks = [
   {
     request: {
-      query: CollectionListDocument
+      query: CollectionListDocument,
+      variables: { visibleOnFrontpage: true }
     },
     result: {
       data: {

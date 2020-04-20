@@ -339,6 +339,11 @@ export type QueryCollectionDetailsArgs = {
 };
 
 
+export type QueryCollectionListArgs = {
+  visibleOnFrontpage?: Maybe<Scalars['Boolean']>
+};
+
+
 export type QueryEventDetailsArgs = {
   id?: Maybe<Scalars['ID']>,
   include?: Maybe<Array<Maybe<Scalars['String']>>>
@@ -451,7 +456,9 @@ export type CollectionDetailsQuery = (
   ) }
 );
 
-export type CollectionListQueryVariables = {};
+export type CollectionListQueryVariables = {
+  visibleOnFrontpage?: Maybe<Scalars['Boolean']>
+};
 
 
 export type CollectionListQuery = (
@@ -971,8 +978,8 @@ export type CollectionDetailsQueryHookResult = ReturnType<typeof useCollectionDe
 export type CollectionDetailsLazyQueryHookResult = ReturnType<typeof useCollectionDetailsLazyQuery>;
 export type CollectionDetailsQueryResult = ApolloReactCommon.QueryResult<CollectionDetailsQuery, CollectionDetailsQueryVariables>;
 export const CollectionListDocument = gql`
-    query CollectionList {
-  collectionList {
+    query CollectionList($visibleOnFrontpage: Boolean) {
+  collectionList(visibleOnFrontpage: $visibleOnFrontpage) {
     data {
       id
       curatedEvents
@@ -1045,6 +1052,7 @@ export function withCollectionList<TProps, TChildProps = {}>(operationOptions?: 
  * @example
  * const { data, loading, error } = useCollectionListQuery({
  *   variables: {
+ *      visibleOnFrontpage: // value for 'visibleOnFrontpage'
  *   },
  * });
  */
