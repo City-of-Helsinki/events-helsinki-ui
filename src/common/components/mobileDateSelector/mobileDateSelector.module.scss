@@ -11,10 +11,10 @@
   }
 
   .iconCalendar {
-    stroke: $hel-white;
+    fill: $hel-white;
 
     &.isSelected {
-      stroke: #464646;
+      fill: #464646;
     }
   }
 }
