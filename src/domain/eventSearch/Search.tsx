@@ -44,6 +44,7 @@ const Search: FunctionComponent = () => {
   const { push } = useHistory();
 
   const isFree = searchParams.get("isFree") === "true" ? true : false;
+  const keywordNot = getUrlParamAsArray(searchParams, "keywordNot");
 
   const { data: neighborhoodsData } = useNeighborhoodListQuery();
 
@@ -138,7 +139,7 @@ const Search: FunctionComponent = () => {
       districts,
       endDate,
       isFree,
-      keywordNot: getUrlParamAsArray(searchParams, "keywordNot"),
+      keywordNot: keywordNot,
       keywords,
       places,
       publisher: searchParams.get("publisher"),
@@ -153,6 +154,7 @@ const Search: FunctionComponent = () => {
     districts,
     endDate,
     isFree,
+    keywordNot,
     keywords,
     locale,
     places,
@@ -235,7 +237,7 @@ const Search: FunctionComponent = () => {
       districts: newDistricts,
       endDate,
       isFree,
-      keywordNot: [],
+      keywordNot: keywordNot,
       keywords: newKeywords,
       places: newPlaces,
       publisher: searchParams.get("publisher"),
