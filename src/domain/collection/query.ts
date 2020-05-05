@@ -4,6 +4,7 @@ export const QUERY_COLLECTION_DETAILS = gql`
   query CollectionDetails($id: ID!) {
     collectionDetails(id: $id) {
       id
+      heroImage
       boxColor
       curatedEvents
       curatedEventsTitle {
@@ -53,6 +54,7 @@ export const QUERY_COLLECTION_DETAILS = gql`
     collectionList(visibleOnFrontpage: $visibleOnFrontpage) {
       data {
         id
+        heroImage
         curatedEvents
         curatedEventsTitle {
           en

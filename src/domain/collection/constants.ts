@@ -29,6 +29,7 @@ export const mockCollection = {
       fi: "Kaikki syksyn parhaat tapahtumat",
       sv: "Höstens bästa händelser"
     },
+    heroImage: "testurl.png",
     id: "1",
     linkText: {
       en: "Read more on the project website",
@@ -57,6 +58,8 @@ export const mockCollection = {
     }
   }
 };
+
+export const COLLECTION_DEFAULT_IMAGE = "/images/collection-background.png";
 
 export enum HERO_BACKGROUND_COLOR {
   COPPER = "COPPER",

@@ -3,7 +3,7 @@
 exports[`CollectionHero should match snapshot 1`] = `
 "<div class=\\"collectionHero suomenlinnaBackgroundColor\\">
   <div class=\\"_3bpMzMAhrIXFE_Fhb1uQIe _2-4gyOGQEh2YieZueB46Ns QVp4hqqdSgkC7LQ6TUrvN _3QP6Ldk0UbEymHj58G4oqZ imageWithCard\\">
-    <div class=\\"_1hVrujFmB7V4KDS7Q_YsiH\\" style=\\"background-image: url(collection-background.png);\\"></div>
+    <div class=\\"_1hVrujFmB7V4KDS7Q_YsiH\\" style=\\"background-image: url(testurl.png);\\"></div>
     <div class=\\"_2JffS1LAp-wT02BkmD22S6\\">
       <div class=\\"ygwv-NHv5x-owcnMuWwD8 _2jg5k3UZ6zG1RCekZQQ4UY\\">
         <h1>Syksyn riehakkaimmat riennot</h1>

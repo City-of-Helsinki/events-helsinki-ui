@@ -8,6 +8,7 @@ test("CollectionCard matches snapshot", () => {
   const component = renderer.create(
     <MemoryRouter>
       <CollectionCard
+        backgroundImage={"imageurl.png"}
         count={120}
         description="Lorem ipsum"
         id="1"

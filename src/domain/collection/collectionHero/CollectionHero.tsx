@@ -2,13 +2,15 @@ import classNames from "classnames";
 import { IconAngleRight, ImageWithCard } from "hds-react";
 import React from "react";
 
-import bgImage from "../../../assets/images/png/collection-background.png";
 import TextWithLineBreaks from "../../../common/components/textWithLineBreaks/TextWithLineBreaks";
 import { CollectionDetailsQuery } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
 import CollectionShareLinks from "../collectionShareLinks/CollectionShareLinks";
-import { getHeroBackgroundColor } from "../CollectionUtils";
+import {
+  getHeroBackgroundColor,
+  getHeroBackgroundImage
+} from "../CollectionUtils";
 import styles from "./collectionHero.module.scss";
 
 interface Props {
@@ -47,6 +49,10 @@ const CollectionHero: React.FC<Props> = ({ collectionData }) => {
     collectionData.collectionDetails
   );
 
+  const backgroundImage = getHeroBackgroundImage(
+    collectionData.collectionDetails
+  );
+
   return (
     <div
       className={classNames(
@@ -56,7 +62,7 @@ const CollectionHero: React.FC<Props> = ({ collectionData }) => {
     >
       <ImageWithCard
         className={styles.imageWithCard}
-        src={bgImage}
+        src={backgroundImage}
         cardLayout="hover"
         color="tertiary"
       >

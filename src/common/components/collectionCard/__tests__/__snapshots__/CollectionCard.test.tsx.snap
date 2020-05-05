@@ -10,6 +10,11 @@ exports[`CollectionCard matches snapshot 1`] = `
     className="imageWrapper"
     href="/fi/collection/1"
     onClick={[Function]}
+    style={
+      Object {
+        "backgroundImage": "url(imageurl.png)",
+      }
+    }
     tabIndex={-1}
   />
   <div

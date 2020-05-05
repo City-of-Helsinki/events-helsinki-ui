@@ -1,6 +1,6 @@
 import { CollectionDetails } from "../../generated/graphql";
 import { Language } from "../../types";
-import { HERO_BACKGROUND_COLOR } from "./constants";
+import { COLLECTION_DEFAULT_IMAGE, HERO_BACKGROUND_COLOR } from "./constants";
 import { CollectionInList } from "./types";
 
 /**
@@ -20,6 +20,17 @@ export const getHeroBackgroundColor = (
     default:
       return HERO_BACKGROUND_COLOR.ENGEL.toLowerCase();
   }
+};
+
+/**
+ * Get hero text content background image
+ * @param {object} collection
+ * @return {string}
+ */
+export const getHeroBackgroundImage = (
+  collection: CollectionDetails
+): string => {
+  return collection.heroImage || COLLECTION_DEFAULT_IMAGE;
 };
 
 /**

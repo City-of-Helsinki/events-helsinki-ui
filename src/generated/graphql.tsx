@@ -29,6 +29,7 @@ export type CollectionDetails = {
   firstPublishedAt?: Maybe<Scalars['String']>,
   goLiveAt?: Maybe<Scalars['String']>,
   hasUnpublishedChanges?: Maybe<Scalars['Boolean']>,
+  heroImage?: Maybe<Scalars['String']>,
   lastPublishedAt?: Maybe<Scalars['String']>,
   latestRevisionCreatedAt?: Maybe<Scalars['String']>,
   linkText: LocalizedObject,
@@ -279,7 +280,7 @@ export type OrganizationDetails = {
 
 export type Place = {
    __typename?: 'Place',
-  id?: Maybe<Scalars['ID']>,
+  id: Scalars['ID'],
   divisions?: Maybe<Array<Division>>,
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
@@ -437,7 +438,7 @@ export type CollectionDetailsQuery = (
   { __typename?: 'Query' }
   & { collectionDetails: (
     { __typename?: 'CollectionDetails' }
-    & Pick<CollectionDetails, 'id' | 'boxColor' | 'curatedEvents' | 'eventListQuery'>
+    & Pick<CollectionDetails, 'id' | 'heroImage' | 'boxColor' | 'curatedEvents' | 'eventListQuery'>
     & { curatedEventsTitle: (
       { __typename?: 'LocalizedObject' }
       & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
@@ -477,7 +478,7 @@ export type CollectionListQuery = (
     { __typename?: 'CollectionListResponse' }
     & { data: Array<(
       { __typename?: 'CollectionDetails' }
-      & Pick<CollectionDetails, 'id' | 'curatedEvents' | 'eventListQuery'>
+      & Pick<CollectionDetails, 'id' | 'heroImage' | 'curatedEvents' | 'eventListQuery'>
       & { curatedEventsTitle: (
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
@@ -910,6 +911,7 @@ export const CollectionDetailsDocument = gql`
     query CollectionDetails($id: ID!) {
   collectionDetails(id: $id) {
     id
+    heroImage
     boxColor
     curatedEvents
     curatedEventsTitle {
@@ -998,6 +1000,7 @@ export const CollectionListDocument = gql`
   collectionList(visibleOnFrontpage: $visibleOnFrontpage) {
     data {
       id
+      heroImage
       curatedEvents
       curatedEventsTitle {
         en

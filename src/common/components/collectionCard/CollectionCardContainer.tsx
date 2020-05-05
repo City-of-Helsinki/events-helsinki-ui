@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 
+import { getHeroBackgroundImage } from "../../../domain/collection/CollectionUtils";
 import { CollectionDetails } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
@@ -46,6 +47,7 @@ const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
         return (
           <CollectionCard
             key={index}
+            backgroundImage={getHeroBackgroundImage(collection)}
             count={collection.curatedEvents.length}
             description={getLocalisedString(collection.description, locale)}
             id={collection.id}

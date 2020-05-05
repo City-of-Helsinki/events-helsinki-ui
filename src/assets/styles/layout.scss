@@ -30,7 +30,7 @@ $breakpoints: (
     @media (min-width: $breakpoint-value) {
       @content;
     }
-  
+
   // If the breakpoint doesn't exist in the map.
   } @else {
 
@@ -57,7 +57,7 @@ $breakpoints: (
     @media (max-width: ($breakpoint-value - 1)) {
       @content;
     }
-  
+
   // If the breakpoint doesn't exist in the map.
   } @else {
 
@@ -85,7 +85,7 @@ $breakpoints: (
     @media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
       @content;
     }
-  
+
   // If one or both of the breakpoints don't exist.
   } @else {
 

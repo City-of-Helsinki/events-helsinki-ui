@@ -12,6 +12,7 @@ import TruncatedText from "../truncatedText/TruncatedText";
 import styles from "./collectionCard.module.scss";
 
 export interface CollectionCardType {
+  backgroundImage: string;
   count: number;
   description: string;
   id: string;
@@ -26,6 +27,7 @@ interface CollectionCardProps extends CollectionCardType {
 }
 
 const CollectionCard: React.FC<CollectionCardProps> = ({
+  backgroundImage,
   count,
   description,
   id,
@@ -54,6 +56,7 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
           title
         })}
         className={styles.imageWrapper}
+        style={{ backgroundImage: `url(${backgroundImage})` }}
         tabIndex={-1}
         to={collectionUrl}
       ></Link>

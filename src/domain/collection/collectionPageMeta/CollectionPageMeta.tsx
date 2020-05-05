@@ -1,10 +1,10 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-import bgImage from "../../../assets/images/png/collection-background.png";
 import { CollectionDetailsQuery } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
+import { getHeroBackgroundImage } from "../CollectionUtils";
 
 export interface CollectionPageMetaProps {
   collectionData: CollectionDetailsQuery;
@@ -25,7 +25,7 @@ const CollectionPageMeta: React.FC<CollectionPageMetaProps> = ({
   );
 
   // TODO: Get collection image from data instead of using placeholder image
-  const image = bgImage;
+  const image = getHeroBackgroundImage(collectionData.collectionDetails);
 
   const openGraphProperties: { [key: string]: string } = {
     description: description,
