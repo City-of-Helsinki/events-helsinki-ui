@@ -206,6 +206,8 @@ export type LandingPage = {
   description?: Maybe<LocalizedObject>,
   buttonText?: Maybe<LocalizedObject>,
   buttonUrl?: Maybe<LocalizedObject>,
+  heroBackgroundImage?: Maybe<LocalizedObject>,
+  heroTopLayerImage?: Maybe<LocalizedObject>,
   metaInformation?: Maybe<LocalizedObject>,
   pageTitle?: Maybe<LocalizedObject>,
   contentType?: Maybe<Scalars['Int']>,
@@ -834,6 +836,12 @@ export type LandingPageQuery = (
       )>, buttonUrl: Maybe<(
         { __typename?: 'LocalizedObject' }
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )>, heroBackgroundImage: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+      )>, heroTopLayerImage: Maybe<(
+        { __typename?: 'LocalizedObject' }
+        & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
       )> }
     )> }
   ) }
@@ -1681,6 +1689,16 @@ export const LandingPageDocument = gql`
         fi
         sv
         en
+      }
+      heroBackgroundImage {
+        fi
+        sv
+        en
+      }
+      heroTopLayerImage {
+        fi
+        en
+        sv
       }
     }
   }

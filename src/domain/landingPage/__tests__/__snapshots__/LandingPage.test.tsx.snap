@@ -2,8 +2,8 @@
 
 exports[`CollectionHero should match snapshot 1`] = `
 "<div>
-  <div class=\\"landingPageHero\\">
-    <div class=\\"image\\"></div>
+  <div class=\\"landingPageHero\\" style=\\"background-image: url(null);\\">
+    <div class=\\"image\\" style=\\"background-image: url(null);\\"></div>
     <div class=\\"container\\">
       <div class=\\"content\\">
         <div class=\\"subTitle\\">Description fi:</div>

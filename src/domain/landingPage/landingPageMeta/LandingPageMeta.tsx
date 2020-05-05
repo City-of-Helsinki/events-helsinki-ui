@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 import { LandingPage } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
-import { LANDING_PAGE_SOME_IMAGE } from "../constants";
+import { getHeroBackgroundImage } from "../utils";
 
 interface Props {
   landingPage: LandingPage;
@@ -19,8 +19,7 @@ const EventPageMeta: React.FC<Props> = ({ landingPage }) => {
     locale
   );
 
-  // TODO: Get some image from CMS when implemented on CMS side
-  const image = LANDING_PAGE_SOME_IMAGE;
+  const image = getHeroBackgroundImage(landingPage, locale);
 
   const openGraphProperties: { [key: string]: string } = {
     description,

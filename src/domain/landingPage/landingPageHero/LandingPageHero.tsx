@@ -5,6 +5,7 @@ import Container from "../../../domain/app/layout/Container";
 import { LandingPage } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
+import { getHeroBackgroundImage, getHeroTopLayerImage } from "../utils";
 import styles from "./landingPageHero.module.scss";
 
 interface Props {
@@ -22,13 +23,22 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
 
   const buttonUrl = getLocalisedString(landingPage.buttonUrl || {}, locale);
 
+  const heroBackgroundImage = getHeroBackgroundImage(landingPage, locale);
+  const heroTopLayerImage = getHeroTopLayerImage(landingPage, locale);
+
   const moveToCollectionPage = () => {
     window.open(buttonUrl, "_self");
   };
 
   return (
-    <div className={styles.landingPageHero}>
-      <div className={styles.image}></div>
+    <div
+      className={styles.landingPageHero}
+      style={{ backgroundImage: `url(${heroBackgroundImage})` }}
+    >
+      <div
+        className={styles.image}
+        style={{ backgroundImage: `url(${heroTopLayerImage})` }}
+      ></div>
       <Container>
         <div className={styles.content}>
           <div className={styles.subTitle}>{subtitle}</div>

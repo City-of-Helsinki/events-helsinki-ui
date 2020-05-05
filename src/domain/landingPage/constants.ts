@@ -14,6 +14,16 @@ export const mockLandingPage = {
     fi: "Description fi:",
     sv: "Description sv:"
   },
+  heroBackgroundImage: {
+    en: null,
+    fi: null,
+    sv: null
+  },
+  heroTopLayerImage: {
+    en: null,
+    fi: null,
+    sv: null
+  },
   id: "8",
   metaInformation: {
     en: "Meta information en:",
@@ -27,5 +37,3 @@ export const mockLandingPage = {
   },
   title: { en: "Title en:", fi: "Title fi:", sv: "Title sv:" }
 };
-
-export const LANDING_PAGE_SOME_IMAGE = "/images/activities_SoMe-share.jpg";
