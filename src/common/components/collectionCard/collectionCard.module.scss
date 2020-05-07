@@ -9,6 +9,9 @@
 
   .imageWrapper {
     outline: none;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   .textWrapper {
@@ -59,8 +62,6 @@
 
     .imageWrapper {
       min-height: 18rem;
-      background-size: cover;
-      background-repeat: no-repeat;
       text-decoration: none;
 
       @include respond-below(sm) {
@@ -112,8 +113,6 @@
 
     .imageWrapper {
       min-height: 18rem;
-      background-size: cover;
-      background-repeat: no-repeat;
       text-decoration: none;
 
       @include respond-below(sm) {
@@ -162,8 +161,6 @@
 
     .imageWrapper {
       min-height: 40.5rem;
-      background-size: cover;
-      background-repeat: no-repeat;
       flex: 3 1 0%;
       text-decoration: none;
 

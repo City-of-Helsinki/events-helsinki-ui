@@ -59,7 +59,7 @@ export const mockCollection = {
   }
 };
 
-export const COLLECTION_DEFAULT_IMAGE = "/images/collection-background.png";
+export const COLLECTION_DEFAULT_IMAGE = "/images/collections_placeholder.png";
 
 export enum HERO_BACKGROUND_COLOR {
   COPPER = "COPPER",
