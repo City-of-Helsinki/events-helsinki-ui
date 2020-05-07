@@ -334,7 +334,8 @@ export type Query = {
   eventsByIds: Array<EventDetails>,
   keywordDetails: Keyword,
   keywordList: KeywordListResponse,
-  landingPage: LandingPageResponse,
+  landingPage: LandingPage,
+  landingPages: LandingPageResponse,
   neighborhoodList: NeighborhoodListResponse,
   organizationDetails: OrganizationDetails,
   placeDetails: Place,
@@ -403,6 +404,12 @@ export type QueryKeywordListArgs = {
 
 
 export type QueryLandingPageArgs = {
+  draft?: Maybe<Scalars['Boolean']>,
+  id: Scalars['ID']
+};
+
+
+export type QueryLandingPagesArgs = {
   visibleOnFrontpage?: Maybe<Scalars['Boolean']>
 };
 
@@ -809,13 +816,52 @@ export type KeywordListQuery = (
 );
 
 export type LandingPageQueryVariables = {
-  visibleOnFrontpage?: Maybe<Scalars['Boolean']>
+  draft?: Maybe<Scalars['Boolean']>,
+  id: Scalars['ID']
 };
 
 
 export type LandingPageQuery = (
   { __typename?: 'Query' }
   & { landingPage: (
+    { __typename?: 'LandingPage' }
+    & Pick<LandingPage, 'id'>
+    & { pageTitle: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )>, metaInformation: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )>, title: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )>, description: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )>, buttonText: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )>, buttonUrl: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )>, heroBackgroundImage: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )>, heroTopLayerImage: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+    )> }
+  ) }
+);
+
+export type LandingPagesQueryVariables = {
+  visibleOnFrontpage?: Maybe<Scalars['Boolean']>
+};
+
+
+export type LandingPagesQuery = (
+  { __typename?: 'Query' }
+  & { landingPages: (
     { __typename?: 'LandingPageResponse' }
     & { data: Array<(
       { __typename?: 'LandingPage' }
@@ -1659,8 +1705,93 @@ export type KeywordListQueryHookResult = ReturnType<typeof useKeywordListQuery>;
 export type KeywordListLazyQueryHookResult = ReturnType<typeof useKeywordListLazyQuery>;
 export type KeywordListQueryResult = ApolloReactCommon.QueryResult<KeywordListQuery, KeywordListQueryVariables>;
 export const LandingPageDocument = gql`
-    query LandingPage($visibleOnFrontpage: Boolean) {
-  landingPage(visibleOnFrontpage: $visibleOnFrontpage) {
+    query LandingPage($draft: Boolean, $id: ID!) {
+  landingPage(draft: $draft, id: $id) {
+    id
+    pageTitle {
+      fi
+      sv
+      en
+    }
+    metaInformation {
+      fi
+      sv
+      en
+    }
+    title {
+      fi
+      sv
+      en
+    }
+    description {
+      fi
+      sv
+      en
+    }
+    buttonText {
+      fi
+      sv
+      en
+    }
+    buttonUrl {
+      fi
+      sv
+      en
+    }
+    heroBackgroundImage {
+      fi
+      sv
+      en
+    }
+    heroTopLayerImage {
+      fi
+      en
+      sv
+    }
+  }
+}
+    `;
+export type LandingPageProps<TChildProps = {}> = ApolloReactHoc.DataProps<LandingPageQuery, LandingPageQueryVariables> | TChildProps;
+export function withLandingPage<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  LandingPageQuery,
+  LandingPageQueryVariables,
+  LandingPageProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, LandingPageQuery, LandingPageQueryVariables, LandingPageProps<TChildProps>>(LandingPageDocument, {
+      alias: 'landingPage',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useLandingPageQuery__
+ *
+ * To run a query within a React component, call `useLandingPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLandingPageQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLandingPageQuery({
+ *   variables: {
+ *      draft: // value for 'draft'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useLandingPageQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<LandingPageQuery, LandingPageQueryVariables>) {
+        return ApolloReactHooks.useQuery<LandingPageQuery, LandingPageQueryVariables>(LandingPageDocument, baseOptions);
+      }
+export function useLandingPageLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<LandingPageQuery, LandingPageQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<LandingPageQuery, LandingPageQueryVariables>(LandingPageDocument, baseOptions);
+        }
+export type LandingPageQueryHookResult = ReturnType<typeof useLandingPageQuery>;
+export type LandingPageLazyQueryHookResult = ReturnType<typeof useLandingPageLazyQuery>;
+export type LandingPageQueryResult = ApolloReactCommon.QueryResult<LandingPageQuery, LandingPageQueryVariables>;
+export const LandingPagesDocument = gql`
+    query LandingPages($visibleOnFrontpage: Boolean) {
+  landingPages(visibleOnFrontpage: $visibleOnFrontpage) {
     data {
       id
       pageTitle {
@@ -1707,43 +1838,43 @@ export const LandingPageDocument = gql`
   }
 }
     `;
-export type LandingPageProps<TChildProps = {}> = ApolloReactHoc.DataProps<LandingPageQuery, LandingPageQueryVariables> | TChildProps;
-export function withLandingPage<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+export type LandingPagesProps<TChildProps = {}> = ApolloReactHoc.DataProps<LandingPagesQuery, LandingPagesQueryVariables> | TChildProps;
+export function withLandingPages<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
-  LandingPageQuery,
-  LandingPageQueryVariables,
-  LandingPageProps<TChildProps>>) {
-    return ApolloReactHoc.withQuery<TProps, LandingPageQuery, LandingPageQueryVariables, LandingPageProps<TChildProps>>(LandingPageDocument, {
-      alias: 'landingPage',
+  LandingPagesQuery,
+  LandingPagesQueryVariables,
+  LandingPagesProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, LandingPagesQuery, LandingPagesQueryVariables, LandingPagesProps<TChildProps>>(LandingPagesDocument, {
+      alias: 'landingPages',
       ...operationOptions
     });
 };
 
 /**
- * __useLandingPageQuery__
+ * __useLandingPagesQuery__
  *
- * To run a query within a React component, call `useLandingPageQuery` and pass it any options that fit your needs.
- * When your component renders, `useLandingPageQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * To run a query within a React component, call `useLandingPagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLandingPagesQuery` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useLandingPageQuery({
+ * const { data, loading, error } = useLandingPagesQuery({
  *   variables: {
  *      visibleOnFrontpage: // value for 'visibleOnFrontpage'
  *   },
  * });
  */
-export function useLandingPageQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<LandingPageQuery, LandingPageQueryVariables>) {
-        return ApolloReactHooks.useQuery<LandingPageQuery, LandingPageQueryVariables>(LandingPageDocument, baseOptions);
+export function useLandingPagesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<LandingPagesQuery, LandingPagesQueryVariables>) {
+        return ApolloReactHooks.useQuery<LandingPagesQuery, LandingPagesQueryVariables>(LandingPagesDocument, baseOptions);
       }
-export function useLandingPageLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<LandingPageQuery, LandingPageQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<LandingPageQuery, LandingPageQueryVariables>(LandingPageDocument, baseOptions);
+export function useLandingPagesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<LandingPagesQuery, LandingPagesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<LandingPagesQuery, LandingPagesQueryVariables>(LandingPagesDocument, baseOptions);
         }
-export type LandingPageQueryHookResult = ReturnType<typeof useLandingPageQuery>;
-export type LandingPageLazyQueryHookResult = ReturnType<typeof useLandingPageLazyQuery>;
-export type LandingPageQueryResult = ApolloReactCommon.QueryResult<LandingPageQuery, LandingPageQueryVariables>;
+export type LandingPagesQueryHookResult = ReturnType<typeof useLandingPagesQuery>;
+export type LandingPagesLazyQueryHookResult = ReturnType<typeof useLandingPagesLazyQuery>;
+export type LandingPagesQueryResult = ApolloReactCommon.QueryResult<LandingPagesQuery, LandingPagesQueryVariables>;
 export const NeighborhoodListDocument = gql`
     query NeighborhoodList {
   neighborhoodList {

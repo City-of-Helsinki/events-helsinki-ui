@@ -5,7 +5,7 @@ import CollectionCardContainer from "../../common/components/collectionCard/Coll
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import {
   useCollectionListQuery,
-  useLandingPageQuery
+  useLandingPagesQuery
 } from "../../generated/graphql";
 import Container from "../app/layout/Container";
 import PageWrapper from "../app/layout/PageWrapper";
@@ -17,7 +17,7 @@ import Search from "./landingPageSearch/LandingPageSearch";
 const Home: React.FC = () => {
   const { t } = useTranslation();
 
-  const { data: landingPageData, loading } = useLandingPageQuery({
+  const { data: landingPageData, loading } = useLandingPagesQuery({
     variables: { visibleOnFrontpage: true }
   });
   const { data: collectionsData } = useCollectionListQuery({
@@ -25,8 +25,8 @@ const Home: React.FC = () => {
   });
 
   const landingPage =
-    landingPageData && landingPageData.landingPage.data.length
-      ? landingPageData.landingPage.data[0]
+    landingPageData && landingPageData.landingPages.data.length
+      ? landingPageData.landingPages.data[0]
       : undefined;
   const collections = collectionsData
     ? collectionsData.collectionList.data

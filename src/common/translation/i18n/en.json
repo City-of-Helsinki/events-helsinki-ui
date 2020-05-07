@@ -232,6 +232,10 @@
     "collections": {
       "title": "Recommendations"
     },
+    "notFound": {
+      "text": "For one reason or another we can't find the landing page you are looking for.",
+      "title": "Oops, you got hit by a 404!"
+    },
     "search": {
       "buttonSearch": "Search",
       "labelDateRange": "For what period you are looking for?",

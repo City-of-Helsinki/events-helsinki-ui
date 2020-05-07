@@ -11,7 +11,7 @@
   padding-bottom: 6rem;
 
   @include respond-above(sm) {
-    height: 42.6875rem;
+    min-height: 42.6875rem;
     padding-bottom: unset;
   }
 
@@ -19,7 +19,7 @@
     position: absolute;
     top: 0;
     right: 20%;
-    height: 37.1875rem;
+    height: 100%;
     width: 24.9375rem;
     background-position: center;
     background-size: cover;
@@ -31,11 +31,12 @@
   }
   
   .content {
-    padding-top: 9.25rem;
+    padding-top: 3.75rem;
     z-index: 1;
   
-    @include respond-below(sm) {
-      padding-top: 3.75rem;
+    @include respond-above(sm) {
+      padding-top: 9.25rem;
+      margin-bottom: 10rem;
     }
   
     .subTitle {

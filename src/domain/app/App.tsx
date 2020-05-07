@@ -8,6 +8,7 @@ import CollectionListPage from "../collectionList/CollectionListPage";
 import EventPageContainer from "../event/EventPageContainer";
 import EventSearchPageContainer from "../eventSearch/EventSearchPageContainer";
 import LandingPage from "../landingPage/LandingPage";
+import LandingPagePreview from "../landingPage/LandingPagePreview";
 import NotFound from "../notFound/NotFound";
 
 const App: FunctionComponent<
@@ -27,6 +28,11 @@ const App: FunctionComponent<
     <Switch>
       <Redirect exact path={`/${locale}/`} to={`/${locale}/home`} />
       <Route exact path={`/${locale}/home`} component={LandingPage} />
+      <Route
+        exact
+        path={`/${locale}/home/:id`}
+        component={LandingPagePreview}
+      />
       <Route
         exact
         path={`/${locale}/collections`}

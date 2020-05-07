@@ -232,6 +232,10 @@
     "collections": {
       "title": "Rekommendationer"
     },
+    "notFound": {
+      "text": "Av en eller annan orsak så hittas inte sidan du letade efter.",
+      "title": "Oj nej, nu blev det 404!"
+    },
     "search": {
       "buttonSearch": "Sök",
       "labelDateRange": "För vilken period du letar efter?",

@@ -233,6 +233,10 @@
     "collections": {
       "title": "Suosittelemme"
     },
+    "notFound": {
+      "text": "Syystä tai toisesta hakemaasi kotisivua ei löydy.",
+      "title": "Oho, nyt iski 404!"
+    },
     "search": {
       "buttonSearch": "Hae",
       "labelDateRange": "Mille ajankohdalle etsit?",
