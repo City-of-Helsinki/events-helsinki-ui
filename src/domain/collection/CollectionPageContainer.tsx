@@ -25,9 +25,11 @@ const CollectionPageContainer: React.FC = () => {
   const params = useParams<RouteParams>();
   const { t } = useTranslation();
   const locale = useLocale();
+  const urlSearchParams = new URLSearchParams(search);
+  const draft = urlSearchParams.get("draft") === "true";
 
   const { data: collectionData, loading } = useCollectionDetailsQuery({
-    variables: { id: params.id }
+    variables: { draft, id: params.id }
   });
 
   return (
@@ -44,7 +46,10 @@ const CollectionPageContainer: React.FC = () => {
                 <CollectionHero collectionData={collectionData} />
                 <CuratedEventList collectionData={collectionData} />
                 <EventList collectionData={collectionData} />
-                <SimilarCollections collectionData={collectionData} />
+                {/* Hide similar collections on preview */}
+                {!draft && (
+                  <SimilarCollections collectionData={collectionData} />
+                )}
               </>
             ) : (
               <>
@@ -56,7 +61,10 @@ const CollectionPageContainer: React.FC = () => {
                     {t("collection.languageNotSupported.linkSearchEvents")}
                   </Link>
                 </ErrorHero>
-                <SimilarCollections collectionData={collectionData} />
+                {/* Hide similar collections on preview */}
+                {!draft && (
+                  <SimilarCollections collectionData={collectionData} />
+                )}
               </>
             )}
           </>

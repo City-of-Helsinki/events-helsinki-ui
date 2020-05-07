@@ -158,7 +158,7 @@ export type InternalIdObject = {
 
 export type Keyword = {
    __typename?: 'Keyword',
-  id?: Maybe<Scalars['String']>,
+  id: Scalars['ID'],
   altLabels?: Maybe<Array<Maybe<Scalars['String']>>>,
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
@@ -169,7 +169,7 @@ export type Keyword = {
   dataSource?: Maybe<Scalars['String']>,
   publisher?: Maybe<Scalars['ID']>,
   name?: Maybe<LocalizedObject>,
-  internalId: Scalars['String'],
+  internalId?: Maybe<Scalars['String']>,
   internalContext?: Maybe<Scalars['String']>,
   internalType?: Maybe<Scalars['String']>,
 };
@@ -343,7 +343,8 @@ export type Query = {
 
 
 export type QueryCollectionDetailsArgs = {
-  id?: Maybe<Scalars['ID']>
+  id?: Maybe<Scalars['ID']>,
+  draft?: Maybe<Scalars['Boolean']>
 };
 
 
@@ -432,6 +433,7 @@ export type Subscription = {
 };
 
 export type CollectionDetailsQueryVariables = {
+  draft?: Maybe<Scalars['Boolean']>,
   id: Scalars['ID']
 };
 
@@ -916,8 +918,8 @@ export type PlaceListQuery = (
 
 
 export const CollectionDetailsDocument = gql`
-    query CollectionDetails($id: ID!) {
-  collectionDetails(id: $id) {
+    query CollectionDetails($draft: Boolean, $id: ID!) {
+  collectionDetails(draft: $draft, id: $id) {
     id
     heroImage
     boxColor
@@ -990,6 +992,7 @@ export function withCollectionDetails<TProps, TChildProps = {}>(operationOptions
  * @example
  * const { data, loading, error } = useCollectionDetailsQuery({
  *   variables: {
+ *      draft: // value for 'draft'
  *      id: // value for 'id'
  *   },
  * });

@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const QUERY_COLLECTION_DETAILS = gql`
-  query CollectionDetails($id: ID!) {
-    collectionDetails(id: $id) {
+  query CollectionDetails($draft: Boolean, $id: ID!) {
+    collectionDetails(draft: $draft, id: $id) {
       id
       heroImage
       boxColor
