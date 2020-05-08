@@ -22,7 +22,7 @@
     height: 100%;
     width: 24.9375rem;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
   
     @include respond-below(sm) {
