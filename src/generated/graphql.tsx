@@ -126,7 +126,7 @@ export type ExternalLink = {
 
 export type Image = {
    __typename?: 'Image',
-  id: Scalars['ID'],
+  id?: Maybe<Scalars['ID']>,
   license?: Maybe<Scalars['String']>,
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
@@ -136,7 +136,7 @@ export type Image = {
   photographerName?: Maybe<Scalars['String']>,
   dataSource?: Maybe<Scalars['String']>,
   publisher?: Maybe<Scalars['String']>,
-  internalId?: Maybe<Scalars['String']>,
+  internalId: Scalars['String'],
   internalContext?: Maybe<Scalars['String']>,
   internalType?: Maybe<Scalars['String']>,
 };
@@ -158,7 +158,7 @@ export type InternalIdObject = {
 
 export type Keyword = {
    __typename?: 'Keyword',
-  id: Scalars['ID'],
+  id?: Maybe<Scalars['ID']>,
   altLabels?: Maybe<Array<Maybe<Scalars['String']>>>,
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
@@ -169,7 +169,7 @@ export type Keyword = {
   dataSource?: Maybe<Scalars['String']>,
   publisher?: Maybe<Scalars['ID']>,
   name?: Maybe<LocalizedObject>,
-  internalId?: Maybe<Scalars['String']>,
+  internalId: Scalars['String'],
   internalContext?: Maybe<Scalars['String']>,
   internalType?: Maybe<Scalars['String']>,
 };
@@ -262,7 +262,7 @@ export type Offer = {
 
 export type OrganizationDetails = {
    __typename?: 'OrganizationDetails',
-  id: Scalars['ID'],
+  id?: Maybe<Scalars['ID']>,
   dataSource?: Maybe<Scalars['String']>,
   classification?: Maybe<Scalars['String']>,
   name?: Maybe<Scalars['String']>,
@@ -275,14 +275,14 @@ export type OrganizationDetails = {
   lastModifiedTime?: Maybe<Scalars['String']>,
   isAffiliated: Scalars['Boolean'],
   replacedBy?: Maybe<Scalars['String']>,
-  internalId?: Maybe<Scalars['String']>,
+  internalId: Scalars['String'],
   internalContext?: Maybe<Scalars['String']>,
   internalType?: Maybe<Scalars['String']>,
 };
 
 export type Place = {
    __typename?: 'Place',
-  id: Scalars['ID'],
+  id?: Maybe<Scalars['ID']>,
   divisions?: Maybe<Array<Division>>,
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
@@ -307,7 +307,7 @@ export type Place = {
   addressLocality?: Maybe<LocalizedObject>,
   streetAddress?: Maybe<LocalizedObject>,
   infoUrl?: Maybe<LocalizedObject>,
-  internalId?: Maybe<Scalars['String']>,
+  internalId: Scalars['String'],
   internalContext?: Maybe<Scalars['String']>,
   internalType?: Maybe<Scalars['String']>,
 };
@@ -554,7 +554,7 @@ export type EventDetailsQuery = (
       )> }
     )>, location: Maybe<(
       { __typename?: 'Place' }
-      & Pick<Place, 'id' | 'email' | 'postalCode'>
+      & Pick<Place, 'id' | 'internalId' | 'email' | 'postalCode'>
       & { divisions: Maybe<Array<(
         { __typename?: 'Division' }
         & Pick<Division, 'type'>
@@ -1188,6 +1188,7 @@ export const EventDetailsDocument = gql`
           en
         }
       }
+      internalId
       email
       infoUrl {
         fi

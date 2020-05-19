@@ -47,6 +47,7 @@ export const QUERY_EVENT_DETAILS = gql`
             en
           }
         }
+        internalId
         email
         infoUrl {
           fi
