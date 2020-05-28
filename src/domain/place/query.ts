@@ -1,14 +1,51 @@
 import gql from "graphql-tag";
 
 export const QUERY_PLACE = gql`
-  query PlaceDetails($id: ID!) {
-    placeDetails(id: $id) {
-      id
+  fragment placeFields on Place {
+    id
+    divisions {
+      type
       name {
         fi
         sv
         en
       }
+    }
+    internalId
+    email
+    infoUrl {
+      fi
+      sv
+      en
+    }
+    name {
+      fi
+      en
+      sv
+    }
+    addressLocality {
+      fi
+      sv
+      en
+    }
+    streetAddress {
+      fi
+      sv
+      en
+    }
+    postalCode
+    position {
+      coordinates
+    }
+    telephone {
+      fi
+      sv
+      en
+    }
+  }
+  query PlaceDetails($id: ID!) {
+    placeDetails(id: $id) {
+      ...placeFields
     }
   }
   query PlaceList(
@@ -35,12 +72,7 @@ export const QUERY_PLACE = gql`
         previous
       }
       data {
-        id
-        name {
-          fi
-          sv
-          en
-        }
+        ...placeFields
       }
     }
   }

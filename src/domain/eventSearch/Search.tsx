@@ -20,6 +20,7 @@ import getUrlParamAsArray from "../../util/getUrlParamAsArray";
 import { getSearchQuery } from "../../util/searchUtils";
 import { translateValue } from "../../util/translateUtils";
 import Container from "../app/layout/Container";
+import PlaceSelector from "../place/placeSelector/PlaceSelector";
 import styles from "./search.module.scss";
 
 const Search: FunctionComponent = () => {
@@ -321,6 +322,9 @@ const Search: FunctionComponent = () => {
                       title={t("eventSearch.search.titleDropdownTargetGroup")}
                       value={targets}
                     />
+                  </div>
+                  <div>
+                    <PlaceSelector setPlaces={setPlaces} value={places} />
                   </div>
                 </div>
               </div>

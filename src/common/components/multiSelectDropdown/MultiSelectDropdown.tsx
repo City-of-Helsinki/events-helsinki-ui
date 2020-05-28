@@ -9,7 +9,7 @@ import SearchLabel from "../search/searchLabel/SearchLabel";
 import DropdownMenu from "./DropdownMenu";
 import styles from "./multiSelectDropdown.module.scss";
 
-type Option = {
+export type Option = {
   text: string;
   value: string;
 };
@@ -17,9 +17,12 @@ type Option = {
 interface Props {
   checkboxName: string;
   icon: React.ReactElement;
+  inputValue?: string;
   name: string;
   onChange: (values: string[]) => void;
   options: Option[];
+  renderOptionText?: (optionValue: string) => React.ReactChild;
+  setInputValue?: (newVal: string) => void;
   title: string;
   value: string[];
 }
@@ -27,16 +30,22 @@ interface Props {
 const Dropdown: React.FC<Props> = ({
   checkboxName,
   icon,
+  inputValue,
   name,
   onChange,
   options,
+  renderOptionText,
+  setInputValue,
   title,
   value
 }) => {
-  const [input, setInput] = React.useState("");
+  const [internalInput, setInternalInput] = React.useState("");
+  const input = inputValue || internalInput;
+
   const inputWrapper = React.useRef<HTMLDivElement | null>(null);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const clearButtonRef = React.useRef<HTMLButtonElement | null>(null);
+
   const filteredOptions = React.useMemo(
     () =>
       options.filter(option =>
@@ -44,7 +53,17 @@ const Dropdown: React.FC<Props> = ({
       ),
     [input, options]
   );
+
+  const handleInputValueChange = (val: string) => {
+    setInternalInput(val);
+
+    if (setInputValue) {
+      setInputValue(val);
+    }
+  };
+
   const dropdown = React.useRef<HTMLDivElement | null>(null);
+
   const [
     focusedIndex,
     setupKeyboardNav,
@@ -173,20 +192,29 @@ const Dropdown: React.FC<Props> = ({
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     ensureDropdownIsOpen();
-    setInput(event.target.value);
+    handleInputValueChange(event.target.value);
   };
 
   const selectedText = React.useMemo(() => {
-    const valueLabels = value.map(val => {
-      const result = options.find(option => option.value === val);
-      return result ? result.text : null;
-    });
+    const valueLabels = value
+      .map(val =>
+        renderOptionText
+          ? renderOptionText(val)
+          : () => {
+              const result = options.find(option => option.value === val);
+              return result ? result.text : null;
+            }
+      )
+      .sort();
     if (valueLabels.length > 1) {
-      return `${valueLabels[0]} + ${valueLabels.length - 1}`;
-    } else {
-      return valueLabels.join();
+      return (
+        <>
+          {valueLabels[0]} + {valueLabels.length - 1}
+        </>
+      );
     }
-  }, [options, value]);
+    return valueLabels[0];
+  }, [options, renderOptionText, value]);
 
   return (
     <div className={styles.dropdown} ref={dropdown}>

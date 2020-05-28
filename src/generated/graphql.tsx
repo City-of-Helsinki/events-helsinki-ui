@@ -554,33 +554,7 @@ export type EventDetailsQuery = (
       )> }
     )>, location: Maybe<(
       { __typename?: 'Place' }
-      & Pick<Place, 'id' | 'internalId' | 'email' | 'postalCode'>
-      & { divisions: Maybe<Array<(
-        { __typename?: 'Division' }
-        & Pick<Division, 'type'>
-        & { name: Maybe<(
-          { __typename?: 'LocalizedObject' }
-          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-        )> }
-      )>>, infoUrl: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, name: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
-      )>, addressLocality: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, streetAddress: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, position: Maybe<(
-        { __typename?: 'PlacePosition' }
-        & Pick<PlacePosition, 'coordinates'>
-      )>, telephone: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )> }
+      & PlaceFieldsFragment
     )>, offers: Array<(
       { __typename?: 'Offer' }
       & Pick<Offer, 'isFree'>
@@ -916,6 +890,37 @@ export type NeighborhoodListQuery = (
   ) }
 );
 
+export type PlaceFieldsFragment = (
+  { __typename?: 'Place' }
+  & Pick<Place, 'id' | 'internalId' | 'email' | 'postalCode'>
+  & { divisions: Maybe<Array<(
+    { __typename?: 'Division' }
+    & Pick<Division, 'type'>
+    & { name: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )> }
+  )>>, infoUrl: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )>, name: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+  )>, addressLocality: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )>, streetAddress: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )>, position: Maybe<(
+    { __typename?: 'PlacePosition' }
+    & Pick<PlacePosition, 'coordinates'>
+  )>, telephone: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )> }
+);
+
 export type PlaceDetailsQueryVariables = {
   id: Scalars['ID']
 };
@@ -925,11 +930,7 @@ export type PlaceDetailsQuery = (
   { __typename?: 'Query' }
   & { placeDetails: (
     { __typename?: 'Place' }
-    & Pick<Place, 'id'>
-    & { name: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )> }
+    & PlaceFieldsFragment
   ) }
 );
 
@@ -953,16 +954,55 @@ export type PlaceListQuery = (
       & Pick<Meta, 'count' | 'next' | 'previous'>
     ), data: Array<(
       { __typename?: 'Place' }
-      & Pick<Place, 'id'>
-      & { name: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )> }
+      & PlaceFieldsFragment
     )> }
   ) }
 );
 
-
+export const PlaceFieldsFragmentDoc = gql`
+    fragment placeFields on Place {
+  id
+  divisions {
+    type
+    name {
+      fi
+      sv
+      en
+    }
+  }
+  internalId
+  email
+  infoUrl {
+    fi
+    sv
+    en
+  }
+  name {
+    fi
+    en
+    sv
+  }
+  addressLocality {
+    fi
+    sv
+    en
+  }
+  streetAddress {
+    fi
+    sv
+    en
+  }
+  postalCode
+  position {
+    coordinates
+  }
+  telephone {
+    fi
+    sv
+    en
+  }
+}
+    `;
 export const CollectionDetailsDocument = gql`
     query CollectionDetails($draft: Boolean, $id: ID!) {
   collectionDetails(draft: $draft, id: $id) {
@@ -1179,46 +1219,7 @@ export const EventDetailsDocument = gql`
       }
     }
     location {
-      id
-      divisions {
-        type
-        name {
-          fi
-          sv
-          en
-        }
-      }
-      internalId
-      email
-      infoUrl {
-        fi
-        sv
-        en
-      }
-      name {
-        fi
-        en
-        sv
-      }
-      addressLocality {
-        fi
-        sv
-        en
-      }
-      streetAddress {
-        fi
-        sv
-        en
-      }
-      postalCode
-      position {
-        coordinates
-      }
-      telephone {
-        fi
-        sv
-        en
-      }
+      ...placeFields
     }
     offers {
       isFree
@@ -1268,7 +1269,7 @@ export const EventDetailsDocument = gql`
     }
   }
 }
-    `;
+    ${PlaceFieldsFragmentDoc}`;
 export type EventDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<EventDetailsQuery, EventDetailsQueryVariables> | TChildProps;
 export function withEventDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
@@ -1934,15 +1935,10 @@ export type NeighborhoodListQueryResult = ApolloReactCommon.QueryResult<Neighbor
 export const PlaceDetailsDocument = gql`
     query PlaceDetails($id: ID!) {
   placeDetails(id: $id) {
-    id
-    name {
-      fi
-      sv
-      en
-    }
+    ...placeFields
   }
 }
-    `;
+    ${PlaceFieldsFragmentDoc}`;
 export type PlaceDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<PlaceDetailsQuery, PlaceDetailsQueryVariables> | TChildProps;
 export function withPlaceDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
@@ -1989,16 +1985,11 @@ export const PlaceListDocument = gql`
       previous
     }
     data {
-      id
-      name {
-        fi
-        sv
-        en
-      }
+      ...placeFields
     }
   }
 }
-    `;
+    ${PlaceFieldsFragmentDoc}`;
 export type PlaceListProps<TChildProps = {}> = ApolloReactHoc.DataProps<PlaceListQuery, PlaceListQueryVariables> | TChildProps;
 export function withPlaceList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,

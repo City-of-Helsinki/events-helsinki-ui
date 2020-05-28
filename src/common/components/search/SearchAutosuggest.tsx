@@ -81,7 +81,6 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       value: internalInputValue
     };
     const keywordItems: AutosuggestMenuOption[] = [];
-    const districtItems: AutosuggestMenuOption[] = [];
 
     if (keywordsData) {
       keywordItems.push(

@@ -8,19 +8,16 @@ import { useSSR } from "react-i18next";
 import { BrowserRouter } from "react-router-dom";
 
 import { ScrollToTop } from "../../common/route/RouteUtils";
-import createGraphqlClient from "../../util/createGraphqlClient";
+import apolloClient from "./apollo/apolloClient";
 import AppRoutes from "./AppRoutes";
 
 const BrowserApp: FunctionComponent = () => {
   useSSR(window.initialI18nStore, window.initialLanguage);
 
-  const uri = process.env.REACT_APP_GRAPHQL_BASE_URL || "";
-  const client = createGraphqlClient(uri);
-
   return (
     <BrowserRouter>
-      <ApolloProvider client={client}>
-        <ApolloHooksProvider client={client}>
+      <ApolloProvider client={apolloClient}>
+        <ApolloHooksProvider client={apolloClient}>
           <ScrollToTop />
           <AppRoutes />
         </ApolloHooksProvider>

@@ -38,46 +38,7 @@ export const QUERY_EVENT_DETAILS = gql`
         }
       }
       location {
-        id
-        divisions {
-          type
-          name {
-            fi
-            sv
-            en
-          }
-        }
-        internalId
-        email
-        infoUrl {
-          fi
-          sv
-          en
-        }
-        name {
-          fi
-          en
-          sv
-        }
-        addressLocality {
-          fi
-          sv
-          en
-        }
-        streetAddress {
-          fi
-          sv
-          en
-        }
-        postalCode
-        position {
-          coordinates
-        }
-        telephone {
-          fi
-          sv
-          en
-        }
+        ...placeFields
       }
       offers {
         isFree
