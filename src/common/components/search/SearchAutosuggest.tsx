@@ -1,5 +1,4 @@
 import { IconSearch } from "hds-react";
-import map from "lodash/map";
 import React, { ChangeEvent, FunctionComponent } from "react";
 
 import {
@@ -8,8 +7,7 @@ import {
 } from "../../../constants";
 import {
   useKeywordListQuery,
-  useNeighborhoodListQuery,
-  usePlaceListQuery
+  useNeighborhoodListQuery
 } from "../../../generated/graphql";
 import useDebounce from "../../../hooks/useDebounce";
 import useLocale from "../../../hooks/useLocale";
@@ -69,30 +67,21 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     }
   });
 
-  const { data: placesData, loading: loadingPlaces } = usePlaceListQuery({
-    skip: !internalInputValue,
-    variables: {
-      pageSize: 5,
-      text: internalInputValue
-    }
-  });
-
   const [autoSuggestItems, setAutoSuggestItems] = React.useState<
     AutosuggestMenuOption[]
   >([]);
 
   React.useEffect(() => {
-    if (loadingKeywords || loadingPlaces) return;
+    if (loadingKeywords) return;
 
     const items: AutosuggestMenuOption[] = [];
     const textItem: AutosuggestMenuOption = {
       text: internalInputValue,
-      type: "search",
+      type: AUTOSUGGEST_TYPES.SEARCH,
       value: internalInputValue
     };
     const keywordItems: AutosuggestMenuOption[] = [];
     const districtItems: AutosuggestMenuOption[] = [];
-    const placeItems: AutosuggestMenuOption[] = [];
 
     if (keywordsData) {
       keywordItems.push(
@@ -111,37 +100,8 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
           }))
       );
     }
-    if (internalInputValue) {
-      districtItems.push(
-        ...districtOptions
-          .filter(item =>
-            item.text.toLowerCase().includes(internalInputValue.toLowerCase())
-          )
-          .slice(0, 5)
-          .map(item => ({
-            text: item.text,
-            type: AUTOSUGGEST_TYPES.DISTRICT,
-            value: item.value
-          }))
-      );
-    }
-    if (placesData) {
-      placeItems.push(
-        ...placesData.placeList.data.map(place => ({
-          text: place.name ? getLocalisedString(place.name || {}, locale) : "",
-          type: AUTOSUGGEST_TYPES.PLACE,
-          value: place.id || ""
-        }))
-      );
-    }
-    const placeNames = map(placeItems, "text");
 
-    items.push(
-      textItem,
-      ...keywordItems.filter(item => !placeNames.includes(item.text.trim())),
-      ...districtItems,
-      ...placeItems
-    );
+    items.push(textItem, ...keywordItems);
 
     setAutoSuggestItems(items.filter(item => item.text));
   }, [
@@ -149,9 +109,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     internalInputValue,
     keywordsData,
     loadingKeywords,
-    loadingPlaces,
-    locale,
-    placesData
+    locale
   ]);
 
   const openMenu = React.useCallback(
@@ -262,7 +220,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
               // Search by text if no option is selected
               handleMenuOptionClick({
                 text: searchValue,
-                type: "search",
+                type: AUTOSUGGEST_TYPES.SEARCH,
                 value: searchValue
               });
             }

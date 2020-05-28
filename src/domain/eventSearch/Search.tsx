@@ -211,12 +211,6 @@ const Search: FunctionComponent = () => {
 
     const newSearchValue = option.type === "search" ? option.text : "";
 
-    // Get new districts
-    const newDistricts = getUrlParamAsArray(searchParams, "districts");
-    if (type === "district" && !newDistricts.includes(value)) {
-      newDistricts.push(value);
-    }
-
     // Get new keywords
     const newKeywords = getUrlParamAsArray(searchParams, "keywords");
     if (
@@ -226,35 +220,24 @@ const Search: FunctionComponent = () => {
       newKeywords.push(value);
     }
 
-    // Get new keywords
-    const newPlaces = getUrlParamAsArray(searchParams, "places");
-    if (type === "place" && !newPlaces.includes(value)) {
-      newPlaces.push(value);
-    }
     const search = getSearchQuery({
       categories: selectedCategories,
       dateTypes,
-      districts: newDistricts,
+      districts,
       endDate,
       isFree,
-      keywordNot: keywordNot,
+      keywordNot,
       keywords: newKeywords,
-      places: newPlaces,
+      places,
       publisher: searchParams.get("publisher"),
       search: newSearchValue,
       startDate,
       targets
     });
     switch (type) {
-      case "district":
-        setDistricts(newDistricts);
-        break;
       case "keyword":
       case "yso":
         setKeywords(newKeywords);
-        break;
-      case "place":
-        setPlaces(newPlaces);
         break;
     }
     setSearchValue(newSearchValue);

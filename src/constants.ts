@@ -29,12 +29,11 @@ export const EVENT_STATUS = {
   EVENT_SCHEDULED: "EventScheduled"
 };
 
-export const AUTOSUGGEST_TYPES = {
-  DISTRICT: "district",
-  KEYWORD: "keyword",
-  PLACE: "place",
-  YSO: "yso"
-};
+export enum AUTOSUGGEST_TYPES {
+  KEYWORD = "keyword",
+  SEARCH = "search",
+  YSO = "yso"
+}
 
 export enum SUPPORT_LANGUAGES {
   FI = "fi",
