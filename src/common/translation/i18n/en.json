@@ -190,6 +190,7 @@
       "placeholder": "Enter a keyword, eg rock or yoga",
       "titleDropdownCategory": "Select category",
       "titleDropdownDistrict": "Select area",
+      "titleDropdownPlace": "Select venue",
       "titleDropdownTargetGroup": "Select audience"
     },
     "textFoundEvents": "{{count}} search results",

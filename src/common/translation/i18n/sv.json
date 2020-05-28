@@ -190,6 +190,7 @@
       "placeholder": "Ange ett nyckelord, t.ex. rock eller yoga",
       "titleDropdownCategory": "Välj kategori",
       "titleDropdownDistrict": "Välj område",
+      "titleDropdownPlace": "Välj plats",
       "titleDropdownTargetGroup": "Välj målgrupp"
     },
     "textFoundEvents": "{{count}} sökresultat",

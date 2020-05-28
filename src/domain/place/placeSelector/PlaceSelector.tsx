@@ -68,7 +68,7 @@ const PlaceSelector: React.FC<Props> = ({ setPlaces, value }) => {
         options={placeOptions}
         renderOptionText={renderOptionText}
         setInputValue={setInternalInputValue}
-        title={t("eventSearch.search.titleDropdownPlaces")}
+        title={t("eventSearch.search.titleDropdownPlace")}
         value={value}
       />
     </>
