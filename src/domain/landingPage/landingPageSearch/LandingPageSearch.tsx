@@ -1,9 +1,8 @@
-import { IconSearch, IconTree } from "hds-react";
+import { Button, IconSearch, IconTree } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 
-import Button from "../../../common/components/button/Button";
 import CategoryFilter from "../../../common/components/category/CategoryFilter";
 import DateSelector from "../../../common/components/dateSelector/DateSelector";
 import Link from "../../../common/components/link/Link";
@@ -212,11 +211,10 @@ const Search: FunctionComponent = () => {
             </div>
             <div className={styles.buttonWrapper}>
               <Button
-                color="primary"
                 fullWidth={true}
                 iconLeft={<IconSearch />}
                 onClick={moveToSearchPage}
-                size="default"
+                variant="success"
               >
                 {t("home.search.buttonSearch")}
               </Button>

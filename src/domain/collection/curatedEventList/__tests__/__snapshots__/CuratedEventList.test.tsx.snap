@@ -34,7 +34,7 @@ exports[`CuratedEventList should match snapshot 1`] = `
             </div>
             <div class=\\"buttonWrapper\\">
               <div class=\\"buyButtonWrapper\\"></div>
-              <div class=\\"readMoreButtonWrapper\\"><button type=\\"button\\" class=\\"_3wgeeaHxiHujNcKzeML5j4 _3aSBFzRPhZcNdul13_gERo _399Vd_uWgH-92CTowU70kQ _3HrcdU2U-mUB4lgurXreR2 _2AR2oE9bnVLLmiLEmYiWNc secondary\\"><span class=\\"_2zMLCVF6mmvV2UqfaBF5K\\">Lue lisää</span></button></div>
+              <div class=\\"readMoreButtonWrapper\\"><button type=\\"button\\" class=\\"Button-module_button__3wgee button_hds-button__2A0je Button-module_primary__3bo_T button_hds-button--primary__2NVvO Button-module_size-small__2u97E button_hds-button--small__2NFef Button-module_fullWidth__2AR2o button_hds-button--fullwidth__1_hG9 buttonGray\\"><span class=\\"Button-module_label__2zMLC button_hds-button__label__2EQa-\\">Lue lisää</span></button></div>
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { Button } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
@@ -19,7 +20,7 @@ import useLocale from "../../../hooks/useLocale";
 import getDateRangeStr from "../../../util/getDateRangeStr";
 import getLocalisedString from "../../../util/getLocalisedString";
 import testImage from "../../../util/testImage";
-import Button from "../button/Button";
+import buttonStyles from "../button/button.module.scss";
 import SrOnly from "../srOnly/SrOnly";
 import styles from "./largeEventCard.module.scss";
 
@@ -153,10 +154,10 @@ const EventCard: React.FC<Props> = ({ event }) => {
               {showBuyButton && (
                 <Button
                   aria-label={t("eventSearch.event.ariaLabelBuyTickets")}
-                  color="primary"
                   fullWidth
                   onClick={moveToBuyTicketsPage}
                   size="small"
+                  variant="success"
                 >
                   {t("eventSearch.event.buttonBuyTickets")}
                 </Button>
@@ -164,7 +165,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
             </div>
             <div className={classNames(styles.readMoreButtonWrapper)}>
               <Button
-                color="secondary"
+                className={buttonStyles.buttonGray}
                 fullWidth
                 onClick={moveToEventPage}
                 size="small"

@@ -1,53 +1,19 @@
 
 @import "colors";
 
-.primary {
-  background-color: $dark-green;
-  color: $hel-white;
-} 
-
-.primary:after {
-  border-color: $dark-green;
-}
-
-.primary.disabled {
-  background-color: $dark-green-light;
-}
-
-.primary.disabled:after {
-  border-color: $dark-green-light;
-}
-
-.primary:hover {
-  background-color: $dark-green-dark;
-}
-
-.primary:hover:after {
-  border-color: $dark-green-dark;
-}
-
-
-.secondary {
+.buttonGray:not(:disabled) {
   background-color: $hel-black-70;
+  border-color: $hel-black-70;
   color: $hel-white;
 } 
 
-.secondary:after {
-  border-color: $hel-black-70;
-}
 
-.secondary.disabled {
+.buttonGray.disabled {
   background-color: $hel-black-50;
-}
-
-.secondary.disabled:after {
   border-color: $hel-black-50;
 }
 
-.secondary:hover {
+.buttonGray:not(:disabled):hover {
   background-color: $hel-black-80;
-}
-
-.secondary:hover:after {
   border-color: $hel-black-80;
 }
