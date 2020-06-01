@@ -12,6 +12,21 @@ export enum EVENT_SORT_OPTIONS {
   START_TIME_DESC = "-start_time"
 }
 
+export enum EVENT_SEARCH_FILTERS {
+  CATEGORIES = "categories",
+  DATE_TYPES = "dateTypes",
+  DIVISIONS = "divisions",
+  END = "end",
+  IS_FREE = "isFree",
+  KEYWORD_NOT = "keywordNot",
+  KEYWORDS = "keywords",
+  PAGE = "page",
+  PLACES = "places",
+  PUBLISHER = "publisher",
+  START = "start",
+  TEXT = "text"
+}
+
 export const CULTURE_KEYWORDS = [
   "kulke:33", // Teatteri
   "kulke:51", // Sirkus

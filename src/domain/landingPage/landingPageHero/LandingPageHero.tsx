@@ -1,6 +1,6 @@
+import { Button } from "hds-react";
 import React from "react";
 
-import Button from "../../../common/components/button/Button";
 import Container from "../../../domain/app/layout/Container";
 import { LandingPage } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
@@ -44,11 +44,7 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
           <div className={styles.subTitle}>{subtitle}</div>
           <h1 className={styles.title}>{title}</h1>
           {!!buttonText && !!buttonUrl && (
-            <Button
-              color="primary"
-              onClick={moveToCollectionPage}
-              size="default"
-            >
+            <Button onClick={moveToCollectionPage} variant="success">
               {buttonText}
             </Button>
           )}

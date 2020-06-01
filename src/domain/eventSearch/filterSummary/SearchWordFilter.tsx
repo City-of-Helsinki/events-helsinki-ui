@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import IconDelete from "../../../../icons/IconDelete";
+import IconDelete from "../../../icons/IconDelete";
 import styles from "./searchWordFilter.module.scss";
 
 interface Props {

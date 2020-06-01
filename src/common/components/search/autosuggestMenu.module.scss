@@ -53,14 +53,6 @@
     display: flex;
     align-items: center;
 
-    .colorIndicator {
-      top: 0;
-      bottom: -1px;
-      position: absolute;
-      width: 0.25rem;
-      background-color: $hel-black;
-    }
-
     .icon {
       height: 1.5rem;
       width: 1.5rem;
@@ -100,29 +92,5 @@
         margin: 0
       }
     }
-  }
-
-  .autosuggestOption--keyword {
-    .colorIndicator {
-      background-color: $hel-metro-light-50;
-    }
-  }
-
-  .autosuggestOption--place {
-    .colorIndicator {
-      background-color: $hel-tram;
-    } 
-  }
-
-  .autosuggestOption--search {
-    .colorIndicator {
-      background-color: $hel-white;
-    } 
-  }
-
-  .autosuggestOption--yso {
-    .colorIndicator {
-      background-color: $hel-metro-light-20;
-    } 
   }
 }

@@ -361,20 +361,21 @@ export type QueryEventDetailsArgs = {
 
 
 export type QueryEventListArgs = {
-  divisions?: Maybe<Array<Maybe<Scalars['String']>>>,
-  endDate?: Maybe<Scalars['String']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>,
+  division?: Maybe<Array<Maybe<Scalars['String']>>>,
+  end?: Maybe<Scalars['String']>,
   inLanguage?: Maybe<Scalars['String']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>,
   isFree?: Maybe<Scalars['Boolean']>,
-  keywords?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
   keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keyword?: Maybe<Array<Maybe<Scalars['String']>>>,
   language?: Maybe<Scalars['String']>,
-  locations?: Maybe<Array<Maybe<Scalars['String']>>>,
+  location?: Maybe<Array<Maybe<Scalars['String']>>>,
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   publisher?: Maybe<Scalars['ID']>,
   sort?: Maybe<Scalars['String']>,
-  startDate?: Maybe<Scalars['String']>,
+  start?: Maybe<Scalars['String']>,
   superEvent?: Maybe<Scalars['ID']>,
   superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
   text?: Maybe<Scalars['String']>,
@@ -554,33 +555,7 @@ export type EventDetailsQuery = (
       )> }
     )>, location: Maybe<(
       { __typename?: 'Place' }
-      & Pick<Place, 'id' | 'internalId' | 'email' | 'postalCode'>
-      & { divisions: Maybe<Array<(
-        { __typename?: 'Division' }
-        & Pick<Division, 'type'>
-        & { name: Maybe<(
-          { __typename?: 'LocalizedObject' }
-          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-        )> }
-      )>>, infoUrl: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, name: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
-      )>, addressLocality: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, streetAddress: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, position: Maybe<(
-        { __typename?: 'PlacePosition' }
-        & Pick<PlacePosition, 'coordinates'>
-      )>, telephone: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )> }
+      & PlaceFieldsFragment
     )>, offers: Array<(
       { __typename?: 'Offer' }
       & Pick<Offer, 'isFree'>
@@ -627,20 +602,21 @@ export type OrganizationDetailsQuery = (
 );
 
 export type EventListQueryVariables = {
-  divisions?: Maybe<Array<Maybe<Scalars['String']>>>,
-  endDate?: Maybe<Scalars['String']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>,
+  division?: Maybe<Array<Maybe<Scalars['String']>>>,
+  end?: Maybe<Scalars['String']>,
   inLanguage?: Maybe<Scalars['String']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>,
   isFree?: Maybe<Scalars['Boolean']>,
+  keyword?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
   keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywords?: Maybe<Array<Maybe<Scalars['String']>>>,
   language?: Maybe<Scalars['String']>,
-  locations?: Maybe<Array<Maybe<Scalars['String']>>>,
+  location?: Maybe<Array<Maybe<Scalars['String']>>>,
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   publisher?: Maybe<Scalars['ID']>,
   sort?: Maybe<Scalars['String']>,
-  startDate?: Maybe<Scalars['String']>,
+  start?: Maybe<Scalars['String']>,
   superEvent?: Maybe<Scalars['ID']>,
   superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
   text?: Maybe<Scalars['String']>,
@@ -916,6 +892,37 @@ export type NeighborhoodListQuery = (
   ) }
 );
 
+export type PlaceFieldsFragment = (
+  { __typename?: 'Place' }
+  & Pick<Place, 'id' | 'internalId' | 'email' | 'postalCode'>
+  & { divisions: Maybe<Array<(
+    { __typename?: 'Division' }
+    & Pick<Division, 'type'>
+    & { name: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    )> }
+  )>>, infoUrl: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )>, name: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+  )>, addressLocality: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )>, streetAddress: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )>, position: Maybe<(
+    { __typename?: 'PlacePosition' }
+    & Pick<PlacePosition, 'coordinates'>
+  )>, telephone: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )> }
+);
+
 export type PlaceDetailsQueryVariables = {
   id: Scalars['ID']
 };
@@ -925,11 +932,7 @@ export type PlaceDetailsQuery = (
   { __typename?: 'Query' }
   & { placeDetails: (
     { __typename?: 'Place' }
-    & Pick<Place, 'id'>
-    & { name: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )> }
+    & PlaceFieldsFragment
   ) }
 );
 
@@ -953,16 +956,55 @@ export type PlaceListQuery = (
       & Pick<Meta, 'count' | 'next' | 'previous'>
     ), data: Array<(
       { __typename?: 'Place' }
-      & Pick<Place, 'id'>
-      & { name: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )> }
+      & PlaceFieldsFragment
     )> }
   ) }
 );
 
-
+export const PlaceFieldsFragmentDoc = gql`
+    fragment placeFields on Place {
+  id
+  divisions {
+    type
+    name {
+      fi
+      sv
+      en
+    }
+  }
+  internalId
+  email
+  infoUrl {
+    fi
+    sv
+    en
+  }
+  name {
+    fi
+    en
+    sv
+  }
+  addressLocality {
+    fi
+    sv
+    en
+  }
+  streetAddress {
+    fi
+    sv
+    en
+  }
+  postalCode
+  position {
+    coordinates
+  }
+  telephone {
+    fi
+    sv
+    en
+  }
+}
+    `;
 export const CollectionDetailsDocument = gql`
     query CollectionDetails($draft: Boolean, $id: ID!) {
   collectionDetails(draft: $draft, id: $id) {
@@ -1179,46 +1221,7 @@ export const EventDetailsDocument = gql`
       }
     }
     location {
-      id
-      divisions {
-        type
-        name {
-          fi
-          sv
-          en
-        }
-      }
-      internalId
-      email
-      infoUrl {
-        fi
-        sv
-        en
-      }
-      name {
-        fi
-        en
-        sv
-      }
-      addressLocality {
-        fi
-        sv
-        en
-      }
-      streetAddress {
-        fi
-        sv
-        en
-      }
-      postalCode
-      position {
-        coordinates
-      }
-      telephone {
-        fi
-        sv
-        en
-      }
+      ...placeFields
     }
     offers {
       isFree
@@ -1268,7 +1271,7 @@ export const EventDetailsDocument = gql`
     }
   }
 }
-    `;
+    ${PlaceFieldsFragmentDoc}`;
 export type EventDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<EventDetailsQuery, EventDetailsQueryVariables> | TChildProps;
 export function withEventDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
@@ -1353,8 +1356,8 @@ export type OrganizationDetailsQueryHookResult = ReturnType<typeof useOrganizati
 export type OrganizationDetailsLazyQueryHookResult = ReturnType<typeof useOrganizationDetailsLazyQuery>;
 export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($divisions: [String], $endDate: String, $include: [String], $inLanguage: String, $isFree: Boolean, $keywordNot: [String], $keywords: [String], $language: String, $locations: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $startDate: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
-  eventList(divisions: $divisions, endDate: $endDate, include: $include, inLanguage: $inLanguage, isFree: $isFree, keywordNot: $keywordNot, keywords: $keywords, language: $language, locations: $locations, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, startDate: $startDate, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
+    query EventList($division: [String], $end: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordNot: [String], $language: String, $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+  eventList(division: $division, end: $end, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordNot: $keywordNot, language: $language, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
     meta {
       count
       next
@@ -1455,20 +1458,21 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  * @example
  * const { data, loading, error } = useEventListQuery({
  *   variables: {
- *      divisions: // value for 'divisions'
- *      endDate: // value for 'endDate'
- *      include: // value for 'include'
+ *      division: // value for 'division'
+ *      end: // value for 'end'
  *      inLanguage: // value for 'inLanguage'
+ *      include: // value for 'include'
  *      isFree: // value for 'isFree'
+ *      keyword: // value for 'keyword'
+ *      keywordAnd: // value for 'keywordAnd'
  *      keywordNot: // value for 'keywordNot'
- *      keywords: // value for 'keywords'
  *      language: // value for 'language'
- *      locations: // value for 'locations'
+ *      location: // value for 'location'
  *      page: // value for 'page'
  *      pageSize: // value for 'pageSize'
  *      publisher: // value for 'publisher'
  *      sort: // value for 'sort'
- *      startDate: // value for 'startDate'
+ *      start: // value for 'start'
  *      superEvent: // value for 'superEvent'
  *      superEventType: // value for 'superEventType'
  *      text: // value for 'text'
@@ -1934,15 +1938,10 @@ export type NeighborhoodListQueryResult = ApolloReactCommon.QueryResult<Neighbor
 export const PlaceDetailsDocument = gql`
     query PlaceDetails($id: ID!) {
   placeDetails(id: $id) {
-    id
-    name {
-      fi
-      sv
-      en
-    }
+    ...placeFields
   }
 }
-    `;
+    ${PlaceFieldsFragmentDoc}`;
 export type PlaceDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<PlaceDetailsQuery, PlaceDetailsQueryVariables> | TChildProps;
 export function withPlaceDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
@@ -1989,16 +1988,11 @@ export const PlaceListDocument = gql`
       previous
     }
     data {
-      id
-      name {
-        fi
-        sv
-        en
-      }
+      ...placeFields
     }
   }
 }
-    `;
+    ${PlaceFieldsFragmentDoc}`;
 export type PlaceListProps<TChildProps = {}> = ApolloReactHoc.DataProps<PlaceListQuery, PlaceListQueryVariables> | TChildProps;
 export function withPlaceList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,

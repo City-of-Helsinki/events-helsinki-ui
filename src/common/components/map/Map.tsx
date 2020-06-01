@@ -13,7 +13,10 @@ const L = isClient ? require("leaflet") : null;
 const ReactLeaflet = isClient ? require("react-leaflet") : null;
 
 // Allow map scroll only inside Helsinki
-const maxBounds = [{ lat: 60.33, lng: 25.33 }, { lat: 60.1, lng: 24.73 }];
+const maxBounds = [
+  { lat: 60.33, lng: 25.33 },
+  { lat: 60.1, lng: 24.73 }
+];
 
 interface Props {
   coordinates: number[] | null;

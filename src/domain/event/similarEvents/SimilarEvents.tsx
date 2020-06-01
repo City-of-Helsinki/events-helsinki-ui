@@ -26,8 +26,8 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
   const eventSearch = getSearchQuery({
     categories: [],
     dateTypes: [],
-    districts: [],
-    endDate: null,
+    divisions: [],
+    end: null,
     isFree: false,
     keywordNot: [],
     keywords: eventData.eventDetails.keywords
@@ -35,21 +35,20 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
       .filter(e => e),
     places: [],
     publisher: null,
-    search: "",
-    startDate: null,
-    targets: []
+    start: null,
+    text: ""
   });
   // Filter by search query if exists, if not filter by event keywords
   const searchParams = new URLSearchParams(search ? search : eventSearch);
   const eventFilters = React.useMemo(() => {
-    return getEventFilters(
-      searchParams,
-      ["location"],
-      ["umbrella", "none"],
-      PAGE_SIZE,
-      EVENT_SORT_OPTIONS.END_TIME,
-      locale
-    );
+    return getEventFilters({
+      include: ["location"],
+      language: locale,
+      pageSize: PAGE_SIZE,
+      params: searchParams,
+      sortOrder: EVENT_SORT_OPTIONS.END_TIME,
+      superEventType: ["umbrella", "none"]
+    });
   }, [locale, searchParams]);
   const { t } = useTranslation();
 

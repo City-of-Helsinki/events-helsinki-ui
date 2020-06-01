@@ -21,14 +21,14 @@ const mocks = [
   {
     request: {
       query: EventListDocument,
-      variables: getEventFilters(
-        searchParams,
-        ["location"],
-        ["umbrella", "none"],
-        PAGE_SIZE,
-        EVENT_SORT_OPTIONS.END_TIME,
-        SUPPORT_LANGUAGES.FI
-      )
+      variables: getEventFilters({
+        include: ["location"],
+        language: SUPPORT_LANGUAGES.FI,
+        pageSize: PAGE_SIZE,
+        params: searchParams,
+        sortOrder: EVENT_SORT_OPTIONS.END_TIME,
+        superEventType: ["umbrella", "none"]
+      })
     },
     result: {
       data: {

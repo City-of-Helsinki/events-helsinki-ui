@@ -1,0 +1,27 @@
+@import "colors";
+@import "fonts";
+@import "layout";
+@import "variables";
+
+.filterSummary {
+  margin-bottom: 0.625rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .clearButton {
+    padding: 0;
+    color: $hel-black;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 2px solid transparent;
+    text-decoration: underline;
+    text-align: left;
+
+    &:focus {
+      outline: 2px solid $hel-black;
+      outline-offset: 0.25rem;
+    }
+  }
+}

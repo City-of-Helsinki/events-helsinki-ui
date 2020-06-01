@@ -6,15 +6,14 @@ describe("getSearchQuery function", () => {
       getSearchQuery({
         categories: [],
         dateTypes: [],
-        districts: [],
-        endDate: null,
+        divisions: [],
+        end: null,
         keywordNot: [],
         keywords: [],
         places: [],
         publisher: null,
-        search: "",
-        startDate: null,
-        targets: []
+        start: null,
+        text: ""
       })
     ).toBe("");
 
@@ -22,32 +21,30 @@ describe("getSearchQuery function", () => {
       getSearchQuery({
         categories: ["category1", "category2"],
         dateTypes: ["type1", "type2"],
-        districts: [],
-        endDate: null,
+        divisions: [],
+        end: null,
         keywordNot: [],
         keywords: [],
         places: [],
         publisher: null,
-        search: "test",
-        startDate: null,
-        targets: []
+        start: null,
+        text: "test"
       })
-    ).toBe("?categories=category1,category2&dateTypes=type1,type2&search=test");
+    ).toBe("?categories=category1,category2&dateTypes=type1,type2&text=test");
 
     expect(
       getSearchQuery({
         categories: [],
         dateTypes: ["type1", "type2"],
-        districts: [],
-        endDate: new Date("2019-12-20"),
+        divisions: [],
+        end: new Date("2019-12-20"),
         keywordNot: [],
         keywords: [],
         places: [],
         publisher: null,
-        search: "test",
-        startDate: new Date("2019-11-20"),
-        targets: []
+        start: new Date("2019-11-20"),
+        text: "test"
       })
-    ).toBe("?endDate=2019-12-20&search=test&startDate=2019-11-20");
+    ).toBe("?end=2019-12-20&start=2019-11-20&text=test");
   });
 });

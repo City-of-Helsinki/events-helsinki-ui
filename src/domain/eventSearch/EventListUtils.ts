@@ -1,11 +1,13 @@
 import { addDays, endOfWeek, isPast, startOfWeek, subDays } from "date-fns";
 
-import { CATEGORIES, DATE_TYPES, TARGET_GROUPS } from "../../constants";
+import { CATEGORIES, DATE_TYPES } from "../../constants";
 import { EventListQuery } from "../../generated/graphql";
+import { Language } from "../../types";
 import { formatDate } from "../../util/dateUtils";
 import getUrlParamAsArray from "../../util/getUrlParamAsArray";
 import {
   CULTURE_KEYWORDS,
+  EVENT_SEARCH_FILTERS,
   EVENT_SORT_OPTIONS,
   INFLUENCE_KEYWORDS,
   MUSEUM_KEYWORDS
@@ -14,51 +16,56 @@ import {
 /**
  * Get start and end dates to event list filtering
  * @param dayTypes
- * @param startDate
- * @param endDate
+ * @param startTime
+ * @param endTime
  * @return {object}
  */
-const getFilterDates = (
-  dayTypes: string[],
-  startDate: string | null,
-  endDate: string | null
-) => {
+const getFilterDates = ({
+  dateTypes,
+  startTime,
+  endTime
+}: {
+  dateTypes: string[];
+  startTime: string | null;
+  endTime: string | null;
+}) => {
   const dateFormat = "yyyy-MM-dd";
-  if (startDate || endDate) {
-    return { endDate, startDate };
+
+  if (startTime || endTime) {
+    return { end: endTime, start: startTime };
   }
 
   const today = new Date();
   const sunday = endOfWeek(today, { weekStartsOn: 1 });
-  const friday = formatDate(subDays(sunday, 2), dateFormat);
+  const saturday = formatDate(subDays(sunday, 1), dateFormat);
   const monday = startOfWeek(today, { weekStartsOn: 1 });
 
   let end = "";
   let start = "";
 
-  if (dayTypes.includes(DATE_TYPES.ALL)) {
-    return { endDate: null, startDate: null };
+  if (dateTypes.includes(DATE_TYPES.ALL)) {
+    return { end: null, start: null };
   }
 
-  if (dayTypes.includes(DATE_TYPES.TODAY)) {
+  if (dateTypes.includes(DATE_TYPES.TODAY)) {
     end = formatDate(today, dateFormat);
     start = formatDate(today, dateFormat);
   }
 
-  if (dayTypes.includes(DATE_TYPES.TOMORROW)) {
+  if (dateTypes.includes(DATE_TYPES.TOMORROW)) {
     end = formatDate(addDays(today, 1), dateFormat);
     start = start ? start : formatDate(addDays(today, 1), dateFormat);
   }
 
-  if (dayTypes.includes(DATE_TYPES.WEEKEND)) {
+  if (dateTypes.includes(DATE_TYPES.WEEKEND)) {
     end =
       end && end > formatDate(sunday, dateFormat)
         ? end
         : formatDate(sunday, dateFormat);
-    start = start && start < friday ? start : friday;
+    start = start && start < saturday ? start : saturday;
   }
 
-  if (dayTypes.includes(DATE_TYPES.THIS_WEEK)) {
+  if (dateTypes.includes(DATE_TYPES.THIS_WEEK)) {
     end =
       end && end > formatDate(sunday, dateFormat)
         ? end
@@ -66,7 +73,7 @@ const getFilterDates = (
     start = formatDate(monday, dateFormat);
   }
 
-  return { endDate: end, startDate: start };
+  return { end, start };
 };
 
 /**
@@ -81,47 +88,64 @@ export const getCurrentHour = (): string => {
 
 /**
  * Get event list request filters from url parameters
- * @param params
- * @param include {string[]}
- * @param superEventType {string[]}
- * @param pageSize {number}
- * @param sortOrder {string}
- * @param language {string}
+ * @param {object} filterOptions
  * @return {object}
  */
-export const getEventFilters = (
-  params: URLSearchParams,
-  include: string[],
-  superEventType: string[],
-  pageSize: number,
-  sortOrder: EVENT_SORT_OPTIONS,
-  language: "en" | "fi" | "sv"
-) => {
+export const getEventFilters = ({
+  include,
+  language,
+  pageSize,
+  params,
+  sortOrder,
+  superEventType
+}: {
+  include: string[];
+  language: Language;
+  pageSize: number;
+  params: URLSearchParams;
+  sortOrder: EVENT_SORT_OPTIONS;
+  superEventType: string[];
+}) => {
   const dateFormat = "yyyy-MM-dd";
-  const dateTypes = getUrlParamAsArray(params, "dateTypes");
-  let { startDate, endDate } = getFilterDates(
+  const dateTypes = getUrlParamAsArray(params, EVENT_SEARCH_FILTERS.DATE_TYPES);
+  let { start, end } = getFilterDates({
     dateTypes,
-    params.get("startDate"),
-    params.get("endDate")
+    endTime: params.get(EVENT_SEARCH_FILTERS.END),
+    startTime: params.get(EVENT_SEARCH_FILTERS.START)
+  });
+
+  if (!start || isPast(new Date(start))) {
+    start = getCurrentHour();
+  }
+
+  if (end && isPast(new Date(end))) {
+    end = formatDate(new Date(), dateFormat);
+  }
+
+  const places = getUrlParamAsArray(params, EVENT_SEARCH_FILTERS.PLACES);
+  const categories = getUrlParamAsArray(
+    params,
+    EVENT_SEARCH_FILTERS.CATEGORIES
   );
+  const divisions = getUrlParamAsArray(params, EVENT_SEARCH_FILTERS.DIVISIONS);
+  const mappedDivisions: string[] = divisions.length
+    ? [...divisions]
+    : ["kunta:helsinki"];
 
-  if (!startDate || isPast(new Date(startDate))) {
-    startDate = getCurrentHour();
-  }
-  if (endDate && isPast(new Date(endDate))) {
-    endDate = formatDate(new Date(), dateFormat);
-  }
+  const keywords = getUrlParamAsArray(params, EVENT_SEARCH_FILTERS.KEYWORDS);
+  const keywordAnd: string[] = [];
+  keywords.forEach(keyword => {
+    switch (keyword) {
+      // Seniorit tags
+      case "kulke:354":
+      case "helmet:10675":
+        keywordAnd.push(...["kulke:354", "helmet:10675"]);
+        break;
+      default:
+        keywordAnd.push(keyword);
+    }
+  });
 
-  const places = getUrlParamAsArray(params, "places");
-  const categories = getUrlParamAsArray(params, "categories");
-  const districts = getUrlParamAsArray(params, "districts");
-  const mappedDistricts: string[] = [...districts];
-  // Get only events in Helsinki
-  if (!mappedDistricts.length) {
-    mappedDistricts.push("kunta:helsinki");
-  }
-
-  const keywords = getUrlParamAsArray(params, "keywords");
   const mappedCategories: string[] = categories.map(category => {
     switch (category) {
       case CATEGORIES.CULTURE:
@@ -152,47 +176,24 @@ export const getEventFilters = (
   });
 
   // Combine and add keywords
-  keywords.forEach(keyword => {
-    switch (keyword) {
-      // Seniorit tags
-      case "kulke:354":
-      case "helmet:10675":
-        mappedCategories.push(...["kulke:354", "helmet:10675"]);
-        break;
-      default:
-        mappedCategories.push(keyword);
-    }
-  });
-
-  const targets = getUrlParamAsArray(params, "targets");
-  const mappedTargets: string[] = targets.map(target => {
-    switch (target) {
-      case TARGET_GROUPS.CHILDREN:
-        return "yso:p4354";
-      case TARGET_GROUPS.YOUNG_PEOPLE:
-        return "yso:p11617";
-      default:
-        return "";
-    }
-  });
-
-  mappedCategories.push(...mappedTargets);
 
   return {
-    divisions: mappedDistricts.sort(),
-    endDate: endDate,
+    division: mappedDivisions.sort(),
+    end,
     include,
-    isFree: params.get("isFree") === "true" ? true : undefined,
-    keywordNot: getUrlParamAsArray(params, "keywordNot"),
-    keywords: mappedCategories.sort(),
+    isFree:
+      params.get(EVENT_SEARCH_FILTERS.IS_FREE) === "true" ? true : undefined,
+    keyword: mappedCategories.sort(),
+    keywordAnd,
+    keywordNot: getUrlParamAsArray(params, EVENT_SEARCH_FILTERS.KEYWORD_NOT),
     language,
-    locations: places.sort(),
+    location: places.sort(),
     pageSize,
-    publisher: params.get("publisher"),
+    publisher: params.get(EVENT_SEARCH_FILTERS.PUBLISHER),
     sort: sortOrder,
-    startDate: startDate,
+    start,
     superEventType,
-    text: params.get("search")
+    text: params.get(EVENT_SEARCH_FILTERS.TEXT)
   };
 };
 
@@ -208,6 +209,6 @@ export const getNextPage = (
 
   const urlParts = eventsData.eventList.meta.next.split("?");
   const searchParams = new URLSearchParams(decodeURIComponent(urlParts[1]));
-  const page = searchParams.get("page");
+  const page = searchParams.get(EVENT_SEARCH_FILTERS.PAGE);
   return page ? Number(page) : null;
 };

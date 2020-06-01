@@ -5,8 +5,6 @@ import { useTranslation } from "react-i18next";
 import { EventListQuery } from "../../../generated/graphql";
 import Container from "../../app/layout/Container";
 import EventList from "./EventList";
-import ExtraFilters from "./extraFilters/ExtraFilters";
-import FilterSummary from "./filterSummary/FilterSummary";
 import NoResultsInfo from "./NoResultsInfo";
 import styles from "./searchResultList.module.scss";
 
@@ -15,7 +13,6 @@ interface Props {
   loading: boolean;
   onLoadMore: () => void;
   showCount?: boolean;
-  showFilterSummary?: boolean;
 }
 
 const SearchResultList: React.FC<Props> = ({
@@ -30,24 +27,18 @@ const SearchResultList: React.FC<Props> = ({
     <div className={styles.searchResultListContainer}>
       <Container>
         <div className={classNames(styles.searchResultWrapper)}>
-          <div>
-            <FilterSummary />
-            <ExtraFilters />
-          </div>
-          <div>
-            <h2 className={styles.count}>
-              {t("eventSearch.textFoundEvents", {
-                count
-              })}
-            </h2>
-            {!count && !loading && <NoResultsInfo />}
-            <EventList
-              cardSize="large"
-              eventsData={eventsData}
-              loading={loading}
-              onLoadMore={onLoadMore}
-            />
-          </div>
+          <h2 className={styles.count}>
+            {t("eventSearch.textFoundEvents", {
+              count
+            })}
+          </h2>
+          {!count && !loading && <NoResultsInfo />}
+          <EventList
+            cardSize="large"
+            eventsData={eventsData}
+            loading={loading}
+            onLoadMore={onLoadMore}
+          />
         </div>
       </Container>
     </div>

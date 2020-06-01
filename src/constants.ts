@@ -29,12 +29,11 @@ export const EVENT_STATUS = {
   EVENT_SCHEDULED: "EventScheduled"
 };
 
-export const AUTOSUGGEST_TYPES = {
-  DISTRICT: "district",
-  KEYWORD: "keyword",
-  PLACE: "place",
-  YSO: "yso"
-};
+export enum AUTOSUGGEST_TYPES {
+  KEYWORD = "keyword",
+  SEARCH = "search",
+  YSO = "yso"
+}
 
 export enum SUPPORT_LANGUAGES {
   FI = "fi",
@@ -54,10 +53,5 @@ export enum DATE_PICKER_INPUT_STATE {
 }
 
 export const DEFAULT_LANGUAGE = SUPPORT_LANGUAGES.FI;
-
-export const TARGET_GROUPS = {
-  CHILDREN: "children",
-  YOUNG_PEOPLE: "young_people"
-};
 
 export const DEFAULT_SOME_IMAGE = "/images/activities_SoMe-share.jpg";

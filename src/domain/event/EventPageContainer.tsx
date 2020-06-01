@@ -32,7 +32,10 @@ const EventPageContainer: React.FC = () => {
   const locale = useLocale();
 
   const { data: eventData, loading } = useEventDetailsQuery({
-    variables: { id: eventId, include: ["in_language", "keywords", "location"] }
+    variables: {
+      id: eventId,
+      include: ["in_language", "keywords", "location"]
+    }
   });
 
   const eventClosed = !eventData || isEventClosed(eventData.eventDetails);

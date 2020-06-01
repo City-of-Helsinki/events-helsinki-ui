@@ -79,7 +79,7 @@ exports[`LandingPageSearch should match snapshot 1`] = `
                       <div class=\\"react-datepicker__triangle\\"></div><button type=\\"button\\" class=\\"react-datepicker__navigation react-datepicker__navigation--next\\">Next Month</button>
                       <div class=\\"react-datepicker__month-container\\">
                         <div class=\\"react-datepicker__header\\">
-                          <div class=\\"react-datepicker__current-month\\">toukokuu 2020</div>
+                          <div class=\\"react-datepicker__current-month\\">kesäkuu 2020</div>
                           <div class=\\"react-datepicker__header__dropdown react-datepicker__header__dropdown--scroll\\"></div>
                           <div class=\\"react-datepicker__day-names\\">
                             <div class=\\"react-datepicker__day-name\\">ma</div>
@@ -91,51 +91,51 @@ exports[`LandingPageSearch should match snapshot 1`] = `
                             <div class=\\"react-datepicker__day-name\\">su</div>
                           </div>
                         </div>
-                        <div class=\\"react-datepicker__month\\" role=\\"listbox\\" aria-label=\\"month-2020-05\\">
+                        <div class=\\"react-datepicker__month\\" role=\\"listbox\\" aria-label=\\"month-2020-06\\">
                           <div class=\\"react-datepicker__week\\">
-                            <div class=\\"react-datepicker__day react-datepicker__day--027 react-datepicker__day--disabled react-datepicker__day--outside-month\\" aria-label=\\"day-27\\" role=\\"option\\" aria-disabled=\\"true\\">27</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--028 react-datepicker__day--disabled react-datepicker__day--outside-month\\" aria-label=\\"day-28\\" role=\\"option\\" aria-disabled=\\"true\\">28</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--029 react-datepicker__day--disabled react-datepicker__day--outside-month\\" aria-label=\\"day-29\\" role=\\"option\\" aria-disabled=\\"true\\">29</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--030 react-datepicker__day--disabled react-datepicker__day--outside-month\\" aria-label=\\"day-30\\" role=\\"option\\" aria-disabled=\\"true\\">30</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--001 react-datepicker__day--disabled\\" aria-label=\\"day-1\\" role=\\"option\\" aria-disabled=\\"true\\">1</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--002 react-datepicker__day--disabled react-datepicker__day--weekend\\" aria-label=\\"day-2\\" role=\\"option\\" aria-disabled=\\"true\\">2</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--003 react-datepicker__day--disabled react-datepicker__day--weekend\\" aria-label=\\"day-3\\" role=\\"option\\" aria-disabled=\\"true\\">3</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--001 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-1\\" role=\\"option\\" aria-disabled=\\"false\\">1</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--002\\" aria-label=\\"day-2\\" role=\\"option\\" aria-disabled=\\"false\\">2</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--003\\" aria-label=\\"day-3\\" role=\\"option\\" aria-disabled=\\"false\\">3</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--004\\" aria-label=\\"day-4\\" role=\\"option\\" aria-disabled=\\"false\\">4</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--005\\" aria-label=\\"day-5\\" role=\\"option\\" aria-disabled=\\"false\\">5</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--006 react-datepicker__day--weekend\\" aria-label=\\"day-6\\" role=\\"option\\" aria-disabled=\\"false\\">6</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--007 react-datepicker__day--weekend\\" aria-label=\\"day-7\\" role=\\"option\\" aria-disabled=\\"false\\">7</div>
                           </div>
                           <div class=\\"react-datepicker__week\\">
-                            <div class=\\"react-datepicker__day react-datepicker__day--004 react-datepicker__day--disabled\\" aria-label=\\"day-4\\" role=\\"option\\" aria-disabled=\\"true\\">4</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--005 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-5\\" role=\\"option\\" aria-disabled=\\"false\\">5</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--006\\" aria-label=\\"day-6\\" role=\\"option\\" aria-disabled=\\"false\\">6</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--007\\" aria-label=\\"day-7\\" role=\\"option\\" aria-disabled=\\"false\\">7</div>
                             <div class=\\"react-datepicker__day react-datepicker__day--008\\" aria-label=\\"day-8\\" role=\\"option\\" aria-disabled=\\"false\\">8</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--009 react-datepicker__day--weekend\\" aria-label=\\"day-9\\" role=\\"option\\" aria-disabled=\\"false\\">9</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--010 react-datepicker__day--weekend\\" aria-label=\\"day-10\\" role=\\"option\\" aria-disabled=\\"false\\">10</div>
-                          </div>
-                          <div class=\\"react-datepicker__week\\">
+                            <div class=\\"react-datepicker__day react-datepicker__day--009\\" aria-label=\\"day-9\\" role=\\"option\\" aria-disabled=\\"false\\">9</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--010\\" aria-label=\\"day-10\\" role=\\"option\\" aria-disabled=\\"false\\">10</div>
                             <div class=\\"react-datepicker__day react-datepicker__day--011\\" aria-label=\\"day-11\\" role=\\"option\\" aria-disabled=\\"false\\">11</div>
                             <div class=\\"react-datepicker__day react-datepicker__day--012\\" aria-label=\\"day-12\\" role=\\"option\\" aria-disabled=\\"false\\">12</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--013\\" aria-label=\\"day-13\\" role=\\"option\\" aria-disabled=\\"false\\">13</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--014\\" aria-label=\\"day-14\\" role=\\"option\\" aria-disabled=\\"false\\">14</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--015\\" aria-label=\\"day-15\\" role=\\"option\\" aria-disabled=\\"false\\">15</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--016 react-datepicker__day--weekend\\" aria-label=\\"day-16\\" role=\\"option\\" aria-disabled=\\"false\\">16</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--017 react-datepicker__day--weekend\\" aria-label=\\"day-17\\" role=\\"option\\" aria-disabled=\\"false\\">17</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--013 react-datepicker__day--weekend\\" aria-label=\\"day-13\\" role=\\"option\\" aria-disabled=\\"false\\">13</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--014 react-datepicker__day--weekend\\" aria-label=\\"day-14\\" role=\\"option\\" aria-disabled=\\"false\\">14</div>
                           </div>
                           <div class=\\"react-datepicker__week\\">
+                            <div class=\\"react-datepicker__day react-datepicker__day--015\\" aria-label=\\"day-15\\" role=\\"option\\" aria-disabled=\\"false\\">15</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--016\\" aria-label=\\"day-16\\" role=\\"option\\" aria-disabled=\\"false\\">16</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--017\\" aria-label=\\"day-17\\" role=\\"option\\" aria-disabled=\\"false\\">17</div>
                             <div class=\\"react-datepicker__day react-datepicker__day--018\\" aria-label=\\"day-18\\" role=\\"option\\" aria-disabled=\\"false\\">18</div>
                             <div class=\\"react-datepicker__day react-datepicker__day--019\\" aria-label=\\"day-19\\" role=\\"option\\" aria-disabled=\\"false\\">19</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--020\\" aria-label=\\"day-20\\" role=\\"option\\" aria-disabled=\\"false\\">20</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--021\\" aria-label=\\"day-21\\" role=\\"option\\" aria-disabled=\\"false\\">21</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--022\\" aria-label=\\"day-22\\" role=\\"option\\" aria-disabled=\\"false\\">22</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--023 react-datepicker__day--weekend\\" aria-label=\\"day-23\\" role=\\"option\\" aria-disabled=\\"false\\">23</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--024 react-datepicker__day--weekend\\" aria-label=\\"day-24\\" role=\\"option\\" aria-disabled=\\"false\\">24</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--020 react-datepicker__day--weekend\\" aria-label=\\"day-20\\" role=\\"option\\" aria-disabled=\\"false\\">20</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--021 react-datepicker__day--weekend\\" aria-label=\\"day-21\\" role=\\"option\\" aria-disabled=\\"false\\">21</div>
                           </div>
                           <div class=\\"react-datepicker__week\\">
+                            <div class=\\"react-datepicker__day react-datepicker__day--022\\" aria-label=\\"day-22\\" role=\\"option\\" aria-disabled=\\"false\\">22</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--023\\" aria-label=\\"day-23\\" role=\\"option\\" aria-disabled=\\"false\\">23</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--024\\" aria-label=\\"day-24\\" role=\\"option\\" aria-disabled=\\"false\\">24</div>
                             <div class=\\"react-datepicker__day react-datepicker__day--025\\" aria-label=\\"day-25\\" role=\\"option\\" aria-disabled=\\"false\\">25</div>
                             <div class=\\"react-datepicker__day react-datepicker__day--026\\" aria-label=\\"day-26\\" role=\\"option\\" aria-disabled=\\"false\\">26</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--027\\" aria-label=\\"day-27\\" role=\\"option\\" aria-disabled=\\"false\\">27</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--028\\" aria-label=\\"day-28\\" role=\\"option\\" aria-disabled=\\"false\\">28</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--027 react-datepicker__day--weekend\\" aria-label=\\"day-27\\" role=\\"option\\" aria-disabled=\\"false\\">27</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--028 react-datepicker__day--weekend\\" aria-label=\\"day-28\\" role=\\"option\\" aria-disabled=\\"false\\">28</div>
+                          </div>
+                          <div class=\\"react-datepicker__week\\">
                             <div class=\\"react-datepicker__day react-datepicker__day--029\\" aria-label=\\"day-29\\" role=\\"option\\" aria-disabled=\\"false\\">29</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--030 react-datepicker__day--weekend\\" aria-label=\\"day-30\\" role=\\"option\\" aria-disabled=\\"false\\">30</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--031 react-datepicker__day--weekend\\" aria-label=\\"day-31\\" role=\\"option\\" aria-disabled=\\"false\\">31</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--030\\" aria-label=\\"day-30\\" role=\\"option\\" aria-disabled=\\"false\\">30</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--001 react-datepicker__day--outside-month\\" aria-label=\\"day-1\\" role=\\"option\\" aria-disabled=\\"false\\">1</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--002 react-datepicker__day--outside-month\\" aria-label=\\"day-2\\" role=\\"option\\" aria-disabled=\\"false\\">2</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--003 react-datepicker__day--outside-month\\" aria-label=\\"day-3\\" role=\\"option\\" aria-disabled=\\"false\\">3</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--004 react-datepicker__day--weekend react-datepicker__day--outside-month\\" aria-label=\\"day-4\\" role=\\"option\\" aria-disabled=\\"false\\">4</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--005 react-datepicker__day--weekend react-datepicker__day--outside-month\\" aria-label=\\"day-5\\" role=\\"option\\" aria-disabled=\\"false\\">5</div>
                           </div>
                         </div>
                       </div>
@@ -149,10 +149,10 @@ exports[`LandingPageSearch should match snapshot 1`] = `
           </div>
         </div>
       </div>
-      <div class=\\"buttonWrapper\\"><button type=\\"button\\" class=\\"_3wgeeaHxiHujNcKzeML5j4 _3aSBFzRPhZcNdul13_gERo _3bo_TEhSbadoDUbxUTgx4J _2AR2oE9bnVLLmiLEmYiWNc primary\\">
-          <div class=\\"_3Wlc6ydCOxrot7DuTOBW8x\\" aria-hidden=\\"true\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
+      <div class=\\"buttonWrapper\\"><button type=\\"button\\" class=\\"Button-module_button__3wgee button_hds-button__2A0je Button-module_success__1LdEx button_hds-button--success__9hpuD Button-module_fullWidth__2AR2o button_hds-button--fullwidth__1_hG9\\">
+          <div class=\\"Button-module_icon__3Wlc6 button_hds-icon__17j8Z\\" aria-hidden=\\"true\\"><svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 24 24\\" class=\\"\\">
               <path d=\\"M15.3582734,0.0535251799 C12.0567815,0.0517959979 9.04784082,1.94662012 7.62269829,4.92467659 C6.19755575,7.90273306 6.6096026,11.4345925 8.68201439,14.0046043 L0.00920863309,22.676259 L1.30820144,23.9758273 L9.98273381,15.3035971 C12.9168981,17.6690044 17.0515408,17.841428 20.1724602,15.7285309 C23.2933795,13.6156338 24.6689728,9.71271903 23.5625765,6.10989254 C22.4561801,2.50706606 19.1271543,0.0488985453 15.3582734,0.0517959979 L15.3582734,0.0535251799 Z M15.3582734,15.3657554 C11.637384,15.3657554 8.62100719,12.3493786 8.62100719,8.62848921 C8.62100719,4.90759984 11.637384,1.89122302 15.3582734,1.89122302 C19.0791628,1.89122302 22.0955396,4.90759984 22.0955396,8.62848921 C22.0917339,12.3479875 19.0777709,15.3624653 15.3582734,15.3669065 L15.3582734,15.3657554 Z\\"></path>
-            </svg></div><span class=\\"_2zMLCVF6mmvV2UqfaBF5K\\">Hae</span>
+            </svg></div><span class=\\"Button-module_label__2zMLC button_hds-button__label__2EQa-\\">Hae</span>
         </button></div>
     </div>
   </div>

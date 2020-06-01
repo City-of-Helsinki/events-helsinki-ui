@@ -19,14 +19,14 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const eventFilters = React.useMemo(() => {
-    return getEventFilters(
-      searchParams,
-      ["keywords", "location"],
-      ["umbrella", "none"],
-      PAGE_SIZE,
-      EVENT_SORT_OPTIONS.END_TIME,
-      locale
-    );
+    return getEventFilters({
+      include: ["keywords", "location"],
+      language: locale,
+      pageSize: PAGE_SIZE,
+      params: searchParams,
+      sortOrder: EVENT_SORT_OPTIONS.END_TIME,
+      superEventType: ["umbrella", "none"]
+    });
   }, [locale, searchParams]);
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
 

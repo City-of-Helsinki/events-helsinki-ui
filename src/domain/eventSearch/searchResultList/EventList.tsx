@@ -1,8 +1,8 @@
 import classNames from "classnames";
+import { Button } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import Button from "../../../common/components/button/Button";
 import EventCard from "../../../common/components/eventCard/EventCard";
 import LargeEventCard from "../../../common/components/eventCard/LargeEventCard";
 import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
@@ -47,7 +47,7 @@ const EventList: React.FC<Props> = ({
       >
         <LoadingSpinner hasPadding={!events.length} isLoading={loading}>
           {!!eventsData.eventList.meta.next && (
-            <Button color="primary" size="default" onClick={onLoadMore}>
+            <Button onClick={onLoadMore} variant="success">
               {t("eventSearch.buttonLoadMore")}
             </Button>
           )}

@@ -35,16 +35,15 @@ const TopFooter: FunctionComponent = () => {
     const search = getSearchQuery({
       categories: [category.value],
       dateTypes: [],
-      districts: [],
-      endDate: null,
+      divisions: [],
+      end: null,
       isFree: false,
       keywordNot: [],
       keywords: [],
       places: [],
       publisher: null,
-      search: "",
-      startDate: null,
-      targets: []
+      start: null,
+      text: ""
     });
 
     push({ pathname: `/${locale}/events`, search });

@@ -1,7 +1,10 @@
 import { isPast } from "date-fns";
 import capitalize from "lodash/capitalize";
 
-import { EventDetailsQuery, Place } from "../../generated/graphql";
+import {
+  EventDetailsQuery,
+  PlaceFieldsFragment
+} from "../../generated/graphql";
 import { Language } from "../../types";
 import getLocalisedString from "../../util/getLocalisedString";
 import {
@@ -105,10 +108,10 @@ export const getEventKeywords = (
     .filter(
       (keyword, index, arr) =>
         !!keyword.name &&
-        (!EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
-          arr.findIndex(
-            item => item.name.toLowerCase() === keyword.name.toLowerCase()
-          ) === index)
+        !EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
+        arr.findIndex(
+          item => item.name.toLowerCase() === keyword.name.toLowerCase()
+        ) === index
     )
     .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
 };
@@ -183,7 +186,7 @@ export const getGoogleLink = (
  * @param {object} location
  * @return {string}
  */
-const getLocationId = (location?: Place | null) => {
+const getLocationId = (location?: PlaceFieldsFragment | null) => {
   return location && location.id
     ? location.id
         .split(":")

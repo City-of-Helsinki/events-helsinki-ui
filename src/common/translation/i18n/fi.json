@@ -53,10 +53,6 @@
       "messageLinkCopySuccess": "Linkki kopioitu leikepöydälle"
     },
     "supriseMe": "Koeta onneasi",
-    "targets": {
-      "children": "Lapsille",
-      "youngPeople": "Nuorille"
-    },
     "timeAbbreviation": "klo"
   },
   "collection": {
@@ -89,7 +85,7 @@
   },
   "event": {
     "categories": {
-      "labelFree": "Ilmainen",
+      "labelFree": "Maksuton",
       "labelThisWeek": "Tällä viikolla",
       "labelToday": "Tänään"
     },
@@ -103,7 +99,7 @@
       "buttonBuyTickets": "Osta liput",
       "buttonToHomePage": "Siirry etusivulle",
       "offers": {
-        "isFree": "Ilmainen"
+        "isFree": "Maksuton"
       },
       "textEventClosed": "Älä huoli, Helsingistä löytyy paljon muuta tekemistä. ",
       "titleEventClosed": "Höh, etsimäsi tapahtuma on jo ehtinyt päättyä"
@@ -128,7 +124,7 @@
       "linkSearchByOrganization": "Katso muut järjestäjän tapahtumat",
       "linkWebPage": "Verkkosivu",
       "offers": {
-        "isFree": "Ilmainen"
+        "isFree": "Maksuton"
       },
       "openMap": "Avaa kartta",
       "textCalendarLinkDescription": "{{description}} Lue lisää: {{link}}"
@@ -166,15 +162,8 @@
       "buttonReadMore": "Lue lisää",
       "dateAndTime": "{{date}}, klo {{time}}",
       "offers": {
-        "isFree": "Ilmainen"
+        "isFree": "Maksuton"
       }
-    },
-    "filters": {
-      "buttonRemoveSearchWord": "Poista hakusana",
-      "checkboxIsFree": "Maksuttomat",
-      "textNoFilters": "Ei hakuehtoja",
-      "titleShowOnly": "Näytä vain:",
-      "titleSummary": "Valitsemasi hakuehdot:"
     },
     "noResultsInfo": {
       "bigText": "Voi vitsi, valitsemillasi hakuehdoilla ei löytynyt yhtään hakutulosta",
@@ -182,6 +171,7 @@
     },
     "search": {
       "buttonSearch": "Hae",
+      "checkboxIsFree": "Näytä vain maksuttomat",
       "labelCategory": "Millaista haet?",
       "labelDateRange": "Mille ajankohdalle etsit?",
       "labelDistrict": "Mistä etsit?",
@@ -189,8 +179,8 @@
       "labelTargetGroup": "Kenelle etsit?",
       "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
       "titleDropdownCategory": "Valitse kategoria",
-      "titleDropdownDistrict": "Valitse alue",
-      "titleDropdownTargetGroup": "Valitse kenelle"
+      "titleDropdownDivision": "Valitse alue",
+      "titleDropdownPlace": "Valitse tapahtumapaikka"
     },
     "textFoundEvents": "{{count}} hakutulosta",
     "title": "Tapahtumahaku"

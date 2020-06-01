@@ -37,7 +37,6 @@ const LandingPagePreview: React.FC = () => {
             <Container>
               <Search />/
             </Container>
-            >
           </>
         ) : (
           <ErrorHero

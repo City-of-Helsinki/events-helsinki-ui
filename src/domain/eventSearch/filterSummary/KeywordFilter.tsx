@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next";
 
 import FilterButton, {
   FilterType
-} from "../../../../common/components/filterButton/FilterButton";
-import { useKeywordDetailsQuery } from "../../../../generated/graphql";
-import useLocale from "../../../../hooks/useLocale";
-import getLocalisedString from "../../../../util/getLocalisedString";
+} from "../../../common/components/filterButton/FilterButton";
+import { useKeywordDetailsQuery } from "../../../generated/graphql";
+import useLocale from "../../../hooks/useLocale";
+import getLocalisedString from "../../../util/getLocalisedString";
 
 interface Props {
   id: string;

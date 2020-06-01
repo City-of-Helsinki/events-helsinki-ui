@@ -26,14 +26,14 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
       : ""
   );
   const eventFilters = React.useMemo(() => {
-    return getEventFilters(
-      searchParams,
-      ["location"],
-      ["umbrella", "none"],
-      PAGE_SIZE,
-      EVENT_SORT_OPTIONS.END_TIME,
-      locale
-    );
+    return getEventFilters({
+      include: ["location"],
+      language: locale,
+      pageSize: PAGE_SIZE,
+      params: searchParams,
+      sortOrder: EVENT_SORT_OPTIONS.END_TIME,
+      superEventType: ["umbrella", "none"]
+    });
   }, [locale, searchParams]);
 
   const { data: eventsData, fetchMore, loading } = useEventListQuery({

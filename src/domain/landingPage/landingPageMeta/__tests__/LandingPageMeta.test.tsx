@@ -1,7 +1,7 @@
 import { render, waitForDomChange } from "@testing-library/react";
 import React from "react";
 
-import { LANDING_PAGE_SOME_IMAGE, mockLandingPage } from "../../constants";
+import { mockLandingPage } from "../../constants";
 import LandingPageMeta from "../LandingPageMeta";
 
 const getWrapper = () =>
@@ -32,7 +32,7 @@ afterEach(() => {
 test("applies expected metadata", async () => {
   const landingPageTitle = mockLandingPage.pageTitle.fi;
   const landingPageDescription = mockLandingPage.metaInformation.fi;
-  const landingPageImage = LANDING_PAGE_SOME_IMAGE;
+  const landingPageImage = mockLandingPage.heroBackgroundImage.fi;
 
   // This function is usually used for the helpers it returns. However, the
   // scope f the helpers is limited to `body`. As we need to assert against

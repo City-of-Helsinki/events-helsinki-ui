@@ -2,6 +2,7 @@ import * as Sentry from "@sentry/browser";
 import classNames from "classnames";
 import { saveAs } from "file-saver";
 import {
+  Button,
   IconAngleRight,
   IconCalendar,
   IconDirections,
@@ -14,7 +15,6 @@ import capitalize from "lodash/capitalize";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import Button from "../../../common/components/button/Button";
 import Link from "../../../common/components/link/Link";
 import linkStyles from "../../../common/components/link/link.module.scss";
 import { EventDetailsQuery } from "../../../generated/graphql";
@@ -276,10 +276,9 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           >
             <Button
               aria-label={t("event.info.ariaLabelBuyTickets")}
-              color="primary"
               fullWidth={true}
               onClick={moveToBuyTicketsPage}
-              size="default"
+              variant="success"
             >
               {t("event.info.buttonBuyTickets")}
             </Button>

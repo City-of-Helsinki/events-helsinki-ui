@@ -3,68 +3,80 @@
 @import "layout";
 @import "variables";
 
+$buttonWidth: 180px;
+$gridGapSmall: 0.625rem;
+$gridGapMedium: $basePadding;
+$gridGapLarge: $largePadding;
+
 .searchContainer {
-  
   color: $hel-black;
   background-color: $hel-copper-light-20;
   padding: 2.375rem 0 3.75rem 0;
   position: relative;
 
-  .searchWrapper {
+  .rowWrapper {
     display: grid;
-    grid-gap: 0.625rem;
     height: fit-content;
     align-items: center;
 
     grid-template-columns: 1fr;
+    grid-gap: $gridGapSmall;
+
+    margin-bottom: $gridGapSmall;
 
     @include respond-above(sm) {
-      grid-template-columns: 1fr auto;
-      grid-gap: $basePadding;
+      grid-template-columns: 1fr $buttonWidth;
+      grid-gap: $gridGapMedium;
+
+      margin-bottom: $gridGapMedium;
     }
 
     @include respond-above(md) {
-      grid-gap: $largePadding;
+      grid-gap: $gridGapLarge;
     }
   }
 
-  .fieldsWrapper {
-    .firstRow {
-      margin-bottom: 0.625rem;
+  .buttonWrapper {
+    align-self: flex-end;
+  }
 
-      @include respond-above(sm) {
-        margin-bottom: $baseMargin;
-      }
+  .row {
+    display: grid;
+    grid-gap: $gridGapSmall;
 
-      @include respond-above(md) {
-        grid-template-columns: 3fr 1fr;
-        grid-gap: 0.5rem;
-        display: grid;
-      }
+    @include respond-above(sm) {
+      grid-template-columns: 1fr 1fr;
+      grid-gap: $gridGapMedium;
     }
 
-    .secondRow {
-      display: grid;
-      grid-gap: 0.625rem;
-
-      @include respond-above(sm) {
-        grid-template-columns: 1fr 1fr;
-        grid-gap: $basePadding;
-      }
-
-      @include respond-above(md) {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-gap: $basePadding;
-      }
-    }
-    .dateSelectorWrapper {
-      align-self: flex-end;
+    @include respond-above(md) {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
     }
   }
-}
 
-.buttonWrapper {
-  align-self: flex-end;
+  .autoSuggestRow {
+    @include respond-above(sm) {
+      grid-template-columns: 1fr;
+    }
+
+    @include respond-above(md) {
+      div:first-child {
+        grid-column: 1 / 4;
+      }
+    }
+  }
+
+  .checkbox {
+    label {
+      display: flex;
+      align-items: center;
+    }
+    
+  }
+
+  .dateSelectorWrapper {
+    align-self: flex-end;
+  }
 }
 
 .label {
