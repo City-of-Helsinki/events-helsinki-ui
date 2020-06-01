@@ -37,9 +37,6 @@ exports[`AutosuggestMenu matches snapshot 1`] = `
       role="option"
     >
       <div
-        className="colorIndicator"
-      />
-      <div
         className="icon"
       />
       <div

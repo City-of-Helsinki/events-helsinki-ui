@@ -32,7 +32,7 @@ afterEach(() => {
 test("applies expected metadata", async () => {
   const landingPageTitle = mockLandingPage.pageTitle.fi;
   const landingPageDescription = mockLandingPage.metaInformation.fi;
-  const landingPageImage = "testimage.png";
+  const landingPageImage = mockLandingPage.heroBackgroundImage.fi;
 
   // This function is usually used for the helpers it returns. However, the
   // scope f the helpers is limited to `body`. As we need to assert against

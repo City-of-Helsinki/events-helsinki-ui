@@ -85,7 +85,7 @@
   },
   "event": {
     "categories": {
-      "labelFree": "Ilmainen",
+      "labelFree": "Maksuton",
       "labelThisWeek": "Tällä viikolla",
       "labelToday": "Tänään"
     },
@@ -99,7 +99,7 @@
       "buttonBuyTickets": "Osta liput",
       "buttonToHomePage": "Siirry etusivulle",
       "offers": {
-        "isFree": "Ilmainen"
+        "isFree": "Maksuton"
       },
       "textEventClosed": "Älä huoli, Helsingistä löytyy paljon muuta tekemistä. ",
       "titleEventClosed": "Höh, etsimäsi tapahtuma on jo ehtinyt päättyä"
@@ -124,7 +124,7 @@
       "linkSearchByOrganization": "Katso muut järjestäjän tapahtumat",
       "linkWebPage": "Verkkosivu",
       "offers": {
-        "isFree": "Ilmainen"
+        "isFree": "Maksuton"
       },
       "openMap": "Avaa kartta",
       "textCalendarLinkDescription": "{{description}} Lue lisää: {{link}}"
@@ -162,7 +162,7 @@
       "buttonReadMore": "Lue lisää",
       "dateAndTime": "{{date}}, klo {{time}}",
       "offers": {
-        "isFree": "Ilmainen"
+        "isFree": "Maksuton"
       }
     },
     "noResultsInfo": {

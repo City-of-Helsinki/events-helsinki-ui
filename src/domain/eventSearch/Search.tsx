@@ -300,8 +300,7 @@ const Search: FunctionComponent = () => {
               </div>
               <div className={styles.rowWrapper}>
                 <div className={styles.row}>
-                  {/* TODO: Hide category filter temporarily. Show when needed */}
-                  <div style={{ display: "none" }}>
+                  <div>
                     <MultiSelectDropdown
                       checkboxName="categoryOptions"
                       icon={<IconRead />}
@@ -357,7 +356,6 @@ const Search: FunctionComponent = () => {
               </div>
               <div className={styles.rowWrapper}>
                 <div className={styles.row}>
-                  <div></div>
                   <div>
                     <Checkbox
                       className={styles.checkbox}

@@ -15,9 +15,9 @@ export const mockLandingPage = {
     sv: "Description sv:"
   },
   heroBackgroundImage: {
-    en: null,
-    fi: null,
-    sv: null
+    en: "testimage.png",
+    fi: "testimage.png",
+    sv: "testimage.png"
   },
   heroTopLayerImage: {
     en: null,

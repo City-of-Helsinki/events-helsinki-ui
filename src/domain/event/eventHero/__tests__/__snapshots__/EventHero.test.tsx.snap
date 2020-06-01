@@ -71,7 +71,7 @@ exports[`EventHero matches snapshot 1`] = `
             <div
               className="keyword tramLight20"
             >
-              Ilmainen
+              Maksuton
             </div>
           </div>
           <div
@@ -139,7 +139,7 @@ exports[`EventHero matches snapshot 1`] = `
             <div
               className="iconTextWrapper"
             >
-              Ilmainen
+              Maksuton
             </div>
           </div>
         </div>
