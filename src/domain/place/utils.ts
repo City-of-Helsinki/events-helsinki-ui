@@ -12,7 +12,6 @@ export const getPlaceDetailsFromCache = (
     query: PlaceDetailsDocument,
     variables: { id }
   });
-  console.log("234");
 
   return data;
 };
