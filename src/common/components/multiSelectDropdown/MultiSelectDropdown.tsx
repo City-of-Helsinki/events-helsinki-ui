@@ -197,14 +197,14 @@ const Dropdown: React.FC<Props> = ({
 
   const selectedText = React.useMemo(() => {
     const valueLabels = value
-      .map(val =>
-        renderOptionText
-          ? renderOptionText(val)
-          : () => {
-              const result = options.find(option => option.value === val);
-              return result ? result.text : null;
-            }
-      )
+      .map(val => {
+        if (renderOptionText) {
+          return renderOptionText(val);
+        } else {
+          const result = options.find(option => option.value === val);
+          return result ? result.text : null;
+        }
+      })
       .sort();
     if (valueLabels.length > 1) {
       return (
