@@ -25,6 +25,7 @@ import getDateRangeStr from "../../../util/getDateRangeStr";
 import getDomain from "../../../util/getDomain";
 import getLocalisedString from "../../../util/getLocalisedString";
 import { translateValue } from "../../../util/translateUtils";
+import { ROUTES } from "../../app/constants";
 import {
   getEventDistrict,
   getEventPrice,
@@ -95,7 +96,10 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             eventData.eventDetails.shortDescription || {},
             locale
           ),
-          link: `${domain}/${locale}/event/${eventData.eventDetails.id}`
+          link: `${domain}/${locale}${ROUTES.EVENT.replace(
+            ":id",
+            eventData.eventDetails.id
+          )}`
         }),
         end: eventData.eventDetails.endTime
           ? getDateArray(eventData.eventDetails.endTime)

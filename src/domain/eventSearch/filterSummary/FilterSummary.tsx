@@ -12,6 +12,7 @@ import getLocalisedString from "../../../util/getLocalisedString";
 import getUrlParamAsArray from "../../../util/getUrlParamAsArray";
 import { getSearchQuery } from "../../../util/searchUtils";
 import { translateValue } from "../../../util/translateUtils";
+import { ROUTES } from "../../app/constants";
 import { EVENT_SEARCH_FILTERS } from "../constants";
 import DateFilter from "./DateFilter";
 import styles from "./filterSummary.module.scss";
@@ -103,7 +104,7 @@ const FilterSummary = () => {
       text: type === "searchWord" ? "" : searchWord
     });
 
-    push({ pathname: `/${locale}/events`, search });
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   };
 
   const deleteSearchWord = () => {
@@ -125,7 +126,7 @@ const FilterSummary = () => {
       text: ""
     });
 
-    push({ pathname: `/${locale}/events`, search });
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   };
 
   const hasFilters =

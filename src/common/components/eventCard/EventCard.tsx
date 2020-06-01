@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
+import { ROUTES } from "../../../domain/app/constants";
 import EventKeywords from "../../../domain/event/eventKeywords/EventKeywords";
 import LocationText from "../../../domain/event/eventLocation/EventLocationText";
 import EventName from "../../../domain/event/eventName/EventName";
@@ -40,7 +41,7 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
   const endTime = event.endTime;
 
   const eventUrl = React.useMemo(() => {
-    return `/${locale}/event/${event.id}${search}`;
+    return `/${locale}${ROUTES.EVENT.replace(":id", event.id)}${search}`;
   }, [event.id, locale, search]);
 
   const eventClosed = isEventClosed(event);

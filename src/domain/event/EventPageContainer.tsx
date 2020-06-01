@@ -10,6 +10,7 @@ import { useEventDetailsQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
 import getLocalisedString from "../../util/getLocalisedString";
 import isClient from "../../util/isClient";
+import { ROUTES } from "../app/constants";
 import Container from "../app/layout/Container";
 import PageWrapper from "../app/layout/PageWrapper";
 import EventClosedHero from "./eventClosedHero/EventClosedHero";
@@ -68,7 +69,7 @@ const EventPageContainer: React.FC = () => {
             text={t("event.notFound.text")}
             title={t("event.notFound.title")}
           >
-            <Link to={`/${locale}/events${search}`}>
+            <Link to={`/${locale}${ROUTES.EVENTS}${search}`}>
               {t("event.notFound.linkSearchEvents")}
             </Link>
           </ErrorHero>

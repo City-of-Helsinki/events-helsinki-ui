@@ -12,6 +12,7 @@ import IconTicket from "../../../icons/IconTicket";
 import getDateRangeStr from "../../../util/getDateRangeStr";
 import getLocalisedString from "../../../util/getLocalisedString";
 import testImage from "../../../util/testImage";
+import { ROUTES } from "../../app/constants";
 import Container from "../../app/layout/Container";
 import EventKeywords from "../eventKeywords/EventKeywords";
 import LocationText from "../eventLocation/EventLocationText";
@@ -43,7 +44,7 @@ const EventHero: React.FC<Props> = ({ eventData }) => {
   }, [eventData.eventDetails.offers, locale]);
 
   const eventSearchUrl = React.useMemo(() => {
-    return `/${locale}/events${location.search}`;
+    return `/${locale}${ROUTES.EVENTS}${location.search}`;
   }, [locale, location.search]);
 
   const moveToBuyTicketsPage = () => {

@@ -7,6 +7,7 @@ import ErrorHero from "../../common/components/error/ErrorHero";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useCollectionDetailsQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
+import { ROUTES } from "../app/constants";
 import PageWrapper from "../app/layout/PageWrapper";
 import CollectionHero from "./collectionHero/CollectionHero";
 import styles from "./collectionPage.module.scss";
@@ -57,7 +58,7 @@ const CollectionPageContainer: React.FC = () => {
                   text={t("collection.languageNotSupported.text")}
                   title={t("collection.languageNotSupported.title")}
                 >
-                  <Link to={`/${locale}/collections`}>
+                  <Link to={`/${locale}${ROUTES.COLLECTIONS}`}>
                     {t("collection.languageNotSupported.linkSearchEvents")}
                   </Link>
                 </ErrorHero>
@@ -73,7 +74,7 @@ const CollectionPageContainer: React.FC = () => {
             text={t("collection.notFound.text")}
             title={t("collection.notFound.title")}
           >
-            <Link to={`/${locale}/events${search}`}>
+            <Link to={`/${locale}${ROUTES.EVENTS}${search}`}>
               {t("collection.notFound.linkSearchEvents")}
             </Link>
           </ErrorHero>

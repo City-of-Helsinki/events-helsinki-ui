@@ -10,10 +10,13 @@ import EventSearchPageContainer from "../eventSearch/EventSearchPageContainer";
 import LandingPage from "../landingPage/LandingPage";
 import LandingPagePreview from "../landingPage/LandingPagePreview";
 import NotFound from "../notFound/NotFound";
+import { ROUTES } from "./constants";
 
-const App: FunctionComponent<RouteComponentProps<{
-  locale: SUPPORT_LANGUAGES;
-}>> = ({
+const App: FunctionComponent<
+  RouteComponentProps<{
+    locale: SUPPORT_LANGUAGES;
+  }>
+> = ({
   match: {
     params: { locale }
   }
@@ -26,31 +29,31 @@ const App: FunctionComponent<RouteComponentProps<{
 
   return (
     <Switch>
-      <Redirect exact path={`/${locale}/`} to={`/${locale}/home`} />
-      <Route exact path={`/${locale}/home`} component={LandingPage} />
+      <Redirect exact path={`/${locale}/`} to={`/${locale}${ROUTES.HOME}`} />
+      <Route exact path={`/${locale}${ROUTES.HOME}`} component={LandingPage} />
       <Route
         exact
-        path={`/${locale}/home/:id`}
+        path={`/${locale}${ROUTES.HOME_PREVIEW}`}
         component={LandingPagePreview}
       />
       <Route
         exact
-        path={`/${locale}/collections`}
+        path={`/${locale}${ROUTES.COLLECTIONS}`}
         component={CollectionListPage}
       />
       <Route
         exact
-        path={`/${locale}/collection/:id`}
+        path={`/${locale}${ROUTES.COLLECTION}`}
         component={CollectionPageContainer}
       />
       <Route
         exact
-        path={`/${locale}/events`}
+        path={`/${locale}${ROUTES.EVENTS}`}
         component={EventSearchPageContainer}
       />
       <Route
         exact
-        path={`/${locale}/event/:id`}
+        path={`/${locale}${ROUTES.EVENT}`}
         component={EventPageContainer}
       />
       <Route component={NotFound} />

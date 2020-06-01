@@ -12,6 +12,7 @@ import {
 } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getDateRangeStr from "../../../util/getDateRangeStr";
+import { ROUTES } from "../../app/constants";
 import { EVENT_SORT_OPTIONS } from "../../eventSearch/constants";
 import { getCurrentHour, getNextPage } from "../../eventSearch/EventListUtils";
 import { getEventIdFromUrl } from "../EventUtils";
@@ -108,7 +109,10 @@ const OtherEventTimes: React.FC<Props> = ({ eventData }) => {
           <ul className={styles.timeList}>
             {subEvents.map(subEvent => {
               const moveToEventPage = () => {
-                const eventUrl = `/${locale}/event/${subEvent.id}${search}`;
+                const eventUrl = `/${locale}${ROUTES.EVENT.replace(
+                  ":id",
+                  subEvent.id
+                )}${search}`;
                 history.push(eventUrl);
               };
               return (

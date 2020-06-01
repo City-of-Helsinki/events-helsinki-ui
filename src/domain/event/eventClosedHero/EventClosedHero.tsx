@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 
 import useLocale from "../../../hooks/useLocale";
+import { ROUTES } from "../../app/constants";
 import styles from "./eventClosedHero.module.scss";
 
 const EventClosedHero: React.FC = () => {
@@ -12,7 +13,7 @@ const EventClosedHero: React.FC = () => {
   const locale = useLocale();
 
   const moveToHomePage = () => {
-    push(`/${locale}/home`);
+    push(`/${locale}${ROUTES.HOME}`);
   };
 
   return (
