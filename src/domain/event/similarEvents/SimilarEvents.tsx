@@ -41,14 +41,14 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
   // Filter by search query if exists, if not filter by event keywords
   const searchParams = new URLSearchParams(search ? search : eventSearch);
   const eventFilters = React.useMemo(() => {
-    return getEventFilters(
-      searchParams,
-      ["location"],
-      ["umbrella", "none"],
-      PAGE_SIZE,
-      EVENT_SORT_OPTIONS.END_TIME,
-      locale
-    );
+    return getEventFilters({
+      include: ["location"],
+      language: locale,
+      pageSize: PAGE_SIZE,
+      params: searchParams,
+      sortOrder: EVENT_SORT_OPTIONS.END_TIME,
+      superEventType: ["umbrella", "none"]
+    });
   }, [locale, searchParams]);
   const { t } = useTranslation();
 

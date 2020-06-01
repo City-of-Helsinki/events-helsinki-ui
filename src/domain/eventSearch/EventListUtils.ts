@@ -2,6 +2,7 @@ import { addDays, endOfWeek, isPast, startOfWeek, subDays } from "date-fns";
 
 import { CATEGORIES, DATE_TYPES } from "../../constants";
 import { EventListQuery } from "../../generated/graphql";
+import { Language } from "../../types";
 import { formatDate } from "../../util/dateUtils";
 import getUrlParamAsArray from "../../util/getUrlParamAsArray";
 import {
@@ -30,7 +31,7 @@ const getFilterDates = (
 
   const today = new Date();
   const sunday = endOfWeek(today, { weekStartsOn: 1 });
-  const friday = formatDate(subDays(sunday, 2), dateFormat);
+  const saturday = formatDate(subDays(sunday, 1), dateFormat);
   const monday = startOfWeek(today, { weekStartsOn: 1 });
 
   let end = "";
@@ -55,7 +56,7 @@ const getFilterDates = (
       end && end > formatDate(sunday, dateFormat)
         ? end
         : formatDate(sunday, dateFormat);
-    start = start && start < friday ? start : friday;
+    start = start && start < saturday ? start : saturday;
   }
 
   if (dayTypes.includes(DATE_TYPES.THIS_WEEK)) {
@@ -81,22 +82,24 @@ export const getCurrentHour = (): string => {
 
 /**
  * Get event list request filters from url parameters
- * @param params
- * @param include {string[]}
- * @param superEventType {string[]}
- * @param pageSize {number}
- * @param sortOrder {string}
- * @param language {string}
+ * @param {object} filterOptions
  * @return {object}
  */
-export const getEventFilters = (
-  params: URLSearchParams,
-  include: string[],
-  superEventType: string[],
-  pageSize: number,
-  sortOrder: EVENT_SORT_OPTIONS,
-  language: "en" | "fi" | "sv"
-) => {
+export const getEventFilters = ({
+  include,
+  language,
+  pageSize,
+  params,
+  sortOrder,
+  superEventType
+}: {
+  include: string[];
+  language: Language;
+  pageSize: number;
+  params: URLSearchParams;
+  sortOrder: EVENT_SORT_OPTIONS;
+  superEventType: string[];
+}) => {
   const dateFormat = "yyyy-MM-dd";
   const dateTypes = getUrlParamAsArray(params, "dateTypes");
   let { startDate, endDate } = getFilterDates(
