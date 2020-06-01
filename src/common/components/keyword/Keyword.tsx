@@ -8,23 +8,27 @@ interface Props {
   color?: "engelLight50" | "tramLight20";
   hideOnMobile?: boolean;
   keyword: string;
+  onClick: () => void;
 }
 
 const Keyword: FunctionComponent<Props> = ({
   blackOnMobile,
   color,
   hideOnMobile,
-  keyword
+  keyword,
+  onClick
 }) => {
   return (
-    <div
+    <button
       className={classNames(styles.keyword, color && styles[color], {
         [styles.blackOnMobile]: blackOnMobile,
         [styles.hideOnMobile]: hideOnMobile
       })}
+      onClick={onClick}
+      type="button"
     >
       {keyword}
-    </div>
+    </button>
   );
 };
 

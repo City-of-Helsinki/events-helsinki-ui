@@ -58,21 +58,27 @@ exports[`EventHero matches snapshot 1`] = `
           <div
             className="categoryWrapper"
           >
-            <div
+            <button
               className="keyword blackOnMobile"
+              onClick={[Function]}
+              type="button"
             >
               Keyword 1 fi
-            </div>
-            <div
+            </button>
+            <button
               className="keyword blackOnMobile"
+              onClick={[Function]}
+              type="button"
             >
               Keyword 2 fi
-            </div>
-            <div
+            </button>
+            <button
               className="keyword tramLight20"
+              onClick={[Function]}
+              type="button"
             >
               Maksuton
-            </div>
+            </button>
           </div>
           <div
             className="date desktopOnly"

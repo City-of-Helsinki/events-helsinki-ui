@@ -1,15 +1,15 @@
-import * as React from "react";
-import renderer from "react-test-renderer";
+import { render } from "@testing-library/react";
+import React from "react";
+import { MemoryRouter } from "react-router";
 
 import { mockEventData } from "../../constants";
 import EventKeywords from "../EventKeywords";
 
-test("EventKeywords matches snapshot", () => {
-  const component = renderer.create(
-    <EventKeywords event={mockEventData.eventDetails} showIsFree={true} />
+it("EventKeywords matches snapshot", () => {
+  const { container } = render(
+    <MemoryRouter>
+      <EventKeywords event={mockEventData.eventDetails} showIsFree={true} />
+    </MemoryRouter>
   );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  expect(container.firstChild).toMatchSnapshot();
 });
-
-export {};
