@@ -18,6 +18,7 @@ import getUrlParamAsArray from "../../util/getUrlParamAsArray";
 import { getSearchQuery } from "../../util/searchUtils";
 import Container from "../app/layout/Container";
 import PlaceSelector from "../place/placeSelector/PlaceSelector";
+import FilterSummary from "./filterSummary/FilterSummary";
 import styles from "./search.module.scss";
 
 const Search: FunctionComponent = () => {
@@ -346,6 +347,7 @@ const Search: FunctionComponent = () => {
                   </div>
                 </div>
               </div>
+              <FilterSummary />
             </div>
           </form>
         </Container>

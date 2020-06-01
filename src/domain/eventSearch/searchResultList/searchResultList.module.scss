@@ -28,12 +28,8 @@
 .searchResultWrapper {
   display: grid;
   grid-row-gap: 0.625rem;
-
-  @include respond_above(md) {
-    grid-row-gap: unset;
-    grid-column-gap: $largeMargin;
-    grid-template-columns: 2fr 5fr;
-  }
+  max-width: 1120px;
+  margin: auto;
 
   .eventListWrapper {
     .loadMoreWrapper {

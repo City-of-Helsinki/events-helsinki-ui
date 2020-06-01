@@ -4,14 +4,14 @@ import { useHistory, useLocation } from "react-router";
 
 import FilterButton, {
   FilterType
-} from "../../../../common/components/filterButton/FilterButton";
-import { useNeighborhoodListQuery } from "../../../../generated/graphql";
-import useLocale from "../../../../hooks/useLocale";
-import { formatDate } from "../../../../util/dateUtils";
-import getLocalisedString from "../../../../util/getLocalisedString";
-import getUrlParamAsArray from "../../../../util/getUrlParamAsArray";
-import { getSearchQuery } from "../../../../util/searchUtils";
-import { translateValue } from "../../../../util/translateUtils";
+} from "../../../common/components/filterButton/FilterButton";
+import { useNeighborhoodListQuery } from "../../../generated/graphql";
+import useLocale from "../../../hooks/useLocale";
+import { formatDate } from "../../../util/dateUtils";
+import getLocalisedString from "../../../util/getLocalisedString";
+import getUrlParamAsArray from "../../../util/getUrlParamAsArray";
+import { getSearchQuery } from "../../../util/searchUtils";
+import { translateValue } from "../../../util/translateUtils";
 import DateFilter from "./DateFilter";
 import styles from "./filterSummary.module.scss";
 import KeywordFilter from "./KeywordFilter";
@@ -121,84 +121,68 @@ const FilterSummary = () => {
     !!places.length ||
     !!searchWord;
 
+  if (!hasFilters) return null;
+
   return (
     <div className={styles.filterSummary}>
-      <div className={styles.filtersWrapper}>
-        <h2 className={styles.titleFilterSummary}>
-          {t("eventSearch.filters.titleSummary")}
-        </h2>
-        {!!searchWord && (
-          <SearchWordFilter
-            onRemove={deleteSearchWord}
-            searchWord={searchWord}
-          />
-        )}
-        {hasFilters ? (
-          <>
-            {categories.map(category => (
-              <FilterButton
-                key={category}
-                onRemove={handleFilterRemove}
-                text={translateValue("home.category.", category, t)}
-                type="category"
-                value={category}
-              />
-            ))}
-            {keywords.map(keyword => (
-              <KeywordFilter
-                key={keyword}
-                onRemove={handleFilterRemove}
-                id={keyword}
-              />
-            ))}
-            {publisher && (
-              <PublisherFilter id={publisher} onRemove={handleFilterRemove} />
-            )}
-            {districts.map(district => (
-              <FilterButton
-                key={district}
-                onRemove={handleFilterRemove}
-                text={getNeighorhoodName(district)}
-                type="district"
-                value={district}
-              />
-            ))}
-            {places.map(place => (
-              <PlaceFilter
-                key={place}
-                id={place}
-                onRemove={handleFilterRemove}
-              />
-            ))}
+      {!!searchWord && (
+        <SearchWordFilter onRemove={deleteSearchWord} searchWord={searchWord} />
+      )}
+      {categories.map(category => (
+        <FilterButton
+          key={category}
+          onRemove={handleFilterRemove}
+          text={translateValue("home.category.", category, t)}
+          type="category"
+          value={category}
+        />
+      ))}
+      {keywords.map(keyword => (
+        <KeywordFilter
+          key={keyword}
+          onRemove={handleFilterRemove}
+          id={keyword}
+        />
+      ))}
+      {publisher && (
+        <PublisherFilter id={publisher} onRemove={handleFilterRemove} />
+      )}
+      {districts.map(district => (
+        <FilterButton
+          key={district}
+          onRemove={handleFilterRemove}
+          text={getNeighorhoodName(district)}
+          type="district"
+          value={district}
+        />
+      ))}
+      {places.map(place => (
+        <PlaceFilter key={place} id={place} onRemove={handleFilterRemove} />
+      ))}
 
-            {dateText && (
-              <DateFilter
-                onRemove={handleFilterRemove}
-                text={dateText}
-                type="date"
-                value="date"
-              />
-            )}
-            {dateTypes.map(dateType => (
-              <DateFilter
-                key={dateType}
-                onRemove={handleFilterRemove}
-                type="dateType"
-                value={dateType}
-              />
-            ))}
-            <button
-              className={styles.clearButton}
-              onClick={clearFilters}
-              type="button"
-            >
-              {t("eventSearch.buttonClearFilters")}
-            </button>
-          </>
-        ) : (
-          t("eventSearch.filters.textNoFilters")
-        )}
-      </div>
+      {dateText && (
+        <DateFilter
+          onRemove={handleFilterRemove}
+          text={dateText}
+          type="date"
+          value="date"
+        />
+      )}
+      {dateTypes.map(dateType => (
+        <DateFilter
+          key={dateType}
+          onRemove={handleFilterRemove}
+          type="dateType"
+          value={dateType}
+        />
+      ))}
+      <button
+        className={styles.clearButton}
+        onClick={clearFilters}
+        type="button"
+      >
+        {t("eventSearch.buttonClearFilters")}
+      </button>
     </div>
   );
 };
