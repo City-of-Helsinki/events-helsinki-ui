@@ -169,19 +169,13 @@
         "isFree": "Ilmainen"
       }
     },
-    "filters": {
-      "buttonRemoveSearchWord": "Poista hakusana",
-      "checkboxIsFree": "Maksuttomat",
-      "textNoFilters": "Ei hakuehtoja",
-      "titleShowOnly": "Näytä vain:",
-      "titleSummary": "Valitsemasi hakuehdot:"
-    },
     "noResultsInfo": {
       "bigText": "Voi vitsi, valitsemillasi hakuehdoilla ei löytynyt yhtään hakutulosta",
       "smallText": "Kokeile muuttamalla hakuehtoja ja varmasti löydät jotain kiinnostavaa tekemistä!"
     },
     "search": {
       "buttonSearch": "Hae",
+      "checkboxIsFree": "Näytä vain maksuttomat",
       "labelCategory": "Millaista haet?",
       "labelDateRange": "Mille ajankohdalle etsit?",
       "labelDistrict": "Mistä etsit?",

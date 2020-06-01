@@ -169,19 +169,13 @@
         "isFree": "Free"
       }
     },
-    "filters": {
-      "buttonRemoveSearchWord": "Remove search word",
-      "checkboxIsFree": "Free events",
-      "textNoFilters": "No active search criterias",
-      "titleShowOnly": "Show only:",
-      "titleSummary": "Selected search criteria:"
-    },
     "noResultsInfo": {
       "bigText": "Sorry, no search results were found for the search criteria you selected",
       "smallText": "Try changing your search criteria and you're sure to find something to do!"
     },
     "search": {
       "buttonSearch": "Search",
+      "checkboxIsFree": "Show only free",
       "labelCategory": "What kind of event you are looking for?",
       "labelDateRange": "For what period you are looking for?",
       "labelDistrict": "From where are you looking for?",

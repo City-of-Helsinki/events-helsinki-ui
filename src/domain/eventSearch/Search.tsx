@@ -1,10 +1,10 @@
-import { IconLocation, IconSearch } from "hds-react";
+import classNames from "classnames";
+import { Button, Checkbox, IconLocation, IconSearch } from "hds-react";
 import get from "lodash/get";
 import React, { FormEvent, FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 
-import Button from "../../common/components/button/Button";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import MultiSelectDropdown from "../../common/components/multiSelectDropdown/MultiSelectDropdown";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
@@ -42,9 +42,12 @@ const Search: FunctionComponent = () => {
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
+
+  const publisher = searchParams.get("publisher");
+  const isFree = searchParams.get("isFree") === "true" ? true : false;
+
   const { push } = useHistory();
 
-  const isFree = searchParams.get("isFree") === "true" ? true : false;
   const keywordNot = getUrlParamAsArray(searchParams, "keywordNot");
 
   const { data: neighborhoodsData } = useNeighborhoodListQuery();
@@ -143,7 +146,7 @@ const Search: FunctionComponent = () => {
       keywordNot: keywordNot,
       keywords,
       places,
-      publisher: searchParams.get("publisher"),
+      publisher,
       search: searchValue,
       startDate,
       targets
@@ -159,8 +162,8 @@ const Search: FunctionComponent = () => {
     keywords,
     locale,
     places,
+    publisher,
     push,
-    searchParams,
     searchValue,
     selectedCategories,
     startDate,
@@ -245,6 +248,25 @@ const Search: FunctionComponent = () => {
     push({ pathname: `/${locale}/events`, search });
   };
 
+  const handleIsFreeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const search = getSearchQuery({
+      categories: selectedCategories,
+      dateTypes,
+      districts,
+      endDate,
+      isFree: e.target.checked,
+      keywordNot,
+      keywords,
+      places,
+      publisher,
+      search: searchValue,
+      startDate,
+      targets
+    });
+
+    push({ pathname: `/${locale}/events`, search });
+  };
+
   const handleSubmit = (event?: FormEvent) => {
     if (event) {
       event.preventDefault();
@@ -259,8 +281,8 @@ const Search: FunctionComponent = () => {
         <Container>
           <form onSubmit={handleSubmit}>
             <div className={styles.searchWrapper}>
-              <div className={styles.fieldsWrapper}>
-                <div className={styles.firstRow}>
+              <div className={styles.rowWrapper}>
+                <div className={classNames(styles.row, styles.autoSuggestRow)}>
                   <div>
                     <SearchLabel color="black" htmlFor="search">
                       {t("eventSearch.search.labelSearchField")}
@@ -275,7 +297,9 @@ const Search: FunctionComponent = () => {
                     />
                   </div>
                 </div>
-                <div className={styles.secondRow}>
+              </div>
+              <div className={styles.rowWrapper}>
+                <div className={styles.row}>
                   {/* TODO: Hide category filter temporarily. Show when needed */}
                   <div style={{ display: "none" }}>
                     <MultiSelectDropdown
@@ -327,17 +351,30 @@ const Search: FunctionComponent = () => {
                     <PlaceSelector setPlaces={setPlaces} value={places} />
                   </div>
                 </div>
+                <div className={styles.buttonWrapper}>
+                  <Button
+                    fullWidth={true}
+                    iconLeft={<IconSearch />}
+                    onClick={moveToSearchPage}
+                    variant="success"
+                  >
+                    {t("eventSearch.search.buttonSearch")}
+                  </Button>
+                </div>
               </div>
-              <div className={styles.buttonWrapper}>
-                <Button
-                  color="primary"
-                  fullWidth={true}
-                  iconLeft={<IconSearch />}
-                  onClick={moveToSearchPage}
-                  size="default"
-                >
-                  {t("eventSearch.search.buttonSearch")}
-                </Button>
+              <div className={styles.rowWrapper}>
+                <div className={styles.row}>
+                  <div></div>
+                  <div>
+                    <Checkbox
+                      className={styles.checkbox}
+                      checked={isFree}
+                      id="isFree"
+                      label={t("eventSearch.search.checkboxIsFree")}
+                      onChange={handleIsFreeChange}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </form>

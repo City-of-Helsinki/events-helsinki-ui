@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { EventListQuery } from "../../../generated/graphql";
 import Container from "../../app/layout/Container";
 import EventList from "./EventList";
-import ExtraFilters from "./extraFilters/ExtraFilters";
 import FilterSummary from "./filterSummary/FilterSummary";
 import NoResultsInfo from "./NoResultsInfo";
 import styles from "./searchResultList.module.scss";
@@ -32,7 +31,6 @@ const SearchResultList: React.FC<Props> = ({
         <div className={classNames(styles.searchResultWrapper)}>
           <div>
             <FilterSummary />
-            <ExtraFilters />
           </div>
           <div>
             <h2 className={styles.count}>

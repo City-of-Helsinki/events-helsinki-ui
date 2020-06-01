@@ -169,19 +169,13 @@
         "isFree": "Gratis"
       }
     },
-    "filters": {
-      "buttonRemoveSearchWord": "Ta bort sökordet",
-      "checkboxIsFree": "Gratis evenemang",
-      "textNoFilters": "Inga aktiva sökkriterier",
-      "titleShowOnly": "Visa endast:",
-      "titleSummary": "Valda sökkriterier:"
-    },
     "noResultsInfo": {
       "bigText": "Tyvärr, inga sökresultat hittades för de sökkriterier du har valt",
       "smallText": "Försök ändra dina sökkriterier så kommer du säkert att hitta något att göra!"
     },
     "search": {
       "buttonSearch": "Sök",
+      "checkboxIsFree": "Visa endast gratis",
       "labelCategory": "Vilken typ av evenemang du letar efter?",
       "labelDateRange": "För vilken period du letar efter?",
       "labelDistrict": "Varifrån letar du efter??",
