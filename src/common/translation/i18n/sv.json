@@ -53,10 +53,6 @@
       "messageLinkCopySuccess": "Länk kopierad till urklipp"
     },
     "supriseMe": "Jag har tur",
-    "targets": {
-      "children": "För barn",
-      "youngPeople": "För ungdomar"
-    },
     "timeAbbreviation": "kl."
   },
   "collection": {
@@ -184,8 +180,7 @@
       "placeholder": "Ange ett nyckelord, t.ex. rock eller yoga",
       "titleDropdownCategory": "Välj kategori",
       "titleDropdownDistrict": "Välj område",
-      "titleDropdownPlace": "Välj plats",
-      "titleDropdownTargetGroup": "Välj målgrupp"
+      "titleDropdownPlace": "Välj plats"
     },
     "textFoundEvents": "{{count}} sökresultat",
     "title": "Evenemang sök"

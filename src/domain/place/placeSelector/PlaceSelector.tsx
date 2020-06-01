@@ -13,11 +13,12 @@ import PlaceText from "../PlaceText";
 import { getPlaceDetailsFromCache } from "../utils";
 
 interface Props {
+  name: string;
   setPlaces: (places: string[]) => void;
   value: string[];
 }
 
-const PlaceSelector: React.FC<Props> = ({ setPlaces, value }) => {
+const PlaceSelector: React.FC<Props> = ({ name, setPlaces, value }) => {
   const { t } = useTranslation();
   const locale = useLocale();
 
@@ -63,7 +64,7 @@ const PlaceSelector: React.FC<Props> = ({ setPlaces, value }) => {
         checkboxName="placeOptions"
         icon={<IconHouse />}
         inputValue={internalInputValue}
-        name="targets"
+        name={name}
         onChange={setPlaces}
         options={placeOptions}
         renderOptionText={renderOptionText}

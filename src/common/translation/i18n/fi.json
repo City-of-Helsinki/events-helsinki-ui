@@ -53,10 +53,6 @@
       "messageLinkCopySuccess": "Linkki kopioitu leikepöydälle"
     },
     "supriseMe": "Koeta onneasi",
-    "targets": {
-      "children": "Lapsille",
-      "youngPeople": "Nuorille"
-    },
     "timeAbbreviation": "klo"
   },
   "collection": {
@@ -184,8 +180,7 @@
       "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
       "titleDropdownCategory": "Valitse kategoria",
       "titleDropdownDistrict": "Valitse alue",
-      "titleDropdownPlace": "Valitse tapahtumapaikka",
-      "titleDropdownTargetGroup": "Valitse kenelle"
+      "titleDropdownPlace": "Valitse tapahtumapaikka"
     },
     "textFoundEvents": "{{count}} hakutulosta",
     "title": "Tapahtumahaku"

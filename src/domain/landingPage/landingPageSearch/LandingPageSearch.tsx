@@ -46,8 +46,7 @@ const Search: FunctionComponent = () => {
       places: [],
       publisher: null,
       search: "",
-      startDate,
-      targets: []
+      startDate
     });
 
     push({ pathname: `/${locale}/events`, search });
@@ -129,8 +128,7 @@ const Search: FunctionComponent = () => {
       places: [],
       publisher: null,
       search: searchValue,
-      startDate,
-      targets: []
+      startDate
     });
 
     push({ pathname: `/${locale}/events`, search });
@@ -152,8 +150,7 @@ const Search: FunctionComponent = () => {
       places: [],
       publisher: null,
       search: searchValue,
-      startDate,
-      targets: []
+      startDate
     });
 
     push({ pathname: `/${locale}/events`, search });

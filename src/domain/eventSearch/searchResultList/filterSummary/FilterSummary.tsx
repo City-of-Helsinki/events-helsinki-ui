@@ -1,4 +1,3 @@
-import get from "lodash/get";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
@@ -6,7 +5,6 @@ import { useHistory, useLocation } from "react-router";
 import FilterButton, {
   FilterType
 } from "../../../../common/components/filterButton/FilterButton";
-import { TARGET_GROUPS } from "../../../../constants";
 import { useNeighborhoodListQuery } from "../../../../generated/graphql";
 import useLocale from "../../../../hooks/useLocale";
 import { formatDate } from "../../../../util/dateUtils";
@@ -21,9 +19,6 @@ import PlaceFilter from "./PlaceFilter";
 import PublisherFilter from "./PublisherFilter";
 import SearchWordFilter from "./SearchWordFilter";
 
-const findKeyOfTarget = (value: string) =>
-  Object.keys(TARGET_GROUPS).find(key => get(TARGET_GROUPS, key) === value);
-
 const FilterSummary = () => {
   const { t } = useTranslation();
   const locale = useLocale();
@@ -36,7 +31,6 @@ const FilterSummary = () => {
   const isFree = searchParams.get("isFree") === "true" ? true : false;
   const keywords = getUrlParamAsArray(searchParams, "keywords");
   const places = getUrlParamAsArray(searchParams, "places");
-  const targets = getUrlParamAsArray(searchParams, "targets");
   const startDate = searchParams.get("startDate");
   const endDate = searchParams.get("endDate");
   const searchWord = searchParams.get("search");
@@ -89,10 +83,7 @@ const FilterSummary = () => {
         type === "place" ? places.filter(place => place !== value) : places,
       publisher: type !== "publisher" ? searchParams.get("publisher") : null,
       search: type === "searchWord" ? "" : searchWord,
-      startDate:
-        type === "date" ? null : startDate ? new Date(startDate) : null,
-      targets:
-        type === "target" ? targets.filter(target => target !== value) : targets
+      startDate: type === "date" ? null : startDate ? new Date(startDate) : null
     });
 
     push({ pathname: `/${locale}/events`, search });
@@ -114,8 +105,7 @@ const FilterSummary = () => {
       places: [],
       publisher: null,
       search: "",
-      startDate: null,
-      targets: []
+      startDate: null
     });
 
     push({ pathname: `/${locale}/events`, search });
@@ -129,8 +119,7 @@ const FilterSummary = () => {
     !!districts.length ||
     !!keywords.length ||
     !!places.length ||
-    !!searchWord ||
-    !!targets.length;
+    !!searchWord;
 
   return (
     <div className={styles.filterSummary}>
@@ -181,19 +170,7 @@ const FilterSummary = () => {
                 onRemove={handleFilterRemove}
               />
             ))}
-            {targets.map(target => (
-              <FilterButton
-                key={target}
-                onRemove={handleFilterRemove}
-                text={translateValue(
-                  "commons.targets.",
-                  findKeyOfTarget(target) || "",
-                  t
-                )}
-                type="target"
-                value={target}
-              />
-            ))}
+
             {dateText && (
               <DateFilter
                 onRemove={handleFilterRemove}

@@ -17,7 +17,6 @@ interface Filters {
   publisher: string | null;
   search: string;
   startDate: Date | null;
-  targets: string[];
 }
 
 interface MappedFilters {
@@ -32,7 +31,6 @@ interface MappedFilters {
   publisher?: string | null;
   search: string;
   startDate?: string | null;
-  targets: string[];
 }
 
 export const getSearchQuery = (filters: Filters): string => {

@@ -36,8 +36,7 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
     places: [],
     publisher: null,
     search: "",
-    startDate: null,
-    targets: []
+    startDate: null
   });
   // Filter by search query if exists, if not filter by event keywords
   const searchParams = new URLSearchParams(search ? search : eventSearch);

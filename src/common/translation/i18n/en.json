@@ -53,10 +53,6 @@
       "messageLinkCopySuccess": "Link copied into clipboard"
     },
     "supriseMe": "I'm Feeling Lucky",
-    "targets": {
-      "children": "For kids",
-      "youngPeople": "For youths"
-    },
     "timeAbbreviation": "at"
   },
   "collection": {
@@ -184,8 +180,7 @@
       "placeholder": "Enter a keyword, eg rock or yoga",
       "titleDropdownCategory": "Select category",
       "titleDropdownDistrict": "Select area",
-      "titleDropdownPlace": "Select venue",
-      "titleDropdownTargetGroup": "Select audience"
+      "titleDropdownPlace": "Select venue"
     },
     "textFoundEvents": "{{count}} search results",
     "title": "Event search"

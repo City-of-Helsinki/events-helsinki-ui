@@ -13,8 +13,7 @@ describe("getSearchQuery function", () => {
         places: [],
         publisher: null,
         search: "",
-        startDate: null,
-        targets: []
+        startDate: null
       })
     ).toBe("");
 
@@ -29,8 +28,7 @@ describe("getSearchQuery function", () => {
         places: [],
         publisher: null,
         search: "test",
-        startDate: null,
-        targets: []
+        startDate: null
       })
     ).toBe("?categories=category1,category2&dateTypes=type1,type2&search=test");
 
@@ -45,8 +43,7 @@ describe("getSearchQuery function", () => {
         places: [],
         publisher: null,
         search: "test",
-        startDate: new Date("2019-11-20"),
-        targets: []
+        startDate: new Date("2019-11-20")
       })
     ).toBe("?endDate=2019-12-20&search=test&startDate=2019-11-20");
   });

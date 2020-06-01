@@ -1,6 +1,6 @@
 import { addDays, endOfWeek, isPast, startOfWeek, subDays } from "date-fns";
 
-import { CATEGORIES, DATE_TYPES, TARGET_GROUPS } from "../../constants";
+import { CATEGORIES, DATE_TYPES } from "../../constants";
 import { EventListQuery } from "../../generated/graphql";
 import { formatDate } from "../../util/dateUtils";
 import getUrlParamAsArray from "../../util/getUrlParamAsArray";
@@ -163,20 +163,6 @@ export const getEventFilters = (
         mappedCategories.push(keyword);
     }
   });
-
-  const targets = getUrlParamAsArray(params, "targets");
-  const mappedTargets: string[] = targets.map(target => {
-    switch (target) {
-      case TARGET_GROUPS.CHILDREN:
-        return "yso:p4354";
-      case TARGET_GROUPS.YOUNG_PEOPLE:
-        return "yso:p11617";
-      default:
-        return "";
-    }
-  });
-
-  mappedCategories.push(...mappedTargets);
 
   return {
     divisions: mappedDistricts.sort(),

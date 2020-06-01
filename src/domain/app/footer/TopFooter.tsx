@@ -43,8 +43,7 @@ const TopFooter: FunctionComponent = () => {
       places: [],
       publisher: null,
       search: "",
-      startDate: null,
-      targets: []
+      startDate: null
     });
 
     push({ pathname: `/${locale}/events`, search });

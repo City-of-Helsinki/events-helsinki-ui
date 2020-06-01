@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import { Button, Checkbox, IconLocation, IconSearch } from "hds-react";
-import get from "lodash/get";
 import React, { FormEvent, FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
@@ -10,15 +9,13 @@ import MultiSelectDropdown from "../../common/components/multiSelectDropdown/Mul
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
 import SearchLabel from "../../common/components/search/searchLabel/SearchLabel";
 import { AutosuggestMenuOption } from "../../common/types";
-import { CATEGORIES, TARGET_GROUPS } from "../../constants";
+import { CATEGORIES } from "../../constants";
 import { useNeighborhoodListQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
-import IconPerson from "../../icons/IconPerson";
 import IconRead from "../../icons/IconRead";
 import getLocalisedString from "../../util/getLocalisedString";
 import getUrlParamAsArray from "../../util/getUrlParamAsArray";
 import { getSearchQuery } from "../../util/searchUtils";
-import { translateValue } from "../../util/translateUtils";
 import Container from "../app/layout/Container";
 import PlaceSelector from "../place/placeSelector/PlaceSelector";
 import styles from "./search.module.scss";
@@ -38,7 +35,6 @@ const Search: FunctionComponent = () => {
   const [keywords, setKeywords] = React.useState<string[]>([]);
   const [districts, setDistricts] = React.useState<string[]>([]);
   const [places, setPlaces] = React.useState<string[]>([]);
-  const [targets, setTargets] = React.useState<string[]>([]);
   const [startDate, setStartDate] = React.useState<Date | null>(null);
   const [endDate, setEndDate] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
@@ -63,19 +59,6 @@ const Search: FunctionComponent = () => {
             .sort((a, b) => (a.text >= b.text ? 1 : -1))
         : [],
     [locale, neighborhoodsData]
-  );
-
-  const targetOptions = React.useMemo(
-    () =>
-      Object.keys(TARGET_GROUPS)
-        .map(key => {
-          return {
-            text: translateValue("commons.targets.", key, t),
-            value: get(TARGET_GROUPS, key)
-          };
-        })
-        .sort((a, b) => (a.text >= b.text ? 1 : -1)),
-    [t]
   );
 
   const categories = React.useMemo(
@@ -148,8 +131,7 @@ const Search: FunctionComponent = () => {
       places,
       publisher,
       search: searchValue,
-      startDate,
-      targets
+      startDate
     });
 
     push({ pathname: `/${locale}/events`, search });
@@ -166,8 +148,7 @@ const Search: FunctionComponent = () => {
     push,
     searchValue,
     selectedCategories,
-    startDate,
-    targets
+    startDate
   ]);
 
   // Initialize fields when page is loaded
@@ -180,7 +161,6 @@ const Search: FunctionComponent = () => {
     const districts = getUrlParamAsArray(searchParams, "districts");
     const keywords = getUrlParamAsArray(searchParams, "keywords");
     const places = getUrlParamAsArray(searchParams, "places");
-    const targets = getUrlParamAsArray(searchParams, "targets");
 
     setSearchValue(searchVal || "");
 
@@ -206,7 +186,6 @@ const Search: FunctionComponent = () => {
     setDistricts(districts);
     setKeywords(keywords);
     setPlaces(places);
-    setTargets(targets);
   }, [searchParams]);
 
   const handleMenuOptionClick = async (option: AutosuggestMenuOption) => {
@@ -235,8 +214,7 @@ const Search: FunctionComponent = () => {
       places,
       publisher: searchParams.get("publisher"),
       search: newSearchValue,
-      startDate,
-      targets
+      startDate
     });
     switch (type) {
       case "keyword":
@@ -260,8 +238,7 @@ const Search: FunctionComponent = () => {
       places,
       publisher,
       search: searchValue,
-      startDate,
-      targets
+      startDate
     });
 
     push({ pathname: `/${locale}/events`, search });
@@ -337,18 +314,11 @@ const Search: FunctionComponent = () => {
                     />
                   </div>
                   <div>
-                    <MultiSelectDropdown
-                      checkboxName="targetOptions"
-                      icon={<IconPerson />}
-                      name="targets"
-                      onChange={setTargets}
-                      options={targetOptions}
-                      title={t("eventSearch.search.titleDropdownTargetGroup")}
-                      value={targets}
+                    <PlaceSelector
+                      name="places"
+                      setPlaces={setPlaces}
+                      value={places}
                     />
-                  </div>
-                  <div>
-                    <PlaceSelector setPlaces={setPlaces} value={places} />
                   </div>
                 </div>
                 <div className={styles.buttonWrapper}>
