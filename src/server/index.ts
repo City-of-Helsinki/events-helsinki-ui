@@ -1,4 +1,5 @@
 import "isomorphic-fetch";
+import "hds-core/lib/base.css";
 
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";

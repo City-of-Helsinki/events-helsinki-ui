@@ -9,8 +9,12 @@ import { usePlaceListQuery } from "../../../generated/graphql";
 import useDebounce from "../../../hooks/useDebounce";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
+import isClient from "../../../util/isClient";
 import PlaceText from "../PlaceText";
-import { getPlaceDetailsFromCache } from "../utils";
+const { getPlaceDetailsFromCache } = isClient
+  ? // eslint-disable-next-line @typescript-eslint/no-require-imports
+    require("../utils")
+  : { getPlaceDetailsFromCache: null };
 
 interface Props {
   name: string;
@@ -49,6 +53,7 @@ const PlaceSelector: React.FC<Props> = ({ name, setPlaces, value }) => {
   const renderOptionText = (id: string) => {
     try {
       const place = getPlaceDetailsFromCache(id);
+
       return getLocalisedString(
         (place && place.placeDetails.name) || {},
         locale
