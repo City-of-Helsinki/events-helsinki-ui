@@ -2,40 +2,42 @@ import gql from "graphql-tag";
 
 export const QUERY_EVENT_LIST = gql`
   query EventList(
-    $divisions: [String]
-    $endDate: String
-    $include: [String]
+    $division: [String]
+    $end: String
     $inLanguage: String
+    $include: [String]
     $isFree: Boolean
+    $keyword: [String]
+    $keywordAnd: [String]
     $keywordNot: [String]
-    $keywords: [String]
     $language: String
-    $locations: [String]
+    $location: [String]
     $page: Int
     $pageSize: Int
     $publisher: ID
     $sort: String
-    $startDate: String
+    $start: String
     $superEvent: ID
     $superEventType: [String]
     $text: String
     $translation: String
   ) {
     eventList(
-      divisions: $divisions
-      endDate: $endDate
+      division: $division
+      end: $end
       include: $include
       inLanguage: $inLanguage
       isFree: $isFree
+      keyword: $keyword
+      keywordAnd: $keywordAnd
       keywordNot: $keywordNot
-      keywords: $keywords
       language: $language
-      locations: $locations
+      location: $location
       page: $page
       pageSize: $pageSize
       publisher: $publisher
       sort: $sort
-      startDate: $startDate
+      start: $start
       superEvent: $superEvent
       superEventType: $superEventType
       text: $text

@@ -179,7 +179,7 @@
       "labelTargetGroup": "Whom you are looking for?",
       "placeholder": "Enter a keyword, eg rock or yoga",
       "titleDropdownCategory": "Select category",
-      "titleDropdownDistrict": "Select area",
+      "titleDropdownDivision": "Select area",
       "titleDropdownPlace": "Select venue"
     },
     "textFoundEvents": "{{count}} search results",

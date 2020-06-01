@@ -7,13 +7,13 @@ describe("getSearchQuery function", () => {
         categories: [],
         dateTypes: [],
         districts: [],
-        endDate: null,
+        end: null,
         keywordNot: [],
         keywords: [],
         places: [],
         publisher: null,
         search: "",
-        startDate: null
+        start: null
       })
     ).toBe("");
 
@@ -22,13 +22,13 @@ describe("getSearchQuery function", () => {
         categories: ["category1", "category2"],
         dateTypes: ["type1", "type2"],
         districts: [],
-        endDate: null,
+        end: null,
         keywordNot: [],
         keywords: [],
         places: [],
         publisher: null,
         search: "test",
-        startDate: null
+        start: null
       })
     ).toBe("?categories=category1,category2&dateTypes=type1,type2&search=test");
 
@@ -37,13 +37,13 @@ describe("getSearchQuery function", () => {
         categories: [],
         dateTypes: ["type1", "type2"],
         districts: [],
-        endDate: new Date("2019-12-20"),
+        end: new Date("2019-12-20"),
         keywordNot: [],
         keywords: [],
         places: [],
         publisher: null,
         search: "test",
-        startDate: new Date("2019-11-20")
+        start: new Date("2019-11-20")
       })
     ).toBe("?endDate=2019-12-20&search=test&startDate=2019-11-20");
   });

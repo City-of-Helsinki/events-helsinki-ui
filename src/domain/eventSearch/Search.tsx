@@ -18,6 +18,7 @@ import getUrlParamAsArray from "../../util/getUrlParamAsArray";
 import { getSearchQuery } from "../../util/searchUtils";
 import Container from "../app/layout/Container";
 import PlaceSelector from "../place/placeSelector/PlaceSelector";
+import { EVENT_SEARCH_FILTERS } from "./constants";
 import FilterSummary from "./filterSummary/FilterSummary";
 import styles from "./search.module.scss";
 
@@ -34,22 +35,26 @@ const Search: FunctionComponent = () => {
     []
   );
   const [keywords, setKeywords] = React.useState<string[]>([]);
-  const [districts, setDistricts] = React.useState<string[]>([]);
+  const [divisions, setDivisions] = React.useState<string[]>([]);
   const [places, setPlaces] = React.useState<string[]>([]);
-  const [startDate, setStartDate] = React.useState<Date | null>(null);
-  const [endDate, setEndDate] = React.useState<Date | null>(null);
+  const [start, setStart] = React.useState<Date | null>(null);
+  const [end, setEnd] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
 
-  const publisher = searchParams.get("publisher");
-  const isFree = searchParams.get("isFree") === "true" ? true : false;
+  const publisher = searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER);
+  const isFree =
+    searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === "true" ? true : false;
 
   const { push } = useHistory();
 
-  const keywordNot = getUrlParamAsArray(searchParams, "keywordNot");
+  const keywordNot = getUrlParamAsArray(
+    searchParams,
+    EVENT_SEARCH_FILTERS.KEYWORD_NOT
+  );
 
   const { data: neighborhoodsData } = useNeighborhoodListQuery();
 
-  const districtOptions = React.useMemo(
+  const divisionOptions = React.useMemo(
     () =>
       neighborhoodsData
         ? neighborhoodsData.neighborhoodList.data
@@ -124,22 +129,22 @@ const Search: FunctionComponent = () => {
     const search = getSearchQuery({
       categories: selectedCategories,
       dateTypes,
-      districts,
-      endDate,
+      divisions,
+      end,
       isFree,
       keywordNot: keywordNot,
       keywords,
       places,
       publisher,
-      search: searchValue,
-      startDate
+      start,
+      text: searchValue
     });
 
     push({ pathname: `/${locale}/events`, search });
   }, [
     dateTypes,
-    districts,
-    endDate,
+    divisions,
+    end,
     isFree,
     keywordNot,
     keywords,
@@ -149,42 +154,56 @@ const Search: FunctionComponent = () => {
     push,
     searchValue,
     selectedCategories,
-    startDate
+    start
   ]);
 
   // Initialize fields when page is loaded
   React.useEffect(() => {
-    const searchVal = searchParams.get("search");
-    const end = searchParams.get("endDate");
-    const start = searchParams.get("startDate");
-    const dTypes = getUrlParamAsArray(searchParams, "dateTypes");
-    const categories = getUrlParamAsArray(searchParams, "categories");
-    const districts = getUrlParamAsArray(searchParams, "districts");
-    const keywords = getUrlParamAsArray(searchParams, "keywords");
-    const places = getUrlParamAsArray(searchParams, "places");
+    const searchVal = searchParams.get(EVENT_SEARCH_FILTERS.TEXT);
+    const endTime = searchParams.get(EVENT_SEARCH_FILTERS.END);
+    const startTime = searchParams.get(EVENT_SEARCH_FILTERS.START);
+    const dTypes = getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.DATE_TYPES
+    );
+    const categories = getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.CATEGORIES
+    );
+    const divisions = getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.DIVISIONS
+    );
+    const keywords = getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.KEYWORDS
+    );
+    const places = getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.PLACES
+    );
 
     setSearchValue(searchVal || "");
 
-    if (end) {
-      setEndDate(new Date(end));
+    if (endTime) {
+      setEnd(new Date(endTime));
     } else {
-      setEndDate(null);
+      setEnd(null);
+    }
+    if (startTime) {
+      setStart(new Date(startTime));
+    } else {
+      setStart(null);
     }
 
-    if (start) {
-      setStartDate(new Date(start));
-    } else {
-      setStartDate(null);
-    }
-
-    if (end || start) {
+    if (endTime || startTime) {
       setIsCustomDate(true);
     } else {
       setDateTypes(dTypes);
     }
 
     setSelectedCategories(categories);
-    setDistricts(districts);
+    setDivisions(divisions);
     setKeywords(keywords);
     setPlaces(places);
   }, [searchParams]);
@@ -196,7 +215,10 @@ const Search: FunctionComponent = () => {
     const newSearchValue = option.type === "search" ? option.text : "";
 
     // Get new keywords
-    const newKeywords = getUrlParamAsArray(searchParams, "keywords");
+    const newKeywords = getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.KEYWORDS
+    );
     if (
       (type === "keyword" || type === "yso") &&
       !newKeywords.includes(value)
@@ -207,15 +229,15 @@ const Search: FunctionComponent = () => {
     const search = getSearchQuery({
       categories: selectedCategories,
       dateTypes,
-      districts,
-      endDate,
+      divisions,
+      end,
       isFree,
       keywordNot,
       keywords: newKeywords,
       places,
-      publisher: searchParams.get("publisher"),
-      search: newSearchValue,
-      startDate
+      publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
+      start,
+      text: newSearchValue
     });
     switch (type) {
       case "keyword":
@@ -231,15 +253,15 @@ const Search: FunctionComponent = () => {
     const search = getSearchQuery({
       categories: selectedCategories,
       dateTypes,
-      districts,
-      endDate,
+      divisions,
+      end,
       isFree: e.target.checked,
       keywordNot,
       keywords,
       places,
       publisher,
-      search: searchValue,
-      startDate
+      start,
+      text: searchValue
     });
 
     push({ pathname: `/${locale}/events`, search });
@@ -293,25 +315,25 @@ const Search: FunctionComponent = () => {
                   <div className={styles.dateSelectorWrapper}>
                     <DateSelector
                       dateTypes={dateTypes}
-                      endDate={endDate}
+                      endDate={end}
                       isCustomDate={isCustomDate}
                       name="date"
                       onChangeDateTypes={handleChangeDateTypes}
-                      onChangeEndDate={setEndDate}
-                      onChangeStartDate={setStartDate}
-                      startDate={startDate}
+                      onChangeEndDate={setEnd}
+                      onChangeStartDate={setStart}
+                      startDate={start}
                       toggleIsCustomDate={toggleIsCustomDate}
                     />
                   </div>
                   <div>
                     <MultiSelectDropdown
-                      checkboxName="districtOptions"
+                      checkboxName="divisionOptions"
                       icon={<IconLocation />}
-                      name="district"
-                      onChange={setDistricts}
-                      options={districtOptions}
-                      title={t("eventSearch.search.titleDropdownDistrict")}
-                      value={districts}
+                      name="division"
+                      onChange={setDivisions}
+                      options={divisionOptions}
+                      title={t("eventSearch.search.titleDropdownDivision")}
+                      value={divisions}
                     />
                   </div>
                   <div>
@@ -340,7 +362,7 @@ const Search: FunctionComponent = () => {
                     <Checkbox
                       className={styles.checkbox}
                       checked={isFree}
-                      id="isFree"
+                      id={EVENT_SEARCH_FILTERS.IS_FREE}
                       label={t("eventSearch.search.checkboxIsFree")}
                       onChange={handleIsFreeChange}
                     />

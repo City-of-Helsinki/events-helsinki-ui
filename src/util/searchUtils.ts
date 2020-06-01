@@ -8,40 +8,40 @@ import { formatDate } from "./dateUtils";
 interface Filters {
   categories: string[];
   dateTypes: string[];
-  districts: string[];
-  endDate: Date | null;
+  divisions: string[];
+  end: Date | null;
   isFree?: boolean;
   keywordNot: string[];
   keywords: string[];
   places: string[];
   publisher: string | null;
-  search: string;
-  startDate: Date | null;
+  start: Date | null;
+  text: string;
 }
 
 interface MappedFilters {
   categories: string[];
   dateTypes?: string[];
-  districts: string[];
-  endDate?: string | null;
+  divisions: string[];
+  end?: string | null;
   isFree?: boolean;
   keywordNot: string[];
   keywords: string[];
   places: string[];
   publisher?: string | null;
-  search: string;
-  startDate?: string | null;
+  start?: string | null;
+  text: string;
 }
 
 export const getSearchQuery = (filters: Filters): string => {
   const newFilters: MappedFilters = {
     ...filters,
-    endDate: formatDate(filters.endDate, "yyyy-MM-dd"),
+    end: formatDate(filters.end, "yyyy-MM-dd"),
     isFree: filters.isFree ? true : undefined,
-    startDate: formatDate(filters.startDate, "yyyy-MM-dd")
+    start: formatDate(filters.start, "yyyy-MM-dd")
   };
 
-  if (newFilters.endDate || newFilters.startDate) {
+  if (newFilters.end || newFilters.start) {
     delete newFilters.dateTypes;
   }
   const query: string[] = [];

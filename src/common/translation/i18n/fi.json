@@ -179,7 +179,7 @@
       "labelTargetGroup": "Kenelle etsit?",
       "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
       "titleDropdownCategory": "Valitse kategoria",
-      "titleDropdownDistrict": "Valitse alue",
+      "titleDropdownDivision": "Valitse alue",
       "titleDropdownPlace": "Valitse tapahtumapaikka"
     },
     "textFoundEvents": "{{count}} hakutulosta",

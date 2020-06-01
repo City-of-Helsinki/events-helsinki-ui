@@ -12,6 +12,7 @@ import getLocalisedString from "../../../util/getLocalisedString";
 import getUrlParamAsArray from "../../../util/getUrlParamAsArray";
 import { getSearchQuery } from "../../../util/searchUtils";
 import { translateValue } from "../../../util/translateUtils";
+import { EVENT_SEARCH_FILTERS } from "../constants";
 import DateFilter from "./DateFilter";
 import styles from "./filterSummary.module.scss";
 import KeywordFilter from "./KeywordFilter";
@@ -24,20 +25,33 @@ const FilterSummary = () => {
   const locale = useLocale();
   const { push } = useHistory();
   const searchParams = new URLSearchParams(useLocation().search);
-  const publisher = searchParams.get("publisher");
-  const categories = getUrlParamAsArray(searchParams, "categories");
-  const dateTypes = getUrlParamAsArray(searchParams, "dateTypes");
-  const districts = getUrlParamAsArray(searchParams, "districts");
-  const isFree = searchParams.get("isFree") === "true" ? true : false;
-  const keywords = getUrlParamAsArray(searchParams, "keywords");
-  const places = getUrlParamAsArray(searchParams, "places");
-  const startDate = searchParams.get("startDate");
-  const endDate = searchParams.get("endDate");
-  const searchWord = searchParams.get("search");
+  const publisher = searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER);
+  const categories = getUrlParamAsArray(
+    searchParams,
+    EVENT_SEARCH_FILTERS.CATEGORIES
+  );
+  const dateTypes = getUrlParamAsArray(
+    searchParams,
+    EVENT_SEARCH_FILTERS.DATE_TYPES
+  );
+  const divisions = getUrlParamAsArray(
+    searchParams,
+    EVENT_SEARCH_FILTERS.DIVISIONS
+  );
+  const isFree =
+    searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === "true" ? true : false;
+  const keywords = getUrlParamAsArray(
+    searchParams,
+    EVENT_SEARCH_FILTERS.KEYWORDS
+  );
+  const places = getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.PLACES);
+  const start = searchParams.get(EVENT_SEARCH_FILTERS.START);
+  const end = searchParams.get(EVENT_SEARCH_FILTERS.END);
+  const searchWord = searchParams.get(EVENT_SEARCH_FILTERS.TEXT);
   const dateText =
-    startDate || endDate
-      ? `${startDate ? formatDate(new Date(startDate)) : ""} - ${
-          endDate ? formatDate(new Date(endDate)) : ""
+    start || end
+      ? `${start ? formatDate(new Date(start)) : ""} - ${
+          end ? formatDate(new Date(end)) : ""
         }`.trim()
       : "";
 
@@ -55,9 +69,9 @@ const FilterSummary = () => {
   );
 
   const handleFilterRemove = (value: string, type: FilterType) => {
-    const endDate = searchParams.get("endDate");
-    const searchWord = searchParams.get("search") || "";
-    const startDate = searchParams.get("startDate");
+    const end = searchParams.get(EVENT_SEARCH_FILTERS.END);
+    const searchWord = searchParams.get(EVENT_SEARCH_FILTERS.TEXT) || "";
+    const start = searchParams.get(EVENT_SEARCH_FILTERS.START);
 
     const search = getSearchQuery({
       categories:
@@ -68,22 +82,25 @@ const FilterSummary = () => {
         type === "dateType"
           ? dateTypes.filter(dateType => dateType !== value)
           : dateTypes,
-      districts:
-        type === "district"
-          ? districts.filter(district => district !== value)
-          : districts,
-      endDate: type === "date" ? null : endDate ? new Date(endDate) : null,
+      divisions:
+        type === "division"
+          ? divisions.filter(division => division !== value)
+          : divisions,
+      end: type === "date" ? null : end ? new Date(end) : null,
       isFree,
-      keywordNot: getUrlParamAsArray(searchParams, "keywordNot"),
+      keywordNot: getUrlParamAsArray(
+        searchParams,
+        EVENT_SEARCH_FILTERS.KEYWORD_NOT
+      ),
       keywords:
         type === "keyword" || type === "yso"
           ? keywords.filter(keyword => keyword !== value)
           : keywords,
       places:
         type === "place" ? places.filter(place => place !== value) : places,
-      publisher: type !== "publisher" ? searchParams.get("publisher") : null,
-      search: type === "searchWord" ? "" : searchWord,
-      startDate: type === "date" ? null : startDate ? new Date(startDate) : null
+      publisher: type !== "publisher" ? publisher : null,
+      start: type === "date" ? null : start ? new Date(start) : null,
+      text: type === "searchWord" ? "" : searchWord
     });
 
     push({ pathname: `/${locale}/events`, search });
@@ -97,26 +114,26 @@ const FilterSummary = () => {
     const search = getSearchQuery({
       categories: [],
       dateTypes: [],
-      districts: [],
-      endDate: null,
+      divisions: [],
+      end: null,
       isFree: false,
       keywordNot: [],
       keywords: [],
       places: [],
       publisher: null,
-      search: "",
-      startDate: null
+      start: null,
+      text: ""
     });
 
     push({ pathname: `/${locale}/events`, search });
   };
 
   const hasFilters =
-    !!searchParams.get("publisher") ||
+    !!publisher ||
     !!categories.length ||
     !!dateText ||
     !!dateTypes.length ||
-    !!districts.length ||
+    !!divisions.length ||
     !!keywords.length ||
     !!places.length ||
     !!searchWord;
@@ -147,13 +164,13 @@ const FilterSummary = () => {
       {publisher && (
         <PublisherFilter id={publisher} onRemove={handleFilterRemove} />
       )}
-      {districts.map(district => (
+      {divisions.map(division => (
         <FilterButton
-          key={district}
+          key={division}
           onRemove={handleFilterRemove}
-          text={getNeighorhoodName(district)}
-          type="district"
-          value={district}
+          text={getNeighorhoodName(division)}
+          type="division"
+          value={division}
         />
       ))}
       {places.map(place => (

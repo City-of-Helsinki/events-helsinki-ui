@@ -28,8 +28,8 @@ const Search: FunctionComponent = () => {
   const { t } = useTranslation();
   const locale = useLocale();
   const [dateTypes, setDateTypes] = React.useState<string[]>([]);
-  const [startDate, setStartDate] = React.useState<Date | null>(null);
-  const [endDate, setEndDate] = React.useState<Date | null>(null);
+  const [start, setStart] = React.useState<Date | null>(null);
+  const [end, setEnd] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
   const [searchValue, setSearchValue] = React.useState("");
   const { push } = useHistory();
@@ -38,15 +38,15 @@ const Search: FunctionComponent = () => {
     const search = getSearchQuery({
       categories: [category.value],
       dateTypes,
-      districts: [],
-      endDate,
+      divisions: [],
+      end,
       isFree: false,
       keywordNot: [],
       keywords: [],
       places: [],
       publisher: null,
-      search: "",
-      startDate
+      start,
+      text: ""
     });
 
     push({ pathname: `/${locale}/events`, search });
@@ -120,19 +120,19 @@ const Search: FunctionComponent = () => {
     const search = getSearchQuery({
       categories: [],
       dateTypes,
-      districts: [],
-      endDate,
+      divisions: [],
+      end,
       isFree: false,
       keywordNot: [],
       keywords: [],
       places: [],
       publisher: null,
-      search: searchValue,
-      startDate
+      start,
+      text: ""
     });
 
     push({ pathname: `/${locale}/events`, search });
-  }, [dateTypes, endDate, locale, push, searchValue, startDate]);
+  }, [dateTypes, end, locale, push, start]);
 
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
     const type = option.type;
@@ -142,15 +142,15 @@ const Search: FunctionComponent = () => {
     const search = getSearchQuery({
       categories: [],
       dateTypes,
-      districts: [],
-      endDate,
+      divisions: [],
+      end,
       isFree: false,
       keywordNot: [],
       keywords: type === "keyword" || type === "yso" ? [value] : [],
       places: [],
       publisher: null,
-      search: searchValue,
-      startDate
+      start,
+      text: searchValue
     });
 
     push({ pathname: `/${locale}/events`, search });
@@ -186,24 +186,24 @@ const Search: FunctionComponent = () => {
               <div className={styles.desktopDateSelector}>
                 <DateSelector
                   dateTypes={dateTypes}
-                  endDate={endDate}
+                  endDate={end}
                   isCustomDate={isCustomDate}
                   name="date"
                   onChangeDateTypes={handleChangeDateTypes}
-                  onChangeEndDate={setEndDate}
-                  onChangeStartDate={setStartDate}
-                  startDate={startDate}
+                  onChangeEndDate={setEnd}
+                  onChangeStartDate={setStart}
+                  startDate={start}
                   toggleIsCustomDate={toggleIsCustomDate}
                 />
               </div>
               <MobileDateSelector
                 dateTypes={dateTypes}
-                endDate={endDate}
+                endDate={end}
                 name={"mobile_date"}
                 onChangeDateTypes={handleChangeDateTypes}
-                onChangeEndDate={setEndDate}
-                onChangeStartDate={setStartDate}
-                startDate={startDate}
+                onChangeEndDate={setEnd}
+                onChangeStartDate={setStart}
+                startDate={start}
               />
             </div>
             <div className={styles.buttonWrapper}>

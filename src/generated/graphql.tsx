@@ -361,20 +361,21 @@ export type QueryEventDetailsArgs = {
 
 
 export type QueryEventListArgs = {
-  divisions?: Maybe<Array<Maybe<Scalars['String']>>>,
-  endDate?: Maybe<Scalars['String']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>,
+  division?: Maybe<Array<Maybe<Scalars['String']>>>,
+  end?: Maybe<Scalars['String']>,
   inLanguage?: Maybe<Scalars['String']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>,
   isFree?: Maybe<Scalars['Boolean']>,
-  keywords?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
   keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keyword?: Maybe<Array<Maybe<Scalars['String']>>>,
   language?: Maybe<Scalars['String']>,
-  locations?: Maybe<Array<Maybe<Scalars['String']>>>,
+  location?: Maybe<Array<Maybe<Scalars['String']>>>,
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   publisher?: Maybe<Scalars['ID']>,
   sort?: Maybe<Scalars['String']>,
-  startDate?: Maybe<Scalars['String']>,
+  start?: Maybe<Scalars['String']>,
   superEvent?: Maybe<Scalars['ID']>,
   superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
   text?: Maybe<Scalars['String']>,
@@ -601,20 +602,21 @@ export type OrganizationDetailsQuery = (
 );
 
 export type EventListQueryVariables = {
-  divisions?: Maybe<Array<Maybe<Scalars['String']>>>,
-  endDate?: Maybe<Scalars['String']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>,
+  division?: Maybe<Array<Maybe<Scalars['String']>>>,
+  end?: Maybe<Scalars['String']>,
   inLanguage?: Maybe<Scalars['String']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>,
   isFree?: Maybe<Scalars['Boolean']>,
+  keyword?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
   keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywords?: Maybe<Array<Maybe<Scalars['String']>>>,
   language?: Maybe<Scalars['String']>,
-  locations?: Maybe<Array<Maybe<Scalars['String']>>>,
+  location?: Maybe<Array<Maybe<Scalars['String']>>>,
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   publisher?: Maybe<Scalars['ID']>,
   sort?: Maybe<Scalars['String']>,
-  startDate?: Maybe<Scalars['String']>,
+  start?: Maybe<Scalars['String']>,
   superEvent?: Maybe<Scalars['ID']>,
   superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
   text?: Maybe<Scalars['String']>,
@@ -1354,8 +1356,8 @@ export type OrganizationDetailsQueryHookResult = ReturnType<typeof useOrganizati
 export type OrganizationDetailsLazyQueryHookResult = ReturnType<typeof useOrganizationDetailsLazyQuery>;
 export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($divisions: [String], $endDate: String, $include: [String], $inLanguage: String, $isFree: Boolean, $keywordNot: [String], $keywords: [String], $language: String, $locations: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $startDate: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
-  eventList(divisions: $divisions, endDate: $endDate, include: $include, inLanguage: $inLanguage, isFree: $isFree, keywordNot: $keywordNot, keywords: $keywords, language: $language, locations: $locations, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, startDate: $startDate, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
+    query EventList($division: [String], $end: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordNot: [String], $language: String, $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+  eventList(division: $division, end: $end, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordNot: $keywordNot, language: $language, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
     meta {
       count
       next
@@ -1456,20 +1458,21 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  * @example
  * const { data, loading, error } = useEventListQuery({
  *   variables: {
- *      divisions: // value for 'divisions'
- *      endDate: // value for 'endDate'
- *      include: // value for 'include'
+ *      division: // value for 'division'
+ *      end: // value for 'end'
  *      inLanguage: // value for 'inLanguage'
+ *      include: // value for 'include'
  *      isFree: // value for 'isFree'
+ *      keyword: // value for 'keyword'
+ *      keywordAnd: // value for 'keywordAnd'
  *      keywordNot: // value for 'keywordNot'
- *      keywords: // value for 'keywords'
  *      language: // value for 'language'
- *      locations: // value for 'locations'
+ *      location: // value for 'location'
  *      page: // value for 'page'
  *      pageSize: // value for 'pageSize'
  *      publisher: // value for 'publisher'
  *      sort: // value for 'sort'
- *      startDate: // value for 'startDate'
+ *      start: // value for 'start'
  *      superEvent: // value for 'superEvent'
  *      superEventType: // value for 'superEventType'
  *      text: // value for 'text'
