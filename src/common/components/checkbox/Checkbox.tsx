@@ -4,7 +4,8 @@ import React from "react";
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (props, ref) => {
     const customStyles = {
-      "--background-unselected": "var(--color-white)"
+      "--background-unselected": "var(--color-white)",
+      lineHeight: "24px"
     } as React.CSSProperties;
 
     return (

@@ -333,6 +333,8 @@ const Search: FunctionComponent = () => {
                       name="division"
                       onChange={setDivisions}
                       options={divisionOptions}
+                      selectAllText={t("eventSearch.search.selectAllDivisions")}
+                      showSelectAll={true}
                       title={t("eventSearch.search.titleDropdownDivision")}
                       value={divisions}
                     />

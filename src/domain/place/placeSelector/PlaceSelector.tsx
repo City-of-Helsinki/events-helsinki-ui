@@ -73,7 +73,9 @@ const PlaceSelector: React.FC<Props> = ({ name, setPlaces, value }) => {
         onChange={setPlaces}
         options={placeOptions}
         renderOptionText={renderOptionText}
+        selectAllText={t("eventSearch.search.selectAllPlaces")}
         setInputValue={setInternalInputValue}
+        showSelectAll={true}
         title={t("eventSearch.search.titleDropdownPlace")}
         value={value}
       />

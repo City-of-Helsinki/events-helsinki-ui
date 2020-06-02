@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { IconAngleDown, IconAngleUp } from "hds-react";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import useKeyboardNavigation from "../../../hooks/useDropdownKeyboardNavigation";
 import Checkbox from "../checkbox/Checkbox";
@@ -8,6 +9,8 @@ import ScrollIntoViewWithFocus from "../scrollIntoViewWithFocus/ScrollIntoViewWi
 import SearchLabel from "../search/searchLabel/SearchLabel";
 import DropdownMenu from "./DropdownMenu";
 import styles from "./multiSelectDropdown.module.scss";
+
+const SELECT_ALL = "SELECT_ALL";
 
 export type Option = {
   text: string;
@@ -22,7 +25,9 @@ interface Props {
   onChange: (values: string[]) => void;
   options: Option[];
   renderOptionText?: (optionValue: string) => React.ReactChild;
+  selectAllText?: string;
   setInputValue?: (newVal: string) => void;
+  showSelectAll?: boolean;
   title: string;
   value: string[];
 }
@@ -35,10 +40,13 @@ const Dropdown: React.FC<Props> = ({
   onChange,
   options,
   renderOptionText,
+  selectAllText,
   setInputValue,
+  showSelectAll,
   title,
   value
 }) => {
+  const { t } = useTranslation();
   const [internalInput, setInternalInput] = React.useState("");
   const input = inputValue || internalInput;
 
@@ -46,13 +54,19 @@ const Dropdown: React.FC<Props> = ({
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const clearButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
-  const filteredOptions = React.useMemo(
-    () =>
-      options.filter(option =>
+  const filteredOptions = React.useMemo(() => {
+    return [
+      showSelectAll
+        ? {
+            text: selectAllText || t("commons.multiSelectDropdown.selectAll"),
+            value: SELECT_ALL
+          }
+        : undefined,
+      ...options.filter(option =>
         option.text.toLowerCase().includes(input.toLowerCase())
-      ),
-    [input, options]
-  );
+      )
+    ].filter(e => e) as Option[];
+  }, [input, options, selectAllText, showSelectAll, t]);
 
   const handleInputValueChange = (val: string) => {
     setInternalInput(val);
@@ -176,7 +190,11 @@ const Dropdown: React.FC<Props> = ({
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const val = event.target.value;
-    toggleOption(val);
+    if (val === SELECT_ALL) {
+      handleClear();
+    } else {
+      toggleOption(val);
+    }
   };
 
   const handleClear = () => {
@@ -252,6 +270,10 @@ const Dropdown: React.FC<Props> = ({
       >
         {filteredOptions.map((option, index) => {
           const isFocused = index === focusedIndex;
+          const isChecked =
+            option.value === SELECT_ALL
+              ? !value.length
+              : value.includes(option.value);
 
           const setFocus = (ref: HTMLInputElement) => {
             if (isFocused && ref) {
@@ -270,7 +292,7 @@ const Dropdown: React.FC<Props> = ({
             >
               <Checkbox
                 ref={setFocus}
-                checked={value.includes(option.value)}
+                checked={isChecked}
                 id={`${checkboxName}_${option.value}`}
                 label={option.text}
                 name={checkboxName}

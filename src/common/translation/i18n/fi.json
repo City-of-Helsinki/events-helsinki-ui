@@ -43,6 +43,9 @@
       "ariaButtonRemove": "Poista suodatin: {{filter}}"
     },
     "loading": "Ladataan...",
+    "multiSelectDropdown": {
+      "selectAll": "Valitse kaikki"
+    },
     "shareLink": {
       "shareOnFacebook": "Jaa Facebookissa",
       "shareOnTwitter": "Jaa Twitterissä",
@@ -178,6 +181,8 @@
       "labelSearchField": "Mitä etsit?",
       "labelTargetGroup": "Kenelle etsit?",
       "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
+      "selectAllDivisions": "Kaikki alueet",
+      "selectAllPlaces": "Kaikki tapahtumapaikat",
       "titleDropdownCategory": "Valitse kategoria",
       "titleDropdownDivision": "Valitse alue",
       "titleDropdownPlace": "Valitse tapahtumapaikka"
