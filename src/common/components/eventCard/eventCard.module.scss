@@ -81,7 +81,7 @@ $imageWidth: 6.375rem;
   
       .eventName {
         font-size: $font-size-lg;
-        line-height: 1.25rem;
+        line-height: var(--lineheight-l);
         font-weight: $font-weight-bold;
         margin-bottom: 0.5rem;
         color: $hel-black;
