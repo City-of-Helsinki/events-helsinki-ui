@@ -12,6 +12,7 @@ import useLocale from "../../../../hooks/useLocale";
 import IconStar from "../../../../icons/IconStar";
 import { Language } from "../../../../types";
 import scrollToTop from "../../../../util/scrollToTop";
+import { ROUTES } from "../../constants";
 import styles from "./navbar.module.scss";
 
 const Navbar: React.FC = () => {
@@ -53,13 +54,13 @@ const Navbar: React.FC = () => {
           icon={<IconSearch />}
           onClick={scrollToTop}
           text={t("header.searchEvents")}
-          to={`/${locale}/events`}
+          to={`/${locale}${ROUTES.EVENTS}`}
         />
         <IconLink
           icon={<IconStar />}
           onClick={scrollToTop}
           text={t("header.searchCollections")}
-          to={`/${locale}/collections`}
+          to={`/${locale}${ROUTES.COLLECTIONS}`}
         />
       </div>
       <LanguageDropdown

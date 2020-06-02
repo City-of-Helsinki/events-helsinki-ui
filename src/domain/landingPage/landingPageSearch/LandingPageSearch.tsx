@@ -22,6 +22,7 @@ import IconParticipate from "../../../icons/IconParticipate";
 import IconSports from "../../../icons/IconSports";
 import IconTheatre from "../../../icons/IconTheatre";
 import { getSearchQuery } from "../../../util/searchUtils";
+import { ROUTES } from "../../app/constants";
 import styles from "./landingPageSearch.module.scss";
 
 const Search: FunctionComponent = () => {
@@ -49,7 +50,7 @@ const Search: FunctionComponent = () => {
       text: ""
     });
 
-    push({ pathname: `/${locale}/events`, search });
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   };
 
   const categories = React.useMemo(() => {
@@ -131,7 +132,7 @@ const Search: FunctionComponent = () => {
       text: ""
     });
 
-    push({ pathname: `/${locale}/events`, search });
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   }, [dateTypes, end, locale, push, start]);
 
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
@@ -153,7 +154,7 @@ const Search: FunctionComponent = () => {
       text: searchValue
     });
 
-    push({ pathname: `/${locale}/events`, search });
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   };
 
   return (
@@ -219,7 +220,7 @@ const Search: FunctionComponent = () => {
           </div>
         </div>
         <div className={styles.linkRow}>
-          <Link color="white" size="small" to={`/${locale}/events`}>
+          <Link color="white" size="small" to={`/${locale}${ROUTES.EVENTS}`}>
             {t("home.search.linkAdvancedSearch")}
           </Link>
         </div>

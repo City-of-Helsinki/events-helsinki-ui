@@ -22,6 +22,7 @@ import IconStar from "../../../icons/IconStar";
 import IconTheatre from "../../../icons/IconTheatre";
 import scrollToTop from "../../../util/scrollToTop";
 import { getSearchQuery } from "../../../util/searchUtils";
+import { ROUTES } from "../constants";
 import Container from "../layout/Container";
 import styles from "./topFooter.module.scss";
 
@@ -46,7 +47,7 @@ const TopFooter: FunctionComponent = () => {
       text: ""
     });
 
-    push({ pathname: `/${locale}/events`, search });
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
     scrollToTop();
   };
 
@@ -123,13 +124,13 @@ const TopFooter: FunctionComponent = () => {
               icon={<IconSearch />}
               onClick={scrollToTop}
               text={t("footer.searchEvents")}
-              to={`/${locale}/events`}
+              to={`/${locale}${ROUTES.EVENTS}`}
             />
             <IconLink
               icon={<IconStar />}
               onClick={scrollToTop}
               text={t("footer.searchCollections")}
-              to={`/${locale}/collections`}
+              to={`/${locale}${ROUTES.COLLECTIONS}`}
             />
           </div>
         </div>

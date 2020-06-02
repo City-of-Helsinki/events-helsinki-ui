@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
+import { ROUTES } from "../../../domain/app/constants";
 import EventKeywords from "../../../domain/event/eventKeywords/EventKeywords";
 import LocationText from "../../../domain/event/eventLocation/EventLocationText";
 import EventName from "../../../domain/event/eventName/EventName";
@@ -48,17 +49,18 @@ const EventCard: React.FC<Props> = ({ event }) => {
     window.open(offerInfoUrl);
   }, [offerInfoUrl]);
 
-  const moveToEventPage = React.useCallback(() => {
-    push({ pathname: `/${locale}/event/${event.id}`, search });
-  }, [event.id, locale, push, search]);
+  const eventUrl = React.useMemo(() => {
+    return `/${locale}${ROUTES.EVENT.replace(":id", event.id)}${search}`;
+  }, [event.id, locale, search]);
+
+  const moveToEventPage = () => {
+    push(eventUrl);
+  };
 
   const imageUrl = getEventImageUrl(event);
   const placeholderImage = getEventPlaceholderImageUrl(event);
   const startTime = event.startTime;
   const endTime = event.endTime;
-  const eventUrl = React.useMemo(() => {
-    return `/${locale}/event/${event.id}${search}`;
-  }, [event.id, locale, search]);
 
   const showBuyButton = !eventClosed && !!offerInfoUrl && !isEventFree(event);
 

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import { useMobileMenuContext } from "../../../common/components/mobileMenu/MobileMenu";
 import useLocale from "../../../hooks/useLocale";
+import { ROUTES } from "../constants";
 import Container from "../layout/Container";
 import styles from "./bottomFooter.module.scss";
 
@@ -23,8 +24,12 @@ const BottomFooter: React.FC = () => {
       <Container>
         <div className={styles.contentWrapper}>
           <div className={styles.linkContainer}>
-            <Link to={`/${locale}/about`}>{t("footer.linkAbout")}</Link>
-            <Link to={`/${locale}/feedback`}>{t("footer.linkFeedback")}</Link>
+            <Link to={`/${locale}${ROUTES.ABOUT}`}>
+              {t("footer.linkAbout")}
+            </Link>
+            <Link to={`/${locale}${ROUTES.FEEDBACK}`}>
+              {t("footer.linkFeedback")}
+            </Link>
           </div>
           <div className={styles.logoWrapper}>
             <div className={styles.helsinkiLogo}></div>

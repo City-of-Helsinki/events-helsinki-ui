@@ -7,6 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 import { updateLocaleParam } from "../../../common/route/RouteUtils";
 import { getCurrentLanguage } from "../../../common/translation/TranslationUtils";
 import { SUPPORT_LANGUAGES } from "../../../constants";
+import { ROUTES } from "../../../domain/app/constants";
 import useLocale from "../../../hooks/useLocale";
 import IconStar from "../../../icons/IconStar";
 import scrollToTop from "../../../util/scrollToTop";
@@ -89,13 +90,13 @@ const MobileMenuModal: React.FC<Props> = ({ isMenuOpen, onClose }) => {
       <div className={styles.linkWrapper}>
         <ul>
           <li className={styles.link}>
-            <Link onClick={onLinkClick} to={`/${locale}/events`}>
+            <Link onClick={onLinkClick} to={`/${locale}${ROUTES.EVENTS}`}>
               <IconSearch />
               {t("header.searchEvents")}
             </Link>
           </li>
           <li className={styles.link}>
-            <Link onClick={onLinkClick} to={`/${locale}/collections`}>
+            <Link onClick={onLinkClick} to={`/${locale}${ROUTES.COLLECTIONS}`}>
               <IconStar />
               {t("header.searchCollections")}
             </Link>

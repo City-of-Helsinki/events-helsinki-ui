@@ -1,21 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EventKeywords matches snapshot 1`] = `
-Array [
-  <div
-    className="keyword"
-  >
-    Keyword 1 fi
-  </div>,
-  <div
-    className="keyword"
-  >
-    Keyword 2 fi
-  </div>,
-  <div
-    className="keyword tramLight20"
-  >
-    Maksuton
-  </div>,
-]
+<button
+  class="keyword"
+  type="button"
+>
+  Keyword 1 fi
+</button>
 `;

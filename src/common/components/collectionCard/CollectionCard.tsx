@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
+import { ROUTES } from "../../../domain/app/constants";
 import useLocale from "../../../hooks/useLocale";
 import IconLink from "../../components/link/IconLink";
 import SrOnly from "../srOnly/SrOnly";
@@ -40,7 +41,7 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
   const locale = useLocale();
 
   const collectionUrl = React.useMemo(() => {
-    return `/${locale}/collection/${id}${search}`;
+    return `/${locale}${ROUTES.COLLECTION.replace(":id", id)}${search}`;
   }, [id, locale, search]);
 
   return (

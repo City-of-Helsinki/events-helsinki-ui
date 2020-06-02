@@ -16,6 +16,7 @@ import IconRead from "../../icons/IconRead";
 import getLocalisedString from "../../util/getLocalisedString";
 import getUrlParamAsArray from "../../util/getUrlParamAsArray";
 import { getSearchQuery } from "../../util/searchUtils";
+import { ROUTES } from "../app/constants";
 import Container from "../app/layout/Container";
 import PlaceSelector from "../place/placeSelector/PlaceSelector";
 import { EVENT_SEARCH_FILTERS } from "./constants";
@@ -140,7 +141,7 @@ const Search: FunctionComponent = () => {
       text: searchValue
     });
 
-    push({ pathname: `/${locale}/events`, search });
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   }, [
     dateTypes,
     divisions,
@@ -246,7 +247,7 @@ const Search: FunctionComponent = () => {
         break;
     }
     setSearchValue(newSearchValue);
-    push({ pathname: `/${locale}/events`, search });
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   };
 
   const handleIsFreeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -264,7 +265,7 @@ const Search: FunctionComponent = () => {
       text: searchValue
     });
 
-    push({ pathname: `/${locale}/events`, search });
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   };
 
   const handleSubmit = (event?: FormEvent) => {

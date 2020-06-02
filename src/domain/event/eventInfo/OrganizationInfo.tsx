@@ -10,6 +10,7 @@ import {
 } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
+import { ROUTES } from "../../app/constants";
 import styles from "./eventInfo.module.scss";
 
 interface Props {
@@ -32,7 +33,7 @@ const OrganizationInfo: React.FC<Props> = ({ eventData }) => {
   );
 
   const getSearchLink = () => {
-    return `/${locale}/events?publisher=${eventData.eventDetails.publisher}`;
+    return `/${locale}${ROUTES.EVENTS}?publisher=${eventData.eventDetails.publisher}`;
   };
 
   return (

@@ -11,16 +11,12 @@ exports[`EventList should match snapshot 1`] = `
             <div class=\\"eventCard\\"><a aria-hidden=\\"true\\" aria-label=\\"Siirry tapahtumaan: name fi\\" class=\\"imageWrapper\\" style=\\"background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">
                 <div class=\\"tagWrapperDesktop\\">
                   <div class=\\"priceWrapper\\"></div>
-                  <div class=\\"categoryWrapper\\">
-                    <div class=\\"keyword tramLight20\\">Maksuton</div>
-                  </div>
+                  <div class=\\"categoryWrapper\\"><button class=\\"keyword tramLight20\\" type=\\"button\\">Maksuton</button></div>
                 </div>
               </a>
               <div class=\\"infoWrapper\\">
                 <div>
-                  <div class=\\"categoryWrapperMobile\\">
-                    <div class=\\"keyword tramLight20\\">Maksuton</div>
-                  </div>
+                  <div class=\\"categoryWrapperMobile\\"><button class=\\"keyword tramLight20\\" type=\\"button\\">Maksuton</button></div>
                   <div class=\\"textWrapper\\">
                     <div class=\\"eventDateAndTime\\">13.12.2019, klo 10.00</div><a aria-hidden=\\"true\\" class=\\"eventName\\" tabindex=\\"-1\\" href=\\"/fi/event/123\\">name fi</a>
                     <div class=\\"srOnly\\">name fi</div>
