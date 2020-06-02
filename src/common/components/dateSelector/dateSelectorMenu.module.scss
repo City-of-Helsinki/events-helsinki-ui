@@ -49,6 +49,22 @@
     display: none;
   }
 
+  .checkboxWrapper {
+    padding: 1rem;
+
+    div {
+      margin: 1rem 0;
+
+      &:first-child {
+        margin-top: 0;
+      }
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
   .wrapper {
     padding: 1rem;
   }

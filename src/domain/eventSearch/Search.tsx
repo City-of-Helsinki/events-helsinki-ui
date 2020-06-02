@@ -1,9 +1,10 @@
 import classNames from "classnames";
-import { Button, Checkbox, IconLocation, IconSearch } from "hds-react";
+import { Button, IconLocation, IconSearch } from "hds-react";
 import React, { FormEvent, FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 
+import Checkbox from "../../common/components/checkbox/Checkbox";
 import DateSelector from "../../common/components/dateSelector/DateSelector";
 import MultiSelectDropdown from "../../common/components/multiSelectDropdown/MultiSelectDropdown";
 import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";

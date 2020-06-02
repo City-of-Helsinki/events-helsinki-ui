@@ -3,7 +3,7 @@ import { IconAngleDown, IconAngleUp } from "hds-react";
 import React from "react";
 
 import useKeyboardNavigation from "../../../hooks/useDropdownKeyboardNavigation";
-import Checkbox from "../input/Checkbox";
+import Checkbox from "../checkbox/Checkbox";
 import ScrollIntoViewWithFocus from "../scrollIntoViewWithFocus/ScrollIntoViewWithFocus";
 import SearchLabel from "../search/searchLabel/SearchLabel";
 import DropdownMenu from "./DropdownMenu";
@@ -253,27 +253,30 @@ const Dropdown: React.FC<Props> = ({
         {filteredOptions.map((option, index) => {
           const isFocused = index === focusedIndex;
 
-          const setFocus = (ref: HTMLLabelElement) => {
+          const setFocus = (ref: HTMLInputElement) => {
             if (isFocused && ref) {
               ref.focus();
             }
           };
 
           return (
-            <ScrollIntoViewWithFocus key={option.value} isFocused={isFocused}>
+            <ScrollIntoViewWithFocus
+              className={classNames(styles.dropdownItem, {
+                [styles["dropdownItem--first"]]: index === 0,
+                [styles["dropdownItem--isFocused"]]: isFocused
+              })}
+              key={option.value}
+              isFocused={isFocused}
+            >
               <Checkbox
                 ref={setFocus}
                 checked={value.includes(option.value)}
+                id={`${checkboxName}_${option.value}`}
+                label={option.text}
                 name={checkboxName}
                 onChange={handleValueChange}
                 value={option.value}
-                className={classNames(styles.dropdownItem, {
-                  [styles["dropdownItem--first"]]: index === 0,
-                  [styles["dropdownItem--isFocused"]]: isFocused
-                })}
-              >
-                {option.text}
-              </Checkbox>
+              />
             </ScrollIntoViewWithFocus>
           );
         })}
