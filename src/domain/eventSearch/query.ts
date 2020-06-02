@@ -57,12 +57,7 @@ export const QUERY_EVENT_LIST = gql`
           url
         }
         keywords {
-          id
-          name {
-            fi
-            sv
-            en
-          }
+          ...keywordFields
         }
         location {
           id
@@ -129,12 +124,7 @@ export const QUERY_EVENT_LIST = gql`
         url
       }
       keywords {
-        id
-        name {
-          fi
-          sv
-          en
-        }
+        ...keywordFields
       }
       location {
         id

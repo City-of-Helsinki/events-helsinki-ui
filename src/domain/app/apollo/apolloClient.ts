@@ -9,6 +9,9 @@ import get from "lodash/get";
 const cache = new InMemoryCache({
   cacheRedirects: {
     Query: {
+      keywordDetails: (_, args, { getCacheKey }) => {
+        return getCacheKey({ __typename: "Keyword", id: args.id });
+      },
       placeDetails: (_, args, { getCacheKey }) => {
         return getCacheKey({ __typename: "Place", id: args.id });
       }
