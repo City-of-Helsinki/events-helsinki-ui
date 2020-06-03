@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import CollectionCardContainer from "../../common/components/collectionCard/CollectionCardContainer";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useCollectionListQuery } from "../../generated/graphql";
+import useLocale from "../../hooks/useLocale";
 import Container from "../app/layout/Container";
 import PageWrapper from "../app/layout/PageWrapper";
 import styles from "./collectionListPage.module.scss";
@@ -14,10 +15,13 @@ interface RouteParams {
 
 const CollectionListPage: React.FC = () => {
   const { t } = useTranslation();
+  const locale = useLocale();
   const { data: collectionsData, loading } = useCollectionListQuery();
 
   const collections = collectionsData
-    ? collectionsData.collectionList.data
+    ? collectionsData.collectionList.data.filter(
+        collection => collection.title[locale]
+      )
     : [];
   const largeCollections = collections.slice(0, 1);
   const mdAndSmCollections = collections.slice(1);

@@ -7,6 +7,7 @@ import {
   useCollectionListQuery,
   useLandingPagesQuery
 } from "../../generated/graphql";
+import useLocale from "../../hooks/useLocale";
 import Container from "../app/layout/Container";
 import PageWrapper from "../app/layout/PageWrapper";
 import styles from "./landingPage.module.scss";
@@ -16,6 +17,7 @@ import Search from "./landingPageSearch/LandingPageSearch";
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
+  const locale = useLocale();
 
   const { data: landingPageData, loading } = useLandingPagesQuery({
     variables: { visibleOnFrontpage: true }
@@ -29,7 +31,9 @@ const Home: React.FC = () => {
       ? landingPageData.landingPages.data[0]
       : undefined;
   const collections = collectionsData
-    ? collectionsData.collectionList.data
+    ? collectionsData.collectionList.data.filter(
+        collection => collection.title[locale]
+      )
     : [];
   const lgCollections = collections.slice(0, 1);
   const mdAndSmCollections = collections.slice(1, -1);

@@ -7,6 +7,7 @@ import {
   CollectionDetailsQuery,
   useCollectionListQuery
 } from "../../../generated/graphql";
+import useLocale from "../../../hooks/useLocale";
 import isClient from "../../../util/isClient";
 import Container from "../../app/layout/Container";
 import { SIMILAR_COLLECTIONS_AMOUNT } from "../constants";
@@ -18,6 +19,7 @@ interface Props {
 
 const SimilarCollections: React.FC<Props> = ({ collectionData }) => {
   const { t } = useTranslation();
+  const locale = useLocale();
 
   const { data: collectionsData, loading } = useCollectionListQuery({
     skip: !isClient
@@ -26,8 +28,12 @@ const SimilarCollections: React.FC<Props> = ({ collectionData }) => {
   const collections =
     collectionsData && !!collectionsData.collectionList.data.length
       ? collectionsData.collectionList.data
-          // Don't show current event on the list
-          .filter(event => event.id !== collectionData.collectionDetails.id)
+          // Don't show current collection on the list
+          .filter(
+            collection =>
+              collection.title[locale] &&
+              collection.id !== collectionData.collectionDetails.id
+          )
           .slice(0, SIMILAR_COLLECTIONS_AMOUNT)
       : [];
 
