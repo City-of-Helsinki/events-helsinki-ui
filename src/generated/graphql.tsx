@@ -548,11 +548,7 @@ export type EventDetailsQuery = (
       )> }
     )>, keywords: Array<(
       { __typename?: 'Keyword' }
-      & Pick<Keyword, 'id' | 'altLabels' | 'createdTime' | 'lastModifiedTime' | 'nEvents' | 'dataSource'>
-      & { name: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )> }
+      & KeywordFieldsFragment
     )>, location: Maybe<(
       { __typename?: 'Place' }
       & PlaceFieldsFragment
@@ -639,11 +635,7 @@ export type EventListQuery = (
         & Pick<Image, 'id' | 'name' | 'url'>
       )>, keywords: Array<(
         { __typename?: 'Keyword' }
-        & Pick<Keyword, 'id'>
-        & { name: Maybe<(
-          { __typename?: 'LocalizedObject' }
-          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-        )> }
+        & KeywordFieldsFragment
       )>, location: Maybe<(
         { __typename?: 'Place' }
         & Pick<Place, 'id'>
@@ -701,11 +693,7 @@ export type EventsByIdsQuery = (
       & Pick<Image, 'id' | 'name' | 'url'>
     )>, keywords: Array<(
       { __typename?: 'Keyword' }
-      & Pick<Keyword, 'id'>
-      & { name: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )> }
+      & KeywordFieldsFragment
     )>, location: Maybe<(
       { __typename?: 'Place' }
       & Pick<Place, 'id'>
@@ -746,6 +734,15 @@ export type EventsByIdsQuery = (
   )> }
 );
 
+export type KeywordFieldsFragment = (
+  { __typename?: 'Keyword' }
+  & Pick<Keyword, 'id' | 'internalId' | 'dataSource'>
+  & { name: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )> }
+);
+
 export type KeywordDetailsQueryVariables = {
   id: Scalars['ID']
 };
@@ -755,11 +752,7 @@ export type KeywordDetailsQuery = (
   { __typename?: 'Query' }
   & { keywordDetails: (
     { __typename?: 'Keyword' }
-    & Pick<Keyword, 'id'>
-    & { name: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )> }
+    & KeywordFieldsFragment
   ) }
 );
 
@@ -782,11 +775,7 @@ export type KeywordListQuery = (
       & Pick<Meta, 'count' | 'next' | 'previous'>
     ), data: Array<(
       { __typename?: 'Keyword' }
-      & Pick<Keyword, 'id'>
-      & { name: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )> }
+      & KeywordFieldsFragment
     )> }
   ) }
 );
@@ -961,6 +950,18 @@ export type PlaceListQuery = (
   ) }
 );
 
+export const KeywordFieldsFragmentDoc = gql`
+    fragment keywordFields on Keyword {
+  id
+  internalId
+  dataSource
+  name {
+    fi
+    sv
+    en
+  }
+}
+    `;
 export const PlaceFieldsFragmentDoc = gql`
     fragment placeFields on Place {
   id
@@ -1208,17 +1209,7 @@ export const EventDetailsDocument = gql`
       }
     }
     keywords {
-      id
-      altLabels
-      createdTime
-      lastModifiedTime
-      nEvents
-      dataSource
-      name {
-        fi
-        sv
-        en
-      }
+      ...keywordFields
     }
     location {
       ...placeFields
@@ -1271,7 +1262,8 @@ export const EventDetailsDocument = gql`
     }
   }
 }
-    ${PlaceFieldsFragmentDoc}`;
+    ${KeywordFieldsFragmentDoc}
+${PlaceFieldsFragmentDoc}`;
 export type EventDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<EventDetailsQuery, EventDetailsQueryVariables> | TChildProps;
 export function withEventDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
@@ -1372,12 +1364,7 @@ export const EventListDocument = gql`
         url
       }
       keywords {
-        id
-        name {
-          fi
-          sv
-          en
-        }
+        ...keywordFields
       }
       location {
         id
@@ -1433,7 +1420,7 @@ export const EventListDocument = gql`
     }
   }
 }
-    `;
+    ${KeywordFieldsFragmentDoc}`;
 export type EventListProps<TChildProps = {}> = ApolloReactHoc.DataProps<EventListQuery, EventListQueryVariables> | TChildProps;
 export function withEventList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
@@ -1500,12 +1487,7 @@ export const EventsByIdsDocument = gql`
       url
     }
     keywords {
-      id
-      name {
-        fi
-        sv
-        en
-      }
+      ...keywordFields
     }
     location {
       id
@@ -1560,7 +1542,7 @@ export const EventsByIdsDocument = gql`
     endTime
   }
 }
-    `;
+    ${KeywordFieldsFragmentDoc}`;
 export type EventsByIdsProps<TChildProps = {}> = ApolloReactHoc.DataProps<EventsByIdsQuery, EventsByIdsQueryVariables> | TChildProps;
 export function withEventsByIds<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
@@ -1602,15 +1584,10 @@ export type EventsByIdsQueryResult = ApolloReactCommon.QueryResult<EventsByIdsQu
 export const KeywordDetailsDocument = gql`
     query KeywordDetails($id: ID!) {
   keywordDetails(id: $id) {
-    id
-    name {
-      fi
-      sv
-      en
-    }
+    ...keywordFields
   }
 }
-    `;
+    ${KeywordFieldsFragmentDoc}`;
 export type KeywordDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<KeywordDetailsQuery, KeywordDetailsQueryVariables> | TChildProps;
 export function withKeywordDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
@@ -1657,16 +1634,11 @@ export const KeywordListDocument = gql`
       previous
     }
     data {
-      id
-      name {
-        fi
-        sv
-        en
-      }
+      ...keywordFields
     }
   }
 }
-    `;
+    ${KeywordFieldsFragmentDoc}`;
 export type KeywordListProps<TChildProps = {}> = ApolloReactHoc.DataProps<KeywordListQuery, KeywordListQueryVariables> | TChildProps;
 export function withKeywordList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,

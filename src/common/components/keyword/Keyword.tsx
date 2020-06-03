@@ -18,13 +18,18 @@ const Keyword: FunctionComponent<Props> = ({
   keyword,
   onClick
 }) => {
+  const handleClick = (ev: React.MouseEvent) => {
+    ev.preventDefault();
+    onClick();
+  };
+
   return (
     <button
       className={classNames(styles.keyword, color && styles[color], {
         [styles.blackOnMobile]: blackOnMobile,
         [styles.hideOnMobile]: hideOnMobile
       })}
-      onClick={onClick}
+      onClick={handleClick}
       type="button"
     >
       {keyword}

@@ -43,6 +43,9 @@
       "ariaButtonRemove": "Ta bort filter: {{filter}}"
     },
     "loading": "Laddning...",
+    "multiSelectDropdown": {
+      "selectAll": "Välj alla"
+    },
     "shareLink": {
       "shareOnFacebook": "Dela på Facebook",
       "shareOnTwitter": "Dela på Twitter",
@@ -178,6 +181,8 @@
       "labelSearchField": "Vad letar du efter?",
       "labelTargetGroup": "Vem du letar efter?",
       "placeholder": "Ange ett nyckelord, t.ex. rock eller yoga",
+      "selectAllDivisions": "Alla områden",
+      "selectAllPlaces": "Alla ställen",
       "titleDropdownCategory": "Välj kategori",
       "titleDropdownDivision": "Välj område",
       "titleDropdownPlace": "Välj plats"

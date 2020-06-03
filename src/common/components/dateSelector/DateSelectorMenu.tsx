@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 
 import useLocale from "../../../hooks/useLocale";
 import { translateValue } from "../../../util/translateUtils";
+import Checkbox from "../checkbox/Checkbox";
 import DateRangePicker from "../dateRangePicker/DateRangePicker";
-import Checkbox from "../input/Checkbox";
 import styles from "./dateSelectorMenu.module.scss"; // the locale you want
 
 interface Props {
@@ -62,18 +62,22 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
       })}
     >
       {!isCustomDate && (
-        <div className={styles.wrapper}>
+        <div className={styles.checkboxWrapper}>
           {dateTypeOptions.map(option => {
             return (
               <Checkbox
                 key={option}
                 checked={dateTypes.indexOf(option) !== -1}
+                id={`name_${option}`}
+                label={translateValue(
+                  "commons.dateSelector.dateType",
+                  option,
+                  t
+                )}
                 name={name}
                 onChange={handleCheckboxChange}
                 value={option}
-              >
-                {translateValue("commons.dateSelector.dateType", option, t)}
-              </Checkbox>
+              />
             );
           })}
         </div>

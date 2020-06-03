@@ -43,6 +43,9 @@
       "ariaButtonRemove": "Remove filter: {{filter}}"
     },
     "loading": "Loading...",
+    "multiSelectDropdown": {
+      "selectAll": "Select all"
+    },
     "shareLink": {
       "shareOnFacebook": "Share on Facebook",
       "shareOnTwitter": "Share on Twitter",
@@ -178,6 +181,8 @@
       "labelSearchField": "What are you looking for",
       "labelTargetGroup": "Whom you are looking for?",
       "placeholder": "Enter a keyword, eg rock or yoga",
+      "selectAllDivisions": "All areas",
+      "selectAllPlaces": "All venues",
       "titleDropdownCategory": "Select category",
       "titleDropdownDivision": "Select area",
       "titleDropdownPlace": "Select venue"

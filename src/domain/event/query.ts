@@ -25,17 +25,7 @@ export const QUERY_EVENT_DETAILS = gql`
         }
       }
       keywords {
-        id
-        altLabels
-        createdTime
-        lastModifiedTime
-        nEvents
-        dataSource
-        name {
-          fi
-          sv
-          en
-        }
+        ...keywordFields
       }
       location {
         ...placeFields
