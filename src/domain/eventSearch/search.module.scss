@@ -67,11 +67,15 @@ $gridGapLarge: $largePadding;
   }
 
   .checkbox {
+    margin-top: $gridGapSmall;
+
     label {
       display: flex;
       align-items: center;
     }
-    
+    @include respond-above(sm) {
+      margin-top: 0;
+    }    
   }
 
   .dateSelectorWrapper {
