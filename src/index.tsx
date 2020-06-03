@@ -1,6 +1,3 @@
-import "./assets/styles/main.scss";
-import "hds-core/lib/base.css";
-
 import * as Sentry from "@sentry/browser";
 import React from "react";
 import ReactDOM from "react-dom";

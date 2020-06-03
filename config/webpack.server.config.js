@@ -112,6 +112,9 @@ module.exports = function() {
 
   return {
     entry: paths.appServerIndexJs,
+    externals: {
+      canvas: "commonjs canvas"
+    },
     optimization: {
       minimize: isEnvProduction,
       minimizer: [
@@ -413,6 +416,9 @@ module.exports = function() {
       ]
     },
     plugins: [
+      new webpack.ProvidePlugin({
+        document: [path.resolve(path.join(__dirname, 'document.js')), 'default'],
+      }),
       // This gives some necessary context to module not found errors, such as
       // the requesting resource.
       new ModuleNotFoundPlugin(paths.appPath),

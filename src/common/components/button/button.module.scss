@@ -3,7 +3,7 @@
 
 .buttonGray:not(:disabled) {
   background-color: $hel-black-70;
-  border-color: $hel-black-70;
+  border-color: $hel-black-70 !important;
   color: $hel-white;
 } 
 
