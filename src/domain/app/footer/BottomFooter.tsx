@@ -31,9 +31,6 @@ const BottomFooter: React.FC = () => {
               {t("footer.linkFeedback")}
             </Link>
           </div>
-          <div className={styles.logoWrapper}>
-            <div className={styles.helsinkiLogo}></div>
-          </div>
         </div>
       </Container>
     </div>
