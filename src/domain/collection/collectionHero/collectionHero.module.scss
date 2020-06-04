@@ -32,7 +32,7 @@
 
 .imageWithCard {
   max-width: 100%;
-  width: 100%;
+  width: 100%  !important;
 
   h2 {
     margin-bottom: 1rem;
@@ -73,23 +73,23 @@
 }
 
 .copperBackgroundColor {
-  --card-background-primary: var(--color-copper-light-50);
-  --card-color-primary: var(--color-black);
+  --card-background-primary: var(--color-copper-light-50) !important;
+  --card-color-primary: var(--color-black) !important;
 }
 
 .engelBackgroundColor {
-  --card-background-primary: var(--color-engel);
-  --card-color-primary: var(--color-black);
+  --card-background-primary: var(--color-engel) !important;
+  --card-color-primary: var(--color-black) !important;
 }
 
 .fogBackgroundColor {
-  --card-background-primary: var(--color-fog-light-50);
-  --card-color-primary: var(--color-black);
+  --card-background-primary: var(--color-fog-light-50) !important;
+  --card-color-primary: var(--color-black) !important;
 }
 
 .suomenlinnaBackgroundColor {
-  --card-background-primary: var(--color-suomenlinna-light-50);
-  --card-color-primary: var(--color-black);
+  --card-background-primary: var(--color-suomenlinna-light-50) !important;
+  --card-color-primary: var(--color-black) !important;
 }
 
 
