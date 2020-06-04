@@ -47,7 +47,6 @@ export type CollectionDetails = {
   showInMenus?: Maybe<Scalars['Boolean']>,
   slug?: Maybe<Scalars['String']>,
   socialMediaDescription?: Maybe<LocalizedObject>,
-  subtitles: LocalizedObject,
   title: LocalizedObject,
   urlPath?: Maybe<Scalars['String']>,
 };
@@ -440,6 +439,33 @@ export type Subscription = {
   _empty?: Maybe<Scalars['String']>,
 };
 
+export type CollectionFieldsFragment = (
+  { __typename?: 'CollectionDetails' }
+  & Pick<CollectionDetails, 'id' | 'heroImage' | 'boxColor' | 'curatedEvents' | 'eventListQuery'>
+  & { curatedEventsTitle: (
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+  ), description: (
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+  ), eventListTitle: (
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+  ), linkText: (
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+  ), linkUrl: (
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+  ), socialMediaDescription: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+  )>, title: (
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+  ) }
+);
+
 export type CollectionDetailsQueryVariables = {
   draft?: Maybe<Scalars['Boolean']>,
   id: Scalars['ID']
@@ -450,32 +476,7 @@ export type CollectionDetailsQuery = (
   { __typename?: 'Query' }
   & { collectionDetails: (
     { __typename?: 'CollectionDetails' }
-    & Pick<CollectionDetails, 'id' | 'heroImage' | 'boxColor' | 'curatedEvents' | 'eventListQuery'>
-    & { curatedEventsTitle: (
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    ), description: (
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    ), eventListTitle: (
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    ), linkText: (
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    ), linkUrl: (
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    ), socialMediaDescription: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    )>, subtitles: (
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    ), title: (
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-    ) }
+    & CollectionFieldsFragment
   ) }
 );
 
@@ -490,32 +491,7 @@ export type CollectionListQuery = (
     { __typename?: 'CollectionListResponse' }
     & { data: Array<(
       { __typename?: 'CollectionDetails' }
-      & Pick<CollectionDetails, 'id' | 'heroImage' | 'curatedEvents' | 'eventListQuery'>
-      & { curatedEventsTitle: (
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      ), description: (
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      ), eventListTitle: (
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      ), linkText: (
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      ), linkUrl: (
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      ), socialMediaDescription: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      )>, subtitles: (
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      ), title: (
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-      ) }
+      & CollectionFieldsFragment
     )> }
   ) }
 );
@@ -950,6 +926,50 @@ export type PlaceListQuery = (
   ) }
 );
 
+export const CollectionFieldsFragmentDoc = gql`
+    fragment collectionFields on CollectionDetails {
+  id
+  heroImage
+  boxColor
+  curatedEvents
+  curatedEventsTitle {
+    en
+    fi
+    sv
+  }
+  description {
+    en
+    fi
+    sv
+  }
+  eventListQuery
+  eventListTitle {
+    en
+    fi
+    sv
+  }
+  linkText {
+    en
+    fi
+    sv
+  }
+  linkUrl {
+    en
+    fi
+    sv
+  }
+  socialMediaDescription {
+    en
+    fi
+    sv
+  }
+  title {
+    en
+    fi
+    sv
+  }
+}
+    `;
 export const KeywordFieldsFragmentDoc = gql`
     fragment keywordFields on Keyword {
   id
@@ -1009,54 +1029,10 @@ export const PlaceFieldsFragmentDoc = gql`
 export const CollectionDetailsDocument = gql`
     query CollectionDetails($draft: Boolean, $id: ID!) {
   collectionDetails(draft: $draft, id: $id) {
-    id
-    heroImage
-    boxColor
-    curatedEvents
-    curatedEventsTitle {
-      en
-      fi
-      sv
-    }
-    description {
-      en
-      fi
-      sv
-    }
-    eventListQuery
-    eventListTitle {
-      en
-      fi
-      sv
-    }
-    linkText {
-      en
-      fi
-      sv
-    }
-    linkUrl {
-      en
-      fi
-      sv
-    }
-    socialMediaDescription {
-      en
-      fi
-      sv
-    }
-    subtitles {
-      en
-      fi
-      sv
-    }
-    title {
-      en
-      fi
-      sv
-    }
+    ...collectionFields
   }
 }
-    `;
+    ${CollectionFieldsFragmentDoc}`;
 export type CollectionDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<CollectionDetailsQuery, CollectionDetailsQueryVariables> | TChildProps;
 export function withCollectionDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
@@ -1099,54 +1075,11 @@ export const CollectionListDocument = gql`
     query CollectionList($visibleOnFrontpage: Boolean) {
   collectionList(visibleOnFrontpage: $visibleOnFrontpage) {
     data {
-      id
-      heroImage
-      curatedEvents
-      curatedEventsTitle {
-        en
-        fi
-        sv
-      }
-      description {
-        en
-        fi
-        sv
-      }
-      eventListQuery
-      eventListTitle {
-        en
-        fi
-        sv
-      }
-      linkText {
-        en
-        fi
-        sv
-      }
-      linkUrl {
-        en
-        fi
-        sv
-      }
-      socialMediaDescription {
-        en
-        fi
-        sv
-      }
-      subtitles {
-        en
-        fi
-        sv
-      }
-      title {
-        en
-        fi
-        sv
-      }
+      ...collectionFields
     }
   }
 }
-    `;
+    ${CollectionFieldsFragmentDoc}`;
 export type CollectionListProps<TChildProps = {}> = ApolloReactHoc.DataProps<CollectionListQuery, CollectionListQueryVariables> | TChildProps;
 export function withCollectionList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,

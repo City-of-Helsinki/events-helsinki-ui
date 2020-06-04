@@ -25,11 +25,6 @@ const CollectionHero: React.FC<Props> = ({ collectionData }) => {
     locale
   );
 
-  const subtitles = getLocalisedString(
-    collectionData.collectionDetails.subtitles,
-    locale
-  );
-
   const description = getLocalisedString(
     collectionData.collectionDetails.description,
     locale
@@ -54,20 +49,17 @@ const CollectionHero: React.FC<Props> = ({ collectionData }) => {
   );
 
   return (
-    <div
-      className={classNames(
-        styles.collectionHero,
-        styles[`${backgroundColor}BackgroundColor`]
-      )}
-    >
+    <div className={styles.collectionHero}>
       <ImageWithCard
-        className={styles.imageWithCard}
+        className={classNames(
+          styles.imageWithCard,
+          styles[`${backgroundColor}BackgroundColor`]
+        )}
         src={backgroundImage}
         cardLayout="hover"
-        color="tertiary"
+        color="primary"
       >
         <h1>{title}</h1>
-        {!!subtitles && <div className={styles.subTitle}>{subtitles}</div>}
         {!!description && <TextWithLineBreaks as="p" text={description} />}
         {!!linkText && !!linkText && (
           <a href={linkUrl} target="_blank" rel="noopener noreferrer">

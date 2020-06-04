@@ -4,6 +4,8 @@
 @import "variables";
 
 .collectionHero {
+  padding-bottom: $largePadding;
+  
   @include respond-above(sm) {
     display: grid;
     grid-row: span;
@@ -18,11 +20,6 @@
     font-size: var(--fontsize-h-2);
     margin: 2rem 0 0.5rem;
   }
-  
-  .subTitle {
-    font-size: var(--fontsize-h-3);
-    margin: 0 0 0.5rem;
-  }
 
   @include respond-above(sm) {
     grid-template-columns: 1fr 10fr 1fr;
@@ -31,11 +28,6 @@
   @include respond-above(xlg) {
     grid-template-columns: 1fr 91.875rem 1fr;
   }
-}
-
-.collectionHero {
-  background: $hel-white;
-  padding-bottom: $largePadding;
 }
 
 .imageWithCard {
@@ -73,70 +65,31 @@
     max-width: unset;
     
     > div {
-      background-color: $hel-engel-light-50;
-      color: $hel-black;
-
       @include respond-above(sm) {
-        width: 50%;
+        width: 50% !important;
       }
     }
   }
 }
 
 .copperBackgroundColor {
-  background: $hel-white;
-  padding-bottom: $largePadding;
-
-  .imageWithCard {
-    div:last-child {
-      > div {
-        background-color: $hel-copper-light-50;
-        color: $hel-black;
-      }
-    }
-  }
+  --card-background-primary: var(--color-copper-light-50);
+  --card-color-primary: var(--color-black);
 }
 
 .engelBackgroundColor {
-  background: $hel-white;
-  padding-bottom: $largePadding;
-
-  .imageWithCard {
-    div:last-child {
-      > div {
-        background-color: $hel-engel;
-        color: $hel-black;
-      }
-    }
-  }
+  --card-background-primary: var(--color-engel);
+  --card-color-primary: var(--color-black);
 }
 
 .fogBackgroundColor {
-  background: $hel-white;
-  padding-bottom: $largePadding;
-
-  .imageWithCard {
-    div:last-child {
-      > div {
-        background-color: $hel-fog-light-50;
-        color: $hel-black;
-      }
-    }
-  }
+  --card-background-primary: var(--color-fog-light-50);
+  --card-color-primary: var(--color-black);
 }
 
 .suomenlinnaBackgroundColor {
-  background: $hel-white;
-  padding-bottom: $largePadding;
-
-  .imageWithCard {
-    div:last-child {
-      > div {
-        background-color: $hel-suomenlinna-light-50;
-        color: $hel-black;
-      }
-    }
-  }
+  --card-background-primary: var(--color-suomenlinna-light-50);
+  --card-color-primary: var(--color-black);
 }
 
 

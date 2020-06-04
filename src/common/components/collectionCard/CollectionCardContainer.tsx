@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React from "react";
 
 import { getHeroBackgroundImage } from "../../../domain/collection/CollectionUtils";
-import { CollectionDetails } from "../../../generated/graphql";
+import { CollectionFieldsFragment } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
 import CollectionCard, { CollectionCardSize } from "./CollectionCard";
@@ -11,7 +11,7 @@ import styles from "./collectionCardContainer.module.scss";
 export type CollectionCardListLayout = "sm" | "md" | "mdAndSm" | "lg";
 
 interface CollectionCardContainerProps {
-  collections: CollectionDetails[];
+  collections: CollectionFieldsFragment[];
   layout: CollectionCardListLayout;
 }
 

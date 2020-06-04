@@ -1,7 +1,6 @@
-import { CollectionDetails } from "../../generated/graphql";
+import { CollectionFieldsFragment } from "../../generated/graphql";
 import { Language } from "../../types";
 import { COLLECTION_DEFAULT_IMAGE, HERO_BACKGROUND_COLOR } from "./constants";
-import { CollectionInList } from "./types";
 
 /**
  * Get hero text content background color
@@ -9,7 +8,7 @@ import { CollectionInList } from "./types";
  * @return {string}
  */
 export const getHeroBackgroundColor = (
-  collection: CollectionDetails
+  collection: CollectionFieldsFragment
 ): string => {
   switch (collection.boxColor) {
     case HERO_BACKGROUND_COLOR.COPPER:
@@ -28,7 +27,7 @@ export const getHeroBackgroundColor = (
  * @return {string}
  */
 export const getHeroBackgroundImage = (
-  collection: CollectionDetails
+  collection: CollectionFieldsFragment
 ): string => {
   return collection.heroImage || COLLECTION_DEFAULT_IMAGE;
 };
@@ -40,7 +39,7 @@ export const getHeroBackgroundImage = (
  * @return {boolean}
  */
 export const isLanguageSupported = (
-  collection: CollectionInList,
+  collection: CollectionFieldsFragment,
   language: Language
 ) => {
   return !!collection.title[language];
