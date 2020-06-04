@@ -41,6 +41,10 @@ const FilterSummary = () => {
   );
   const isFree =
     searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === "true" ? true : false;
+  const onlyChildrenEvents =
+    searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === "true"
+      ? true
+      : false;
   const keywords = getUrlParamAsArray(
     searchParams,
     EVENT_SEARCH_FILTERS.KEYWORDS
@@ -97,6 +101,7 @@ const FilterSummary = () => {
         type === "keyword" || type === "yso"
           ? keywords.filter(keyword => keyword !== value)
           : keywords,
+      onlyChildrenEvents,
       places:
         type === "place" ? places.filter(place => place !== value) : places,
       publisher: type !== "publisher" ? publisher : null,

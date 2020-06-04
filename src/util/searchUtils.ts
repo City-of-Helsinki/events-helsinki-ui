@@ -13,6 +13,7 @@ interface Filters {
   isFree?: boolean;
   keywordNot: string[];
   keywords: string[];
+  onlyChildrenEvents?: boolean;
   places: string[];
   publisher: string | null;
   start: Date | null;
@@ -27,6 +28,7 @@ interface MappedFilters {
   isFree?: boolean;
   keywordNot: string[];
   keywords: string[];
+  onlyChildrenEvents?: boolean;
   places: string[];
   publisher?: string | null;
   start?: string | null;
@@ -38,6 +40,7 @@ export const getSearchQuery = (filters: Filters): string => {
     ...filters,
     end: formatDate(filters.end, "yyyy-MM-dd"),
     isFree: filters.isFree ? true : undefined,
+    onlyChildrenEvents: filters.onlyChildrenEvents ? true : undefined,
     start: formatDate(filters.start, "yyyy-MM-dd")
   };
 

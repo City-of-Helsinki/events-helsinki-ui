@@ -46,6 +46,10 @@ const Search: FunctionComponent = () => {
   const publisher = searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER);
   const isFree =
     searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === "true" ? true : false;
+  const onlyChildrenEvents =
+    searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === "true"
+      ? true
+      : false;
 
   const { push } = useHistory();
 
@@ -136,6 +140,7 @@ const Search: FunctionComponent = () => {
       isFree,
       keywordNot: keywordNot,
       keywords,
+      onlyChildrenEvents,
       places,
       publisher,
       start,
@@ -151,6 +156,7 @@ const Search: FunctionComponent = () => {
     keywordNot,
     keywords,
     locale,
+    onlyChildrenEvents,
     places,
     publisher,
     push,
@@ -236,6 +242,7 @@ const Search: FunctionComponent = () => {
       isFree,
       keywordNot,
       keywords: newKeywords,
+      onlyChildrenEvents,
       places,
       publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
       start,
@@ -251,6 +258,27 @@ const Search: FunctionComponent = () => {
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   };
 
+  const handleOnlyChildrenEventChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const search = getSearchQuery({
+      categories: selectedCategories,
+      dateTypes,
+      divisions,
+      end,
+      isFree,
+      keywordNot,
+      keywords,
+      onlyChildrenEvents: e.target.checked,
+      places,
+      publisher,
+      start,
+      text: searchValue
+    });
+
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+  };
+
   const handleIsFreeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const search = getSearchQuery({
       categories: selectedCategories,
@@ -260,6 +288,7 @@ const Search: FunctionComponent = () => {
       isFree: e.target.checked,
       keywordNot,
       keywords,
+      onlyChildrenEvents,
       places,
       publisher,
       start,
@@ -360,6 +389,15 @@ const Search: FunctionComponent = () => {
               </div>
               <div className={styles.rowWrapper}>
                 <div className={styles.row}>
+                  <div>
+                    <Checkbox
+                      className={styles.checkbox}
+                      checked={onlyChildrenEvents}
+                      id={EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS}
+                      label={t("eventSearch.search.checkboxOnlyChildrenEvents")}
+                      onChange={handleOnlyChildrenEventChange}
+                    />
+                  </div>
                   <div>
                     <Checkbox
                       className={styles.checkbox}

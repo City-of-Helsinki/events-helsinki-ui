@@ -20,6 +20,7 @@ export enum EVENT_SEARCH_FILTERS {
   IS_FREE = "isFree",
   KEYWORD_NOT = "keywordNot",
   KEYWORDS = "keywords",
+  ONLY_CHILDREN_EVENTS = "onlyChildrenEvents",
   PAGE = "page",
   PLACES = "places",
   PUBLISHER = "publisher",

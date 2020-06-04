@@ -145,6 +145,13 @@ export const getEventFilters = ({
         keywordAnd.push(keyword);
     }
   });
+  const onlyChildrenEvents = params.get(
+    EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS
+  );
+
+  if (onlyChildrenEvents) {
+    keywordAnd.push("yso:p4354");
+  }
 
   const mappedCategories: string[] = categories.map(category => {
     switch (category) {
