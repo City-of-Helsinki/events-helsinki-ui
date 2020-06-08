@@ -36,7 +36,7 @@ const Home: React.FC = () => {
       )
     : [];
   const lgCollections = collections.slice(0, 1);
-  const mdAndSmCollections = collections.slice(1, -1);
+  const mdAndSmCollections = collections.slice(1);
   return (
     <PageWrapper>
       <LoadingSpinner isLoading={loading}>
