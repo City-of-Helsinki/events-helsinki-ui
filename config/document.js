@@ -1,4 +1,6 @@
 import "canvas";
 import { JSDOM } from "jsdom";
 
-export default new JSDOM("<!DOCTYPE html>").window.document;
+const {document} = new JSDOM("<!DOCTYPE html>").window;
+
+export default document;
