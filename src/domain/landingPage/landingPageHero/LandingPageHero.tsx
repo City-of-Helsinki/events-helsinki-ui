@@ -3,9 +3,14 @@ import React from "react";
 
 import Container from "../../../domain/app/layout/Container";
 import { LandingPageFieldsFragment } from "../../../generated/graphql";
+import useIsSmallScreen from "../../../hooks/useIsSmallScreen";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
-import { getHeroBackgroundImage, getHeroTopLayerImage } from "../utils";
+import {
+  getHeroBackgroundImage,
+  getHeroBackgroundImageMobile,
+  getHeroTopLayerImage
+} from "../utils";
 import styles from "./landingPageHero.module.scss";
 
 interface Props {
@@ -14,6 +19,7 @@ interface Props {
 
 const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
   const locale = useLocale();
+  const isSmallScreen = useIsSmallScreen();
 
   const title = getLocalisedString(landingPage.title || {}, locale);
 
@@ -24,6 +30,10 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
   const buttonUrl = getLocalisedString(landingPage.buttonUrl || {}, locale);
 
   const heroBackgroundImage = getHeroBackgroundImage(landingPage, locale);
+  const heroBackgroundImageMobile = getHeroBackgroundImageMobile(
+    landingPage,
+    locale
+  );
   const heroTopLayerImage = getHeroTopLayerImage(landingPage, locale);
 
   const moveToCollectionPage = () => {
@@ -33,7 +43,11 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
   return (
     <div
       className={styles.landingPageHero}
-      style={{ backgroundImage: `url(${heroBackgroundImage})` }}
+      style={{
+        backgroundImage: `url(${
+          isSmallScreen ? heroBackgroundImageMobile : heroBackgroundImage
+        })`
+      }}
     >
       <div
         className={styles.image}

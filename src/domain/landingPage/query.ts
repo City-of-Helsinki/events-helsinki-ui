@@ -38,6 +38,11 @@ export const QUERY_KEYWORD = gql`
       sv
       en
     }
+    heroBackgroundImageMobile {
+      fi
+      sv
+      en
+    }
     heroTopLayerImage {
       fi
       en

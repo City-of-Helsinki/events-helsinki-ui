@@ -19,6 +19,11 @@ export const mockLandingPage = {
     fi: "testimage.png",
     sv: "testimage.png"
   },
+  heroBackgroundImageMobile: {
+    en: "testimagemobile.png",
+    fi: "testimagemobile.png",
+    sv: "testimagemobile.png"
+  },
   heroTopLayerImage: {
     en: null,
     fi: null,

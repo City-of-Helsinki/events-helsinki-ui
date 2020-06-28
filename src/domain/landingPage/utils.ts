@@ -16,6 +16,19 @@ export const getHeroBackgroundImage = (
 };
 
 /**
+ * Get landing page hero mobile background image
+ * @param {object} landingPage
+ * @param {string} locale
+ * @return {string}
+ */
+export const getHeroBackgroundImageMobile = (
+  landingPage: LandingPageFieldsFragment,
+  locale: Language
+): string => {
+  return (landingPage.heroBackgroundImageMobile || {})[locale] || "";
+};
+
+/**
  * Get landing page hero top layer image
  * @param {object} landingPage
  * @param {string} locale
