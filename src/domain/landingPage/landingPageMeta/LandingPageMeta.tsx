@@ -1,13 +1,13 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-import { LandingPage } from "../../../generated/graphql";
+import { LandingPageFieldsFragment } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
-import { getHeroBackgroundImage } from "../utils";
+import { getLandingPageSomeImageUrl } from "../utils";
 
 interface Props {
-  landingPage: LandingPage;
+  landingPage: LandingPageFieldsFragment;
 }
 
 const EventPageMeta: React.FC<Props> = ({ landingPage }) => {
@@ -19,7 +19,7 @@ const EventPageMeta: React.FC<Props> = ({ landingPage }) => {
     locale
   );
 
-  const image = getHeroBackgroundImage(landingPage, locale);
+  const image = getLandingPageSomeImageUrl(landingPage, locale);
 
   const openGraphProperties: { [key: string]: string } = {
     description,

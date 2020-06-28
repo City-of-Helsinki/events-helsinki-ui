@@ -1,7 +1,6 @@
-import get from "lodash/get";
-
-import { LandingPage } from "../../generated/graphql";
+import { LandingPageFieldsFragment } from "../../generated/graphql";
 import { Language } from "../../types";
+import { LANDING_PAGE_SOME_IMAGE } from "./constants";
 
 /**
  * Get landing page hero background image
@@ -10,10 +9,10 @@ import { Language } from "../../types";
  * @return {string}
  */
 export const getHeroBackgroundImage = (
-  landingPage: LandingPage,
+  landingPage: LandingPageFieldsFragment,
   locale: Language
 ): string => {
-  return get(landingPage, `heroBackgroundImage.${locale}`);
+  return (landingPage.heroBackgroundImage || {})[locale] || "";
 };
 
 /**
@@ -23,8 +22,21 @@ export const getHeroBackgroundImage = (
  * @return {string}
  */
 export const getHeroTopLayerImage = (
-  landingPage: LandingPage,
+  landingPage: LandingPageFieldsFragment,
   locale: Language
 ): string => {
-  return get(landingPage, `heroTopLayerImage.${locale}`);
+  return (landingPage.heroTopLayerImage || {})[locale] || "";
+};
+
+/**
+ * Get landing page image url for social media
+ * @param {object} landingPage
+ * @return {string}
+ */
+export const getLandingPageSomeImageUrl = (
+  landingPage: LandingPageFieldsFragment,
+  locale: Language
+): string => {
+  const image = (landingPage.socialMediaImage || {})[locale];
+  return image || LANDING_PAGE_SOME_IMAGE;
 };

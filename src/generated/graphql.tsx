@@ -207,6 +207,7 @@ export type LandingPage = {
   buttonUrl?: Maybe<LocalizedObject>,
   heroBackgroundImage?: Maybe<LocalizedObject>,
   heroTopLayerImage?: Maybe<LocalizedObject>,
+  socialMediaImage?: Maybe<LocalizedObject>,
   metaInformation?: Maybe<LocalizedObject>,
   pageTitle?: Maybe<LocalizedObject>,
   contentType?: Maybe<Scalars['Int']>,
@@ -756,6 +757,39 @@ export type KeywordListQuery = (
   ) }
 );
 
+export type LandingPageFieldsFragment = (
+  { __typename?: 'LandingPage' }
+  & Pick<LandingPage, 'id'>
+  & { pageTitle: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )>, metaInformation: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )>, title: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )>, description: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )>, buttonText: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )>, buttonUrl: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )>, heroBackgroundImage: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+  )>, heroTopLayerImage: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+  )>, socialMediaImage: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+  )> }
+);
+
 export type LandingPageQueryVariables = {
   draft?: Maybe<Scalars['Boolean']>,
   id: Scalars['ID']
@@ -766,32 +800,7 @@ export type LandingPageQuery = (
   { __typename?: 'Query' }
   & { landingPage: (
     { __typename?: 'LandingPage' }
-    & Pick<LandingPage, 'id'>
-    & { pageTitle: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )>, metaInformation: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )>, title: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )>, description: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )>, buttonText: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )>, buttonUrl: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )>, heroBackgroundImage: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )>, heroTopLayerImage: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
-    )> }
+    & LandingPageFieldsFragment
   ) }
 );
 
@@ -806,32 +815,7 @@ export type LandingPagesQuery = (
     { __typename?: 'LandingPageResponse' }
     & { data: Array<(
       { __typename?: 'LandingPage' }
-      & Pick<LandingPage, 'id'>
-      & { pageTitle: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, metaInformation: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, title: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, description: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, buttonText: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, buttonUrl: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, heroBackgroundImage: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, heroTopLayerImage: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
-      )> }
+      & LandingPageFieldsFragment
     )> }
   ) }
 );
@@ -979,6 +963,56 @@ export const KeywordFieldsFragmentDoc = gql`
     fi
     sv
     en
+  }
+}
+    `;
+export const LandingPageFieldsFragmentDoc = gql`
+    fragment landingPageFields on LandingPage {
+  id
+  pageTitle {
+    fi
+    sv
+    en
+  }
+  metaInformation {
+    fi
+    sv
+    en
+  }
+  title {
+    fi
+    sv
+    en
+  }
+  description {
+    fi
+    sv
+    en
+  }
+  buttonText {
+    fi
+    sv
+    en
+  }
+  buttonUrl {
+    fi
+    sv
+    en
+  }
+  heroBackgroundImage {
+    fi
+    sv
+    en
+  }
+  heroTopLayerImage {
+    fi
+    en
+    sv
+  }
+  socialMediaImage {
+    fi
+    en
+    sv
   }
 }
     `;
@@ -1617,50 +1651,10 @@ export type KeywordListQueryResult = ApolloReactCommon.QueryResult<KeywordListQu
 export const LandingPageDocument = gql`
     query LandingPage($draft: Boolean, $id: ID!) {
   landingPage(draft: $draft, id: $id) {
-    id
-    pageTitle {
-      fi
-      sv
-      en
-    }
-    metaInformation {
-      fi
-      sv
-      en
-    }
-    title {
-      fi
-      sv
-      en
-    }
-    description {
-      fi
-      sv
-      en
-    }
-    buttonText {
-      fi
-      sv
-      en
-    }
-    buttonUrl {
-      fi
-      sv
-      en
-    }
-    heroBackgroundImage {
-      fi
-      sv
-      en
-    }
-    heroTopLayerImage {
-      fi
-      en
-      sv
-    }
+    ...landingPageFields
   }
 }
-    `;
+    ${LandingPageFieldsFragmentDoc}`;
 export type LandingPageProps<TChildProps = {}> = ApolloReactHoc.DataProps<LandingPageQuery, LandingPageQueryVariables> | TChildProps;
 export function withLandingPage<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
@@ -1703,51 +1697,11 @@ export const LandingPagesDocument = gql`
     query LandingPages($visibleOnFrontpage: Boolean) {
   landingPages(visibleOnFrontpage: $visibleOnFrontpage) {
     data {
-      id
-      pageTitle {
-        fi
-        sv
-        en
-      }
-      metaInformation {
-        fi
-        sv
-        en
-      }
-      title {
-        fi
-        sv
-        en
-      }
-      description {
-        fi
-        sv
-        en
-      }
-      buttonText {
-        fi
-        sv
-        en
-      }
-      buttonUrl {
-        fi
-        sv
-        en
-      }
-      heroBackgroundImage {
-        fi
-        sv
-        en
-      }
-      heroTopLayerImage {
-        fi
-        en
-        sv
-      }
+      ...landingPageFields
     }
   }
 }
-    `;
+    ${LandingPageFieldsFragmentDoc}`;
 export type LandingPagesProps<TChildProps = {}> = ApolloReactHoc.DataProps<LandingPagesQuery, LandingPagesQueryVariables> | TChildProps;
 export function withLandingPages<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,

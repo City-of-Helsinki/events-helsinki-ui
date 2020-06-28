@@ -2,14 +2,14 @@ import { Button } from "hds-react";
 import React from "react";
 
 import Container from "../../../domain/app/layout/Container";
-import { LandingPage } from "../../../generated/graphql";
+import { LandingPageFieldsFragment } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
 import { getHeroBackgroundImage, getHeroTopLayerImage } from "../utils";
 import styles from "./landingPageHero.module.scss";
 
 interface Props {
-  landingPage: LandingPage;
+  landingPage: LandingPageFieldsFragment;
 }
 
 const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
