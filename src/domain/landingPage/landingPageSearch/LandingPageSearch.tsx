@@ -1,4 +1,4 @@
-import { Button, IconSearch, IconTree } from "hds-react";
+import { Button, IconSearch, IconSpeechbubbleText } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
@@ -18,9 +18,9 @@ import IconFood from "../../../icons/IconFood";
 import IconMovies from "../../../icons/IconMovies";
 import IconMuseum from "../../../icons/IconMuseum";
 import IconMusic from "../../../icons/IconMusic";
-import IconParticipate from "../../../icons/IconParticipate";
 import IconSports from "../../../icons/IconSports";
 import IconTheatre from "../../../icons/IconTheatre";
+import IconTree from "../../../icons/IconTree";
 import { getSearchQuery } from "../../../util/searchUtils";
 import { ROUTES } from "../../app/constants";
 import styles from "./landingPageSearch.module.scss";
@@ -91,7 +91,7 @@ const Search: FunctionComponent = () => {
         value: CATEGORIES.NATURE
       },
       {
-        icon: <IconParticipate />,
+        icon: <IconSpeechbubbleText />,
         text: t("home.category.influence"),
         value: CATEGORIES.INFLUENCE
       },

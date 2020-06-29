@@ -1,4 +1,4 @@
-import { IconAngleDown, IconAngleUp, IconCalendar } from "hds-react";
+import { IconAngleDown, IconAngleUp, IconCalendarClock } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -166,7 +166,7 @@ const DateSelector: FunctionComponent<Props> = ({
         type="button"
       >
         <div className={styles.iconWrapper}>
-          <IconCalendar />
+          <IconCalendarClock />
         </div>
         <div className={styles.info}>
           <div className={styles.buttonTextWrapper}>

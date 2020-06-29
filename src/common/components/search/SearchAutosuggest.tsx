@@ -326,7 +326,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       ref={container}
     >
       <div className={styles.iconWrapper}>
-        <IconSearch />
+        <IconSearch size="s" />
       </div>
       <div ref={categoryWrapper}>
         {categories.map(category => {

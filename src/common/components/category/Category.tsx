@@ -1,4 +1,4 @@
-import { IconClose } from "hds-react";
+import { IconCross } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -26,7 +26,7 @@ const Category: FunctionComponent<Props> = ({ category, onRemove }) => {
           category: category.text
         })}
       >
-        <IconClose />
+        <IconCross />
       </button>
       {category.text}
     </div>

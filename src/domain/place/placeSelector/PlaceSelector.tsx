@@ -1,4 +1,4 @@
-import { IconHouse } from "hds-react";
+import { IconHome } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -67,7 +67,7 @@ const PlaceSelector: React.FC<Props> = ({ name, setPlaces, value }) => {
     <>
       <MultiSelectDropdown
         checkboxName="placeOptions"
-        icon={<IconHouse />}
+        icon={<IconHome />}
         inputValue={internalInputValue}
         name={name}
         onChange={setPlaces}

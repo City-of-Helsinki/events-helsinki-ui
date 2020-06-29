@@ -1,4 +1,4 @@
-import { IconSmile } from "hds-react";
+import { IconFaceSmile } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -39,7 +39,7 @@ const OrganizationInfo: React.FC<Props> = ({ eventData }) => {
   return (
     <div className={styles.infoWithIcon}>
       <div className={styles.iconWrapper}>
-        <IconSmile className={styles.icon} />
+        <IconFaceSmile className={styles.icon} />
       </div>
       <div className={styles.iconTextWrapper}>
         <h2 className={styles.title}>{t("event.info.labelOrganizer")}</h2>

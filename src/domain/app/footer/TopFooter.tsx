@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { IconSearch, IconTree } from "hds-react";
+import { IconSearch, IconSpeechbubbleText, IconStar } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
@@ -16,10 +16,9 @@ import IconFood from "../../../icons/IconFood";
 import IconMovies from "../../../icons/IconMovies";
 import IconMuseum from "../../../icons/IconMuseum";
 import IconMusic from "../../../icons/IconMusic";
-import IconParticipate from "../../../icons/IconParticipate";
 import IconSports from "../../../icons/IconSports";
-import IconStar from "../../../icons/IconStar";
 import IconTheatre from "../../../icons/IconTheatre";
+import IconTree from "../../../icons/IconTree";
 import scrollToTop from "../../../util/scrollToTop";
 import { getSearchQuery } from "../../../util/searchUtils";
 import { ROUTES } from "../constants";
@@ -89,7 +88,7 @@ const TopFooter: FunctionComponent = () => {
         value: CATEGORIES.NATURE
       },
       {
-        icon: <IconParticipate />,
+        icon: <IconSpeechbubbleText />,
         text: t("home.category.influence"),
         value: CATEGORIES.INFLUENCE
       },

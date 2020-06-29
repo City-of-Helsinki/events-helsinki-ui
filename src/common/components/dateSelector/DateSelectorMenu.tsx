@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { IconAngleLeft, IconAngleRight, IconCalendarAdd } from "hds-react";
+import { IconAngleLeft, IconAngleRight, IconCalendarPlus } from "hds-react";
 import React, { ChangeEvent, FunctionComponent, MutableRefObject } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -91,7 +91,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         onClick={toggleIsCustomDate}
         type="button"
       >
-        <IconCalendarAdd />
+        <IconCalendarPlus />
         <div className={styles.buttonText}>
           {t("commons.dateSelector.menu.buttonCustom")}
         </div>

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { IconClose } from "hds-react";
+import { IconCross } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -41,7 +41,7 @@ const FilterButton: React.FC<Props> = ({ onRemove, text, type, value }) => {
           filter: text
         })}
       >
-        <IconClose />
+        <IconCross size="s" />
       </button>
       {text}
     </div>

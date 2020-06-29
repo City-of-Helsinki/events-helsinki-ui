@@ -9,6 +9,7 @@
   .button {
     background: transparent;
     border: none;
+    color: var(--color-black);
     min-height: 3.375rem;
     padding: 0 1rem;
     width: 100%;
@@ -59,8 +60,6 @@
     align-self: center;
     
     svg {
-      height: 0.75rem;
-      width: 0.75rem;
       margin-left: 0.75rem;
       pointer-events: none;
     }

@@ -1,7 +1,7 @@
+import { IconCrossCircle } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import IconDelete from "../../../icons/IconDelete";
 import styles from "./searchWordFilter.module.scss";
 
 interface Props {
@@ -18,7 +18,7 @@ const SearchWordFilter: React.FC<Props> = ({ onRemove, searchWord }) => {
         aria-label={t("eventSearch.filters.buttonRemoveSearchWord")}
         onClick={onRemove}
       >
-        <IconDelete />
+        <IconCrossCircle />
       </button>
     </div>
   );

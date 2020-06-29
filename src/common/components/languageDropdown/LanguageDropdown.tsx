@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { IconAngleDown, IconLanguage } from "hds-react";
+import { IconAngleDown, IconGlobe } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -202,7 +202,7 @@ const LanguageDropdown: React.FC<Props> = ({
         className={styles.languageDropdownButton}
         onClick={toggleMenu}
       >
-        <IconLanguage className={styles.iconLanguage} />
+        <IconGlobe className={styles.iconLanguage} />
         <div className={styles.textWrapper}>
           {value.toUpperCase()}
           <IconAngleDown className={styles.iconAngleDown} />

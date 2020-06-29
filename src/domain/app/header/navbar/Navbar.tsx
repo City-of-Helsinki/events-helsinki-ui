@@ -1,4 +1,4 @@
-import { IconSearch } from "hds-react";
+import { IconSearch, IconStar } from "hds-react";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory, useLocation } from "react-router-dom";
@@ -9,7 +9,6 @@ import { updateLocaleParam } from "../../../../common/route/RouteUtils";
 import { getCurrentLanguage } from "../../../../common/translation/TranslationUtils";
 import { SUPPORT_LANGUAGES } from "../../../../constants";
 import useLocale from "../../../../hooks/useLocale";
-import IconStar from "../../../../icons/IconStar";
 import { Language } from "../../../../types";
 import scrollToTop from "../../../../util/scrollToTop";
 import { ROUTES } from "../../constants";

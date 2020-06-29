@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { IconSearch } from "hds-react";
+import { IconSearch, IconStar } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
@@ -9,7 +9,6 @@ import { getCurrentLanguage } from "../../../common/translation/TranslationUtils
 import { SUPPORT_LANGUAGES } from "../../../constants";
 import { ROUTES } from "../../../domain/app/constants";
 import useLocale from "../../../hooks/useLocale";
-import IconStar from "../../../icons/IconStar";
 import scrollToTop from "../../../util/scrollToTop";
 import styles from "./mobileMenu.module.scss";
 

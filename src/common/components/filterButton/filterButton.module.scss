@@ -16,14 +16,12 @@
     padding: 0;
     background: transparent;
     border: none;
-    margin-right: 0.375rem;
+    margin-right: var(--spacing-3-xs);
     cursor: pointer;
-    width: 1rem;
 
     svg {
       fill: $hel-white;
-      height: 0.625rem;
-      width: 0.625rem;
+      vertical-align: middle;
       margin: 0;
     }
 

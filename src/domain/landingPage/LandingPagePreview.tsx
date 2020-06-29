@@ -38,7 +38,7 @@ const LandingPagePreview: React.FC = () => {
             <PreviewBanner />
             <LandingPageHero landingPage={landingPage} />
             <Container>
-              <Search />/
+              <Search />
             </Container>
           </>
         ) : (

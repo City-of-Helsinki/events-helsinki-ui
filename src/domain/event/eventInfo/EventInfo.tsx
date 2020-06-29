@@ -4,11 +4,11 @@ import { saveAs } from "file-saver";
 import {
   Button,
   IconAngleRight,
-  IconCalendar,
-  IconDirections,
-  IconInfo,
-  IconLanguage,
-  IconLocation
+  IconCalendarClock,
+  IconGlobe,
+  IconInfoCircle,
+  IconLocation,
+  IconTicket
 } from "hds-react";
 import { createEvent, EventAttributes } from "ics";
 import capitalize from "lodash/capitalize";
@@ -19,7 +19,7 @@ import Link from "../../../common/components/link/Link";
 import linkStyles from "../../../common/components/link/link.module.scss";
 import { EventDetailsQuery } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
-import IconTicket from "../../../icons/IconTicket";
+import IconDirections from "../../../icons/IconDirections";
 import getDateArray from "../../../util/getDateArray";
 import getDateRangeStr from "../../../util/getDateRangeStr";
 import getDomain from "../../../util/getDomain";
@@ -132,7 +132,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
         {/* Date info */}
         <div className={styles.infoWithIcon}>
           <div className={styles.iconWrapper}>
-            <IconCalendar className={styles.icon} />
+            <IconCalendarClock className={styles.icon} />
           </div>
           <div className={styles.iconTextWrapper}>
             <h2 className={styles.title}>{t("event.info.labelDateAndTime")}</h2>
@@ -193,7 +193,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
         {!!languages.length && (
           <div className={styles.infoWithIcon}>
             <div className={styles.iconWrapper}>
-              <IconLanguage className={styles.icon} />
+              <IconGlobe className={styles.icon} />
             </div>
             <div className={styles.iconTextWrapper}>
               <h2 className={styles.title}>{t("event.info.labelLanguages")}</h2>
@@ -206,7 +206,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
         {(!!email || !!externalLinks.length || !!infoUrl || !!telephone) && (
           <div className={styles.infoWithIcon}>
             <div className={styles.iconWrapper}>
-              <IconInfo className={styles.icon} />
+              <IconInfoCircle className={styles.icon} />
             </div>
             <div className={styles.iconTextWrapper}>
               <h2 className={styles.title}>{t("event.info.labelOtherInfo")}</h2>

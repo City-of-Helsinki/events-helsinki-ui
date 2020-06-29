@@ -1,7 +1,5 @@
-import "hds-core/lib/icons/icon-location.css";
-
 import classNames from "classnames";
-import { IconClose } from "hds-react";
+import { IconCross } from "hds-react";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -36,7 +34,7 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
           className={styles.closeButton}
           onClick={onClose}
         >
-          <IconClose />
+          <IconCross />
         </button>
       </div>
       <ul className={styles.autosuggestOptions} role="listbox">

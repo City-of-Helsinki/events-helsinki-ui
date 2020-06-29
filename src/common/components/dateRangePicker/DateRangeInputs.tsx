@@ -1,5 +1,5 @@
 import { isPast } from "date-fns";
-import { IconCalendarAdd } from "hds-react";
+import { IconCalendarPlus } from "hds-react";
 import React, { ChangeEvent, MutableRefObject } from "react";
 
 import { DATE_PICKER_INPUT, DATE_PICKER_INPUT_STATE } from "../../../constants";
@@ -107,7 +107,7 @@ class DateRangeInputs extends React.Component<Props> {
               />
             </div>
             <div className={styles.icon}>
-              <IconCalendarAdd />
+              <IconCalendarPlus />
             </div>
           </div>
         </div>
@@ -135,7 +135,7 @@ class DateRangeInputs extends React.Component<Props> {
               />
             </div>
             <div className={styles.icon}>
-              <IconCalendarAdd />
+              <IconCalendarPlus />
             </div>
           </div>
         </div>

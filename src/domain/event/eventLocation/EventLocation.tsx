@@ -1,10 +1,9 @@
-import { IconAngleRight, IconLocation } from "hds-react";
+import { IconAngleRight, IconLinkExternal, IconLocation } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { EventDetailsQuery } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
-import IconExternalLink from "../../../icons/IconExternalLink";
 import getLocalisedString from "../../../util/getLocalisedString";
 import {
   getGoogleDirectionsLink,
@@ -37,7 +36,7 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
           target="_blank"
         >
           {t("event.location.openMap")}
-          <IconExternalLink />
+          <IconLinkExternal size="xs" />
         </a>
       </div>
 
