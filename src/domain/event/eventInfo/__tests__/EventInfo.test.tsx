@@ -3,8 +3,8 @@ import * as React from "react";
 import routeData, { MemoryRouter } from "react-router";
 import renderer from "react-test-renderer";
 
+import mockEvent from "../../__mocks__/eventDetails";
 import { OrganizationDetailsDocument } from "../../../../generated/graphql";
-import { mockEventData } from "../../constants";
 import EventInfo from "../EventInfo";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,7 +35,7 @@ test("EventInfo matches snapshot", () => {
   const component = renderer.create(
     <MockedProvider mocks={mocks}>
       <MemoryRouter>
-        <EventInfo eventData={mockEventData} />
+        <EventInfo event={mockEvent} />
       </MemoryRouter>
     </MockedProvider>
   );

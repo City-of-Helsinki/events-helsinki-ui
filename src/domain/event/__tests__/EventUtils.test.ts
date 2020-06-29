@@ -1,12 +1,12 @@
-import { mockEventData } from "../constants";
+import mockEvent from "../__mocks__/eventDetails";
 import { getEventIdFromUrl, getServiceMapUrl } from "../EventUtils";
 
 describe("getServiceMapUrl function", () => {
   it("get service map url", () => {
-    expect(getServiceMapUrl(mockEventData, "fi", false)).toBe(
+    expect(getServiceMapUrl(mockEvent, "fi", false)).toBe(
       "https://palvelukartta.hel.fi/fi/unit/123"
     );
-    expect(getServiceMapUrl(mockEventData, "sv", true)).toBe(
+    expect(getServiceMapUrl(mockEvent, "sv", true)).toBe(
       "https://palvelukartta.hel.fi/sv/embed/unit/123"
     );
   });

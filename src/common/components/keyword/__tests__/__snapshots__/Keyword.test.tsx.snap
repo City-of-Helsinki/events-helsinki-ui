@@ -3,6 +3,7 @@
 exports[`Keyword matches snapshot 1`] = `
 <button
   className="keyword"
+  onClick={[Function]}
   type="button"
 >
   test keyword

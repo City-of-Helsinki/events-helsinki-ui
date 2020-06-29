@@ -8,7 +8,7 @@ import wait from "waait";
 
 import { SUPPORT_LANGUAGES } from "../../../../constants";
 import { EventListDocument } from "../../../../generated/graphql";
-import { mockEventData } from "../../../event/constants";
+import mockEvent from "../../../event/__mocks__/eventDetails";
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from "../../../eventSearch/constants";
 import { getEventFilters } from "../../../eventSearch/EventListUtils";
 import { mockCollection } from "../../constants";
@@ -33,7 +33,7 @@ const mocks = [
     result: {
       data: {
         eventList: {
-          data: [mockEventData.eventDetails],
+          data: [mockEvent],
           meta: {
             count: 1,
             next: null,

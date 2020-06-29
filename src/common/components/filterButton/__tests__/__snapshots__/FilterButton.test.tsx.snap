@@ -11,16 +11,23 @@ exports[`FilterButton matches snapshot 1`] = `
     type="button"
   >
     <svg
-      className=""
-      height="100%"
-      viewBox="0 0 15 15"
-      width="100%"
+      className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+      style={Object {}}
+      viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        d="M13.412 0L15 1.588 9.088 7.5 15 13.412 13.412 15 7.5 9.088 1.588 15 0 13.412 5.911 7.5 0 1.588 1.588 0 7.5 5.912 13.412 0z"
-        fillRule="nonzero"
-      />
+      <g
+        fill="none"
+        fillRule="evenodd"
+      >
+        <path
+          d="M0 0h24v24H0z"
+        />
+        <path
+          d="M17.657 7.757L13.414 12l4.243 4.243-1.414 1.414L12 13.414l-4.243 4.243-1.414-1.414L10.586 12 6.343 7.757l1.414-1.414L12 10.586l4.243-4.243z"
+          fill="currentColor"
+        />
+      </g>
     </svg>
   </button>
   text

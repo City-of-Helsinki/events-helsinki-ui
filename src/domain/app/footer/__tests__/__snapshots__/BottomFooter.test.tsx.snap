@@ -27,13 +27,6 @@ exports[`BottomFooter matches snapshot 1`] = `
           Anna palautetta
         </a>
       </div>
-      <div
-        className="logoWrapper"
-      >
-        <div
-          className="helsinkiLogo"
-        />
-      </div>
     </div>
   </div>
 </div>

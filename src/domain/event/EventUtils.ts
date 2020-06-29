@@ -2,7 +2,6 @@ import { isPast } from "date-fns";
 import capitalize from "lodash/capitalize";
 
 import {
-  EventDetailsQuery,
   EventFieldsFragment,
   PlaceFieldsFragment
 } from "../../generated/graphql";

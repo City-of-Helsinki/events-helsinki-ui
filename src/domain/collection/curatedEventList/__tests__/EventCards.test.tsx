@@ -5,7 +5,7 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router";
 import wait from "waait";
 
-import { mockEventData } from "../../../event/constants";
+import mockEvent from "../../../event/__mocks__/eventDetails";
 import EventCards from "../EventCards";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -27,7 +27,7 @@ test("EventCards should match snapshot", async () => {
   await act(async () => {
     render(
       <MemoryRouter>
-        <EventCards events={[mockEventData.eventDetails]} />
+        <EventCards events={[mockEvent]} />
       </MemoryRouter>,
       container
     );

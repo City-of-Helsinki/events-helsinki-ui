@@ -7,7 +7,7 @@ import { MemoryRouter } from "react-router";
 import wait from "waait";
 
 import { EventsByIdsDocument } from "../../../../generated/graphql";
-import { mockEventData } from "../../../event/constants";
+import mockEvent from "../../../event/__mocks__/eventDetails";
 import { getEventIdFromUrl } from "../../../event/EventUtils";
 import { mockCollection } from "../../constants";
 import CuratedEventList from "../CuratedEventList";
@@ -24,7 +24,7 @@ const mocks = [
       }
     },
     result: {
-      data: { eventsByIds: [mockEventData.eventDetails] }
+      data: { eventsByIds: [mockEvent] }
     }
   }
 ];

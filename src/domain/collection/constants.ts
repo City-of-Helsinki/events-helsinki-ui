@@ -1,11 +1,9 @@
-import { mockEventData } from "../event/constants";
+import mockEvent from "../event/__mocks__/eventDetails";
 
 export const mockCollection = {
   collectionDetails: {
     boxColor: "SUOMENLINNA",
-    curatedEvents: [
-      `http://localhost:3000/fi/event/${mockEventData.eventDetails.id}`
-    ],
+    curatedEvents: [`http://localhost:3000/fi/event/${mockEvent.id}`],
     curatedEventsTitle: {
       en: "At least visit these",
       fi: "Käy ainakin näissä",

@@ -30,15 +30,13 @@ test("applies expected metadata", async () => {
   const eventName = "Name of event";
   const eventDescription = "Description for event";
   const eventImage = "https://localhost/example/path";
-  const mockEventData = {
-    eventDetails: {
-      images: [{ url: eventImage }],
-      shortDescription: {
-        fi: eventDescription
-      },
-      name: {
-        fi: eventName
-      }
+  const mockEvent = {
+    images: [{ url: eventImage }],
+    name: {
+      fi: eventName
+    },
+    shortDescription: {
+      fi: eventDescription
     }
   };
 
@@ -46,7 +44,7 @@ test("applies expected metadata", async () => {
   // scope f the helpers is limited to `body`. As we need to assert against
   // the content of the `head`, we have to make queries without helpers. We are
   // using testing library to render for consistency.
-  getWrapper({ eventData: mockEventData });
+  getWrapper({ event: mockEvent });
 
   await waitForDomChange();
 

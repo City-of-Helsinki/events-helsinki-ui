@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CollectionHero should match snapshot 1`] = `
-"<div class=\\"collectionHero suomenlinnaBackgroundColor\\">
-  <div class=\\"ImageWithCard-module_wrapper__3bpMz ImageWithCard-module_leftAlignment__2-4gy ImageWithCard-module_hoverLayout__QVp4h ImageWithCard-module_tertiary__3QP6L imageWithCard\\">
+"<div class=\\"collectionHero\\">
+  <div class=\\"ImageWithCard-module_wrapper__3bpMz ImageWithCard-module_leftAlignment__2-4gy ImageWithCard-module_hoverLayout__QVp4h ImageWithCard-module_primary__2Xx3R imageWithCard suomenlinnaBackgroundColor\\">
     <div class=\\"ImageWithCard-module_image__1hVru\\" style=\\"background-image: url(testurl.png);\\"></div>
     <div class=\\"ImageWithCard-module_cardContainer__2JffS\\">
       <div class=\\"ImageWithCard-module_card__ygwv- helpers_text-body__2r6dx\\">
         <h1>Syksyn riehakkaimmat riennot</h1>
-        <div class=\\"subTitle\\">Subtitles fi</div>
-        <p>Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.</p><a href=\\"http://www.google.com\\" target=\\"_blank\\" rel=\\"noopener noreferrer\\">Lue lisää hankkeen omilta sivuilta<svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100%\\" height=\\"100%\\" viewBox=\\"0 0 199.404 199.404\\" class=\\"linkIcon\\">
-            <g>
-              <polygon points=\\"63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  \\"></polygon>
+        <p>Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.</p><a href=\\"http://www.google.com\\" target=\\"_blank\\" rel=\\"noopener noreferrer\\">Lue lisää hankkeen omilta sivuilta<svg class=\\"Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik linkIcon\\" viewBox=\\"0 0 24 24\\" xmlns=\\"http://www.w3.org/2000/svg\\">
+            <g fill=\\"none\\" fill-rule=\\"evenodd\\">
+              <path d=\\"M0 24V0h24v24z\\"></path>
+              <path fill=\\"currentColor\\" d=\\"M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z\\"></path>
             </g>
           </svg></a>
         <div class=\\"collectionShareLinks\\">

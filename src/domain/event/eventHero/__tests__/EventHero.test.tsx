@@ -3,13 +3,13 @@ import * as React from "react";
 import { MemoryRouter } from "react-router";
 import renderer from "react-test-renderer";
 
-import { mockEventData } from "../../constants";
+import mockEvent from "../../__mocks__/eventDetails";
 import EventHero from "../EventHero";
 
 test("EventHero matches snapshot", () => {
   const component = renderer.create(
     <MemoryRouter>
-      <EventHero eventData={mockEventData} />
+      <EventHero event={mockEvent} />
     </MemoryRouter>
   );
   const tree = component.toJSON();
@@ -26,19 +26,16 @@ const getWrapper = (props: any) =>
 
 test("should hide buy button for free events", () => {
   const freeEventMockData = {
-    ...mockEventData,
-    eventDetails: {
-      ...mockEventData.eventDetails,
-      offers: [
-        {
-          ...mockEventData.eventDetails.offers[0],
-          infoUrl: "some-url",
-          isFree: true
-        }
-      ]
-    }
+    ...mockEvent,
+    offers: [
+      {
+        ...mockEvent.offers[0],
+        infoUrl: "some-url",
+        isFree: true
+      }
+    ]
   };
-  const { queryByText } = getWrapper({ eventData: freeEventMockData });
+  const { queryByText } = getWrapper({ event: freeEventMockData });
 
   expect(queryByText("Osta lippu")).toEqual(null);
 });
