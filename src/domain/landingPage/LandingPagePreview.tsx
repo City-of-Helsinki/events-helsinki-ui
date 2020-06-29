@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useLocation, useParams } from "react-router";
 
 import ErrorHero from "../../common/components/error/ErrorHero";
+import PreviewBanner from "../../common/components/previewBanner/PreviewBanner";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useLandingPageQuery } from "../../generated/graphql";
 import Container from "../app/layout/Container";
@@ -33,6 +34,8 @@ const LandingPagePreview: React.FC = () => {
         {!!landingPage ? (
           <>
             <LandingPageMeta landingPage={landingPage} />
+
+            <PreviewBanner />
             <LandingPageHero landingPage={landingPage} />
             <Container>
               <Search />/

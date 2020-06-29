@@ -4,6 +4,7 @@ import { useLocation, useParams } from "react-router";
 import { Link } from "react-router-dom";
 
 import ErrorHero from "../../common/components/error/ErrorHero";
+import PreviewBanner from "../../common/components/previewBanner/PreviewBanner";
 import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
 import { useCollectionDetailsQuery } from "../../generated/graphql";
 import useLocale from "../../hooks/useLocale";
@@ -44,6 +45,8 @@ const CollectionPageContainer: React.FC = () => {
             {!!isLanguageSupported(collectionData.collectionDetails, locale) ? (
               <>
                 <CollectionPageMeta collectionData={collectionData} />
+
+                {draft && <PreviewBanner />}
                 <CollectionHero collectionData={collectionData} />
                 <CuratedEventList collectionData={collectionData} />
                 <EventList collectionData={collectionData} />
