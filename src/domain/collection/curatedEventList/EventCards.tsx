@@ -3,11 +3,11 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import LargeEventCard from "../../../common/components/eventCard/LargeEventCard";
-import { EventInList } from "../../event/types";
+import { EventFieldsFragment } from "../../../generated/graphql";
 import styles from "./eventCards.module.scss";
 
 interface Props {
-  events: Array<EventInList>;
+  events: Array<EventFieldsFragment>;
   onShowMore?: () => void;
   showMoreButton?: boolean;
 }

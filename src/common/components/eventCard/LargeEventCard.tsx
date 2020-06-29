@@ -16,7 +16,7 @@ import {
   isEventClosed,
   isEventFree
 } from "../../../domain/event/EventUtils";
-import { EventInList } from "../../../domain/event/types";
+import { EventFieldsFragment } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getDateRangeStr from "../../../util/getDateRangeStr";
 import getLocalisedString from "../../../util/getLocalisedString";
@@ -26,7 +26,7 @@ import SrOnly from "../srOnly/SrOnly";
 import styles from "./largeEventCard.module.scss";
 
 interface Props {
-  event: EventInList;
+  event: EventFieldsFragment;
 }
 
 const EventCard: React.FC<Props> = ({ event }) => {

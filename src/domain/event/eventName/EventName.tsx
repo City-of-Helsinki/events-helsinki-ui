@@ -2,13 +2,13 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { EVENT_STATUS } from "../../../constants";
+import { EventFieldsFragment } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
-import { EventInList } from "../types";
 import styles from "./eventName.module.scss";
 
 interface Props {
-  event: EventInList;
+  event: EventFieldsFragment;
 }
 
 const EventName: React.FC<Props> = ({ event }) => {

@@ -3,6 +3,7 @@ import capitalize from "lodash/capitalize";
 
 import {
   EventDetailsQuery,
+  EventFieldsFragment,
   PlaceFieldsFragment
 } from "../../generated/graphql";
 import { Language } from "../../types";
@@ -12,14 +13,14 @@ import {
   EVENT_PLACEHOLDER_IMAGES,
   EVENT_SOME_IMAGE
 } from "./constants";
-import { EventInList, EventUiKeyword } from "./types";
+import { EventUiKeyword } from "./types";
 
 /**
  * Check is event closed
  * @param event
  * @return {boolean}
  */
-export const isEventClosed = (event: EventInList): boolean => {
+export const isEventClosed = (event: EventFieldsFragment): boolean => {
   return !!event.endTime && isPast(new Date(event.endTime));
 };
 
@@ -28,7 +29,7 @@ export const isEventClosed = (event: EventInList): boolean => {
  * @param eventData
  * @return {boolean}
  */
-export const isEventFree = (event: EventInList): boolean => {
+export const isEventFree = (event: EventFieldsFragment): boolean => {
   const offer = event.offers.find(item => item.isFree);
 
   return !!offer && !!offer.isFree;
@@ -41,7 +42,7 @@ export const isEventFree = (event: EventInList): boolean => {
  * @return {string}
  */
 export const getEventDistrict = (
-  event: EventInList,
+  event: EventFieldsFragment,
   locale: Language
 ): string | null => {
   const location = event.location;
@@ -75,7 +76,7 @@ export const getEventIdFromUrl = (url: string): string | null => {
  * @return {string}
  */
 export const getEventPrice = (
-  event: EventInList,
+  event: EventFieldsFragment,
   locale: Language,
   isFreeText: string
 ): string => {
@@ -97,7 +98,7 @@ export const getEventPrice = (
  * @return {object[]}
  */
 export const getEventKeywords = (
-  event: EventInList,
+  event: EventFieldsFragment,
   locale: Language
 ): EventUiKeyword[] => {
   return event.keywords
@@ -121,7 +122,9 @@ export const getEventKeywords = (
  * @param {object} event
  * @return {string}
  */
-export const getEventPlaceholderImageUrl = (event: EventInList): string => {
+export const getEventPlaceholderImageUrl = (
+  event: EventFieldsFragment
+): string => {
   const numbers = event.id.match(/\d+/g);
   const sum = numbers
     ? numbers.reduce((prev: number, cur: string) => prev + Number(cur), 0)
@@ -136,7 +139,7 @@ export const getEventPlaceholderImageUrl = (event: EventInList): string => {
  * @param {object} event
  * @return {string}
  */
-export const getEventImageUrl = (event: EventInList): string => {
+export const getEventImageUrl = (event: EventFieldsFragment): string => {
   const image = event.images.length ? event.images[0] : null;
   return image ? image.url : getEventPlaceholderImageUrl(event);
 };
@@ -146,7 +149,7 @@ export const getEventImageUrl = (event: EventInList): string => {
  * @param {object} event
  * @return {string}
  */
-export const getEventSomeImageUrl = (event: EventInList): string => {
+export const getEventSomeImageUrl = (event: EventFieldsFragment): string => {
   const image = event.images.length ? event.images[0] : null;
   return image ? image.url : EVENT_SOME_IMAGE;
 };

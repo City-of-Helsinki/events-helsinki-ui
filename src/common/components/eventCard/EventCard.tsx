@@ -15,7 +15,7 @@ import {
   getEventPrice,
   isEventClosed
 } from "../../../domain/event/EventUtils";
-import { EventInList } from "../../../domain/event/types";
+import { EventFieldsFragment } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getDateRangeStr from "../../../util/getDateRangeStr";
 import getLocalisedString from "../../../util/getLocalisedString";
@@ -25,7 +25,7 @@ import SrOnly from "../srOnly/SrOnly";
 import styles from "./eventCard.module.scss";
 
 interface Props {
-  event: EventInList;
+  event: EventFieldsFragment;
 }
 
 const SimilarEventCard: React.FC<Props> = ({ event }) => {

@@ -1,12 +1,12 @@
 import React from "react";
 
+import { EventFieldsFragment } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
 import { getEventDistrict } from "../EventUtils";
-import { EventInList } from "../types";
 
 interface Props {
-  event: EventInList;
+  event: EventFieldsFragment;
   showDistrict: boolean;
   showLocationName: boolean;
 }

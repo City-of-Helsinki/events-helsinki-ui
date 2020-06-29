@@ -5,16 +5,16 @@ import { useHistory } from "react-router";
 
 import Keyword from "../../../common/components/keyword/Keyword";
 import { DATE_TYPES } from "../../../constants";
+import { EventFieldsFragment } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import scrollToTop from "../../../util/scrollToTop";
 import { getSearchQuery } from "../../../util/searchUtils";
 import { ROUTES } from "../../app/constants";
 import { getEventKeywords, isEventFree } from "../EventUtils";
-import { EventInList } from "../types";
 
 interface Props {
   blackOnMobile?: boolean;
-  event: EventInList;
+  event: EventFieldsFragment;
   hideKeywordsOnMobile?: boolean;
   showIsFree: boolean;
   showKeywords?: boolean;
