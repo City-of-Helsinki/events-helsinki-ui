@@ -38,6 +38,7 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
 
   const filters = React.useMemo(() => {
     return {
+      include: ["keywords", "location"],
       sort: EVENT_SORT_OPTIONS.START_TIME,
       startDate: getCurrentHour(),
       superEvent: superEventId
