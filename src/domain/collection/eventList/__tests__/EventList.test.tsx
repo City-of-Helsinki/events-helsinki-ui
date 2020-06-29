@@ -22,7 +22,7 @@ const mocks = [
     request: {
       query: EventListDocument,
       variables: getEventFilters({
-        include: ["location"],
+        include: ["keywords", "location"],
         language: SUPPORT_LANGUAGES.FI,
         pageSize: PAGE_SIZE,
         params: searchParams,
