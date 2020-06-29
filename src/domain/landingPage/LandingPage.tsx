@@ -22,6 +22,7 @@ const Home: React.FC = () => {
   const { data: landingPageData, loading } = useLandingPagesQuery({
     variables: { visibleOnFrontpage: true }
   });
+
   const { data: collectionsData } = useCollectionListQuery({
     variables: { visibleOnFrontpage: true }
   });

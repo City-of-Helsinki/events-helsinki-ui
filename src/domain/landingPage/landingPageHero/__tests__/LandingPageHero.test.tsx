@@ -1,7 +1,7 @@
 import { mount } from "enzyme";
 import * as React from "react";
 
-import { mockLandingPage } from "../../constants";
+import mockLandingPage from "../../__mocks__/landingPage";
 import LandingPageHero from "../LandingPageHero";
 
 test("LandingPageHero matches snapshot", () => {
