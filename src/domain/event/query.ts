@@ -1,81 +1,72 @@
 import gql from "graphql-tag";
 
 export const QUERY_EVENT_DETAILS = gql`
-  query EventDetails($id: ID!, $include: [String]) {
-    eventDetails(id: $id, include: $include) {
+  fragment localizedFields on LocalizedObject {
+    en
+    fi
+    sv
+  }
+
+  fragment eventFields on EventDetails {
+    id
+    eventStatus
+    externalLinks {
+      name
+      link
+    }
+    images {
       id
-      eventStatus
-      externalLinks {
-        name
-        link
-      }
-      images {
-        id
-        name
-        url
-      }
-      superEvent {
-        internalId
-      }
-      inLanguage {
-        name {
-          fi
-          sv
-          en
-        }
-      }
-      keywords {
-        ...keywordFields
-      }
-      location {
-        ...placeFields
-      }
-      offers {
-        isFree
-        price {
-          fi
-          sv
-          en
-        }
-        description {
-          fi
-          sv
-          en
-        }
-        infoUrl {
-          fi
-          sv
-          en
-        }
-      }
+      name
+      url
+    }
+    superEvent {
+      internalId
+    }
+    inLanguage {
       name {
-        fi
-        en
-        sv
+        ...localizedFields
+      }
+    }
+    keywords {
+      ...keywordFields
+    }
+    location {
+      ...placeFields
+    }
+    offers {
+      isFree
+      price {
+        ...localizedFields
       }
       description {
-        fi
-        en
-        sv
-      }
-      shortDescription {
-        fi
-        en
-        sv
-      }
-      endTime
-      startTime
-      publisher
-      provider {
-        fi
-        sv
-        en
+        ...localizedFields
       }
       infoUrl {
-        fi
-        sv
-        en
+        ...localizedFields
       }
+    }
+    name {
+      ...localizedFields
+    }
+    description {
+      ...localizedFields
+    }
+    shortDescription {
+      ...localizedFields
+    }
+    endTime
+    startTime
+    publisher
+    provider {
+      ...localizedFields
+    }
+    infoUrl {
+      ...localizedFields
+    }
+  }
+  query EventDetails($id: ID!, $include: [String]) {
+    eventDetails(id: $id, include: $include) {
+      ...eventFields
     }
   }
 

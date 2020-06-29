@@ -49,134 +49,14 @@ export const QUERY_EVENT_LIST = gql`
         previous
       }
       data {
-        id
-        eventStatus
-        images {
-          id
-          name
-          url
-        }
-        keywords {
-          ...keywordFields
-        }
-        location {
-          id
-          divisions {
-            type
-            name {
-              fi
-              en
-              sv
-            }
-          }
-          name {
-            fi
-            en
-            sv
-          }
-          addressLocality {
-            fi
-            sv
-            en
-          }
-          streetAddress {
-            fi
-            sv
-            en
-          }
-        }
-        name {
-          fi
-          en
-          sv
-        }
-        offers {
-          isFree
-          description {
-            fi
-            sv
-            en
-          }
-          price {
-            fi
-            sv
-            en
-          }
-          infoUrl {
-            fi
-            sv
-            en
-          }
-        }
-        startTime
-        endTime
+        ...eventFields
       }
     }
   }
 
   query EventsByIds($ids: [ID!]!, $include: [String]) {
     eventsByIds(ids: $ids, include: $include) {
-      id
-      eventStatus
-      images {
-        id
-        name
-        url
-      }
-      keywords {
-        ...keywordFields
-      }
-      location {
-        id
-        divisions {
-          type
-          name {
-            fi
-            en
-            sv
-          }
-        }
-        name {
-          fi
-          en
-          sv
-        }
-        addressLocality {
-          fi
-          sv
-          en
-        }
-        streetAddress {
-          fi
-          sv
-          en
-        }
-      }
-      name {
-        fi
-        en
-        sv
-      }
-      offers {
-        isFree
-        description {
-          fi
-          sv
-          en
-        }
-        price {
-          fi
-          sv
-          en
-        }
-        infoUrl {
-          fi
-          sv
-          en
-        }
-      }
-      startTime
-      endTime
+      ...eventFields
     }
   }
 `;

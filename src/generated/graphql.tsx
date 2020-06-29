@@ -498,6 +498,66 @@ export type CollectionListQuery = (
   ) }
 );
 
+export type LocalizedFieldsFragment = (
+  { __typename?: 'LocalizedObject' }
+  & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+);
+
+export type EventFieldsFragment = (
+  { __typename?: 'EventDetails' }
+  & Pick<EventDetails, 'id' | 'eventStatus' | 'endTime' | 'startTime' | 'publisher'>
+  & { externalLinks: Array<(
+    { __typename?: 'ExternalLink' }
+    & Pick<ExternalLink, 'name' | 'link'>
+  )>, images: Array<(
+    { __typename?: 'Image' }
+    & Pick<Image, 'id' | 'name' | 'url'>
+  )>, superEvent: Maybe<(
+    { __typename?: 'InternalIdObject' }
+    & Pick<InternalIdObject, 'internalId'>
+  )>, inLanguage: Array<(
+    { __typename?: 'InLanguage' }
+    & { name: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & LocalizedFieldsFragment
+    )> }
+  )>, keywords: Array<(
+    { __typename?: 'Keyword' }
+    & KeywordFieldsFragment
+  )>, location: Maybe<(
+    { __typename?: 'Place' }
+    & PlaceFieldsFragment
+  )>, offers: Array<(
+    { __typename?: 'Offer' }
+    & Pick<Offer, 'isFree'>
+    & { price: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & LocalizedFieldsFragment
+    )>, description: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & LocalizedFieldsFragment
+    )>, infoUrl: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & LocalizedFieldsFragment
+    )> }
+  )>, name: (
+    { __typename?: 'LocalizedObject' }
+    & LocalizedFieldsFragment
+  ), description: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & LocalizedFieldsFragment
+  )>, shortDescription: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & LocalizedFieldsFragment
+  )>, provider: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & LocalizedFieldsFragment
+  )>, infoUrl: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & LocalizedFieldsFragment
+  )> }
+);
+
 export type EventDetailsQueryVariables = {
   id: Scalars['ID'],
   include?: Maybe<Array<Maybe<Scalars['String']>>>
@@ -508,57 +568,7 @@ export type EventDetailsQuery = (
   { __typename?: 'Query' }
   & { eventDetails: (
     { __typename?: 'EventDetails' }
-    & Pick<EventDetails, 'id' | 'eventStatus' | 'endTime' | 'startTime' | 'publisher'>
-    & { externalLinks: Array<(
-      { __typename?: 'ExternalLink' }
-      & Pick<ExternalLink, 'name' | 'link'>
-    )>, images: Array<(
-      { __typename?: 'Image' }
-      & Pick<Image, 'id' | 'name' | 'url'>
-    )>, superEvent: Maybe<(
-      { __typename?: 'InternalIdObject' }
-      & Pick<InternalIdObject, 'internalId'>
-    )>, inLanguage: Array<(
-      { __typename?: 'InLanguage' }
-      & { name: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )> }
-    )>, keywords: Array<(
-      { __typename?: 'Keyword' }
-      & KeywordFieldsFragment
-    )>, location: Maybe<(
-      { __typename?: 'Place' }
-      & PlaceFieldsFragment
-    )>, offers: Array<(
-      { __typename?: 'Offer' }
-      & Pick<Offer, 'isFree'>
-      & { price: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, description: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, infoUrl: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )> }
-    )>, name: (
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
-    ), description: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
-    )>, shortDescription: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
-    )>, provider: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )>, infoUrl: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-    )> }
+    & EventFieldsFragment
   ) }
 );
 
@@ -607,50 +617,7 @@ export type EventListQuery = (
       & Pick<Meta, 'count' | 'next' | 'previous'>
     ), data: Array<(
       { __typename?: 'EventDetails' }
-      & Pick<EventDetails, 'id' | 'eventStatus' | 'startTime' | 'endTime'>
-      & { images: Array<(
-        { __typename?: 'Image' }
-        & Pick<Image, 'id' | 'name' | 'url'>
-      )>, keywords: Array<(
-        { __typename?: 'Keyword' }
-        & KeywordFieldsFragment
-      )>, location: Maybe<(
-        { __typename?: 'Place' }
-        & Pick<Place, 'id'>
-        & { divisions: Maybe<Array<(
-          { __typename?: 'Division' }
-          & Pick<Division, 'type'>
-          & { name: Maybe<(
-            { __typename?: 'LocalizedObject' }
-            & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
-          )> }
-        )>>, name: Maybe<(
-          { __typename?: 'LocalizedObject' }
-          & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
-        )>, addressLocality: Maybe<(
-          { __typename?: 'LocalizedObject' }
-          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-        )>, streetAddress: Maybe<(
-          { __typename?: 'LocalizedObject' }
-          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-        )> }
-      )>, name: (
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
-      ), offers: Array<(
-        { __typename?: 'Offer' }
-        & Pick<Offer, 'isFree'>
-        & { description: Maybe<(
-          { __typename?: 'LocalizedObject' }
-          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-        )>, price: Maybe<(
-          { __typename?: 'LocalizedObject' }
-          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-        )>, infoUrl: Maybe<(
-          { __typename?: 'LocalizedObject' }
-          & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-        )> }
-      )> }
+      & EventFieldsFragment
     )> }
   ) }
 );
@@ -665,50 +632,7 @@ export type EventsByIdsQuery = (
   { __typename?: 'Query' }
   & { eventsByIds: Array<(
     { __typename?: 'EventDetails' }
-    & Pick<EventDetails, 'id' | 'eventStatus' | 'startTime' | 'endTime'>
-    & { images: Array<(
-      { __typename?: 'Image' }
-      & Pick<Image, 'id' | 'name' | 'url'>
-    )>, keywords: Array<(
-      { __typename?: 'Keyword' }
-      & KeywordFieldsFragment
-    )>, location: Maybe<(
-      { __typename?: 'Place' }
-      & Pick<Place, 'id'>
-      & { divisions: Maybe<Array<(
-        { __typename?: 'Division' }
-        & Pick<Division, 'type'>
-        & { name: Maybe<(
-          { __typename?: 'LocalizedObject' }
-          & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
-        )> }
-      )>>, name: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
-      )>, addressLocality: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, streetAddress: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )> }
-    )>, name: (
-      { __typename?: 'LocalizedObject' }
-      & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
-    ), offers: Array<(
-      { __typename?: 'Offer' }
-      & Pick<Offer, 'isFree'>
-      & { description: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, price: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )>, infoUrl: Maybe<(
-        { __typename?: 'LocalizedObject' }
-        & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
-      )> }
-    )> }
+    & EventFieldsFragment
   )> }
 );
 
@@ -958,6 +882,13 @@ export const CollectionFieldsFragmentDoc = gql`
   }
 }
     `;
+export const LocalizedFieldsFragmentDoc = gql`
+    fragment localizedFields on LocalizedObject {
+  en
+  fi
+  sv
+}
+    `;
 export const KeywordFieldsFragmentDoc = gql`
     fragment keywordFields on Keyword {
   id
@@ -970,6 +901,111 @@ export const KeywordFieldsFragmentDoc = gql`
   }
 }
     `;
+export const PlaceFieldsFragmentDoc = gql`
+    fragment placeFields on Place {
+  id
+  divisions {
+    type
+    name {
+      fi
+      sv
+      en
+    }
+  }
+  internalId
+  email
+  infoUrl {
+    fi
+    sv
+    en
+  }
+  name {
+    fi
+    en
+    sv
+  }
+  addressLocality {
+    fi
+    sv
+    en
+  }
+  streetAddress {
+    fi
+    sv
+    en
+  }
+  postalCode
+  position {
+    coordinates
+  }
+  telephone {
+    fi
+    sv
+    en
+  }
+}
+    `;
+export const EventFieldsFragmentDoc = gql`
+    fragment eventFields on EventDetails {
+  id
+  eventStatus
+  externalLinks {
+    name
+    link
+  }
+  images {
+    id
+    name
+    url
+  }
+  superEvent {
+    internalId
+  }
+  inLanguage {
+    name {
+      ...localizedFields
+    }
+  }
+  keywords {
+    ...keywordFields
+  }
+  location {
+    ...placeFields
+  }
+  offers {
+    isFree
+    price {
+      ...localizedFields
+    }
+    description {
+      ...localizedFields
+    }
+    infoUrl {
+      ...localizedFields
+    }
+  }
+  name {
+    ...localizedFields
+  }
+  description {
+    ...localizedFields
+  }
+  shortDescription {
+    ...localizedFields
+  }
+  endTime
+  startTime
+  publisher
+  provider {
+    ...localizedFields
+  }
+  infoUrl {
+    ...localizedFields
+  }
+}
+    ${LocalizedFieldsFragmentDoc}
+${KeywordFieldsFragmentDoc}
+${PlaceFieldsFragmentDoc}`;
 export const LandingPageFieldsFragmentDoc = gql`
     fragment landingPageFields on LandingPage {
   id
@@ -1022,50 +1058,6 @@ export const LandingPageFieldsFragmentDoc = gql`
     fi
     en
     sv
-  }
-}
-    `;
-export const PlaceFieldsFragmentDoc = gql`
-    fragment placeFields on Place {
-  id
-  divisions {
-    type
-    name {
-      fi
-      sv
-      en
-    }
-  }
-  internalId
-  email
-  infoUrl {
-    fi
-    sv
-    en
-  }
-  name {
-    fi
-    en
-    sv
-  }
-  addressLocality {
-    fi
-    sv
-    en
-  }
-  streetAddress {
-    fi
-    sv
-    en
-  }
-  postalCode
-  position {
-    coordinates
-  }
-  telephone {
-    fi
-    sv
-    en
   }
 }
     `;
@@ -1163,83 +1155,10 @@ export type CollectionListQueryResult = ApolloReactCommon.QueryResult<Collection
 export const EventDetailsDocument = gql`
     query EventDetails($id: ID!, $include: [String]) {
   eventDetails(id: $id, include: $include) {
-    id
-    eventStatus
-    externalLinks {
-      name
-      link
-    }
-    images {
-      id
-      name
-      url
-    }
-    superEvent {
-      internalId
-    }
-    inLanguage {
-      name {
-        fi
-        sv
-        en
-      }
-    }
-    keywords {
-      ...keywordFields
-    }
-    location {
-      ...placeFields
-    }
-    offers {
-      isFree
-      price {
-        fi
-        sv
-        en
-      }
-      description {
-        fi
-        sv
-        en
-      }
-      infoUrl {
-        fi
-        sv
-        en
-      }
-    }
-    name {
-      fi
-      en
-      sv
-    }
-    description {
-      fi
-      en
-      sv
-    }
-    shortDescription {
-      fi
-      en
-      sv
-    }
-    endTime
-    startTime
-    publisher
-    provider {
-      fi
-      sv
-      en
-    }
-    infoUrl {
-      fi
-      sv
-      en
-    }
+    ...eventFields
   }
 }
-    ${KeywordFieldsFragmentDoc}
-${PlaceFieldsFragmentDoc}`;
+    ${EventFieldsFragmentDoc}`;
 export type EventDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<EventDetailsQuery, EventDetailsQueryVariables> | TChildProps;
 export function withEventDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
@@ -1332,71 +1251,11 @@ export const EventListDocument = gql`
       previous
     }
     data {
-      id
-      eventStatus
-      images {
-        id
-        name
-        url
-      }
-      keywords {
-        ...keywordFields
-      }
-      location {
-        id
-        divisions {
-          type
-          name {
-            fi
-            en
-            sv
-          }
-        }
-        name {
-          fi
-          en
-          sv
-        }
-        addressLocality {
-          fi
-          sv
-          en
-        }
-        streetAddress {
-          fi
-          sv
-          en
-        }
-      }
-      name {
-        fi
-        en
-        sv
-      }
-      offers {
-        isFree
-        description {
-          fi
-          sv
-          en
-        }
-        price {
-          fi
-          sv
-          en
-        }
-        infoUrl {
-          fi
-          sv
-          en
-        }
-      }
-      startTime
-      endTime
+      ...eventFields
     }
   }
 }
-    ${KeywordFieldsFragmentDoc}`;
+    ${EventFieldsFragmentDoc}`;
 export type EventListProps<TChildProps = {}> = ApolloReactHoc.DataProps<EventListQuery, EventListQueryVariables> | TChildProps;
 export function withEventList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
@@ -1455,70 +1314,10 @@ export type EventListQueryResult = ApolloReactCommon.QueryResult<EventListQuery,
 export const EventsByIdsDocument = gql`
     query EventsByIds($ids: [ID!]!, $include: [String]) {
   eventsByIds(ids: $ids, include: $include) {
-    id
-    eventStatus
-    images {
-      id
-      name
-      url
-    }
-    keywords {
-      ...keywordFields
-    }
-    location {
-      id
-      divisions {
-        type
-        name {
-          fi
-          en
-          sv
-        }
-      }
-      name {
-        fi
-        en
-        sv
-      }
-      addressLocality {
-        fi
-        sv
-        en
-      }
-      streetAddress {
-        fi
-        sv
-        en
-      }
-    }
-    name {
-      fi
-      en
-      sv
-    }
-    offers {
-      isFree
-      description {
-        fi
-        sv
-        en
-      }
-      price {
-        fi
-        sv
-        en
-      }
-      infoUrl {
-        fi
-        sv
-        en
-      }
-    }
-    startTime
-    endTime
+    ...eventFields
   }
 }
-    ${KeywordFieldsFragmentDoc}`;
+    ${EventFieldsFragmentDoc}`;
 export type EventsByIdsProps<TChildProps = {}> = ApolloReactHoc.DataProps<EventsByIdsQuery, EventsByIdsQueryVariables> | TChildProps;
 export function withEventsByIds<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
