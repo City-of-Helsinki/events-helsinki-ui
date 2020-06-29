@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import CollectionCardContainer from "../../../common/components/collectionCard/CollectionCardContainer";
 import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
 import {
-  CollectionDetailsQuery,
+  CollectionFieldsFragment,
   useCollectionListQuery
 } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
@@ -14,10 +14,10 @@ import { SIMILAR_COLLECTIONS_AMOUNT } from "../constants";
 import styles from "./similarCollections.module.scss";
 
 interface Props {
-  collectionData: CollectionDetailsQuery;
+  collection: CollectionFieldsFragment;
 }
 
-const SimilarCollections: React.FC<Props> = ({ collectionData }) => {
+const SimilarCollections: React.FC<Props> = ({ collection }) => {
   const { t } = useTranslation();
   const locale = useLocale();
 
@@ -29,11 +29,7 @@ const SimilarCollections: React.FC<Props> = ({ collectionData }) => {
     collectionsData && !!collectionsData.collectionList.data.length
       ? collectionsData.collectionList.data
           // Don't show current collection on the list
-          .filter(
-            collection =>
-              collection.title[locale] &&
-              collection.id !== collectionData.collectionDetails.id
-          )
+          .filter(item => item.title[locale] && item.id !== collection.id)
           .slice(0, SIMILAR_COLLECTIONS_AMOUNT)
       : [];
 

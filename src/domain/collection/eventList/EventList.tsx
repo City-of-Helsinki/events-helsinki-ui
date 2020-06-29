@@ -2,7 +2,7 @@ import React from "react";
 
 import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
 import {
-  CollectionDetailsQuery,
+  CollectionFieldsFragment,
   useEventListQuery
 } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
@@ -14,16 +14,14 @@ import EventSearchList from "../../eventSearch/searchResultList/EventList";
 import styles from "./eventList.module.scss";
 
 interface Props {
-  collectionData: CollectionDetailsQuery;
+  collection: CollectionFieldsFragment;
 }
 
-const EventList: React.FC<Props> = ({ collectionData }) => {
+const EventList: React.FC<Props> = ({ collection }) => {
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const locale = useLocale();
   const searchParams = new URLSearchParams(
-    collectionData.collectionDetails.eventListQuery
-      ? new URL(collectionData.collectionDetails.eventListQuery).search
-      : ""
+    collection.eventListQuery ? new URL(collection.eventListQuery).search : ""
   );
   const eventFilters = React.useMemo(() => {
     return getEventFilters({
@@ -38,7 +36,7 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
 
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
-    skip: !collectionData.collectionDetails.eventListQuery,
+    skip: !collection.eventListQuery,
     ssr: false,
     variables: eventFilters
   });
@@ -73,12 +71,7 @@ const EventList: React.FC<Props> = ({ collectionData }) => {
         <LoadingSpinner isLoading={!isFetchingMore && loading}>
           {!!eventsData && !!eventsData.eventList.data.length && (
             <div className={styles.contentWrapper}>
-              <h2>
-                {getLocalisedString(
-                  collectionData.collectionDetails.eventListTitle,
-                  locale
-                )}
-              </h2>
+              <h2>{getLocalisedString(collection.eventListTitle, locale)}</h2>
               <div className={styles.eventSearchListWrapper}>
                 <EventSearchList
                   buttonCentered={true}

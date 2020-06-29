@@ -6,16 +6,16 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router";
 import wait from "waait";
 
+import mockCollection from "../../__mocks__/collection";
 import { SUPPORT_LANGUAGES } from "../../../../constants";
 import { EventListDocument } from "../../../../generated/graphql";
 import mockEvent from "../../../event/__mocks__/eventDetails";
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from "../../../eventSearch/constants";
 import { getEventFilters } from "../../../eventSearch/EventListUtils";
-import { mockCollection } from "../../constants";
 import EventList from "../EventList";
 
 const searchParams = new URLSearchParams(
-  new URL(mockCollection.collectionDetails.eventListQuery).search
+  new URL(mockCollection.eventListQuery || "").search
 );
 const mocks = [
   {
@@ -33,8 +33,10 @@ const mocks = [
     result: {
       data: {
         eventList: {
+          __typename: "EventListResponse",
           data: [mockEvent],
           meta: {
+            __typename: "Meta",
             count: 1,
             next: null,
             previous: null
@@ -65,7 +67,7 @@ test("EventList should match snapshot", async () => {
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <MemoryRouter>
-          <EventList collectionData={mockCollection} />
+          <EventList collection={mockCollection} />
         </MemoryRouter>
       </MockedProvider>,
       container

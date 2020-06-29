@@ -4,7 +4,7 @@ import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import wait from "waait";
 
-import { mockCollection } from "../../constants";
+import mockCollection from "../../__mocks__/collection";
 import CollectionHero from "../CollectionHero";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,7 +24,7 @@ afterEach(() => {
 
 test("CollectionHero should match snapshot", async () => {
   await act(async () => {
-    render(<CollectionHero collectionData={mockCollection} />, container);
+    render(<CollectionHero collection={mockCollection} />, container);
 
     await wait(0); // wait for response
   });

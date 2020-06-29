@@ -5,7 +5,7 @@ import { mount } from "enzyme";
 import * as React from "react";
 
 import i18n from "../../common/translation/i18n/init.server";
-import { mockCollection } from "../../domain/collection/constants";
+import mockCollection from "../../domain/collection/__mocks__/collection";
 import { mockLandingPage } from "../../domain/landingPage/constants";
 import {
   CollectionListDocument,
@@ -22,7 +22,7 @@ const mocks = [
     result: {
       data: {
         collectionList: {
-          data: [mockCollection.collectionDetails]
+          data: [mockCollection]
         }
       }
     }

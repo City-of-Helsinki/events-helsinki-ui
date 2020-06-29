@@ -6,10 +6,10 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router";
 import wait from "waait";
 
+import mockCollection from "../../__mocks__/collection";
 import { EventsByIdsDocument } from "../../../../generated/graphql";
 import mockEvent from "../../../event/__mocks__/eventDetails";
 import { getEventIdFromUrl } from "../../../event/EventUtils";
-import { mockCollection } from "../../constants";
 import CuratedEventList from "../CuratedEventList";
 
 const mocks = [
@@ -17,7 +17,7 @@ const mocks = [
     request: {
       query: EventsByIdsDocument,
       variables: {
-        ids: mockCollection.collectionDetails.curatedEvents
+        ids: mockCollection.curatedEvents
           .map(url => getEventIdFromUrl(url) || "")
           .filter(e => e),
         include: ["keywords", "location"]
@@ -49,7 +49,7 @@ test("CuratedEventList should match snapshot", async () => {
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <MemoryRouter>
-          <CuratedEventList collectionData={mockCollection} />
+          <CuratedEventList collection={mockCollection} />
         </MemoryRouter>
       </MockedProvider>,
       container

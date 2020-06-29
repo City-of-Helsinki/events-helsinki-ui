@@ -1,7 +1,7 @@
 import { render, waitForDomChange } from "@testing-library/react";
 import React from "react";
 
-import { mockCollection } from "../../constants";
+import mockCollection from "../../__mocks__/collection";
 import CollectionPageMeta, {
   CollectionPageMetaProps
 } from "../CollectionPageMeta";
@@ -33,15 +33,16 @@ afterEach(() => {
 });
 
 test("applies expected metadata", async () => {
-  const collectionTitle = mockCollection.collectionDetails.title.fi;
+  const collectionTitle = mockCollection.title.fi;
   const collectionDescription =
-    mockCollection.collectionDetails.socialMediaDescription.fi;
+    mockCollection.socialMediaDescription &&
+    mockCollection.socialMediaDescription.fi;
 
   // This function is usually used for the helpers it returns. However, the
   // scope f the helpers is limited to `body`. As we need to assert against
   // the content of the `head`, we have to make queries without helpers. We are
   // using testing library to render for consistency.
-  getWrapper({ collectionData: mockCollection });
+  getWrapper({ collection: mockCollection });
 
   await waitForDomChange();
 

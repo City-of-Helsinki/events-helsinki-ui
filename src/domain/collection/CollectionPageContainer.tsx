@@ -33,6 +33,7 @@ const CollectionPageContainer: React.FC = () => {
   const { data: collectionData, loading } = useCollectionDetailsQuery({
     variables: { draft, id: params.id }
   });
+  const collection = collectionData && collectionData.collectionDetails;
 
   return (
     <PageWrapper
@@ -40,20 +41,18 @@ const CollectionPageContainer: React.FC = () => {
       title="collection.title"
     >
       <LoadingSpinner isLoading={loading}>
-        {collectionData ? (
+        {collection ? (
           <>
-            {!!isLanguageSupported(collectionData.collectionDetails, locale) ? (
+            {!!isLanguageSupported(collection, locale) ? (
               <>
-                <CollectionPageMeta collectionData={collectionData} />
+                <CollectionPageMeta collection={collection} />
 
                 {draft && <PreviewBanner />}
-                <CollectionHero collectionData={collectionData} />
-                <CuratedEventList collectionData={collectionData} />
-                <EventList collectionData={collectionData} />
+                <CollectionHero collection={collection} />
+                <CuratedEventList collection={collection} />
+                <EventList collection={collection} />
                 {/* Hide similar collections on preview */}
-                {!draft && (
-                  <SimilarCollections collectionData={collectionData} />
-                )}
+                {!draft && <SimilarCollections collection={collection} />}
               </>
             ) : (
               <>
@@ -66,9 +65,7 @@ const CollectionPageContainer: React.FC = () => {
                   </Link>
                 </ErrorHero>
                 {/* Hide similar collections on preview */}
-                {!draft && (
-                  <SimilarCollections collectionData={collectionData} />
-                )}
+                {!draft && <SimilarCollections collection={collection} />}
               </>
             )}
           </>

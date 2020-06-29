@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
 import {
-  CollectionDetailsQuery,
+  CollectionFieldsFragment,
   useEventsByIdsQuery
 } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
@@ -18,19 +18,19 @@ import OnlyExpiredEvents from "./OnlyExpiredEvents";
 const PAST_EVENTS_DEFAULT_SIZE = 4;
 
 interface Props {
-  collectionData: CollectionDetailsQuery;
+  collection: CollectionFieldsFragment;
 }
 
-const CuratedEventList: React.FC<Props> = ({ collectionData }) => {
+const CuratedEventList: React.FC<Props> = ({ collection }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const [showAllPastEvents, setShowAllPastEvents] = React.useState(false);
   const eventIds = React.useMemo(
     () =>
-      collectionData.collectionDetails.curatedEvents
+      collection.curatedEvents
         .map(url => getEventIdFromUrl(url) || "")
         .filter(e => e),
-    [collectionData.collectionDetails.curatedEvents]
+    [collection.curatedEvents]
   );
 
   const { data: eventsData, loading } = useEventsByIdsQuery({
@@ -66,10 +66,7 @@ const CuratedEventList: React.FC<Props> = ({ collectionData }) => {
             >
               <Container>
                 <h2>
-                  {getLocalisedString(
-                    collectionData.collectionDetails.curatedEventsTitle,
-                    locale
-                  )}
+                  {getLocalisedString(collection.curatedEventsTitle, locale)}
                 </h2>
                 {!events.length && <OnlyExpiredEvents />}
               </Container>

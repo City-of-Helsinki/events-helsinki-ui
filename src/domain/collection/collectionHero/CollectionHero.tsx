@@ -3,7 +3,7 @@ import { IconAngleRight, ImageWithCard } from "hds-react";
 import React from "react";
 
 import TextWithLineBreaks from "../../../common/components/textWithLineBreaks/TextWithLineBreaks";
-import { CollectionDetailsQuery } from "../../../generated/graphql";
+import { CollectionFieldsFragment } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
 import CollectionShareLinks from "../collectionShareLinks/CollectionShareLinks";
@@ -14,39 +14,23 @@ import {
 import styles from "./collectionHero.module.scss";
 
 interface Props {
-  collectionData: CollectionDetailsQuery;
+  collection: CollectionFieldsFragment;
 }
 
-const CollectionHero: React.FC<Props> = ({ collectionData }) => {
+const CollectionHero: React.FC<Props> = ({ collection }) => {
   const locale = useLocale();
 
-  const title = getLocalisedString(
-    collectionData.collectionDetails.title,
-    locale
-  );
+  const title = getLocalisedString(collection.title, locale);
 
-  const description = getLocalisedString(
-    collectionData.collectionDetails.description,
-    locale
-  );
+  const description = getLocalisedString(collection.description, locale);
 
-  const linkUrl = getLocalisedString(
-    collectionData.collectionDetails.linkUrl,
-    locale
-  );
+  const linkUrl = getLocalisedString(collection.linkUrl, locale);
 
-  const linkText = getLocalisedString(
-    collectionData.collectionDetails.linkText,
-    locale
-  );
+  const linkText = getLocalisedString(collection.linkText, locale);
 
-  const backgroundColor = getHeroBackgroundColor(
-    collectionData.collectionDetails
-  );
+  const backgroundColor = getHeroBackgroundColor(collection);
 
-  const backgroundImage = getHeroBackgroundImage(
-    collectionData.collectionDetails
-  );
+  const backgroundImage = getHeroBackgroundImage(collection);
 
   return (
     <div className={styles.collectionHero}>

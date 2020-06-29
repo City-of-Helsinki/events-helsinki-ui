@@ -9,7 +9,7 @@ import {
   CollectionListDocument,
   LandingPageDocument
 } from "../../../generated/graphql";
-import { mockCollection } from "../../collection/constants";
+import mockCollection from "../../collection/__mocks__/collection";
 import { mockLandingPage } from "../../landingPage/constants";
 import App from "../App";
 import AppRoutes from "../AppRoutes";
@@ -23,7 +23,7 @@ const mocks = [
     result: {
       data: {
         collectionList: {
-          data: [mockCollection.collectionDetails]
+          data: [mockCollection]
         }
       }
     }
