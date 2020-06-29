@@ -2,7 +2,7 @@ import { IconAngleRight, IconLinkExternal, IconLocation } from "hds-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { EventDetailsQuery } from "../../../generated/graphql";
+import { EventFieldsFragment } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
 import {
@@ -14,13 +14,13 @@ import styles from "./eventLocation.module.scss";
 import LocationText from "./EventLocationText";
 
 interface Props {
-  eventData: EventDetailsQuery;
+  event: EventFieldsFragment;
 }
 
-const EventLocation: React.FC<Props> = ({ eventData }) => {
+const EventLocation: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const name = eventData.eventDetails.name;
+  const name = event.name;
 
   return (
     <div className={styles.eventLocationContainer}>
@@ -31,7 +31,7 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
         </div>
         <a
           className={styles.mapLink}
-          href={getServiceMapUrl(eventData, locale, false)}
+          href={getServiceMapUrl(event, locale, false)}
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -43,20 +43,20 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
       <iframe
         title={t("event.location.mapTitle")}
         className={styles.mapContainer}
-        src={getServiceMapUrl(eventData, locale, true)}
+        src={getServiceMapUrl(event, locale, true)}
       ></iframe>
 
       <div className={styles.eventName}>{getLocalisedString(name, locale)}</div>
       <div className={styles.location}>
         <LocationText
-          event={eventData.eventDetails}
+          event={event}
           showDistrict={true}
           showLocationName={false}
         />
       </div>
       <a
         className={styles.directionsLink}
-        href={getGoogleDirectionsLink(eventData, locale)}
+        href={getGoogleDirectionsLink(event, locale)}
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -65,7 +65,7 @@ const EventLocation: React.FC<Props> = ({ eventData }) => {
       </a>
       <a
         className={styles.directionsLink}
-        href={getHslDirectionsLink(eventData, locale)}
+        href={getHslDirectionsLink(event, locale)}
         rel="noopener noreferrer"
         target="_blank"
       >

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import Link from "../../../common/components/link/Link";
 import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
 import {
-  EventDetailsQuery,
+  EventFieldsFragment,
   useOrganizationDetailsQuery
 } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
@@ -14,26 +14,23 @@ import { ROUTES } from "../../app/constants";
 import styles from "./eventInfo.module.scss";
 
 interface Props {
-  eventData: EventDetailsQuery;
+  event: EventFieldsFragment;
 }
 
-const OrganizationInfo: React.FC<Props> = ({ eventData }) => {
+const OrganizationInfo: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { data: organizationData, loading } = useOrganizationDetailsQuery({
-    skip: !eventData.eventDetails.publisher,
+    skip: !event.publisher,
     ssr: false,
-    variables: { id: eventData.eventDetails.publisher || "" }
+    variables: { id: event.publisher || "" }
   });
 
   const name = organizationData && organizationData.organizationDetails.name;
-  const provider = getLocalisedString(
-    eventData.eventDetails.provider || {},
-    locale
-  );
+  const provider = getLocalisedString(event.provider || {}, locale);
 
   const getSearchLink = () => {
-    return `/${locale}${ROUTES.EVENTS}?publisher=${eventData.eventDetails.publisher}`;
+    return `/${locale}${ROUTES.EVENTS}?publisher=${event.publisher}`;
   };
 
   return (

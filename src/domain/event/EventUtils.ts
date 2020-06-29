@@ -13,7 +13,7 @@ import {
   EVENT_PLACEHOLDER_IMAGES,
   EVENT_SOME_IMAGE
 } from "./constants";
-import { EventUiKeyword } from "./types";
+import { KeywordOption } from "./types";
 
 /**
  * Check is event closed
@@ -100,7 +100,7 @@ export const getEventPrice = (
 export const getEventKeywords = (
   event: EventFieldsFragment,
   locale: Language
-): EventUiKeyword[] => {
+): KeywordOption[] => {
   return event.keywords
     .map(keyword => ({
       id: keyword.id || "",
@@ -156,15 +156,15 @@ export const getEventSomeImageUrl = (event: EventFieldsFragment): string => {
 
 /**
  * Get Google link to show event location
- * @param {object} eventData
+ * @param {object} event
  * @param {string} locale
  * @return {string}
  */
 export const getGoogleLink = (
-  eventData: EventDetailsQuery,
+  event: EventFieldsFragment,
   locale: Language
 ): string => {
-  const location = eventData.eventDetails.location;
+  const location = event.location;
   const streetAddress = getLocalisedString(
     (location && location.streetAddress) || {},
     locale
@@ -184,6 +184,7 @@ export const getGoogleLink = (
     ","
   )}`.replace(/\s/g, "+");
 };
+
 /**
  * Get palvelukartta compatible id for the location
  * @param {object} location
@@ -200,17 +201,17 @@ const getLocationId = (location?: PlaceFieldsFragment | null) => {
 
 /**
  * Get service map url
- * @param {object} eventData
+ * @param {object} event
  * @param {string} locale
  * @param {boolean} isEmbedded
  * @return {string}
  */
 export const getServiceMapUrl = (
-  eventData: EventDetailsQuery,
+  event: EventFieldsFragment,
   locale: Language,
   isEmbedded?: boolean
 ): string => {
-  const location = eventData.eventDetails.location;
+  const location = event.location;
   const locationId = getLocationId(location);
   return `https://palvelukartta.hel.fi/${locale}${
     isEmbedded ? "/embed" : ""
@@ -219,15 +220,15 @@ export const getServiceMapUrl = (
 
 /**
  * Get Google link to show directions to event location
- * @param {object} eventData
+ * @param {object} event
  * @param {string} locale
  * @return {string}
  */
 export const getGoogleDirectionsLink = (
-  eventData: EventDetailsQuery,
+  event: EventFieldsFragment,
   locale: Language
 ): string => {
-  const location = eventData.eventDetails.location;
+  const location = event.location;
   const streetAddress = getLocalisedString(
     (location && location.streetAddress) || {},
     locale
@@ -250,15 +251,15 @@ export const getGoogleDirectionsLink = (
 
 /**
  * Get HSL link to show directions to event location
- * @param {object} eventData
+ * @param {object} event
  * @param {string} locale
  * @return {string}
  */
 export const getHslDirectionsLink = (
-  eventData: EventDetailsQuery,
+  event: EventFieldsFragment,
   locale: Language
 ): string => {
-  const location = eventData.eventDetails.location;
+  const location = event.location;
   const streetAddress = getLocalisedString(
     (location && location.streetAddress) || {},
     locale

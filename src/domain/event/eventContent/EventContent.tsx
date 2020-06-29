@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import sanitizeHtml from "sanitize-html";
 
 import ShareLinks from "../../../common/components/shareLinks/ShareLinks";
-import { EventDetailsQuery } from "../../../generated/graphql";
+import { EventFieldsFragment } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
 import EventInfo from "../eventInfo/EventInfo";
@@ -13,20 +13,20 @@ import EventLocation from "../eventLocation/EventLocation";
 import styles from "./eventContent.module.scss";
 
 interface Props {
-  eventData: EventDetailsQuery;
+  event: EventFieldsFragment;
 }
 
-const EventContent: React.FC<Props> = ({ eventData }) => {
+const EventContent: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const description = eventData.eventDetails.description
-    ? getLocalisedString(eventData.eventDetails.description, locale)
+  const description = event.description
+    ? getLocalisedString(event.description, locale)
     : null;
 
   return (
     <div className={styles.eventContent}>
       <div className={styles.infoColumn}>
-        <EventInfo eventData={eventData} />
+        <EventInfo event={event} />
       </div>
       <div className={styles.descriptionColumn}>
         {description && (
@@ -49,7 +49,7 @@ const EventContent: React.FC<Props> = ({ eventData }) => {
             styles.largeWhiteSpace
           )}
         />
-        <EventLocation eventData={eventData} />
+        <EventLocation event={event} />
       </div>
       {/* Dummy div to keep layout consistent with EventHero */}
       <div></div>

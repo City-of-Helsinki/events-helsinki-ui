@@ -7,7 +7,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import IconButton from "../../../common/components/iconButton/IconButton";
 import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
 import {
-  EventDetailsQuery,
+  EventFieldsFragment,
   useEventListQuery
 } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
@@ -19,10 +19,10 @@ import { getEventIdFromUrl } from "../EventUtils";
 import styles from "./otherEventTimes.module.scss";
 
 interface Props {
-  eventData: EventDetailsQuery;
+  event: EventFieldsFragment;
 }
 
-const OtherEventTimes: React.FC<Props> = ({ eventData }) => {
+const OtherEventTimes: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const history = useHistory();
@@ -32,11 +32,9 @@ const OtherEventTimes: React.FC<Props> = ({ eventData }) => {
 
   const superEventId = React.useMemo(() => {
     return getEventIdFromUrl(
-      (eventData.eventDetails.superEvent &&
-        eventData.eventDetails.superEvent.internalId) ||
-        ""
+      (event.superEvent && event.superEvent.internalId) || ""
     );
-  }, [eventData]);
+  }, [event.superEvent]);
 
   const filters = React.useMemo(() => {
     return {
@@ -84,9 +82,7 @@ const OtherEventTimes: React.FC<Props> = ({ eventData }) => {
   if (!superEventId) return null;
 
   const subEvents = subEventsData
-    ? subEventsData.eventList.data.filter(
-        subEvent => subEvent.id !== eventData.eventDetails.id
-      )
+    ? subEventsData.eventList.data.filter(subEvent => subEvent.id !== event.id)
     : [];
 
   const toggleList = () => {

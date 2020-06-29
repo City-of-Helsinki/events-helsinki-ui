@@ -5,7 +5,7 @@ import { useLocation } from "react-router";
 import SimilarEventCard from "../../../common/components/eventCard/EventCard";
 import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
 import {
-  EventDetailsQuery,
+  EventFieldsFragment,
   useEventListQuery
 } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
@@ -17,10 +17,10 @@ import { SIMILAR_EVENTS_AMOUNT } from "../constants";
 import styles from "./similarEvents.module.scss";
 
 interface Props {
-  eventData: EventDetailsQuery;
+  event: EventFieldsFragment;
 }
 
-const SimilarEvents: React.FC<Props> = ({ eventData }) => {
+const SimilarEvents: React.FC<Props> = ({ event }) => {
   const locale = useLocale();
   const { search } = useLocation();
   const eventSearch = getSearchQuery({
@@ -30,9 +30,7 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
     end: null,
     isFree: false,
     keywordNot: [],
-    keywords: eventData.eventDetails.keywords
-      .map(keyword => keyword.id || "")
-      .filter(e => e),
+    keywords: event.keywords.map(keyword => keyword.id || "").filter(e => e),
     places: [],
     publisher: null,
     start: null,
@@ -63,7 +61,7 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
     eventsData && !!eventsData.eventList.data.length
       ? eventsData.eventList.data
           // Don't show current event on the list
-          .filter(event => event.id !== eventData.eventDetails.id)
+          .filter(item => item.id !== event.id)
           .slice(0, SIMILAR_EVENTS_AMOUNT)
       : [];
 
@@ -76,8 +74,8 @@ const SimilarEvents: React.FC<Props> = ({ eventData }) => {
               {t("event.similarEvents.title")}
             </h2>
             <div className={styles.similarEventList}>
-              {events.map(event => {
-                return <SimilarEventCard key={event.id} event={event} />;
+              {events.map(item => {
+                return <SimilarEventCard key={item.id} event={item} />;
               })}
             </div>
           </>

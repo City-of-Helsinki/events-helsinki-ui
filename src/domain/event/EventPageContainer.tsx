@@ -39,6 +39,8 @@ const EventPageContainer: React.FC = () => {
     }
   });
 
+  const event = eventData && eventData.eventDetails;
+
   const eventClosed = !eventData || isEventClosed(eventData.eventDetails);
   const name = getLocalisedString(
     (eventData && eventData.eventDetails.name) || {},
@@ -47,21 +49,17 @@ const EventPageContainer: React.FC = () => {
   return (
     <PageWrapper className={styles.eventPageWrapper} title="event.title">
       <LoadingSpinner isLoading={loading}>
-        {eventData ? (
+        {event ? (
           <>
             <SrOnly as="h1">{name}</SrOnly>
             {/* Wait for data to be accessible before updating metadata */}
-            <EventPageMeta eventData={eventData} />
-            {!!eventClosed ? (
-              <EventClosedHero />
-            ) : (
-              <EventHero eventData={eventData} />
-            )}
+            <EventPageMeta event={event} />
+            {!!eventClosed ? <EventClosedHero /> : <EventHero event={event} />}
             <Container>
               {/* Show event content only if event is open */}
-              {!eventClosed && <EventContent eventData={eventData} />}
+              {!eventClosed && <EventContent event={event} />}
               {/* Hide similar event on SSR to make initial load faster */}
-              {isClient && <SimilarEvents eventData={eventData} />}
+              {isClient && <SimilarEvents event={event} />}
             </Container>
           </>
         ) : (

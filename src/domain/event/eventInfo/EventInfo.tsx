@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 
 import Link from "../../../common/components/link/Link";
 import linkStyles from "../../../common/components/link/link.module.scss";
-import { EventDetailsQuery } from "../../../generated/graphql";
+import { EventFieldsFragment } from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import IconDirections from "../../../icons/IconDirections";
 import getDateArray from "../../../util/getDateArray";
@@ -38,24 +38,24 @@ import OrganizationInfo from "./OrganizationInfo";
 import OtherEventTimes from "./OtherEventTimes";
 
 interface Props {
-  eventData: EventDetailsQuery;
+  event: EventFieldsFragment;
 }
 
-const EventInfo: React.FC<Props> = ({ eventData }) => {
+const EventInfo: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
 
   const offerInfoUrl = React.useMemo(() => {
-    const offer = eventData.eventDetails.offers.find(item =>
+    const offer = event.offers.find(item =>
       getLocalisedString(item.infoUrl || {}, locale)
     );
 
     return offer ? getLocalisedString(offer.infoUrl || {}, locale) : "";
-  }, [eventData.eventDetails.offers, locale]);
+  }, [event.offers, locale]);
 
-  const startTime = eventData.eventDetails.startTime;
-  const endTime = eventData.eventDetails.endTime;
-  const eventLocation = eventData.eventDetails.location;
+  const startTime = event.startTime;
+  const endTime = event.endTime;
+  const eventLocation = event.location;
   const addressLocality = getLocalisedString(
     (eventLocation && eventLocation.addressLocality) || {},
     locale
@@ -68,59 +68,50 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
     (eventLocation && eventLocation.streetAddress) || {},
     locale
   );
-  const district = getEventDistrict(eventData.eventDetails, locale);
+  const district = getEventDistrict(event, locale);
 
-  const languages = eventData.eventDetails.inLanguage
+  const languages = event.inLanguage
     .map(item => capitalize(getLocalisedString(item.name || {}, locale)))
     .filter(e => e);
   const email = eventLocation && eventLocation.email;
-  const infoUrl = eventData.eventDetails.infoUrl
-    ? getLocalisedString(eventData.eventDetails.infoUrl, locale)
+  const infoUrl = event.infoUrl
+    ? getLocalisedString(event.infoUrl, locale)
     : null;
   const telephone =
     eventLocation && eventLocation.telephone
       ? getLocalisedString(eventLocation.telephone, locale)
       : null;
-  const externalLinks = eventData.eventDetails.externalLinks;
+  const externalLinks = event.externalLinks;
 
   const moveToBuyTicketsPage = () => {
     window.open(offerInfoUrl);
   };
 
   const downloadIcsFile = () => {
-    if (eventData.eventDetails.startTime) {
+    if (event.startTime) {
       const domain = getDomain();
-      const event: EventAttributes = {
+      const icsEvent: EventAttributes = {
         description: t("event.info.textCalendarLinkDescription", {
-          description: getLocalisedString(
-            eventData.eventDetails.shortDescription || {},
-            locale
-          ),
-          link: `${domain}/${locale}${ROUTES.EVENT.replace(
-            ":id",
-            eventData.eventDetails.id
-          )}`
+          description: getLocalisedString(event.shortDescription || {}, locale),
+          link: `${domain}/${locale}${ROUTES.EVENT.replace(":id", event.id)}`
         }),
-        end: eventData.eventDetails.endTime
-          ? getDateArray(eventData.eventDetails.endTime)
-          : getDateArray(eventData.eventDetails.startTime),
+        end: event.endTime
+          ? getDateArray(event.endTime)
+          : getDateArray(event.startTime),
         location: [locationName, streetAddress, district, addressLocality]
           .filter(e => e)
           .join(", "),
         productId: domain,
-        start: getDateArray(eventData.eventDetails.startTime),
+        start: getDateArray(event.startTime),
         startOutputType: "local",
-        title: getLocalisedString(eventData.eventDetails.name || {}, locale)
+        title: getLocalisedString(event.name || {}, locale)
       };
-      createEvent(event, (error: Error | undefined, value: string) => {
+      createEvent(icsEvent, (error: Error | undefined, value: string) => {
         if (error) {
           Sentry.captureException(error);
         } else {
           const blob = new Blob([value], { type: "text/calendar" });
-          saveAs(
-            blob,
-            `event_${eventData.eventDetails.id.replace(/:/g, "")}.ics`
-          );
+          saveAs(blob, `event_${event.id.replace(/:/g, "")}.ics`);
         }
       });
     }
@@ -146,7 +137,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
                 true,
                 t("commons.timeAbbreviation")
               )}
-            {eventData.eventDetails.startTime && (
+            {event.startTime && (
               <button className={linkStyles.link} onClick={downloadIcsFile}>
                 {t("event.info.buttonAddToCalendar")}
                 <IconAngleRight />
@@ -156,7 +147,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
         </div>
 
         {/* Other event times */}
-        <OtherEventTimes eventData={eventData} />
+        <OtherEventTimes event={event} />
 
         {/* Location info */}
         <div className={styles.infoWithIcon}>
@@ -180,10 +171,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
             {addressLocality && (
               <div className={styles.desktopOnly}>{addressLocality}</div>
             )}
-            <Link
-              isExternal={true}
-              to={getServiceMapUrl(eventData, locale, false)}
-            >
+            <Link isExternal={true} to={getServiceMapUrl(event, locale, false)}>
               {t("event.info.openMap")}
             </Link>
           </div>
@@ -242,22 +230,16 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           </div>
           <div className={styles.iconTextWrapper}>
             <h2 className={styles.title}>{t("event.info.labelDistricts")}</h2>
-            <Link
-              isExternal={true}
-              to={getGoogleDirectionsLink(eventData, locale)}
-            >
+            <Link isExternal={true} to={getGoogleDirectionsLink(event, locale)}>
               {t("event.info.directionsGoogle")}
             </Link>
-            <Link
-              isExternal={true}
-              to={getHslDirectionsLink(eventData, locale)}
-            >
+            <Link isExternal={true} to={getHslDirectionsLink(event, locale)}>
               {t("event.info.directionsHSL")}
             </Link>
           </div>
         </div>
         {/* Organization info */}
-        <OrganizationInfo eventData={eventData} />
+        <OrganizationInfo event={event} />
 
         {/* Price info */}
         <div className={classNames(styles.infoWithIcon, styles.mobileOnly)}>
@@ -266,11 +248,7 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
           </div>
           <div className={styles.iconTextWrapper}>
             <h2 className={styles.title}>{t("event.info.labelPrice")}</h2>
-            {getEventPrice(
-              eventData.eventDetails,
-              locale,
-              t("event.info.offers.isFree")
-            ) || "-"}
+            {getEventPrice(event, locale, t("event.info.offers.isFree")) || "-"}
           </div>
         </div>
 

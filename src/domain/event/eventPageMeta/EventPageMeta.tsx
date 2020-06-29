@@ -1,24 +1,27 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-import { EventDetailsQuery, LocalizedObject } from "../../../generated/graphql";
+import {
+  EventFieldsFragment,
+  LocalizedObject
+} from "../../../generated/graphql";
 import useLocale from "../../../hooks/useLocale";
 import getLocalisedString from "../../../util/getLocalisedString";
 import { getEventSomeImageUrl } from "../EventUtils";
 
 interface Props {
-  eventData: EventDetailsQuery;
+  event: EventFieldsFragment;
 }
 
-const EventPageMeta: React.FC<Props> = ({ eventData }) => {
+const EventPageMeta: React.FC<Props> = ({ event }) => {
   const locale = useLocale();
 
   const getLocal = (localizedObject: LocalizedObject) =>
     getLocalisedString(localizedObject, locale);
 
-  const name = getLocal(eventData.eventDetails.name);
-  const description = getLocal(eventData.eventDetails.shortDescription || {});
-  const image = getEventSomeImageUrl(eventData.eventDetails);
+  const name = getLocal(event.name);
+  const description = getLocal(event.shortDescription || {});
+  const image = getEventSomeImageUrl(event);
 
   const openGraphProperties: { [key: string]: string } = {
     description: description,
