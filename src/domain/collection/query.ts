@@ -7,40 +7,28 @@ export const QUERY_COLLECTION_DETAILS = gql`
     boxColor
     curatedEvents
     curatedEventsTitle {
-      en
-      fi
-      sv
+      ...localizedFields
     }
     description {
-      en
-      fi
-      sv
+      ...localizedFields
     }
-    eventListQuery
+    eventListQuery {
+      ...localizedFields
+    }
     eventListTitle {
-      en
-      fi
-      sv
+      ...localizedFields
     }
     linkText {
-      en
-      fi
-      sv
+      ...localizedFields
     }
     linkUrl {
-      en
-      fi
-      sv
+      ...localizedFields
     }
     socialMediaDescription {
-      en
-      fi
-      sv
+      ...localizedFields
     }
     title {
-      en
-      fi
-      sv
+      ...localizedFields
     }
   }
   query CollectionDetails($draft: Boolean, $id: ID!) {

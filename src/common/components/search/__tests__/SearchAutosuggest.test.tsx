@@ -2,11 +2,8 @@ import { MockedProvider } from '@apollo/react-testing';
 import * as React from 'react';
 import renderer from 'react-test-renderer';
 
-import {
-  KeywordListDocument,
-  NeighborhoodListDocument,
-  PlaceListDocument,
-} from '../../../../generated/graphql';
+import mockKeyword from '../../../../domain/keyword/__mocks__/keyword';
+import { KeywordListDocument } from '../../../../generated/graphql';
 import SearchAutosuggest from '../SearchAutosuggest';
 
 const mocks = [
@@ -14,6 +11,7 @@ const mocks = [
     request: {
       query: KeywordListDocument,
       variables: {
+        hasUpcomingEvents: true,
         pageSize: 5,
         text: 'search value',
       },
@@ -21,35 +19,8 @@ const mocks = [
     result: {
       data: {
         keywordList: {
-          result: [{ id: '1', name: { fi: 'Test' } }],
-        },
-      },
-    },
-  },
-  {
-    request: {
-      query: NeighborhoodListDocument,
-    },
-    result: {
-      data: {
-        neighborhoodList: {
-          data: [],
-        },
-      },
-    },
-  },
-  {
-    request: {
-      query: PlaceListDocument,
-      variables: {
-        pageSize: 5,
-        text: 'search value',
-      },
-    },
-    result: {
-      data: {
-        keywordList: {
-          result: [{ id: '1', name: { fi: 'Test' } }],
+          __typename: 'KeywordListResponse',
+          data: [mockKeyword],
         },
       },
     },
@@ -58,7 +29,7 @@ const mocks = [
 
 test('SearchAutosuggest matches snapshot', () => {
   const component = renderer.create(
-    <MockedProvider mocks={mocks}>
+    <MockedProvider mocks={mocks} addTypename={true}>
       <SearchAutosuggest
         categories={[{ text: 'bar', value: 'foo' }]}
         name="search"

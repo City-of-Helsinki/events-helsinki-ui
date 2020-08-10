@@ -23,8 +23,15 @@ const collection: CollectionFieldsFragment = {
       // eslint-disable-next-line max-len
       'Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.',
   },
-  eventListQuery:
-    'http://localhost:3000/en/events?categories=music&districts=kaupunginosa%3Aetu-t%C3%B6%C3%B6l%C3%B6',
+  eventListQuery: {
+    __typename: 'LocalizedObject',
+    en:
+      'http://localhost:3000/en/events?categories=music&districts=kaupunginosa%3Aetu-t%C3%B6%C3%B6l%C3%B6',
+    fi:
+      'http://localhost:3000/fi/events?categories=music&districts=kaupunginosa%3Aetu-t%C3%B6%C3%B6l%C3%B6',
+    sv:
+      'http://localhost:3000/sv/events?categories=music&districts=kaupunginosa%3Aetu-t%C3%B6%C3%B6l%C3%B6',
+  },
   eventListTitle: {
     __typename: 'LocalizedObject',
     en: 'All the best events of the fall',

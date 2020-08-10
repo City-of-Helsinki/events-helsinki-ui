@@ -5,10 +5,7 @@ import {
   AUTOSUGGEST_KEYWORD_BLACK_LIST,
   AUTOSUGGEST_TYPES,
 } from '../../../constants';
-import {
-  useKeywordListQuery,
-  useNeighborhoodListQuery,
-} from '../../../generated/graphql';
+import { useKeywordListQuery } from '../../../generated/graphql';
 import useDebounce from '../../../hooks/useDebounce';
 import useLocale from '../../../hooks/useLocale';
 import getLocalisedString from '../../../util/getLocalisedString';
@@ -43,21 +40,6 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   const input = React.useRef<HTMLInputElement | null>(null);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const internalInputValue = useDebounce(searchValue, 300);
-
-  const { data: neighborhoodsData } = useNeighborhoodListQuery();
-
-  const districtOptions = React.useMemo(
-    () =>
-      neighborhoodsData
-        ? neighborhoodsData.neighborhoodList.data
-            .map(neighborhood => ({
-              text: getLocalisedString(neighborhood.name, locale),
-              value: neighborhood.id,
-            }))
-            .sort((a, b) => (a.text >= b.text ? 1 : -1))
-        : [],
-    [locale, neighborhoodsData]
-  );
 
   const { data: keywordsData, loading: loadingKeywords } = useKeywordListQuery({
     skip: !internalInputValue,
@@ -104,13 +86,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     items.push(textItem, ...keywordItems);
 
     setAutoSuggestItems(items.filter(item => item.text));
-  }, [
-    districtOptions,
-    internalInputValue,
-    keywordsData,
-    loadingKeywords,
-    locale,
-  ]);
+  }, [internalInputValue, keywordsData, loadingKeywords, locale]);
 
   const openMenu = React.useCallback(
     (focusOption: 'first' | 'last') => {

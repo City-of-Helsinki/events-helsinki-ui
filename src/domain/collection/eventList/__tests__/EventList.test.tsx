@@ -15,7 +15,7 @@ import { getEventFilters } from '../../../eventSearch/EventListUtils';
 import EventList from '../EventList';
 
 const searchParams = new URLSearchParams(
-  new URL(mockCollection.eventListQuery || '').search
+  new URL((mockCollection.eventListQuery || {})['fi'] || '').search
 );
 const mocks = [
   {

@@ -20,8 +20,9 @@ interface Props {
 const EventList: React.FC<Props> = ({ collection }) => {
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const locale = useLocale();
+  const eventListQuery = (collection.eventListQuery || {})[locale];
   const searchParams = new URLSearchParams(
-    collection.eventListQuery ? new URL(collection.eventListQuery).search : ''
+    collection.eventListQuery ? new URL(eventListQuery || '').search : ''
   );
   const eventFilters = React.useMemo(() => {
     return getEventFilters({
@@ -36,7 +37,7 @@ const EventList: React.FC<Props> = ({ collection }) => {
 
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
-    skip: !collection.eventListQuery,
+    skip: !eventListQuery,
     ssr: false,
     variables: eventFilters,
   });

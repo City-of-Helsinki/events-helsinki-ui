@@ -50,6 +50,7 @@ const eventDetails: EventFieldsFragment = {
     {
       __typename: 'Keyword',
       dataSource: 'yso',
+      hasUpcomingEvents: false,
       id: 'yso:1',
       internalId: 'yso:1',
       name: {
@@ -62,6 +63,7 @@ const eventDetails: EventFieldsFragment = {
     {
       __typename: 'Keyword',
       dataSource: 'yso',
+      hasUpcomingEvents: false,
       id: 'yso:2',
       internalId: 'yso:2',
       name: {
@@ -82,6 +84,7 @@ const eventDetails: EventFieldsFragment = {
     },
     divisions: [],
     email: 'location@info.com',
+    hasUpcomingEvents: false,
     id: 'tprek:123',
     infoUrl: {
       __typename: 'LocalizedObject',

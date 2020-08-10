@@ -18,12 +18,12 @@ export type CollectionDetails = {
   boxColor?: Maybe<Scalars['String']>,
   contentType?: Maybe<Scalars['Int']>,
   curatedEvents: Array<Scalars['String']>,
-  curatedEventsTitle: LocalizedObject,
+  curatedEventsTitle?: Maybe<LocalizedObject>,
   depth?: Maybe<Scalars['Int']>,
-  description: LocalizedObject,
+  description?: Maybe<LocalizedObject>,
   draftTitle?: Maybe<Scalars['String']>,
-  eventListQuery?: Maybe<Scalars['String']>,
-  eventListTitle: LocalizedObject,
+  eventListQuery?: Maybe<LocalizedObject>,
+  eventListTitle?: Maybe<LocalizedObject>,
   expireAt?: Maybe<Scalars['String']>,
   expired?: Maybe<Scalars['Boolean']>,
   firstPublishedAt?: Maybe<Scalars['String']>,
@@ -32,8 +32,8 @@ export type CollectionDetails = {
   heroImage?: Maybe<Scalars['String']>,
   lastPublishedAt?: Maybe<Scalars['String']>,
   latestRevisionCreatedAt?: Maybe<Scalars['String']>,
-  linkText: LocalizedObject,
-  linkUrl: LocalizedObject,
+  linkText?: Maybe<LocalizedObject>,
+  linkUrl?: Maybe<LocalizedObject>,
   live?: Maybe<Scalars['Boolean']>,
   liveRevision?: Maybe<Scalars['Int']>,
   locked?: Maybe<Scalars['Boolean']>,
@@ -447,28 +447,31 @@ export type Subscription = {
 
 export type CollectionFieldsFragment = (
   { __typename?: 'CollectionDetails' }
-  & Pick<CollectionDetails, 'id' | 'heroImage' | 'boxColor' | 'curatedEvents' | 'eventListQuery'>
-  & { curatedEventsTitle: (
+  & Pick<CollectionDetails, 'id' | 'heroImage' | 'boxColor' | 'curatedEvents'>
+  & { curatedEventsTitle: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-  ), description: (
+    & LocalizedFieldsFragment
+  )>, description: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-  ), eventListTitle: (
+    & LocalizedFieldsFragment
+  )>, eventListQuery: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-  ), linkText: (
+    & LocalizedFieldsFragment
+  )>, eventListTitle: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-  ), linkUrl: (
+    & LocalizedFieldsFragment
+  )>, linkText: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
-  ), socialMediaDescription: Maybe<(
+    & LocalizedFieldsFragment
+  )>, linkUrl: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    & LocalizedFieldsFragment
+  )>, socialMediaDescription: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & LocalizedFieldsFragment
   )>, title: (
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
+    & LocalizedFieldsFragment
   ) }
 );
 
@@ -844,50 +847,6 @@ export type PlaceListQuery = (
   ) }
 );
 
-export const CollectionFieldsFragmentDoc = gql`
-    fragment collectionFields on CollectionDetails {
-  id
-  heroImage
-  boxColor
-  curatedEvents
-  curatedEventsTitle {
-    en
-    fi
-    sv
-  }
-  description {
-    en
-    fi
-    sv
-  }
-  eventListQuery
-  eventListTitle {
-    en
-    fi
-    sv
-  }
-  linkText {
-    en
-    fi
-    sv
-  }
-  linkUrl {
-    en
-    fi
-    sv
-  }
-  socialMediaDescription {
-    en
-    fi
-    sv
-  }
-  title {
-    en
-    fi
-    sv
-  }
-}
-    `;
 export const LocalizedFieldsFragmentDoc = gql`
     fragment localizedFields on LocalizedObject {
   en
@@ -895,6 +854,38 @@ export const LocalizedFieldsFragmentDoc = gql`
   sv
 }
     `;
+export const CollectionFieldsFragmentDoc = gql`
+    fragment collectionFields on CollectionDetails {
+  id
+  heroImage
+  boxColor
+  curatedEvents
+  curatedEventsTitle {
+    ...localizedFields
+  }
+  description {
+    ...localizedFields
+  }
+  eventListQuery {
+    ...localizedFields
+  }
+  eventListTitle {
+    ...localizedFields
+  }
+  linkText {
+    ...localizedFields
+  }
+  linkUrl {
+    ...localizedFields
+  }
+  socialMediaDescription {
+    ...localizedFields
+  }
+  title {
+    ...localizedFields
+  }
+}
+    ${LocalizedFieldsFragmentDoc}`;
 export const KeywordFieldsFragmentDoc = gql`
     fragment keywordFields on Keyword {
   id
