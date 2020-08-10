@@ -160,6 +160,7 @@ export type Keyword = {
   id?: Maybe<Scalars['ID']>,
   altLabels?: Maybe<Array<Maybe<Scalars['String']>>>,
   createdTime?: Maybe<Scalars['String']>,
+  hasUpcomingEvents?: Maybe<Scalars['Boolean']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
   aggregate?: Maybe<Scalars['Boolean']>,
   deprecated?: Maybe<Scalars['Boolean']>,
@@ -285,6 +286,7 @@ export type Place = {
    __typename?: 'Place',
   id?: Maybe<Scalars['ID']>,
   divisions?: Maybe<Array<Division>>,
+  hasUpcomingEvents?: Maybe<Scalars['Boolean']>,
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
   customData?: Maybe<Scalars['String']>,
@@ -397,6 +399,7 @@ export type QueryKeywordDetailsArgs = {
 
 export type QueryKeywordListArgs = {
   dataSource?: Maybe<Scalars['String']>,
+  hasUpcomingEvents?: Maybe<Scalars['Boolean']>,
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   showAllKeywords?: Maybe<Scalars['Boolean']>,
@@ -429,6 +432,7 @@ export type QueryPlaceDetailsArgs = {
 export type QueryPlaceListArgs = {
   dataSource?: Maybe<Scalars['String']>,
   divisions?: Maybe<Array<Maybe<Scalars['String']>>>,
+  hasUpcomingEvents?: Maybe<Scalars['Boolean']>,
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   showAllPlaces?: Maybe<Scalars['Boolean']>,
@@ -771,7 +775,7 @@ export type NeighborhoodListQuery = (
 
 export type PlaceFieldsFragment = (
   { __typename?: 'Place' }
-  & Pick<Place, 'id' | 'internalId' | 'email' | 'postalCode'>
+  & Pick<Place, 'id' | 'hasUpcomingEvents' | 'internalId' | 'email' | 'postalCode'>
   & { divisions: Maybe<Array<(
     { __typename?: 'Division' }
     & Pick<Division, 'type'>
@@ -816,6 +820,7 @@ export type PlaceDetailsQuery = (
 export type PlaceListQueryVariables = {
   dataSource?: Maybe<Scalars['String']>,
   divisions?: Maybe<Array<Maybe<Scalars['String']>>>,
+  hasUpcomingEvents?: Maybe<Scalars['Boolean']>,
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   showAllPlaces?: Maybe<Scalars['Boolean']>,
@@ -912,6 +917,7 @@ export const PlaceFieldsFragmentDoc = gql`
       en
     }
   }
+  hasUpcomingEvents
   internalId
   email
   infoUrl {
@@ -1647,8 +1653,8 @@ export type PlaceDetailsQueryHookResult = ReturnType<typeof usePlaceDetailsQuery
 export type PlaceDetailsLazyQueryHookResult = ReturnType<typeof usePlaceDetailsLazyQuery>;
 export type PlaceDetailsQueryResult = ApolloReactCommon.QueryResult<PlaceDetailsQuery, PlaceDetailsQueryVariables>;
 export const PlaceListDocument = gql`
-    query PlaceList($dataSource: String, $divisions: [String], $page: Int, $pageSize: Int, $showAllPlaces: Boolean, $sort: String, $text: String) {
-  placeList(dataSource: $dataSource, divisions: $divisions, page: $page, pageSize: $pageSize, showAllPlaces: $showAllPlaces, sort: $sort, text: $text) {
+    query PlaceList($dataSource: String, $divisions: [String], $hasUpcomingEvents: Boolean, $page: Int, $pageSize: Int, $showAllPlaces: Boolean, $sort: String, $text: String) {
+  placeList(dataSource: $dataSource, divisions: $divisions, hasUpcomingEvents: $hasUpcomingEvents, page: $page, pageSize: $pageSize, showAllPlaces: $showAllPlaces, sort: $sort, text: $text) {
     meta {
       count
       next
@@ -1686,6 +1692,7 @@ export function withPlaceList<TProps, TChildProps = {}>(operationOptions?: Apoll
  *   variables: {
  *      dataSource: // value for 'dataSource'
  *      divisions: // value for 'divisions'
+ *      hasUpcomingEvents: // value for 'hasUpcomingEvents'
  *      page: // value for 'page'
  *      pageSize: // value for 'pageSize'
  *      showAllPlaces: // value for 'showAllPlaces'

@@ -32,6 +32,7 @@ const PlaceSelector: React.FC<Props> = ({ name, setPlaces, value }) => {
 
   const { data: placesData, loading: loadingPlaces } = usePlaceListQuery({
     variables: {
+      hasUpcomingEvents: true,
       pageSize: 10,
       text: searchValue,
     },
@@ -39,6 +40,7 @@ const PlaceSelector: React.FC<Props> = ({ name, setPlaces, value }) => {
 
   React.useEffect(() => {
     if (loadingPlaces) return;
+
     const options: Option[] =
       (placesData &&
         placesData.placeList.data.map(place => ({

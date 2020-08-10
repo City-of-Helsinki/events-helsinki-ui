@@ -11,6 +11,7 @@ export const QUERY_PLACE = gql`
         en
       }
     }
+    hasUpcomingEvents
     internalId
     email
     infoUrl {
@@ -51,6 +52,7 @@ export const QUERY_PLACE = gql`
   query PlaceList(
     $dataSource: String
     $divisions: [String]
+    $hasUpcomingEvents: Boolean
     $page: Int
     $pageSize: Int
     $showAllPlaces: Boolean
@@ -60,6 +62,7 @@ export const QUERY_PLACE = gql`
     placeList(
       dataSource: $dataSource
       divisions: $divisions
+      hasUpcomingEvents: $hasUpcomingEvents
       page: $page
       pageSize: $pageSize
       showAllPlaces: $showAllPlaces
