@@ -62,10 +62,13 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   const { data: keywordsData, loading: loadingKeywords } = useKeywordListQuery({
     skip: !internalInputValue,
     variables: {
+      hasUpcomingEvents: true,
       pageSize: 5,
       text: internalInputValue,
     },
   });
+
+  console.log(keywordsData);
 
   const [autoSuggestItems, setAutoSuggestItems] = React.useState<
     AutosuggestMenuOption[]

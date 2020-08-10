@@ -642,7 +642,7 @@ export type EventsByIdsQuery = (
 
 export type KeywordFieldsFragment = (
   { __typename?: 'Keyword' }
-  & Pick<Keyword, 'id' | 'internalId' | 'dataSource'>
+  & Pick<Keyword, 'id' | 'internalId' | 'dataSource' | 'hasUpcomingEvents'>
   & { name: Maybe<(
     { __typename?: 'LocalizedObject' }
     & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
@@ -664,6 +664,7 @@ export type KeywordDetailsQuery = (
 
 export type KeywordListQueryVariables = {
   dataSource?: Maybe<Scalars['String']>,
+  hasUpcomingEvents?: Maybe<Scalars['Boolean']>,
   page?: Maybe<Scalars['Int']>,
   pageSize?: Maybe<Scalars['Int']>,
   showAllKeywords?: Maybe<Scalars['Boolean']>,
@@ -899,6 +900,7 @@ export const KeywordFieldsFragmentDoc = gql`
   id
   internalId
   dataSource
+  hasUpcomingEvents
   name {
     fi
     sv
@@ -1407,8 +1409,8 @@ export type KeywordDetailsQueryHookResult = ReturnType<typeof useKeywordDetailsQ
 export type KeywordDetailsLazyQueryHookResult = ReturnType<typeof useKeywordDetailsLazyQuery>;
 export type KeywordDetailsQueryResult = ApolloReactCommon.QueryResult<KeywordDetailsQuery, KeywordDetailsQueryVariables>;
 export const KeywordListDocument = gql`
-    query KeywordList($dataSource: String, $page: Int, $pageSize: Int, $showAllKeywords: Boolean, $sort: String, $text: String) {
-  keywordList(dataSource: $dataSource, page: $page, pageSize: $pageSize, showAllKeywords: $showAllKeywords, sort: $sort, text: $text) {
+    query KeywordList($dataSource: String, $hasUpcomingEvents: Boolean, $page: Int, $pageSize: Int, $showAllKeywords: Boolean, $sort: String, $text: String) {
+  keywordList(dataSource: $dataSource, hasUpcomingEvents: $hasUpcomingEvents, page: $page, pageSize: $pageSize, showAllKeywords: $showAllKeywords, sort: $sort, text: $text) {
     meta {
       count
       next
@@ -1445,6 +1447,7 @@ export function withKeywordList<TProps, TChildProps = {}>(operationOptions?: Apo
  * const { data, loading, error } = useKeywordListQuery({
  *   variables: {
  *      dataSource: // value for 'dataSource'
+ *      hasUpcomingEvents: // value for 'hasUpcomingEvents'
  *      page: // value for 'page'
  *      pageSize: // value for 'pageSize'
  *      showAllKeywords: // value for 'showAllKeywords'

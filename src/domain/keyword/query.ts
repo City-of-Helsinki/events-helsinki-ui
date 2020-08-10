@@ -5,6 +5,7 @@ export const QUERY_KEYWORD = gql`
     id
     internalId
     dataSource
+    hasUpcomingEvents
     name {
       fi
       sv
@@ -18,6 +19,7 @@ export const QUERY_KEYWORD = gql`
   }
   query KeywordList(
     $dataSource: String
+    $hasUpcomingEvents: Boolean
     $page: Int
     $pageSize: Int
     $showAllKeywords: Boolean
@@ -26,6 +28,7 @@ export const QUERY_KEYWORD = gql`
   ) {
     keywordList(
       dataSource: $dataSource
+      hasUpcomingEvents: $hasUpcomingEvents
       page: $page
       pageSize: $pageSize
       showAllKeywords: $showAllKeywords
