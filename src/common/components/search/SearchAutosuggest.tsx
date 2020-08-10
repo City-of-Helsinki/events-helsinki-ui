@@ -68,8 +68,6 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     },
   });
 
-  console.log(keywordsData);
-
   const [autoSuggestItems, setAutoSuggestItems] = React.useState<
     AutosuggestMenuOption[]
   >([]);
