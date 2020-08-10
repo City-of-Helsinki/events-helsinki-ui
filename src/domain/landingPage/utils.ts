@@ -29,6 +29,36 @@ export const getHeroBackgroundImageMobile = (
 };
 
 /**
+ * Get landing page hero title color
+ * @param {object} landingPage
+ * @param {string} locale
+ * @return {string}
+ */
+export const getHeroTitleColor = (
+  landingPage: LandingPageFieldsFragment,
+  locale: Language
+): string => {
+  return `var(--color-${(
+    (landingPage.titleColor || {})[locale] || 'BLACK'
+  ).toLowerCase()})`;
+};
+
+/**
+ * Get landing page hero description color
+ * @param {object} landingPage
+ * @param {string} locale
+ * @return {string}
+ */
+export const getHeroDescriptionColor = (
+  landingPage: LandingPageFieldsFragment,
+  locale: Language
+): string => {
+  return `var(--color-${(
+    (landingPage.descriptionColor || {})[locale] || 'BLACK'
+  ).toLowerCase()})`;
+};
+
+/**
  * Get landing page hero top layer image
  * @param {object} landingPage
  * @param {string} locale

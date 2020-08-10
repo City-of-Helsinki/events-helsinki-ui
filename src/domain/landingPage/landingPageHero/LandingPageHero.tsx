@@ -9,6 +9,8 @@ import getLocalisedString from '../../../util/getLocalisedString';
 import {
   getHeroBackgroundImage,
   getHeroBackgroundImageMobile,
+  getHeroDescriptionColor,
+  getHeroTitleColor,
   getHeroTopLayerImage,
 } from '../utils';
 import styles from './landingPageHero.module.scss';
@@ -21,13 +23,17 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
   const locale = useLocale();
   const isSmallScreen = useIsSmallScreen();
 
-  const title = getLocalisedString(landingPage.title || {}, locale);
+  const title = getLocalisedString(landingPage.title, locale);
 
-  const subtitle = getLocalisedString(landingPage.description || {}, locale);
+  const titleColor = getHeroTitleColor(landingPage, locale);
 
-  const buttonText = getLocalisedString(landingPage.buttonText || {}, locale);
+  const subtitle = getLocalisedString(landingPage.description, locale);
 
-  const buttonUrl = getLocalisedString(landingPage.buttonUrl || {}, locale);
+  const descriptionColor = getHeroDescriptionColor(landingPage, locale);
+
+  const buttonText = getLocalisedString(landingPage.buttonText, locale);
+
+  const buttonUrl = getLocalisedString(landingPage.buttonUrl, locale);
 
   const heroBackgroundImage = getHeroBackgroundImage(landingPage, locale);
   const heroBackgroundImageMobile = getHeroBackgroundImageMobile(
@@ -55,8 +61,12 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
       ></div>
       <Container>
         <div className={styles.content}>
-          <div className={styles.subTitle}>{subtitle}</div>
-          <h1 className={styles.title}>{title}</h1>
+          <div className={styles.subTitle} style={{ color: descriptionColor }}>
+            {subtitle}
+          </div>
+          <h1 className={styles.title} style={{ color: titleColor }}>
+            {title}
+          </h1>
           {!!buttonText && !!buttonUrl && (
             <Button onClick={moveToCollectionPage} variant="success">
               {buttonText}

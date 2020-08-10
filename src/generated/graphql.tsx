@@ -203,7 +203,9 @@ export type LandingPage = {
   lastPublishedAt?: Maybe<Scalars['String']>,
   latestRevisionCreatedAt?: Maybe<Scalars['String']>,
   title?: Maybe<LocalizedObject>,
+  titleColor?: Maybe<LocalizedObject>,
   description?: Maybe<LocalizedObject>,
+  descriptionColor?: Maybe<LocalizedObject>,
   buttonText?: Maybe<LocalizedObject>,
   buttonUrl?: Maybe<LocalizedObject>,
   heroBackgroundImage?: Maybe<LocalizedObject>,
@@ -695,34 +697,40 @@ export type LandingPageFieldsFragment = (
   & Pick<LandingPage, 'id'>
   & { pageTitle: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    & LocalizedFieldsFragment
   )>, metaInformation: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    & LocalizedFieldsFragment
   )>, title: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    & LocalizedFieldsFragment
+  )>, titleColor: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & LocalizedFieldsFragment
   )>, description: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    & LocalizedFieldsFragment
+  )>, descriptionColor: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & LocalizedFieldsFragment
   )>, buttonText: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    & LocalizedFieldsFragment
   )>, buttonUrl: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    & LocalizedFieldsFragment
   )>, heroBackgroundImage: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    & LocalizedFieldsFragment
   )>, heroBackgroundImageMobile: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
+    & LocalizedFieldsFragment
   )>, heroTopLayerImage: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+    & LocalizedFieldsFragment
   )>, socialMediaImage: Maybe<(
     { __typename?: 'LocalizedObject' }
-    & Pick<LocalizedObject, 'fi' | 'en' | 'sv'>
+    & LocalizedFieldsFragment
   )> }
 );
 
@@ -1009,57 +1017,43 @@ export const LandingPageFieldsFragmentDoc = gql`
     fragment landingPageFields on LandingPage {
   id
   pageTitle {
-    fi
-    sv
-    en
+    ...localizedFields
   }
   metaInformation {
-    fi
-    sv
-    en
+    ...localizedFields
   }
   title {
-    fi
-    sv
-    en
+    ...localizedFields
+  }
+  titleColor {
+    ...localizedFields
   }
   description {
-    fi
-    sv
-    en
+    ...localizedFields
+  }
+  descriptionColor {
+    ...localizedFields
   }
   buttonText {
-    fi
-    sv
-    en
+    ...localizedFields
   }
   buttonUrl {
-    fi
-    sv
-    en
+    ...localizedFields
   }
   heroBackgroundImage {
-    fi
-    sv
-    en
+    ...localizedFields
   }
   heroBackgroundImageMobile {
-    fi
-    sv
-    en
+    ...localizedFields
   }
   heroTopLayerImage {
-    fi
-    en
-    sv
+    ...localizedFields
   }
   socialMediaImage {
-    fi
-    en
-    sv
+    ...localizedFields
   }
 }
-    `;
+    ${LocalizedFieldsFragmentDoc}`;
 export const CollectionDetailsDocument = gql`
     query CollectionDetails($draft: Boolean, $id: ID!) {
   collectionDetails(draft: $draft, id: $id) {

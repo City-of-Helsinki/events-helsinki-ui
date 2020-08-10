@@ -4,54 +4,40 @@ export const QUERY_KEYWORD = gql`
   fragment landingPageFields on LandingPage {
     id
     pageTitle {
-      fi
-      sv
-      en
+      ...localizedFields
     }
     metaInformation {
-      fi
-      sv
-      en
+      ...localizedFields
     }
     title {
-      fi
-      sv
-      en
+      ...localizedFields
+    }
+    titleColor {
+      ...localizedFields
     }
     description {
-      fi
-      sv
-      en
+      ...localizedFields
+    }
+    descriptionColor {
+      ...localizedFields
     }
     buttonText {
-      fi
-      sv
-      en
+      ...localizedFields
     }
     buttonUrl {
-      fi
-      sv
-      en
+      ...localizedFields
     }
     heroBackgroundImage {
-      fi
-      sv
-      en
+      ...localizedFields
     }
     heroBackgroundImageMobile {
-      fi
-      sv
-      en
+      ...localizedFields
     }
     heroTopLayerImage {
-      fi
-      en
-      sv
+      ...localizedFields
     }
     socialMediaImage {
-      fi
-      en
-      sv
+      ...localizedFields
     }
   }
   query LandingPage($draft: Boolean, $id: ID!) {
