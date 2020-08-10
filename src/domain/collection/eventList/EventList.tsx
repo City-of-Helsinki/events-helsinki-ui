@@ -22,7 +22,7 @@ const EventList: React.FC<Props> = ({ collection }) => {
   const locale = useLocale();
   const eventListQuery = (collection.eventListQuery || {})[locale];
   const searchParams = new URLSearchParams(
-    collection.eventListQuery ? new URL(eventListQuery || '').search : ''
+    eventListQuery ? new URL(eventListQuery).search : ''
   );
   const eventFilters = React.useMemo(() => {
     return getEventFilters({
