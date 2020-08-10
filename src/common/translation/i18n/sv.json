@@ -37,7 +37,7 @@
       }
     },
     "eventCard": {
-      "ariaLabelLink": "Gå till evenemanget: {{name}}" 
+      "ariaLabelLink": "Gå till evenemanget: {{name}}"
     },
     "filter": {
       "ariaButtonRemove": "Ta bort filter: {{filter}}"
@@ -195,6 +195,7 @@
   "footer": {
     "linkAbout": "Om tjänsten",
     "linkFeedback": "Ge feedback",
+    "linkFeedbackUrl": "https://www.hel.fi/helsinki/sv/stad-och-forvaltning/delta/feedback/",
     "searchCollections": "Rekommendationer",
     "searchEvents": "Sök evenemang",
     "titleCategories": "Kategorier"

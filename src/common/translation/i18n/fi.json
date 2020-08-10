@@ -37,7 +37,7 @@
       }
     },
     "eventCard": {
-      "ariaLabelLink": "Siirry tapahtumaan: {{name}}" 
+      "ariaLabelLink": "Siirry tapahtumaan: {{name}}"
     },
     "filter": {
       "ariaButtonRemove": "Poista suodatin: {{filter}}"
@@ -195,10 +195,10 @@
   "footer": {
     "linkAbout": "Tietoa palvelusta",
     "linkFeedback": "Anna palautetta",
+    "linkFeedbackUrl": "https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta",
     "searchCollections": "Suosittelemme",
     "searchEvents": "Etsi tekemistä",
     "titleCategories": "Kategoriat"
-
   },
   "header": {
     "ariaButtonCloseMenu": "Sulje valikko",

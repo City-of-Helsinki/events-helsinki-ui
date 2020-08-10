@@ -27,9 +27,13 @@ const BottomFooter: React.FC = () => {
             <Link to={`/${locale}${ROUTES.ABOUT}`}>
               {t('footer.linkAbout')}
             </Link>
-            <Link to={`/${locale}${ROUTES.FEEDBACK}`}>
+            <a
+              rel="noopener noreferrer"
+              target="_blank"
+              href={t('footer.linkFeedbackUrl')}
+            >
               {t('footer.linkFeedback')}
-            </Link>
+            </a>
           </div>
         </div>
       </Container>

@@ -37,7 +37,7 @@
       }
     },
     "eventCard": {
-      "ariaLabelLink": "Go to event: {{name}}" 
+      "ariaLabelLink": "Go to event: {{name}}"
     },
     "filter": {
       "ariaButtonRemove": "Remove filter: {{filter}}"
@@ -195,6 +195,7 @@
   "footer": {
     "linkAbout": "About the service",
     "linkFeedback": "Give feedback",
+    "linkFeedbackUrl": "https://www.hel.fi/helsinki/en/administration/participate/feedback/",
     "searchCollections": "Recommendations",
     "searchEvents": "Find something to do",
     "titleCategories": "Categories"
