@@ -1,10 +1,10 @@
-import { shallow } from "enzyme";
-import React from "react";
-import { MemoryRouter } from "react-router";
+import { shallow } from 'enzyme';
+import React from 'react';
+import { MemoryRouter } from 'react-router';
 
-import MobileNavbar from "../MobileNavbar";
+import MobileNavbar from '../MobileNavbar';
 
-it("MobileNavbar matches snapshot", () => {
+it('MobileNavbar matches snapshot', () => {
   const container = shallow(
     <MemoryRouter>
       <MobileNavbar

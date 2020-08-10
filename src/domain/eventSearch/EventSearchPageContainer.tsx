@@ -1,17 +1,17 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { RouteComponentProps, useLocation, withRouter } from "react-router";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { RouteComponentProps, useLocation, withRouter } from 'react-router';
 
-import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
-import SrOnly from "../../common/components/srOnly/SrOnly";
-import { useEventListQuery } from "../../generated/graphql";
-import useLocale from "../../hooks/useLocale";
-import PageWrapper from "../app/layout/PageWrapper";
-import { EVENT_SORT_OPTIONS, PAGE_SIZE } from "./constants";
-import { getEventFilters, getNextPage } from "./EventListUtils";
-import styles from "./eventSearchPage.module.scss";
-import Search from "./Search";
-import SearchResultList from "./searchResultList/SearchResultList";
+import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
+import SrOnly from '../../common/components/srOnly/SrOnly';
+import { useEventListQuery } from '../../generated/graphql';
+import useLocale from '../../hooks/useLocale';
+import PageWrapper from '../app/layout/PageWrapper';
+import { EVENT_SORT_OPTIONS, PAGE_SIZE } from './constants';
+import { getEventFilters, getNextPage } from './EventListUtils';
+import styles from './eventSearchPage.module.scss';
+import Search from './Search';
+import SearchResultList from './searchResultList/SearchResultList';
 
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const { t } = useTranslation();
@@ -20,12 +20,12 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const searchParams = new URLSearchParams(search);
   const eventFilters = React.useMemo(() => {
     return getEventFilters({
-      include: ["keywords", "location"],
+      include: ['keywords', 'location'],
       language: locale,
       pageSize: PAGE_SIZE,
       params: searchParams,
       sortOrder: EVENT_SORT_OPTIONS.END_TIME,
-      superEventType: ["umbrella", "none"]
+      superEventType: ['umbrella', 'none'],
     });
   }, [locale, searchParams]);
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
@@ -33,7 +33,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
     ssr: false,
-    variables: eventFilters
+    variables: eventFilters,
   });
 
   const handleLoadMore = async () => {
@@ -46,15 +46,15 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
           if (!fetchMoreResult) return prev;
           const events = [
             ...prev.eventList.data,
-            ...fetchMoreResult.eventList.data
+            ...fetchMoreResult.eventList.data,
           ];
           fetchMoreResult.eventList.data = events;
           return fetchMoreResult;
         },
         variables: {
           ...eventFilters,
-          page: page
-        }
+          page: page,
+        },
       });
     }
     setIsFetchingMore(false);
@@ -65,7 +65,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
       className={styles.eventSearchPageWrapper}
       title="eventSearch.title"
     >
-      <SrOnly as="h1">{t("eventSearch.title")}</SrOnly>
+      <SrOnly as="h1">{t('eventSearch.title')}</SrOnly>
       <Search />
       <LoadingSpinner isLoading={!isFetchingMore && loading}>
         {eventsData && (

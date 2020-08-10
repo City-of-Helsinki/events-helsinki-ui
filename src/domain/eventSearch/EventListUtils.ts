@@ -1,17 +1,17 @@
-import { addDays, endOfWeek, isPast, startOfWeek, subDays } from "date-fns";
+import { addDays, endOfWeek, isPast, startOfWeek, subDays } from 'date-fns';
 
-import { CATEGORIES, DATE_TYPES } from "../../constants";
-import { EventListQuery } from "../../generated/graphql";
-import { Language } from "../../types";
-import { formatDate } from "../../util/dateUtils";
-import getUrlParamAsArray from "../../util/getUrlParamAsArray";
+import { CATEGORIES, DATE_TYPES } from '../../constants';
+import { EventListQuery } from '../../generated/graphql';
+import { Language } from '../../types';
+import { formatDate } from '../../util/dateUtils';
+import getUrlParamAsArray from '../../util/getUrlParamAsArray';
 import {
   CULTURE_KEYWORDS,
   EVENT_SEARCH_FILTERS,
   EVENT_SORT_OPTIONS,
   INFLUENCE_KEYWORDS,
-  MUSEUM_KEYWORDS
-} from "./constants";
+  MUSEUM_KEYWORDS,
+} from './constants';
 
 /**
  * Get start and end dates to event list filtering
@@ -23,13 +23,13 @@ import {
 const getFilterDates = ({
   dateTypes,
   startTime,
-  endTime
+  endTime,
 }: {
   dateTypes: string[];
   startTime: string | null;
   endTime: string | null;
 }) => {
-  const dateFormat = "yyyy-MM-dd";
+  const dateFormat = 'yyyy-MM-dd';
 
   if (startTime || endTime) {
     return { end: endTime, start: startTime };
@@ -40,8 +40,8 @@ const getFilterDates = ({
   const saturday = formatDate(subDays(sunday, 1), dateFormat);
   const monday = startOfWeek(today, { weekStartsOn: 1 });
 
-  let end = "";
-  let start = "";
+  let end = '';
+  let start = '';
 
   if (dateTypes.includes(DATE_TYPES.ALL)) {
     return { end: null, start: null };
@@ -81,9 +81,9 @@ const getFilterDates = ({
  * @return {string}
  */
 export const getCurrentHour = (): string => {
-  const dateFormat = "yyyy-MM-dd";
+  const dateFormat = 'yyyy-MM-dd';
   const now = new Date();
-  return `${formatDate(now, dateFormat)}T${formatDate(now, "HH")}`;
+  return `${formatDate(now, dateFormat)}T${formatDate(now, 'HH')}`;
 };
 
 /**
@@ -97,7 +97,7 @@ export const getEventFilters = ({
   pageSize,
   params,
   sortOrder,
-  superEventType
+  superEventType,
 }: {
   include: string[];
   language: Language;
@@ -106,12 +106,12 @@ export const getEventFilters = ({
   sortOrder: EVENT_SORT_OPTIONS;
   superEventType: string[];
 }) => {
-  const dateFormat = "yyyy-MM-dd";
+  const dateFormat = 'yyyy-MM-dd';
   const dateTypes = getUrlParamAsArray(params, EVENT_SEARCH_FILTERS.DATE_TYPES);
   let { start, end } = getFilterDates({
     dateTypes,
     endTime: params.get(EVENT_SEARCH_FILTERS.END),
-    startTime: params.get(EVENT_SEARCH_FILTERS.START)
+    startTime: params.get(EVENT_SEARCH_FILTERS.START),
   });
 
   if (!start || isPast(new Date(start))) {
@@ -130,16 +130,16 @@ export const getEventFilters = ({
   const divisions = getUrlParamAsArray(params, EVENT_SEARCH_FILTERS.DIVISIONS);
   const mappedDivisions: string[] = divisions.length
     ? [...divisions]
-    : ["kunta:helsinki"];
+    : ['kunta:helsinki'];
 
   const keywords = getUrlParamAsArray(params, EVENT_SEARCH_FILTERS.KEYWORDS);
   const keywordAnd: string[] = [];
   keywords.forEach(keyword => {
     switch (keyword) {
       // Seniorit tags
-      case "kulke:354":
-      case "helmet:10675":
-        keywordAnd.push(...["kulke:354", "helmet:10675"]);
+      case 'kulke:354':
+      case 'helmet:10675':
+        keywordAnd.push(...['kulke:354', 'helmet:10675']);
         break;
       default:
         keywordAnd.push(keyword);
@@ -150,35 +150,35 @@ export const getEventFilters = ({
   );
 
   if (onlyChildrenEvents) {
-    keywordAnd.push("yso:p4354");
+    keywordAnd.push('yso:p4354');
   }
 
   const mappedCategories: string[] = categories.map(category => {
     switch (category) {
       case CATEGORIES.CULTURE:
-        return CULTURE_KEYWORDS.join(",");
+        return CULTURE_KEYWORDS.join(',');
       case CATEGORIES.DANCE:
-        return "yso:p1278";
+        return 'yso:p1278';
       case CATEGORIES.FOOD:
-        return "yso:p3670";
+        return 'yso:p3670';
       case CATEGORIES.INFLUENCE:
-        return INFLUENCE_KEYWORDS.join(",");
+        return INFLUENCE_KEYWORDS.join(',');
       case CATEGORIES.MISC:
-        return "yso:p2108";
+        return 'yso:p2108';
       case CATEGORIES.MOVIE:
-        return "yso:p1235";
+        return 'yso:p1235';
       case CATEGORIES.MUSEUM:
-        return MUSEUM_KEYWORDS.join(",");
+        return MUSEUM_KEYWORDS.join(',');
       case CATEGORIES.MUSIC:
-        return "yso:p1808";
+        return 'yso:p1808';
       case CATEGORIES.NATURE:
-        return "yso:p2771";
+        return 'yso:p2771';
       case CATEGORIES.SPORT:
-        return "yso:p965";
+        return 'yso:p965';
       case CATEGORIES.THEATRE:
-        return "yso:p2625";
+        return 'yso:p2625';
       default:
-        return "";
+        return '';
     }
   });
 
@@ -189,7 +189,7 @@ export const getEventFilters = ({
     end,
     include,
     isFree:
-      params.get(EVENT_SEARCH_FILTERS.IS_FREE) === "true" ? true : undefined,
+      params.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true' ? true : undefined,
     keyword: mappedCategories.sort(),
     keywordAnd,
     keywordNot: getUrlParamAsArray(params, EVENT_SEARCH_FILTERS.KEYWORD_NOT),
@@ -200,7 +200,7 @@ export const getEventFilters = ({
     sort: sortOrder,
     start,
     superEventType,
-    text: params.get(EVENT_SEARCH_FILTERS.TEXT)
+    text: params.get(EVENT_SEARCH_FILTERS.TEXT),
   };
 };
 
@@ -214,7 +214,7 @@ export const getNextPage = (
 ): number | null => {
   if (!eventsData || !eventsData.eventList.meta.next) return null;
 
-  const urlParts = eventsData.eventList.meta.next.split("?");
+  const urlParts = eventsData.eventList.meta.next.split('?');
   const searchParams = new URLSearchParams(decodeURIComponent(urlParts[1]));
   const page = searchParams.get(EVENT_SEARCH_FILTERS.PAGE);
   return page ? Number(page) : null;

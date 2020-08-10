@@ -1,8 +1,8 @@
-import { render, waitForDomChange } from "@testing-library/react";
-import React from "react";
+import { render, waitForDomChange } from '@testing-library/react';
+import React from 'react';
 
-import mockLandingPage from "../../__mocks__/landingPage";
-import LandingPageMeta from "../LandingPageMeta";
+import mockLandingPage from '../../__mocks__/landingPage';
+import LandingPageMeta from '../LandingPageMeta';
 
 const getWrapper = () =>
   render(<LandingPageMeta landingPage={mockLandingPage} />);
@@ -19,17 +19,17 @@ const getWrapper = () =>
 let initialHeadInnerHTML: any = null;
 
 beforeEach(() => {
-  const head = document.querySelector("head");
+  const head = document.querySelector('head');
   initialHeadInnerHTML = head && head.innerHTML;
 
-  document.head.innerHTML = "";
+  document.head.innerHTML = '';
 });
 
 afterEach(() => {
   document.head.innerHTML = initialHeadInnerHTML;
 });
 
-test("applies expected metadata", async () => {
+test('applies expected metadata', async () => {
   const landingPageTitle =
     mockLandingPage.pageTitle && mockLandingPage.pageTitle.fi;
   const landingPageDescription =
@@ -46,7 +46,7 @@ test("applies expected metadata", async () => {
   await waitForDomChange();
 
   const title = document.title;
-  const head = document.querySelector("head");
+  const head = document.querySelector('head');
   const metaDescription = head && head.querySelector('[name="description"]');
   const ogTitle = head && head.querySelector('[property="og:title"]');
   const ogDescription =
@@ -54,8 +54,8 @@ test("applies expected metadata", async () => {
   const ogImage = head && head.querySelector('[property="og:image"]');
 
   expect(title).toEqual(landingPageTitle);
-  expect(metaDescription).toHaveAttribute("content", landingPageDescription);
-  expect(ogTitle).toHaveAttribute("content", landingPageTitle);
-  expect(ogDescription).toHaveAttribute("content", landingPageDescription);
-  expect(ogImage).toHaveAttribute("content", landingPageImage);
+  expect(metaDescription).toHaveAttribute('content', landingPageDescription);
+  expect(ogTitle).toHaveAttribute('content', landingPageTitle);
+  expect(ogDescription).toHaveAttribute('content', landingPageDescription);
+  expect(ogImage).toHaveAttribute('content', landingPageImage);
 });

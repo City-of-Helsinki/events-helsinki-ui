@@ -1,10 +1,10 @@
-import { Koros } from "hds-react";
-import React, { FunctionComponent } from "react";
+import { Koros } from 'hds-react';
+import React, { FunctionComponent } from 'react';
 
-import Container from "../../../domain/app/layout/Container";
-import Icon404 from "../../../icons/Icon404";
-import isTestEnv from "../../../util/isTestEnv";
-import styles from "./errorHero.module.scss";
+import Container from '../../../domain/app/layout/Container';
+import Icon404 from '../../../icons/Icon404';
+import isTestEnv from '../../../util/isTestEnv';
+import styles from './errorHero.module.scss';
 
 interface Props {
   text: string;

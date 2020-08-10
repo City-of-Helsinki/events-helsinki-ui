@@ -1,11 +1,11 @@
-import { format as formatDateStr } from "date-fns";
-import isAfter from "date-fns/isAfter";
-import isValid from "date-fns/isValid";
-import { enGB as en, fi } from "date-fns/locale";
-import parse from "date-fns/parse";
-import get from "lodash/get";
+import { format as formatDateStr } from 'date-fns';
+import isAfter from 'date-fns/isAfter';
+import isValid from 'date-fns/isValid';
+import { enGB as en, fi } from 'date-fns/locale';
+import parse from 'date-fns/parse';
+import get from 'lodash/get';
 
-import sv from "./date-fns/locale/sv";
+import sv from './date-fns/locale/sv';
 
 const locales = { en, fi, sv };
 /**
@@ -16,15 +16,15 @@ const locales = { en, fi, sv };
  */
 export const formatDate = (
   date: Date | null,
-  format = "dd.MM.yyyy",
-  locale = "fi"
+  format = 'dd.MM.yyyy',
+  locale = 'fi'
 ): string => {
   if (!date) {
-    return "";
+    return '';
   }
 
   return formatDateStr(date, format, {
-    locale: get(locales, locale)
+    locale: get(locales, locale),
   }).trim();
 };
 
@@ -34,7 +34,7 @@ export const formatDate = (
  * @returns {boolean}
  */
 const isValidDate = (date: Date): boolean =>
-  isValid(date) && isAfter(date, new Date("1000-01-01"));
+  isValid(date) && isAfter(date, new Date('1000-01-01'));
 
 /**
  * Test is entered string a date string in Finnish format without dots (e.g. 31122019)
@@ -50,7 +50,7 @@ const isShortDateStr = (str: string) =>
  * @returns {object}
  */
 const getShortDateStr = (str: string): string =>
-  [str.substring(0, 2), str.substring(2, 4), str.substring(4, 9)].join(".");
+  [str.substring(0, 2), str.substring(2, 4), str.substring(4, 9)].join('.');
 
 /**
  * Get date object from valid Finnish date string
@@ -58,7 +58,7 @@ const getShortDateStr = (str: string): string =>
  * @returns {object}
  */
 const getParsedDate = (value: string): Date =>
-  parse(value, "dd.MM.yyyy", new Date(), { locale: fi });
+  parse(value, 'dd.MM.yyyy', new Date(), { locale: fi });
 
 /**
  * Convert string in Finnish date format (e.g. 31.12.2019) or in format without dots (e.g. 31122019) to Date object

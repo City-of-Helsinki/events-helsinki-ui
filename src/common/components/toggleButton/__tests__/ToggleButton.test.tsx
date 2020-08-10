@@ -1,15 +1,15 @@
-import * as React from "react";
-import renderer from "react-test-renderer";
+import * as React from 'react';
+import renderer from 'react-test-renderer';
 
-import ToggleButton from "../ToggleButton";
+import ToggleButton from '../ToggleButton';
 
-test("ToggleButton matches snapshot", () => {
+test('ToggleButton matches snapshot', () => {
   const component = renderer.create(
     <ToggleButton
       isSelected={true}
       onClick={() => {}}
-      text={"Test button"}
-      value={"test"}
+      text={'Test button'}
+      value={'test'}
     />
   );
   const tree = component.toJSON();

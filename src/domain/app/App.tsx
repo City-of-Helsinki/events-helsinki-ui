@@ -1,20 +1,20 @@
-import "../../assets/styles/main.scss";
-import "hds-core/lib/base.css";
-import "hds-core/lib/components/all.css";
+import '../../assets/styles/main.scss';
+import 'hds-core/lib/base.css';
+import 'hds-core/lib/components/all.css';
 
-import React, { FunctionComponent } from "react";
-import { useTranslation } from "react-i18next";
-import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
+import React, { FunctionComponent } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Redirect, Route, RouteComponentProps, Switch } from 'react-router';
 
-import { SUPPORT_LANGUAGES } from "../../constants";
-import CollectionPageContainer from "../collection/CollectionPageContainer";
-import CollectionListPage from "../collectionList/CollectionListPage";
-import EventPageContainer from "../event/EventPageContainer";
-import EventSearchPageContainer from "../eventSearch/EventSearchPageContainer";
-import LandingPage from "../landingPage/LandingPage";
-import LandingPagePreview from "../landingPage/LandingPagePreview";
-import NotFound from "../notFound/NotFound";
-import { ROUTES } from "./constants";
+import { SUPPORT_LANGUAGES } from '../../constants';
+import CollectionPageContainer from '../collection/CollectionPageContainer';
+import CollectionListPage from '../collectionList/CollectionListPage';
+import EventPageContainer from '../event/EventPageContainer';
+import EventSearchPageContainer from '../eventSearch/EventSearchPageContainer';
+import LandingPage from '../landingPage/LandingPage';
+import LandingPagePreview from '../landingPage/LandingPagePreview';
+import NotFound from '../notFound/NotFound';
+import { ROUTES } from './constants';
 
 const App: FunctionComponent<
   RouteComponentProps<{
@@ -22,8 +22,8 @@ const App: FunctionComponent<
   }>
 > = ({
   match: {
-    params: { locale }
-  }
+    params: { locale },
+  },
 }) => {
   const { i18n } = useTranslation();
 

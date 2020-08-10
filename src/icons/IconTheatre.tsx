@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 type Props = { className?: string };
 
 // TODO: Import this icon from HDS when it's added there
-export default ({ className = "" }: Props) => (
+export default ({ className = '' }: Props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="100%"

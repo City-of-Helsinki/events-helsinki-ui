@@ -1,20 +1,20 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router';
 
-import SimilarEventCard from "../../../common/components/eventCard/EventCard";
-import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
+import SimilarEventCard from '../../../common/components/eventCard/EventCard';
+import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
   EventFieldsFragment,
-  useEventListQuery
-} from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import { getSearchQuery } from "../../../util/searchUtils";
+  useEventListQuery,
+} from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import { getSearchQuery } from '../../../util/searchUtils';
 // Use same page size as on event search page
-import { EVENT_SORT_OPTIONS, PAGE_SIZE } from "../../eventSearch/constants";
-import { getEventFilters } from "../../eventSearch/EventListUtils";
-import { SIMILAR_EVENTS_AMOUNT } from "../constants";
-import styles from "./similarEvents.module.scss";
+import { EVENT_SORT_OPTIONS, PAGE_SIZE } from '../../eventSearch/constants';
+import { getEventFilters } from '../../eventSearch/EventListUtils';
+import { SIMILAR_EVENTS_AMOUNT } from '../constants';
+import styles from './similarEvents.module.scss';
 
 interface Props {
   event: EventFieldsFragment;
@@ -30,29 +30,29 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
     end: null,
     isFree: false,
     keywordNot: [],
-    keywords: event.keywords.map(keyword => keyword.id || "").filter(e => e),
+    keywords: event.keywords.map(keyword => keyword.id || '').filter(e => e),
     places: [],
     publisher: null,
     start: null,
-    text: ""
+    text: '',
   });
   // Filter by search query if exists, if not filter by event keywords
   const searchParams = new URLSearchParams(search ? search : eventSearch);
   const eventFilters = React.useMemo(() => {
     return getEventFilters({
-      include: ["keywords", "location"],
+      include: ['keywords', 'location'],
       language: locale,
       pageSize: PAGE_SIZE,
       params: searchParams,
       sortOrder: EVENT_SORT_OPTIONS.END_TIME,
-      superEventType: ["umbrella", "none"]
+      superEventType: ['umbrella', 'none'],
     });
   }, [locale, searchParams]);
   const { t } = useTranslation();
 
   const { data: eventsData, loading } = useEventListQuery({
     ssr: false,
-    variables: eventFilters
+    variables: eventFilters,
   });
 
   // To display only certain amount of events.
@@ -71,7 +71,7 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
         {!!events.length && (
           <>
             <h2 className={styles.similarEventsTitle}>
-              {t("event.similarEvents.title")}
+              {t('event.similarEvents.title')}
             </h2>
             <div className={styles.similarEventList}>
               {events.map(item => {

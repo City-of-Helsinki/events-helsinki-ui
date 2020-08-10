@@ -1,7 +1,7 @@
-import { stringify } from "query-string";
-import React, { ReactNode } from "react";
+import { stringify } from 'query-string';
+import React, { ReactNode } from 'react';
 
-import isClient from "../../../util/isClient";
+import isClient from '../../../util/isClient';
 
 interface Props {
   linkLabel: string;
@@ -16,9 +16,9 @@ const ShareLinkBase: React.FC<Props> = ({
   icon,
   url,
   queryParameters,
-  windowName
+  windowName,
 }) => {
-  const href = url + "?" + stringify(queryParameters);
+  const href = url + '?' + stringify(queryParameters);
 
   const handleButtonClick = () => {
     if (isClient) {
@@ -48,7 +48,7 @@ const getBoxPositionOnWindowCenter = (
   top:
     window.outerHeight / 2 +
     (window.screenY || window.screenTop || 0) -
-    height / 2
+    height / 2,
 });
 
 function openWindow(window: Window, href: string, name: string) {
@@ -57,25 +57,25 @@ function openWindow(window: Window, href: string, name: string) {
   const { left, top } = getBoxPositionOnWindowCenter(window, width, height);
   // https://github.com/nygardk/react-share/blob/29fa4b957e0ebc7e089207cbc5b07c373c6fb4e0/src/ShareButton.tsx#L26
   const config = {
-    centerscreen: "yes",
-    chrome: "yes",
-    directories: "no",
+    centerscreen: 'yes',
+    chrome: 'yes',
+    directories: 'no',
     height,
     left,
-    location: "no",
-    menubar: "no",
-    resizable: "no",
-    scrollbars: "yes",
-    status: "no",
-    toolbar: "no",
+    location: 'no',
+    menubar: 'no',
+    resizable: 'no',
+    scrollbars: 'yes',
+    status: 'no',
+    toolbar: 'no',
     top,
-    width
+    width,
   };
   // A comma separated list of key value pairs without whitespace.
   // E.g. height=400,width=400
   const windowFeatures = Object.entries(config)
     .map(([key, value]) => `${key}=${value}`)
-    .join(",");
+    .join(',');
 
   window.open(href, name, windowFeatures);
 }

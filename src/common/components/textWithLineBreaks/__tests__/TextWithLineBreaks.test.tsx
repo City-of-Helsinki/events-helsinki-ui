@@ -1,9 +1,9 @@
-import * as React from "react";
-import renderer from "react-test-renderer";
+import * as React from 'react';
+import renderer from 'react-test-renderer';
 
-import TextWithLineBreaks from "../TextWithLineBreaks";
+import TextWithLineBreaks from '../TextWithLineBreaks';
 
-test("TextWithLineBreaks matches snapshot", () => {
+test('TextWithLineBreaks matches snapshot', () => {
   const text = `Line 1
   Line 2`;
   const component = renderer.create(

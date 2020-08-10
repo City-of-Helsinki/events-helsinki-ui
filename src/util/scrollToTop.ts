@@ -1,4 +1,4 @@
-import isClient from "./isClient";
+import isClient from './isClient';
 
 export default () => {
   if (isClient) {

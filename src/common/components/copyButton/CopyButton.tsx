@@ -1,12 +1,12 @@
-import classNames from "classnames";
-import copy from "copy-to-clipboard";
-import React from "react";
+import classNames from 'classnames';
+import copy from 'copy-to-clipboard';
+import React from 'react';
 
-import useResetState from "../../../hooks/useResetState";
+import useResetState from '../../../hooks/useResetState';
 
 const MESSAGE_DISPLAY_TIME = 4000; // 4s
 
-type ButtonProps = JSX.IntrinsicElements["button"];
+type ButtonProps = JSX.IntrinsicElements['button'];
 interface Props extends ButtonProps {
   string: string;
   successClass?: string;
@@ -15,7 +15,7 @@ interface Props extends ButtonProps {
 
 const CopyButton: React.FC<Props> = ({
   string,
-  successClass = "success",
+  successClass = 'success',
   successMessage,
   ...rest
 }) => {
@@ -35,7 +35,7 @@ const CopyButton: React.FC<Props> = ({
         onClick={handleButtonClick}
         {...rest}
         className={classNames(rest.className, {
-          [successClass]: isShowCopySuccess
+          [successClass]: isShowCopySuccess,
         })}
       />
       {isShowCopySuccess && successMessage}

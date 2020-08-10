@@ -1,17 +1,17 @@
-import { IconAngleRight, IconLinkExternal, IconLocation } from "hds-react";
-import React from "react";
-import { useTranslation } from "react-i18next";
+import { IconAngleRight, IconLinkExternal, IconLocation } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { EventFieldsFragment } from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import getLocalisedString from "../../../util/getLocalisedString";
+import { EventFieldsFragment } from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import getLocalisedString from '../../../util/getLocalisedString';
 import {
   getGoogleDirectionsLink,
   getHslDirectionsLink,
-  getServiceMapUrl
-} from "../EventUtils";
-import styles from "./eventLocation.module.scss";
-import LocationText from "./EventLocationText";
+  getServiceMapUrl,
+} from '../EventUtils';
+import styles from './eventLocation.module.scss';
+import LocationText from './EventLocationText';
 
 interface Props {
   event: EventFieldsFragment;
@@ -27,7 +27,7 @@ const EventLocation: React.FC<Props> = ({ event }) => {
       <div className={styles.titleWrapper}>
         <div className={styles.title}>
           <IconLocation />
-          <h2>{t("event.location.title")}</h2>
+          <h2>{t('event.location.title')}</h2>
         </div>
         <a
           className={styles.mapLink}
@@ -35,13 +35,13 @@ const EventLocation: React.FC<Props> = ({ event }) => {
           rel="noopener noreferrer"
           target="_blank"
         >
-          {t("event.location.openMap")}
+          {t('event.location.openMap')}
           <IconLinkExternal size="xs" />
         </a>
       </div>
 
       <iframe
-        title={t("event.location.mapTitle")}
+        title={t('event.location.mapTitle')}
         className={styles.mapContainer}
         src={getServiceMapUrl(event, locale, true)}
       ></iframe>
@@ -60,7 +60,7 @@ const EventLocation: React.FC<Props> = ({ event }) => {
         rel="noopener noreferrer"
         target="_blank"
       >
-        {t("event.location.directionsGoogle")}
+        {t('event.location.directionsGoogle')}
         <IconAngleRight />
       </a>
       <a
@@ -69,7 +69,7 @@ const EventLocation: React.FC<Props> = ({ event }) => {
         rel="noopener noreferrer"
         target="_blank"
       >
-        {t("event.location.directionsHSL")}
+        {t('event.location.directionsHSL')}
         <IconAngleRight />
       </a>
     </div>

@@ -1,7 +1,7 @@
-import React from "react";
-import { useLocation } from "react-router";
+import React from 'react';
+import { useLocation } from 'react-router';
 
-import isClient from "../../util/isClient";
+import isClient from '../../util/isClient';
 
 export const updateLocaleParam = (
   url: string,

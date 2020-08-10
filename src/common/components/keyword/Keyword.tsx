@@ -1,11 +1,11 @@
-import classNames from "classnames";
-import React, { FunctionComponent } from "react";
+import classNames from 'classnames';
+import React, { FunctionComponent } from 'react';
 
-import styles from "./keyword.module.scss";
+import styles from './keyword.module.scss';
 
 interface Props {
   blackOnMobile?: boolean;
-  color?: "engelLight50" | "tramLight20";
+  color?: 'engelLight50' | 'tramLight20';
   hideOnMobile?: boolean;
   keyword: string;
   onClick: () => void;
@@ -16,7 +16,7 @@ const Keyword: FunctionComponent<Props> = ({
   color,
   hideOnMobile,
   keyword,
-  onClick
+  onClick,
 }) => {
   const handleClick = (ev: React.MouseEvent) => {
     ev.preventDefault();
@@ -27,7 +27,7 @@ const Keyword: FunctionComponent<Props> = ({
     <button
       className={classNames(styles.keyword, color && styles[color], {
         [styles.blackOnMobile]: blackOnMobile,
-        [styles.hideOnMobile]: hideOnMobile
+        [styles.hideOnMobile]: hideOnMobile,
       })}
       onClick={handleClick}
       type="button"

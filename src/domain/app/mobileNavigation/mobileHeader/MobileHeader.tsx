@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import Container from "../../layout/Container";
-import styles from "./mobileHeader.module.scss";
-import MobileNavbar from "./mobileNavbar/MobileNavbar";
+import Container from '../../layout/Container';
+import styles from './mobileHeader.module.scss';
+import MobileNavbar from './mobileNavbar/MobileNavbar';
 
 interface Props {
   isMenuOpen: boolean;
@@ -13,7 +13,7 @@ interface Props {
 const MobileHeader: React.FC<Props> = ({
   isMenuOpen,
   onCloseMenu,
-  onOpenMenu
+  onOpenMenu,
 }) => {
   return (
     <header className={styles.mobileHeaderWrapper}>

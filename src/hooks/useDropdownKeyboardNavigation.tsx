@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback } from 'react';
 
 interface Props {
   container: React.MutableRefObject<HTMLDivElement | null>;
@@ -7,18 +7,18 @@ interface Props {
 
 const useDropdownKeyboardNavigation = ({
   container,
-  listLength
+  listLength,
 }: Props): [number, Function, Function] => {
   const [focusedIndex, setFocusedIndex] = React.useState<number>(-1);
   const isStartingPosition = focusedIndex === -1;
 
   const focusOption = React.useCallback(
-    (direction: "down" | "up") => {
+    (direction: 'down' | 'up') => {
       switch (direction) {
-        case "down":
+        case 'down':
           setFocusedIndex(focusedIndex < listLength - 1 ? focusedIndex + 1 : 0);
           break;
-        case "up":
+        case 'up':
           setFocusedIndex(focusedIndex > 0 ? focusedIndex - 1 : listLength - 1);
           break;
       }
@@ -42,19 +42,19 @@ const useDropdownKeyboardNavigation = ({
       if (!isComponentFocused()) return;
 
       switch (event.key) {
-        case "ArrowUp":
+        case 'ArrowUp':
           if (isStartingPosition) {
             setFocusedIndex(listLength - 1);
           } else {
-            focusOption("up");
+            focusOption('up');
           }
           event.preventDefault();
           break;
-        case "ArrowDown":
-          focusOption("down");
+        case 'ArrowDown':
+          focusOption('down');
           event.preventDefault();
           break;
-        case "Escape":
+        case 'Escape':
           setFocusedIndex(-1);
           event.preventDefault();
           break;
@@ -64,11 +64,11 @@ const useDropdownKeyboardNavigation = ({
   );
 
   const setup = React.useCallback(() => {
-    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener('keydown', onKeyDown);
   }, [onKeyDown]);
 
   const teardown = React.useCallback(() => {
-    document.removeEventListener("keydown", onKeyDown);
+    document.removeEventListener('keydown', onKeyDown);
   }, [onKeyDown]);
 
   React.useEffect(() => {

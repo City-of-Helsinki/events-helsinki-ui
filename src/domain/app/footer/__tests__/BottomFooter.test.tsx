@@ -1,10 +1,10 @@
-import * as React from "react";
-import { MemoryRouter } from "react-router";
-import renderer from "react-test-renderer";
+import * as React from 'react';
+import { MemoryRouter } from 'react-router';
+import renderer from 'react-test-renderer';
 
-import BottomFooter from "../BottomFooter";
+import BottomFooter from '../BottomFooter';
 
-test("BottomFooter matches snapshot", () => {
+test('BottomFooter matches snapshot', () => {
   const component = renderer.create(
     <MemoryRouter>
       <BottomFooter />

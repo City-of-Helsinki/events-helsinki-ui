@@ -1,11 +1,11 @@
-import { render } from "@testing-library/react";
-import React from "react";
-import { MemoryRouter } from "react-router";
+import { render } from '@testing-library/react';
+import React from 'react';
+import { MemoryRouter } from 'react-router';
 
-import mockEvent from "../../__mocks__/eventDetails";
-import EventKeywords from "../EventKeywords";
+import mockEvent from '../../__mocks__/eventDetails';
+import EventKeywords from '../EventKeywords';
 
-it("EventKeywords matches snapshot", () => {
+it('EventKeywords matches snapshot', () => {
   const { container } = render(
     <MemoryRouter>
       <EventKeywords event={mockEvent} showIsFree={true} />

@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 interface Props {
-  as: "div" | "p";
+  as: 'div' | 'p';
   className?: string;
   text: string;
 }
@@ -9,7 +9,7 @@ interface Props {
 const TextWithLineBreaks: React.FC<Props> = ({ as: Tag, className, text }) => {
   return (
     <Tag className={className}>
-      {text.split("\n").map((item, key, parts) => {
+      {text.split('\n').map((item, key, parts) => {
         return (
           <React.Fragment key={key}>
             {item}

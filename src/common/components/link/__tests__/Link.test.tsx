@@ -1,16 +1,16 @@
-import pretty from "pretty";
-import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
-import { MemoryRouter } from "react-router";
+import pretty from 'pretty';
+import React from 'react';
+import { render, unmountComponentAtNode } from 'react-dom';
+import { act } from 'react-dom/test-utils';
+import { MemoryRouter } from 'react-router';
 
-import Link from "../Link";
+import Link from '../Link';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let container: any = null;
 beforeEach(() => {
   // setup a DOM element as a render target
-  container = document.createElement("div");
+  container = document.createElement('div');
   document.body.appendChild(container);
 });
 
@@ -21,7 +21,7 @@ afterEach(() => {
   container = null;
 });
 
-it("Link should be internal link", () => {
+it('Link should be internal link', () => {
   act(() => {
     render(
       <MemoryRouter>
@@ -45,7 +45,7 @@ it("Link should be internal link", () => {
   `);
 });
 
-it("Link should be external link", () => {
+it('Link should be external link', () => {
   act(() => {
     render(
       <MemoryRouter>

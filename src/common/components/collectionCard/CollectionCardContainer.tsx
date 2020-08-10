@@ -1,14 +1,14 @@
-import classNames from "classnames";
-import React from "react";
+import classNames from 'classnames';
+import React from 'react';
 
-import { getHeroBackgroundImage } from "../../../domain/collection/CollectionUtils";
-import { CollectionFieldsFragment } from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import getLocalisedString from "../../../util/getLocalisedString";
-import CollectionCard, { CollectionCardSize } from "./CollectionCard";
-import styles from "./collectionCardContainer.module.scss";
+import { getHeroBackgroundImage } from '../../../domain/collection/CollectionUtils';
+import { CollectionFieldsFragment } from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import getLocalisedString from '../../../util/getLocalisedString';
+import CollectionCard, { CollectionCardSize } from './CollectionCard';
+import styles from './collectionCardContainer.module.scss';
 
-export type CollectionCardListLayout = "sm" | "md" | "mdAndSm" | "lg";
+export type CollectionCardListLayout = 'sm' | 'md' | 'mdAndSm' | 'lg';
 
 interface CollectionCardContainerProps {
   collections: CollectionFieldsFragment[];
@@ -17,7 +17,7 @@ interface CollectionCardContainerProps {
 
 const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
   collections,
-  layout
+  layout,
 }) => {
   const locale = useLocale();
   return (
@@ -30,17 +30,17 @@ const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
       {collections.map((collection, index) => {
         const getCardSize = (): CollectionCardSize => {
           switch (layout) {
-            case "sm":
-              return "sm";
-            case "md":
-              return "md";
-            case "mdAndSm":
+            case 'sm':
+              return 'sm';
+            case 'md':
+              return 'md';
+            case 'mdAndSm':
               if (index % 5 === 0 || index % 5 === 4) {
-                return "md";
+                return 'md';
               }
-              return "sm";
-            case "lg":
-              return "lg";
+              return 'sm';
+            case 'lg':
+              return 'lg';
           }
         };
         const size = getCardSize();
@@ -52,7 +52,7 @@ const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
             description={getLocalisedString(collection.description, locale)}
             id={collection.id}
             size={size}
-            showDescription={size === "lg"}
+            showDescription={size === 'lg'}
             title={getLocalisedString(collection.title, locale)}
           />
         );

@@ -1,10 +1,10 @@
-import classNames from "classnames";
-import React, { FunctionComponent, MutableRefObject } from "react";
-import { useTranslation } from "react-i18next";
+import classNames from 'classnames';
+import React, { FunctionComponent, MutableRefObject } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import useLocale from "../../../hooks/useLocale";
-import DateRangePicker from "../dateRangePicker/DateRangePicker";
-import styles from "./mobileDateSelectorMenu.module.scss"; // the locale you want
+import useLocale from '../../../hooks/useLocale';
+import DateRangePicker from '../dateRangePicker/DateRangePicker';
+import styles from './mobileDateSelectorMenu.module.scss'; // the locale you want
 
 interface Props {
   closeBtnRef?: MutableRefObject<HTMLButtonElement | null>;
@@ -25,7 +25,7 @@ const MobileDateSelectorMenu: FunctionComponent<Props> = ({
   onChangeEndDate,
   onChangeStartDate,
   onCloseMenu,
-  startDate
+  startDate,
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
@@ -34,7 +34,7 @@ const MobileDateSelectorMenu: FunctionComponent<Props> = ({
     <div
       data-testid="mobile-date-selector-menu"
       className={classNames(styles.mobileDateSelectorMenu, {
-        [styles.isOpen]: isOpen
+        [styles.isOpen]: isOpen,
       })}
     >
       <div className={styles.wrapper}>
@@ -54,7 +54,7 @@ const MobileDateSelectorMenu: FunctionComponent<Props> = ({
         onClick={onCloseMenu}
       >
         <div className={styles.buttonText}>
-          {t("commons.dateSelector.menu.buttonClose")}
+          {t('commons.dateSelector.menu.buttonClose')}
         </div>
       </button>
     </div>

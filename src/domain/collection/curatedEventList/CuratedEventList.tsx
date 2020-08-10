@@ -1,19 +1,19 @@
-import classNames from "classnames";
-import React from "react";
-import { useTranslation } from "react-i18next";
+import classNames from 'classnames';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
+import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
   CollectionFieldsFragment,
-  useEventsByIdsQuery
-} from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import getLocalisedString from "../../../util/getLocalisedString";
-import Container from "../../app/layout/Container";
-import { getEventIdFromUrl, isEventClosed } from "../../event/EventUtils";
-import styles from "./curatedEventList.module.scss";
-import EventCards from "./EventCards";
-import OnlyExpiredEvents from "./OnlyExpiredEvents";
+  useEventsByIdsQuery,
+} from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import getLocalisedString from '../../../util/getLocalisedString';
+import Container from '../../app/layout/Container';
+import { getEventIdFromUrl, isEventClosed } from '../../event/EventUtils';
+import styles from './curatedEventList.module.scss';
+import EventCards from './EventCards';
+import OnlyExpiredEvents from './OnlyExpiredEvents';
 
 const PAST_EVENTS_DEFAULT_SIZE = 4;
 
@@ -28,13 +28,13 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
   const eventIds = React.useMemo(
     () =>
       collection.curatedEvents
-        .map(url => getEventIdFromUrl(url) || "")
+        .map(url => getEventIdFromUrl(url) || '')
         .filter(e => e),
     [collection.curatedEvents]
   );
 
   const { data: eventsData, loading } = useEventsByIdsQuery({
-    variables: { ids: eventIds, include: ["keywords", "location"] }
+    variables: { ids: eventIds, include: ['keywords', 'location'] },
   });
 
   const events = eventsData
@@ -61,7 +61,7 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
           <>
             <div
               className={classNames(styles.whiteBackground, {
-                [styles.hasEvents]: events.length
+                [styles.hasEvents]: events.length,
               })}
             >
               <Container>
@@ -73,7 +73,7 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
             </div>
             <div
               className={classNames(styles.content, {
-                [styles.hasEvents]: events.length
+                [styles.hasEvents]: events.length,
               })}
             >
               <Container>
@@ -81,7 +81,7 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
                 {!!visiblePastEvent.length && (
                   <>
                     <h3 className={styles.titlePastRecommendations}>
-                      {t("collection.titlePastRecommendations")}
+                      {t('collection.titlePastRecommendations')}
                     </h3>
                     <EventCards
                       events={visiblePastEvent}

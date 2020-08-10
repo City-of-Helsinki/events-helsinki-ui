@@ -1,29 +1,29 @@
-import { Button, IconSearch, IconSpeechbubbleText } from "hds-react";
-import React, { FunctionComponent } from "react";
-import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router";
+import { Button, IconSearch, IconSpeechbubbleText } from 'hds-react';
+import React, { FunctionComponent } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router';
 
-import CategoryFilter from "../../../common/components/category/CategoryFilter";
-import DateSelector from "../../../common/components/dateSelector/DateSelector";
-import Link from "../../../common/components/link/Link";
-import MobileDateSelector from "../../../common/components/mobileDateSelector/MobileDateSelector";
-import SearchAutosuggest from "../../../common/components/search/SearchAutosuggest";
-import SearchLabel from "../../../common/components/search/searchLabel/SearchLabel";
-import { AutosuggestMenuOption, Category } from "../../../common/types";
-import { CATEGORIES } from "../../../constants";
-import useLocale from "../../../hooks/useLocale";
-import IconCultureAndArts from "../../../icons/IconCultureAndArts";
-import IconDance from "../../../icons/IconDance";
-import IconFood from "../../../icons/IconFood";
-import IconMovies from "../../../icons/IconMovies";
-import IconMuseum from "../../../icons/IconMuseum";
-import IconMusic from "../../../icons/IconMusic";
-import IconSports from "../../../icons/IconSports";
-import IconTheatre from "../../../icons/IconTheatre";
-import IconTree from "../../../icons/IconTree";
-import { getSearchQuery } from "../../../util/searchUtils";
-import { ROUTES } from "../../app/constants";
-import styles from "./landingPageSearch.module.scss";
+import CategoryFilter from '../../../common/components/category/CategoryFilter';
+import DateSelector from '../../../common/components/dateSelector/DateSelector';
+import Link from '../../../common/components/link/Link';
+import MobileDateSelector from '../../../common/components/mobileDateSelector/MobileDateSelector';
+import SearchAutosuggest from '../../../common/components/search/SearchAutosuggest';
+import SearchLabel from '../../../common/components/search/searchLabel/SearchLabel';
+import { AutosuggestMenuOption, Category } from '../../../common/types';
+import { CATEGORIES } from '../../../constants';
+import useLocale from '../../../hooks/useLocale';
+import IconCultureAndArts from '../../../icons/IconCultureAndArts';
+import IconDance from '../../../icons/IconDance';
+import IconFood from '../../../icons/IconFood';
+import IconMovies from '../../../icons/IconMovies';
+import IconMuseum from '../../../icons/IconMuseum';
+import IconMusic from '../../../icons/IconMusic';
+import IconSports from '../../../icons/IconSports';
+import IconTheatre from '../../../icons/IconTheatre';
+import IconTree from '../../../icons/IconTree';
+import { getSearchQuery } from '../../../util/searchUtils';
+import { ROUTES } from '../../app/constants';
+import styles from './landingPageSearch.module.scss';
 
 const Search: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -32,7 +32,7 @@ const Search: FunctionComponent = () => {
   const [start, setStart] = React.useState<Date | null>(null);
   const [end, setEnd] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
-  const [searchValue, setSearchValue] = React.useState("");
+  const [searchValue, setSearchValue] = React.useState('');
   const { push } = useHistory();
 
   const handleCategoryClick = (category: Category) => {
@@ -47,7 +47,7 @@ const Search: FunctionComponent = () => {
       places: [],
       publisher: null,
       start,
-      text: ""
+      text: '',
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -57,55 +57,55 @@ const Search: FunctionComponent = () => {
     return [
       {
         icon: <IconMovies />,
-        text: t("home.category.movie"),
-        value: CATEGORIES.MOVIE
+        text: t('home.category.movie'),
+        value: CATEGORIES.MOVIE,
       },
       {
         icon: <IconMusic />,
-        text: t("home.category.music"),
-        value: CATEGORIES.MUSIC
+        text: t('home.category.music'),
+        value: CATEGORIES.MUSIC,
       },
       {
         icon: <IconSports />,
-        text: t("home.category.sport"),
-        value: CATEGORIES.SPORT
+        text: t('home.category.sport'),
+        value: CATEGORIES.SPORT,
       },
       {
         icon: <IconMuseum />,
-        text: t("home.category.museum"),
-        value: CATEGORIES.MUSEUM
+        text: t('home.category.museum'),
+        value: CATEGORIES.MUSEUM,
       },
       {
         icon: <IconDance />,
-        text: t("home.category.dance"),
-        value: CATEGORIES.DANCE
+        text: t('home.category.dance'),
+        value: CATEGORIES.DANCE,
       },
       {
         icon: <IconCultureAndArts />,
-        text: t("home.category.culture"),
-        value: CATEGORIES.CULTURE
+        text: t('home.category.culture'),
+        value: CATEGORIES.CULTURE,
       },
       {
         icon: <IconTree />,
-        text: t("home.category.nature"),
-        value: CATEGORIES.NATURE
+        text: t('home.category.nature'),
+        value: CATEGORIES.NATURE,
       },
       {
         icon: <IconSpeechbubbleText />,
-        text: t("home.category.influence"),
-        value: CATEGORIES.INFLUENCE
+        text: t('home.category.influence'),
+        value: CATEGORIES.INFLUENCE,
       },
       {
         icon: <IconTheatre />,
-        text: t("home.category.theatre"),
-        value: CATEGORIES.THEATRE
+        text: t('home.category.theatre'),
+        value: CATEGORIES.THEATRE,
       },
       {
         className: styles.categoryFood,
         icon: <IconFood />,
-        text: t("home.category.food"),
-        value: CATEGORIES.FOOD
-      }
+        text: t('home.category.food'),
+        value: CATEGORIES.FOOD,
+      },
     ];
   }, [t]);
 
@@ -129,7 +129,7 @@ const Search: FunctionComponent = () => {
       places: [],
       publisher: null,
       start,
-      text: ""
+      text: '',
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -138,7 +138,7 @@ const Search: FunctionComponent = () => {
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
     const type = option.type;
     const value = option.value;
-    const searchValue = option.type === "search" ? option.text : "";
+    const searchValue = option.type === 'search' ? option.text : '';
 
     const search = getSearchQuery({
       categories: [],
@@ -147,11 +147,11 @@ const Search: FunctionComponent = () => {
       end,
       isFree: false,
       keywordNot: [],
-      keywords: type === "keyword" || type === "yso" ? [value] : [],
+      keywords: type === 'keyword' || type === 'yso' ? [value] : [],
       places: [],
       publisher: null,
       start,
-      text: searchValue
+      text: searchValue,
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -164,25 +164,25 @@ const Search: FunctionComponent = () => {
         {/* <SupriseMeButton onClick={handleClickSupriseMe} /> */}
         <div className={styles.searchRow}>
           <div className={styles.titleWrapper}>
-            <h2>{t("home.search.title")}</h2>
+            <h2>{t('home.search.title')}</h2>
           </div>
           <div className={styles.autosuggestWrapper}>
-            <SearchLabel htmlFor={"search"}>
-              {t("home.search.labelSearchField")}
+            <SearchLabel htmlFor={'search'}>
+              {t('home.search.labelSearchField')}
             </SearchLabel>
             <SearchAutosuggest
               categories={[]}
               name="search"
               onChangeSearchValue={setSearchValue}
               onOptionClick={handleMenuOptionClick}
-              placeholder={t("home.search.placeholder")}
+              placeholder={t('home.search.placeholder')}
               searchValue={searchValue}
             />
           </div>
           <div className={styles.dateAndButtonWrapper}>
             <div className={styles.dateSelectorWrapper}>
               <SearchLabel color="black" htmlFor="date" srOnly={true}>
-                {t("home.search.labelDateRange")}
+                {t('home.search.labelDateRange')}
               </SearchLabel>
               <div className={styles.desktopDateSelector}>
                 <DateSelector
@@ -200,7 +200,7 @@ const Search: FunctionComponent = () => {
               <MobileDateSelector
                 dateTypes={dateTypes}
                 endDate={end}
-                name={"mobile_date"}
+                name={'mobile_date'}
                 onChangeDateTypes={handleChangeDateTypes}
                 onChangeEndDate={setEnd}
                 onChangeStartDate={setStart}
@@ -214,14 +214,14 @@ const Search: FunctionComponent = () => {
                 onClick={moveToSearchPage}
                 variant="success"
               >
-                {t("home.search.buttonSearch")}
+                {t('home.search.buttonSearch')}
               </Button>
             </div>
           </div>
         </div>
         <div className={styles.linkRow}>
           <Link color="white" size="small" to={`/${locale}${ROUTES.EVENTS}`}>
-            {t("home.search.linkAdvancedSearch")}
+            {t('home.search.linkAdvancedSearch')}
           </Link>
         </div>
       </div>

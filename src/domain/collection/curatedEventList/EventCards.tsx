@@ -1,10 +1,10 @@
-import { Button } from "hds-react";
-import React from "react";
-import { useTranslation } from "react-i18next";
+import { Button } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import LargeEventCard from "../../../common/components/eventCard/LargeEventCard";
-import { EventFieldsFragment } from "../../../generated/graphql";
-import styles from "./eventCards.module.scss";
+import LargeEventCard from '../../../common/components/eventCard/LargeEventCard';
+import { EventFieldsFragment } from '../../../generated/graphql';
+import styles from './eventCards.module.scss';
 
 interface Props {
   events: Array<EventFieldsFragment>;
@@ -15,7 +15,7 @@ interface Props {
 const EventCards: React.FC<Props> = ({
   events,
   onShowMore,
-  showMoreButton
+  showMoreButton,
 }) => {
   const { t } = useTranslation();
 
@@ -29,7 +29,7 @@ const EventCards: React.FC<Props> = ({
       {showMoreButton && (
         <div className={styles.loadMoreWrapper}>
           <Button onClick={onShowMore} variant="success">
-            {t("collection.buttonShowAllPastEvents")}
+            {t('collection.buttonShowAllPastEvents')}
           </Button>
         </div>
       )}

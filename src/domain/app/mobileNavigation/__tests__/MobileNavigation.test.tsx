@@ -1,20 +1,20 @@
-import { shallow } from "enzyme";
-import React from "react";
-import routeData, { MemoryRouter } from "react-router";
+import { shallow } from 'enzyme';
+import React from 'react';
+import routeData, { MemoryRouter } from 'react-router';
 
-import MobileNavigation from "../MobileNavigation";
+import MobileNavigation from '../MobileNavigation';
 
 const mockLocation = {
-  hash: "",
-  pathname: "/fi/home",
-  search: "",
-  state: ""
+  hash: '',
+  pathname: '/fi/home',
+  search: '',
+  state: '',
 };
 beforeEach(() => {
-  jest.spyOn(routeData, "useLocation").mockReturnValue(mockLocation);
+  jest.spyOn(routeData, 'useLocation').mockReturnValue(mockLocation);
 });
 
-it("MobileNavigation matches snapshot", () => {
+it('MobileNavigation matches snapshot', () => {
   const container = shallow(
     <MemoryRouter>
       <MobileNavigation />

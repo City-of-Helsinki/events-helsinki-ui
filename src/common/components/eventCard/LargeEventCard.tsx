@@ -1,29 +1,29 @@
-import classNames from "classnames";
-import { Button } from "hds-react";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { useHistory, useLocation } from "react-router";
-import { Link } from "react-router-dom";
+import classNames from 'classnames';
+import { Button } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useHistory, useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 
-import { ROUTES } from "../../../domain/app/constants";
-import EventKeywords from "../../../domain/event/eventKeywords/EventKeywords";
-import LocationText from "../../../domain/event/eventLocation/EventLocationText";
-import EventName from "../../../domain/event/eventName/EventName";
+import { ROUTES } from '../../../domain/app/constants';
+import EventKeywords from '../../../domain/event/eventKeywords/EventKeywords';
+import LocationText from '../../../domain/event/eventLocation/EventLocationText';
+import EventName from '../../../domain/event/eventName/EventName';
 import {
   getEventImageUrl,
   getEventPlaceholderImageUrl,
   getEventPrice,
   isEventClosed,
-  isEventFree
-} from "../../../domain/event/EventUtils";
-import { EventFieldsFragment } from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import getDateRangeStr from "../../../util/getDateRangeStr";
-import getLocalisedString from "../../../util/getLocalisedString";
-import testImage from "../../../util/testImage";
-import buttonStyles from "../button/button.module.scss";
-import SrOnly from "../srOnly/SrOnly";
-import styles from "./largeEventCard.module.scss";
+  isEventFree,
+} from '../../../domain/event/EventUtils';
+import { EventFieldsFragment } from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import getDateRangeStr from '../../../util/getDateRangeStr';
+import getLocalisedString from '../../../util/getLocalisedString';
+import testImage from '../../../util/testImage';
+import buttonStyles from '../button/button.module.scss';
+import SrOnly from '../srOnly/SrOnly';
+import styles from './largeEventCard.module.scss';
 
 interface Props {
   event: EventFieldsFragment;
@@ -42,7 +42,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
       getLocalisedString(item.infoUrl || {}, locale)
     );
 
-    return offer ? getLocalisedString(offer.infoUrl || {}, locale) : "";
+    return offer ? getLocalisedString(offer.infoUrl || {}, locale) : '';
   }, [event.offers, locale]);
 
   const moveToBuyTicketsPage = React.useCallback(() => {
@@ -50,7 +50,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
   }, [offerInfoUrl]);
 
   const eventUrl = React.useMemo(() => {
-    return `/${locale}${ROUTES.EVENT.replace(":id", event.id)}${search}`;
+    return `/${locale}${ROUTES.EVENT.replace(':id', event.id)}${search}`;
   }, [event.id, locale, search]);
 
   const moveToEventPage = () => {
@@ -81,7 +81,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
   return (
     <div
       className={classNames(styles.eventCard, {
-        [styles.eventClosed]: eventClosed
+        [styles.eventClosed]: eventClosed,
       })}
     >
       <Link
@@ -90,7 +90,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
         style={{
           backgroundImage: `url(${
             showBackupImage ? placeholderImage : imageUrl
-          })`
+          })`,
         }}
         tabIndex={-1}
         to={eventUrl}
@@ -124,7 +124,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
                 locale,
                 true,
                 true,
-                t("commons.timeAbbreviation")
+                t('commons.timeAbbreviation')
               )}
           </div>
           <Link
@@ -147,7 +147,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
             />
           </div>
           <div className={styles.eventPrice}>
-            {getEventPrice(event, locale, t("eventSearch.event.offers.isFree"))}
+            {getEventPrice(event, locale, t('eventSearch.event.offers.isFree'))}
           </div>
         </div>
         <div className={styles.buttonWrapper}>
@@ -155,13 +155,13 @@ const EventCard: React.FC<Props> = ({ event }) => {
             <div className={classNames(styles.buyButtonWrapper)}>
               {showBuyButton && (
                 <Button
-                  aria-label={t("eventSearch.event.ariaLabelBuyTickets")}
+                  aria-label={t('eventSearch.event.ariaLabelBuyTickets')}
                   fullWidth
                   onClick={moveToBuyTicketsPage}
                   size="small"
                   variant="success"
                 >
-                  {t("eventSearch.event.buttonBuyTickets")}
+                  {t('eventSearch.event.buttonBuyTickets')}
                 </Button>
               )}
             </div>
@@ -172,7 +172,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
                 onClick={moveToEventPage}
                 size="small"
               >
-                {t("eventSearch.event.buttonReadMore")}
+                {t('eventSearch.event.buttonReadMore')}
               </Button>
             </div>
           </>

@@ -1,18 +1,18 @@
-import * as Sentry from "@sentry/browser";
-import React from "react";
-import ReactDOM from "react-dom";
+import * as Sentry from '@sentry/browser';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import BrowserApp from "./domain/app/BrowserApp";
-import * as serviceWorker from "./serviceWorker";
+import BrowserApp from './domain/app/BrowserApp';
+import * as serviceWorker from './serviceWorker';
 
 if (process.env.REACT_APP_SENTRY_ENVIRONMENT) {
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
-    environment: process.env.REACT_APP_SENTRY_ENVIRONMENT
+    environment: process.env.REACT_APP_SENTRY_ENVIRONMENT,
   });
 }
 
-ReactDOM.hydrate(<BrowserApp />, document.getElementById("root"));
+ReactDOM.hydrate(<BrowserApp />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

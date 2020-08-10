@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 
 interface Props {
-  as?: "div" | "p" | "span";
+  as?: 'div' | 'p' | 'span';
   className?: string;
   maxLength?: number;
   text: string;
 }
 
 const TruncatedText: React.FC<Props> = ({
-  as: Tag = "div",
+  as: Tag = 'div',
   className,
   maxLength = 120,
-  text
+  text,
 }) => {
   return (
     <Tag className={className}>

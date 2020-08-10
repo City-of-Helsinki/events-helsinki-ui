@@ -1,10 +1,10 @@
-import { render, waitForDomChange } from "@testing-library/react";
-import React from "react";
+import { render, waitForDomChange } from '@testing-library/react';
+import React from 'react';
 
-import mockCollection from "../../__mocks__/collection";
+import mockCollection from '../../__mocks__/collection';
 import CollectionPageMeta, {
-  CollectionPageMetaProps
-} from "../CollectionPageMeta";
+  CollectionPageMetaProps,
+} from '../CollectionPageMeta';
 
 const getWrapper = (props: CollectionPageMetaProps) =>
   render(<CollectionPageMeta {...props} />);
@@ -22,17 +22,17 @@ let initialHeadInnerHTML: any = null;
 
 beforeEach(() => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const head: any = document.querySelector("head");
+  const head: any = document.querySelector('head');
   initialHeadInnerHTML = head.innerHTML;
 
-  document.head.innerHTML = "";
+  document.head.innerHTML = '';
 });
 
 afterEach(() => {
   document.head.innerHTML = initialHeadInnerHTML;
 });
 
-test("applies expected metadata", async () => {
+test('applies expected metadata', async () => {
   const collectionTitle = mockCollection.title.fi;
   const collectionDescription =
     mockCollection.socialMediaDescription &&
@@ -48,14 +48,14 @@ test("applies expected metadata", async () => {
 
   const title = document.title;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const head: any = document.querySelector("head");
+  const head: any = document.querySelector('head');
   const metaDescription = head.querySelector('[name="description"]');
   const ogTitle = head.querySelector('[property="og:title"]');
   const ogDescription = head.querySelector('[property="og:description"]');
   // TODO: Test also image url when implemented
 
   expect(title).toEqual(collectionTitle);
-  expect(metaDescription).toHaveAttribute("content", collectionDescription);
-  expect(ogTitle).toHaveAttribute("content", collectionTitle);
-  expect(ogDescription).toHaveAttribute("content", collectionDescription);
+  expect(metaDescription).toHaveAttribute('content', collectionDescription);
+  expect(ogTitle).toHaveAttribute('content', collectionTitle);
+  expect(ogDescription).toHaveAttribute('content', collectionDescription);
 });

@@ -1,19 +1,19 @@
-import { IconHome } from "hds-react";
-import React from "react";
-import { useTranslation } from "react-i18next";
+import { IconHome } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import MultiSelectDropdown, {
-  Option
-} from "../../../common/components/multiSelectDropdown/MultiSelectDropdown";
-import { usePlaceListQuery } from "../../../generated/graphql";
-import useDebounce from "../../../hooks/useDebounce";
-import useLocale from "../../../hooks/useLocale";
-import getLocalisedString from "../../../util/getLocalisedString";
-import isClient from "../../../util/isClient";
-import PlaceText from "../PlaceText";
+  Option,
+} from '../../../common/components/multiSelectDropdown/MultiSelectDropdown';
+import { usePlaceListQuery } from '../../../generated/graphql';
+import useDebounce from '../../../hooks/useDebounce';
+import useLocale from '../../../hooks/useLocale';
+import getLocalisedString from '../../../util/getLocalisedString';
+import isClient from '../../../util/isClient';
+import PlaceText from '../PlaceText';
 const { getPlaceDetailsFromCache } = isClient
   ? // eslint-disable-next-line @typescript-eslint/no-require-imports
-    require("../utils")
+    require('../utils')
   : { getPlaceDetailsFromCache: null };
 
 interface Props {
@@ -27,14 +27,14 @@ const PlaceSelector: React.FC<Props> = ({ name, setPlaces, value }) => {
   const locale = useLocale();
 
   const [placeOptions, setPlaceOptions] = React.useState<Option[]>([]);
-  const [internalInputValue, setInternalInputValue] = React.useState("");
+  const [internalInputValue, setInternalInputValue] = React.useState('');
   const searchValue = useDebounce(internalInputValue, 300);
 
   const { data: placesData, loading: loadingPlaces } = usePlaceListQuery({
     variables: {
       pageSize: 10,
-      text: searchValue
-    }
+      text: searchValue,
+    },
   });
 
   React.useEffect(() => {
@@ -43,7 +43,7 @@ const PlaceSelector: React.FC<Props> = ({ name, setPlaces, value }) => {
       (placesData &&
         placesData.placeList.data.map(place => ({
           text: getLocalisedString(place.name || {}, locale),
-          value: place.id || ""
+          value: place.id || '',
         }))) ||
       [];
 
@@ -73,10 +73,10 @@ const PlaceSelector: React.FC<Props> = ({ name, setPlaces, value }) => {
         onChange={setPlaces}
         options={placeOptions}
         renderOptionText={renderOptionText}
-        selectAllText={t("eventSearch.search.selectAllPlaces")}
+        selectAllText={t('eventSearch.search.selectAllPlaces')}
         setInputValue={setInternalInputValue}
         showSelectAll={true}
-        title={t("eventSearch.search.titleDropdownPlace")}
+        title={t('eventSearch.search.titleDropdownPlace')}
         value={value}
       />
     </>

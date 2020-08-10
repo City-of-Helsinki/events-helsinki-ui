@@ -1,6 +1,6 @@
-import { LandingPageFieldsFragment } from "../../generated/graphql";
-import { Language } from "../../types";
-import { LANDING_PAGE_SOME_IMAGE } from "./constants";
+import { LandingPageFieldsFragment } from '../../generated/graphql';
+import { Language } from '../../types';
+import { LANDING_PAGE_SOME_IMAGE } from './constants';
 
 /**
  * Get landing page hero background image
@@ -12,7 +12,7 @@ export const getHeroBackgroundImage = (
   landingPage: LandingPageFieldsFragment,
   locale: Language
 ): string => {
-  return (landingPage.heroBackgroundImage || {})[locale] || "";
+  return (landingPage.heroBackgroundImage || {})[locale] || '';
 };
 
 /**
@@ -25,7 +25,7 @@ export const getHeroBackgroundImageMobile = (
   landingPage: LandingPageFieldsFragment,
   locale: Language
 ): string => {
-  return (landingPage.heroBackgroundImageMobile || {})[locale] || "";
+  return (landingPage.heroBackgroundImageMobile || {})[locale] || '';
 };
 
 /**
@@ -38,7 +38,7 @@ export const getHeroTopLayerImage = (
   landingPage: LandingPageFieldsFragment,
   locale: Language
 ): string => {
-  return (landingPage.heroTopLayerImage || {})[locale] || "";
+  return (landingPage.heroTopLayerImage || {})[locale] || '';
 };
 
 /**

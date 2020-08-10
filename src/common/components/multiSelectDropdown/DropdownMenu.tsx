@@ -1,7 +1,7 @@
-import React, { FunctionComponent, MutableRefObject } from "react";
-import { useTranslation } from "react-i18next";
+import React, { FunctionComponent, MutableRefObject } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import styles from "./dropdownMenu.module.scss";
+import styles from './dropdownMenu.module.scss';
 
 interface Props {
   isOpen: boolean;
@@ -13,7 +13,7 @@ const DropdownMenu: FunctionComponent<Props> = ({
   buttonRef,
   children,
   isOpen,
-  onClear
+  onClear,
 }) => {
   const { t } = useTranslation();
   if (!isOpen) return null;
@@ -27,7 +27,7 @@ const DropdownMenu: FunctionComponent<Props> = ({
         ref={buttonRef}
         type="button"
       >
-        {t("commons.dropdown.menu.buttonClear")}
+        {t('commons.dropdown.menu.buttonClear')}
       </button>
     </div>
   );

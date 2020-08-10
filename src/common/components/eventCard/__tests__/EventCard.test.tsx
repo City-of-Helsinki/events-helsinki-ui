@@ -1,21 +1,21 @@
-import { shallow } from "enzyme";
-import React from "react";
-import routeData, { MemoryRouter } from "react-router";
+import { shallow } from 'enzyme';
+import React from 'react';
+import routeData, { MemoryRouter } from 'react-router';
 
-import mockEvent from "../../../../domain/event/__mocks__/eventDetails";
-import EventCard from "../EventCard";
+import mockEvent from '../../../../domain/event/__mocks__/eventDetails';
+import EventCard from '../EventCard';
 
 const mockLocation = {
-  hash: "",
-  pathname: "/fi/home",
-  search: "",
-  state: ""
+  hash: '',
+  pathname: '/fi/home',
+  search: '',
+  state: '',
 };
 beforeEach(() => {
-  jest.spyOn(routeData, "useLocation").mockReturnValue(mockLocation);
+  jest.spyOn(routeData, 'useLocation').mockReturnValue(mockLocation);
 });
 
-it("EventCard matches snapshot", () => {
+it('EventCard matches snapshot', () => {
   const container = shallow(
     <MemoryRouter>
       <EventCard event={mockEvent} />

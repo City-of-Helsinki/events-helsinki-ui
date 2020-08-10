@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { usePlaceDetailsQuery } from "../../generated/graphql";
-import useLocale from "../../hooks/useLocale";
-import getLocalisedString from "../../util/getLocalisedString";
+import { usePlaceDetailsQuery } from '../../generated/graphql';
+import useLocale from '../../hooks/useLocale';
+import getLocalisedString from '../../util/getLocalisedString';
 
 interface Props {
   id: string;
@@ -11,7 +11,7 @@ interface Props {
 const PlaceText: React.FC<Props> = ({ id }) => {
   const locale = useLocale();
   const { data } = usePlaceDetailsQuery({
-    variables: { id }
+    variables: { id },
   });
 
   return (

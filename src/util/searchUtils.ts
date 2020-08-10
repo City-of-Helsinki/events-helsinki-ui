@@ -1,9 +1,9 @@
-import forEach from "lodash/forEach";
-import isArray from "lodash/isArray";
-import isEmpty from "lodash/isEmpty";
-import isNumber from "lodash/isNumber";
+import forEach from 'lodash/forEach';
+import isArray from 'lodash/isArray';
+import isEmpty from 'lodash/isEmpty';
+import isNumber from 'lodash/isNumber';
 
-import { formatDate } from "./dateUtils";
+import { formatDate } from './dateUtils';
 
 interface Filters {
   categories: string[];
@@ -38,10 +38,10 @@ interface MappedFilters {
 export const getSearchQuery = (filters: Filters): string => {
   const newFilters: MappedFilters = {
     ...filters,
-    end: formatDate(filters.end, "yyyy-MM-dd"),
+    end: formatDate(filters.end, 'yyyy-MM-dd'),
     isFree: filters.isFree ? true : undefined,
     onlyChildrenEvents: filters.onlyChildrenEvents ? true : undefined,
-    start: formatDate(filters.start, "yyyy-MM-dd")
+    start: formatDate(filters.start, 'yyyy-MM-dd'),
   };
 
   if (newFilters.end || newFilters.start) {
@@ -50,7 +50,7 @@ export const getSearchQuery = (filters: Filters): string => {
   const query: string[] = [];
 
   forEach(newFilters, (filter, key) => {
-    if (!isEmpty(filter) || isNumber(filter) || typeof filter === "boolean") {
+    if (!isEmpty(filter) || isNumber(filter) || typeof filter === 'boolean') {
       if (isArray(filter)) {
         const items: Array<string | number> = [];
 
@@ -58,12 +58,12 @@ export const getSearchQuery = (filters: Filters): string => {
           items.push(encodeURIComponent(item));
         });
 
-        query.push(`${key}=${items.join(",")}`);
+        query.push(`${key}=${items.join(',')}`);
       } else if (filter != null) {
         query.push(`${key}=${encodeURIComponent(filter)}`);
       }
     }
   });
 
-  return query.length ? `?${query.join("&")}` : "";
+  return query.length ? `?${query.join('&')}` : '';
 };

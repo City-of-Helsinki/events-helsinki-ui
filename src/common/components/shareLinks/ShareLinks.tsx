@@ -1,14 +1,14 @@
-import classNames from "classnames";
-import React from "react";
-import { useTranslation } from "react-i18next";
+import classNames from 'classnames';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { ReactComponent as LinkIcon } from "../../../assets/icons/svg/link.svg";
-import isClient from "../../../util/isClient";
-import CopyButton from "../copyButton/CopyButton";
-import FacebookShareLink from "./FacebookShareLink";
-import LinkedInShareLink from "./LinkedInShareLink";
-import styles from "./shareLinks.module.scss";
-import TwitterShareLink from "./TwitterShareLink";
+import { ReactComponent as LinkIcon } from '../../../assets/icons/svg/link.svg';
+import isClient from '../../../util/isClient';
+import CopyButton from '../copyButton/CopyButton';
+import FacebookShareLink from './FacebookShareLink';
+import LinkedInShareLink from './LinkedInShareLink';
+import styles from './shareLinks.module.scss';
+import TwitterShareLink from './TwitterShareLink';
 
 export interface ShareLinksProps {
   title: string;
@@ -22,7 +22,7 @@ const ShareLinks: React.FC<ShareLinksProps> = ({ title }) => {
   // side because href value is different
   const href = isClient
     ? `${window.location.origin}${window.location.pathname}`
-    : "";
+    : '';
 
   return (
     <div className={styles.shareSubSection}>
@@ -38,10 +38,10 @@ const ShareLinks: React.FC<ShareLinksProps> = ({ title }) => {
             successClass={styles.linkCopyButtonSuccess}
             successMessage={
               <span className={styles.successTooltip}>
-                {t("commons.shareLinks.messageLinkCopySuccess")}
+                {t('commons.shareLinks.messageLinkCopySuccess')}
               </span>
             }
-            aria-label={t("commons.shareLinks.buttonCopyLink")}
+            aria-label={t('commons.shareLinks.buttonCopyLink')}
           >
             <LinkIcon />
           </CopyButton>

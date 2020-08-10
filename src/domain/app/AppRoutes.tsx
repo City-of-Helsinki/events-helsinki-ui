@@ -1,13 +1,13 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Redirect, Route, Switch } from "react-router";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Redirect, Route, Switch } from 'react-router';
 
-import { MobileMenuProvider } from "../../common/components/mobileMenu/MobileMenu";
-import { ResetFocus } from "../../common/route/RouteUtils";
-import { getCurrentLanguage } from "../../common/translation/TranslationUtils";
-import { SUPPORT_LANGUAGES } from "../../constants";
-import PageLayout from "../app/layout/PageLayout";
-import App from "./App";
+import { MobileMenuProvider } from '../../common/components/mobileMenu/MobileMenu';
+import { ResetFocus } from '../../common/route/RouteUtils';
+import { getCurrentLanguage } from '../../common/translation/TranslationUtils';
+import { SUPPORT_LANGUAGES } from '../../constants';
+import PageLayout from '../app/layout/PageLayout';
+import App from './App';
 
 const localeParam = `:locale(${SUPPORT_LANGUAGES.EN}|${SUPPORT_LANGUAGES.FI}|${SUPPORT_LANGUAGES.SV})`;
 

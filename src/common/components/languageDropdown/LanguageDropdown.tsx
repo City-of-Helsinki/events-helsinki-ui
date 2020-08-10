@@ -1,11 +1,11 @@
-import classNames from "classnames";
-import { IconAngleDown, IconGlobe } from "hds-react";
-import React from "react";
-import { useTranslation } from "react-i18next";
+import classNames from 'classnames';
+import { IconAngleDown, IconGlobe } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import useKeyboardNavigation from "../../../hooks/useDropdownKeyboardNavigation";
-import { Language } from "../../../types";
-import styles from "./languageDropdown.module.scss";
+import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
+import { Language } from '../../../types';
+import styles from './languageDropdown.module.scss';
 
 type LanguageOption = {
   label: string;
@@ -39,7 +39,7 @@ const ListItem: React.FC<{
       lang={option.value}
       className={classNames({
         [styles.isFocused]: isFocused,
-        [styles.isSelected]: isSelected
+        [styles.isSelected]: isSelected,
       })}
       onClick={handleOptionClick}
       role="menuitem"
@@ -59,7 +59,7 @@ interface Props {
 const LanguageDropdown: React.FC<Props> = ({
   languageOptions,
   onChange,
-  value
+  value,
 }) => {
   const container = React.useRef<HTMLDivElement>(null);
   const toggleButton = React.useRef<HTMLButtonElement>(null);
@@ -69,10 +69,10 @@ const LanguageDropdown: React.FC<Props> = ({
   const [
     focusedIndex,
     setupKeyboardNav,
-    teardownKeyboardNav
+    teardownKeyboardNav,
   ] = useKeyboardNavigation({
     container: container,
-    listLength: languageOptions.length
+    listLength: languageOptions.length,
   });
 
   const toggleMenu = () => {
@@ -133,22 +133,22 @@ const LanguageDropdown: React.FC<Props> = ({
       if (!isComponentFocused()) return;
 
       switch (event.key) {
-        case "ArrowUp":
+        case 'ArrowUp':
           ensureMenuIsOpen();
           event.preventDefault();
           break;
-        case "ArrowDown":
+        case 'ArrowDown':
           ensureMenuIsOpen();
           event.preventDefault();
           break;
-        case "Escape":
+        case 'Escape':
           if (isMenuOpen) {
             setIsMenuOpen(false);
             setFocusToButton();
             event.preventDefault();
           }
           break;
-        case "Enter":
+        case 'Enter':
           if (isMenuOpen) {
             const option = languageOptions[focusedIndex];
             handleOptionClick(option);
@@ -156,7 +156,7 @@ const LanguageDropdown: React.FC<Props> = ({
             event.preventDefault();
           }
           break;
-        case "Tab":
+        case 'Tab':
           setIsMenuOpen(false);
       }
     },
@@ -166,22 +166,22 @@ const LanguageDropdown: React.FC<Props> = ({
       handleOptionClick,
       isComponentFocused,
       isMenuOpen,
-      languageOptions
+      languageOptions,
     ]
   );
 
   React.useEffect(() => {
     setupKeyboardNav();
-    document.addEventListener("click", onDocumentClick);
-    document.addEventListener("focusin", onDocumentFocusin);
-    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener('click', onDocumentClick);
+    document.addEventListener('focusin', onDocumentFocusin);
+    document.addEventListener('keydown', onKeyDown);
 
     // Clean up event listener to prevent memory leaks
     return () => {
       teardownKeyboardNav();
-      document.removeEventListener("click", onDocumentClick);
-      document.removeEventListener("focusin", onDocumentFocusin);
-      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener('click', onDocumentClick);
+      document.removeEventListener('focusin', onDocumentFocusin);
+      document.removeEventListener('keydown', onKeyDown);
     };
   }, [onDocumentFocusin, onKeyDown, setupKeyboardNav, teardownKeyboardNav]);
 
@@ -189,7 +189,7 @@ const LanguageDropdown: React.FC<Props> = ({
     <div
       data-testid="language-dropdown"
       className={classNames(styles.languageDropdown, {
-        [styles.isMenuOpen]: isMenuOpen
+        [styles.isMenuOpen]: isMenuOpen,
       })}
       ref={container}
     >
@@ -198,7 +198,7 @@ const LanguageDropdown: React.FC<Props> = ({
         data-testid="language-dropdown-button"
         aria-haspopup="true"
         aria-expanded={isMenuOpen}
-        aria-label={t("header.changeLanguage")}
+        aria-label={t('header.changeLanguage')}
         className={styles.languageDropdownButton}
         onClick={toggleMenu}
       >

@@ -1,7 +1,7 @@
-import { getSearchQuery } from "../searchUtils";
+import { getSearchQuery } from '../searchUtils';
 
-describe("getSearchQuery function", () => {
-  it("get search query", () => {
+describe('getSearchQuery function', () => {
+  it('get search query', () => {
     expect(
       getSearchQuery({
         categories: [],
@@ -13,14 +13,14 @@ describe("getSearchQuery function", () => {
         places: [],
         publisher: null,
         start: null,
-        text: ""
+        text: '',
       })
-    ).toBe("");
+    ).toBe('');
 
     expect(
       getSearchQuery({
-        categories: ["category1", "category2"],
-        dateTypes: ["type1", "type2"],
+        categories: ['category1', 'category2'],
+        dateTypes: ['type1', 'type2'],
         divisions: [],
         end: null,
         keywordNot: [],
@@ -28,23 +28,23 @@ describe("getSearchQuery function", () => {
         places: [],
         publisher: null,
         start: null,
-        text: "test"
+        text: 'test',
       })
-    ).toBe("?categories=category1,category2&dateTypes=type1,type2&text=test");
+    ).toBe('?categories=category1,category2&dateTypes=type1,type2&text=test');
 
     expect(
       getSearchQuery({
         categories: [],
-        dateTypes: ["type1", "type2"],
+        dateTypes: ['type1', 'type2'],
         divisions: [],
-        end: new Date("2019-12-20"),
+        end: new Date('2019-12-20'),
         keywordNot: [],
         keywords: [],
         places: [],
         publisher: null,
-        start: new Date("2019-11-20"),
-        text: "test"
+        start: new Date('2019-11-20'),
+        text: 'test',
       })
-    ).toBe("?end=2019-12-20&start=2019-11-20&text=test");
+    ).toBe('?end=2019-12-20&start=2019-11-20&text=test');
   });
 });

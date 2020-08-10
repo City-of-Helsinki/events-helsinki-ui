@@ -1,28 +1,28 @@
-import classNames from "classnames";
-import { isThisWeek, isToday } from "date-fns";
-import { Button, IconArrowLeft, IconLocation, IconTicket } from "hds-react";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import classNames from 'classnames';
+import { isThisWeek, isToday } from 'date-fns';
+import { Button, IconArrowLeft, IconLocation, IconTicket } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
-import IconLink from "../../../common/components/link/IconLink";
-import { EventFieldsFragment } from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import getDateRangeStr from "../../../util/getDateRangeStr";
-import getLocalisedString from "../../../util/getLocalisedString";
-import testImage from "../../../util/testImage";
-import { ROUTES } from "../../app/constants";
-import Container from "../../app/layout/Container";
-import EventKeywords from "../eventKeywords/EventKeywords";
-import LocationText from "../eventLocation/EventLocationText";
-import EventName from "../eventName/EventName";
+import IconLink from '../../../common/components/link/IconLink';
+import { EventFieldsFragment } from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import getDateRangeStr from '../../../util/getDateRangeStr';
+import getLocalisedString from '../../../util/getLocalisedString';
+import testImage from '../../../util/testImage';
+import { ROUTES } from '../../app/constants';
+import Container from '../../app/layout/Container';
+import EventKeywords from '../eventKeywords/EventKeywords';
+import LocationText from '../eventLocation/EventLocationText';
+import EventName from '../eventName/EventName';
 import {
   getEventImageUrl,
   getEventPlaceholderImageUrl,
   getEventPrice,
-  isEventFree
-} from "../EventUtils";
-import styles from "./eventHero.module.scss";
+  isEventFree,
+} from '../EventUtils';
+import styles from './eventHero.module.scss';
 
 interface Props {
   event: EventFieldsFragment;
@@ -39,7 +39,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
       getLocalisedString(item.infoUrl || {}, locale)
     );
 
-    return offer ? getLocalisedString(offer.infoUrl || {}, locale) : "";
+    return offer ? getLocalisedString(offer.infoUrl || {}, locale) : '';
   }, [event.offers, locale]);
 
   const eventSearchUrl = React.useMemo(() => {
@@ -81,7 +81,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
         <div className={styles.contentWrapper}>
           <div className={styles.backButtonWrapper}>
             <IconLink
-              aria-label={t("event.hero.ariaLabelBackButton")}
+              aria-label={t('event.hero.ariaLabelBackButton')}
               backgroundColor="white"
               icon={<IconArrowLeft />}
               to={eventSearchUrl}
@@ -93,7 +93,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
               style={{
                 backgroundImage: `url(${
                   showBackupImage ? placeholderImage : imageUrl
-                })`
+                })`,
               }}
             />
           </div>
@@ -116,7 +116,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
                     locale,
                     true,
                     true,
-                    t("commons.timeAbbreviation")
+                    t('commons.timeAbbreviation')
                   )}
               </div>
               <div className={styles.title}>
@@ -151,8 +151,8 @@ const EventHero: React.FC<Props> = ({ event }) => {
                   {getEventPrice(
                     event,
                     locale,
-                    t("event.hero.offers.isFree")
-                  ) || "-"}
+                    t('event.hero.offers.isFree')
+                  ) || '-'}
                 </div>
               </div>
               {showBuyButton && (
@@ -164,11 +164,11 @@ const EventHero: React.FC<Props> = ({ event }) => {
                     )}
                   >
                     <Button
-                      aria-label={t("event.hero.ariaLabelBuyTickets")}
+                      aria-label={t('event.hero.ariaLabelBuyTickets')}
                       onClick={moveToBuyTicketsPage}
                       variant="success"
                     >
-                      {t("event.hero.buttonBuyTickets")}
+                      {t('event.hero.buttonBuyTickets')}
                     </Button>
                   </div>
                 </>

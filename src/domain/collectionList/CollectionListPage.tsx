@@ -1,13 +1,13 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import CollectionCardContainer from "../../common/components/collectionCard/CollectionCardContainer";
-import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
-import { useCollectionListQuery } from "../../generated/graphql";
-import useLocale from "../../hooks/useLocale";
-import Container from "../app/layout/Container";
-import PageWrapper from "../app/layout/PageWrapper";
-import styles from "./collectionListPage.module.scss";
+import CollectionCardContainer from '../../common/components/collectionCard/CollectionCardContainer';
+import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
+import { useCollectionListQuery } from '../../generated/graphql';
+import useLocale from '../../hooks/useLocale';
+import Container from '../app/layout/Container';
+import PageWrapper from '../app/layout/PageWrapper';
+import styles from './collectionListPage.module.scss';
 
 interface RouteParams {
   id: string;
@@ -34,7 +34,7 @@ const CollectionListPage: React.FC = () => {
       <LoadingSpinner isLoading={loading}>
         <div className={styles.largeCardWrapper}>
           <Container>
-            <h2>{t("collectionList.title")}</h2>
+            <h2>{t('collectionList.title')}</h2>
             <CollectionCardContainer
               collections={largeCollections}
               layout="lg"

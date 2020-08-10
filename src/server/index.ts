@@ -1,25 +1,25 @@
-import "isomorphic-fetch";
-import "hds-core/lib/base.css";
+import 'isomorphic-fetch';
+import 'hds-core/lib/base.css';
 
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { ApolloClient } from "apollo-client";
-import { HttpLink } from "apollo-link-http";
-import express, { Request, Response } from "express";
-import i18nextMiddleware from "i18next-express-middleware";
-import React from "react";
-import { getDataFromTree } from "react-apollo";
-import ReactDOMServer from "react-dom/server";
-import { Helmet } from "react-helmet";
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient } from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
+import express, { Request, Response } from 'express';
+import i18nextMiddleware from 'i18next-express-middleware';
+import React from 'react';
+import { getDataFromTree } from 'react-apollo';
+import ReactDOMServer from 'react-dom/server';
+import { Helmet } from 'react-helmet';
 
-import i18next from "../common/translation/i18n/init.server";
-import { SUPPORT_LANGUAGES } from "../constants";
-import getDomainFromRequest from "../util/getDomainFromRequest";
-import { getAssets } from "./assets";
-import Html from "./Html";
-import ServerApp from "./ServerApp";
+import i18next from '../common/translation/i18n/init.server';
+import { SUPPORT_LANGUAGES } from '../constants';
+import getDomainFromRequest from '../util/getDomainFromRequest';
+import { getAssets } from './assets';
+import Html from './Html';
+import ServerApp from './ServerApp';
 
-const OK = "OK";
-const SERVER_IS_NOT_READY = "SERVER_IS_NOT_READY";
+const OK = 'OK';
+const SERVER_IS_NOT_READY = 'SERVER_IS_NOT_READY';
 
 interface StaticContext {
   url?: string;
@@ -55,11 +55,11 @@ app.use(express.static(__dirname, { index: false }));
 
 app.use(i18nextMiddleware.handle(i18next));
 
-app.get("/healthz", (request, response) => {
+app.get('/healthz', (request, response) => {
   checkIsServerReady(response);
 });
 
-app.get("/readiness", (request, response) => {
+app.get('/readiness', (request, response) => {
   checkIsServerReady(response);
 });
 
@@ -67,9 +67,9 @@ app.use(async (req: Request, res: Response) => {
   const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: new HttpLink({
-      uri: process.env.REACT_APP_GRAPHQL_BASE_URL
+      uri: process.env.REACT_APP_GRAPHQL_BASE_URL,
     }),
-    ssrMode: true
+    ssrMode: true,
   });
   const context: StaticContext = {};
 
@@ -77,7 +77,7 @@ app.use(async (req: Request, res: Response) => {
     client,
     context,
     i18n: req.i18n,
-    url: req.url
+    url: req.url,
   });
 
   // Function to generate html and send response to client
@@ -97,7 +97,7 @@ app.use(async (req: Request, res: Response) => {
       helmet,
       initialI18nStore,
       initialLanguage,
-      state
+      state,
     });
 
     const html = ReactDOMServer.renderToString(htmlEl);
@@ -123,7 +123,7 @@ app.use(async (req: Request, res: Response) => {
     try {
       generateHtmlAndSendResponse();
     } catch (e) {
-      res.send("Something went very very wrong. Failed to catch error.");
+      res.send('Something went very very wrong. Failed to catch error.');
     }
   }
 });

@@ -1,16 +1,16 @@
-import "leaflet/dist/leaflet.css";
+import 'leaflet/dist/leaflet.css';
 
-import React from "react";
+import React from 'react';
 
-import markerIconUrl from "../../../assets/images/png/map-marker.png";
-import isClient from "../../../util/isClient";
-import styles from "./map.module.scss";
+import markerIconUrl from '../../../assets/images/png/map-marker.png';
+import isClient from '../../../util/isClient';
+import styles from './map.module.scss';
 
 // Import leaflet only on client because it breaks SSR
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const L = isClient ? require("leaflet") : null;
+const L = isClient ? require('leaflet') : null;
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const ReactLeaflet = isClient ? require("react-leaflet") : null;
+const ReactLeaflet = isClient ? require('react-leaflet') : null;
 
 // Allow map scroll only inside Helsinki
 const maxBounds = [{ lat: 60.33, lng: 25.33 }, { lat: 60.1, lng: 24.73 }];
@@ -33,7 +33,7 @@ const Map: React.FC<Props> = ({ coordinates, zoom }) => {
       iconAnchor: [20, 40],
       iconSize: [30, 30],
       iconUrl: markerIconUrl,
-      popupAnchor: [0, 0]
+      popupAnchor: [0, 0],
     });
   };
   const renderMarker = () =>
@@ -55,7 +55,7 @@ const Map: React.FC<Props> = ({ coordinates, zoom }) => {
           minZoom={11}
           maxZoom={18}
           maxBounds={maxBounds}
-          style={{ height: "100%", width: "100%" }}
+          style={{ height: '100%', width: '100%' }}
         >
           <ReactLeaflet.TileLayer url="https://tiles.hel.ninja/wmts/osm-sm/webmercator/{z}/{x}/{y}.png" />
           {renderMarker()}

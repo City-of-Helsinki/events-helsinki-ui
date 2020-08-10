@@ -1,10 +1,10 @@
-import { mount } from "enzyme";
-import * as React from "react";
+import { mount } from 'enzyme';
+import * as React from 'react';
 
-import mockLandingPage from "../../__mocks__/landingPage";
-import LandingPageHero from "../LandingPageHero";
+import mockLandingPage from '../../__mocks__/landingPage';
+import LandingPageHero from '../LandingPageHero';
 
-test("LandingPageHero matches snapshot", () => {
+test('LandingPageHero matches snapshot', () => {
   const tree = mount(<LandingPageHero landingPage={mockLandingPage} />);
   expect(tree.html()).toMatchSnapshot();
 });

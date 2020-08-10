@@ -1,5 +1,5 @@
-import React from "react";
-import serialize from "serialize-javascript";
+import React from 'react';
+import serialize from 'serialize-javascript';
 
 interface Props {
   assets: {
@@ -31,7 +31,7 @@ const Html: React.FC<Props> = ({
   state,
   canonicalUrl,
   initialI18nStore,
-  initialLanguage
+  initialLanguage,
 }) => {
   return (
     <html lang="en">
@@ -55,7 +55,7 @@ const Html: React.FC<Props> = ({
         {helmet.meta.toComponent()}
         {helmet.title.toComponent()}
         {helmet.link.toComponent()}
-        {Array.from(document.head.getElementsByTagName("style")).map(style => (
+        {Array.from(document.head.getElementsByTagName('style')).map(style => (
           <style type={style.type}>{style.innerHTML}</style>
         ))}
         {assets.css &&
@@ -71,18 +71,18 @@ const Html: React.FC<Props> = ({
           dangerouslySetInnerHTML={{
             __html: `window.__APOLLO_STATE__=${JSON.stringify(state).replace(
               /</g,
-              "\\u003c"
-            )};`
+              '\\u003c'
+            )};`,
           }}
         />
         <script
           dangerouslySetInnerHTML={{
             __html: [
               `window.initialI18nStore=${serialize(initialI18nStore, {
-                isJSON: true
+                isJSON: true,
               })};`,
-              `window.initialLanguage="${initialLanguage}";`
-            ].join("\n")
+              `window.initialLanguage="${initialLanguage}";`,
+            ].join('\n'),
           }}
         />
         {assets.js &&

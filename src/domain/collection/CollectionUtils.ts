@@ -1,6 +1,6 @@
-import { CollectionFieldsFragment } from "../../generated/graphql";
-import { Language } from "../../types";
-import { COLLECTION_DEFAULT_IMAGE, HERO_BACKGROUND_COLOR } from "./constants";
+import { CollectionFieldsFragment } from '../../generated/graphql';
+import { Language } from '../../types';
+import { COLLECTION_DEFAULT_IMAGE, HERO_BACKGROUND_COLOR } from './constants';
 
 /**
  * Get hero text content background color

@@ -1,12 +1,12 @@
-import classNames from "classnames";
-import React from "react";
-import { useTranslation } from "react-i18next";
+import classNames from 'classnames';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { EventListQuery } from "../../../generated/graphql";
-import Container from "../../app/layout/Container";
-import EventList from "./EventList";
-import NoResultsInfo from "./NoResultsInfo";
-import styles from "./searchResultList.module.scss";
+import { EventListQuery } from '../../../generated/graphql';
+import Container from '../../app/layout/Container';
+import EventList from './EventList';
+import NoResultsInfo from './NoResultsInfo';
+import styles from './searchResultList.module.scss';
 
 interface Props {
   eventsData: EventListQuery;
@@ -18,7 +18,7 @@ interface Props {
 const SearchResultList: React.FC<Props> = ({
   eventsData,
   loading,
-  onLoadMore
+  onLoadMore,
 }) => {
   const { t } = useTranslation();
   const count = eventsData.eventList.meta.count;
@@ -28,8 +28,8 @@ const SearchResultList: React.FC<Props> = ({
       <Container>
         <div className={classNames(styles.searchResultWrapper)}>
           <h2 className={styles.count}>
-            {t("eventSearch.textFoundEvents", {
-              count
+            {t('eventSearch.textFoundEvents', {
+              count,
             })}
           </h2>
           {!count && !loading && <NoResultsInfo />}

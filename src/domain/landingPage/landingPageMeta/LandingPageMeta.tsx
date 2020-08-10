@@ -1,10 +1,10 @@
-import React from "react";
-import { Helmet } from "react-helmet";
+import React from 'react';
+import { Helmet } from 'react-helmet';
 
-import { LandingPageFieldsFragment } from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import getLocalisedString from "../../../util/getLocalisedString";
-import { getLandingPageSomeImageUrl } from "../utils";
+import { LandingPageFieldsFragment } from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import getLocalisedString from '../../../util/getLocalisedString';
+import { getLandingPageSomeImageUrl } from '../utils';
 
 interface Props {
   landingPage: LandingPageFieldsFragment;
@@ -24,7 +24,7 @@ const EventPageMeta: React.FC<Props> = ({ landingPage }) => {
   const openGraphProperties: { [key: string]: string } = {
     description,
     image: image,
-    title
+    title,
   };
 
   return (

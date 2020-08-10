@@ -1,9 +1,9 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import Link from "../../../common/components/link/Link";
-import useLocale from "../../../hooks/useLocale";
-import { ROUTES } from "../../app/constants";
+import Link from '../../../common/components/link/Link';
+import useLocale from '../../../hooks/useLocale';
+import { ROUTES } from '../../app/constants';
 
 const OnlyExpiredEvents = () => {
   const locale = useLocale();
@@ -11,9 +11,9 @@ const OnlyExpiredEvents = () => {
 
   return (
     <div>
-      <p>{t("collection.curatedEvents.textOnlyExpiredEvents")}</p>
+      <p>{t('collection.curatedEvents.textOnlyExpiredEvents')}</p>
       <Link to={`/${locale}${ROUTES.COLLECTIONS}`}>
-        {t("collection.curatedEvents.linkOnlyExpiredEvents")}
+        {t('collection.curatedEvents.linkOnlyExpiredEvents')}
       </Link>
     </div>
   );

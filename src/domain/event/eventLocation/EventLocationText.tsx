@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import { EventFieldsFragment } from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import getLocalisedString from "../../../util/getLocalisedString";
-import { getEventDistrict } from "../EventUtils";
+import { EventFieldsFragment } from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import getLocalisedString from '../../../util/getLocalisedString';
+import { getEventDistrict } from '../EventUtils';
 
 interface Props {
   event: EventFieldsFragment;
@@ -14,7 +14,7 @@ interface Props {
 const EventLocationText: React.FC<Props> = ({
   event,
   showDistrict,
-  showLocationName
+  showLocationName,
 }) => {
   const locale = useLocale();
 
@@ -42,10 +42,10 @@ const EventLocationText: React.FC<Props> = ({
       showLocationName ? locationName : null,
       streetAddress,
       showDistrict ? district : null,
-      addressLocality
+      addressLocality,
     ]
       .filter(e => e)
-      .join(", ");
+      .join(', ');
   };
   return <>{getLocationStr()}</>;
 };

@@ -1,37 +1,37 @@
-import classNames from "classnames";
-import { Button, IconLocation, IconSearch } from "hds-react";
-import React, { FormEvent, FunctionComponent } from "react";
-import { useTranslation } from "react-i18next";
-import { useHistory, useLocation } from "react-router";
+import classNames from 'classnames';
+import { Button, IconLocation, IconSearch } from 'hds-react';
+import React, { FormEvent, FunctionComponent } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useHistory, useLocation } from 'react-router';
 
-import Checkbox from "../../common/components/checkbox/Checkbox";
-import DateSelector from "../../common/components/dateSelector/DateSelector";
-import MultiSelectDropdown from "../../common/components/multiSelectDropdown/MultiSelectDropdown";
-import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
-import SearchLabel from "../../common/components/search/searchLabel/SearchLabel";
-import { AutosuggestMenuOption } from "../../common/types";
-import { CATEGORIES } from "../../constants";
-import { useNeighborhoodListQuery } from "../../generated/graphql";
-import useLocale from "../../hooks/useLocale";
-import IconRead from "../../icons/IconRead";
-import getLocalisedString from "../../util/getLocalisedString";
-import getUrlParamAsArray from "../../util/getUrlParamAsArray";
-import { getSearchQuery } from "../../util/searchUtils";
-import { ROUTES } from "../app/constants";
-import Container from "../app/layout/Container";
-import PlaceSelector from "../place/placeSelector/PlaceSelector";
-import { EVENT_SEARCH_FILTERS } from "./constants";
-import FilterSummary from "./filterSummary/FilterSummary";
-import styles from "./search.module.scss";
+import Checkbox from '../../common/components/checkbox/Checkbox';
+import DateSelector from '../../common/components/dateSelector/DateSelector';
+import MultiSelectDropdown from '../../common/components/multiSelectDropdown/MultiSelectDropdown';
+import SearchAutosuggest from '../../common/components/search/SearchAutosuggest';
+import SearchLabel from '../../common/components/search/searchLabel/SearchLabel';
+import { AutosuggestMenuOption } from '../../common/types';
+import { CATEGORIES } from '../../constants';
+import { useNeighborhoodListQuery } from '../../generated/graphql';
+import useLocale from '../../hooks/useLocale';
+import IconRead from '../../icons/IconRead';
+import getLocalisedString from '../../util/getLocalisedString';
+import getUrlParamAsArray from '../../util/getUrlParamAsArray';
+import { getSearchQuery } from '../../util/searchUtils';
+import { ROUTES } from '../app/constants';
+import Container from '../app/layout/Container';
+import PlaceSelector from '../place/placeSelector/PlaceSelector';
+import { EVENT_SEARCH_FILTERS } from './constants';
+import FilterSummary from './filterSummary/FilterSummary';
+import styles from './search.module.scss';
 
 const Search: FunctionComponent = () => {
   const { search } = useLocation();
   const searchParams = React.useMemo(() => new URLSearchParams(search), [
-    search
+    search,
   ]);
   const { t } = useTranslation();
   const locale = useLocale();
-  const [searchValue, setSearchValue] = React.useState("");
+  const [searchValue, setSearchValue] = React.useState('');
   const [dateTypes, setDateTypes] = React.useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = React.useState<string[]>(
     []
@@ -45,9 +45,9 @@ const Search: FunctionComponent = () => {
 
   const publisher = searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER);
   const isFree =
-    searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === "true" ? true : false;
+    searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true' ? true : false;
   const onlyChildrenEvents =
-    searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === "true"
+    searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === 'true'
       ? true
       : false;
 
@@ -66,7 +66,7 @@ const Search: FunctionComponent = () => {
         ? neighborhoodsData.neighborhoodList.data
             .map(neighborhood => ({
               text: getLocalisedString(neighborhood.name, locale),
-              value: neighborhood.id
+              value: neighborhood.id,
             }))
             .sort((a, b) => (a.text >= b.text ? 1 : -1))
         : [],
@@ -76,49 +76,49 @@ const Search: FunctionComponent = () => {
   const categories = React.useMemo(
     () => [
       {
-        text: t("home.category.movie"),
-        value: CATEGORIES.MOVIE
+        text: t('home.category.movie'),
+        value: CATEGORIES.MOVIE,
       },
       {
-        text: t("home.category.music"),
-        value: CATEGORIES.MUSIC
+        text: t('home.category.music'),
+        value: CATEGORIES.MUSIC,
       },
       {
-        text: t("home.category.sport"),
-        value: CATEGORIES.SPORT
+        text: t('home.category.sport'),
+        value: CATEGORIES.SPORT,
       },
       {
-        text: t("home.category.museum"),
-        value: CATEGORIES.MUSEUM
+        text: t('home.category.museum'),
+        value: CATEGORIES.MUSEUM,
       },
       {
-        text: t("home.category.dance"),
-        value: CATEGORIES.DANCE
+        text: t('home.category.dance'),
+        value: CATEGORIES.DANCE,
       },
       {
-        text: t("home.category.culture"),
-        value: CATEGORIES.CULTURE
+        text: t('home.category.culture'),
+        value: CATEGORIES.CULTURE,
       },
       {
-        text: t("home.category.nature"),
-        value: CATEGORIES.NATURE
+        text: t('home.category.nature'),
+        value: CATEGORIES.NATURE,
       },
       {
-        text: t("home.category.influence"),
-        value: CATEGORIES.INFLUENCE
+        text: t('home.category.influence'),
+        value: CATEGORIES.INFLUENCE,
       },
       {
-        text: t("home.category.theatre"),
-        value: CATEGORIES.THEATRE
+        text: t('home.category.theatre'),
+        value: CATEGORIES.THEATRE,
       },
       {
-        text: t("home.category.food"),
-        value: CATEGORIES.FOOD
+        text: t('home.category.food'),
+        value: CATEGORIES.FOOD,
       },
       {
-        text: t("home.category.misc"),
-        value: CATEGORIES.MISC
-      }
+        text: t('home.category.misc'),
+        value: CATEGORIES.MISC,
+      },
     ],
     [t]
   );
@@ -144,7 +144,7 @@ const Search: FunctionComponent = () => {
       places,
       publisher,
       start,
-      text: searchValue
+      text: searchValue,
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -162,7 +162,7 @@ const Search: FunctionComponent = () => {
     push,
     searchValue,
     selectedCategories,
-    start
+    start,
   ]);
 
   // Initialize fields when page is loaded
@@ -191,7 +191,7 @@ const Search: FunctionComponent = () => {
       EVENT_SEARCH_FILTERS.PLACES
     );
 
-    setSearchValue(searchVal || "");
+    setSearchValue(searchVal || '');
 
     if (endTime) {
       setEnd(new Date(endTime));
@@ -220,7 +220,7 @@ const Search: FunctionComponent = () => {
     const type = option.type;
     const value = option.value;
 
-    const newSearchValue = option.type === "search" ? option.text : "";
+    const newSearchValue = option.type === 'search' ? option.text : '';
 
     // Get new keywords
     const newKeywords = getUrlParamAsArray(
@@ -228,7 +228,7 @@ const Search: FunctionComponent = () => {
       EVENT_SEARCH_FILTERS.KEYWORDS
     );
     if (
-      (type === "keyword" || type === "yso") &&
+      (type === 'keyword' || type === 'yso') &&
       !newKeywords.includes(value)
     ) {
       newKeywords.push(value);
@@ -246,11 +246,11 @@ const Search: FunctionComponent = () => {
       places,
       publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
       start,
-      text: newSearchValue
+      text: newSearchValue,
     });
     switch (type) {
-      case "keyword":
-      case "yso":
+      case 'keyword':
+      case 'yso':
         setKeywords(newKeywords);
         break;
     }
@@ -273,7 +273,7 @@ const Search: FunctionComponent = () => {
       places,
       publisher,
       start,
-      text: searchValue
+      text: searchValue,
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -292,7 +292,7 @@ const Search: FunctionComponent = () => {
       places,
       publisher,
       start,
-      text: searchValue
+      text: searchValue,
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -316,14 +316,14 @@ const Search: FunctionComponent = () => {
                 <div className={classNames(styles.row, styles.autoSuggestRow)}>
                   <div>
                     <SearchLabel color="black" htmlFor="search">
-                      {t("eventSearch.search.labelSearchField")}
+                      {t('eventSearch.search.labelSearchField')}
                     </SearchLabel>
                     <SearchAutosuggest
                       categories={[]}
                       name="search"
                       onChangeSearchValue={setSearchValue}
                       onOptionClick={handleMenuOptionClick}
-                      placeholder={t("eventSearch.search.placeholder")}
+                      placeholder={t('eventSearch.search.placeholder')}
                       searchValue={searchValue}
                     />
                   </div>
@@ -338,7 +338,7 @@ const Search: FunctionComponent = () => {
                       name="category"
                       onChange={setSelectedCategories}
                       options={categories}
-                      title={t("eventSearch.search.titleDropdownCategory")}
+                      title={t('eventSearch.search.titleDropdownCategory')}
                       value={selectedCategories}
                     />
                   </div>
@@ -362,9 +362,9 @@ const Search: FunctionComponent = () => {
                       name="division"
                       onChange={setDivisions}
                       options={divisionOptions}
-                      selectAllText={t("eventSearch.search.selectAllDivisions")}
+                      selectAllText={t('eventSearch.search.selectAllDivisions')}
                       showSelectAll={true}
-                      title={t("eventSearch.search.titleDropdownDivision")}
+                      title={t('eventSearch.search.titleDropdownDivision')}
                       value={divisions}
                     />
                   </div>
@@ -383,7 +383,7 @@ const Search: FunctionComponent = () => {
                     onClick={moveToSearchPage}
                     variant="success"
                   >
-                    {t("eventSearch.search.buttonSearch")}
+                    {t('eventSearch.search.buttonSearch')}
                   </Button>
                 </div>
               </div>
@@ -394,7 +394,7 @@ const Search: FunctionComponent = () => {
                       className={styles.checkbox}
                       checked={onlyChildrenEvents}
                       id={EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS}
-                      label={t("eventSearch.search.checkboxOnlyChildrenEvents")}
+                      label={t('eventSearch.search.checkboxOnlyChildrenEvents')}
                       onChange={handleOnlyChildrenEventChange}
                     />
                   </div>
@@ -403,7 +403,7 @@ const Search: FunctionComponent = () => {
                       className={styles.checkbox}
                       checked={isFree}
                       id={EVENT_SEARCH_FILTERS.IS_FREE}
-                      label={t("eventSearch.search.checkboxIsFree")}
+                      label={t('eventSearch.search.checkboxIsFree')}
                       onChange={handleIsFreeChange}
                     />
                   </div>

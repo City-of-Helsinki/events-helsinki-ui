@@ -1,17 +1,17 @@
-import classNames from "classnames";
-import { IconAngleRight, ImageWithCard } from "hds-react";
-import React from "react";
+import classNames from 'classnames';
+import { IconAngleRight, ImageWithCard } from 'hds-react';
+import React from 'react';
 
-import TextWithLineBreaks from "../../../common/components/textWithLineBreaks/TextWithLineBreaks";
-import { CollectionFieldsFragment } from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import getLocalisedString from "../../../util/getLocalisedString";
-import CollectionShareLinks from "../collectionShareLinks/CollectionShareLinks";
+import TextWithLineBreaks from '../../../common/components/textWithLineBreaks/TextWithLineBreaks';
+import { CollectionFieldsFragment } from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import getLocalisedString from '../../../util/getLocalisedString';
+import CollectionShareLinks from '../collectionShareLinks/CollectionShareLinks';
 import {
   getHeroBackgroundColor,
-  getHeroBackgroundImage
-} from "../CollectionUtils";
-import styles from "./collectionHero.module.scss";
+  getHeroBackgroundImage,
+} from '../CollectionUtils';
+import styles from './collectionHero.module.scss';
 
 interface Props {
   collection: CollectionFieldsFragment;

@@ -1,16 +1,16 @@
-import classNames from "classnames";
-import unescape from "lodash/unescape";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import sanitizeHtml from "sanitize-html";
+import classNames from 'classnames';
+import unescape from 'lodash/unescape';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import sanitizeHtml from 'sanitize-html';
 
-import ShareLinks from "../../../common/components/shareLinks/ShareLinks";
-import { EventFieldsFragment } from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import getLocalisedString from "../../../util/getLocalisedString";
-import EventInfo from "../eventInfo/EventInfo";
-import EventLocation from "../eventLocation/EventLocation";
-import styles from "./eventContent.module.scss";
+import ShareLinks from '../../../common/components/shareLinks/ShareLinks';
+import { EventFieldsFragment } from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import getLocalisedString from '../../../util/getLocalisedString';
+import EventInfo from '../eventInfo/EventInfo';
+import EventLocation from '../eventLocation/EventLocation';
+import styles from './eventContent.module.scss';
 
 interface Props {
   event: EventFieldsFragment;
@@ -32,17 +32,17 @@ const EventContent: React.FC<Props> = ({ event }) => {
         {description && (
           <>
             <h2 className={styles.descriptionTitle}>
-              {t("event.description.title")}
+              {t('event.description.title')}
             </h2>
             <div
               className={styles.description}
               dangerouslySetInnerHTML={{
-                __html: sanitizeHtml(unescape(description))
+                __html: sanitizeHtml(unescape(description)),
               }}
             />
           </>
         )}
-        <ShareLinks title={t("event.shareLinks.title")} />
+        <ShareLinks title={t('event.shareLinks.title')} />
         <div
           className={classNames(
             styles.horizontalDivider,

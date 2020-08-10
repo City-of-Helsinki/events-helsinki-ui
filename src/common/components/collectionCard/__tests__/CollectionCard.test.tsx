@@ -1,14 +1,14 @@
-import * as React from "react";
-import { MemoryRouter } from "react-router";
-import renderer from "react-test-renderer";
+import * as React from 'react';
+import { MemoryRouter } from 'react-router';
+import renderer from 'react-test-renderer';
 
-import CollectionCard from "../CollectionCard";
+import CollectionCard from '../CollectionCard';
 
-test("CollectionCard matches snapshot", () => {
+test('CollectionCard matches snapshot', () => {
   const component = renderer.create(
     <MemoryRouter>
       <CollectionCard
-        backgroundImage={"imageurl.png"}
+        backgroundImage={'imageurl.png'}
         count={120}
         description="Lorem ipsum"
         id="1"

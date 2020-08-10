@@ -1,17 +1,17 @@
-import { Button } from "hds-react";
-import React from "react";
+import { Button } from 'hds-react';
+import React from 'react';
 
-import Container from "../../../domain/app/layout/Container";
-import { LandingPageFieldsFragment } from "../../../generated/graphql";
-import useIsSmallScreen from "../../../hooks/useIsSmallScreen";
-import useLocale from "../../../hooks/useLocale";
-import getLocalisedString from "../../../util/getLocalisedString";
+import Container from '../../../domain/app/layout/Container';
+import { LandingPageFieldsFragment } from '../../../generated/graphql';
+import useIsSmallScreen from '../../../hooks/useIsSmallScreen';
+import useLocale from '../../../hooks/useLocale';
+import getLocalisedString from '../../../util/getLocalisedString';
 import {
   getHeroBackgroundImage,
   getHeroBackgroundImageMobile,
-  getHeroTopLayerImage
-} from "../utils";
-import styles from "./landingPageHero.module.scss";
+  getHeroTopLayerImage,
+} from '../utils';
+import styles from './landingPageHero.module.scss';
 
 interface Props {
   landingPage: LandingPageFieldsFragment;
@@ -37,7 +37,7 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
   const heroTopLayerImage = getHeroTopLayerImage(landingPage, locale);
 
   const moveToCollectionPage = () => {
-    window.open(buttonUrl, "_self");
+    window.open(buttonUrl, '_self');
   };
 
   return (
@@ -46,7 +46,7 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
       style={{
         backgroundImage: `url(${
           isSmallScreen ? heroBackgroundImageMobile : heroBackgroundImage
-        })`
+        })`,
       }}
     >
       <div

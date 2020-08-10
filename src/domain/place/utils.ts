@@ -1,16 +1,16 @@
 import {
   Maybe,
   PlaceDetailsDocument,
-  PlaceDetailsQuery
-} from "../../generated/graphql";
-import apolloClient from "../app/apollo/apolloClient";
+  PlaceDetailsQuery,
+} from '../../generated/graphql';
+import apolloClient from '../app/apollo/apolloClient';
 
 export const getPlaceDetailsFromCache = (
   id: string
 ): Maybe<PlaceDetailsQuery> => {
   const data = apolloClient.readQuery<PlaceDetailsQuery>({
     query: PlaceDetailsDocument,
-    variables: { id }
+    variables: { id },
   });
 
   return data;

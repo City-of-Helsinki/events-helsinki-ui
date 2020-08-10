@@ -1,6 +1,6 @@
-import { ReactElement } from "react";
+import { ReactElement } from 'react';
 
-import { AUTOSUGGEST_TYPES } from "../constants";
+import { AUTOSUGGEST_TYPES } from '../constants';
 
 export interface AutosuggestMenuOption {
   text: string;

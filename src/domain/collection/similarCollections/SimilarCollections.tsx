@@ -1,17 +1,17 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import CollectionCardContainer from "../../../common/components/collectionCard/CollectionCardContainer";
-import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
+import CollectionCardContainer from '../../../common/components/collectionCard/CollectionCardContainer';
+import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
   CollectionFieldsFragment,
-  useCollectionListQuery
-} from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import isClient from "../../../util/isClient";
-import Container from "../../app/layout/Container";
-import { SIMILAR_COLLECTIONS_AMOUNT } from "../constants";
-import styles from "./similarCollections.module.scss";
+  useCollectionListQuery,
+} from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import isClient from '../../../util/isClient';
+import Container from '../../app/layout/Container';
+import { SIMILAR_COLLECTIONS_AMOUNT } from '../constants';
+import styles from './similarCollections.module.scss';
 
 interface Props {
   collection: CollectionFieldsFragment;
@@ -22,7 +22,7 @@ const SimilarCollections: React.FC<Props> = ({ collection }) => {
   const locale = useLocale();
 
   const { data: collectionsData, loading } = useCollectionListQuery({
-    skip: !isClient
+    skip: !isClient,
   });
 
   const collections =
@@ -39,7 +39,7 @@ const SimilarCollections: React.FC<Props> = ({ collection }) => {
         <LoadingSpinner hasPadding={false} isLoading={loading}>
           {!!collections.length && (
             <>
-              <h2>{t("collection.titleSimilarCollections")}</h2>
+              <h2>{t('collection.titleSimilarCollections')}</h2>
               <CollectionCardContainer collections={collections} layout="sm" />
             </>
           )}

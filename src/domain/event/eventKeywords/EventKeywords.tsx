@@ -1,16 +1,16 @@
-import { isThisWeek, isToday } from "date-fns";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router";
+import { isThisWeek, isToday } from 'date-fns';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router';
 
-import Keyword from "../../../common/components/keyword/Keyword";
-import { DATE_TYPES } from "../../../constants";
-import { EventFieldsFragment } from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import scrollToTop from "../../../util/scrollToTop";
-import { getSearchQuery } from "../../../util/searchUtils";
-import { ROUTES } from "../../app/constants";
-import { getEventKeywords, isEventFree } from "../EventUtils";
+import Keyword from '../../../common/components/keyword/Keyword';
+import { DATE_TYPES } from '../../../constants';
+import { EventFieldsFragment } from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import scrollToTop from '../../../util/scrollToTop';
+import { getSearchQuery } from '../../../util/searchUtils';
+import { ROUTES } from '../../app/constants';
+import { getEventKeywords, isEventFree } from '../EventUtils';
 
 interface Props {
   blackOnMobile?: boolean;
@@ -24,7 +24,7 @@ const EventKeywords: React.FC<Props> = ({
   event,
   hideKeywordsOnMobile = false,
   showIsFree,
-  showKeywords = true
+  showKeywords = true,
 }) => {
   const history = useHistory();
   const { t } = useTranslation();
@@ -40,19 +40,19 @@ const EventKeywords: React.FC<Props> = ({
     return null;
   }
 
-  const handleClick = (type: "dateType" | "isFree" | "keyword", value = "") => {
+  const handleClick = (type: 'dateType' | 'isFree' | 'keyword', value = '') => {
     const search = getSearchQuery({
       categories: [],
-      dateTypes: type === "dateType" ? [value] : [],
+      dateTypes: type === 'dateType' ? [value] : [],
       divisions: [],
       end: null,
-      isFree: type === "isFree",
+      isFree: type === 'isFree',
       keywordNot: [],
-      keywords: type === "keyword" ? [value] : [],
+      keywords: type === 'keyword' ? [value] : [],
       places: [],
       publisher: null,
       start: null,
-      text: ""
+      text: '',
     });
 
     history.push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -70,29 +70,29 @@ const EventKeywords: React.FC<Props> = ({
               hideOnMobile={hideKeywordsOnMobile}
               key={keyword.id}
               keyword={keyword.name}
-              onClick={() => handleClick("keyword", keyword.id)}
+              onClick={() => handleClick('keyword', keyword.id)}
             />
           );
         })}
       {today && (
         <Keyword
           color="engelLight50"
-          keyword={t("event.categories.labelToday")}
-          onClick={() => handleClick("dateType", DATE_TYPES.TODAY)}
+          keyword={t('event.categories.labelToday')}
+          onClick={() => handleClick('dateType', DATE_TYPES.TODAY)}
         />
       )}
       {!today && thisWeek && (
         <Keyword
           color="engelLight50"
-          keyword={t("event.categories.labelThisWeek")}
-          onClick={() => handleClick("dateType", DATE_TYPES.THIS_WEEK)}
+          keyword={t('event.categories.labelThisWeek')}
+          onClick={() => handleClick('dateType', DATE_TYPES.THIS_WEEK)}
         />
       )}
       {showIsFree && isEventFree(event) && (
         <Keyword
           color="tramLight20"
-          keyword={t("event.categories.labelFree")}
-          onClick={() => handleClick("isFree")}
+          keyword={t('event.categories.labelFree')}
+          onClick={() => handleClick('isFree')}
         />
       )}
     </>

@@ -1,18 +1,18 @@
-import { IconSearch, IconStar } from "hds-react";
-import * as React from "react";
-import { useTranslation } from "react-i18next";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { IconSearch, IconStar } from 'hds-react';
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
-import LanguageDropdown from "../../../../common/components/languageDropdown/LanguageDropdown";
-import IconLink from "../../../../common/components/link/IconLink";
-import { updateLocaleParam } from "../../../../common/route/RouteUtils";
-import { getCurrentLanguage } from "../../../../common/translation/TranslationUtils";
-import { SUPPORT_LANGUAGES } from "../../../../constants";
-import useLocale from "../../../../hooks/useLocale";
-import { Language } from "../../../../types";
-import scrollToTop from "../../../../util/scrollToTop";
-import { ROUTES } from "../../constants";
-import styles from "./navbar.module.scss";
+import LanguageDropdown from '../../../../common/components/languageDropdown/LanguageDropdown';
+import IconLink from '../../../../common/components/link/IconLink';
+import { updateLocaleParam } from '../../../../common/route/RouteUtils';
+import { getCurrentLanguage } from '../../../../common/translation/TranslationUtils';
+import { SUPPORT_LANGUAGES } from '../../../../constants';
+import useLocale from '../../../../hooks/useLocale';
+import { Language } from '../../../../types';
+import scrollToTop from '../../../../util/scrollToTop';
+import { ROUTES } from '../../constants';
+import styles from './navbar.module.scss';
 
 const Navbar: React.FC = () => {
   const { i18n, t } = useTranslation();
@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
   const languageOptions = Object.values(SUPPORT_LANGUAGES).map(language => {
     return {
       label: t(`header.languages.${language}`),
-      value: language
+      value: language,
     };
   });
 
@@ -35,16 +35,16 @@ const Navbar: React.FC = () => {
         currentLanguage,
         newLanguage
       ),
-      search: location.search
+      search: location.search,
     });
   };
 
   return (
     <div className={styles.navbarTop}>
       <div className={styles.logoWrapper}>
-        <Link aria-label={t("header.ariaLabelLogo")} to={"/"}>
+        <Link aria-label={t('header.ariaLabelLogo')} to={'/'}>
           <div className={styles.logo} />
-          <div className={styles.appName}>{t("appName")}</div>
+          <div className={styles.appName}>{t('appName')}</div>
         </Link>
       </div>
 
@@ -52,13 +52,13 @@ const Navbar: React.FC = () => {
         <IconLink
           icon={<IconSearch />}
           onClick={scrollToTop}
-          text={t("header.searchEvents")}
+          text={t('header.searchEvents')}
           to={`/${locale}${ROUTES.EVENTS}`}
         />
         <IconLink
           icon={<IconStar />}
           onClick={scrollToTop}
-          text={t("header.searchCollections")}
+          text={t('header.searchCollections')}
           to={`/${locale}${ROUTES.COLLECTIONS}`}
         />
       </div>

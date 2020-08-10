@@ -1,16 +1,16 @@
-import classNames from "classnames";
-import { IconAngleDown, IconAngleUp } from "hds-react";
-import React from "react";
-import { useTranslation } from "react-i18next";
+import classNames from 'classnames';
+import { IconAngleDown, IconAngleUp } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import useKeyboardNavigation from "../../../hooks/useDropdownKeyboardNavigation";
-import Checkbox from "../checkbox/Checkbox";
-import ScrollIntoViewWithFocus from "../scrollIntoViewWithFocus/ScrollIntoViewWithFocus";
-import SearchLabel from "../search/searchLabel/SearchLabel";
-import DropdownMenu from "./DropdownMenu";
-import styles from "./multiSelectDropdown.module.scss";
+import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
+import Checkbox from '../checkbox/Checkbox';
+import ScrollIntoViewWithFocus from '../scrollIntoViewWithFocus/ScrollIntoViewWithFocus';
+import SearchLabel from '../search/searchLabel/SearchLabel';
+import DropdownMenu from './DropdownMenu';
+import styles from './multiSelectDropdown.module.scss';
 
-const SELECT_ALL = "SELECT_ALL";
+const SELECT_ALL = 'SELECT_ALL';
 
 export type Option = {
   text: string;
@@ -44,10 +44,10 @@ const Dropdown: React.FC<Props> = ({
   setInputValue,
   showSelectAll,
   title,
-  value
+  value,
 }) => {
   const { t } = useTranslation();
-  const [internalInput, setInternalInput] = React.useState("");
+  const [internalInput, setInternalInput] = React.useState('');
   const input = inputValue || internalInput;
 
   const inputWrapper = React.useRef<HTMLDivElement | null>(null);
@@ -58,13 +58,13 @@ const Dropdown: React.FC<Props> = ({
     return [
       showSelectAll
         ? {
-            text: selectAllText || t("commons.multiSelectDropdown.selectAll"),
-            value: SELECT_ALL
+            text: selectAllText || t('commons.multiSelectDropdown.selectAll'),
+            value: SELECT_ALL,
           }
         : undefined,
       ...options.filter(option =>
         option.text.toLowerCase().includes(input.toLowerCase())
-      )
+      ),
     ].filter(e => e) as Option[];
   }, [input, options, selectAllText, showSelectAll, t]);
 
@@ -81,10 +81,10 @@ const Dropdown: React.FC<Props> = ({
   const [
     focusedIndex,
     setupKeyboardNav,
-    teardownKeyboardNav
+    teardownKeyboardNav,
   ] = useKeyboardNavigation({
     container: dropdown,
-    listLength: filteredOptions.length
+    listLength: filteredOptions.length,
   });
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -146,16 +146,16 @@ const Dropdown: React.FC<Props> = ({
       if (!isComponentFocused()) return;
       switch (event.key) {
         // Close menu on ESC key
-        case "Escape":
+        case 'Escape':
           setIsMenuOpen(false);
           break;
-        case "ArrowUp":
+        case 'ArrowUp':
           ensureDropdownIsOpen();
           break;
-        case "ArrowDown":
+        case 'ArrowDown':
           ensureDropdownIsOpen();
           break;
-        case "Enter":
+        case 'Enter':
           if (isInputWrapperFocused()) {
             toggleMenu();
           }
@@ -176,15 +176,15 @@ const Dropdown: React.FC<Props> = ({
 
   React.useEffect(() => {
     setupKeyboardNav();
-    document.addEventListener("click", handleDocumentClick);
-    document.addEventListener("keydown", handleDocumentKeyDown);
-    document.addEventListener("focusin", handleDocumentFocusin);
+    document.addEventListener('click', handleDocumentClick);
+    document.addEventListener('keydown', handleDocumentKeyDown);
+    document.addEventListener('focusin', handleDocumentFocusin);
     // Clean up event listener to prevent memory leaks
     return () => {
       teardownKeyboardNav();
-      document.removeEventListener("click", handleDocumentClick);
-      document.removeEventListener("keydown", handleDocumentKeyDown);
-      document.removeEventListener("focusin", handleDocumentFocusin);
+      document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener('keydown', handleDocumentKeyDown);
+      document.removeEventListener('focusin', handleDocumentFocusin);
     };
   }, [handleDocumentKeyDown, setupKeyboardNav, teardownKeyboardNav]);
 
@@ -254,7 +254,7 @@ const Dropdown: React.FC<Props> = ({
             ref={inputRef}
             id={name}
             name={name}
-            placeholder={selectedText ? "" : title}
+            placeholder={selectedText ? '' : title}
             onChange={handleInputChange}
             value={input}
           />
@@ -284,8 +284,8 @@ const Dropdown: React.FC<Props> = ({
           return (
             <ScrollIntoViewWithFocus
               className={classNames(styles.dropdownItem, {
-                [styles["dropdownItem--first"]]: index === 0,
-                [styles["dropdownItem--isFocused"]]: isFocused
+                [styles['dropdownItem--first']]: index === 0,
+                [styles['dropdownItem--isFocused']]: isFocused,
               })}
               key={option.value}
               isFocused={isFocused}

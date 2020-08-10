@@ -1,19 +1,19 @@
-import "react-datepicker/dist/react-datepicker.css";
-import "./datePicker.scss";
+import 'react-datepicker/dist/react-datepicker.css';
+import './datePicker.scss';
 
-import isEqual from "date-fns/isEqual";
-import fi from "date-fns/locale/fi";
-import sv from "date-fns/locale/sv";
-import React, { FunctionComponent } from "react";
-import DatePicker, { registerLocale } from "react-datepicker";
-import { useTranslation } from "react-i18next";
+import isEqual from 'date-fns/isEqual';
+import fi from 'date-fns/locale/fi';
+import sv from 'date-fns/locale/sv';
+import React, { FunctionComponent } from 'react';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import { useTranslation } from 'react-i18next';
 
-import { DATE_PICKER_INPUT_STATE } from "../../../constants";
-import { formatDate } from "../../../util/dateUtils";
-import DateRangeInputs from "./DateRangeInputs";
+import { DATE_PICKER_INPUT_STATE } from '../../../constants';
+import { formatDate } from '../../../util/dateUtils';
+import DateRangeInputs from './DateRangeInputs';
 
-registerLocale("fi", fi);
-registerLocale("sv", sv);
+registerLocale('fi', fi);
+registerLocale('sv', sv);
 
 interface Props {
   endDate: Date | null;
@@ -32,7 +32,7 @@ const DateRangePicker: FunctionComponent<Props> = ({
   name,
   onChangeEndDate,
   onChangeStartDate,
-  startDate
+  startDate,
 }) => {
   const { t } = useTranslation();
   // References to input fields to set focus
@@ -105,10 +105,10 @@ const DateRangePicker: FunctionComponent<Props> = ({
   }, [endDate, startDate]);
 
   React.useEffect(() => {
-    document.addEventListener("focusin", handleDocumentFocusin);
+    document.addEventListener('focusin', handleDocumentFocusin);
     // Clean up event listener to prevent memory leaks
     return () => {
-      document.removeEventListener("focusin", handleDocumentFocusin);
+      document.removeEventListener('focusin', handleDocumentFocusin);
     };
   }, [handleDocumentFocusin]);
 
@@ -150,7 +150,7 @@ const DateRangePicker: FunctionComponent<Props> = ({
         selected={selectedDate}
         // Inline datepicker doesn't have field so keep datepicker alway open instead
         open
-        popperClassName={"react-datepicker__no-popper"}
+        popperClassName={'react-datepicker__no-popper'}
         showPopperArrow={false}
         onChange={(date: Date) => {
           switch (selectedDatePickerInput) {

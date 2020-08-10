@@ -1,11 +1,11 @@
-import { Checkbox as HdsCheckbox, CheckboxProps } from "hds-react";
-import React from "react";
+import { Checkbox as HdsCheckbox, CheckboxProps } from 'hds-react';
+import React from 'react';
 
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (props, ref) => {
     const customStyles = {
-      "--background-unselected": "var(--color-white)",
-      lineHeight: "24px"
+      '--background-unselected': 'var(--color-white)',
+      lineHeight: '24px',
     } as React.CSSProperties;
 
     return (

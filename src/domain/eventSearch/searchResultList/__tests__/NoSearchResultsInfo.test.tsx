@@ -1,9 +1,9 @@
-import * as React from "react";
-import renderer from "react-test-renderer";
+import * as React from 'react';
+import renderer from 'react-test-renderer';
 
-import NoResultsInfo from "../NoResultsInfo";
+import NoResultsInfo from '../NoResultsInfo';
 
-test("NoResultsInfo matches snapshot", () => {
+test('NoResultsInfo matches snapshot', () => {
   const component = renderer.create(<NoResultsInfo />);
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();

@@ -1,30 +1,30 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import CollectionCardContainer from "../../common/components/collectionCard/CollectionCardContainer";
-import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
+import CollectionCardContainer from '../../common/components/collectionCard/CollectionCardContainer';
+import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import {
   useCollectionListQuery,
-  useLandingPagesQuery
-} from "../../generated/graphql";
-import useLocale from "../../hooks/useLocale";
-import Container from "../app/layout/Container";
-import PageWrapper from "../app/layout/PageWrapper";
-import styles from "./landingPage.module.scss";
-import LandingPageHero from "./landingPageHero/LandingPageHero";
-import LandingPageMeta from "./landingPageMeta/LandingPageMeta";
-import Search from "./landingPageSearch/LandingPageSearch";
+  useLandingPagesQuery,
+} from '../../generated/graphql';
+import useLocale from '../../hooks/useLocale';
+import Container from '../app/layout/Container';
+import PageWrapper from '../app/layout/PageWrapper';
+import styles from './landingPage.module.scss';
+import LandingPageHero from './landingPageHero/LandingPageHero';
+import LandingPageMeta from './landingPageMeta/LandingPageMeta';
+import Search from './landingPageSearch/LandingPageSearch';
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
 
   const { data: landingPageData, loading } = useLandingPagesQuery({
-    variables: { visibleOnFrontpage: true }
+    variables: { visibleOnFrontpage: true },
   });
 
   const { data: collectionsData } = useCollectionListQuery({
-    variables: { visibleOnFrontpage: true }
+    variables: { visibleOnFrontpage: true },
   });
 
   const landingPage =
@@ -54,7 +54,7 @@ const Home: React.FC = () => {
             </Container>
             <div className={styles.collectionCardContainer}>
               <Container>
-                <h2>{t("home.collections.title")}</h2>
+                <h2>{t('home.collections.title')}</h2>
                 <CollectionCardContainer
                   collections={lgCollections}
                   layout="lg"

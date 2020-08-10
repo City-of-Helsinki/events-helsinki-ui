@@ -1,9 +1,9 @@
-import * as React from "react";
-import renderer from "react-test-renderer";
+import * as React from 'react';
+import renderer from 'react-test-renderer';
 
-import FilterButton from "../FilterButton";
+import FilterButton from '../FilterButton';
 
-test("FilterButton matches snapshot", () => {
+test('FilterButton matches snapshot', () => {
   const component = renderer.create(
     <FilterButton
       onRemove={() => {}}

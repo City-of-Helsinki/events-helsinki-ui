@@ -1,16 +1,16 @@
-import classNames from "classnames";
-import { IconSearch, IconStar } from "hds-react";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Link, useLocation } from "react-router-dom";
+import classNames from 'classnames';
+import { IconSearch, IconStar } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
 
-import { updateLocaleParam } from "../../../common/route/RouteUtils";
-import { getCurrentLanguage } from "../../../common/translation/TranslationUtils";
-import { SUPPORT_LANGUAGES } from "../../../constants";
-import { ROUTES } from "../../../domain/app/constants";
-import useLocale from "../../../hooks/useLocale";
-import scrollToTop from "../../../util/scrollToTop";
-import styles from "./mobileMenu.module.scss";
+import { updateLocaleParam } from '../../../common/route/RouteUtils';
+import { getCurrentLanguage } from '../../../common/translation/TranslationUtils';
+import { SUPPORT_LANGUAGES } from '../../../constants';
+import { ROUTES } from '../../../domain/app/constants';
+import useLocale from '../../../hooks/useLocale';
+import scrollToTop from '../../../util/scrollToTop';
+import styles from './mobileMenu.module.scss';
 
 interface MobileMenuContext {
   closeMobileMenu: () => void;
@@ -21,11 +21,11 @@ interface MobileMenuContext {
 export const MobileMenuContext = React.createContext<MobileMenuContext>({
   closeMobileMenu: () => null,
   isMobileMenuOpen: false,
-  openMobileMenu: () => null
+  openMobileMenu: () => null,
 });
 
 export const MobileMenuProvider: React.FC<{ children: React.ReactNode }> = ({
-  children
+  children,
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
@@ -42,7 +42,7 @@ export const MobileMenuProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         closeMobileMenu,
         isMobileMenuOpen,
-        openMobileMenu
+        openMobileMenu,
       }}
     >
       {children}
@@ -82,22 +82,22 @@ const MobileMenuModal: React.FC<Props> = ({ isMenuOpen, onClose }) => {
     <div
       aria-hidden={!isMenuOpen}
       className={classNames(styles.mobileMenu, {
-        [styles.menuOpen]: isMenuOpen
+        [styles.menuOpen]: isMenuOpen,
       })}
-      style={{ visibility: isMenuOpen ? undefined : "hidden" }}
+      style={{ visibility: isMenuOpen ? undefined : 'hidden' }}
     >
       <div className={styles.linkWrapper}>
         <ul>
           <li className={styles.link}>
             <Link onClick={onLinkClick} to={`/${locale}${ROUTES.EVENTS}`}>
               <IconSearch />
-              {t("header.searchEvents")}
+              {t('header.searchEvents')}
             </Link>
           </li>
           <li className={styles.link}>
             <Link onClick={onLinkClick} to={`/${locale}${ROUTES.COLLECTIONS}`}>
               <IconStar />
-              {t("header.searchCollections")}
+              {t('header.searchCollections')}
             </Link>
           </li>
         </ul>
@@ -106,29 +106,29 @@ const MobileMenuModal: React.FC<Props> = ({ isMenuOpen, onClose }) => {
         <ul>
           <li
             className={classNames(styles.languageLink, {
-              [styles.isSelected]: currentLanguage === SUPPORT_LANGUAGES.FI
+              [styles.isSelected]: currentLanguage === SUPPORT_LANGUAGES.FI,
             })}
           >
             <Link lang="fi" onClick={onClose} to={getUrl(SUPPORT_LANGUAGES.FI)}>
-              {t("header.languages.fi")}
+              {t('header.languages.fi')}
             </Link>
           </li>
           <li
             className={classNames(styles.languageLink, {
-              [styles.isSelected]: currentLanguage === SUPPORT_LANGUAGES.SV
+              [styles.isSelected]: currentLanguage === SUPPORT_LANGUAGES.SV,
             })}
           >
             <Link lang="sv" onClick={onClose} to={getUrl(SUPPORT_LANGUAGES.SV)}>
-              {t("header.languages.sv")}
+              {t('header.languages.sv')}
             </Link>
           </li>
           <li
             className={classNames(styles.languageLink, {
-              [styles.isSelected]: currentLanguage === SUPPORT_LANGUAGES.EN
+              [styles.isSelected]: currentLanguage === SUPPORT_LANGUAGES.EN,
             })}
           >
             <Link lang="en" onClick={onClose} to={getUrl(SUPPORT_LANGUAGES.EN)}>
-              {t("header.languages.en")}
+              {t('header.languages.en')}
             </Link>
           </li>
         </ul>

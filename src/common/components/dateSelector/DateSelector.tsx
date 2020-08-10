@@ -1,19 +1,19 @@
-import { IconAngleDown, IconAngleUp, IconCalendarClock } from "hds-react";
-import React, { FunctionComponent } from "react";
-import { useTranslation } from "react-i18next";
+import { IconAngleDown, IconAngleUp, IconCalendarClock } from 'hds-react';
+import React, { FunctionComponent } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { DATE_TYPES } from "../../../constants";
-import useLocale from "../../../hooks/useLocale";
-import { formatDate } from "../../../util/dateUtils";
-import { translateValue } from "../../../util/translateUtils";
-import styles from "./dateSelector.module.scss";
-import DateSelectorMenu from "./DateSelectorMenu";
+import { DATE_TYPES } from '../../../constants';
+import useLocale from '../../../hooks/useLocale';
+import { formatDate } from '../../../util/dateUtils';
+import { translateValue } from '../../../util/translateUtils';
+import styles from './dateSelector.module.scss';
+import DateSelectorMenu from './DateSelectorMenu';
 
 const dateTypeOptions = [
   DATE_TYPES.TODAY,
   DATE_TYPES.TOMORROW,
   DATE_TYPES.THIS_WEEK,
-  DATE_TYPES.WEEKEND
+  DATE_TYPES.WEEKEND,
 ];
 
 interface Props {
@@ -37,7 +37,7 @@ const DateSelector: FunctionComponent<Props> = ({
   onChangeEndDate,
   onChangeStartDate,
   startDate,
-  toggleIsCustomDate
+  toggleIsCustomDate,
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
@@ -83,15 +83,15 @@ const DateSelector: FunctionComponent<Props> = ({
       if (!isComponentFocused()) return;
 
       switch (event.key) {
-        case "ArrowUp":
+        case 'ArrowUp':
           ensureMenuIsOpen();
           event.preventDefault();
           break;
-        case "ArrowDown":
+        case 'ArrowDown':
           ensureMenuIsOpen();
           event.preventDefault();
           break;
-        case "Escape":
+        case 'Escape':
           setIsMenuOpen(false);
           event.preventDefault();
           break;
@@ -109,14 +109,14 @@ const DateSelector: FunctionComponent<Props> = ({
   };
 
   React.useEffect(() => {
-    document.addEventListener("click", handleDocumentClick);
-    document.addEventListener("keydown", handleDocumentKeyDown);
-    document.addEventListener("focusin", handleDocumentFocusin);
+    document.addEventListener('click', handleDocumentClick);
+    document.addEventListener('keydown', handleDocumentKeyDown);
+    document.addEventListener('focusin', handleDocumentFocusin);
     // Clean up event listener to prevent memory leaks
     return () => {
-      document.removeEventListener("click", handleDocumentClick);
-      document.removeEventListener("keydown", handleDocumentKeyDown);
-      document.removeEventListener("focusin", handleDocumentFocusin);
+      document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener('keydown', handleDocumentKeyDown);
+      document.removeEventListener('focusin', handleDocumentFocusin);
     };
   }, [handleDocumentFocusin, handleDocumentKeyDown]);
 
@@ -138,7 +138,7 @@ const DateSelector: FunctionComponent<Props> = ({
       dateTypeOptions.indexOf(a) < dateTypeOptions.indexOf(b) ? -1 : 1;
 
     const dateTypeLabels = dateTypes.sort(sortDateTypes).map(val => {
-      return translateValue("commons.dateSelector.dateType", val, t);
+      return translateValue('commons.dateSelector.dateType', val, t);
     });
     if (dateTypeLabels.length > 1) {
       return `${dateTypeLabels[0]} + ${dateTypeLabels.length - 1}`;
@@ -160,7 +160,7 @@ const DateSelector: FunctionComponent<Props> = ({
       <button
         aria-haspopup="true"
         aria-expanded={isMenuOpen}
-        aria-label={t("commons.dateSelector.title")}
+        aria-label={t('commons.dateSelector.title')}
         className={styles.button}
         onClick={toggleMenu}
         type="button"
@@ -170,7 +170,7 @@ const DateSelector: FunctionComponent<Props> = ({
         </div>
         <div className={styles.info}>
           <div className={styles.buttonTextWrapper}>
-            {selectedText || t("commons.dateSelector.title")}
+            {selectedText || t('commons.dateSelector.title')}
           </div>
         </div>
         <div className={styles.arrowWrapper}>

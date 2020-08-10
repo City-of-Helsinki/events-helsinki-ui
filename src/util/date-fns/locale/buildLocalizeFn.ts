@@ -6,10 +6,10 @@ export default (args: any) => {
   return function(dirtyIndex: number, dirtyOptions: any) {
     const options = dirtyOptions || {};
 
-    const context = options.context ? String(options.context) : "standalone";
+    const context = options.context ? String(options.context) : 'standalone';
 
     let valuesArray;
-    if (context === "formatting" && args.formattingValues) {
+    if (context === 'formatting' && args.formattingValues) {
       const defaultWidth = args.defaultFormattingWidth || args.defaultWidth;
       const width = options.width ? String(options.width) : defaultWidth;
       valuesArray =

@@ -1,21 +1,21 @@
-import { IconSearch } from "hds-react";
-import React, { ChangeEvent, FunctionComponent } from "react";
+import { IconSearch } from 'hds-react';
+import React, { ChangeEvent, FunctionComponent } from 'react';
 
 import {
   AUTOSUGGEST_KEYWORD_BLACK_LIST,
-  AUTOSUGGEST_TYPES
-} from "../../../constants";
+  AUTOSUGGEST_TYPES,
+} from '../../../constants';
 import {
   useKeywordListQuery,
-  useNeighborhoodListQuery
-} from "../../../generated/graphql";
-import useDebounce from "../../../hooks/useDebounce";
-import useLocale from "../../../hooks/useLocale";
-import getLocalisedString from "../../../util/getLocalisedString";
-import { AutosuggestMenuOption, Category as CategoryType } from "../../types";
-import Category from "../category/Category";
-import AutosuggestMenu from "./AutosuggestMenu";
-import styles from "./searchAutosuggest.module.scss";
+  useNeighborhoodListQuery,
+} from '../../../generated/graphql';
+import useDebounce from '../../../hooks/useDebounce';
+import useLocale from '../../../hooks/useLocale';
+import getLocalisedString from '../../../util/getLocalisedString';
+import { AutosuggestMenuOption, Category as CategoryType } from '../../types';
+import Category from '../category/Category';
+import AutosuggestMenu from './AutosuggestMenu';
+import styles from './searchAutosuggest.module.scss';
 
 interface Props {
   categories: CategoryType[];
@@ -34,7 +34,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   onRemoveCategory,
   onChangeSearchValue,
   placeholder,
-  searchValue
+  searchValue,
 }) => {
   const [focusedOption, setFocusedOption] = React.useState(-1);
   const locale = useLocale();
@@ -52,7 +52,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
         ? neighborhoodsData.neighborhoodList.data
             .map(neighborhood => ({
               text: getLocalisedString(neighborhood.name, locale),
-              value: neighborhood.id
+              value: neighborhood.id,
             }))
             .sort((a, b) => (a.text >= b.text ? 1 : -1))
         : [],
@@ -63,8 +63,8 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     skip: !internalInputValue,
     variables: {
       pageSize: 5,
-      text: internalInputValue
-    }
+      text: internalInputValue,
+    },
   });
 
   const [autoSuggestItems, setAutoSuggestItems] = React.useState<
@@ -78,7 +78,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     const textItem: AutosuggestMenuOption = {
       text: internalInputValue,
       type: AUTOSUGGEST_TYPES.SEARCH,
-      value: internalInputValue
+      value: internalInputValue,
     };
     const keywordItems: AutosuggestMenuOption[] = [];
 
@@ -87,15 +87,15 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
         ...keywordsData.keywordList.data
           .filter(
             keyword =>
-              !AUTOSUGGEST_KEYWORD_BLACK_LIST.includes(keyword.id || "")
+              !AUTOSUGGEST_KEYWORD_BLACK_LIST.includes(keyword.id || '')
           )
           .map(keyword => ({
             text: getLocalisedString(keyword.name || {}, locale),
             type:
-              keyword.id && keyword.id.startsWith("yso")
+              keyword.id && keyword.id.startsWith('yso')
                 ? AUTOSUGGEST_TYPES.YSO
                 : AUTOSUGGEST_TYPES.KEYWORD,
-            value: keyword.id || ""
+            value: keyword.id || '',
           }))
       );
     }
@@ -108,13 +108,13 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     internalInputValue,
     keywordsData,
     loadingKeywords,
-    locale
+    locale,
   ]);
 
   const openMenu = React.useCallback(
-    (focusOption: "first" | "last") => {
+    (focusOption: 'first' | 'last') => {
       const openAtIndex =
-        focusOption === "first" ? 0 : autoSuggestItems.length - 1;
+        focusOption === 'first' ? 0 : autoSuggestItems.length - 1;
       setFocusedOption(openAtIndex);
 
       if (searchValue) {
@@ -125,10 +125,10 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   );
 
   const focusOption = React.useCallback(
-    (direction: "down" | "up") => {
+    (direction: 'down' | 'up') => {
       if (!autoSuggestItems.length) return;
       switch (direction) {
-        case "down":
+        case 'down':
           setFocusedOption(
             focusedOption < autoSuggestItems.length - 1
               ? focusedOption + 1
@@ -137,7 +137,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
               : 0
           );
           break;
-        case "up":
+        case 'up':
           setFocusedOption(focusedOption > 0 ? focusedOption - 1 : 0);
           break;
       }
@@ -188,28 +188,28 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       if (!isComponentFocused()) return;
 
       switch (event.key) {
-        case "ArrowUp":
+        case 'ArrowUp':
           if (isMenuOpen) {
-            focusOption("up");
+            focusOption('up');
           } else {
-            openMenu("last");
+            openMenu('last');
           }
           event.preventDefault();
           break;
-        case "ArrowDown":
+        case 'ArrowDown':
           if (isMenuOpen) {
-            focusOption("down");
+            focusOption('down');
           } else {
-            openMenu("first");
+            openMenu('first');
           }
           event.preventDefault();
           break;
-        case "Escape":
+        case 'Escape':
           setIsMenuOpen(false);
           setFocusedOption(-1);
           event.preventDefault();
           break;
-        case "Enter":
+        case 'Enter':
           if (isInputFocused()) {
             const selectedItem = autoSuggestItems[focusedOption];
 
@@ -220,7 +220,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
               handleMenuOptionClick({
                 text: searchValue,
                 type: AUTOSUGGEST_TYPES.SEARCH,
-                value: searchValue
+                value: searchValue,
               });
             }
           } else {
@@ -238,7 +238,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       handleMenuOptionClick,
       isMenuOpen,
       openMenu,
-      searchValue
+      searchValue,
     ]
   );
 
@@ -308,14 +308,14 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   };
 
   React.useEffect(() => {
-    document.addEventListener("click", onDocumentClick);
-    document.addEventListener("keydown", onKeyDown);
-    document.addEventListener("focusin", onDocumentFocusin);
+    document.addEventListener('click', onDocumentClick);
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('focusin', onDocumentFocusin);
     // Clean up event listener to prevent memory leaks
     return () => {
-      document.removeEventListener("click", onDocumentClick);
-      document.removeEventListener("keydown", onKeyDown);
-      document.removeEventListener("focusin", onDocumentFocusin);
+      document.removeEventListener('click', onDocumentClick);
+      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('focusin', onDocumentFocusin);
     };
   }, [onKeyDown]);
 

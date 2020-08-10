@@ -1,28 +1,28 @@
-import classNames from "classnames";
-import { IconArrowRight } from "hds-react";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router";
-import { Link } from "react-router-dom";
+import classNames from 'classnames';
+import { IconArrowRight } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 
-import { ROUTES } from "../../../domain/app/constants";
-import EventKeywords from "../../../domain/event/eventKeywords/EventKeywords";
-import LocationText from "../../../domain/event/eventLocation/EventLocationText";
-import EventName from "../../../domain/event/eventName/EventName";
+import { ROUTES } from '../../../domain/app/constants';
+import EventKeywords from '../../../domain/event/eventKeywords/EventKeywords';
+import LocationText from '../../../domain/event/eventLocation/EventLocationText';
+import EventName from '../../../domain/event/eventName/EventName';
 import {
   getEventImageUrl,
   getEventPlaceholderImageUrl,
   getEventPrice,
-  isEventClosed
-} from "../../../domain/event/EventUtils";
-import { EventFieldsFragment } from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import getDateRangeStr from "../../../util/getDateRangeStr";
-import getLocalisedString from "../../../util/getLocalisedString";
-import testImage from "../../../util/testImage";
-import IconLink from "../link/IconLink";
-import SrOnly from "../srOnly/SrOnly";
-import styles from "./eventCard.module.scss";
+  isEventClosed,
+} from '../../../domain/event/EventUtils';
+import { EventFieldsFragment } from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import getDateRangeStr from '../../../util/getDateRangeStr';
+import getLocalisedString from '../../../util/getLocalisedString';
+import testImage from '../../../util/testImage';
+import IconLink from '../link/IconLink';
+import SrOnly from '../srOnly/SrOnly';
+import styles from './eventCard.module.scss';
 
 interface Props {
   event: EventFieldsFragment;
@@ -41,7 +41,7 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
   const endTime = event.endTime;
 
   const eventUrl = React.useMemo(() => {
-    return `/${locale}${ROUTES.EVENT.replace(":id", event.id)}${search}`;
+    return `/${locale}${ROUTES.EVENT.replace(':id', event.id)}${search}`;
   }, [event.id, locale, search]);
 
   const eventClosed = isEventClosed(event);
@@ -63,19 +63,19 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
   return (
     <div
       className={classNames(styles.eventCard, {
-        [styles.eventClosed]: eventClosed
+        [styles.eventClosed]: eventClosed,
       })}
     >
       <Link
         aria-hidden={true}
-        aria-label={t("commons.eventCard.ariaLabelLink", {
-          name: getLocalisedString(name, locale)
+        aria-label={t('commons.eventCard.ariaLabelLink', {
+          name: getLocalisedString(name, locale),
         })}
         className={styles.imageWrapper}
         style={{
           backgroundImage: `url(${
             showBackupImage ? placeholderImage : imageUrl
-          })`
+          })`,
         }}
         tabIndex={-1}
         to={eventUrl}
@@ -110,7 +110,7 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
                   locale,
                   false,
                   true,
-                  t("commons.timeAbbreviation")
+                  t('commons.timeAbbreviation')
                 )}
             </div>
             <Link
@@ -136,15 +136,15 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
               {getEventPrice(
                 event,
                 locale,
-                t("eventSearch.event.offers.isFree")
+                t('eventSearch.event.offers.isFree')
               )}
             </div>
           </div>
         </div>
         <div className={styles.buttonWrapper}>
           <IconLink
-            aria-label={t("commons.eventCard.ariaLabelLink", {
-              name: getLocalisedString(name, locale)
+            aria-label={t('commons.eventCard.ariaLabelLink', {
+              name: getLocalisedString(name, locale),
             })}
             icon={<IconArrowRight />}
             to={eventUrl}

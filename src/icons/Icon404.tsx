@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
-import React from "react";
+import React from 'react';
 
 type Props = { className?: string };
 
-export default ({ className = "" }: Props) => (
+export default ({ className = '' }: Props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="100%"

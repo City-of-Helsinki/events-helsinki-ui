@@ -1,10 +1,10 @@
-import * as React from "react";
-import renderer from "react-test-renderer";
+import * as React from 'react';
+import renderer from 'react-test-renderer';
 
-import mockEvent from "../../__mocks__/eventDetails";
-import EventLocationText from "../EventLocationText";
+import mockEvent from '../../__mocks__/eventDetails';
+import EventLocationText from '../EventLocationText';
 
-test("EventLocationText matches snapshot", () => {
+test('EventLocationText matches snapshot', () => {
   const component = renderer.create(
     <EventLocationText
       event={mockEvent}

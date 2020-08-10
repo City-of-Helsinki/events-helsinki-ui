@@ -1,9 +1,9 @@
-import * as React from "react";
-import renderer from "react-test-renderer";
+import * as React from 'react';
+import renderer from 'react-test-renderer';
 
-import DateRangeInputs from "../DateRangeInputs";
+import DateRangeInputs from '../DateRangeInputs';
 
-test("DateRangeInputs matches snapshot", () => {
+test('DateRangeInputs matches snapshot', () => {
   const component = renderer.create(
     <DateRangeInputs
       endDateRaw=""

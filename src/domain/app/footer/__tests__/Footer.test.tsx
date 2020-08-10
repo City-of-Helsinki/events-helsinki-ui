@@ -1,10 +1,10 @@
-import * as React from "react";
-import { MemoryRouter } from "react-router";
-import renderer from "react-test-renderer";
+import * as React from 'react';
+import { MemoryRouter } from 'react-router';
+import renderer from 'react-test-renderer';
 
-import Footer from "../Footer";
+import Footer from '../Footer';
 
-test("Footer matches snapshot", () => {
+test('Footer matches snapshot', () => {
   const component = renderer.create(
     <MemoryRouter>
       <Footer />

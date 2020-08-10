@@ -1,16 +1,16 @@
-import pretty from "pretty";
-import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
+import pretty from 'pretty';
+import React from 'react';
+import { render, unmountComponentAtNode } from 'react-dom';
+import { act } from 'react-dom/test-utils';
 
-import mockEvent from "../../__mocks__/eventDetails";
-import { EVENT_STATUS } from "../../../../constants";
-import EventName from "../EventName";
+import mockEvent from '../../__mocks__/eventDetails';
+import { EVENT_STATUS } from '../../../../constants';
+import EventName from '../EventName';
 
 let container: HTMLDivElement | null = null;
 beforeEach(() => {
   // setup a DOM element as a render target
-  container = document.createElement("div");
+  container = document.createElement('div');
   document.body.appendChild(container);
 });
 
@@ -22,8 +22,8 @@ afterEach(() => {
   }
 });
 
-describe("EventName component", () => {
-  test("should render event name of scheduled event", async () => {
+describe('EventName component', () => {
+  test('should render event name of scheduled event', async () => {
     act(() => {
       render(<EventName event={mockEvent} />, container);
     });
@@ -33,13 +33,13 @@ describe("EventName component", () => {
     }
   });
 
-  test("should render event name of cancelled event", async () => {
+  test('should render event name of cancelled event', async () => {
     act(() => {
       render(
         <EventName
           event={{
             ...mockEvent,
-            eventStatus: EVENT_STATUS.EVENT_CANCELLED
+            eventStatus: EVENT_STATUS.EVENT_CANCELLED,
           }}
         />,
         container

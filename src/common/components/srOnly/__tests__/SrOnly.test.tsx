@@ -1,15 +1,15 @@
-import pretty from "pretty";
-import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
+import pretty from 'pretty';
+import React from 'react';
+import { render, unmountComponentAtNode } from 'react-dom';
+import { act } from 'react-dom/test-utils';
 
-import SrOnly from "../SrOnly";
+import SrOnly from '../SrOnly';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let container: any = null;
 beforeEach(() => {
   // setup a DOM element as a render target
-  container = document.createElement("div");
+  container = document.createElement('div');
   document.body.appendChild(container);
 });
 
@@ -20,7 +20,7 @@ afterEach(() => {
   container = null;
 });
 
-it("SrOnly component type should be div", () => {
+it('SrOnly component type should be div', () => {
   act(() => {
     render(
       <SrOnly className="test">
@@ -36,7 +36,7 @@ it("SrOnly component type should be div", () => {
   `);
 });
 
-it("SrOnly component type should be span", () => {
+it('SrOnly component type should be span', () => {
   act(() => {
     render(
       <SrOnly as="span">

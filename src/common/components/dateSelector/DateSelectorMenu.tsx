@@ -1,13 +1,13 @@
-import classNames from "classnames";
-import { IconAngleLeft, IconAngleRight, IconCalendarPlus } from "hds-react";
-import React, { ChangeEvent, FunctionComponent, MutableRefObject } from "react";
-import { useTranslation } from "react-i18next";
+import classNames from 'classnames';
+import { IconAngleLeft, IconAngleRight, IconCalendarPlus } from 'hds-react';
+import React, { ChangeEvent, FunctionComponent, MutableRefObject } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import useLocale from "../../../hooks/useLocale";
-import { translateValue } from "../../../util/translateUtils";
-import Checkbox from "../checkbox/Checkbox";
-import DateRangePicker from "../dateRangePicker/DateRangePicker";
-import styles from "./dateSelectorMenu.module.scss"; // the locale you want
+import useLocale from '../../../hooks/useLocale';
+import { translateValue } from '../../../util/translateUtils';
+import Checkbox from '../checkbox/Checkbox';
+import DateRangePicker from '../dateRangePicker/DateRangePicker';
+import styles from './dateSelectorMenu.module.scss'; // the locale you want
 
 interface Props {
   backBtnRef?: MutableRefObject<HTMLButtonElement | null>;
@@ -40,7 +40,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
   onCloseMenu,
   startDate,
   toggleBtnRef,
-  toggleIsCustomDate
+  toggleIsCustomDate,
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
@@ -58,7 +58,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
   return (
     <div
       className={classNames(styles.dateSelectorMenu, {
-        [styles.isCustomDate]: isCustomDate
+        [styles.isCustomDate]: isCustomDate,
       })}
     >
       {!isCustomDate && (
@@ -70,7 +70,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
                 checked={dateTypes.indexOf(option) !== -1}
                 id={`name_${option}`}
                 label={translateValue(
-                  "commons.dateSelector.dateType",
+                  'commons.dateSelector.dateType',
                   option,
                   t
                 )}
@@ -86,14 +86,14 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
       <button
         ref={toggleBtnRef}
         className={classNames(styles.button, styles.btnSelectDates, {
-          [styles.hidden]: isCustomDate
+          [styles.hidden]: isCustomDate,
         })}
         onClick={toggleIsCustomDate}
         type="button"
       >
         <IconCalendarPlus />
         <div className={styles.buttonText}>
-          {t("commons.dateSelector.menu.buttonCustom")}
+          {t('commons.dateSelector.menu.buttonCustom')}
         </div>
         <IconAngleRight />
       </button>
@@ -101,14 +101,14 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
       <button
         ref={backBtnRef}
         className={classNames(styles.button, styles.btnBack, {
-          [styles.hidden]: !isCustomDate
+          [styles.hidden]: !isCustomDate,
         })}
         onClick={toggleIsCustomDate}
         type="button"
       >
         <IconAngleLeft />
         <div className={styles.buttonText}>
-          {t("commons.dateSelector.menu.buttonBack")}
+          {t('commons.dateSelector.menu.buttonBack')}
         </div>
       </button>
 
@@ -127,13 +127,13 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
       )}
       <button
         className={classNames(styles.button, styles.btnClose, {
-          [styles.hidden]: !isCustomDate
+          [styles.hidden]: !isCustomDate,
         })}
         onClick={onCloseMenu}
         type="button"
       >
         <div className={styles.buttonText}>
-          {t("commons.dateSelector.menu.buttonClose")}
+          {t('commons.dateSelector.menu.buttonClose')}
         </div>
       </button>
     </div>

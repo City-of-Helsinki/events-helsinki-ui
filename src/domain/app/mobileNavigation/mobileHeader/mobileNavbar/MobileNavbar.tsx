@@ -1,9 +1,9 @@
-import { IconCross, IconMenuHamburger } from "hds-react";
-import * as React from "react";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { IconCross, IconMenuHamburger } from 'hds-react';
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
-import styles from "./mobileNavbar.module.scss";
+import styles from './mobileNavbar.module.scss';
 
 interface Props {
   isMenuOpen: boolean;
@@ -14,20 +14,20 @@ interface Props {
 const MobileNavbar: React.FC<Props> = ({
   isMenuOpen,
   onCloseMenu,
-  onOpenMenu
+  onOpenMenu,
 }) => {
   const { t } = useTranslation();
 
   return (
     <div className={styles.mobileNavbar}>
       <Link
-        aria-label={t("header.ariaLabelLogo")}
+        aria-label={t('header.ariaLabelLogo')}
         onClick={onCloseMenu}
-        to={"/"}
+        to={'/'}
         className={styles.logoWrapper}
       >
         <div className={styles.logo} />
-        <div className={styles.appName}>{t("appName")}</div>
+        <div className={styles.appName}>{t('appName')}</div>
       </Link>
       <div className={styles.buttonWrapper}>
         {isMenuOpen ? (
@@ -35,7 +35,7 @@ const MobileNavbar: React.FC<Props> = ({
             <button
               className={styles.closeButton}
               onClick={onCloseMenu}
-              aria-label={t("header.ariaButtonCloseMenu")}
+              aria-label={t('header.ariaButtonCloseMenu')}
             >
               <IconCross />
             </button>
@@ -44,7 +44,7 @@ const MobileNavbar: React.FC<Props> = ({
           <button
             className={styles.menuButton}
             onClick={onOpenMenu}
-            aria-label={t("header.ariaButtonOpenMenu")}
+            aria-label={t('header.ariaButtonOpenMenu')}
           >
             <IconMenuHamburger />
           </button>

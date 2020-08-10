@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 
-import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
+import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
   CollectionFieldsFragment,
-  useEventListQuery
-} from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import getLocalisedString from "../../../util/getLocalisedString";
-import Container from "../../app/layout/Container";
-import { EVENT_SORT_OPTIONS, PAGE_SIZE } from "../../eventSearch/constants";
-import { getEventFilters, getNextPage } from "../../eventSearch/EventListUtils";
-import EventSearchList from "../../eventSearch/searchResultList/EventList";
-import styles from "./eventList.module.scss";
+  useEventListQuery,
+} from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import getLocalisedString from '../../../util/getLocalisedString';
+import Container from '../../app/layout/Container';
+import { EVENT_SORT_OPTIONS, PAGE_SIZE } from '../../eventSearch/constants';
+import { getEventFilters, getNextPage } from '../../eventSearch/EventListUtils';
+import EventSearchList from '../../eventSearch/searchResultList/EventList';
+import styles from './eventList.module.scss';
 
 interface Props {
   collection: CollectionFieldsFragment;
@@ -21,16 +21,16 @@ const EventList: React.FC<Props> = ({ collection }) => {
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const locale = useLocale();
   const searchParams = new URLSearchParams(
-    collection.eventListQuery ? new URL(collection.eventListQuery).search : ""
+    collection.eventListQuery ? new URL(collection.eventListQuery).search : ''
   );
   const eventFilters = React.useMemo(() => {
     return getEventFilters({
-      include: ["keywords", "location"],
+      include: ['keywords', 'location'],
       language: locale,
       pageSize: PAGE_SIZE,
       params: searchParams,
       sortOrder: EVENT_SORT_OPTIONS.END_TIME,
-      superEventType: ["umbrella", "none"]
+      superEventType: ['umbrella', 'none'],
     });
   }, [locale, searchParams]);
 
@@ -38,7 +38,7 @@ const EventList: React.FC<Props> = ({ collection }) => {
     notifyOnNetworkStatusChange: true,
     skip: !collection.eventListQuery,
     ssr: false,
-    variables: eventFilters
+    variables: eventFilters,
   });
 
   const handleLoadMore = async () => {
@@ -51,15 +51,15 @@ const EventList: React.FC<Props> = ({ collection }) => {
           if (!fetchMoreResult) return prev;
           const events = [
             ...prev.eventList.data,
-            ...fetchMoreResult.eventList.data
+            ...fetchMoreResult.eventList.data,
           ];
           fetchMoreResult.eventList.data = events;
           return fetchMoreResult;
         },
         variables: {
           ...eventFilters,
-          page: page
-        }
+          page: page,
+        },
       });
     }
     setIsFetchingMore(false);

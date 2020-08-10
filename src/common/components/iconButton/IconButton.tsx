@@ -1,19 +1,19 @@
-import classNames from "classnames";
-import React from "react";
+import classNames from 'classnames';
+import React from 'react';
 
-import styles from "./iconButton.module.scss";
+import styles from './iconButton.module.scss';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   ariaLabel: string;
   icon: React.ReactElement;
-  size: "default" | "small";
+  size: 'default' | 'small';
 }
 
 const IconButton: React.FC<Props> = ({
   ariaLabel,
   icon,
   size,
-  type = "button",
+  type = 'button',
   ...rest
 }) => {
   return (

@@ -1,22 +1,22 @@
-import classNames from "classnames";
-import { IconAngleDown, IconArrowRight } from "hds-react";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { useHistory, useLocation } from "react-router-dom";
+import classNames from 'classnames';
+import { IconAngleDown, IconArrowRight } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import IconButton from "../../../common/components/iconButton/IconButton";
-import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
+import IconButton from '../../../common/components/iconButton/IconButton';
+import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
   EventFieldsFragment,
-  useEventListQuery
-} from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import getDateRangeStr from "../../../util/getDateRangeStr";
-import { ROUTES } from "../../app/constants";
-import { EVENT_SORT_OPTIONS } from "../../eventSearch/constants";
-import { getCurrentHour, getNextPage } from "../../eventSearch/EventListUtils";
-import { getEventIdFromUrl } from "../EventUtils";
-import styles from "./otherEventTimes.module.scss";
+  useEventListQuery,
+} from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import getDateRangeStr from '../../../util/getDateRangeStr';
+import { ROUTES } from '../../app/constants';
+import { EVENT_SORT_OPTIONS } from '../../eventSearch/constants';
+import { getCurrentHour, getNextPage } from '../../eventSearch/EventListUtils';
+import { getEventIdFromUrl } from '../EventUtils';
+import styles from './otherEventTimes.module.scss';
 
 interface Props {
   event: EventFieldsFragment;
@@ -32,23 +32,23 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
 
   const superEventId = React.useMemo(() => {
     return getEventIdFromUrl(
-      (event.superEvent && event.superEvent.internalId) || ""
+      (event.superEvent && event.superEvent.internalId) || ''
     );
   }, [event.superEvent]);
 
   const filters = React.useMemo(() => {
     return {
-      include: ["keywords", "location"],
+      include: ['keywords', 'location'],
       sort: EVENT_SORT_OPTIONS.START_TIME,
       startDate: getCurrentHour(),
-      superEvent: superEventId
+      superEvent: superEventId,
     };
   }, [superEventId]);
 
   const { data: subEventsData, fetchMore, loading } = useEventListQuery({
     skip: !superEventId,
     ssr: false,
-    variables: filters
+    variables: filters,
   });
 
   const handleLoadMore = React.useCallback(async () => {
@@ -60,15 +60,15 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
           if (!fetchMoreResult) return prev;
           const events = [
             ...prev.eventList.data,
-            ...fetchMoreResult.eventList.data
+            ...fetchMoreResult.eventList.data,
           ];
           fetchMoreResult.eventList.data = events;
           return fetchMoreResult;
         },
         variables: {
           ...filters,
-          page: page
-        }
+          page: page,
+        },
       });
     }
     setIsFetchingMore(false);
@@ -94,11 +94,11 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
     <div className={styles.otherEventTimes}>
       <button
         className={classNames(styles.toggleButton, {
-          [styles.isListOpen]: isListOpen
+          [styles.isListOpen]: isListOpen,
         })}
         onClick={toggleList}
       >
-        <span>{t("event.otherTimes.title")}</span>
+        <span>{t('event.otherTimes.title')}</span>
         <IconAngleDown />
       </button>
       {isListOpen && (
@@ -107,7 +107,7 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
             {subEvents.map(subEvent => {
               const moveToEventPage = () => {
                 const eventUrl = `/${locale}${ROUTES.EVENT.replace(
-                  ":id",
+                  ':id',
                   subEvent.id
                 )}${search}`;
                 history.push(eventUrl);
@@ -122,11 +122,11 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
                         locale,
                         true,
                         true,
-                        t("commons.timeAbbreviation")
+                        t('commons.timeAbbreviation')
                       )}
                   </span>
                   <IconButton
-                    ariaLabel={t("event.otherTimes.buttonReadMore")}
+                    ariaLabel={t('event.otherTimes.buttonReadMore')}
                     icon={<IconArrowRight />}
                     onClick={moveToEventPage}
                     size="small"

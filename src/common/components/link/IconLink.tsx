@@ -1,17 +1,17 @@
-import classNames from "classnames";
-import React from "react";
-import { Link, LinkProps } from "react-router-dom";
+import classNames from 'classnames';
+import React from 'react';
+import { Link, LinkProps } from 'react-router-dom';
 
-import styles from "./iconLink.module.scss";
+import styles from './iconLink.module.scss';
 
 interface Props extends LinkProps {
-  backgroundColor?: "default" | "white";
+  backgroundColor?: 'default' | 'white';
   icon: React.ReactElement;
   text?: string;
 }
 
 const IconLink: React.FC<Props> = ({
-  backgroundColor = "default",
+  backgroundColor = 'default',
   icon,
   text,
   ...rest

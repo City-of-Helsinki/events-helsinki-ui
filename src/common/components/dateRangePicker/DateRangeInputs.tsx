@@ -1,10 +1,10 @@
-import { isPast } from "date-fns";
-import { IconCalendarPlus } from "hds-react";
-import React, { ChangeEvent, MutableRefObject } from "react";
+import { isPast } from 'date-fns';
+import { IconCalendarPlus } from 'hds-react';
+import React, { ChangeEvent, MutableRefObject } from 'react';
 
-import { DATE_PICKER_INPUT, DATE_PICKER_INPUT_STATE } from "../../../constants";
-import { convertFinnishDateStrToDate } from "../../../util/dateUtils";
-import styles from "./dateRangeInputs.module.scss";
+import { DATE_PICKER_INPUT, DATE_PICKER_INPUT_STATE } from '../../../constants';
+import { convertFinnishDateStrToDate } from '../../../util/dateUtils';
+import styles from './dateRangeInputs.module.scss';
 
 interface Props {
   endDateRaw: string;
@@ -84,10 +84,10 @@ class DateRangeInputs extends React.Component<Props> {
       <div className={styles.dateRangeInputsContainer}>
         <div className={styles.dateInputWrapper}>
           <label className={styles.label} htmlFor={`${inputName}_start_date`}>
-            {t("commons.dateSelector.labelStartDate")}
+            {t('commons.dateSelector.labelStartDate')}
           </label>
           <div className={styles.formatInfo}>
-            {t("commons.dateSelector.infoDate")}
+            {t('commons.dateSelector.infoDate')}
           </div>
           <div className={styles.inputWrapper}>
             <div className={styles.input}>
@@ -114,10 +114,10 @@ class DateRangeInputs extends React.Component<Props> {
         <div className={styles.dateSeparator}>—</div>
         <div className={styles.dateInputWrapper}>
           <label htmlFor={`${inputName}_end_date`}>
-            {t("commons.dateSelector.labelEndDate")}
+            {t('commons.dateSelector.labelEndDate')}
           </label>
           <div className={styles.formatInfo}>
-            {t("commons.dateSelector.infoDate")}
+            {t('commons.dateSelector.infoDate')}
           </div>
           <div className={styles.inputWrapper}>
             <div className={styles.input}>

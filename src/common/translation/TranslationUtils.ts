@@ -1,6 +1,6 @@
-import { i18n as I18nInstanceType } from "i18next";
+import { i18n as I18nInstanceType } from 'i18next';
 
-import { DEFAULT_LANGUAGE } from "../../constants";
+import { DEFAULT_LANGUAGE } from '../../constants';
 
 /**
  * Safety check in case

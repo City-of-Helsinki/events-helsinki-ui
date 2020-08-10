@@ -1,16 +1,16 @@
-import classNames from "classnames";
-import { IconArrowRight } from "hds-react";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router";
-import { Link } from "react-router-dom";
+import classNames from 'classnames';
+import { IconArrowRight } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 
-import { ROUTES } from "../../../domain/app/constants";
-import useLocale from "../../../hooks/useLocale";
-import IconLink from "../../components/link/IconLink";
-import SrOnly from "../srOnly/SrOnly";
-import TruncatedText from "../truncatedText/TruncatedText";
-import styles from "./collectionCard.module.scss";
+import { ROUTES } from '../../../domain/app/constants';
+import useLocale from '../../../hooks/useLocale';
+import IconLink from '../../components/link/IconLink';
+import SrOnly from '../srOnly/SrOnly';
+import TruncatedText from '../truncatedText/TruncatedText';
+import styles from './collectionCard.module.scss';
 
 export interface CollectionCardType {
   backgroundImage: string;
@@ -21,7 +21,7 @@ export interface CollectionCardType {
   title: string;
 }
 
-export type CollectionCardSize = "sm" | "md" | "lg";
+export type CollectionCardSize = 'sm' | 'md' | 'lg';
 
 interface CollectionCardProps extends CollectionCardType {
   size: CollectionCardSize;
@@ -34,14 +34,14 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
   id,
   size,
   showDescription = true,
-  title
+  title,
 }) => {
   const { search } = useLocation();
   const { t } = useTranslation();
   const locale = useLocale();
 
   const collectionUrl = React.useMemo(() => {
-    return `/${locale}${ROUTES.COLLECTION.replace(":id", id)}${search}`;
+    return `/${locale}${ROUTES.COLLECTION.replace(':id', id)}${search}`;
   }, [id, locale, search]);
 
   return (
@@ -53,8 +53,8 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
     >
       <Link
         aria-hidden={true}
-        aria-label={t("commons.eventCard.ariaLabelLink", {
-          title
+        aria-label={t('commons.eventCard.ariaLabelLink', {
+          title,
         })}
         className={styles.imageWrapper}
         style={{ backgroundImage: `url(${backgroundImage})` }}
@@ -64,7 +64,7 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
       <div className={styles.textWrapper}>
         <div className={styles.countWrapper}>
           <div className={styles.count}>
-            {t("commons.collectionCard.count", { count })}
+            {t('commons.collectionCard.count', { count })}
           </div>
         </div>
 
@@ -90,8 +90,8 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
 
         <div className={styles.linkWrapper}>
           <IconLink
-            aria-label={t("commons.collectionCard.ariaLabelLink", {
-              title
+            aria-label={t('commons.collectionCard.ariaLabelLink', {
+              title,
             })}
             icon={<IconArrowRight />}
             to={collectionUrl}

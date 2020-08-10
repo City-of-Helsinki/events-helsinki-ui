@@ -1,13 +1,13 @@
-import React from "react";
-import { Helmet } from "react-helmet";
+import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import {
   EventFieldsFragment,
-  LocalizedObject
-} from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import getLocalisedString from "../../../util/getLocalisedString";
-import { getEventSomeImageUrl } from "../EventUtils";
+  LocalizedObject,
+} from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import getLocalisedString from '../../../util/getLocalisedString';
+import { getEventSomeImageUrl } from '../EventUtils';
 
 interface Props {
   event: EventFieldsFragment;
@@ -26,7 +26,7 @@ const EventPageMeta: React.FC<Props> = ({ event }) => {
   const openGraphProperties: { [key: string]: string } = {
     description: description,
     image: image,
-    title: name
+    title: name,
   };
 
   return (

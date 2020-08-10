@@ -1,25 +1,25 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { useLocation, useParams } from "react-router";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocation, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
-import ErrorHero from "../../common/components/error/ErrorHero";
-import LoadingSpinner from "../../common/components/spinner/LoadingSpinner";
-import SrOnly from "../../common/components/srOnly/SrOnly";
-import { useEventDetailsQuery } from "../../generated/graphql";
-import useLocale from "../../hooks/useLocale";
-import getLocalisedString from "../../util/getLocalisedString";
-import isClient from "../../util/isClient";
-import { ROUTES } from "../app/constants";
-import Container from "../app/layout/Container";
-import PageWrapper from "../app/layout/PageWrapper";
-import EventClosedHero from "./eventClosedHero/EventClosedHero";
-import EventContent from "./eventContent/EventContent";
-import EventHero from "./eventHero/EventHero";
-import styles from "./eventPage.module.scss";
-import EventPageMeta from "./eventPageMeta/EventPageMeta";
-import { isEventClosed } from "./EventUtils";
-import SimilarEvents from "./similarEvents/SimilarEvents";
+import ErrorHero from '../../common/components/error/ErrorHero';
+import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
+import SrOnly from '../../common/components/srOnly/SrOnly';
+import { useEventDetailsQuery } from '../../generated/graphql';
+import useLocale from '../../hooks/useLocale';
+import getLocalisedString from '../../util/getLocalisedString';
+import isClient from '../../util/isClient';
+import { ROUTES } from '../app/constants';
+import Container from '../app/layout/Container';
+import PageWrapper from '../app/layout/PageWrapper';
+import EventClosedHero from './eventClosedHero/EventClosedHero';
+import EventContent from './eventContent/EventContent';
+import EventHero from './eventHero/EventHero';
+import styles from './eventPage.module.scss';
+import EventPageMeta from './eventPageMeta/EventPageMeta';
+import { isEventClosed } from './EventUtils';
+import SimilarEvents from './similarEvents/SimilarEvents';
 
 interface RouteParams {
   id: string;
@@ -35,8 +35,8 @@ const EventPageContainer: React.FC = () => {
   const { data: eventData, loading } = useEventDetailsQuery({
     variables: {
       id: eventId,
-      include: ["in_language", "keywords", "location"]
-    }
+      include: ['in_language', 'keywords', 'location'],
+    },
   });
 
   const event = eventData && eventData.eventDetails;
@@ -64,11 +64,11 @@ const EventPageContainer: React.FC = () => {
           </>
         ) : (
           <ErrorHero
-            text={t("event.notFound.text")}
-            title={t("event.notFound.title")}
+            text={t('event.notFound.text')}
+            title={t('event.notFound.title')}
           >
             <Link to={`/${locale}${ROUTES.EVENTS}${search}`}>
-              {t("event.notFound.linkSearchEvents")}
+              {t('event.notFound.linkSearchEvents')}
             </Link>
           </ErrorHero>
         )}

@@ -1,18 +1,18 @@
-import { isPast } from "date-fns";
-import capitalize from "lodash/capitalize";
+import { isPast } from 'date-fns';
+import capitalize from 'lodash/capitalize';
 
 import {
   EventFieldsFragment,
-  PlaceFieldsFragment
-} from "../../generated/graphql";
-import { Language } from "../../types";
-import getLocalisedString from "../../util/getLocalisedString";
+  PlaceFieldsFragment,
+} from '../../generated/graphql';
+import { Language } from '../../types';
+import getLocalisedString from '../../util/getLocalisedString';
 import {
   EVENT_KEYWORD_BLACK_LIST,
   EVENT_PLACEHOLDER_IMAGES,
-  EVENT_SOME_IMAGE
-} from "./constants";
-import { KeywordOption } from "./types";
+  EVENT_SOME_IMAGE,
+} from './constants';
+import { KeywordOption } from './types';
 
 /**
  * Check is event closed
@@ -47,7 +47,7 @@ export const getEventDistrict = (
   const location = event.location;
   const divisions = (location && location.divisions) || [];
   const district = divisions.find(division =>
-    ["district", "neighborhood"].includes(division.type)
+    ['district', 'neighborhood'].includes(division.type)
   );
 
   return district && district.name
@@ -61,10 +61,10 @@ export const getEventDistrict = (
  * @return {string}
  */
 export const getEventIdFromUrl = (url: string): string | null => {
-  const trimmedUrl = url.replace(/\?(.*)/, "");
+  const trimmedUrl = url.replace(/\?(.*)/, '');
   const eventId = trimmedUrl.match(/event\/(.*)/);
 
-  return eventId && eventId.length ? eventId[1].replace("/", "") : null;
+  return eventId && eventId.length ? eventId[1].replace('/', '') : null;
 };
 
 /**
@@ -87,7 +87,7 @@ export const getEventPrice = (
         )
         .filter(e => e)
         .sort()
-        .join(", ");
+        .join(', ');
 };
 
 /**
@@ -102,8 +102,8 @@ export const getEventKeywords = (
 ): KeywordOption[] => {
   return event.keywords
     .map(keyword => ({
-      id: keyword.id || "",
-      name: keyword.name ? capitalize(keyword.name[locale] || "").trim() : ""
+      id: keyword.id || '',
+      name: keyword.name ? capitalize(keyword.name[locale] || '').trim() : '',
     }))
     .filter(
       (keyword, index, arr) =>
@@ -180,8 +180,8 @@ export const getGoogleLink = (
       : [];
 
   return `https://www.google.com/maps/place/${streetAddress},+${postalCode}+${addressLocality}/@${coordinates.join(
-    ","
-  )}`.replace(/\s/g, "+");
+    ','
+  )}`.replace(/\s/g, '+');
 };
 
 /**
@@ -192,10 +192,10 @@ export const getGoogleLink = (
 const getLocationId = (location?: PlaceFieldsFragment | null) => {
   return location && location.id
     ? location.id
-        .split(":")
+        .split(':')
         .slice(1)
         .join()
-    : "";
+    : '';
 };
 
 /**
@@ -213,7 +213,7 @@ export const getServiceMapUrl = (
   const location = event.location;
   const locationId = getLocationId(location);
   return `https://palvelukartta.hel.fi/${locale}${
-    isEmbedded ? "/embed" : ""
+    isEmbedded ? '/embed' : ''
   }/unit/${locationId}`;
 };
 
@@ -244,8 +244,8 @@ export const getGoogleDirectionsLink = (
       : [];
 
   return `https://www.google.com/maps/dir//${streetAddress},+${postalCode}+${addressLocality}/@${coordinates.join(
-    ","
-  )}`.replace(/\s/g, "+");
+    ','
+  )}`.replace(/\s/g, '+');
 };
 
 /**
@@ -276,6 +276,6 @@ export const getHslDirectionsLink = (
   return `https://reittiopas.hsl.fi/%20/${encodeURIComponent(
     streetAddress
   )},%20${encodeURIComponent(addressLocality)}::${coordinates.join(
-    ","
+    ','
   )}?locale=${locale}`;
 };

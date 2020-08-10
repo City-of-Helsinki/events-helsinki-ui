@@ -1,15 +1,15 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import FilterButton, {
-  FilterType
-} from "../../../common/components/filterButton/FilterButton";
-import { translateValue } from "../../../util/translateUtils";
+  FilterType,
+} from '../../../common/components/filterButton/FilterButton';
+import { translateValue } from '../../../util/translateUtils';
 
 interface Props {
   onRemove: (value: string, type: FilterType) => void;
   text?: string;
-  type: "date" | "dateType";
+  type: 'date' | 'dateType';
   value: string;
 }
 
@@ -19,7 +19,7 @@ const PublisherFilter: React.FC<Props> = ({ onRemove, text, type, value }) => {
   return (
     <FilterButton
       onRemove={onRemove}
-      text={text || translateValue("commons.dateSelector.dateType", value, t)}
+      text={text || translateValue('commons.dateSelector.dateType', value, t)}
       type={type}
       value={value}
     />

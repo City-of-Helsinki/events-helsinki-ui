@@ -9,12 +9,12 @@ export default (url: string) => {
     const imgElement = new Image();
 
     // When image is loaded, resolve the promise
-    imgElement.addEventListener("load", () => {
+    imgElement.addEventListener('load', () => {
       resolve();
     });
 
     // When there's an error during load, reject the promise
-    imgElement.addEventListener("error", () => {
+    imgElement.addEventListener('error', () => {
       reject();
     });
 

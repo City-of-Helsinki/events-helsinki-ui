@@ -1,10 +1,10 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import FilterButton, {
-  FilterType
-} from "../../../common/components/filterButton/FilterButton";
-import { useOrganizationDetailsQuery } from "../../../generated/graphql";
+  FilterType,
+} from '../../../common/components/filterButton/FilterButton';
+import { useOrganizationDetailsQuery } from '../../../generated/graphql';
 
 interface Props {
   id: string;
@@ -14,13 +14,13 @@ interface Props {
 const PublisherFilter: React.FC<Props> = ({ id, onRemove }) => {
   const { t } = useTranslation();
   const { data, loading } = useOrganizationDetailsQuery({
-    variables: { id }
+    variables: { id },
   });
 
   return loading ? (
     <FilterButton
       onRemove={onRemove}
-      text={t("commons.loading")}
+      text={t('commons.loading')}
       type="publisher"
       value={id}
     />

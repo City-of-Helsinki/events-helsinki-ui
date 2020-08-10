@@ -1,10 +1,10 @@
-import classNames from "classnames";
-import * as CSS from "csstype";
-import { IconAngleRight } from "hds-react";
-import React, { FunctionComponent } from "react";
+import classNames from 'classnames';
+import * as CSS from 'csstype';
+import { IconAngleRight } from 'hds-react';
+import React, { FunctionComponent } from 'react';
 
-import { Category } from "../../types";
-import styles from "./categoryFilter.module.scss";
+import { Category } from '../../types';
+import styles from './categoryFilter.module.scss';
 
 interface Props extends Category {
   className?: string;
@@ -20,7 +20,7 @@ const CategoryFilter: FunctionComponent<Props> = ({
   onClick,
   style,
   text,
-  value
+  value,
 }) => {
   const handleClick = () => {
     onClick({ text, value });
@@ -31,7 +31,7 @@ const CategoryFilter: FunctionComponent<Props> = ({
       className={classNames(
         styles.categoryFilter,
         {
-          [styles.withHorizontalPadding]: hasHorizontalPadding
+          [styles.withHorizontalPadding]: hasHorizontalPadding,
         },
         className
       )}

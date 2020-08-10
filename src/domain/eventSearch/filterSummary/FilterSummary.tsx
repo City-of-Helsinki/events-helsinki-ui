@@ -1,25 +1,25 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { useHistory, useLocation } from "react-router";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useHistory, useLocation } from 'react-router';
 
 import FilterButton, {
-  FilterType
-} from "../../../common/components/filterButton/FilterButton";
-import { useNeighborhoodListQuery } from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import { formatDate } from "../../../util/dateUtils";
-import getLocalisedString from "../../../util/getLocalisedString";
-import getUrlParamAsArray from "../../../util/getUrlParamAsArray";
-import { getSearchQuery } from "../../../util/searchUtils";
-import { translateValue } from "../../../util/translateUtils";
-import { ROUTES } from "../../app/constants";
-import { EVENT_SEARCH_FILTERS } from "../constants";
-import DateFilter from "./DateFilter";
-import styles from "./filterSummary.module.scss";
-import KeywordFilter from "./KeywordFilter";
-import PlaceFilter from "./PlaceFilter";
-import PublisherFilter from "./PublisherFilter";
-import SearchWordFilter from "./SearchWordFilter";
+  FilterType,
+} from '../../../common/components/filterButton/FilterButton';
+import { useNeighborhoodListQuery } from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import { formatDate } from '../../../util/dateUtils';
+import getLocalisedString from '../../../util/getLocalisedString';
+import getUrlParamAsArray from '../../../util/getUrlParamAsArray';
+import { getSearchQuery } from '../../../util/searchUtils';
+import { translateValue } from '../../../util/translateUtils';
+import { ROUTES } from '../../app/constants';
+import { EVENT_SEARCH_FILTERS } from '../constants';
+import DateFilter from './DateFilter';
+import styles from './filterSummary.module.scss';
+import KeywordFilter from './KeywordFilter';
+import PlaceFilter from './PlaceFilter';
+import PublisherFilter from './PublisherFilter';
+import SearchWordFilter from './SearchWordFilter';
 
 const FilterSummary = () => {
   const { t } = useTranslation();
@@ -40,9 +40,9 @@ const FilterSummary = () => {
     EVENT_SEARCH_FILTERS.DIVISIONS
   );
   const isFree =
-    searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === "true" ? true : false;
+    searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true' ? true : false;
   const onlyChildrenEvents =
-    searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === "true"
+    searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === 'true'
       ? true
       : false;
   const keywords = getUrlParamAsArray(
@@ -55,10 +55,10 @@ const FilterSummary = () => {
   const searchWord = searchParams.get(EVENT_SEARCH_FILTERS.TEXT);
   const dateText =
     start || end
-      ? `${start ? formatDate(new Date(start)) : ""} - ${
-          end ? formatDate(new Date(end)) : ""
+      ? `${start ? formatDate(new Date(start)) : ''} - ${
+          end ? formatDate(new Date(end)) : ''
         }`.trim()
-      : "";
+      : '';
 
   const { data: neighborhoodsData } = useNeighborhoodListQuery();
 
@@ -75,45 +75,45 @@ const FilterSummary = () => {
 
   const handleFilterRemove = (value: string, type: FilterType) => {
     const end = searchParams.get(EVENT_SEARCH_FILTERS.END);
-    const searchWord = searchParams.get(EVENT_SEARCH_FILTERS.TEXT) || "";
+    const searchWord = searchParams.get(EVENT_SEARCH_FILTERS.TEXT) || '';
     const start = searchParams.get(EVENT_SEARCH_FILTERS.START);
 
     const search = getSearchQuery({
       categories:
-        type === "category"
+        type === 'category'
           ? categories.filter(category => category !== value)
           : categories,
       dateTypes:
-        type === "dateType"
+        type === 'dateType'
           ? dateTypes.filter(dateType => dateType !== value)
           : dateTypes,
       divisions:
-        type === "division"
+        type === 'division'
           ? divisions.filter(division => division !== value)
           : divisions,
-      end: type === "date" ? null : end ? new Date(end) : null,
+      end: type === 'date' ? null : end ? new Date(end) : null,
       isFree,
       keywordNot: getUrlParamAsArray(
         searchParams,
         EVENT_SEARCH_FILTERS.KEYWORD_NOT
       ),
       keywords:
-        type === "keyword" || type === "yso"
+        type === 'keyword' || type === 'yso'
           ? keywords.filter(keyword => keyword !== value)
           : keywords,
       onlyChildrenEvents,
       places:
-        type === "place" ? places.filter(place => place !== value) : places,
-      publisher: type !== "publisher" ? publisher : null,
-      start: type === "date" ? null : start ? new Date(start) : null,
-      text: type === "searchWord" ? "" : searchWord
+        type === 'place' ? places.filter(place => place !== value) : places,
+      publisher: type !== 'publisher' ? publisher : null,
+      start: type === 'date' ? null : start ? new Date(start) : null,
+      text: type === 'searchWord' ? '' : searchWord,
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   };
 
   const deleteSearchWord = () => {
-    handleFilterRemove("", "searchWord");
+    handleFilterRemove('', 'searchWord');
   };
 
   const clearFilters = () => {
@@ -128,7 +128,7 @@ const FilterSummary = () => {
       places: [],
       publisher: null,
       start: null,
-      text: ""
+      text: '',
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -155,7 +155,7 @@ const FilterSummary = () => {
         <FilterButton
           key={category}
           onRemove={handleFilterRemove}
-          text={translateValue("home.category.", category, t)}
+          text={translateValue('home.category.', category, t)}
           type="category"
           value={category}
         />
@@ -204,7 +204,7 @@ const FilterSummary = () => {
         onClick={clearFilters}
         type="button"
       >
-        {t("eventSearch.buttonClearFilters")}
+        {t('eventSearch.buttonClearFilters')}
       </button>
     </div>
   );

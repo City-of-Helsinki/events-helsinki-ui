@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent } from 'react';
 
-import BottomFooter from "./BottomFooter";
-import TopFooter from "./TopFooter";
+import BottomFooter from './BottomFooter';
+import TopFooter from './TopFooter';
 
 const Footer: FunctionComponent = () => {
   return (

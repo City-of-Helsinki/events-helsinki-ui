@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface Props {
   children: React.ReactNode;
@@ -9,13 +9,13 @@ interface Props {
 const ScrollIntoViewWithFocus: React.FC<Props> = ({
   children,
   className,
-  isFocused
+  isFocused,
 }) => {
   const selfRef = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
     if (isFocused && selfRef.current && selfRef.current.scrollIntoView) {
-      selfRef.current.scrollIntoView({ block: "nearest", inline: "nearest" });
+      selfRef.current.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     }
   }, [isFocused]);
 
