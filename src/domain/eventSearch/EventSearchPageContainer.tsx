@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps, useLocation, withRouter } from 'react-router';
+import { scroller } from 'react-scroll';
 
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import SrOnly from '../../common/components/srOnly/SrOnly';
@@ -15,7 +16,6 @@ import Search from './Search';
 import SearchResultList from './searchResultList/SearchResultList';
 
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
-  const resultList = React.useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
   const locale = useLocale();
   const { search } = useLocation();
@@ -65,9 +65,12 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   };
 
   const scrollToResultList = () => {
-    if (isSmallScreen && resultList.current) {
-      resultList.current.scrollIntoView({
-        behavior: 'smooth',
+    if (isSmallScreen) {
+      scroller.scrollTo('resultList', {
+        delay: 0,
+        duration: 600,
+        offset: -50,
+        smooth: true,
       });
     }
   };
@@ -86,7 +89,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
     >
       <SrOnly as="h1">{t('eventSearch.title')}</SrOnly>
       <Search scrollToResultList={scrollToResultList} />
-      <div ref={resultList}>
+      <div id="resultList">
         <LoadingSpinner isLoading={!isFetchingMore && loading}>
           {eventsData && (
             <SearchResultList
