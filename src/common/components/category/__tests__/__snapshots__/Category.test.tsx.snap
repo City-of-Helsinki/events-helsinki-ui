@@ -1,24 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Category matches snapshot 1`] = `
+exports[`matches snapshot 1`] = `
 <div
-  className="category"
+  class="category"
 >
   <button
     aria-label="Poista kategoria: foo"
-    className="closeButton"
-    onClick={[Function]}
+    class="closeButton"
     type="button"
   >
     <svg
-      className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-      style={Object {}}
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g
         fill="none"
-        fillRule="evenodd"
+        fill-rule="evenodd"
       >
         <path
           d="M0 0h24v24H0z"
