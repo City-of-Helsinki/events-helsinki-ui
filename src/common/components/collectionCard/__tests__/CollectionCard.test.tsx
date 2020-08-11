@@ -1,24 +1,24 @@
-import * as React from 'react';
+import { render } from '@testing-library/react';
+import React from 'react';
 import { MemoryRouter } from 'react-router';
-import renderer from 'react-test-renderer';
 
-import CollectionCard from '../CollectionCard';
+import CollectionCard, { CollectionCardProps } from '../CollectionCard';
 
-test('CollectionCard matches snapshot', () => {
-  const component = renderer.create(
+const collectionProps: CollectionCardProps = {
+  backgroundImage: 'imageurl.png',
+  count: 120,
+  description: 'Lorem ipsum',
+  id: '1',
+  size: 'md',
+  title: 'Collection title',
+};
+
+it('matches snapshot', () => {
+  const { container } = render(
     <MemoryRouter>
-      <CollectionCard
-        backgroundImage={'imageurl.png'}
-        count={120}
-        description="Lorem ipsum"
-        id="1"
-        size="md"
-        title="Test title"
-      />
+      <CollectionCard {...collectionProps} />
     </MemoryRouter>
   );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-});
 
-export {};
+  expect(container.firstChild).toMatchSnapshot();
+});

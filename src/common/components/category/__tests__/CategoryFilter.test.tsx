@@ -20,7 +20,7 @@ it('matches snapshot', () => {
     />
   );
 
-  expect(container).toMatchSnapshot();
+  expect(container.firstChild).toMatchSnapshot();
 });
 
 it('calls onClick callback when catetgory filter button is clicked ', () => {

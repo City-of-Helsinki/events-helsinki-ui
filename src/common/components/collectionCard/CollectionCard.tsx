@@ -23,7 +23,7 @@ export interface CollectionCardType {
 
 export type CollectionCardSize = 'sm' | 'md' | 'lg';
 
-interface CollectionCardProps extends CollectionCardType {
+export interface CollectionCardProps extends CollectionCardType {
   size: CollectionCardSize;
 }
 
