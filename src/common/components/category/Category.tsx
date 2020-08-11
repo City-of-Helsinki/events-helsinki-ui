@@ -12,6 +12,7 @@ interface Props {
 
 const Category: FunctionComponent<Props> = ({ category, onRemove }) => {
   const { t } = useTranslation();
+
   const handleRemove = () => {
     onRemove(category);
   };
