@@ -141,11 +141,24 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}",
-      "!<rootDir>/node_modules/",
-      "!src/index.tsx",
-      "!src/serviceWorker.ts",
-      "!src/setupTests.ts"
+      "src/**/*.{ts,tsx}"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/__snapshots__/",
+      "src/generated/graphql.tsx",
+      "query.ts",
+      "mutation.ts",
+      "types.ts",
+      "/icons/",
+      "serviceWorker.ts",
+      "./src/index.tsx",
+      ".*stories.tsx",
+      "src/setupTests.ts",
+      "src/common/translation/i18n/config.tsx",
+      "src/common/translation/i18n/init.client.tsx",
+      "src/common/translation/i18n/init.server.tsx",
+      "src/domain/app/apollo/apolloClient.ts"
     ]
   }
 }
