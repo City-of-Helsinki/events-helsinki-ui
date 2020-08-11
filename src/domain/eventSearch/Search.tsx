@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { Button, IconLocation, IconSearch } from 'hds-react';
-import React, { FormEvent, FunctionComponent } from 'react';
+import React, { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router';
 
@@ -24,7 +24,11 @@ import { EVENT_SEARCH_FILTERS } from './constants';
 import FilterSummary from './filterSummary/FilterSummary';
 import styles from './search.module.scss';
 
-const Search: FunctionComponent = () => {
+interface Props {
+  scrollToResultList: () => void;
+}
+
+const Search: React.FC<Props> = ({ scrollToResultList }) => {
   const { search } = useLocation();
   const searchParams = React.useMemo(() => new URLSearchParams(search), [
     search,
@@ -255,7 +259,10 @@ const Search: FunctionComponent = () => {
         break;
     }
     setSearchValue(newSearchValue);
+
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+
+    scrollToResultList();
   };
 
   const handleOnlyChildrenEventChange = (
@@ -304,6 +311,8 @@ const Search: FunctionComponent = () => {
     }
 
     moveToSearchPage();
+
+    scrollToResultList();
   };
 
   return (
@@ -380,8 +389,8 @@ const Search: FunctionComponent = () => {
                   <Button
                     fullWidth={true}
                     iconLeft={<IconSearch />}
-                    onClick={moveToSearchPage}
                     variant="success"
+                    type="submit"
                   >
                     {t('eventSearch.search.buttonSearch')}
                   </Button>

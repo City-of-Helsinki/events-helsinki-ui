@@ -5,6 +5,7 @@ import { RouteComponentProps, useLocation, withRouter } from 'react-router';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import SrOnly from '../../common/components/srOnly/SrOnly';
 import { useEventListQuery } from '../../generated/graphql';
+import useIsSmallScreen from '../../hooks/useIsSmallScreen';
 import useLocale from '../../hooks/useLocale';
 import PageWrapper from '../app/layout/PageWrapper';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from './constants';
@@ -14,6 +15,7 @@ import Search from './Search';
 import SearchResultList from './searchResultList/SearchResultList';
 
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
+  const resultList = React.useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
   const locale = useLocale();
   const { search } = useLocation();
@@ -29,6 +31,8 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
     });
   }, [locale, searchParams]);
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
+
+  const isSmallScreen = useIsSmallScreen();
 
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
@@ -60,24 +64,39 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
     setIsFetchingMore(false);
   };
 
+  const scrollToResultList = () => {
+    if (isSmallScreen && resultList.current) {
+      resultList.current.scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  React.useEffect(() => {
+    if (search) {
+      scrollToResultList();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <PageWrapper
       className={styles.eventSearchPageWrapper}
       title="eventSearch.title"
     >
       <SrOnly as="h1">{t('eventSearch.title')}</SrOnly>
-      <Search />
-      <LoadingSpinner isLoading={!isFetchingMore && loading}>
-        {eventsData && (
-          <>
+      <Search scrollToResultList={scrollToResultList} />
+      <div ref={resultList}>
+        <LoadingSpinner isLoading={!isFetchingMore && loading}>
+          {eventsData && (
             <SearchResultList
               eventsData={eventsData}
               loading={isFetchingMore}
               onLoadMore={handleLoadMore}
             />
-          </>
-        )}
-      </LoadingSpinner>
+          )}
+        </LoadingSpinner>
+      </div>
     </PageWrapper>
   );
 };
