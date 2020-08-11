@@ -6,14 +6,19 @@ import FilterButton, {
 } from '../../../common/components/filterButton/FilterButton';
 import { translateValue } from '../../../util/translateUtils';
 
-interface Props {
+export interface DateFilterProps {
   onRemove: (value: string, type: FilterType) => void;
   text?: string;
   type: 'date' | 'dateType';
   value: string;
 }
 
-const PublisherFilter: React.FC<Props> = ({ onRemove, text, type, value }) => {
+const DateFilter: React.FC<DateFilterProps> = ({
+  onRemove,
+  text,
+  type,
+  value,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -26,4 +31,4 @@ const PublisherFilter: React.FC<Props> = ({ onRemove, text, type, value }) => {
   );
 };
 
-export default PublisherFilter;
+export default DateFilter;

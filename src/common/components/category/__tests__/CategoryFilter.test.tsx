@@ -23,7 +23,7 @@ it('matches snapshot', () => {
   expect(container.firstChild).toMatchSnapshot();
 });
 
-it('calls onClick callback when catetgory filter button is clicked ', () => {
+it('calls onClick callback when category filter button is clicked ', () => {
   const onClickMock = jest.fn();
   render(
     <CategoryFilter

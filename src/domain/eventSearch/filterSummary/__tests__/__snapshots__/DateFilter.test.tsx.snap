@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  class="filter date"
+>
+  <button
+    aria-label="Poista suodatin: text"
+    class="closeButton"
+    type="button"
+  >
+    <svg
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <path
+          d="M0 0h24v24H0z"
+        />
+        <path
+          d="M17.657 7.757L13.414 12l4.243 4.243-1.414 1.414L12 13.414l-4.243 4.243-1.414-1.414L10.586 12 6.343 7.757l1.414-1.414L12 10.586l4.243-4.243z"
+          fill="currentColor"
+        />
+      </g>
+    </svg>
+  </button>
+  text
+</div>
+`;
+
+exports[`matches snapshot 2`] = `
+<div
+  class="filter date"
+>
+  <button
+    aria-label="Poista suodatin: commons.dateSelector.dateTypeValue"
+    class="closeButton"
+    type="button"
+  >
+    <svg
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <path
+          d="M0 0h24v24H0z"
+        />
+        <path
+          d="M17.657 7.757L13.414 12l4.243 4.243-1.414 1.414L12 13.414l-4.243 4.243-1.414-1.414L10.586 12 6.343 7.757l1.414-1.414L12 10.586l4.243-4.243z"
+          fill="currentColor"
+        />
+      </g>
+    </svg>
+  </button>
+  commons.dateSelector.dateTypeValue
+</div>
+`;

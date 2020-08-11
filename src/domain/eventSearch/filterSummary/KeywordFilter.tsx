@@ -24,14 +24,14 @@ const KeywordFilter: React.FC<Props> = ({ id, onRemove }) => {
     <FilterButton
       onRemove={onRemove}
       text={t('commons.loading')}
-      type={id.startsWith('yso') ? 'yso' : 'keyword'}
+      type="keyword"
       value={id}
     />
   ) : data && data.keywordDetails.name ? (
     <FilterButton
       onRemove={onRemove}
       text={getLocalisedString(data.keywordDetails.name, locale)}
-      type={id.startsWith('yso') ? 'yso' : 'keyword'}
+      type="keyword"
       value={id}
     />
   ) : null;
