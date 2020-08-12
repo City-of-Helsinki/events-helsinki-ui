@@ -147,7 +147,7 @@ const Search: FunctionComponent = () => {
       end,
       isFree: false,
       keywordNot: [],
-      keywords: type === 'keyword' || type === 'yso' ? [value] : [],
+      keywords: type === 'keyword' ? [value] : [],
       places: [],
       publisher: null,
       start,

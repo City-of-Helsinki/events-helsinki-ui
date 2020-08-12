@@ -231,10 +231,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
       searchParams,
       EVENT_SEARCH_FILTERS.KEYWORDS
     );
-    if (
-      (type === 'keyword' || type === 'yso') &&
-      !newKeywords.includes(value)
-    ) {
+    if (type === 'keyword' && !newKeywords.includes(value)) {
       newKeywords.push(value);
     }
 
