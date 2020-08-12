@@ -12,6 +12,8 @@ import useLocale from '../../../hooks/useLocale';
 import scrollToTop from '../../../util/scrollToTop';
 import styles from './mobileMenu.module.scss';
 
+export const mobileMenuDataId = 'mobile-menu';
+
 interface MobileMenuContext {
   closeMobileMenu: () => void;
   isMobileMenuOpen: boolean;
@@ -84,6 +86,7 @@ const MobileMenuModal: React.FC<Props> = ({ isMenuOpen, onClose }) => {
       className={classNames(styles.mobileMenu, {
         [styles.menuOpen]: isMenuOpen,
       })}
+      data-testid={mobileMenuDataId}
       style={{ visibility: isMenuOpen ? undefined : 'hidden' }}
     >
       <div className={styles.linkWrapper}>

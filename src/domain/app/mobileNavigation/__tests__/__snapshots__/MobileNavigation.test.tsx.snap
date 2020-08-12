@@ -1,3 +1,164 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MobileNavigation matches snapshot 1`] = `"<div class=\\"mobileNavigation\\"><header class=\\"mobileHeaderWrapper\\"><div class=\\"container\\"><div class=\\"mobileNavbar\\"><a aria-label=\\"Etusivu\\" class=\\"logoWrapper\\" href=\\"/\\"><div class=\\"logo\\"></div><div class=\\"appName\\">Tapahtumat</div></a><div class=\\"buttonWrapper\\"><button class=\\"menuButton\\" aria-label=\\"Avaa valikko\\"><svg class=\\"Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik\\" viewBox=\\"0 0 24 24\\" xmlns=\\"http://www.w3.org/2000/svg\\"><g fill=\\"none\\" fill-rule=\\"evenodd\\"><path d=\\"M0 0h24v24H0z\\"></path><path d=\\"M22 17v2H2v-2h20zm0-6v2H2v-2h20zm0-6v2H2V5h20z\\" fill=\\"currentColor\\"></path></g></svg></button></div></div></div></header><div aria-hidden=\\"true\\" class=\\"mobileMenu\\" style=\\"visibility:hidden\\"><div class=\\"linkWrapper\\"><ul><li class=\\"link\\"><a href=\\"/fi/events\\"><svg class=\\"Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik\\" viewBox=\\"0 0 24 24\\" xmlns=\\"http://www.w3.org/2000/svg\\"><g fill=\\"none\\" fill-rule=\\"evenodd\\"><path d=\\"M0 0h24v24H0z\\"></path><path d=\\"M15 1a8 8 0 11-4.798 14.402l-6.401 6.4-1.591-1.59 6.398-6.4A8 8 0 0115 1zm0 2a6 6 0 100 12 6 6 0 000-12z\\" fill=\\"currentColor\\"></path></g></svg>Etsi tekemistä</a></li><li class=\\"link\\"><a href=\\"/fi/collections\\"><svg class=\\"Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik\\" viewBox=\\"0 0 24 24\\" xmlns=\\"http://www.w3.org/2000/svg\\"><g fill=\\"none\\" fill-rule=\\"evenodd\\"><path d=\\"M0 0h24v24H0z\\"></path><path d=\\"M5.202 22.231l.217-1.728.737-5.847-3.973-4.278L1 9.115l1.69-.331 5.712-1.079 2.777-5.173L12 1l.821 1.532 2.777 5.173 5.712 1.079 1.69.33-1.183 1.264-3.985 4.29.737 5.835.229 1.728-1.558-.748L12 18.971l-5.24 2.512-1.558.748zm2.294-3.211l4.106-1.974.398-.184.398.184 4.094 1.974-.58-4.56-.06-.454.314-.319 3.103-3.346-4.444-.846-.446-.086-.206-.404L12 4.959 9.827 9.005l-.218.404-.434.086-4.444.846 3.103 3.346.302.319-.048.454-.592 4.56z\\" fill=\\"currentColor\\"></path></g></svg>Suosittelemme</a></li></ul></div><div class=\\"languageSelectWrapper\\"><ul><li class=\\"languageLink isSelected\\"><a lang=\\"fi\\" href=\\"/fi/home\\">Suomeksi</a></li><li class=\\"languageLink\\"><a lang=\\"sv\\" href=\\"/sv/home\\">På svenska</a></li><li class=\\"languageLink\\"><a lang=\\"en\\" href=\\"/en/home\\">In English</a></li></ul></div></div></div>"`;
+exports[`matches snapshot 1`] = `
+<div
+  class="mobileNavigation"
+>
+  <header
+    class="mobileHeaderWrapper"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="mobileNavbar"
+      >
+        <a
+          aria-label="Etusivu"
+          class="logoWrapper"
+          href="/"
+        >
+          <div
+            class="logo"
+          />
+          <div
+            class="appName"
+          >
+            Tapahtumat
+          </div>
+        </a>
+        <div
+          class="buttonWrapper"
+        >
+          <button
+            aria-label="Avaa valikko"
+            class="menuButton"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M22 17v2H2v-2h20zm0-6v2H2v-2h20zm0-6v2H2V5h20z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div
+    aria-hidden="true"
+    class="mobileMenu"
+    data-testid="mobile-menu"
+    style="visibility: hidden;"
+  >
+    <div
+      class="linkWrapper"
+    >
+      <ul>
+        <li
+          class="link"
+        >
+          <a
+            href="/fi/events"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M15 1a8 8 0 11-4.798 14.402l-6.401 6.4-1.591-1.59 6.398-6.4A8 8 0 0115 1zm0 2a6 6 0 100 12 6 6 0 000-12z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+            Etsi tekemistä
+          </a>
+        </li>
+        <li
+          class="link"
+        >
+          <a
+            href="/fi/collections"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M5.202 22.231l.217-1.728.737-5.847-3.973-4.278L1 9.115l1.69-.331 5.712-1.079 2.777-5.173L12 1l.821 1.532 2.777 5.173 5.712 1.079 1.69.33-1.183 1.264-3.985 4.29.737 5.835.229 1.728-1.558-.748L12 18.971l-5.24 2.512-1.558.748zm2.294-3.211l4.106-1.974.398-.184.398.184 4.094 1.974-.58-4.56-.06-.454.314-.319 3.103-3.346-4.444-.846-.446-.086-.206-.404L12 4.959 9.827 9.005l-.218.404-.434.086-4.444.846 3.103 3.346.302.319-.048.454-.592 4.56z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+            Suosittelemme
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="languageSelectWrapper"
+    >
+      <ul>
+        <li
+          class="languageLink isSelected"
+        >
+          <a
+            href="/fi/home"
+            lang="fi"
+          >
+            Suomeksi
+          </a>
+        </li>
+        <li
+          class="languageLink"
+        >
+          <a
+            href="/sv/home"
+            lang="sv"
+          >
+            På svenska
+          </a>
+        </li>
+        <li
+          class="languageLink"
+        >
+          <a
+            href="/en/home"
+            lang="en"
+          >
+            In English
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

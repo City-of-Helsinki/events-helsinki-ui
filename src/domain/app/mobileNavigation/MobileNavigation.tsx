@@ -6,7 +6,7 @@ import MobileMenu, {
 import MobileHeader from './mobileHeader/MobileHeader';
 import styles from './mobileNavigation.module.scss';
 
-const HeaderMobile: React.FC = () => {
+const MobileNavigation: React.FC = () => {
   const {
     closeMobileMenu,
     isMobileMenuOpen,
@@ -47,4 +47,4 @@ const HeaderMobile: React.FC = () => {
   );
 };
 
-export default HeaderMobile;
+export default MobileNavigation;
