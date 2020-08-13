@@ -186,4 +186,15 @@ test('should call onOptionClick by pressing enter', async () => {
     type: AUTOSUGGEST_TYPES.SEARCH,
     value: searchValue,
   });
+
+  arrowDownKeyPressHelper();
+  arrowDownKeyPressHelper();
+  enterKeyPressHelper();
+
+  expect(onEnter).toBeCalledTimes(2);
+  expect(onEnter).toBeCalledWith({
+    text: keywordListResponse.data.keywordList.data[0].name.fi,
+    type: AUTOSUGGEST_TYPES.KEYWORD,
+    value: keywordListResponse.data.keywordList.data[0].id,
+  });
 });
