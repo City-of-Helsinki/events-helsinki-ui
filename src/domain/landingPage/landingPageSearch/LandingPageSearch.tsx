@@ -171,7 +171,6 @@ const Search: FunctionComponent = () => {
               {t('home.search.labelSearchField')}
             </SearchLabel>
             <SearchAutosuggest
-              categories={[]}
               name="search"
               onChangeSearchValue={setSearchValue}
               onOptionClick={handleMenuOptionClick}

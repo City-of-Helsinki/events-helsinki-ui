@@ -251,7 +251,6 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     });
     switch (type) {
       case 'keyword':
-      case 'yso':
         setKeywords(newKeywords);
         break;
     }
@@ -325,7 +324,6 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                       {t('eventSearch.search.labelSearchField')}
                     </SearchLabel>
                     <SearchAutosuggest
-                      categories={[]}
                       name="search"
                       onChangeSearchValue={setSearchValue}
                       onOptionClick={handleMenuOptionClick}
