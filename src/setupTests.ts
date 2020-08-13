@@ -1,4 +1,5 @@
 import './common/test/test18nInit';
+import 'jest-axe/extend-expect';
 import '@testing-library/jest-dom/extend-expect';
 
 import { configure } from 'enzyme';
@@ -37,5 +38,7 @@ jest.mock(
       }
     }
 );
+
+jest.setTimeout(30000);
 
 configure({ adapter: new Adapter() });

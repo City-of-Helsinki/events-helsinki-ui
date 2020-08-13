@@ -129,8 +129,8 @@ exports[`LandingPageSearch should match snapshot 1`] = `
                           <div class=\\"react-datepicker__week\\">
                             <div class=\\"react-datepicker__day react-datepicker__day--010 react-datepicker__day--disabled\\" aria-label=\\"day-10\\" role=\\"option\\" aria-disabled=\\"true\\">10</div>
                             <div class=\\"react-datepicker__day react-datepicker__day--011 react-datepicker__day--disabled\\" aria-label=\\"day-11\\" role=\\"option\\" aria-disabled=\\"true\\">11</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--012 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-12\\" role=\\"option\\" aria-disabled=\\"false\\">12</div>
-                            <div class=\\"react-datepicker__day react-datepicker__day--013\\" aria-label=\\"day-13\\" role=\\"option\\" aria-disabled=\\"false\\">13</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--012 react-datepicker__day--disabled\\" aria-label=\\"day-12\\" role=\\"option\\" aria-disabled=\\"true\\">12</div>
+                            <div class=\\"react-datepicker__day react-datepicker__day--013 react-datepicker__day--keyboard-selected react-datepicker__day--today\\" aria-label=\\"day-13\\" role=\\"option\\" aria-disabled=\\"false\\">13</div>
                             <div class=\\"react-datepicker__day react-datepicker__day--014\\" aria-label=\\"day-14\\" role=\\"option\\" aria-disabled=\\"false\\">14</div>
                             <div class=\\"react-datepicker__day react-datepicker__day--015 react-datepicker__day--weekend\\" aria-label=\\"day-15\\" role=\\"option\\" aria-disabled=\\"false\\">15</div>
                             <div class=\\"react-datepicker__day react-datepicker__day--016 react-datepicker__day--weekend\\" aria-label=\\"day-16\\" role=\\"option\\" aria-disabled=\\"false\\">16</div>
