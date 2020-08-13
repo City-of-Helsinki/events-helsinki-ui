@@ -47,7 +47,7 @@
     "react-scripts": "^3.4.0",
     "react-scroll": "^1.8.1",
     "sanitize-html": "^1.20.1",
-    "serialize-javascript": "^2.1.2",
+    "serialize-javascript": "^3.1.0",
     "ts-node": "^8.6.2",
     "typescript": "3.9.3",
     "xml-js": "^1.6.11"
