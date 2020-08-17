@@ -31,6 +31,12 @@ export const landingPage: LandingPageFieldsFragment = {
     fi: 'testimage.png',
     sv: 'testimage.png',
   },
+  heroBackgroundImageColor: {
+    __typename: 'LocalizedObject',
+    en: 'FOG',
+    fi: 'FOG',
+    sv: 'FOG',
+  },
   heroBackgroundImageMobile: {
     __typename: 'LocalizedObject',
     en: 'testimagemobile.png',

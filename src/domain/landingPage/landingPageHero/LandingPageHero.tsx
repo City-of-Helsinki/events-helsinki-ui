@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Button } from 'hds-react';
 import React from 'react';
 
@@ -7,6 +8,7 @@ import useIsSmallScreen from '../../../hooks/useIsSmallScreen';
 import useLocale from '../../../hooks/useLocale';
 import getLocalisedString from '../../../util/getLocalisedString';
 import {
+  getHeroBackgroundColor,
   getHeroBackgroundImage,
   getHeroBackgroundImageMobile,
   getHeroDescriptionColor,
@@ -40,6 +42,7 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
     landingPage,
     locale
   );
+  const backgroundColor = getHeroBackgroundColor(landingPage, locale);
   const heroTopLayerImage = getHeroTopLayerImage(landingPage, locale);
 
   const moveToCollectionPage = () => {
@@ -48,7 +51,9 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
 
   return (
     <div
-      className={styles.landingPageHero}
+      className={classNames(styles.landingPageHero, {
+        [styles[`${backgroundColor}BackgroundColor`]]: backgroundColor,
+      })}
       style={{
         backgroundImage: `url(${
           isSmallScreen ? heroBackgroundImageMobile : heroBackgroundImage

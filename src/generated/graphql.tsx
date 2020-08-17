@@ -210,6 +210,7 @@ export type LandingPage = {
   buttonUrl?: Maybe<LocalizedObject>,
   heroBackgroundImage?: Maybe<LocalizedObject>,
   heroBackgroundImageMobile?: Maybe<LocalizedObject>,
+  heroBackgroundImageColor?: Maybe<LocalizedObject>,
   heroTopLayerImage?: Maybe<LocalizedObject>,
   socialMediaImage?: Maybe<LocalizedObject>,
   metaInformation?: Maybe<LocalizedObject>,
@@ -722,6 +723,9 @@ export type LandingPageFieldsFragment = (
   )>, heroBackgroundImage: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
+  )>, heroBackgroundImageColor: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & LocalizedFieldsFragment
   )>, heroBackgroundImageMobile: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
@@ -1042,6 +1046,9 @@ export const LandingPageFieldsFragmentDoc = gql`
     ...localizedFields
   }
   heroBackgroundImage {
+    ...localizedFields
+  }
+  heroBackgroundImageColor {
     ...localizedFields
   }
   heroBackgroundImageMobile {

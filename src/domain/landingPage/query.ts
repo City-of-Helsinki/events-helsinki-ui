@@ -30,6 +30,9 @@ export const QUERY_KEYWORD = gql`
     heroBackgroundImage {
       ...localizedFields
     }
+    heroBackgroundImageColor {
+      ...localizedFields
+    }
     heroBackgroundImageMobile {
       ...localizedFields
     }

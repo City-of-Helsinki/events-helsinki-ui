@@ -3,6 +3,19 @@ import { Language } from '../../types';
 import { LANDING_PAGE_SOME_IMAGE } from './constants';
 
 /**
+ * Get landing page hero background color
+ * @param {object} landingPage
+ * @param {string} locale
+ * @return {string}
+ */
+export const getHeroBackgroundColor = (
+  landingPage: LandingPageFieldsFragment,
+  locale: Language
+): string | undefined => {
+  const backgroundColor = (landingPage.heroBackgroundImageColor || {})[locale];
+  return backgroundColor ? backgroundColor.toLowerCase() : undefined;
+};
+/**
  * Get landing page hero background image
  * @param {object} landingPage
  * @param {string} locale

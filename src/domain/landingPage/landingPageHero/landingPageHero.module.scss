@@ -1,5 +1,5 @@
-@import "colors";
-@import "layout";
+@import 'colors';
+@import 'layout';
 
 .landingPageHero {
   position: relative;
@@ -21,29 +21,29 @@
     right: 20%;
     height: 100%;
     width: 24.9375rem;
-    background-position: center calc(100% - 5.5rem);;
+    background-position: center calc(100% - 5.5rem);
     background-size: contain;
     background-repeat: no-repeat;
-  
+
     @include respond-below(sm) {
       display: none;
     }
   }
-  
+
   .content {
     padding-top: 3.75rem;
     z-index: 1;
-  
+
     @include respond-above(sm) {
       padding-top: 9.25rem;
       margin-bottom: 10rem;
     }
-  
+
     .subTitle {
       font-size: 1.125rem;
       color: $hel-dark;
     }
-  
+
     .title {
       font-size: 3.25rem;
       color: $hel-black;
@@ -51,11 +51,10 @@
       line-height: 60px;
       margin: 0 0 1rem;
 
-  
       @include respond-above(md) {
         max-width: 19.625rem;
       }
-  
+
       @include respond-above(lg) {
         font-size: 5rem;
         line-height: 92px;
@@ -63,4 +62,20 @@
       }
     }
   }
+}
+
+.copperBackgroundColor {
+  background-color: var(--color-copper-light-50);
+}
+
+.engelBackgroundColor {
+  background-color: var(--color-engel);
+}
+
+.fogBackgroundColor {
+  background-color: var(--color-fog-light-50);
+}
+
+.suomenlinnaBackgroundColor {
+  background-color: var(--color-suomenlinna-light-50);
 }
