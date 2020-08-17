@@ -8,25 +8,23 @@ exports[`BottomFooter matches snapshot 1`] = `
   <div
     className="container"
   >
-    <div>
+    <div
+      className="contentWrapper"
+    >
       <div
-        className="contentWrapper"
+        className="linkContainer"
       >
-        <div
-          className="linkContainer"
+        <a
+          href="/fi/about"
+          onClick={[Function]}
         >
-          <a
-            href="/fi/about"
-            onClick={[Function]}
-          >
-            Tietoa palvelusta
-          </a>
-          <a
-            href="https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta"
-          >
-            Anna palautetta
-          </a>
-        </div>
+          Tietoa palvelusta
+        </a>
+        <a
+          href="https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta"
+        >
+          Anna palautetta
+        </a>
       </div>
     </div>
   </div>

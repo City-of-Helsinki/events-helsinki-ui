@@ -10,51 +10,49 @@ exports[`matches snapshot 1`] = `
     <div
       class="container"
     >
-      <div>
-        <div
-          class="mobileNavbar"
+      <div
+        class="mobileNavbar"
+      >
+        <a
+          aria-label="Etusivu"
+          class="logoWrapper"
+          href="/"
         >
-          <a
-            aria-label="Etusivu"
-            class="logoWrapper"
-            href="/"
-          >
-            <div
-              class="logo"
-            />
-            <div
-              class="appName"
-            >
-              Tapahtumat
-            </div>
-          </a>
           <div
-            class="buttonWrapper"
+            class="logo"
+          />
+          <div
+            class="appName"
           >
-            <button
-              aria-label="Avaa valikko"
-              class="menuButton"
-            >
-              <svg
-                class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  fill="none"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    d="M0 0h24v24H0z"
-                  />
-                  <path
-                    d="M22 17v2H2v-2h20zm0-6v2H2v-2h20zm0-6v2H2V5h20z"
-                    fill="currentColor"
-                  />
-                </g>
-              </svg>
-            </button>
+            Tapahtumat
           </div>
+        </a>
+        <div
+          class="buttonWrapper"
+        >
+          <button
+            aria-label="Avaa valikko"
+            class="menuButton"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M22 17v2H2v-2h20zm0-6v2H2v-2h20zm0-6v2H2V5h20z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </button>
         </div>
       </div>
     </div>

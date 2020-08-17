@@ -1,4 +1,4 @@
-@import "layout";
+@import 'layout';
 
 .collectionCardContainer {
   display: grid;
@@ -19,7 +19,7 @@
   }
 
   &.smLayout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
 
     @include respond-above(sm) {
       grid-template-columns: 1fr 1fr;
@@ -31,7 +31,7 @@
   }
 
   &.mdLayout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
 
     @include respond-above(sm) {
       margin-bottom: 2.25rem;
@@ -44,7 +44,7 @@
   }
 
   &.mdAndSmLayout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
 
     @include respond-above(sm) {
       margin-bottom: 2.25rem;
@@ -56,7 +56,6 @@
       :nth-child(6n + 0) {
         grid-column: 1 / -1;
       }
-
     }
 
     @include respond-above(md) {
@@ -74,6 +73,6 @@
   }
 
   &.lgLayout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }

@@ -126,18 +126,14 @@ exports[`matches snapshot 1`] = `
   >
     <div
       class="container"
-    >
-      <div />
-    </div>
+    />
   </div>
   <div
     class="similarCollections"
   >
     <div
       class="container"
-    >
-      <div />
-    </div>
+    />
   </div>
 </div>
 `;
