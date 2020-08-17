@@ -98,7 +98,7 @@ const FilterSummary = () => {
         EVENT_SEARCH_FILTERS.KEYWORD_NOT
       ),
       keywords:
-        type === 'keyword' || type === 'yso'
+        type === 'keyword'
           ? keywords.filter(keyword => keyword !== value)
           : keywords,
       onlyChildrenEvents,

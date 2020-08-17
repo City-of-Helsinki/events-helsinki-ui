@@ -45,7 +45,7 @@ export type CollectionDetails = {
   searchDescription?: Maybe<Scalars['String']>,
   seoTitle?: Maybe<Scalars['String']>,
   showInMenus?: Maybe<Scalars['Boolean']>,
-  slug?: Maybe<Scalars['String']>,
+  slug: Scalars['ID'],
   socialMediaDescription?: Maybe<LocalizedObject>,
   title: LocalizedObject,
   urlPath?: Maybe<Scalars['String']>,
@@ -349,7 +349,7 @@ export type Query = {
 
 
 export type QueryCollectionDetailsArgs = {
-  id?: Maybe<Scalars['ID']>,
+  slug?: Maybe<Scalars['ID']>,
   draft?: Maybe<Scalars['Boolean']>
 };
 
@@ -449,7 +449,7 @@ export type Subscription = {
 
 export type CollectionFieldsFragment = (
   { __typename?: 'CollectionDetails' }
-  & Pick<CollectionDetails, 'id' | 'heroImage' | 'boxColor' | 'curatedEvents'>
+  & Pick<CollectionDetails, 'id' | 'heroImage' | 'boxColor' | 'curatedEvents' | 'slug'>
   & { curatedEventsTitle: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
@@ -479,7 +479,7 @@ export type CollectionFieldsFragment = (
 
 export type CollectionDetailsQueryVariables = {
   draft?: Maybe<Scalars['Boolean']>,
-  id: Scalars['ID']
+  slug: Scalars['ID']
 };
 
 
@@ -886,6 +886,7 @@ export const CollectionFieldsFragmentDoc = gql`
   linkUrl {
     ...localizedFields
   }
+  slug
   socialMediaDescription {
     ...localizedFields
   }
@@ -1055,8 +1056,8 @@ export const LandingPageFieldsFragmentDoc = gql`
 }
     ${LocalizedFieldsFragmentDoc}`;
 export const CollectionDetailsDocument = gql`
-    query CollectionDetails($draft: Boolean, $id: ID!) {
-  collectionDetails(draft: $draft, id: $id) {
+    query CollectionDetails($draft: Boolean, $slug: ID!) {
+  collectionDetails(draft: $draft, slug: $slug) {
     ...collectionFields
   }
 }
@@ -1086,7 +1087,7 @@ export function withCollectionDetails<TProps, TChildProps = {}>(operationOptions
  * const { data, loading, error } = useCollectionDetailsQuery({
  *   variables: {
  *      draft: // value for 'draft'
- *      id: // value for 'id'
+ *      slug: // value for 'slug'
  *   },
  * });
  */

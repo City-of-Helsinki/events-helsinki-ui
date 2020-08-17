@@ -1,6 +1,6 @@
 export enum ROUTES {
   ABOUT = '/about',
-  COLLECTION = '/collection/:id',
+  COLLECTION = '/collection/:slug',
   COLLECTIONS = '/collections',
   EVENTS = '/events',
   EVENT = '/event/:id',

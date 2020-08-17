@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Keyword matches snapshot 1`] = `
+exports[`matches snapshot 1`] = `
 <button
-  className="keyword"
-  onClick={[Function]}
+  class="keyword"
   type="button"
 >
   test keyword

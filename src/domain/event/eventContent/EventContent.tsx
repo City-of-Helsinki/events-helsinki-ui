@@ -19,9 +19,7 @@ interface Props {
 const EventContent: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const description = event.description
-    ? getLocalisedString(event.description, locale)
-    : null;
+  const description = getLocalisedString(event.description, locale);
 
   return (
     <div className={styles.eventContent}>

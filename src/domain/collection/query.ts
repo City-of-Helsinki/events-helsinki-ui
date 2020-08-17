@@ -24,6 +24,7 @@ export const QUERY_COLLECTION_DETAILS = gql`
     linkUrl {
       ...localizedFields
     }
+    slug
     socialMediaDescription {
       ...localizedFields
     }
@@ -31,8 +32,8 @@ export const QUERY_COLLECTION_DETAILS = gql`
       ...localizedFields
     }
   }
-  query CollectionDetails($draft: Boolean, $id: ID!) {
-    collectionDetails(draft: $draft, id: $id) {
+  query CollectionDetails($draft: Boolean, $slug: ID!) {
+    collectionDetails(draft: $draft, slug: $slug) {
       ...collectionFields
     }
   }

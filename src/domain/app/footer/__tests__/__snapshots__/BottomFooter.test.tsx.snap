@@ -21,8 +21,7 @@ exports[`BottomFooter matches snapshot 1`] = `
           Tietoa palvelusta
         </a>
         <a
-          href="/fi/feedback"
-          onClick={[Function]}
+          href="https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta"
         >
           Anna palautetta
         </a>

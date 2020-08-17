@@ -1,78 +1,70 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CollectionCard matches snapshot 1`] = `
+exports[`matches snapshot 1`] = `
 <div
-  className="collectionCardWrapper mdSize"
+  class="collectionCardWrapper mdSize"
 >
   <a
-    aria-hidden={true}
+    aria-hidden="true"
     aria-label="Siirry tapahtumaan: "
-    className="imageWrapper"
-    href="/fi/collection/1"
-    onClick={[Function]}
-    style={
-      Object {
-        "backgroundImage": "url(imageurl.png)",
-      }
-    }
-    tabIndex={-1}
+    class="imageWrapper"
+    href="/fi/collection/collection-title"
+    style="background-image: url(imageurl.png);"
+    tabindex="-1"
   />
   <div
-    className="textWrapper"
+    class="textWrapper"
   >
     <div
-      className="countWrapper"
+      class="countWrapper"
     >
       <div
-        className="count"
+        class="count"
       >
         120 kpl
       </div>
     </div>
     <div
-      className="titleWrapper"
+      class="titleWrapper"
     >
       <a
-        aria-hidden={true}
-        className="title"
-        href="/fi/collection/1"
-        onClick={[Function]}
-        tabIndex={-1}
+        aria-hidden="true"
+        class="title"
+        href="/fi/collection/collection-title"
+        tabindex="-1"
       >
-        Test title
+        Collection title
       </a>
       <div
-        className="srOnly"
+        class="srOnly"
       >
-        Test title
+        Collection title
       </div>
       <div
-        className="description"
+        class="description"
       >
         Lorem ipsum
       </div>
     </div>
     <div
-      className="linkWrapper"
+      class="linkWrapper"
     >
       <a
-        aria-label="Siirry kokoelmaan: Test title"
-        className="iconLink default"
-        href="/fi/collection/1"
-        onClick={[Function]}
+        aria-label="Siirry kokoelmaan: Collection title"
+        class="iconLink default"
+        href="/fi/collection/collection-title"
       >
         <div
-          className="iconWrapper"
+          class="iconWrapper"
         >
           <svg
-            className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-            style={Object {}}
+            class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
-              fillRule="evenodd"
+              fill-rule="evenodd"
             >
               <path
                 d="M0 0h24v24H0z"

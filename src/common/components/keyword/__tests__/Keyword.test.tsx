@@ -1,12 +1,26 @@
-import * as React from 'react';
-import renderer from 'react-test-renderer';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 
 import Keyword from '../Keyword';
 
-test('Keyword matches snapshot', () => {
-  const component = renderer.create(<Keyword keyword="test keyword" />);
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+const keyword = 'test keyword';
+
+it('matches snapshot', () => {
+  const { container } = render(
+    <Keyword keyword={keyword} onClick={jest.fn()} />
+  );
+
+  expect(container.firstChild).toMatchSnapshot();
 });
 
-export {};
+it('calls onClick callback when clicking', () => {
+  const onClickMock = jest.fn();
+  render(<Keyword keyword={keyword} onClick={onClickMock} />);
+
+  expect(screen.queryByText(keyword)).toBeInTheDocument();
+
+  userEvent.click(screen.getByRole('button'));
+
+  expect(onClickMock).toHaveBeenCalled();
+});

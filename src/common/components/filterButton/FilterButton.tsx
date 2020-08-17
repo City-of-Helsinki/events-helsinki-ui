@@ -14,8 +14,7 @@ export type FilterType =
   | 'place'
   | 'publisher'
   | 'searchWord'
-  | 'target'
-  | 'yso';
+  | 'target';
 
 interface Props {
   onRemove: (value: string, type: FilterType) => void;

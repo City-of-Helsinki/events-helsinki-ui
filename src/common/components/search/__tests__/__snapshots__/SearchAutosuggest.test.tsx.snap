@@ -1,22 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SearchAutosuggest matches snapshot 1`] = `
+exports[`matches snapshot 1`] = `
 <div
-  className="searchAutosuggest"
-  onClick={[Function]}
+  class="searchAutosuggest"
 >
   <div
-    className="iconWrapper"
+    class="iconWrapper"
   >
     <svg
-      className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-      style={Object {}}
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g
         fill="none"
-        fillRule="evenodd"
+        fill-rule="evenodd"
       >
         <path
           d="M0 0h24v24H0z"
@@ -28,50 +26,15 @@ exports[`SearchAutosuggest matches snapshot 1`] = `
       </g>
     </svg>
   </div>
-  <div>
-    <div
-      className="category"
-    >
-      <button
-        aria-label="Poista kategoria: bar"
-        className="closeButton"
-        onClick={[Function]}
-        type="button"
-      >
-        <svg
-          className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-          style={Object {}}
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g
-            fill="none"
-            fillRule="evenodd"
-          >
-            <path
-              d="M0 0h24v24H0z"
-            />
-            <path
-              d="M17.657 7.757L13.414 12l4.243 4.243-1.414 1.414L12 13.414l-4.243 4.243-1.414-1.414L10.586 12 6.343 7.757l1.414-1.414L12 10.586l4.243-4.243z"
-              fill="currentColor"
-            />
-          </g>
-        </svg>
-      </button>
-      bar
-    </div>
-  </div>
   <div
-    className="inputWrapper"
+    class="inputWrapper"
   >
     <input
       id="search"
       name="search"
-      onChange={[Function]}
-      onFocus={[Function]}
-      placeholder="Lorem ipsum"
+      placeholder="Placeholder text"
       type="text"
-      value="search value"
+      value="jazz"
     />
   </div>
 </div>

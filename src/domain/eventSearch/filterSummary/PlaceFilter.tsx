@@ -13,7 +13,7 @@ interface Props {
   onRemove: (value: string, type: FilterType) => void;
 }
 
-const PublisherFilter: React.FC<Props> = ({ id, onRemove }) => {
+const PlaceFiler: React.FC<Props> = ({ id, onRemove }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { data, loading } = usePlaceDetailsQuery({
@@ -37,4 +37,4 @@ const PublisherFilter: React.FC<Props> = ({ id, onRemove }) => {
   ) : null;
 };
 
-export default PublisherFilter;
+export default PlaceFiler;

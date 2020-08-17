@@ -19,7 +19,7 @@ import EventList from './eventList/EventList';
 import SimilarCollections from './similarCollections/SimilarCollections';
 
 interface RouteParams {
-  id: string;
+  slug: string;
 }
 
 const CollectionPageContainer: React.FC = () => {
@@ -31,7 +31,7 @@ const CollectionPageContainer: React.FC = () => {
   const draft = urlSearchParams.get('draft') === 'true';
 
   const { data: collectionData, loading } = useCollectionDetailsQuery({
-    variables: { draft, id: params.id },
+    variables: { draft, slug: params.slug },
   });
   const collection = collectionData && collectionData.collectionDetails;
 

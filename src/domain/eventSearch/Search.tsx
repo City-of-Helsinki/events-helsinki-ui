@@ -231,10 +231,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
       searchParams,
       EVENT_SEARCH_FILTERS.KEYWORDS
     );
-    if (
-      (type === 'keyword' || type === 'yso') &&
-      !newKeywords.includes(value)
-    ) {
+    if (type === 'keyword' && !newKeywords.includes(value)) {
       newKeywords.push(value);
     }
 
@@ -254,7 +251,6 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     });
     switch (type) {
       case 'keyword':
-      case 'yso':
         setKeywords(newKeywords);
         break;
     }
@@ -328,7 +324,6 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                       {t('eventSearch.search.labelSearchField')}
                     </SearchLabel>
                     <SearchAutosuggest
-                      categories={[]}
                       name="search"
                       onChangeSearchValue={setSearchValue}
                       onOptionClick={handleMenuOptionClick}

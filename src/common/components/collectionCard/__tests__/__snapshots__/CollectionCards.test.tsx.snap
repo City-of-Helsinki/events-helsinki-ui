@@ -1,81 +1,2122 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CollectionCardContainer matches snapshot 1`] = `
+exports[`matches snapshot 1`] = `
 <div
-  className="collectionCardContainer lgLayout"
+  class="collectionCardContainer lgLayout"
 >
   <div
-    className="collectionCardWrapper lgSize"
+    class="collectionCardWrapper lgSize"
   >
     <a
-      aria-hidden={true}
+      aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
-      className="imageWrapper"
-      href="/fi/collection/1"
-      onClick={[Function]}
-      style={
-        Object {
-          "backgroundImage": "url(testurl.png)",
-        }
-      }
-      tabIndex={-1}
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
     />
     <div
-      className="textWrapper"
+      class="textWrapper"
     >
       <div
-        className="countWrapper"
+        class="countWrapper"
       >
         <div
-          className="count"
+          class="count"
         >
           1 kpl
         </div>
       </div>
       <div
-        className="titleWrapper"
+        class="titleWrapper"
       >
         <a
-          aria-hidden={true}
-          className="title"
-          href="/fi/collection/1"
-          onClick={[Function]}
-          tabIndex={-1}
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
         </a>
         <div
-          className="srOnly"
+          class="srOnly"
         >
           Syksyn riehakkaimmat riennot
         </div>
         <div
-          className="description"
+          class="description"
         >
           Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque s...
         </div>
       </div>
       <div
-        className="linkWrapper"
+        class="linkWrapper"
       >
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
-          className="iconLink default"
-          href="/fi/collection/1"
-          onClick={[Function]}
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
-            className="iconWrapper"
+            class="iconWrapper"
           >
             <svg
-              className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-              style={Object {}}
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <g
                 fill="none"
-                fillRule="evenodd"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper lgSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+        <div
+          class="description"
+        >
+          Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque s...
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper lgSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+        <div
+          class="description"
+        >
+          Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque s...
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper lgSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+        <div
+          class="description"
+        >
+          Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque s...
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper lgSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+        <div
+          class="description"
+        >
+          Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque s...
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper lgSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+        <div
+          class="description"
+        >
+          Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque s...
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper lgSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+        <div
+          class="description"
+        >
+          Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque s...
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`matches snapshot 2`] = `
+<div
+  class="collectionCardContainer mdLayout"
+>
+  <div
+    class="collectionCardWrapper mdSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper mdSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper mdSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper mdSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper mdSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper mdSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper mdSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`matches snapshot 3`] = `
+<div
+  class="collectionCardContainer mdAndSmLayout"
+>
+  <div
+    class="collectionCardWrapper mdSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper smSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper smSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper smSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper mdSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper mdSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper smSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`matches snapshot 4`] = `
+<div
+  class="collectionCardContainer smLayout"
+>
+  <div
+    class="collectionCardWrapper smSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper smSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper smSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper smSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper smSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper smSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="collectionCardWrapper smSize"
+  >
+    <a
+      aria-hidden="true"
+      aria-label="Siirry tapahtumaan: "
+      class="imageWrapper"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
+      style="background-image: url(testurl.png);"
+      tabindex="-1"
+    />
+    <div
+      class="textWrapper"
+    >
+      <div
+        class="countWrapper"
+      >
+        <div
+          class="count"
+        >
+          1 kpl
+        </div>
+      </div>
+      <div
+        class="titleWrapper"
+      >
+        <a
+          aria-hidden="true"
+          class="title"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+          tabindex="-1"
+        >
+          Syksyn riehakkaimmat riennot
+        </a>
+        <div
+          class="srOnly"
+        >
+          Syksyn riehakkaimmat riennot
+        </div>
+      </div>
+      <div
+        class="linkWrapper"
+      >
+        <a
+          aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
+          class="iconLink default"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
+        >
+          <div
+            class="iconWrapper"
+          >
+            <svg
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
               >
                 <path
                   d="M0 0h24v24H0z"

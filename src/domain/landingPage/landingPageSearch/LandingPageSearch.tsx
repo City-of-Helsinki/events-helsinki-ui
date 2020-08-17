@@ -147,7 +147,7 @@ const Search: FunctionComponent = () => {
       end,
       isFree: false,
       keywordNot: [],
-      keywords: type === 'keyword' || type === 'yso' ? [value] : [],
+      keywords: type === 'keyword' ? [value] : [],
       places: [],
       publisher: null,
       start,
@@ -171,7 +171,6 @@ const Search: FunctionComponent = () => {
               {t('home.search.labelSearchField')}
             </SearchLabel>
             <SearchAutosuggest
-              categories={[]}
               name="search"
               onChangeSearchValue={setSearchValue}
               onOptionClick={handleMenuOptionClick}

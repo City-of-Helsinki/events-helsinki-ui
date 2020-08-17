@@ -1,5 +1,5 @@
 import { IconSearch } from 'hds-react';
-import React, { ChangeEvent, FunctionComponent } from 'react';
+import React, { ChangeEvent } from 'react';
 
 import {
   AUTOSUGGEST_KEYWORD_BLACK_LIST,
@@ -9,26 +9,21 @@ import { useKeywordListQuery } from '../../../generated/graphql';
 import useDebounce from '../../../hooks/useDebounce';
 import useLocale from '../../../hooks/useLocale';
 import getLocalisedString from '../../../util/getLocalisedString';
-import { AutosuggestMenuOption, Category as CategoryType } from '../../types';
-import Category from '../category/Category';
+import { AutosuggestMenuOption } from '../../types';
 import AutosuggestMenu from './AutosuggestMenu';
 import styles from './searchAutosuggest.module.scss';
 
-interface Props {
-  categories: CategoryType[];
+export interface SearchAutosuggestProps {
   name: string;
   onChangeSearchValue: (value: string) => void;
   onOptionClick: (item: AutosuggestMenuOption) => void;
-  onRemoveCategory?: (category: CategoryType) => void;
   placeholder: string;
   searchValue: string;
 }
 
-const SearchAutosuggest: FunctionComponent<Props> = ({
-  categories,
+const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
   name,
   onOptionClick,
-  onRemoveCategory,
   onChangeSearchValue,
   placeholder,
   searchValue,
@@ -36,7 +31,6 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   const [focusedOption, setFocusedOption] = React.useState(-1);
   const locale = useLocale();
   const container = React.useRef<HTMLDivElement | null>(null);
-  const categoryWrapper = React.useRef<HTMLDivElement | null>(null);
   const input = React.useRef<HTMLInputElement | null>(null);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const internalInputValue = useDebounce(searchValue, 300);
@@ -58,32 +52,27 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     if (loadingKeywords) return;
 
     const items: AutosuggestMenuOption[] = [];
-    const textItem: AutosuggestMenuOption = {
+
+    items.push({
       text: internalInputValue,
       type: AUTOSUGGEST_TYPES.SEARCH,
       value: internalInputValue,
-    };
-    const keywordItems: AutosuggestMenuOption[] = [];
+    });
 
     if (keywordsData) {
-      keywordItems.push(
+      items.push(
         ...keywordsData.keywordList.data
           .filter(
             keyword =>
               !AUTOSUGGEST_KEYWORD_BLACK_LIST.includes(keyword.id || '')
           )
           .map(keyword => ({
-            text: getLocalisedString(keyword.name || {}, locale),
-            type:
-              keyword.id && keyword.id.startsWith('yso')
-                ? AUTOSUGGEST_TYPES.YSO
-                : AUTOSUGGEST_TYPES.KEYWORD,
+            text: getLocalisedString(keyword.name, locale),
+            type: AUTOSUGGEST_TYPES.KEYWORD,
             value: keyword.id || '',
           }))
       );
     }
-
-    items.push(textItem, ...keywordItems);
 
     setAutoSuggestItems(items.filter(item => item.text));
   }, [internalInputValue, keywordsData, loadingKeywords, locale]);
@@ -106,16 +95,24 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
       if (!autoSuggestItems.length) return;
       switch (direction) {
         case 'down':
-          setFocusedOption(
-            focusedOption < autoSuggestItems.length - 1
-              ? focusedOption + 1
-              : focusedOption >= 0
-              ? focusedOption
-              : 0
-          );
+          if (focusedOption < 0) {
+            setFocusedOption(0);
+          } else {
+            setFocusedOption(
+              focusedOption < autoSuggestItems.length - 1
+                ? focusedOption + 1
+                : autoSuggestItems.length - 1
+            );
+          }
+
           break;
         case 'up':
-          setFocusedOption(focusedOption > 0 ? focusedOption - 1 : 0);
+          if (focusedOption < 0) {
+            setFocusedOption(autoSuggestItems.length - 1);
+          } else {
+            setFocusedOption(focusedOption > 0 ? focusedOption - 1 : 0);
+          }
+
           break;
       }
     },
@@ -141,22 +138,16 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
 
   const isComponentFocused = () => {
     const active = document.activeElement;
-    const current = container && container.current;
+    const current = container.current;
 
-    if (current && active instanceof Node && current.contains(active)) {
-      return true;
-    }
-    return false;
+    return Boolean(current && current.contains(active));
   };
 
   const isInputFocused = () => {
     const active = document.activeElement;
-    const current = input && input.current;
+    const current = input.current;
 
-    if (current && active instanceof Node && current.contains(active)) {
-      return true;
-    }
-    return false;
+    return Boolean(current && current.contains(active));
   };
 
   const onKeyDown = React.useCallback(
@@ -182,8 +173,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
           event.preventDefault();
           break;
         case 'Escape':
-          setIsMenuOpen(false);
-          setFocusedOption(-1);
+          handleCloseMenu();
           event.preventDefault();
           break;
         case 'Enter':
@@ -220,30 +210,18 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
   );
 
   const setFocusToInput = () => {
-    if (input && input.current) {
+    if (input.current) {
       input.current.focus();
     }
   };
 
-  const handleComponentClick = (event: React.MouseEvent) => {
-    const target = event.target;
-
-    // Set focus on the search input only when clicking component but exlude categories
-    if (
-      !(
-        categoryWrapper.current &&
-        target instanceof Node &&
-        categoryWrapper.current.contains(target)
-      )
-    ) {
-      // Set focus on input field when clicking container
-      setFocusToInput();
-    }
+  const handleComponentClick = () => {
+    setFocusToInput();
   };
 
   const onDocumentClick = (event: MouseEvent) => {
     const target = event.target;
-    const current = container && container.current;
+    const current = container.current;
 
     // Close menu when clicking outside of the component
     if (!(current && target instanceof Node && current.contains(target))) {
@@ -253,7 +231,7 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
 
   const onDocumentFocusin = (event: FocusEvent) => {
     const target = event.target;
-    const current = container && container.current;
+    const current = container.current;
 
     if (!(current && target instanceof Node && current.contains(target))) {
       setIsMenuOpen(false);
@@ -262,8 +240,9 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
+
     onChangeSearchValue(newValue);
-    // Open menu when search value changes
+
     if (newValue) {
       setIsMenuOpen(true);
     } else {
@@ -275,12 +254,6 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     // Open menu when focused on the search input
     if (searchValue) {
       setIsMenuOpen(true);
-    }
-  };
-
-  const handleRemoveCategory = (category: CategoryType) => {
-    if (onRemoveCategory) {
-      onRemoveCategory(category);
     }
   };
 
@@ -304,17 +277,6 @@ const SearchAutosuggest: FunctionComponent<Props> = ({
     >
       <div className={styles.iconWrapper}>
         <IconSearch size="s" />
-      </div>
-      <div ref={categoryWrapper}>
-        {categories.map(category => {
-          return (
-            <Category
-              key={category.value}
-              category={category}
-              onRemove={handleRemoveCategory}
-            />
-          );
-        })}
       </div>
       <div className={styles.inputWrapper}>
         <input

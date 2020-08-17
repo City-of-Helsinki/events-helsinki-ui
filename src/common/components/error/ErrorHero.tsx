@@ -1,5 +1,5 @@
 import { Koros } from 'hds-react';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 
 import Container from '../../../domain/app/layout/Container';
 import Icon404 from '../../../icons/Icon404';
@@ -11,7 +11,7 @@ interface Props {
   title: string;
 }
 
-const NotFound: FunctionComponent<Props> = ({ children, text, title }) => {
+const NotFound: React.FC<Props> = ({ children, text, title }) => {
   return (
     <>
       <div className={styles.errorHero}>
@@ -22,7 +22,9 @@ const NotFound: FunctionComponent<Props> = ({ children, text, title }) => {
           <div className={styles.linkWrapper}>{children}</div>
         </Container>
       </div>
+
       {!isTestEnv && (
+        /* istanbul ignore next */
         <Koros className={styles.koros} flipHorizontal={true} type="basic" />
       )}
     </>
