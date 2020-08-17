@@ -16,8 +16,8 @@ export interface CollectionCardType {
   backgroundImage: string;
   count: number;
   description: string;
-  id: string;
   showDescription?: boolean;
+  slug: string;
   title: string;
 }
 
@@ -31,8 +31,8 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
   backgroundImage,
   count,
   description,
-  id,
   size,
+  slug,
   showDescription = true,
   title,
 }) => {
@@ -41,8 +41,8 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
   const locale = useLocale();
 
   const collectionUrl = React.useMemo(() => {
-    return `/${locale}${ROUTES.COLLECTION.replace(':id', id)}${search}`;
-  }, [id, locale, search]);
+    return `/${locale}${ROUTES.COLLECTION.replace(':slug', slug)}${search}`;
+  }, [locale, search, slug]);
 
   return (
     <div

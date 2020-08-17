@@ -50,7 +50,7 @@ const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
             backgroundImage={getHeroBackgroundImage(collection)}
             count={collection.curatedEvents.length}
             description={getLocalisedString(collection.description, locale)}
-            id={collection.id}
+            slug={collection.slug}
             size={size}
             showDescription={size === 'lg'}
             title={getLocalisedString(collection.title, locale)}

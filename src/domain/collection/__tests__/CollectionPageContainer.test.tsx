@@ -14,7 +14,7 @@ const mocks = [
       query: CollectionDetailsDocument,
       variables: {
         draft: false,
-        id: mockCollection.id,
+        slug: mockCollection.slug,
       },
     },
     result: {
@@ -31,7 +31,7 @@ const mocksForPreview = [
       query: CollectionDetailsDocument,
       variables: {
         draft: true,
-        id: mockCollection.id,
+        slug: mockCollection.slug,
       },
     },
     result: {
@@ -43,13 +43,15 @@ const mocksForPreview = [
 ];
 
 beforeEach(() => {
-  jest.spyOn(Router, 'useParams').mockReturnValue({ id: mockCollection.id });
+  jest
+    .spyOn(Router, 'useParams')
+    .mockReturnValue({ slug: mockCollection.slug });
 });
 
 it('matches snapshot', async () => {
   const { container } = render(
     <MockedProvider mocks={mocks} addTypename={true}>
-      <MemoryRouter initialEntries={[`/fi/collection/${mockCollection.id}`]}>
+      <MemoryRouter initialEntries={[`/fi/collection/${mockCollection.slug}`]}>
         <CollectionPageContainer />
       </MemoryRouter>
     </MockedProvider>
@@ -68,7 +70,7 @@ it('should show PreviewBanner if draft version is requested ', async () => {
   render(
     <MockedProvider mocks={mocksForPreview} addTypename={true}>
       <MemoryRouter
-        initialEntries={[`/fi/collection/${mockCollection.id}/?draft=true`]}
+        initialEntries={[`/fi/collection/${mockCollection.slug}/?draft=true`]}
       >
         <CollectionPageContainer />
       </MemoryRouter>
@@ -86,7 +88,7 @@ it('should show PreviewBanner if draft version is requested ', async () => {
 it("should show 'not found' page if collection doesn't exist", async () => {
   render(
     <MockedProvider mocks={[]} addTypename={true}>
-      <MemoryRouter initialEntries={[`/fi/collection/${mockCollection.id}`]}>
+      <MemoryRouter initialEntries={[`/fi/collection/${mockCollection.slug}`]}>
         <CollectionPageContainer />
       </MemoryRouter>
     </MockedProvider>

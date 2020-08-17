@@ -52,6 +52,7 @@ const collection: CollectionFieldsFragment = {
     fi: 'http://www.google.com',
     sv: 'http://www.google.com',
   },
+  slug: 'syksyn-riehakkaimmat-riennot',
   socialMediaDescription: {
     __typename: 'LocalizedObject',
     en: 'We put together the best foliage for the fall',

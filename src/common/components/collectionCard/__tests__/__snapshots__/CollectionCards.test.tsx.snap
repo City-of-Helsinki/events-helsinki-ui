@@ -11,7 +11,7 @@ exports[`matches snapshot 1`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/1"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -33,7 +33,7 @@ exports[`matches snapshot 1`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/1"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -55,7 +55,7 @@ exports[`matches snapshot 1`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/1"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -90,7 +90,7 @@ exports[`matches snapshot 1`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/2"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -112,7 +112,7 @@ exports[`matches snapshot 1`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/2"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -134,7 +134,7 @@ exports[`matches snapshot 1`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/2"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -169,7 +169,7 @@ exports[`matches snapshot 1`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/3"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -191,7 +191,7 @@ exports[`matches snapshot 1`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/3"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -213,7 +213,7 @@ exports[`matches snapshot 1`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/3"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -248,7 +248,7 @@ exports[`matches snapshot 1`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/4"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -270,7 +270,7 @@ exports[`matches snapshot 1`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/4"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -292,7 +292,7 @@ exports[`matches snapshot 1`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/4"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -327,7 +327,7 @@ exports[`matches snapshot 1`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/5"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -349,7 +349,7 @@ exports[`matches snapshot 1`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/5"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -371,7 +371,7 @@ exports[`matches snapshot 1`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/5"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -406,7 +406,7 @@ exports[`matches snapshot 1`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/6"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -428,7 +428,7 @@ exports[`matches snapshot 1`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/6"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -450,7 +450,7 @@ exports[`matches snapshot 1`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/6"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -485,7 +485,7 @@ exports[`matches snapshot 1`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/7"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -507,7 +507,7 @@ exports[`matches snapshot 1`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/7"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -529,7 +529,7 @@ exports[`matches snapshot 1`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/7"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -571,7 +571,7 @@ exports[`matches snapshot 2`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/1"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -593,7 +593,7 @@ exports[`matches snapshot 2`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/1"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -610,7 +610,7 @@ exports[`matches snapshot 2`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/1"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -645,7 +645,7 @@ exports[`matches snapshot 2`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/2"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -667,7 +667,7 @@ exports[`matches snapshot 2`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/2"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -684,7 +684,7 @@ exports[`matches snapshot 2`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/2"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -719,7 +719,7 @@ exports[`matches snapshot 2`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/3"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -741,7 +741,7 @@ exports[`matches snapshot 2`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/3"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -758,7 +758,7 @@ exports[`matches snapshot 2`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/3"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -793,7 +793,7 @@ exports[`matches snapshot 2`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/4"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -815,7 +815,7 @@ exports[`matches snapshot 2`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/4"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -832,7 +832,7 @@ exports[`matches snapshot 2`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/4"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -867,7 +867,7 @@ exports[`matches snapshot 2`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/5"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -889,7 +889,7 @@ exports[`matches snapshot 2`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/5"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -906,7 +906,7 @@ exports[`matches snapshot 2`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/5"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -941,7 +941,7 @@ exports[`matches snapshot 2`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/6"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -963,7 +963,7 @@ exports[`matches snapshot 2`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/6"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -980,7 +980,7 @@ exports[`matches snapshot 2`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/6"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -1015,7 +1015,7 @@ exports[`matches snapshot 2`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/7"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -1037,7 +1037,7 @@ exports[`matches snapshot 2`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/7"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -1054,7 +1054,7 @@ exports[`matches snapshot 2`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/7"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -1096,7 +1096,7 @@ exports[`matches snapshot 3`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/1"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -1118,7 +1118,7 @@ exports[`matches snapshot 3`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/1"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -1135,7 +1135,7 @@ exports[`matches snapshot 3`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/1"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -1170,7 +1170,7 @@ exports[`matches snapshot 3`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/2"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -1192,7 +1192,7 @@ exports[`matches snapshot 3`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/2"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -1209,7 +1209,7 @@ exports[`matches snapshot 3`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/2"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -1244,7 +1244,7 @@ exports[`matches snapshot 3`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/3"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -1266,7 +1266,7 @@ exports[`matches snapshot 3`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/3"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -1283,7 +1283,7 @@ exports[`matches snapshot 3`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/3"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -1318,7 +1318,7 @@ exports[`matches snapshot 3`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/4"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -1340,7 +1340,7 @@ exports[`matches snapshot 3`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/4"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -1357,7 +1357,7 @@ exports[`matches snapshot 3`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/4"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -1392,7 +1392,7 @@ exports[`matches snapshot 3`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/5"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -1414,7 +1414,7 @@ exports[`matches snapshot 3`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/5"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -1431,7 +1431,7 @@ exports[`matches snapshot 3`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/5"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -1466,7 +1466,7 @@ exports[`matches snapshot 3`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/6"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -1488,7 +1488,7 @@ exports[`matches snapshot 3`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/6"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -1505,7 +1505,7 @@ exports[`matches snapshot 3`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/6"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -1540,7 +1540,7 @@ exports[`matches snapshot 3`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/7"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -1562,7 +1562,7 @@ exports[`matches snapshot 3`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/7"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -1579,7 +1579,7 @@ exports[`matches snapshot 3`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/7"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -1621,7 +1621,7 @@ exports[`matches snapshot 4`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/1"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -1643,7 +1643,7 @@ exports[`matches snapshot 4`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/1"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -1660,7 +1660,7 @@ exports[`matches snapshot 4`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/1"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -1695,7 +1695,7 @@ exports[`matches snapshot 4`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/2"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -1717,7 +1717,7 @@ exports[`matches snapshot 4`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/2"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -1734,7 +1734,7 @@ exports[`matches snapshot 4`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/2"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -1769,7 +1769,7 @@ exports[`matches snapshot 4`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/3"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -1791,7 +1791,7 @@ exports[`matches snapshot 4`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/3"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -1808,7 +1808,7 @@ exports[`matches snapshot 4`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/3"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -1843,7 +1843,7 @@ exports[`matches snapshot 4`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/4"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -1865,7 +1865,7 @@ exports[`matches snapshot 4`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/4"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -1882,7 +1882,7 @@ exports[`matches snapshot 4`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/4"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -1917,7 +1917,7 @@ exports[`matches snapshot 4`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/5"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -1939,7 +1939,7 @@ exports[`matches snapshot 4`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/5"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -1956,7 +1956,7 @@ exports[`matches snapshot 4`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/5"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -1991,7 +1991,7 @@ exports[`matches snapshot 4`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/6"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -2013,7 +2013,7 @@ exports[`matches snapshot 4`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/6"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -2030,7 +2030,7 @@ exports[`matches snapshot 4`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/6"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"
@@ -2065,7 +2065,7 @@ exports[`matches snapshot 4`] = `
       aria-hidden="true"
       aria-label="Siirry tapahtumaan: "
       class="imageWrapper"
-      href="/fi/collection/7"
+      href="/fi/collection/syksyn-riehakkaimmat-riennot"
       style="background-image: url(testurl.png);"
       tabindex="-1"
     />
@@ -2087,7 +2087,7 @@ exports[`matches snapshot 4`] = `
         <a
           aria-hidden="true"
           class="title"
-          href="/fi/collection/7"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
           tabindex="-1"
         >
           Syksyn riehakkaimmat riennot
@@ -2104,7 +2104,7 @@ exports[`matches snapshot 4`] = `
         <a
           aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
           class="iconLink default"
-          href="/fi/collection/7"
+          href="/fi/collection/syksyn-riehakkaimmat-riennot"
         >
           <div
             class="iconWrapper"

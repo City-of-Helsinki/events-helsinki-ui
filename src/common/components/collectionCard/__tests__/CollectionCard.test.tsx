@@ -8,8 +8,8 @@ const collectionProps: CollectionCardProps = {
   backgroundImage: 'imageurl.png',
   count: 120,
   description: 'Lorem ipsum',
-  id: '1',
   size: 'md',
+  slug: 'collection-title',
   title: 'Collection title',
 };
 
