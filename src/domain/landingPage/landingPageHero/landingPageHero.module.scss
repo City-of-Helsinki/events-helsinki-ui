@@ -5,14 +5,41 @@
   position: relative;
   width: 100%;
   height: above;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
   padding-bottom: 6rem;
 
   @include respond-above(sm) {
     min-height: 42.6875rem;
     padding-bottom: unset;
+  }
+
+  .desktopBackgroundImage {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    @include respond-below(sm) {
+      display: none;
+    }
+  }
+
+  .mobileBackgroundImage {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    @include respond-above(sm) {
+      display: none;
+    }
   }
 
   .image {

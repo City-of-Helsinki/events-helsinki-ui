@@ -4,7 +4,6 @@ import React from 'react';
 
 import Container from '../../../domain/app/layout/Container';
 import { LandingPageFieldsFragment } from '../../../generated/graphql';
-import useIsSmallScreen from '../../../hooks/useIsSmallScreen';
 import useLocale from '../../../hooks/useLocale';
 import getLocalisedString from '../../../util/getLocalisedString';
 import {
@@ -23,7 +22,6 @@ interface Props {
 
 const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
   const locale = useLocale();
-  const isSmallScreen = useIsSmallScreen();
 
   const title = getLocalisedString(landingPage.title, locale);
 
@@ -54,12 +52,19 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
       className={classNames(styles.landingPageHero, {
         [styles[`${backgroundColor}BackgroundColor`]]: backgroundColor,
       })}
-      style={{
-        backgroundImage: `url(${
-          isSmallScreen ? heroBackgroundImageMobile : heroBackgroundImage
-        })`,
-      }}
     >
+      <div
+        className={styles.desktopBackgroundImage}
+        style={{
+          backgroundImage: `url(${heroBackgroundImage})`,
+        }}
+      ></div>
+      <div
+        className={styles.mobileBackgroundImage}
+        style={{
+          backgroundImage: `url(${heroBackgroundImageMobile})`,
+        }}
+      ></div>
       <div
         className={styles.image}
         style={{ backgroundImage: `url(${heroTopLayerImage})` }}
