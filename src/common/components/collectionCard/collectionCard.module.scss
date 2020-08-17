@@ -1,6 +1,6 @@
-@import "colors"; 
-@import "fonts"; 
-@import "layout"; 
+@import 'colors';
+@import 'fonts';
+@import 'layout';
 
 .collectionCardWrapper {
   display: flex;
@@ -32,6 +32,7 @@
 
     .titleWrapper {
       align-self: flex-start;
+      hyphens: auto;
     }
 
     .title {
@@ -50,7 +51,7 @@
     .linkWrapper {
       padding-top: 1rem;
     }
-  } 
+  }
 
   &.smSize {
     flex-direction: column;
@@ -69,7 +70,7 @@
         width: 7rem;
       }
     }
-  
+
     .textWrapper {
       flex: 1 1 0%;
       grid-template-rows: 1fr auto;
@@ -96,7 +97,7 @@
         display: flex;
         align-self: center;
 
-        @include respond-below(sm) { 
+        @include respond-below(sm) {
           padding-top: 1rem;
           padding-left: 0;
         }
@@ -120,7 +121,7 @@
         flex: 1 1 0%;
       }
     }
-  
+
     .textWrapper {
       flex: 1 1 0%;
       grid-template-rows: 1fr auto;
@@ -168,10 +169,10 @@
         min-height: 12.75rem;
       }
     }
-  
+
     .textWrapper {
       min-height: 40.5rem;
-      min-width: 31.25rem;;
+      min-width: 31.25rem;
       flex: 1 1 0%;
 
       @include respond-below(sm) {
@@ -202,6 +203,6 @@
           line-height: 2.25rem;
         }
       }
-    }  
+    }
   }
 }
