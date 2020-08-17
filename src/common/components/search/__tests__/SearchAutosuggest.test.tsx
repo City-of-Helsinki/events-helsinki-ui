@@ -53,7 +53,7 @@ test('matches snapshot', async () => {
 
   await wait();
 
-  expect(container.innerHTML).toMatchSnapshot();
+  expect(container.firstChild).toMatchSnapshot();
 });
 
 test('should open menu after typing search value', async () => {

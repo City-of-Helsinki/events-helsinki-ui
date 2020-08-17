@@ -1,3 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshot 1`] = `"<div class=\\"searchAutosuggest\\"><div class=\\"iconWrapper\\"><svg class=\\"Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik\\" viewBox=\\"0 0 24 24\\" xmlns=\\"http://www.w3.org/2000/svg\\"><g fill=\\"none\\" fill-rule=\\"evenodd\\"><path d=\\"M0 0h24v24H0z\\"></path><path d=\\"M15 1a8 8 0 11-4.798 14.402l-6.401 6.4-1.591-1.59 6.398-6.4A8 8 0 0115 1zm0 2a6 6 0 100 12 6 6 0 000-12z\\" fill=\\"currentColor\\"></path></g></svg></div><div class=\\"inputWrapper\\"><input id=\\"search\\" name=\\"search\\" placeholder=\\"Placeholder text\\" type=\\"text\\" value=\\"jazz\\"></div></div>"`;
+exports[`matches snapshot 1`] = `
+<div
+  class="searchAutosuggest"
+>
+  <div
+    class="iconWrapper"
+  >
+    <svg
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <path
+          d="M0 0h24v24H0z"
+        />
+        <path
+          d="M15 1a8 8 0 11-4.798 14.402l-6.401 6.4-1.591-1.59 6.398-6.4A8 8 0 0115 1zm0 2a6 6 0 100 12 6 6 0 000-12z"
+          fill="currentColor"
+        />
+      </g>
+    </svg>
+  </div>
+  <div
+    class="inputWrapper"
+  >
+    <input
+      id="search"
+      name="search"
+      placeholder="Placeholder text"
+      type="text"
+      value="jazz"
+    />
+  </div>
+</div>
+`;
