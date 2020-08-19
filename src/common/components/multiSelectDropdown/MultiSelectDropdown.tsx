@@ -199,6 +199,7 @@ const MultiSelectDropdown: React.FC<Props> = ({
 
   const handleClear = () => {
     onChange([]);
+    handleInputValueChange('');
   };
 
   const handleInputWrapperClick = () => {
