@@ -1,5 +1,20 @@
+import { Filters } from './types';
 // Page size of the event list
 export const PAGE_SIZE = 10;
+
+export const DEFAULT_SEARCH_FILTERS: Filters = {
+  categories: [],
+  dateTypes: [],
+  divisions: [],
+  end: null,
+  isFree: false,
+  keywordNot: [],
+  keywords: [],
+  places: [],
+  publisher: null,
+  start: null,
+  text: '',
+};
 
 export enum EVENT_SORT_OPTIONS {
   DURATION = 'duration',

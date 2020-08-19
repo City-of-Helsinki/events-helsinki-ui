@@ -1,4 +1,8 @@
 import { addDays, endOfWeek, isPast, startOfWeek, subDays } from 'date-fns';
+import forEach from 'lodash/forEach';
+import isArray from 'lodash/isArray';
+import isEmpty from 'lodash/isEmpty';
+import isNumber from 'lodash/isNumber';
 
 import { CATEGORIES, DATE_TYPES } from '../../constants';
 import { EventListQuery } from '../../generated/graphql';
@@ -12,6 +16,7 @@ import {
   INFLUENCE_KEYWORDS,
   MUSEUM_KEYWORDS,
 } from './constants';
+import { Filters, MappedFilters } from './types';
 
 /**
  * Get start and end dates to event list filtering
@@ -218,4 +223,37 @@ export const getNextPage = (
   const searchParams = new URLSearchParams(decodeURIComponent(urlParts[1]));
   const page = searchParams.get(EVENT_SEARCH_FILTERS.PAGE);
   return page ? Number(page) : null;
+};
+
+export const getSearchQuery = (filters: Filters): string => {
+  const newFilters: MappedFilters = {
+    ...filters,
+    end: formatDate(filters.end, 'yyyy-MM-dd'),
+    isFree: filters.isFree ? true : undefined,
+    onlyChildrenEvents: filters.onlyChildrenEvents ? true : undefined,
+    start: formatDate(filters.start, 'yyyy-MM-dd'),
+  };
+
+  if (newFilters.end || newFilters.start) {
+    delete newFilters.dateTypes;
+  }
+  const query: string[] = [];
+
+  forEach(newFilters, (filter, key) => {
+    if (!isEmpty(filter) || isNumber(filter) || typeof filter === 'boolean') {
+      if (isArray(filter)) {
+        const items: Array<string | number> = [];
+
+        forEach(filter, (item: string | number) => {
+          items.push(encodeURIComponent(item));
+        });
+
+        query.push(`${key}=${items.join(',')}`);
+      } else if (filter != null) {
+        query.push(`${key}=${encodeURIComponent(filter)}`);
+      }
+    }
+  });
+
+  return query.length ? `?${query.join('&')}` : '';
 };

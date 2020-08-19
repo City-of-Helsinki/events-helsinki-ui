@@ -10,10 +10,10 @@ import useLocale from '../../../hooks/useLocale';
 import { formatDate } from '../../../util/dateUtils';
 import getLocalisedString from '../../../util/getLocalisedString';
 import getUrlParamAsArray from '../../../util/getUrlParamAsArray';
-import { getSearchQuery } from '../../../util/searchUtils';
 import { translateValue } from '../../../util/translateUtils';
 import { ROUTES } from '../../app/constants';
 import { EVENT_SEARCH_FILTERS } from '../constants';
+import { getSearchQuery } from '../utils';
 import DateFilter from './DateFilter';
 import styles from './filterSummary.module.scss';
 import KeywordFilter from './KeywordFilter';
@@ -21,7 +21,11 @@ import PlaceFilter from './PlaceFilter';
 import PublisherFilter from './PublisherFilter';
 import SearchWordFilter from './SearchWordFilter';
 
-const FilterSummary = () => {
+interface Props {
+  onClear: () => void;
+}
+
+const FilterSummary: React.FC<Props> = () => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { push } = useHistory();

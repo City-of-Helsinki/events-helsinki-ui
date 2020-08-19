@@ -16,23 +16,25 @@ import useLocale from '../../hooks/useLocale';
 import IconRead from '../../icons/IconRead';
 import getLocalisedString from '../../util/getLocalisedString';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
-import { getSearchQuery } from '../../util/searchUtils';
 import { ROUTES } from '../app/constants';
 import Container from '../app/layout/Container';
 import PlaceSelector from '../place/placeSelector/PlaceSelector';
-import { EVENT_SEARCH_FILTERS } from './constants';
+import { DEFAULT_SEARCH_FILTERS, EVENT_SEARCH_FILTERS } from './constants';
 import FilterSummary from './filterSummary/FilterSummary';
 import styles from './search.module.scss';
+import { getSearchQuery } from './utils';
 
 interface Props {
   scrollToResultList: () => void;
 }
 
 const Search: React.FC<Props> = ({ scrollToResultList }) => {
+  const { push } = useHistory();
   const { search } = useLocation();
   const searchParams = React.useMemo(() => new URLSearchParams(search), [
     search,
   ]);
+
   const { t } = useTranslation();
   const locale = useLocale();
   const [searchValue, setSearchValue] = React.useState('');
@@ -55,77 +57,83 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
       ? true
       : false;
 
-  const { push } = useHistory();
-
   const keywordNot = getUrlParamAsArray(
     searchParams,
     EVENT_SEARCH_FILTERS.KEYWORD_NOT
   );
 
+  const searchFilters = {
+    categories: selectedCategories,
+    dateTypes,
+    divisions,
+    end,
+    isFree,
+    keywordNot,
+    keywords,
+    onlyChildrenEvents,
+    places,
+    publisher,
+    start,
+    text: searchValue,
+  };
+
   const { data: neighborhoodsData } = useNeighborhoodListQuery();
 
-  const divisionOptions = React.useMemo(
-    () =>
-      neighborhoodsData
-        ? neighborhoodsData.neighborhoodList.data
-            .map(neighborhood => ({
-              text: getLocalisedString(neighborhood.name, locale),
-              value: neighborhood.id,
-            }))
-            .sort((a, b) => (a.text >= b.text ? 1 : -1))
-        : [],
-    [locale, neighborhoodsData]
-  );
+  const divisionOptions = neighborhoodsData
+    ? neighborhoodsData.neighborhoodList.data
+        .map(neighborhood => ({
+          text: getLocalisedString(neighborhood.name, locale),
+          value: neighborhood.id,
+        }))
+        .sort((a, b) => (a.text >= b.text ? 1 : -1))
+    : [];
 
-  const categories = React.useMemo(
-    () => [
-      {
-        text: t('home.category.movie'),
-        value: CATEGORIES.MOVIE,
-      },
-      {
-        text: t('home.category.music'),
-        value: CATEGORIES.MUSIC,
-      },
-      {
-        text: t('home.category.sport'),
-        value: CATEGORIES.SPORT,
-      },
-      {
-        text: t('home.category.museum'),
-        value: CATEGORIES.MUSEUM,
-      },
-      {
-        text: t('home.category.dance'),
-        value: CATEGORIES.DANCE,
-      },
-      {
-        text: t('home.category.culture'),
-        value: CATEGORIES.CULTURE,
-      },
-      {
-        text: t('home.category.nature'),
-        value: CATEGORIES.NATURE,
-      },
-      {
-        text: t('home.category.influence'),
-        value: CATEGORIES.INFLUENCE,
-      },
-      {
-        text: t('home.category.theatre'),
-        value: CATEGORIES.THEATRE,
-      },
-      {
-        text: t('home.category.food'),
-        value: CATEGORIES.FOOD,
-      },
-      {
-        text: t('home.category.misc'),
-        value: CATEGORIES.MISC,
-      },
-    ],
-    [t]
-  );
+  const categories = [
+    {
+      text: t('home.category.movie'),
+      value: CATEGORIES.MOVIE,
+    },
+    {
+      text: t('home.category.music'),
+      value: CATEGORIES.MUSIC,
+    },
+    {
+      text: t('home.category.sport'),
+      value: CATEGORIES.SPORT,
+    },
+    {
+      text: t('home.category.museum'),
+      value: CATEGORIES.MUSEUM,
+    },
+    {
+      text: t('home.category.dance'),
+      value: CATEGORIES.DANCE,
+    },
+    {
+      text: t('home.category.culture'),
+      value: CATEGORIES.CULTURE,
+    },
+    {
+      text: t('home.category.nature'),
+      value: CATEGORIES.NATURE,
+    },
+    {
+      text: t('home.category.influence'),
+      value: CATEGORIES.INFLUENCE,
+    },
+    {
+      text: t('home.category.theatre'),
+      value: CATEGORIES.THEATRE,
+    },
+    {
+      text: t('home.category.food'),
+      value: CATEGORIES.FOOD,
+    },
+    {
+      text: t('home.category.misc'),
+      value: CATEGORIES.MISC,
+    },
+  ];
 
   const handleChangeDateTypes = (value: string[]) => {
     setDateTypes(value);
@@ -135,39 +143,11 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     setIsCustomDate(!isCustomDate);
   };
 
-  const moveToSearchPage = React.useCallback(() => {
-    const search = getSearchQuery({
-      categories: selectedCategories,
-      dateTypes,
-      divisions,
-      end,
-      isFree,
-      keywordNot: keywordNot,
-      keywords,
-      onlyChildrenEvents,
-      places,
-      publisher,
-      start,
-      text: searchValue,
-    });
+  const moveToSearchPage = () => {
+    const search = getSearchQuery(searchFilters);
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
-  }, [
-    dateTypes,
-    divisions,
-    end,
-    isFree,
-    keywordNot,
-    keywords,
-    locale,
-    onlyChildrenEvents,
-    places,
-    publisher,
-    push,
-    searchValue,
-    selectedCategories,
-    start,
-  ]);
+  };
 
   // Initialize fields when page is loaded
   React.useEffect(() => {
@@ -236,28 +216,19 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     }
 
     const search = getSearchQuery({
-      categories: selectedCategories,
-      dateTypes,
-      divisions,
-      end,
-      isFree,
-      keywordNot,
+      ...searchFilters,
       keywords: newKeywords,
-      onlyChildrenEvents,
-      places,
       publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
-      start,
       text: newSearchValue,
     });
-    switch (type) {
-      case 'keyword':
-        setKeywords(newKeywords);
-        break;
+
+    if (type === 'keyword') {
+      setKeywords(newKeywords);
     }
+
     setSearchValue(newSearchValue);
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
-
     scrollToResultList();
   };
 
@@ -265,18 +236,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const search = getSearchQuery({
-      categories: selectedCategories,
-      dateTypes,
-      divisions,
-      end,
-      isFree,
-      keywordNot,
-      keywords,
+      ...searchFilters,
       onlyChildrenEvents: e.target.checked,
-      places,
-      publisher,
-      start,
-      text: searchValue,
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -284,19 +245,15 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
 
   const handleIsFreeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const search = getSearchQuery({
-      categories: selectedCategories,
-      dateTypes,
-      divisions,
-      end,
+      ...searchFilters,
       isFree: e.target.checked,
-      keywordNot,
-      keywords,
-      onlyChildrenEvents,
-      places,
-      publisher,
-      start,
-      text: searchValue,
     });
+
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+  };
+
+  const clearFilters = () => {
+    const search = getSearchQuery(DEFAULT_SEARCH_FILTERS);
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   };
@@ -413,7 +370,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                   </div>
                 </div>
               </div>
-              <FilterSummary />
+              <FilterSummary onClear={clearFilters} />
             </div>
           </form>
         </Container>
