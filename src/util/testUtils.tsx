@@ -1,4 +1,22 @@
-import { fireEvent } from '@testing-library/react';
+import { MockedProvider, MockedResponse } from '@apollo/react-testing';
+import { fireEvent, render, RenderResult } from '@testing-library/react';
+import { createMemoryHistory, History } from 'history';
+import React from 'react';
+import { Route, Router } from 'react-router-dom';
+
+type CustomRender = {
+  (
+    ui: React.ReactElement,
+    options?: {
+      routes?: string[];
+      path?: string;
+      history?: History;
+      mocks?: MockedResponse[];
+    }
+  ): CustomRenderResult;
+};
+
+type CustomRenderResult = RenderResult & { history: History };
 
 export const arrowUpKeyPressHelper = () =>
   fireEvent.keyDown(document, { code: 38, key: 'ArrowUp' });
@@ -14,3 +32,51 @@ export const escKeyPressHelper = () =>
 
 export const tabKeyPressHelper = () =>
   fireEvent.keyDown(document, { code: 9, key: 'Tab' });
+
+const customRender: CustomRender = (
+  ui,
+  {
+    routes = ['/'],
+    history = createMemoryHistory({ initialEntries: routes }),
+    mocks = [],
+  } = {}
+) => {
+  const Wrapper: React.FC = ({ children }) => (
+    <MockedProvider mocks={mocks}>
+      <Router history={history}>{children}</Router>
+    </MockedProvider>
+  );
+
+  const renderResult = render(ui, { wrapper: Wrapper });
+  return { ...renderResult, history };
+};
+
+const renderWithRoute: CustomRender = (
+  ui,
+  {
+    routes = ['/'],
+    path = '/',
+    history = createMemoryHistory({ initialEntries: routes }),
+    mocks = [],
+  } = {}
+) => {
+  const Wrapper: React.FC = ({ children }) => (
+    <MockedProvider mocks={mocks}>
+      <Router history={history}>
+        <Route exact path={path}>
+          {children}
+        </Route>
+      </Router>
+    </MockedProvider>
+  );
+
+  const renderResult = render(ui, { wrapper: Wrapper });
+  return { ...renderResult, history };
+};
+
+export { customRender as render, renderWithRoute };
+
+// re-export everything
+export * from '@testing-library/react';
+export { render as defaultRender } from '@testing-library/react';
+export { default as userEvent } from '@testing-library/user-event';
