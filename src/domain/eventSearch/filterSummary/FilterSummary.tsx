@@ -12,7 +12,7 @@ import getLocalisedString from '../../../util/getLocalisedString';
 import getUrlParamAsArray from '../../../util/getUrlParamAsArray';
 import { translateValue } from '../../../util/translateUtils';
 import { ROUTES } from '../../app/constants';
-import { EVENT_SEARCH_FILTERS } from '../constants';
+import { DEFAULT_SEARCH_FILTERS, EVENT_SEARCH_FILTERS } from '../constants';
 import { getSearchQuery } from '../utils';
 import DateFilter from './DateFilter';
 import styles from './filterSummary.module.scss';
@@ -25,7 +25,7 @@ interface Props {
   onClear: () => void;
 }
 
-const FilterSummary: React.FC<Props> = () => {
+const FilterSummary: React.FC<Props> = ({ onClear }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { push } = useHistory();
@@ -120,24 +120,6 @@ const FilterSummary: React.FC<Props> = () => {
     handleFilterRemove('', 'searchWord');
   };
 
-  const clearFilters = () => {
-    const search = getSearchQuery({
-      categories: [],
-      dateTypes: [],
-      divisions: [],
-      end: null,
-      isFree: false,
-      keywordNot: [],
-      keywords: [],
-      places: [],
-      publisher: null,
-      start: null,
-      text: '',
-    });
-
-    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
-  };
-
   const hasFilters =
     !!publisher ||
     !!categories.length ||
@@ -203,11 +185,7 @@ const FilterSummary: React.FC<Props> = () => {
           value={dateType}
         />
       ))}
-      <button
-        className={styles.clearButton}
-        onClick={clearFilters}
-        type="button"
-      >
+      <button className={styles.clearButton} onClick={onClear} type="button">
         {t('eventSearch.buttonClearFilters')}
       </button>
     </div>

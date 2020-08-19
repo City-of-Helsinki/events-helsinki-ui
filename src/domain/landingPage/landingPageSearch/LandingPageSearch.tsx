@@ -114,21 +114,15 @@ const Search: FunctionComponent = () => {
 
   const moveToSearchPage = React.useCallback(() => {
     const search = getSearchQuery({
-      categories: [],
+      ...DEFAULT_SEARCH_FILTERS,
       dateTypes,
-      divisions: [],
       end,
-      isFree: false,
-      keywordNot: [],
-      keywords: [],
-      places: [],
-      publisher: null,
       start,
-      text: '',
+      text: searchValue,
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
-  }, [dateTypes, end, locale, push, start]);
+  }, [dateTypes, end, locale, push, searchValue, start]);
 
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
     const type = option.type;
@@ -136,15 +130,10 @@ const Search: FunctionComponent = () => {
     const searchValue = option.type === 'search' ? option.text : '';
 
     const search = getSearchQuery({
-      categories: [],
+      ...DEFAULT_SEARCH_FILTERS,
       dateTypes,
-      divisions: [],
       end,
-      isFree: false,
-      keywordNot: [],
       keywords: type === 'keyword' ? [value] : [],
-      places: [],
-      publisher: null,
       start,
       text: searchValue,
     });

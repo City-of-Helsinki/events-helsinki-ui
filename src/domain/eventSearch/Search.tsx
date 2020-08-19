@@ -29,14 +29,18 @@ interface Props {
 }
 
 const Search: React.FC<Props> = ({ scrollToResultList }) => {
+  const { t } = useTranslation();
+  const locale = useLocale();
   const { push } = useHistory();
   const { search } = useLocation();
   const searchParams = React.useMemo(() => new URLSearchParams(search), [
     search,
   ]);
 
-  const { t } = useTranslation();
-  const locale = useLocale();
+  const [categoryInput, setCategoryInput] = React.useState('');
+  const [divisionInput, setDivisionInput] = React.useState('');
+  const [placeInput, setPlaceInput] = React.useState('');
+
   const [searchValue, setSearchValue] = React.useState('');
   const [dateTypes, setDateTypes] = React.useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = React.useState<string[]>(
@@ -252,10 +256,17 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   };
 
+  const clearInputValues = () => {
+    setCategoryInput('');
+    setDivisionInput('');
+    setPlaceInput('');
+  };
   const clearFilters = () => {
     const search = getSearchQuery(DEFAULT_SEARCH_FILTERS);
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+
+    clearInputValues();
   };
 
   const handleSubmit = (event?: FormEvent) => {
@@ -296,9 +307,11 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                     <MultiSelectDropdown
                       checkboxName="categoryOptions"
                       icon={<IconRead />}
+                      inputValue={categoryInput}
                       name="category"
                       onChange={setSelectedCategories}
                       options={categories}
+                      setInputValue={setCategoryInput}
                       title={t('eventSearch.search.titleDropdownCategory')}
                       value={selectedCategories}
                     />
@@ -320,10 +333,12 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                     <MultiSelectDropdown
                       checkboxName="divisionOptions"
                       icon={<IconLocation />}
+                      inputValue={divisionInput}
                       name="division"
                       onChange={setDivisions}
                       options={divisionOptions}
                       selectAllText={t('eventSearch.search.selectAllDivisions')}
+                      setInputValue={setDivisionInput}
                       showSelectAll={true}
                       title={t('eventSearch.search.titleDropdownDivision')}
                       value={divisions}
@@ -331,7 +346,9 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                   </div>
                   <div>
                     <PlaceSelector
+                      inputValue={placeInput}
                       name="places"
+                      setInputValue={setPlaceInput}
                       setPlaces={setPlaces}
                       value={places}
                     />
