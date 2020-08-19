@@ -9,11 +9,9 @@ import { useNeighborhoodListQuery } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { formatDate } from '../../../util/dateUtils';
 import getLocalisedString from '../../../util/getLocalisedString';
-import getUrlParamAsArray from '../../../util/getUrlParamAsArray';
 import { translateValue } from '../../../util/translateUtils';
 import { ROUTES } from '../../app/constants';
-import { EVENT_SEARCH_FILTERS } from '../constants';
-import { getSearchQuery } from '../utils';
+import { getSearchFilters, getSearchQuery } from '../utils';
 import DateFilter from './DateFilter';
 import styles from './filterSummary.module.scss';
 import KeywordFilter from './KeywordFilter';
@@ -30,37 +28,25 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
   const locale = useLocale();
   const { push } = useHistory();
   const searchParams = new URLSearchParams(useLocation().search);
-  const publisher = searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER);
-  const categories = getUrlParamAsArray(
-    searchParams,
-    EVENT_SEARCH_FILTERS.CATEGORIES
-  );
-  const dateTypes = getUrlParamAsArray(
-    searchParams,
-    EVENT_SEARCH_FILTERS.DATE_TYPES
-  );
-  const divisions = getUrlParamAsArray(
-    searchParams,
-    EVENT_SEARCH_FILTERS.DIVISIONS
-  );
-  const isFree =
-    searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true' ? true : false;
-  const onlyChildrenEvents =
-    searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === 'true'
-      ? true
-      : false;
-  const keywords = getUrlParamAsArray(
-    searchParams,
-    EVENT_SEARCH_FILTERS.KEYWORDS
-  );
-  const places = getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.PLACES);
-  const start = searchParams.get(EVENT_SEARCH_FILTERS.START);
-  const end = searchParams.get(EVENT_SEARCH_FILTERS.END);
-  const searchWord = searchParams.get(EVENT_SEARCH_FILTERS.TEXT);
+  const {
+    categories,
+    dateTypes,
+    divisions,
+    end,
+    isFree,
+    keywordNot,
+    keywords,
+    onlyChildrenEvents,
+    places,
+    publisher,
+    start,
+    text,
+  } = getSearchFilters(searchParams);
+
   const dateText =
     start || end
-      ? `${start ? formatDate(new Date(start)) : ''} - ${
-          end ? formatDate(new Date(end)) : ''
+      ? `${start ? formatDate(start) : ''} - ${
+          end ? formatDate(end) : ''
         }`.trim()
       : '';
 
@@ -78,10 +64,6 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
   );
 
   const handleFilterRemove = (value: string, type: FilterType) => {
-    const end = searchParams.get(EVENT_SEARCH_FILTERS.END);
-    const searchWord = searchParams.get(EVENT_SEARCH_FILTERS.TEXT) || '';
-    const start = searchParams.get(EVENT_SEARCH_FILTERS.START);
-
     const search = getSearchQuery({
       categories:
         type === 'category'
@@ -95,12 +77,9 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
         type === 'division'
           ? divisions.filter(division => division !== value)
           : divisions,
-      end: type === 'date' ? null : end ? new Date(end) : null,
+      end: type === 'date' ? null : end,
       isFree,
-      keywordNot: getUrlParamAsArray(
-        searchParams,
-        EVENT_SEARCH_FILTERS.KEYWORD_NOT
-      ),
+      keywordNot,
       keywords:
         type === 'keyword'
           ? keywords.filter(keyword => keyword !== value)
@@ -109,8 +88,8 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
       places:
         type === 'place' ? places.filter(place => place !== value) : places,
       publisher: type !== 'publisher' ? publisher : null,
-      start: type === 'date' ? null : start ? new Date(start) : null,
-      text: type === 'searchWord' ? '' : searchWord,
+      start: type === 'date' ? null : start,
+      text: type === 'searchWord' ? '' : text,
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -128,14 +107,14 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
     !!divisions.length ||
     !!keywords.length ||
     !!places.length ||
-    !!searchWord;
+    !!text;
 
   if (!hasFilters) return null;
 
   return (
     <div className={styles.filterSummary}>
-      {!!searchWord && (
-        <SearchWordFilter onRemove={deleteSearchWord} searchWord={searchWord} />
+      {!!text && (
+        <SearchWordFilter onRemove={deleteSearchWord} searchWord={text} />
       )}
       {categories.map(category => (
         <FilterButton
