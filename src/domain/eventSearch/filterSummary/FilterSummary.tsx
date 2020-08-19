@@ -95,10 +95,6 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   };
 
-  const deleteSearchWord = () => {
-    handleFilterRemove('', 'searchWord');
-  };
-
   const hasFilters =
     !!publisher ||
     !!categories.length ||
@@ -113,9 +109,7 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
 
   return (
     <div className={styles.filterSummary}>
-      {!!text && (
-        <SearchWordFilter onRemove={deleteSearchWord} searchWord={text} />
-      )}
+      {!!text && <SearchWordFilter onRemove={handleFilterRemove} text={text} />}
       {categories.map(category => (
         <FilterButton
           key={category}

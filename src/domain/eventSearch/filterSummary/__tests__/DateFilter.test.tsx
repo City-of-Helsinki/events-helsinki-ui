@@ -30,4 +30,5 @@ it('calls onRemove callback when remove button is clicked ', () => {
   userEvent.click(screen.getByRole('button'));
 
   expect(onClickMock).toHaveBeenCalled();
+  expect(onClickMock).toHaveBeenCalledWith(props.value, props.type);
 });
