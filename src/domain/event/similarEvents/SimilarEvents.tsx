@@ -15,7 +15,10 @@ import {
   EVENT_SORT_OPTIONS,
   PAGE_SIZE,
 } from '../../eventSearch/constants';
-import { getEventFilters, getSearchQuery } from '../../eventSearch/utils';
+import {
+  getEventSearchVariables,
+  getSearchQuery,
+} from '../../eventSearch/utils';
 import { SIMILAR_EVENTS_AMOUNT } from '../constants';
 import styles from './similarEvents.module.scss';
 
@@ -33,7 +36,7 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
   // Filter by search query if exists, if not filter by event keywords
   const searchParams = new URLSearchParams(search ? search : eventSearch);
   const eventFilters = React.useMemo(() => {
-    return getEventFilters({
+    return getEventSearchVariables({
       include: ['keywords', 'location'],
       language: locale,
       pageSize: PAGE_SIZE,

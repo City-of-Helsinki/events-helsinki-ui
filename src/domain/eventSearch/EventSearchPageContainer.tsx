@@ -13,7 +13,7 @@ import { EVENT_SORT_OPTIONS, PAGE_SIZE } from './constants';
 import styles from './eventSearchPage.module.scss';
 import Search from './Search';
 import SearchResultList from './searchResultList/SearchResultList';
-import { getEventFilters, getNextPage } from './utils';
+import { getEventSearchVariables, getNextPage } from './utils';
 
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const { t } = useTranslation();
@@ -21,7 +21,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const eventFilters = React.useMemo(() => {
-    return getEventFilters({
+    return getEventSearchVariables({
       include: ['keywords', 'location'],
       language: locale,
       pageSize: PAGE_SIZE,

@@ -12,7 +12,7 @@ import getLocalisedString from '../../../util/getLocalisedString';
 import getUrlParamAsArray from '../../../util/getUrlParamAsArray';
 import { translateValue } from '../../../util/translateUtils';
 import { ROUTES } from '../../app/constants';
-import { DEFAULT_SEARCH_FILTERS, EVENT_SEARCH_FILTERS } from '../constants';
+import { EVENT_SEARCH_FILTERS } from '../constants';
 import { getSearchQuery } from '../utils';
 import DateFilter from './DateFilter';
 import styles from './filterSummary.module.scss';

@@ -96,7 +96,7 @@ export const getCurrentHour = (): string => {
  * @param {object} filterOptions
  * @return {object}
  */
-export const getEventFilters = ({
+export const getEventSearchVariables = ({
   include,
   language,
   pageSize,
@@ -223,6 +223,42 @@ export const getNextPage = (
   const searchParams = new URLSearchParams(decodeURIComponent(urlParts[1]));
   const page = searchParams.get(EVENT_SEARCH_FILTERS.PAGE);
   return page ? Number(page) : null;
+};
+
+export const getSearchFilters = (searchParams: URLSearchParams) => {
+  const endTime = searchParams.get(EVENT_SEARCH_FILTERS.END);
+  const end = endTime ? new Date(endTime) : null;
+
+  const startTime = searchParams.get(EVENT_SEARCH_FILTERS.START);
+  const start = startTime ? new Date(startTime) : null;
+
+  return {
+    categories: getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.CATEGORIES
+    ),
+    dateTypes: getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.DATE_TYPES
+    ),
+    divisions: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.DIVISIONS),
+    end,
+    isFree:
+      searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true' ? true : false,
+    keywordNot: getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.KEYWORD_NOT
+    ),
+    keywords: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.KEYWORDS),
+    onlyChildrenEvents:
+      searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === 'true'
+        ? true
+        : false,
+    places: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.PLACES),
+    publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
+    start,
+    text: searchParams.get(EVENT_SEARCH_FILTERS.TEXT) || '',
+  };
 };
 
 export const getSearchQuery = (filters: Filters): string => {

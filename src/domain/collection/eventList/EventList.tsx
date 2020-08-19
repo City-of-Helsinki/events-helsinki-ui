@@ -10,7 +10,7 @@ import getLocalisedString from '../../../util/getLocalisedString';
 import Container from '../../app/layout/Container';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from '../../eventSearch/constants';
 import EventSearchList from '../../eventSearch/searchResultList/EventList';
-import { getEventFilters, getNextPage } from '../../eventSearch/utils';
+import { getEventSearchVariables, getNextPage } from '../../eventSearch/utils';
 import styles from './eventList.module.scss';
 
 interface Props {
@@ -25,7 +25,7 @@ const EventList: React.FC<Props> = ({ collection }) => {
     eventListQuery ? new URL(eventListQuery).search : ''
   );
   const eventFilters = React.useMemo(() => {
-    return getEventFilters({
+    return getEventSearchVariables({
       include: ['keywords', 'location'],
       language: locale,
       pageSize: PAGE_SIZE,

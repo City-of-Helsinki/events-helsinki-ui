@@ -15,14 +15,13 @@ import { useNeighborhoodListQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import IconRead from '../../icons/IconRead';
 import getLocalisedString from '../../util/getLocalisedString';
-import getUrlParamAsArray from '../../util/getUrlParamAsArray';
 import { ROUTES } from '../app/constants';
 import Container from '../app/layout/Container';
 import PlaceSelector from '../place/placeSelector/PlaceSelector';
 import { DEFAULT_SEARCH_FILTERS, EVENT_SEARCH_FILTERS } from './constants';
 import FilterSummary from './filterSummary/FilterSummary';
 import styles from './search.module.scss';
-import { getSearchQuery } from './utils';
+import { getSearchFilters, getSearchQuery } from './utils';
 
 interface Props {
   scrollToResultList: () => void;
@@ -42,40 +41,38 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   const [placeInput, setPlaceInput] = React.useState('');
 
   const [searchValue, setSearchValue] = React.useState('');
-  const [dateTypes, setDateTypes] = React.useState<string[]>([]);
+  const [selectedDateTypes, setSelectedDateTypes] = React.useState<string[]>(
+    []
+  );
   const [selectedCategories, setSelectedCategories] = React.useState<string[]>(
     []
   );
-  const [keywords, setKeywords] = React.useState<string[]>([]);
-  const [divisions, setDivisions] = React.useState<string[]>([]);
-  const [places, setPlaces] = React.useState<string[]>([]);
+  const [selectedKeywords, setSelectedKeywords] = React.useState<string[]>([]);
+  const [selectedDivisions, setSelectedDivisions] = React.useState<string[]>(
+    []
+  );
+  const [selectedPlaces, setSelectedPlaces] = React.useState<string[]>([]);
   const [start, setStart] = React.useState<Date | null>(null);
   const [end, setEnd] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
 
-  const publisher = searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER);
-  const isFree =
-    searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true' ? true : false;
-  const onlyChildrenEvents =
-    searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === 'true'
-      ? true
-      : false;
-
-  const keywordNot = getUrlParamAsArray(
-    searchParams,
-    EVENT_SEARCH_FILTERS.KEYWORD_NOT
-  );
+  const {
+    isFree,
+    keywordNot,
+    onlyChildrenEvents,
+    publisher,
+  } = getSearchFilters(searchParams);
 
   const searchFilters = {
     categories: selectedCategories,
-    dateTypes,
-    divisions,
+    dateTypes: selectedDateTypes,
+    divisions: selectedDivisions,
     end,
     isFree,
     keywordNot,
-    keywords,
+    keywords: selectedKeywords,
     onlyChildrenEvents,
-    places,
+    places: selectedPlaces,
     publisher,
     start,
     text: searchValue,
@@ -140,7 +137,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   ];
 
   const handleChangeDateTypes = (value: string[]) => {
-    setDateTypes(value);
+    setSelectedDateTypes(value);
   };
 
   const toggleIsCustomDate = () => {
@@ -155,79 +152,51 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
 
   // Initialize fields when page is loaded
   React.useEffect(() => {
-    const searchVal = searchParams.get(EVENT_SEARCH_FILTERS.TEXT);
-    const endTime = searchParams.get(EVENT_SEARCH_FILTERS.END);
-    const startTime = searchParams.get(EVENT_SEARCH_FILTERS.START);
-    const dTypes = getUrlParamAsArray(
-      searchParams,
-      EVENT_SEARCH_FILTERS.DATE_TYPES
-    );
-    const categories = getUrlParamAsArray(
-      searchParams,
-      EVENT_SEARCH_FILTERS.CATEGORIES
-    );
-    const divisions = getUrlParamAsArray(
-      searchParams,
-      EVENT_SEARCH_FILTERS.DIVISIONS
-    );
-    const keywords = getUrlParamAsArray(
-      searchParams,
-      EVENT_SEARCH_FILTERS.KEYWORDS
-    );
-    const places = getUrlParamAsArray(
-      searchParams,
-      EVENT_SEARCH_FILTERS.PLACES
-    );
+    const {
+      categories,
+      dateTypes,
+      divisions,
+      end: endTime,
+      keywords,
+      places,
+      start: startTime,
+      text: searchVal,
+    } = getSearchFilters(searchParams);
 
-    setSearchValue(searchVal || '');
-
-    if (endTime) {
-      setEnd(new Date(endTime));
-    } else {
-      setEnd(null);
-    }
-    if (startTime) {
-      setStart(new Date(startTime));
-    } else {
-      setStart(null);
-    }
+    setSearchValue(searchVal);
+    setSelectedCategories(categories);
+    setSelectedDivisions(divisions);
+    setSelectedKeywords(keywords);
+    setSelectedPlaces(places);
+    setEnd(endTime);
+    setStart(startTime);
 
     if (endTime || startTime) {
       setIsCustomDate(true);
     } else {
-      setDateTypes(dTypes);
+      setSelectedDateTypes(dateTypes);
     }
-
-    setSelectedCategories(categories);
-    setDivisions(divisions);
-    setKeywords(keywords);
-    setPlaces(places);
   }, [searchParams]);
 
   const handleMenuOptionClick = async (option: AutosuggestMenuOption) => {
     const type = option.type;
     const value = option.value;
 
+    const { keywords, publisher } = getSearchFilters(searchParams);
     const newSearchValue = option.type === 'search' ? option.text : '';
 
-    // Get new keywords
-    const newKeywords = getUrlParamAsArray(
-      searchParams,
-      EVENT_SEARCH_FILTERS.KEYWORDS
-    );
-    if (type === 'keyword' && !newKeywords.includes(value)) {
-      newKeywords.push(value);
+    if (type === 'keyword' && !keywords.includes(value)) {
+      keywords.push(value);
     }
 
     const search = getSearchQuery({
       ...searchFilters,
-      keywords: newKeywords,
-      publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
-      text: newSearchValue,
+      keywords,
+      publisher,
     });
 
     if (type === 'keyword') {
-      setKeywords(newKeywords);
+      setSelectedKeywords(keywords);
     }
 
     setSearchValue(newSearchValue);
@@ -318,7 +287,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                   </div>
                   <div className={styles.dateSelectorWrapper}>
                     <DateSelector
-                      dateTypes={dateTypes}
+                      dateTypes={selectedDateTypes}
                       endDate={end}
                       isCustomDate={isCustomDate}
                       name="date"
@@ -335,13 +304,13 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                       icon={<IconLocation />}
                       inputValue={divisionInput}
                       name="division"
-                      onChange={setDivisions}
+                      onChange={setSelectedDivisions}
                       options={divisionOptions}
                       selectAllText={t('eventSearch.search.selectAllDivisions')}
                       setInputValue={setDivisionInput}
                       showSelectAll={true}
                       title={t('eventSearch.search.titleDropdownDivision')}
-                      value={divisions}
+                      value={selectedDivisions}
                     />
                   </div>
                   <div>
@@ -349,8 +318,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                       inputValue={placeInput}
                       name="places"
                       setInputValue={setPlaceInput}
-                      setPlaces={setPlaces}
-                      value={places}
+                      setPlaces={setSelectedPlaces}
+                      value={selectedPlaces}
                     />
                   </div>
                 </div>
