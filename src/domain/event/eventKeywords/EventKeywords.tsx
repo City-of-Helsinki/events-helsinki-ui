@@ -8,8 +8,9 @@ import { DATE_TYPES } from '../../../constants';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import scrollToTop from '../../../util/scrollToTop';
-import { getSearchQuery } from '../../../util/searchUtils';
 import { ROUTES } from '../../app/constants';
+import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
+import { getSearchQuery } from '../../eventSearch/utils';
 import { getEventKeywords, isEventFree } from '../EventUtils';
 
 interface Props {
@@ -42,17 +43,10 @@ const EventKeywords: React.FC<Props> = ({
 
   const handleClick = (type: 'dateType' | 'isFree' | 'keyword', value = '') => {
     const search = getSearchQuery({
-      categories: [],
+      ...DEFAULT_SEARCH_FILTERS,
       dateTypes: type === 'dateType' ? [value] : [],
-      divisions: [],
-      end: null,
       isFree: type === 'isFree',
-      keywordNot: [],
       keywords: type === 'keyword' ? [value] : [],
-      places: [],
-      publisher: null,
-      start: null,
-      text: '',
     });
 
     history.push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });

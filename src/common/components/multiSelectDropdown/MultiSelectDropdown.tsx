@@ -32,7 +32,7 @@ interface Props {
   value: string[];
 }
 
-const Dropdown: React.FC<Props> = ({
+const MultiSelectDropdown: React.FC<Props> = ({
   checkboxName,
   icon,
   inputValue,
@@ -48,7 +48,7 @@ const Dropdown: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const [internalInput, setInternalInput] = React.useState('');
-  const input = inputValue || internalInput;
+  const input = inputValue !== undefined ? inputValue : internalInput;
 
   const inputWrapper = React.useRef<HTMLDivElement | null>(null);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
@@ -199,6 +199,7 @@ const Dropdown: React.FC<Props> = ({
 
   const handleClear = () => {
     onChange([]);
+    handleInputValueChange('');
   };
 
   const handleInputWrapperClick = () => {
@@ -307,4 +308,4 @@ const Dropdown: React.FC<Props> = ({
   );
 };
 
-export default Dropdown;
+export default MultiSelectDropdown;

@@ -20,7 +20,8 @@ import IconSports from '../../../icons/IconSports';
 import IconTheatre from '../../../icons/IconTheatre';
 import IconTree from '../../../icons/IconTree';
 import scrollToTop from '../../../util/scrollToTop';
-import { getSearchQuery } from '../../../util/searchUtils';
+import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
+import { getSearchQuery } from '../../eventSearch/utils';
 import { ROUTES } from '../constants';
 import Container from '../layout/Container';
 import styles from './topFooter.module.scss';
@@ -33,17 +34,8 @@ const TopFooter: FunctionComponent = () => {
 
   const handleCategoryClick = (category: Category) => {
     const search = getSearchQuery({
+      ...DEFAULT_SEARCH_FILTERS,
       categories: [category.value],
-      dateTypes: [],
-      divisions: [],
-      end: null,
-      isFree: false,
-      keywordNot: [],
-      keywords: [],
-      places: [],
-      publisher: null,
-      start: null,
-      text: '',
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });

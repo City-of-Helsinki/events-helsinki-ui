@@ -10,10 +10,10 @@ import useIsSmallScreen from '../../hooks/useIsSmallScreen';
 import useLocale from '../../hooks/useLocale';
 import PageWrapper from '../app/layout/PageWrapper';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from './constants';
-import { getEventFilters, getNextPage } from './EventListUtils';
 import styles from './eventSearchPage.module.scss';
 import Search from './Search';
 import SearchResultList from './searchResultList/SearchResultList';
+import { getEventSearchVariables, getNextPage } from './utils';
 
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const { t } = useTranslation();
@@ -21,7 +21,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const eventFilters = React.useMemo(() => {
-    return getEventFilters({
+    return getEventSearchVariables({
       include: ['keywords', 'location'],
       language: locale,
       pageSize: PAGE_SIZE,

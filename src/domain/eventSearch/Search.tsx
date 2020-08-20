@@ -15,249 +15,193 @@ import { useNeighborhoodListQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import IconRead from '../../icons/IconRead';
 import getLocalisedString from '../../util/getLocalisedString';
-import getUrlParamAsArray from '../../util/getUrlParamAsArray';
-import { getSearchQuery } from '../../util/searchUtils';
 import { ROUTES } from '../app/constants';
 import Container from '../app/layout/Container';
 import PlaceSelector from '../place/placeSelector/PlaceSelector';
-import { EVENT_SEARCH_FILTERS } from './constants';
+import { DEFAULT_SEARCH_FILTERS, EVENT_SEARCH_FILTERS } from './constants';
 import FilterSummary from './filterSummary/FilterSummary';
 import styles from './search.module.scss';
+import { getSearchFilters, getSearchQuery } from './utils';
 
 interface Props {
   scrollToResultList: () => void;
 }
 
 const Search: React.FC<Props> = ({ scrollToResultList }) => {
+  const { t } = useTranslation();
+  const locale = useLocale();
+  const { push } = useHistory();
   const { search } = useLocation();
   const searchParams = React.useMemo(() => new URLSearchParams(search), [
     search,
   ]);
-  const { t } = useTranslation();
-  const locale = useLocale();
+
+  const [categoryInput, setCategoryInput] = React.useState('');
+  const [divisionInput, setDivisionInput] = React.useState('');
+  const [placeInput, setPlaceInput] = React.useState('');
+
   const [searchValue, setSearchValue] = React.useState('');
-  const [dateTypes, setDateTypes] = React.useState<string[]>([]);
+  const [selectedDateTypes, setSelectedDateTypes] = React.useState<string[]>(
+    []
+  );
   const [selectedCategories, setSelectedCategories] = React.useState<string[]>(
     []
   );
-  const [keywords, setKeywords] = React.useState<string[]>([]);
-  const [divisions, setDivisions] = React.useState<string[]>([]);
-  const [places, setPlaces] = React.useState<string[]>([]);
+  const [selectedKeywords, setSelectedKeywords] = React.useState<string[]>([]);
+  const [selectedDivisions, setSelectedDivisions] = React.useState<string[]>(
+    []
+  );
+  const [selectedPlaces, setSelectedPlaces] = React.useState<string[]>([]);
   const [start, setStart] = React.useState<Date | null>(null);
   const [end, setEnd] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
 
-  const publisher = searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER);
-  const isFree =
-    searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true' ? true : false;
-  const onlyChildrenEvents =
-    searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === 'true'
-      ? true
-      : false;
+  const {
+    isFree,
+    keywordNot,
+    onlyChildrenEvents,
+    publisher,
+  } = getSearchFilters(searchParams);
 
-  const { push } = useHistory();
-
-  const keywordNot = getUrlParamAsArray(
-    searchParams,
-    EVENT_SEARCH_FILTERS.KEYWORD_NOT
-  );
+  const searchFilters = {
+    categories: selectedCategories,
+    dateTypes: selectedDateTypes,
+    divisions: selectedDivisions,
+    end,
+    isFree,
+    keywordNot,
+    keywords: selectedKeywords,
+    onlyChildrenEvents,
+    places: selectedPlaces,
+    publisher,
+    start,
+    text: searchValue,
+  };
 
   const { data: neighborhoodsData } = useNeighborhoodListQuery();
 
-  const divisionOptions = React.useMemo(
-    () =>
-      neighborhoodsData
-        ? neighborhoodsData.neighborhoodList.data
-            .map(neighborhood => ({
-              text: getLocalisedString(neighborhood.name, locale),
-              value: neighborhood.id,
-            }))
-            .sort((a, b) => (a.text >= b.text ? 1 : -1))
-        : [],
-    [locale, neighborhoodsData]
-  );
+  const divisionOptions = neighborhoodsData
+    ? neighborhoodsData.neighborhoodList.data
+        .map(neighborhood => ({
+          text: getLocalisedString(neighborhood.name, locale),
+          value: neighborhood.id,
+        }))
+        .sort((a, b) => (a.text >= b.text ? 1 : -1))
+    : [];
 
-  const categories = React.useMemo(
-    () => [
-      {
-        text: t('home.category.movie'),
-        value: CATEGORIES.MOVIE,
-      },
-      {
-        text: t('home.category.music'),
-        value: CATEGORIES.MUSIC,
-      },
-      {
-        text: t('home.category.sport'),
-        value: CATEGORIES.SPORT,
-      },
-      {
-        text: t('home.category.museum'),
-        value: CATEGORIES.MUSEUM,
-      },
-      {
-        text: t('home.category.dance'),
-        value: CATEGORIES.DANCE,
-      },
-      {
-        text: t('home.category.culture'),
-        value: CATEGORIES.CULTURE,
-      },
-      {
-        text: t('home.category.nature'),
-        value: CATEGORIES.NATURE,
-      },
-      {
-        text: t('home.category.influence'),
-        value: CATEGORIES.INFLUENCE,
-      },
-      {
-        text: t('home.category.theatre'),
-        value: CATEGORIES.THEATRE,
-      },
-      {
-        text: t('home.category.food'),
-        value: CATEGORIES.FOOD,
-      },
-      {
-        text: t('home.category.misc'),
-        value: CATEGORIES.MISC,
-      },
-    ],
-    [t]
-  );
+  const categories = [
+    {
+      text: t('home.category.movie'),
+      value: CATEGORIES.MOVIE,
+    },
+    {
+      text: t('home.category.music'),
+      value: CATEGORIES.MUSIC,
+    },
+    {
+      text: t('home.category.sport'),
+      value: CATEGORIES.SPORT,
+    },
+    {
+      text: t('home.category.museum'),
+      value: CATEGORIES.MUSEUM,
+    },
+    {
+      text: t('home.category.dance'),
+      value: CATEGORIES.DANCE,
+    },
+    {
+      text: t('home.category.culture'),
+      value: CATEGORIES.CULTURE,
+    },
+    {
+      text: t('home.category.nature'),
+      value: CATEGORIES.NATURE,
+    },
+    {
+      text: t('home.category.influence'),
+      value: CATEGORIES.INFLUENCE,
+    },
+    {
+      text: t('home.category.theatre'),
+      value: CATEGORIES.THEATRE,
+    },
+    {
+      text: t('home.category.food'),
+      value: CATEGORIES.FOOD,
+    },
+    {
+      text: t('home.category.misc'),
+      value: CATEGORIES.MISC,
+    },
+  ];
 
   const handleChangeDateTypes = (value: string[]) => {
-    setDateTypes(value);
+    setSelectedDateTypes(value);
   };
 
   const toggleIsCustomDate = () => {
     setIsCustomDate(!isCustomDate);
   };
 
-  const moveToSearchPage = React.useCallback(() => {
-    const search = getSearchQuery({
-      categories: selectedCategories,
-      dateTypes,
-      divisions,
-      end,
-      isFree,
-      keywordNot: keywordNot,
-      keywords,
-      onlyChildrenEvents,
-      places,
-      publisher,
-      start,
-      text: searchValue,
-    });
+  const moveToSearchPage = () => {
+    const search = getSearchQuery(searchFilters);
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
-  }, [
-    dateTypes,
-    divisions,
-    end,
-    isFree,
-    keywordNot,
-    keywords,
-    locale,
-    onlyChildrenEvents,
-    places,
-    publisher,
-    push,
-    searchValue,
-    selectedCategories,
-    start,
-  ]);
+  };
 
   // Initialize fields when page is loaded
   React.useEffect(() => {
-    const searchVal = searchParams.get(EVENT_SEARCH_FILTERS.TEXT);
-    const endTime = searchParams.get(EVENT_SEARCH_FILTERS.END);
-    const startTime = searchParams.get(EVENT_SEARCH_FILTERS.START);
-    const dTypes = getUrlParamAsArray(
-      searchParams,
-      EVENT_SEARCH_FILTERS.DATE_TYPES
-    );
-    const categories = getUrlParamAsArray(
-      searchParams,
-      EVENT_SEARCH_FILTERS.CATEGORIES
-    );
-    const divisions = getUrlParamAsArray(
-      searchParams,
-      EVENT_SEARCH_FILTERS.DIVISIONS
-    );
-    const keywords = getUrlParamAsArray(
-      searchParams,
-      EVENT_SEARCH_FILTERS.KEYWORDS
-    );
-    const places = getUrlParamAsArray(
-      searchParams,
-      EVENT_SEARCH_FILTERS.PLACES
-    );
+    const {
+      categories,
+      dateTypes,
+      divisions,
+      end: endTime,
+      keywords,
+      places,
+      start: startTime,
+      text: searchVal,
+    } = getSearchFilters(searchParams);
 
-    setSearchValue(searchVal || '');
-
-    if (endTime) {
-      setEnd(new Date(endTime));
-    } else {
-      setEnd(null);
-    }
-    if (startTime) {
-      setStart(new Date(startTime));
-    } else {
-      setStart(null);
-    }
+    setSearchValue(searchVal);
+    setSelectedCategories(categories);
+    setSelectedDivisions(divisions);
+    setSelectedKeywords(keywords);
+    setSelectedPlaces(places);
+    setEnd(endTime);
+    setStart(startTime);
 
     if (endTime || startTime) {
       setIsCustomDate(true);
     } else {
-      setDateTypes(dTypes);
+      setSelectedDateTypes(dateTypes);
     }
-
-    setSelectedCategories(categories);
-    setDivisions(divisions);
-    setKeywords(keywords);
-    setPlaces(places);
   }, [searchParams]);
 
   const handleMenuOptionClick = async (option: AutosuggestMenuOption) => {
     const type = option.type;
     const value = option.value;
 
+    const { keywords, publisher } = getSearchFilters(searchParams);
     const newSearchValue = option.type === 'search' ? option.text : '';
 
-    // Get new keywords
-    const newKeywords = getUrlParamAsArray(
-      searchParams,
-      EVENT_SEARCH_FILTERS.KEYWORDS
-    );
-    if (type === 'keyword' && !newKeywords.includes(value)) {
-      newKeywords.push(value);
+    if (type === 'keyword' && !keywords.includes(value)) {
+      keywords.push(value);
     }
 
     const search = getSearchQuery({
-      categories: selectedCategories,
-      dateTypes,
-      divisions,
-      end,
-      isFree,
-      keywordNot,
-      keywords: newKeywords,
-      onlyChildrenEvents,
-      places,
-      publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
-      start,
-      text: newSearchValue,
+      ...searchFilters,
+      keywords,
+      publisher,
     });
-    switch (type) {
-      case 'keyword':
-        setKeywords(newKeywords);
-        break;
+
+    if (type === 'keyword') {
+      setSelectedKeywords(keywords);
     }
+
     setSearchValue(newSearchValue);
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
-
     scrollToResultList();
   };
 
@@ -265,18 +209,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const search = getSearchQuery({
-      categories: selectedCategories,
-      dateTypes,
-      divisions,
-      end,
-      isFree,
-      keywordNot,
-      keywords,
+      ...searchFilters,
       onlyChildrenEvents: e.target.checked,
-      places,
-      publisher,
-      start,
-      text: searchValue,
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -284,21 +218,24 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
 
   const handleIsFreeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const search = getSearchQuery({
-      categories: selectedCategories,
-      dateTypes,
-      divisions,
-      end,
+      ...searchFilters,
       isFree: e.target.checked,
-      keywordNot,
-      keywords,
-      onlyChildrenEvents,
-      places,
-      publisher,
-      start,
-      text: searchValue,
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+  };
+
+  const clearInputValues = () => {
+    setCategoryInput('');
+    setDivisionInput('');
+    setPlaceInput('');
+  };
+  const clearFilters = () => {
+    const search = getSearchQuery(DEFAULT_SEARCH_FILTERS);
+
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+
+    clearInputValues();
   };
 
   const handleSubmit = (event?: FormEvent) => {
@@ -339,16 +276,18 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                     <MultiSelectDropdown
                       checkboxName="categoryOptions"
                       icon={<IconRead />}
+                      inputValue={categoryInput}
                       name="category"
                       onChange={setSelectedCategories}
                       options={categories}
+                      setInputValue={setCategoryInput}
                       title={t('eventSearch.search.titleDropdownCategory')}
                       value={selectedCategories}
                     />
                   </div>
                   <div className={styles.dateSelectorWrapper}>
                     <DateSelector
-                      dateTypes={dateTypes}
+                      dateTypes={selectedDateTypes}
                       endDate={end}
                       isCustomDate={isCustomDate}
                       name="date"
@@ -363,20 +302,24 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                     <MultiSelectDropdown
                       checkboxName="divisionOptions"
                       icon={<IconLocation />}
+                      inputValue={divisionInput}
                       name="division"
-                      onChange={setDivisions}
+                      onChange={setSelectedDivisions}
                       options={divisionOptions}
                       selectAllText={t('eventSearch.search.selectAllDivisions')}
+                      setInputValue={setDivisionInput}
                       showSelectAll={true}
                       title={t('eventSearch.search.titleDropdownDivision')}
-                      value={divisions}
+                      value={selectedDivisions}
                     />
                   </div>
                   <div>
                     <PlaceSelector
+                      inputValue={placeInput}
                       name="places"
-                      setPlaces={setPlaces}
-                      value={places}
+                      setInputValue={setPlaceInput}
+                      setPlaces={setSelectedPlaces}
+                      value={selectedPlaces}
                     />
                   </div>
                 </div>
@@ -413,7 +356,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                   </div>
                 </div>
               </div>
-              <FilterSummary />
+              <FilterSummary onClear={clearFilters} />
             </div>
           </form>
         </Container>

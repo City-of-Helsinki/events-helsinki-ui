@@ -1,4 +1,8 @@
 import { addDays, endOfWeek, isPast, startOfWeek, subDays } from 'date-fns';
+import forEach from 'lodash/forEach';
+import isArray from 'lodash/isArray';
+import isEmpty from 'lodash/isEmpty';
+import isNumber from 'lodash/isNumber';
 
 import { CATEGORIES, DATE_TYPES } from '../../constants';
 import { EventListQuery } from '../../generated/graphql';
@@ -12,6 +16,7 @@ import {
   INFLUENCE_KEYWORDS,
   MUSEUM_KEYWORDS,
 } from './constants';
+import { Filters, MappedFilters } from './types';
 
 /**
  * Get start and end dates to event list filtering
@@ -91,7 +96,7 @@ export const getCurrentHour = (): string => {
  * @param {object} filterOptions
  * @return {object}
  */
-export const getEventFilters = ({
+export const getEventSearchVariables = ({
   include,
   language,
   pageSize,
@@ -218,4 +223,73 @@ export const getNextPage = (
   const searchParams = new URLSearchParams(decodeURIComponent(urlParts[1]));
   const page = searchParams.get(EVENT_SEARCH_FILTERS.PAGE);
   return page ? Number(page) : null;
+};
+
+export const getSearchFilters = (searchParams: URLSearchParams) => {
+  const endTime = searchParams.get(EVENT_SEARCH_FILTERS.END);
+  const end = endTime ? new Date(endTime) : null;
+
+  const startTime = searchParams.get(EVENT_SEARCH_FILTERS.START);
+  const start = startTime ? new Date(startTime) : null;
+
+  return {
+    categories: getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.CATEGORIES
+    ),
+    dateTypes: getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.DATE_TYPES
+    ),
+    divisions: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.DIVISIONS),
+    end,
+    isFree:
+      searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true' ? true : false,
+    keywordNot: getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.KEYWORD_NOT
+    ),
+    keywords: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.KEYWORDS),
+    onlyChildrenEvents:
+      searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === 'true'
+        ? true
+        : false,
+    places: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.PLACES),
+    publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
+    start,
+    text: searchParams.get(EVENT_SEARCH_FILTERS.TEXT) || '',
+  };
+};
+
+export const getSearchQuery = (filters: Filters): string => {
+  const newFilters: MappedFilters = {
+    ...filters,
+    end: formatDate(filters.end, 'yyyy-MM-dd'),
+    isFree: filters.isFree ? true : undefined,
+    onlyChildrenEvents: filters.onlyChildrenEvents ? true : undefined,
+    start: formatDate(filters.start, 'yyyy-MM-dd'),
+  };
+
+  if (newFilters.end || newFilters.start) {
+    delete newFilters.dateTypes;
+  }
+  const query: string[] = [];
+
+  forEach(newFilters, (filter, key) => {
+    if (!isEmpty(filter) || isNumber(filter) || typeof filter === 'boolean') {
+      if (isArray(filter)) {
+        const items: Array<string | number> = [];
+
+        forEach(filter, (item: string | number) => {
+          items.push(encodeURIComponent(item));
+        });
+
+        query.push(`${key}=${items.join(',')}`);
+      } else if (filter != null) {
+        query.push(`${key}=${encodeURIComponent(filter)}`);
+      }
+    }
+  });
+
+  return query.length ? `?${query.join('&')}` : '';
 };

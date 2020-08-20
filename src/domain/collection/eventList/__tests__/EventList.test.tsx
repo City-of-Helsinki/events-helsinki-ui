@@ -11,7 +11,7 @@ import { SUPPORT_LANGUAGES } from '../../../../constants';
 import { EventListDocument } from '../../../../generated/graphql';
 import mockEvent from '../../../event/__mocks__/eventDetails';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from '../../../eventSearch/constants';
-import { getEventFilters } from '../../../eventSearch/EventListUtils';
+import { getEventSearchVariables } from '../../../eventSearch/utils';
 import EventList from '../EventList';
 
 const searchParams = new URLSearchParams(
@@ -21,7 +21,7 @@ const mocks = [
   {
     request: {
       query: EventListDocument,
-      variables: getEventFilters({
+      variables: getEventSearchVariables({
         include: ['keywords', 'location'],
         language: SUPPORT_LANGUAGES.FI,
         pageSize: PAGE_SIZE,

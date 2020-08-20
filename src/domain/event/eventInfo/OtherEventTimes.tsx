@@ -14,7 +14,7 @@ import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import { ROUTES } from '../../app/constants';
 import { EVENT_SORT_OPTIONS } from '../../eventSearch/constants';
-import { getCurrentHour, getNextPage } from '../../eventSearch/EventListUtils';
+import { getCurrentHour, getNextPage } from '../../eventSearch/utils';
 import { getEventIdFromUrl } from '../EventUtils';
 import styles from './otherEventTimes.module.scss';
 

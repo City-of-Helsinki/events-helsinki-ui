@@ -17,17 +17,26 @@ const { getPlaceDetailsFromCache } = isClient
   : { getPlaceDetailsFromCache: null };
 
 interface Props {
+  inputValue?: string;
   name: string;
+  setInputValue?: (newVal: string) => void;
   setPlaces: (places: string[]) => void;
   value: string[];
 }
 
-const PlaceSelector: React.FC<Props> = ({ name, setPlaces, value }) => {
+const PlaceSelector: React.FC<Props> = ({
+  inputValue,
+  name,
+  setPlaces,
+  setInputValue,
+  value,
+}) => {
   const { t } = useTranslation();
   const locale = useLocale();
 
   const [placeOptions, setPlaceOptions] = React.useState<Option[]>([]);
   const [internalInputValue, setInternalInputValue] = React.useState('');
+  const input = inputValue !== undefined ? inputValue : internalInputValue;
   const searchValue = useDebounce(internalInputValue, 300);
 
   const { data: placesData, loading: loadingPlaces } = usePlaceListQuery({
@@ -70,13 +79,13 @@ const PlaceSelector: React.FC<Props> = ({ name, setPlaces, value }) => {
       <MultiSelectDropdown
         checkboxName="placeOptions"
         icon={<IconHome />}
-        inputValue={internalInputValue}
+        inputValue={input}
         name={name}
         onChange={setPlaces}
         options={placeOptions}
         renderOptionText={renderOptionText}
         selectAllText={t('eventSearch.search.selectAllPlaces')}
-        setInputValue={setInternalInputValue}
+        setInputValue={setInputValue || setInternalInputValue}
         showSelectAll={true}
         title={t('eventSearch.search.titleDropdownPlace')}
         value={value}

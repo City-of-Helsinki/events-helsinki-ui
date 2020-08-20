@@ -9,10 +9,16 @@ import {
   useEventListQuery,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { getSearchQuery } from '../../../util/searchUtils';
 // Use same page size as on event search page
-import { EVENT_SORT_OPTIONS, PAGE_SIZE } from '../../eventSearch/constants';
-import { getEventFilters } from '../../eventSearch/EventListUtils';
+import {
+  DEFAULT_SEARCH_FILTERS,
+  EVENT_SORT_OPTIONS,
+  PAGE_SIZE,
+} from '../../eventSearch/constants';
+import {
+  getEventSearchVariables,
+  getSearchQuery,
+} from '../../eventSearch/utils';
 import { SIMILAR_EVENTS_AMOUNT } from '../constants';
 import styles from './similarEvents.module.scss';
 
@@ -24,22 +30,13 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
   const locale = useLocale();
   const { search } = useLocation();
   const eventSearch = getSearchQuery({
-    categories: [],
-    dateTypes: [],
-    divisions: [],
-    end: null,
-    isFree: false,
-    keywordNot: [],
+    ...DEFAULT_SEARCH_FILTERS,
     keywords: event.keywords.map(keyword => keyword.id || '').filter(e => e),
-    places: [],
-    publisher: null,
-    start: null,
-    text: '',
   });
   // Filter by search query if exists, if not filter by event keywords
   const searchParams = new URLSearchParams(search ? search : eventSearch);
   const eventFilters = React.useMemo(() => {
-    return getEventFilters({
+    return getEventSearchVariables({
       include: ['keywords', 'location'],
       language: locale,
       pageSize: PAGE_SIZE,

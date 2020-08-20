@@ -21,8 +21,9 @@ import IconMusic from '../../../icons/IconMusic';
 import IconSports from '../../../icons/IconSports';
 import IconTheatre from '../../../icons/IconTheatre';
 import IconTree from '../../../icons/IconTree';
-import { getSearchQuery } from '../../../util/searchUtils';
 import { ROUTES } from '../../app/constants';
+import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
+import { getSearchQuery } from '../../eventSearch/utils';
 import styles from './landingPageSearch.module.scss';
 
 const Search: FunctionComponent = () => {
@@ -37,17 +38,11 @@ const Search: FunctionComponent = () => {
 
   const handleCategoryClick = (category: Category) => {
     const search = getSearchQuery({
+      ...DEFAULT_SEARCH_FILTERS,
       categories: [category.value],
       dateTypes,
-      divisions: [],
       end,
-      isFree: false,
-      keywordNot: [],
-      keywords: [],
-      places: [],
-      publisher: null,
       start,
-      text: '',
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -119,21 +114,15 @@ const Search: FunctionComponent = () => {
 
   const moveToSearchPage = React.useCallback(() => {
     const search = getSearchQuery({
-      categories: [],
+      ...DEFAULT_SEARCH_FILTERS,
       dateTypes,
-      divisions: [],
       end,
-      isFree: false,
-      keywordNot: [],
-      keywords: [],
-      places: [],
-      publisher: null,
       start,
-      text: '',
+      text: searchValue,
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
-  }, [dateTypes, end, locale, push, start]);
+  }, [dateTypes, end, locale, push, searchValue, start]);
 
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
     const type = option.type;
@@ -141,15 +130,10 @@ const Search: FunctionComponent = () => {
     const searchValue = option.type === 'search' ? option.text : '';
 
     const search = getSearchQuery({
-      categories: [],
+      ...DEFAULT_SEARCH_FILTERS,
       dateTypes,
-      divisions: [],
       end,
-      isFree: false,
-      keywordNot: [],
       keywords: type === 'keyword' ? [value] : [],
-      places: [],
-      publisher: null,
       start,
       text: searchValue,
     });
