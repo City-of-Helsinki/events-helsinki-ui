@@ -66,6 +66,11 @@
       "textEventNotFound": "Samlingen hittades inte",
       "textOnlyExpiredEvents": "Tyvärr har denna kollektions rekommenderade evenemang redan gått. Bekanta dig mig våra övriga rekommendationer och hitta fler intressanta evenemang."
     },
+    "expired": {
+      "linkSearchEvents": "Till alla kollektioner",
+      "text": "Tyvärr har denna kollektion redan tagits bort. Men vilken tur att de finns många fler kollektioner, så ta dig en titt på allt annat intressant det händer i staden.",
+      "title": "Kollektionen du letar efter har tagits bort"
+    },
     "languageNotSupported": {
       "linkSearchEvents": "Till alla kollektioner",
       "text": "Tyvärr har denna kollektion inte skapats för alla språk. Som tur tar inte evenemangen slut här, ta en titt på alla andra kollektioner och hitta intressanta evenemang.",

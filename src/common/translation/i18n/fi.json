@@ -66,6 +66,11 @@
       "textEventNotFound": "Tapahtumaa ei löydy",
       "textOnlyExpiredEvents": "Valitettavasti tämän kokoelman kaikki suositellut tapahtumat ovat jo ehtineet päättyä. Käy tutustumassa muihin suosituksiimme ja löydä itsellesi tekemistä."
     },
+    "expired": {
+      "linkSearchEvents": "Tutustu kaikkiin kokoelmiin",
+      "text": "Valitettavasti etsimäsi kokoelma on poistettu. Onneksi uusia kokoelmia syntyy koko ajan, joten käy kurkkaamassa mitä muuta kiinnostavaa kaupungissa tapahtuu.",
+      "title": "Etsimäsi kokoelma on poistettu"
+    },
     "languageNotSupported": {
       "linkSearchEvents": "Tutustu kaikkiin kokoelmiin",
       "text": "Valitettavasti etsimääsi kokoelmaa ei ole saatavilla kaikilla kielillä. Onneksi tekeminen ei lopu tähän, käy selaamassa muita kokoelmia ja löydä kiinnostavia tapahtumia.",
