@@ -26,17 +26,12 @@ const mocks = [
   },
 ];
 
-let container: HTMLElement;
-
 test('match snapshot', async () => {
-  await act(async () => {
-    const { container: el } = render(
-      <CuratedEventList collection={mockCollection} />,
-      { mocks }
-    );
-    container = el;
-    await wait(0); // wait for response
-  });
+  const { container } = render(
+    <CuratedEventList collection={mockCollection} />,
+    { mocks }
+  );
 
+  await act(wait);
   expect(container.firstChild).toMatchSnapshot();
 });

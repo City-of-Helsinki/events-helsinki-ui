@@ -21,7 +21,9 @@ const SearchWordFilter: React.FC<Props> = ({ onRemove, text }) => {
     <div className={styles.searchWordFilter}>
       <div>‘{text}’</div>
       <button
-        aria-label={t('eventSearch.filters.buttonRemoveSearchWord')}
+        aria-label={t('commons.filter.ariaButtonRemove', {
+          filter: text,
+        })}
         onClick={handleRemove}
       >
         <IconCrossCircle />
