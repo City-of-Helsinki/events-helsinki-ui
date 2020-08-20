@@ -1,13 +1,10 @@
-import { MockedProvider } from '@apollo/react-testing';
-import pretty from 'pretty';
+import { act } from '@testing-library/react';
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router';
 import wait from 'waait';
 
 import mockCollection from '../../__mocks__/collection';
 import { EventsByIdsDocument } from '../../../../generated/graphql';
+import { render } from '../../../../util/testUtils';
 import mockEvent from '../../../event/__mocks__/eventDetails';
 import { getEventIdFromUrl } from '../../../event/EventUtils';
 import CuratedEventList from '../CuratedEventList';
@@ -29,34 +26,17 @@ const mocks = [
   },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let container: any = null;
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
+let container: HTMLElement;
 
-afterEach(() => {
-  // cleanup on exiting
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
-
-test('CuratedEventList should match snapshot', async () => {
+test('match snapshot', async () => {
   await act(async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={true}>
-        <MemoryRouter>
-          <CuratedEventList collection={mockCollection} />
-        </MemoryRouter>
-      </MockedProvider>,
-      container
+    const { container: el } = render(
+      <CuratedEventList collection={mockCollection} />,
+      { mocks }
     );
-
+    container = el;
     await wait(0); // wait for response
   });
 
-  expect(pretty(container.innerHTML)).toMatchSnapshot();
+  expect(container.firstChild).toMatchSnapshot();
 });

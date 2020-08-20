@@ -26,9 +26,7 @@ const mocks = [
 test('matches snapshot', async () => {
   const { container } = render(
     <PublisherFilter id={mockOrganization.id || ''} onRemove={jest.fn()} />,
-    {
-      mocks,
-    }
+    { mocks }
   );
 
   await screen.findByText(mockOrganization.name || '');
@@ -39,9 +37,7 @@ it('calls onRemove callback when remove button is clicked ', async () => {
   const onClickMock = jest.fn();
   render(
     <PublisherFilter id={mockOrganization.id || ''} onRemove={onClickMock} />,
-    {
-      mocks,
-    }
+    { mocks }
   );
 
   await screen.findByText(mockOrganization.name || '');

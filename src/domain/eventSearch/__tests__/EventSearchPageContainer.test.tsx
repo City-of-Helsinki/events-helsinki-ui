@@ -1,9 +1,7 @@
-import { MockedProvider } from '@apollo/react-testing';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { advanceTo, clear } from 'jest-date-mock';
 import React from 'react';
-import { MemoryRouter } from 'react-router';
 
 import mockEventSearchLoadMoreResponse from '../__mocks__/eventSearchLoadMoreResponse';
 import mockEventSearchResponse from '../__mocks__/eventSearchResponse';
@@ -13,6 +11,7 @@ import {
   NeighborhoodListDocument,
   PlaceListDocument,
 } from '../../../generated/graphql';
+import { render } from '../../../util/testUtils';
 import neighborhoodListResponse from '../../neighborhood/__mocks__/neighborhoodListResponse';
 import placeListResponse from '../../place/__mocks__/placeListResponse';
 import EventSearchPageContainer from '../EventSearchPageContainer';
@@ -91,13 +90,10 @@ afterAll(() => {
 
 it('all the event cards should be visible and load more button should load more events', async () => {
   advanceTo(new Date(2020, 7, 12));
-  render(
-    <MockedProvider mocks={mocks}>
-      <MemoryRouter initialEntries={['/fi/events?text=jazz']}>
-        <EventSearchPageContainer />
-      </MemoryRouter>
-    </MockedProvider>
-  );
+  render(<EventSearchPageContainer />, {
+    mocks,
+    routes: ['/fi/events?text=jazz'],
+  });
 
   await waitFor(() => {
     expect(

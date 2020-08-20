@@ -1,9 +1,9 @@
-import { MockedProvider } from '@apollo/react-testing';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
 import { KeywordDetailsDocument } from '../../../../generated/graphql';
+import { render } from '../../../../util/testUtils';
 import mockKeyword from '../../../keyword/__mocks__/keyword';
 import KeywordFilter from '../KeywordFilter';
 
@@ -25,9 +25,8 @@ const mocks = [
 
 test('matches snapshot', async () => {
   const { container } = render(
-    <MockedProvider mocks={mocks} addTypename={true}>
-      <KeywordFilter id={mockKeyword.id || ''} onRemove={jest.fn()} />
-    </MockedProvider>
+    <KeywordFilter id={mockKeyword.id || ''} onRemove={jest.fn()} />,
+    { mocks }
   );
 
   await screen.findByText((mockKeyword.name || {})['fi'] || '');
@@ -36,11 +35,9 @@ test('matches snapshot', async () => {
 
 it('calls onRemove callback when remove button is clicked ', async () => {
   const onClickMock = jest.fn();
-  render(
-    <MockedProvider mocks={mocks} addTypename={true}>
-      <KeywordFilter id={mockKeyword.id || ''} onRemove={onClickMock} />
-    </MockedProvider>
-  );
+  render(<KeywordFilter id={mockKeyword.id || ''} onRemove={onClickMock} />, {
+    mocks,
+  });
 
   await screen.findByText((mockKeyword.name || {})['fi'] || '');
 

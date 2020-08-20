@@ -1,12 +1,10 @@
-import { MockedProvider } from '@apollo/react-testing';
-import pretty from 'pretty';
+import { act } from '@testing-library/react';
+import { advanceTo } from 'jest-date-mock';
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router';
 import wait from 'waait';
 
 import { NeighborhoodListDocument } from '../../../../generated/graphql';
+import { render } from '../../../../util/testUtils';
 import LandingPageSearch from '../LandingPageSearch';
 
 const mocks = [
@@ -25,34 +23,11 @@ const mocks = [
   },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let container: any = null;
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  // cleanup on exiting
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
-
 test('LandingPageSearch should match snapshot', async () => {
-  await act(async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <MemoryRouter>
-          <LandingPageSearch />
-        </MemoryRouter>
-      </MockedProvider>,
-      container
-    );
+  advanceTo(new Date('2020-08-20'));
+  const { container } = render(<LandingPageSearch />, { mocks });
 
-    await wait(0); // wait for response
-  });
+  await act(wait); // wait for response
 
-  expect(pretty(container.innerHTML)).toMatchSnapshot();
+  expect(container.firstChild).toMatchSnapshot();
 });

@@ -1,13 +1,13 @@
-import { MockedProvider } from '@apollo/react-testing';
-import { render } from '@testing-library/react';
+import { act } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import React from 'react';
-import { MemoryRouter } from 'react-router';
+import wait from 'waait';
 
 import {
   NeighborhoodListDocument,
   PlaceListDocument,
 } from '../../../generated/graphql';
+import { render } from '../../../util/testUtils';
 import neighborhoodListResponse from '../../neighborhood/__mocks__/neighborhoodListResponse';
 import placeListResponse from '../../place/__mocks__/placeListResponse';
 import Search from '../Search';
@@ -33,14 +33,13 @@ const mocks = [
 ];
 
 test('test for accessibility violations', async () => {
-  const { container } = render(
-    <MemoryRouter>
-      <MockedProvider mocks={mocks}>
-        <Search scrollToResultList={jest.fn()} />
-      </MockedProvider>
-    </MemoryRouter>
-  );
+  const { container } = render(<Search scrollToResultList={jest.fn()} />, {
+    mocks,
+  });
 
+  await act(async () => {
+    await wait(500);
+  });
   const results = await axe(container);
   expect(results).toHaveNoViolations();
 });
