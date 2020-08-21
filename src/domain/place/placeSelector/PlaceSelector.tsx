@@ -37,7 +37,7 @@ const PlaceSelector: React.FC<Props> = ({
   const [placeOptions, setPlaceOptions] = React.useState<Option[]>([]);
   const [internalInputValue, setInternalInputValue] = React.useState('');
   const input = inputValue !== undefined ? inputValue : internalInputValue;
-  const searchValue = useDebounce(internalInputValue, 300);
+  const searchValue = useDebounce(input, 300);
 
   const { data: placesData, loading: loadingPlaces } = usePlaceListQuery({
     variables: {
