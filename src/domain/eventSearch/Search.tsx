@@ -60,6 +60,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     isFree,
     keywordNot,
     onlyChildrenEvents,
+    onlyEveningEvents,
     publisher,
   } = getSearchFilters(searchParams);
 
@@ -72,6 +73,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     keywordNot,
     keywords: selectedKeywords,
     onlyChildrenEvents,
+    onlyEveningEvents,
     places: selectedPlaces,
     publisher,
     start,
@@ -216,6 +218,17 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   };
 
+  const handleOnlyEveningEventChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const search = getSearchQuery({
+      ...searchFilters,
+      onlyEveningEvents: e.target.checked,
+    });
+
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+  };
+
   const handleIsFreeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const search = getSearchQuery({
       ...searchFilters,
@@ -352,6 +365,15 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                       id={EVENT_SEARCH_FILTERS.IS_FREE}
                       label={t('eventSearch.search.checkboxIsFree')}
                       onChange={handleIsFreeChange}
+                    />
+                  </div>
+                  <div>
+                    <Checkbox
+                      className={styles.checkbox}
+                      checked={onlyEveningEvents}
+                      id={EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS}
+                      label={t('eventSearch.search.checkboxOnlyEveningEvents')}
+                      onChange={handleOnlyEveningEventChange}
                     />
                   </div>
                 </div>

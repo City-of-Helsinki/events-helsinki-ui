@@ -113,7 +113,21 @@ export const getEventSearchVariables = ({
   superEventType: string[];
 }) => {
   const dateFormat = 'yyyy-MM-dd';
-  const dateTypes = getUrlParamAsArray(params, EVENT_SEARCH_FILTERS.DATE_TYPES);
+  const {
+    categories,
+    dateTypes,
+    divisions,
+    isFree,
+    keywords,
+    keywordNot,
+    onlyChildrenEvents,
+    onlyEveningEvents,
+    places,
+    publisher,
+    text,
+  } = getSearchFilters(params);
+
+  const startsAfter = onlyEveningEvents ? '16' : undefined;
   let { start, end } = getFilterDates({
     dateTypes,
     endTime: params.get(EVENT_SEARCH_FILTERS.END),
@@ -128,17 +142,10 @@ export const getEventSearchVariables = ({
     end = formatDate(new Date(), dateFormat);
   }
 
-  const places = getUrlParamAsArray(params, EVENT_SEARCH_FILTERS.PLACES);
-  const categories = getUrlParamAsArray(
-    params,
-    EVENT_SEARCH_FILTERS.CATEGORIES
-  );
-  const divisions = getUrlParamAsArray(params, EVENT_SEARCH_FILTERS.DIVISIONS);
   const mappedDivisions: string[] = divisions.length
     ? [...divisions]
     : ['kunta:helsinki'];
 
-  const keywords = getUrlParamAsArray(params, EVENT_SEARCH_FILTERS.KEYWORDS);
   const keywordAnd: string[] = [];
   keywords.forEach(keyword => {
     switch (keyword) {
@@ -151,9 +158,6 @@ export const getEventSearchVariables = ({
         keywordAnd.push(keyword);
     }
   });
-  const onlyChildrenEvents = params.get(
-    EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS
-  );
 
   if (onlyChildrenEvents) {
     keywordAnd.push('yso:p4354');
@@ -194,19 +198,19 @@ export const getEventSearchVariables = ({
     division: mappedDivisions.sort(),
     end,
     include,
-    isFree:
-      params.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true' ? true : undefined,
+    isFree: isFree || undefined,
     keyword: mappedCategories.sort(),
     keywordAnd,
-    keywordNot: getUrlParamAsArray(params, EVENT_SEARCH_FILTERS.KEYWORD_NOT),
+    keywordNot,
     language,
     location: places.sort(),
     pageSize,
-    publisher: params.get(EVENT_SEARCH_FILTERS.PUBLISHER),
+    publisher,
     sort: sortOrder,
     start,
+    startsAfter,
     superEventType,
-    text: params.get(EVENT_SEARCH_FILTERS.TEXT),
+    text,
   };
 };
 
@@ -255,6 +259,10 @@ export const getSearchFilters = (searchParams: URLSearchParams) => {
       searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === 'true'
         ? true
         : false,
+    onlyEveningEvents:
+      searchParams.get(EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS) === 'true'
+        ? true
+        : false,
     places: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.PLACES),
     publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
     start,
@@ -268,6 +276,7 @@ export const getSearchQuery = (filters: Filters): string => {
     end: formatDate(filters.end, 'yyyy-MM-dd'),
     isFree: filters.isFree ? true : undefined,
     onlyChildrenEvents: filters.onlyChildrenEvents ? true : undefined,
+    onlyEveningEvents: filters.onlyEveningEvents ? true : undefined,
     start: formatDate(filters.start, 'yyyy-MM-dd'),
   };
 

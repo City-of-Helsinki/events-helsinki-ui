@@ -369,6 +369,8 @@ export type QueryEventDetailsArgs = {
 export type QueryEventListArgs = {
   division?: Maybe<Array<Maybe<Scalars['String']>>>,
   end?: Maybe<Scalars['String']>,
+  endsAfter?: Maybe<Scalars['String']>,
+  endsBefore?: Maybe<Scalars['String']>,
   inLanguage?: Maybe<Scalars['String']>,
   include?: Maybe<Array<Maybe<Scalars['String']>>>,
   isFree?: Maybe<Scalars['Boolean']>,
@@ -382,6 +384,8 @@ export type QueryEventListArgs = {
   publisher?: Maybe<Scalars['ID']>,
   sort?: Maybe<Scalars['String']>,
   start?: Maybe<Scalars['String']>,
+  startsAfter?: Maybe<Scalars['String']>,
+  startsBefore?: Maybe<Scalars['String']>,
   superEvent?: Maybe<Scalars['ID']>,
   superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
   text?: Maybe<Scalars['String']>,
@@ -585,6 +589,8 @@ export type EventDetailsQuery = (
 export type EventListQueryVariables = {
   division?: Maybe<Array<Maybe<Scalars['String']>>>,
   end?: Maybe<Scalars['String']>,
+  endsAfter?: Maybe<Scalars['String']>,
+  endsBefore?: Maybe<Scalars['String']>,
   inLanguage?: Maybe<Scalars['String']>,
   include?: Maybe<Array<Maybe<Scalars['String']>>>,
   isFree?: Maybe<Scalars['Boolean']>,
@@ -598,6 +604,8 @@ export type EventListQueryVariables = {
   publisher?: Maybe<Scalars['ID']>,
   sort?: Maybe<Scalars['String']>,
   start?: Maybe<Scalars['String']>,
+  startsAfter?: Maybe<Scalars['String']>,
+  startsBefore?: Maybe<Scalars['String']>,
   superEvent?: Maybe<Scalars['ID']>,
   superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
   text?: Maybe<Scalars['String']>,
@@ -1210,8 +1218,8 @@ export type EventDetailsQueryHookResult = ReturnType<typeof useEventDetailsQuery
 export type EventDetailsLazyQueryHookResult = ReturnType<typeof useEventDetailsLazyQuery>;
 export type EventDetailsQueryResult = ApolloReactCommon.QueryResult<EventDetailsQuery, EventDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($division: [String], $end: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordNot: [String], $language: String, $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
-  eventList(division: $division, end: $end, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordNot: $keywordNot, language: $language, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
+    query EventList($division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordNot: [String], $language: String, $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+  eventList(division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordNot: $keywordNot, language: $language, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
     meta {
       count
       next
@@ -1249,6 +1257,8 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  *   variables: {
  *      division: // value for 'division'
  *      end: // value for 'end'
+ *      endsAfter: // value for 'endsAfter'
+ *      endsBefore: // value for 'endsBefore'
  *      inLanguage: // value for 'inLanguage'
  *      include: // value for 'include'
  *      isFree: // value for 'isFree'
@@ -1262,6 +1272,8 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  *      publisher: // value for 'publisher'
  *      sort: // value for 'sort'
  *      start: // value for 'start'
+ *      startsAfter: // value for 'startsAfter'
+ *      startsBefore: // value for 'startsBefore'
  *      superEvent: // value for 'superEvent'
  *      superEventType: // value for 'superEventType'
  *      text: // value for 'text'
