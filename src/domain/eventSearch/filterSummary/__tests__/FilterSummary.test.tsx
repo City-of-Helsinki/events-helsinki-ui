@@ -4,33 +4,17 @@ import React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import {
-  KeywordDetailsDocument,
-  Maybe,
   NeighborhoodListDocument,
   OrganizationDetailsDocument,
   PlaceDetailsDocument,
 } from '../../../../generated/graphql';
 import { render } from '../../../../util/testUtils';
-import mockKeyword from '../../../keyword/__mocks__/keyword';
 import neighborhoodListResponse from '../../../neighborhood/__mocks__/neighborhoodListResponse';
 import mockOrganization from '../../../organisation/__mocks__/organizationDetails';
 import mockPlace from '../../../place/__mocks__/place';
 import FilterSummary from '../FilterSummary';
 
 const mocks = [
-  {
-    request: {
-      query: KeywordDetailsDocument,
-      variables: {
-        id: mockKeyword.id,
-      },
-    },
-    result: {
-      data: {
-        keywordDetails: mockKeyword,
-      },
-    },
-  },
   {
     request: {
       query: NeighborhoodListDocument,
@@ -70,7 +54,6 @@ interface UrlParams {
   dateTypes: string;
   divisions: string;
   end: string;
-  keywords: string;
   places: string;
   publisher: string;
   start: string;
@@ -82,7 +65,6 @@ const urlParams: UrlParams = {
   dateTypes: 'today',
   divisions: 'kaupunginosa%3Aalppiharju',
   end: '2020-08-23',
-  keywords: mockKeyword.id as string,
   places: mockPlace.id as string,
   publisher: mockOrganization.id as string,
   start: '2020-08-20',
@@ -93,7 +75,7 @@ type UrlParamKeys = keyof UrlParams;
 
 const routes = [
   // eslint-disable-next-line max-len
-  `/fi/events?categories=${urlParams.categories}&dateTypes=today&divisions=${urlParams.divisions}&end=${urlParams.end}&keywords=${urlParams.keywords}&places=${urlParams.places}&publisher=${urlParams.publisher}&start=${urlParams.start}&text=${urlParams.text}`,
+  `/fi/events?categories=${urlParams.categories}&dateTypes=today&divisions=${urlParams.divisions}&end=${urlParams.end}&places=${urlParams.places}&publisher=${urlParams.publisher}&start=${urlParams.start}&text=${urlParams.text}`,
 ];
 
 it('matches snapshot', async () => {
@@ -104,7 +86,7 @@ it('matches snapshot', async () => {
 
   await waitFor(() => {
     expect(
-      screen.queryByText((mockKeyword.name || {})['fi'] || '')
+      screen.queryByText((mockPlace.name || {})['fi'] || '')
     ).toBeInTheDocument();
   });
 
@@ -120,7 +102,7 @@ it('calls onClear callback when clear button is clicked ', async () => {
 
   await waitFor(() => {
     expect(
-      screen.queryByText((mockKeyword.name || {})['fi'] || '')
+      screen.queryByText((mockPlace.name || {})['fi'] || '')
     ).toBeDefined();
   });
 
@@ -140,7 +122,7 @@ it('routes to correct url after deleting filters ', async () => {
 
   await waitFor(() => {
     expect(
-      screen.queryByText((mockKeyword.name || {})['fi'] || '')
+      screen.queryByText((mockPlace.name || {})['fi'] || '')
     ).toBeDefined();
   });
 
@@ -152,7 +134,6 @@ it('routes to correct url after deleting filters ', async () => {
     },
     { button: 'Poista suodatin: Elokuva', params: ['categories'] },
     { button: 'Poista suodatin: Alppiharju', params: ['divisions'] },
-    { button: 'Poista suodatin: Keyword 1 fi', params: ['keywords'] },
     { button: 'Poista suodatin: Gräsan taitojen talo', params: ['places'] },
     {
       button: 'Poista suodatin: Yleiset kulttuuripalvelut',

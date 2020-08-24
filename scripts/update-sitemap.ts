@@ -1,19 +1,19 @@
-import { format as formatDateStr } from "date-fns";
-import * as fs from "fs";
-import fetch from "node-fetch";
-import * as path from "path";
-import { promisify } from "util";
-import * as convert from "xml-js";
+import { format as formatDateStr } from 'date-fns';
+import * as fs from 'fs';
+import fetch from 'node-fetch';
+import * as path from 'path';
+import { promisify } from 'util';
+import * as convert from 'xml-js';
 
 // Promises are more fun than callbacks
 const writeFile = promisify(fs.writeFile);
 
-const languages = process.env.SITEMAP_LANGUAGES.split(",");
+const languages = process.env.SITEMAP_LANGUAGES.split(',');
 const cmsUrl = process.env.CMS_URL;
 const linkedEventsUrl = process.env.LINKED_EVENTS_URL;
 const host = process.env.HOST_URL;
 const pageSize = 100;
-const pathToSitemaps: string = path.join(__dirname, "../public");
+const pathToSitemaps: string = path.join(__dirname, '../public');
 
 const now = new Date();
 
@@ -33,7 +33,7 @@ interface SimpleEvent {
  * @return {string}
  */
 export const formatDate = (date: string): string =>
-  formatDateStr(new Date(date), "yyyy-MM-dd");
+  formatDateStr(new Date(date), 'yyyy-MM-dd');
 
 /**
  * Write object to a xml file
@@ -44,7 +44,7 @@ const writeXMLFile = (path: string, data: object) => {
   const options = { compact: true, ignoreComment: true, spaces: 4 };
   const xml = convert.js2xml(data, options);
 
-  return writeFile(path, xml, "utf8");
+  return writeFile(path, xml, 'utf8');
 };
 
 /**
@@ -59,8 +59,8 @@ const getEvents = async (language: string) => {
     `?language=${language}` +
     `&start=${now.toISOString()}` +
     `&page_size=${pageSize}` +
-    "&division=kunta:helsinki" +
-    "&super_event_type=umbrella,none";
+    '&division=kunta:helsinki' +
+    '&super_event_type=umbrella,none';
 
   // Loop until linkedevents returns null to next page attribute
   while (!!url) {
@@ -94,16 +94,16 @@ const getEvents = async (language: string) => {
  */
 const generateEventSitemap = (events: SimpleEvent[], language: string) => {
   const data = {
-    _declaration: { _attributes: { encoding: "utf-8", version: "1.0" } },
+    _declaration: { _attributes: { encoding: 'utf-8', version: '1.0' } },
     urlset: {
-      _attributes: { xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" },
+      _attributes: { xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9' },
       url: [
         ...events.map(event => ({
           lastmod: formatDate(event.last_modified_time),
-          loc: `${host}/${language}/event/${event.id}`
-        }))
-      ]
-    }
+          loc: `${host}/${language}/event/${event.id}`,
+        })),
+      ],
+    },
   };
 
   return writeXMLFile(`${pathToSitemaps}/sitemap_events_${language}.xml`, data);
@@ -158,16 +158,16 @@ const generateCollectionSitemap = (
   language: string
 ) => {
   const data = {
-    _declaration: { _attributes: { encoding: "utf-8", version: "1.0" } },
+    _declaration: { _attributes: { encoding: 'utf-8', version: '1.0' } },
     urlset: {
-      _attributes: { xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" },
+      _attributes: { xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9' },
       url: [
         ...events.map(event => ({
           lastmod: formatDate(event.last_published_at),
-          loc: `${host}/${language}/event/${event.id}`
-        }))
-      ]
-    }
+          loc: `${host}/${language}/event/${event.id}`,
+        })),
+      ],
+    },
   };
 
   return writeXMLFile(
@@ -191,18 +191,18 @@ const generateCollectionSitemaps = async () => {
  */
 const generateSitemapIndex = () => {
   const data = {
-    _declaration: { _attributes: { encoding: "utf-8", version: "1.0" } },
+    _declaration: { _attributes: { encoding: 'utf-8', version: '1.0' } },
     sitemapindex: {
-      _attributes: { xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" },
+      _attributes: { xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9' },
       sitemap: [
         ...languages.map(language => ({
-          loc: `${host}/sitemap_events_${language}.xml`
+          loc: `${host}/sitemap_events_${language}.xml`,
         })),
         ...languages.map(language => ({
-          loc: `${host}/sitemap_collections_${language}.xml`
-        }))
-      ]
-    }
+          loc: `${host}/sitemap_collections_${language}.xml`,
+        })),
+      ],
+    },
   };
 
   return writeXMLFile(`${pathToSitemaps}/sitemap.xml`, data);
@@ -216,9 +216,9 @@ const generateSitemaps = async () => {
     await Promise.all([
       generateEventSitemaps(),
       generateCollectionSitemaps(),
-      generateSitemapIndex()
+      generateSitemapIndex(),
     ]);
-    console.log("Sitemaps generated!"); // eslint-disable-line
+    console.log('Sitemaps generated!'); // eslint-disable-line
   } catch (err) {
     console.error(err.message); // eslint-disable-line
     process.exit(1);

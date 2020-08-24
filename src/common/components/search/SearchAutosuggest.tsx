@@ -55,7 +55,7 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
 
     items.push({
       text: internalInputValue,
-      type: AUTOSUGGEST_TYPES.SEARCH,
+      type: AUTOSUGGEST_TYPES.TEXT,
       value: internalInputValue,
     });
 
@@ -186,7 +186,7 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
               // Search by text if no option is selected
               handleMenuOptionClick({
                 text: searchValue,
-                type: AUTOSUGGEST_TYPES.SEARCH,
+                type: AUTOSUGGEST_TYPES.TEXT,
                 value: searchValue,
               });
             }

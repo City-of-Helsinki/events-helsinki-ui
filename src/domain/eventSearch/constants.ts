@@ -9,11 +9,10 @@ export const DEFAULT_SEARCH_FILTERS: Filters = {
   end: null,
   isFree: false,
   keywordNot: [],
-  keywords: [],
   places: [],
   publisher: null,
   start: null,
-  text: '',
+  text: [],
 };
 
 export enum EVENT_SORT_OPTIONS {
@@ -34,7 +33,6 @@ export enum EVENT_SEARCH_FILTERS {
   END = 'end',
   IS_FREE = 'isFree',
   KEYWORD_NOT = 'keywordNot',
-  KEYWORDS = 'keywords',
   ONLY_CHILDREN_EVENTS = 'onlyChildrenEvents',
   ONLY_EVENING_EVENTS = 'onlyEveningEvents',
   PAGE = 'page',

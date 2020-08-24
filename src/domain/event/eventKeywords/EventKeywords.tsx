@@ -41,12 +41,12 @@ const EventKeywords: React.FC<Props> = ({
     return null;
   }
 
-  const handleClick = (type: 'dateType' | 'isFree' | 'keyword', value = '') => {
+  const handleClick = (type: 'dateType' | 'isFree' | 'text', value = '') => {
     const search = getSearchQuery({
       ...DEFAULT_SEARCH_FILTERS,
       dateTypes: type === 'dateType' ? [value] : [],
       isFree: type === 'isFree',
-      keywords: type === 'keyword' ? [value] : [],
+      text: type === 'text' ? [value] : [],
     });
 
     history.push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -64,7 +64,7 @@ const EventKeywords: React.FC<Props> = ({
               hideOnMobile={hideKeywordsOnMobile}
               key={keyword.id}
               keyword={keyword.name}
-              onClick={() => handleClick('keyword', keyword.id)}
+              onClick={() => handleClick('text', keyword.name)}
             />
           );
         })}

@@ -5,15 +5,12 @@ exports[`matches snapshot 1`] = `
   class="filterSummary"
 >
   <div
-    class="searchWordFilter"
+    class="filter text"
   >
-    <div>
-      ‘
-      jazz
-      ’
-    </div>
     <button
       aria-label="Poista suodatin: jazz"
+      class="closeButton"
+      type="button"
     >
       <svg
         class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
@@ -28,12 +25,13 @@ exports[`matches snapshot 1`] = `
             d="M0 0h24v24H0z"
           />
           <path
-            d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 2a8 8 0 100 16 8 8 0 000-16zm2.828 3.757l1.415 1.415L13.413 12l2.83 2.828-1.415 1.415L12 13.413l-2.828 2.83-1.415-1.415L10.586 12 7.757 9.172l1.415-1.415L12 10.586l2.828-2.829z"
+            d="M17.657 7.757L13.414 12l4.243 4.243-1.414 1.414L12 13.414l-4.243 4.243-1.414-1.414L10.586 12 6.343 7.757l1.414-1.414L12 10.586l4.243-4.243z"
             fill="currentColor"
           />
         </g>
       </svg>
     </button>
+    jazz
   </div>
   <div
     class="filter category"
@@ -63,35 +61,6 @@ exports[`matches snapshot 1`] = `
       </svg>
     </button>
     Elokuva
-  </div>
-  <div
-    class="filter keyword"
-  >
-    <button
-      aria-label="Poista suodatin: Keyword 1 fi"
-      class="closeButton"
-      type="button"
-    >
-      <svg
-        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g
-          fill="none"
-          fill-rule="evenodd"
-        >
-          <path
-            d="M0 0h24v24H0z"
-          />
-          <path
-            d="M17.657 7.757L13.414 12l4.243 4.243-1.414 1.414L12 13.414l-4.243 4.243-1.414-1.414L10.586 12 6.343 7.757l1.414-1.414L12 10.586l4.243-4.243z"
-            fill="currentColor"
-          />
-        </g>
-      </svg>
-    </button>
-    Keyword 1 fi
   </div>
   <div
     class="filter publisher"
