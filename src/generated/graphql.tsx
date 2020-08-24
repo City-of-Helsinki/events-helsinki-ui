@@ -582,19 +582,6 @@ export type EventDetailsQuery = (
   ) }
 );
 
-export type OrganizationDetailsQueryVariables = {
-  id: Scalars['ID']
-};
-
-
-export type OrganizationDetailsQuery = (
-  { __typename?: 'Query' }
-  & { organizationDetails: (
-    { __typename?: 'OrganizationDetails' }
-    & Pick<OrganizationDetails, 'id' | 'name'>
-  ) }
-);
-
 export type EventListQueryVariables = {
   division?: Maybe<Array<Maybe<Scalars['String']>>>,
   end?: Maybe<Scalars['String']>,
@@ -786,6 +773,24 @@ export type NeighborhoodListQuery = (
         & Pick<LocalizedObject, 'fi' | 'sv' | 'en'>
       ) }
     )> }
+  ) }
+);
+
+export type OrganizationFieldsFragment = (
+  { __typename?: 'OrganizationDetails' }
+  & Pick<OrganizationDetails, 'id' | 'name'>
+);
+
+export type OrganizationDetailsQueryVariables = {
+  id: Scalars['ID']
+};
+
+
+export type OrganizationDetailsQuery = (
+  { __typename?: 'Query' }
+  & { organizationDetails: (
+    { __typename?: 'OrganizationDetails' }
+    & OrganizationFieldsFragment
   ) }
 );
 
@@ -1062,6 +1067,12 @@ export const LandingPageFieldsFragmentDoc = gql`
   }
 }
     ${LocalizedFieldsFragmentDoc}`;
+export const OrganizationFieldsFragmentDoc = gql`
+    fragment organizationFields on OrganizationDetails {
+  id
+  name
+}
+    `;
 export const CollectionDetailsDocument = gql`
     query CollectionDetails($draft: Boolean, $slug: ID!) {
   collectionDetails(draft: $draft, slug: $slug) {
@@ -1198,51 +1209,6 @@ export function useEventDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQuer
 export type EventDetailsQueryHookResult = ReturnType<typeof useEventDetailsQuery>;
 export type EventDetailsLazyQueryHookResult = ReturnType<typeof useEventDetailsLazyQuery>;
 export type EventDetailsQueryResult = ApolloReactCommon.QueryResult<EventDetailsQuery, EventDetailsQueryVariables>;
-export const OrganizationDetailsDocument = gql`
-    query OrganizationDetails($id: ID!) {
-  organizationDetails(id: $id) {
-    id
-    name
-  }
-}
-    `;
-export type OrganizationDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<OrganizationDetailsQuery, OrganizationDetailsQueryVariables> | TChildProps;
-export function withOrganizationDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  OrganizationDetailsQuery,
-  OrganizationDetailsQueryVariables,
-  OrganizationDetailsProps<TChildProps>>) {
-    return ApolloReactHoc.withQuery<TProps, OrganizationDetailsQuery, OrganizationDetailsQueryVariables, OrganizationDetailsProps<TChildProps>>(OrganizationDetailsDocument, {
-      alias: 'organizationDetails',
-      ...operationOptions
-    });
-};
-
-/**
- * __useOrganizationDetailsQuery__
- *
- * To run a query within a React component, call `useOrganizationDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useOrganizationDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useOrganizationDetailsQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useOrganizationDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>) {
-        return ApolloReactHooks.useQuery<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>(OrganizationDetailsDocument, baseOptions);
-      }
-export function useOrganizationDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>(OrganizationDetailsDocument, baseOptions);
-        }
-export type OrganizationDetailsQueryHookResult = ReturnType<typeof useOrganizationDetailsQuery>;
-export type OrganizationDetailsLazyQueryHookResult = ReturnType<typeof useOrganizationDetailsLazyQuery>;
-export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>;
 export const EventListDocument = gql`
     query EventList($division: [String], $end: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordNot: [String], $language: String, $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
   eventList(division: $division, end: $end, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordNot: $keywordNot, language: $language, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
@@ -1604,6 +1570,50 @@ export function useNeighborhoodListLazyQuery(baseOptions?: ApolloReactHooks.Lazy
 export type NeighborhoodListQueryHookResult = ReturnType<typeof useNeighborhoodListQuery>;
 export type NeighborhoodListLazyQueryHookResult = ReturnType<typeof useNeighborhoodListLazyQuery>;
 export type NeighborhoodListQueryResult = ApolloReactCommon.QueryResult<NeighborhoodListQuery, NeighborhoodListQueryVariables>;
+export const OrganizationDetailsDocument = gql`
+    query OrganizationDetails($id: ID!) {
+  organizationDetails(id: $id) {
+    ...organizationFields
+  }
+}
+    ${OrganizationFieldsFragmentDoc}`;
+export type OrganizationDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<OrganizationDetailsQuery, OrganizationDetailsQueryVariables> | TChildProps;
+export function withOrganizationDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  OrganizationDetailsQuery,
+  OrganizationDetailsQueryVariables,
+  OrganizationDetailsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, OrganizationDetailsQuery, OrganizationDetailsQueryVariables, OrganizationDetailsProps<TChildProps>>(OrganizationDetailsDocument, {
+      alias: 'organizationDetails',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useOrganizationDetailsQuery__
+ *
+ * To run a query within a React component, call `useOrganizationDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOrganizationDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOrganizationDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useOrganizationDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>) {
+        return ApolloReactHooks.useQuery<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>(OrganizationDetailsDocument, baseOptions);
+      }
+export function useOrganizationDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>(OrganizationDetailsDocument, baseOptions);
+        }
+export type OrganizationDetailsQueryHookResult = ReturnType<typeof useOrganizationDetailsQuery>;
+export type OrganizationDetailsLazyQueryHookResult = ReturnType<typeof useOrganizationDetailsLazyQuery>;
+export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>;
 export const PlaceDetailsDocument = gql`
     query PlaceDetails($id: ID!) {
   placeDetails(id: $id) {

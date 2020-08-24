@@ -1,14 +1,11 @@
-import { MockedProvider } from '@apollo/react-testing';
-import pretty from 'pretty';
+import { act } from '@testing-library/react';
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router';
 import wait from 'waait';
 
 import mockCollection from '../../__mocks__/collection';
 import { SUPPORT_LANGUAGES } from '../../../../constants';
 import { EventListDocument } from '../../../../generated/graphql';
+import { render } from '../../../../util/testUtils';
 import mockEvent from '../../../event/__mocks__/eventDetails';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from '../../../eventSearch/constants';
 import { getEventSearchVariables } from '../../../eventSearch/utils';
@@ -17,6 +14,7 @@ import EventList from '../EventList';
 const searchParams = new URLSearchParams(
   new URL((mockCollection.eventListQuery || {})['fi'] || '').search
 );
+
 const mocks = [
   {
     request: {
@@ -47,34 +45,11 @@ const mocks = [
   },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let container: any = null;
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  // cleanup on exiting
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
-
 test('EventList should match snapshot', async () => {
-  await act(async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={true}>
-        <MemoryRouter>
-          <EventList collection={mockCollection} />
-        </MemoryRouter>
-      </MockedProvider>,
-      container
-    );
-
-    await wait(0); // wait for response
+  const { container } = render(<EventList collection={mockCollection} />, {
+    mocks,
   });
 
-  expect(pretty(container.innerHTML)).toMatchSnapshot();
+  await act(wait);
+  expect(container.firstChild).toMatchSnapshot();
 });

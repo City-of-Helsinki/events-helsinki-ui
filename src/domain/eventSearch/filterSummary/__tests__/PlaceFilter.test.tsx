@@ -1,9 +1,9 @@
-import { MockedProvider } from '@apollo/react-testing';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
 import { PlaceDetailsDocument } from '../../../../generated/graphql';
+import { render } from '../../../../util/testUtils';
 import mockPlace from '../../../place/__mocks__/place';
 import PlaceFilter from '../PlaceFilter';
 
@@ -25,9 +25,8 @@ const mocks = [
 
 test('matches snapshot', async () => {
   const { container } = render(
-    <MockedProvider mocks={mocks} addTypename={true}>
-      <PlaceFilter id={mockPlace.id || ''} onRemove={jest.fn()} />
-    </MockedProvider>
+    <PlaceFilter id={mockPlace.id || ''} onRemove={jest.fn()} />,
+    { mocks }
   );
 
   await screen.findByText((mockPlace.name || {})['fi'] || '');
@@ -36,15 +35,14 @@ test('matches snapshot', async () => {
 
 it('calls onRemove callback when remove button is clicked ', async () => {
   const onClickMock = jest.fn();
-  render(
-    <MockedProvider mocks={mocks} addTypename={true}>
-      <PlaceFilter id={mockPlace.id || ''} onRemove={onClickMock} />
-    </MockedProvider>
-  );
+  render(<PlaceFilter id={mockPlace.id || ''} onRemove={onClickMock} />, {
+    mocks,
+  });
 
   await screen.findByText((mockPlace.name || {})['fi'] || '');
 
   userEvent.click(screen.getByRole('button'));
 
   expect(onClickMock).toHaveBeenCalled();
+  expect(onClickMock).toHaveBeenCalledWith(mockPlace.id, 'place');
 });

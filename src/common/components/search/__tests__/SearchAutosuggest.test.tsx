@@ -1,7 +1,7 @@
-import { MockedProvider } from '@apollo/react-testing';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
+import { act } from 'react-dom/test-utils';
 import wait from 'waait';
 
 import { AUTOSUGGEST_TYPES } from '../../../../constants';
@@ -12,6 +12,7 @@ import {
   arrowUpKeyPressHelper,
   enterKeyPressHelper,
   escKeyPressHelper,
+  render,
 } from '../../../../util/testUtils';
 import SearchAutosuggest, {
   SearchAutosuggestProps,
@@ -42,16 +43,11 @@ const defaultProps = {
   searchValue,
 };
 const getWrapper = (props?: Partial<SearchAutosuggestProps>) =>
-  render(
-    <MockedProvider mocks={mocks} addTypename={true}>
-      <SearchAutosuggest {...defaultProps} {...props} />
-    </MockedProvider>
-  );
+  render(<SearchAutosuggest {...defaultProps} {...props} />, { mocks });
 
 test('matches snapshot', async () => {
   const { container } = getWrapper();
-
-  await wait();
+  await act(wait);
 
   expect(container.firstChild).toMatchSnapshot();
 });
@@ -60,7 +56,8 @@ test('should open menu after typing search value', async () => {
   const { getByPlaceholderText } = getWrapper({ searchValue: '' });
   const searchInput = getByPlaceholderText(placeholder);
 
-  await wait();
+  await act(wait);
+
   userEvent.click(searchInput);
 
   expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
@@ -74,7 +71,8 @@ test('should close menu with esc key', async () => {
   const { getByPlaceholderText } = getWrapper();
   const searchInput = getByPlaceholderText(placeholder);
 
-  await wait();
+  await act(wait);
+
   userEvent.click(searchInput);
 
   expect(screen.queryByRole('listbox')).toBeInTheDocument();
@@ -88,7 +86,8 @@ test('should allow navigation with down arrows', async () => {
   const { getByPlaceholderText } = getWrapper();
   const searchInput = getByPlaceholderText(placeholder);
 
-  await wait();
+  await act(wait);
+
   userEvent.click(searchInput);
 
   const options = screen.getAllByRole('option');
@@ -108,7 +107,8 @@ test('should allow navigation with up arrows', async () => {
   const { getByPlaceholderText } = getWrapper();
   const searchInput = getByPlaceholderText(placeholder);
 
-  await wait();
+  await act(wait);
+
   userEvent.click(searchInput);
 
   const options = screen.getAllByRole('option');
@@ -132,7 +132,8 @@ test('first item should be focused when opening menu by down arrow', async () =>
   const { getByPlaceholderText } = getWrapper();
   const searchInput = getByPlaceholderText(placeholder);
 
-  await wait();
+  await act(wait);
+
   userEvent.click(searchInput);
 
   escKeyPressHelper();
@@ -151,7 +152,8 @@ test('last item should be focused when opening menu by up arrow', async () => {
   const { getByPlaceholderText } = getWrapper();
   const searchInput = getByPlaceholderText(placeholder);
 
-  await wait();
+  await act(wait);
+
   userEvent.click(searchInput);
 
   escKeyPressHelper();
@@ -174,7 +176,8 @@ test('should call onOptionClick by pressing enter', async () => {
   const { getByPlaceholderText } = getWrapper({ onOptionClick: onEnter });
   const searchInput = getByPlaceholderText(placeholder);
 
-  await wait();
+  await act(wait);
+
   userEvent.click(searchInput);
 
   arrowDownKeyPressHelper();

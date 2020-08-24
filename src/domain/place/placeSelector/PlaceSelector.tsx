@@ -2,9 +2,7 @@ import { IconHome } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import MultiSelectDropdown, {
-  Option,
-} from '../../../common/components/multiSelectDropdown/MultiSelectDropdown';
+import MultiSelectDropdown from '../../../common/components/multiSelectDropdown/MultiSelectDropdown';
 import { usePlaceListQuery } from '../../../generated/graphql';
 import useDebounce from '../../../hooks/useDebounce';
 import useLocale from '../../../hooks/useLocale';
@@ -34,12 +32,11 @@ const PlaceSelector: React.FC<Props> = ({
   const { t } = useTranslation();
   const locale = useLocale();
 
-  const [placeOptions, setPlaceOptions] = React.useState<Option[]>([]);
   const [internalInputValue, setInternalInputValue] = React.useState('');
   const input = inputValue !== undefined ? inputValue : internalInputValue;
   const searchValue = useDebounce(input, 300);
 
-  const { data: placesData, loading: loadingPlaces } = usePlaceListQuery({
+  const { data: placesData } = usePlaceListQuery({
     variables: {
       hasUpcomingEvents: true,
       pageSize: 10,
@@ -47,19 +44,16 @@ const PlaceSelector: React.FC<Props> = ({
     },
   });
 
-  React.useEffect(() => {
-    if (loadingPlaces) return;
-
-    const options: Option[] =
-      (placesData &&
-        placesData.placeList.data.map(place => ({
-          text: getLocalisedString(place.name || {}, locale),
-          value: place.id || '',
-        }))) ||
-      [];
-
-    setPlaceOptions(options.sort((a, b) => (a.text > b.text ? 1 : -1)));
-  }, [internalInputValue, loadingPlaces, locale, placesData]);
+  const placeOptions = React.useMemo(() => {
+    return placesData
+      ? placesData.placeList.data
+          .map(place => ({
+            text: getLocalisedString(place.name || {}, locale),
+            value: place.id || '',
+          }))
+          .sort((a, b) => (a.text > b.text ? 1 : -1))
+      : [];
+  }, [locale, placesData]);
 
   const renderOptionText = (id: string) => {
     try {

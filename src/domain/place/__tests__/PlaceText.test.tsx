@@ -1,9 +1,9 @@
-import { MockedProvider } from '@apollo/react-testing';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import * as React from 'react';
 
 import mockPlace from '../__mocks__/place';
 import { PlaceDetailsDocument } from '../../../generated/graphql';
+import { render } from '../../../util/testUtils';
 import PlaceText from '../PlaceText';
 
 const mocks = [
@@ -23,11 +23,9 @@ const mocks = [
 ];
 
 test('matches snapshot', async () => {
-  const { container } = render(
-    <MockedProvider mocks={mocks} addTypename={true}>
-      <PlaceText id={mockPlace.id || ''} />
-    </MockedProvider>
-  );
+  const { container } = render(<PlaceText id={mockPlace.id || ''} />, {
+    mocks,
+  });
 
   await screen.findByText((mockPlace.name || {})['fi'] || '');
   expect(container.firstChild).toMatchSnapshot();

@@ -69,11 +69,4 @@ export const QUERY_EVENT_DETAILS = gql`
       ...eventFields
     }
   }
-
-  query OrganizationDetails($id: ID!) {
-    organizationDetails(id: $id) {
-      id
-      name
-    }
-  }
 `;

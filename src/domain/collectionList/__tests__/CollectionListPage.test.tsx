@@ -1,10 +1,9 @@
-import { MockedProvider } from '@apollo/react-testing';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import * as React from 'react';
-import { MemoryRouter } from 'react-router';
 
 import translations from '../../../common/translation/i18n/fi.json';
 import { CollectionListDocument } from '../../../generated/graphql';
+import { render } from '../../../util/testUtils';
 import mockCollection from '../../collection/__mocks__/collection';
 import CollectionListPage from '../CollectionListPage';
 
@@ -31,13 +30,7 @@ const mocks = [
 ];
 
 test('matches snapshot', async () => {
-  const { container } = render(
-    <MemoryRouter>
-      <MockedProvider mocks={mocks} addTypename={true}>
-        <CollectionListPage />
-      </MockedProvider>
-    </MemoryRouter>
-  );
+  const { container } = render(<CollectionListPage />, { mocks });
 
   await screen.findByText(translations.collectionList.title);
   expect(container.firstChild).toMatchSnapshot();

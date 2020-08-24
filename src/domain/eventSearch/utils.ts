@@ -2,6 +2,7 @@ import { addDays, endOfWeek, isPast, startOfWeek, subDays } from 'date-fns';
 import forEach from 'lodash/forEach';
 import isArray from 'lodash/isArray';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 import isNumber from 'lodash/isNumber';
 
 import { CATEGORIES, DATE_TYPES } from '../../constants';
@@ -285,7 +286,7 @@ export const getSearchQuery = (filters: Filters): string => {
         });
 
         query.push(`${key}=${items.join(',')}`);
-      } else if (filter != null) {
+      } else if (!isNil(filter)) {
         query.push(`${key}=${encodeURIComponent(filter)}`);
       }
     }
