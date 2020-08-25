@@ -51,7 +51,7 @@ test('matches snapshot', async () => {
 
   await screen.findByText(translations.collectionList.title);
 
-  expect(screen.getAllByRole('link', { name: linkText }).length).toBe(7);
+  expect(screen.getAllByRole('link', { name: linkText })).toHaveLength(7);
 
   expect(container.firstChild).toMatchSnapshot();
 });
@@ -70,7 +70,7 @@ test('should not show collection if language is not supported', async () => {
 
   await screen.findByText(translations.collectionList.title);
 
-  expect(screen.getAllByRole('link', { name: linkText }).length).toBe(4);
+  expect(screen.getAllByRole('link', { name: linkText })).toHaveLength(4);
 });
 
 test('should not show expired collections', async () => {
@@ -83,5 +83,5 @@ test('should not show expired collections', async () => {
 
   await screen.findByText(translations.collectionList.title);
 
-  expect(screen.getAllByRole('link', { name: linkText }).length).toBe(4);
+  expect(screen.getAllByRole('link', { name: linkText })).toHaveLength(4);
 });
