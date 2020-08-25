@@ -52,12 +52,13 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
     if (loadingKeywords) return;
 
     const items: AutosuggestMenuOption[] = [];
-
-    items.push({
+    const textItem = {
       text: internalInputValue,
       type: AUTOSUGGEST_TYPES.TEXT,
       value: internalInputValue,
-    });
+    };
+
+    items.push(textItem);
 
     if (keywordsData) {
       items.push(
@@ -66,6 +67,12 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
             keyword =>
               !AUTOSUGGEST_KEYWORD_BLACK_LIST.includes(keyword.id || '')
           )
+          .filter(keyword => {
+            return (
+              getLocalisedString(keyword.name, locale).toLowerCase() !==
+              textItem.text.toLowerCase()
+            );
+          })
           .map(keyword => ({
             text: getLocalisedString(keyword.name, locale),
             type: AUTOSUGGEST_TYPES.KEYWORD,
