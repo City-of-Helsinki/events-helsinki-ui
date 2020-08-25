@@ -7,11 +7,11 @@ import { useCollectionListQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
+import {
+  isCollectionExpired,
+  isLanguageSupported,
+} from '../collection/CollectionUtils';
 import styles from './collectionListPage.module.scss';
-
-interface RouteParams {
-  id: string;
-}
 
 const CollectionListPage: React.FC = () => {
   const { t } = useTranslation();
@@ -20,7 +20,9 @@ const CollectionListPage: React.FC = () => {
 
   const collections = collectionsData
     ? collectionsData.collectionList.data.filter(
-        collection => collection.title[locale]
+        collection =>
+          isLanguageSupported(collection, locale) &&
+          !isCollectionExpired(collection)
       )
     : [];
   const largeCollections = collections.slice(0, 1);

@@ -66,6 +66,11 @@
       "textEventNotFound": "Event not found",
       "textOnlyExpiredEvents": "Unfortunately all the events in this collection have already passed. Have a look at our other recommendations and collections to find more interesting events."
     },
+    "expired": {
+      "linkSearchEvents": "To all collections",
+      "text": "Unfortunately this particular collections has already been removed. Luckily there are many other collections and recommendations, so have a look and explore all the other interesting things the city has to offer.",
+      "title": "This collection has been removed"
+    },
     "languageNotSupported": {
       "linkSearchEvents": "Go to all collections",
       "text": "Unfortunately this collections has not been created in all different languages. Luckily there are many other recommendations, so have a look at the other collections and find loads of interesting events.",

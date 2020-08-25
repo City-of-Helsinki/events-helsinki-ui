@@ -10,6 +10,10 @@ import {
 import useLocale from '../../hooks/useLocale';
 import Container from '../app/layout/Container';
 import PageWrapper from '../app/layout/PageWrapper';
+import {
+  isCollectionExpired,
+  isLanguageSupported,
+} from '../collection/CollectionUtils';
 import styles from './landingPage.module.scss';
 import LandingPageHero from './landingPageHero/LandingPageHero';
 import LandingPageMeta from './landingPageMeta/LandingPageMeta';
@@ -33,11 +37,14 @@ const Home: React.FC = () => {
       : undefined;
   const collections = collectionsData
     ? collectionsData.collectionList.data.filter(
-        collection => collection.title[locale]
+        collection =>
+          isLanguageSupported(collection, locale) &&
+          !isCollectionExpired(collection)
       )
     : [];
   const lgCollections = collections.slice(0, 1);
   const mdAndSmCollections = collections.slice(1);
+
   return (
     <PageWrapper>
       <LoadingSpinner isLoading={loading}>

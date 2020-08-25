@@ -12,6 +12,7 @@ export const QUERY_COLLECTION_DETAILS = gql`
     description {
       ...localizedFields
     }
+    expired
     eventListQuery {
       ...localizedFields
     }

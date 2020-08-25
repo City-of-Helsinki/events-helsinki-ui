@@ -44,3 +44,12 @@ export const isLanguageSupported = (
 ) => {
   return !!collection.title[language];
 };
+
+/**
+ * Test is collection expired
+ * @param {object} collection
+ * @return {boolean}
+ */
+export const isCollectionExpired = (collection: CollectionFieldsFragment) => {
+  return Boolean(collection.expired);
+};
