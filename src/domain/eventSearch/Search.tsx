@@ -195,6 +195,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
       ...searchFilters,
       keywords,
       publisher,
+      text: newSearchValue,
     });
 
     if (type === 'keyword') {
