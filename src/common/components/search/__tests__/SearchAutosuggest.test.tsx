@@ -186,7 +186,7 @@ test('should call onOptionClick by pressing enter', async () => {
   expect(onEnter).toBeCalledTimes(1);
   expect(onEnter).toBeCalledWith({
     text: searchValue,
-    type: AUTOSUGGEST_TYPES.SEARCH,
+    type: AUTOSUGGEST_TYPES.TEXT,
     value: searchValue,
   });
 

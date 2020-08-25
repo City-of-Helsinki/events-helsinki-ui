@@ -31,7 +31,9 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
   const { search } = useLocation();
   const eventSearch = getSearchQuery({
     ...DEFAULT_SEARCH_FILTERS,
-    keywords: event.keywords.map(keyword => keyword.id || '').filter(e => e),
+    text: event.keywords
+      .map(keyword => (keyword.name || {})[locale] || '')
+      .filter(e => e),
   });
   // Filter by search query if exists, if not filter by event keywords
   const searchParams = new URLSearchParams(search ? search : eventSearch);

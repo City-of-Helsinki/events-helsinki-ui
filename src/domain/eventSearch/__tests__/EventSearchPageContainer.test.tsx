@@ -21,6 +21,7 @@ const mocks = [
     request: {
       query: EventListDocument,
       variables: {
+        combinedText: ['jazz'],
         division: ['kunta:helsinki'],
         end: '',
         include: ['keywords', 'location'],
@@ -34,8 +35,8 @@ const mocks = [
         publisher: null,
         sort: 'end_time',
         start: '2020-08-12T00',
+        startsAfter: undefined,
         superEventType: ['umbrella', 'none'],
-        text: 'jazz',
       },
     },
     result: mockEventSearchResponse,
@@ -44,6 +45,7 @@ const mocks = [
     request: {
       query: EventListDocument,
       variables: {
+        combinedText: ['jazz'],
         division: ['kunta:helsinki'],
         end: '',
         include: ['keywords', 'location'],
@@ -59,7 +61,6 @@ const mocks = [
         sort: 'end_time',
         start: '2020-08-12T00',
         superEventType: ['umbrella', 'none'],
-        text: 'jazz',
       },
     },
     result: mockEventSearchLoadMoreResponse,

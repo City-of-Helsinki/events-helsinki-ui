@@ -31,7 +31,7 @@ export const EVENT_STATUS = {
 
 export enum AUTOSUGGEST_TYPES {
   KEYWORD = 'keyword',
-  SEARCH = 'search',
+  TEXT = 'text',
 }
 
 export enum SUPPORT_LANGUAGES {

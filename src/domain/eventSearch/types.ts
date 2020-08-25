@@ -5,13 +5,12 @@ export interface Filters {
   end: Date | null;
   isFree?: boolean;
   keywordNot: string[];
-  keywords: string[];
   onlyChildrenEvents?: boolean;
   onlyEveningEvents?: boolean;
   places: string[];
   publisher: string | null;
   start: Date | null;
-  text: string;
+  text: string[];
 }
 
 export interface MappedFilters {
@@ -21,11 +20,10 @@ export interface MappedFilters {
   end?: string | null;
   isFree?: boolean;
   keywordNot: string[];
-  keywords: string[];
   onlyChildrenEvents?: boolean;
   onlyEveningEvents?: boolean;
   places: string[];
   publisher?: string | null;
   start?: string | null;
-  text: string;
+  text: string[];
 }

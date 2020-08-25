@@ -40,14 +40,12 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   const [divisionInput, setDivisionInput] = React.useState('');
   const [placeInput, setPlaceInput] = React.useState('');
 
-  const [searchValue, setSearchValue] = React.useState('');
   const [selectedDateTypes, setSelectedDateTypes] = React.useState<string[]>(
     []
   );
   const [selectedCategories, setSelectedCategories] = React.useState<string[]>(
     []
   );
-  const [selectedKeywords, setSelectedKeywords] = React.useState<string[]>([]);
   const [selectedDivisions, setSelectedDivisions] = React.useState<string[]>(
     []
   );
@@ -55,6 +53,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   const [start, setStart] = React.useState<Date | null>(null);
   const [end, setEnd] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
+  const [selectedTexts, setSelectedTexts] = React.useState<string[]>([]);
+  const [autosuggestInput, setAutosuggestInput] = React.useState('');
 
   const {
     isFree,
@@ -71,13 +71,12 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     end,
     isFree,
     keywordNot,
-    keywords: selectedKeywords,
     onlyChildrenEvents,
     onlyEveningEvents,
     places: selectedPlaces,
     publisher,
     start,
-    text: searchValue,
+    text: selectedTexts,
   };
 
   const { data: neighborhoodsData } = useNeighborhoodListQuery();
@@ -159,17 +158,15 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
       dateTypes,
       divisions,
       end: endTime,
-      keywords,
       places,
       start: startTime,
-      text: searchVal,
+      text,
     } = getSearchFilters(searchParams);
 
-    setSearchValue(searchVal);
     setSelectedCategories(categories);
     setSelectedDivisions(divisions);
-    setSelectedKeywords(keywords);
     setSelectedPlaces(places);
+    setSelectedTexts(text);
     setEnd(endTime);
     setStart(startTime);
 
@@ -181,28 +178,21 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   }, [searchParams]);
 
   const handleMenuOptionClick = async (option: AutosuggestMenuOption) => {
-    const type = option.type;
-    const value = option.value;
+    const value = option.text;
 
-    const { keywords, publisher } = getSearchFilters(searchParams);
-    const newSearchValue = option.type === 'search' ? option.text : '';
+    const { text } = getSearchFilters(searchParams);
 
-    if (type === 'keyword' && !keywords.includes(value)) {
-      keywords.push(value);
+    if (value && !text.includes(value)) {
+      text.push(value);
     }
 
     const search = getSearchQuery({
       ...searchFilters,
-      keywords,
-      publisher,
-      text: newSearchValue,
+      text,
     });
 
-    if (type === 'keyword') {
-      setSelectedKeywords(keywords);
-    }
-
-    setSearchValue(newSearchValue);
+    setSelectedTexts(text);
+    setAutosuggestInput('');
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
     scrollToResultList();
@@ -276,10 +266,10 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                     </SearchLabel>
                     <SearchAutosuggest
                       name="search"
-                      onChangeSearchValue={setSearchValue}
+                      onChangeSearchValue={setAutosuggestInput}
                       onOptionClick={handleMenuOptionClick}
                       placeholder={t('eventSearch.search.placeholder')}
-                      searchValue={searchValue}
+                      searchValue={autosuggestInput}
                     />
                   </div>
                 </div>

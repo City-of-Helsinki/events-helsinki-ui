@@ -14,10 +14,9 @@ import { ROUTES } from '../../app/constants';
 import { getSearchFilters, getSearchQuery } from '../utils';
 import DateFilter from './DateFilter';
 import styles from './filterSummary.module.scss';
-import KeywordFilter from './KeywordFilter';
 import PlaceFilter from './PlaceFilter';
 import PublisherFilter from './PublisherFilter';
-import SearchWordFilter from './SearchWordFilter';
+import TextFilter from './TextFilter';
 
 interface Props {
   onClear: () => void;
@@ -35,7 +34,6 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
     end,
     isFree,
     keywordNot,
-    keywords,
     onlyChildrenEvents,
     places,
     publisher,
@@ -80,16 +78,12 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
       end: type === 'date' ? null : end,
       isFree,
       keywordNot,
-      keywords:
-        type === 'keyword'
-          ? keywords.filter(keyword => keyword !== value)
-          : keywords,
       onlyChildrenEvents,
       places:
         type === 'place' ? places.filter(place => place !== value) : places,
       publisher: type !== 'publisher' ? publisher : null,
       start: type === 'date' ? null : start,
-      text: type === 'searchWord' ? '' : text,
+      text: type === 'text' ? text.filter(item => item !== value) : text,
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -101,15 +95,16 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
     !!dateText ||
     !!dateTypes.length ||
     !!divisions.length ||
-    !!keywords.length ||
     !!places.length ||
-    !!text;
+    !!text.length;
 
   if (!hasFilters) return null;
 
   return (
     <div className={styles.filterSummary}>
-      {!!text && <SearchWordFilter onRemove={handleFilterRemove} text={text} />}
+      {text.map((item, index) => (
+        <TextFilter key={index} text={item} onRemove={handleFilterRemove} />
+      ))}
       {categories.map(category => (
         <FilterButton
           key={category}
@@ -117,13 +112,6 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
           text={translateValue('home.category.', category, t)}
           type="category"
           value={category}
-        />
-      ))}
-      {keywords.map(keyword => (
-        <KeywordFilter
-          key={keyword}
-          onRemove={handleFilterRemove}
-          id={keyword}
         />
       ))}
       {publisher && (

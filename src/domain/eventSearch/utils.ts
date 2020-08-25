@@ -118,7 +118,6 @@ export const getEventSearchVariables = ({
     dateTypes,
     divisions,
     isFree,
-    keywords,
     keywordNot,
     onlyChildrenEvents,
     onlyEveningEvents,
@@ -147,17 +146,6 @@ export const getEventSearchVariables = ({
     : ['kunta:helsinki'];
 
   const keywordAnd: string[] = [];
-  keywords.forEach(keyword => {
-    switch (keyword) {
-      // Seniorit tags
-      case 'kulke:354':
-      case 'helmet:10675':
-        keywordAnd.push(...['kulke:354', 'helmet:10675']);
-        break;
-      default:
-        keywordAnd.push(keyword);
-    }
-  });
 
   if (onlyChildrenEvents) {
     keywordAnd.push('yso:p4354');
@@ -195,6 +183,7 @@ export const getEventSearchVariables = ({
   // Combine and add keywords
 
   return {
+    combinedText: text,
     division: mappedDivisions.sort(),
     end,
     include,
@@ -210,7 +199,6 @@ export const getEventSearchVariables = ({
     start,
     startsAfter,
     superEventType,
-    text,
   };
 };
 
@@ -254,7 +242,6 @@ export const getSearchFilters = (searchParams: URLSearchParams) => {
       searchParams,
       EVENT_SEARCH_FILTERS.KEYWORD_NOT
     ),
-    keywords: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.KEYWORDS),
     onlyChildrenEvents:
       searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === 'true'
         ? true
@@ -266,7 +253,7 @@ export const getSearchFilters = (searchParams: URLSearchParams) => {
     places: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.PLACES),
     publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
     start,
-    text: searchParams.get(EVENT_SEARCH_FILTERS.TEXT) || '',
+    text: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.TEXT),
   };
 };
 

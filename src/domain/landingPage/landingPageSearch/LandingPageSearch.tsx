@@ -33,7 +33,7 @@ const Search: FunctionComponent = () => {
   const [start, setStart] = React.useState<Date | null>(null);
   const [end, setEnd] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
-  const [searchValue, setSearchValue] = React.useState('');
+  const [autosuggestInput, setAutosuggestInput] = React.useState('');
   const { push } = useHistory();
 
   const handleCategoryClick = (category: Category) => {
@@ -118,24 +118,21 @@ const Search: FunctionComponent = () => {
       dateTypes,
       end,
       start,
-      text: searchValue,
+      text: autosuggestInput ? [autosuggestInput] : [],
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
-  }, [dateTypes, end, locale, push, searchValue, start]);
+  }, [autosuggestInput, dateTypes, end, locale, push, start]);
 
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
-    const type = option.type;
-    const value = option.value;
-    const searchValue = option.type === 'search' ? option.text : '';
+    const value = option.text;
 
     const search = getSearchQuery({
       ...DEFAULT_SEARCH_FILTERS,
       dateTypes,
       end,
-      keywords: type === 'keyword' ? [value] : [],
       start,
-      text: searchValue,
+      text: value ? [value] : [],
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -156,10 +153,10 @@ const Search: FunctionComponent = () => {
             </SearchLabel>
             <SearchAutosuggest
               name="search"
-              onChangeSearchValue={setSearchValue}
+              onChangeSearchValue={setAutosuggestInput}
               onOptionClick={handleMenuOptionClick}
               placeholder={t('home.search.placeholder')}
-              searchValue={searchValue}
+              searchValue={autosuggestInput}
             />
           </div>
           <div className={styles.dateAndButtonWrapper}>

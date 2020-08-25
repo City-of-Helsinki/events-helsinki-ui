@@ -10,11 +10,10 @@ export type FilterType =
   | 'date'
   | 'dateType'
   | 'division'
-  | 'keyword'
   | 'place'
   | 'publisher'
-  | 'searchWord'
-  | 'target';
+  | 'target'
+  | 'text';
 
 interface Props {
   onRemove: (value: string, type: FilterType) => void;
