@@ -7,6 +7,7 @@ export interface Filters {
   keywordNot: string[];
   keywords: string[];
   onlyChildrenEvents?: boolean;
+  onlyEveningEvents?: boolean;
   places: string[];
   publisher: string | null;
   start: Date | null;
@@ -22,6 +23,7 @@ export interface MappedFilters {
   keywordNot: string[];
   keywords: string[];
   onlyChildrenEvents?: boolean;
+  onlyEveningEvents?: boolean;
   places: string[];
   publisher?: string | null;
   start?: string | null;

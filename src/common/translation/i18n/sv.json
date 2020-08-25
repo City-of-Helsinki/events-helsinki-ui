@@ -177,6 +177,7 @@
       "buttonSearch": "Sök",
       "checkboxIsFree": "Visa endast gratis",
       "checkboxOnlyChildrenEvents": "Visa endast evenemang för barn",
+      "checkboxOnlyEveningEvents": "Visa endast kvällsprogram",
       "labelCategory": "Vilken typ av evenemang du letar efter?",
       "labelDateRange": "För vilken period du letar efter?",
       "labelDistrict": "Varifrån letar du efter??",
