@@ -1,4 +1,7 @@
 {
+  "about": {
+    "title": "About the service"
+  },
   "appName": "Events",
   "commons": {
     "autosuggest": {

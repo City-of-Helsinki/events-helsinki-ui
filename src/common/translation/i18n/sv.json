@@ -1,4 +1,7 @@
 {
+  "about": {
+    "title": "Om tjänsten"
+  },
   "appName": "Evenemang",
   "commons": {
     "autosuggest": {
