@@ -25,6 +25,13 @@ interface RouteParams {
   slug: string;
 }
 
+type Error = {
+  linkText: string;
+  text: string;
+  title: string;
+  url: string;
+};
+
 const CollectionPageContainer: React.FC = () => {
   const { search } = useLocation();
   const params = useParams<RouteParams>();
@@ -39,48 +46,46 @@ const CollectionPageContainer: React.FC = () => {
   });
   const collection = collectionData && collectionData.collectionDetails;
 
-  const getErrorHero = (collection?: CollectionFieldsFragment) => {
+  const getError = (collection?: CollectionFieldsFragment): Error | null => {
     if (!collection) {
-      return (
-        <ErrorHero
-          text={t('collection.notFound.text')}
-          title={t('collection.notFound.title')}
-        >
-          <Link to={`/${locale}${ROUTES.EVENTS}${search}`}>
-            {t('collection.notFound.linkSearchEvents')}
-          </Link>
-        </ErrorHero>
-      );
+      return {
+        linkText: t('collection.notFound.linkSearchEvents'),
+        text: t('collection.notFound.text'),
+        title: t('collection.notFound.title'),
+        url: `/${locale}${ROUTES.EVENTS}${search}`,
+      };
     }
 
     if (!isLanguageSupported(collection, locale)) {
-      return (
-        <ErrorHero
-          text={t('collection.languageNotSupported.text')}
-          title={t('collection.languageNotSupported.title')}
-        >
-          <Link to={`/${locale}${ROUTES.COLLECTIONS}`}>
-            {t('collection.languageNotSupported.linkSearchEvents')}
-          </Link>
-        </ErrorHero>
-      );
+      return {
+        linkText: t('collection.languageNotSupported.linkSearchEvents'),
+        text: t('collection.languageNotSupported.text'),
+        title: t('collection.languageNotSupported.title'),
+        url: `/${locale}${ROUTES.COLLECTIONS}`,
+      };
     }
 
     if (isCollectionExpired(collection)) {
-      return (
-        <ErrorHero
-          text={t('collection.expired.text')}
-          title={t('collection.expired.title')}
-        >
-          <Link to={`/${locale}${ROUTES.COLLECTIONS}`}>
-            {t('collection.expired.linkSearchEvents')}
-          </Link>
-        </ErrorHero>
-      );
+      return {
+        linkText: t('collection.expired.linkSearchEvents'),
+        text: t('collection.expired.text'),
+        title: t('collection.expired.title'),
+        url: `/${locale}${ROUTES.COLLECTIONS}`,
+      };
     }
+
+    return null;
   };
 
-  const errorHero = getErrorHero(collection);
+  const renderErrorHero = (error: Error) => {
+    return (
+      <ErrorHero text={error.text} title={error.title}>
+        <Link to={error.url}>{error.linkText}</Link>
+      </ErrorHero>
+    );
+  };
+
+  const error = getError(collection);
 
   return (
     <PageWrapper
@@ -88,29 +93,20 @@ const CollectionPageContainer: React.FC = () => {
       title="collection.title"
     >
       <LoadingSpinner isLoading={loading}>
-        <>
-          {!collection ? (
-            errorHero
-          ) : (
-            <>
-              <CollectionPageMeta collection={collection} />
-
-              {errorHero ? (
-                errorHero
-              ) : (
-                <>
-                  {draft && <PreviewBanner />}
-                  <CollectionHero collection={collection} />
-                  <CuratedEventList collection={collection} />
-                  <EventList collection={collection} />
-                </>
-              )}
-
-              {/* Hide similar collections on preview */}
-              {!draft && <SimilarCollections collection={collection} />}
-            </>
-          )}
-        </>
+        {!!collection && <CollectionPageMeta collection={collection} />}
+        {error
+          ? renderErrorHero(error)
+          : !!collection && (
+              <>
+                {draft && <PreviewBanner />}
+                <CollectionHero collection={collection} />
+                <CuratedEventList collection={collection} />
+                <EventList collection={collection} />
+              </>
+            )}
+        {!!collection && !draft && (
+          <SimilarCollections collection={collection} />
+        )}
       </LoadingSpinner>
     </PageWrapper>
   );
