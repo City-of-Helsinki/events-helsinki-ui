@@ -38,6 +38,7 @@ const collection: CollectionFieldsFragment = {
     fi: 'Kaikki syksyn parhaat tapahtumat',
     sv: 'Höstens bästa händelser',
   },
+  expired: false,
   heroImage: 'testurl.png',
   id: '1',
   linkText: {

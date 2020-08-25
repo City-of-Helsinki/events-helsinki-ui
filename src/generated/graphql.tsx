@@ -455,7 +455,7 @@ export type Subscription = {
 
 export type CollectionFieldsFragment = (
   { __typename?: 'CollectionDetails' }
-  & Pick<CollectionDetails, 'id' | 'heroImage' | 'boxColor' | 'curatedEvents' | 'slug'>
+  & Pick<CollectionDetails, 'id' | 'heroImage' | 'boxColor' | 'curatedEvents' | 'expired' | 'slug'>
   & { curatedEventsTitle: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
@@ -893,6 +893,7 @@ export const CollectionFieldsFragmentDoc = gql`
   description {
     ...localizedFields
   }
+  expired
   eventListQuery {
     ...localizedFields
   }
