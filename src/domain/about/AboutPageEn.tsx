@@ -31,7 +31,7 @@ const AboutPageEn = () => {
         </p>
         <ul>
           <li>
-            • Google Analytics (provided by Google Inc.) to enable us (i) to
+            Google Analytics (provided by Google Inc.) to enable us (i) to
             perform statistical analysis of e.g. number of visitors and (ii) to
             improve the website’s usability, e.g. on the basis of website
             traffic measurements. You can read more about how Google collects
