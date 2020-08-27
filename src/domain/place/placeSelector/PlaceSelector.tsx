@@ -29,6 +29,7 @@ const PlaceSelector: React.FC<Props> = ({
 
   const { data: placesData } = usePlaceListQuery({
     variables: {
+      divisions: ['kunta:helsinki'],
       hasUpcomingEvents: true,
       pageSize: 10,
       text: searchValue,
