@@ -1,4 +1,7 @@
 {
+  "about": {
+    "title": "Tietoa palvelusta"
+  },
   "appName": "Tapahtumat",
   "commons": {
     "autosuggest": {

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Redirect, Route, RouteComponentProps, Switch } from 'react-router';
 
 import { SUPPORT_LANGUAGES } from '../../constants';
+import AboutPage from '../about/AboutPage';
 import CollectionPageContainer from '../collection/CollectionPageContainer';
 import CollectionListPage from '../collectionList/CollectionListPage';
 import EventPageContainer from '../event/EventPageContainer';
@@ -40,6 +41,7 @@ const App: FunctionComponent<
         path={`/${locale}${ROUTES.HOME_PREVIEW}`}
         component={LandingPagePreview}
       />
+      <Route exact path={`/${locale}${ROUTES.ABOUT}`} component={AboutPage} />
       <Route
         exact
         path={`/${locale}${ROUTES.COLLECTIONS}`}
