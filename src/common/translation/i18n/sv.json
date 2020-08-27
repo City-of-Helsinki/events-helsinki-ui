@@ -47,6 +47,7 @@
     },
     "loading": "Laddning...",
     "multiSelectDropdown": {
+      "inputPlaceholder": "Skriv sökord",
       "selectAll": "Välj alla"
     },
     "preview": "Förhandsvisning",

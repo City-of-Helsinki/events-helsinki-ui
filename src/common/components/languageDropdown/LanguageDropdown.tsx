@@ -66,11 +66,11 @@ const LanguageDropdown: React.FC<Props> = ({
 
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [
+  const {
     focusedIndex,
-    setupKeyboardNav,
-    teardownKeyboardNav,
-  ] = useKeyboardNavigation({
+    setup: setupKeyboardNav,
+    teardown: teardownKeyboardNav,
+  } = useKeyboardNavigation({
     container: container,
     listLength: languageOptions.length,
   });

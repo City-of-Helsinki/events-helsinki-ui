@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Button, IconLocation, IconSearch } from 'hds-react';
+import { Button, IconHome, IconLocation, IconSearch } from 'hds-react';
 import React, { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router';
@@ -285,6 +285,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                       onChange={setSelectedCategories}
                       options={categories}
                       setInputValue={setCategoryInput}
+                      showSearch={false}
                       title={t('eventSearch.search.titleDropdownCategory')}
                       value={selectedCategories}
                     />
@@ -312,6 +313,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                       options={divisionOptions}
                       selectAllText={t('eventSearch.search.selectAllDivisions')}
                       setInputValue={setDivisionInput}
+                      showSearch={true}
                       showSelectAll={true}
                       title={t('eventSearch.search.titleDropdownDivision')}
                       value={selectedDivisions}
@@ -319,10 +321,16 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                   </div>
                   <div>
                     <PlaceSelector
+                      checkboxName="placesCheckboxes"
+                      icon={<IconHome />}
                       inputValue={placeInput}
                       name="places"
+                      onChange={setSelectedPlaces}
+                      selectAllText={t('eventSearch.search.selectAllPlaces')}
                       setInputValue={setPlaceInput}
-                      setPlaces={setSelectedPlaces}
+                      showSearch={true}
+                      showSelectAll={true}
+                      title={t('eventSearch.search.titleDropdownPlace')}
                       value={selectedPlaces}
                     />
                   </div>
