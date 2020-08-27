@@ -34,7 +34,7 @@ exports[`matches snapshot 1`] = `
       name="search"
       placeholder="Placeholder text"
       type="text"
-      value="jazz"
+      value="jaz"
     />
   </div>
 </div>
