@@ -56,6 +56,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   const [internalInput, setInternalInput] = React.useState('');
   const input = inputValue !== undefined ? inputValue : internalInput;
 
+  const dropdown = React.useRef<HTMLDivElement | null>(null);
   const toggleButton = React.useRef<HTMLButtonElement | null>(null);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
 
@@ -65,10 +66,10 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
         text: selectAllText || t('commons.multiSelectDropdown.selectAll'),
         value: SELECT_ALL,
       },
-      ...options.filter(option =>
+      ...options.filter((option) =>
         option.text.toLowerCase().includes(input.toLowerCase())
       ),
-    ].filter(e => e) as Option[];
+    ].filter((e) => e) as Option[];
   }, [input, options, selectAllText, showSelectAll, t]);
 
   const handleInputValueChange = React.useCallback(
@@ -81,8 +82,6 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
     },
     [setInputValue]
   );
-
-  const dropdown = React.useRef<HTMLDivElement | null>(null);
 
   const {
     focusedIndex,
@@ -121,18 +120,15 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
     const active = document.activeElement;
     const current = dropdown.current;
 
-    if (current && active instanceof Node && current.contains(active)) {
-      return true;
-    }
-    return false;
+    return !!current?.contains(active);
   };
 
   const handleDocumentClick = (event: MouseEvent) => {
     const target = event.target;
-    const current = dropdown && dropdown.current;
+    const current = dropdown.current;
 
     // Close menu when clicking outside of the component
-    if (!(current && target instanceof Node && current.contains(target))) {
+    if (!(target instanceof Node && current?.contains(target))) {
       setIsMenuOpen(false);
     }
   };
@@ -141,7 +137,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
     (option: string) => {
       onChange(
         value.includes(option)
-          ? value.filter(v => v !== option)
+          ? value.filter((v) => v !== option)
           : [...value, option]
       );
     },
@@ -155,16 +151,14 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   }, [isMenuOpen]);
 
   const isToggleButtonFocused = () => {
-    const target = document.activeElement;
+    const active = document.activeElement;
     const current = toggleButton.current;
 
-    return !(current && current.contains(target)) ? false : true;
+    return !!current?.contains(active);
   };
 
   const setFocusToToggleButton = () => {
-    if (toggleButton.current) {
-      toggleButton.current.focus();
-    }
+    toggleButton.current?.focus();
   };
 
   const toggleMenu = React.useCallback(() => {
@@ -173,9 +167,9 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
 
   const handleDocumentFocusin = (event: FocusEvent) => {
     const target = event.target;
-    const current = dropdown && dropdown.current;
+    const current = dropdown.current;
 
-    if (!(current && target instanceof Node && current.contains(target))) {
+    if (!(target instanceof Node && current?.contains(target))) {
       setIsMenuOpen(false);
     }
   };
@@ -193,9 +187,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   }, [setupKeyboardNav, teardownKeyboardNav]);
 
   const setFocusToInput = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
+    inputRef.current?.focus();
   };
 
   const handleToggleButtonClick = () => {
@@ -228,11 +220,11 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
 
   const selectedText = React.useMemo(() => {
     const valueLabels = value
-      .map(val => {
+      .map((val) => {
         if (renderOptionText) {
           return renderOptionText(val);
         } else {
-          const result = options.find(option => option.value === val);
+          const result = options.find((option) => option.value === val);
           return result ? result.text : null;
         }
       })
