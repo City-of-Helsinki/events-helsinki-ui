@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { Button, IconLocation, IconSearch } from 'hds-react';
-import merge from 'lodash/merge';
+import uniq from 'lodash/uniq';
 import React, { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router';
@@ -149,7 +149,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   const moveToSearchPage = () => {
     const filters = {
       ...searchFilters,
-      text: merge(searchFilters.text, [autosuggestInput]).filter(
+      text: uniq([...searchFilters.text, autosuggestInput]).filter(
         (text) => text
       ),
     };

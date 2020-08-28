@@ -151,7 +151,7 @@ export const getEventSearchVariables = ({
     keywordAnd.push('yso:p4354');
   }
 
-  const mappedCategories: string[] = categories.map(category => {
+  const mappedCategories: string[] = categories.map((category) => {
     switch (category) {
       case CATEGORIES.CULTURE:
         return CULTURE_KEYWORDS.join(',');
