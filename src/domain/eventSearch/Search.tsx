@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { Button, IconLocation, IconSearch } from 'hds-react';
+import merge from 'lodash/merge';
 import React, { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router';
@@ -83,7 +84,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
 
   const divisionOptions = neighborhoodsData
     ? neighborhoodsData.neighborhoodList.data
-        .map(neighborhood => ({
+        .map((neighborhood) => ({
           text: getLocalisedString(neighborhood.name, locale),
           value: neighborhood.id,
         }))
@@ -146,7 +147,13 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   };
 
   const moveToSearchPage = () => {
-    const search = getSearchQuery(searchFilters);
+    const filters = {
+      ...searchFilters,
+      text: merge(searchFilters.text, [autosuggestInput]).filter(
+        (text) => text
+      ),
+    };
+    const search = getSearchQuery(filters);
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   };
