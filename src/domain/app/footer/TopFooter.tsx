@@ -97,6 +97,8 @@ const TopFooter: FunctionComponent = () => {
     ];
   }, [t]);
 
+  const logoLang = locale === 'sv' ? 'sv' : 'fi';
+
   return (
     <div
       aria-hidden={isMobileMenuOpen}
@@ -107,7 +109,9 @@ const TopFooter: FunctionComponent = () => {
       <Container>
         <div className={styles.companyInfoWrapper}>
           <div className={styles.logoWrapper}>
-            <div className={styles.helsinkiLogo}></div>
+            <div
+              className={classNames(styles.helsinkiLogo, styles[logoLang])}
+            ></div>
             <div className={styles.appName}>{t('appName')}</div>
           </div>
           <div className={styles.iconLinkWrapper}>
@@ -131,7 +135,7 @@ const TopFooter: FunctionComponent = () => {
           </h2>
 
           <div className={styles.categoriesInnerWrapper}>
-            {categories.map(category => {
+            {categories.map((category) => {
               return (
                 <CategoryFilter
                   key={category.value}

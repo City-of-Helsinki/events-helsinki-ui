@@ -1,9 +1,10 @@
-@import "mixins";
-@import "colors";
-@import "variables";
+@import 'mixins';
+@import 'colors';
+@import 'variables';
 
 $logoHeight: 2.5rem;
 $logoWidth: 5.5rem;
+$logoWidthSv: 7.1875rem;
 
 .mobileNavbar {
   height: 100%;
@@ -27,12 +28,20 @@ $logoWidth: 5.5rem;
 }
 
 .logo {
-    @include helsinki-logo($hel-black);
-    background-position: center;
-    height: $logoHeight;
+  background-position: center;
+  height: $logoHeight;
+
+  &.fi {
+    @include helsinki-logo();
     width: $logoWidth;
+  }
+
+  &.sv {
+    @include helsinki-logo('sv');
+    width: $logoWidthSv;
+  }
 }
-  
+
 .buttonWrapper {
   display: flex;
   flex: 1 1 0%;
@@ -55,7 +64,7 @@ $logoWidth: 5.5rem;
     border: none;
     padding: 0.5rem;
     margin-right: -0.5rem;
-    
+
     svg {
       height: 1.5rem;
       width: 1.5rem;

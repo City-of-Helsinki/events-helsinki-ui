@@ -1,117 +1,126 @@
-@import "colors";
-@import "layout";
-@import "mixins";
+@import 'colors';
+@import 'layout';
+@import 'mixins';
 
 $logoHeight: 4.375rem;
 $logoWidth: 9.5rem;
+$logoWidthSv: 12.625rem;
 
 .topFooterWrapper {
-    background-color: $hel-engel-light-50;
-    padding: 3.75rem 0 5rem;
-    display: grid;
-    align-items: center;
-    
-    @include respond-below(sm) {
-        opacity: 1;
-        transition: visibility 0.2s, opacity 0.2s;
-    }
+  background-color: $hel-engel-light-50;
+  padding: 3.75rem 0 5rem;
+  display: grid;
+  align-items: center;
 
-    &.mobileMenuOpen {
-        @include respond-below(sm) {
-            visibility: hidden;
-            opacity: 0;     
-            transition: visibility 0.5s, opacity 0.5s;
-        }
+  @include respond-below(sm) {
+    opacity: 1;
+    transition: visibility 0.2s, opacity 0.2s;
+  }
+
+  &.mobileMenuOpen {
+    @include respond-below(sm) {
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.5s, opacity 0.5s;
     }
+  }
 }
 
 .companyInfoWrapper {
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid $hel-silver;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid $hel-silver;
+  justify-content: space-between;
 
-    @include respond-above(md) {
-        flex-direction: row;
-    }
+  @include respond-above(md) {
+    flex-direction: row;
+  }
 
-    @include respond-above(sm) {
-        padding-bottom: 1.25rem;
-    }
+  @include respond-above(sm) {
+    padding-bottom: 1.25rem;
+  }
 }
 
 .logoWrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .helsinkiLogo {
-    @include helsinki-logo($hel-black);
-    background-position: center;
-    height: $logoHeight;
+  background-position: center;
+  height: $logoHeight;
+
+  &.fi {
+    @include helsinki-logo();
     width: $logoWidth;
+  }
+
+  &.sv {
+    @include helsinki-logo('sv');
+    width: $logoWidthSv;
+  }
 }
 
 .appName {
-    margin-left: 1.875rem;
-    font-size: 2rem;
-    font-weight: 600;
+  margin-left: 1.875rem;
+  font-size: 2rem;
+  font-weight: 600;
 }
 
 .iconLinkWrapper {
-    display: flex;
-    align-items: flex-start;
-    margin-top: 1.25rem;
-    flex-direction: column;
+  display: flex;
+  align-items: flex-start;
+  margin-top: 1.25rem;
+  flex-direction: column;
+
+  @include respond-above(sm) {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  @include respond-above(md) {
+    margin-top: 0;
+  }
+
+  a {
+    margin-left: 0;
+    margin-bottom: 1.25rem;
 
     @include respond-above(sm) {
-        align-items: center;
-        flex-direction: row;
+      margin-left: 2.5rem;
     }
 
-    @include respond-above(md) {
-        margin-top: 0;
+    &:first-child {
+      margin-left: 0;
     }
-
-    a {
-        margin-left: 0;
-        margin-bottom: 1.25rem;
-        
-        @include respond-above(sm) {
-            margin-left: 2.5rem;  
-        }
-
-        &:first-child {
-            margin-left: 0;
-        }
-    }
+  }
 }
 
 .categoriesWrapper {
-    padding-top: 1.25rem;
+  padding-top: 1.25rem;
 }
 
 .categoriesTitle {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
 .categoriesInnerWrapper {
-    padding: 1.5rem 0 0;
-    display: grid;
-    align-items: center;
-    height: fit-content;
-    grid-template-columns: 1fr;
-    grid-gap: 1rem 3.25rem;
-    
-    @include respond-above(sm) {
-        grid-template-columns: 1fr 1fr;
-    }
-    
-    @include respond-above(md) {
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    }
+  padding: 1.5rem 0 0;
+  display: grid;
+  align-items: center;
+  height: fit-content;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem 3.25rem;
+
+  @include respond-above(sm) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include respond-above(md) {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
 }
