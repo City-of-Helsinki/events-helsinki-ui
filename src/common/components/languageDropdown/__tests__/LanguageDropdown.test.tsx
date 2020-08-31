@@ -13,7 +13,7 @@ const onChange = jest.fn();
 
 const containerTestId = 'language-dropdown';
 const buttonTestId = 'language-dropdown-button';
-const languageOptions = Object.values(SUPPORT_LANGUAGES).map(language => {
+const languageOptions = Object.values(SUPPORT_LANGUAGES).map((language) => {
   return {
     label: `${language}Label`,
     value: language,

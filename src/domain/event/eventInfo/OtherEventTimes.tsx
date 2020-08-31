@@ -83,7 +83,9 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
   if (!superEventId) return null;
 
   const subEvents = subEventsData
-    ? subEventsData.eventList.data.filter(subEvent => subEvent.id !== event.id)
+    ? subEventsData.eventList.data.filter(
+        (subEvent) => subEvent.id !== event.id
+      )
     : [];
 
   const toggleList = () => {
@@ -104,7 +106,7 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
       {isListOpen && (
         <>
           <ul className={styles.timeList}>
-            {subEvents.map(subEvent => {
+            {subEvents.map((subEvent) => {
               const moveToEventPage = () => {
                 const eventUrl = `/${locale}${ROUTES.EVENT.replace(
                   ':id',

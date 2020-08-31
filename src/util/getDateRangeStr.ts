@@ -22,7 +22,7 @@ export default (
   includeWeekday = true,
   includeTime = false,
   timeAbbreviation = ''
-) => {
+): string => {
   const timeZone = 'Europe/Helsinki';
   const startDate = utcToZonedTime(new Date(start), timeZone);
   const nextDay = utcToZonedTime(addDays(startDate, 1), timeZone);

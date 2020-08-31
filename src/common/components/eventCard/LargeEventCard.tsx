@@ -38,7 +38,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
   const eventClosed = isEventClosed(event);
 
   const offerInfoUrl = React.useMemo(() => {
-    const offer = event.offers.find(item =>
+    const offer = event.offers.find((item) =>
       getLocalisedString(item.infoUrl || {}, locale)
     );
 

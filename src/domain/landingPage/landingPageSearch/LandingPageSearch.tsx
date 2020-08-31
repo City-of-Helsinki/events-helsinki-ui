@@ -206,7 +206,7 @@ const Search: FunctionComponent = () => {
         </div>
       </div>
       <div className={styles.categoriesWrapper}>
-        {categories.map(category => {
+        {categories.map((category) => {
           return (
             <CategoryFilter
               className={category.className}

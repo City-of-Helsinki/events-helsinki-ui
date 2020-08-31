@@ -12,7 +12,7 @@ export default (params: URLSearchParams, key: string): string[] => {
       .getAll(key)
       .reduce(
         (types: string[], value: string) =>
-          types.concat(...value.split(',').map(val => val.trim())),
+          types.concat(...value.split(',').map((val) => val.trim())),
         []
       )
   );

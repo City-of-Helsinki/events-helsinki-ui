@@ -9,8 +9,8 @@ it('MobileNavbar matches snapshot', () => {
     <MemoryRouter>
       <MobileNavbar
         isMenuOpen={true}
-        onCloseMenu={() => {}}
-        onOpenMenu={() => {}}
+        onCloseMenu={jest.fn()}
+        onOpenMenu={jest.fn()}
       />
     </MemoryRouter>
   );

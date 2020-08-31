@@ -7,9 +7,13 @@ import { StaticRouter } from 'react-router-dom';
 
 import AppRoutes from '../domain/app/AppRoutes';
 
+export interface StaticContext {
+  url?: string;
+}
+
 interface Props {
-  client: ApolloClient<object>;
-  context: object;
+  client: ApolloClient<Record<string, unknown>>;
+  context: StaticContext;
   url: string;
   i18n: i18nType;
 }

@@ -18,9 +18,9 @@ interface Props {
       toComponent: () => void;
     };
   };
-  state: object;
+  state: Record<string, unknown>;
   canonicalUrl: string;
-  initialI18nStore: object;
+  initialI18nStore: Record<string, unknown>;
   initialLanguage: string;
 }
 
@@ -55,9 +55,11 @@ const Html: React.FC<Props> = ({
         {helmet.meta.toComponent()}
         {helmet.title.toComponent()}
         {helmet.link.toComponent()}
-        {Array.from(document.head.getElementsByTagName('style')).map(style => (
-          <style type={style.type}>{style.innerHTML}</style>
-        ))}
+        {Array.from(document.head.getElementsByTagName('style')).map(
+          (style) => (
+            <style type={style.type}>{style.innerHTML}</style>
+          )
+        )}
         {assets.css &&
           assets.css.map((c: string, idx: number) => (
             <link key={idx} href={c} rel="stylesheet" />

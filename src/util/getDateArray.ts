@@ -10,6 +10,6 @@ import { formatDate } from './dateUtils';
 export default (date: string): DateArray => {
   const dateArray = formatDate(new Date(date), 'yyyy-M-d-H-m')
     .split('-')
-    .map(e => Number(e));
+    .map((e) => Number(e));
   return [dateArray[0], dateArray[1], dateArray[2], dateArray[3], dateArray[4]];
 };

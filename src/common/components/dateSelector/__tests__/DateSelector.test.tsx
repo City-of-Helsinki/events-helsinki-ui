@@ -12,11 +12,11 @@ test('DateSelector matches snapshot', () => {
         endDate={new Date('2019-12-01')}
         isCustomDate={false}
         name="date"
-        onChangeDateTypes={() => {}}
-        onChangeEndDate={() => {}}
-        onChangeStartDate={() => {}}
+        onChangeDateTypes={jest.fn()}
+        onChangeEndDate={jest.fn()}
+        onChangeStartDate={jest.fn()}
         startDate={new Date('2019-11-01')}
-        toggleIsCustomDate={() => {}}
+        toggleIsCustomDate={jest.fn()}
       />
     </MemoryRouter>
   );

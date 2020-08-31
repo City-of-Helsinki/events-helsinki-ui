@@ -10,8 +10,8 @@ test('AutosuggestMenu matches snapshot', () => {
       focusedOption={0}
       options={[{ text: 'foo', type: AUTOSUGGEST_TYPES.TEXT, value: 'foo' }]}
       isOpen={true}
-      onClose={() => {}}
-      onOptionClick={() => {}}
+      onClose={jest.fn()}
+      onOptionClick={jest.fn()}
     />
   );
   const tree = component.toJSON();

@@ -31,7 +31,7 @@ interface Props {
 class DateRangeInputs extends React.Component<Props> {
   handleInputChange = (field: DATE_PICKER_INPUT) => (
     e: ChangeEvent<HTMLInputElement>
-  ) => {
+  ): void => {
     const { setEndDateRaw, setStartDateRaw } = this.props;
     switch (field) {
       case DATE_PICKER_INPUT.END:
@@ -45,7 +45,7 @@ class DateRangeInputs extends React.Component<Props> {
 
   handleInputBlur = (field: DATE_PICKER_INPUT) => (
     e: React.FocusEvent<HTMLInputElement>
-  ) => {
+  ): void => {
     const { endDate, onBlurInput, startDate } = this.props;
     let newDate = convertFinnishDateStrToDate(e.target.value);
 

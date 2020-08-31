@@ -18,19 +18,19 @@ type CustomRender = {
 
 type CustomRenderResult = RenderResult & { history: History };
 
-export const arrowUpKeyPressHelper = () =>
+export const arrowUpKeyPressHelper = (): boolean =>
   fireEvent.keyDown(document, { code: 38, key: 'ArrowUp' });
 
-export const arrowDownKeyPressHelper = () =>
+export const arrowDownKeyPressHelper = (): boolean =>
   fireEvent.keyDown(document, { code: 40, key: 'ArrowDown' });
 
-export const enterKeyPressHelper = () =>
+export const enterKeyPressHelper = (): boolean =>
   fireEvent.keyDown(document, { code: 13, key: 'Enter' });
 
-export const escKeyPressHelper = () =>
+export const escKeyPressHelper = (): boolean =>
   fireEvent.keyDown(document, { code: 27, key: 'Escape' });
 
-export const tabKeyPressHelper = () =>
+export const tabKeyPressHelper = (): boolean =>
   fireEvent.keyDown(document, { code: 9, key: 'Tab' });
 
 const customRender: CustomRender = (

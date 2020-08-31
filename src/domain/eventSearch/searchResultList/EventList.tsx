@@ -30,7 +30,7 @@ const EventList: React.FC<Props> = ({
   return (
     <div className={classNames(styles.eventListWrapper, styles[cardSize])}>
       <div className={styles.eventsWrapper}>
-        {events.map(event => {
+        {events.map((event) => {
           switch (cardSize) {
             case 'default':
               return <EventCard key={event.id} event={event} />;

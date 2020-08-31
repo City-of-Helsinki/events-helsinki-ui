@@ -44,7 +44,7 @@ const EventLocationText: React.FC<Props> = ({
       showDistrict ? district : null,
       addressLocality,
     ]
-      .filter(e => e)
+      .filter((e) => e)
       .join(', ');
   };
   return <>{getLocationStr()}</>;

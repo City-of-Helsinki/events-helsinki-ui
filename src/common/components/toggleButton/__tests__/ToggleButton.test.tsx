@@ -7,7 +7,7 @@ test('ToggleButton matches snapshot', () => {
   const component = renderer.create(
     <ToggleButton
       isSelected={true}
-      onClick={() => {}}
+      onClick={jest.fn()}
       text={'Test button'}
       value={'test'}
     />

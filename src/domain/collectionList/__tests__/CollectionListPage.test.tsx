@@ -18,7 +18,7 @@ const collections: CollectionFieldsFragment[] = [
   '5',
   '6',
   '7',
-].map(id => ({
+].map((id) => ({
   ...mockCollection,
   __typename: 'CollectionDetails',
   id,

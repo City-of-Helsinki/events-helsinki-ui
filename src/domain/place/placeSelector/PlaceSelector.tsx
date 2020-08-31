@@ -39,7 +39,7 @@ const PlaceSelector: React.FC<Props> = ({
   const placeOptions = React.useMemo(() => {
     return placesData
       ? placesData.placeList.data
-          .map(place => ({
+          .map((place) => ({
             text: getLocalisedString(place.name || {}, locale),
             value: place.id || '',
           }))

@@ -1,7 +1,7 @@
 /**
  * Get localised time format
  */
-export default (lng: string) => {
+export default (lng: string): string => {
   switch (lng) {
     case 'en':
       return 'h:mm aaaa';

@@ -41,7 +41,7 @@ export const getHeroBackgroundImage = (
 export const isLanguageSupported = (
   collection: CollectionFieldsFragment,
   language: Language
-) => {
+): boolean => {
   return !!collection.title[language];
 };
 
@@ -50,6 +50,8 @@ export const isLanguageSupported = (
  * @param {object} collection
  * @return {boolean}
  */
-export const isCollectionExpired = (collection: CollectionFieldsFragment) => {
+export const isCollectionExpired = (
+  collection: CollectionFieldsFragment
+): boolean => {
   return Boolean(collection.expired);
 };

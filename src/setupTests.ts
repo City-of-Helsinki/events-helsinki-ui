@@ -32,8 +32,8 @@ jest.mock(
 
       constructor() {
         return {
-          destroy: () => {},
-          scheduleUpdate: () => {},
+          destroy: () => undefined,
+          scheduleUpdate: () => undefined,
         };
       }
     }

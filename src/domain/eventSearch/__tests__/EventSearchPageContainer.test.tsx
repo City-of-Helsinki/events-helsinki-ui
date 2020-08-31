@@ -104,7 +104,7 @@ it('all the event cards should be visible and load more button should load more 
     ).toBeGreaterThan(1);
   });
 
-  mockEventSearchResponse.data.eventList.data.forEach(event => {
+  mockEventSearchResponse.data.eventList.data.forEach((event) => {
     expect(screen.getAllByText(event.name.fi).length).toBeGreaterThan(1);
   });
 
@@ -122,7 +122,7 @@ it('all the event cards should be visible and load more button should load more 
     ).toBeGreaterThan(1);
   });
 
-  mockEventSearchLoadMoreResponse.data.eventList.data.forEach(event => {
+  mockEventSearchLoadMoreResponse.data.eventList.data.forEach((event) => {
     expect(screen.getAllByText(event.name.fi).length).toBeGreaterThan(1);
   });
 });

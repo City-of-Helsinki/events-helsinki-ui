@@ -1,6 +1,6 @@
 import isClient from './isClient';
 
-export default () => {
+export default (): void => {
   if (isClient) {
     window.scrollTo(0, 0);
   }

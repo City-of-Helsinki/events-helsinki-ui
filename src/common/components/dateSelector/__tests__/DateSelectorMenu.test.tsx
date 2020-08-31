@@ -20,12 +20,12 @@ test('DateSelectorMenu matches snapshot', () => {
         isCustomDate={false}
         isOpen={true}
         name="date"
-        onChangeDateTypes={() => {}}
-        onChangeEndDate={() => {}}
-        onChangeStartDate={() => {}}
-        onCloseMenu={() => {}}
+        onChangeDateTypes={jest.fn()}
+        onChangeEndDate={jest.fn()}
+        onChangeStartDate={jest.fn()}
+        onCloseMenu={jest.fn()}
         startDate={new Date('2019-08-01')}
-        toggleIsCustomDate={() => {}}
+        toggleIsCustomDate={jest.fn()}
       />
     </MemoryRouter>
   );

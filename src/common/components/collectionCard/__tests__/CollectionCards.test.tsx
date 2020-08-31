@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router';
 import mockCollection from '../../../../domain/collection/__mocks__/collection';
 import CollectionCardContainer from '../CollectionCardContainer';
 
-const collections = ['1', '2', '3', '4', '5', '6', '7'].map(id => ({
+const collections = ['1', '2', '3', '4', '5', '6', '7'].map((id) => ({
   ...mockCollection,
   id,
 }));

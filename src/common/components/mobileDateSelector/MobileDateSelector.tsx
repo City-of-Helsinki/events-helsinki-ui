@@ -36,7 +36,7 @@ const MobileDateSelector: React.FC<Props> = ({
 
   const handleClickButton = (value: string) => {
     if (dateTypes.indexOf(value) !== -1) {
-      onChangeDateTypes(dateTypes.filter(item => item !== value));
+      onChangeDateTypes(dateTypes.filter((item) => item !== value));
     } else {
       onChangeDateTypes([...dateTypes, value]);
     }

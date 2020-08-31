@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import pretty from 'pretty';
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';

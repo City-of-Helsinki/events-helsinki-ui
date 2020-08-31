@@ -15,7 +15,7 @@ test('should have discoverable link address copy button as well as Facebook, Twi
     'Jaa LinkedInissä',
   ];
 
-  shareLinkLabelsFI.forEach(label => {
+  shareLinkLabelsFI.forEach((label) => {
     expect(queryByLabelText(label)).not.toEqual(null);
   });
 });

@@ -20,7 +20,7 @@ const CollectionListPage: React.FC = () => {
 
   const collections = collectionsData
     ? collectionsData.collectionList.data.filter(
-        collection =>
+        (collection) =>
           isLanguageSupported(collection, locale) &&
           !isCollectionExpired(collection)
       )

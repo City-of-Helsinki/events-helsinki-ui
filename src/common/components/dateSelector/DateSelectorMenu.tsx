@@ -49,7 +49,9 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (dateTypes.indexOf(event.target.value) !== -1) {
-      onChangeDateTypes(dateTypes.filter(item => item !== event.target.value));
+      onChangeDateTypes(
+        dateTypes.filter((item) => item !== event.target.value)
+      );
     } else {
       onChangeDateTypes([...dateTypes, event.target.value]);
     }
@@ -63,7 +65,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
     >
       {!isCustomDate && (
         <div className={styles.checkboxWrapper}>
-          {dateTypeOptions.map(option => {
+          {dateTypeOptions.map((option) => {
             return (
               <Checkbox
                 key={option}

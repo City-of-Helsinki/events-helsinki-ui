@@ -64,16 +64,16 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
       items.push(
         ...keywordsData.keywordList.data
           .filter(
-            keyword =>
+            (keyword) =>
               !AUTOSUGGEST_KEYWORD_BLACK_LIST.includes(keyword.id || '')
           )
-          .filter(keyword => {
+          .filter((keyword) => {
             return (
               getLocalisedString(keyword.name, locale).toLowerCase() !==
               textItem.text.toLowerCase()
             );
           })
-          .map(keyword => ({
+          .map((keyword) => ({
             text: getLocalisedString(keyword.name, locale),
             type: AUTOSUGGEST_TYPES.KEYWORD,
             value: keyword.id || '',
@@ -81,7 +81,7 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
       );
     }
 
-    setAutoSuggestItems(items.filter(item => item.text));
+    setAutoSuggestItems(items.filter((item) => item.text));
   }, [internalInputValue, keywordsData, loadingKeywords, locale]);
 
   const openMenu = React.useCallback(

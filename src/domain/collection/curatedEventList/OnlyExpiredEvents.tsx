@@ -5,7 +5,7 @@ import Link from '../../../common/components/link/Link';
 import useLocale from '../../../hooks/useLocale';
 import { ROUTES } from '../../app/constants';
 
-const OnlyExpiredEvents = () => {
+const OnlyExpiredEvents: React.FC = () => {
   const locale = useLocale();
   const { t } = useTranslation();
 

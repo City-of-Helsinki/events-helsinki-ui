@@ -3,7 +3,7 @@ import React from 'react';
 import Container from '../app/layout/Container';
 import Hero from './hero/Hero';
 
-const AboutPageSv = () => {
+const AboutPageSv: React.FC = () => {
   return (
     <>
       <Hero>

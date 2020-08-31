@@ -22,10 +22,10 @@ const getRuntimeJs = (files: string[]) => {
     .filter(
       (file: string) => file.startsWith('runtime') && file.endsWith('.js')
     )
-    .map(file => `/static/js/${file}`);
+    .map((file) => `/static/js/${file}`);
 };
 
-export const getAssets = () => {
+export const getAssets = (): { css: string[]; js: string[] } => {
   return {
     css: extract('<link href="(.+?)" rel="stylesheet">', indexHtml),
     js: [

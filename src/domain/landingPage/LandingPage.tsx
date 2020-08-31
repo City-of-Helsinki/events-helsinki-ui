@@ -37,7 +37,7 @@ const Home: React.FC = () => {
       : undefined;
   const collections = collectionsData
     ? collectionsData.collectionList.data.filter(
-        collection =>
+        (collection) =>
           isLanguageSupported(collection, locale) &&
           !isCollectionExpired(collection)
       )

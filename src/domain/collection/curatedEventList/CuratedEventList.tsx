@@ -28,8 +28,8 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
   const eventIds = React.useMemo(
     () =>
       collection.curatedEvents
-        .map(url => getEventIdFromUrl(url) || '')
-        .filter(e => e),
+        .map((url) => getEventIdFromUrl(url) || '')
+        .filter((e) => e),
     [collection.curatedEvents]
   );
 
@@ -38,11 +38,11 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
   });
 
   const events = eventsData
-    ? eventsData.eventsByIds.filter(event => !isEventClosed(event))
+    ? eventsData.eventsByIds.filter((event) => !isEventClosed(event))
     : [];
 
   const pastEvents = eventsData
-    ? eventsData.eventsByIds.filter(event => isEventClosed(event))
+    ? eventsData.eventsByIds.filter((event) => isEventClosed(event))
     : [];
 
   const handleShowAllPastEvents = () => {

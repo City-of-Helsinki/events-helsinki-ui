@@ -17,11 +17,9 @@ import LandingPagePreview from '../landingPage/LandingPagePreview';
 import NotFound from '../notFound/NotFound';
 import { ROUTES } from './constants';
 
-const App: FunctionComponent<
-  RouteComponentProps<{
-    locale: SUPPORT_LANGUAGES;
-  }>
-> = ({
+const App: FunctionComponent<RouteComponentProps<{
+  locale: SUPPORT_LANGUAGES;
+}>> = ({
   match: {
     params: { locale },
   },

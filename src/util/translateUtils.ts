@@ -5,7 +5,11 @@ import toPascalCase from './toPascalCase';
 /**
  * Translate a single value
  */
-export const translateValue = (prefix: string, value: string, t: Function) => {
+export const translateValue = (
+  prefix: string,
+  value: string,
+  t: (s: string) => string
+): string => {
   return t(
     prefix
       ? `${prefix}${
@@ -18,8 +22,12 @@ export const translateValue = (prefix: string, value: string, t: Function) => {
 /**
  * Translate a list
  */
-export const translateList = (prefix: string, list: string[], t: Function) => {
-  return list.map(value => translateValue(prefix, value, t)).join(', ');
+export const translateList = (
+  prefix: string,
+  list: string[],
+  t: (s: string) => string
+): string => {
+  return list.map((value) => translateValue(prefix, value, t)).join(', ');
 };
 
 /**

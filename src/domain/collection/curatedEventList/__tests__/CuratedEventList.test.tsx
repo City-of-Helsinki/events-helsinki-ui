@@ -15,8 +15,8 @@ const mocks = [
       query: EventsByIdsDocument,
       variables: {
         ids: mockCollection.curatedEvents
-          .map(url => getEventIdFromUrl(url) || '')
-          .filter(e => e),
+          .map((url) => getEventIdFromUrl(url) || '')
+          .filter((e) => e),
         include: ['keywords', 'location'],
       },
     },

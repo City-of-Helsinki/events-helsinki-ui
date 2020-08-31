@@ -7,14 +7,15 @@ test('DateRangeInputs matches snapshot', () => {
   const component = renderer.create(
     <DateRangeInputs
       endDateRaw=""
-      onBlurInput={(re, value) => {}}
-      setCounter={counter => {}}
+      inputName="test"
+      onBlurInput={jest.fn()}
       endDate={null}
-      setEndDateRaw={val => {}}
-      setStartDateRaw={val => {}}
+      setDatePickerInput={jest.fn()}
+      setEndDateRaw={jest.fn()}
+      setStartDateRaw={jest.fn()}
       startDate={null}
       startDateRaw=""
-      t={s => s}
+      t={(s) => s}
     />
   );
   const tree = component.toJSON();

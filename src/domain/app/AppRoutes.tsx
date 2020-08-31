@@ -11,7 +11,7 @@ import App from './App';
 
 const localeParam = `:locale(${SUPPORT_LANGUAGES.EN}|${SUPPORT_LANGUAGES.FI}|${SUPPORT_LANGUAGES.SV})`;
 
-const AppRoutes = () => {
+const AppRoutes: React.FC = () => {
   const { i18n } = useTranslation();
   const currentLanguage = getCurrentLanguage(i18n);
 
@@ -27,7 +27,7 @@ const AppRoutes = () => {
           />
           <Route path={`/${localeParam}/*`} component={App} />
           <Route
-            render={props => (
+            render={(props) => (
               <Redirect to={`/${currentLanguage}${props.location.pathname}`} />
             )}
           />

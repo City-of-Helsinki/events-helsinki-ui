@@ -2,7 +2,7 @@
  * Test that loading image is successful
  * @param {string} url
  */
-export default (url: string) => {
+export default (url: string): Promise<unknown> => {
   // Define the promise
   const imgPromise = new Promise(function imgPromise(resolve, reject) {
     // Create the image

@@ -29,7 +29,7 @@ const SimilarCollections: React.FC<Props> = ({ collection }) => {
     collectionsData && !!collectionsData.collectionList.data.length
       ? collectionsData.collectionList.data
           // Don't show current collection on the list
-          .filter(item => item.title[locale] && item.id !== collection.id)
+          .filter((item) => item.title[locale] && item.id !== collection.id)
           .slice(0, SIMILAR_COLLECTIONS_AMOUNT)
       : [];
 

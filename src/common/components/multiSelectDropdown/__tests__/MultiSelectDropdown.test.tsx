@@ -102,7 +102,7 @@ test('should reset keyboard navigation position after a new search', async () =>
   const allOptions = options.map(({ text }) => text);
 
   // No element should have focus
-  allOptions.forEach(text => {
+  allOptions.forEach((text) => {
     expect(
       (screen.getByLabelText(text).parentElement as HTMLElement).parentElement
     ).not.toHaveClass('dropdownItem--isFocused');
@@ -161,7 +161,7 @@ describe('ArrowUp, ArrowDown', () => {
     const allOptions = options.map(({ text }) => text);
 
     // No element should have focus
-    allOptions.forEach(text => {
+    allOptions.forEach((text) => {
       expect(screen.getByLabelText(text).parentElement).not.toHaveClass(
         'dropdownItem--isFocused'
       );
@@ -185,7 +185,7 @@ describe('ArrowUp, ArrowDown', () => {
     const allOptions = options.map(({ text }) => text);
 
     // No element should have focus
-    allOptions.forEach(text => {
+    allOptions.forEach((text) => {
       expect(screen.getByLabelText(text).parentElement).not.toHaveClass(
         'dropdownItem--isFocused'
       );

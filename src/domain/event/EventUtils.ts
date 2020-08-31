@@ -29,7 +29,7 @@ export const isEventClosed = (event: EventFieldsFragment): boolean => {
  * @return {boolean}
  */
 export const isEventFree = (event: EventFieldsFragment): boolean => {
-  const offer = event.offers.find(item => item.isFree);
+  const offer = event.offers.find((item) => item.isFree);
 
   return !!offer && !!offer.isFree;
 };
@@ -46,7 +46,7 @@ export const getEventDistrict = (
 ): string | null => {
   const location = event.location;
   const divisions = (location && location.divisions) || [];
-  const district = divisions.find(division =>
+  const district = divisions.find((division) =>
     ['district', 'neighborhood'].includes(division.type)
   );
 
@@ -82,10 +82,10 @@ export const getEventPrice = (
   return isEventFree(event)
     ? isFreeText
     : event.offers
-        .map(offer =>
+        .map((offer) =>
           getLocalisedString(offer.price || offer.description || {}, locale)
         )
-        .filter(e => e)
+        .filter((e) => e)
         .sort()
         .join(', ');
 };
@@ -101,7 +101,7 @@ export const getEventKeywords = (
   locale: Language
 ): KeywordOption[] => {
   return event.keywords
-    .map(keyword => ({
+    .map((keyword) => ({
       id: keyword.id || '',
       name: keyword.name ? capitalize(keyword.name[locale] || '').trim() : '',
     }))
@@ -110,7 +110,7 @@ export const getEventKeywords = (
         !!keyword.name &&
         !EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
         arr.findIndex(
-          item => item.name.toLowerCase() === keyword.name.toLowerCase()
+          (item) => item.name.toLowerCase() === keyword.name.toLowerCase()
         ) === index
     )
     .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
@@ -190,12 +190,7 @@ export const getGoogleLink = (
  * @return {string}
  */
 const getLocationId = (location?: PlaceFieldsFragment | null) => {
-  return location && location.id
-    ? location.id
-        .split(':')
-        .slice(1)
-        .join()
-    : '';
+  return location && location.id ? location.id.split(':').slice(1).join() : '';
 };
 
 /**

@@ -1,6 +1,6 @@
 import useWindowSize from './useWindowSize';
 
-export default () => {
+export default (): boolean => {
   const windowSize = useWindowSize();
-  return windowSize.width && windowSize.width <= 768;
+  return Boolean(windowSize.width && windowSize.width <= 768);
 };

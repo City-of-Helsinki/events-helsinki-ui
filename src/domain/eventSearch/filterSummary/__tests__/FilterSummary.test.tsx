@@ -142,8 +142,8 @@ it('routes to correct url after deleting filters ', async () => {
     { button: 'Poista suodatin: jazz', params: ['text'] },
   ];
 
-  items.forEach(item => {
-    item.params.forEach(param => {
+  items.forEach((item) => {
+    item.params.forEach((param) => {
       expect(new URLSearchParams(history.location.search).get(param)).toBe(
         decodeURIComponent(urlParams[param] || '')
       );
@@ -155,7 +155,7 @@ it('routes to correct url after deleting filters ', async () => {
       })
     );
 
-    item.params.forEach(param => {
+    item.params.forEach((param) => {
       expect(
         new URLSearchParams(history.location.search).get(param)
       ).toBeNull();

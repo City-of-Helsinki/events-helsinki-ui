@@ -43,7 +43,7 @@ const mocks = [
   },
 ];
 
-export async function actWait(amount = 0) {
+export async function actWait(amount = 0): Promise<void> {
   await act(async () => {
     await wait(amount);
   });

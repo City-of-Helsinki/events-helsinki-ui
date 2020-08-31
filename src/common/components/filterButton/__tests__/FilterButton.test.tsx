@@ -6,7 +6,7 @@ import FilterButton from '../FilterButton';
 test('FilterButton matches snapshot', () => {
   const component = renderer.create(
     <FilterButton
-      onRemove={() => {}}
+      onRemove={jest.fn()}
       text="text"
       type="publisher"
       value="value"

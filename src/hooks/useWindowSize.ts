@@ -2,7 +2,7 @@ import React from 'react';
 
 import isClient from '../util/isClient';
 
-export default () => {
+export default (): { heigh?: number; width?: number } => {
   const getSize = React.useCallback(() => {
     return {
       height: isClient ? window.innerHeight : undefined,

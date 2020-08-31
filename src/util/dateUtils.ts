@@ -65,7 +65,7 @@ const getParsedDate = (value: string): Date =>
  * @param value
  * @returns {object}
  */
-export const convertFinnishDateStrToDate = (str: string) => {
+export const convertFinnishDateStrToDate = (str: string): Date | null => {
   let parsedDate = getParsedDate(str);
 
   if (isValidDate(parsedDate)) {

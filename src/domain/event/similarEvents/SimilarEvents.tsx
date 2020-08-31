@@ -32,8 +32,8 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
   const eventSearch = getSearchQuery({
     ...DEFAULT_SEARCH_FILTERS,
     text: event.keywords
-      .map(keyword => (keyword.name || {})[locale] || '')
-      .filter(e => e),
+      .map((keyword) => (keyword.name || {})[locale] || '')
+      .filter((e) => e),
   });
   // Filter by search query if exists, if not filter by event keywords
   const searchParams = new URLSearchParams(search ? search : eventSearch);
@@ -60,7 +60,7 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
     eventsData && !!eventsData.eventList.data.length
       ? eventsData.eventList.data
           // Don't show current event on the list
-          .filter(item => item.id !== event.id)
+          .filter((item) => item.id !== event.id)
           .slice(0, SIMILAR_EVENTS_AMOUNT)
       : [];
 
@@ -73,7 +73,7 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
               {t('event.similarEvents.title')}
             </h2>
             <div className={styles.similarEventList}>
-              {events.map(item => {
+              {events.map((item) => {
                 return <SimilarEventCard key={item.id} event={item} />;
               })}
             </div>

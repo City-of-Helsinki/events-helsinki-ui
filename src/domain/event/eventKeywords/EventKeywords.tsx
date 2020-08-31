@@ -57,7 +57,7 @@ const EventKeywords: React.FC<Props> = ({
     <>
       {!!keywords.length &&
         showKeywords &&
-        keywords.map(keyword => {
+        keywords.map((keyword) => {
           return (
             <Keyword
               blackOnMobile={blackOnMobile}

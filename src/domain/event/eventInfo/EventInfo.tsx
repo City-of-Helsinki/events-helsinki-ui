@@ -46,7 +46,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
   const locale = useLocale();
 
   const offerInfoUrl = React.useMemo(() => {
-    const offer = event.offers.find(item =>
+    const offer = event.offers.find((item) =>
       getLocalisedString(item.infoUrl || {}, locale)
     );
 
@@ -71,8 +71,8 @@ const EventInfo: React.FC<Props> = ({ event }) => {
   const district = getEventDistrict(event, locale);
 
   const languages = event.inLanguage
-    .map(item => capitalize(getLocalisedString(item.name || {}, locale)))
-    .filter(e => e);
+    .map((item) => capitalize(getLocalisedString(item.name || {}, locale)))
+    .filter((e) => e);
   const email = eventLocation && eventLocation.email;
   const infoUrl = event.infoUrl
     ? getLocalisedString(event.infoUrl, locale)
@@ -99,7 +99,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
           ? getDateArray(event.endTime)
           : getDateArray(event.startTime),
         location: [locationName, streetAddress, district, addressLocality]
-          .filter(e => e)
+          .filter((e) => e)
           .join(', '),
         productId: domain,
         start: getDateArray(event.startTime),
@@ -158,7 +158,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
             <h2 className={styles.title}>{t('event.info.labelLocation')}</h2>
             <div className={styles.mobileOnly}>
               {[locationName, streetAddress, district, addressLocality]
-                .filter(e => e)
+                .filter((e) => e)
                 .join(', ')}
             </div>
             {locationName && (
