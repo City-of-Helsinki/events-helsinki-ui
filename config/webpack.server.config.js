@@ -1,26 +1,23 @@
 'use strict';
 
 const fs = require('fs');
-const path = require("path");
-const webpack = require("webpack");
+const path = require('path');
+const webpack = require('webpack');
 const resolve = require('resolve');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
-const safePostCssParser = require('postcss-safe-parser');
-const getCSSModuleLocalIdent = require("react-dev-utils/getCSSModuleLocalIdent");
-const getClientEnvironment = require("./env");
-const paths = require("./paths");
+const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
+const getClientEnvironment = require('./env');
+const paths = require('./paths');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 
-const postcssNormalize = require("postcss-normalize");
+const postcssNormalize = require('postcss-normalize');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
-const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
+const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 
 const imageInlineSizeLimit = parseInt(
   process.env.IMAGE_INLINE_SIZE_LIMIT || '10000'
@@ -34,14 +31,14 @@ const sassModuleRegex = /\.module\.(scss|sass)$/;
 // Check if TypeScript is setup
 const useTypeScript = fs.existsSync(paths.appTsConfig);
 
-module.exports = function() {
+module.exports = function () {
   const isEnvDevelopment = false;
   const isEnvProduction = true;
 
   // Variable used for enabling profiling in Production
   // passed into alias object. Uses a flag if passed into the build command
   const isEnvProductionProfile =
-    isEnvProduction && process.argv.includes("--profile");
+    isEnvProduction && process.argv.includes('--profile');
 
   // We will provide `paths.publicUrlOrPath` to our app
   // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
@@ -52,33 +49,33 @@ module.exports = function() {
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
-      isEnvDevelopment && require.resolve("style-loader"),
+      isEnvDevelopment && require.resolve('style-loader'),
       isEnvProduction && {
         loader: MiniCssExtractPlugin.loader,
         // css is located in `static/css`, use "../../" to locate index.html folder
         // in production `paths.publicUrlOrPath` can be a relative path
-        options: paths.publicUrlOrPath.startsWith(".")
-          ? { publicPath: "../../" }
+        options: paths.publicUrlOrPath.startsWith('.')
+          ? { publicPath: '../../' }
           : {},
       },
       {
-        loader: require.resolve("css-loader"),
+        loader: require.resolve('css-loader'),
         options: cssOptions,
       },
       {
         // Options for PostCSS as we reference these options twice
         // Adds vendor prefixing based on your specified browser support in
         // package.json
-        loader: require.resolve("postcss-loader"),
+        loader: require.resolve('postcss-loader'),
         options: {
           // Necessary for external CSS imports to work
           // https://github.com/facebook/create-react-app/issues/2677
-          ident: "postcss",
+          ident: 'postcss',
           plugins: () => [
-            require("postcss-flexbugs-fixes"),
-            require("postcss-preset-env")({
+            require('postcss-flexbugs-fixes'),
+            require('postcss-preset-env')({
               autoprefixer: {
-                flexbox: "no-2009",
+                flexbox: 'no-2009',
               },
               stage: 3,
             }),
@@ -94,7 +91,7 @@ module.exports = function() {
     if (preProcessor) {
       loaders.push(
         {
-          loader: require.resolve("resolve-url-loader"),
+          loader: require.resolve('resolve-url-loader'),
           options: {
             sourceMap: isEnvProduction && shouldUseSourceMap,
           },
@@ -113,7 +110,7 @@ module.exports = function() {
   return {
     entry: paths.appServerIndexJs,
     externals: {
-      canvas: "commonjs canvas"
+      canvas: 'commonjs canvas',
     },
     resolve: {
       // This allows you to set a fallback for where webpack should look for modules.
@@ -128,8 +125,8 @@ module.exports = function() {
       // `web` extension prefixes have been added for better support
       // for React Native Web.
       extensions: paths.moduleFileExtensions
-        .map(ext => `.${ext}`)
-        .filter(ext => useTypeScript || !ext.includes('ts')),
+        .map((ext) => `.${ext}`)
+        .filter((ext) => useTypeScript || !ext.includes('ts')),
       alias: {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -138,7 +135,7 @@ module.exports = function() {
         ...(isEnvProductionProfile && {
           'react-dom$': 'react-dom/profiling',
           'scheduler/tracing': 'scheduler/tracing-profiling',
-        })
+        }),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
@@ -164,26 +161,6 @@ module.exports = function() {
       rules: [
         // Disable require.ensure as it's not a standard language feature.
         { parser: { requireEnsure: false } },
-
-        // First, run the linter.
-        // It's important to do this before Babel processes the JS.
-        {
-          test: /\.(js|mjs|jsx|ts|tsx)$/,
-          enforce: 'pre',
-          use: [
-            {
-              options: {
-                cache: true,
-                formatter: require.resolve('react-dev-utils/eslintFormatter'),
-                eslintPath: require.resolve('eslint'),
-                resolvePluginsRelativeTo: __dirname,
-                
-              },
-              loader: require.resolve('eslint-loader'),
-            },
-          ],
-          include: paths.appSrc,
-        },
         {
           // "oneOf" will traverse all following loaders until one will
           // match the requirements. When no loader matches it will fall
@@ -254,7 +231,7 @@ module.exports = function() {
                 cacheDirectory: true,
                 // See #6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
-                
+
                 // Babel sourcemaps are needed for debugging into node_modules
                 // code.  Without the options below, debuggers like VSCode
                 // show incorrect code and set breakpoints on the wrong lines.
@@ -343,16 +320,19 @@ module.exports = function() {
               options: {
                 name: 'static/media/[name].[hash:8].[ext]',
               },
-            }
+            },
             // ** STOP ** Are you adding a new loader?
             // Make sure to add the new loader(s) before the "file" loader.
-          ]
-        }
-      ]
+          ],
+        },
+      ],
     },
     plugins: [
       new webpack.ProvidePlugin({
-        document: [path.resolve(path.join(__dirname, 'document.js')), 'default'],
+        document: [
+          path.resolve(path.join(__dirname, 'document.js')),
+          'default',
+        ],
       }),
       // This gives some necessary context to module not found errors, such as
       // the requesting resource.
@@ -408,20 +388,20 @@ module.exports = function() {
     // Tell Webpack to provide empty mocks for them so importing them works.
     node: {
       __dirname: false,
-      child_process: "empty",
-      dgram: "empty",
-      dns: "mock",
-      fs: "empty",
-      http2: "empty",
-      module: "empty",
-      net: "empty",
-      tls: "empty"
+      child_process: 'empty',
+      dgram: 'empty',
+      dns: 'mock',
+      fs: 'empty',
+      http2: 'empty',
+      module: 'empty',
+      net: 'empty',
+      tls: 'empty',
     },
     output: {
-      filename: "server.js",
-      path: path.resolve(__dirname, paths.appBuild)
+      filename: 'server.js',
+      path: path.resolve(__dirname, paths.appBuild),
     },
-    target: "node",
-    performance: false
+    target: 'node',
+    performance: false,
   };
 };
