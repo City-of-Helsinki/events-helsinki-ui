@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useLocation } from 'react-router';
 
 import isClient from '../../util/isClient';
@@ -20,7 +20,7 @@ export const updateLocaleParam = (
  *
  * @return  {null}
  */
-export function ScrollToTop() {
+export function ScrollToTop(): null {
   const { pathname } = useLocation();
 
   React.useEffect(() => {
@@ -38,7 +38,7 @@ export function ScrollToTop() {
  *
  * @return  {null}
  */
-export function ResetFocus() {
+export function ResetFocus(): ReactElement {
   const { pathname } = useLocation();
   const node = React.useRef<HTMLDivElement>(null);
 

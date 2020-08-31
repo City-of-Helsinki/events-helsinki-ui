@@ -2,26 +2,24 @@
 
 exports[`AutosuggestMenu matches snapshot 1`] = `
 <div
-  className="autosuggestMenu"
+  class="autosuggestMenu"
 >
   <div
-    className="title"
+    class="title"
   >
     Hakuehdotuksia
     <button
       aria-label="Sulje valikko"
-      className="closeButton"
-      onClick={[Function]}
+      class="closeButton"
     >
       <svg
-        className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-        style={Object {}}
+        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
       >
         <g
           fill="none"
-          fillRule="evenodd"
+          fill-rule="evenodd"
         >
           <path
             d="M0 0h24v24H0z"
@@ -35,23 +33,22 @@ exports[`AutosuggestMenu matches snapshot 1`] = `
     </button>
   </div>
   <ul
-    className="autosuggestOptions"
+    class="autosuggestOptions"
     role="listbox"
   >
     <li
-      aria-selected={true}
-      className="autosuggestOption autosuggestOption--text autosuggestOption--isFocused"
+      aria-selected="true"
+      class="autosuggestOption autosuggestOption--text autosuggestOption--isFocused"
       role="option"
     >
       <div
-        className="icon"
+        class="icon"
       />
       <div
-        className="textWrapper"
-        onClick={[Function]}
+        class="textWrapper"
       >
         <div
-          className="text"
+          class="text"
         >
           foo
         </div>
@@ -59,7 +56,7 @@ exports[`AutosuggestMenu matches snapshot 1`] = `
     </li>
   </ul>
   <div
-    className="info"
+    class="info"
   >
     Voit myös etsiä kirjoittamallasi hakusanalla
   </div>

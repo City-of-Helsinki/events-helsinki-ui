@@ -2,13 +2,12 @@ import classNames from 'classnames';
 import { IconArrowRight } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import { ROUTES } from '../../../domain/app/constants';
 import useLocale from '../../../hooks/useLocale';
-import IconLink from '../../components/link/IconLink';
-import SrOnly from '../srOnly/SrOnly';
+import IconButton from '../../components/iconButton/IconButton';
 import TruncatedText from '../truncatedText/TruncatedText';
 import styles from './collectionCard.module.scss';
 
@@ -36,31 +35,36 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
   showDescription = true,
   title,
 }) => {
+  const history = useHistory();
   const { search } = useLocation();
   const { t } = useTranslation();
   const locale = useLocale();
 
-  const collectionUrl = React.useMemo(() => {
-    return `/${locale}${ROUTES.COLLECTION.replace(':slug', slug)}${search}`;
-  }, [locale, search, slug]);
+  const collectionUrl = `/${locale}${ROUTES.COLLECTION.replace(
+    ':slug',
+    slug
+  )}${search}`;
+
+  const moveToCollectionPage = () => {
+    history.push(collectionUrl);
+  };
 
   return (
-    <div
+    <Link
+      aria-label={t('commons.collectionCard.ariaLabelLink', {
+        title,
+      })}
       className={classNames(
         styles.collectionCardWrapper,
         styles[`${size}Size`]
       )}
+      to={collectionUrl}
     >
-      <Link
+      <div
         aria-hidden={true}
-        aria-label={t('commons.eventCard.ariaLabelLink', {
-          title,
-        })}
         className={styles.imageWrapper}
         style={{ backgroundImage: `url(${backgroundImage})` }}
-        tabIndex={-1}
-        to={collectionUrl}
-      ></Link>
+      ></div>
       <div className={styles.textWrapper}>
         <div className={styles.countWrapper}>
           <div className={styles.count}>
@@ -69,15 +73,7 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
         </div>
 
         <div className={styles.titleWrapper}>
-          <Link
-            aria-hidden={true}
-            className={styles.title}
-            tabIndex={-1}
-            to={collectionUrl}
-          >
-            {title}
-          </Link>
-          <SrOnly>{title}</SrOnly>
+          <span className={styles.title}>{title}</span>
           {showDescription && !!description && (
             <TruncatedText
               as="div"
@@ -89,16 +85,18 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
         </div>
 
         <div className={styles.linkWrapper}>
-          <IconLink
-            aria-label={t('commons.collectionCard.ariaLabelLink', {
+          <IconButton
+            ariaLabel={t('commons.collectionCard.ariaLabelLink', {
               title,
             })}
+            aria-hidden={true}
             icon={<IconArrowRight />}
-            to={collectionUrl}
+            onClick={moveToCollectionPage}
+            size="small"
           />
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

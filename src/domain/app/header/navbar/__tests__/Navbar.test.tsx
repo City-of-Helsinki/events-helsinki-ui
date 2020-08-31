@@ -1,14 +1,10 @@
-import { shallow } from 'enzyme';
 import React from 'react';
-import { MemoryRouter } from 'react-router';
 
+import { render } from '../../../../../util/testUtils';
 import Navbar from '../Navbar';
 
-it('Navbar matches snapshot', () => {
-  const container = shallow(
-    <MemoryRouter>
-      <Navbar />
-    </MemoryRouter>
-  );
-  expect(container.html()).toMatchSnapshot();
+it('matches snapshot', () => {
+  const { container } = render(<Navbar />);
+
+  expect(container.firstChild).toMatchSnapshot();
 });

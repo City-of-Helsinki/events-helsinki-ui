@@ -1,27 +1,21 @@
 import * as React from 'react';
-import { MemoryRouter } from 'react-router';
-import renderer from 'react-test-renderer';
 
+import { render } from '../../../../util/testUtils';
 import DateSelector from '../DateSelector';
 
-test('DateSelector matches snapshot', () => {
-  const component = renderer.create(
-    <MemoryRouter>
-      <DateSelector
-        dateTypes={['type1', 'type2']}
-        endDate={new Date('2019-12-01')}
-        isCustomDate={false}
-        name="date"
-        onChangeDateTypes={jest.fn()}
-        onChangeEndDate={jest.fn()}
-        onChangeStartDate={jest.fn()}
-        startDate={new Date('2019-11-01')}
-        toggleIsCustomDate={jest.fn()}
-      />
-    </MemoryRouter>
+test('matches snapshot', () => {
+  const { container } = render(
+    <DateSelector
+      dateTypes={['type1', 'type2']}
+      endDate={new Date('2019-12-01')}
+      isCustomDate={false}
+      name="date"
+      onChangeDateTypes={jest.fn()}
+      onChangeEndDate={jest.fn()}
+      onChangeStartDate={jest.fn()}
+      startDate={new Date('2019-11-01')}
+      toggleIsCustomDate={jest.fn()}
+    />
   );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  expect(container.firstChild).toMatchSnapshot();
 });
-
-export {};

@@ -1,16 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`matches snapshot 1`] = `
-<div
+<a
+  aria-label="Siirry kokoelmaan: Collection title"
   class="collectionCardWrapper mdSize"
+  href="/fi/collection/collection-title"
 >
-  <a
+  <div
     aria-hidden="true"
-    aria-label="Siirry tapahtumaan: "
     class="imageWrapper"
-    href="/fi/collection/collection-title"
     style="background-image: url(imageurl.png);"
-    tabindex="-1"
   />
   <div
     class="textWrapper"
@@ -27,19 +26,11 @@ exports[`matches snapshot 1`] = `
     <div
       class="titleWrapper"
     >
-      <a
-        aria-hidden="true"
+      <span
         class="title"
-        href="/fi/collection/collection-title"
-        tabindex="-1"
       >
         Collection title
-      </a>
-      <div
-        class="srOnly"
-      >
-        Collection title
-      </div>
+      </span>
       <div
         class="description"
       >
@@ -49,35 +40,31 @@ exports[`matches snapshot 1`] = `
     <div
       class="linkWrapper"
     >
-      <a
+      <button
+        aria-hidden="true"
         aria-label="Siirry kokoelmaan: Collection title"
-        class="iconLink default"
-        href="/fi/collection/collection-title"
+        class="iconButton small"
       >
-        <div
-          class="iconWrapper"
+        <svg
+          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <svg
-            class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+          <g
+            fill="none"
+            fill-rule="evenodd"
           >
-            <g
-              fill="none"
-              fill-rule="evenodd"
-            >
-              <path
-                d="M0 0h24v24H0z"
-              />
-              <path
-                d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
-                fill="currentColor"
-              />
-            </g>
-          </svg>
-        </div>
-      </a>
+            <path
+              d="M0 0h24v24H0z"
+            />
+            <path
+              d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+              fill="currentColor"
+            />
+          </g>
+        </svg>
+      </button>
     </div>
   </div>
-</div>
+</a>
 `;

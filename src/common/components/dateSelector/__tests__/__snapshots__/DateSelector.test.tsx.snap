@@ -1,29 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DateSelector matches snapshot 1`] = `
+exports[`matches snapshot 1`] = `
 <div
-  className="dateSelector"
+  class="dateSelector"
 >
   <button
-    aria-expanded={false}
+    aria-expanded="false"
     aria-haspopup="true"
     aria-label="Valitse ajankohta"
-    className="button"
-    onClick={[Function]}
+    class="button"
     type="button"
   >
     <div
-      className="iconWrapper"
+      class="iconWrapper"
     >
       <svg
-        className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-        style={Object {}}
+        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
       >
         <g
           fill="none"
-          fillRule="evenodd"
+          fill-rule="evenodd"
         >
           <path
             d="M0 0h24v24H0z"
@@ -36,27 +34,26 @@ exports[`DateSelector matches snapshot 1`] = `
       </svg>
     </div>
     <div
-      className="info"
+      class="info"
     >
       <div
-        className="buttonTextWrapper"
+        class="buttonTextWrapper"
       >
         01.11.2019 -
             01.12.2019
       </div>
     </div>
     <div
-      className="arrowWrapper"
+      class="arrowWrapper"
     >
       <svg
-        className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-        style={Object {}}
+        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
       >
         <g
           fill="none"
-          fillRule="evenodd"
+          fill-rule="evenodd"
         >
           <path
             d="M0 0h24v24H0z"
@@ -70,7 +67,7 @@ exports[`DateSelector matches snapshot 1`] = `
     </div>
   </button>
   <div
-    className="isSelectedIndicator"
+    class="isSelectedIndicator"
   />
 </div>
 `;

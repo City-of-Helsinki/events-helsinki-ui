@@ -2,50 +2,45 @@
 
 exports[`DateRangeInputs matches snapshot 1`] = `
 <div
-  className="dateRangeInputsContainer"
+  class="dateRangeInputsContainer"
 >
   <div
-    className="dateInputWrapper"
+    class="dateInputWrapper"
   >
     <label
-      className="label"
-      htmlFor="undefined_start_date"
+      class="label"
+      for="test_start_date"
     >
       commons.dateSelector.labelStartDate
     </label>
     <div
-      className="formatInfo"
+      class="formatInfo"
     >
       commons.dateSelector.infoDate
     </div>
     <div
-      className="inputWrapper"
+      class="inputWrapper"
     >
       <div
-        className="input"
+        class="input"
       >
         <input
-          id="undefined_start_date"
-          name="undefined_start_date"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onFocus={[Function]}
-          setCounter={[Function]}
+          id="test_start_date"
+          name="test_start_date"
           value=""
         />
       </div>
       <div
-        className="icon"
+        class="icon"
       >
         <svg
-          className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-          style={Object {}}
+          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
           <g
             fill="none"
-            fillRule="evenodd"
+            fill-rule="evenodd"
           >
             <path
               d="M0 0h24v24H0z"
@@ -60,51 +55,46 @@ exports[`DateRangeInputs matches snapshot 1`] = `
     </div>
   </div>
   <div
-    className="dateSeparator"
+    class="dateSeparator"
   >
     —
   </div>
   <div
-    className="dateInputWrapper"
+    class="dateInputWrapper"
   >
     <label
-      htmlFor="undefined_end_date"
+      for="test_end_date"
     >
       commons.dateSelector.labelEndDate
     </label>
     <div
-      className="formatInfo"
+      class="formatInfo"
     >
       commons.dateSelector.infoDate
     </div>
     <div
-      className="inputWrapper"
+      class="inputWrapper"
     >
       <div
-        className="input"
+        class="input"
       >
         <input
-          id="undefined_end_date"
-          name="undefined_end_date"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onFocus={[Function]}
-          setCounter={[Function]}
+          id="test_end_date"
+          name="test_end_date"
           value=""
         />
       </div>
       <div
-        className="icon"
+        class="icon"
       >
         <svg
-          className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-          style={Object {}}
+          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
           <g
             fill="none"
-            fillRule="evenodd"
+            fill-rule="evenodd"
           >
             <path
               d="M0 0h24v24H0z"

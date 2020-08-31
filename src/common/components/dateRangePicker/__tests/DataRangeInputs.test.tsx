@@ -1,10 +1,10 @@
+import { render } from '@testing-library/react';
 import * as React from 'react';
-import renderer from 'react-test-renderer';
 
 import DateRangeInputs from '../DateRangeInputs';
 
 test('DateRangeInputs matches snapshot', () => {
-  const component = renderer.create(
+  const { container } = render(
     <DateRangeInputs
       endDateRaw=""
       inputName="test"
@@ -18,8 +18,6 @@ test('DateRangeInputs matches snapshot', () => {
       t={(s) => s}
     />
   );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-});
 
-export {};
+  expect(container.firstChild).toMatchSnapshot();
+});

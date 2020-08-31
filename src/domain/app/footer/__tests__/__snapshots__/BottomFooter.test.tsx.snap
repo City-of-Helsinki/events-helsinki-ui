@@ -1,22 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BottomFooter matches snapshot 1`] = `
+exports[`matches snapshot 1`] = `
 <div
-  aria-hidden={false}
-  className="bottomFooter"
+  aria-hidden="false"
+  class="bottomFooter"
 >
   <div
-    className="container"
+    class="container"
   >
     <div
-      className="contentWrapper"
+      class="contentWrapper"
     >
       <div
-        className="linkContainer"
+        class="linkContainer"
       >
         <a
           href="/fi/about"
-          onClick={[Function]}
         >
           Tietoa palvelusta
         </a>

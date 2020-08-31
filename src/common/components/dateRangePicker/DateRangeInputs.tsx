@@ -1,6 +1,6 @@
 import { isPast } from 'date-fns';
 import { IconCalendarPlus } from 'hds-react';
-import React, { ChangeEvent, MutableRefObject } from 'react';
+import React, { ChangeEvent, MutableRefObject, ReactElement } from 'react';
 
 import { DATE_PICKER_INPUT, DATE_PICKER_INPUT_STATE } from '../../../constants';
 import { convertFinnishDateStrToDate } from '../../../util/dateUtils';
@@ -63,7 +63,7 @@ class DateRangeInputs extends React.Component<Props> {
     }
   };
 
-  render() {
+  render(): ReactElement {
     const {
       endDateRaw,
       endDateRef,

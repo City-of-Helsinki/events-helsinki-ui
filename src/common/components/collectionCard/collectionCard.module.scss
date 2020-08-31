@@ -6,6 +6,7 @@
   display: flex;
   position: relative;
   background-color: $hel-white;
+  text-decoration: none;
 
   .imageWrapper {
     outline: none;
@@ -39,12 +40,13 @@
       font-size: var(--fontsize-h-3);
       line-height: var(--lineheight-l);
       font-weight: 600;
-      color: $hel-black;
+      color: var(--color-black);
       text-decoration: none;
       display: block;
     }
 
     .description {
+      color: var(--color-black);
       font-size: $body-medium-font-size;
     }
 

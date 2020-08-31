@@ -19,7 +19,7 @@ exports[`matches snapshot 1`] = `
           href="/"
         >
           <div
-            class="logo"
+            class="logo fi"
           />
           <div
             class="appName"

@@ -1,14 +1,14 @@
-import { shallow } from "enzyme";
-import React from "react";
-import { MemoryRouter } from "react-router";
+import React from 'react';
+import { MemoryRouter } from 'react-router';
 
-import MobileHeader from "../MobileHeader";
+import { render } from '../../../../../util/testUtils';
+import MobileHeader from '../MobileHeader';
 
-it("MobileHeader matches snapshot", () => {
-  const container = shallow(
+it('matches snapshot', () => {
+  const { container } = render(
     <MemoryRouter>
       <MobileHeader />
     </MemoryRouter>
   );
-  expect(container.html()).toMatchSnapshot();
+  expect(container.firstChild).toMatchSnapshot();
 });

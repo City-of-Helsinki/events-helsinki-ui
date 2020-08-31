@@ -1,135 +1,101 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DateSelectorMenu matches snapshot 1`] = `
+exports[`matches snapshot 1`] = `
 <div
-  className="dateSelectorMenu"
+  class="dateSelectorMenu"
 >
   <div
-    className="checkboxWrapper"
+    class="checkboxWrapper"
   >
     <div
-      className="Checkbox-module_checkbox__3L0GR checkbox_hds-checkbox__9HMCz"
-      style={
-        Object {
-          "--background-unselected": "var(--color-white)",
-          "lineHeight": "24px",
-        }
-      }
+      class="Checkbox-module_checkbox__3L0GR checkbox_hds-checkbox__9HMCz"
+      style="--background-unselected: var(--color-white); line-height: 24px;"
     >
       <input
-        aria-checked={false}
-        checked={false}
-        className="Checkbox-module_input__3VZvy checkbox_hds-checkbox__input__1w0pu"
-        disabled={false}
+        aria-checked="false"
+        class="Checkbox-module_input__3VZvy checkbox_hds-checkbox__input__1w0pu"
         id="name_today"
         name="date"
-        onChange={[Function]}
         type="checkbox"
         value="today"
       />
       <label
-        className="Checkbox-module_label__L5AN1 checkbox_hds-checkbox__label__3HoD3"
-        htmlFor="name_today"
+        class="Checkbox-module_label__L5AN1 checkbox_hds-checkbox__label__3HoD3"
+        for="name_today"
       >
         Tänään
       </label>
     </div>
     <div
-      className="Checkbox-module_checkbox__3L0GR checkbox_hds-checkbox__9HMCz"
-      style={
-        Object {
-          "--background-unselected": "var(--color-white)",
-          "lineHeight": "24px",
-        }
-      }
+      class="Checkbox-module_checkbox__3L0GR checkbox_hds-checkbox__9HMCz"
+      style="--background-unselected: var(--color-white); line-height: 24px;"
     >
       <input
-        aria-checked={false}
-        checked={false}
-        className="Checkbox-module_input__3VZvy checkbox_hds-checkbox__input__1w0pu"
-        disabled={false}
+        aria-checked="false"
+        class="Checkbox-module_input__3VZvy checkbox_hds-checkbox__input__1w0pu"
         id="name_tomorrow"
         name="date"
-        onChange={[Function]}
         type="checkbox"
         value="tomorrow"
       />
       <label
-        className="Checkbox-module_label__L5AN1 checkbox_hds-checkbox__label__3HoD3"
-        htmlFor="name_tomorrow"
+        class="Checkbox-module_label__L5AN1 checkbox_hds-checkbox__label__3HoD3"
+        for="name_tomorrow"
       >
         Huomenna
       </label>
     </div>
     <div
-      className="Checkbox-module_checkbox__3L0GR checkbox_hds-checkbox__9HMCz"
-      style={
-        Object {
-          "--background-unselected": "var(--color-white)",
-          "lineHeight": "24px",
-        }
-      }
+      class="Checkbox-module_checkbox__3L0GR checkbox_hds-checkbox__9HMCz"
+      style="--background-unselected: var(--color-white); line-height: 24px;"
     >
       <input
-        aria-checked={false}
-        checked={false}
-        className="Checkbox-module_input__3VZvy checkbox_hds-checkbox__input__1w0pu"
-        disabled={false}
+        aria-checked="false"
+        class="Checkbox-module_input__3VZvy checkbox_hds-checkbox__input__1w0pu"
         id="name_this_week"
         name="date"
-        onChange={[Function]}
         type="checkbox"
         value="this_week"
       />
       <label
-        className="Checkbox-module_label__L5AN1 checkbox_hds-checkbox__label__3HoD3"
-        htmlFor="name_this_week"
+        class="Checkbox-module_label__L5AN1 checkbox_hds-checkbox__label__3HoD3"
+        for="name_this_week"
       >
         Tällä viikolla
       </label>
     </div>
     <div
-      className="Checkbox-module_checkbox__3L0GR checkbox_hds-checkbox__9HMCz"
-      style={
-        Object {
-          "--background-unselected": "var(--color-white)",
-          "lineHeight": "24px",
-        }
-      }
+      class="Checkbox-module_checkbox__3L0GR checkbox_hds-checkbox__9HMCz"
+      style="--background-unselected: var(--color-white); line-height: 24px;"
     >
       <input
-        aria-checked={false}
-        checked={false}
-        className="Checkbox-module_input__3VZvy checkbox_hds-checkbox__input__1w0pu"
-        disabled={false}
+        aria-checked="false"
+        class="Checkbox-module_input__3VZvy checkbox_hds-checkbox__input__1w0pu"
         id="name_weekend"
         name="date"
-        onChange={[Function]}
         type="checkbox"
         value="weekend"
       />
       <label
-        className="Checkbox-module_label__L5AN1 checkbox_hds-checkbox__label__3HoD3"
-        htmlFor="name_weekend"
+        class="Checkbox-module_label__L5AN1 checkbox_hds-checkbox__label__3HoD3"
+        for="name_weekend"
       >
         Viikonloppuna
       </label>
     </div>
   </div>
   <button
-    className="button btnSelectDates"
-    onClick={[Function]}
+    class="button btnSelectDates"
     type="button"
   >
     <svg
-      className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-      style={Object {}}
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g
         fill="none"
-        fillRule="evenodd"
+        fill-rule="evenodd"
       >
         <path
           d="M0 0h24v24H0z"
@@ -141,19 +107,18 @@ exports[`DateSelectorMenu matches snapshot 1`] = `
       </g>
     </svg>
     <div
-      className="buttonText"
+      class="buttonText"
     >
       Valitse päivät
     </div>
     <svg
-      className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-      style={Object {}}
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g
         fill="none"
-        fillRule="evenodd"
+        fill-rule="evenodd"
       >
         <path
           d="M0 24V0h24v24z"
@@ -166,19 +131,17 @@ exports[`DateSelectorMenu matches snapshot 1`] = `
     </svg>
   </button>
   <button
-    className="button btnBack hidden"
-    onClick={[Function]}
+    class="button btnBack hidden"
     type="button"
   >
     <svg
-      className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-      style={Object {}}
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g
         fill="none"
-        fillRule="evenodd"
+        fill-rule="evenodd"
       >
         <path
           d="M24 0v24H0V0z"
@@ -190,18 +153,17 @@ exports[`DateSelectorMenu matches snapshot 1`] = `
       </g>
     </svg>
     <div
-      className="buttonText"
+      class="buttonText"
     >
       Takaisin
     </div>
   </button>
   <button
-    className="button btnClose hidden"
-    onClick={[Function]}
+    class="button btnClose hidden"
     type="button"
   >
     <div
-      className="buttonText"
+      class="buttonText"
     >
       Sulje
     </div>

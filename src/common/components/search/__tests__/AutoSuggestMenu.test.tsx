@@ -1,11 +1,11 @@
+import { render } from '@testing-library/react';
 import * as React from 'react';
-import renderer from 'react-test-renderer';
 
 import { AUTOSUGGEST_TYPES } from '../../../../constants';
 import AutosuggestMenu from '../AutosuggestMenu';
 
 test('AutosuggestMenu matches snapshot', () => {
-  const component = renderer.create(
+  const { container } = render(
     <AutosuggestMenu
       focusedOption={0}
       options={[{ text: 'foo', type: AUTOSUGGEST_TYPES.TEXT, value: 'foo' }]}
@@ -14,8 +14,8 @@ test('AutosuggestMenu matches snapshot', () => {
       onOptionClick={jest.fn()}
     />
   );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+
+  expect(container.firstChild).toMatchSnapshot();
 });
 
 export {};
