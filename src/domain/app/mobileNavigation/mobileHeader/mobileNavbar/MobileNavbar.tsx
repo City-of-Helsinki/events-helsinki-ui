@@ -1,8 +1,10 @@
+import classNames from 'classnames';
 import { IconCross, IconMenuHamburger } from 'hds-react';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import useLocale from '../../../../../hooks/useLocale';
 import styles from './mobileNavbar.module.scss';
 
 interface Props {
@@ -17,6 +19,9 @@ const MobileNavbar: React.FC<Props> = ({
   onOpenMenu,
 }) => {
   const { t } = useTranslation();
+  const locale = useLocale();
+
+  const logoLang = locale === 'sv' ? 'sv' : 'fi';
 
   return (
     <div className={styles.mobileNavbar}>
@@ -26,7 +31,7 @@ const MobileNavbar: React.FC<Props> = ({
         to={'/'}
         className={styles.logoWrapper}
       >
-        <div className={styles.logo} />
+        <div className={classNames(styles.logo, styles[logoLang])} />
         <div className={styles.appName}>{t('appName')}</div>
       </Link>
       <div className={styles.buttonWrapper}>

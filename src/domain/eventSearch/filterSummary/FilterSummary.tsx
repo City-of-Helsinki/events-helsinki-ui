@@ -55,7 +55,7 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
       const neighborhoods = neighborhoodsData
         ? neighborhoodsData.neighborhoodList.data
         : [];
-      const neighborhood = neighborhoods.find(item => item.id === id);
+      const neighborhood = neighborhoods.find((item) => item.id === id);
       return getLocalisedString(neighborhood ? neighborhood.name : {}, locale);
     },
     [locale, neighborhoodsData]
@@ -65,25 +65,25 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
     const search = getSearchQuery({
       categories:
         type === 'category'
-          ? categories.filter(category => category !== value)
+          ? categories.filter((category) => category !== value)
           : categories,
       dateTypes:
         type === 'dateType'
-          ? dateTypes.filter(dateType => dateType !== value)
+          ? dateTypes.filter((dateType) => dateType !== value)
           : dateTypes,
       divisions:
         type === 'division'
-          ? divisions.filter(division => division !== value)
+          ? divisions.filter((division) => division !== value)
           : divisions,
       end: type === 'date' ? null : end,
       isFree,
       keywordNot,
       onlyChildrenEvents,
       places:
-        type === 'place' ? places.filter(place => place !== value) : places,
+        type === 'place' ? places.filter((place) => place !== value) : places,
       publisher: type !== 'publisher' ? publisher : null,
       start: type === 'date' ? null : start,
-      text: type === 'text' ? text.filter(item => item !== value) : text,
+      text: type === 'text' ? text.filter((item) => item !== value) : text,
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -105,7 +105,7 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
       {text.map((item, index) => (
         <TextFilter key={index} text={item} onRemove={handleFilterRemove} />
       ))}
-      {categories.map(category => (
+      {categories.map((category) => (
         <FilterButton
           key={category}
           onRemove={handleFilterRemove}
@@ -117,7 +117,7 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
       {publisher && (
         <PublisherFilter id={publisher} onRemove={handleFilterRemove} />
       )}
-      {divisions.map(division => (
+      {divisions.map((division) => (
         <FilterButton
           key={division}
           onRemove={handleFilterRemove}
@@ -126,7 +126,7 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
           value={division}
         />
       ))}
-      {places.map(place => (
+      {places.map((place) => (
         <PlaceFilter key={place} id={place} onRemove={handleFilterRemove} />
       ))}
 
@@ -138,7 +138,7 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
           value="date"
         />
       )}
-      {dateTypes.map(dateType => (
+      {dateTypes.map((dateType) => (
         <DateFilter
           key={dateType}
           onRemove={handleFilterRemove}

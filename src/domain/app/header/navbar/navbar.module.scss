@@ -1,9 +1,10 @@
-@import "mixins";
-@import "colors";
-@import "variables";
+@import 'mixins';
+@import 'colors';
+@import 'variables';
 
 $logoHeight: 2.5rem;
 $logoWidth: 5.5rem;
+$logoWidthSv: 7.1875rem;
 
 .navbarTop {
   height: 100%;
@@ -21,10 +22,9 @@ $logoWidth: 5.5rem;
     text-decoration: none;
 
     &:focus {
-      outline-offset: 4px;;
+      outline-offset: 4px;
     }
   }
-  
 }
 
 .linkWrapper {
@@ -46,7 +46,7 @@ $logoWidth: 5.5rem;
     }
   }
 }
-  
+
 .appName {
   margin-left: 1.875rem;
   font-size: 1.25rem;
@@ -55,8 +55,16 @@ $logoWidth: 5.5rem;
 }
 
 .logo {
-    @include helsinki-logo($hel-black);
-    background-position: center;
-    height: $logoHeight;
+  background-position: center;
+  height: $logoHeight;
+
+  &.fi {
+    @include helsinki-logo();
     width: $logoWidth;
+  }
+
+  &.sv {
+    @include helsinki-logo('sv');
+    width: $logoWidthSv;
+  }
 }

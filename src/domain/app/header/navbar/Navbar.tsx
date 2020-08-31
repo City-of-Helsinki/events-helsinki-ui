@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { IconSearch, IconStar } from 'hds-react';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +21,7 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const locale = useLocale();
 
-  const languageOptions = Object.values(SUPPORT_LANGUAGES).map(language => {
+  const languageOptions = Object.values(SUPPORT_LANGUAGES).map((language) => {
     return {
       label: t(`header.languages.${language}`),
       value: language,
@@ -39,11 +40,13 @@ const Navbar: React.FC = () => {
     });
   };
 
+  const logoLang = locale === 'sv' ? 'sv' : 'fi';
+
   return (
     <div className={styles.navbarTop}>
       <div className={styles.logoWrapper}>
         <Link aria-label={t('header.ariaLabelLogo')} to={'/'}>
-          <div className={styles.logo} />
+          <div className={classNames(styles.logo, styles[logoLang])} />
           <div className={styles.appName}>{t('appName')}</div>
         </Link>
       </div>
