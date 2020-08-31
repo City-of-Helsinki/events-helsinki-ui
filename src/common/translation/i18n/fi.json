@@ -47,6 +47,7 @@
     },
     "loading": "Ladataan...",
     "multiSelectDropdown": {
+      "inputPlaceholder": "Kirjoita hakusana",
       "selectAll": "Valitse kaikki"
     },
     "preview": "Esikatselu",
@@ -195,8 +196,8 @@
       "selectAllDivisions": "Kaikki alueet",
       "selectAllPlaces": "Kaikki tapahtumapaikat",
       "titleDropdownCategory": "Valitse kategoria",
-      "titleDropdownDivision": "Valitse alue",
-      "titleDropdownPlace": "Valitse tapahtumapaikka"
+      "titleDropdownDivision": "Etsi alue",
+      "titleDropdownPlace": "Etsi tapahtumapaikka"
     },
     "textFoundEvents": "{{count}} hakutulosta",
     "title": "Tapahtumahaku"

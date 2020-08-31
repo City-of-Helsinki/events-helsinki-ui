@@ -1,8 +1,8 @@
-import { IconHome } from 'hds-react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
-import MultiSelectDropdown from '../../../common/components/multiSelectDropdown/MultiSelectDropdown';
+import MultiSelectDropdown, {
+  MultiselectDropdownProps,
+} from '../../../common/components/multiSelectDropdown/MultiSelectDropdown';
 import { usePlaceListQuery } from '../../../generated/graphql';
 import useDebounce from '../../../hooks/useDebounce';
 import useLocale from '../../../hooks/useLocale';
@@ -14,22 +14,13 @@ const { getPlaceDetailsFromCache } = isClient
     require('../utils')
   : { getPlaceDetailsFromCache: null };
 
-interface Props {
-  inputValue?: string;
-  name: string;
-  setInputValue?: (newVal: string) => void;
-  setPlaces: (places: string[]) => void;
-  value: string[];
-}
+type Props = Omit<MultiselectDropdownProps, 'options'>;
 
 const PlaceSelector: React.FC<Props> = ({
   inputValue,
-  name,
-  setPlaces,
   setInputValue,
-  value,
+  ...props
 }) => {
-  const { t } = useTranslation();
   const locale = useLocale();
 
   const [internalInputValue, setInternalInputValue] = React.useState('');
@@ -38,6 +29,7 @@ const PlaceSelector: React.FC<Props> = ({
 
   const { data: placesData } = usePlaceListQuery({
     variables: {
+      divisions: ['kunta:helsinki'],
       hasUpcomingEvents: true,
       pageSize: 10,
       text: searchValue,
@@ -69,22 +61,13 @@ const PlaceSelector: React.FC<Props> = ({
   };
 
   return (
-    <>
-      <MultiSelectDropdown
-        checkboxName="placeOptions"
-        icon={<IconHome />}
-        inputValue={input}
-        name={name}
-        onChange={setPlaces}
-        options={placeOptions}
-        renderOptionText={renderOptionText}
-        selectAllText={t('eventSearch.search.selectAllPlaces')}
-        setInputValue={setInputValue || setInternalInputValue}
-        showSelectAll={true}
-        title={t('eventSearch.search.titleDropdownPlace')}
-        value={value}
-      />
-    </>
+    <MultiSelectDropdown
+      {...props}
+      inputValue={input}
+      options={placeOptions}
+      renderOptionText={renderOptionText}
+      setInputValue={setInputValue || setInternalInputValue}
+    />
   );
 };
 

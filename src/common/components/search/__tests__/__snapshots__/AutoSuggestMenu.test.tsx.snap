@@ -40,7 +40,7 @@ exports[`AutosuggestMenu matches snapshot 1`] = `
   >
     <li
       aria-selected={true}
-      className="autosuggestOption autosuggestOption--bar autosuggestOption--isFocused"
+      className="autosuggestOption autosuggestOption--text autosuggestOption--isFocused"
       role="option"
     >
       <div

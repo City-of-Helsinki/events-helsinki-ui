@@ -1,29 +1,42 @@
 import React, { useCallback } from 'react';
 
-interface Props {
+export interface KeyboardNavigationProps {
   container: React.MutableRefObject<HTMLDivElement | null>;
   listLength: number;
+  initialFocusedIndex?: number;
+  onKeyDown?: (event: KeyboardEvent) => void;
+}
+
+interface DropdownKeyboardNavigationState {
+  focusedIndex: number;
+  setFocusedIndex: (index: number) => void;
+  setup: Function;
+  teardown: Function;
 }
 
 const useDropdownKeyboardNavigation = ({
   container,
   listLength,
-}: Props): [number, Function, Function] => {
+  initialFocusedIndex,
+  onKeyDown,
+}: KeyboardNavigationProps): DropdownKeyboardNavigationState => {
   const [focusedIndex, setFocusedIndex] = React.useState<number>(-1);
+  const [isInitialNavigation, setIsInitialNavigation] = React.useState(true);
   const isStartingPosition = focusedIndex === -1;
 
   const focusOption = React.useCallback(
-    (direction: 'down' | 'up') => {
+    (direction: 'down' | 'up', index: number) => {
       switch (direction) {
         case 'down':
-          setFocusedIndex(focusedIndex < listLength - 1 ? focusedIndex + 1 : 0);
+          setFocusedIndex(index < listLength - 1 ? index + 1 : 0);
           break;
         case 'up':
-          setFocusedIndex(focusedIndex > 0 ? focusedIndex - 1 : listLength - 1);
+          setFocusedIndex(index > 0 ? index - 1 : listLength - 1);
           break;
       }
+      setIsInitialNavigation(false);
     },
-    [listLength, focusedIndex]
+    [listLength]
   );
 
   const isComponentFocused = useCallback(() => {
@@ -36,22 +49,29 @@ const useDropdownKeyboardNavigation = ({
     return false;
   }, [container]);
 
-  const onKeyDown = React.useCallback(
+  const handleKeyDown = React.useCallback(
     (event: KeyboardEvent) => {
       // Handle keyboard events only if current element is focused
       if (!isComponentFocused()) return;
 
+      onKeyDown && onKeyDown(event);
       switch (event.key) {
         case 'ArrowUp':
-          if (isStartingPosition) {
+          if (isInitialNavigation && typeof initialFocusedIndex === 'number') {
+            focusOption('up', initialFocusedIndex);
+          } else if (isStartingPosition) {
             setFocusedIndex(listLength - 1);
           } else {
-            focusOption('up');
+            focusOption('up', focusedIndex);
           }
           event.preventDefault();
           break;
         case 'ArrowDown':
-          focusOption('down');
+          if (isInitialNavigation && typeof initialFocusedIndex === 'number') {
+            focusOption('down', initialFocusedIndex - 1);
+          } else {
+            focusOption('down', focusedIndex);
+          }
           event.preventDefault();
           break;
         case 'Escape':
@@ -60,23 +80,36 @@ const useDropdownKeyboardNavigation = ({
           break;
       }
     },
-    [focusOption, isComponentFocused, isStartingPosition, listLength]
+    [
+      focusOption,
+      focusedIndex,
+      initialFocusedIndex,
+      isComponentFocused,
+      isInitialNavigation,
+      isStartingPosition,
+      listLength,
+      onKeyDown,
+    ]
   );
 
   const setup = React.useCallback(() => {
-    document.addEventListener('keydown', onKeyDown);
-  }, [onKeyDown]);
+    document.addEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
 
   const teardown = React.useCallback(() => {
-    document.removeEventListener('keydown', onKeyDown);
-  }, [onKeyDown]);
+    document.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
+
+  React.useEffect(() => {
+    setIsInitialNavigation(true);
+  }, [initialFocusedIndex]);
 
   React.useEffect(() => {
     // Whenever the list changes, reset focused index
     setFocusedIndex(-1);
   }, [listLength]);
 
-  return [focusedIndex, setup, teardown];
+  return { focusedIndex, setFocusedIndex, setup, teardown };
 };
 
 export default useDropdownKeyboardNavigation;

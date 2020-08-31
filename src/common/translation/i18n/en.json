@@ -47,6 +47,7 @@
     },
     "loading": "Loading...",
     "multiSelectDropdown": {
+      "inputPlaceholder": "Write search word",
       "selectAll": "Select all"
     },
     "preview": "Preview",
@@ -195,8 +196,8 @@
       "selectAllDivisions": "All areas",
       "selectAllPlaces": "All venues",
       "titleDropdownCategory": "Select category",
-      "titleDropdownDivision": "Select area",
-      "titleDropdownPlace": "Select venue"
+      "titleDropdownDivision": "Sök area",
+      "titleDropdownPlace": "Sök venue"
     },
     "textFoundEvents": "{{count}} search results",
     "title": "Event search"

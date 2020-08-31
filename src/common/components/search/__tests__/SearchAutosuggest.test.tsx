@@ -18,7 +18,7 @@ import SearchAutosuggest, {
   SearchAutosuggestProps,
 } from '../SearchAutosuggest';
 
-const searchValue = 'jazz';
+const searchValue = 'jaz';
 const placeholder = 'Placeholder text';
 
 const mocks = [
