@@ -1,4 +1,4 @@
-@import "colors";
+@import 'colors';
 
 .iconButton {
   display: flex;
@@ -9,6 +9,8 @@
   padding: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
+  color: var(--color-black);
 
   svg {
     height: 1.5rem;

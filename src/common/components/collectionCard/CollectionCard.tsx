@@ -92,7 +92,7 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
             aria-hidden={true}
             icon={<IconArrowRight />}
             onClick={moveToCollectionPage}
-            size="small"
+            size="default"
           />
         </div>
       </div>
