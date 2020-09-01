@@ -1,7 +1,7 @@
-@import "./vendor/normalize";
-@import "colors";
-@import "fonts";
-@import "layout";
+@import './vendor/normalize';
+@import 'colors';
+@import 'fonts';
+@import 'layout';
 
 html {
   height: 100%;
@@ -17,6 +17,7 @@ body {
 
 #root {
   flex: 1;
+  background-color: var(--color-black-5);
 }
 
 a {

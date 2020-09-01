@@ -58,7 +58,7 @@ exports[`matches snapshot 1`] = `
               <button
                 aria-hidden="true"
                 aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
-                class="iconButton small"
+                class="iconButton default"
               >
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
@@ -131,7 +131,7 @@ exports[`matches snapshot 1`] = `
               <button
                 aria-hidden="true"
                 aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
-                class="iconButton small"
+                class="iconButton default"
               >
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
@@ -192,7 +192,7 @@ exports[`matches snapshot 1`] = `
               <button
                 aria-hidden="true"
                 aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
-                class="iconButton small"
+                class="iconButton default"
               >
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
@@ -253,7 +253,7 @@ exports[`matches snapshot 1`] = `
               <button
                 aria-hidden="true"
                 aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
-                class="iconButton small"
+                class="iconButton default"
               >
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
@@ -314,7 +314,7 @@ exports[`matches snapshot 1`] = `
               <button
                 aria-hidden="true"
                 aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
-                class="iconButton small"
+                class="iconButton default"
               >
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
@@ -375,7 +375,7 @@ exports[`matches snapshot 1`] = `
               <button
                 aria-hidden="true"
                 aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
-                class="iconButton small"
+                class="iconButton default"
               >
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
@@ -436,7 +436,7 @@ exports[`matches snapshot 1`] = `
               <button
                 aria-hidden="true"
                 aria-label="Siirry kokoelmaan: Syksyn riehakkaimmat riennot"
-                class="iconButton small"
+                class="iconButton default"
               >
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"

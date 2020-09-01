@@ -56,7 +56,7 @@ const Home: React.FC = () => {
         )}
         {!!collectionsData && (
           <>
-            <Container>
+            <Container className={styles.searchContainer}>
               <Search />
             </Container>
             <div className={styles.collectionCardContainer}>
