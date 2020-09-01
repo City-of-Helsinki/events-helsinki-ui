@@ -196,8 +196,8 @@
       "selectAllDivisions": "Alla områden",
       "selectAllPlaces": "Alla ställen",
       "titleDropdownCategory": "Välj kategori",
-      "titleDropdownDivision": "Välj område",
-      "titleDropdownPlace": "Välj plats"
+      "titleDropdownDivision": "Sök område",
+      "titleDropdownPlace": "Sök plats"
     },
     "textFoundEvents": "{{count}} sökresultat",
     "title": "Evenemang sök"

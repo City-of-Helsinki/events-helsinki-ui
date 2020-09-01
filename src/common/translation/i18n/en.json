@@ -196,8 +196,8 @@
       "selectAllDivisions": "All areas",
       "selectAllPlaces": "All venues",
       "titleDropdownCategory": "Select category",
-      "titleDropdownDivision": "Sök area",
-      "titleDropdownPlace": "Sök venue"
+      "titleDropdownDivision": "Search area",
+      "titleDropdownPlace": "Search venue"
     },
     "textFoundEvents": "{{count}} search results",
     "title": "Event search"
