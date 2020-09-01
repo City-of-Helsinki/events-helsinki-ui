@@ -240,6 +240,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     setCategoryInput('');
     setDivisionInput('');
     setPlaceInput('');
+    setAutosuggestInput('');
   };
   const clearFilters = () => {
     const search = getSearchQuery(DEFAULT_SEARCH_FILTERS);
@@ -256,6 +257,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
 
     moveToSearchPage();
 
+    setAutosuggestInput('');
     scrollToResultList();
   };
 
