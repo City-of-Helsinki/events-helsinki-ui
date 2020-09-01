@@ -33,6 +33,7 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
     divisions,
     end,
     isFree,
+    keyword,
     keywordNot,
     onlyChildrenEvents,
     places,
@@ -77,6 +78,7 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
           : divisions,
       end: type === 'date' ? null : end,
       isFree,
+      keyword,
       keywordNot,
       onlyChildrenEvents,
       places:

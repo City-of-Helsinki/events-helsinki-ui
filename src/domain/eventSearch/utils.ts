@@ -118,6 +118,7 @@ export const getEventSearchVariables = ({
     dateTypes,
     divisions,
     isFree,
+    keyword,
     keywordNot,
     onlyChildrenEvents,
     onlyEveningEvents,
@@ -188,7 +189,7 @@ export const getEventSearchVariables = ({
     end,
     include,
     isFree: isFree || undefined,
-    keyword: mappedCategories.sort(),
+    keyword: [...keyword, ...mappedCategories],
     keywordAnd,
     keywordNot,
     language,
@@ -218,7 +219,7 @@ export const getNextPage = (
   return page ? Number(page) : null;
 };
 
-export const getSearchFilters = (searchParams: URLSearchParams) => {
+export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
   const endTime = searchParams.get(EVENT_SEARCH_FILTERS.END);
   const end = endTime ? new Date(endTime) : null;
 
@@ -238,6 +239,7 @@ export const getSearchFilters = (searchParams: URLSearchParams) => {
     end,
     isFree:
       searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true' ? true : false,
+    keyword: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.KEYWORD),
     keywordNot: getUrlParamAsArray(
       searchParams,
       EVENT_SEARCH_FILTERS.KEYWORD_NOT

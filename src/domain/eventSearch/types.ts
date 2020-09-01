@@ -4,6 +4,7 @@ export interface Filters {
   divisions: string[];
   end: Date | null;
   isFree?: boolean;
+  keyword: string[];
   keywordNot: string[];
   onlyChildrenEvents?: boolean;
   onlyEveningEvents?: boolean;
@@ -19,6 +20,7 @@ export interface MappedFilters {
   divisions: string[];
   end?: string | null;
   isFree?: boolean;
+  keyword: string[];
   keywordNot: string[];
   onlyChildrenEvents?: boolean;
   onlyEveningEvents?: boolean;

@@ -59,6 +59,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
 
   const {
     isFree,
+    keyword,
     keywordNot,
     onlyChildrenEvents,
     onlyEveningEvents,
@@ -71,6 +72,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     divisions: selectedDivisions,
     end,
     isFree,
+    keyword,
     keywordNot,
     onlyChildrenEvents,
     onlyEveningEvents,
