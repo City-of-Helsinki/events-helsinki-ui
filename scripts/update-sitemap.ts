@@ -8,57 +8,197 @@ import * as convert from 'xml-js';
 // Promises are more fun than callbacks
 const writeFile = promisify(fs.writeFile);
 
-const languages = process.env.SITEMAP_LANGUAGES.split(',');
-const cmsUrl = process.env.CMS_URL;
-const linkedEventsUrl = process.env.LINKED_EVENTS_URL;
-const host = process.env.HOST_URL;
-const pageSize = 100;
-const pathToSitemaps: string = path.join(__dirname, '../public');
+const LANGUAGES = process.env.SITEMAP_LANGUAGES.split(',');
+const CMS_URL = process.env.CMS_URL;
+const LINKED_EVENTS_URL = process.env.LINKED_EVENTS_URL;
+const HOST = process.env.HOST_URL;
+const PAGE_SIZE = 100;
+const URLS_PER_FILE = 1000;
+const PATH_TO_SITEMAPS: string = path.join(__dirname, '../public');
 
 const now = new Date();
 
-interface SimpleCollection {
-  id: string;
-  last_published_at: string;
-}
+type Language = 'en' | 'fi' | 'sv';
+type TitleKey = 'title_en' | 'title_fi' | 'title_sv';
 
-interface SimpleEvent {
+type Collection = {
+  expired: boolean;
+  last_published_at: string;
+  slug: string;
+  title_en?: string;
+  title_fi?: string;
+  title_sv?: string;
+};
+
+type Event = {
   id: string;
   last_modified_time: string;
-}
+  name?: {
+    en?: string;
+    fi?: string;
+    sv?: string;
+  };
+};
+
+type Element = {
+  type: string;
+  attributes: Record<string, unknown>;
+  name: string;
+  elements: Record<string, unknown>[];
+};
+
+const isCollectionExpired = (collection: Collection) => collection.expired;
+
+const isCollectionLanguageSupported = (
+  collection: Collection,
+  lang: Language
+) => Boolean(collection[`title_${lang}` as TitleKey]);
+
+const isEventLanguageSupported = (event: Event, lang: Language) =>
+  Boolean(event.name?.[lang]);
 
 /**
  * Format date to the format that are expected for Google sitemaps
  * @param {string} date
  * @return {string}
  */
-export const formatDate = (date: string): string =>
-  formatDateStr(new Date(date), 'yyyy-MM-dd');
+export const formatDate = (date: Date | string): string =>
+  new Date(date).toISOString();
 
 /**
  * Write object to a xml file
  * @param {string} path
  * @param {object} data
  */
-const writeXMLFile = (path: string, data: object) => {
-  const options = { compact: true, ignoreComment: true, spaces: 4 };
+const writeXMLFile = (path: string, data: Record<string, unknown>) => {
+  const options = { compact: false, ignoreComment: true, spaces: 4 };
   const xml = convert.js2xml(data, options);
 
   return writeFile(path, xml, 'utf8');
 };
 
 /**
- * Fetch events from linkedevents
- * @param {string} language
+ * Get xml element object in non-compact format
+ * @param {string} name
+ * @param {object[]} elements
+ */
+const getElement = ({
+  attributes,
+  elements,
+  name,
+}: {
+  attributes?: Record<string, unknown>;
+  elements: Record<string, unknown>[];
+  name: string;
+}) => ({
+  type: 'element',
+  attributes,
+  name,
+  elements,
+});
+
+/**
+ * Get xml text element in non-compact format
+ * @param {string} name
+ * @param {object[]} elements
+ */
+const getTextElement = (name: string, text: string) => ({
+  type: 'element',
+  name,
+  elements: [
+    {
+      type: 'text',
+      text,
+    },
+  ],
+});
+
+/**
+ * Fetch collections from cms
  * @return {object[]}
  */
-const getEvents = async (language: string) => {
-  const events: SimpleEvent[] = [];
+const getCollections = async (): Promise<Collection[]> => {
+  const collections: Collection[] = [];
+  const url = `${CMS_URL}/collections`;
+
+  const start = new Date();
+  const res = await fetch(url);
+  const result = await res.json();
+
+  if (res.status !== 200) {
+    throw Error(
+      `Could not fetch collections data from url ${url}: ${res.status} ${res.statusText}`
+    );
+  }
+
+  const end = new Date();
+  // eslint-disable-next-line no-console
+  console.log(`GET: ${url} (${end.getTime() - start.getTime()}ms)`);
+
+  collections.push(
+    ...result.filter(
+      (collection: Collection) => !isCollectionExpired(collection)
+    )
+  );
+
+  return collections;
+};
+
+/**
+ * Get collection url elements
+ * @return {object[]}
+ */
+const getCollectionUrlElements = async (): Promise<Element[]> => {
+  const collections = await getCollections();
+
+  const elements: Element[] = [];
+  collections.forEach((collection) => {
+    LANGUAGES.filter(
+      (language) =>
+        isCollectionLanguageSupported(collection, language as Language) &&
+        !isCollectionExpired(collection)
+    ).forEach((language) => {
+      const element = getElement({
+        name: 'url',
+        elements: [
+          getTextElement(
+            'loc',
+            `${HOST}/${language}/collection/${collection.slug}`
+          ),
+          ...LANGUAGES.filter(
+            (l: Language) =>
+              l !== language && isCollectionLanguageSupported(collection, l)
+          ).map((hreflang) =>
+            getElement({
+              name: 'xhtml:link',
+              attributes: {
+                rel: 'alternate',
+                hreflang,
+                href: `${HOST}/${hreflang}/collection/${collection.slug}`,
+              },
+              elements: [],
+            })
+          ),
+          getTextElement('lastmod', formatDate(collection.last_published_at)),
+        ],
+      });
+      elements.push(element);
+    });
+  });
+
+  return elements;
+};
+
+/**
+ * Fetch events from linkedevents
+ * @return {object[]}
+ */
+const getEvents = async () => {
+  const events: Event[] = [];
   let url =
-    `${linkedEventsUrl}/event` +
-    `?language=${language}` +
-    `&start=${now.toISOString()}` +
-    `&page_size=${pageSize}` +
+    `${LINKED_EVENTS_URL}/event` +
+    `?start=${now.toISOString()}` +
+    `&page_size=${PAGE_SIZE}` +
     '&division=kunta:helsinki' +
     '&super_event_type=umbrella,none';
 
@@ -70,7 +210,7 @@ const getEvents = async (language: string) => {
 
     if (res.status !== 200) {
       throw Error(
-        `Could not fetch ${language} events data from url ${url}: ${res.status} ${res.statusText}`
+        `Could not fetch events data from url ${url}: ${res.status} ${res.statusText}`
       );
     }
 
@@ -88,124 +228,134 @@ const getEvents = async (language: string) => {
 };
 
 /**
- * Generate sitemap in xml format for events in selected language
- * @param {object[]} events
- * @param {string} language
- */
-const generateEventSitemap = (events: SimpleEvent[], language: string) => {
-  const data = {
-    _declaration: { _attributes: { encoding: 'utf-8', version: '1.0' } },
-    urlset: {
-      _attributes: { xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9' },
-      url: [
-        ...events.map(event => ({
-          lastmod: formatDate(event.last_modified_time),
-          loc: `${host}/${language}/event/${event.id}`,
-        })),
-      ],
-    },
-  };
-
-  return writeXMLFile(`${pathToSitemaps}/sitemap_events_${language}.xml`, data);
-};
-
-/**
- * Generate sitemap in xml format for events in all languages
- */
-const generateEventSitemaps = async () => {
-  return Promise.all(
-    languages.map(async lang => {
-      const events = await getEvents(lang);
-      return generateEventSitemap(events, lang);
-    })
-  );
-};
-
-/**
- * Fetch collections from cms
+ * get Event url elements
  * @return {object[]}
  */
-const getCollections = async (): Promise<SimpleCollection[]> => {
-  const collections: SimpleCollection[] = [];
-  const url = `${cmsUrl}/collections`;
+const getEventUrlElements = async (): Promise<Element[]> => {
+  const events = await getEvents();
 
-  const start = new Date();
-  const res = await fetch(url);
-  const result = await res.json();
+  const elements: Element[] = [];
+  events.forEach((event) => {
+    LANGUAGES.filter((language) =>
+      isEventLanguageSupported(event, language as Language)
+    ).forEach((language) => {
+      const element = getElement({
+        name: 'url',
+        elements: [
+          getTextElement('loc', `${HOST}/${language}/event/${event.id}`),
+          ...LANGUAGES.filter(
+            (l: Language) =>
+              l !== language && isEventLanguageSupported(event, l)
+          ).map((hreflang) =>
+            getElement({
+              name: 'xhtml:link',
+              attributes: {
+                rel: 'alternate',
+                hreflang,
+                href: `${HOST}/${hreflang}/event/${event.id}`,
+              },
+              elements: [],
+            })
+          ),
+          getTextElement('lastmod', formatDate(event.last_modified_time)),
+        ],
+      });
+      elements.push(element);
+    });
+  });
 
-  if (res.status !== 200) {
-    throw Error(
-      `Could not fetch collections data from url ${url}: ${res.status} ${res.statusText}`
-    );
-  }
-
-  const end = new Date();
-  // eslint-disable-next-line no-console
-  console.log(`GET: ${url} (${end.getTime() - start.getTime()}ms)`);
-
-  collections.push(...result);
-
-  return collections;
-};
-
-/**
- * Generate sitemap in xml format for collections in selected language
- * @param {object[]} collections
- * @param {string} language
- */
-const generateCollectionSitemap = (
-  events: SimpleCollection[],
-  language: string
-) => {
-  const data = {
-    _declaration: { _attributes: { encoding: 'utf-8', version: '1.0' } },
-    urlset: {
-      _attributes: { xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9' },
-      url: [
-        ...events.map(event => ({
-          lastmod: formatDate(event.last_published_at),
-          loc: `${host}/${language}/event/${event.id}`,
-        })),
-      ],
-    },
-  };
-
-  return writeXMLFile(
-    `${pathToSitemaps}/sitemap_collections_${language}.xml`,
-    data
-  );
-};
-
-/**
- * Generate sitemaps in xml format for collections in all languages
- */
-const generateCollectionSitemaps = async () => {
-  const collections = await getCollections();
-  return Promise.all(
-    languages.map(lang => generateCollectionSitemap(collections, lang))
-  );
+  return elements;
 };
 
 /**
  * Generate a sitemap index in xml format that lists all sitemaps
  */
-const generateSitemapIndex = () => {
+const saveSitemapIndexPage = (pageAmount: number) => {
   const data = {
-    _declaration: { _attributes: { encoding: 'utf-8', version: '1.0' } },
-    sitemapindex: {
-      _attributes: { xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9' },
-      sitemap: [
-        ...languages.map(language => ({
-          loc: `${host}/sitemap_events_${language}.xml`,
-        })),
-        ...languages.map(language => ({
-          loc: `${host}/sitemap_collections_${language}.xml`,
-        })),
-      ],
+    declaration: {
+      attributes: {
+        version: '1.0',
+        encoding: 'UTF-8',
+      },
     },
+    elements: [
+      {
+        type: 'instruction',
+        name: 'xml-stylesheet',
+        instruction: 'type="text/xsl" href="/sitemap.xsl"',
+      },
+      {
+        type: 'element',
+        name: 'sitemapindex',
+        attributes: {
+          xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9',
+        },
+
+        elements: [
+          ...Array(pageAmount)
+            .fill(0)
+            .map((v, i) =>
+              getElement({
+                name: 'sitemap',
+                elements: [
+                  getTextElement('loc', `${HOST}/sitemap_${i + 1}.xml`),
+                  getTextElement('lastmod', formatDate(now)),
+                ],
+              })
+            ),
+        ],
+      },
+    ],
   };
 
-  return writeXMLFile(`${pathToSitemaps}/sitemap.xml`, data);
+  return writeXMLFile(`${PATH_TO_SITEMAPS}/sitemap.xml`, data);
+};
+
+const saveSitemapPage = (elements: Element[], page: number) => {
+  const data = {
+    declaration: {
+      attributes: {
+        version: '1.0',
+        encoding: 'UTF-8',
+      },
+    },
+    elements: [
+      {
+        type: 'instruction',
+        name: 'xml-stylesheet',
+        instruction: 'type="text/xsl" href="/sitemap.xsl"',
+      },
+      {
+        type: 'element',
+        name: 'urlset',
+        attributes: {
+          xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9',
+        },
+        elements,
+      },
+    ],
+  };
+
+  return writeXMLFile(`${PATH_TO_SITEMAPS}/sitemap_${page}.xml`, data);
+};
+
+const saveSitemapFiles = async (elements: Element[]) => {
+  let items = elements.slice(0, URLS_PER_FILE);
+  let siteMapIndex = 1;
+
+  while (items.length) {
+    await saveSitemapPage(items, siteMapIndex);
+
+    items = elements.slice(
+      siteMapIndex * URLS_PER_FILE,
+      (siteMapIndex + 1) * URLS_PER_FILE
+    );
+
+    if (items.length) {
+      siteMapIndex = siteMapIndex + 1;
+    }
+  }
+  saveSitemapIndexPage(siteMapIndex);
 };
 
 /**
@@ -213,11 +363,13 @@ const generateSitemapIndex = () => {
  */
 const generateSitemaps = async () => {
   try {
-    await Promise.all([
-      generateEventSitemaps(),
-      generateCollectionSitemaps(),
-      generateSitemapIndex(),
+    const [collectionUrlElements, eventUrlElements] = await Promise.all([
+      getCollectionUrlElements(),
+      getEventUrlElements(),
     ]);
+    const elements = [...collectionUrlElements, ...eventUrlElements];
+    await saveSitemapFiles(elements);
+
     console.log('Sitemaps generated!'); // eslint-disable-line
   } catch (err) {
     console.error(err.message); // eslint-disable-line
