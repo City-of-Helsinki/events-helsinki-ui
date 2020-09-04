@@ -42,8 +42,6 @@ const PAGE_SIZE = 100;
 const URLS_PER_FILE = 1000;
 const PATH_TO_SITEMAPS: string = __dirname;
 
-const now = new Date();
-
 const isCollectionExpired = (collection: Collection) => collection.expired;
 
 const isCollectionLanguageSupported = (
@@ -193,11 +191,11 @@ const getCollectionUrlElements = async (): Promise<Element[]> => {
  * Fetch events from linkedevents
  * @return {object[]}
  */
-const getEvents = async () => {
+const getEvents = async (start: Date) => {
   const events: Event[] = [];
   let url =
     `${LINKED_EVENTS_URL}/event` +
-    `?start=${now.toISOString()}` +
+    `?start=${start.toISOString()}` +
     `&page_size=${PAGE_SIZE}` +
     '&division=kunta:helsinki' +
     '&super_event_type=umbrella,none';
@@ -230,10 +228,11 @@ const getEvents = async () => {
 
 /**
  * get Event url elements
+ * @param {date} time
  * @return {object[]}
  */
-const getEventUrlElements = async (): Promise<Element[]> => {
-  const events = await getEvents();
+const getEventUrlElements = async (time: Date): Promise<Element[]> => {
+  const events = await getEvents(time);
 
   const elements: Element[] = [];
   events.forEach((event) => {
@@ -271,7 +270,7 @@ const getEventUrlElements = async (): Promise<Element[]> => {
 /**
  * Generate a sitemap index in xml format that lists all sitemaps
  */
-const saveSitemapIndexPage = (pageAmount: number) => {
+const saveSitemapIndexPage = (pageAmount: number, time: Date) => {
   const data = {
     declaration: {
       attributes: {
@@ -300,7 +299,7 @@ const saveSitemapIndexPage = (pageAmount: number) => {
                 name: 'sitemap',
                 elements: [
                   getTextElement('loc', `${HOST}/sitemap_${i + 1}.xml`),
-                  getTextElement('lastmod', formatDate(now)),
+                  getTextElement('lastmod', formatDate(time)),
                 ],
               })
             ),
@@ -340,7 +339,7 @@ const saveSitemapPage = (elements: Element[], page: number) => {
   return writeXMLFile(`${PATH_TO_SITEMAPS}/sitemap_${page}.xml`, data);
 };
 
-const saveSitemapFiles = async (elements: Element[]) => {
+const saveSitemapFiles = async (elements: Element[], time: Date) => {
   let items = elements.slice(0, URLS_PER_FILE);
   let siteMapIndex = 1;
 
@@ -356,7 +355,7 @@ const saveSitemapFiles = async (elements: Element[]) => {
       siteMapIndex = siteMapIndex + 1;
     }
   }
-  saveSitemapIndexPage(siteMapIndex);
+  saveSitemapIndexPage(siteMapIndex, time);
 };
 
 /**
@@ -364,13 +363,14 @@ const saveSitemapFiles = async (elements: Element[]) => {
  */
 const updateSitemaps = async (): Promise<boolean> => {
   try {
+    const time = new Date();
     const [collectionUrlElements, eventUrlElements] = await Promise.all([
       getCollectionUrlElements(),
-      getEventUrlElements(),
+      getEventUrlElements(time),
     ]);
     const elements = [...collectionUrlElements, ...eventUrlElements];
 
-    await saveSitemapFiles(elements);
+    await saveSitemapFiles(elements, time);
     return true;
   } catch (err) {
     throw err;
