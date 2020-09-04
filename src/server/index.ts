@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import 'isomorphic-fetch';
 import 'hds-core/lib/base.css';
 
@@ -6,6 +7,7 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import express, { Request, Response } from 'express';
 import i18nextMiddleware from 'i18next-express-middleware';
+import cron from 'node-cron';
 import React from 'react';
 import { getDataFromTree } from 'react-apollo';
 import ReactDOMServer from 'react-dom/server';
@@ -14,6 +16,7 @@ import { Helmet } from 'react-helmet';
 import i18next from '../common/translation/i18n/init.server';
 import { SUPPORT_LANGUAGES } from '../constants';
 import getDomainFromRequest from '../util/getDomainFromRequest';
+import updateSitemaps from '../util/updateSitemap';
 import { getAssets } from './assets';
 import Html from './Html';
 import ServerApp, { StaticContext } from './ServerApp';
@@ -126,11 +129,23 @@ app.use(async (req: Request, res: Response) => {
   }
 });
 
+// Function to generate sitemap
+const generateSitemap = async () => {
+  try {
+    await updateSitemaps();
+  } catch (e) {
+    console.error('Failed to updadate sitemap with error: ', e);
+  }
+};
+
+cron.schedule('*/10 * * * *', () => {
+  generateSitemap();
+});
+
 const port = process.env.REACT_APP_SSR_PORT || 3000;
 
 app.listen(port, () => {
   signalReady();
-
-  // eslint-disable-next-line no-console
+  generateSitemap();
   console.log(`Server listening on ${port} port`);
 });

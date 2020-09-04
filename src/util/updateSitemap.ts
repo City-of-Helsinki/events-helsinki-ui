@@ -1,27 +1,11 @@
-import { format as formatDateStr } from 'date-fns';
 import * as fs from 'fs';
-import fetch from 'node-fetch';
-import * as path from 'path';
 import { promisify } from 'util';
 import * as convert from 'xml-js';
 
-// Promises are more fun than callbacks
-const writeFile = promisify(fs.writeFile);
+export type Language = 'en' | 'fi' | 'sv';
+export type TitleKey = 'title_en' | 'title_fi' | 'title_sv';
 
-const LANGUAGES = process.env.SITEMAP_LANGUAGES.split(',');
-const CMS_URL = process.env.CMS_URL;
-const LINKED_EVENTS_URL = process.env.LINKED_EVENTS_URL;
-const HOST = process.env.HOST_URL;
-const PAGE_SIZE = 100;
-const URLS_PER_FILE = 1000;
-const PATH_TO_SITEMAPS: string = path.join(__dirname, '../public');
-
-const now = new Date();
-
-type Language = 'en' | 'fi' | 'sv';
-type TitleKey = 'title_en' | 'title_fi' | 'title_sv';
-
-type Collection = {
+export type Collection = {
   expired: boolean;
   last_published_at: string;
   slug: string;
@@ -30,7 +14,7 @@ type Collection = {
   title_sv?: string;
 };
 
-type Event = {
+export type Event = {
   id: string;
   last_modified_time: string;
   name?: {
@@ -40,12 +24,25 @@ type Event = {
   };
 };
 
-type Element = {
+export type Element = {
   type: string;
-  attributes: Record<string, unknown>;
+  attributes?: Record<string, unknown>;
   name: string;
   elements: Record<string, unknown>[];
 };
+
+// Promises are more fun than callbacks
+const writeFile = promisify(fs.writeFile);
+
+const LANGUAGES = process.env.REACT_APP_SITEMAP_LANGUAGES?.split(',') || [];
+const CMS_URL = process.env.REACT_APP_CMS_URL;
+const LINKED_EVENTS_URL = process.env.REACT_APP_LINKED_EVENTS_URL;
+const HOST = process.env.REACT_APP_HOST_URL;
+const PAGE_SIZE = 100;
+const URLS_PER_FILE = 1000;
+const PATH_TO_SITEMAPS: string = __dirname;
+
+const now = new Date();
 
 const isCollectionExpired = (collection: Collection) => collection.expired;
 
@@ -166,8 +163,9 @@ const getCollectionUrlElements = async (): Promise<Element[]> => {
             `${HOST}/${language}/collection/${collection.slug}`
           ),
           ...LANGUAGES.filter(
-            (l: Language) =>
-              l !== language && isCollectionLanguageSupported(collection, l)
+            (l) =>
+              l !== language &&
+              isCollectionLanguageSupported(collection, l as Language)
           ).map((hreflang) =>
             getElement({
               name: 'xhtml:link',
@@ -182,7 +180,9 @@ const getCollectionUrlElements = async (): Promise<Element[]> => {
           getTextElement('lastmod', formatDate(collection.last_published_at)),
         ],
       });
-      elements.push(element);
+      if (element) {
+        elements.push(element);
+      }
     });
   });
 
@@ -202,6 +202,7 @@ const getEvents = async () => {
     '&division=kunta:helsinki' +
     '&super_event_type=umbrella,none';
 
+  // TODO: Optimaze this to fetch events parallel
   // Loop until linkedevents returns null to next page attribute
   while (!!url) {
     const start = new Date();
@@ -244,8 +245,8 @@ const getEventUrlElements = async (): Promise<Element[]> => {
         elements: [
           getTextElement('loc', `${HOST}/${language}/event/${event.id}`),
           ...LANGUAGES.filter(
-            (l: Language) =>
-              l !== language && isEventLanguageSupported(event, l)
+            (l) =>
+              l !== language && isEventLanguageSupported(event, l as Language)
           ).map((hreflang) =>
             getElement({
               name: 'xhtml:link',
@@ -361,20 +362,19 @@ const saveSitemapFiles = async (elements: Element[]) => {
 /**
  * Generate a sitemaps in xml format that lists all the pages
  */
-const generateSitemaps = async () => {
+const updateSitemaps = async (): Promise<boolean> => {
   try {
     const [collectionUrlElements, eventUrlElements] = await Promise.all([
       getCollectionUrlElements(),
       getEventUrlElements(),
     ]);
     const elements = [...collectionUrlElements, ...eventUrlElements];
-    await saveSitemapFiles(elements);
 
-    console.log('Sitemaps generated!'); // eslint-disable-line
+    await saveSitemapFiles(elements);
+    return true;
   } catch (err) {
-    console.error(err.message); // eslint-disable-line
-    process.exit(1);
+    throw err;
   }
 };
 
-generateSitemaps();
+export default updateSitemaps;
