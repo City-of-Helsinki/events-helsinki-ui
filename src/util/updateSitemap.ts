@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import range from 'lodash/range';
 import { promisify } from 'util';
 import * as convert from 'xml-js';
 
@@ -61,9 +62,9 @@ export const formatDate = (date: Date | string): string =>
   new Date(date).toISOString();
 
 /**
- * Write object to a xml file
+ * Write Object to a xml file
  * @param {string} path
- * @param {object} data
+ * @param {Object} data
  */
 const writeXMLFile = (path: string, data: Record<string, unknown>) => {
   const options = { compact: false, ignoreComment: true, spaces: 4 };
@@ -73,9 +74,9 @@ const writeXMLFile = (path: string, data: Record<string, unknown>) => {
 };
 
 /**
- * Get xml element object in non-compact format
+ * Get xml element Object in non-compact format
  * @param {string} name
- * @param {object[]} elements
+ * @param {Object[]} elements
  */
 const getElement = ({
   attributes,
@@ -95,7 +96,7 @@ const getElement = ({
 /**
  * Get xml text element in non-compact format
  * @param {string} name
- * @param {object[]} elements
+ * @param {Object[]} elements
  */
 const getTextElement = (name: string, text: string) => ({
   type: 'element',
@@ -109,8 +110,8 @@ const getTextElement = (name: string, text: string) => ({
 });
 
 /**
- * Fetch collections from cms
- * @return {object[]}
+ * Fetch collections from CMS
+ * @return {Object[]}
  */
 const getCollections = async (): Promise<Collection[]> => {
   const collections: Collection[] = [];
@@ -141,7 +142,7 @@ const getCollections = async (): Promise<Collection[]> => {
 
 /**
  * Get collection url elements
- * @return {object[]}
+ * @return {Object[]}
  */
 const getCollectionUrlElements = async (): Promise<Element[]> => {
   const collections = await getCollections();
@@ -188,48 +189,65 @@ const getCollectionUrlElements = async (): Promise<Element[]> => {
 };
 
 /**
- * Fetch events from linkedevents
- * @return {object[]}
+ * Fetch single events page from LinkedEvents
+ * @param {string} start
+ * @param {number} page
+ * @return {Object[]}
  */
-const getEvents = async (start: Date) => {
-  const events: Event[] = [];
-  let url =
+const getEventsPage = async (start: Date, page: number) => {
+  const url =
     `${LINKED_EVENTS_URL}/event` +
     `?start=${start.toISOString()}` +
     `&page_size=${PAGE_SIZE}` +
+    `&page=${page}` +
     '&division=kunta:helsinki' +
     '&super_event_type=umbrella,none';
 
-  // TODO: Optimaze this to fetch events parallel
-  // Loop until linkedevents returns null to next page attribute
-  while (!!url) {
-    const start = new Date();
-    const res = await fetch(url);
-    const result = await res.json();
+  const startTime = new Date();
+  const res = await fetch(url);
+  const result = await res.json();
 
-    if (res.status !== 200) {
-      throw Error(
-        `Could not fetch events data from url ${url}: ${res.status} ${res.statusText}`
-      );
-    }
-
-    const end = new Date();
-    // eslint-disable-next-line no-console
-    console.log(`GET: ${url} (${end.getTime() - start.getTime()}ms)`);
-
-    const data = result.data;
-    events.push(...data);
-
-    url = result.meta.next;
+  if (res.status !== 200) {
+    throw Error(
+      `Could not fetch events data from url ${url}: ${res.status} ${res.statusText}`
+    );
   }
 
+  const endTime = new Date();
+  // eslint-disable-next-line no-console
+  console.log(`GET: ${url} (${endTime.getTime() - startTime.getTime()}ms)`);
+
+  return result;
+};
+
+/**
+ * Fetch events from LinkedEvents
+ * @param {string} start
+ * @return {Object[]}
+ */
+const getEvents = async (start: Date) => {
+  const events: Event[] = [];
+
+  const result = await getEventsPage(start, 1);
+  events.push(...result.data);
+
+  const count = result.meta.count;
+  const pageAmount = Math.ceil(count / PAGE_SIZE);
+
+  if (pageAmount > 1) {
+    const pages = range(2, pageAmount + 1);
+    const results = await Promise.all(
+      pages.map((page) => getEventsPage(start, page))
+    );
+    results.forEach((result) => events.push(...result.data));
+  }
   return events;
 };
 
 /**
- * get Event url elements
- * @param {date} time
- * @return {object[]}
+ * Get event url elements
+ * @param {string} time
+ * @return {Object[]}
  */
 const getEventUrlElements = async (time: Date): Promise<Element[]> => {
   const events = await getEvents(time);
@@ -268,7 +286,9 @@ const getEventUrlElements = async (time: Date): Promise<Element[]> => {
 };
 
 /**
- * Generate a sitemap index in xml format that lists all sitemaps
+ * Save sitemap index page
+ * @param {number} pageAmount
+ * @param {string} time
  */
 const saveSitemapIndexPage = (pageAmount: number, time: Date) => {
   const data = {
@@ -292,17 +312,15 @@ const saveSitemapIndexPage = (pageAmount: number, time: Date) => {
         },
 
         elements: [
-          ...Array(pageAmount)
-            .fill(0)
-            .map((v, i) =>
-              getElement({
-                name: 'sitemap',
-                elements: [
-                  getTextElement('loc', `${HOST}/sitemap_${i + 1}.xml`),
-                  getTextElement('lastmod', formatDate(time)),
-                ],
-              })
-            ),
+          ...range(1, pageAmount + 1).map((page) =>
+            getElement({
+              name: 'sitemap',
+              elements: [
+                getTextElement('loc', `${HOST}/sitemap_${page}.xml`),
+                getTextElement('lastmod', formatDate(time)),
+              ],
+            })
+          ),
         ],
       },
     ],
@@ -311,6 +329,11 @@ const saveSitemapIndexPage = (pageAmount: number, time: Date) => {
   return writeXMLFile(`${PATH_TO_SITEMAPS}/sitemap.xml`, data);
 };
 
+/**
+ * Save single sitemap page
+ * @param {Object[]} elements
+ * @param {number} page
+ */
 const saveSitemapPage = (elements: Element[], page: number) => {
   const data = {
     declaration: {
@@ -339,6 +362,11 @@ const saveSitemapPage = (elements: Element[], page: number) => {
   return writeXMLFile(`${PATH_TO_SITEMAPS}/sitemap_${page}.xml`, data);
 };
 
+/**
+ * Save sitemap files
+ * @param {Object[]} elements
+ * @param {string} time
+ */
 const saveSitemapFiles = async (elements: Element[], time: Date) => {
   let items = elements.slice(0, URLS_PER_FILE);
   let siteMapIndex = 1;
@@ -355,11 +383,11 @@ const saveSitemapFiles = async (elements: Element[], time: Date) => {
       siteMapIndex = siteMapIndex + 1;
     }
   }
-  saveSitemapIndexPage(siteMapIndex, time);
+  await saveSitemapIndexPage(siteMapIndex, time);
 };
 
 /**
- * Generate a sitemaps in xml format that lists all the pages
+ * Update all sitemaps
  */
 const updateSitemaps = async (): Promise<boolean> => {
   try {
