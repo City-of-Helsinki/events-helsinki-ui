@@ -36,6 +36,9 @@ ARG REACT_APP_CMS_URL
 # Set LinkedEvents url
 ARG REACT_APP_LINKED_EVENTS_URL
 
+# Set Generate sitemap flag 
+ARG REACT_APP_GENERATE_SITEMAP
+
 # Build application
 RUN yarn build
 

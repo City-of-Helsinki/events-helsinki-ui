@@ -131,6 +131,11 @@ app.use(async (req: Request, res: Response) => {
 
 // Function to generate sitemap
 const generateSitemap = async () => {
+  // Generate sitemap only if REACT_APP_GENERATE_SITEMAP flag is set to true
+  if (process.env.REACT_APP_GENERATE_SITEMAP !== 'true') {
+    return;
+  }
+
   try {
     await updateSitemaps();
   } catch (e) {
