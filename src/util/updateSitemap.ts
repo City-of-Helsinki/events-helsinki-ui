@@ -35,10 +35,10 @@ export type Element = {
 // Promises are more fun than callbacks
 const writeFile = promisify(fs.writeFile);
 
-const LANGUAGES = process.env.REACT_APP_SITEMAP_LANGUAGES?.split(',') || [];
+const LANGUAGES = ['en', 'fi', 'sv'];
 const CMS_URL = process.env.REACT_APP_CMS_URL;
 const LINKED_EVENTS_URL = process.env.REACT_APP_LINKED_EVENTS_URL;
-const HOST = process.env.REACT_APP_HOST_URL;
+const HOST = process.env.PUBLIC_URL;
 const PAGE_SIZE = 100;
 const URLS_PER_FILE = 1000;
 const PATH_TO_SITEMAPS: string = __dirname;

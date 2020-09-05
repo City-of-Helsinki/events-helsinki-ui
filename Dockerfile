@@ -11,6 +11,9 @@ RUN yarn
 # Copy all files
 COPY --chown=appuser:appuser . .
 
+# Set public url
+ARG PUBLIC_URL
+
 # set sass path to support scss import
 ARG SASS_PATH=./src/assets/styles
 ENV SASS_PATH $SASS_PATH
@@ -26,6 +29,12 @@ ARG REACT_APP_GRAPHQL_BASE_URL
 
 # set ssr server port
 ARG REACT_APP_SSR_PORT
+
+# Set CMS url
+ARG REACT_APP_CMS_URL
+
+# Set LinkedEvents url
+ARG REACT_APP_LINKED_EVENTS_URL
 
 # Build application
 RUN yarn build
