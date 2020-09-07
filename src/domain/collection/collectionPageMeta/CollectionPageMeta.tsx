@@ -3,8 +3,7 @@ import { Helmet } from 'react-helmet';
 
 import { CollectionFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import getLocalisedString from '../../../util/getLocalisedString';
-import { getHeroBackgroundImage } from '../CollectionUtils';
+import { getCollectionFields } from '../CollectionUtils';
 
 export interface CollectionPageMetaProps {
   collection: CollectionFieldsFragment;
@@ -14,20 +13,18 @@ const CollectionPageMeta: React.FC<CollectionPageMetaProps> = ({
   collection,
 }) => {
   const locale = useLocale();
-
-  const title = getLocalisedString(collection.title, locale);
-  const description = getLocalisedString(
-    collection.socialMediaDescription || {},
-    locale
-  );
+  const {
+    heroBackgroundImage: image = '',
+    socialMediadescription: description = '',
+    title = '',
+  } = getCollectionFields(collection, locale);
 
   // TODO: Get collection image from data instead of using placeholder image
-  const image = getHeroBackgroundImage(collection);
 
   const openGraphProperties: { [key: string]: string } = {
-    description: description,
-    image: image || '',
-    title: title,
+    description,
+    image,
+    title,
   };
 
   return (

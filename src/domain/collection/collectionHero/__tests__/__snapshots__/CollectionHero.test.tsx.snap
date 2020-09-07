@@ -2,7 +2,7 @@
 
 exports[`CollectionHero should match snapshot 1`] = `
 "<div class=\\"collectionHero\\">
-  <div class=\\"ImageWithCard-module_wrapper__3bpMz ImageWithCard-module_leftAlignment__2-4gy ImageWithCard-module_hoverLayout__QVp4h ImageWithCard-module_primary__2Xx3R imageWithCard suomenlinnaBackgroundColor\\">
+  <div class=\\"ImageWithCard-module_wrapper__3bpMz ImageWithCard-module_leftAlignment__2-4gy ImageWithCard-module_splitLayout__3-QSv ImageWithCard-module_primary__2Xx3R imageWithCard suomenlinnaBackgroundColor\\">
     <div class=\\"ImageWithCard-module_image__1hVru\\" style=\\"background-image: url(testurl.png);\\"></div>
     <div class=\\"ImageWithCard-module_cardContainer__2JffS\\">
       <div class=\\"ImageWithCard-module_card__ygwv- helpers_text-body__2r6dx\\">
