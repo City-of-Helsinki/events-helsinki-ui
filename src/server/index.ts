@@ -143,7 +143,7 @@ const generateSitemap = async () => {
   }
 };
 
-cron.schedule('*/10 * * * *', () => {
+cron.schedule('* 5 * * *', () => {
   generateSitemap();
 });
 
