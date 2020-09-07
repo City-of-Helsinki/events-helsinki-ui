@@ -1,3 +1,4 @@
+// Remember also update static urls to updateSitemap
 export enum ROUTES {
   ABOUT = '/about',
   COLLECTION = '/collection/:slug',

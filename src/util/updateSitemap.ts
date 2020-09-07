@@ -36,6 +36,7 @@ export type Element = {
 const writeFile = promisify(fs.writeFile);
 
 const LANGUAGES = ['en', 'fi', 'sv'];
+const STATIC_URLS = ['about', 'home'];
 const CMS_URL = process.env.REACT_APP_CMS_URL;
 const LINKED_EVENTS_URL = process.env.REACT_APP_LINKED_EVENTS_URL;
 const HOST = process.env.PUBLIC_URL;
@@ -138,6 +139,41 @@ const getCollections = async (): Promise<Collection[]> => {
   );
 
   return collections;
+};
+
+/**
+ * Get static url elements
+ * @param {string} date
+ * @return {Object[]}
+ */
+const getStaticUrlElements = (time: Date): Element[] => {
+  const elements: Element[] = [];
+
+  STATIC_URLS.forEach((url) => {
+    LANGUAGES.forEach((language) => {
+      const element = getElement({
+        name: 'url',
+        elements: [
+          getTextElement('loc', `${HOST}/${language}/${url}`),
+          ...LANGUAGES.filter((l) => l !== language).map((hreflang) =>
+            getElement({
+              name: 'xhtml:link',
+              attributes: {
+                rel: 'alternate',
+                hreflang,
+                href: `${HOST}/${hreflang}/${url}`,
+              },
+              elements: [],
+            })
+          ),
+          getTextElement('lastmod', formatDate(time)),
+        ],
+      });
+      elements.push(element);
+    });
+  });
+
+  return elements;
 };
 
 /**
@@ -392,11 +428,16 @@ const saveSitemapFiles = async (elements: Element[], time: Date) => {
 const updateSitemaps = async (): Promise<boolean> => {
   try {
     const time = new Date();
+    const staticUrlElements = getStaticUrlElements(time);
     const [collectionUrlElements, eventUrlElements] = await Promise.all([
       getCollectionUrlElements(),
       getEventUrlElements(time),
     ]);
-    const elements = [...collectionUrlElements, ...eventUrlElements];
+    const elements = [
+      ...staticUrlElements,
+      ...collectionUrlElements,
+      ...eventUrlElements,
+    ];
 
     await saveSitemapFiles(elements, time);
     return true;
