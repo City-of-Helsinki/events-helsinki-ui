@@ -40,7 +40,7 @@ const CollectionHero: React.FC<Props> = ({ collection }) => {
           styles[`${backgroundColor}BackgroundColor`]
         )}
         src={backgroundImage}
-        cardLayout="hover"
+        cardLayout="split"
         color="primary"
       >
         <h1>{title}</h1>
