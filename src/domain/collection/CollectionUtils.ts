@@ -29,7 +29,7 @@ export const getHeroBackgroundColor = (
 export const getHeroBackgroundImage = (
   collection: CollectionFieldsFragment
 ): string => {
-  return collection.heroImage || COLLECTION_DEFAULT_IMAGE;
+  return collection.heroImage?.url || COLLECTION_DEFAULT_IMAGE;
 };
 
 /**

@@ -39,7 +39,11 @@ const collection: CollectionFieldsFragment = {
     sv: 'Höstens bästa händelser',
   },
   expired: false,
-  heroImage: 'testurl.png',
+  heroImage: {
+    __typename: 'CmsImage',
+    photographerCredit: 'Photographer',
+    url: 'testurl.png',
+  },
   id: '1',
   linkText: {
     __typename: 'LocalizedObject',

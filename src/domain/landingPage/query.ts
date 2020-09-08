@@ -1,6 +1,22 @@
 import gql from 'graphql-tag';
 
 export const QUERY_KEYWORD = gql`
+  fragment cmsImageFields on CmsImage {
+    photographerCredit
+    url
+  }
+
+  fragment localizedCmsImageFields on LocalizedCmsImage {
+    en {
+      ...cmsImageFields
+    }
+    fi {
+      ...cmsImageFields
+    }
+    sv {
+      ...cmsImageFields
+    }
+  }
   fragment landingPageFields on LandingPage {
     id
     pageTitle {
@@ -28,19 +44,19 @@ export const QUERY_KEYWORD = gql`
       ...localizedFields
     }
     heroBackgroundImage {
-      ...localizedFields
+      ...localizedCmsImageFields
     }
     heroBackgroundImageColor {
       ...localizedFields
     }
     heroBackgroundImageMobile {
-      ...localizedFields
+      ...localizedCmsImageFields
     }
     heroTopLayerImage {
-      ...localizedFields
+      ...localizedCmsImageFields
     }
     socialMediaImage {
-      ...localizedFields
+      ...localizedCmsImageFields
     }
   }
   query LandingPage($draft: Boolean, $id: ID!) {

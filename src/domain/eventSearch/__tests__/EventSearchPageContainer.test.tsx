@@ -110,7 +110,13 @@ it('all the event cards should be visible and load more button should load more 
 
   userEvent.click(
     screen.getByRole('button', {
-      name: translations.eventSearch.buttonLoadMore,
+      name: translations.eventSearch.buttonLoadMore.replace(
+        '{{count}}',
+        (
+          mockEventSearchResponse.data.eventList.meta.count -
+          mockEventSearchResponse.data.eventList.data.length
+        ).toString()
+      ),
     })
   );
 

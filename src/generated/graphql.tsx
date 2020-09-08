@@ -12,6 +12,12 @@ export type Scalars = {
   Float: number,
 };
 
+export type CmsImage = {
+   __typename?: 'CmsImage',
+  photographerCredit?: Maybe<Scalars['String']>,
+  url?: Maybe<Scalars['String']>,
+};
+
 export type CollectionDetails = {
    __typename?: 'CollectionDetails',
   id: Scalars['ID'],
@@ -29,7 +35,7 @@ export type CollectionDetails = {
   firstPublishedAt?: Maybe<Scalars['String']>,
   goLiveAt?: Maybe<Scalars['String']>,
   hasUnpublishedChanges?: Maybe<Scalars['Boolean']>,
-  heroImage?: Maybe<Scalars['String']>,
+  heroImage?: Maybe<CmsImage>,
   lastPublishedAt?: Maybe<Scalars['String']>,
   latestRevisionCreatedAt?: Maybe<Scalars['String']>,
   linkText?: Maybe<LocalizedObject>,
@@ -208,11 +214,11 @@ export type LandingPage = {
   descriptionColor?: Maybe<LocalizedObject>,
   buttonText?: Maybe<LocalizedObject>,
   buttonUrl?: Maybe<LocalizedObject>,
-  heroBackgroundImage?: Maybe<LocalizedObject>,
-  heroBackgroundImageMobile?: Maybe<LocalizedObject>,
+  heroBackgroundImage?: Maybe<LocalizedCmsImage>,
+  heroBackgroundImageMobile?: Maybe<LocalizedCmsImage>,
   heroBackgroundImageColor?: Maybe<LocalizedObject>,
-  heroTopLayerImage?: Maybe<LocalizedObject>,
-  socialMediaImage?: Maybe<LocalizedObject>,
+  heroTopLayerImage?: Maybe<LocalizedCmsImage>,
+  socialMediaImage?: Maybe<LocalizedCmsImage>,
   metaInformation?: Maybe<LocalizedObject>,
   pageTitle?: Maybe<LocalizedObject>,
   contentType?: Maybe<Scalars['Int']>,
@@ -224,6 +230,13 @@ export type LandingPage = {
 export type LandingPageResponse = {
    __typename?: 'LandingPageResponse',
   data: Array<LandingPage>,
+};
+
+export type LocalizedCmsImage = {
+   __typename?: 'LocalizedCmsImage',
+  en?: Maybe<CmsImage>,
+  fi?: Maybe<CmsImage>,
+  sv?: Maybe<CmsImage>,
 };
 
 export type LocalizedObject = {
@@ -455,8 +468,11 @@ export type Subscription = {
 
 export type CollectionFieldsFragment = (
   { __typename?: 'CollectionDetails' }
-  & Pick<CollectionDetails, 'id' | 'heroImage' | 'boxColor' | 'curatedEvents' | 'expired' | 'slug'>
-  & { curatedEventsTitle: Maybe<(
+  & Pick<CollectionDetails, 'id' | 'boxColor' | 'curatedEvents' | 'expired' | 'slug'>
+  & { heroImage: Maybe<(
+    { __typename?: 'CmsImage' }
+    & CmsImageFieldsFragment
+  )>, curatedEventsTitle: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
   )>, description: Maybe<(
@@ -690,6 +706,25 @@ export type KeywordListQuery = (
   ) }
 );
 
+export type CmsImageFieldsFragment = (
+  { __typename?: 'CmsImage' }
+  & Pick<CmsImage, 'photographerCredit' | 'url'>
+);
+
+export type LocalizedCmsImageFieldsFragment = (
+  { __typename?: 'LocalizedCmsImage' }
+  & { en: Maybe<(
+    { __typename?: 'CmsImage' }
+    & CmsImageFieldsFragment
+  )>, fi: Maybe<(
+    { __typename?: 'CmsImage' }
+    & CmsImageFieldsFragment
+  )>, sv: Maybe<(
+    { __typename?: 'CmsImage' }
+    & CmsImageFieldsFragment
+  )> }
+);
+
 export type LandingPageFieldsFragment = (
   { __typename?: 'LandingPage' }
   & Pick<LandingPage, 'id'>
@@ -718,20 +753,20 @@ export type LandingPageFieldsFragment = (
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
   )>, heroBackgroundImage: Maybe<(
-    { __typename?: 'LocalizedObject' }
-    & LocalizedFieldsFragment
+    { __typename?: 'LocalizedCmsImage' }
+    & LocalizedCmsImageFieldsFragment
   )>, heroBackgroundImageColor: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
   )>, heroBackgroundImageMobile: Maybe<(
-    { __typename?: 'LocalizedObject' }
-    & LocalizedFieldsFragment
+    { __typename?: 'LocalizedCmsImage' }
+    & LocalizedCmsImageFieldsFragment
   )>, heroTopLayerImage: Maybe<(
-    { __typename?: 'LocalizedObject' }
-    & LocalizedFieldsFragment
+    { __typename?: 'LocalizedCmsImage' }
+    & LocalizedCmsImageFieldsFragment
   )>, socialMediaImage: Maybe<(
-    { __typename?: 'LocalizedObject' }
-    & LocalizedFieldsFragment
+    { __typename?: 'LocalizedCmsImage' }
+    & LocalizedCmsImageFieldsFragment
   )> }
 );
 
@@ -874,6 +909,12 @@ export type PlaceListQuery = (
   ) }
 );
 
+export const CmsImageFieldsFragmentDoc = gql`
+    fragment cmsImageFields on CmsImage {
+  photographerCredit
+  url
+}
+    `;
 export const LocalizedFieldsFragmentDoc = gql`
     fragment localizedFields on LocalizedObject {
   en
@@ -884,7 +925,9 @@ export const LocalizedFieldsFragmentDoc = gql`
 export const CollectionFieldsFragmentDoc = gql`
     fragment collectionFields on CollectionDetails {
   id
-  heroImage
+  heroImage {
+    ...cmsImageFields
+  }
   boxColor
   curatedEvents
   curatedEventsTitle {
@@ -914,7 +957,8 @@ export const CollectionFieldsFragmentDoc = gql`
     ...localizedFields
   }
 }
-    ${LocalizedFieldsFragmentDoc}`;
+    ${CmsImageFieldsFragmentDoc}
+${LocalizedFieldsFragmentDoc}`;
 export const KeywordFieldsFragmentDoc = gql`
     fragment keywordFields on Keyword {
   id
@@ -1034,6 +1078,19 @@ export const EventFieldsFragmentDoc = gql`
     ${LocalizedFieldsFragmentDoc}
 ${KeywordFieldsFragmentDoc}
 ${PlaceFieldsFragmentDoc}`;
+export const LocalizedCmsImageFieldsFragmentDoc = gql`
+    fragment localizedCmsImageFields on LocalizedCmsImage {
+  en {
+    ...cmsImageFields
+  }
+  fi {
+    ...cmsImageFields
+  }
+  sv {
+    ...cmsImageFields
+  }
+}
+    ${CmsImageFieldsFragmentDoc}`;
 export const LandingPageFieldsFragmentDoc = gql`
     fragment landingPageFields on LandingPage {
   id
@@ -1062,22 +1119,23 @@ export const LandingPageFieldsFragmentDoc = gql`
     ...localizedFields
   }
   heroBackgroundImage {
-    ...localizedFields
+    ...localizedCmsImageFields
   }
   heroBackgroundImageColor {
     ...localizedFields
   }
   heroBackgroundImageMobile {
-    ...localizedFields
+    ...localizedCmsImageFields
   }
   heroTopLayerImage {
-    ...localizedFields
+    ...localizedCmsImageFields
   }
   socialMediaImage {
-    ...localizedFields
+    ...localizedCmsImageFields
   }
 }
-    ${LocalizedFieldsFragmentDoc}`;
+    ${LocalizedFieldsFragmentDoc}
+${LocalizedCmsImageFieldsFragmentDoc}`;
 export const OrganizationFieldsFragmentDoc = gql`
     fragment organizationFields on OrganizationDetails {
   id
