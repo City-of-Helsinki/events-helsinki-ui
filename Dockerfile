@@ -27,6 +27,11 @@ ARG REACT_APP_GRAPHQL_BASE_URL
 # set ssr server port
 ARG REACT_APP_SSR_PORT
 
+# Set Matomo settings
+ARG REACT_APP_MATOMO_URL_BASE
+ARG REACT_APP_MATOMO_SITE_ID
+ARG REACT_APP_MATOMO_ENABLED
+
 # Build application
 RUN yarn build
 

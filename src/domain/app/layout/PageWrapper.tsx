@@ -1,6 +1,9 @@
+import { useMatomo } from '@datapunt/matomo-tracker-react';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import { DEFAULT_SOME_IMAGE } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
@@ -17,7 +20,9 @@ const PageWrapper: React.FC<Props> = ({
   title = 'appName',
 }) => {
   const { t } = useTranslation();
+  const location = useLocation();
   const locale = useLocale();
+  const { trackPageView } = useMatomo();
 
   const translatedTitle =
     title !== 'appName' ? `${t(title)} - ${t('appName')}` : t('appName');
@@ -32,6 +37,14 @@ const PageWrapper: React.FC<Props> = ({
     image: image,
     title: translatedTitle,
   };
+
+  // Track page view
+  useDeepCompareEffect(() => {
+    trackPageView({
+      documentTitle: translatedTitle,
+      href: window.location.href,
+    });
+  }, [{ pathname: location.pathname, search: location.search }]);
 
   return (
     <div className={className}>
