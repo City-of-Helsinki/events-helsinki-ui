@@ -168,7 +168,7 @@
   },
   "eventSearch": {
     "buttonClearFilters": "Tyhjennä hakuehdot",
-    "buttonLoadMore": "Näytä lisää tapahtumia",
+    "buttonLoadMore": "Näytä lisää tapahtumia ({{count}})",
     "event": {
       "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
       "buttonBuyTickets": "Osta liput",
