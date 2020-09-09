@@ -99,15 +99,12 @@ const EventHero: React.FC<Props> = ({ event }) => {
           </div>
           <div className={styles.leftPanel}>
             <div className={styles.textWrapper}>
-              {(today || thisWeek || (!!keywords && !!keywords.length)) && (
-                <div className={styles.categoryWrapper}>
-                  <EventKeywords
-                    blackOnMobile={true}
-                    event={event}
-                    showIsFree={true}
-                  />
-                </div>
-              )}
+              <div className={styles.title}>
+                <EventName event={event} />
+              </div>
+              <div className={styles.description}>
+                {getLocalisedString(description, locale)}
+              </div>
               <div className={classNames(styles.date, styles.desktopOnly)}>
                 {!!startTime &&
                   getDateRangeStr(
@@ -119,15 +116,13 @@ const EventHero: React.FC<Props> = ({ event }) => {
                     t('commons.timeAbbreviation')
                   )}
               </div>
-              <div className={styles.title}>
-                <EventName event={event} />
-              </div>
-              <div className={styles.description}>
-                {getLocalisedString(description, locale)}
-              </div>
 
               <div
-                className={classNames(styles.infoWithIcon, styles.desktopOnly)}
+                className={classNames(
+                  styles.location,
+                  styles.infoWithIcon,
+                  styles.desktopOnly
+                )}
               >
                 <div className={styles.iconWrapper}>
                   <IconLocation className={styles.icon} />
@@ -142,7 +137,11 @@ const EventHero: React.FC<Props> = ({ event }) => {
               </div>
 
               <div
-                className={classNames(styles.infoWithIcon, styles.desktopOnly)}
+                className={classNames(
+                  styles.price,
+                  styles.infoWithIcon,
+                  styles.desktopOnly
+                )}
               >
                 <div className={styles.iconWrapper}>
                   <IconTicket className={styles.icon} />
@@ -155,23 +154,30 @@ const EventHero: React.FC<Props> = ({ event }) => {
                   ) || '-'}
                 </div>
               </div>
+              {(today || thisWeek || (!!keywords && !!keywords.length)) && (
+                <div className={styles.categoryWrapper}>
+                  <EventKeywords
+                    blackOnMobile={true}
+                    event={event}
+                    showIsFree={true}
+                  />
+                </div>
+              )}
               {showBuyButton && (
-                <>
-                  <div
-                    className={classNames(
-                      styles.buyButtonWrapper,
-                      styles.desktopOnly
-                    )}
+                <div
+                  className={classNames(
+                    styles.buyButtonWrapper,
+                    styles.desktopOnly
+                  )}
+                >
+                  <Button
+                    aria-label={t('event.hero.ariaLabelBuyTickets')}
+                    onClick={moveToBuyTicketsPage}
+                    variant="success"
                   >
-                    <Button
-                      aria-label={t('event.hero.ariaLabelBuyTickets')}
-                      onClick={moveToBuyTicketsPage}
-                      variant="success"
-                    >
-                      {t('event.hero.buttonBuyTickets')}
-                    </Button>
-                  </div>
-                </>
+                    {t('event.hero.buttonBuyTickets')}
+                  </Button>
+                </div>
               )}
             </div>
           </div>
