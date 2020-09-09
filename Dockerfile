@@ -57,7 +57,7 @@ USER appuser
 COPY --chown=appuser:appuser --from=react-builder /app/build /app/build
 
 # Copy package.json and yarn.lock files
-COPY --chown=appuser:appuser .env package.json yarn.lock /app/
+COPY --chown=appuser:appuser package.json yarn.lock /app/
 
 # Install production dependencies
 RUN yarn install --production
