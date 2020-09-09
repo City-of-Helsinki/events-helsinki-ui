@@ -11,6 +11,9 @@ RUN yarn
 # Copy all files
 COPY --chown=appuser:appuser . .
 
+# Set public url
+ARG PUBLIC_URL
+
 # set sass path to support scss import
 ARG SASS_PATH=./src/assets/styles
 ENV SASS_PATH $SASS_PATH
@@ -27,6 +30,15 @@ ARG REACT_APP_GRAPHQL_BASE_URL
 # set ssr server port
 ARG REACT_APP_SSR_PORT
 
+# Set CMS url
+ARG REACT_APP_CMS_URL
+
+# Set LinkedEvents url
+ARG REACT_APP_LINKED_EVENTS_URL
+
+# Set Generate sitemap flag 
+ARG REACT_APP_GENERATE_SITEMAP
+
 # Build application
 RUN yarn build
 
@@ -40,7 +52,7 @@ USER appuser
 COPY --chown=appuser:appuser --from=react-builder /app/build /app/build
 
 # Copy package.json and yarn.lock files
-COPY --chown=appuser:appuser package.json yarn.lock /app/
+COPY --chown=appuser:appuser .env package.json yarn.lock /app/
 
 # Install production dependencies
 RUN yarn install --production
