@@ -20,6 +20,10 @@ build-review:
     DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.test.kuva.hel.ninja/api'
     DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
     DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'false'
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_I: 64
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
+
   only:
     refs:
       - external_pull_requests
@@ -37,6 +41,9 @@ build-staging:
     DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.test.kuva.hel.ninja/api'
     DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
     DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'true'
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_I: 64
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'true'
   only:
     refs:
       - develop
@@ -54,6 +61,9 @@ build-production:
     DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.prod.kuva.hel.ninja/api'
     DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
     DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'false'
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_I: 64
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
   only:
     refs:
       - master
