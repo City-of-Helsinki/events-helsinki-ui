@@ -5,12 +5,8 @@ import React from 'react';
 import TextWithLineBreaks from '../../../common/components/textWithLineBreaks/TextWithLineBreaks';
 import { CollectionFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import getLocalisedString from '../../../util/getLocalisedString';
 import CollectionShareLinks from '../collectionShareLinks/CollectionShareLinks';
-import {
-  getHeroBackgroundColor,
-  getHeroBackgroundImage,
-} from '../CollectionUtils';
+import { getCollectionFields } from '../CollectionUtils';
 import styles from './collectionHero.module.scss';
 
 interface Props {
@@ -19,18 +15,14 @@ interface Props {
 
 const CollectionHero: React.FC<Props> = ({ collection }) => {
   const locale = useLocale();
-
-  const title = getLocalisedString(collection.title, locale);
-
-  const description = getLocalisedString(collection.description, locale);
-
-  const linkUrl = getLocalisedString(collection.linkUrl, locale);
-
-  const linkText = getLocalisedString(collection.linkText, locale);
-
-  const backgroundColor = getHeroBackgroundColor(collection);
-
-  const backgroundImage = getHeroBackgroundImage(collection);
+  const {
+    description,
+    heroBackgroundColor: backgroundColor,
+    heroBackgroundImage: backgroundImage = '',
+    linkText,
+    linkUrl,
+    title,
+  } = getCollectionFields(collection, locale);
 
   return (
     <div className={styles.collectionHero}>
@@ -40,7 +32,7 @@ const CollectionHero: React.FC<Props> = ({ collection }) => {
           styles[`${backgroundColor}BackgroundColor`]
         )}
         src={backgroundImage}
-        cardLayout="hover"
+        cardLayout="split"
         color="primary"
       >
         <h1>{title}</h1>
