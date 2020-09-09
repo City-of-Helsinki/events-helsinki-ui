@@ -55,12 +55,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 Runs the app in the production mode. Client ssr express server is used to serve the application<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### `yarn update-sitemaps`
-
-Fetches events data from Linkedevents and collections data from cms and generates sitemaps for Google. See `.env` for configuration.
-
-Sitemaps will be used when MVP is released. This script should be added to docker production build in the future. Sitemaps should be added only in production.
-
 ### `yarn lint`
 
 Run linter to all the files in app

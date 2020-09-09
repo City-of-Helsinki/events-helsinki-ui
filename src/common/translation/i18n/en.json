@@ -16,7 +16,7 @@
     },
     "collectionCard": {
       "ariaLabelLink": "Go to collection: {{title}}",
-      "count": "{{count}} pcs"
+      "count": "{{count}} hits"
     },
     "dateSelector": {
       "dateTypeAll": "At any day",
@@ -90,11 +90,11 @@
     },
     "title": "Loading collection...",
     "titlePastRecommendations": "Past recommendations",
-    "titleSimilarCollections": "Explore other recommendations"
+    "titleSimilarCollections": "More recommendations for you"
   },
   "collectionList": {
-    "pageTitle": "Recommendations",
-    "title": "We put together things to do for you"
+    "pageTitle": "See our recommendations",
+    "title": "Our suggestions for you"
   },
   "event": {
     "categories": {
@@ -168,7 +168,7 @@
   },
   "eventSearch": {
     "buttonClearFilters": "Clear filters",
-    "buttonLoadMore": "Show more events",
+    "buttonLoadMore": "Show more events ({{count}})",
     "event": {
       "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
       "buttonBuyTickets": "Buy tickets",
@@ -184,7 +184,7 @@
     },
     "search": {
       "buttonSearch": "Search",
-      "checkboxIsFree": "Show only free",
+      "checkboxIsFree": "Show only events that are free",
       "checkboxOnlyChildrenEvents": "Show only events for children",
       "checkboxOnlyEveningEvents": "Show only evening events",
       "labelCategory": "What kind of event you are looking for?",
@@ -206,7 +206,7 @@
     "linkAbout": "About the service",
     "linkFeedback": "Give feedback",
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/en/administration/participate/feedback/",
-    "searchCollections": "Recommendations",
+    "searchCollections": "We recommend",
     "searchEvents": "Find something to do",
     "titleCategories": "Categories"
   },
@@ -220,12 +220,12 @@
       "fi": "Suomeksi",
       "sv": "På svenska"
     },
-    "searchCollections": "Recommendations",
+    "searchCollections": "We recommend",
     "searchEvents": "Find something to do"
   },
   "home": {
     "category": {
-      "culture": "Culture and arts",
+      "culture": "Arts and culture",
       "dance": "Dance",
       "food": "Food",
       "influence": "Participate and influence",
@@ -235,10 +235,10 @@
       "music": "Music",
       "nature": "Nature and outdoor activities",
       "sport": "Exercise and sports",
-      "theatre": "Theater"
+      "theatre": "Theatre"
     },
     "collections": {
-      "title": "Recommendations"
+      "title": "See our recommendations"
     },
     "notFound": {
       "text": "For one reason or another we can't find the landing page you are looking for.",

@@ -4,13 +4,14 @@
 @import 'variables';
 
 .collectionHero {
-  padding-bottom: $largePadding;
+  padding-bottom: 0;
   background-color: var(--color-white);
 
   @include respond-above(sm) {
     display: grid;
     grid-row: span;
     place-content: flex-start;
+    padding-bottom: var(--spacing-xl);
 
     & > * {
       grid-column: 2;
@@ -23,6 +24,10 @@
   }
 
   @include respond-above(sm) {
+    grid-template-columns: var(--spacing-l) 1fr;
+  }
+
+  @include respond-above(md) {
     grid-template-columns: 1fr 10fr 1fr;
   }
 
@@ -63,10 +68,9 @@
   div:last-child {
     max-width: unset;
 
-    > div {
-      @include respond-above(sm) {
-        width: 50% !important;
-      }
+    @include respond-below(sm) {
+      margin: 0;
+      padding-bottom: var(--spacing-s);
     }
   }
 }

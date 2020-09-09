@@ -11,14 +11,19 @@ build-review:
   extends: .build
   variables:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-review'
+    DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.test.kuva.hel.ninja
     DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
     DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
     DOCKER_BUILD_ARG_REACT_APP_SSR_PORT: 3000
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: '$GL_SENTRY_DSN'
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'dev'
+    DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.test.kuva.hel.ninja/api'
+    DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
+    DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'false'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_I: 64
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
+
   only:
     refs:
       - external_pull_requests
@@ -27,11 +32,15 @@ build-staging:
   extends: .build
   variables:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-staging'
+    DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.test.kuva.hel.ninja
     DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
     DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
     DOCKER_BUILD_ARG_REACT_APP_SSR_PORT: 3000
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: '$GL_SENTRY_DSN'
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'test'
+    DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.test.kuva.hel.ninja/api'
+    DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
+    DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'true'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_I: 64
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'true'
@@ -43,11 +52,15 @@ build-production:
   extends: .build
   variables:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-production'
+    DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.prod.kuva.hel.ninja
     DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
     DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.prod.kuva.hel.ninja/proxy/graphql'
     DOCKER_BUILD_ARG_REACT_APP_SSR_PORT: 3000
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: '$GL_SENTRY_DSN'
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'production'
+    DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.prod.kuva.hel.ninja/api'
+    DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
+    DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'false'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_I: 64
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'

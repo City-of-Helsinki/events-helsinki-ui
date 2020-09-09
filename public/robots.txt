@@ -1,2 +1,6 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
+Disallow: /*/events
+Disallow: /*/collections
+
+Sitemap: https://tapahtumat.prod.kuva.hel.ninja/sitemap.xml

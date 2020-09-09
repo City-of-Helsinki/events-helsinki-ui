@@ -10,6 +10,7 @@ import {
 import useLocale from '../../../hooks/useLocale';
 import isClient from '../../../util/isClient';
 import Container from '../../app/layout/Container';
+import { isCollectionExpired, isLanguageSupported } from '../CollectionUtils';
 import { SIMILAR_COLLECTIONS_AMOUNT } from '../constants';
 import styles from './similarCollections.module.scss';
 
@@ -29,7 +30,12 @@ const SimilarCollections: React.FC<Props> = ({ collection }) => {
     collectionsData && !!collectionsData.collectionList.data.length
       ? collectionsData.collectionList.data
           // Don't show current collection on the list
-          .filter((item) => item.title[locale] && item.id !== collection.id)
+          .filter(
+            (item) =>
+              !isCollectionExpired(item) &&
+              isLanguageSupported(item, locale) &&
+              item.id !== collection.id
+          )
           .slice(0, SIMILAR_COLLECTIONS_AMOUNT)
       : [];
 

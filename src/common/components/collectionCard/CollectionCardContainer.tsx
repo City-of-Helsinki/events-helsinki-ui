@@ -1,10 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { getHeroBackgroundImage } from '../../../domain/collection/CollectionUtils';
+import { getCollectionFields } from '../../../domain/collection/CollectionUtils';
 import { CollectionFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import getLocalisedString from '../../../util/getLocalisedString';
 import CollectionCard, { CollectionCardSize } from './CollectionCard';
 import styles from './collectionCardContainer.module.scss';
 
@@ -44,16 +43,24 @@ const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
           }
         };
         const size = getCardSize();
+
+        const {
+          description = '',
+          heroBackgroundImage: backgroundImage = '',
+          slug,
+          title = '',
+        } = getCollectionFields(collection, locale);
+
         return (
           <CollectionCard
             key={index}
-            backgroundImage={getHeroBackgroundImage(collection)}
+            backgroundImage={backgroundImage}
             count={collection.curatedEvents.length}
-            description={getLocalisedString(collection.description, locale)}
-            slug={collection.slug}
+            description={description}
+            slug={slug}
             size={size}
             showDescription={size === 'lg'}
-            title={getLocalisedString(collection.title, locale)}
+            title={title}
           />
         );
       })}
