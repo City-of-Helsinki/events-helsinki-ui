@@ -18,7 +18,7 @@ const ListItem: React.FC<{
   onOptionClick: (option: LanguageOption) => void;
   option: LanguageOption;
 }> = ({ isFocused, isSelected, onOptionClick, option }) => {
-  const component = React.useRef<HTMLLIElement>(null);
+  const component = React.useRef<HTMLButtonElement>(null);
 
   const handleOptionClick = () => {
     onOptionClick(option);
@@ -34,18 +34,16 @@ const ListItem: React.FC<{
 
   return (
     <li
-      ref={component}
       key={option.value}
-      lang={option.value}
       className={classNames({
         [styles.isFocused]: isFocused,
         [styles.isSelected]: isSelected,
       })}
-      onClick={handleOptionClick}
       role="menuitem"
-      tabIndex={0}
     >
-      {option.label}
+      <button ref={component} lang={option.value} onClick={handleOptionClick}>
+        {option.label}
+      </button>
     </li>
   );
 };
@@ -73,6 +71,32 @@ const LanguageDropdown: React.FC<Props> = ({
   } = useKeyboardNavigation({
     container: container,
     listLength: languageOptions.length,
+    onKeyDown: (event: KeyboardEvent) => {
+      switch (event.key) {
+        case 'ArrowUp':
+          ensureMenuIsOpen();
+          break;
+        case 'ArrowDown':
+          ensureMenuIsOpen();
+          break;
+        case 'Escape':
+          if (isMenuOpen) {
+            setIsMenuOpen(false);
+            setFocusToButton();
+          }
+          break;
+        case 'Enter':
+          if (isMenuOpen) {
+            const option = languageOptions[focusedIndex];
+            handleOptionClick(option);
+            setFocusToButton();
+          }
+          event.preventDefault();
+          break;
+        case 'Tab':
+          setIsMenuOpen(false);
+      }
+    },
   });
 
   const toggleMenu = () => {
@@ -84,16 +108,6 @@ const LanguageDropdown: React.FC<Props> = ({
       setIsMenuOpen(true);
     }
   }, [isMenuOpen]);
-
-  const isComponentFocused = React.useCallback(() => {
-    const active = document.activeElement;
-    const current = container.current;
-
-    if (current && active instanceof Node && current.contains(active)) {
-      return true;
-    }
-    return false;
-  }, [container]);
 
   const onDocumentClick = (event: MouseEvent) => {
     const target = event.target;
@@ -128,62 +142,18 @@ const LanguageDropdown: React.FC<Props> = ({
     }
   };
 
-  const onKeyDown = React.useCallback(
-    (event: KeyboardEvent) => {
-      if (!isComponentFocused()) return;
-
-      switch (event.key) {
-        case 'ArrowUp':
-          ensureMenuIsOpen();
-          event.preventDefault();
-          break;
-        case 'ArrowDown':
-          ensureMenuIsOpen();
-          event.preventDefault();
-          break;
-        case 'Escape':
-          if (isMenuOpen) {
-            setIsMenuOpen(false);
-            setFocusToButton();
-            event.preventDefault();
-          }
-          break;
-        case 'Enter':
-          if (isMenuOpen) {
-            const option = languageOptions[focusedIndex];
-            handleOptionClick(option);
-            setFocusToButton();
-            event.preventDefault();
-          }
-          break;
-        case 'Tab':
-          setIsMenuOpen(false);
-      }
-    },
-    [
-      ensureMenuIsOpen,
-      focusedIndex,
-      handleOptionClick,
-      isComponentFocused,
-      isMenuOpen,
-      languageOptions,
-    ]
-  );
-
   React.useEffect(() => {
     setupKeyboardNav();
     document.addEventListener('click', onDocumentClick);
     document.addEventListener('focusin', onDocumentFocusin);
-    document.addEventListener('keydown', onKeyDown);
 
     // Clean up event listener to prevent memory leaks
     return () => {
       teardownKeyboardNav();
       document.removeEventListener('click', onDocumentClick);
       document.removeEventListener('focusin', onDocumentFocusin);
-      document.removeEventListener('keydown', onKeyDown);
     };
-  }, [onDocumentFocusin, onKeyDown, setupKeyboardNav, teardownKeyboardNav]);
+  }, [onDocumentFocusin, setupKeyboardNav, teardownKeyboardNav]);
 
   return (
     <div
