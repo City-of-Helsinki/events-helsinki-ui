@@ -168,7 +168,7 @@
   },
   "eventSearch": {
     "buttonClearFilters": "Töm sökfilter",
-    "buttonLoadMore": "Visa fler evenemang",
+    "buttonLoadMore": "Visa fler evenemang ({{count}})",
     "event": {
       "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
       "buttonBuyTickets": "Köp biljetter",

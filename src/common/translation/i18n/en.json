@@ -168,7 +168,7 @@
   },
   "eventSearch": {
     "buttonClearFilters": "Clear filters",
-    "buttonLoadMore": "Show more events",
+    "buttonLoadMore": "Show more events ({{count}})",
     "event": {
       "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
       "buttonBuyTickets": "Buy tickets",
