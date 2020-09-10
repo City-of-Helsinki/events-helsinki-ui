@@ -56,11 +56,7 @@ const EventPageContainer: React.FC = () => {
               <SrOnly as="h1">{name}</SrOnly>
               {/* Wait for data to be accessible before updating metadata */}
               <EventPageMeta event={event} />
-              {!!eventClosed ? (
-                <EventClosedHero />
-              ) : (
-                <EventHero event={event} />
-              )}
+              {eventClosed ? <EventClosedHero /> : <EventHero event={event} />}
               <Container>
                 {/* Show event content only if event is open */}
                 {!eventClosed && <EventContent event={event} />}
