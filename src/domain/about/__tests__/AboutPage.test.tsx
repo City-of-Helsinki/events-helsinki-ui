@@ -1,7 +1,7 @@
-import { act, render, screen } from '@testing-library/react';
 import i18n from 'i18next';
 import React from 'react';
 
+import { act, render, screen } from '../../../util/testUtils';
 import AboutPage from '../AboutPage';
 
 it('should show about page in correct language', async () => {

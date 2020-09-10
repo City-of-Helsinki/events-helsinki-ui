@@ -1,6 +1,6 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 
+import { render } from '../../../../util/testUtils';
 import PageWrapper from '../PageWrapper';
 
 it('matched snapshot', () => {
