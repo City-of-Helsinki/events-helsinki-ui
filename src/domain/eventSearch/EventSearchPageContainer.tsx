@@ -8,6 +8,7 @@ import SrOnly from '../../common/components/srOnly/SrOnly';
 import { useEventListQuery } from '../../generated/graphql';
 import useIsSmallScreen from '../../hooks/useIsSmallScreen';
 import useLocale from '../../hooks/useLocale';
+import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from './constants';
 import styles from './eventSearchPage.module.scss';
@@ -92,11 +93,13 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
       <div id="resultList">
         <LoadingSpinner isLoading={!isFetchingMore && loading}>
           {eventsData && (
-            <SearchResultList
-              eventsData={eventsData}
-              loading={isFetchingMore}
-              onLoadMore={handleLoadMore}
-            />
+            <MainContent offset={-70}>
+              <SearchResultList
+                eventsData={eventsData}
+                loading={isFetchingMore}
+                onLoadMore={handleLoadMore}
+              />
+            </MainContent>
           )}
         </LoadingSpinner>
       </div>

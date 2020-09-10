@@ -7,6 +7,7 @@ import PreviewBanner from '../../common/components/previewBanner/PreviewBanner';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import { useLandingPageQuery } from '../../generated/graphql';
 import Container from '../app/layout/Container';
+import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import LandingPageHero from './landingPageHero/LandingPageHero';
 import LandingPageMeta from './landingPageMeta/LandingPageMeta';
@@ -37,9 +38,11 @@ const LandingPagePreview: React.FC = () => {
 
             <PreviewBanner />
             <LandingPageHero landingPage={landingPage} />
-            <Container>
-              <Search />
-            </Container>
+            <MainContent offset={-150}>
+              <Container>
+                <Search />
+              </Container>
+            </MainContent>
           </>
         ) : (
           <ErrorHero

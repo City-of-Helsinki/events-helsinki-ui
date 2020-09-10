@@ -6,6 +6,7 @@ import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import { useCollectionListQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import Container from '../app/layout/Container';
+import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import {
   isCollectionExpired,
@@ -33,25 +34,27 @@ const CollectionListPage: React.FC = () => {
       className={styles.collectionListPage}
       title="collectionList.pageTitle"
     >
-      <LoadingSpinner isLoading={loading}>
-        <div className={styles.largeCardWrapper}>
-          <Container>
-            <h2>{t('collectionList.title')}</h2>
-            <CollectionCardContainer
-              collections={largeCollections}
-              layout="lg"
-            />
-          </Container>
-        </div>
-        <div className={styles.otherCardsWrapper}>
-          <Container>
-            <CollectionCardContainer
-              collections={mdAndSmCollections}
-              layout="mdAndSm"
-            />
-          </Container>
-        </div>
-      </LoadingSpinner>
+      <MainContent offset={-70}>
+        <LoadingSpinner isLoading={loading}>
+          <div className={styles.largeCardWrapper}>
+            <Container>
+              <h2>{t('collectionList.title')}</h2>
+              <CollectionCardContainer
+                collections={largeCollections}
+                layout="lg"
+              />
+            </Container>
+          </div>
+          <div className={styles.otherCardsWrapper}>
+            <Container>
+              <CollectionCardContainer
+                collections={mdAndSmCollections}
+                layout="mdAndSm"
+              />
+            </Container>
+          </div>
+        </LoadingSpinner>
+      </MainContent>
     </PageWrapper>
   );
 };
