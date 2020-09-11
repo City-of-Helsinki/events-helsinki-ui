@@ -252,6 +252,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
         className={styles.toggleButton}
         onClick={handleToggleButtonClick}
         ref={toggleButton}
+        type="button"
       >
         {!!value.length && <div className={styles.isSelectedIndicator} />}
         <div className={styles.iconWrapper}>{icon}</div>

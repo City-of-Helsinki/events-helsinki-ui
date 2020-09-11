@@ -1,15 +1,12 @@
-@import "colors";
-@import "fonts";
-@import "layout";
-@import "variables";
+@import 'layout';
 
 .eventLocationContainer {
-  background-color: $hel-black-10;
-  padding: $basePadding;
-  margin: $largeMargin (0 - $basePadding) $largeMargin;
+  background-color: #f4f4f4;
+  padding: var(--spacing-s);
+  margin: var(--spacing-xl) -0.75rem var(--spacing-xl);
 
   @include respond_above(sm) {
-    margin: $largeMargin 0 $largeMargin;
+    margin: var(--spacing-xl) 0 var(--spacing-xl);
   }
 }
 
@@ -19,67 +16,66 @@
 
 .title {
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-s);
   flex: 1 1 0%;
+  align-items: center;
 
   svg {
-    height: 1.25rem;
-    width: 1.25rem;
-    margin-right: 0.5rem;
+    margin-right: var(--spacing-xs);
   }
 
   h2 {
     margin: 0;
-    font-size: $font-size-lg;
+    font-size: var(--fontsize-body-medium);
   }
 }
 
 .mapLink {
   display: inline-flex;
   align-items: center;
-  color: $hel-black;
-  font-size: $font-size-sm;
+  color: var(--color-black);
+  font-size: var(--fontsize-body-small);
   text-decoration: none;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-s);
 
   &:hover {
     text-decoration: underline;
   }
 
   svg {
-    margin-left: 0.5rem;
-    fill: $hel-black;
+    margin-left: var(--spacing-2-xs);
+    fill: var(--color-black);
   }
 }
 
 .eventName {
-  font-size: $h3-font-size;
-  font-weight: $font-weight-bold;
-  margin: 1rem 0 0.5rem;
+  font-size: var(--fontsize-h-3);
+  font-weight: 600;
+  margin: var(--spacing-s) 0 var(--spacing-xs);
 }
 
 .location {
-  font-size: $font-size-lg;
+  font-size: var(--fontsize-body-medium);
   margin-bottom: 0.5rem;
 }
 
 .directionsLink {
   display: inline-flex;
   align-items: center;
-  color: $dark-green;
-  margin-right: 2rem;
-  font-size: $font-size-lg;
-  font-weight: $link-font-weight;
+  color: var(--color-tram-dark-50);
+  margin-right: var(--spacing-l);
+  font-size: var(--fontsize-body-medium);
+  font-weight: 500;
   text-decoration: none;
-  margin-top: 0.5rem;
+  margin-top: var(--spacing-xs);
 
   &:hover {
     text-decoration: underline;
   }
 
   svg {
-    margin-left: 1rem;
-    fill: $dark-green;
+    margin-left: var(--spacing-2-xs);
+    fill: var(--color-tram-dark-50);
   }
 }
 

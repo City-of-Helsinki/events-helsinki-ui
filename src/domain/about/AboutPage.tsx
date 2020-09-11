@@ -1,6 +1,7 @@
 import React from 'react';
 
 import useLocale from '../../hooks/useLocale';
+import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import styles from './aboutPage.module.scss';
 import AboutPageEn from './AboutPageEn';
@@ -20,9 +21,10 @@ const AboutPage: React.FC = () => {
         return <AboutPageSv />;
     }
   };
+
   return (
     <PageWrapper className={styles.aboutPage} title="about.title">
-      {getLocaleAboutPage()}
+      <MainContent offset={-70}>{getLocaleAboutPage()}</MainContent>
     </PageWrapper>
   );
 };

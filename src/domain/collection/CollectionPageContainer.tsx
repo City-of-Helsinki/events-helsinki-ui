@@ -12,6 +12,7 @@ import {
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import { ROUTES } from '../app/constants';
+import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import CollectionHero from './collectionHero/CollectionHero';
 import styles from './collectionPage.module.scss';
@@ -92,22 +93,24 @@ const CollectionPageContainer: React.FC = () => {
       className={styles.collectionPageWrapper}
       title="collection.title"
     >
-      <LoadingSpinner isLoading={loading}>
-        {!!collection && <CollectionPageMeta collection={collection} />}
-        {error
-          ? renderErrorHero(error)
-          : !!collection && (
-              <>
-                {draft && <PreviewBanner />}
-                <CollectionHero collection={collection} />
-                <CuratedEventList collection={collection} />
-                <EventList collection={collection} />
-              </>
-            )}
-        {!!collection && !draft && (
-          <SimilarCollections collection={collection} />
-        )}
-      </LoadingSpinner>
+      <MainContent offset={-70}>
+        <LoadingSpinner isLoading={loading}>
+          {!!collection && <CollectionPageMeta collection={collection} />}
+          {error
+            ? renderErrorHero(error)
+            : !!collection && (
+                <>
+                  {draft && <PreviewBanner />}
+                  <CollectionHero collection={collection} />
+                  <CuratedEventList collection={collection} />
+                  <EventList collection={collection} />
+                </>
+              )}
+          {!!collection && !draft && (
+            <SimilarCollections collection={collection} />
+          )}
+        </LoadingSpinner>
+      </MainContent>
     </PageWrapper>
   );
 };

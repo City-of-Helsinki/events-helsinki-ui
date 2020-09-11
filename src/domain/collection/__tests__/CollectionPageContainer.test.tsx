@@ -1,4 +1,5 @@
 import { screen, waitFor } from '@testing-library/react';
+import { axe } from 'jest-axe';
 import React from 'react';
 
 import mockCollection from '../__mocks__/collection';
@@ -37,7 +38,7 @@ const getMocks = (
   },
 ];
 
-it('matches snapshot', async () => {
+it('component should be accessible', async () => {
   const mocks = getMocks(mockCollection, false);
   const { container } = renderWithRoute(<CollectionPageContainer />, {
     mocks,
@@ -51,7 +52,7 @@ it('matches snapshot', async () => {
     ).toBeInTheDocument();
   });
 
-  expect(container.firstChild).toMatchSnapshot();
+  expect(await axe(container)).toHaveNoViolations();
 });
 
 it('should show PreviewBanner if draft version is requested ', async () => {

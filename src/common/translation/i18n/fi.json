@@ -45,6 +45,7 @@
     "filter": {
       "ariaButtonRemove": "Poista suodatin: {{filter}}"
     },
+    "linkSkipToContent": "Siirry sisältöön",
     "loading": "Ladataan...",
     "multiSelectDropdown": {
       "inputPlaceholder": "Kirjoita hakusana",
@@ -214,7 +215,7 @@
     "ariaButtonCloseMenu": "Sulje valikko",
     "ariaButtonOpenMenu": "Avaa valikko",
     "ariaLabelLogo": "Etusivu",
-    "changeLanguage": "FI kielivalikko",
+    "changeLanguage": "Suomi - kielivalikko",
     "languages": {
       "en": "In English",
       "fi": "Suomeksi",
