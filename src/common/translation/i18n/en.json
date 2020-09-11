@@ -168,6 +168,8 @@
     }
   },
   "eventSearch": {
+    "ariaLiveLoading": "Searching for events",
+    "ariaLiveSearchReady": "{{count}} search results",
     "buttonClearFilters": "Clear filters",
     "buttonLoadMore": "Show more events ({{count}})",
     "event": {

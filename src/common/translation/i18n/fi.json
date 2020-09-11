@@ -168,6 +168,8 @@
     "title": "Ladataan tapahtumaa..."
   },
   "eventSearch": {
+    "ariaLiveLoading": "Haetaan tapahtumia",
+    "ariaLiveSearchReady": "{{count}} hakutulosta",
     "buttonClearFilters": "Tyhjennä hakuehdot",
     "buttonLoadMore": "Näytä lisää tapahtumia ({{count}})",
     "event": {

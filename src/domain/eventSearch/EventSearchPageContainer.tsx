@@ -91,6 +91,13 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
       <SrOnly as="h1">{t('eventSearch.title')}</SrOnly>
       <Search scrollToResultList={scrollToResultList} />
       <div id="resultList">
+        <SrOnly aria-live="polite" aria-atomic={true}>
+          {loading
+            ? t('eventSearch.ariaLiveLoading')
+            : t('eventSearch.ariaLiveSearchReady', {
+                count: eventsData?.eventList.meta.count || 0,
+              })}
+        </SrOnly>
         <LoadingSpinner isLoading={!isFetchingMore && loading}>
           {eventsData && (
             <MainContent offset={-70}>
