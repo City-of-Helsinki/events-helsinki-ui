@@ -9,6 +9,7 @@ import {
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import Container from '../app/layout/Container';
+import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import {
   isCollectionExpired,
@@ -55,7 +56,7 @@ const Home: React.FC = () => {
           </>
         )}
         {!!collectionsData && (
-          <>
+          <MainContent offset={-150}>
             <Container className={styles.searchContainer}>
               <Search />
             </Container>
@@ -74,7 +75,7 @@ const Home: React.FC = () => {
                 </div>
               </Container>
             </div>
-          </>
+          </MainContent>
         )}
       </LoadingSpinner>
     </PageWrapper>

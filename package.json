@@ -164,7 +164,12 @@
       "src/common/translation/i18n/config.tsx",
       "src/common/translation/i18n/init.client.tsx",
       "src/common/translation/i18n/init.server.tsx",
-      "src/domain/app/apollo/apolloClient.ts"
+      "src/domain/app/apollo/apolloClient.ts",
+      "src/util/getDomain.ts",
+      "src/util/getDomainFromRequest.ts",
+      "src/util/scrollToTop.ts",
+      "src/util/testImage.ts",
+      "src/util/updateSitemap.ts"
     ]
   }
 }

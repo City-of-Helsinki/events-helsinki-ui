@@ -5,12 +5,14 @@ import { useMobileMenuContext } from '../../../common/components/mobileMenu/Mobi
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
 import MobileNavigation from '../mobileNavigation/MobileNavigation';
+import SkipLink from '../skipLink/SkipLink';
 import styles from './pageLayout.module.scss';
 
 const PageLayout: FunctionComponent = ({ children }) => {
   const { isMobileMenuOpen } = useMobileMenuContext();
   return (
     <div className={styles.pageLayout}>
+      <SkipLink />
       <Header />
       <MobileNavigation />
 

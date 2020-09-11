@@ -45,6 +45,7 @@
     "filter": {
       "ariaButtonRemove": "Remove filter: {{filter}}"
     },
+    "linkSkipToContent": "Skip to content",
     "loading": "Loading...",
     "multiSelectDropdown": {
       "inputPlaceholder": "Write search word",

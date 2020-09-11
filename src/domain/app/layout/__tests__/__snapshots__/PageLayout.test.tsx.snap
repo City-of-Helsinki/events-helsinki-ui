@@ -4,6 +4,12 @@ exports[`matched snapshot 1`] = `
 <div
   class="pageLayout"
 >
+  <a
+    class="skipLink"
+    href="/#maincontent"
+  >
+    Siirry sisältöön
+  </a>
   <header
     class="headerWrapper"
   >

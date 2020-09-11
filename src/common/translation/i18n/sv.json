@@ -45,6 +45,7 @@
     "filter": {
       "ariaButtonRemove": "Ta bort filter: {{filter}}"
     },
+    "linkSkipToContent": "Gå till innehållet",
     "loading": "Laddning...",
     "multiSelectDropdown": {
       "inputPlaceholder": "Skriv sökord",
