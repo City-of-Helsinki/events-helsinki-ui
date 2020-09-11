@@ -1,15 +1,11 @@
-import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { MemoryRouter } from 'react-router';
 
-import EventCard from '../LargeEventCard';
+import { render, screen } from '../../../../util/testUtils';
+import translations from '../../../translation/i18n/fi.json';
+import LargeEventCard from '../LargeEventCard';
 
-const getWrapper = props =>
-  render(
-    <MemoryRouter>
-      <EventCard {...props} />
-    </MemoryRouter>
-  );
+const getWrapper = (props) => render(<LargeEventCard {...props} />);
 
 test('should show buy button when event has an offer', () => {
   const mockEvent = {
@@ -69,4 +65,33 @@ test('should hide buy button when event is closed', () => {
   const { queryByText } = getWrapper({ event: mockEvent });
 
   expect(queryByText('Osta liput')).toEqual(null);
+});
+
+test('should go to event page', () => {
+  const mockEvent = {
+    endTime: '2017-01-01',
+    id: '123',
+    images: [],
+    keywords: [],
+    name: {},
+    offers: [
+      {
+        infoUrl: {
+          fi: 'https://example.domain',
+        },
+      },
+    ],
+    startTime: '2017-01-01',
+  };
+  const { history } = getWrapper({ event: mockEvent });
+
+  expect(history.location.pathname).toEqual('/');
+
+  userEvent.click(
+    screen.getByRole('button', {
+      name: translations.eventSearch.event.buttonReadMore,
+    })
+  );
+
+  expect(history.location.pathname).toEqual('/fi/event/123');
 });

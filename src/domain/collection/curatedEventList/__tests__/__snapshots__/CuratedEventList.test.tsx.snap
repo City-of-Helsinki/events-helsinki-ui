@@ -24,51 +24,35 @@ exports[`match snapshot 1`] = `
       <div
         class="eventCards"
       >
-        <div
+        <a
           class="eventCard"
+          href="/fi/event/123"
         >
-          <a
-            aria-hidden="true"
-            class="imageWrapper"
-            href="/fi/event/123"
-            style="background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);"
-            tabindex="-1"
-          >
-            <div
-              class="tagWrapper"
-            >
-              <div
-                class="priceWrapper"
-              />
-              <div
-                class="categoryWrapper"
-              >
-                <button
-                  class="keyword hideOnMobile"
-                  type="button"
-                >
-                  Keyword 1 fi
-                </button>
-                <button
-                  class="keyword hideOnMobile"
-                  type="button"
-                >
-                  Keyword 2 fi
-                </button>
-                <button
-                  class="keyword tramLight20"
-                  type="button"
-                >
-                  Maksuton
-                </button>
-              </div>
-            </div>
-          </a>
           <div
             class="infoWrapper"
           >
             <div
-              class="categoryWrapperDesktop"
+              class="eventName"
+            >
+              name fi
+            </div>
+            <div
+              class="eventDateAndTime"
+            >
+              Pe 13.12.2019, klo 10.00
+            </div>
+            <div
+              class="eventLocation"
+            >
+              name fi, streetAddress fi, locality fi
+            </div>
+            <div
+              class="eventPrice"
+            >
+              Maksuton
+            </div>
+            <div
+              class="keywordWrapperDesktop"
             >
               <button
                 class="keyword hideOnMobile"
@@ -90,46 +74,10 @@ exports[`match snapshot 1`] = `
               </button>
             </div>
             <div
-              class="textWrapper"
-            >
-              <div
-                class="eventDateAndTime"
-              >
-                Pe 13.12.2019, klo 10.00
-              </div>
-              <a
-                aria-hidden="true"
-                class="eventName"
-                href="/fi/event/123"
-                tabindex="-1"
-              >
-                name fi
-              </a>
-              <div
-                class="srOnly"
-              >
-                name fi
-              </div>
-              <div
-                class="eventLocation"
-              >
-                name fi, streetAddress fi, locality fi
-              </div>
-              <div
-                class="eventPrice"
-              >
-                Maksuton
-              </div>
-            </div>
-            <div
               class="buttonWrapper"
             >
-              <div
-                class="buyButtonWrapper"
-              />
-              <div
-                class="readMoreButtonWrapper"
-              >
+              <div />
+              <div>
                 <button
                   class="Button-module_button__3wgee button_hds-button__2A0je Button-module_primary__3bo_T button_hds-button--primary__2NVvO Button-module_size-small__2u97E button_hds-button--small__2NFef Button-module_fullWidth__2AR2o button_hds-button--fullwidth__1_hG9 buttonGray"
                   type="button"
@@ -143,7 +91,34 @@ exports[`match snapshot 1`] = `
               </div>
             </div>
           </div>
-        </div>
+          <div
+            class="imageWrapper"
+            style="background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);"
+          >
+            <div
+              class="keywordWrapper"
+            >
+              <button
+                class="keyword hideOnMobile"
+                type="button"
+              >
+                Keyword 1 fi
+              </button>
+              <button
+                class="keyword hideOnMobile"
+                type="button"
+              >
+                Keyword 2 fi
+              </button>
+              <button
+                class="keyword tramLight20"
+                type="button"
+              >
+                Maksuton
+              </button>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>
