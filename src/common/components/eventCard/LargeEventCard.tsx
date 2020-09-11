@@ -22,14 +22,13 @@ import getDateRangeStr from '../../../util/getDateRangeStr';
 import getLocalisedString from '../../../util/getLocalisedString';
 import testImage from '../../../util/testImage';
 import buttonStyles from '../button/button.module.scss';
-import SrOnly from '../srOnly/SrOnly';
 import styles from './largeEventCard.module.scss';
 
 interface Props {
   event: EventFieldsFragment;
 }
 
-const EventCard: React.FC<Props> = ({ event }) => {
+const LargeEventCard: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
@@ -79,107 +78,91 @@ const EventCard: React.FC<Props> = ({ event }) => {
   }, [imageUrl]);
 
   return (
-    <div
+    <Link
       className={classNames(styles.eventCard, {
         [styles.eventClosed]: eventClosed,
       })}
+      to={eventUrl}
     >
-      <Link
-        aria-hidden={true}
-        className={styles.imageWrapper}
-        style={{
-          backgroundImage: `url(${
-            showBackupImage ? placeholderImage : imageUrl
-          })`,
-        }}
-        tabIndex={-1}
-        to={eventUrl}
-      >
-        <div className={styles.tagWrapper}>
-          <div className={styles.priceWrapper}></div>
-
-          <div className={styles.categoryWrapper}>
-            <EventKeywords
-              event={event}
-              hideKeywordsOnMobile={true}
-              showIsFree={true}
-            />
-          </div>
-        </div>
-      </Link>
+      {/* INFO WRAPPER. Re-order info wrapper and text wrapper on css */}
       <div className={styles.infoWrapper}>
-        <div className={styles.categoryWrapperDesktop}>
+        <div className={styles.eventName}>
+          <EventName event={event} />
+        </div>
+        <div className={styles.eventDateAndTime}>
+          {!!startTime &&
+            getDateRangeStr(
+              startTime,
+              endTime,
+              locale,
+              true,
+              true,
+              t('commons.timeAbbreviation')
+            )}
+        </div>
+        <div className={styles.eventLocation}>
+          <LocationText
+            event={event}
+            showDistrict={false}
+            showLocationName={true}
+          />
+        </div>
+        <div className={styles.eventPrice}>
+          {getEventPrice(event, locale, t('eventSearch.event.offers.isFree'))}
+        </div>
+        <div className={styles.keywordWrapperDesktop}>
           <EventKeywords
             event={event}
             hideKeywordsOnMobile={true}
             showIsFree={true}
           />
         </div>
-        <div className={styles.textWrapper}>
-          <div className={styles.eventDateAndTime}>
-            {!!startTime &&
-              getDateRangeStr(
-                startTime,
-                endTime,
-                locale,
-                true,
-                true,
-                t('commons.timeAbbreviation')
-              )}
-          </div>
-          <Link
-            aria-hidden="true"
-            className={styles.eventName}
-            tabIndex={-1}
-            to={eventUrl}
-          >
-            <EventName event={event} />
-          </Link>
-          {/* Event name for screen readers  */}
-          <SrOnly>
-            <EventName event={event} />
-          </SrOnly>
-          <div className={styles.eventLocation}>
-            <LocationText
-              event={event}
-              showDistrict={false}
-              showLocationName={true}
-            />
-          </div>
-          <div className={styles.eventPrice}>
-            {getEventPrice(event, locale, t('eventSearch.event.offers.isFree'))}
-          </div>
-        </div>
         <div className={styles.buttonWrapper}>
-          <>
-            <div className={classNames(styles.buyButtonWrapper)}>
-              {showBuyButton && (
-                <Button
-                  aria-label={t('eventSearch.event.ariaLabelBuyTickets')}
-                  fullWidth
-                  onClick={moveToBuyTicketsPage}
-                  size="small"
-                  variant="success"
-                >
-                  {t('eventSearch.event.buttonBuyTickets')}
-                </Button>
-              )}
-            </div>
-            <div className={classNames(styles.readMoreButtonWrapper)}>
+          <div>
+            {showBuyButton && (
               <Button
-                className={buttonStyles.buttonGray}
+                aria-label={t('eventSearch.event.ariaLabelBuyTickets')}
                 fullWidth
-                onClick={moveToEventPage}
+                onClick={moveToBuyTicketsPage}
                 size="small"
+                variant="success"
               >
-                {t('eventSearch.event.buttonReadMore')}
+                {t('eventSearch.event.buttonBuyTickets')}
               </Button>
-            </div>
-          </>
+            )}
+          </div>
+          <div>
+            <Button
+              className={buttonStyles.buttonGray}
+              fullWidth
+              onClick={moveToEventPage}
+              size="small"
+            >
+              {t('eventSearch.event.buttonReadMore')}
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* IMAGE WRAPPER */}
+      <div
+        className={styles.imageWrapper}
+        style={{
+          backgroundImage: `url(${
+            showBackupImage ? placeholderImage : imageUrl
+          })`,
+        }}
+      >
+        <div className={styles.keywordWrapper}>
+          <EventKeywords
+            event={event}
+            hideKeywordsOnMobile={true}
+            showIsFree={true}
+          />
+        </div>
+      </div>
+    </Link>
   );
 };
 
-export default EventCard;
+export default LargeEventCard;
