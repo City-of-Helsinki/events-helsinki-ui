@@ -34,8 +34,7 @@ test('applies expected metadata', async () => {
     mockLandingPage.pageTitle && mockLandingPage.pageTitle.fi;
   const landingPageDescription =
     mockLandingPage.metaInformation && mockLandingPage.metaInformation.fi;
-  const landingPageImage =
-    mockLandingPage.socialMediaImage && mockLandingPage.socialMediaImage.fi;
+  const landingPageImage = mockLandingPage.socialMediaImage?.fi?.url;
 
   // This function is usually used for the helpers it returns. However, the
   // scope f the helpers is limited to `body`. As we need to assert against

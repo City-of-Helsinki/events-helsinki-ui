@@ -25,7 +25,7 @@ export const getHeroBackgroundImage = (
   landingPage: LandingPageFieldsFragment,
   locale: Language
 ): string => {
-  return (landingPage.heroBackgroundImage || {})[locale] || '';
+  return (landingPage.heroBackgroundImage || {})[locale]?.url || '';
 };
 
 /**
@@ -38,7 +38,7 @@ export const getHeroBackgroundImageMobile = (
   landingPage: LandingPageFieldsFragment,
   locale: Language
 ): string => {
-  return (landingPage.heroBackgroundImageMobile || {})[locale] || '';
+  return (landingPage.heroBackgroundImageMobile || {})[locale]?.url || '';
 };
 
 /**
@@ -81,7 +81,7 @@ export const getHeroTopLayerImage = (
   landingPage: LandingPageFieldsFragment,
   locale: Language
 ): string => {
-  return (landingPage.heroTopLayerImage || {})[locale] || '';
+  return (landingPage.heroTopLayerImage || {})[locale]?.url || '';
 };
 
 /**
@@ -93,6 +93,6 @@ export const getLandingPageSomeImageUrl = (
   landingPage: LandingPageFieldsFragment,
   locale: Language
 ): string => {
-  const image = (landingPage.socialMediaImage || {})[locale];
+  const image = (landingPage.socialMediaImage || {})[locale]?.url;
   return image || LANDING_PAGE_SOME_IMAGE;
 };

@@ -113,8 +113,8 @@ it('all the event cards should be visible and load more button should load more 
       name: translations.eventSearch.buttonLoadMore.replace(
         '{{count}}',
         (
-          mockEventSearchLoadMoreResponse.data.eventList.meta.count -
-          mockEventSearchLoadMoreResponse.data.eventList.data.length
+          mockEventSearchResponse.data.eventList.meta.count -
+          mockEventSearchResponse.data.eventList.data.length
         ).toString()
       ),
     })

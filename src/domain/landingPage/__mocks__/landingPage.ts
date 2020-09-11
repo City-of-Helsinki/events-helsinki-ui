@@ -26,10 +26,22 @@ export const landingPage: LandingPageFieldsFragment = {
     sv: 'WHITE',
   },
   heroBackgroundImage: {
-    __typename: 'LocalizedObject',
-    en: 'testimage.png',
-    fi: 'testimage.png',
-    sv: 'testimage.png',
+    __typename: 'LocalizedCmsImage',
+    en: {
+      __typename: 'CmsImage',
+      photographerCredit: 'Photographer',
+      url: 'testimage.png',
+    },
+    fi: {
+      __typename: 'CmsImage',
+      photographerCredit: 'Photographer',
+      url: 'testimage.png',
+    },
+    sv: {
+      __typename: 'CmsImage',
+      photographerCredit: 'Photographer',
+      url: 'testimage.png',
+    },
   },
   heroBackgroundImageColor: {
     __typename: 'LocalizedObject',
@@ -38,16 +50,40 @@ export const landingPage: LandingPageFieldsFragment = {
     sv: 'FOG',
   },
   heroBackgroundImageMobile: {
-    __typename: 'LocalizedObject',
-    en: 'testimagemobile.png',
-    fi: 'testimagemobile.png',
-    sv: 'testimagemobile.png',
+    __typename: 'LocalizedCmsImage',
+    en: {
+      __typename: 'CmsImage',
+      photographerCredit: 'Photographer',
+      url: 'testimagemobile.png',
+    },
+    fi: {
+      __typename: 'CmsImage',
+      photographerCredit: 'Photographer',
+      url: 'testimagemobile.png',
+    },
+    sv: {
+      __typename: 'CmsImage',
+      photographerCredit: 'Photographer',
+      url: 'testimagemobile.png',
+    },
   },
   heroTopLayerImage: {
-    __typename: 'LocalizedObject',
-    en: 'toplayerimage.png',
-    fi: 'toplayerimage.png',
-    sv: 'toplayerimage.png',
+    __typename: 'LocalizedCmsImage',
+    en: {
+      __typename: 'CmsImage',
+      photographerCredit: 'Photographer',
+      url: 'toplayerimage.png',
+    },
+    fi: {
+      __typename: 'CmsImage',
+      photographerCredit: 'Photographer',
+      url: 'toplayerimage.png',
+    },
+    sv: {
+      __typename: 'CmsImage',
+      photographerCredit: 'Photographer',
+      url: 'toplayerimage.png',
+    },
   },
   id: '8',
   metaInformation: {
@@ -63,10 +99,22 @@ export const landingPage: LandingPageFieldsFragment = {
     sv: 'Page title sv:',
   },
   socialMediaImage: {
-    __typename: 'LocalizedObject',
-    en: 'socialMediaImage.png',
-    fi: 'socialMediaImage.png',
-    sv: 'socialMediaImage.png',
+    __typename: 'LocalizedCmsImage',
+    en: {
+      __typename: 'CmsImage',
+      photographerCredit: 'Photographer',
+      url: 'socialMediaImage.png',
+    },
+    fi: {
+      __typename: 'CmsImage',
+      photographerCredit: 'Photographer',
+      url: 'socialMediaImage.png',
+    },
+    sv: {
+      __typename: 'CmsImage',
+      photographerCredit: 'Photographer',
+      url: 'socialMediaImage.png',
+    },
   },
   title: {
     __typename: 'LocalizedObject',

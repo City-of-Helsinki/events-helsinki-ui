@@ -3,7 +3,9 @@ import gql from 'graphql-tag';
 export const QUERY_COLLECTION_DETAILS = gql`
   fragment collectionFields on CollectionDetails {
     id
-    heroImage
+    heroImage {
+      ...cmsImageFields
+    }
     boxColor
     curatedEvents
     curatedEventsTitle {
