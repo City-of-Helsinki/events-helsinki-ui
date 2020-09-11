@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { IconArrowRight } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import { ROUTES } from '../../../domain/app/constants';
@@ -20,15 +20,15 @@ import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import getLocalisedString from '../../../util/getLocalisedString';
 import testImage from '../../../util/testImage';
-import IconLink from '../link/IconLink';
-import SrOnly from '../srOnly/SrOnly';
+import IconButton from '../iconButton/IconButton';
 import styles from './eventCard.module.scss';
 
 interface Props {
   event: EventFieldsFragment;
 }
 
-const SimilarEventCard: React.FC<Props> = ({ event }) => {
+const EventCard: React.FC<Props> = ({ event }) => {
+  const history = useHistory();
   const { search } = useLocation();
   const { t } = useTranslation();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
@@ -46,6 +46,10 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
 
   const eventClosed = isEventClosed(event);
 
+  const goToEventPage = () => {
+    history.push(eventUrl);
+  };
+
   React.useEffect(() => {
     if (imageUrl) {
       const testThatImageExist = async () => {
@@ -61,98 +65,77 @@ const SimilarEventCard: React.FC<Props> = ({ event }) => {
   }, [imageUrl]);
 
   return (
-    <div
+    <Link
+      aria-label={t('commons.eventCard.ariaLabelLink', {
+        name: getLocalisedString(name, locale),
+      })}
       className={classNames(styles.eventCard, {
         [styles.eventClosed]: eventClosed,
       })}
+      to={eventUrl}
     >
-      <Link
-        aria-hidden={true}
-        aria-label={t('commons.eventCard.ariaLabelLink', {
-          name: getLocalisedString(name, locale),
-        })}
+      {/* INFO WRAPPER. Re-order info wrapper and text wrapper on css */}
+      <div className={styles.infoWrapper}>
+        <div className={styles.textWrapper}>
+          <div className={styles.eventName}>
+            <EventName event={event} />
+          </div>
+          <div className={styles.eventDateAndTime}>
+            {!!startTime &&
+              getDateRangeStr(
+                startTime,
+                endTime,
+                locale,
+                false,
+                true,
+                t('commons.timeAbbreviation')
+              )}
+          </div>
+          <div className={styles.eventLocation}>
+            <LocationText
+              event={event}
+              showDistrict={false}
+              showLocationName={true}
+            />
+          </div>
+          <div className={styles.eventPrice}>
+            {getEventPrice(event, locale, t('eventSearch.event.offers.isFree'))}
+          </div>
+
+          <div className={styles.keywordWrapperMobile}>
+            <EventKeywords
+              event={event}
+              showIsFree={true}
+              showKeywords={false}
+            />
+          </div>
+        </div>
+        <div className={styles.buttonWrapper}>
+          <IconButton
+            ariaLabel={t('commons.eventCard.ariaLabelLink', {
+              name: getLocalisedString(name, locale),
+            })}
+            icon={<IconArrowRight />}
+            onClick={goToEventPage}
+            size="default"
+          />
+        </div>
+      </div>
+      {/* IMAGE WRAPPER */}
+      <div
         className={styles.imageWrapper}
         style={{
           backgroundImage: `url(${
             showBackupImage ? placeholderImage : imageUrl
           })`,
         }}
-        tabIndex={-1}
-        to={eventUrl}
       >
-        <div className={styles.tagWrapperDesktop}>
-          <div className={styles.priceWrapper}></div>
-
-          <div className={styles.categoryWrapper}>
-            <EventKeywords
-              event={event}
-              showIsFree={true}
-              showKeywords={false}
-            />
-          </div>
-        </div>
-      </Link>
-      <div className={styles.infoWrapper}>
-        <div>
-          <div className={styles.categoryWrapperMobile}>
-            <EventKeywords
-              event={event}
-              showIsFree={true}
-              showKeywords={false}
-            />
-          </div>
-          <div className={styles.textWrapper}>
-            <div className={styles.eventDateAndTime}>
-              {!!startTime &&
-                getDateRangeStr(
-                  startTime,
-                  endTime,
-                  locale,
-                  false,
-                  true,
-                  t('commons.timeAbbreviation')
-                )}
-            </div>
-            <Link
-              aria-hidden="true"
-              className={styles.eventName}
-              tabIndex={-1}
-              to={eventUrl}
-            >
-              <EventName event={event} />
-            </Link>
-            {/* Event name for screen readers  */}
-            <SrOnly>
-              <EventName event={event} />
-            </SrOnly>
-            <div className={styles.eventLocation}>
-              <LocationText
-                event={event}
-                showDistrict={false}
-                showLocationName={true}
-              />
-            </div>
-            <div className={styles.eventPrice}>
-              {getEventPrice(
-                event,
-                locale,
-                t('eventSearch.event.offers.isFree')
-              )}
-            </div>
-          </div>
-        </div>
-        <div className={styles.buttonWrapper}>
-          <IconLink
-            aria-label={t('commons.eventCard.ariaLabelLink', {
-              name: getLocalisedString(name, locale),
-            })}
-            icon={<IconArrowRight />}
-            to={eventUrl}
-          />
+        <div className={styles.keywordWrapperDesktop}>
+          <EventKeywords event={event} showIsFree={true} showKeywords={false} />
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
-export default SimilarEventCard;
+export default EventCard;
