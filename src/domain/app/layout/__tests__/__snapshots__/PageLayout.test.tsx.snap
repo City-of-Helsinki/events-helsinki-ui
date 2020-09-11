@@ -111,7 +111,7 @@ exports[`matched snapshot 1`] = `
           <button
             aria-expanded="false"
             aria-haspopup="true"
-            aria-label="FI kielivalikko"
+            aria-label="Suomi - kielivalikko"
             class="languageDropdownButton"
             data-testid="language-dropdown-button"
           >
@@ -163,27 +163,33 @@ exports[`matched snapshot 1`] = `
           >
             <li
               class="isSelected"
-              lang="fi"
               role="menuitem"
-              tabindex="0"
             >
-              Suomeksi
+              <button
+                lang="fi"
+              >
+                Suomeksi
+              </button>
             </li>
             <li
               class=""
-              lang="sv"
               role="menuitem"
-              tabindex="0"
             >
-              På svenska
+              <button
+                lang="sv"
+              >
+                På svenska
+              </button>
             </li>
             <li
               class=""
-              lang="en"
               role="menuitem"
-              tabindex="0"
             >
-              In English
+              <button
+                lang="en"
+              >
+                In English
+              </button>
             </li>
           </ul>
         </div>

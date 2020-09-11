@@ -36,11 +36,15 @@ describe('ArrowUp, ArrowDown', () => {
     arrowDownKeyPressHelper();
     arrowDownKeyPressHelper();
 
-    expect(getByText(languageOptions[1].label)).toHaveClass('isFocused');
+    expect(getByText(languageOptions[1].label).parentElement).toHaveClass(
+      'isFocused'
+    );
 
     arrowUpKeyPressHelper();
 
-    expect(getByText(languageOptions[0].label)).toHaveClass('isFocused');
+    expect(getByText(languageOptions[0].label).parentElement).toHaveClass(
+      'isFocused'
+    );
   });
 
   test('should select last item if the first keyboard navigation is button up', () => {
@@ -52,7 +56,7 @@ describe('ArrowUp, ArrowDown', () => {
 
     arrowUpKeyPressHelper();
     expect(
-      getByText(languageOptions[languageOptions.length - 1].label)
+      getByText(languageOptions[languageOptions.length - 1].label).parentElement
     ).toHaveClass('isFocused');
   });
 
@@ -67,7 +71,9 @@ describe('ArrowUp, ArrowDown', () => {
     arrowDownKeyPressHelper();
 
     // First element should have focus
-    expect(getByText(languageOptions[0].label)).toHaveClass('isFocused');
+    expect(getByText(languageOptions[0].label).parentElement).toHaveClass(
+      'isFocused'
+    );
   });
 });
 
