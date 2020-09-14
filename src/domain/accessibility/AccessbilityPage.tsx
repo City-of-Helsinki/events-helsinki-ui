@@ -1,11 +1,10 @@
-import unescape from 'lodash/unescape';
 import React from 'react';
-import sanitizeHtml from 'sanitize-html';
 
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import Hero from '../../common/components/staticPageHero/StaticPageHero';
 import { useAccessibilityPagesQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
+import sanitizeHtml from '../../util/sanitizeHtml';
 import Container from '../app/layout/Container';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -34,7 +33,7 @@ const AboutPage: React.FC = () => {
             <Hero>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: sanitizeHtml(unescape(headingSection)),
+                  __html: sanitizeHtml(headingSection),
                 }}
               />
             </Hero>
@@ -43,7 +42,7 @@ const AboutPage: React.FC = () => {
             <Container>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: sanitizeHtml(unescape(contentSection)),
+                  __html: sanitizeHtml(contentSection),
                 }}
               />
             </Container>

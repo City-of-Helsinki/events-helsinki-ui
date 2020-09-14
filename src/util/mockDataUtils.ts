@@ -2,6 +2,7 @@
 import faker from 'faker';
 
 import {
+  AboutPagesResponse,
   AccessibilityPagesResponse,
   EventDetails,
   EventListResponse,
@@ -111,6 +112,14 @@ export const fakeKeyword = (overrides?: Partial<Keyword>): Keyword => ({
   internalId: 'https://api.hel.fi/linkedevents-test/v1/keyword/yso:p4363/',
   __typename: 'Keyword',
   ...overrides,
+});
+
+export const fakeAboutPages = (
+  count = 1,
+  aboutPages?: Partial<StaticPage>[]
+): AboutPagesResponse => ({
+  data: generateNodeArray((i) => fakeStaticPage(aboutPages?.[i]), count),
+  __typename: 'AboutPagesResponse',
 });
 
 export const fakeAccessibilityPages = (

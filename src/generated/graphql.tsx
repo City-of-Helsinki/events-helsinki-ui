@@ -12,6 +12,11 @@ export type Scalars = {
   Float: number,
 };
 
+export type AboutPagesResponse = {
+   __typename?: 'AboutPagesResponse',
+  data: Array<StaticPage>,
+};
+
 export type AccessibilityPagesResponse = {
    __typename?: 'AccessibilityPagesResponse',
   data: Array<StaticPage>,
@@ -351,6 +356,7 @@ export type PlacePosition = {
 export type Query = {
    __typename?: 'Query',
   _empty?: Maybe<Scalars['String']>,
+  aboutPages: AboutPagesResponse,
   accessibilityPages: AccessibilityPagesResponse,
   collectionDetails: CollectionDetails,
   collectionList: CollectionListResponse,
@@ -513,6 +519,20 @@ export type StaticPageFieldsFragment = (
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
   )> }
+);
+
+export type AboutPagesQueryVariables = {};
+
+
+export type AboutPagesQuery = (
+  { __typename?: 'Query' }
+  & { aboutPages: (
+    { __typename?: 'AboutPagesResponse' }
+    & { data: Array<(
+      { __typename?: 'StaticPage' }
+      & StaticPageFieldsFragment
+    )> }
+  ) }
 );
 
 export type AccessibilityPagesQueryVariables = {};
@@ -1217,6 +1237,51 @@ export const OrganizationFieldsFragmentDoc = gql`
   name
 }
     `;
+export const AboutPagesDocument = gql`
+    query AboutPages {
+  aboutPages {
+    data {
+      ...staticPageFields
+    }
+  }
+}
+    ${StaticPageFieldsFragmentDoc}`;
+export type AboutPagesProps<TChildProps = {}> = ApolloReactHoc.DataProps<AboutPagesQuery, AboutPagesQueryVariables> | TChildProps;
+export function withAboutPages<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  AboutPagesQuery,
+  AboutPagesQueryVariables,
+  AboutPagesProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, AboutPagesQuery, AboutPagesQueryVariables, AboutPagesProps<TChildProps>>(AboutPagesDocument, {
+      alias: 'aboutPages',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useAboutPagesQuery__
+ *
+ * To run a query within a React component, call `useAboutPagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAboutPagesQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAboutPagesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAboutPagesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AboutPagesQuery, AboutPagesQueryVariables>) {
+        return ApolloReactHooks.useQuery<AboutPagesQuery, AboutPagesQueryVariables>(AboutPagesDocument, baseOptions);
+      }
+export function useAboutPagesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AboutPagesQuery, AboutPagesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<AboutPagesQuery, AboutPagesQueryVariables>(AboutPagesDocument, baseOptions);
+        }
+export type AboutPagesQueryHookResult = ReturnType<typeof useAboutPagesQuery>;
+export type AboutPagesLazyQueryHookResult = ReturnType<typeof useAboutPagesLazyQuery>;
+export type AboutPagesQueryResult = ApolloReactCommon.QueryResult<AboutPagesQuery, AboutPagesQueryVariables>;
 export const AccessibilityPagesDocument = gql`
     query AccessibilityPages {
   accessibilityPages {
