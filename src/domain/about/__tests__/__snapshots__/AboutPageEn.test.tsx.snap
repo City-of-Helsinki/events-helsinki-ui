@@ -2,7 +2,7 @@
 
 exports[`matches snapshot 1`] = `
 <div
-  class="hero"
+  class="staticPageHero"
 >
   <div
     class="container"

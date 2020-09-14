@@ -3,12 +3,12 @@ import React from 'react';
 
 import Container from '../../../domain/app/layout/Container';
 import isTestEnv from '../../../util/isTestEnv';
-import styles from './hero.module.scss';
+import styles from './staticPageHero.module.scss';
 
-const NotFound: React.FC = ({ children }) => {
+const StaticPageHero: React.FC = ({ children }) => {
   return (
     <>
-      <div className={styles.hero}>
+      <div className={styles.staticPageHero}>
         <Container>{children}</Container>
       </div>
 
@@ -20,4 +20,4 @@ const NotFound: React.FC = ({ children }) => {
   );
 };
 
-export default NotFound;
+export default StaticPageHero;

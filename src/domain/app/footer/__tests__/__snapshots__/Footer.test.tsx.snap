@@ -559,6 +559,11 @@ exports[`matches snapshot 1`] = `
             Tietoa palvelusta
           </a>
           <a
+            href="/fi/accessibility"
+          >
+            Saavutettavuus­seloste
+          </a>
+          <a
             href="https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta"
           >
             Anna palautetta

@@ -8,6 +8,7 @@ import { Redirect, Route, RouteComponentProps, Switch } from 'react-router';
 
 import { SUPPORT_LANGUAGES } from '../../constants';
 import AboutPage from '../about/AboutPage';
+import AccessbilityPage from '../accessibility/AccessbilityPage';
 import CollectionPageContainer from '../collection/CollectionPageContainer';
 import CollectionListPage from '../collectionList/CollectionListPage';
 import EventPageContainer from '../event/EventPageContainer';
@@ -40,6 +41,11 @@ const App: FunctionComponent<RouteComponentProps<{
         component={LandingPagePreview}
       />
       <Route exact path={`/${locale}${ROUTES.ABOUT}`} component={AboutPage} />
+      <Route
+        exact
+        path={`/${locale}${ROUTES.ACCESSIBILITY}`}
+        component={AccessbilityPage}
+      />
       <Route
         exact
         path={`/${locale}${ROUTES.COLLECTIONS}`}
