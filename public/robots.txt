@@ -1,5 +1,6 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
+Disallow: /*/about
 Disallow: /*/accessibility
 Disallow: /*/events
 Disallow: /*/collections
