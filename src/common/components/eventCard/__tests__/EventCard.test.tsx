@@ -1,25 +1,47 @@
-import { shallow } from 'enzyme';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
-import routeData, { MemoryRouter } from 'react-router';
 
 import mockEvent from '../../../../domain/event/__mocks__/eventDetails';
+import { render, screen } from '../../../../util/testUtils';
+import translations from '../../../translation/i18n/fi.json';
 import EventCard from '../EventCard';
 
-const mockLocation = {
-  hash: '',
-  pathname: '/fi/home',
-  search: '',
-  state: '',
-};
-beforeEach(() => {
-  jest.spyOn(routeData, 'useLocation').mockReturnValue(mockLocation);
+it('matches snapshot', () => {
+  const { container } = render(<EventCard event={mockEvent} />);
+
+  expect(container.firstChild).toMatchSnapshot();
 });
 
-it('EventCard matches snapshot', () => {
-  const container = shallow(
-    <MemoryRouter>
-      <EventCard event={mockEvent} />
-    </MemoryRouter>
+test('should go to event page', () => {
+  const { history } = render(<EventCard event={mockEvent} />);
+
+  expect(history.location.pathname).toEqual('/');
+
+  userEvent.click(
+    screen.getByRole('button', {
+      name: translations.commons.eventCard.ariaLabelLink.replace(
+        '{{name}}',
+        mockEvent.name.fi as string
+      ),
+    })
   );
-  expect(container.html()).toMatchSnapshot();
+
+  expect(history.location.pathname).toEqual(`/fi/event/${mockEvent.id}`);
+});
+
+test('should go to event page', () => {
+  const { history } = render(<EventCard event={mockEvent} />);
+
+  expect(history.location.pathname).toEqual('/');
+
+  userEvent.click(
+    screen.getByRole('button', {
+      name: translations.commons.eventCard.ariaLabelLink.replace(
+        '{{name}}',
+        mockEvent.name.fi as string
+      ),
+    })
+  );
+
+  expect(history.location.pathname).toEqual(`/fi/event/${mockEvent.id}`);
 });

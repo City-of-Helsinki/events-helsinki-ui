@@ -168,6 +168,8 @@
     "title": "Laddar evenemang..."
   },
   "eventSearch": {
+    "ariaLiveLoading": "Söker efter evenemang",
+    "ariaLiveSearchReady": "{{count}} sökresultat",
     "buttonClearFilters": "Töm sökfilter",
     "buttonLoadMore": "Visa fler evenemang ({{count}})",
     "event": {

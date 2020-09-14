@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 
-import SimilarEventCard from '../../../common/components/eventCard/EventCard';
+import EventCard from '../../../common/components/eventCard/EventCard';
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
   EventFieldsFragment,
@@ -33,6 +33,7 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
     ...DEFAULT_SEARCH_FILTERS,
     keyword: event.keywords.map((keyword) => keyword.id || '').filter((e) => e),
   });
+
   // Filter by search query if exists, if not filter by event keywords
   const searchParams = new URLSearchParams(search ? search : eventSearch);
   const eventFilters = React.useMemo(() => {
@@ -72,7 +73,7 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
             </h2>
             <div className={styles.similarEventList}>
               {events.map((item) => {
-                return <SimilarEventCard key={item.id} event={item} />;
+                return <EventCard key={item.id} event={item} />;
               })}
             </div>
           </>

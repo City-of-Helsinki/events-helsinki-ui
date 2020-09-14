@@ -100,12 +100,12 @@ it('all the event cards should be visible and load more button should load more 
     expect(
       screen.getAllByText(
         mockEventSearchResponse.data.eventList.data[0].name.fi
-      ).length
-    ).toBeGreaterThan(1);
+      )
+    ).toHaveLength(1);
   });
 
   mockEventSearchResponse.data.eventList.data.forEach((event) => {
-    expect(screen.getAllByText(event.name.fi).length).toBeGreaterThan(1);
+    expect(screen.getAllByText(event.name.fi)).toHaveLength(1);
   });
 
   userEvent.click(
@@ -124,11 +124,11 @@ it('all the event cards should be visible and load more button should load more 
     expect(
       screen.getAllByText(
         mockEventSearchLoadMoreResponse.data.eventList.data[0].name.fi
-      ).length
-    ).toBeGreaterThan(1);
+      )
+    ).toHaveLength(1);
   });
 
   mockEventSearchLoadMoreResponse.data.eventList.data.forEach((event) => {
-    expect(screen.getAllByText(event.name.fi).length).toBeGreaterThan(1);
+    expect(screen.getAllByText(event.name.fi).length).toBeGreaterThanOrEqual(1);
   });
 });

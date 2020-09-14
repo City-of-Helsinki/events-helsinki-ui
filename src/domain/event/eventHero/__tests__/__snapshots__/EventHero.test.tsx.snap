@@ -1,36 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EventHero matches snapshot 1`] = `
+exports[`matches snapshot 1`] = `
 <div
-  className="heroWrapper"
+  class="heroWrapper"
 >
   <div
-    className="container"
+    class="container"
   >
     <div
-      className="contentWrapper"
+      class="contentWrapper"
     >
       <div
-        className="backButtonWrapper"
+        class="backButtonWrapper"
       >
         <a
           aria-label="Takaisin tapahtumahakuun"
-          className="iconLink white"
+          class="iconLink white"
           href="/fi/events"
-          onClick={[Function]}
         >
           <div
-            className="iconWrapper"
+            class="iconWrapper"
           >
             <svg
-              className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-              style={Object {}}
+              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <g
                 fill="none"
-                fillRule="evenodd"
+                fill-rule="evenodd"
               >
                 <path
                   d="M0 0h24v24H0z"
@@ -46,75 +44,45 @@ exports[`EventHero matches snapshot 1`] = `
       </div>
       <div>
         <div
-          className="image"
-          style={
-            Object {
-              "backgroundImage": "url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg)",
-            }
-          }
+          class="image"
+          style="background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);"
         />
       </div>
       <div
-        className="leftPanel"
+        class="leftPanel"
       >
         <div
-          className="textWrapper"
+          class="textWrapper"
         >
           <div
-            className="categoryWrapper"
-          >
-            <button
-              className="keyword blackOnMobile"
-              onClick={[Function]}
-              type="button"
-            >
-              Keyword 1 fi
-            </button>
-            <button
-              className="keyword blackOnMobile"
-              onClick={[Function]}
-              type="button"
-            >
-              Keyword 2 fi
-            </button>
-            <button
-              className="keyword tramLight20"
-              onClick={[Function]}
-              type="button"
-            >
-              Maksuton
-            </button>
-          </div>
-          <div
-            className="date desktopOnly"
-          >
-            Pe 13.12.2019, klo 10.00
-          </div>
-          <div
-            className="title"
+            class="title"
           >
             name fi
           </div>
           <div
-            className="description"
+            class="description"
           >
             short description fi
           </div>
           <div
-            className="infoWithIcon desktopOnly"
+            class="date desktopOnly"
+          >
+            Pe 13.12.2019, klo 10.00
+          </div>
+          <div
+            class="location infoWithIcon desktopOnly"
           >
             <div
-              className="iconWrapper"
+              class="iconWrapper"
             >
               <svg
-                className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik icon"
-                style={Object {}}
+                class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik icon"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="none"
-                  fillRule="evenodd"
+                  fill-rule="evenodd"
                 >
                   <path
                     d="M0 0h24v24H0z"
@@ -127,26 +95,25 @@ exports[`EventHero matches snapshot 1`] = `
               </svg>
             </div>
             <div
-              className="iconTextWrapper"
+              class="iconTextWrapper"
             >
               name fi, streetAddress fi, locality fi
             </div>
           </div>
           <div
-            className="infoWithIcon desktopOnly"
+            class="price infoWithIcon desktopOnly"
           >
             <div
-              className="iconWrapper"
+              class="iconWrapper"
             >
               <svg
-                className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik icon"
-                style={Object {}}
+                class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik icon"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="none"
-                  fillRule="evenodd"
+                  fill-rule="evenodd"
                 >
                   <path
                     d="M0 0h24v24H0z"
@@ -159,10 +126,32 @@ exports[`EventHero matches snapshot 1`] = `
               </svg>
             </div>
             <div
-              className="iconTextWrapper"
+              class="iconTextWrapper"
             >
               Maksuton
             </div>
+          </div>
+          <div
+            class="categoryWrapper"
+          >
+            <button
+              class="keyword blackOnMobile"
+              type="button"
+            >
+              Keyword 1 fi
+            </button>
+            <button
+              class="keyword blackOnMobile"
+              type="button"
+            >
+              Keyword 2 fi
+            </button>
+            <button
+              class="keyword tramLight20"
+              type="button"
+            >
+              Maksuton
+            </button>
           </div>
         </div>
       </div>
