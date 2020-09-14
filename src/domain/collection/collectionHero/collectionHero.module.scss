@@ -65,6 +65,12 @@
     }
   }
 
+  > div:first-child {
+    @include respond-below(xs) {
+      height: 16rem;
+    }
+  }
+
   div:last-child {
     max-width: unset;
 
