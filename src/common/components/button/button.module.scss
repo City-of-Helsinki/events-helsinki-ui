@@ -1,19 +1,20 @@
-
-@import "colors";
-
 .buttonGray:not(:disabled) {
-  background-color: $hel-black-70;
-  border-color: $hel-black-70 !important;
-  color: $hel-white;
-} 
-
+  background-color: var(--color-black-70);
+  border-color: var(--color-black-70) !important;
+  color: var(--color-white);
+}
 
 .buttonGray.disabled {
-  background-color: $hel-black-50;
-  border-color: $hel-black-50;
+  background-color: var(--color-black-50);
+  border-color: var(--color-black-50);
+}
+
+.buttonGray:not(:disabled):focus {
+  background-color: var(--color-black-70);
+  border-color: var(--color-black-70);
 }
 
 .buttonGray:not(:disabled):hover {
-  background-color: $hel-black-80;
-  border-color: $hel-black-80;
+  background-color: var(--color-black-80);
+  border-color: var(--color-black-80);
 }

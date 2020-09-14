@@ -1,13 +1,11 @@
-@import "colors";
-@import "fonts";
-@import "layout";
-@import "variables";
-
-$imageHeight: 14.5rem;
-$imageWidth: 22.75rem;
+@import 'layout';
 
 .eventCard {
-  background-color: $hel-white;
+  --height-image: 14.5rem;
+
+  text-decoration: none;
+  background-color: var(--color-white);
+  color: var(--color-black);
   display: grid;
   height: 100%;
 
@@ -16,122 +14,117 @@ $imageWidth: 22.75rem;
   }
 
   .imageWrapper {
-    min-height: $imageHeight;
+    order: 1;
+    min-height: var(--height-image);
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: cover;
-    padding: $basePadding $basePadding 1rem;
+    padding: var(--spacing-s);
     display: flex;
     text-decoration: none;
-  
-    .tagWrapper {
-      display: grid;
-      grid-template-rows: 1fr 1fr;
-  
+
+    .keywordWrapper {
+      display: flex;
+      align-self: flex-end;
+
       @include respond_above(sm) {
         display: none;
       }
-  
-      .categoryWrapper {
-        align-self: flex-end;
-      }
     }
   }
-  
+
   .infoWrapper {
-    display: grid;
-    padding: $basePadding;
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-s);
     grid-template-rows: auto 1fr auto;
-  
-    .categoryWrapperDesktop {
-      padding-bottom: $basePadding;
-      
+
+    .keywordWrapperDesktop {
+      order: 1;
+      padding-bottom: var(--spacing-s);
+
       @include respond_below(sm) {
         display: none;
       }
     }
-  
-    .textWrapper {
-      display: flex;
-      flex-direction: column;
-  
-      .eventDateAndTime {
-        font-size: $font-size-lg;
-        margin-bottom: 0.5rem;
-        font-weight: 500;
-  
-        @include respond_above(sm) {
-          font-weight: normal;
-          order: 2;
-        }
-      }
-  
-      .eventName {
-        font-size: 1.5rem;
-        line-height: 1.875rem;
-        font-weight: $font-weight-bold;
-        margin-bottom: 0.5rem;
-        color: $hel-black;
-        text-decoration: none;
-  
-        @include respond_above(sm) {
-          order: 1;
-        }
-      }
-      .eventLocation {
-        font-size: 1rem;
-        line-height: 1.875rem;
-        margin-bottom: 0.5rem;
-        color: $hel-black-80;
-  
-        @include respond_above(sm) {
-          order: 3;
-        }
-      }
-  
-      .eventPrice {
-        font-size: 1rem;
-        line-height: 1.875rem;
-        margin-bottom: 0.25rem;
-        color: $hel-black-80;
-  
-        @include respond_above(sm) {
-          order: 4;
-        }
+
+    .eventDateAndTime {
+      order: 2;
+      font-size: var(--fontsize-body-medium);
+      margin-bottom: var(--spacing-2-xs);
+      font-weight: 500;
+
+      @include respond_above(sm) {
+        order: 3;
+        font-weight: normal;
       }
     }
-  
+
+    .eventName {
+      order: 3;
+      font-size: 1.5rem;
+      line-height: var(--lineheight-l);
+      font-weight: 600;
+      margin-bottom: var(--spacing-2-xs);
+      color: var(color-black);
+      text-decoration: none;
+
+      @include respond_above(sm) {
+        order: 2;
+      }
+    }
+
+    .eventLocation {
+      order: 4;
+      font-size: var(--fontsize-body-default);
+      line-height: var(--lineheight-l);
+      margin-bottom: var(--spacing-2-xs);
+      color: var(color-black-80);
+
+      @include respond_above(sm) {
+        order: 3;
+      }
+    }
+
+    .eventPrice {
+      order: 5;
+      font-size: var(--fontsize-body-default);
+      line-height: var(--lineheight-l);
+      margin-bottom: var(--spacing-3-xs);
+      color: var(color-black-80);
+
+      @include respond_above(sm) {
+        order: 4;
+      }
+    }
+
     .buttonWrapper {
+      order: 6;
       display: flex;
       flex-wrap: wrap;
-  
+
       @include respond_above(sm) {
         justify-content: flex-end;
       }
-  
-      .buyButtonWrapper {
+
+      div {
         flex: 1 1 0%;
-        margin-right: 0.25rem;
-  
+
+        &:first-child {
+          margin-right: var(--spacing-3-xs);
+        }
+
+        &:last-child {
+          margin-left: var(--spacing-3-xs);
+        }
+
         @include respond_above(sm) {
           flex: none;
         }
-  
+
         button {
-          margin-top: 0.25rem;
-        }
-      }
-  
-      .readMoreButtonWrapper {
-        flex: 1 1 0%;
-        margin-left: 0.25rem;
-  
-        @include respond_above(sm) {
-          flex: none;
-        }
-  
-        button {
-          margin-top: 0.25rem;
+          margin-top: var(--spacing-3-xs);
         }
       }
     }
@@ -143,4 +136,3 @@ $imageWidth: 22.75rem;
     }
   }
 }
-
