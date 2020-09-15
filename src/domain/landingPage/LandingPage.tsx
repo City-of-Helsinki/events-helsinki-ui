@@ -19,6 +19,7 @@ import styles from './landingPage.module.scss';
 import LandingPageHero from './landingPageHero/LandingPageHero';
 import LandingPageMeta from './landingPageMeta/LandingPageMeta';
 import Search from './landingPageSearch/LandingPageSearch';
+import { isLanguageSupported as isLanguagePageLanguageSupported } from './utils';
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
@@ -32,10 +33,9 @@ const Home: React.FC = () => {
     variables: { visibleOnFrontpage: true },
   });
 
-  const landingPage =
-    landingPageData && landingPageData.landingPages.data.length
-      ? landingPageData.landingPages.data[0]
-      : undefined;
+  const landingPage = landingPageData?.landingPages.data.find((page) =>
+    isLanguagePageLanguageSupported(page, locale)
+  );
   const collections = collectionsData
     ? collectionsData.collectionList.data.filter(
         (collection) =>

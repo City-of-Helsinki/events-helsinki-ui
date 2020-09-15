@@ -5,15 +5,7 @@ import React from 'react';
 import Container from '../../../domain/app/layout/Container';
 import { LandingPageFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import getLocalisedString from '../../../util/getLocalisedString';
-import {
-  getHeroBackgroundColor,
-  getHeroBackgroundImage,
-  getHeroBackgroundImageMobile,
-  getHeroDescriptionColor,
-  getHeroTitleColor,
-  getHeroTopLayerImage,
-} from '../utils';
+import { getLandingPageFields } from '../utils';
 import styles from './landingPageHero.module.scss';
 
 interface Props {
@@ -23,28 +15,21 @@ interface Props {
 const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
   const locale = useLocale();
 
-  const title = getLocalisedString(landingPage.title, locale);
-
-  const titleColor = getHeroTitleColor(landingPage, locale);
-
-  const subtitle = getLocalisedString(landingPage.description, locale);
-
-  const descriptionColor = getHeroDescriptionColor(landingPage, locale);
-
-  const buttonText = getLocalisedString(landingPage.buttonText, locale);
-
-  const buttonUrl = getLocalisedString(landingPage.buttonUrl, locale);
-
-  const heroBackgroundImage = getHeroBackgroundImage(landingPage, locale);
-  const heroBackgroundImageMobile = getHeroBackgroundImageMobile(
-    landingPage,
-    locale
-  );
-  const backgroundColor = getHeroBackgroundColor(landingPage, locale);
-  const heroTopLayerImage = getHeroTopLayerImage(landingPage, locale);
+  const {
+    backgroundColor,
+    buttonText,
+    buttonUrl,
+    description,
+    descriptionColor,
+    heroBackgroundImage,
+    heroBackgroundImageMobile,
+    heroTopLayerImage,
+    title,
+    titleColor,
+  } = getLandingPageFields(landingPage, locale);
 
   const moveToCollectionPage = () => {
-    window.open(buttonUrl, '_self');
+    window.open(buttonUrl || '', '_self');
   };
 
   return (
@@ -71,8 +56,11 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
       ></div>
       <Container>
         <div className={styles.content}>
-          <div className={styles.subTitle} style={{ color: descriptionColor }}>
-            {subtitle}
+          <div
+            className={styles.description}
+            style={{ color: descriptionColor }}
+          >
+            {description}
           </div>
           <h1 className={styles.title} style={{ color: titleColor }}>
             {title}

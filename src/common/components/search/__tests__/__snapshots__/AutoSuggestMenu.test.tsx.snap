@@ -35,6 +35,7 @@ exports[`AutosuggestMenu matches snapshot 1`] = `
   <ul
     class="autosuggestOptions"
     role="listbox"
+    tabindex="-1"
   >
     <li
       aria-selected="true"

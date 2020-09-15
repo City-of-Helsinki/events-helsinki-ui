@@ -3,6 +3,19 @@ import { Language } from '../../types';
 import { LANDING_PAGE_SOME_IMAGE } from './constants';
 
 /**
+ * Test is language supported on landing page
+ * @param {object} landingPage
+ * @param {string} locale
+ * @return {boolean}
+ */
+export const isLanguageSupported = (
+  landingPage: LandingPageFieldsFragment,
+  locale: Language
+): boolean => {
+  return Boolean(landingPage.title?.[locale]);
+};
+
+/**
  * Get landing page hero background color
  * @param {object} landingPage
  * @param {string} locale
@@ -96,3 +109,28 @@ export const getLandingPageSomeImageUrl = (
   const image = (landingPage.socialMediaImage || {})[locale]?.url;
   return image || LANDING_PAGE_SOME_IMAGE;
 };
+
+/**
+ * Get landing page fields
+ * @param {object} landingPage
+ * @param {string} locale
+ * @return {string}
+ */
+export const getLandingPageFields = (
+  landingPage: LandingPageFieldsFragment,
+  locale: Language
+) => ({
+  pageTitle: landingPage.pageTitle?.[locale],
+  title: landingPage.title?.[locale],
+  titleColor: getHeroTitleColor(landingPage, locale),
+  description: landingPage.description?.[locale],
+  descriptionColor: getHeroDescriptionColor(landingPage, locale),
+  someDescription: landingPage.metaInformation?.[locale],
+  buttonText: landingPage.buttonText?.[locale],
+  buttonUrl: landingPage.buttonUrl?.[locale],
+  backgroundColor: getHeroBackgroundColor(landingPage, locale),
+  heroBackgroundImage: getHeroBackgroundImage(landingPage, locale),
+  heroBackgroundImageMobile: getHeroBackgroundImageMobile(landingPage, locale),
+  heroTopLayerImage: getHeroTopLayerImage(landingPage, locale),
+  someImage: getLandingPageSomeImageUrl(landingPage, locale),
+});

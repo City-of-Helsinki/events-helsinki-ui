@@ -1,12 +1,13 @@
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import * as React from 'react';
 
 import mockLandingPage from '../../__mocks__/landingPage';
 import LandingPageHero from '../LandingPageHero';
 
-test('LandingPageHero matches snapshot', () => {
-  const tree = mount(<LandingPageHero landingPage={mockLandingPage} />);
-  expect(tree.html()).toMatchSnapshot();
-});
+test('matches snapshot', () => {
+  const { container } = render(
+    <LandingPageHero landingPage={mockLandingPage} />
+  );
 
-export {};
+  expect(container.firstChild).toMatchSnapshot();
+});

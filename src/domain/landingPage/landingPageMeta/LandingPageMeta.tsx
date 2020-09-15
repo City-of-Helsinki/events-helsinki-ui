@@ -3,8 +3,7 @@ import { Helmet } from 'react-helmet';
 
 import { LandingPageFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import getLocalisedString from '../../../util/getLocalisedString';
-import { getLandingPageSomeImageUrl } from '../utils';
+import { getLandingPageFields } from '../utils';
 
 interface Props {
   landingPage: LandingPageFieldsFragment;
@@ -13,24 +12,21 @@ interface Props {
 const EventPageMeta: React.FC<Props> = ({ landingPage }) => {
   const locale = useLocale();
 
-  const title = getLocalisedString(landingPage.pageTitle || {}, locale);
-  const description = getLocalisedString(
-    landingPage.metaInformation || {},
+  const { pageTitle, someImage: image, someDescription } = getLandingPageFields(
+    landingPage,
     locale
   );
 
-  const image = getLandingPageSomeImageUrl(landingPage, locale);
-
   const openGraphProperties: { [key: string]: string } = {
-    description,
+    description: someDescription || '',
     image: image,
-    title,
+    title: pageTitle || '',
   };
 
   return (
     <Helmet>
-      <title>{title}</title>
-      <meta name="description" content={description} />
+      <title>{pageTitle}</title>
+      <meta name="description" content={openGraphProperties.description} />
       <meta name="twitter:card" content="summary" />
       {Object.entries(openGraphProperties).map(([property, value]) => (
         <meta key={property} property={`og:${property}`} content={value} />
