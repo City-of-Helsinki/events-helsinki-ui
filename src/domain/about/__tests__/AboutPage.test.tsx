@@ -31,43 +31,43 @@ test('should render about page', async () => {
   });
 
   expect(
-    screen.getAllByText(
+    screen.getByText(
       fakeAboutPagesResponse.data[0].headingSection?.fi as string
     )
-  ).toHaveLength(1);
+  ).toBeInTheDocument();
   expect(
-    screen.getAllByText(
+    screen.getByText(
       fakeAboutPagesResponse.data[0].contentSection?.fi as string
     )
-  ).toHaveLength(1);
+  ).toBeInTheDocument();
 
   act(() => {
     i18n.changeLanguage('en');
   });
 
   expect(
-    screen.getAllByText(
+    screen.getByText(
       fakeAboutPagesResponse.data[0].headingSection?.en as string
     )
-  ).toHaveLength(1);
+  ).toBeInTheDocument();
   expect(
-    screen.getAllByText(
+    screen.getByText(
       fakeAboutPagesResponse.data[0].contentSection?.en as string
     )
-  ).toHaveLength(1);
+  ).toBeInTheDocument();
 
   act(() => {
     i18n.changeLanguage('sv');
   });
 
   expect(
-    screen.getAllByText(
+    screen.getByText(
       fakeAboutPagesResponse.data[0].headingSection?.sv as string
     )
-  ).toHaveLength(1);
+  ).toBeInTheDocument();
   expect(
-    screen.getAllByText(
+    screen.getByText(
       fakeAboutPagesResponse.data[0].contentSection?.sv as string
     )
-  ).toHaveLength(1);
+  ).toBeInTheDocument();
 });

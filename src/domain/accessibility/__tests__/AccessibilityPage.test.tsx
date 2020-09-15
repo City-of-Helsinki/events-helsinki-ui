@@ -27,13 +27,13 @@ test('should render accessibility page', async () => {
   await act(wait);
 
   expect(
-    screen.getAllByText(
+    screen.getByText(
       fakeAccessibilityPagesResponse.data[0].headingSection?.fi as string
     )
-  ).toHaveLength(1);
+  ).toBeInTheDocument();
   expect(
-    screen.getAllByText(
+    screen.getByText(
       fakeAccessibilityPagesResponse.data[0].contentSection?.fi as string
     )
-  ).toHaveLength(1);
+  ).toBeInTheDocument();
 });
