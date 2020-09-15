@@ -1,9 +1,10 @@
-@import "fonts";
-@import "layout";
-@import "variables";
+@import 'fonts';
+@import 'layout';
+@import 'variables';
 
 .similarEvents {
-  margin: $largeMargin 0;
+  background-color: var(--color-black-5);
+  padding: $largePadding 0;
 }
 
 .similarEventsTitle {
@@ -20,7 +21,7 @@
 
   @include respond_above(sm) {
     grid-template-columns: 1fr 1fr;
-    grid-gap: 1.75rem 3rem;;
+    grid-gap: 1.75rem 3rem;
   }
 
   @include respond_above(md) {

@@ -61,8 +61,8 @@ const EventPageContainer: React.FC = () => {
                 {/* Show event content only if event is open */}
                 {!eventClosed && <EventContent event={event} />}
                 {/* Hide similar event on SSR to make initial load faster */}
-                {isClient && <SimilarEvents event={event} />}
               </Container>
+              {isClient && <SimilarEvents event={event} />}
             </>
           ) : (
             <ErrorHero
