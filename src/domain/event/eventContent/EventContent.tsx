@@ -8,6 +8,7 @@ import ShareLinks from '../../../common/components/shareLinks/ShareLinks';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getLocalisedString from '../../../util/getLocalisedString';
+import Container from '../../app/layout/Container';
 import EventInfo from '../eventInfo/EventInfo';
 import EventLocation from '../eventLocation/EventLocation';
 import styles from './eventContent.module.scss';
@@ -23,34 +24,38 @@ const EventContent: React.FC<Props> = ({ event }) => {
 
   return (
     <div className={styles.eventContent}>
-      <div className={styles.infoColumn}>
-        <EventInfo event={event} />
-      </div>
-      <div className={styles.descriptionColumn}>
-        {description && (
-          <>
-            <h2 className={styles.descriptionTitle}>
-              {t('event.description.title')}
-            </h2>
+      <Container>
+        <div className={styles.contentWrapper}>
+          <div className={styles.infoColumn}>
+            <EventInfo event={event} />
+          </div>
+          <div className={styles.descriptionColumn}>
+            {description && (
+              <>
+                <h2 className={styles.descriptionTitle}>
+                  {t('event.description.title')}
+                </h2>
+                <div
+                  className={styles.description}
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeHtml(unescape(description)),
+                  }}
+                />
+              </>
+            )}
+            <ShareLinks title={t('event.shareLinks.title')} />
             <div
-              className={styles.description}
-              dangerouslySetInnerHTML={{
-                __html: sanitizeHtml(unescape(description)),
-              }}
+              className={classNames(
+                styles.horizontalDivider,
+                styles.largeWhiteSpace
+              )}
             />
-          </>
-        )}
-        <ShareLinks title={t('event.shareLinks.title')} />
-        <div
-          className={classNames(
-            styles.horizontalDivider,
-            styles.largeWhiteSpace
-          )}
-        />
-        <EventLocation event={event} />
-      </div>
-      {/* Dummy div to keep layout consistent with EventHero */}
-      <div></div>
+            <EventLocation event={event} />
+          </div>
+          {/* Dummy div to keep layout consistent with EventHero */}
+          <div></div>
+        </div>
+      </Container>
     </div>
   );
 };

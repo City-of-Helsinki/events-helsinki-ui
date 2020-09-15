@@ -1,22 +1,26 @@
-@import "colors";
-@import "fonts";
-@import "layout";
-@import "variables";
+@import 'colors';
+@import 'fonts';
+@import 'layout';
+@import 'variables';
 
 $logoWidth: 5.5rem;
 
 .eventContent {
-  display: grid;
+  background-color: var(--color-white);
 
-  @include respond_above(sm) {
-    grid-template-columns: $logoWidth 1fr 1fr;
+  .contentWrapper {
+    display: grid;
 
-    .infoColumn {
-      order: 3;
-    }
+    @include respond_above(sm) {
+      grid-template-columns: $logoWidth 1fr 1fr;
 
-    .descriptionColumn {
-      order: 2;
+      .infoColumn {
+        order: 3;
+      }
+
+      .descriptionColumn {
+        order: 2;
+      }
     }
   }
 }

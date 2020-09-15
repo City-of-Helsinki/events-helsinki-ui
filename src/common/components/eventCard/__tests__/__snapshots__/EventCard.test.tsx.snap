@@ -10,62 +10,66 @@ exports[`matches snapshot 1`] = `
     class="infoWrapper"
   >
     <div
-      class="eventName"
+      class="textWrapper"
     >
-      name fi
-    </div>
-    <div
-      class="eventDateAndTime"
-    >
-      13.12.2019, klo 10.00
-    </div>
-    <div
-      class="eventLocation"
-    >
-      name fi, streetAddress fi, locality fi
-    </div>
-    <div
-      class="eventPrice"
-    >
-      Maksuton
-    </div>
-    <div
-      class="keywordWrapperMobile"
-    >
-      <button
-        class="keyword tramLight20"
-        type="button"
+      <div
+        class="eventName"
+      >
+        name fi
+      </div>
+      <div
+        class="eventDateAndTime"
+      >
+        13.12.2019, klo 10.00
+      </div>
+      <div
+        class="eventLocation"
+      >
+        name fi, streetAddress fi, locality fi
+      </div>
+      <div
+        class="eventPrice"
       >
         Maksuton
+      </div>
+      <div
+        class="keywordWrapperMobile"
+      >
+        <button
+          class="keyword tramLight20"
+          type="button"
+        >
+          Maksuton
+        </button>
+      </div>
+    </div>
+    <div
+      class="buttonWrapper"
+    >
+      <button
+        aria-label="Siirry tapahtumaan: name fi"
+        class="iconButton default"
+      >
+        <svg
+          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <path
+              d="M0 0h24v24H0z"
+            />
+            <path
+              d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
+              fill="currentColor"
+            />
+          </g>
+        </svg>
       </button>
     </div>
-  </div>
-  <div
-    class="buttonWrapper"
-  >
-    <button
-      aria-label="Siirry tapahtumaan: name fi"
-      class="iconButton default"
-    >
-      <svg
-        class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g
-          fill="none"
-          fill-rule="evenodd"
-        >
-          <path
-            d="M0 0h24v24H0z"
-          />
-          <path
-            d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z"
-            fill="currentColor"
-          />
-        </g>
-      </svg>
-    </button>
   </div>
   <div
     class="imageWrapper"
