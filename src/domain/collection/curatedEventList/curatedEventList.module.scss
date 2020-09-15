@@ -1,8 +1,7 @@
-@import "colors";
-@import "variables";
+@import 'variables';
 
 .curatedEventList {
-  background-color: $hel-black-5;
+  background-color: var(--color-black-5);
   padding: 0;
 
   h2 {
@@ -11,7 +10,7 @@
 
   .whiteBackground {
     padding: $largePadding 0;
-    background-color: $hel-white;
+    background-color: var(--color-white);
 
     p {
       font-size: 1.25rem;

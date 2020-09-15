@@ -1,10 +1,9 @@
-@import "colors";
-@import "fonts";
-@import "layout";
-@import "variables";
+@import 'fonts';
+@import 'layout';
+@import 'variables';
 
 .searchResultListContainer {
-  background-color: $hel-black-5;
+  background-color: var(--color-black-5);
   padding: $largePadding 0;
 }
 

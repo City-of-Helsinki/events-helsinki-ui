@@ -1,7 +1,6 @@
-@import "colors";
-@import "variables";
+@import 'variables';
 
 .similarCollections {
-  background-color: $hel-white;
+  background-color: var(--color-black-5);
   padding: $largePadding 0;
 }
