@@ -37,7 +37,7 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
           <IconCross />
         </button>
       </div>
-      <ul className={styles.autosuggestOptions} tabIndex={-1} role="listbox">
+      <ul className={styles.autosuggestOptions} role="listbox">
         {options.map((option, index) => {
           const handleClick = () => {
             onOptionClick(option);
@@ -55,6 +55,7 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
                 }
               )}
               role="option"
+              tabIndex={-1}
               onClick={handleClick}
               aria-selected={focusedOption === index}
             >
