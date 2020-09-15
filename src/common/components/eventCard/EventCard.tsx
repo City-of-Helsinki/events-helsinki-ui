@@ -76,44 +76,50 @@ const EventCard: React.FC<Props> = ({ event }) => {
     >
       {/* INFO WRAPPER. Re-order info wrapper and text wrapper on css */}
       <div className={styles.infoWrapper}>
-        <div className={styles.eventName}>
-          <EventName event={event} />
+        <div className={styles.textWrapper}>
+          <div className={styles.eventName}>
+            <EventName event={event} />
+          </div>
+          <div className={styles.eventDateAndTime}>
+            {!!startTime &&
+              getDateRangeStr(
+                startTime,
+                endTime,
+                locale,
+                false,
+                true,
+                t('commons.timeAbbreviation')
+              )}
+          </div>
+          <div className={styles.eventLocation}>
+            <LocationText
+              event={event}
+              showDistrict={false}
+              showLocationName={true}
+            />
+          </div>
+          <div className={styles.eventPrice}>
+            {getEventPrice(event, locale, t('eventSearch.event.offers.isFree'))}
+          </div>
+
+          <div className={styles.keywordWrapperMobile}>
+            <EventKeywords
+              event={event}
+              showIsFree={true}
+              showKeywords={false}
+            />
+          </div>
         </div>
-        <div className={styles.eventDateAndTime}>
-          {!!startTime &&
-            getDateRangeStr(
-              startTime,
-              endTime,
-              locale,
-              false,
-              true,
-              t('commons.timeAbbreviation')
-            )}
-        </div>
-        <div className={styles.eventLocation}>
-          <LocationText
-            event={event}
-            showDistrict={false}
-            showLocationName={true}
+        <div className={styles.buttonWrapper}>
+          <IconButton
+            ariaLabel={t('commons.eventCard.ariaLabelLink', {
+              name: getLocalisedString(name, locale),
+            })}
+            icon={<IconArrowRight />}
+            onClick={goToEventPage}
+            size="default"
           />
         </div>
-        <div className={styles.eventPrice}>
-          {getEventPrice(event, locale, t('eventSearch.event.offers.isFree'))}
-        </div>
-
-        <div className={styles.keywordWrapperMobile}>
-          <EventKeywords event={event} showIsFree={true} showKeywords={false} />
-        </div>
-      </div>
-      <div className={styles.buttonWrapper}>
-        <IconButton
-          ariaLabel={t('commons.eventCard.ariaLabelLink', {
-            name: getLocalisedString(name, locale),
-          })}
-          icon={<IconArrowRight />}
-          onClick={goToEventPage}
-          size="default"
-        />
       </div>
 
       {/* IMAGE WRAPPER */}
