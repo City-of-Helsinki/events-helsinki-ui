@@ -1,6 +1,6 @@
-@import "colors";
-@import "fonts";
-@import "layout";
+@import 'colors';
+@import 'fonts';
+@import 'layout';
 
 .landingPageSearch {
   margin-top: -3.5rem;
@@ -8,7 +8,7 @@
   background-color: #464646;
   padding: 1.75rem 1.25rem 1.75rem;
   z-index: 1;
-  
+
   @include respond-above(sm) {
     padding: 2.375rem 2.5rem 1.25rem 2.5rem;
     margin-top: -5.5rem;
@@ -34,7 +34,7 @@
   }
 
   h2 {
-    font-size: var(--fontsize-h-3);
+    font-size: var(--fontsize-heading-m);
     margin: 0;
   }
 
