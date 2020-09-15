@@ -11,7 +11,6 @@ import useLocale from '../../hooks/useLocale';
 import getLocalisedString from '../../util/getLocalisedString';
 import isClient from '../../util/isClient';
 import { ROUTES } from '../app/constants';
-import Container from '../app/layout/Container';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import EventClosedHero from './eventClosedHero/EventClosedHero';
@@ -57,12 +56,10 @@ const EventPageContainer: React.FC = () => {
               {/* Wait for data to be accessible before updating metadata */}
               <EventPageMeta event={event} />
               {eventClosed ? <EventClosedHero /> : <EventHero event={event} />}
-              <Container>
-                {/* Show event content only if event is open */}
-                {!eventClosed && <EventContent event={event} />}
-                {/* Hide similar event on SSR to make initial load faster */}
-                {isClient && <SimilarEvents event={event} />}
-              </Container>
+              {/* Show event content only if event is open */}
+              {!eventClosed && <EventContent event={event} />}
+              {/* Hide similar event on SSR to make initial load faster */}
+              {isClient && <SimilarEvents event={event} />}
             </>
           ) : (
             <ErrorHero

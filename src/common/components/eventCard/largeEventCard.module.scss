@@ -51,7 +51,7 @@
 
     .eventDateAndTime {
       order: 2;
-      font-size: var(--fontsize-body-medium);
+      font-size: var(--fontsize-body-l);
       margin-bottom: var(--spacing-2-xs);
       font-weight: 500;
 
@@ -77,7 +77,7 @@
 
     .eventLocation {
       order: 4;
-      font-size: var(--fontsize-body-default);
+      font-size: var(--fontsize-body-m);
       line-height: var(--lineheight-l);
       margin-bottom: var(--spacing-2-xs);
       color: var(color-black-80);
@@ -89,7 +89,7 @@
 
     .eventPrice {
       order: 5;
-      font-size: var(--fontsize-body-default);
+      font-size: var(--fontsize-body-m);
       line-height: var(--lineheight-l);
       margin-bottom: var(--spacing-3-xs);
       color: var(color-black-80);

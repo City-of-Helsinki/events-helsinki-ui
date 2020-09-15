@@ -9,6 +9,7 @@ import {
   useEventListQuery,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import Container from '../../app/layout/Container';
 // Use same page size as on event search page
 import {
   DEFAULT_SEARCH_FILTERS,
@@ -56,18 +57,16 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
   // To display only certain amount of events.
   // Always fetch data by using same page size to get events from cache
   const events =
-    eventsData && !!eventsData.eventList.data.length
-      ? eventsData.eventList.data
-          // Don't show current event on the list
-          .filter((item) => item.id !== event.id)
-          .slice(0, SIMILAR_EVENTS_AMOUNT)
-      : [];
+    eventsData?.eventList.data
+      // Don't show current event on the list
+      .filter((item) => item.id !== event.id)
+      .slice(0, SIMILAR_EVENTS_AMOUNT) || [];
 
   return (
     <div className={styles.similarEvents}>
       <LoadingSpinner hasPadding={false} isLoading={loading}>
         {!!events.length && (
-          <>
+          <Container>
             <h2 className={styles.similarEventsTitle}>
               {t('event.similarEvents.title')}
             </h2>
@@ -76,7 +75,7 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
                 return <EventCard key={item.id} event={item} />;
               })}
             </div>
-          </>
+          </Container>
         )}
       </LoadingSpinner>
     </div>
