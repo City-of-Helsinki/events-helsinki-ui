@@ -60,7 +60,7 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
         <div className={styles.curatedEventList}>
           <>
             <div
-              className={classNames(styles.whiteBackground, {
+              className={classNames(styles.greyBackground, {
                 [styles.hasEvents]: events.length,
               })}
             >

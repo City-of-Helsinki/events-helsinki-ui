@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Koros } from 'hds-react';
 import React from 'react';
 
@@ -7,11 +8,17 @@ import isTestEnv from '../../../util/isTestEnv';
 import styles from './errorHero.module.scss';
 
 interface Props {
+  smallMargin?: boolean;
   text: string;
   title: string;
 }
 
-const NotFound: React.FC<Props> = ({ children, text, title }) => {
+const NotFound: React.FC<Props> = ({
+  children,
+  smallMargin = false,
+  text,
+  title,
+}) => {
   return (
     <>
       <div className={styles.errorHero}>
@@ -25,7 +32,13 @@ const NotFound: React.FC<Props> = ({ children, text, title }) => {
 
       {!isTestEnv && (
         /* istanbul ignore next */
-        <Koros className={styles.koros} flipHorizontal={true} type="basic" />
+        <Koros
+          className={classNames(styles.koros, {
+            [styles.smallMargin]: smallMargin,
+          })}
+          flipHorizontal={true}
+          type="basic"
+        />
       )}
     </>
   );

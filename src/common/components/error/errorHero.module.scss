@@ -13,7 +13,6 @@
     padding-bottom: 7rem;
     padding-top: 5rem;
   }
-  
 
   .icon {
     height: 7rem;
@@ -40,7 +39,8 @@
     font-size: 1rem;
     font-weight: bold;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       text-decoration: underline;
     }
   }
@@ -54,4 +54,8 @@
 .koros {
   fill: $hel-copper-light-20;
   margin-bottom: 10rem;
+
+  &.smallMargin {
+    margin-bottom: var(--spacing-l);
+  }
 }

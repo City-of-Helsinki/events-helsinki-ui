@@ -28,6 +28,7 @@ interface RouteParams {
 
 type Error = {
   linkText: string;
+  smallMargin: boolean;
   text: string;
   title: string;
   url: string;
@@ -51,6 +52,7 @@ const CollectionPageContainer: React.FC = () => {
     if (!collection) {
       return {
         linkText: t('collection.notFound.linkSearchEvents'),
+        smallMargin: false,
         text: t('collection.notFound.text'),
         title: t('collection.notFound.title'),
         url: `/${locale}${ROUTES.EVENTS}${search}`,
@@ -60,6 +62,7 @@ const CollectionPageContainer: React.FC = () => {
     if (!isLanguageSupported(collection, locale)) {
       return {
         linkText: t('collection.languageNotSupported.linkSearchEvents'),
+        smallMargin: true,
         text: t('collection.languageNotSupported.text'),
         title: t('collection.languageNotSupported.title'),
         url: `/${locale}${ROUTES.COLLECTIONS}`,
@@ -69,6 +72,7 @@ const CollectionPageContainer: React.FC = () => {
     if (isCollectionExpired(collection)) {
       return {
         linkText: t('collection.expired.linkSearchEvents'),
+        smallMargin: true,
         text: t('collection.expired.text'),
         title: t('collection.expired.title'),
         url: `/${locale}${ROUTES.COLLECTIONS}`,
@@ -80,7 +84,11 @@ const CollectionPageContainer: React.FC = () => {
 
   const renderErrorHero = (error: Error) => {
     return (
-      <ErrorHero text={error.text} title={error.title}>
+      <ErrorHero
+        text={error.text}
+        smallMargin={error.smallMargin}
+        title={error.title}
+      >
         <Link to={error.url}>{error.linkText}</Link>
       </ErrorHero>
     );
