@@ -13,34 +13,29 @@ exports[`matches snapshot 1`] = `
       <div
         class="backButtonWrapper"
       >
-        <a
+        <button
           aria-label="Takaisin tapahtumahakuun"
-          class="iconLink white"
-          href="/fi/events"
+          class="iconButton default backgroundWhite"
         >
-          <div
-            class="iconWrapper"
+          <svg
+            class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+            <g
+              fill="none"
+              fill-rule="evenodd"
             >
-              <g
-                fill="none"
-                fill-rule="evenodd"
-              >
-                <path
-                  d="M0 0h24v24H0z"
-                />
-                <path
-                  d="M10 5.636l1.414 1.414L7.465 11H20v2H7.464l3.95 3.95L10 18.364 3.636 12z"
-                  fill="currentColor"
-                />
-              </g>
-            </svg>
-          </div>
-        </a>
+              <path
+                d="M0 0h24v24H0z"
+              />
+              <path
+                d="M10 5.636l1.414 1.414L7.465 11H20v2H7.464l3.95 3.95L10 18.364 3.636 12z"
+                fill="currentColor"
+              />
+            </g>
+          </svg>
+        </button>
       </div>
       <div>
         <div

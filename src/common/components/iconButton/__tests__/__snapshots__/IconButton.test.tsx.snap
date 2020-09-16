@@ -3,7 +3,7 @@
 exports[`IconButton matches snapshot 1`] = `
 <button
   aria-label="Aria label"
-  className="iconButton small"
+  className="iconButton small backgroundDefault"
 >
   <svg
     className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
