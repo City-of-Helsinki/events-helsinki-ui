@@ -1,12 +1,10 @@
 @import 'mixins';
-@import 'colors';
-@import 'variables';
-
-$logoHeight: 2.5rem;
-$logoWidth: 5.5rem;
-$logoWidthSv: 7.1875rem;
 
 .mobileNavbar {
+  --height-logo: 2.5rem;
+  --width-logo: 5.5rem;
+  --width-logo-sv: 7.1875rem;
+
   height: 100%;
   display: flex;
 }
@@ -19,26 +17,25 @@ $logoWidthSv: 7.1875rem;
 }
 
 .appName {
-  margin: 0.67em 1.875rem;
-  font-size: 1.25rem;
-  color: $hel-black;
+  margin: var(--spacing-xs) var(--spacing-l);
+  font-size: var(--fontsize-body-l);
+  color: var(--color-black);
   font-weight: 600;
   white-space: nowrap;
-  color: $hel-black;
 }
 
 .logo {
   background-position: center;
-  height: $logoHeight;
+  height: var(--height-logo);
 
   &.fi {
     @include helsinki-logo();
-    width: $logoWidth;
+    width: var(--width-logo);
   }
 
   &.sv {
     @include helsinki-logo('sv');
-    width: $logoWidthSv;
+    width: var(--width-logo-sv);
   }
 }
 
@@ -50,24 +47,14 @@ $logoWidthSv: 7.1875rem;
   .closeButton {
     background: none;
     border: none;
-    padding: 0.5rem;
-    margin-right: -0.5rem;
-
-    svg {
-      height: 0.875rem;
-      width: 0.875rem;
-    }
+    padding: var(--spacing-2-xs);
+    margin-right: calc(0rem - var(--spacing-2-xs));
   }
 
   .menuButton {
     background: none;
     border: none;
-    padding: 0.5rem;
-    margin-right: -0.5rem;
-
-    svg {
-      height: 1.5rem;
-      width: 1.5rem;
-    }
+    padding: var(--spacing-2-xs);
+    margin-right: calc(0rem - var(--spacing-2-xs));
   }
 }
