@@ -3,9 +3,9 @@ import { isThisWeek, isToday } from 'date-fns';
 import { Button, IconArrowLeft, IconLocation, IconTicket } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import IconLink from '../../../common/components/link/IconLink';
+import IconButton from '../../../common/components/iconButton/IconButton';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
@@ -32,7 +32,8 @@ const EventHero: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const locale = useLocale();
-  const location = useLocation();
+  const history = useHistory();
+  const { search } = useLocation();
 
   const offerInfoUrl = React.useMemo(() => {
     const offer = event.offers.find((item) =>
@@ -42,10 +43,13 @@ const EventHero: React.FC<Props> = ({ event }) => {
     return offer ? getLocalisedString(offer.infoUrl || {}, locale) : '';
   }, [event.offers, locale]);
 
-  const eventSearchUrl = React.useMemo(() => {
-    return `/${locale}${ROUTES.EVENTS}${location.search}`;
-  }, [locale, location.search]);
-
+  const goToEventList = () => {
+    history.push({
+      pathname: `/${locale}${ROUTES.EVENTS}`,
+      search,
+      state: { eventId: event.id },
+    });
+  };
   const moveToBuyTicketsPage = () => {
     window.open(offerInfoUrl);
   };
@@ -80,11 +84,12 @@ const EventHero: React.FC<Props> = ({ event }) => {
       <Container>
         <div className={styles.contentWrapper}>
           <div className={styles.backButtonWrapper}>
-            <IconLink
-              aria-label={t('event.hero.ariaLabelBackButton')}
+            <IconButton
+              ariaLabel={t('event.hero.ariaLabelBackButton')}
               backgroundColor="white"
               icon={<IconArrowLeft />}
-              to={eventSearchUrl}
+              onClick={goToEventList}
+              size="default"
             />
           </div>
           <div>

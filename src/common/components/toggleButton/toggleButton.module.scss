@@ -1,19 +1,20 @@
-@import "colors";
-@import "layout";
+@import 'colors';
+@import 'layout';
 
 .toggleButton {
-  border: 2px solid $hel-white;
+  border: 2px solid var(--color-white);
+  color: var(--color-white);
   padding: 0 1rem;
   height: 2.25rem;
   margin: 0 0.75rem 1.25rem 0;
 
   &.isSelected {
     color: #464646;
-    background-color: $hel-white;
+    background-color: var(--color-white);
   }
 
   &:focus {
-    outline: 2px solid white;
+    outline: 2px solid var(--color-white);
     outline-offset: 2px;
   }
 
@@ -24,7 +25,7 @@
   .innerWrapper {
     display: flex;
     align-items: center;
-    
+
     svg {
       height: 1.25rem;
       width: 1.25rem;

@@ -1,11 +1,9 @@
-@import 'colors';
-
 .iconButton {
   display: flex;
   height: 2.5rem;
   width: 2.5rem;
-  background-color: $hel-copper-light-20;
-  border-color: $hel-copper-light-20;
+  background-color: var(--color-copper-light-20);
+  border-color: var(--color-copper-light-20);
   padding: 0;
   display: flex;
   justify-content: center;
@@ -18,7 +16,7 @@
   }
 
   &:focus {
-    outline: 2px solid $hel-black;
+    outline: 2px solid var(--color-black);
   }
 }
 
@@ -30,4 +28,9 @@
     height: 1rem;
     width: 1rem;
   }
+}
+
+.backgroundWhite {
+  background-color: var(--color-white);
+  border-color: var(--color-white);
 }

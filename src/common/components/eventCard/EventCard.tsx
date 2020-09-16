@@ -22,6 +22,7 @@ import getLocalisedString from '../../../util/getLocalisedString';
 import testImage from '../../../util/testImage';
 import IconButton from '../iconButton/IconButton';
 import styles from './eventCard.module.scss';
+import { getEventCardId } from './utils';
 
 interface Props {
   event: EventFieldsFragment;
@@ -72,6 +73,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
       className={classNames(styles.eventCard, {
         [styles.eventClosed]: eventClosed,
       })}
+      id={getEventCardId(event.id)}
       to={eventUrl}
     >
       {/* INFO WRAPPER. Re-order info wrapper and text wrapper on css */}

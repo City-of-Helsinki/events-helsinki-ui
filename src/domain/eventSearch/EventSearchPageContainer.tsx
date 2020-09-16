@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { RouteComponentProps, useLocation, withRouter } from 'react-router';
 import { scroller } from 'react-scroll';
 
+import { getLargeEventCardId } from '../../common/components/eventCard/utils';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import SrOnly from '../../common/components/srOnly/SrOnly';
 import { useEventListQuery } from '../../generated/graphql';
@@ -19,8 +20,8 @@ import { getEventSearchVariables, getNextPage } from './utils';
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const { search } = useLocation();
-  const searchParams = new URLSearchParams(search);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
   const eventFilters = React.useMemo(() => {
     return getEventSearchVariables({
       include: ['keywords', 'location'],
@@ -69,16 +70,27 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
     if (isSmallScreen) {
       scroller.scrollTo('resultList', {
         delay: 0,
-        duration: 600,
+        duration: 1000,
         offset: -50,
         smooth: true,
       });
     }
   };
 
+  const scrollToEventCard = (id: string) => {
+    scroller.scrollTo(id, {
+      delay: 0,
+      duration: 300,
+      offset: -50,
+      smooth: true,
+    });
+  };
+
   React.useEffect(() => {
-    if (search) {
+    if (location.search && location.state?.scrollToResults) {
       scrollToResultList();
+    } else if (location.state?.eventId) {
+      scrollToEventCard(getLargeEventCardId(location.state.eventId));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

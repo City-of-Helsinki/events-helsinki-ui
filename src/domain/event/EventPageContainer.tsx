@@ -39,13 +39,11 @@ const EventPageContainer: React.FC = () => {
     },
   });
 
-  const event = eventData && eventData.eventDetails;
+  const event = eventData?.eventDetails;
 
-  const eventClosed = !eventData || isEventClosed(eventData.eventDetails);
-  const name = getLocalisedString(
-    (eventData && eventData.eventDetails.name) || {},
-    locale
-  );
+  const eventClosed = !event || isEventClosed(event);
+  const name = getLocalisedString(eventData?.eventDetails.name, locale);
+
   return (
     <PageWrapper className={styles.eventPageWrapper} title="event.title">
       <MainContent offset={-70}>

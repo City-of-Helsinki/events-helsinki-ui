@@ -36,18 +36,6 @@ const Search: FunctionComponent = () => {
   const [autosuggestInput, setAutosuggestInput] = React.useState('');
   const { push } = useHistory();
 
-  const handleCategoryClick = (category: Category) => {
-    const search = getSearchQuery({
-      ...DEFAULT_SEARCH_FILTERS,
-      categories: [category.value],
-      dateTypes,
-      end,
-      start,
-    });
-
-    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
-  };
-
   const categories = React.useMemo(() => {
     return [
       {
@@ -112,7 +100,15 @@ const Search: FunctionComponent = () => {
     setIsCustomDate(!isCustomDate);
   };
 
-  const moveToSearchPage = React.useCallback(() => {
+  const goToSearchPage = (search: string) => {
+    push({
+      pathname: `/${locale}${ROUTES.EVENTS}`,
+      search,
+      state: { scrollToResults: true },
+    });
+  };
+
+  const handleSubmit = () => {
     const search = getSearchQuery({
       ...DEFAULT_SEARCH_FILTERS,
       dateTypes,
@@ -121,8 +117,8 @@ const Search: FunctionComponent = () => {
       text: autosuggestInput ? [autosuggestInput] : [],
     });
 
-    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
-  }, [autosuggestInput, dateTypes, end, locale, push, start]);
+    goToSearchPage(search);
+  };
 
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
     const value = option.text;
@@ -134,8 +130,19 @@ const Search: FunctionComponent = () => {
       start,
       text: value ? [value] : [],
     });
+    goToSearchPage(search);
+  };
 
-    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+  const handleCategoryClick = (category: Category) => {
+    const search = getSearchQuery({
+      ...DEFAULT_SEARCH_FILTERS,
+      categories: [category.value],
+      dateTypes,
+      end,
+      start,
+    });
+
+    goToSearchPage(search);
   };
 
   return (
@@ -191,7 +198,7 @@ const Search: FunctionComponent = () => {
               <Button
                 fullWidth={true}
                 iconLeft={<IconSearch />}
-                onClick={moveToSearchPage}
+                onClick={handleSubmit}
                 variant="success"
               >
                 {t('home.search.buttonSearch')}
