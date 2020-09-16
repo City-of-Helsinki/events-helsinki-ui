@@ -2,6 +2,8 @@
 import faker from 'faker';
 
 import {
+  AboutPagesResponse,
+  AccessibilityPagesResponse,
   EventDetails,
   EventListResponse,
   Image,
@@ -9,6 +11,7 @@ import {
   Keyword,
   LocalizedObject,
   Place,
+  StaticPage,
 } from '../generated/graphql';
 
 export const fakeEvents = (
@@ -110,6 +113,36 @@ export const fakeKeyword = (overrides?: Partial<Keyword>): Keyword => ({
   __typename: 'Keyword',
   ...overrides,
 });
+
+export const fakeAboutPages = (
+  count = 1,
+  aboutPages?: Partial<StaticPage>[]
+): AboutPagesResponse => ({
+  data: generateNodeArray((i) => fakeStaticPage(aboutPages?.[i]), count),
+  __typename: 'AboutPagesResponse',
+});
+
+export const fakeAccessibilityPages = (
+  count = 1,
+  accessibilityPages?: Partial<StaticPage>[]
+): AccessibilityPagesResponse => ({
+  data: generateNodeArray(
+    (i) => fakeStaticPage(accessibilityPages?.[i]),
+    count
+  ),
+  __typename: 'AccessibilityPagesResponse',
+});
+
+export const fakeStaticPage = (overrides?: Partial<StaticPage>): StaticPage => {
+  return {
+    id: faker.random.uuid(),
+    expired: false,
+    headingSection: fakeLocalizedObject(),
+    contentSection: fakeLocalizedObject(),
+    __typename: 'StaticPage',
+    ...overrides,
+  };
+};
 
 export const fakeLocalizedObject = (text?: string): LocalizedObject => ({
   __typename: 'LocalizedObject',

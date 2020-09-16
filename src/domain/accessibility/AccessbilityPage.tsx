@@ -2,19 +2,19 @@ import React from 'react';
 
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import Hero from '../../common/components/staticPageHero/StaticPageHero';
-import { useAboutPagesQuery } from '../../generated/graphql';
+import { useAccessibilityPagesQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import sanitizeHtml from '../../util/sanitizeHtml';
 import Container from '../app/layout/Container';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
-import styles from './aboutPage.module.scss';
+import styles from './accessibilityPage.module.scss';
 
 const AboutPage: React.FC = () => {
   const locale = useLocale();
-  const { data, loading } = useAboutPagesQuery();
+  const { data, loading } = useAccessibilityPagesQuery();
 
-  const accessibilityPage = data?.aboutPages.data.find(
+  const accessibilityPage = data?.accessibilityPages.data.find(
     (page) =>
       !page.expired &&
       (page.contentSection?.[locale] || page.headingSection?.[locale])
@@ -23,7 +23,10 @@ const AboutPage: React.FC = () => {
   const contentSection = accessibilityPage?.contentSection?.[locale];
 
   return (
-    <PageWrapper className={styles.aboutPage} title="about.title">
+    <PageWrapper
+      className={styles.accessibilityPage}
+      title="accessibility.title"
+    >
       <MainContent offset={-70}>
         <LoadingSpinner isLoading={loading}>
           {headingSection && (

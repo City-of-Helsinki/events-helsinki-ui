@@ -12,6 +12,16 @@ export type Scalars = {
   Float: number,
 };
 
+export type AboutPagesResponse = {
+   __typename?: 'AboutPagesResponse',
+  data: Array<StaticPage>,
+};
+
+export type AccessibilityPagesResponse = {
+   __typename?: 'AccessibilityPagesResponse',
+  data: Array<StaticPage>,
+};
+
 export type CmsImage = {
    __typename?: 'CmsImage',
   photographerCredit?: Maybe<Scalars['String']>,
@@ -346,6 +356,8 @@ export type PlacePosition = {
 export type Query = {
    __typename?: 'Query',
   _empty?: Maybe<Scalars['String']>,
+  aboutPages: AboutPagesResponse,
+  accessibilityPages: AccessibilityPagesResponse,
   collectionDetails: CollectionDetails,
   collectionList: CollectionListResponse,
   eventDetails: EventDetails,
@@ -461,10 +473,81 @@ export type QueryPlaceListArgs = {
   text?: Maybe<Scalars['String']>
 };
 
+export type StaticPage = {
+   __typename?: 'StaticPage',
+  id: Scalars['ID'],
+  path?: Maybe<Scalars['String']>,
+  depth?: Maybe<Scalars['Int']>,
+  numchild?: Maybe<Scalars['Int']>,
+  title?: Maybe<Scalars['String']>,
+  draftTitle?: Maybe<Scalars['String']>,
+  slug?: Maybe<Scalars['String']>,
+  live?: Maybe<Scalars['Boolean']>,
+  hasUnpublishedChanges?: Maybe<Scalars['Boolean']>,
+  urlPath?: Maybe<Scalars['String']>,
+  seoTitle?: Maybe<Scalars['String']>,
+  showInMenus?: Maybe<Scalars['Boolean']>,
+  searchDescription?: Maybe<Scalars['String']>,
+  goLiveAt?: Maybe<Scalars['String']>,
+  expireAt?: Maybe<Scalars['String']>,
+  expired?: Maybe<Scalars['Boolean']>,
+  locked?: Maybe<Scalars['Boolean']>,
+  lockedAt?: Maybe<Scalars['String']>,
+  firstPublishedAt?: Maybe<Scalars['String']>,
+  lastPublishedAt?: Maybe<Scalars['String']>,
+  latestRevisionCreatedAt?: Maybe<Scalars['String']>,
+  headingSection?: Maybe<LocalizedObject>,
+  contentSection?: Maybe<LocalizedObject>,
+  contentYype?: Maybe<Scalars['Int']>,
+  owner?: Maybe<Scalars['Int']>,
+  lockedBy?: Maybe<Scalars['String']>,
+  liveRevision?: Maybe<Scalars['Int']>,
+};
+
 export type Subscription = {
    __typename?: 'Subscription',
   _empty?: Maybe<Scalars['String']>,
 };
+
+export type StaticPageFieldsFragment = (
+  { __typename?: 'StaticPage' }
+  & Pick<StaticPage, 'id' | 'expired'>
+  & { headingSection: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & LocalizedFieldsFragment
+  )>, contentSection: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & LocalizedFieldsFragment
+  )> }
+);
+
+export type AboutPagesQueryVariables = {};
+
+
+export type AboutPagesQuery = (
+  { __typename?: 'Query' }
+  & { aboutPages: (
+    { __typename?: 'AboutPagesResponse' }
+    & { data: Array<(
+      { __typename?: 'StaticPage' }
+      & StaticPageFieldsFragment
+    )> }
+  ) }
+);
+
+export type AccessibilityPagesQueryVariables = {};
+
+
+export type AccessibilityPagesQuery = (
+  { __typename?: 'Query' }
+  & { accessibilityPages: (
+    { __typename?: 'AccessibilityPagesResponse' }
+    & { data: Array<(
+      { __typename?: 'StaticPage' }
+      & StaticPageFieldsFragment
+    )> }
+  ) }
+);
 
 export type CollectionFieldsFragment = (
   { __typename?: 'CollectionDetails' }
@@ -909,17 +992,29 @@ export type PlaceListQuery = (
   ) }
 );
 
-export const CmsImageFieldsFragmentDoc = gql`
-    fragment cmsImageFields on CmsImage {
-  photographerCredit
-  url
-}
-    `;
 export const LocalizedFieldsFragmentDoc = gql`
     fragment localizedFields on LocalizedObject {
   en
   fi
   sv
+}
+    `;
+export const StaticPageFieldsFragmentDoc = gql`
+    fragment staticPageFields on StaticPage {
+  id
+  expired
+  headingSection {
+    ...localizedFields
+  }
+  contentSection {
+    ...localizedFields
+  }
+}
+    ${LocalizedFieldsFragmentDoc}`;
+export const CmsImageFieldsFragmentDoc = gql`
+    fragment cmsImageFields on CmsImage {
+  photographerCredit
+  url
 }
     `;
 export const CollectionFieldsFragmentDoc = gql`
@@ -1142,6 +1237,96 @@ export const OrganizationFieldsFragmentDoc = gql`
   name
 }
     `;
+export const AboutPagesDocument = gql`
+    query AboutPages {
+  aboutPages {
+    data {
+      ...staticPageFields
+    }
+  }
+}
+    ${StaticPageFieldsFragmentDoc}`;
+export type AboutPagesProps<TChildProps = {}> = ApolloReactHoc.DataProps<AboutPagesQuery, AboutPagesQueryVariables> | TChildProps;
+export function withAboutPages<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  AboutPagesQuery,
+  AboutPagesQueryVariables,
+  AboutPagesProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, AboutPagesQuery, AboutPagesQueryVariables, AboutPagesProps<TChildProps>>(AboutPagesDocument, {
+      alias: 'aboutPages',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useAboutPagesQuery__
+ *
+ * To run a query within a React component, call `useAboutPagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAboutPagesQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAboutPagesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAboutPagesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AboutPagesQuery, AboutPagesQueryVariables>) {
+        return ApolloReactHooks.useQuery<AboutPagesQuery, AboutPagesQueryVariables>(AboutPagesDocument, baseOptions);
+      }
+export function useAboutPagesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AboutPagesQuery, AboutPagesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<AboutPagesQuery, AboutPagesQueryVariables>(AboutPagesDocument, baseOptions);
+        }
+export type AboutPagesQueryHookResult = ReturnType<typeof useAboutPagesQuery>;
+export type AboutPagesLazyQueryHookResult = ReturnType<typeof useAboutPagesLazyQuery>;
+export type AboutPagesQueryResult = ApolloReactCommon.QueryResult<AboutPagesQuery, AboutPagesQueryVariables>;
+export const AccessibilityPagesDocument = gql`
+    query AccessibilityPages {
+  accessibilityPages {
+    data {
+      ...staticPageFields
+    }
+  }
+}
+    ${StaticPageFieldsFragmentDoc}`;
+export type AccessibilityPagesProps<TChildProps = {}> = ApolloReactHoc.DataProps<AccessibilityPagesQuery, AccessibilityPagesQueryVariables> | TChildProps;
+export function withAccessibilityPages<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  AccessibilityPagesQuery,
+  AccessibilityPagesQueryVariables,
+  AccessibilityPagesProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, AccessibilityPagesQuery, AccessibilityPagesQueryVariables, AccessibilityPagesProps<TChildProps>>(AccessibilityPagesDocument, {
+      alias: 'accessibilityPages',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useAccessibilityPagesQuery__
+ *
+ * To run a query within a React component, call `useAccessibilityPagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAccessibilityPagesQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAccessibilityPagesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAccessibilityPagesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AccessibilityPagesQuery, AccessibilityPagesQueryVariables>) {
+        return ApolloReactHooks.useQuery<AccessibilityPagesQuery, AccessibilityPagesQueryVariables>(AccessibilityPagesDocument, baseOptions);
+      }
+export function useAccessibilityPagesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AccessibilityPagesQuery, AccessibilityPagesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<AccessibilityPagesQuery, AccessibilityPagesQueryVariables>(AccessibilityPagesDocument, baseOptions);
+        }
+export type AccessibilityPagesQueryHookResult = ReturnType<typeof useAccessibilityPagesQuery>;
+export type AccessibilityPagesLazyQueryHookResult = ReturnType<typeof useAccessibilityPagesLazyQuery>;
+export type AccessibilityPagesQueryResult = ApolloReactCommon.QueryResult<AccessibilityPagesQuery, AccessibilityPagesQueryVariables>;
 export const CollectionDetailsDocument = gql`
     query CollectionDetails($draft: Boolean, $slug: ID!) {
   collectionDetails(draft: $draft, slug: $slug) {

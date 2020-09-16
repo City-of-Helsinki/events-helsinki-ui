@@ -1,7 +1,7 @@
 import React from 'react';
 
+import Hero from '../../common/components/staticPageHero/StaticPageHero';
 import Container from '../app/layout/Container';
-import Hero from './hero/Hero';
 
 const AboutPageEn: React.FC = () => {
   return (

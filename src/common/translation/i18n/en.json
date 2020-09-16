@@ -2,6 +2,9 @@
   "about": {
     "title": "About the service"
   },
+  "accessibility": {
+    "title": "Accessibility Statement"
+  },
   "appName": "Events",
   "commons": {
     "autosuggest": {
@@ -207,6 +210,7 @@
   },
   "footer": {
     "linkAbout": "About the service",
+    "linkAccessibility": "Accessibility Statement",
     "linkFeedback": "Give feedback",
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/en/administration/participate/feedback/",
     "searchCollections": "We recommend",

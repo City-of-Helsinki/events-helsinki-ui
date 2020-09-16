@@ -1,13 +1,12 @@
 import classNames from 'classnames';
-import unescape from 'lodash/unescape';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import sanitizeHtml from 'sanitize-html';
 
 import ShareLinks from '../../../common/components/shareLinks/ShareLinks';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getLocalisedString from '../../../util/getLocalisedString';
+import sanitizeHtml from '../../../util/sanitizeHtml';
 import Container from '../../app/layout/Container';
 import EventInfo from '../eventInfo/EventInfo';
 import EventLocation from '../eventLocation/EventLocation';
@@ -38,7 +37,7 @@ const EventContent: React.FC<Props> = ({ event }) => {
                 <div
                   className={styles.description}
                   dangerouslySetInnerHTML={{
-                    __html: sanitizeHtml(unescape(description)),
+                    __html: sanitizeHtml(description),
                   }}
                 />
               </>

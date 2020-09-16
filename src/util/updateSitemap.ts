@@ -36,7 +36,7 @@ export type Element = {
 const writeFile = promisify(fs.writeFile);
 
 const LANGUAGES = ['en', 'fi', 'sv'];
-const STATIC_URLS = ['about', 'home'];
+const STATIC_URLS = ['home'];
 const CMS_URL = process.env.REACT_APP_CMS_URL;
 const LINKED_EVENTS_URL = process.env.REACT_APP_LINKED_EVENTS_URL;
 const HOST = process.env.PUBLIC_URL;

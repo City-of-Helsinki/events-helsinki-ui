@@ -2,6 +2,9 @@
   "about": {
     "title": "Tietoa palvelusta"
   },
+  "accessibility": {
+    "title": "Saavutettavuus­seloste"
+  },
   "appName": "Tapahtumat",
   "commons": {
     "autosuggest": {
@@ -207,6 +210,7 @@
   },
   "footer": {
     "linkAbout": "Tietoa palvelusta",
+    "linkAccessibility": "Saavutettavuus­seloste",
     "linkFeedback": "Anna palautetta",
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta",
     "searchCollections": "Suosittelemme",
