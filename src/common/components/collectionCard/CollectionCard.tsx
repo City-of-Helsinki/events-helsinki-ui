@@ -39,11 +39,19 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
   const { search } = useLocation();
   const { t } = useTranslation();
   const locale = useLocale();
+  const button = React.useRef<HTMLDivElement>(null);
 
   const collectionUrl = `/${locale}${ROUTES.COLLECTION.replace(
     ':slug',
     slug
   )}${search}`;
+
+  const handleLinkClick = (ev: React.MouseEvent<HTMLAnchorElement>) => {
+    const target = ev.target;
+    if (button.current?.contains(target as Node)) {
+      ev.preventDefault();
+    }
+  };
 
   const moveToCollectionPage = () => {
     history.push(collectionUrl);
@@ -58,6 +66,7 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
         styles.collectionCardWrapper,
         styles[`${size}Size`]
       )}
+      onClick={handleLinkClick}
       to={collectionUrl}
     >
       <div
@@ -85,15 +94,17 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
         </div>
 
         <div className={styles.linkWrapper}>
-          <IconButton
-            ariaLabel={t('commons.collectionCard.ariaLabelLink', {
-              title,
-            })}
-            aria-hidden={true}
-            icon={<IconArrowRight />}
-            onClick={moveToCollectionPage}
-            size="default"
-          />
+          <div ref={button}>
+            <IconButton
+              ariaLabel={t('commons.collectionCard.ariaLabelLink', {
+                title,
+              })}
+              aria-hidden={true}
+              icon={<IconArrowRight />}
+              onClick={moveToCollectionPage}
+              size="default"
+            />
+          </div>
         </div>
       </div>
     </Link>

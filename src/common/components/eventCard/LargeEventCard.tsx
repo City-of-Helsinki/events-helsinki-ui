@@ -36,6 +36,7 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
   const { search } = useLocation();
   const locale = useLocale();
   const eventClosed = isEventClosed(event);
+  const button = React.useRef<HTMLDivElement>(null);
 
   const offerInfoUrl = React.useMemo(() => {
     const offer = event.offers.find((item) =>
@@ -53,7 +54,14 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
     return `/${locale}${ROUTES.EVENT.replace(':id', event.id)}${search}`;
   }, [event.id, locale, search]);
 
-  const moveToEventPage = () => {
+  const handleLinkClick = (ev: React.MouseEvent<HTMLAnchorElement>) => {
+    const target = ev.target;
+    if (button.current?.contains(target as Node)) {
+      ev.preventDefault();
+    }
+  };
+
+  const moveToEventPage = (ev: React.MouseEvent<HTMLButtonElement>) => {
     push(eventUrl);
   };
 
@@ -84,6 +92,7 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
         [styles.eventClosed]: eventClosed,
       })}
       id={getLargeEventCardId(event.id)}
+      onClick={handleLinkClick}
       to={eventUrl}
     >
       {/* INFO WRAPPER. Re-order info wrapper and text wrapper on css */}
@@ -133,12 +142,13 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
               </Button>
             )}
           </div>
-          <div>
+          <div ref={button}>
             <Button
               className={buttonStyles.buttonGray}
               fullWidth
               onClick={moveToEventPage}
               size="small"
+              type="button"
             >
               {t('eventSearch.event.buttonReadMore')}
             </Button>

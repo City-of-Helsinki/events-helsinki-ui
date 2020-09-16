@@ -151,6 +151,10 @@
       .linkWrapper {
         display: flex;
         align-self: center;
+
+        div {
+          display: inline-block;
+        }
       }
     }
   }

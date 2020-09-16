@@ -34,6 +34,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const locale = useLocale();
+  const button = React.useRef<HTMLDivElement>(null);
 
   const imageUrl = getEventImageUrl(event);
   const placeholderImage = getEventPlaceholderImageUrl(event);
@@ -46,6 +47,13 @@ const EventCard: React.FC<Props> = ({ event }) => {
   }, [event.id, locale, search]);
 
   const eventClosed = isEventClosed(event);
+
+  const handleLinkClick = (ev: React.MouseEvent<HTMLAnchorElement>) => {
+    const target = ev.target;
+    if (button.current?.contains(target as Node)) {
+      ev.preventDefault();
+    }
+  };
 
   const goToEventPage = () => {
     history.push(eventUrl);
@@ -74,6 +82,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
         [styles.eventClosed]: eventClosed,
       })}
       id={getEventCardId(event.id)}
+      onClick={handleLinkClick}
       to={eventUrl}
     >
       {/* INFO WRAPPER. Re-order info wrapper and text wrapper on css */}
@@ -113,14 +122,16 @@ const EventCard: React.FC<Props> = ({ event }) => {
           </div>
         </div>
         <div className={styles.buttonWrapper}>
-          <IconButton
-            ariaLabel={t('commons.eventCard.ariaLabelLink', {
-              name: getLocalisedString(name, locale),
-            })}
-            icon={<IconArrowRight />}
-            onClick={goToEventPage}
-            size="default"
-          />
+          <div ref={button}>
+            <IconButton
+              ariaLabel={t('commons.eventCard.ariaLabelLink', {
+                name: getLocalisedString(name, locale),
+              })}
+              icon={<IconArrowRight />}
+              onClick={goToEventPage}
+              size="default"
+            />
+          </div>
         </div>
       </div>
 

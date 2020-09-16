@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EventCards should match snapshot 1`] = `
-"<div class=\\"eventCards\\"><a class=\\"eventCard\\" href=\\"/fi/event/123\\">
+"<div class=\\"eventCards\\"><a class=\\"eventCard\\" id=\\"large-event-card_123\\" href=\\"/fi/event/123\\">
     <div class=\\"infoWrapper\\">
       <div class=\\"eventName\\">name fi</div>
       <div class=\\"eventDateAndTime\\">Pe 13.12.2019, klo 10.00</div>

@@ -244,6 +244,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     setPlaceInput('');
     setAutosuggestInput('');
   };
+
   const clearFilters = () => {
     const search = getSearchQuery(DEFAULT_SEARCH_FILTERS);
 
