@@ -1,11 +1,9 @@
-@import 'colors';
-@import 'fonts';
 @import 'layout';
 
 .collectionCardWrapper {
   display: flex;
   position: relative;
-  background-color: $hel-white;
+  background-color: var(--color-white);
   text-decoration: none;
 
   .imageWrapper {
@@ -16,19 +14,19 @@
   }
 
   .textWrapper {
-    background-color: $hel-white;
-    padding: 1.25rem;
+    background-color: var(--color-white);
+    padding: var(--spacing-m);
 
     display: grid;
     grid-template-rows: auto 1fr auto;
 
     .count {
       display: inline-block;
-      padding: 0.25rem 0.5rem;
-      font-size: 0.875rem;
-      background-color: $hel-black;
-      color: $hel-white;
-      margin-bottom: 1rem;
+      padding: var(--spacing-3-xs) var(--spacing-2-xs);
+      font-size: var(--fontsize-body-s);
+      background-color: var(--color-black);
+      color: var(--color-white);
+      margin-bottom: var(--spacing-s);
     }
 
     .titleWrapper {
@@ -47,11 +45,11 @@
 
     .description {
       color: var(--color-black);
-      font-size: $body-medium-font-size;
+      font-size: var(--fontsize-body-m);
     }
 
     .linkWrapper {
-      padding-top: 1rem;
+      padding-top: var(--spacing-s);
     }
   }
 
@@ -86,13 +84,13 @@
 
       .countWrapper {
         position: absolute;
-        top: 1rem;
-        left: 1rem;
+        top: var(--spacing-s);
+        left: var(--spacing-s);
       }
 
       .count {
-        background-color: $hel-white;
-        color: $hel-black;
+        background-color: var(--color-white);
+        color: var(--color-black);
       }
 
       .linkWrapper {
@@ -100,7 +98,7 @@
         align-self: center;
 
         @include respond-below(sm) {
-          padding-top: 1rem;
+          padding-top: var(--spacing-s);
           padding-left: 0;
         }
       }
@@ -137,14 +135,14 @@
 
       .countWrapper {
         position: absolute;
-        left: 1rem;
-        top: 1rem;
+        left: var(--spacing-s);
+        top: var(--spacing-s);
       }
 
       .count {
         @include respond-above(sm) {
-          background-color: $hel-white;
-          color: $hel-black;
+          background-color: var(--color-white);
+          color: var(--color-black);
         }
       }
 
@@ -193,19 +191,19 @@
       .title {
         font-size: var(--fontsize-heading-l);
         line-height: var(--lineheight-l);
-        margin-bottom: 1rem;
+        margin-bottom: var(--spacing-s);
 
         @include respond-below(sm) {
           font-size: var(--fontsize-heading-m);
-          margin-bottom: 0.5rem;
+          margin-bottom: var(--spacing-2-xs);
         }
       }
 
       .description {
-        font-size: $body-large-font-size;
+        font-size: var(--fontsize-body-l);
 
         @include respond-above(sm) {
-          font-size: $body-medium-font-size;
+          font-size: var(--fontsize-body-m);
           line-height: 2.25rem;
         }
       }

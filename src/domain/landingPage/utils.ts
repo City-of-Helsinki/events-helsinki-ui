@@ -1,5 +1,5 @@
 import { LandingPageFieldsFragment } from '../../generated/graphql';
-import { Language } from '../../types';
+import { LandingPageTextColor, Language } from '../../types';
 import { LANDING_PAGE_SOME_IMAGE } from './constants';
 
 /**
@@ -25,7 +25,7 @@ export const getHeroBackgroundColor = (
   landingPage: LandingPageFieldsFragment,
   locale: Language
 ): string | undefined => {
-  const backgroundColor = (landingPage.heroBackgroundImageColor || {})[locale];
+  const backgroundColor = landingPage.heroBackgroundImageColor?.[locale];
   return backgroundColor ? backgroundColor.toLowerCase() : undefined;
 };
 /**
@@ -38,7 +38,7 @@ export const getHeroBackgroundImage = (
   landingPage: LandingPageFieldsFragment,
   locale: Language
 ): string => {
-  return (landingPage.heroBackgroundImage || {})[locale]?.url || '';
+  return landingPage.heroBackgroundImage?.[locale]?.url || '';
 };
 
 /**
@@ -51,7 +51,7 @@ export const getHeroBackgroundImageMobile = (
   landingPage: LandingPageFieldsFragment,
   locale: Language
 ): string => {
-  return (landingPage.heroBackgroundImageMobile || {})[locale]?.url || '';
+  return landingPage.heroBackgroundImageMobile?.[locale]?.url || '';
 };
 
 /**
@@ -60,28 +60,11 @@ export const getHeroBackgroundImageMobile = (
  * @param {string} locale
  * @return {string}
  */
-export const getHeroTitleColor = (
+export const getHeroTitleAndDescriptionColor = (
   landingPage: LandingPageFieldsFragment,
   locale: Language
-): string => {
-  return `var(--color-${(
-    (landingPage.titleColor || {})[locale] || 'BLACK'
-  ).toLowerCase()})`;
-};
-
-/**
- * Get landing page hero description color
- * @param {object} landingPage
- * @param {string} locale
- * @return {string}
- */
-export const getHeroDescriptionColor = (
-  landingPage: LandingPageFieldsFragment,
-  locale: Language
-): string => {
-  return `var(--color-${(
-    (landingPage.descriptionColor || {})[locale] || 'BLACK'
-  ).toLowerCase()})`;
+): LandingPageTextColor => {
+  return landingPage.titleAndDescriptionColor?.[locale] as LandingPageTextColor;
 };
 
 /**
@@ -94,7 +77,7 @@ export const getHeroTopLayerImage = (
   landingPage: LandingPageFieldsFragment,
   locale: Language
 ): string => {
-  return (landingPage.heroTopLayerImage || {})[locale]?.url || '';
+  return landingPage.heroTopLayerImage?.[locale]?.url || '';
 };
 
 /**
@@ -106,7 +89,7 @@ export const getLandingPageSomeImageUrl = (
   landingPage: LandingPageFieldsFragment,
   locale: Language
 ): string => {
-  const image = (landingPage.socialMediaImage || {})[locale]?.url;
+  const image = landingPage.socialMediaImage?.[locale]?.url;
   return image || LANDING_PAGE_SOME_IMAGE;
 };
 
@@ -122,9 +105,11 @@ export const getLandingPageFields = (
 ) => ({
   pageTitle: landingPage.pageTitle?.[locale],
   title: landingPage.title?.[locale],
-  titleColor: getHeroTitleColor(landingPage, locale),
   description: landingPage.description?.[locale],
-  descriptionColor: getHeroDescriptionColor(landingPage, locale),
+  titleAndDescriptionColor: getHeroTitleAndDescriptionColor(
+    landingPage,
+    locale
+  ),
   someDescription: landingPage.metaInformation?.[locale],
   buttonText: landingPage.buttonText?.[locale],
   buttonUrl: landingPage.buttonUrl?.[locale],

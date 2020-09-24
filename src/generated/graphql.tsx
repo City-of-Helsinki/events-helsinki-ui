@@ -219,9 +219,8 @@ export type LandingPage = {
   lastPublishedAt?: Maybe<Scalars['String']>,
   latestRevisionCreatedAt?: Maybe<Scalars['String']>,
   title?: Maybe<LocalizedObject>,
-  titleColor?: Maybe<LocalizedObject>,
   description?: Maybe<LocalizedObject>,
-  descriptionColor?: Maybe<LocalizedObject>,
+  titleAndDescriptionColor?: Maybe<LocalizedObject>,
   buttonText?: Maybe<LocalizedObject>,
   buttonUrl?: Maybe<LocalizedObject>,
   heroBackgroundImage?: Maybe<LocalizedCmsImage>,
@@ -820,13 +819,10 @@ export type LandingPageFieldsFragment = (
   )>, title: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
-  )>, titleColor: Maybe<(
-    { __typename?: 'LocalizedObject' }
-    & LocalizedFieldsFragment
   )>, description: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
-  )>, descriptionColor: Maybe<(
+  )>, titleAndDescriptionColor: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
   )>, buttonText: Maybe<(
@@ -1198,13 +1194,10 @@ export const LandingPageFieldsFragmentDoc = gql`
   title {
     ...localizedFields
   }
-  titleColor {
-    ...localizedFields
-  }
   description {
     ...localizedFields
   }
-  descriptionColor {
+  titleAndDescriptionColor {
     ...localizedFields
   }
   buttonText {

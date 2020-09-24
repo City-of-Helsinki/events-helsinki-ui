@@ -58,35 +58,47 @@
   }
 
   .content {
-    padding-top: 3.75rem;
+    margin-top: var(--spacing-xl);
     z-index: 1;
+    width: fit-content;
+    padding: var(--spacing-m);
 
     @include respond-above(sm) {
-      padding-top: 9.25rem;
       margin-bottom: 10rem;
+      margin-left: calc(0rem - var(--spacing-xl));
+      padding: var(--spacing-xl);
+      max-width: 25rem;
+    }
+
+    @include respond-above(md) {
+      margin-left: 0rem;
+      max-width: 35rem;
     }
 
     .description {
       font-size: 1.125rem;
-      color: $hel-dark;
     }
 
     .title {
       font-size: 3.25rem;
-      color: $hel-black;
       font-weight: 600;
       line-height: 60px;
       margin: 0 0 1rem;
 
       @include respond-above(md) {
-        max-width: 19.625rem;
-      }
-
-      @include respond-above(lg) {
         font-size: 5rem;
         line-height: 92px;
-        max-width: 38rem;
       }
+    }
+
+    &.colorBlack {
+      color: var(--color-black);
+      background-color: rgba(0255, 255, 255, 0.7);
+    }
+
+    &.colorWhite {
+      color: var(--color-white);
+      background-color: rgba(0, 0, 0, 0.7);
     }
   }
 }

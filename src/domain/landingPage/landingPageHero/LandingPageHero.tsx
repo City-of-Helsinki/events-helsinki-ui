@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { Button } from 'hds-react';
+import capitalize from 'lodash/capitalize';
 import React from 'react';
 
 import Container from '../../../domain/app/layout/Container';
@@ -20,12 +21,11 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
     buttonText,
     buttonUrl,
     description,
-    descriptionColor,
     heroBackgroundImage,
     heroBackgroundImageMobile,
     heroTopLayerImage,
     title,
-    titleColor,
+    titleAndDescriptionColor,
   } = getLandingPageFields(landingPage, locale);
 
   const moveToCollectionPage = () => {
@@ -55,16 +55,14 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
         style={{ backgroundImage: `url(${heroTopLayerImage})` }}
       ></div>
       <Container>
-        <div className={styles.content}>
-          <div
-            className={styles.description}
-            style={{ color: descriptionColor }}
-          >
-            {description}
-          </div>
-          <h1 className={styles.title} style={{ color: titleColor }}>
-            {title}
-          </h1>
+        <div
+          className={classNames(
+            styles.content,
+            styles[`color${capitalize(titleAndDescriptionColor)}`]
+          )}
+        >
+          <div className={styles.description}>{description}</div>
+          <h1 className={styles.title}>{title}</h1>
           {!!buttonText && !!buttonUrl && (
             <Button onClick={moveToCollectionPage} variant="success">
               {buttonText}

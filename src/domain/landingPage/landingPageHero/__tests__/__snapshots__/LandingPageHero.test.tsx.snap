@@ -20,7 +20,7 @@ exports[`matches snapshot 1`] = `
     class="container"
   >
     <div
-      class="content"
+      class="content colorWhite"
     >
       <div
         class="description"

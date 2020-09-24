@@ -36,7 +36,7 @@ it('Link should be internal link', () => {
   });
   expect(pretty(container.innerHTML)).toMatchInlineSnapshot(`
     "<a class=\\"link defaultColor defaultSize\\" href=\\"/www.test.fi\\">
-      <div>Test internal link</div><svg class=\\"Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik\\" viewBox=\\"0 0 24 24\\" xmlns=\\"http://www.w3.org/2000/svg\\">
+      <div>Test internal link</div><svg xmlns=\\"http://www.w3.org/2000/svg\\" class=\\"Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik\\" viewBox=\\"0 0 24 24\\">
         <g fill=\\"none\\" fill-rule=\\"evenodd\\">
           <path d=\\"M0 24V0h24v24z\\"></path>
           <path fill=\\"currentColor\\" d=\\"M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z\\"></path>
@@ -59,7 +59,7 @@ it('Link should be external link', () => {
   });
   expect(pretty(container.innerHTML)).toMatchInlineSnapshot(`
     "<a class=\\"link defaultColor defaultSize\\" href=\\"www.test.fi\\" rel=\\"noopener noreferrer\\" target=\\"_blank\\">
-      <div>Test external link</div><svg class=\\"Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik\\" viewBox=\\"0 0 24 24\\" xmlns=\\"http://www.w3.org/2000/svg\\">
+      <div>Test external link</div><svg xmlns=\\"http://www.w3.org/2000/svg\\" class=\\"Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik\\" viewBox=\\"0 0 24 24\\">
         <g fill=\\"none\\" fill-rule=\\"evenodd\\">
           <path d=\\"M0 24V0h24v24z\\"></path>
           <path fill=\\"currentColor\\" d=\\"M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z\\"></path>

@@ -19,12 +19,6 @@ export const landingPage: LandingPageFieldsFragment = {
     fi: 'Description fi:',
     sv: 'Description sv:',
   },
-  descriptionColor: {
-    __typename: 'LocalizedObject',
-    en: 'WHITE',
-    fi: 'WHITE',
-    sv: 'WHITE',
-  },
   heroBackgroundImage: {
     __typename: 'LocalizedCmsImage',
     en: {
@@ -122,7 +116,7 @@ export const landingPage: LandingPageFieldsFragment = {
     fi: 'Title fi:',
     sv: 'Title sv:',
   },
-  titleColor: {
+  titleAndDescriptionColor: {
     __typename: 'LocalizedObject',
     en: 'WHITE',
     fi: 'WHITE',

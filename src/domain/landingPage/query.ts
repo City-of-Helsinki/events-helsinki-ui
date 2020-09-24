@@ -28,13 +28,10 @@ export const QUERY_KEYWORD = gql`
     title {
       ...localizedFields
     }
-    titleColor {
-      ...localizedFields
-    }
     description {
       ...localizedFields
     }
-    descriptionColor {
+    titleAndDescriptionColor {
       ...localizedFields
     }
     buttonText {
