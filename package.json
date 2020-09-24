@@ -26,8 +26,8 @@
     "file-saver": "^2.0.2",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.3",
-    "hds-core": "0.12.1",
-    "hds-react": "0.12.1",
+    "hds-core": "0.13.2",
+    "hds-react": "0.13.2",
     "i18next": "^17.3.1",
     "i18next-browser-languagedetector": "^4.0.1",
     "i18next-express-middleware": "^1.9.1",
@@ -172,6 +172,9 @@
       "src/util/scrollToTop.ts",
       "src/util/testImage.ts",
       "src/util/updateSitemap.ts"
+    ],
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!hds-react)/"
     ]
   }
 }
