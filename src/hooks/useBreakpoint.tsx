@@ -7,13 +7,13 @@ const useBreakpoint = (): Breakpoint => {
   /* istanbul ignore next */
   if (windowSize.width === undefined) {
     return 'lg';
-  } else if (windowSize.width <= BREAKPOINTS.XS) {
+  } else if (windowSize.width < BREAKPOINTS.XS) {
     return 'xs';
-  } else if (windowSize.width <= BREAKPOINTS.SM) {
+  } else if (windowSize.width < BREAKPOINTS.SM) {
     return 'sm';
-  } else if (windowSize.width <= BREAKPOINTS.MD) {
+  } else if (windowSize.width < BREAKPOINTS.MD) {
     return 'md';
-  } else if (windowSize.width <= BREAKPOINTS.LG) {
+  } else if (windowSize.width < BREAKPOINTS.LG) {
     return 'lg';
   } else {
     return 'xlg';

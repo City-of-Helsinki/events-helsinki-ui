@@ -8,8 +8,11 @@
   padding-bottom: 6rem;
 
   @include respond-above(sm) {
-    min-height: 42.6875rem;
     padding-bottom: unset;
+  }
+
+  @include respond-above(md) {
+    min-height: 42.6875rem;
   }
 
   .desktopBackgroundImage {
