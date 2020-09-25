@@ -4,7 +4,7 @@ include:
     file: '/.gitlab-ci-template.yml'
 
 variables:
-  SERVICE_PORT: 3000
+  SERVICE_PORT: 3001
 
 build-review:
   # These variables are available only for review env and are merged with the general variables defined above.
@@ -14,7 +14,6 @@ build-review:
     DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.test.kuva.hel.ninja
     DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
     DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
-    DOCKER_BUILD_ARG_REACT_APP_SSR_PORT: 3000
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: '$GL_SENTRY_DSN'
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'dev'
     DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.test.kuva.hel.ninja/api'
@@ -35,7 +34,6 @@ build-staging:
     DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.test.kuva.hel.ninja
     DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
     DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
-    DOCKER_BUILD_ARG_REACT_APP_SSR_PORT: 3000
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: '$GL_SENTRY_DSN'
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'test'
     DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.test.kuva.hel.ninja/api'
@@ -55,7 +53,6 @@ build-production:
     DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.prod.kuva.hel.ninja
     DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
     DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.prod.kuva.hel.ninja/proxy/graphql'
-    DOCKER_BUILD_ARG_REACT_APP_SSR_PORT: 3000
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: '$GL_SENTRY_DSN'
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'production'
     DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.prod.kuva.hel.ninja/api'

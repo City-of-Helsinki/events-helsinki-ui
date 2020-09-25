@@ -6,16 +6,23 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 To build the project, you will need [Docker](https://www.docker.com/community-edition).
 
-Building the project
+Start the container
 
-    cp .env.example .env
-    docker-compose build
+    docker-compose up
 
-Starting the application
+The web application should run at http://localhost:3000
 
-    docker-compose up -d
+## Running production version with Docker
 
-The web application will run on http://localhost:3000
+Build the docker image
+
+    DOCKER_TARGET=production docker-compose build
+
+Start the container
+
+    docker-compose up
+
+The web application should run at http://localhost:3001
 
 ## Available Scripts
 
@@ -53,7 +60,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### `yarn start:server`
 
 Runs the app in the production mode. Client ssr express server is used to serve the application<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 
 ### `yarn lint`
 

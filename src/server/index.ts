@@ -147,7 +147,7 @@ cron.schedule('* 5 * * *', () => {
   generateSitemap();
 });
 
-const port = process.env.REACT_APP_SSR_PORT || 3000;
+const port = 3001;
 
 app.listen(port, () => {
   signalReady();
