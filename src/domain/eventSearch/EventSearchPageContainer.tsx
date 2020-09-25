@@ -1,6 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { RouteComponentProps, useLocation, withRouter } from 'react-router';
+import {
+  RouteComponentProps,
+  useHistory,
+  useLocation,
+  withRouter,
+} from 'react-router';
 import { scroller } from 'react-scroll';
 
 import { getLargeEventCardId } from '../../common/components/eventCard/utils';
@@ -20,6 +25,7 @@ import { getEventSearchVariables, getNextPage } from './utils';
 const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const { t } = useTranslation();
   const locale = useLocale();
+  const history = useHistory();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const eventFilters = React.useMemo(() => {
@@ -91,6 +97,10 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
       scrollToResultList();
     } else if (location.state?.eventId) {
       scrollToEventCard(getLargeEventCardId(location.state.eventId));
+      // Clear eventId value to keep scroll position correctly
+      const state = { ...location.state };
+      delete state.eventId;
+      history.replace({ ...location, state });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
