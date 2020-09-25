@@ -1,3 +1,11 @@
+export const BREAKPOINTS = {
+  XS: 576,
+  SM: 768,
+  MD: 1024,
+  LG: 1200,
+  XLG: 1600,
+};
+
 export const AUTOSUGGEST_KEYWORD_BLACK_LIST = [
   'kulke:354', // Seniorit
 ];
