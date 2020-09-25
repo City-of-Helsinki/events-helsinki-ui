@@ -1,8 +1,9 @@
 import { MockedProvider, MockedResponse } from '@apollo/react-testing';
-import { fireEvent, render, RenderResult } from '@testing-library/react';
+import { act, fireEvent, render, RenderResult } from '@testing-library/react';
 import { createMemoryHistory, History } from 'history';
 import React from 'react';
 import { Route, Router } from 'react-router-dom';
+import wait from 'waait';
 
 type CustomRender = {
   (
@@ -74,7 +75,9 @@ const renderWithRoute: CustomRender = (
   return { ...renderResult, history };
 };
 
-export { customRender as render, renderWithRoute };
+const actWait = (amount?: number): Promise<void> => act(() => wait(amount));
+
+export { actWait, customRender as render, renderWithRoute };
 
 // re-export everything
 export * from '@testing-library/react';
