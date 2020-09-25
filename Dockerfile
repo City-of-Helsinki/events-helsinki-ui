@@ -23,6 +23,23 @@ RUN yarn && yarn cache clean --force
 # Copy all files
 COPY --chown=appuser:appuser . /app/
 
+# =============================
+FROM appbase as development
+# =============================
+
+# Set NODE_ENV to development in the development container
+ARG NODE_ENV=development
+ENV NODE_ENV $NODE_ENV
+
+# Bake package.json start command into the image
+CMD ["yarn", "start"]
+
+# ==========================================
+FROM appbase as production
+# ==========================================
+# Use non-root user
+USER appuser
+
 # Set public url
 ARG PUBLIC_URL
 
@@ -52,23 +69,6 @@ ARG REACT_APP_GENERATE_SITEMAP
 ARG REACT_APP_MATOMO_URL_BASE
 ARG REACT_APP_MATOMO_SITE_ID
 ARG REACT_APP_MATOMO_ENABLED
-
-# =============================
-FROM appbase as development
-# =============================
-
-# Set NODE_ENV to development in the development container
-ARG NODE_ENV=development
-ENV NODE_ENV $NODE_ENV
-
-# Bake package.json start command into the image
-CMD ["yarn", "start"]
-
-# ==========================================
-FROM appbase as production
-# ==========================================
-# Use non-root user
-USER appuser
 
 # Build application
 RUN yarn build
