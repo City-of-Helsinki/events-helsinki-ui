@@ -2,9 +2,33 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Event Helsinki client UI / SSR server
 
-## Development with Docker
+UI and SSR server for Tapahtumat Helsinki
 
-To build the project, you will need [Docker](https://www.docker.com/community-edition).
+## Environments
+
+Production environment:
+[TODO: Add url when deployed]
+Project is automatically deployed to production when adding new relase tag, e.g. release-v0.1.0, to repo
+
+Testing environment: [https://tapahtumat.test.kuva.hel.ninja](https://tapahtumat.test.kuva.hel.ninja)
+Project is automatically deployed to testing environment when pushing to develop brach
+
+## Requirements
+
+- Node 12.x
+- Yarn
+- Git
+- [Docker](https://www.docker.com/community-edition)
+
+## Setting up development environment locally with docker
+
+### Install events-helsinki-api-proxy locally
+
+Clone the repository (https://github.com/City-of-Helsinki/events-helsinki-api-proxy). Follow the instructions for running open-city-profile with docker.
+
+### Run events-helsinki-ui
+
+Create .env.development.local file and set REACT_APP_GRAPHQL_BASE_URL=http://localhost:4000/proxy/graphql
 
 Start the container
 
