@@ -67,16 +67,11 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
 
     const maxTextWrapperWidth = getTextWrapperMaxWidth();
 
-    // Return null if screen size is small or title is not defined
-    if (!maxTextWrapperWidth || !title) {
-      return null;
-    }
-
     const font = `600 ${getTextFontSize()}px HelsinkiGrotesk`;
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
 
-    if (context) {
+    if (context && maxTextWrapperWidth && title) {
       context.font = font;
 
       const words = title.trim().split(' ');
