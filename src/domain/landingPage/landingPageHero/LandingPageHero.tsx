@@ -7,6 +7,7 @@ import Container from '../../../domain/app/layout/Container';
 import { LandingPageFieldsFragment } from '../../../generated/graphql';
 import useBreakpoint from '../../../hooks/useBreakpoint';
 import useLocale from '../../../hooks/useLocale';
+import useTextWrapperWidth from '../../../hooks/useTextWrapperWidth';
 import { Breakpoint } from '../../../types';
 import { getLandingPageFields } from '../utils';
 import styles from './landingPageHero.module.scss';
@@ -43,6 +44,13 @@ interface Props {
 const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
   const locale = useLocale();
   const breakpoint = useBreakpoint();
+  const { fontSize, maxTextWrapperWidth } = React.useMemo(
+    () => ({
+      fontSize: getTextFontSize(breakpoint),
+      maxTextWrapperWidth: getTextWrapperMaxWidth(breakpoint),
+    }),
+    [breakpoint]
+  );
 
   const {
     backgroundColor,
@@ -56,61 +64,15 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
     titleAndDescriptionColor,
   } = getLandingPageFields(landingPage, locale);
 
+  const textWrapperWidth = useTextWrapperWidth({
+    font: `600 ${fontSize}px HelsinkiGrotesk`,
+    maxTextWrapperWidth,
+    title: title || '',
+  });
+
   const moveToCollectionPage = () => {
     window.open(buttonUrl || '', '_self');
   };
-
-  // We want to have event padding for the text wrapper. By using pure CSS we can set
-  // max-width for the wrapper but when the text is longer that max-width the text
-  // will take space of max-width and there might be wider right padding.
-  // So we need to calculate the max-width of each text row and set max-width of
-  // text wrapper to same
-  const calculateTextWrapperWidth = () => {
-    const maxTextWrapperWidth = getTextWrapperMaxWidth(breakpoint);
-
-    const font = `600 ${getTextFontSize(breakpoint)}px HelsinkiGrotesk`;
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-
-    if (context && maxTextWrapperWidth && title) {
-      context.font = font;
-
-      const words = title.trim().split(' ');
-      let i = 0;
-      let text = words[i];
-      let maxTextWidth = 0;
-      let prevTextWidth = 0;
-      let textWidth = 0;
-
-      // Loop through all the words
-      while (i < words.length) {
-        textWidth = context.measureText(text).width;
-
-        if (textWidth <= maxTextWrapperWidth) {
-          // Add new word to text if text width is smaller than max text wrapper width
-          prevTextWidth = textWidth;
-          i = i + 1;
-          text = [text, words[i]].join(' ');
-        } else {
-          if (text === words[i]) {
-            // If single word is longer than max text wrapper width compare
-            // maxTextWidth and single word width
-            maxTextWidth = Math.max(maxTextWidth, textWidth);
-            i = i + 1;
-          } else {
-            maxTextWidth = Math.max(maxTextWidth, prevTextWidth);
-          }
-          text = words[i];
-        }
-      }
-
-      return Math.ceil(maxTextWidth);
-    }
-
-    return null;
-  };
-
-  const calculatedTextWrapperWidth = calculateTextWrapperWidth();
 
   return (
     <div
@@ -141,9 +103,7 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
             styles[`color${capitalize(titleAndDescriptionColor)}`]
           )}
           style={{
-            maxWidth: calculatedTextWrapperWidth
-              ? calculatedTextWrapperWidth + 1
-              : undefined,
+            maxWidth: textWrapperWidth ? textWrapperWidth + 1 : undefined,
           }}
         >
           <div className={styles.description}>{description}</div>

@@ -21,7 +21,6 @@ exports[`matches snapshot 1`] = `
   >
     <div
       class="content colorWhite"
-      style="max-width: 262px;"
     >
       <div
         class="description"
