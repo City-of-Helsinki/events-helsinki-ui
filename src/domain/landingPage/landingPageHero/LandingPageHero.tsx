@@ -7,8 +7,34 @@ import Container from '../../../domain/app/layout/Container';
 import { LandingPageFieldsFragment } from '../../../generated/graphql';
 import useBreakpoint from '../../../hooks/useBreakpoint';
 import useLocale from '../../../hooks/useLocale';
+import { Breakpoint } from '../../../types';
 import { getLandingPageFields } from '../utils';
 import styles from './landingPageHero.module.scss';
+
+const getTextWrapperMaxWidth = (breakpoint: Breakpoint) => {
+  switch (breakpoint) {
+    case 'xs':
+    case 'sm':
+      return undefined;
+    case 'md':
+      return 400;
+    case 'lg':
+    case 'xlg':
+      return 560;
+  }
+};
+
+const getTextFontSize = (breakpoint: Breakpoint) => {
+  switch (breakpoint) {
+    case 'xs':
+    case 'sm':
+    case 'md':
+      return 52;
+    case 'lg':
+    case 'xlg':
+      return 80;
+  }
+};
 
 interface Props {
   landingPage: LandingPageFieldsFragment;
@@ -39,35 +65,10 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
   // will take space of max-width and there might be wider right padding.
   // So we need to calculate the max-width of each text row and set max-width of
   // text wrapper to same
-  const calculatedTextWrapperWidth = React.useMemo(() => {
-    const getTextWrapperMaxWidth = () => {
-      switch (breakpoint) {
-        case 'xs':
-        case 'sm':
-          return undefined;
-        case 'md':
-          return 400;
-        case 'lg':
-        case 'xlg':
-          return 560;
-      }
-    };
+  const calculateTextWrapperWidth = () => {
+    const maxTextWrapperWidth = getTextWrapperMaxWidth(breakpoint);
 
-    const getTextFontSize = () => {
-      switch (breakpoint) {
-        case 'xs':
-        case 'sm':
-        case 'md':
-          return 52;
-        case 'lg':
-        case 'xlg':
-          return 80;
-      }
-    };
-
-    const maxTextWrapperWidth = getTextWrapperMaxWidth();
-
-    const font = `600 ${getTextFontSize()}px HelsinkiGrotesk`;
+    const font = `600 ${getTextFontSize(breakpoint)}px HelsinkiGrotesk`;
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
 
@@ -107,7 +108,9 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
     }
 
     return null;
-  }, [breakpoint, title]);
+  };
+
+  const calculatedTextWrapperWidth = calculateTextWrapperWidth();
 
   return (
     <div
