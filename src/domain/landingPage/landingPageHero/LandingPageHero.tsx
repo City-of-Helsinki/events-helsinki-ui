@@ -76,8 +76,10 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
   };
 
   React.useLayoutEffect(() => {
-    if (textWrapperWidth && textWrapper.current) {
-      textWrapper.current.style.maxWidth = `${textWrapperWidth + 1}px`;
+    if (textWrapper.current) {
+      textWrapper.current.style.maxWidth = textWrapperWidth
+        ? `${textWrapperWidth + 1}px`
+        : '';
       switch (titleAndDescriptionColor) {
         case 'BLACK':
           textWrapper.current.style.backgroundColor =
