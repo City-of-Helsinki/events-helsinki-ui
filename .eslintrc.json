@@ -5,9 +5,10 @@
     "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:testcafe/recommended"
   ],
-  "plugins": ["simple-import-sort"],
+  "plugins": ["simple-import-sort", "testcafe"],
   "rules": {
     "@typescript-eslint/brace-style": [
       "error",
