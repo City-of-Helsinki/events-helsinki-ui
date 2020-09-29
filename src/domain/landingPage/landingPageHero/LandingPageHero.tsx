@@ -42,6 +42,7 @@ interface Props {
 }
 
 const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
+  const textWrapper = React.useRef<HTMLDivElement>(null);
   const locale = useLocale();
   const breakpoint = useBreakpoint();
   const { fontSize, maxTextWrapperWidth } = React.useMemo(
@@ -74,6 +75,21 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
     window.open(buttonUrl || '', '_self');
   };
 
+  React.useLayoutEffect(() => {
+    if (textWrapperWidth && textWrapper.current) {
+      textWrapper.current.style.maxWidth = `${textWrapperWidth + 1}px`;
+      switch (titleAndDescriptionColor) {
+        case 'BLACK':
+          textWrapper.current.style.backgroundColor =
+            'rgba(0255, 255, 255, 0.7)';
+          break;
+        case 'WHITE':
+          textWrapper.current.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+          break;
+      }
+    }
+  }, [textWrapperWidth, titleAndDescriptionColor]);
+
   return (
     <div
       className={classNames(styles.landingPageHero, {
@@ -83,28 +99,29 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
       <div
         className={styles.desktopBackgroundImage}
         style={{
-          backgroundImage: `url(${heroBackgroundImage})`,
+          backgroundImage: heroBackgroundImage && `url(${heroBackgroundImage})`,
         }}
       ></div>
       <div
         className={styles.mobileBackgroundImage}
         style={{
-          backgroundImage: `url(${heroBackgroundImageMobile})`,
+          backgroundImage:
+            heroBackgroundImageMobile && `url(${heroBackgroundImageMobile})`,
         }}
       ></div>
       <div
         className={styles.image}
-        style={{ backgroundImage: `url(${heroTopLayerImage})` }}
+        style={{
+          backgroundImage: heroTopLayerImage && `url(${heroTopLayerImage})`,
+        }}
       ></div>
       <Container>
         <div
+          ref={textWrapper}
           className={classNames(
             styles.content,
             styles[`color${capitalize(titleAndDescriptionColor)}`]
           )}
-          style={{
-            maxWidth: textWrapperWidth ? textWrapperWidth + 1 : undefined,
-          }}
         >
           <div className={styles.description}>{description}</div>
           <h1 className={styles.title}>{title}</h1>

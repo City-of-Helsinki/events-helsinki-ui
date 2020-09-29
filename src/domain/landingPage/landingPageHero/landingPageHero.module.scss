@@ -65,6 +65,8 @@
     z-index: 1;
     width: fit-content;
     padding: var(--spacing-m);
+    background-color: transparent;
+    transition: background-color 0.2s ease;
 
     @include respond-above(sm) {
       margin-bottom: 10rem;
@@ -96,12 +98,10 @@
 
     &.colorBlack {
       color: var(--color-black);
-      background-color: rgba(0255, 255, 255, 0.7);
     }
 
     &.colorWhite {
       color: var(--color-white);
-      background-color: rgba(0, 0, 0, 0.7);
     }
   }
 }
