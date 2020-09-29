@@ -11,7 +11,6 @@ build-review:
   extends: .build
   variables:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-review'
-    DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.test.kuva.hel.ninja
     DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
     DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: '$GL_SENTRY_DSN'
