@@ -1,10 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { EVENT_STATUS } from '../../../constants';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import getLocalisedString from '../../../util/getLocalisedString';
+import { getEventFields, isEventCancelled } from '../EventUtils';
 import styles from './eventName.module.scss';
 
 interface Props {
@@ -14,7 +13,8 @@ interface Props {
 const EventName: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const isCancelled = event.eventStatus === EVENT_STATUS.EVENT_CANCELLED;
+  const { name } = getEventFields(event, locale);
+  const isCancelled = isEventCancelled(event);
 
   return (
     <>
@@ -24,7 +24,7 @@ const EventName: React.FC<Props> = ({ event }) => {
           {': '}
         </span>
       )}
-      {getLocalisedString(event.name, locale)}
+      {name}
     </>
   );
 };

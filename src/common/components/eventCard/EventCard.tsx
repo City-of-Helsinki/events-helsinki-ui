@@ -10,15 +10,13 @@ import EventKeywords from '../../../domain/event/eventKeywords/EventKeywords';
 import LocationText from '../../../domain/event/eventLocation/EventLocationText';
 import EventName from '../../../domain/event/eventName/EventName';
 import {
-  getEventImageUrl,
-  getEventPlaceholderImageUrl,
+  getEventFields,
   getEventPrice,
   isEventClosed,
 } from '../../../domain/event/EventUtils';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
-import getLocalisedString from '../../../util/getLocalisedString';
 import testImage from '../../../util/testImage';
 import IconButton from '../iconButton/IconButton';
 import styles from './eventCard.module.scss';
@@ -36,20 +34,25 @@ const EventCard: React.FC<Props> = ({ event }) => {
   const locale = useLocale();
   const button = React.useRef<HTMLDivElement>(null);
 
-  const imageUrl = getEventImageUrl(event);
-  const placeholderImage = getEventPlaceholderImageUrl(event);
-  const name = event.name;
-  const startTime = event.startTime;
-  const endTime = event.endTime;
-
-  const eventUrl = React.useMemo(() => {
-    return `/${locale}${ROUTES.EVENT.replace(':id', event.id)}${search}`;
-  }, [event.id, locale, search]);
-
+  const {
+    endTime,
+    id,
+    imageUrl,
+    name,
+    placeholderImage,
+    startTime,
+  } = getEventFields(event, locale);
+  const eventUrl = `/${locale}${ROUTES.EVENT.replace(':id', id)}${search}`;
   const eventClosed = isEventClosed(event);
+  const eventPriceText = getEventPrice(
+    event,
+    locale,
+    t('eventSearch.event.offers.isFree')
+  );
 
   const handleLinkClick = (ev: React.MouseEvent<HTMLAnchorElement>) => {
     const target = ev.target;
+
     if (button.current?.contains(target as Node)) {
       ev.preventDefault();
     }
@@ -76,12 +79,12 @@ const EventCard: React.FC<Props> = ({ event }) => {
   return (
     <Link
       aria-label={t('commons.eventCard.ariaLabelLink', {
-        name: getLocalisedString(name, locale),
+        name: name,
       })}
       className={classNames(styles.eventCard, {
         [styles.eventClosed]: eventClosed,
       })}
-      id={getEventCardId(event.id)}
+      id={getEventCardId(id)}
       onClick={handleLinkClick}
       to={eventUrl}
     >
@@ -109,9 +112,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
               showLocationName={true}
             />
           </div>
-          <div className={styles.eventPrice}>
-            {getEventPrice(event, locale, t('eventSearch.event.offers.isFree'))}
-          </div>
+          <div className={styles.eventPrice}>{eventPriceText}</div>
 
           <div className={styles.keywordWrapperMobile}>
             <EventKeywords
@@ -125,7 +126,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
           <div ref={button}>
             <IconButton
               ariaLabel={t('commons.eventCard.ariaLabelLink', {
-                name: getLocalisedString(name, locale),
+                name,
               })}
               icon={<IconArrowRight />}
               onClick={goToEventPage}

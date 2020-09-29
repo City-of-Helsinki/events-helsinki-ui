@@ -28,20 +28,3 @@ test('should go to event page', () => {
 
   expect(history.location.pathname).toEqual(`/fi/event/${mockEvent.id}`);
 });
-
-test('should go to event page', () => {
-  const { history } = render(<EventCard event={mockEvent} />);
-
-  expect(history.location.pathname).toEqual('/');
-
-  userEvent.click(
-    screen.getByRole('button', {
-      name: translations.commons.eventCard.ariaLabelLink.replace(
-        '{{name}}',
-        mockEvent.name.fi as string
-      ),
-    })
-  );
-
-  expect(history.location.pathname).toEqual(`/fi/event/${mockEvent.id}`);
-});

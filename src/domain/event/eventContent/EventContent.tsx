@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next';
 import ShareLinks from '../../../common/components/shareLinks/ShareLinks';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import getLocalisedString from '../../../util/getLocalisedString';
 import sanitizeHtml from '../../../util/sanitizeHtml';
 import Container from '../../app/layout/Container';
 import EventInfo from '../eventInfo/EventInfo';
 import EventLocation from '../eventLocation/EventLocation';
+import { getEventFields } from '../EventUtils';
 import styles from './eventContent.module.scss';
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 const EventContent: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const description = getLocalisedString(event.description, locale);
+  const { description } = getEventFields(event, locale);
 
   return (
     <div className={styles.eventContent}>
