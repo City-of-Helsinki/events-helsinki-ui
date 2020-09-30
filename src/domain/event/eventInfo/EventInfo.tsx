@@ -11,7 +11,6 @@ import {
   IconTicket,
 } from 'hds-react';
 import { createEvent, EventAttributes } from 'ics';
-import capitalize from 'lodash/capitalize';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -23,16 +22,9 @@ import IconDirections from '../../../icons/IconDirections';
 import getDateArray from '../../../util/getDateArray';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import getDomain from '../../../util/getDomain';
-import getLocalisedString from '../../../util/getLocalisedString';
 import { translateValue } from '../../../util/translateUtils';
 import { ROUTES } from '../../app/constants';
-import {
-  getEventDistrict,
-  getEventPrice,
-  getGoogleDirectionsLink,
-  getHslDirectionsLink,
-  getServiceMapUrl,
-} from '../EventUtils';
+import { getEventFields, getEventPrice, getServiceMapUrl } from '../EventUtils';
 import styles from './eventInfo.module.scss';
 import OrganizationInfo from './OrganizationInfo';
 import OtherEventTimes from './OtherEventTimes';
@@ -45,66 +37,53 @@ const EventInfo: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
 
-  const offerInfoUrl = React.useMemo(() => {
-    const offer = event.offers.find((item) =>
-      getLocalisedString(item.infoUrl || {}, locale)
-    );
-
-    return offer ? getLocalisedString(offer.infoUrl || {}, locale) : '';
-  }, [event.offers, locale]);
-
-  const startTime = event.startTime;
-  const endTime = event.endTime;
-  const eventLocation = event.location;
-  const addressLocality = getLocalisedString(
-    (eventLocation && eventLocation.addressLocality) || {},
-    locale
+  const {
+    addressLocality,
+    district,
+    email,
+    endTime,
+    externalLinks,
+    googleDirectionsLink,
+    hslDirectionsLink,
+    infoUrl,
+    languages,
+    locationName,
+    name,
+    offerInfoUrl,
+    shortDescription,
+    startTime,
+    streetAddress,
+    telephone,
+  } = getEventFields(event, locale);
+  const eventPriceText = getEventPrice(
+    event,
+    locale,
+    t('event.info.offers.isFree')
   );
-  const locationName = getLocalisedString(
-    (eventLocation && eventLocation.name) || {},
-    locale
+  const showOtherInfo = Boolean(
+    email || externalLinks.length || infoUrl || telephone
   );
-  const streetAddress = getLocalisedString(
-    (eventLocation && eventLocation.streetAddress) || {},
-    locale
-  );
-  const district = getEventDistrict(event, locale);
-
-  const languages = event.inLanguage
-    .map((item) => capitalize(getLocalisedString(item.name || {}, locale)))
-    .filter((e) => e);
-  const email = eventLocation && eventLocation.email;
-  const infoUrl = event.infoUrl
-    ? getLocalisedString(event.infoUrl, locale)
-    : null;
-  const telephone =
-    eventLocation && eventLocation.telephone
-      ? getLocalisedString(eventLocation.telephone, locale)
-      : null;
-  const externalLinks = event.externalLinks;
 
   const moveToBuyTicketsPage = () => {
     window.open(offerInfoUrl);
   };
 
   const downloadIcsFile = () => {
-    if (event.startTime) {
+    if (startTime) {
       const domain = getDomain();
       const icsEvent: EventAttributes = {
         description: t('event.info.textCalendarLinkDescription', {
-          description: getLocalisedString(event.shortDescription || {}, locale),
+          description: shortDescription,
           link: `${domain}/${locale}${ROUTES.EVENT.replace(':id', event.id)}`,
         }),
-        end: event.endTime
-          ? getDateArray(event.endTime)
-          : getDateArray(event.startTime),
+        end: endTime ? getDateArray(endTime) : getDateArray(startTime),
         location: [locationName, streetAddress, district, addressLocality]
           .filter((e) => e)
           .join(', '),
         productId: domain,
-        start: getDateArray(event.startTime),
+        start: getDateArray(startTime),
         startOutputType: 'local',
-        title: getLocalisedString(event.name || {}, locale),
+        title: name,
       };
       createEvent(icsEvent, (error: Error | undefined, value: string) => {
         if (error) {
@@ -137,7 +116,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
                 true,
                 t('commons.timeAbbreviation')
               )}
-            {event.startTime && (
+            {startTime && (
               <button className={linkStyles.link} onClick={downloadIcsFile}>
                 {t('event.info.buttonAddToCalendar')}
                 <IconAngleRight />
@@ -191,7 +170,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
         )}
 
         {/* Other info */}
-        {(!!email || !!externalLinks.length || !!infoUrl || !!telephone) && (
+        {showOtherInfo && (
           <div className={styles.infoWithIcon}>
             <div className={styles.iconWrapper}>
               <IconInfoCircle className={styles.icon} />
@@ -230,10 +209,10 @@ const EventInfo: React.FC<Props> = ({ event }) => {
           </div>
           <div className={styles.iconTextWrapper}>
             <h2 className={styles.title}>{t('event.info.labelDistricts')}</h2>
-            <Link isExternal={true} to={getGoogleDirectionsLink(event, locale)}>
+            <Link isExternal={true} to={googleDirectionsLink}>
               {t('event.info.directionsGoogle')}
             </Link>
-            <Link isExternal={true} to={getHslDirectionsLink(event, locale)}>
+            <Link isExternal={true} to={hslDirectionsLink}>
               {t('event.info.directionsHSL')}
             </Link>
           </div>
@@ -248,7 +227,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
           </div>
           <div className={styles.iconTextWrapper}>
             <h2 className={styles.title}>{t('event.info.labelPrice')}</h2>
-            {getEventPrice(event, locale, t('event.info.offers.isFree')) || '-'}
+            {eventPriceText || '-'}
           </div>
         </div>
 

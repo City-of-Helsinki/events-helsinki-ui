@@ -4,12 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import getLocalisedString from '../../../util/getLocalisedString';
-import {
-  getGoogleDirectionsLink,
-  getHslDirectionsLink,
-  getServiceMapUrl,
-} from '../EventUtils';
+import { getEventFields, getServiceMapUrl } from '../EventUtils';
 import styles from './eventLocation.module.scss';
 import LocationText from './EventLocationText';
 
@@ -20,7 +15,10 @@ interface Props {
 const EventLocation: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const name = event.name;
+  const { googleDirectionsLink, hslDirectionsLink, name } = getEventFields(
+    event,
+    locale
+  );
 
   return (
     <div className={styles.eventLocationContainer}>
@@ -46,7 +44,7 @@ const EventLocation: React.FC<Props> = ({ event }) => {
         src={getServiceMapUrl(event, locale, true)}
       ></iframe>
 
-      <div className={styles.eventName}>{getLocalisedString(name, locale)}</div>
+      <div className={styles.eventName}>{name}</div>
       <div className={styles.location}>
         <LocationText
           event={event}
@@ -56,7 +54,7 @@ const EventLocation: React.FC<Props> = ({ event }) => {
       </div>
       <a
         className={styles.directionsLink}
-        href={getGoogleDirectionsLink(event, locale)}
+        href={googleDirectionsLink}
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -65,7 +63,7 @@ const EventLocation: React.FC<Props> = ({ event }) => {
       </a>
       <a
         className={styles.directionsLink}
-        href={getHslDirectionsLink(event, locale)}
+        href={hslDirectionsLink}
         rel="noopener noreferrer"
         target="_blank"
       >

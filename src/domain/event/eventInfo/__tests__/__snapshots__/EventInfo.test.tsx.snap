@@ -114,6 +114,7 @@ exports[`EventInfo matches snapshot 1`] = `
         >
           streetAddress fi
         </div>
+        
         <div
           class="desktopOnly"
         >

@@ -10,8 +10,7 @@ import EventKeywords from '../../../domain/event/eventKeywords/EventKeywords';
 import LocationText from '../../../domain/event/eventLocation/EventLocationText';
 import EventName from '../../../domain/event/eventName/EventName';
 import {
-  getEventImageUrl,
-  getEventPlaceholderImageUrl,
+  getEventFields,
   getEventPrice,
   isEventClosed,
   isEventFree,
@@ -19,7 +18,6 @@ import {
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
-import getLocalisedString from '../../../util/getLocalisedString';
 import testImage from '../../../util/testImage';
 import buttonStyles from '../button/button.module.scss';
 import styles from './largeEventCard.module.scss';
@@ -35,24 +33,25 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const { search } = useLocation();
   const locale = useLocale();
-  const eventClosed = isEventClosed(event);
   const button = React.useRef<HTMLDivElement>(null);
 
-  const offerInfoUrl = React.useMemo(() => {
-    const offer = event.offers.find((item) =>
-      getLocalisedString(item.infoUrl || {}, locale)
-    );
+  const {
+    endTime,
+    imageUrl,
+    offerInfoUrl,
+    placeholderImage,
+    startTime,
+  } = getEventFields(event, locale);
+  const eventClosed = isEventClosed(event);
+  const eventUrl = `/${locale}${ROUTES.EVENT.replace(
+    ':id',
+    event.id
+  )}${search}`;
+  const showBuyButton = !eventClosed && !!offerInfoUrl && !isEventFree(event);
 
-    return offer ? getLocalisedString(offer.infoUrl || {}, locale) : '';
-  }, [event.offers, locale]);
-
-  const moveToBuyTicketsPage = React.useCallback(() => {
+  const goToBuyTicketsPage = () => {
     window.open(offerInfoUrl);
-  }, [offerInfoUrl]);
-
-  const eventUrl = React.useMemo(() => {
-    return `/${locale}${ROUTES.EVENT.replace(':id', event.id)}${search}`;
-  }, [event.id, locale, search]);
+  };
 
   const handleLinkClick = (ev: React.MouseEvent<HTMLAnchorElement>) => {
     const target = ev.target;
@@ -61,16 +60,9 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
     }
   };
 
-  const moveToEventPage = (ev: React.MouseEvent<HTMLButtonElement>) => {
+  const goToEventPage = (ev: React.MouseEvent<HTMLButtonElement>) => {
     push(eventUrl);
   };
-
-  const imageUrl = getEventImageUrl(event);
-  const placeholderImage = getEventPlaceholderImageUrl(event);
-  const startTime = event.startTime;
-  const endTime = event.endTime;
-
-  const showBuyButton = !eventClosed && !!offerInfoUrl && !isEventFree(event);
 
   React.useEffect(() => {
     if (imageUrl) {
@@ -134,7 +126,7 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
               <Button
                 aria-label={t('eventSearch.event.ariaLabelBuyTickets')}
                 fullWidth
-                onClick={moveToBuyTicketsPage}
+                onClick={goToBuyTicketsPage}
                 size="small"
                 variant="success"
               >
@@ -146,7 +138,7 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
             <Button
               className={buttonStyles.buttonGray}
               fullWidth
-              onClick={moveToEventPage}
+              onClick={goToEventPage}
               size="small"
               type="button"
             >

@@ -9,19 +9,13 @@ import IconButton from '../../../common/components/iconButton/IconButton';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
-import getLocalisedString from '../../../util/getLocalisedString';
 import testImage from '../../../util/testImage';
 import { ROUTES } from '../../app/constants';
 import Container from '../../app/layout/Container';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
 import EventName from '../eventName/EventName';
-import {
-  getEventImageUrl,
-  getEventPlaceholderImageUrl,
-  getEventPrice,
-  isEventFree,
-} from '../EventUtils';
+import { getEventFields, getEventPrice, isEventFree } from '../EventUtils';
 import styles from './eventHero.module.scss';
 
 interface Props {
@@ -35,13 +29,24 @@ const EventHero: React.FC<Props> = ({ event }) => {
   const history = useHistory();
   const { search } = useLocation();
 
-  const offerInfoUrl = React.useMemo(() => {
-    const offer = event.offers.find((item) =>
-      getLocalisedString(item.infoUrl || {}, locale)
-    );
-
-    return offer ? getLocalisedString(offer.infoUrl || {}, locale) : '';
-  }, [event.offers, locale]);
+  const {
+    endTime,
+    imageUrl,
+    keywords,
+    offerInfoUrl,
+    placeholderImage,
+    shortDescription,
+    startTime,
+  } = getEventFields(event, locale);
+  const eventPriceText = getEventPrice(
+    event,
+    locale,
+    t('event.hero.offers.isFree')
+  );
+  const today = startTime ? isToday(new Date(startTime)) : false;
+  const thisWeek = startTime ? isThisWeek(new Date(startTime)) : false;
+  const showBuyButton = !!offerInfoUrl && !isEventFree(event);
+  const showKeywords = Boolean(today || thisWeek || keywords.length);
 
   const goToEventList = () => {
     history.push({
@@ -50,20 +55,10 @@ const EventHero: React.FC<Props> = ({ event }) => {
       state: { eventId: event.id },
     });
   };
+
   const moveToBuyTicketsPage = () => {
     window.open(offerInfoUrl);
   };
-
-  const imageUrl = getEventImageUrl(event);
-  const placeholderImage = getEventPlaceholderImageUrl(event);
-  const description = event.shortDescription || {};
-  const keywords = event.keywords;
-  const startTime = event.startTime;
-  const endTime = event.endTime;
-  const today = startTime ? isToday(new Date(startTime)) : false;
-  const thisWeek = startTime ? isThisWeek(new Date(startTime)) : false;
-
-  const showBuyButton = !!offerInfoUrl && !isEventFree(event);
 
   React.useEffect(() => {
     if (imageUrl) {
@@ -107,9 +102,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
               <div className={styles.title}>
                 <EventName event={event} />
               </div>
-              <div className={styles.description}>
-                {getLocalisedString(description, locale)}
-              </div>
+              <div className={styles.description}>{shortDescription}</div>
               <div className={classNames(styles.date, styles.desktopOnly)}>
                 {!!startTime &&
                   getDateRangeStr(
@@ -152,14 +145,10 @@ const EventHero: React.FC<Props> = ({ event }) => {
                   <IconTicket className={styles.icon} />
                 </div>
                 <div className={styles.iconTextWrapper}>
-                  {getEventPrice(
-                    event,
-                    locale,
-                    t('event.hero.offers.isFree')
-                  ) || '-'}
+                  {eventPriceText || '-'}
                 </div>
               </div>
-              {(today || thisWeek || (!!keywords && !!keywords.length)) && (
+              {showKeywords && (
                 <div className={styles.categoryWrapper}>
                   <EventKeywords
                     blackOnMobile={true}
