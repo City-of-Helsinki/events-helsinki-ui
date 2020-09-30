@@ -24,10 +24,14 @@ const meta = {
   previous: null,
   __typename: 'Meta',
 };
-const mockEventsResponse = { ...fakeEvents(10), meta };
+const mockEventsResponse = { data: { eventList: { ...fakeEvents(10), meta } } };
 const mockEventsLoadMoreResponse = {
-  ...fakeEvents(10),
-  meta: { ...meta, next: null },
+  data: {
+    eventList: {
+      ...fakeEvents(10),
+      meta: { ...meta, next: null },
+    },
+  },
 };
 const eventListVariables = {
   combinedText: ['jazz'],
@@ -48,9 +52,17 @@ const eventListVariables = {
   superEventType: ['umbrella', 'none'],
 };
 
-const neighborhoodsResponse = fakeNeighborhoods(10);
+const neighborhoodsResponse = {
+  data: {
+    neighborhoodList: fakeNeighborhoods(10),
+  },
+};
 
-const placesResponse = fakePlaces(10);
+const placesResponse = {
+  data: {
+    placeList: fakePlaces(10),
+  },
+};
 
 const mocks = [
   {
@@ -60,7 +72,7 @@ const mocks = [
         ...eventListVariables,
       },
     },
-    result: { data: { eventList: mockEventsResponse } },
+    result: mockEventsResponse,
   },
   {
     request: {
@@ -70,18 +82,14 @@ const mocks = [
         page: 2,
       },
     },
-    result: { data: { eventList: mockEventsLoadMoreResponse } },
+    result: mockEventsLoadMoreResponse,
   },
 
   {
     request: {
       query: NeighborhoodListDocument,
     },
-    result: {
-      data: {
-        neighborhoodList: neighborhoodsResponse,
-      },
-    },
+    result: neighborhoodsResponse,
   },
   {
     request: {
@@ -92,11 +100,7 @@ const mocks = [
         text: '',
       },
     },
-    result: {
-      data: {
-        placeList: placesResponse,
-      },
-    },
+    result: placesResponse,
   },
 ];
 
@@ -113,11 +117,11 @@ it('all the event cards should be visible and load more button should load more 
 
   await waitFor(() => {
     expect(
-      screen.getByText(mockEventsResponse.data[0].name.fi)
+      screen.getByText(mockEventsResponse.data.eventList.data[0].name.fi)
     ).toBeInTheDocument();
   });
 
-  mockEventsResponse.data.forEach((event) => {
+  mockEventsResponse.data.eventList.data.forEach((event) => {
     expect(screen.getByText(event.name.fi)).toBeInTheDocument();
   });
 
@@ -126,7 +130,8 @@ it('all the event cards should be visible and load more button should load more 
       name: translations.eventSearch.buttonLoadMore.replace(
         '{{count}}',
         (
-          mockEventsResponse.meta.count - mockEventsResponse.data.length
+          mockEventsResponse.data.eventList.meta.count -
+          mockEventsResponse.data.eventList.data.length
         ).toString()
       ),
     })
@@ -134,11 +139,13 @@ it('all the event cards should be visible and load more button should load more 
 
   await waitFor(() => {
     expect(
-      screen.getByText(mockEventsLoadMoreResponse.data[0].name.fi)
+      screen.getByText(
+        mockEventsLoadMoreResponse.data.eventList.data[0].name.fi
+      )
     ).toBeInTheDocument();
   });
 
-  mockEventsLoadMoreResponse.data.forEach((event) => {
+  mockEventsLoadMoreResponse.data.eventList.data.forEach((event) => {
     expect(screen.getByText(event.name.fi)).toBeInTheDocument();
   });
 });

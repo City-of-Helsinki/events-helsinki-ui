@@ -1,4 +1,5 @@
 import { screen, waitFor } from '@testing-library/react';
+import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -9,17 +10,23 @@ import {
   PlaceDetailsDocument,
 } from '../../../../generated/graphql';
 import { render } from '../../../../util/testUtils';
-import neighborhoodListResponse from '../../../neighborhood/__mocks__/neighborhoodListResponse';
+import { fakeNeighborhoods } from '../../../../util/mockDataUtils';
 import mockOrganization from '../../../organisation/__mocks__/organizationDetails';
 import mockPlace from '../../../place/__mocks__/place';
 import FilterSummary from '../FilterSummary';
+
+const neighborhoodsResponse = {
+  data: {
+    neighborhoodList: fakeNeighborhoods(10),
+  },
+};
 
 const mocks = [
   {
     request: {
       query: NeighborhoodListDocument,
     },
-    result: neighborhoodListResponse,
+    result: neighborhoodsResponse,
   },
   {
     request: {
@@ -63,7 +70,7 @@ interface UrlParams {
 const urlParams: UrlParams = {
   categories: 'movie',
   dateTypes: 'today',
-  divisions: 'kaupunginosa%3Aalppiharju',
+  divisions: neighborhoodsResponse.data.neighborhoodList.data[0].id,
   end: '2020-08-23',
   places: mockPlace.id as string,
   publisher: mockOrganization.id as string,
@@ -78,7 +85,7 @@ const routes = [
   `/fi/events?categories=${urlParams.categories}&dateTypes=today&divisions=${urlParams.divisions}&end=${urlParams.end}&places=${urlParams.places}&publisher=${urlParams.publisher}&start=${urlParams.start}&text=${urlParams.text}`,
 ];
 
-it('matches snapshot', async () => {
+it('test for accessibility violations', async () => {
   const { container } = render(<FilterSummary onClear={jest.fn()} />, {
     mocks,
     routes,
@@ -89,8 +96,8 @@ it('matches snapshot', async () => {
       screen.queryByText((mockPlace.name || {})['fi'] || '')
     ).toBeInTheDocument();
   });
-
-  expect(container.firstChild).toMatchSnapshot();
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
 });
 
 it('calls onClear callback when clear button is clicked ', async () => {
@@ -133,7 +140,10 @@ it('routes to correct url after deleting filters ', async () => {
       params: ['end', 'start'],
     },
     { button: 'Poista suodatin: Elokuva', params: ['categories'] },
-    { button: 'Poista suodatin: Alppiharju', params: ['divisions'] },
+    {
+      button: `Poista suodatin: ${neighborhoodsResponse.data.neighborhoodList.data[0].name.fi}`,
+      params: ['divisions'],
+    },
     { button: 'Poista suodatin: Gräsan taitojen talo', params: ['places'] },
     {
       button: 'Poista suodatin: Yleiset kulttuuripalvelut',
