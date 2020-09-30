@@ -3,74 +3,85 @@ import userEvent from '@testing-library/user-event';
 import { advanceTo, clear } from 'jest-date-mock';
 import React from 'react';
 
-import mockEventSearchLoadMoreResponse from '../__mocks__/eventSearchLoadMoreResponse';
-import mockEventSearchResponse from '../__mocks__/eventSearchResponse';
 import translations from '../../../common/translation/i18n/fi.json';
 import {
   EventListDocument,
   NeighborhoodListDocument,
   PlaceListDocument,
 } from '../../../generated/graphql';
+import {
+  fakeEvents,
+  fakeNeighborhoods,
+  fakePlaces,
+} from '../../../util/mockDataUtils';
 import { render } from '../../../util/testUtils';
-import neighborhoodListResponse from '../../neighborhood/__mocks__/neighborhoodListResponse';
-import placeListResponse from '../../place/__mocks__/placeListResponse';
 import EventSearchPageContainer from '../EventSearchPageContainer';
+
+const meta = {
+  count: 20,
+  next:
+    'https://api.hel.fi/linkedevents/v1/event/?division=kunta%3Ahelsinki&include=keywords%2Clocation&language=fi&page=2&page_size=10&sort=end_time&start=2020-08-12T17&super_event_type=umbrella%2Cnone&text=jazz',
+  previous: null,
+  __typename: 'Meta',
+};
+const mockEventsResponse = { ...fakeEvents(10), meta };
+const mockEventsLoadMoreResponse = {
+  ...fakeEvents(10),
+  meta: { ...meta, next: null },
+};
+const eventListVariables = {
+  combinedText: ['jazz'],
+  division: ['kunta:helsinki'],
+  end: '',
+  include: ['keywords', 'location'],
+  isFree: undefined,
+  keyword: [],
+  keywordAnd: [],
+  keywordNot: [],
+  language: 'fi',
+  location: [],
+  pageSize: 10,
+  publisher: null,
+  sort: 'end_time',
+  start: '2020-08-12T00',
+  startsAfter: undefined,
+  superEventType: ['umbrella', 'none'],
+};
+
+const neighborhoodsResponse = fakeNeighborhoods(10);
+
+const placesResponse = fakePlaces(10);
 
 const mocks = [
   {
     request: {
       query: EventListDocument,
       variables: {
-        combinedText: ['jazz'],
-        division: ['kunta:helsinki'],
-        end: '',
-        include: ['keywords', 'location'],
-        isFree: undefined,
-        keyword: [],
-        keywordAnd: [],
-        keywordNot: [],
-        language: 'fi',
-        location: [],
-        pageSize: 10,
-        publisher: null,
-        sort: 'end_time',
-        start: '2020-08-12T00',
-        startsAfter: undefined,
-        superEventType: ['umbrella', 'none'],
+        ...eventListVariables,
       },
     },
-    result: mockEventSearchResponse,
+    result: { data: { eventList: mockEventsResponse } },
   },
   {
     request: {
       query: EventListDocument,
       variables: {
-        combinedText: ['jazz'],
-        division: ['kunta:helsinki'],
-        end: '',
-        include: ['keywords', 'location'],
-        isFree: undefined,
-        keyword: [],
-        keywordAnd: [],
-        keywordNot: [],
-        language: 'fi',
-        location: [],
+        ...eventListVariables,
         page: 2,
-        pageSize: 10,
-        publisher: null,
-        sort: 'end_time',
-        start: '2020-08-12T00',
-        superEventType: ['umbrella', 'none'],
       },
     },
-    result: mockEventSearchLoadMoreResponse,
+    result: { data: { eventList: mockEventsLoadMoreResponse } },
   },
 
   {
     request: {
       query: NeighborhoodListDocument,
     },
-    result: neighborhoodListResponse,
+    result: {
+      data: {
+        neighborhoodList: neighborhoodsResponse,
+      },
+    },
   },
   {
     request: {
@@ -81,7 +92,11 @@ const mocks = [
         text: '',
       },
     },
-    result: placeListResponse,
+    result: {
+      data: {
+        placeList: placesResponse,
+      },
+    },
   },
 ];
 
@@ -98,14 +113,12 @@ it('all the event cards should be visible and load more button should load more 
 
   await waitFor(() => {
     expect(
-      screen.getAllByText(
-        mockEventSearchResponse.data.eventList.data[0].name.fi
-      )
-    ).toHaveLength(1);
+      screen.getByText(mockEventsResponse.data[0].name.fi)
+    ).toBeInTheDocument();
   });
 
-  mockEventSearchResponse.data.eventList.data.forEach((event) => {
-    expect(screen.getAllByText(event.name.fi)).toHaveLength(1);
+  mockEventsResponse.data.forEach((event) => {
+    expect(screen.getByText(event.name.fi)).toBeInTheDocument();
   });
 
   userEvent.click(
@@ -113,8 +126,7 @@ it('all the event cards should be visible and load more button should load more 
       name: translations.eventSearch.buttonLoadMore.replace(
         '{{count}}',
         (
-          mockEventSearchResponse.data.eventList.meta.count -
-          mockEventSearchResponse.data.eventList.data.length
+          mockEventsResponse.meta.count - mockEventsResponse.data.length
         ).toString()
       ),
     })
@@ -122,13 +134,11 @@ it('all the event cards should be visible and load more button should load more 
 
   await waitFor(() => {
     expect(
-      screen.getAllByText(
-        mockEventSearchLoadMoreResponse.data.eventList.data[0].name.fi
-      )
-    ).toHaveLength(1);
+      screen.getByText(mockEventsLoadMoreResponse.data[0].name.fi)
+    ).toBeInTheDocument();
   });
 
-  mockEventSearchLoadMoreResponse.data.eventList.data.forEach((event) => {
-    expect(screen.getAllByText(event.name.fi).length).toBeGreaterThanOrEqual(1);
+  mockEventsLoadMoreResponse.data.forEach((event) => {
+    expect(screen.getByText(event.name.fi)).toBeInTheDocument();
   });
 });
