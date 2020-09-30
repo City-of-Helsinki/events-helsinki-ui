@@ -161,6 +161,25 @@ export const getEventSomeImageUrl = (event: EventFieldsFragment): string => {
   const image = event.images[0];
   return image?.url || EVENT_SOME_IMAGE;
 };
+/**
+ * Get event location fields
+ * @param {object} event
+ * @param {string} locale
+ * @return {string}
+ */
+const getEventLocationFields = (
+  event: EventFieldsFragment,
+  locale: Language
+) => {
+  const location = event.location;
+  return {
+    addressLocality: getLocalisedString(location?.addressLocality, locale),
+    coordinates: [...(location?.position?.coordinates || [])].reverse(),
+    location,
+    postalCode: location?.postalCode,
+    streetAddress: getLocalisedString(location?.streetAddress, locale),
+  };
+};
 
 /**
  * Get Google link to show event location
@@ -172,11 +191,12 @@ export const getGoogleLink = (
   event: EventFieldsFragment,
   locale: Language
 ): string => {
-  const location = event.location;
-  const streetAddress = getLocalisedString(location?.streetAddress, locale);
-  const postalCode = location?.postalCode;
-  const addressLocality = getLocalisedString(location?.addressLocality, locale);
-  const coordinates = [...(location?.position?.coordinates || [])].reverse();
+  const {
+    addressLocality,
+    coordinates,
+    postalCode,
+    streetAddress,
+  } = getEventLocationFields(event, locale);
 
   return `https://www.google.com/maps/place/${streetAddress},+${postalCode}+${addressLocality}/@${coordinates.join(
     ','
@@ -189,7 +209,7 @@ export const getGoogleLink = (
  * @return {string}
  */
 const getLocationId = (location?: PlaceFieldsFragment | null) => {
-  return location && location.id ? location.id.split(':').slice(1).join() : '';
+  return location?.id ? location?.id.split(':').slice(1).join() : '';
 };
 
 /**
@@ -221,11 +241,12 @@ export const getGoogleDirectionsLink = (
   event: EventFieldsFragment,
   locale: Language
 ): string => {
-  const location = event.location;
-  const streetAddress = getLocalisedString(location?.streetAddress, locale);
-  const postalCode = location?.postalCode;
-  const addressLocality = getLocalisedString(location?.addressLocality, locale);
-  const coordinates = [...(location?.position?.coordinates || [])].reverse();
+  const {
+    addressLocality,
+    coordinates,
+    postalCode,
+    streetAddress,
+  } = getEventLocationFields(event, locale);
 
   return `https://www.google.com/maps/dir//${streetAddress},+${postalCode}+${addressLocality}/@${coordinates.join(
     ','
@@ -242,10 +263,11 @@ export const getHslDirectionsLink = (
   event: EventFieldsFragment,
   locale: Language
 ): string => {
-  const location = event.location;
-  const streetAddress = getLocalisedString(location?.streetAddress, locale);
-  const addressLocality = getLocalisedString(location?.addressLocality, locale);
-  const coordinates = [...(location?.position?.coordinates || [])].reverse();
+  const {
+    addressLocality,
+    coordinates,
+    streetAddress,
+  } = getEventLocationFields(event, locale);
 
   return `https://reittiopas.hsl.fi/%20/${encodeURIComponent(
     streetAddress
