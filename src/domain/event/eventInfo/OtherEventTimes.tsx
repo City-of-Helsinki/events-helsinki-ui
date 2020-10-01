@@ -128,14 +128,13 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
                 history.push(eventUrl);
               };
               const date = subEvent.startTime
-                ? getDateRangeStr(
-                    subEvent.startTime,
-                    subEvent.endTime,
+                ? getDateRangeStr({
+                    start: subEvent.startTime,
+                    end: subEvent.endTime,
+                    includeTime: true,
                     locale,
-                    true,
-                    true,
-                    t('commons.timeAbbreviation')
-                  )
+                    timeAbbreviation: t('commons.timeAbbreviation'),
+                  })
                 : '';
               return (
                 <li key={subEvent.id}>

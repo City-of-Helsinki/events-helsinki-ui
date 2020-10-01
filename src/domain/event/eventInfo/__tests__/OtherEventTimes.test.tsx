@@ -104,39 +104,36 @@ test('should render other event times', async () => {
   });
 
   otherEventsResponse.data.eventList.data.forEach((event) => {
-    const dateStr = getDateRangeStr(
-      event.startTime,
-      event.endTime,
-      'fi',
-      true,
-      true,
-      translations.commons.timeAbbreviation
-    );
+    const dateStr = getDateRangeStr({
+      start: event.startTime,
+      end: event.endTime,
+      locale: 'fi',
+      includeTime: true,
+      timeAbbreviation: translations.commons.timeAbbreviation,
+    });
     expect(screen.getByText(dateStr)).toBeInTheDocument();
   });
 
   await waitFor(() => {
     const event = otherEventsLoadMoreResponse.data.eventList.data[0];
-    const dateStr = getDateRangeStr(
-      event.startTime,
-      event.endTime,
-      'fi',
-      true,
-      true,
-      translations.commons.timeAbbreviation
-    );
+    const dateStr = getDateRangeStr({
+      start: event.startTime,
+      end: event.endTime,
+      locale: 'fi',
+      includeTime: true,
+      timeAbbreviation: translations.commons.timeAbbreviation,
+    });
     expect(screen.getByText(dateStr)).toBeInTheDocument();
   });
 
   otherEventsLoadMoreResponse.data.eventList.data.forEach((event) => {
-    const dateStr = getDateRangeStr(
-      event.startTime,
-      event.endTime,
-      'fi',
-      true,
-      true,
-      translations.commons.timeAbbreviation
-    );
+    const dateStr = getDateRangeStr({
+      start: event.startTime,
+      end: event.endTime,
+      locale: 'fi',
+      includeTime: true,
+      timeAbbreviation: translations.commons.timeAbbreviation,
+    });
     expect(screen.getByText(dateStr)).toBeInTheDocument();
   });
 });
@@ -158,14 +155,13 @@ test('should go to event page of other event time', async () => {
   });
 
   const event = otherEventsResponse.data.eventList.data[0];
-  const dateStr = getDateRangeStr(
-    event.startTime,
-    event.endTime,
-    'fi',
-    true,
-    true,
-    translations.commons.timeAbbreviation
-  );
+  const dateStr = getDateRangeStr({
+    start: event.startTime,
+    end: event.endTime,
+    locale: 'fi',
+    includeTime: true,
+    timeAbbreviation: translations.commons.timeAbbreviation,
+  });
   expect(screen.getByText(dateStr)).toBeInTheDocument();
 
   userEvent.click(

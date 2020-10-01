@@ -5,7 +5,7 @@
  * event_end_date => eventEndDate
  */
 export default (snakecase: string): string => {
-  return !!snakecase && snakecase.length
+  return snakecase
     ? snakecase[0].toLowerCase() +
         snakecase
           .substr(1)
