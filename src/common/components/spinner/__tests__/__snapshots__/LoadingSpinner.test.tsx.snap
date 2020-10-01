@@ -3,6 +3,7 @@
 exports[`matches snapshot 1`] = `
 <div
   class="spinnerWrapper hasPadding"
+  data-testid="loading-spinner"
 >
   <div
     class="spinner"

@@ -49,7 +49,10 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   });
 
   const handleLoadMore = async () => {
-    const page = getNextPage(eventsData);
+    const page = eventsData?.eventList.meta
+      ? getNextPage(eventsData.eventList.meta)
+      : null;
+
     setIsFetchingMore(true);
 
     if (page) {

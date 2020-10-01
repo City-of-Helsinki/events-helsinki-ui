@@ -10,13 +10,15 @@ it('should show link text', () => {
   expect(screen.getByText('test')).toBeInTheDocument();
 });
 
-it('should route to new location', () => {
+it('should route to new location', async () => {
   const { container, history } = render(
     <IconLink icon={<IconSearch />} text="test" to="/test" />,
     { routes: ['/home'] }
   );
 
   expect(history.location.pathname).toBe('/home');
-  userEvent.click(container);
-  waitFor(() => expect(history.location.pathname).toBe('/test'));
+
+  userEvent.click(container.firstChild as Element);
+
+  expect(history.location.pathname).toBe('/test');
 });
