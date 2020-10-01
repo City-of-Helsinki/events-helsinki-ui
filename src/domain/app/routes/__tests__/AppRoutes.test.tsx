@@ -6,10 +6,10 @@ import wait from 'waait';
 import {
   CollectionListDocument,
   LandingPagesDocument,
-} from '../../../generated/graphql';
-import { render } from '../../../util/testUtils';
-import mockCollection from '../../collection/__mocks__/collection';
-import mockLandingPage from '../../landingPage/__mocks__/landingPage';
+} from '../../../../generated/graphql';
+import { render } from '../../../../util/testUtils';
+import mockCollection from '../../../collection/__mocks__/collection';
+import mockLandingPage from '../../../landingPage/__mocks__/landingPage';
 import AppRoutes from '../AppRoutes';
 
 const mocks = [
