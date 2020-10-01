@@ -33,5 +33,3 @@ describe('Translation utils', () => {
     expect(getLanguageFromUrl('/invalid/test')).toBe('fi');
   });
 });
-
-export {};

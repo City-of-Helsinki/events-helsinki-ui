@@ -29,5 +29,3 @@ test('matches snapshot', () => {
 
   expect(container.firstChild).toMatchSnapshot();
 });
-
-export {};

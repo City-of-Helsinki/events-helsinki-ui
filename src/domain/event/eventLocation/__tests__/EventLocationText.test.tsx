@@ -30,5 +30,3 @@ test('should render event location text', () => {
     [locationName, streetAddress, addressLocality].join(', ')
   );
 });
-
-export {};

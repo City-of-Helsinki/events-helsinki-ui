@@ -1,14 +1,11 @@
-import { shallow } from 'enzyme';
 import React from 'react';
-import { MemoryRouter } from 'react-router';
 
+import { render } from '../../../../util/testUtils';
 import MobileMenu from '../MobileMenu';
 
-it('MobileMenu matches snapshot', () => {
-  const container = shallow(
-    <MemoryRouter>
-      <MobileMenu isMenuOpen={true} onClose={jest.fn()} />
-    </MemoryRouter>
+it('matches snapshot', () => {
+  const { container } = render(
+    <MobileMenu isMenuOpen={true} onClose={jest.fn()} />
   );
-  expect(container.html()).toMatchSnapshot();
+  expect(container.firstChild).toMatchSnapshot();
 });

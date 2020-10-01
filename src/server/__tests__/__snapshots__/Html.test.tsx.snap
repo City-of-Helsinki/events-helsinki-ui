@@ -1,90 +1,464 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Html matches snapshot 1`] = `
-<html
-  lang="en"
->
-  <head>
-    <meta
-      charset="utf-8"
-    />
-    <meta
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-      name="viewport"
-    />
-    <meta
-      content="#000000"
-      name="theme-color"
-    />
-    <meta
-      content="http://localhost:3000"
-      property="og:url"
-    />
-    <link
-      href="/manifest.json"
-      rel="manifest"
-    />
-    <link
-      href="/favicon.ico"
-      rel="shortcut icon"
-    />
-    <link
-      href="/images/apple-touch-icon.png"
-      rel="apple-touch-icon"
-      sizes="180x180"
-    />
-    <meta
-      content="#da532c"
-      name="msapplication-TileColor"
-    />
-    <link
-      href="http://localhost:3000"
-      rel="canonical"
-    />
-    <meta
-      content="testing react helmet"
-      name="description"
-    />
-    <title>
-      Test title
-    </title>
-    <link
-      href="http://localhost:3000"
-      rel="canonical"
-    />
-    <link
-      href="test1.css"
-      rel="stylesheet"
-    />
-    <link
-      href="test2.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div
-      id="root"
-    >
-      <p>
-        Test content
-      </p>
-    </div>
-    <script>
-      window.__APOLLO_STATE__={};
-    </script>
-    <script>
-      window.initialI18nStore={"en":{},"fi":{},"sv":{}};
-window.initialLanguage="fi";
-    </script>
-    <script
-      src="test1.js"
-    />
-    <script
-      src="test2.js"
-    />
-  </body>
-</html>
+Object {
+  "instance": null,
+  "nodeType": "component",
+  "props": Object {
+    "assets": Object {
+      "css": Array [
+        "test1.css",
+        "test2.css",
+      ],
+      "js": Array [
+        "test1.js",
+        "test2.js",
+      ],
+    },
+    "canonicalUrl": "http://localhost:3000",
+    "content": "<p>Test content</p>",
+    "helmet": Object {
+      "link": Object {
+        "toComponent": [Function],
+      },
+      "meta": Object {
+        "toComponent": [Function],
+      },
+      "title": Object {
+        "toComponent": [Function],
+      },
+    },
+    "initialI18nStore": Object {
+      "en": Object {},
+      "fi": Object {},
+      "sv": Object {},
+    },
+    "initialLanguage": "fi",
+    "state": Object {},
+  },
+  "rendered": Object {
+    "instance": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <head>
+          <meta
+            charSet="utf-8"
+          />
+          <meta
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            name="viewport"
+          />
+          <meta
+            content="#000000"
+            name="theme-color"
+          />
+          <meta
+            content="http://localhost:3000"
+            property="og:url"
+          />
+          <link
+            href="/manifest.json"
+            rel="manifest"
+          />
+          <link
+            href="/favicon.ico"
+            rel="shortcut icon"
+          />
+          <link
+            href="/images/apple-touch-icon.png"
+            rel="apple-touch-icon"
+            sizes="180x180"
+          />
+          <meta
+            content="#da532c"
+            name="msapplication-TileColor"
+          />
+          <link
+            href="http://localhost:3000"
+            rel="canonical"
+          />
+          <meta
+            content="testing react helmet"
+            name="description"
+          />
+          <title>
+            Test title
+          </title>
+          <link
+            href="http://localhost:3000"
+            rel="canonical"
+          />
+          <link
+            href="test1.css"
+            rel="stylesheet"
+          />
+          <link
+            href="test2.css"
+            rel="stylesheet"
+          />
+        </head>,
+        <body>
+          <noscript>
+            You need to enable JavaScript to run this app.
+          </noscript>
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<p>Test content</p>",
+              }
+            }
+            id="root"
+          />
+          <script
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "window.__APOLLO_STATE__={};",
+              }
+            }
+          />
+          <script
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "window.initialI18nStore={\\"en\\":{},\\"fi\\":{},\\"sv\\":{}};
+window.initialLanguage=\\"fi\\";",
+              }
+            }
+          />
+          <script
+            src="test1.js"
+          />
+          <script
+            src="test2.js"
+          />
+        </body>,
+      ],
+      "lang": "en",
+    },
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <meta
+              charSet="utf-8"
+            />,
+            <meta
+              content="width=device-width, initial-scale=1, shrink-to-fit=no"
+              name="viewport"
+            />,
+            <meta
+              content="#000000"
+              name="theme-color"
+            />,
+            <meta
+              content="http://localhost:3000"
+              property="og:url"
+            />,
+            <link
+              href="/manifest.json"
+              rel="manifest"
+            />,
+            <link
+              href="/favicon.ico"
+              rel="shortcut icon"
+            />,
+            <link
+              href="/images/apple-touch-icon.png"
+              rel="apple-touch-icon"
+              sizes="180x180"
+            />,
+            <meta
+              content="#da532c"
+              name="msapplication-TileColor"
+            />,
+            <link
+              href="http://localhost:3000"
+              rel="canonical"
+            />,
+            <meta
+              content="testing react helmet"
+              name="description"
+            />,
+            <title>
+              Test title
+            </title>,
+            <link
+              href="http://localhost:3000"
+              rel="canonical"
+            />,
+            Array [],
+            Array [
+              <link
+                href="test1.css"
+                rel="stylesheet"
+              />,
+              <link
+                href="test2.css"
+                rel="stylesheet"
+              />,
+            ],
+          ],
+        },
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "charSet": "utf-8",
+            },
+            "rendered": Array [],
+            "type": "meta",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "content": "width=device-width, initial-scale=1, shrink-to-fit=no",
+              "name": "viewport",
+            },
+            "rendered": Array [],
+            "type": "meta",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "content": "#000000",
+              "name": "theme-color",
+            },
+            "rendered": Array [],
+            "type": "meta",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "content": "http://localhost:3000",
+              "property": "og:url",
+            },
+            "rendered": Array [],
+            "type": "meta",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "href": "/manifest.json",
+              "rel": "manifest",
+            },
+            "rendered": Array [],
+            "type": "link",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "href": "/favicon.ico",
+              "rel": "shortcut icon",
+            },
+            "rendered": Array [],
+            "type": "link",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "href": "/images/apple-touch-icon.png",
+              "rel": "apple-touch-icon",
+              "sizes": "180x180",
+            },
+            "rendered": Array [],
+            "type": "link",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "content": "#da532c",
+              "name": "msapplication-TileColor",
+            },
+            "rendered": Array [],
+            "type": "meta",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "href": "http://localhost:3000",
+              "rel": "canonical",
+            },
+            "rendered": Array [],
+            "type": "link",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "content": "testing react helmet",
+              "name": "description",
+            },
+            "rendered": Array [],
+            "type": "meta",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Test title",
+            },
+            "rendered": Array [
+              "Test title",
+            ],
+            "type": "title",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "href": "http://localhost:3000",
+              "rel": "canonical",
+            },
+            "rendered": Array [],
+            "type": "link",
+          },
+          null,
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "href": "test1.css",
+              "rel": "stylesheet",
+            },
+            "rendered": Array [],
+            "type": "link",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "href": "test2.css",
+              "rel": "stylesheet",
+            },
+            "rendered": Array [],
+            "type": "link",
+          },
+        ],
+        "type": "head",
+      },
+      Object {
+        "instance": null,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <noscript>
+              You need to enable JavaScript to run this app.
+            </noscript>,
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Test content</p>",
+                }
+              }
+              id="root"
+            />,
+            <script
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "window.__APOLLO_STATE__={};",
+                }
+              }
+            />,
+            <script
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "window.initialI18nStore={\\"en\\":{},\\"fi\\":{},\\"sv\\":{}};
+window.initialLanguage=\\"fi\\";",
+                }
+              }
+            />,
+            Array [
+              <script
+                src="test1.js"
+              />,
+              <script
+                src="test2.js"
+              />,
+            ],
+          ],
+        },
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": "You need to enable JavaScript to run this app.",
+            },
+            "rendered": Array [
+              "You need to enable JavaScript to run this app.",
+            ],
+            "type": "noscript",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "dangerouslySetInnerHTML": Object {
+                "__html": "<p>Test content</p>",
+              },
+              "id": "root",
+            },
+            "rendered": Array [],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "dangerouslySetInnerHTML": Object {
+                "__html": "window.__APOLLO_STATE__={};",
+              },
+            },
+            "rendered": Array [],
+            "type": "script",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "dangerouslySetInnerHTML": Object {
+                "__html": "window.initialI18nStore={\\"en\\":{},\\"fi\\":{},\\"sv\\":{}};
+window.initialLanguage=\\"fi\\";",
+              },
+            },
+            "rendered": Array [],
+            "type": "script",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "src": "test1.js",
+            },
+            "rendered": Array [],
+            "type": "script",
+          },
+          Object {
+            "instance": null,
+            "nodeType": "host",
+            "props": Object {
+              "src": "test2.js",
+            },
+            "rendered": Array [],
+            "type": "script",
+          },
+        ],
+        "type": "body",
+      },
+    ],
+    "type": "html",
+  },
+  "type": [Function],
+}
 `;

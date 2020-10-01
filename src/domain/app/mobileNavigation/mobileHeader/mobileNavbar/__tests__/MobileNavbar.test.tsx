@@ -1,18 +1,15 @@
-import { shallow } from 'enzyme';
 import React from 'react';
-import { MemoryRouter } from 'react-router';
 
+import { render } from '../../../../../../util/testUtils';
 import MobileNavbar from '../MobileNavbar';
 
 it('MobileNavbar matches snapshot', () => {
-  const container = shallow(
-    <MemoryRouter>
-      <MobileNavbar
-        isMenuOpen={true}
-        onCloseMenu={jest.fn()}
-        onOpenMenu={jest.fn()}
-      />
-    </MemoryRouter>
+  const { container } = render(
+    <MobileNavbar
+      isMenuOpen={true}
+      onCloseMenu={jest.fn()}
+      onOpenMenu={jest.fn()}
+    />
   );
-  expect(container.html()).toMatchSnapshot();
+  expect(container.firstChild).toMatchSnapshot();
 });

@@ -1,5 +1,6 @@
-import { render } from '@testing-library/react';
 import * as React from 'react';
+// Use react-test-renderer to avoid <html> cannot appear as a child of <div> warning
+import renderer from 'react-test-renderer';
 
 import Html from '../Html';
 
@@ -37,8 +38,8 @@ test('Html matches snapshot', () => {
     initialLanguage: 'fi',
     state: {},
   };
-  // This causes error because rendering <html></html> inside container div
-  const { container } = render(<Html {...props} />);
 
-  expect(container.firstChild).toMatchSnapshot();
+  const el = renderer.create(<Html {...props} />);
+
+  expect(el.toTree()).toMatchSnapshot();
 });
