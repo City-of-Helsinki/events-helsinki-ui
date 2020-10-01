@@ -10,7 +10,10 @@ import {
   InLanguage,
   Keyword,
   LocalizedObject,
+  Neighborhood,
+  NeighborhoodListResponse,
   Place,
+  PlaceListResponse,
   StaticPage,
 } from '../generated/graphql';
 
@@ -42,7 +45,7 @@ export const fakeEvent = (overrides?: Partial<EventDetails>): EventDetails => {
     inLanguage: [fakeInLanguage()],
     audience: [],
     keywords: [fakeKeyword()],
-    location: fakeLocation(),
+    location: fakePlace(),
     startTime: '2020-07-13T05:51:05.761000Z',
     endTime: null,
     datePublished: null,
@@ -82,7 +85,21 @@ export const fakeInLanguage = (overrides?: InLanguage): InLanguage => ({
   ...overrides,
 });
 
-export const fakeLocation = (overrides?: Partial<Place>): Place => ({
+export const fakePlaces = (
+  count = 1,
+  places?: Partial<Place>[]
+): PlaceListResponse => ({
+  data: generateNodeArray((i) => fakePlace(places?.[i]), count),
+  meta: {
+    count: count,
+    next: '',
+    previous: '',
+    __typename: 'Meta',
+  },
+  __typename: 'PlaceListResponse',
+});
+
+export const fakePlace = (overrides?: Partial<Place>): Place => ({
   id: faker.random.uuid(),
   internalId: 'https://api.hel.fi/linkedevents-test/v1/place/tprek:15376/',
   name: fakeLocalizedObject(),
@@ -111,6 +128,29 @@ export const fakeKeyword = (overrides?: Partial<Keyword>): Keyword => ({
   },
   internalId: 'https://api.hel.fi/linkedevents-test/v1/keyword/yso:p4363/',
   __typename: 'Keyword',
+  ...overrides,
+});
+
+export const fakeNeighborhoods = (
+  count = 1,
+  neighborhoods?: Partial<Neighborhood>[]
+): NeighborhoodListResponse => ({
+  data: generateNodeArray((i) => fakeNeighborhood(neighborhoods?.[i]), count),
+  meta: {
+    count: count,
+    next: '',
+    previous: '',
+    __typename: 'Meta',
+  },
+  __typename: 'NeighborhoodListResponse',
+});
+
+export const fakeNeighborhood = (
+  overrides?: Partial<Neighborhood>
+): Neighborhood => ({
+  id: 'kaupunginosa:aluemeri',
+  name: fakeLocalizedObject(),
+  __typename: 'Neighborhood',
   ...overrides,
 });
 

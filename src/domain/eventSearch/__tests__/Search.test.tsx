@@ -8,16 +8,20 @@ import {
   PlaceListDocument,
 } from '../../../generated/graphql';
 import { render } from '../../../util/testUtils';
-import neighborhoodListResponse from '../../neighborhood/__mocks__/neighborhoodListResponse';
-import placeListResponse from '../../place/__mocks__/placeListResponse';
+import { fakeNeighborhoods, fakePlaces } from '../../../util/mockDataUtils';
 import Search from '../Search';
+
+const neighborhoodsResponse = {
+  data: { neighborhoodList: fakeNeighborhoods(10) },
+};
+const placesResponse = { data: { placeList: fakePlaces(10) } };
 
 const mocks = [
   {
     request: {
       query: NeighborhoodListDocument,
     },
-    result: neighborhoodListResponse,
+    result: neighborhoodsResponse,
   },
   {
     request: {
@@ -28,7 +32,7 @@ const mocks = [
         text: '',
       },
     },
-    result: placeListResponse,
+    result: placesResponse,
   },
 ];
 
