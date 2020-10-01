@@ -1,15 +1,10 @@
-import { render } from '@testing-library/react';
 import React from 'react';
-import { MemoryRouter } from 'react-router';
 
+import { render } from '../../../../util/testUtils';
 import EventClosedHero from '../EventClosedHero';
 
 it('matches snapshot', () => {
-  const { container } = render(
-    <MemoryRouter>
-      <EventClosedHero />
-    </MemoryRouter>
-  );
+  const { container } = render(<EventClosedHero />);
 
   expect(container.firstChild).toMatchSnapshot();
 });

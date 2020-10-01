@@ -13,6 +13,7 @@ interface Props extends LinkProps {
 }
 
 const Link: React.FC<Props> = ({
+  className,
   color = 'default',
   children,
   isExternal = false,
@@ -20,30 +21,22 @@ const Link: React.FC<Props> = ({
   to,
   ...rest
 }) => {
+  const commonProps = {
+    className: classNames(
+      styles.link,
+      styles[`${color}Color`],
+      styles[`${size}Size`],
+      className
+    ),
+  };
+
   return isExternal ? (
-    <a
-      className={classNames(
-        styles.link,
-        styles[`${color}Color`],
-        styles[`${size}Size`]
-      )}
-      href={to}
-      rel="noopener noreferrer"
-      target="_blank"
-    >
+    <a href={to} rel="noopener noreferrer" target="_blank" {...commonProps}>
       {children}
       <IconAngleRight />
     </a>
   ) : (
-    <RouterLink
-      className={classNames(
-        styles.link,
-        styles[`${color}Color`],
-        styles[`${size}Size`]
-      )}
-      to={to}
-      {...rest}
-    >
+    <RouterLink to={to} {...commonProps} {...rest}>
       {children}
       <IconAngleRight />
     </RouterLink>
