@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TextWithLineBreaks matches snapshot 1`] = `
+exports[`matches snapshot 1`] = `
 <div>
   Line 1
   <br />

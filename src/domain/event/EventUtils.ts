@@ -45,25 +45,6 @@ export const isEventFree = (event: EventFieldsFragment): boolean => {
 };
 
 /**
- * Get event district info as string
- * @param {object} event
- * @param {string} locale
- * @return {string}
- */
-export const getEventDistrict = (
-  event: EventFieldsFragment,
-  locale: Language
-): string | null => {
-  const location = event.location;
-  const divisions = location?.divisions || [];
-  const district = divisions.find((division) =>
-    ['district', 'neighborhood'].includes(division.type)
-  );
-
-  return getLocalisedString(district?.name, locale);
-};
-
-/**
  * Get event id from url
  * @param {string} url
  * @return {string}
@@ -161,6 +142,25 @@ export const getEventSomeImageUrl = (event: EventFieldsFragment): string => {
   const image = event.images[0];
   return image?.url || EVENT_SOME_IMAGE;
 };
+
+/**
+ * Get event district info as string
+ * @param {object} event
+ * @param {string} locale
+ * @return {string}
+ */
+export const getEventDistrict = (
+  event: EventFieldsFragment,
+  locale: Language
+): string | null => {
+  const location = event.location;
+  const district = location?.divisions?.find((division) =>
+    ['district', 'neighborhood'].includes(division.type)
+  );
+
+  return getLocalisedString(district?.name, locale);
+};
+
 /**
  * Get event location fields
  * @param {object} event
@@ -175,6 +175,7 @@ const getEventLocationFields = (
   return {
     addressLocality: getLocalisedString(location?.addressLocality, locale),
     coordinates: [...(location?.position?.coordinates || [])].reverse(),
+    district: getEventDistrict(event, locale),
     location,
     postalCode: location?.postalCode,
     streetAddress: getLocalisedString(location?.streetAddress, locale),
@@ -305,7 +306,6 @@ export const getEventFields = (
 ) => {
   const eventLocation = event.location;
   return {
-    addressLocality: getLocalisedString(eventLocation?.addressLocality, locale),
     description: getLocalisedString(event.description, locale),
     district: getEventDistrict(event, locale),
     email: eventLocation?.email,
@@ -327,7 +327,7 @@ export const getEventFields = (
     shortDescription: getLocalisedString(event.shortDescription, locale),
     someImageUrl: getEventSomeImageUrl(event),
     startTime: event.startTime,
-    streetAddress: getLocalisedString(eventLocation?.streetAddress, locale),
     telephone: getLocalisedString(eventLocation?.telephone, locale),
+    ...getEventLocationFields(event, locale),
   };
 };

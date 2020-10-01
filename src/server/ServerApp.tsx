@@ -5,7 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 import { I18nextProvider } from 'react-i18next';
 import { StaticRouter } from 'react-router-dom';
 
-import AppRoutes from '../domain/app/AppRoutes';
+import AppRoutes from '../domain/app/routes/AppRoutes';
 
 export interface StaticContext {
   url?: string;

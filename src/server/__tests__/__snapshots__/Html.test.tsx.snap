@@ -6,7 +6,7 @@ exports[`Html matches snapshot 1`] = `
 >
   <head>
     <meta
-      charSet="utf-8"
+      charset="utf-8"
     />
     <meta
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -41,9 +41,17 @@ exports[`Html matches snapshot 1`] = `
       href="http://localhost:3000"
       rel="canonical"
     />
-    &lt;meta data-react-helmet="true" name="description" content="testing react helmet"&gt;
-    &lt;title&gt;Test title&lt;/title&gt;
-    &lt;link rel="canonical" href="http://localhost:3000" /&gt;
+    <meta
+      content="testing react helmet"
+      name="description"
+    />
+    <title>
+      Test title
+    </title>
+    <link
+      href="http://localhost:3000"
+      rel="canonical"
+    />
     <link
       href="test1.css"
       rel="stylesheet"
@@ -58,28 +66,19 @@ exports[`Html matches snapshot 1`] = `
       You need to enable JavaScript to run this app.
     </noscript>
     <div
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "<p>Test content</p>",
-        }
-      }
       id="root"
-    />
-    <script
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "window.__APOLLO_STATE__={};",
-        }
-      }
-    />
-    <script
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "window.initialI18nStore={\\"en\\":{},\\"fi\\":{},\\"sv\\":{}};
-window.initialLanguage=\\"fi\\";",
-        }
-      }
-    />
+    >
+      <p>
+        Test content
+      </p>
+    </div>
+    <script>
+      window.__APOLLO_STATE__={};
+    </script>
+    <script>
+      window.initialI18nStore={"en":{},"fi":{},"sv":{}};
+window.initialLanguage="fi";
+    </script>
     <script
       src="test1.js"
     />

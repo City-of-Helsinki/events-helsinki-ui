@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`EventLocationText matches snapshot 1`] = `"name fi, streetAddress fi, locality fi"`;
