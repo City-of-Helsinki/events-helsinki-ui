@@ -12,11 +12,12 @@ import { Breakpoint } from '../../../types';
 import { getLandingPageFields } from '../utils';
 import styles from './landingPageHero.module.scss';
 
+export const testIds = {
+  content: 'landing-page-hero-content',
+};
+
 const getTextWrapperMaxWidth = (breakpoint: Breakpoint) => {
   switch (breakpoint) {
-    case 'xs':
-    case 'sm':
-      return undefined;
     case 'md':
       return 400;
     case 'lg':
@@ -27,14 +28,11 @@ const getTextWrapperMaxWidth = (breakpoint: Breakpoint) => {
 
 const getTextFontSize = (breakpoint: Breakpoint) => {
   switch (breakpoint) {
-    case 'xs':
-    case 'sm':
-    case 'md':
-      return 52;
     case 'lg':
     case 'xlg':
       return 80;
   }
+  return 52;
 };
 
 interface Props {
@@ -68,11 +66,11 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
   const textWrapperWidth = useTextWrapperWidth({
     font: `600 ${fontSize}px HelsinkiGrotesk`,
     maxTextWrapperWidth,
-    title: title || '',
+    title,
   });
 
-  const moveToCollectionPage = () => {
-    window.open(buttonUrl || '', '_self');
+  const handleButtonClick = () => {
+    window.open(buttonUrl, '_self');
   };
 
   React.useLayoutEffect(() => {
@@ -124,11 +122,12 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
             styles.content,
             styles[`color${capitalize(titleAndDescriptionColor)}`]
           )}
+          data-testid={testIds.content}
         >
           <div className={styles.description}>{description}</div>
           <h1 className={styles.title}>{title}</h1>
           {!!buttonText && !!buttonUrl && (
-            <Button onClick={moveToCollectionPage} variant="success">
+            <Button onClick={handleButtonClick} variant="success">
               {buttonText}
             </Button>
           )}
