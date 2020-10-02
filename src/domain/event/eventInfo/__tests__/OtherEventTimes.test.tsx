@@ -114,16 +114,9 @@ test('should render other event times', async () => {
     expect(screen.getByText(dateStr)).toBeInTheDocument();
   });
 
+  // Make sure that loading more events is completed
   await waitFor(() => {
-    const event = otherEventsLoadMoreResponse.data.eventList.data[0];
-    const dateStr = getDateRangeStr({
-      start: event.startTime,
-      end: event.endTime,
-      locale: 'fi',
-      includeTime: true,
-      timeAbbreviation: translations.commons.timeAbbreviation,
-    });
-    expect(screen.getByText(dateStr)).toBeInTheDocument();
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
   otherEventsLoadMoreResponse.data.eventList.data.forEach((event) => {
