@@ -1,10 +1,10 @@
+import { render } from '@testing-library/react';
 import * as React from 'react';
-import renderer from 'react-test-renderer';
 
 import FilterButton from '../FilterButton';
 
-test('FilterButton matches snapshot', () => {
-  const component = renderer.create(
+test('matches snapshot', () => {
+  const { container } = render(
     <FilterButton
       onRemove={jest.fn()}
       text="text"
@@ -12,8 +12,6 @@ test('FilterButton matches snapshot', () => {
       value="value"
     />
   );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-});
 
-export {};
+  expect(container.firstChild).toMatchSnapshot();
+});

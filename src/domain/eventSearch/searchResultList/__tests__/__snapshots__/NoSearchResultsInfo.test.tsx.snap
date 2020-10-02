@@ -1,21 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NoResultsInfo matches snapshot 1`] = `
+exports[`matches snapshot 1`] = `
 <div
-  className="noResultsInfo"
+  class="noResultsInfo"
 >
   <div
-    className="iconWrapper"
+    class="iconWrapper"
   >
     <svg
-      className="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-      style={Object {}}
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g
         fill="none"
-        fillRule="evenodd"
+        fill-rule="evenodd"
       >
         <path
           d="M0 0h24v24H0z"
@@ -28,12 +27,12 @@ exports[`NoResultsInfo matches snapshot 1`] = `
     </svg>
   </div>
   <div
-    className="bigText"
+    class="bigText"
   >
     Voi vitsi, valitsemillasi hakuehdoilla ei löytynyt yhtään hakutulosta
   </div>
   <div
-    className="smallText"
+    class="smallText"
   >
     Kokeile muuttamalla hakuehtoja ja varmasti löydät jotain kiinnostavaa tekemistä!
   </div>

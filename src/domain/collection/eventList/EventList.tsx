@@ -43,7 +43,10 @@ const EventList: React.FC<Props> = ({ collection }) => {
   });
 
   const handleLoadMore = async () => {
-    const page = getNextPage(eventsData);
+    const page = eventsData?.eventList.meta
+      ? getNextPage(eventsData.eventList.meta)
+      : null;
+
     setIsFetchingMore(true);
 
     if (page) {

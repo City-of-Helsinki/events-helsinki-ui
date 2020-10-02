@@ -96,14 +96,14 @@ const EventCard: React.FC<Props> = ({ event }) => {
           </div>
           <div className={styles.eventDateAndTime}>
             {!!startTime &&
-              getDateRangeStr(
-                startTime,
-                endTime,
+              getDateRangeStr({
+                start: startTime,
+                end: endTime,
                 locale,
-                false,
-                true,
-                t('commons.timeAbbreviation')
-              )}
+                includeWeekday: false,
+                includeTime: true,
+                timeAbbreviation: t('commons.timeAbbreviation'),
+              })}
           </div>
           <div className={styles.eventLocation}>
             <LocationText

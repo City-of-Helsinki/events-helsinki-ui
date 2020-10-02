@@ -1,12 +1,10 @@
+import { render } from '@testing-library/react';
 import * as React from 'react';
-import renderer from 'react-test-renderer';
 
 import NoResultsInfo from '../NoResultsInfo';
 
-test('NoResultsInfo matches snapshot', () => {
-  const component = renderer.create(<NoResultsInfo />);
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-});
+test('matches snapshot', () => {
+  const { container } = render(<NoResultsInfo />);
 
-export {};
+  expect(container.firstChild).toMatchSnapshot();
+});

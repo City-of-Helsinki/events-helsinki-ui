@@ -1,19 +1,32 @@
+import { render } from '@testing-library/react';
 import * as React from 'react';
-import renderer from 'react-test-renderer';
 
-import mockEvent from '../../__mocks__/eventDetails';
+import { EventFieldsFragment } from '../../../../generated/graphql';
+import { fakeEvent, fakePlace } from '../../../../util/mockDataUtils';
 import EventLocationText from '../EventLocationText';
 
-test('EventLocationText matches snapshot', () => {
-  const component = renderer.create(
+const addressLocality = 'Helsinki';
+const locationName = 'Testi paikka';
+const streetAddress = 'testikuja 1';
+
+const event = fakeEvent({
+  location: fakePlace({
+    addressLocality: { fi: addressLocality },
+    name: { fi: locationName },
+    streetAddress: { fi: streetAddress },
+  }),
+}) as EventFieldsFragment;
+
+test('should render event location text', () => {
+  const { container } = render(
     <EventLocationText
-      event={mockEvent}
+      event={event}
       showDistrict={true}
       showLocationName={true}
     />
   );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-});
 
-export {};
+  expect(container.innerHTML).toBe(
+    [locationName, streetAddress, addressLocality].join(', ')
+  );
+});

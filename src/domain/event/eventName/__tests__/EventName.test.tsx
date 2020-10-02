@@ -1,55 +1,29 @@
-import pretty from 'pretty';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
 
-import mockEvent from '../../__mocks__/eventDetails';
 import { EVENT_STATUS } from '../../../../constants';
+import { EventFieldsFragment } from '../../../../generated/graphql';
+import { fakeEvent } from '../../../../util/mockDataUtils';
 import EventName from '../EventName';
 
-let container: HTMLDivElement | null = null;
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement('div');
-  document.body.appendChild(container);
+const eventName = 'Event name fi';
+const event = fakeEvent({ name: { fi: eventName } }) as EventFieldsFragment;
+
+test('should render event name', async () => {
+  const { container } = render(<EventName event={event} />);
+
+  expect(container.innerHTML).toBe(eventName);
 });
 
-afterEach(() => {
-  if (container) {
-    unmountComponentAtNode(container);
-    container.remove();
-    container = null;
-  }
-});
+test('should tell that event has cancelled', async () => {
+  render(
+    <EventName
+      event={{
+        ...event,
+        eventStatus: EVENT_STATUS.EVENT_CANCELLED,
+      }}
+    />
+  );
 
-describe('EventName component', () => {
-  test('should render event name of scheduled event', async () => {
-    act(() => {
-      render(<EventName event={mockEvent} />, container);
-    });
-
-    if (container) {
-      expect(pretty(container.innerHTML)).toMatchInlineSnapshot(`"name fi"`);
-    }
-  });
-
-  test('should render event name of cancelled event', async () => {
-    act(() => {
-      render(
-        <EventName
-          event={{
-            ...mockEvent,
-            eventStatus: EVENT_STATUS.EVENT_CANCELLED,
-          }}
-        />,
-        container
-      );
-    });
-
-    if (container) {
-      expect(pretty(container.innerHTML)).toMatchInlineSnapshot(
-        `"<span class=\\"eventCancelled\\">Tapahtuma peruttu: </span>name fi"`
-      );
-    }
-  });
+  expect(screen.getByText(/tapahtuma peruttu/i)).toBeInTheDocument();
 });

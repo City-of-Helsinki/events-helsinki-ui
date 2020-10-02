@@ -6,7 +6,7 @@ import isNil from 'lodash/isNil';
 import isNumber from 'lodash/isNumber';
 
 import { CATEGORIES, DATE_TYPES } from '../../constants';
-import { EventListQuery } from '../../generated/graphql';
+import { Meta } from '../../generated/graphql';
 import { Language } from '../../types';
 import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
@@ -204,16 +204,14 @@ export const getEventSearchVariables = ({
 };
 
 /**
- * Get next page number from linkedevents api response
- * @param eventsData
+ * Get next page number from linkedevents response meta field
+ * @param meta
  * @return {number}
  */
-export const getNextPage = (
-  eventsData: EventListQuery | undefined
-): number | null => {
-  if (!eventsData || !eventsData.eventList.meta.next) return null;
+export const getNextPage = (meta: Meta): number | null => {
+  if (!meta.next) return null;
 
-  const urlParts = eventsData.eventList.meta.next.split('?');
+  const urlParts = meta.next.split('?');
   const searchParams = new URLSearchParams(decodeURIComponent(urlParts[1]));
   const page = searchParams.get(EVENT_SEARCH_FILTERS.PAGE);
   return page ? Number(page) : null;

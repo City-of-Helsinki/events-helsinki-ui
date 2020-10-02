@@ -1,7 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
-import { EventFieldsFragment } from '../../../../generated/graphql';
 import { fakeEvent } from '../../../../util/mockDataUtils';
 import { render, screen } from '../../../../util/testUtils';
 import translations from '../../../translation/i18n/fi.json';

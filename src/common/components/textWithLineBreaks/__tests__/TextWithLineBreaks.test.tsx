@@ -1,16 +1,12 @@
+import { render } from '@testing-library/react';
 import * as React from 'react';
-import renderer from 'react-test-renderer';
 
 import TextWithLineBreaks from '../TextWithLineBreaks';
 
-test('TextWithLineBreaks matches snapshot', () => {
+test('matches snapshot', () => {
   const text = `Line 1
   Line 2`;
-  const component = renderer.create(
-    <TextWithLineBreaks as="div" text={text} />
-  );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-});
+  const { container } = render(<TextWithLineBreaks as="div" text={text} />);
 
-export {};
+  expect(container.firstChild).toMatchSnapshot();
+});

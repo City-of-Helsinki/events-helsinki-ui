@@ -1,73 +1,37 @@
-import '../../assets/styles/main.scss';
-import 'hds-core/lib/base.css';
-import 'hds-core/lib/components/all.css';
+import '../../common/translation/i18n/init.client';
+import '../../globals';
 
-import React, { FunctionComponent } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Redirect, Route, RouteComponentProps, Switch } from 'react-router';
+import { createInstance, MatomoProvider } from '@datapunt/matomo-tracker-react';
+import React from 'react';
+import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
+import { useSSR } from 'react-i18next';
+import { BrowserRouter } from 'react-router-dom';
 
-import { SUPPORT_LANGUAGES } from '../../constants';
-import AboutPage from '../about/AboutPage';
-import AccessbilityPage from '../accessibility/AccessbilityPage';
-import CollectionPageContainer from '../collection/CollectionPageContainer';
-import CollectionListPage from '../collectionList/CollectionListPage';
-import EventPageContainer from '../event/EventPageContainer';
-import EventSearchPageContainer from '../eventSearch/EventSearchPageContainer';
-import LandingPage from '../landingPage/LandingPage';
-import LandingPagePreview from '../landingPage/LandingPagePreview';
-import NotFound from '../notFound/NotFound';
-import { ROUTES } from './constants';
+import { ScrollToTop } from '../../common/route/RouteUtils';
+import apolloClient from './apollo/apolloClient';
+import AppRoutes from './routes/AppRoutes';
 
-const App: FunctionComponent<RouteComponentProps<{
-  locale: SUPPORT_LANGUAGES;
-}>> = ({
-  match: {
-    params: { locale },
-  },
-}) => {
-  const { i18n } = useTranslation();
+const instance = createInstance({
+  disabled: process.env.REACT_APP_MATOMO_ENABLED !== 'true',
+  urlBase: process.env.REACT_APP_MATOMO_URL_BASE as string,
+  siteId: Number(process.env.REACT_APP_MATOMO_SITE_ID),
+});
 
-  React.useEffect(() => {
-    i18n.changeLanguage(locale);
-  }, [i18n, locale]);
+const App: React.FC = () => {
+  useSSR(window.initialI18nStore, window.initialLanguage);
 
   return (
-    <Switch>
-      <Redirect exact path={`/${locale}/`} to={`/${locale}${ROUTES.HOME}`} />
-      <Route exact path={`/${locale}${ROUTES.HOME}`} component={LandingPage} />
-      <Route
-        exact
-        path={`/${locale}${ROUTES.HOME_PREVIEW}`}
-        component={LandingPagePreview}
-      />
-      <Route exact path={`/${locale}${ROUTES.ABOUT}`} component={AboutPage} />
-      <Route
-        exact
-        path={`/${locale}${ROUTES.ACCESSIBILITY}`}
-        component={AccessbilityPage}
-      />
-      <Route
-        exact
-        path={`/${locale}${ROUTES.COLLECTIONS}`}
-        component={CollectionListPage}
-      />
-      <Route
-        exact
-        path={`/${locale}${ROUTES.COLLECTION}`}
-        component={CollectionPageContainer}
-      />
-      <Route
-        exact
-        path={`/${locale}${ROUTES.EVENTS}`}
-        component={EventSearchPageContainer}
-      />
-      <Route
-        exact
-        path={`/${locale}${ROUTES.EVENT}`}
-        component={EventPageContainer}
-      />
-      <Route component={NotFound} />
-    </Switch>
+    <BrowserRouter>
+      <ApolloProvider client={apolloClient}>
+        <ApolloHooksProvider client={apolloClient}>
+          <ScrollToTop />
+          <MatomoProvider value={instance}>
+            <AppRoutes />
+          </MatomoProvider>
+        </ApolloHooksProvider>
+      </ApolloProvider>
+    </BrowserRouter>
   );
 };
 

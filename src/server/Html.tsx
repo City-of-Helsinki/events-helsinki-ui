@@ -1,6 +1,8 @@
 import React from 'react';
 import serialize from 'serialize-javascript';
 
+type HelmetDatum = { toComponent: () => void };
+
 interface Props {
   assets: {
     css: string[];
@@ -8,15 +10,9 @@ interface Props {
   };
   content: string;
   helmet: {
-    meta: {
-      toComponent: () => void;
-    };
-    title: {
-      toComponent: () => void;
-    };
-    link: {
-      toComponent: () => void;
-    };
+    link: HelmetDatum;
+    meta: HelmetDatum;
+    title: HelmetDatum;
   };
   state: Record<string, unknown>;
   canonicalUrl: string;

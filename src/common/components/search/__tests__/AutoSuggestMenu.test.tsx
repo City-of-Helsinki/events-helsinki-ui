@@ -17,5 +17,3 @@ test('AutosuggestMenu matches snapshot', () => {
 
   expect(container.firstChild).toMatchSnapshot();
 });
-
-export {};

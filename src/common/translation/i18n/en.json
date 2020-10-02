@@ -160,7 +160,9 @@
       "title": "Oops, you got hit by a 404!"
     },
     "otherTimes": {
-      "buttonReadMore": "Read more",
+      "buttonHide": "Hide other event times",
+      "buttonReadMore": "Read more; {{date}}",
+      "buttonShow": "Show other event times",
       "title": "Other times of the event"
     },
     "shareLinks": {

@@ -30,67 +30,75 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const [isListOpen, setIsListOpen] = React.useState(false);
 
-  const superEventId = React.useMemo(() => {
-    return getEventIdFromUrl(
-      (event.superEvent && event.superEvent.internalId) || ''
-    );
-  }, [event.superEvent]);
+  const superEventId = React.useMemo(
+    () => getEventIdFromUrl(event.superEvent?.internalId || ''),
+    [event.superEvent]
+  );
 
-  const filters = React.useMemo(() => {
-    return {
+  const variables = React.useMemo(
+    () => ({
       include: ['keywords', 'location'],
       sort: EVENT_SORT_OPTIONS.START_TIME,
       startDate: getCurrentHour(),
       superEvent: superEventId,
-    };
-  }, [superEventId]);
+    }),
+    [superEventId]
+  );
 
   const { data: subEventsData, fetchMore, loading } = useEventListQuery({
     skip: !superEventId,
     ssr: false,
-    variables: filters,
+    variables,
   });
 
-  const handleLoadMore = React.useCallback(async () => {
-    const page = getNextPage(subEventsData);
-    setIsFetchingMore(true);
-    if (page) {
-      await fetchMore({
-        updateQuery: (prev, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return prev;
-          const events = [
-            ...prev.eventList.data,
-            ...fetchMoreResult.eventList.data,
-          ];
-          fetchMoreResult.eventList.data = events;
-          return fetchMoreResult;
-        },
-        variables: {
-          ...filters,
-          page: page,
-        },
-      });
-    }
-    setIsFetchingMore(false);
-  }, [fetchMore, filters, subEventsData]);
+  const handleLoadMore = React.useCallback(
+    async (page: number) => {
+      setIsFetchingMore(true);
+
+      try {
+        await fetchMore({
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+
+            const events = [
+              ...prev.eventList.data,
+              ...fetchMoreResult.eventList.data,
+            ];
+            fetchMoreResult.eventList.data = events;
+
+            return fetchMoreResult;
+          },
+          variables: {
+            ...variables,
+            page: page,
+          },
+        });
+      } catch (e) {}
+      setIsFetchingMore(false);
+    },
+    [fetchMore, variables]
+  );
 
   React.useEffect(() => {
-    if (subEventsData && subEventsData.eventList.meta.next) {
-      handleLoadMore();
+    const page = subEventsData?.eventList.meta
+      ? getNextPage(subEventsData.eventList.meta)
+      : null;
+
+    if (page) {
+      handleLoadMore(page);
     }
   }, [handleLoadMore, subEventsData]);
 
-  if (!superEventId) return null;
-
-  const subEvents = subEventsData
-    ? subEventsData.eventList.data.filter(
-        (subEvent) => subEvent.id !== event.id
-      )
-    : [];
+  const subEvents =
+    subEventsData?.eventList.data.filter(
+      (subEvent) => subEvent.id !== event.id
+    ) || [];
 
   const toggleList = () => {
     setIsListOpen(!isListOpen);
   };
+
+  if (!superEventId) return null;
 
   return (
     <div className={styles.otherEventTimes}>
@@ -99,6 +107,11 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
           [styles.isListOpen]: isListOpen,
         })}
         onClick={toggleList}
+        aria-label={
+          isListOpen
+            ? t('event.otherTimes.buttonHide')
+            : t('event.otherTimes.buttonShow')
+        }
       >
         <span>{t('event.otherTimes.title')}</span>
         <IconAngleDown />
@@ -114,21 +127,20 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
                 )}${search}`;
                 history.push(eventUrl);
               };
+              const date = subEvent.startTime
+                ? getDateRangeStr({
+                    start: subEvent.startTime,
+                    end: subEvent.endTime,
+                    includeTime: true,
+                    locale,
+                    timeAbbreviation: t('commons.timeAbbreviation'),
+                  })
+                : '';
               return (
                 <li key={subEvent.id}>
-                  <span>
-                    {!!subEvent.startTime &&
-                      getDateRangeStr(
-                        subEvent.startTime,
-                        subEvent.endTime,
-                        locale,
-                        true,
-                        true,
-                        t('commons.timeAbbreviation')
-                      )}
-                  </span>
+                  <span>{date}</span>
                   <IconButton
-                    ariaLabel={t('event.otherTimes.buttonReadMore')}
+                    ariaLabel={t('event.otherTimes.buttonReadMore', { date })}
                     icon={<IconArrowRight />}
                     onClick={moveToEventPage}
                     size="small"

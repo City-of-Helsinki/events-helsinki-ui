@@ -108,14 +108,13 @@ const EventInfo: React.FC<Props> = ({ event }) => {
             <h2 className={styles.title}>{t('event.info.labelDateAndTime')}</h2>
 
             {!!startTime &&
-              getDateRangeStr(
-                startTime,
-                endTime,
+              getDateRangeStr({
+                start: startTime,
+                end: endTime,
                 locale,
-                true,
-                true,
-                t('commons.timeAbbreviation')
-              )}
+                includeTime: true,
+                timeAbbreviation: t('commons.timeAbbreviation'),
+              })}
             {startTime && (
               <button className={linkStyles.link} onClick={downloadIcsFile}>
                 {t('event.info.buttonAddToCalendar')}

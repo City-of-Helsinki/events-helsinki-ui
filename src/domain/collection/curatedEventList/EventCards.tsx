@@ -22,9 +22,9 @@ const EventCards: React.FC<Props> = ({
   return (
     <>
       <div className={styles.eventCards}>
-        {events.map(
-          (event, id) => event && <LargeEventCard key={id} event={event} />
-        )}
+        {events.map((event, id) => (
+          <LargeEventCard key={id} event={event} />
+        ))}
       </div>
       {showMoreButton && (
         <div className={styles.loadMoreWrapper}>

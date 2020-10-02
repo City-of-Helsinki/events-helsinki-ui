@@ -1,11 +1,8 @@
-import { shallow } from 'enzyme';
 import React from 'react';
-import { withRouter } from 'react-router';
 
+import { render } from '../../../util/testUtils';
 import App from '../App';
 
-const AppWithRouter = withRouter(App);
-
 it('renders without crashing', () => {
-  shallow(<AppWithRouter />);
+  render(<App />);
 });
