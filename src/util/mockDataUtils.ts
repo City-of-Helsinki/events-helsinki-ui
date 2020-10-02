@@ -5,11 +5,14 @@ import merge from 'lodash/merge';
 import {
   AboutPagesResponse,
   AccessibilityPagesResponse,
+  CmsImage,
   EventDetails,
   EventListResponse,
   Image,
   InLanguage,
   Keyword,
+  LandingPage,
+  LocalizedCmsImage,
   LocalizedObject,
   Neighborhood,
   NeighborhoodListResponse,
@@ -168,6 +171,47 @@ export const fakeNeighborhood = (
       id: 'kaupunginosa:aluemeri',
       name: fakeLocalizedObject(),
       __typename: 'Neighborhood',
+    },
+    overrides
+  );
+
+export const fakeLandingPage = (
+  overrides?: Partial<LandingPage>
+): LandingPage =>
+  merge(
+    {
+      id: faker.random.uuid(),
+      buttonText: fakeLocalizedObject(),
+      buttonUrl: fakeLocalizedObject(faker.internet.url()),
+      description: fakeLocalizedObject(),
+      socialMediaImage: fakeLocalizedCmsImage(),
+      pageTitle: fakeLocalizedObject(),
+      title: fakeLocalizedObject(),
+      titleAndDescriptionColor: fakeLocalizedObject('BLACK'),
+      __typename: 'LandingPage',
+    },
+    overrides
+  );
+
+export const fakeCmsImage = (overrides?: Partial<CmsImage>): CmsImage =>
+  merge(
+    {
+      photographerName: faker.name.lastName(),
+      url: faker.internet.url(),
+      __typename: 'CmsImage',
+    },
+    overrides
+  );
+
+export const fakeLocalizedCmsImage = (
+  overrides?: Partial<LocalizedCmsImage>
+): LocalizedCmsImage =>
+  merge(
+    {
+      en: fakeCmsImage(),
+      fi: fakeCmsImage(),
+      sv: fakeCmsImage(),
+      __typename: 'LocalizedCmsImage',
     },
     overrides
   );
