@@ -1,11 +1,19 @@
-import { render, waitForDomChange } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import React from 'react';
 
-import mockLandingPage from '../../__mocks__/landingPage';
+import { LandingPageFieldsFragment } from '../../../../generated/graphql';
+import { fakeLandingPage } from '../../../../util/mockDataUtils';
+import { actWait } from '../../../../util/testUtils';
 import LandingPageMeta from '../LandingPageMeta';
 
-const getWrapper = () =>
-  render(<LandingPageMeta landingPage={mockLandingPage} />);
+const landingPageTitle = 'Landing page title';
+const landingPageDescription = 'Landing page description';
+const landingPageImage = 'www.testurl.fi';
+const landingPage = fakeLandingPage({
+  socialMediaImage: { fi: { url: landingPageImage } },
+  metaInformation: { fi: landingPageDescription },
+  pageTitle: { fi: landingPageTitle },
+}) as LandingPageFieldsFragment;
 
 // Rendering EventPageMeta creates a side effect--the document head will be
 // mutated. This mutation will persist between tests. This can be problematic:
@@ -20,7 +28,7 @@ let initialHeadInnerHTML: any = null;
 
 beforeEach(() => {
   const head = document.querySelector('head');
-  initialHeadInnerHTML = head && head.innerHTML;
+  initialHeadInnerHTML = head.innerHTML;
 
   document.head.innerHTML = '';
 });
@@ -30,27 +38,16 @@ afterEach(() => {
 });
 
 test('applies expected metadata', async () => {
-  const landingPageTitle =
-    mockLandingPage.pageTitle && mockLandingPage.pageTitle.fi;
-  const landingPageDescription =
-    mockLandingPage.metaInformation && mockLandingPage.metaInformation.fi;
-  const landingPageImage = mockLandingPage.socialMediaImage?.fi?.url;
+  render(<LandingPageMeta landingPage={landingPage} />);
 
-  // This function is usually used for the helpers it returns. However, the
-  // scope f the helpers is limited to `body`. As we need to assert against
-  // the content of the `head`, we have to make queries without helpers. We are
-  // using testing library to render for consistency.
-  getWrapper();
-
-  await waitForDomChange();
+  await actWait(300);
 
   const title = document.title;
   const head = document.querySelector('head');
-  const metaDescription = head && head.querySelector('[name="description"]');
-  const ogTitle = head && head.querySelector('[property="og:title"]');
-  const ogDescription =
-    head && head.querySelector('[property="og:description"]');
-  const ogImage = head && head.querySelector('[property="og:image"]');
+  const metaDescription = head.querySelector('[name="description"]');
+  const ogTitle = head.querySelector('[property="og:title"]');
+  const ogDescription = head.querySelector('[property="og:description"]');
+  const ogImage = head.querySelector('[property="og:image"]');
 
   expect(title).toEqual(landingPageTitle);
   expect(metaDescription).toHaveAttribute('content', landingPageDescription);

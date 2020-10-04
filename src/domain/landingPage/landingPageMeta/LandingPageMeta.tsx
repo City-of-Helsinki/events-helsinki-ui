@@ -12,13 +12,13 @@ interface Props {
 const LandingPageMeta: React.FC<Props> = ({ landingPage }) => {
   const locale = useLocale();
 
-  const { pageTitle, someImage: image, someDescription } = getLandingPageFields(
+  const { pageTitle, someImage: image, metaInformation } = getLandingPageFields(
     landingPage,
     locale
   );
 
   const openGraphProperties: { [key: string]: string } = {
-    description: someDescription,
+    description: metaInformation,
     image: image,
     title: pageTitle,
   };

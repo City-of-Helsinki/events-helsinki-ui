@@ -43,6 +43,7 @@ const Home: React.FC = () => {
           !isCollectionExpired(collection)
       )
     : [];
+
   const lgCollections = collections.slice(0, 1);
   const mdAndSmCollections = collections.slice(1);
 

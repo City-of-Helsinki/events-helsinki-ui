@@ -26,7 +26,7 @@ export const getHeroBackgroundColor = (
   locale: Language
 ): string | undefined => {
   const backgroundColor = landingPage.heroBackgroundImageColor?.[locale];
-  return backgroundColor ? backgroundColor.toLowerCase() : undefined;
+  return backgroundColor?.toLowerCase();
 };
 /**
  * Get landing page hero background image
@@ -113,7 +113,7 @@ export const getLandingPageFields = (
     landingPage,
     locale
   ),
-  someDescription: landingPage.metaInformation?.[locale] || '',
+  metaInformation: landingPage.metaInformation?.[locale] || '',
   buttonText: landingPage.buttonText?.[locale] || '',
   buttonUrl: landingPage.buttonUrl?.[locale] || '',
   backgroundColor: getHeroBackgroundColor(landingPage, locale),
