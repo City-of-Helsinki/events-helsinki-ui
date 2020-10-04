@@ -6,12 +6,16 @@ import {
   AboutPagesResponse,
   AccessibilityPagesResponse,
   CmsImage,
+  CollectionDetails,
+  CollectionListResponse,
   EventDetails,
   EventListResponse,
   Image,
   InLanguage,
   Keyword,
+  KeywordListResponse,
   LandingPage,
+  LandingPagesResponse,
   LocalizedCmsImage,
   LocalizedObject,
   Neighborhood,
@@ -131,6 +135,20 @@ export const fakePlace = (overrides?: Partial<Place>): Place =>
     overrides
   );
 
+export const fakeKeywords = (
+  count = 1,
+  keywords?: Partial<Keyword>[]
+): KeywordListResponse => ({
+  data: generateNodeArray((i) => fakeKeyword(keywords?.[i]), count),
+  meta: {
+    __typename: 'Meta',
+    count: count,
+    next: '',
+    previous: '',
+  },
+  __typename: 'KeywordListResponse',
+});
+
 export const fakeKeyword = (overrides?: Partial<Keyword>): Keyword =>
   merge(
     {
@@ -175,6 +193,14 @@ export const fakeNeighborhood = (
     overrides
   );
 
+export const fakeLandingPages = (
+  count = 1,
+  landingPages?: Partial<LandingPage>[]
+): LandingPagesResponse => ({
+  data: generateNodeArray((i) => fakeLandingPage(landingPages?.[i]), count),
+  __typename: 'LandingPagesResponse',
+});
+
 export const fakeLandingPage = (
   overrides?: Partial<LandingPage>
 ): LandingPage =>
@@ -184,8 +210,13 @@ export const fakeLandingPage = (
       buttonText: fakeLocalizedObject(),
       buttonUrl: fakeLocalizedObject(faker.internet.url()),
       description: fakeLocalizedObject(),
-      socialMediaImage: fakeLocalizedCmsImage(),
+      heroBackgroundImage: fakeLocalizedCmsImage(),
+      heroBackgroundImageColor: fakeLocalizedObject('BLACK'),
+      heroBackgroundImageMobile: fakeLocalizedCmsImage(),
+      heroTopLayerImage: fakeLocalizedCmsImage(),
+      metaInformation: fakeLocalizedObject(),
       pageTitle: fakeLocalizedObject(),
+      socialMediaImage: fakeLocalizedCmsImage(),
       title: fakeLocalizedObject(),
       titleAndDescriptionColor: fakeLocalizedObject('BLACK'),
       __typename: 'LandingPage',
@@ -193,10 +224,43 @@ export const fakeLandingPage = (
     overrides
   );
 
+export const fakeCollections = (
+  count = 1,
+  collections?: Partial<CollectionDetails>[]
+): CollectionListResponse => ({
+  data: generateNodeArray((i) => fakeCollection(collections?.[i]), count),
+  __typename: 'CollectionListResponse',
+});
+export const fakeCollection = (
+  overrides?: Partial<CollectionDetails>
+): CollectionDetails =>
+  merge(
+    {
+      id: faker.random.uuid(),
+      boxColor: fakeLocalizedObject('FOG'),
+      curatedEvents: [],
+      curatedEventsTitle: fakeLocalizedObject(),
+      description: fakeLocalizedObject(),
+      eventListQuery: fakeLocalizedObject(
+        'https://tapahtumat.test.kuva.hel.ninja/fi/events?isFree=true&text=jooga'
+      ),
+      expired: false,
+      eventListTitle: fakeLocalizedObject(),
+      heroImage: fakeCmsImage(),
+      linkText: fakeLocalizedObject(),
+      linkUrl: fakeLocalizedObject(faker.internet.url()),
+      slug: faker.random.uuid(),
+      socialMediaDescription: fakeLocalizedObject(),
+      title: fakeLocalizedObject(),
+      __typename: 'CollectionDetails',
+    },
+    overrides
+  );
+
 export const fakeCmsImage = (overrides?: Partial<CmsImage>): CmsImage =>
   merge(
     {
-      photographerName: faker.name.lastName(),
+      photographerCredit: faker.name.lastName(),
       url: faker.internet.url(),
       __typename: 'CmsImage',
     },
