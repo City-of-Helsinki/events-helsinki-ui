@@ -37,13 +37,18 @@ const MainContent: React.FC<Props> = ({
 
       scrollToContent();
       setTimeout(() => {
-        mainContent.current?.focus();
+        const focusable = mainContent.current?.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable?.[0]) {
+          (focusable[0] as HTMLElement).focus();
+        }
       }, duration);
     }
   }, [duration, hash, offset, onScrollFn, state]);
 
   return (
-    <main id={MAIN_CONTENT_ID} tabIndex={-1} ref={mainContent}>
+    <main id={MAIN_CONTENT_ID} ref={mainContent}>
       {children}
     </main>
   );
