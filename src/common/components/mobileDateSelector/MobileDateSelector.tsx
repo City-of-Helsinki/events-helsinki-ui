@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DATE_TYPES } from '../../../constants';
+import { translateValue } from '../../../util/translateUtils';
 import ToggleButton from '../toggleButton/ToggleButton';
 import styles from './mobileDateSelector.module.scss';
 import MobileDateSelectorMenu from './MobileDateSelectorMenu';
@@ -28,6 +29,7 @@ const MobileDateSelector: React.FC<Props> = ({
   startDate,
 }) => {
   const closeBtnRef = React.useRef<HTMLButtonElement | null>(null);
+  const toggleBtnRef = React.useRef<HTMLButtonElement | null>(null);
   const dateSelector = React.useRef<HTMLDivElement | null>(null);
 
   const { t } = useTranslation();
@@ -48,35 +50,32 @@ const MobileDateSelector: React.FC<Props> = ({
     }
   }, [isMenuOpen]);
 
-  const isComponentFocused = React.useCallback(() => {
+  const isDateSelectorFocused = React.useCallback(() => {
     const active = document.activeElement;
-    const current = dateSelector && dateSelector.current;
+    const current = dateSelector.current;
 
-    if (current && active instanceof Node && current.contains(active)) {
-      return true;
-    }
-    return false;
+    return current?.contains(active);
   }, []);
 
   const handleDocumentClick = (event: MouseEvent) => {
     const target = event.target;
-    const current = dateSelector && dateSelector.current;
+    const current = dateSelector.current;
 
     // Close menu when clicking outside of the component
-    if (!(current && target instanceof Node && current.contains(target))) {
+    if (!(target instanceof Node && current?.contains(target))) {
       setIsMenuOpen(false);
     }
   };
 
   const handleDocumentFocusin = React.useCallback(() => {
-    if (!isComponentFocused()) {
+    if (!isDateSelectorFocused()) {
       setIsMenuOpen(false);
     }
-  }, [isComponentFocused]);
+  }, [isDateSelectorFocused]);
 
   const handleDocumentKeyDown = React.useCallback(
     (event: KeyboardEvent) => {
-      if (!isComponentFocused()) return;
+      if (!isDateSelectorFocused()) return;
 
       switch (event.key) {
         case 'ArrowUp':
@@ -89,11 +88,13 @@ const MobileDateSelector: React.FC<Props> = ({
           break;
         case 'Escape':
           setIsMenuOpen(false);
+          toggleBtnRef.current?.focus();
+
           event.preventDefault();
           break;
       }
     },
-    [ensureMenuIsOpen, isComponentFocused]
+    [ensureMenuIsOpen, isDateSelectorFocused]
   );
 
   React.useEffect(() => {
@@ -118,32 +119,21 @@ const MobileDateSelector: React.FC<Props> = ({
 
   return (
     <div className={styles.mobileDateSelector}>
-      <ToggleButton
-        isSelected={dateTypes.indexOf(DATE_TYPES.TODAY) !== -1}
-        onClick={handleClickButton}
-        text={t('commons.dateSelector.dateTypeToday')}
-        value={DATE_TYPES.TODAY}
-      />
-      <ToggleButton
-        isSelected={dateTypes.indexOf(DATE_TYPES.TOMORROW) !== -1}
-        onClick={handleClickButton}
-        text={t('commons.dateSelector.dateTypeTomorrow')}
-        value={DATE_TYPES.TOMORROW}
-      />
-      <ToggleButton
-        isSelected={dateTypes.indexOf(DATE_TYPES.THIS_WEEK) !== -1}
-        onClick={handleClickButton}
-        text={t('commons.dateSelector.dateTypeThisWeek')}
-        value={DATE_TYPES.THIS_WEEK}
-      />
-      <ToggleButton
-        isSelected={dateTypes.indexOf(DATE_TYPES.WEEKEND) !== -1}
-        onClick={handleClickButton}
-        text={t('commons.dateSelector.dateTypeWeekend')}
-        value={DATE_TYPES.WEEKEND}
-      />
+      {Object.values(DATE_TYPES).map((dateType) => {
+        return (
+          <ToggleButton
+            key={dateType}
+            isSelected={dateTypes.indexOf(dateType) !== -1}
+            onClick={handleClickButton}
+            text={translateValue('commons.dateSelector.dateType', dateType, t)}
+            value={dateType}
+          />
+        );
+      })}
+
       <div ref={dateSelector} className={styles.menuWrapper}>
         <ToggleButton
+          buttonRef={toggleBtnRef}
           icon={
             <IconCalendar
               className={classNames(styles.iconCalendar, {

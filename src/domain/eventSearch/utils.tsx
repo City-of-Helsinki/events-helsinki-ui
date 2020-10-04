@@ -115,10 +115,6 @@ const getFilterDates = ({
   let end = '';
   let start = '';
 
-  if (dateTypes.includes(DATE_TYPES.ALL)) {
-    return { end: null, start: null };
-  }
-
   if (dateTypes.includes(DATE_TYPES.TODAY)) {
     end = formatDate(today, dateFormat);
     start = formatDate(today, dateFormat);

@@ -45,8 +45,6 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
   const { t } = useTranslation();
   const locale = useLocale();
 
-  if (!isOpen) return null;
-
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (dateTypes.indexOf(event.target.value) !== -1) {
       onChangeDateTypes(
@@ -56,6 +54,8 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
       onChangeDateTypes([...dateTypes, event.target.value]);
     }
   };
+
+  if (!isOpen) return null;
 
   return (
     <div

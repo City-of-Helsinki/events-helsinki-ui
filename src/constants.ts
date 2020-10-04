@@ -11,11 +11,10 @@ export const AUTOSUGGEST_KEYWORD_BLACK_LIST = [
 ];
 
 export const DATE_TYPES = {
-  ALL: 'all',
-  THIS_WEEK: 'this_week',
   TODAY: 'today',
   TOMORROW: 'tomorrow',
   WEEKEND: 'weekend',
+  THIS_WEEK: 'this_week',
 };
 
 export const EVENT_STATUS = {
