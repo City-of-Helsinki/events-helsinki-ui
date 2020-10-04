@@ -236,8 +236,8 @@ export type LandingPage = {
   liveRevision?: Maybe<Scalars['Int']>,
 };
 
-export type LandingPageResponse = {
-   __typename?: 'LandingPageResponse',
+export type LandingPagesResponse = {
+   __typename?: 'LandingPagesResponse',
   data: Array<LandingPage>,
 };
 
@@ -365,7 +365,7 @@ export type Query = {
   keywordDetails: Keyword,
   keywordList: KeywordListResponse,
   landingPage: LandingPage,
-  landingPages: LandingPageResponse,
+  landingPages: LandingPagesResponse,
   neighborhoodList: NeighborhoodListResponse,
   organizationDetails: OrganizationDetails,
   placeDetails: Place,
@@ -871,7 +871,7 @@ export type LandingPagesQueryVariables = {
 export type LandingPagesQuery = (
   { __typename?: 'Query' }
   & { landingPages: (
-    { __typename?: 'LandingPageResponse' }
+    { __typename?: 'LandingPagesResponse' }
     & { data: Array<(
       { __typename?: 'LandingPage' }
       & LandingPageFieldsFragment
