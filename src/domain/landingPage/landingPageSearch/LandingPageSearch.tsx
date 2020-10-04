@@ -1,5 +1,5 @@
 import { Button, IconSearch } from 'hds-react';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 
@@ -16,7 +16,7 @@ import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
 import { getCategoryOptions, getSearchQuery } from '../../eventSearch/utils';
 import styles from './landingPageSearch.module.scss';
 
-const Search: FunctionComponent = () => {
+const Search: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
   const [dateTypes, setDateTypes] = React.useState<string[]>([]);
@@ -57,14 +57,12 @@ const Search: FunctionComponent = () => {
   };
 
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
-    const value = option.text;
-
     const search = getSearchQuery({
       ...DEFAULT_SEARCH_FILTERS,
       dateTypes,
       end,
       start,
-      text: value ? [value] : [],
+      text: [option.text],
     });
     goToSearchPage(search);
   };
