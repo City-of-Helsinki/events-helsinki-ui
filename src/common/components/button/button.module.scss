@@ -14,7 +14,8 @@
   border-color: var(--color-black-70);
 }
 
-.buttonGray:not(:disabled):hover {
+.buttonGray:not(:disabled):hover,
+.buttonGray:not(:disabled):focus:hover {
   background-color: var(--color-black-80);
   border-color: var(--color-black-80);
 }
