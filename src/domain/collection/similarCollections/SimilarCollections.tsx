@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import CollectionCards from '../../../common/components/collectionCard/CollectionCards';
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
   CollectionFieldsFragment,
@@ -10,6 +9,7 @@ import {
 import useLocale from '../../../hooks/useLocale';
 import isClient from '../../../util/isClient';
 import Container from '../../app/layout/Container';
+import CollectionCards from '../collectionCard/CollectionCards';
 import { isCollectionExpired, isLanguageSupported } from '../CollectionUtils';
 import { SIMILAR_COLLECTIONS_AMOUNT } from '../constants';
 import styles from './similarCollections.module.scss';

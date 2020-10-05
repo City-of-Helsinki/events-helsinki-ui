@@ -3,7 +3,7 @@
 exports[`matches snapshot 1`] = `
 <a
   aria-label="Siirry kokoelmaan: Collection title"
-  class="collectionCardWrapper mdSize"
+  class="collectionCardWrapper lgSize"
   href="/fi/collection/collection-title"
 >
   <div
@@ -20,7 +20,7 @@ exports[`matches snapshot 1`] = `
       <div
         class="count"
       >
-        120 kpl
+        0 kpl
       </div>
     </div>
     <div

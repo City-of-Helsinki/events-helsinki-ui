@@ -5,41 +5,34 @@ import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import { ROUTES } from '../../../domain/app/constants';
+import IconButton from '../../../common/components/iconButton/IconButton';
+import TruncatedText from '../../../common/components/truncatedText/TruncatedText';
+import { CollectionFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import IconButton from '../../components/iconButton/IconButton';
-import TruncatedText from '../truncatedText/TruncatedText';
+import { ROUTES } from '../../app/constants';
+import { getCollectionFields } from '../CollectionUtils';
 import styles from './collectionCard.module.scss';
-
-export interface CollectionCardType {
-  backgroundImage: string;
-  count: number;
-  description: string;
-  showDescription?: boolean;
-  slug: string;
-  title: string;
-}
 
 export type CollectionCardSize = 'sm' | 'md' | 'lg';
 
-export interface CollectionCardProps extends CollectionCardType {
+export interface Props {
+  collection: CollectionFieldsFragment;
   size: CollectionCardSize;
 }
 
-const CollectionCard: React.FC<CollectionCardProps> = ({
-  backgroundImage,
-  count,
-  description,
-  size,
-  slug,
-  showDescription = true,
-  title,
-}) => {
+const CollectionCard: React.FC<Props> = ({ collection, size }) => {
   const history = useHistory();
   const { search } = useLocation();
   const { t } = useTranslation();
   const locale = useLocale();
   const button = React.useRef<HTMLDivElement>(null);
+  const {
+    count,
+    description,
+    heroBackgroundImage: backgroundImage,
+    slug,
+    title,
+  } = getCollectionFields(collection, locale);
 
   const collectionUrl = `/${locale}${ROUTES.COLLECTION.replace(
     ':slug',
@@ -56,6 +49,8 @@ const CollectionCard: React.FC<CollectionCardProps> = ({
   const moveToCollectionPage = () => {
     history.push(collectionUrl);
   };
+
+  const showDescription = size === 'lg';
 
   return (
     <Link

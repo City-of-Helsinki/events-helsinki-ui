@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import CollectionCards from '../../common/components/collectionCard/CollectionCards';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import {
   useCollectionListQuery,
@@ -11,6 +10,7 @@ import useLocale from '../../hooks/useLocale';
 import Container from '../app/layout/Container';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
+import CollectionCards from '../collection/collectionCard/CollectionCards';
 import {
   isCollectionExpired,
   isLanguageSupported,

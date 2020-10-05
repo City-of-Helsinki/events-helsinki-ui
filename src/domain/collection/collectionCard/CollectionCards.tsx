@@ -1,9 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { getCollectionFields } from '../../../domain/collection/CollectionUtils';
 import { CollectionFieldsFragment } from '../../../generated/graphql';
-import useLocale from '../../../hooks/useLocale';
 import CollectionCard, { CollectionCardSize } from './CollectionCard';
 import styles from './collectionCards.module.scss';
 
@@ -15,7 +13,6 @@ interface Props {
 }
 
 const CollectionCards: React.FC<Props> = ({ collections, layout }) => {
-  const locale = useLocale();
   return (
     <div
       className={classNames(styles.collectionCards, styles[`${layout}Layout`])}
@@ -32,25 +29,12 @@ const CollectionCards: React.FC<Props> = ({ collections, layout }) => {
               return layout;
           }
         };
-        const size = getCardSize();
-
-        const {
-          description,
-          heroBackgroundImage: backgroundImage,
-          slug,
-          title,
-        } = getCollectionFields(collection, locale);
 
         return (
           <CollectionCard
             key={index}
-            backgroundImage={backgroundImage}
-            count={collection.curatedEvents.length}
-            description={description}
-            slug={slug}
-            size={size}
-            showDescription={size === 'lg'}
-            title={title}
+            collection={collection}
+            size={getCardSize()}
           />
         );
       })}

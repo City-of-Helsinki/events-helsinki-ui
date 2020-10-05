@@ -63,6 +63,7 @@ export const getCollectionFields = (
 ) => ({
   id: collection.id,
   slug: collection.slug,
+  count: collection.curatedEvents.length,
   title: collection.title?.[locale] || '',
   description: collection.description?.[locale] || '',
   socialMediadescription: collection.socialMediaDescription?.[locale] || '',
