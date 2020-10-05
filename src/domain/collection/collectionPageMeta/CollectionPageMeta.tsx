@@ -5,21 +5,17 @@ import { CollectionFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { getCollectionFields } from '../CollectionUtils';
 
-export interface CollectionPageMetaProps {
+interface Props {
   collection: CollectionFieldsFragment;
 }
 
-const CollectionPageMeta: React.FC<CollectionPageMetaProps> = ({
-  collection,
-}) => {
+const CollectionPageMeta: React.FC<Props> = ({ collection }) => {
   const locale = useLocale();
   const {
-    heroBackgroundImage: image = '',
-    socialMediadescription: description = '',
-    title = '',
+    heroBackgroundImage: image,
+    socialMediadescription: description,
+    title,
   } = getCollectionFields(collection, locale);
-
-  // TODO: Get collection image from data instead of using placeholder image
 
   const openGraphProperties: { [key: string]: string } = {
     description,

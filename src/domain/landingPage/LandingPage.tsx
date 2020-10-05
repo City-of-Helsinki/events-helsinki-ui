@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import CollectionCardContainer from '../../common/components/collectionCard/CollectionCardContainer';
+import CollectionCards from '../../common/components/collectionCard/CollectionCards';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import {
   useCollectionListQuery,
@@ -65,11 +65,8 @@ const Home: React.FC = () => {
               <Container>
                 <div>
                   <h2>{t('home.collections.title')}</h2>
-                  <CollectionCardContainer
-                    collections={lgCollections}
-                    layout="lg"
-                  />
-                  <CollectionCardContainer
+                  <CollectionCards collections={lgCollections} layout="lg" />
+                  <CollectionCards
                     collections={mdAndSmCollections}
                     layout="mdAndSm"
                   />

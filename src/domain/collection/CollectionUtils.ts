@@ -1,6 +1,5 @@
 import { CollectionFieldsFragment } from '../../generated/graphql';
 import { Language } from '../../types';
-import getLocalisedString from '../../util/getLocalisedString';
 import { COLLECTION_DEFAULT_IMAGE, HERO_BACKGROUND_COLOR } from './constants';
 
 /**
@@ -64,14 +63,13 @@ export const getCollectionFields = (
 ) => ({
   id: collection.id,
   slug: collection.slug,
-  title: getLocalisedString(collection.title, locale),
+  title: collection.title?.[locale] || '',
   description: collection.description?.[locale] || '',
-  socialMediadescription: getLocalisedString(
-    collection.socialMediaDescription,
-    locale
-  ),
-  linkText: getLocalisedString(collection.linkText, locale),
-  linkUrl: getLocalisedString(collection.linkUrl, locale),
+  socialMediadescription: collection.socialMediaDescription?.[locale] || '',
+  linkText: collection.linkText?.[locale] || '',
+  linkUrl: collection.linkUrl?.[locale] || '',
+  eventListQuery: collection.eventListQuery?.[locale] || '',
+  eventListTitle: collection.eventListTitle?.[locale] || '',
   heroBackgroundColor: getHeroBackgroundColor(collection),
   heroBackgroundImage: getHeroBackgroundImage(collection),
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import CollectionCardContainer from '../../../common/components/collectionCard/CollectionCardContainer';
+import CollectionCards from '../../../common/components/collectionCard/CollectionCards';
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
   CollectionFieldsFragment,
@@ -27,17 +27,15 @@ const SimilarCollections: React.FC<Props> = ({ collection }) => {
   });
 
   const collections =
-    collectionsData && !!collectionsData.collectionList.data.length
-      ? collectionsData.collectionList.data
+    collectionsData?.collectionList.data
+      .filter(
+        (item) =>
+          !isCollectionExpired(item) &&
+          isLanguageSupported(item, locale) &&
           // Don't show current collection on the list
-          .filter(
-            (item) =>
-              !isCollectionExpired(item) &&
-              isLanguageSupported(item, locale) &&
-              item.id !== collection.id
-          )
-          .slice(0, SIMILAR_COLLECTIONS_AMOUNT)
-      : [];
+          item.id !== collection.id
+      )
+      .slice(0, SIMILAR_COLLECTIONS_AMOUNT) || [];
 
   return (
     <div className={styles.similarCollections}>
@@ -46,7 +44,7 @@ const SimilarCollections: React.FC<Props> = ({ collection }) => {
           {!!collections.length && (
             <>
               <h2>{t('collection.titleSimilarCollections')}</h2>
-              <CollectionCardContainer collections={collections} layout="sm" />
+              <CollectionCards collections={collections} layout="sm" />
             </>
           )}
         </LoadingSpinner>

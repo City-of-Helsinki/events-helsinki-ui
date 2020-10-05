@@ -28,7 +28,7 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
   const eventIds = React.useMemo(
     () =>
       collection.curatedEvents
-        .map((url) => getEventIdFromUrl(url) || '')
+        .map((url) => getEventIdFromUrl(url) as string)
         .filter((e) => e),
     [collection.curatedEvents]
   );
@@ -37,13 +37,11 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
     variables: { ids: eventIds, include: ['keywords', 'location'] },
   });
 
-  const events = eventsData
-    ? eventsData.eventsByIds.filter((event) => !isEventClosed(event))
-    : [];
+  const events =
+    eventsData?.eventsByIds.filter((event) => !isEventClosed(event)) || [];
 
-  const pastEvents = eventsData
-    ? eventsData.eventsByIds.filter((event) => isEventClosed(event))
-    : [];
+  const pastEvents =
+    eventsData?.eventsByIds.filter((event) => isEventClosed(event)) || [];
 
   const handleShowAllPastEvents = () => {
     setShowAllPastEvents(true);
@@ -58,44 +56,42 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
     <LoadingSpinner isLoading={loading}>
       {!!eventsData && !!eventsData.eventsByIds.length && (
         <div className={styles.curatedEventList}>
-          <>
-            <div
-              className={classNames(styles.greyBackground, {
-                [styles.hasEvents]: events.length,
-              })}
-            >
-              <Container>
-                <h2>
-                  {getLocalisedString(collection.curatedEventsTitle, locale)}
-                </h2>
-                {!events.length && <OnlyExpiredEvents />}
-              </Container>
-            </div>
-            <div
-              className={classNames(styles.content, {
-                [styles.hasEvents]: events.length,
-              })}
-            >
-              <Container>
-                {!!events.length && <EventCards events={events} />}
-                {!!visiblePastEvent.length && (
-                  <>
-                    <h3 className={styles.titlePastRecommendations}>
-                      {t('collection.titlePastRecommendations')}
-                    </h3>
-                    <EventCards
-                      events={visiblePastEvent}
-                      onShowMore={handleShowAllPastEvents}
-                      showMoreButton={
-                        !showAllPastEvents &&
-                        pastEvents.length > PAST_EVENTS_DEFAULT_SIZE
-                      }
-                    />
-                  </>
-                )}
-              </Container>
-            </div>
-          </>
+          <div
+            className={classNames(styles.greyBackground, {
+              [styles.hasEvents]: events.length,
+            })}
+          >
+            <Container>
+              <h2>
+                {getLocalisedString(collection.curatedEventsTitle, locale)}
+              </h2>
+              {!events.length && <OnlyExpiredEvents />}
+            </Container>
+          </div>
+          <div
+            className={classNames(styles.content, {
+              [styles.hasEvents]: events.length,
+            })}
+          >
+            <Container>
+              {!!events.length && <EventCards events={events} />}
+              {!!visiblePastEvent.length && (
+                <>
+                  <h3 className={styles.titlePastRecommendations}>
+                    {t('collection.titlePastRecommendations')}
+                  </h3>
+                  <EventCards
+                    events={visiblePastEvent}
+                    onShowMore={handleShowAllPastEvents}
+                    showMoreButton={
+                      !showAllPastEvents &&
+                      pastEvents.length > PAST_EVENTS_DEFAULT_SIZE
+                    }
+                  />
+                </>
+              )}
+            </Container>
+          </div>
         </div>
       )}
     </LoadingSpinner>

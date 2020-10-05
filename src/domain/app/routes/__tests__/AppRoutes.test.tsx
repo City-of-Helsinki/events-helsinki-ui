@@ -6,12 +6,17 @@ import {
   CollectionListDocument,
   LandingPagesDocument,
 } from '../../../../generated/graphql';
-import { fakeLandingPages } from '../../../../util/mockDataUtils';
+import {
+  fakeCollections,
+  fakeLandingPages,
+} from '../../../../util/mockDataUtils';
 import { actWait, render } from '../../../../util/testUtils';
-import mockCollection from '../../../collection/__mocks__/collection';
 import AppRoutes from '../AppRoutes';
 
 const landingPagesResponse = { data: { landingPages: fakeLandingPages(1) } };
+const collectionListResponse = {
+  data: { collectionList: fakeCollections(1) },
+};
 
 const mocks = [
   {
@@ -26,14 +31,7 @@ const mocks = [
       query: CollectionListDocument,
       variables: { visibleOnFrontpage: true },
     },
-    result: {
-      data: {
-        collectionList: {
-          __typename: 'CollectionListResponse',
-          data: [mockCollection],
-        },
-      },
-    },
+    result: collectionListResponse,
   },
 ];
 

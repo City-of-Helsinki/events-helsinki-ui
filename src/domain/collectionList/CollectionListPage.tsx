@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import CollectionCardContainer from '../../common/components/collectionCard/CollectionCardContainer';
+import CollectionCards from '../../common/components/collectionCard/CollectionCards';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import { useCollectionListQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
@@ -19,13 +19,12 @@ const CollectionListPage: React.FC = () => {
   const locale = useLocale();
   const { data: collectionsData, loading } = useCollectionListQuery();
 
-  const collections = collectionsData
-    ? collectionsData.collectionList.data.filter(
-        (collection) =>
-          isLanguageSupported(collection, locale) &&
-          !isCollectionExpired(collection)
-      )
-    : [];
+  const collections =
+    collectionsData?.collectionList.data.filter(
+      (collection) =>
+        isLanguageSupported(collection, locale) &&
+        !isCollectionExpired(collection)
+    ) || [];
   const largeCollections = collections.slice(0, 1);
   const mdAndSmCollections = collections.slice(1);
 
@@ -39,15 +38,12 @@ const CollectionListPage: React.FC = () => {
           <div className={styles.largeCardWrapper}>
             <Container>
               <h2>{t('collectionList.title')}</h2>
-              <CollectionCardContainer
-                collections={largeCollections}
-                layout="lg"
-              />
+              <CollectionCards collections={largeCollections} layout="lg" />
             </Container>
           </div>
           <div className={styles.otherCardsWrapper}>
             <Container>
-              <CollectionCardContainer
+              <CollectionCards
                 collections={mdAndSmCollections}
                 layout="mdAndSm"
               />

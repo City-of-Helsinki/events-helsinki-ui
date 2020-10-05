@@ -6,11 +6,11 @@ import {
   useEventListQuery,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import getLocalisedString from '../../../util/getLocalisedString';
 import Container from '../../app/layout/Container';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from '../../eventSearch/constants';
 import EventSearchList from '../../eventSearch/searchResultList/EventList';
 import { getEventSearchVariables, getNextPage } from '../../eventSearch/utils';
+import { getCollectionFields } from '../CollectionUtils';
 import styles from './eventList.module.scss';
 
 interface Props {
@@ -20,7 +20,10 @@ interface Props {
 const EventList: React.FC<Props> = ({ collection }) => {
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const locale = useLocale();
-  const eventListQuery = (collection.eventListQuery || {})[locale];
+  const { eventListQuery, eventListTitle } = getCollectionFields(
+    collection,
+    locale
+  );
   const searchParams = new URLSearchParams(
     eventListQuery ? new URL(eventListQuery).search : ''
   );
@@ -50,21 +53,23 @@ const EventList: React.FC<Props> = ({ collection }) => {
     setIsFetchingMore(true);
 
     if (page) {
-      await fetchMore({
-        updateQuery: (prev, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return prev;
-          const events = [
-            ...prev.eventList.data,
-            ...fetchMoreResult.eventList.data,
-          ];
-          fetchMoreResult.eventList.data = events;
-          return fetchMoreResult;
-        },
-        variables: {
-          ...eventFilters,
-          page: page,
-        },
-      });
+      try {
+        await fetchMore({
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+            const events = [
+              ...prev.eventList.data,
+              ...fetchMoreResult.eventList.data,
+            ];
+            fetchMoreResult.eventList.data = events;
+            return fetchMoreResult;
+          },
+          variables: {
+            ...eventFilters,
+            page: page,
+          },
+        });
+      } catch (e) {}
     }
     setIsFetchingMore(false);
   };
@@ -75,7 +80,7 @@ const EventList: React.FC<Props> = ({ collection }) => {
         <LoadingSpinner isLoading={!isFetchingMore && loading}>
           {!!eventsData && !!eventsData.eventList.data.length && (
             <div className={styles.contentWrapper}>
-              <h2>{getLocalisedString(collection.eventListTitle, locale)}</h2>
+              {eventListTitle && <h2>{eventListTitle}</h2>}
               <div className={styles.eventSearchListWrapper}>
                 <EventSearchList
                   buttonCentered={true}

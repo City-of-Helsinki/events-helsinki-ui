@@ -1,45 +1,54 @@
-import { render } from '@testing-library/react';
-import * as React from 'react';
-import { MemoryRouter } from 'react-router';
+import React from 'react';
 
-import mockCollection from '../../../../domain/collection/__mocks__/collection';
-import CollectionCardContainer from '../CollectionCardContainer';
+import { CollectionFieldsFragment } from '../../../../generated/graphql';
+import { fakeCollections } from '../../../../util/mockDataUtils';
+import { render, screen } from '../../../../util/testUtils';
+import CollectionCards from '../CollectionCards';
 
-const collections = ['1', '2', '3', '4', '5', '6', '7'].map((id) => ({
-  ...mockCollection,
-  id,
-}));
+const collectionNames = [
+  'Collection 1',
+  'Collection 2',
+  'Collection 3',
+  'Collection 4',
+  'Collection 5',
+  'Collection 6',
+  'Collection 7',
+];
 
-it('matches snapshot', () => {
-  const { container, rerender } = render(
-    <MemoryRouter>
-      <CollectionCardContainer collections={collections} layout="lg" />
-    </MemoryRouter>
-  );
+const collections = fakeCollections(
+  collectionNames.length,
+  collectionNames.map((collection) => ({ title: { fi: collection } }))
+);
 
-  expect(container.firstChild).toMatchSnapshot();
+const collectionsData = collections.data as CollectionFieldsFragment[];
 
-  rerender(
-    <MemoryRouter>
-      <CollectionCardContainer collections={collections} layout="md" />
-    </MemoryRouter>
-  );
+it('should render lg collection cards', () => {
+  render(<CollectionCards collections={collectionsData} layout="lg" />);
 
-  expect(container.firstChild).toMatchSnapshot();
+  collectionsData.forEach((collection) => {
+    expect(screen.getByText(collection.title.fi)).toBeInTheDocument();
+    expect(
+      screen.getByText(collection.title.fi).parentElement.parentElement
+        .parentElement
+    ).toHaveClass('lgSize');
+  });
+});
 
-  rerender(
-    <MemoryRouter>
-      <CollectionCardContainer collections={collections} layout="mdAndSm" />
-    </MemoryRouter>
-  );
+it('should render correct sizes collection cards for mdAndSm layout', () => {
+  render(<CollectionCards collections={collectionsData} layout="mdAndSm" />);
 
-  expect(container.firstChild).toMatchSnapshot();
-
-  rerender(
-    <MemoryRouter>
-      <CollectionCardContainer collections={collections} layout="sm" />
-    </MemoryRouter>
-  );
-
-  expect(container.firstChild).toMatchSnapshot();
+  collectionsData.forEach((collection, index) => {
+    expect(screen.getByText(collection.title.fi)).toBeInTheDocument();
+    if (index % 5 === 0 || index % 5 === 4) {
+      expect(
+        screen.getByText(collection.title.fi).parentElement.parentElement
+          .parentElement
+      ).toHaveClass('mdSize');
+    } else {
+      expect(
+        screen.getByText(collection.title.fi).parentElement.parentElement
+          .parentElement
+      ).toHaveClass('smSize');
+    }
+  });
 });

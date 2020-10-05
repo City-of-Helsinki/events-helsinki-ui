@@ -5,50 +5,40 @@ import { getCollectionFields } from '../../../domain/collection/CollectionUtils'
 import { CollectionFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import CollectionCard, { CollectionCardSize } from './CollectionCard';
-import styles from './collectionCardContainer.module.scss';
+import styles from './collectionCards.module.scss';
 
 export type CollectionCardListLayout = 'sm' | 'md' | 'mdAndSm' | 'lg';
 
-interface CollectionCardContainerProps {
+interface Props {
   collections: CollectionFieldsFragment[];
   layout: CollectionCardListLayout;
 }
 
-const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
-  collections,
-  layout,
-}) => {
+const CollectionCards: React.FC<Props> = ({ collections, layout }) => {
   const locale = useLocale();
   return (
     <div
-      className={classNames(
-        styles.collectionCardContainer,
-        styles[`${layout}Layout`]
-      )}
+      className={classNames(styles.collectionCards, styles[`${layout}Layout`])}
     >
       {collections.map((collection, index) => {
         const getCardSize = (): CollectionCardSize => {
           switch (layout) {
-            case 'sm':
-              return 'sm';
-            case 'md':
-              return 'md';
             case 'mdAndSm':
               if (index % 5 === 0 || index % 5 === 4) {
                 return 'md';
               }
               return 'sm';
-            case 'lg':
-              return 'lg';
+            default:
+              return layout;
           }
         };
         const size = getCardSize();
 
         const {
-          description = '',
-          heroBackgroundImage: backgroundImage = '',
+          description,
+          heroBackgroundImage: backgroundImage,
           slug,
-          title = '',
+          title,
         } = getCollectionFields(collection, locale);
 
         return (
@@ -68,4 +58,4 @@ const CollectionCardContainer: React.FC<CollectionCardContainerProps> = ({
   );
 };
 
-export default CollectionCardContainer;
+export default CollectionCards;
