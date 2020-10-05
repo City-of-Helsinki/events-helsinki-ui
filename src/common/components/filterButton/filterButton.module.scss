@@ -1,15 +1,14 @@
-@import "colors";
-
 .filter {
   height: auto;
-  min-height: 1.5rem;
-  background-color: $hel-black-70;
-  color: $hel-white;
-  margin: 0.5rem 0.5rem 0.5rem 0;
+  min-height: var(--spacing-m);
+  background-color: var(--color-black-70);
+  color: var(--color-white);
+  margin: var(--spacing-2-xs) var(--spacing-2-xs) var(--spacing-2-xs) 0;
   display: inline-flex;
-  padding: 0.125rem 0.5rem 0.125rem 0.25rem;
+  padding: var(--spacing-4-xs) var(--spacing-2-xs) var(--spacing-4-xs)
+    var(--spacing-3-xs);
   align-items: center;
-  font-size: 0.875rem;
+  font-size: var(--fontsize-body-s);
   font-weight: 500;
 
   .closeButton {
@@ -20,13 +19,13 @@
     cursor: pointer;
 
     svg {
-      fill: $hel-white;
+      color: var(--color-white);
       vertical-align: middle;
       margin: 0;
     }
 
     &:focus {
-      outline: 2px solid $hel-white;
+      outline: 2px solid var(--color-white);
       outline-offset: 0;
     }
   }
@@ -34,16 +33,16 @@
 
 .date,
 .dateType {
-  background-color: $hel-engel-light-50;
-  color: $hel-black;
+  background-color: var(--color-engel-light-50);
+  color: var(--color-black);
 
   .closeButton {
     svg {
-      fill: $hel-black;
+      color: var(--color-black);
     }
 
     &:focus {
-      outline: 2px solid $hel-black;
+      outline: 2px solid var(--color-black);
     }
   }
 }
@@ -52,16 +51,16 @@
 .keyword,
 .place,
 .yso {
-  background-color: $hel-black-70;
-  color: $hel-white;
+  background-color: var(--color-black-70);
+  color: var(--color-white);
 
   .closeButton {
     svg {
-      fill: $hel-white;
+      color: var(--color-white);
     }
 
     &:focus {
-      outline: 2px solid $hel-white;
+      outline: 2px solid var(--color-white);
     }
   }
 }
