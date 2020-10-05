@@ -1,6 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
@@ -9,15 +7,40 @@ import {
   OrganizationDetailsDocument,
   PlaceDetailsDocument,
 } from '../../../../generated/graphql';
-import { render } from '../../../../util/testUtils';
-import { fakeNeighborhoods } from '../../../../util/mockDataUtils';
+import { fakeNeighborhoods, fakePlace } from '../../../../util/mockDataUtils';
+import {
+  configure,
+  render,
+  screen,
+  userEvent,
+  waitFor,
+} from '../../../../util/testUtils';
 import mockOrganization from '../../../organisation/__mocks__/organizationDetails';
-import mockPlace from '../../../place/__mocks__/place';
 import FilterSummary from '../FilterSummary';
 
+configure({ defaultHidden: true });
+
+const neighborhoodId = 'arabia';
+const neighborhoodName = 'Arabia';
+const neighborhoods = fakeNeighborhoods(10, [
+  {
+    id: neighborhoodId,
+    name: { fi: neighborhoodName },
+  },
+]);
 const neighborhoodsResponse = {
   data: {
-    neighborhoodList: fakeNeighborhoods(10),
+    neighborhoodList: neighborhoods,
+  },
+};
+
+const placeId = 'helsinki:123';
+const placeName = 'Gräsan taitojen talo';
+
+const place = fakePlace({ id: placeId, name: { fi: placeName } });
+const placeResponse = {
+  data: {
+    placeDetails: place,
   },
 };
 
@@ -45,14 +68,10 @@ const mocks = [
     request: {
       query: PlaceDetailsDocument,
       variables: {
-        id: mockPlace.id,
+        id: placeId,
       },
     },
-    result: {
-      data: {
-        placeDetails: mockPlace,
-      },
-    },
+    result: placeResponse,
   },
 ];
 
@@ -70,9 +89,9 @@ interface UrlParams {
 const urlParams: UrlParams = {
   categories: 'movie',
   dateTypes: 'today',
-  divisions: neighborhoodsResponse.data.neighborhoodList.data[0].id,
+  divisions: neighborhoodId,
   end: '2020-08-23',
-  places: mockPlace.id as string,
+  places: placeId,
   publisher: mockOrganization.id as string,
   start: '2020-08-20',
   text: 'jazz',
@@ -92,9 +111,7 @@ it('test for accessibility violations', async () => {
   });
 
   await waitFor(() => {
-    expect(
-      screen.queryByText((mockPlace.name || {})['fi'] || '')
-    ).toBeInTheDocument();
+    expect(screen.queryByText(placeName)).toBeInTheDocument();
   });
   const results = await axe(container);
   expect(results).toHaveNoViolations();
@@ -108,16 +125,14 @@ it('calls onClear callback when clear button is clicked ', async () => {
   });
 
   await waitFor(() => {
-    expect(
-      screen.queryByText((mockPlace.name || {})['fi'] || '')
-    ).toBeDefined();
+    expect(screen.queryByText(placeName)).toBeInTheDocument();
   });
 
-  const button = screen.getByRole('button', {
-    name: translations.eventSearch.buttonClearFilters,
-  });
-
-  userEvent.click(button);
+  userEvent.click(
+    screen.getByRole('button', {
+      name: translations.eventSearch.buttonClearFilters,
+    })
+  );
   expect(onClear).toBeCalledTimes(1);
 });
 
@@ -128,9 +143,7 @@ it('routes to correct url after deleting filters ', async () => {
   });
 
   await waitFor(() => {
-    expect(
-      screen.queryByText((mockPlace.name || {})['fi'] || '')
-    ).toBeDefined();
+    expect(screen.queryByText(placeName)).toBeInTheDocument();
   });
 
   const items: { button: string; params: UrlParamKeys[] }[] = [
@@ -141,10 +154,10 @@ it('routes to correct url after deleting filters ', async () => {
     },
     { button: 'Poista suodatin: Elokuva', params: ['categories'] },
     {
-      button: `Poista suodatin: ${neighborhoodsResponse.data.neighborhoodList.data[0].name.fi}`,
+      button: `Poista suodatin: ${neighborhoodName}`,
       params: ['divisions'],
     },
-    { button: 'Poista suodatin: Gräsan taitojen talo', params: ['places'] },
+    { button: `Poista suodatin: ${placeName}`, params: ['places'] },
     {
       button: 'Poista suodatin: Yleiset kulttuuripalvelut',
       params: ['publisher'],
@@ -155,7 +168,7 @@ it('routes to correct url after deleting filters ', async () => {
   items.forEach((item) => {
     item.params.forEach((param) => {
       expect(new URLSearchParams(history.location.search).get(param)).toBe(
-        decodeURIComponent(urlParams[param] || '')
+        decodeURIComponent(urlParams[param])
       );
     });
 
