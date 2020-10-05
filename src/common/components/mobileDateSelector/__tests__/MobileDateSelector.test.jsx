@@ -106,18 +106,16 @@ describe('when menu has been closed, it should reopen with', () => {
   test('ArrowDown', async () => {
     getClosedInput();
 
-    // arrowDownKeyPressHelper();
+    arrowDownKeyPressHelper();
 
-    // await waitFor(() => {
-    //   expect(screen.getByTestId(testIds.menu)).toBeInTheDocument();
-    // });
+    expect(screen.getByTestId(testIds.menu)).toBeInTheDocument();
   });
 
   test('ArrowUp', () => {
     getClosedInput();
 
-    // arrowUpKeyPressHelper();
+    arrowUpKeyPressHelper();
 
-    // expect(screen.getByTestId(testIds.menu)).toBeInTheDocument();
+    expect(screen.getByTestId(testIds.menu)).toBeInTheDocument();
   });
 });
