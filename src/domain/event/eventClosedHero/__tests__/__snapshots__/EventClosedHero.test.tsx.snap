@@ -8,7 +8,7 @@ exports[`matches snapshot 1`] = `
     Höh, etsimäsi tapahtuma on jo ehtinyt päättyä
   </h1>
   <p>
-    Älä huoli, Helsingistä löytyy paljon muuta tekemistä. 
+    Älä huoli, Helsingistä löytyy paljon muuta tekemistä.
   </p>
   <button
     class="Button-module_button__3wgee button_hds-button__2A0je Button-module_success__1LdEx button_hds-button--success__9hpuD"

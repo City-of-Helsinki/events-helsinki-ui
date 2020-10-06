@@ -31,10 +31,8 @@ const event = fakeEvent({
   },
 }) as EventFieldsFragment;
 
-const mocks = [];
-
 it('should render event content fields', async () => {
-  render(<EventContent event={event} />, { mocks });
+  render(<EventContent event={event} />);
   await actWait();
 
   // Event info fields
