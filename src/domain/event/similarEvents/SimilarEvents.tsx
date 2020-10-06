@@ -21,6 +21,7 @@ import {
   getSearchQuery,
 } from '../../eventSearch/utils';
 import { SIMILAR_EVENTS_AMOUNT } from '../constants';
+import { getEventFields } from '../EventUtils';
 import styles from './similarEvents.module.scss';
 
 interface Props {
@@ -30,13 +31,14 @@ interface Props {
 const SimilarEvents: React.FC<Props> = ({ event }) => {
   const locale = useLocale();
   const { search } = useLocation();
+  const { keywords } = getEventFields(event, locale);
   const eventSearch = getSearchQuery({
     ...DEFAULT_SEARCH_FILTERS,
-    keyword: event.keywords.map((keyword) => keyword.id || '').filter((e) => e),
+    keyword: keywords.map((keyword) => keyword.id),
   });
 
   // Filter by search query if exists, if not filter by event keywords
-  const searchParams = new URLSearchParams(search ? search : eventSearch);
+  const searchParams = new URLSearchParams(search || eventSearch);
   const eventFilters = React.useMemo(() => {
     return getEventSearchVariables({
       include: ['keywords', 'location'],

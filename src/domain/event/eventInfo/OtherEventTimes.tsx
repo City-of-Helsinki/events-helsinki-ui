@@ -129,7 +129,7 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
                 )}${search}`;
                 history.push(eventUrl);
               };
-              const date = subEvent.startTime
+              const dateStr = subEvent.startTime
                 ? getDateRangeStr({
                     start: subEvent.startTime,
                     end: subEvent.endTime,
@@ -140,7 +140,7 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
                 : '';
               return (
                 <li key={subEvent.id}>
-                  <span>{date}</span>
+                  <span>{dateStr}</span>
                   <IconButton
                     ariaLabel={t('event.otherTimes.buttonReadMore', { date })}
                     icon={<IconArrowRight />}

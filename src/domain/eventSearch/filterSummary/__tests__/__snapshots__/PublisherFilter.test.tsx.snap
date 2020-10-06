@@ -5,7 +5,7 @@ exports[`matches snapshot 1`] = `
   class="filter publisher"
 >
   <button
-    aria-label="Poista suodatin: Yleiset kulttuuripalvelut"
+    aria-label="Poista suodatin: Organization name"
     class="closeButton"
     type="button"
   >
@@ -28,6 +28,6 @@ exports[`matches snapshot 1`] = `
       </g>
     </svg>
   </button>
-  Yleiset kulttuuripalvelut
+  Organization name
 </div>
 `;

@@ -306,6 +306,7 @@ export const getEventFields = (
 ) => {
   const eventLocation = event.location;
   const offerInfoUrl = getOfferInfoUrl(event, locale);
+  const startTime = event.startTime;
   return {
     description: getLocalisedString(event.description, locale),
     district: getEventDistrict(event, locale),
@@ -329,11 +330,11 @@ export const getEventFields = (
     publisher: event.publisher || '',
     shortDescription: getLocalisedString(event.shortDescription, locale),
     someImageUrl: getEventSomeImageUrl(event),
-    startTime: event.startTime,
+    startTime,
     telephone: getLocalisedString(eventLocation?.telephone, locale),
     freeEvent: isEventFree(event),
-    today: event.startTime ? isToday(new Date(event.startTime)) : false,
-    thisWeek: event.startTime ? isThisWeek(new Date(event.startTime)) : false,
+    today: startTime ? isToday(new Date(startTime)) : false,
+    thisWeek: startTime ? isThisWeek(new Date(startTime)) : false,
     showBuyButton: !!offerInfoUrl && !isEventFree(event),
     ...getEventLocationFields(event, locale),
   };

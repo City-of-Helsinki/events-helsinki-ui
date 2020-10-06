@@ -19,6 +19,7 @@ const event = fakeEvent({
   startTime,
   endTime,
   description: { fi: description },
+  publisher: '',
   location: {
     divisions: [{ name: { fi: district }, type: 'neighborhood' }],
     email,
@@ -27,7 +28,6 @@ const event = fakeEvent({
     addressLocality: { fi: addressLocality },
     name: { fi: locationName },
     streetAddress: { fi: streetAddress },
-    publisher: '',
   },
 }) as EventFieldsFragment;
 
@@ -35,7 +35,7 @@ it('should render event content fields', async () => {
   render(<EventContent event={event} />);
   await actWait();
 
-  // Event info fields
+  // Event info headers
   expect(
     screen.queryByRole('heading', {
       name: translations.event.info.labelDateAndTime,
@@ -43,19 +43,10 @@ it('should render event content fields', async () => {
   ).toBeInTheDocument();
 
   expect(
-    screen.queryByText('Ma 22.6.2020, klo 10.00 – 13.00')
-  ).toBeInTheDocument();
-
-  expect(
     screen.queryByRole('heading', {
       name: translations.event.info.labelLocation,
     })
   ).toBeInTheDocument();
-
-  expect(screen.queryByText(addressLocality)).toBeInTheDocument();
-  expect(screen.queryByText(district)).toBeInTheDocument();
-  expect(screen.queryByText(locationName)).toBeInTheDocument();
-  expect(screen.queryByText(streetAddress)).toBeInTheDocument();
 
   expect(
     screen.queryByRole('heading', {
@@ -68,9 +59,6 @@ it('should render event content fields', async () => {
       name: translations.event.info.labelOtherInfo,
     })
   ).toBeInTheDocument();
-
-  expect(screen.queryByText(email)).toBeInTheDocument();
-  expect(screen.queryByText(telephone)).toBeInTheDocument();
 
   expect(
     screen.queryByRole('heading', {

@@ -33,13 +33,13 @@ const event = fakeEvent({
   keywords,
   startTime,
   endTime,
+  publisher: '',
   shortDescription: { fi: shortDescription },
   location: {
     internalId: 'tprek:8740',
     addressLocality: { fi: addressLocality },
     name: { fi: locationName },
     streetAddress: { fi: streetAddress },
-    publisher: '',
   },
 }) as EventFieldsFragment;
 

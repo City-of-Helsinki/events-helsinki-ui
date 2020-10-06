@@ -7,7 +7,11 @@ import {
   OrganizationDetailsDocument,
   PlaceDetailsDocument,
 } from '../../../../generated/graphql';
-import { fakeNeighborhoods, fakePlace } from '../../../../util/mockDataUtils';
+import {
+  fakeNeighborhoods,
+  fakeOrganization,
+  fakePlace,
+} from '../../../../util/mockDataUtils';
 import {
   configure,
   render,
@@ -15,7 +19,6 @@ import {
   userEvent,
   waitFor,
 } from '../../../../util/testUtils';
-import mockOrganization from '../../../organisation/__mocks__/organizationDetails';
 import FilterSummary from '../FilterSummary';
 
 configure({ defaultHidden: true });
@@ -33,6 +36,14 @@ const neighborhoodsResponse = {
     neighborhoodList: neighborhoods,
   },
 };
+
+const organizationId = '1';
+const organizationName = 'Organization name';
+const organization = fakeOrganization({
+  id: organizationId,
+  name: organizationName,
+});
+const organizationResponse = { data: { organizationDetails: organization } };
 
 const placeId = 'helsinki:123';
 const placeName = 'Gräsan taitojen talo';
@@ -55,14 +66,10 @@ const mocks = [
     request: {
       query: OrganizationDetailsDocument,
       variables: {
-        id: mockOrganization.id,
+        id: organizationId,
       },
     },
-    result: {
-      data: {
-        organizationDetails: mockOrganization,
-      },
-    },
+    result: organizationResponse,
   },
   {
     request: {
@@ -92,7 +99,7 @@ const urlParams: UrlParams = {
   divisions: neighborhoodId,
   end: '2020-08-23',
   places: placeId,
-  publisher: mockOrganization.id as string,
+  publisher: organizationId,
   start: '2020-08-20',
   text: 'jazz',
 };
@@ -159,7 +166,7 @@ it('routes to correct url after deleting filters ', async () => {
     },
     { button: `Poista suodatin: ${placeName}`, params: ['places'] },
     {
-      button: 'Poista suodatin: Yleiset kulttuuripalvelut',
+      button: `Poista suodatin: ${organizationName}`,
       params: ['publisher'],
     },
     { button: 'Poista suodatin: jazz', params: ['text'] },
