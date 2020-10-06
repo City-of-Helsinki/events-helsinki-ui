@@ -7,6 +7,19 @@ export const QUERY_EVENT_DETAILS = gql`
     sv
   }
 
+  fragment offerFields on Offer {
+    isFree
+    price {
+      ...localizedFields
+    }
+    description {
+      ...localizedFields
+    }
+    infoUrl {
+      ...localizedFields
+    }
+  }
+
   fragment eventFields on EventDetails {
     id
     eventStatus
@@ -34,16 +47,7 @@ export const QUERY_EVENT_DETAILS = gql`
       ...placeFields
     }
     offers {
-      isFree
-      price {
-        ...localizedFields
-      }
-      description {
-        ...localizedFields
-      }
-      infoUrl {
-        ...localizedFields
-      }
+      ...offerFields
     }
     name {
       ...localizedFields

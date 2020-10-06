@@ -368,7 +368,7 @@ exports[`EventInfo matches snapshot 1`] = `
         class="iconWrapper"
       >
         <svg
-          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik icon"
+          class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >

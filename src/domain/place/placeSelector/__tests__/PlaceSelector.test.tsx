@@ -28,12 +28,10 @@ const placeNames = [
   'Kallion kirjasto',
   'Kanneltalo',
   'Keskustakirjasto Oodi',
-  'Malmitalo',
   'Vuosaaren kirjasto',
   'Stoa',
   'Suomen Kansallisteatteri',
   'Töölön kirjasto',
-  'Malmin kirjasto',
 ];
 
 const places = fakePlaces(

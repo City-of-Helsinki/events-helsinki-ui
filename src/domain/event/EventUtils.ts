@@ -1,4 +1,4 @@
-import { isPast } from 'date-fns';
+import { isPast, isThisWeek, isToday } from 'date-fns';
 import capitalize from 'lodash/capitalize';
 
 import { EVENT_STATUS } from '../../constants';
@@ -305,6 +305,7 @@ export const getEventFields = (
   locale: Language
 ) => {
   const eventLocation = event.location;
+  const offerInfoUrl = getOfferInfoUrl(event, locale);
   return {
     description: getLocalisedString(event.description, locale),
     district: getEventDistrict(event, locale),
@@ -317,12 +318,12 @@ export const getEventFields = (
     hslDirectionsLink: getHslDirectionsLink(event, locale),
     imageUrl: getEventImageUrl(event),
     infoUrl: getLocalisedString(event.infoUrl, locale),
-    keywords: event.keywords,
+    keywords: getEventKeywords(event, locale),
     languages: event.inLanguage
       .map((item) => capitalize(getLocalisedString(item.name, locale)))
       .filter((e) => e),
     locationName: getLocalisedString(eventLocation?.name, locale),
-    offerInfoUrl: getOfferInfoUrl(event, locale),
+    offerInfoUrl,
     placeholderImage: getEventPlaceholderImageUrl(event),
     provider: getLocalisedString(event.provider, locale),
     publisher: event.publisher || '',
@@ -330,6 +331,10 @@ export const getEventFields = (
     someImageUrl: getEventSomeImageUrl(event),
     startTime: event.startTime,
     telephone: getLocalisedString(eventLocation?.telephone, locale),
+    freeEvent: isEventFree(event),
+    today: event.startTime ? isToday(new Date(event.startTime)) : false,
+    thisWeek: event.startTime ? isThisWeek(new Date(event.startTime)) : false,
+    showBuyButton: !!offerInfoUrl && !isEventFree(event),
     ...getEventLocationFields(event, locale),
   };
 };

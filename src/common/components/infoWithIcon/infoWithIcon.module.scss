@@ -1,0 +1,24 @@
+.infoWithIcon {
+  display: flex;
+  margin-bottom: var(--spacing-s);
+  line-height: 1.5rem;
+
+  .iconWrapper {
+    width: var(--spacing-xl);
+
+    svg {
+      height: var(--spacing-m);
+      width: var(--spacing-m);
+    }
+  }
+
+  .iconTextWrapper {
+    flex: 1 1 0%;
+
+    .title {
+      font-size: var(--fontsize-body-l);
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+}

@@ -15,18 +15,6 @@ $logoWidth: 5.5rem;
   }
 }
 
-.desktopOnly {
-  @include respond_below(sm) {
-    display: none !important;
-  }
-}
-
-.mobileOnly {
-  @include respond_above(sm) {
-    display: none !important;
-  }
-}
-
 .contentWrapper {
   display: grid;
   grid-template-columns: unset;
@@ -46,20 +34,6 @@ $logoWidth: 5.5rem;
     @include respond_below(sm) {
       padding: $basePadding 0;
       position: absolute;
-    }
-  }
-
-  .backButton {
-    height: 2.5rem;
-    width: 2.5rem;
-    border: none;
-    background-color: var(--color-white);
-    display: flex;
-    justify-content: center;
-
-    svg {
-      height: 1.5rem;
-      width: 1.5rem;
     }
   }
 
@@ -135,31 +109,6 @@ $logoWidth: 5.5rem;
     .buyButtonWrapper {
       order: 7;
     }
-
-    .infoWithIcon {
-      display: flex;
-      margin-top: 1rem;
-
-      .iconWrapper {
-        width: 2.5rem;
-      }
-
-      .iconTextWrapper {
-        flex: 1 1 0%;
-        line-height: 1.5rem;
-
-        p {
-          font-size: 1.125rem;
-          font-weight: 600;
-          margin: 0;
-        }
-      }
-    }
-  }
-
-  .icon {
-    height: 1.5rem;
-    width: 1.5rem;
   }
 
   .buyButtonWrapper {

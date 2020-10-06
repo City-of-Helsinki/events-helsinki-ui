@@ -2,6 +2,7 @@ import { IconFaceSmile } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
 import Link from '../../../common/components/link/Link';
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
@@ -34,22 +35,17 @@ const OrganizationInfo: React.FC<Props> = ({ event }) => {
   };
 
   return (
-    <div className={styles.infoWithIcon}>
-      <div className={styles.iconWrapper}>
-        <IconFaceSmile className={styles.icon} />
-      </div>
-      <div className={styles.iconTextWrapper}>
-        <h2 className={styles.title}>{t('event.info.labelOrganizer')}</h2>
-        <LoadingSpinner hasPadding={false} isLoading={loading}>
-          <div>{provider || organizationName}</div>
-          {publisher && (
-            <Link to={getSearchLink()}>
-              {t('event.info.linkSearchByOrganization')}
-            </Link>
-          )}
-        </LoadingSpinner>
-      </div>
-    </div>
+    <InfoWithIcon icon={<IconFaceSmile />}>
+      <h2 className={styles.title}>{t('event.info.labelOrganizer')}</h2>
+      <LoadingSpinner hasPadding={false} isLoading={loading}>
+        <div>{provider || organizationName}</div>
+        {publisher && (
+          <Link to={getSearchLink()}>
+            {t('event.info.linkSearchByOrganization')}
+          </Link>
+        )}
+      </LoadingSpinner>
+    </InfoWithIcon>
   );
 };
 

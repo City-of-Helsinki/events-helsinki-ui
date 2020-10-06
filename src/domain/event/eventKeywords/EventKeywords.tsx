@@ -1,4 +1,3 @@
-import { isThisWeek, isToday } from 'date-fns';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
@@ -11,7 +10,7 @@ import scrollToTop from '../../../util/scrollToTop';
 import { ROUTES } from '../../app/constants';
 import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
 import { getSearchQuery } from '../../eventSearch/utils';
-import { getEventKeywords, isEventFree } from '../EventUtils';
+import { getEventFields } from '../EventUtils';
 
 interface Props {
   blackOnMobile?: boolean;
@@ -30,12 +29,10 @@ const EventKeywords: React.FC<Props> = ({
   const history = useHistory();
   const { t } = useTranslation();
   const locale = useLocale();
-
-  const startTime = event.startTime;
-  const today = startTime ? isToday(new Date(startTime)) : false;
-  const keywords = getEventKeywords(event, locale);
-
-  const thisWeek = startTime ? isThisWeek(new Date(startTime)) : false;
+  const { freeEvent, keywords, thisWeek, today } = getEventFields(
+    event,
+    locale
+  );
 
   if (!today && !thisWeek && (!keywords || !keywords.length)) {
     return null;
@@ -82,7 +79,7 @@ const EventKeywords: React.FC<Props> = ({
           onClick={() => handleClick('dateType', DATE_TYPES.THIS_WEEK)}
         />
       )}
-      {showIsFree && isEventFree(event) && (
+      {showIsFree && freeEvent && (
         <Keyword
           color="tramLight20"
           keyword={t('event.categories.labelFree')}

@@ -14,8 +14,7 @@ interface Props {
 const Responsive: React.FC<Props> = ({ above, below, children, className }) => {
   return (
     <div
-      className={classNames({
-        className,
+      className={classNames(className, {
         [styles[`above${capitalize(above)}`]]: above,
         [styles[`below${capitalize(below)}`]]: below,
       })}

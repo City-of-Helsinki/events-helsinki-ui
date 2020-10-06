@@ -13,6 +13,7 @@ import { createEvent, EventAttributes } from 'ics';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
 import Link from '../../../common/components/link/Link';
 import linkStyles from '../../../common/components/link/link.module.scss';
 import Responsive from '../../../common/components/responsive/Responsive';
@@ -28,18 +29,6 @@ import { getEventFields, getEventPrice, getServiceMapUrl } from '../EventUtils';
 import styles from './eventInfo.module.scss';
 import OrganizationInfo from './OrganizationInfo';
 import OtherEventTimes from './OtherEventTimes';
-
-const InfoWithIcon: React.FC<{ icon: React.ReactElement }> = ({
-  children,
-  icon,
-}) => {
-  return (
-    <div className={styles.infoWithIcon}>
-      <div className={styles.iconWrapper}>{icon}</div>
-      <div className={styles.iconTextWrapper}>{children}</div>
-    </div>
-  );
-};
 
 interface Props {
   event: EventFieldsFragment;

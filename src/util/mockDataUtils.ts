@@ -20,6 +20,7 @@ import {
   LocalizedObject,
   Neighborhood,
   NeighborhoodListResponse,
+  Offer,
   Place,
   PlaceListResponse,
   StaticPage,
@@ -163,6 +164,18 @@ export const fakeKeyword = (overrides?: Partial<Keyword>): Keyword =>
       },
       internalId: 'https://api.hel.fi/linkedevents-test/v1/keyword/yso:p4363/',
       __typename: 'Keyword',
+    },
+    overrides
+  );
+
+export const fakeOffer = (overrides?: Partial<Offer>): Offer =>
+  merge(
+    {
+      description: fakeLocalizedObject(),
+      infoUrl: fakeLocalizedObject(faker.internet.url()),
+      isFree: false,
+      price: fakeLocalizedObject(),
+      __typename: 'Offer',
     },
     overrides
   );
