@@ -34,11 +34,10 @@ const EventKeywords: React.FC<Props> = ({
     locale
   );
 
-  if (!today && !thisWeek && (!keywords || !keywords.length)) {
-    return null;
-  }
-
-  const handleClick = (type: 'dateType' | 'isFree' | 'text', value = '') => {
+  const handleClick = (
+    type: 'dateType' | 'isFree' | 'text',
+    value = ''
+  ) => () => {
     const search = getSearchQuery({
       ...DEFAULT_SEARCH_FILTERS,
       dateTypes: type === 'dateType' ? [value] : [],
@@ -49,6 +48,15 @@ const EventKeywords: React.FC<Props> = ({
     history.push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
     scrollToTop();
   };
+
+  if (
+    !today &&
+    !thisWeek &&
+    (!keywords.length || !showKeywords) &&
+    (!freeEvent || !showIsFree)
+  ) {
+    return null;
+  }
 
   return (
     <>
@@ -61,7 +69,7 @@ const EventKeywords: React.FC<Props> = ({
               hideOnMobile={hideKeywordsOnMobile}
               key={keyword.id}
               keyword={keyword.name}
-              onClick={() => handleClick('text', keyword.name)}
+              onClick={handleClick('text', keyword.name)}
             />
           );
         })}
@@ -69,21 +77,21 @@ const EventKeywords: React.FC<Props> = ({
         <Keyword
           color="engelLight50"
           keyword={t('event.categories.labelToday')}
-          onClick={() => handleClick('dateType', DATE_TYPES.TODAY)}
+          onClick={handleClick('dateType', DATE_TYPES.TODAY)}
         />
       )}
       {!today && thisWeek && (
         <Keyword
           color="engelLight50"
           keyword={t('event.categories.labelThisWeek')}
-          onClick={() => handleClick('dateType', DATE_TYPES.THIS_WEEK)}
+          onClick={handleClick('dateType', DATE_TYPES.THIS_WEEK)}
         />
       )}
       {showIsFree && freeEvent && (
         <Keyword
           color="tramLight20"
           keyword={t('event.categories.labelFree')}
-          onClick={() => handleClick('isFree')}
+          onClick={handleClick('isFree')}
         />
       )}
     </>
