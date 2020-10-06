@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -34,38 +34,38 @@ const getWrapper = (props) =>
 
 describe('MobileDateSelector component', () => {
   test('should have correct date types selected', async () => {
-    const { getByText } = getWrapper();
+    getWrapper();
 
     expect(
-      getByText(dateTypeOptions[0]).parentElement.parentElement
+      screen.getByRole('button', { name: dateTypeOptions[0] })
     ).toHaveClass('isSelected');
     expect(
-      getByText(dateTypeOptions[1]).parentElement.parentElement
+      screen.getByRole('button', { name: dateTypeOptions[1] })
     ).not.toHaveClass('isSelected');
     expect(
-      getByText(dateTypeOptions[2]).parentElement.parentElement
+      screen.getByRole('button', { name: dateTypeOptions[2] })
     ).toHaveClass('isSelected');
     expect(
-      getByText(dateTypeOptions[3]).parentElement.parentElement
+      screen.getByRole('button', { name: dateTypeOptions[3] })
     ).not.toHaveClass('isSelected');
     expect(
-      getByText(dateTypeOptions[4]).parentElement.parentElement
+      screen.getByRole('button', { name: dateTypeOptions[4] })
     ).not.toHaveClass('isSelected');
   });
 
-  test('custom date type should be selected when endDate is selected', async () => {
-    const { getByText } = getWrapper({ endDate: new Date('2018-12-12') });
+  test('custom date type should be selected when startDate is selected', async () => {
+    getWrapper({ startDate: new Date('2018-12-12') });
 
     expect(
-      getByText(dateTypeOptions[4]).parentElement.parentElement
+      screen.getByRole('button', { name: dateTypeOptions[4] })
     ).toHaveClass('isSelected');
   });
 
   test('custom date type should be selected when endDate is selected', async () => {
-    const { getByText } = getWrapper({ startDate: new Date('2018-12-12') });
+    getWrapper({ startDate: new Date('2018-12-12') });
 
     expect(
-      getByText(dateTypeOptions[4]).parentElement.parentElement
+      screen.getByRole('button', { name: dateTypeOptions[4] })
     ).toHaveClass('isSelected');
   });
 });

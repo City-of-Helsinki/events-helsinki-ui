@@ -26,13 +26,12 @@ test('should be rendered correctly', () => {
 test('should set text wrapper max-width', () => {
   render(<LandingPageHero landingPage={landingPage} />);
 
-  expect(
-    (screen.getByTestId(testIds.content) as HTMLDivElement).style.maxWidth
-  ).toBe('520px');
-  expect(
-    (screen.getByTestId(testIds.content) as HTMLDivElement).style
-      .backgroundColor
-  ).toBe('rgba(255, 255, 255, 0.7)');
+  expect(screen.getByTestId(testIds.content) as HTMLDivElement).toHaveStyle({
+    maxWidth: '520px',
+  });
+  expect(screen.getByTestId(testIds.content) as HTMLDivElement).toHaveStyle({
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  });
 });
 
 test('should set text wrapper max-width', () => {
@@ -46,9 +45,9 @@ test('should set text wrapper max-width', () => {
     />
   );
 
-  expect(
-    (screen.getByTestId(testIds.content) as HTMLDivElement).style.maxWidth
-  ).toBe('340px');
+  expect(screen.getByTestId(testIds.content) as HTMLDivElement).toHaveStyle({
+    maxWidth: '340px',
+  });
 });
 
 test('should set text wrapper background color', () => {
@@ -61,10 +60,9 @@ test('should set text wrapper background color', () => {
     />
   );
 
-  expect(
-    (screen.getByTestId(testIds.content) as HTMLDivElement).style
-      .backgroundColor
-  ).toBe('rgba(0, 0, 0, 0.7)');
+  expect(screen.getByTestId(testIds.content) as HTMLDivElement).toBe({
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  });
 });
 
 test('should open buttonUrl', () => {

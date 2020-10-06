@@ -93,7 +93,9 @@ test('should show event list correctly', async () => {
   });
 
   await waitFor(() => {
-    expect(screen.queryByText(eventListTitle)).toBeInTheDocument();
+    expect(
+      screen.queryByRole('heading', { name: eventListTitle })
+    ).toBeInTheDocument();
   });
 
   events.data.forEach((event) => {
@@ -131,5 +133,7 @@ test('should not show event list when eventListQuery is empty string', async () 
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  expect(screen.queryByText(eventListTitle)).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole('heading', { name: eventListTitle })
+  ).not.toBeInTheDocument();
 });
