@@ -7,11 +7,11 @@ $imageMobileHeight: 23.4375rem;
 $logoWidth: 5.5rem;
 
 .heroWrapper {
-  background: $hel-white;
+  background: var(--color-white);
   height: auto;
 
   @include respond_above(sm) {
-    background: $hel-copper-light-20;
+    background: var(--color-copper-light-20);
   }
 }
 
@@ -53,7 +53,7 @@ $logoWidth: 5.5rem;
     height: 2.5rem;
     width: 2.5rem;
     border: none;
-    background-color: $hel-white;
+    background-color: var(--color-white);
     display: flex;
     justify-content: center;
 
@@ -106,7 +106,7 @@ $logoWidth: 5.5rem;
 
     .title {
       order: 3;
-      margin-top: 0.25rem;
+      margin: 0.25rem 0 0;
       font-size: 2rem;
       line-height: 2.5rem;
       font-weight: 600;

@@ -9,8 +9,8 @@ import {
   useOrganizationDetailsQuery,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import getLocalisedString from '../../../util/getLocalisedString';
 import { ROUTES } from '../../app/constants';
+import { getEventFields } from '../EventUtils';
 import styles from './eventInfo.module.scss';
 
 interface Props {
@@ -20,17 +20,17 @@ interface Props {
 const OrganizationInfo: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
+  const { provider, publisher } = getEventFields(event, locale);
   const { data: organizationData, loading } = useOrganizationDetailsQuery({
-    skip: !event.publisher,
+    skip: !!provider || !publisher,
     ssr: false,
-    variables: { id: event.publisher || '' },
+    variables: { id: publisher },
   });
 
-  const name = organizationData && organizationData.organizationDetails.name;
-  const provider = getLocalisedString(event.provider || {}, locale);
+  const organizationName = organizationData?.organizationDetails.name;
 
   const getSearchLink = () => {
-    return `/${locale}${ROUTES.EVENTS}?publisher=${event.publisher}`;
+    return `/${locale}${ROUTES.EVENTS}?publisher=${publisher}`;
   };
 
   return (
@@ -41,12 +41,12 @@ const OrganizationInfo: React.FC<Props> = ({ event }) => {
       <div className={styles.iconTextWrapper}>
         <h2 className={styles.title}>{t('event.info.labelOrganizer')}</h2>
         <LoadingSpinner hasPadding={false} isLoading={loading}>
-          <>
-            <div>{provider ? provider : name}</div>
-          </>
-          <Link to={getSearchLink()}>
-            {t('event.info.linkSearchByOrganization')}
-          </Link>
+          <div>{provider || organizationName}</div>
+          {publisher && (
+            <Link to={getSearchLink()}>
+              {t('event.info.linkSearchByOrganization')}
+            </Link>
+          )}
         </LoadingSpinner>
       </div>
     </div>

@@ -5,10 +5,8 @@ import { Link } from 'react-router-dom';
 
 import ErrorHero from '../../common/components/error/ErrorHero';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
-import SrOnly from '../../common/components/srOnly/SrOnly';
 import { useEventDetailsQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
-import getLocalisedString from '../../util/getLocalisedString';
 import isClient from '../../util/isClient';
 import { ROUTES } from '../app/constants';
 import MainContent from '../app/layout/MainContent';
@@ -42,7 +40,6 @@ const EventPageContainer: React.FC = () => {
   const event = eventData?.eventDetails;
 
   const eventClosed = !event || isEventClosed(event);
-  const name = getLocalisedString(eventData?.eventDetails.name, locale);
 
   return (
     <PageWrapper className={styles.eventPageWrapper} title="event.title">
@@ -50,7 +47,6 @@ const EventPageContainer: React.FC = () => {
         <LoadingSpinner isLoading={loading}>
           {event ? (
             <>
-              <SrOnly as="h1">{name}</SrOnly>
               {/* Wait for data to be accessible before updating metadata */}
               <EventPageMeta event={event} />
               {eventClosed ? <EventClosedHero /> : <EventHero event={event} />}

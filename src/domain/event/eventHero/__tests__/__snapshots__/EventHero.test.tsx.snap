@@ -49,11 +49,11 @@ exports[`matches snapshot 1`] = `
         <div
           class="textWrapper"
         >
-          <div
+          <h1
             class="title"
           >
             name fi
-          </div>
+          </h1>
           <div
             class="description"
           >

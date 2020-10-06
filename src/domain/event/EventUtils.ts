@@ -324,6 +324,8 @@ export const getEventFields = (
     locationName: getLocalisedString(eventLocation?.name, locale),
     offerInfoUrl: getOfferInfoUrl(event, locale),
     placeholderImage: getEventPlaceholderImageUrl(event),
+    provider: getLocalisedString(event.provider, locale),
+    publisher: event.publisher || '',
     shortDescription: getLocalisedString(event.shortDescription, locale),
     someImageUrl: getEventSomeImageUrl(event),
     startTime: event.startTime,

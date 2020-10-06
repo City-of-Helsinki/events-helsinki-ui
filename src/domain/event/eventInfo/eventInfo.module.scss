@@ -1,17 +1,14 @@
-@import "colors";
-@import "fonts";
-@import "layout";
-@import "variables";
+@import 'layout';
 
 .eventInfo {
   padding: 0;
-  font-size: 1.125rem;
+  font-size: var(--fontsize-body-l);
 
   display: grid;
   grid-template-columns: 1fr;
 
   @include respond_above(sm) {
-    padding: $largePadding;
+    padding: var(--spacing-xl);
   }
 
   @include respond_above(md) {
@@ -19,43 +16,31 @@
   }
 }
 
-.desktopOnly {
-  @include respond_below(sm) {
-    display: none !important;
-  }
-}
-
-.mobileOnly {
-  @include respond_above(sm) {
-    display: none !important;
-  }
-}
-
 .infoWithIcon {
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-s);
+  line-height: 1.5rem;
 
   .iconWrapper {
-    width: 2.5rem;
+    width: var(--spacing-xl);
+
+    svg {
+      height: var(--spacing-m);
+      width: var(--spacing-m);
+    }
   }
 
   .iconTextWrapper {
     flex: 1 1 0%;
-    line-height: 1.5rem;
 
     .title {
-      font-size: $font-size-lg;
+      font-size: var(--fontsize-body-l);
       font-weight: 600;
       margin: 0;
     }
   }
 }
 
-.icon {
-  height: 1.5rem;
-  width: 1.5rem;
-}
-
 .buyButtonWrapper {
-  margin-top: 1rem;
+  margin-top: var(--spacing-s);
 }

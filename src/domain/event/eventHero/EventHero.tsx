@@ -99,9 +99,9 @@ const EventHero: React.FC<Props> = ({ event }) => {
           </div>
           <div className={styles.leftPanel}>
             <div className={styles.textWrapper}>
-              <div className={styles.title}>
+              <h1 className={styles.title}>
                 <EventName event={event} />
-              </div>
+              </h1>
               <div className={styles.description}>{shortDescription}</div>
               <div className={classNames(styles.date, styles.desktopOnly)}>
                 {!!startTime &&
