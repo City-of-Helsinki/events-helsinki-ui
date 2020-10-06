@@ -17,7 +17,7 @@ const collection = fakeCollection({
 test('should render collection hero fields', async () => {
   render(<CollectionHero collection={collection} />);
 
-  expect(screen.getByText(title)).toBeInTheDocument();
-  expect(screen.getByText(description)).toBeInTheDocument();
-  expect(screen.getByText(linkText)).toBeInTheDocument();
+  expect(screen.queryByText(title)).toBeInTheDocument();
+  expect(screen.queryByText(description)).toBeInTheDocument();
+  expect(screen.queryByText(linkText)).toBeInTheDocument();
 });

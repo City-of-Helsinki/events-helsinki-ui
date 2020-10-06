@@ -73,7 +73,7 @@ describe('MobileDateSelector component', () => {
 describe('Escape', () => {
   test('should close date selector menu with escape', () => {
     getWrapper();
-    userEvent.click(screen.getByText(/valitse päivät/i));
+    userEvent.click(screen.getByRole('button', { name: /valitse päivät/i }));
 
     // Check that menu is open
     expect(screen.queryByTestId(testIds.menu)).toBeInTheDocument();
@@ -87,7 +87,7 @@ describe('when menu has been closed, it should reopen with', () => {
   const getClosedInput = () => {
     const helpers = getWrapper();
 
-    const button = screen.getByText(/valitse päivät/i);
+    const button = screen.getByRole('button', { name: /valitse päivät/i });
     userEvent.click(button);
 
     expect(screen.getByTestId(testIds.menu)).toBeInTheDocument();

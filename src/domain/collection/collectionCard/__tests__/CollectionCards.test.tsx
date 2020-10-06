@@ -28,8 +28,7 @@ it('should render lg collection cards', () => {
   collectionsData.forEach((collection) => {
     expect(screen.getByText(collection.title.fi)).toBeInTheDocument();
     expect(
-      screen.getByText(collection.title.fi).parentElement.parentElement
-        .parentElement
+      screen.getByRole('link', { name: new RegExp(collection.title.fi, 'i') })
     ).toHaveClass('lgSize');
   });
 });
@@ -41,13 +40,11 @@ it('should render correct sizes collection cards for mdAndSm layout', () => {
     expect(screen.getByText(collection.title.fi)).toBeInTheDocument();
     if (index % 5 === 0 || index % 5 === 4) {
       expect(
-        screen.getByText(collection.title.fi).parentElement.parentElement
-          .parentElement
+        screen.getByRole('link', { name: new RegExp(collection.title.fi, 'i') })
       ).toHaveClass('mdSize');
     } else {
       expect(
-        screen.getByText(collection.title.fi).parentElement.parentElement
-          .parentElement
+        screen.getByRole('link', { name: new RegExp(collection.title.fi, 'i') })
       ).toHaveClass('smSize');
     }
   });
