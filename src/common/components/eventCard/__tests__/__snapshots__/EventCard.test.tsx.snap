@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshot 1`] = `
+exports[`metches snapshot 1`] = `
 <a
-  aria-label="Siirry tapahtumaan: name fi"
+  aria-label="Siirry tapahtumaan: Keyword name"
   class="eventCard"
   href="/fi/event/123"
   id="event-card_123"
@@ -16,31 +16,29 @@ exports[`matches snapshot 1`] = `
       <div
         class="eventName"
       >
-        name fi
+        Keyword name
       </div>
       <div
         class="eventDateAndTime"
       >
-        13.12.2019, klo 10.00
+        5 – 15.10.2020
       </div>
       <div
         class="eventLocation"
       >
-        name fi, streetAddress fi, locality fi
+        Location name, Test address 1, Helsinki
       </div>
       <div
         class="eventPrice"
-      >
-        Maksuton
-      </div>
+      />
       <div
         class="keywordWrapperMobile"
       >
         <button
-          class="keyword tramLight20"
+          class="keyword engelLight50"
           type="button"
         >
-          Maksuton
+          Tällä viikolla
         </button>
       </div>
     </div>
@@ -49,7 +47,7 @@ exports[`matches snapshot 1`] = `
     >
       <div>
         <button
-          aria-label="Siirry tapahtumaan: name fi"
+          aria-label="Siirry tapahtumaan: Keyword name"
           class="iconButton default backgroundDefault"
         >
           <svg
@@ -76,16 +74,16 @@ exports[`matches snapshot 1`] = `
   </div>
   <div
     class="imageWrapper"
-    style="background-image: url(https://api.hel.fi/linkedevents/media/images/piha-2_yYlCdPB.jpg);"
+    style="background-image: url(https://api.hel.fi/linkedevents-test/media/images/test.png);"
   >
     <div
       class="keywordWrapperDesktop"
     >
       <button
-        class="keyword tramLight20"
+        class="keyword engelLight50"
         type="button"
       >
-        Maksuton
+        Tällä viikolla
       </button>
     </div>
   </div>

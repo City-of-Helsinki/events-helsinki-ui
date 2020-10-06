@@ -79,7 +79,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
   return (
     <Link
       aria-label={t('commons.eventCard.ariaLabelLink', {
-        name: name,
+        name,
       })}
       className={classNames(styles.eventCard, {
         [styles.eventClosed]: eventClosed,
