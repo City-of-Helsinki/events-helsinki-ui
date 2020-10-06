@@ -7,6 +7,21 @@ import styles from './collectionCards.module.scss';
 
 export type CollectionCardListLayout = 'sm' | 'md' | 'mdAndSm' | 'lg';
 
+const getCardSize = (
+  index: number,
+  layout: CollectionCardListLayout
+): CollectionCardSize => {
+  switch (layout) {
+    case 'mdAndSm':
+      if (index % 5 === 0 || index % 5 === 4) {
+        return 'md';
+      }
+      return 'sm';
+    default:
+      return layout;
+  }
+};
+
 interface Props {
   collections: CollectionFieldsFragment[];
   layout: CollectionCardListLayout;
@@ -18,23 +33,11 @@ const CollectionCards: React.FC<Props> = ({ collections, layout }) => {
       className={classNames(styles.collectionCards, styles[`${layout}Layout`])}
     >
       {collections.map((collection, index) => {
-        const getCardSize = (): CollectionCardSize => {
-          switch (layout) {
-            case 'mdAndSm':
-              if (index % 5 === 0 || index % 5 === 4) {
-                return 'md';
-              }
-              return 'sm';
-            default:
-              return layout;
-          }
-        };
-
         return (
           <CollectionCard
             key={index}
             collection={collection}
-            size={getCardSize()}
+            size={getCardSize(index, layout)}
           />
         );
       })}
