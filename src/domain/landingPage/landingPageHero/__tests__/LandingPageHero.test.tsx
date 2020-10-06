@@ -60,7 +60,7 @@ test('should set text wrapper background color', () => {
     />
   );
 
-  expect(screen.getByTestId(testIds.content) as HTMLDivElement).toBe({
+  expect(screen.getByTestId(testIds.content) as HTMLDivElement).toHaveStyle({
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
   });
 });
