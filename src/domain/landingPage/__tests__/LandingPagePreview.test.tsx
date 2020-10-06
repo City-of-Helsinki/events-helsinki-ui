@@ -50,7 +50,9 @@ it('should render landing page preview correctly', async () => {
   getWrapper();
 
   await waitFor(() => {
-    expect(screen.getByText(landingPageTitle)).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: landingPageTitle })
+    ).toBeInTheDocument();
   });
 
   expect(screen.getByText(landingPageDescription)).toBeInTheDocument();
@@ -60,7 +62,9 @@ it('should show preview banner', async () => {
   getWrapper();
 
   await waitFor(() => {
-    expect(screen.getByText(landingPageTitle)).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: landingPageTitle })
+    ).toBeInTheDocument();
   });
 
   expect(screen.getByText(translations.commons.preview)).toBeInTheDocument();

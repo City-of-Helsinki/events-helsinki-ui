@@ -55,7 +55,9 @@ it('should render landing page correctly', async () => {
   });
 
   await waitFor(() => {
-    expect(screen.getByText(landingPageTitle)).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: landingPageTitle })
+    ).toBeInTheDocument();
   });
 
   expect(screen.getByText(landingPageDescription)).toBeInTheDocument();
