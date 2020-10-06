@@ -171,12 +171,7 @@ export const fakeKeyword = (overrides?: Partial<Keyword>): Keyword =>
       id: faker.random.uuid(),
       dataSource: 'yso',
       hasUpcomingEvents: true,
-      name: {
-        en: 'families',
-        fi: 'perheet',
-        sv: 'familjer',
-        __typename: 'LocalizedObject',
-      },
+      name: fakeLocalizedObject(),
       internalId: 'https://api.hel.fi/linkedevents-test/v1/keyword/yso:p4363/',
       __typename: 'Keyword',
     },

@@ -61,6 +61,6 @@ test('should render similar event cards', async () => {
   await act(wait);
 
   events.data.forEach((event) => {
-    expect(screen.queryByText(event.name.fi as string)).toBeDefined();
+    expect(screen.queryByText(event.name.fi as string)).toBeInTheDocument();
   });
 });
