@@ -69,7 +69,9 @@ const EventList: React.FC<Props> = ({ collection }) => {
             page: page,
           },
         });
-      } catch (e) {}
+      } catch (e) {
+        console.error(e);
+      }
     }
     setIsFetchingMore(false);
   };

@@ -72,7 +72,9 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
             page: page,
           },
         });
-      } catch (e) {}
+      } catch (e) {
+        console.error(e);
+      }
     }
     setIsFetchingMore(false);
   };
