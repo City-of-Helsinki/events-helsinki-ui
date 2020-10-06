@@ -107,7 +107,7 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
 
-  .categoryFood {
+  div:nth-child(10) {
     @include respond-below(md) {
       grid-column-start: 2;
     }

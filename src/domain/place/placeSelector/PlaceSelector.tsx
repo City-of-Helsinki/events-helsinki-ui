@@ -12,7 +12,8 @@ import PlaceText from '../PlaceText';
 const { getPlaceDetailsFromCache } = isClient
   ? // eslint-disable-next-line @typescript-eslint/no-require-imports
     require('../utils')
-  : { getPlaceDetailsFromCache: null };
+  : /* istanbul ignore next */
+    { getPlaceDetailsFromCache: null };
 
 type Props = Omit<MultiselectDropdownProps, 'options'>;
 
@@ -37,24 +38,18 @@ const PlaceSelector: React.FC<Props> = ({
   });
 
   const placeOptions = React.useMemo(() => {
-    return placesData
-      ? placesData.placeList.data
-          .map((place) => ({
-            text: getLocalisedString(place.name || {}, locale),
-            value: place.id || '',
-          }))
-          .sort((a, b) => (a.text > b.text ? 1 : -1))
-      : [];
+    return (placesData?.placeList.data || [])
+      .map((place) => ({
+        text: getLocalisedString(place.name, locale),
+        value: place.id as string,
+      }))
+      .sort((a, b) => (a.text > b.text ? 1 : -1));
   }, [locale, placesData]);
 
   const renderOptionText = (id: string) => {
     try {
       const place = getPlaceDetailsFromCache(id);
-
-      return getLocalisedString(
-        (place && place.placeDetails.name) || {},
-        locale
-      );
+      return getLocalisedString(place.placeDetails.name, locale);
     } catch {
       return <PlaceText id={id} />;
     }

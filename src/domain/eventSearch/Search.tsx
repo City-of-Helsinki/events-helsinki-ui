@@ -11,7 +11,6 @@ import MultiSelectDropdown from '../../common/components/multiSelectDropdown/Mul
 import SearchAutosuggest from '../../common/components/search/SearchAutosuggest';
 import SearchLabel from '../../common/components/search/searchLabel/SearchLabel';
 import { AutosuggestMenuOption } from '../../common/types';
-import { CATEGORIES } from '../../constants';
 import { useNeighborhoodListQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import IconRead from '../../icons/IconRead';
@@ -22,7 +21,7 @@ import PlaceSelector from '../place/placeSelector/PlaceSelector';
 import { DEFAULT_SEARCH_FILTERS, EVENT_SEARCH_FILTERS } from './constants';
 import FilterSummary from './filterSummary/FilterSummary';
 import styles from './search.module.scss';
-import { getSearchFilters, getSearchQuery } from './utils';
+import { getCategoryOptions, getSearchFilters, getSearchQuery } from './utils';
 
 interface Props {
   scrollToResultList: () => void;
@@ -93,52 +92,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
         .sort((a, b) => (a.text >= b.text ? 1 : -1))
     : [];
 
-  const categories = [
-    {
-      text: t('home.category.movie'),
-      value: CATEGORIES.MOVIE,
-    },
-    {
-      text: t('home.category.music'),
-      value: CATEGORIES.MUSIC,
-    },
-    {
-      text: t('home.category.sport'),
-      value: CATEGORIES.SPORT,
-    },
-    {
-      text: t('home.category.museum'),
-      value: CATEGORIES.MUSEUM,
-    },
-    {
-      text: t('home.category.dance'),
-      value: CATEGORIES.DANCE,
-    },
-    {
-      text: t('home.category.culture'),
-      value: CATEGORIES.CULTURE,
-    },
-    {
-      text: t('home.category.nature'),
-      value: CATEGORIES.NATURE,
-    },
-    {
-      text: t('home.category.influence'),
-      value: CATEGORIES.INFLUENCE,
-    },
-    {
-      text: t('home.category.theatre'),
-      value: CATEGORIES.THEATRE,
-    },
-    {
-      text: t('home.category.food'),
-      value: CATEGORIES.FOOD,
-    },
-    {
-      text: t('home.category.misc'),
-      value: CATEGORIES.MISC,
-    },
-  ];
+  const categories = getCategoryOptions(t);
 
   const handleChangeDateTypes = (value: string[]) => {
     setSelectedDateTypes(value);

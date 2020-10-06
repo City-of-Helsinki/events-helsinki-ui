@@ -1,16 +1,22 @@
 import { act } from '@testing-library/react';
 import i18n from 'i18next';
 import React from 'react';
-import wait from 'waait';
 
 import {
   CollectionListDocument,
   LandingPagesDocument,
 } from '../../../../generated/graphql';
-import { render } from '../../../../util/testUtils';
-import mockCollection from '../../../collection/__mocks__/collection';
-import mockLandingPage from '../../../landingPage/__mocks__/landingPage';
+import {
+  fakeCollections,
+  fakeLandingPages,
+} from '../../../../util/mockDataUtils';
+import { actWait, render } from '../../../../util/testUtils';
 import AppRoutes from '../AppRoutes';
+
+const landingPagesResponse = { data: { landingPages: fakeLandingPages(1) } };
+const collectionListResponse = {
+  data: { collectionList: fakeCollections(1) },
+};
 
 const mocks = [
   {
@@ -18,36 +24,16 @@ const mocks = [
       query: LandingPagesDocument,
       variables: { visibleOnFrontpage: true },
     },
-    result: {
-      data: {
-        landingPages: {
-          __typename: 'LandingPageResponse',
-          data: [mockLandingPage],
-        },
-      },
-    },
+    result: landingPagesResponse,
   },
   {
     request: {
       query: CollectionListDocument,
       variables: { visibleOnFrontpage: true },
     },
-    result: {
-      data: {
-        collectionList: {
-          __typename: 'CollectionListResponse',
-          data: [mockCollection],
-        },
-      },
-    },
+    result: collectionListResponse,
   },
 ];
-
-export async function actWait(amount = 0): Promise<void> {
-  await act(async () => {
-    await wait(amount);
-  });
-}
 
 const getWrapper = (route: string) =>
   render(<AppRoutes />, { mocks, routes: [route] });

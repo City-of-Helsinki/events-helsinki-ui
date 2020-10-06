@@ -1,23 +1,89 @@
 import { addDays, endOfWeek, isPast, startOfWeek, subDays } from 'date-fns';
+import { IconSpeechbubbleText } from 'hds-react';
+import { TFunction } from 'i18next';
 import forEach from 'lodash/forEach';
 import isArray from 'lodash/isArray';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import isNumber from 'lodash/isNumber';
+import React from 'react';
 
-import { CATEGORIES, DATE_TYPES } from '../../constants';
+import { DATE_TYPES } from '../../constants';
 import { Meta } from '../../generated/graphql';
+import IconCultureAndArts from '../../icons/IconCultureAndArts';
+import IconDance from '../../icons/IconDance';
+import IconFood from '../../icons/IconFood';
+import IconMovies from '../../icons/IconMovies';
+import IconMuseum from '../../icons/IconMuseum';
+import IconMusic from '../../icons/IconMusic';
+import IconSports from '../../icons/IconSports';
+import IconTheatre from '../../icons/IconTheatre';
+import IconTree from '../../icons/IconTree';
 import { Language } from '../../types';
 import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
 import {
+  CATEGORIES,
   CULTURE_KEYWORDS,
   EVENT_SEARCH_FILTERS,
   EVENT_SORT_OPTIONS,
   INFLUENCE_KEYWORDS,
   MUSEUM_KEYWORDS,
 } from './constants';
-import { Filters, MappedFilters } from './types';
+import { CategoryOption, Filters, MappedFilters } from './types';
+
+export const getCategoryOptions = (t: TFunction): CategoryOption[] => [
+  {
+    icon: <IconMovies />,
+    text: t('home.category.movie'),
+    value: CATEGORIES.MOVIE,
+  },
+  {
+    icon: <IconMusic />,
+    text: t('home.category.music'),
+    value: CATEGORIES.MUSIC,
+  },
+  {
+    icon: <IconSports />,
+    text: t('home.category.sport'),
+    value: CATEGORIES.SPORT,
+  },
+  {
+    icon: <IconMuseum />,
+    text: t('home.category.museum'),
+    value: CATEGORIES.MUSEUM,
+  },
+  {
+    icon: <IconDance />,
+    text: t('home.category.dance'),
+    value: CATEGORIES.DANCE,
+  },
+  {
+    icon: <IconCultureAndArts />,
+    text: t('home.category.culture'),
+    value: CATEGORIES.CULTURE,
+  },
+  {
+    icon: <IconTree />,
+    text: t('home.category.nature'),
+    value: CATEGORIES.NATURE,
+  },
+  {
+    icon: <IconSpeechbubbleText />,
+    text: t('home.category.influence'),
+    value: CATEGORIES.INFLUENCE,
+  },
+  {
+    icon: <IconTheatre />,
+    text: t('home.category.theatre'),
+    value: CATEGORIES.THEATRE,
+  },
+  {
+    icon: <IconFood />,
+    text: t('home.category.food'),
+    value: CATEGORIES.FOOD,
+  },
+];
 
 /**
  * Get start and end dates to event list filtering
@@ -48,10 +114,6 @@ const getFilterDates = ({
 
   let end = '';
   let start = '';
-
-  if (dateTypes.includes(DATE_TYPES.ALL)) {
-    return { end: null, start: null };
-  }
 
   if (dateTypes.includes(DATE_TYPES.TODAY)) {
     end = formatDate(today, dateFormat);

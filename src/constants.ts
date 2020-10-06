@@ -10,26 +10,11 @@ export const AUTOSUGGEST_KEYWORD_BLACK_LIST = [
   'kulke:354', // Seniorit
 ];
 
-export const CATEGORIES = {
-  CULTURE: 'culture',
-  DANCE: 'dance',
-  FOOD: 'food',
-  INFLUENCE: 'influence',
-  MISC: 'misc',
-  MOVIE: 'movie',
-  MUSEUM: 'museum',
-  MUSIC: 'music',
-  NATURE: 'nature',
-  SPORT: 'sport',
-  THEATRE: 'theatre',
-};
-
 export const DATE_TYPES = {
-  ALL: 'all',
-  THIS_WEEK: 'this_week',
   TODAY: 'today',
   TOMORROW: 'tomorrow',
   WEEKEND: 'weekend',
+  THIS_WEEK: 'this_week',
 };
 
 export const EVENT_STATUS = {

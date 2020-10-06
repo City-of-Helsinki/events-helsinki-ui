@@ -1,18 +1,13 @@
-@import "colors";
-@import "layout";
+@import 'colors';
+@import 'layout';
 
 .mobileDateSelectorMenu {
-  display: none;
   background: $hel-white;
   color: $hel-black;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   position: absolute;
   left: 0;
-
-  &.isOpen {
-    display: block;
-  }
 
   .button {
     cursor: pointer;
@@ -47,7 +42,7 @@
   }
 
   .btnClose {
-    border-top: 1px solid $hel-light; 
+    border-top: 1px solid $hel-light;
 
     .buttonText {
       text-align: center;

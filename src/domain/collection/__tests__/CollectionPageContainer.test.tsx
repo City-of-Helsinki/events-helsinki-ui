@@ -2,20 +2,22 @@ import { screen, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import React from 'react';
 
-import mockCollection from '../__mocks__/collection';
 import translations from '../../../common/translation/i18n/fi.json';
 import {
   CollectionDetailsDocument,
   CollectionFieldsFragment,
 } from '../../../generated/graphql';
+import { fakeCollection } from '../../../util/mockDataUtils';
 import { renderWithRoute } from '../../../util/testUtils';
 import { ROUTES } from '../../app/constants';
 import CollectionPageContainer from '../CollectionPageContainer';
 
+const collection = fakeCollection() as CollectionFieldsFragment;
+
 const path = ROUTES.COLLECTION;
-const routes = [ROUTES.COLLECTION.replace(':slug', mockCollection.slug)];
+const routes = [ROUTES.COLLECTION.replace(':slug', collection.slug)];
 const draftRoutes = [
-  `${ROUTES.COLLECTION.replace(':slug', mockCollection.slug)}?draft=true`,
+  `${ROUTES.COLLECTION.replace(':slug', collection.slug)}?draft=true`,
 ];
 
 const getMocks = (
@@ -27,7 +29,7 @@ const getMocks = (
       query: CollectionDetailsDocument,
       variables: {
         draft,
-        slug: mockCollection.slug,
+        slug: collection.slug,
       },
     },
     result: {
@@ -39,7 +41,7 @@ const getMocks = (
 ];
 
 it('component should be accessible', async () => {
-  const mocks = getMocks(mockCollection, false);
+  const mocks = getMocks(collection, false);
   const { container } = renderWithRoute(<CollectionPageContainer />, {
     mocks,
     path,
@@ -47,16 +49,14 @@ it('component should be accessible', async () => {
   });
 
   await waitFor(() => {
-    expect(
-      screen.getByText((mockCollection.title || {})['fi'] || '')
-    ).toBeInTheDocument();
+    expect(screen.getByText(collection.title.fi)).toBeInTheDocument();
   });
 
   expect(await axe(container)).toHaveNoViolations();
 });
 
 it('should show PreviewBanner if draft version is requested ', async () => {
-  const mocks = getMocks(mockCollection, true);
+  const mocks = getMocks(collection, true);
   renderWithRoute(<CollectionPageContainer />, {
     mocks,
     path,
@@ -64,9 +64,7 @@ it('should show PreviewBanner if draft version is requested ', async () => {
   });
 
   await waitFor(() => {
-    expect(
-      screen.getByText((mockCollection.title || {})['fi'] || '')
-    ).toBeInTheDocument();
+    expect(screen.getByText(collection.title.fi)).toBeInTheDocument();
   });
 
   expect(screen.getByText(translations.commons.preview)).toBeInTheDocument();
@@ -95,7 +93,7 @@ it("should show 'not found' page if collection doesn't exist", async () => {
 
 it('should show error hero if selected language is not supported', async () => {
   const mocks = getMocks(
-    { ...mockCollection, title: { ...mockCollection.title, fi: '' } },
+    { ...collection, title: { ...collection.title, fi: '' } },
     false
   );
   renderWithRoute(<CollectionPageContainer />, {
@@ -121,7 +119,7 @@ it('should show error hero if selected language is not supported', async () => {
 });
 
 it('should show error hero if collection is expired', async () => {
-  const mocks = getMocks({ ...mockCollection, expired: true }, false);
+  const mocks = getMocks({ ...collection, expired: true }, false);
   renderWithRoute(<CollectionPageContainer />, {
     mocks,
     path,

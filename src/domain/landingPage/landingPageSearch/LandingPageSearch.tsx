@@ -1,5 +1,5 @@
-import { Button, IconSearch, IconSpeechbubbleText } from 'hds-react';
-import React, { FunctionComponent } from 'react';
+import { Button, IconSearch } from 'hds-react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 
@@ -10,23 +10,13 @@ import MobileDateSelector from '../../../common/components/mobileDateSelector/Mo
 import SearchAutosuggest from '../../../common/components/search/SearchAutosuggest';
 import SearchLabel from '../../../common/components/search/searchLabel/SearchLabel';
 import { AutosuggestMenuOption, Category } from '../../../common/types';
-import { CATEGORIES } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
-import IconCultureAndArts from '../../../icons/IconCultureAndArts';
-import IconDance from '../../../icons/IconDance';
-import IconFood from '../../../icons/IconFood';
-import IconMovies from '../../../icons/IconMovies';
-import IconMuseum from '../../../icons/IconMuseum';
-import IconMusic from '../../../icons/IconMusic';
-import IconSports from '../../../icons/IconSports';
-import IconTheatre from '../../../icons/IconTheatre';
-import IconTree from '../../../icons/IconTree';
 import { ROUTES } from '../../app/constants';
 import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
-import { getSearchQuery } from '../../eventSearch/utils';
+import { getCategoryOptions, getSearchQuery } from '../../eventSearch/utils';
 import styles from './landingPageSearch.module.scss';
 
-const Search: FunctionComponent = () => {
+const Search: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
   const [dateTypes, setDateTypes] = React.useState<string[]>([]);
@@ -36,61 +26,7 @@ const Search: FunctionComponent = () => {
   const [autosuggestInput, setAutosuggestInput] = React.useState('');
   const { push } = useHistory();
 
-  const categories = React.useMemo(() => {
-    return [
-      {
-        icon: <IconMovies />,
-        text: t('home.category.movie'),
-        value: CATEGORIES.MOVIE,
-      },
-      {
-        icon: <IconMusic />,
-        text: t('home.category.music'),
-        value: CATEGORIES.MUSIC,
-      },
-      {
-        icon: <IconSports />,
-        text: t('home.category.sport'),
-        value: CATEGORIES.SPORT,
-      },
-      {
-        icon: <IconMuseum />,
-        text: t('home.category.museum'),
-        value: CATEGORIES.MUSEUM,
-      },
-      {
-        icon: <IconDance />,
-        text: t('home.category.dance'),
-        value: CATEGORIES.DANCE,
-      },
-      {
-        icon: <IconCultureAndArts />,
-        text: t('home.category.culture'),
-        value: CATEGORIES.CULTURE,
-      },
-      {
-        icon: <IconTree />,
-        text: t('home.category.nature'),
-        value: CATEGORIES.NATURE,
-      },
-      {
-        icon: <IconSpeechbubbleText />,
-        text: t('home.category.influence'),
-        value: CATEGORIES.INFLUENCE,
-      },
-      {
-        icon: <IconTheatre />,
-        text: t('home.category.theatre'),
-        value: CATEGORIES.THEATRE,
-      },
-      {
-        className: styles.categoryFood,
-        icon: <IconFood />,
-        text: t('home.category.food'),
-        value: CATEGORIES.FOOD,
-      },
-    ];
-  }, [t]);
+  const categories = getCategoryOptions(t);
 
   const handleChangeDateTypes = (value: string[]) => {
     setDateTypes(value);
@@ -121,14 +57,12 @@ const Search: FunctionComponent = () => {
   };
 
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
-    const value = option.text;
-
     const search = getSearchQuery({
       ...DEFAULT_SEARCH_FILTERS,
       dateTypes,
       end,
       start,
-      text: value ? [value] : [],
+      text: [option.text],
     });
     goToSearchPage(search);
   };
@@ -216,7 +150,6 @@ const Search: FunctionComponent = () => {
         {categories.map((category) => {
           return (
             <CategoryFilter
-              className={category.className}
               key={category.value}
               icon={category.icon}
               onClick={handleCategoryClick}

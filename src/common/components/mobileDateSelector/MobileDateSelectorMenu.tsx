@@ -6,6 +6,10 @@ import useLocale from '../../../hooks/useLocale';
 import DateRangePicker from '../dateRangePicker/DateRangePicker';
 import styles from './mobileDateSelectorMenu.module.scss'; // the locale you want
 
+export const testIds = {
+  menu: 'mobile-date-selector-menu',
+};
+
 interface Props {
   closeBtnRef?: MutableRefObject<HTMLButtonElement | null>;
   endDate: Date | null;
@@ -30,13 +34,9 @@ const MobileDateSelectorMenu: FunctionComponent<Props> = ({
   const { t } = useTranslation();
   const locale = useLocale();
 
+  if (!isOpen) return null;
   return (
-    <div
-      data-testid="mobile-date-selector-menu"
-      className={classNames(styles.mobileDateSelectorMenu, {
-        [styles.isOpen]: isOpen,
-      })}
-    >
+    <div data-testid={testIds.menu} className={styles.mobileDateSelectorMenu}>
       <div className={styles.wrapper}>
         <DateRangePicker
           endDate={endDate}

@@ -1,9 +1,23 @@
-import { render, waitForDomChange } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import React from 'react';
 
+import { EventFieldsFragment } from '../../../../generated/graphql';
 import { fakeEvent } from '../../../../util/mockDataUtils';
+import { actWait } from '../../../../util/testUtils';
 import EventPageMeta from '../EventPageMeta';
-const getWrapper = (props) => render(<EventPageMeta {...props} />);
+
+const eventName = 'Name of event';
+const eventDescription = 'Description for event';
+const eventImage = 'https://localhost/example/path';
+const event = fakeEvent({
+  images: [{ internalId: '', name: '', url: eventImage }],
+  name: {
+    fi: eventName,
+  },
+  shortDescription: {
+    fi: eventDescription,
+  },
+}) as EventFieldsFragment;
 
 // Rendering EventPageMeta creates a side effect--the document head will be
 // mutated. This mutation will persist between tests. This can be problematic:
@@ -27,26 +41,9 @@ afterEach(() => {
 });
 
 test('applies expected metadata', async () => {
-  const eventName = 'Name of event';
-  const eventDescription = 'Description for event';
-  const eventImage = 'https://localhost/example/path';
-  const mockEvent = fakeEvent({
-    images: [{ internalId: '', name: '', url: eventImage }],
-    name: {
-      fi: eventName,
-    },
-    shortDescription: {
-      fi: eventDescription,
-    },
-  });
+  render(<EventPageMeta event={event} />);
 
-  // This function is usually used for the helpers it returns. However, the
-  // scope f the helpers is limited to `body`. As we need to assert against
-  // the content of the `head`, we have to make queries without helpers. We are
-  // using testing library to render for consistency.
-  getWrapper({ event: mockEvent });
-
-  await waitForDomChange();
+  await actWait(300);
 
   const title = document.title;
   const head = document.querySelector('head');

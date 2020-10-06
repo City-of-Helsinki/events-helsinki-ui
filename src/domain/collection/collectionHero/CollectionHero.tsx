@@ -18,7 +18,7 @@ const CollectionHero: React.FC<Props> = ({ collection }) => {
   const {
     description,
     heroBackgroundColor: backgroundColor,
-    heroBackgroundImage: backgroundImage = '',
+    heroBackgroundImage: backgroundImage,
     linkText,
     linkUrl,
     title,

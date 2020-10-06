@@ -1,13 +1,23 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import mockCollection from '../../__mocks__/collection';
+import { CollectionFieldsFragment } from '../../../../generated/graphql';
+import { fakeCollection } from '../../../../util/mockDataUtils';
 import CollectionHero from '../CollectionHero';
 
-test('should render collection hero fields', async () => {
-  render(<CollectionHero collection={mockCollection} />);
+const title = 'Collection title';
+const description = 'Collection description';
+const linkText = 'Collection link text';
+const collection = fakeCollection({
+  description: { fi: description },
+  linkText: { fi: linkText },
+  title: { fi: title },
+}) as CollectionFieldsFragment;
 
-  expect(screen.getByText(mockCollection.title.fi)).toBeInTheDocument();
-  expect(screen.getByText(mockCollection.description.fi)).toBeInTheDocument();
-  expect(screen.getByText(mockCollection.linkText.fi)).toBeInTheDocument();
+test('should render collection hero fields', async () => {
+  render(<CollectionHero collection={collection} />);
+
+  expect(screen.queryByText(title)).toBeInTheDocument();
+  expect(screen.queryByText(description)).toBeInTheDocument();
+  expect(screen.queryByText(linkText)).toBeInTheDocument();
 });

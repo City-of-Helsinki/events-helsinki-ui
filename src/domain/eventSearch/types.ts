@@ -1,3 +1,11 @@
+import { CATEGORIES } from './constants';
+
+export interface CategoryOption {
+  icon: React.ReactElement;
+  text: string;
+  value: CATEGORIES;
+}
+
 export interface Filters {
   categories: string[];
   dateTypes: string[];

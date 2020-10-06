@@ -2,6 +2,20 @@ import { Filters } from './types';
 // Page size of the event list
 export const PAGE_SIZE = 10;
 
+export enum CATEGORIES {
+  CULTURE = 'culture',
+  DANCE = 'dance',
+  FOOD = 'food',
+  INFLUENCE = 'influence',
+  MISC = 'misc',
+  MOVIE = 'movie',
+  MUSEUM = 'museum',
+  MUSIC = 'music',
+  NATURE = 'nature',
+  SPORT = 'sport',
+  THEATRE = 'theatre',
+}
+
 export const DEFAULT_SEARCH_FILTERS: Filters = {
   categories: [],
   dateTypes: [],

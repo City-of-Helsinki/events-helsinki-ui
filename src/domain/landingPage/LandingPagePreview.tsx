@@ -27,7 +27,7 @@ const LandingPagePreview: React.FC = () => {
   const { data: landingPageData, loading } = useLandingPageQuery({
     variables: { draft, id: params.id },
   });
-  const landingPage = landingPageData && landingPageData.landingPage;
+  const landingPage = landingPageData?.landingPage;
 
   return (
     <PageWrapper>

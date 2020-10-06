@@ -9,18 +9,18 @@ interface Props {
   landingPage: LandingPageFieldsFragment;
 }
 
-const EventPageMeta: React.FC<Props> = ({ landingPage }) => {
+const LandingPageMeta: React.FC<Props> = ({ landingPage }) => {
   const locale = useLocale();
 
-  const { pageTitle, someImage: image, someDescription } = getLandingPageFields(
+  const { pageTitle, someImage: image, metaInformation } = getLandingPageFields(
     landingPage,
     locale
   );
 
   const openGraphProperties: { [key: string]: string } = {
-    description: someDescription || '',
+    description: metaInformation,
     image: image,
-    title: pageTitle || '',
+    title: pageTitle,
   };
 
   return (
@@ -35,4 +35,4 @@ const EventPageMeta: React.FC<Props> = ({ landingPage }) => {
   );
 };
 
-export default EventPageMeta;
+export default LandingPageMeta;

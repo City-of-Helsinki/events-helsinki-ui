@@ -73,7 +73,9 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
             page: page,
           },
         });
-      } catch (e) {}
+      } catch (e) {
+        console.error(e);
+      }
       setIsFetchingMore(false);
     },
     [fetchMore, variables]
