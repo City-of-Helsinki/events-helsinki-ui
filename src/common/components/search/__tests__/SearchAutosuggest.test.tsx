@@ -5,8 +5,8 @@ import { act } from 'react-dom/test-utils';
 import wait from 'waait';
 
 import { AUTOSUGGEST_TYPES } from '../../../../constants';
-import keywordListResponse from '../../../../domain/keyword/__mocks__/keywordListResponse';
 import { KeywordListDocument } from '../../../../generated/graphql';
+import { fakeKeywords } from '../../../../util/mockDataUtils';
 import {
   arrowDownKeyPressHelper,
   arrowUpKeyPressHelper,
@@ -20,6 +20,9 @@ import SearchAutosuggest, {
 
 const searchValue = 'jaz';
 const placeholder = 'Placeholder text';
+
+const keywords = fakeKeywords(5);
+const keywordListResponse = { data: { keywordList: keywords } };
 
 const mocks = [
   {
@@ -96,7 +99,7 @@ test('should allow navigation with down arrows', async () => {
   expect(options[0]).toHaveClass('autosuggestOption--isFocused');
   expect(options[0]).toHaveTextContent(searchValue);
 
-  keywordListResponse.data.keywordList.data.forEach((keyword, index) => {
+  keywords.data.forEach((keyword, index) => {
     arrowDownKeyPressHelper();
     expect(options[index + 1]).toHaveClass('autosuggestOption--isFocused');
     expect(options[index + 1]).toHaveTextContent(keyword.name.fi);
@@ -113,12 +116,14 @@ test('should allow navigation with up arrows', async () => {
 
   const options = screen.getAllByRole('option');
 
-  const keywords = [...keywordListResponse.data.keywordList.data].reverse();
+  const reversedKeywords = [...keywords.data].reverse();
 
-  keywords.forEach((keyword, index) => {
+  reversedKeywords.forEach((keyword, index) => {
     arrowUpKeyPressHelper();
-    expect(options[keywords.length - index]).toHaveTextContent(keyword.name.fi);
-    expect(options[keywords.length - index]).toHaveClass(
+    expect(options[reversedKeywords.length - index]).toHaveTextContent(
+      keyword.name.fi
+    );
+    expect(options[reversedKeywords.length - index]).toHaveClass(
       'autosuggestOption--isFocused'
     );
   });
@@ -163,10 +168,10 @@ test('last item should be focused when opening menu by up arrow', async () => {
   arrowUpKeyPressHelper();
 
   const options = screen.getAllByRole('option');
-  const lastIndex = keywordListResponse.data.keywordList.data.length;
+  const lastIndex = keywords.data.length;
 
   expect(options[lastIndex]).toHaveTextContent(
-    keywordListResponse.data.keywordList.data[lastIndex - 1].name.fi
+    keywords.data[lastIndex - 1].name.fi
   );
   expect(options[lastIndex]).toHaveClass('autosuggestOption--isFocused');
 });
@@ -196,8 +201,8 @@ test('should call onOptionClick by pressing enter', async () => {
 
   expect(onEnter).toBeCalledTimes(2);
   expect(onEnter).toBeCalledWith({
-    text: keywordListResponse.data.keywordList.data[0].name.fi,
+    text: keywords.data[0].name.fi,
     type: AUTOSUGGEST_TYPES.KEYWORD,
-    value: keywordListResponse.data.keywordList.data[0].id,
+    value: keywords.data[0].id,
   });
 });

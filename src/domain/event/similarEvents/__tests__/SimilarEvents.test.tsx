@@ -2,11 +2,19 @@ import { advanceTo } from 'jest-date-mock';
 import React from 'react';
 import wait from 'waait';
 
-import mockEvent from '../../__mocks__/eventDetails';
-import { EventListDocument } from '../../../../generated/graphql';
-import { fakeEvents } from '../../../../util/mockDataUtils';
+import {
+  EventFieldsFragment,
+  EventListDocument,
+} from '../../../../generated/graphql';
+import {
+  fakeEvent,
+  fakeEvents,
+  fakeKeywords,
+} from '../../../../util/mockDataUtils';
 import { act, render, screen } from '../../../../util/testUtils';
 import SimilarEvents from '../SimilarEvents';
+
+const keywordIds = ['yso:1', 'yso:2'];
 
 const variables = {
   combinedText: [],
@@ -14,7 +22,7 @@ const variables = {
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,
-  keyword: ['yso:1', 'yso:2'],
+  keyword: keywordIds,
   keywordAnd: [],
   keywordNot: [],
   language: 'fi',
@@ -27,7 +35,14 @@ const variables = {
   superEventType: ['umbrella', 'none'],
 };
 
-const fakeEventsResponse = fakeEvents(3);
+const event = fakeEvent({
+  keywords: fakeKeywords(
+    keywordIds.length,
+    keywordIds.map((id) => ({ id }))
+  ).data,
+}) as EventFieldsFragment;
+const events = fakeEvents(3);
+const eventsResponse = { data: { eventList: events } };
 
 const mocks = [
   {
@@ -35,21 +50,17 @@ const mocks = [
       query: EventListDocument,
       variables,
     },
-    result: {
-      data: {
-        eventList: fakeEventsResponse,
-      },
-    },
+    result: eventsResponse,
   },
 ];
 
 test('should render similar event cards', async () => {
   advanceTo(new Date('2020-08-11'));
-  render(<SimilarEvents event={mockEvent} />, { mocks });
+  render(<SimilarEvents event={event} />, { mocks });
 
   await act(wait);
 
-  fakeEventsResponse.data.forEach((event) => {
-    expect(screen.getAllByText(event.name.fi as string)).toHaveLength(1);
+  events.data.forEach((event) => {
+    expect(screen.queryByText(event.name.fi as string)).toBeDefined();
   });
 });
