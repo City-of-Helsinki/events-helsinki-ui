@@ -5,7 +5,7 @@ import * as React from 'react';
 import translations from '../../../../common/translation/i18n/fi.json';
 import { OrganizationDetailsDocument } from '../../../../generated/graphql';
 import { fakeOrganization } from '../../../../util/mockDataUtils';
-import { render } from '../../../../util/testUtils';
+import { render, waitFor } from '../../../../util/testUtils';
 import PublisherFilter from '../PublisherFilter';
 
 const id = '1';
@@ -13,14 +13,16 @@ const name = 'Organization name';
 const organization = fakeOrganization({ id, name });
 const organizationResponse = { data: { organizationDetails: organization } };
 
+const request = {
+  query: OrganizationDetailsDocument,
+  variables: {
+    id,
+  },
+};
+
 const mocks = [
   {
-    request: {
-      query: OrganizationDetailsDocument,
-      variables: {
-        id,
-      },
-    },
+    request,
     result: organizationResponse,
   },
 ];
@@ -52,4 +54,28 @@ it('calls onRemove callback when remove button is clicked ', async () => {
 
   expect(onClickMock).toHaveBeenCalled();
   expect(onClickMock).toHaveBeenCalledWith(id, 'publisher');
+});
+
+it("should return null if place doesn't exist", async () => {
+  const mocks = [
+    {
+      request,
+      error: new Error('not found'),
+    },
+  ];
+
+  const { container } = render(
+    <PublisherFilter id={id} onRemove={jest.fn()} />,
+    {
+      mocks,
+    }
+  );
+
+  await waitFor(() => {
+    expect(
+      screen.queryByText(translations.commons.loading)
+    ).not.toBeInTheDocument();
+  });
+
+  expect(container.innerHTML).toBe('');
 });

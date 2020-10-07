@@ -31,7 +31,7 @@ const variables = {
   pageSize: 10,
   publisher: null,
   sort: 'end_time',
-  start: '2020-08-11T03',
+  start: 'now',
   startsAfter: undefined,
   superEventType: ['umbrella', 'none'],
 };

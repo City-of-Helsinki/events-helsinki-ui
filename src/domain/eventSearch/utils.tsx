@@ -1,4 +1,11 @@
-import { addDays, endOfWeek, isPast, startOfWeek, subDays } from 'date-fns';
+import {
+  addDays,
+  endOfWeek,
+  isPast,
+  isToday,
+  startOfWeek,
+  subDays,
+} from 'date-fns';
 import { IconSpeechbubbleText } from 'hds-react';
 import { TFunction } from 'i18next';
 import forEach from 'lodash/forEach';
@@ -126,18 +133,12 @@ const getFilterDates = ({
   }
 
   if (dateTypes.includes(DATE_TYPES.WEEKEND)) {
-    end =
-      end && end > formatDate(sunday, dateFormat)
-        ? end
-        : formatDate(sunday, dateFormat);
+    end = formatDate(sunday, dateFormat);
     start = start && start < saturday ? start : saturday;
   }
 
   if (dateTypes.includes(DATE_TYPES.THIS_WEEK)) {
-    end =
-      end && end > formatDate(sunday, dateFormat)
-        ? end
-        : formatDate(sunday, dateFormat);
+    end = formatDate(sunday, dateFormat);
     start = formatDate(monday, dateFormat);
   }
 
@@ -174,7 +175,6 @@ export const getEventSearchVariables = ({
   sortOrder: EVENT_SORT_OPTIONS;
   superEventType: string[];
 }) => {
-  const dateFormat = 'yyyy-MM-dd';
   const {
     categories,
     dateTypes,
@@ -196,12 +196,12 @@ export const getEventSearchVariables = ({
     startTime: params.get(EVENT_SEARCH_FILTERS.START),
   });
 
-  if (!start || isPast(new Date(start))) {
-    start = getCurrentHour();
+  if (!start || isToday(new Date(start)) || isPast(new Date(start))) {
+    start = 'now';
   }
 
-  if (end && isPast(new Date(end))) {
-    end = formatDate(new Date(), dateFormat);
+  if (end && (isToday(new Date(end)) || isPast(new Date(end)))) {
+    end = 'today';
   }
 
   const mappedDivisions: string[] = divisions.length
