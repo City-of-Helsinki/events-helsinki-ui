@@ -53,7 +53,7 @@ export const getEventIdFromUrl = (url: string): string | null => {
   const trimmedUrl = url.replace(/\?(.*)/, '');
   const eventId = trimmedUrl.match(/event\/(.*)/);
 
-  return eventId?.length ? eventId[1].replace('/', '') : null;
+  return eventId?.[1].replace('/', '') || null;
 };
 
 /**
@@ -96,6 +96,7 @@ export const getEventKeywords = (
     }))
     .filter(
       (keyword, index, arr) =>
+        !!keyword.id &&
         !!keyword.name &&
         !EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
         arr.findIndex(
@@ -183,33 +184,13 @@ const getEventLocationFields = (
 };
 
 /**
- * Get Google link to show event location
- * @param {object} event
- * @param {string} locale
- * @return {string}
- */
-export const getGoogleLink = (
-  event: EventFieldsFragment,
-  locale: Language
-): string => {
-  const {
-    addressLocality,
-    coordinates,
-    postalCode,
-    streetAddress,
-  } = getEventLocationFields(event, locale);
-
-  return `https://www.google.com/maps/place/${streetAddress},+${postalCode}+${addressLocality}/@${coordinates.join(
-    ','
-  )}`.replace(/\s/g, '+');
-};
-
-/**
  * Get palvelukartta compatible id for the location
  * @param {object} location
  * @return {string}
  */
-const getLocationId = (location?: PlaceFieldsFragment | null) => {
+export const getLocationId = (
+  location?: PlaceFieldsFragment | null
+): string => {
   return location?.id ? location?.id.split(':').slice(1).join() : '';
 };
 
