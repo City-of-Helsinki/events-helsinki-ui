@@ -2,6 +2,8 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { advanceTo, clear } from 'jest-date-mock';
 import React from 'react';
+import routeData from 'react-router';
+import { scroller } from 'react-scroll';
 
 import translations from '../../../common/translation/i18n/fi.json';
 import {
@@ -24,8 +26,8 @@ const meta = {
   previous: null,
   __typename: 'Meta',
 };
-const mockEventsResponse = { data: { eventList: { ...fakeEvents(10), meta } } };
-const mockEventsLoadMoreResponse = {
+const eventsResponse = { data: { eventList: { ...fakeEvents(10), meta } } };
+const eventsLoadMoreResponse = {
   data: {
     eventList: {
       ...fakeEvents(10),
@@ -72,7 +74,7 @@ const mocks = [
         ...eventListVariables,
       },
     },
-    result: mockEventsResponse,
+    result: eventsResponse,
   },
   {
     request: {
@@ -82,7 +84,7 @@ const mocks = [
         page: 2,
       },
     },
-    result: mockEventsLoadMoreResponse,
+    result: eventsLoadMoreResponse,
   },
 
   {
@@ -104,24 +106,39 @@ const mocks = [
   },
 ];
 
+jest.mock('react-scroll', () => ({
+  scroller: {
+    scrollTo: jest.fn(),
+  },
+}));
+
 afterAll(() => {
   clear();
 });
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
+const pathname = '/fi/events';
+const search = '?text=jazz';
+const testRoute = `${pathname}${search}`;
+const routes = [testRoute];
 
 it('all the event cards should be visible and load more button should load more events', async () => {
   advanceTo(new Date(2020, 7, 12));
   render(<EventSearchPageContainer />, {
     mocks,
-    routes: ['/fi/events?text=jazz'],
+    routes,
   });
 
   await waitFor(() => {
     expect(
-      screen.getByText(mockEventsResponse.data.eventList.data[0].name.fi)
+      screen.getByText(eventsResponse.data.eventList.data[0].name.fi)
     ).toBeInTheDocument();
   });
 
-  mockEventsResponse.data.eventList.data.forEach((event) => {
+  eventsResponse.data.eventList.data.forEach((event) => {
     expect(screen.getByText(event.name.fi)).toBeInTheDocument();
   });
 
@@ -130,8 +147,8 @@ it('all the event cards should be visible and load more button should load more 
       name: translations.eventSearch.buttonLoadMore.replace(
         '{{count}}',
         (
-          mockEventsResponse.data.eventList.meta.count -
-          mockEventsResponse.data.eventList.data.length
+          eventsResponse.data.eventList.meta.count -
+          eventsResponse.data.eventList.data.length
         ).toString()
       ),
     })
@@ -139,13 +156,76 @@ it('all the event cards should be visible and load more button should load more 
 
   await waitFor(() => {
     expect(
-      screen.getByText(
-        mockEventsLoadMoreResponse.data.eventList.data[0].name.fi
-      )
+      screen.getByText(eventsLoadMoreResponse.data.eventList.data[0].name.fi)
     ).toBeInTheDocument();
   });
 
-  mockEventsLoadMoreResponse.data.eventList.data.forEach((event) => {
+  eventsLoadMoreResponse.data.eventList.data.forEach((event) => {
     expect(screen.getByText(event.name.fi)).toBeInTheDocument();
   });
+});
+
+it('should scroll to event defined in react-router location state', async () => {
+  const mockLocation = {
+    pathname,
+    hash: '',
+    search,
+    state: { eventId: eventsResponse.data.eventList.data[0].id },
+  };
+  jest.spyOn(routeData, 'useLocation').mockReturnValue(mockLocation);
+
+  render(<EventSearchPageContainer />, {
+    mocks,
+    routes: ['/fi/events?text=jazz'],
+  });
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  expect(scroller.scrollTo).toBeCalled();
+});
+
+it('should not scroll to result list on large screen', async () => {
+  const mockLocation = {
+    pathname,
+    hash: '',
+    search,
+    state: { scrollToResults: true },
+  };
+  jest.spyOn(routeData, 'useLocation').mockReturnValue(mockLocation);
+
+  render(<EventSearchPageContainer />, {
+    mocks,
+    routes: ['/fi/events?text=jazz'],
+  });
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  expect(scroller.scrollTo).not.toBeCalled();
+});
+
+it('should scroll to result list on mobile screen', async () => {
+  global.innerWidth = 500;
+
+  const mockLocation = {
+    pathname,
+    hash: '',
+    search,
+    state: { scrollToResults: true },
+  };
+  jest.spyOn(routeData, 'useLocation').mockReturnValue(mockLocation);
+
+  render(<EventSearchPageContainer />, {
+    mocks,
+    routes: ['/fi/events?text=jazz'],
+  });
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  expect(scroller.scrollTo).toBeCalled();
 });
