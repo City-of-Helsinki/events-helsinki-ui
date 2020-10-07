@@ -86,7 +86,6 @@ const mocks = [
     },
     result: eventsLoadMoreResponse,
   },
-
   {
     request: {
       query: NeighborhoodListDocument,
@@ -125,12 +124,15 @@ const search = '?text=jazz';
 const testRoute = `${pathname}${search}`;
 const routes = [testRoute];
 
-it('all the event cards should be visible and load more button should load more events', async () => {
-  advanceTo(new Date(2020, 7, 12));
+const getWrapper = () =>
   render(<EventSearchPageContainer />, {
     mocks,
     routes,
   });
+
+it('all the event cards should be visible and load more button should load more events', async () => {
+  advanceTo(new Date(2020, 7, 12));
+  getWrapper();
 
   await waitFor(() => {
     expect(
@@ -174,10 +176,7 @@ it('should scroll to event defined in react-router location state', async () => 
   };
   jest.spyOn(routeData, 'useLocation').mockReturnValue(mockLocation);
 
-  render(<EventSearchPageContainer />, {
-    mocks,
-    routes: ['/fi/events?text=jazz'],
-  });
+  getWrapper();
 
   await waitFor(() => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
@@ -195,10 +194,7 @@ it('should not scroll to result list on large screen', async () => {
   };
   jest.spyOn(routeData, 'useLocation').mockReturnValue(mockLocation);
 
-  render(<EventSearchPageContainer />, {
-    mocks,
-    routes: ['/fi/events?text=jazz'],
-  });
+  getWrapper();
 
   await waitFor(() => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
@@ -218,10 +214,7 @@ it('should scroll to result list on mobile screen', async () => {
   };
   jest.spyOn(routeData, 'useLocation').mockReturnValue(mockLocation);
 
-  render(<EventSearchPageContainer />, {
-    mocks,
-    routes: ['/fi/events?text=jazz'],
-  });
+  getWrapper();
 
   await waitFor(() => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();

@@ -80,7 +80,7 @@ test('should route to event search page after clicking category', async () => {
   expect(history.location.search).toBe('?categories=culture');
 });
 
-test('should route to event search page after selecting category type and pressing submit button', async () => {
+test('should route to event search page after selecting today date type and pressing submit button', async () => {
   const { history } = render(<LandingPageSearch />, { mocks });
 
   userEvent.click(screen.getByRole('button', { name: /valitse ajankohta/i }));
