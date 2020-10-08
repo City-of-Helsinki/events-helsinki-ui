@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+import { MockedResponse } from '@apollo/react-testing';
 import { advanceTo, clear } from 'jest-date-mock';
 import React from 'react';
 
@@ -61,7 +63,7 @@ const variables = {
   superEventType: ['umbrella', 'none'],
 };
 
-const mocks = [
+const commonMocks = [
   {
     request: {
       query: EventListDocument,
@@ -69,6 +71,10 @@ const mocks = [
     },
     result: eventsResponse,
   },
+];
+
+const defaultMocks = [
+  ...commonMocks,
   {
     request: {
       query: EventListDocument,
@@ -82,15 +88,17 @@ afterAll(() => {
   clear();
 });
 
+const getWrapper = (
+  collection: CollectionFieldsFragment,
+  mocks: MockedResponse[] = defaultMocks
+) => render(<EventList collection={collection} />, { mocks });
+
 test('should show event list correctly', async () => {
   advanceTo('2020-10-03');
   const collection = fakeCollection({
     eventListTitle: { fi: eventListTitle },
   }) as CollectionFieldsFragment;
-
-  render(<EventList collection={collection} />, {
-    mocks,
-  });
+  getWrapper(collection);
 
   await waitFor(() => {
     expect(
@@ -117,6 +125,43 @@ test('should show event list correctly', async () => {
   });
 });
 
+test('should call console.error if loading next page fails', async () => {
+  console.error = jest.fn();
+  advanceTo('2020-10-03');
+  const mocks = [
+    ...commonMocks,
+    {
+      request: {
+        query: EventListDocument,
+        variables: { ...variables, page: 2 },
+      },
+      error: new Error('not found'),
+    },
+  ];
+  const collection = fakeCollection({
+    eventListTitle: { fi: eventListTitle },
+  }) as CollectionFieldsFragment;
+  getWrapper(collection, mocks);
+
+  await waitFor(() => {
+    expect(
+      screen.queryByRole('heading', { name: eventListTitle })
+    ).toBeInTheDocument();
+  });
+
+  userEvent.click(
+    screen.getByRole('button', {
+      name: translations.eventSearch.buttonLoadMore.replace('{{count}}', '10'),
+    })
+  );
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  expect(console.error).toBeCalled();
+});
+
 test('should not show event list when eventListQuery is empty string', async () => {
   advanceTo('2020-10-03');
 
@@ -125,9 +170,7 @@ test('should not show event list when eventListQuery is empty string', async () 
     eventListTitle: { fi: eventListTitle },
   }) as CollectionFieldsFragment;
 
-  render(<EventList collection={collection} />, {
-    mocks,
-  });
+  getWrapper(collection);
 
   await waitFor(() => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();

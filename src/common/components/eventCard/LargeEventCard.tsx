@@ -38,6 +38,7 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
   const {
     endTime,
     imageUrl,
+    name,
     offerInfoUrl,
     placeholderImage,
     startTime,
@@ -80,6 +81,9 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
 
   return (
     <Link
+      aria-label={t('commons.eventCard.ariaLabelLink', {
+        name,
+      })}
       className={classNames(styles.eventCard, {
         [styles.eventClosed]: eventClosed,
       })}

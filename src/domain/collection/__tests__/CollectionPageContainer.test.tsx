@@ -55,7 +55,7 @@ it('component should be accessible', async () => {
   expect(await axe(container)).toHaveNoViolations();
 });
 
-it('should show PreviewBanner if draft version is requested ', async () => {
+it('should show PreviewBanner if draft version is requested', async () => {
   const mocks = getMocks(collection, true);
   renderWithRoute(<CollectionPageContainer />, {
     mocks,

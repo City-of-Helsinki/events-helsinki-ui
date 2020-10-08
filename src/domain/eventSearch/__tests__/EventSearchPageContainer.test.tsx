@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+import { MockedResponse } from '@apollo/react-testing';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { advanceTo, clear } from 'jest-date-mock';
@@ -66,7 +68,7 @@ const placesResponse = {
   },
 };
 
-const mocks = [
+const commonMocks = [
   {
     request: {
       query: EventListDocument,
@@ -75,16 +77,6 @@ const mocks = [
       },
     },
     result: eventsResponse,
-  },
-  {
-    request: {
-      query: EventListDocument,
-      variables: {
-        ...eventListVariables,
-        page: 2,
-      },
-    },
-    result: eventsLoadMoreResponse,
   },
   {
     request: {
@@ -105,18 +97,22 @@ const mocks = [
   },
 ];
 
-jest.mock('react-scroll', () => ({
-  scroller: {
-    scrollTo: jest.fn(),
+const defaultMocks = [
+  ...commonMocks,
+  {
+    request: {
+      query: EventListDocument,
+      variables: {
+        ...eventListVariables,
+        page: 2,
+      },
+    },
+    result: eventsLoadMoreResponse,
   },
-}));
+];
 
 afterAll(() => {
   clear();
-});
-
-afterEach(() => {
-  jest.clearAllMocks();
 });
 
 const pathname = '/fi/events';
@@ -124,7 +120,7 @@ const search = '?text=jazz';
 const testRoute = `${pathname}${search}`;
 const routes = [testRoute];
 
-const getWrapper = () =>
+const getWrapper = (mocks: MockedResponse[] = defaultMocks) =>
   render(<EventSearchPageContainer />, {
     mocks,
     routes,
@@ -167,7 +163,49 @@ it('all the event cards should be visible and load more button should load more 
   });
 });
 
+it('should show console.error messa when loading next event page fails', async () => {
+  console.error = jest.fn();
+  const mocks = [
+    ...commonMocks,
+    {
+      request: {
+        query: EventListDocument,
+        variables: {
+          ...eventListVariables,
+          page: 2,
+        },
+      },
+      error: new Error('not found'),
+    },
+  ];
+
+  getWrapper(mocks);
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  userEvent.click(
+    screen.getByRole('button', {
+      name: translations.eventSearch.buttonLoadMore.replace(
+        '{{count}}',
+        (
+          eventsResponse.data.eventList.meta.count -
+          eventsResponse.data.eventList.data.length
+        ).toString()
+      ),
+    })
+  );
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  expect(console.error).toBeCalled();
+});
+
 it('should scroll to event defined in react-router location state', async () => {
+  scroller.scrollTo = jest.fn();
   const mockLocation = {
     pathname,
     hash: '',
@@ -186,6 +224,7 @@ it('should scroll to event defined in react-router location state', async () => 
 });
 
 it('should not scroll to result list on large screen', async () => {
+  scroller.scrollTo = jest.fn();
   const mockLocation = {
     pathname,
     hash: '',
@@ -205,6 +244,7 @@ it('should not scroll to result list on large screen', async () => {
 
 it('should scroll to result list on mobile screen', async () => {
   global.innerWidth = 500;
+  scroller.scrollTo = jest.fn();
 
   const mockLocation = {
     pathname,

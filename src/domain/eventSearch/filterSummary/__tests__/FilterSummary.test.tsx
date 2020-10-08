@@ -124,7 +124,7 @@ it('test for accessibility violations', async () => {
   expect(results).toHaveNoViolations();
 });
 
-it('calls onClear callback when clear button is clicked ', async () => {
+it('calls onClear callback when clear button is clicked', async () => {
   const onClear = jest.fn();
   render(<FilterSummary onClear={onClear} />, {
     mocks,
@@ -143,7 +143,7 @@ it('calls onClear callback when clear button is clicked ', async () => {
   expect(onClear).toBeCalledTimes(1);
 });
 
-it('routes to correct url after deleting filters ', async () => {
+it('routes to correct url after deleting filters', async () => {
   const { history } = render(<FilterSummary onClear={jest.fn()} />, {
     mocks,
     routes,

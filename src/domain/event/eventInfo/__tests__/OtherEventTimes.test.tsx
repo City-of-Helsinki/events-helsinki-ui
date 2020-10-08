@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+import { MockedResponse } from '@apollo/react-testing';
 import { addDays } from 'date-fns';
 import { advanceTo, clear } from 'jest-date-mock';
 import range from 'lodash/range';
@@ -19,7 +21,7 @@ const endTime = '2020-10-01T18:00:00Z';
 const superEventId = 'hel:123';
 const superEventInternalId = `https://api.hel.fi/linkedevents/v1/event/${superEventId}`;
 
-const mockEvent = fakeEvent({
+const event = fakeEvent({
   superEvent: { internalId: superEventInternalId },
 }) as EventFieldsFragment;
 
@@ -68,7 +70,7 @@ const variables = {
   superEvent: superEventId,
 };
 
-const mocks = [
+const commonMocks = [
   {
     request: {
       query: EventListDocument,
@@ -76,6 +78,10 @@ const mocks = [
     },
     result: otherEventsResponse,
   },
+];
+
+const defaultMocks = [
+  ...commonMocks,
   {
     request: {
       query: EventListDocument,
@@ -89,9 +95,12 @@ afterAll(() => {
   clear();
 });
 
+const getWrapper = (mocks: MockedResponse[] = defaultMocks) =>
+  render(<OtherEventTimesEvents event={event} />, { mocks });
+
 test('should render other event times', async () => {
   advanceTo(new Date('2020-08-11'));
-  render(<OtherEventTimesEvents event={mockEvent} />, { mocks });
+  getWrapper();
 
   const toggleButton = screen.getByRole('button', {
     name: translations.event.otherTimes.buttonShow,
@@ -131,11 +140,42 @@ test('should render other event times', async () => {
   });
 });
 
+test('should call console.error when loading next event page fails', async () => {
+  console.error = jest.fn();
+  advanceTo(new Date('2020-08-11'));
+  const mocks = [
+    ...commonMocks,
+    {
+      request: {
+        query: EventListDocument,
+        variables: { ...variables, page: 2 },
+      },
+      error: new Error('not found'),
+    },
+  ];
+  getWrapper(mocks);
+
+  const toggleButton = screen.getByRole('button', {
+    name: translations.event.otherTimes.buttonShow,
+  });
+
+  userEvent.click(toggleButton);
+
+  // Have to wait loading spinner twice to get error
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  expect(console.error).toBeCalled();
+});
+
 test('should go to event page of other event time', async () => {
   advanceTo(new Date('2020-08-11'));
-  const { history } = render(<OtherEventTimesEvents event={mockEvent} />, {
-    mocks,
-  });
+  const { history } = getWrapper();
 
   const toggleButton = screen.getByRole('button', {
     name: translations.event.otherTimes.buttonShow,

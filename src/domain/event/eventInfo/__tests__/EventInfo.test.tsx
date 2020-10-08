@@ -68,8 +68,6 @@ const event = fakeEvent({
   offers: [fakeOffer({ isFree: false, price: { fi: price } })],
 }) as EventFieldsFragment;
 
-jest.mock('file-saver', () => ({ saveAs: jest.fn() }));
-
 it('should render event info fields', async () => {
   render(<EventInfo event={event} />, { mocks });
   await actWait();
@@ -188,7 +186,23 @@ it('should open ticket buy page', async () => {
 });
 
 it('should create ics file succesfully', async () => {
+  FileSaver.saveAs = jest.fn();
   render(<EventInfo event={event} />, { mocks });
+  await actWait();
+
+  // Event info fields
+  userEvent.click(
+    screen.queryByRole('button', {
+      name: translations.event.info.buttonAddToCalendar,
+    })
+  );
+
+  expect(FileSaver.saveAs).toBeCalled();
+});
+
+it('should create ics file succesfully when end time is not defined', async () => {
+  FileSaver.saveAs = jest.fn();
+  render(<EventInfo event={{ ...event, endTime: null }} />, { mocks });
   await actWait();
 
   // Event info fields

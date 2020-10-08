@@ -124,7 +124,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
           {loading
             ? t('eventSearch.ariaLiveLoading')
             : t('eventSearch.ariaLiveSearchReady', {
-                count: eventsData?.eventList.meta.count || 0,
+                count: eventsData?.eventList.meta.count,
               })}
         </SrOnly>
         <LoadingSpinner isLoading={!isFetchingMore && loading}>

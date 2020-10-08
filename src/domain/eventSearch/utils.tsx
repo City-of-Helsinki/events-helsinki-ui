@@ -214,34 +214,36 @@ export const getEventSearchVariables = ({
     keywordAnd.push('yso:p4354');
   }
 
-  const mappedCategories: string[] = categories.map((category) => {
-    switch (category) {
-      case CATEGORIES.CULTURE:
-        return CULTURE_KEYWORDS.join(',');
-      case CATEGORIES.DANCE:
-        return 'yso:p1278';
-      case CATEGORIES.FOOD:
-        return 'yso:p3670';
-      case CATEGORIES.INFLUENCE:
-        return INFLUENCE_KEYWORDS.join(',');
-      case CATEGORIES.MISC:
-        return 'yso:p2108';
-      case CATEGORIES.MOVIE:
-        return 'yso:p1235';
-      case CATEGORIES.MUSEUM:
-        return MUSEUM_KEYWORDS.join(',');
-      case CATEGORIES.MUSIC:
-        return 'yso:p1808';
-      case CATEGORIES.NATURE:
-        return 'yso:p2771';
-      case CATEGORIES.SPORT:
-        return 'yso:p965';
-      case CATEGORIES.THEATRE:
-        return 'yso:p2625';
-      default:
-        return '';
-    }
-  });
+  const mappedCategories: string[] = categories
+    .map((category) => {
+      switch (category) {
+        case CATEGORIES.CULTURE:
+          return CULTURE_KEYWORDS.join(',');
+        case CATEGORIES.DANCE:
+          return 'yso:p1278';
+        case CATEGORIES.FOOD:
+          return 'yso:p3670';
+        case CATEGORIES.INFLUENCE:
+          return INFLUENCE_KEYWORDS.join(',');
+        case CATEGORIES.MISC:
+          return 'yso:p2108';
+        case CATEGORIES.MOVIE:
+          return 'yso:p1235';
+        case CATEGORIES.MUSEUM:
+          return MUSEUM_KEYWORDS.join(',');
+        case CATEGORIES.MUSIC:
+          return 'yso:p1808';
+        case CATEGORIES.NATURE:
+          return 'yso:p2771';
+        case CATEGORIES.SPORT:
+          return 'yso:p965';
+        case CATEGORIES.THEATRE:
+          return 'yso:p2625';
+        default:
+          return '';
+      }
+    })
+    .filter((e) => e);
 
   // Combine and add keywords
 

@@ -1,15 +1,18 @@
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
+import { EventFieldsFragment } from '../../../../generated/graphql';
 import { fakeEvent } from '../../../../util/mockDataUtils';
 import { render, screen } from '../../../../util/testUtils';
 import translations from '../../../translation/i18n/fi.json';
 import LargeEventCard from '../LargeEventCard';
 
-const getWrapper = (props) => render(<LargeEventCard {...props} />);
+const getWrapper = (event: EventFieldsFragment) =>
+  render(<LargeEventCard event={event} />);
 
 test('should show buy button when event has an offer', () => {
-  const mockEvent = fakeEvent({
+  global.open = jest.fn();
+  const event = fakeEvent({
     offers: [
       {
         infoUrl: {
@@ -17,16 +20,21 @@ test('should show buy button when event has an offer', () => {
         },
       },
     ],
-  });
-  const { queryByText } = getWrapper({
-    event: mockEvent,
+  }) as EventFieldsFragment;
+  getWrapper(event);
+
+  const button = screen.queryByRole('button', {
+    name: /osta liput - linkki avautuu uudessa ikkunassa/i,
   });
 
-  expect(queryByText('Osta liput')).not.toEqual(null);
+  expect(button).toBeInTheDocument();
+
+  userEvent.click(button);
+  expect(global.open).toBeCalledWith('https://example.domain');
 });
 
 test('should hide buy button when event is free', () => {
-  const mockEvent = fakeEvent({
+  const event = fakeEvent({
     offers: [
       {
         infoUrl: {
@@ -35,16 +43,18 @@ test('should hide buy button when event is free', () => {
         isFree: true,
       },
     ],
-  });
-  const { queryByText } = getWrapper({
-    event: mockEvent,
-  });
+  }) as EventFieldsFragment;
+  getWrapper(event);
 
-  expect(queryByText('Osta liput')).toEqual(null);
+  expect(
+    screen.queryByRole('button', {
+      name: /osta liput - linkki avautuu uudessa ikkunassa/i,
+    })
+  ).not.toBeInTheDocument();
 });
 
 test('should hide buy button when event is closed', () => {
-  const mockEvent = fakeEvent({
+  const event = fakeEvent({
     endTime: '2017-01-01',
     offers: [
       {
@@ -54,36 +64,50 @@ test('should hide buy button when event is closed', () => {
       },
     ],
     startTime: '2017-01-01',
-  });
+  }) as EventFieldsFragment;
 
-  const { queryByText } = getWrapper({
-    event: mockEvent,
-  });
+  getWrapper(event);
 
-  expect(queryByText('Osta liput')).toEqual(null);
+  expect(
+    screen.queryByRole('button', {
+      name: /osta liput - linkki avautuu uudessa ikkunassa/i,
+    })
+  ).not.toBeInTheDocument();
 });
 
 test('should go to event page', () => {
-  const mockEvent = fakeEvent({
+  const event = fakeEvent({
     id: '123',
-    endTime: '2017-01-01',
-    offers: [
-      {
-        infoUrl: {
-          fi: 'https://example.domain',
-        },
-      },
-    ],
-    startTime: '2017-01-01',
-  });
+  }) as EventFieldsFragment;
 
-  const { history } = getWrapper({ event: mockEvent });
+  const { history } = getWrapper(event);
 
   expect(history.location.pathname).toEqual('/');
 
   userEvent.click(
     screen.getByRole('button', {
       name: translations.eventSearch.event.buttonReadMore,
+    })
+  );
+
+  expect(history.location.pathname).toEqual('/fi/event/123');
+});
+
+test('should go to event page by clicking event card', () => {
+  const event = fakeEvent({
+    id: '123',
+  }) as EventFieldsFragment;
+
+  const { history } = getWrapper(event);
+
+  expect(history.location.pathname).toEqual('/');
+
+  userEvent.click(
+    screen.queryByRole('link', {
+      name: translations.commons.eventCard.ariaLabelLink.replace(
+        '{{name}}',
+        event.name.fi
+      ),
     })
   );
 

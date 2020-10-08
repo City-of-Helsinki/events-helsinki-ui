@@ -7,7 +7,7 @@ import {
   DEFAULT_SEARCH_FILTERS,
   EVENT_SORT_OPTIONS,
 } from '../constants';
-import { getEventSearchVariables, getSearchQuery } from '../utils';
+import { getEventSearchVariables, getNextPage, getSearchQuery } from '../utils';
 
 afterAll(() => {
   clear();
@@ -114,6 +114,12 @@ describe('getEventSearchVariables function', () => {
       params: new URLSearchParams(`?categories=${CATEGORIES.THEATRE}`),
     });
     expect(keyword11).toContain('yso:p2625');
+
+    const { keyword: keyword12 } = getEventSearchVariables({
+      ...defaultParams,
+      params: new URLSearchParams(`?categories=not_found`),
+    });
+    expect(keyword12).toEqual([]);
   });
 
   it('should return correct keywordAnd if onlyChildrenEvents is selected', () => {
@@ -213,5 +219,34 @@ describe('getEventSearchVariables function', () => {
       params: new URLSearchParams(`?divisions=kunta:espoo`),
     });
     expect(division).toContain('kunta:espoo');
+  });
+});
+
+describe('getNextPage function', () => {
+  it('should return next page', () => {
+    expect(
+      getNextPage({
+        count: 0,
+        next: 'http://localhost:3000?page=2',
+        previous: null,
+      })
+    ).toBe(2);
+    expect(
+      getNextPage({
+        count: 0,
+        next: 'http://localhost:3000?text=value&page=2',
+        previous: null,
+      })
+    ).toBe(2);
+  });
+
+  it('should return null', () => {
+    expect(
+      getNextPage({
+        count: 0,
+        next: 'http://localhost:3000?text=value',
+        previous: null,
+      })
+    ).toBeNull();
   });
 });

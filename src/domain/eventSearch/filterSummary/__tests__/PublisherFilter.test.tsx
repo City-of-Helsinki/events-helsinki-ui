@@ -37,7 +37,7 @@ test('matches snapshot', async () => {
   expect(container.firstChild).toMatchSnapshot();
 });
 
-it('calls onRemove callback when remove button is clicked ', async () => {
+it('calls onRemove callback when remove button is clicked', async () => {
   const onClickMock = jest.fn();
   render(<PublisherFilter id={id} onRemove={onClickMock} />, { mocks });
 
