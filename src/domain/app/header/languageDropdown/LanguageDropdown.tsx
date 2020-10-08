@@ -3,8 +3,8 @@ import { IconAngleDown, IconGlobe } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
-import { Language } from '../../../types';
+import useKeyboardNavigation from '../../../../hooks/useDropdownKeyboardNavigation';
+import { Language } from '../../../../types';
 import styles from './languageDropdown.module.scss';
 
 type LanguageOption = {
@@ -25,36 +25,35 @@ const ListItem: React.FC<{
   };
 
   React.useEffect(() => {
-    if (isFocused && component.current) {
-      if (component.current) {
-        component.current.focus();
-      }
+    if (isFocused) {
+      component.current?.focus();
     }
   }, [isFocused]);
 
   return (
-    <li
-      key={option.value}
-      className={classNames({
-        [styles.isFocused]: isFocused,
-        [styles.isSelected]: isSelected,
-      })}
-      role="menuitem"
-    >
-      <button ref={component} lang={option.value} onClick={handleOptionClick}>
+    <li key={option.value} role="menuitem">
+      <button
+        ref={component}
+        className={classNames({
+          [styles.isFocused]: isFocused,
+          [styles.isSelected]: isSelected,
+        })}
+        lang={option.value}
+        onClick={handleOptionClick}
+      >
         {option.label}
       </button>
     </li>
   );
 };
 
-interface Props {
+export interface LanguageDropdownProps {
   languageOptions: LanguageOption[];
   onChange: (language: Language) => void;
   value: Language;
 }
 
-const LanguageDropdown: React.FC<Props> = ({
+const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
   languageOptions,
   onChange,
   value,
@@ -111,10 +110,10 @@ const LanguageDropdown: React.FC<Props> = ({
 
   const onDocumentClick = (event: MouseEvent) => {
     const target = event.target;
-    const current = container && container.current;
+    const current = container.current;
 
     // Close menu when clicking outside of the component
-    if (!(current && target instanceof Node && current.contains(target))) {
+    if (!(target instanceof Node && current?.contains(target))) {
       setIsMenuOpen(false);
     }
   };
@@ -129,17 +128,15 @@ const LanguageDropdown: React.FC<Props> = ({
 
   const onDocumentFocusin = React.useCallback((event: FocusEvent) => {
     const target = event.target;
-    const current = container && container.current;
+    const current = container.current;
 
-    if (!(current && target instanceof Node && current.contains(target))) {
+    if (!(target instanceof Node && current?.contains(target))) {
       setIsMenuOpen(false);
     }
   }, []);
 
   const setFocusToButton = () => {
-    if (toggleButton.current) {
-      toggleButton.current.focus();
-    }
+    toggleButton.current?.focus();
   };
 
   React.useEffect(() => {
@@ -156,16 +153,10 @@ const LanguageDropdown: React.FC<Props> = ({
   }, [onDocumentFocusin, setupKeyboardNav, teardownKeyboardNav]);
 
   return (
-    <div
-      data-testid="language-dropdown"
-      className={classNames(styles.languageDropdown, {
-        [styles.isMenuOpen]: isMenuOpen,
-      })}
-      ref={container}
-    >
+    <div ref={container} className={styles.languageDropdown}>
       <button
+        id="languageDropdown-button"
         ref={toggleButton}
-        data-testid="language-dropdown-button"
         aria-haspopup="true"
         aria-expanded={isMenuOpen}
         aria-label={t('header.changeLanguage')}
@@ -175,22 +166,30 @@ const LanguageDropdown: React.FC<Props> = ({
         <IconGlobe className={styles.iconLanguage} />
         <div className={styles.textWrapper}>
           {value.toUpperCase()}
-          <IconAngleDown className={styles.iconAngleDown} />
+          <IconAngleDown
+            className={isMenuOpen ? styles.iconAngleUp : styles.iconAngleDown}
+          />
         </div>
       </button>
-      <ul role="menu" className={styles.languageDropdownMenu}>
-        {languageOptions.map((option, index) => {
-          return (
-            <ListItem
-              key={option.value}
-              isFocused={focusedIndex === index}
-              isSelected={option.value === value}
-              onOptionClick={handleOptionClick}
-              option={option}
-            />
-          );
-        })}
-      </ul>
+      {isMenuOpen && (
+        <ul
+          aria-labelledby="languageDropdown-button"
+          role="listbox"
+          className={styles.languageDropdownMenu}
+        >
+          {languageOptions.map((option, index) => {
+            return (
+              <ListItem
+                key={option.value}
+                isFocused={focusedIndex === index}
+                isSelected={option.value === value}
+                onOptionClick={handleOptionClick}
+                option={option}
+              />
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 };

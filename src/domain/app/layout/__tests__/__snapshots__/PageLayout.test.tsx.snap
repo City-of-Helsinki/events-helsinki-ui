@@ -106,14 +106,13 @@ exports[`matched snapshot 1`] = `
         </div>
         <div
           class="languageDropdown"
-          data-testid="language-dropdown"
         >
           <button
             aria-expanded="false"
             aria-haspopup="true"
             aria-label="Suomi - kielivalikko"
             class="languageDropdownButton"
-            data-testid="language-dropdown-button"
+            id="languageDropdown-button"
           >
             <svg
               class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik iconLanguage"
@@ -157,41 +156,6 @@ exports[`matched snapshot 1`] = `
               </svg>
             </div>
           </button>
-          <ul
-            class="languageDropdownMenu"
-            role="menu"
-          >
-            <li
-              class="isSelected"
-              role="menuitem"
-            >
-              <button
-                lang="fi"
-              >
-                Suomeksi
-              </button>
-            </li>
-            <li
-              class=""
-              role="menuitem"
-            >
-              <button
-                lang="sv"
-              >
-                På svenska
-              </button>
-            </li>
-            <li
-              class=""
-              role="menuitem"
-            >
-              <button
-                lang="en"
-              >
-                In English
-              </button>
-            </li>
-          </ul>
         </div>
       </div>
     </div>

@@ -4,7 +4,6 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 
-import LanguageDropdown from '../../../../common/components/languageDropdown/LanguageDropdown';
 import IconLink from '../../../../common/components/link/IconLink';
 import { updateLocaleParam } from '../../../../common/route/RouteUtils';
 import { getCurrentLanguage } from '../../../../common/translation/TranslationUtils';
@@ -13,6 +12,7 @@ import useLocale from '../../../../hooks/useLocale';
 import { Language } from '../../../../types';
 import scrollToTop from '../../../../util/scrollToTop';
 import { ROUTES } from '../../constants';
+import LanguageDropdown from '../languageDropdown/LanguageDropdown';
 import styles from './navbar.module.scss';
 
 const Navbar: React.FC = () => {
