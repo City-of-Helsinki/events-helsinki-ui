@@ -1,9 +1,9 @@
-@import "colors";
+@import 'colors';
 
 .dateSelector {
   position: relative;
-  background: $hel-white;
-  
+  background: var(--color-white);
+
   box-sizing: border-box;
 
   .button {
@@ -18,7 +18,7 @@
     align-items: center;
 
     &:focus {
-      outline: 2px solid $hel-black;
+      outline: 2px solid var(--color-black);
       outline-offset: -2px;
     }
   }
@@ -39,7 +39,7 @@
   .info {
     flex: 1 1 0%;
     text-align: left;
-    color: $hel-black;
+    color: var(--color-black);
     position: relative;
     height: 1.25rem;
 
@@ -58,7 +58,7 @@
   .arrowWrapper {
     display: flex;
     align-self: center;
-    
+
     svg {
       margin-left: 0.75rem;
       pointer-events: none;

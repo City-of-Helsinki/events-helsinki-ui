@@ -1,5 +1,5 @@
-@import "colors";
-@import "fonts";
+@import 'colors';
+@import 'fonts';
 
 .link {
   display: flex;
@@ -18,7 +18,7 @@
   }
 
   &:focus {
-    outline: 2px solid $hel-black;
+    outline: 2px solid var(--color-black);
   }
 
   svg {
@@ -36,14 +36,14 @@
 }
 
 .whiteColor {
-  color: $hel-white;
+  color: var(--color-white);
 
   svg {
-    fill: $hel-white;
+    fill: var(--color-white);
   }
 
   &:focus {
-    outline-color: $hel-white;
+    outline-color: var(--color-white);
   }
 }
 

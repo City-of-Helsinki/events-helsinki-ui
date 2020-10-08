@@ -1,7 +1,6 @@
-@import "colors";
-@import "fonts";
-@import "layout";
-@import "variables";
+@import 'fonts';
+@import 'layout';
+@import 'variables';
 
 $buttonWidth: 180px;
 $gridGapSmall: 0.625rem;
@@ -9,8 +8,8 @@ $gridGapMedium: $basePadding;
 $gridGapLarge: $largePadding;
 
 .searchContainer {
-  color: $hel-black;
-  background-color: $hel-copper-light-20;
+  color: var(--color-black);
+  background-color: var(--color-copper-light-20);
   padding: 2.375rem 0 1.5rem 0;
   position: relative;
 
@@ -75,7 +74,7 @@ $gridGapLarge: $largePadding;
     }
     @include respond-above(sm) {
       margin-top: 0;
-    }    
+    }
   }
 
   .dateSelectorWrapper {

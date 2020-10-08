@@ -1,8 +1,7 @@
-@import 'colors';
 @import 'layout';
 
 .errorHero {
-  background-color: $hel-copper-light-20;
+  background-color: var(--color-copper-light-20);
   text-align: center;
   align-self: center;
 
@@ -33,9 +32,9 @@
 
   a {
     padding: 1rem 2rem;
-    border: 2px solid $hel-black;
+    border: 2px solid var(--color-black);
     text-decoration: none;
-    color: $hel-black;
+    color: var(--color-black);
     font-size: 1rem;
     font-weight: bold;
 
@@ -52,7 +51,7 @@
 }
 
 .koros {
-  fill: $hel-copper-light-20;
+  fill: var(--color-copper-light-20);
   margin-bottom: 10rem;
 
   &.smallMargin {

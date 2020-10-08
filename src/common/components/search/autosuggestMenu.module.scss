@@ -1,8 +1,8 @@
-@import "colors";
+@import 'colors';
 
 .autosuggestMenu {
   position: absolute;
-  background: $hel-white;
+  background: var(--color-white);
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
   min-height: 20px;
   right: 0;
@@ -29,7 +29,7 @@
         margin: 0;
       }
       &:focus {
-        outline: 2px solid $hel-black;
+        outline: 2px solid var(--color-black);
         outline-offset: 2px;
       }
     }
@@ -69,19 +69,19 @@
 
       .text {
         padding: 0.875rem;
-        color: $hel-black;
+        color: var(--color-black);
       }
     }
   }
 
   .autosuggestOption--isFocused {
-    background-color: $hel-fog;
+    background-color: var(--color-fog);
   }
 
   .autosuggestOption--district {
     .colorIndicator {
-      background-color: $hel-metro;
-    } 
+      background-color: var(--color-metro);
+    }
 
     .icon {
       display: flex;
@@ -89,7 +89,7 @@
       justify-content: center;
 
       svg {
-        margin: 0
+        margin: 0;
       }
     }
   }

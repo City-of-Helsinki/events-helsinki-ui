@@ -1,12 +1,10 @@
-@import "colors";
-
 .iconLink {
   display: inline-flex;
   text-decoration: none;
-  color: $hel-black;
+  color: var(--color-black);
 
   .iconWrapper {
-    background-color: $hel-copper-light-20;
+    background-color: var(--color-copper-light-20);
     height: 2.5rem;
     width: 2.5rem;
     display: flex;
@@ -28,7 +26,7 @@
 
   &.white {
     .iconWrapper {
-      background-color: $hel-white;
+      background-color: var(--color-white);
     }
   }
 }

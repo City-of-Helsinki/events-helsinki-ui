@@ -1,9 +1,7 @@
-@import "colors";
-
 .noResultsInfo {
   .iconWrapper {
     text-align: center;
-    margin-bottom: 1.5rem;;
+    margin-bottom: 1.5rem;
 
     svg {
       height: 3rem;
@@ -12,18 +10,18 @@
   }
 
   .bigText {
-    color: $hel-black-90;
+    color: var(--color-black-90);
     font-size: 1.5rem;
     font-weight: 600;
     line-height: 2rem;
     text-align: center;
     max-width: 31.5rem;
     margin: auto;
-    margin-bottom: 1.5rem;;
+    margin-bottom: 1.5rem;
   }
 
   .smallText {
-    color: $hel-black-90;
+    color: var(--color-black-90);
     font-size: 1rem;
     font-weight: normal;
     text-align: center;

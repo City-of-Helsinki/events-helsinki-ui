@@ -14,7 +14,7 @@
   &.menuOpen {
     top: 3.125rem;
     bottom: 0;
-    background-color: $hel-white;
+    background-color: var(--color-white);
     transition: background-color 0.5s;
     z-index: 2;
     visibility: unset;
@@ -28,7 +28,7 @@
     }
 
     .link {
-      background-color: $hel-copper-light-20;
+      background-color: var(--color-copper-light-20);
       padding: var(--spacing-m) var(--spacing-l);
       margin-bottom: var(--spacing-2-xs);
 

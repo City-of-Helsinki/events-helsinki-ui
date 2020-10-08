@@ -7,7 +7,7 @@ $logoWidth: 9.5rem;
 $logoWidthSv: 12.625rem;
 
 .topFooterWrapper {
-  background-color: $hel-engel-light-50;
+  background-color: var(--color-engel-light-50);
   padding: 3.75rem 0 5rem;
   display: grid;
   align-items: center;

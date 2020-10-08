@@ -1,13 +1,13 @@
-@import "colors";
-@import "fonts";
-@import "layout";
-@import "variables";
+@import 'colors';
+@import 'fonts';
+@import 'layout';
+@import 'variables';
 
 $heroHeight: 34.5rem;
-$heroHeightDesktop: 39.3125rem; 
+$heroHeightDesktop: 39.3125rem;
 
 .eventClosedHero {
-  background: $hel-copper-light-20;
+  background: var(--color-copper-light-20);
   min-height: $heroHeight;
   margin-bottom: -12rem;
   padding: 5.625rem $baseMargin 10rem;

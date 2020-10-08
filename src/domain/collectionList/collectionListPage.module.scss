@@ -1,9 +1,9 @@
-@import "colors";
-@import "layout";
+@import 'colors';
+@import 'layout';
 
 .largeCardWrapper {
   padding-bottom: 5rem;
-  background-color: $hel-copper-light-20;
+  background-color: var(--color-copper-light-20);
 
   @include respond_above(sm) {
     padding-bottom: 12rem;

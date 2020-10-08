@@ -1,9 +1,9 @@
-@import "colors";
+@import 'colors';
 
 .searchAutosuggest {
   position: relative;
   min-height: 3.375rem;
-  background: $hel-white;
+  background: var(--color-white);
   display: flex;
   padding: 0 1rem;
   align-items: center;
@@ -11,14 +11,13 @@
 
   .iconWrapper {
     display: flex;
-    align-self: center; 
+    align-self: center;
     color: var(--color-black);
   }
 
   svg {
     margin-right: 1rem;
   }
-  
 
   .inputWrapper {
     flex: 1 1 0%;

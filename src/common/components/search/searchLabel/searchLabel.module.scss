@@ -1,18 +1,17 @@
-@import "colors";
-@import "fonts";
+@import 'fonts';
 
 .searchLabel {
-  color: $hel-white;
+  color: var(--color-white);
   font-weight: $label-font-weight;
   line-height: 1.5;
 }
 
 .black {
-  color: $hel-black;
+  color: var(--color-black);
 }
 
 .white {
-  color: $hel-white;
+  color: var(--color-white);
 }
 
 .srOnly {
@@ -22,6 +21,6 @@
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   border: 0;
 }

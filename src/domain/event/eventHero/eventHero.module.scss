@@ -1,4 +1,3 @@
-@import 'colors';
 @import 'layout';
 @import 'variables';
 
@@ -91,10 +90,10 @@ $logoWidth: 5.5rem;
       margin-top: 0.25rem;
       font-size: 1.375rem;
       line-height: 2rem;
-      color: $hel-black-70;
+      color: var(--color-black-70);
 
       @include respond_above(sm) {
-        color: $hel-black;
+        color: var(--color-black);
       }
     }
 

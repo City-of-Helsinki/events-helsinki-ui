@@ -1,7 +1,6 @@
-@import "colors";
-@import "fonts";
-@import "layout";
-@import "variables";
+@import 'fonts';
+@import 'layout';
+@import 'variables';
 
 .filterSummary {
   margin-bottom: 0.625rem;
@@ -12,7 +11,7 @@
 
   .clearButton {
     padding: 0;
-    color: $hel-black;
+    color: var(--color-black);
     font-size: 0.875rem;
     font-weight: 500;
     border: 2px solid transparent;
@@ -20,7 +19,7 @@
     text-align: left;
 
     &:focus {
-      outline: 2px solid $hel-black;
+      outline: 2px solid var(--color-black);
       outline-offset: 0.25rem;
     }
   }

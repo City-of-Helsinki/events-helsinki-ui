@@ -1,8 +1,7 @@
-@import "colors";
-@import "layout";
+@import 'layout';
 
 .bottomFooter {
-  background-color: $hel-summer-light-50;
+  background-color: var(--color-summer-light-50);
   padding: 1.25rem 0;
   display: block;
 
@@ -14,7 +13,7 @@
   &.mobileMenuOpen {
     @include respond-below(sm) {
       visibility: hidden;
-      opacity: 0;     
+      opacity: 0;
       transition: visibility 0.5s, opacity 0.5s;
     }
   }
@@ -42,7 +41,7 @@
     a {
       margin-right: 2.5rem;
       font-size: 1.125rem;
-      color: $hel-black;
+      color: var(--color-black);
       text-decoration: underline;
       font-weight: normal;
 
@@ -55,5 +54,5 @@
         }
       }
     }
-  } 
+  }
 }

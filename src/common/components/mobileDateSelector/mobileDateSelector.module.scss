@@ -1,5 +1,5 @@
-@import "colors";
-@import "layout";
+@import 'colors';
+@import 'layout';
 
 .mobileDateSelector {
   display: inline-flex;
@@ -11,7 +11,7 @@
   }
 
   .iconCalendar {
-    fill: $hel-white;
+    fill: var(--color-white);
 
     &.isSelected {
       fill: #464646;
