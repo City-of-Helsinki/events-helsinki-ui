@@ -2,8 +2,8 @@ import { Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import LargeEventCard from '../../../common/components/eventCard/LargeEventCard';
 import { EventFieldsFragment } from '../../../generated/graphql';
+import LargeEventCard from '../../event/eventCard/LargeEventCard';
 import styles from './eventCards.module.scss';
 
 interface Props {

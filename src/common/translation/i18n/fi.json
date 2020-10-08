@@ -17,10 +17,6 @@
     "category": {
       "ariaButtonRemove": "Poista kategoria: {{category}}"
     },
-    "collectionCard": {
-      "ariaLabelLink": "Siirry kokoelmaan: {{title}}",
-      "count": "{{count}} kpl"
-    },
     "dateSelector": {
       "dateTypeAll": "Koska tahansa",
       "dateTypeThisWeek": "Tällä viikolla",
@@ -41,9 +37,6 @@
       "menu": {
         "buttonClear": "Tyhjennä valinnat"
       }
-    },
-    "eventCard": {
-      "ariaLabelLink": "Siirry tapahtumaan: {{name}}"
     },
     "filter": {
       "ariaButtonRemove": "Poista suodatin: {{filter}}"
@@ -69,6 +62,10 @@
   },
   "collection": {
     "buttonShowAllPastEvents": "Näytä kaikki menneet",
+    "collectionCard": {
+      "ariaLabelLink": "Siirry kokoelmaan: {{title}}",
+      "count": "{{count}} kpl"
+    },
     "curatedEvents": {
       "linkOnlyExpiredEvents": "Tutustu kaikkiin kokoelmiin",
       "textEventNotFound": "Tapahtumaa ei löydy",
@@ -110,6 +107,15 @@
       "title": "Kuvaus"
     },
     "eventCancelled": "Tapahtuma peruttu",
+    "eventCard": {
+      "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
+      "ariaLabelLink": "Siirry tapahtumaan: {{name}}",
+      "ariaLabelReadMore": "Lue lisää: {{name}}",
+      "buttonBuyTickets": "Osta liput",
+      "buttonReadMore": "Lue lisää",
+      "dateAndTime": "{{date}}, klo {{time}}",
+      "isFree": "Maksuton"
+    },
     "hero": {
       "ariaLabelBackButton": "Takaisin tapahtumahakuun",
       "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
@@ -177,15 +183,6 @@
     "ariaLiveSearchReady": "{{count}} hakutulosta",
     "buttonClearFilters": "Tyhjennä hakuehdot",
     "buttonLoadMore": "Näytä lisää tapahtumia ({{count}})",
-    "event": {
-      "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
-      "buttonBuyTickets": "Osta liput",
-      "buttonReadMore": "Lue lisää",
-      "dateAndTime": "{{date}}, klo {{time}}",
-      "offers": {
-        "isFree": "Maksuton"
-      }
-    },
     "noResultsInfo": {
       "bigText": "Voi vitsi, valitsemillasi hakuehdoilla ei löytynyt yhtään hakutulosta",
       "smallText": "Kokeile muuttamalla hakuehtoja ja varmasti löydät jotain kiinnostavaa tekemistä!"

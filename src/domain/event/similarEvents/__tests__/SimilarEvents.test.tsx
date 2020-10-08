@@ -74,7 +74,7 @@ test('should render similar event cards', async () => {
   events.data.forEach((event) => {
     expect(
       screen.queryByRole('link', {
-        name: translations.commons.eventCard.ariaLabelLink.replace(
+        name: translations.event.eventCard.ariaLabelLink.replace(
           '{{name}}',
           event.name.fi
         ),

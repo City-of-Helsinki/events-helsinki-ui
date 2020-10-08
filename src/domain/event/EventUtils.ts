@@ -15,6 +15,11 @@ import {
 } from './constants';
 import { KeywordOption } from './types';
 
+export const getEventCardId = (id: string): string => `event-card_${id}`;
+
+export const getLargeEventCardId = (id: string): string =>
+  `large-event-card_${id}`;
+
 /**
  * Check is event closed
  * @param event

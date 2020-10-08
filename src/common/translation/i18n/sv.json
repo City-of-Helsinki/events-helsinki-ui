@@ -17,10 +17,6 @@
     "category": {
       "ariaButtonRemove": "Radera kategori: {{category}}"
     },
-    "collectionCard": {
-      "ariaLabelLink": "Gå till samlingen: {{title}}",
-      "count": "{{count}} st"
-    },
     "dateSelector": {
       "dateTypeAll": "När som helst",
       "dateTypeThisWeek": "Denna vecka",
@@ -41,9 +37,6 @@
       "menu": {
         "buttonClear": "Töm valda"
       }
-    },
-    "eventCard": {
-      "ariaLabelLink": "Gå till evenemanget: {{name}}"
     },
     "filter": {
       "ariaButtonRemove": "Ta bort filter: {{filter}}"
@@ -69,6 +62,10 @@
   },
   "collection": {
     "buttonShowAllPastEvents": "Visa alla tidigare rekommendationer",
+    "collectionCard": {
+      "ariaLabelLink": "Gå till samlingen: {{title}}",
+      "count": "{{count}} st"
+    },
     "curatedEvents": {
       "linkOnlyExpiredEvents": "Till alla kollektioner",
       "textEventNotFound": "Samlingen hittades inte",
@@ -110,6 +107,15 @@
       "title": "Beskrivning"
     },
     "eventCancelled": "Evenemanget inställt",
+    "eventCard": {
+      "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
+      "ariaLabelLink": "Gå till evenemanget: {{name}}",
+      "ariaLabelReadMore": "Läs mer: {{name}}",
+      "buttonBuyTickets": "Köp biljetter",
+      "buttonReadMore": "Läs mer",
+      "dateAndTime": "{{date}}, kl. {{time}}",
+      "isFree": "Gratis"
+    },
     "hero": {
       "ariaLabelBackButton": "Tillbaka till händelsessökning",
       "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
@@ -177,15 +183,6 @@
     "ariaLiveSearchReady": "{{count}} sökresultat",
     "buttonClearFilters": "Töm sökfilter",
     "buttonLoadMore": "Visa fler evenemang ({{count}})",
-    "event": {
-      "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
-      "buttonBuyTickets": "Köp biljetter",
-      "buttonReadMore": "Läs mer",
-      "dateAndTime": "{{date}}, kl. {{time}}",
-      "offers": {
-        "isFree": "Gratis"
-      }
-    },
     "noResultsInfo": {
       "bigText": "Tyvärr hittades inga resultat för de sökkriterier du valt.",
       "smallText": "Försök att ändra dina sökkriterier så hittar du säkert något som passar dig!"

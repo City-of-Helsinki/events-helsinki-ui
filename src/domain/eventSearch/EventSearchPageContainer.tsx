@@ -8,7 +8,6 @@ import {
 } from 'react-router';
 import { scroller } from 'react-scroll';
 
-import { getLargeEventCardId } from '../../common/components/eventCard/utils';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import SrOnly from '../../common/components/srOnly/SrOnly';
 import { useEventListQuery } from '../../generated/graphql';
@@ -16,6 +15,7 @@ import useIsSmallScreen from '../../hooks/useIsSmallScreen';
 import useLocale from '../../hooks/useLocale';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
+import { getLargeEventCardId } from '../event/EventUtils';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from './constants';
 import styles from './eventSearchPage.module.scss';
 import Search from './Search';

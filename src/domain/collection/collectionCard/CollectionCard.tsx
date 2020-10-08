@@ -54,7 +54,7 @@ const CollectionCard: React.FC<Props> = ({ collection, size }) => {
 
   return (
     <Link
-      aria-label={t('commons.collectionCard.ariaLabelLink', {
+      aria-label={t('collection.collectionCard.ariaLabelLink', {
         title,
       })}
       className={classNames(
@@ -72,7 +72,7 @@ const CollectionCard: React.FC<Props> = ({ collection, size }) => {
       <div className={styles.textWrapper}>
         <div className={styles.countWrapper}>
           <div className={styles.count}>
-            {t('commons.collectionCard.count', { count })}
+            {t('collection.collectionCard.count', { count })}
           </div>
         </div>
 
@@ -91,7 +91,7 @@ const CollectionCard: React.FC<Props> = ({ collection, size }) => {
         <div className={styles.linkWrapper}>
           <div ref={button}>
             <IconButton
-              ariaLabel={t('commons.collectionCard.ariaLabelLink', {
+              ariaLabel={t('collection.collectionCard.ariaLabelLink', {
                 title,
               })}
               aria-hidden={true}

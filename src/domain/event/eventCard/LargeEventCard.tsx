@@ -5,23 +5,23 @@ import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import { ROUTES } from '../../../domain/app/constants';
-import EventKeywords from '../../../domain/event/eventKeywords/EventKeywords';
-import LocationText from '../../../domain/event/eventLocation/EventLocationText';
-import EventName from '../../../domain/event/eventName/EventName';
-import {
-  getEventFields,
-  getEventPrice,
-  isEventClosed,
-  isEventFree,
-} from '../../../domain/event/EventUtils';
+import buttonStyles from '../../../common/components/button/button.module.scss';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import testImage from '../../../util/testImage';
-import buttonStyles from '../button/button.module.scss';
+import { ROUTES } from '../../app/constants';
+import EventKeywords from '../eventKeywords/EventKeywords';
+import LocationText from '../eventLocation/EventLocationText';
+import EventName from '../eventName/EventName';
+import {
+  getEventFields,
+  getEventPrice,
+  getLargeEventCardId,
+  isEventClosed,
+  isEventFree,
+} from '../EventUtils';
 import styles from './largeEventCard.module.scss';
-import { getLargeEventCardId } from './utils';
 
 interface Props {
   event: EventFieldsFragment;
@@ -81,7 +81,7 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
 
   return (
     <Link
-      aria-label={t('commons.eventCard.ariaLabelLink', {
+      aria-label={t('event.eventCard.ariaLabelLink', {
         name,
       })}
       className={classNames(styles.eventCard, {
@@ -114,7 +114,7 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
           />
         </div>
         <div className={styles.eventPrice}>
-          {getEventPrice(event, locale, t('eventSearch.event.offers.isFree'))}
+          {getEventPrice(event, locale, t('event.eventCard.isFree'))}
         </div>
         <div className={styles.keywordWrapperDesktop}>
           <EventKeywords
@@ -127,25 +127,26 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
           <div>
             {showBuyButton && (
               <Button
-                aria-label={t('eventSearch.event.ariaLabelBuyTickets')}
+                aria-label={t('event.eventCard.ariaLabelBuyTickets')}
                 fullWidth
                 onClick={goToBuyTicketsPage}
                 size="small"
                 variant="success"
               >
-                {t('eventSearch.event.buttonBuyTickets')}
+                {t('event.eventCard.buttonBuyTickets')}
               </Button>
             )}
           </div>
           <div ref={button}>
             <Button
+              aria-label={t('event.eventCard.ariaLabelReadMore', { name })}
               className={buttonStyles.buttonGray}
               fullWidth
               onClick={goToEventPage}
               size="small"
               type="button"
             >
-              {t('eventSearch.event.buttonReadMore')}
+              {t('event.eventCard.buttonReadMore')}
             </Button>
           </div>
         </div>

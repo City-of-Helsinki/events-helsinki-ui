@@ -1,14 +1,23 @@
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 import React from 'react';
 
+import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
 import { fakeEvent } from '../../../../util/mockDataUtils';
 import { render, screen } from '../../../../util/testUtils';
-import translations from '../../../translation/i18n/fi.json';
 import LargeEventCard from '../LargeEventCard';
 
 const getWrapper = (event: EventFieldsFragment) =>
   render(<LargeEventCard event={event} />);
+
+test('test for accessibility violations', async () => {
+  const event = fakeEvent() as EventFieldsFragment;
+  const { container } = getWrapper(event);
+
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
 
 test('should show buy button when event has an offer', () => {
   global.open = jest.fn();
@@ -75,7 +84,7 @@ test('should hide buy button when event is closed', () => {
   ).not.toBeInTheDocument();
 });
 
-test('should go to event page', () => {
+test('should go to event page by click Read more button', () => {
   const event = fakeEvent({
     id: '123',
   }) as EventFieldsFragment;
@@ -86,7 +95,10 @@ test('should go to event page', () => {
 
   userEvent.click(
     screen.getByRole('button', {
-      name: translations.eventSearch.event.buttonReadMore,
+      name: translations.event.eventCard.ariaLabelReadMore.replace(
+        '{{name}}',
+        event.name.fi
+      ),
     })
   );
 
@@ -104,7 +116,7 @@ test('should go to event page by clicking event card', () => {
 
   userEvent.click(
     screen.queryByRole('link', {
-      name: translations.commons.eventCard.ariaLabelLink.replace(
+      name: translations.event.eventCard.ariaLabelLink.replace(
         '{{name}}',
         event.name.fi
       ),

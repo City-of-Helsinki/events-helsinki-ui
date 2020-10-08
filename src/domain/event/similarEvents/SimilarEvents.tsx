@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 
-import EventCard from '../../../common/components/eventCard/EventCard';
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
   EventFieldsFragment,
@@ -21,6 +20,7 @@ import {
   getSearchQuery,
 } from '../../eventSearch/utils';
 import { SIMILAR_EVENTS_AMOUNT } from '../constants';
+import EventCard from '../eventCard/EventCard';
 import { getEventFields } from '../EventUtils';
 import styles from './similarEvents.module.scss';
 

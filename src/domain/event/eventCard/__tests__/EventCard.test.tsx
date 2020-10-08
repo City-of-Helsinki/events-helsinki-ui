@@ -1,11 +1,12 @@
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 import { advanceTo, clear } from 'jest-date-mock';
 import React from 'react';
 
+import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
 import { fakeEvent, fakeKeywords } from '../../../../util/mockDataUtils';
 import { render, screen } from '../../../../util/testUtils';
-import translations from '../../../translation/i18n/fi.json';
 import EventCard from '../EventCard';
 
 const keywordNames = ['Keyword 1', 'Keyword 2'];
@@ -38,21 +39,24 @@ afterAll(() => {
   clear();
 });
 
-test('metches snapshot', () => {
-  const { container } = render(<EventCard event={event} />);
+const getWrapper = () => render(<EventCard event={event} />);
 
-  expect(container.firstChild).toMatchSnapshot();
+test('test for accessibility violations', async () => {
+  const { container } = getWrapper();
+
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
 });
 
 test('should go to event page by clicking event card', () => {
   advanceTo('2020-10-05');
-  const { history } = render(<EventCard event={event} />);
+  const { history } = getWrapper();
 
   expect(history.location.pathname).toEqual('/');
 
   userEvent.click(
     screen.queryByRole('link', {
-      name: translations.commons.eventCard.ariaLabelLink.replace(
+      name: translations.event.eventCard.ariaLabelLink.replace(
         '{{name}}',
         event.name.fi
       ),
@@ -63,13 +67,13 @@ test('should go to event page by clicking event card', () => {
 });
 
 test('should go to event page by clicking button', () => {
-  const { history } = render(<EventCard event={event} />);
+  const { history } = getWrapper();
 
   expect(history.location.pathname).toEqual('/');
 
   userEvent.click(
     screen.queryByRole('button', {
-      name: translations.commons.eventCard.ariaLabelLink.replace(
+      name: translations.event.eventCard.ariaLabelLink.replace(
         '{{name}}',
         event.name.fi
       ),

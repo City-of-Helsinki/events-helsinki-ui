@@ -14,7 +14,6 @@ import {
 } from '../../../util/mockDataUtils';
 import {
   actWait,
-  arrowDownKeyPressHelper,
   configure,
   render,
   screen,
