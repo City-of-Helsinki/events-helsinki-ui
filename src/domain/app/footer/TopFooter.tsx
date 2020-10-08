@@ -6,13 +6,13 @@ import { useHistory } from 'react-router';
 
 import CategoryFilter from '../../../common/components/category/CategoryFilter';
 import IconLink from '../../../common/components/link/IconLink';
-import { useMobileMenuContext } from '../../../common/components/mobileMenu/MobileMenu';
 import { Category } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import scrollToTop from '../../../util/scrollToTop';
 import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
 import { getCategoryOptions, getSearchQuery } from '../../eventSearch/utils';
 import { ROUTES } from '../constants';
+import { useMobileMenuContext } from '../header/mobileMenu/MobileMenu';
 import Container from '../layout/Container';
 import styles from './topFooter.module.scss';
 

@@ -74,7 +74,7 @@ exports[`matches snapshot 1`] = `
         class="languageLink isSelected"
       >
         <a
-          href="/"
+          href="/fi/home"
           lang="fi"
         >
           Suomeksi
@@ -84,7 +84,7 @@ exports[`matches snapshot 1`] = `
         class="languageLink"
       >
         <a
-          href="/"
+          href="/sv/home"
           lang="sv"
         >
           På svenska
@@ -94,7 +94,7 @@ exports[`matches snapshot 1`] = `
         class="languageLink"
       >
         <a
-          href="/"
+          href="/en/home"
           lang="en"
         >
           In English

@@ -2,10 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Redirect, Route, Switch } from 'react-router';
 
-import { MobileMenuProvider } from '../../../common/components/mobileMenu/MobileMenu';
 import { ResetFocus } from '../../../common/route/RouteUtils';
 import { getCurrentLanguage } from '../../../common/translation/TranslationUtils';
 import { SUPPORT_LANGUAGES } from '../../../constants';
+import { MobileMenuProvider } from '../header/mobileMenu/MobileMenu';
 import PageLayout from '../layout/PageLayout';
 import App from './LocaleRoutes';
 

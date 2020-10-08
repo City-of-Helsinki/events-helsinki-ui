@@ -1,4 +1,4 @@
-@import "layout";
+@import 'layout';
 
 .mobileNavigation {
   position: sticky;
@@ -7,5 +7,10 @@
 
   @include respond-above(sm) {
     display: none;
+  }
+
+  .mobileHeader {
+    display: grid;
+    background-color: var(--color-white);
   }
 }

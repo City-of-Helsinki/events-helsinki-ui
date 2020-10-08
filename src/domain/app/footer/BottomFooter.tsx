@@ -3,9 +3,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { useMobileMenuContext } from '../../../common/components/mobileMenu/MobileMenu';
 import useLocale from '../../../hooks/useLocale';
 import { ROUTES } from '../constants';
+import { useMobileMenuContext } from '../header/mobileMenu/MobileMenu';
 import Container from '../layout/Container';
 import styles from './bottomFooter.module.scss';
 

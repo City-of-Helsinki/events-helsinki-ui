@@ -1,5 +1,3 @@
-@import "colors";
-
 .mobileMenu {
   position: fixed;
   top: -100vh;
@@ -26,46 +24,47 @@
     ul {
       list-style: none;
       padding: 0;
-      margin-top: 4rem;
+      margin-top: var(--spacing-4-xl);
     }
 
     .link {
       background-color: $hel-copper-light-20;
-      padding: 1.5rem 2rem;
-      margin-bottom: 0.5rem;
+      padding: var(--spacing-m) var(--spacing-l);
+      margin-bottom: var(--spacing-2-xs);
 
       a {
         display: flex;
         align-items: center;
-        color: $hel-black-90;
+        color: var(--color-black-90);
         text-decoration: none;
-        font-size: 1.25rem;
-        font-weight: bold;
+        font-size: var(--fontsize-body-xl);
+        font-weight: 600;
       }
+
       svg {
-        height: 1.5rem;
-        width: 1.5rem;
-        margin-right: 1rem;
+        height: var(--spacing-m);
+        width: var(--spacing-m);
+        margin-right: var(--spacing-s);
       }
     }
   }
 
   .languageSelectWrapper {
-    padding-bottom: 3.5rem;
+    padding-bottom: var(--spacing-3-xl);
 
     ul {
       list-style: none;
       padding: 0;
-      margin-top: 4rem;
+      margin-top: var(--spacing-4-xl);
 
       .languageLink {
         text-align: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: var(--spacing-m);
 
         a {
-          color: $hel-black-90;
+          color: var(--color-black-90);
           text-decoration: underline;
-          font-size: 1.125rem;
+          font-size: var(--fontsize-var-l);
           font-weight: normal;
         }
 
@@ -78,4 +77,4 @@
       }
     }
   }
-} 
+}

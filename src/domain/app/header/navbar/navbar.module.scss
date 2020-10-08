@@ -1,70 +1,79 @@
+@import 'layout';
 @import 'mixins';
-@import 'colors';
 @import 'variables';
 
 $logoHeight: 2.5rem;
 $logoWidth: 5.5rem;
 $logoWidthSv: 7.1875rem;
 
-.navbarTop {
+.navbar {
   height: 100%;
-  display: flex;
-}
+  display: grid;
+  grid-template-columns: auto 1fr auto;
 
-.logoWrapper {
-  padding: 0.75rem 0;
-  margin-right: var(--spacing-3-xl);
-
-  a {
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    text-decoration: none;
-
-    &:focus {
-      outline-offset: 4px;
-    }
-  }
-}
-
-.linkWrapper {
-  flex: 1 1 0%;
-  display: flex;
-  align-items: center;
-
-  a {
-    margin-right: var(--spacing-xl);
-
-    &:focus {
-      outline: 2px solid $hel-black;
-    }
+  @include respond-below(sm) {
+    display: none;
   }
 
-  div:last-child {
+  .logoWrapper {
+    padding: var(--spacing-xs) 0;
+    margin-right: var(--spacing-3-xl);
+
+    .appName {
+      margin-left: var(--spacing-l);
+      font-size: --fontsize-heading-s;
+      color: var(--color-black);
+      font-weight: 600;
+    }
+
     a {
-      margin-left: 0;
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+      text-decoration: none;
+
+      &:focus {
+        outline-offset: 4px;
+      }
+    }
+
+    .logo {
+      background-position: center;
+      height: $logoHeight;
+
+      &.fi {
+        @include helsinki-logo();
+        width: $logoWidth;
+      }
+
+      &.sv {
+        @include helsinki-logo('sv');
+        width: $logoWidthSv;
+      }
     }
   }
-}
 
-.appName {
-  margin-left: 1.875rem;
-  font-size: 1.25rem;
-  color: $hel-black;
-  font-weight: 600;
-}
+  .links {
+    flex: 1 1 0%;
+    display: flex;
+    align-items: center;
 
-.logo {
-  background-position: center;
-  height: $logoHeight;
+    a {
+      margin-right: var(--spacing-xl);
 
-  &.fi {
-    @include helsinki-logo();
-    width: $logoWidth;
+      &:focus {
+        outline: 2px solid var(--color-black);
+      }
+    }
+
+    div:last-child {
+      a {
+        margin-left: 0;
+      }
+    }
   }
 
-  &.sv {
-    @include helsinki-logo('sv');
-    width: $logoWidthSv;
+  .actions {
+    align-self: center;
   }
 }

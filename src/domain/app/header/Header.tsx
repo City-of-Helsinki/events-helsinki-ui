@@ -2,6 +2,7 @@ import React from 'react';
 
 import Container from '../layout/Container';
 import styles from './header.module.scss';
+import MobileNavigation from './mobileNavigation/MobileNavigation';
 import Navbar from './navbar/Navbar';
 
 const Header: React.FC = () => {
@@ -10,6 +11,7 @@ const Header: React.FC = () => {
       <Container>
         <Navbar />
       </Container>
+      <MobileNavigation />
     </header>
   );
 };

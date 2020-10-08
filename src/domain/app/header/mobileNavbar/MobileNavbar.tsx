@@ -1,0 +1,52 @@
+import classNames from 'classnames';
+import { IconCross, IconMenuHamburger } from 'hds-react';
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+
+import useLocale from '../../../../hooks/useLocale';
+import Container from '../../layout/Container';
+import styles from './mobileNavbar.module.scss';
+
+interface Props {
+  isMenuOpen: boolean;
+  onToggleMenu: () => void;
+}
+
+const MobileNavbar: React.FC<Props> = ({ isMenuOpen, onToggleMenu }) => {
+  const { t } = useTranslation();
+  const locale = useLocale();
+
+  const logoLang = locale === 'sv' ? 'sv' : 'fi';
+
+  return (
+    <Container>
+      <div className={styles.mobileNavbar}>
+        <Link
+          aria-label={t('header.ariaLabelLogo')}
+          onClick={onToggleMenu}
+          to={'/'}
+          className={styles.logoWrapper}
+        >
+          <div className={classNames(styles.logo, styles[logoLang])} />
+          <div className={styles.appName}>{t('appName')}</div>
+        </Link>
+        <div className={styles.buttonWrapper}>
+          <button
+            className={styles.menuButton}
+            onClick={onToggleMenu}
+            aria-label={
+              isMenuOpen
+                ? t('header.ariaButtonCloseMenu')
+                : t('header.ariaButtonOpenMenu')
+            }
+          >
+            {isMenuOpen ? <IconCross /> : <IconMenuHamburger />}
+          </button>
+        </div>
+      </div>
+    </Container>
+  );
+};
+
+export default MobileNavbar;

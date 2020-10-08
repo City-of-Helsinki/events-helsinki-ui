@@ -12,6 +12,7 @@ import useLocale from '../../../../hooks/useLocale';
 import { Language } from '../../../../types';
 import scrollToTop from '../../../../util/scrollToTop';
 import { ROUTES } from '../../constants';
+import Container from '../../layout/Container';
 import LanguageDropdown from '../languageDropdown/LanguageDropdown';
 import styles from './navbar.module.scss';
 
@@ -30,12 +31,15 @@ const Navbar: React.FC = () => {
 
   const handleChange = (newLanguage: Language) => {
     const currentLanguage = getCurrentLanguage(i18n);
+    const pathname = updateLocaleParam(
+      location.pathname,
+      currentLanguage,
+      newLanguage
+    );
+
+    i18n.changeLanguage(newLanguage);
     history.push({
-      pathname: updateLocaleParam(
-        location.pathname,
-        currentLanguage,
-        newLanguage
-      ),
+      pathname,
       search: location.search,
     });
   };
@@ -43,34 +47,37 @@ const Navbar: React.FC = () => {
   const logoLang = locale === 'sv' ? 'sv' : 'fi';
 
   return (
-    <div className={styles.navbarTop}>
-      <div className={styles.logoWrapper}>
-        <Link aria-label={t('header.ariaLabelLogo')} to={'/'}>
-          <div className={classNames(styles.logo, styles[logoLang])} />
-          <div className={styles.appName}>{t('appName')}</div>
-        </Link>
+    <Container>
+      <div className={styles.navbar}>
+        <div className={styles.logoWrapper}>
+          <Link aria-label={t('header.ariaLabelLogo')} to={'/'}>
+            <div className={classNames(styles.logo, styles[logoLang])} />
+            <div className={styles.appName}>{t('appName')}</div>
+          </Link>
+        </div>
+        <div className={styles.links}>
+          <IconLink
+            icon={<IconSearch />}
+            onClick={scrollToTop}
+            text={t('header.searchEvents')}
+            to={`/${locale}${ROUTES.EVENTS}`}
+          />
+          <IconLink
+            icon={<IconStar />}
+            onClick={scrollToTop}
+            text={t('header.searchCollections')}
+            to={`/${locale}${ROUTES.COLLECTIONS}`}
+          />
+        </div>
+        <div className={styles.actions}>
+          <LanguageDropdown
+            languageOptions={languageOptions}
+            onChange={handleChange}
+            value={locale}
+          />
+        </div>
       </div>
-
-      <div className={styles.linkWrapper}>
-        <IconLink
-          icon={<IconSearch />}
-          onClick={scrollToTop}
-          text={t('header.searchEvents')}
-          to={`/${locale}${ROUTES.EVENTS}`}
-        />
-        <IconLink
-          icon={<IconStar />}
-          onClick={scrollToTop}
-          text={t('header.searchCollections')}
-          to={`/${locale}${ROUTES.COLLECTIONS}`}
-        />
-      </div>
-      <LanguageDropdown
-        languageOptions={languageOptions}
-        onChange={handleChange}
-        value={locale}
-      />
-    </div>
+    </Container>
   );
 };
 

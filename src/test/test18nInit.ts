@@ -1,8 +1,8 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import { DEFAULT_LANGUAGE } from '../../constants';
-import fi from '../translation/i18n/fi.json';
+import fi from '../common/translation/i18n/fi.json';
+import { DEFAULT_LANGUAGE } from '../constants';
 
 i18n.use(initReactI18next).init({
   fallbackLng: DEFAULT_LANGUAGE,

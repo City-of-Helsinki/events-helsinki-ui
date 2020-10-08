@@ -1,6 +1,6 @@
 import React from 'react';
 
-import i18n from '../../common/test/test18nInit';
+import i18n from '../../test/test18nInit';
 import { render } from '../../util/testUtils';
 import ServerApp from '../ServerApp';
 

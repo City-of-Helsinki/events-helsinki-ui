@@ -1,10 +1,9 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { useMobileMenuContext } from '../../../common/components/mobileMenu/MobileMenu';
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
-import MobileNavigation from '../mobileNavigation/MobileNavigation';
+import { useMobileMenuContext } from '../header/mobileMenu/MobileMenu';
 import SkipLink from '../skipLink/SkipLink';
 import styles from './pageLayout.module.scss';
 
@@ -14,7 +13,6 @@ const PageLayout: FunctionComponent = ({ children }) => {
     <div className={styles.pageLayout}>
       <SkipLink />
       <Header />
-      <MobileNavigation />
 
       <div
         aria-hidden={isMobileMenuOpen}

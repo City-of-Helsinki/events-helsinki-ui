@@ -3,11 +3,11 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { MemoryRouter } from 'react-router';
 
+import translations from '../../../../../common/translation/i18n/fi.json';
 import {
   mobileMenuDataId,
   MobileMenuProvider,
-} from '../../../../common/components/mobileMenu/MobileMenu';
-import translations from '../../../../common/translation/i18n/fi.json';
+} from '../../mobileMenu/MobileMenu';
 import MobileNavigation from '../MobileNavigation';
 
 it('matches snapshot', async () => {
