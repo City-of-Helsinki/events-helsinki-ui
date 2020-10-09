@@ -10,6 +10,7 @@ interface Props {
 
 const DropdownMenu: React.FC<Props> = ({ children, isOpen, onClear }) => {
   const { t } = useTranslation();
+
   if (!isOpen) return null;
 
   return (
