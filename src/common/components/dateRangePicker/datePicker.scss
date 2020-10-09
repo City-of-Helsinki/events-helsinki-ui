@@ -1,5 +1,3 @@
-@import 'colors';
-
 .react-datepicker {
   border: none;
   color: var(--color-black);
@@ -75,7 +73,7 @@
     border-radius: 0 !important;
 
     &--outside-month {
-      color: $medium-gray;
+      color: var(--color-black-50);
     }
 
     &--in-range {

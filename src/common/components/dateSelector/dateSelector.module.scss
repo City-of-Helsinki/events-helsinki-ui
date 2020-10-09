@@ -1,5 +1,3 @@
-@import 'colors';
-
 .dateSelector {
   position: relative;
   background: var(--color-white);
@@ -72,5 +70,5 @@
   left: 0;
   right: 0;
   height: 3px;
-  background-color: $dark-green;
+  background-color: var(--color-tram-dark-50);
 }

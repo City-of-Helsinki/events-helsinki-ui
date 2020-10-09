@@ -1,10 +1,9 @@
-@import 'colors';
 @import 'fonts';
 
 .link {
   display: flex;
   align-items: center;
-  color: $dark-green;
+  color: var(--color-tram-dark-50);
   font-size: $font-size-lg;
   font-weight: $link-font-weight;
   text-decoration: none;
@@ -23,15 +22,15 @@
 
   svg {
     margin-left: 1rem;
-    fill: $dark-green;
+    fill: var(--color-tram-dark-50);
   }
 }
 
 .defaultColor {
-  color: $dark-green;
+  color: var(--color-tram-dark-50);
 
   svg {
-    fill: $dark-green;
+    fill: var(--color-tram-dark-50);
   }
 }
 

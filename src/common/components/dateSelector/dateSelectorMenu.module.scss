@@ -1,4 +1,3 @@
-@import 'colors';
 @import 'layout';
 
 .dateSelectorMenu {
@@ -73,13 +72,13 @@
   }
 
   .btnSelectDates {
-    border-top: 1px solid $hel-light;
+    border-top: 1px solid var(--color-coat-of-arms-silver);
     font-weight: 500;
   }
 
   .btnBack {
     font-weight: 500;
-    border-bottom: 1px solid $hel-gray;
+    border-bottom: 1px solid var(--color-coat-of-arms-silver);
 
     svg:first-child {
       margin-right: 0.75rem;
@@ -87,7 +86,7 @@
   }
 
   .btnClose {
-    border-top: 1px solid $hel-light;
+    border-top: 1px solid var(--color-coat-of-arms-silver);
 
     .buttonText {
       text-align: center;
