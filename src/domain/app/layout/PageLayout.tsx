@@ -10,19 +10,15 @@ import styles from './pageLayout.module.scss';
 const PageLayout: FunctionComponent = ({ children }) => {
   const { isMobileMenuOpen } = useMobileMenuContext();
   return (
-    <div className={styles.pageLayout}>
+    <div
+      className={classNames(styles.pageLayout, {
+        [styles.mobileMenuOpen]: isMobileMenuOpen,
+      })}
+    >
       <SkipLink />
       <Header />
 
-      <div
-        aria-hidden={isMobileMenuOpen}
-        className={classNames(styles.pageBody, {
-          [styles.mobileMenuOpen]: isMobileMenuOpen,
-        })}
-      >
-        {children}
-      </div>
-
+      <div className={styles.pageBody}>{children}</div>
       <Footer />
     </div>
   );

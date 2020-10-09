@@ -12,12 +12,14 @@ import scrollToTop from '../../../util/scrollToTop';
 import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
 import { getCategoryOptions, getSearchQuery } from '../../eventSearch/utils';
 import { ROUTES } from '../constants';
-import { useMobileMenuContext } from '../header/mobileMenu/MobileMenu';
 import Container from '../layout/Container';
 import styles from './topFooter.module.scss';
 
+export const testIds = {
+  logo: 'top-footer-logo',
+};
+
 const TopFooter: FunctionComponent = () => {
-  const { isMobileMenuOpen } = useMobileMenuContext();
   const { t } = useTranslation();
   const locale = useLocale();
   const { push } = useHistory();
@@ -37,16 +39,12 @@ const TopFooter: FunctionComponent = () => {
   const logoLang = locale === 'sv' ? 'sv' : 'fi';
 
   return (
-    <div
-      aria-hidden={isMobileMenuOpen}
-      className={classNames(styles.topFooterWrapper, {
-        [styles.mobileMenuOpen]: isMobileMenuOpen,
-      })}
-    >
+    <div className={styles.topFooterWrapper}>
       <Container>
         <div className={styles.companyInfoWrapper}>
           <div className={styles.logoWrapper}>
             <div
+              data-testid={testIds.logo}
               className={classNames(styles.helsinkiLogo, styles[logoLang])}
             ></div>
             <div className={styles.appName}>{t('appName')}</div>

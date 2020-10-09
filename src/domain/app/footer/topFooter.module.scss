@@ -10,19 +10,6 @@ $logoWidthSv: 12.625rem;
   padding: 3.75rem 0 5rem;
   display: grid;
   align-items: center;
-
-  @include respond-below(sm) {
-    opacity: 1;
-    transition: visibility 0.2s, opacity 0.2s;
-  }
-
-  &.mobileMenuOpen {
-    @include respond-below(sm) {
-      visibility: hidden;
-      opacity: 0;
-      transition: visibility 0.5s, opacity 0.5s;
-    }
-  }
 }
 
 .companyInfoWrapper {

@@ -1,10 +1,11 @@
-import * as React from 'react';
+import { axe } from 'jest-axe';
+import React from 'react';
 
 import { render } from '../../../../util/testUtils';
 import BottomFooter from '../BottomFooter';
 
-test('matches snapshot', () => {
+test('component should be accessible', async () => {
   const { container } = render(<BottomFooter />);
 
-  expect(container.firstChild).toMatchSnapshot();
+  expect(await axe(container)).toHaveNoViolations();
 });
