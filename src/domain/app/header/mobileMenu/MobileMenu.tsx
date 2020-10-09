@@ -4,12 +4,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 
-import { updateLocaleParam } from '../../../../common/route/RouteUtils';
 import { getCurrentLanguage } from '../../../../common/translation/TranslationUtils';
 import { SUPPORT_LANGUAGES } from '../../../../constants';
 import useLocale from '../../../../hooks/useLocale';
 import scrollToTop from '../../../../util/scrollToTop';
 import { translateValue } from '../../../../util/translateUtils';
+import { updateLocaleParam } from '../../../../util/updateLocaleParam';
 import { ROUTES } from '../../constants';
 import styles from './mobileMenu.module.scss';
 

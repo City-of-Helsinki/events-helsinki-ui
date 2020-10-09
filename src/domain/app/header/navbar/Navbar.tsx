@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 
 import IconLink from '../../../../common/components/link/IconLink';
-import { updateLocaleParam } from '../../../../common/route/RouteUtils';
 import { getCurrentLanguage } from '../../../../common/translation/TranslationUtils';
 import { SUPPORT_LANGUAGES } from '../../../../constants';
 import useLocale from '../../../../hooks/useLocale';
 import { Language } from '../../../../types';
 import scrollToTop from '../../../../util/scrollToTop';
+import { updateLocaleParam } from '../../../../util/updateLocaleParam';
 import { ROUTES } from '../../constants';
 import Container from '../../layout/Container';
 import LanguageDropdown from '../languageDropdown/LanguageDropdown';
