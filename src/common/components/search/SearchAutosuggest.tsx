@@ -7,6 +7,7 @@ import {
 } from '../../../constants';
 import { useKeywordListQuery } from '../../../generated/graphql';
 import useDebounce from '../../../hooks/useDebounce';
+import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
 import useLocale from '../../../hooks/useLocale';
 import getLocalisedString from '../../../util/getLocalisedString';
 import { AutosuggestMenuOption } from '../../types';
@@ -28,7 +29,6 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
   placeholder,
   searchValue,
 }) => {
-  const [focusedOption, setFocusedOption] = React.useState(-1);
   const locale = useLocale();
   const container = React.useRef<HTMLDivElement | null>(null);
   const input = React.useRef<HTMLInputElement | null>(null);
@@ -48,6 +48,54 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
     AutosuggestMenuOption[]
   >([]);
 
+  const ensureMenuIsClosed = React.useCallback(() => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [isMenuOpen]);
+
+  const ensureMenuIsOpen = React.useCallback(() => {
+    if (!isMenuOpen) {
+      setIsMenuOpen(true);
+    }
+  }, [isMenuOpen]);
+
+  const {
+    focusedIndex,
+    setup: setupKeyboardNav,
+    teardown: teardownKeyboardNav,
+  } = useKeyboardNavigation({
+    container: container,
+    listLength: autoSuggestItems.length,
+    onKeyDown: (event: KeyboardEvent) => {
+      switch (event.key) {
+        case 'ArrowUp':
+        case 'ArrowDown':
+          ensureMenuIsOpen();
+          break;
+        case 'Escape':
+          handleCloseMenu();
+          break;
+        case 'Enter':
+          const selectedItem = autoSuggestItems[focusedIndex];
+
+          if (selectedItem) {
+            handleMenuOptionClick(selectedItem);
+          } else {
+            // Search by text if no option is selected
+            handleMenuOptionClick({
+              text: searchValue,
+              type: AUTOSUGGEST_TYPES.TEXT,
+              value: searchValue,
+            });
+          }
+          break;
+        case 'Tab':
+          ensureMenuIsClosed();
+      }
+    },
+  });
+
   React.useEffect(() => {
     if (loadingKeywords) return;
 
@@ -60,80 +108,31 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
 
     items.push(textItem);
 
-    if (keywordsData) {
-      items.push(
-        ...keywordsData.keywordList.data
-          .filter(
-            (keyword) =>
-              !AUTOSUGGEST_KEYWORD_BLACK_LIST.includes(keyword.id || '')
-          )
-          .filter((keyword) => {
-            return (
-              getLocalisedString(keyword.name, locale).toLowerCase() !==
-              textItem.text.toLowerCase()
-            );
-          })
-          .map((keyword) => ({
-            text: getLocalisedString(keyword.name, locale),
-            type: AUTOSUGGEST_TYPES.KEYWORD,
-            value: keyword.id || '',
-          }))
-      );
-    }
+    items.push(
+      ...(keywordsData?.keywordList.data
+        .filter((keyword) => {
+          const name = getLocalisedString(keyword.name, locale).toLowerCase();
+          return (
+            !AUTOSUGGEST_KEYWORD_BLACK_LIST.includes(keyword.id || '') &&
+            name &&
+            name !== textItem.text.toLowerCase()
+          );
+        })
+        .map((keyword) => ({
+          text: getLocalisedString(keyword.name, locale),
+          type: AUTOSUGGEST_TYPES.KEYWORD,
+          value: keyword.id || '',
+        })) || [])
+    );
 
     setAutoSuggestItems(items.filter((item) => item.text));
   }, [internalInputValue, keywordsData, loadingKeywords, locale]);
 
-  const openMenu = React.useCallback(
-    (focusOption: 'first' | 'last') => {
-      const openAtIndex =
-        focusOption === 'first' ? 0 : autoSuggestItems.length - 1;
-      setFocusedOption(openAtIndex);
-
-      if (searchValue) {
-        setIsMenuOpen(true);
-      }
-    },
-    [autoSuggestItems.length, searchValue]
-  );
-
-  const focusOption = React.useCallback(
-    (direction: 'down' | 'up') => {
-      if (!autoSuggestItems.length) return;
-      switch (direction) {
-        case 'down':
-          if (focusedOption < 0) {
-            setFocusedOption(0);
-          } else {
-            setFocusedOption(
-              focusedOption < autoSuggestItems.length - 1
-                ? focusedOption + 1
-                : autoSuggestItems.length - 1
-            );
-          }
-
-          break;
-        case 'up':
-          if (focusedOption < 0) {
-            setFocusedOption(autoSuggestItems.length - 1);
-          } else {
-            setFocusedOption(focusedOption > 0 ? focusedOption - 1 : 0);
-          }
-
-          break;
-      }
-    },
-    [autoSuggestItems.length, focusedOption]
-  );
-
   const handleCloseMenu = React.useCallback(() => {
-    // Set focus to input so the menu is not opened again afted focusing to input
     setFocusToInput();
 
-    // Close menu when clicking close button
-    setIsMenuOpen(false);
-    setFocusedOption(-1);
-  }, []);
+    ensureMenuIsClosed();
+  }, [ensureMenuIsClosed]);
 
   const handleMenuOptionClick = React.useCallback(
     (option: AutosuggestMenuOption) => {
@@ -143,83 +142,8 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
     [handleCloseMenu, onOptionClick]
   );
 
-  const isComponentFocused = () => {
-    const active = document.activeElement;
-    const current = container.current;
-
-    return Boolean(current && current.contains(active));
-  };
-
-  const isInputFocused = () => {
-    const active = document.activeElement;
-    const current = input.current;
-
-    return Boolean(current && current.contains(active));
-  };
-
-  const onKeyDown = React.useCallback(
-    (event: KeyboardEvent) => {
-      // Handle keyboard events only if current element is focused
-      if (!isComponentFocused()) return;
-
-      switch (event.key) {
-        case 'ArrowUp':
-          if (isMenuOpen) {
-            focusOption('up');
-          } else {
-            openMenu('last');
-          }
-          event.preventDefault();
-          break;
-        case 'ArrowDown':
-          if (isMenuOpen) {
-            focusOption('down');
-          } else {
-            openMenu('first');
-          }
-          event.preventDefault();
-          break;
-        case 'Escape':
-          handleCloseMenu();
-          event.preventDefault();
-          break;
-        case 'Enter':
-          if (isInputFocused()) {
-            const selectedItem = autoSuggestItems[focusedOption];
-
-            if (selectedItem) {
-              handleMenuOptionClick(selectedItem);
-            } else {
-              // Search by text if no option is selected
-              handleMenuOptionClick({
-                text: searchValue,
-                type: AUTOSUGGEST_TYPES.TEXT,
-                value: searchValue,
-              });
-            }
-          } else {
-            handleCloseMenu();
-          }
-          event.preventDefault();
-          break;
-      }
-    },
-    [
-      autoSuggestItems,
-      focusOption,
-      focusedOption,
-      handleCloseMenu,
-      handleMenuOptionClick,
-      isMenuOpen,
-      openMenu,
-      searchValue,
-    ]
-  );
-
   const setFocusToInput = () => {
-    if (input.current) {
-      input.current.focus();
-    }
+    input.current?.focus();
   };
 
   const handleComponentClick = () => {
@@ -231,50 +155,46 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
     const current = container.current;
 
     // Close menu when clicking outside of the component
-    if (!(current && target instanceof Node && current.contains(target))) {
+    if (!(target instanceof Node && current?.contains(target))) {
       setIsMenuOpen(false);
     }
   };
 
-  const onDocumentFocusin = (event: FocusEvent) => {
-    const target = event.target;
-    const current = container.current;
+  const onDocumentFocusin = React.useCallback(
+    (event: FocusEvent) => {
+      const target = event.target;
+      const current = container.current;
 
-    if (!(current && target instanceof Node && current.contains(target))) {
-      setIsMenuOpen(false);
-    }
-  };
+      if (!(target instanceof Node && current?.contains(target))) {
+        ensureMenuIsClosed();
+      }
+    },
+    [ensureMenuIsClosed]
+  );
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
 
     onChangeSearchValue(newValue);
 
-    if (newValue) {
-      setIsMenuOpen(true);
-    } else {
-      setIsMenuOpen(false);
-    }
+    ensureMenuIsOpen();
   };
 
   const handleInputFocus = () => {
-    // Open menu when focused on the search input
-    if (searchValue) {
-      setIsMenuOpen(true);
-    }
+    ensureMenuIsOpen();
   };
 
   React.useEffect(() => {
+    setupKeyboardNav();
     document.addEventListener('click', onDocumentClick);
-    document.addEventListener('keydown', onKeyDown);
     document.addEventListener('focusin', onDocumentFocusin);
     // Clean up event listener to prevent memory leaks
     return () => {
+      teardownKeyboardNav();
       document.removeEventListener('click', onDocumentClick);
-      document.removeEventListener('keydown', onKeyDown);
       document.removeEventListener('focusin', onDocumentFocusin);
     };
-  }, [onKeyDown]);
+  }, [onDocumentFocusin, setupKeyboardNav, teardownKeyboardNav]);
 
   return (
     <div
@@ -298,8 +218,8 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
         />
       </div>
       <AutosuggestMenu
-        focusedOption={focusedOption}
-        isOpen={isMenuOpen}
+        focusedOption={focusedIndex}
+        isOpen={!!searchValue && isMenuOpen}
         onClose={handleCloseMenu}
         onOptionClick={handleMenuOptionClick}
         options={autoSuggestItems}
