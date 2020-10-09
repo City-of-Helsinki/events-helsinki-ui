@@ -65,12 +65,15 @@
     width: fit-content;
     padding: var(--spacing-m);
     background-color: transparent;
+    width: 100%;
+    box-sizing: border-box;
     transition: background-color 0.2s ease;
 
     @include respond-above(sm) {
       margin-bottom: 10rem;
       margin-left: calc(0rem - var(--spacing-xl));
       padding: var(--spacing-xl);
+      box-sizing: content-box;
       max-width: 25rem;
     }
 
