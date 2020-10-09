@@ -1,9 +1,7 @@
-@import 'fonts';
 @import 'layout';
-@import 'variables';
 
 .filterSummary {
-  margin-bottom: 0.625rem;
+  margin-bottom: var(--spacing-xs);
 
   &:last-child {
     margin-bottom: 0;

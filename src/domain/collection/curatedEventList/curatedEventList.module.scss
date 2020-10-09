@@ -1,5 +1,3 @@
-@import 'variables';
-
 .curatedEventList {
   background-color: var(--color-black-5);
   padding: 0;
@@ -9,7 +7,7 @@
   }
 
   .greyBackground {
-    padding: $largePadding 0;
+    padding: var(--spacing-xl) 0;
     background-color: var(--color-black-5);
 
     p {

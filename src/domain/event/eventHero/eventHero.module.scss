@@ -1,5 +1,4 @@
 @import 'layout';
-@import 'variables';
 
 $heroHeight: 30.6875rem;
 $imageMobileHeight: 23.4375rem;
@@ -28,10 +27,10 @@ $logoWidth: 5.5rem;
   }
 
   .backButtonWrapper {
-    padding: $basePadding;
+    padding: var(--spacing-m);
 
     @include respond_below(sm) {
-      padding: $basePadding 0;
+      padding: var(--spacing-m) 0;
       position: absolute;
     }
   }
@@ -44,7 +43,7 @@ $logoWidth: 5.5rem;
     background-repeat: no-repeat;
 
     @include respond_below(sm) {
-      margin: 0 (0 - $basePadding);
+      margin: 0 (0 - var(--spacing-m));
     }
   }
 
@@ -53,13 +52,13 @@ $logoWidth: 5.5rem;
   }
 
   .textWrapper {
-    padding: 0 0 $largePadding 0;
+    padding: 0 0 var(--spacing-xl) 0;
     width: 100%;
     display: flex;
     flex-direction: column;
 
     @include respond_above(sm) {
-      padding: $largePadding;
+      padding: var(--spacing-xl);
       width: unset;
     }
 
@@ -73,7 +72,7 @@ $logoWidth: 5.5rem;
     .date {
       order: 2;
       margin-top: 0.5rem;
-      font-size: 1.125rem;
+      font-size: var(--fontsize-body-l);
       line-height: 1.625rem;
     }
 

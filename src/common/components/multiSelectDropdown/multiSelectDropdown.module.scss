@@ -105,7 +105,7 @@
 
 .dropdownItem {
   margin: 0;
-  padding: calc(#{$basePadding} / 2) 1rem;
+  padding: var(--spacing-xs) var(--spacing-s);
 
   &--first {
     padding-top: 1rem;

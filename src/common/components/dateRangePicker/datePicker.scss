@@ -47,7 +47,7 @@
   }
 
   &__current-month {
-    font-size: 1.125rem;
+    font-size: var(--fontsize-body-l);
     color: var(--color-black);
     margin-bottom: 0.5rem;
     font-weight: 500;

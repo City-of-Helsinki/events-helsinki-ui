@@ -2,8 +2,8 @@
 
 .collectionCards {
   display: grid;
-  column-gap: 0.625rem;
-  row-gap: 0.625rem;
+  column-gap: var(--spacing-xs);
+  row-gap: var(--spacing-xs);
   margin-bottom: 1.25rem;
 
   @include respond-above(sm) {

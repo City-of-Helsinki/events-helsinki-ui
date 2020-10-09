@@ -1,6 +1,4 @@
-@import 'variables';
-
 .eventList {
   background-color: var(--color-black-5);
-  padding: $largePadding 0;
+  padding: var(--spacing-xl) 0;
 }
