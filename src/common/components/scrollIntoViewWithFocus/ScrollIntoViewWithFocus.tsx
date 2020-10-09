@@ -14,8 +14,8 @@ const ScrollIntoViewWithFocus: React.FC<Props> = ({
   const selfRef = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
-    if (isFocused && selfRef.current && selfRef.current.scrollIntoView) {
-      selfRef.current.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    if (isFocused && selfRef.current?.scrollIntoView) {
+      selfRef.current?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     }
   }, [isFocused]);
 
