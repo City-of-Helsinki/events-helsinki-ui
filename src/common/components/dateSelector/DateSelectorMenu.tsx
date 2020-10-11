@@ -3,14 +3,18 @@ import { IconAngleLeft, IconAngleRight, IconCalendarPlus } from 'hds-react';
 import React, { ChangeEvent, FunctionComponent, MutableRefObject } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import useLocale from '../../../hooks/useLocale';
 import { translateValue } from '../../../util/translateUtils';
 import Checkbox from '../checkbox/Checkbox';
 import DateRangePicker from '../dateRangePicker/DateRangePicker';
 import styles from './dateSelectorMenu.module.scss'; // the locale you want
 
+export const testIds = {
+  menu: 'date-selector-menu',
+};
+
 interface Props {
   backBtnRef?: MutableRefObject<HTMLButtonElement | null>;
+  customDatesBtnRef?: MutableRefObject<HTMLButtonElement | null>;
   dateTypes: string[];
   dateTypeOptions: string[];
   endDate: Date | null;
@@ -22,12 +26,12 @@ interface Props {
   onChangeStartDate: (date: Date | null) => void;
   onCloseMenu: () => void;
   startDate: Date | null;
-  toggleBtnRef?: MutableRefObject<HTMLButtonElement | null>;
   toggleIsCustomDate: () => void;
 }
 
 const DateSelectorMenu: FunctionComponent<Props> = ({
   backBtnRef,
+  customDatesBtnRef,
   dateTypes,
   dateTypeOptions,
   endDate,
@@ -39,11 +43,9 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
   onChangeStartDate,
   onCloseMenu,
   startDate,
-  toggleBtnRef,
   toggleIsCustomDate,
 }) => {
   const { t } = useTranslation();
-  const locale = useLocale();
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (dateTypes.indexOf(event.target.value) !== -1) {
@@ -59,6 +61,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
 
   return (
     <div
+      data-testid={testIds.menu}
       className={classNames(styles.dateSelectorMenu, {
         [styles.isCustomDate]: isCustomDate,
       })}
@@ -86,7 +89,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
       )}
 
       <button
-        ref={toggleBtnRef}
+        ref={customDatesBtnRef}
         className={classNames(styles.button, styles.btnSelectDates, {
           [styles.hidden]: isCustomDate,
         })}
@@ -119,7 +122,6 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
           <DateRangePicker
             endDate={endDate}
             isMenuOpen={isCustomDate}
-            locale={locale}
             name={name}
             onChangeEndDate={onChangeEndDate}
             onChangeStartDate={onChangeStartDate}
