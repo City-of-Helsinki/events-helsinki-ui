@@ -3,7 +3,7 @@ import capitalize from 'lodash/capitalize';
 import React from 'react';
 
 import { Breakpoint } from '../../../types';
-import styles from './responsive.module.scss';
+import styles from './visible.module.scss';
 
 interface Props {
   above?: Breakpoint;
@@ -11,7 +11,7 @@ interface Props {
   className?: string;
 }
 
-const Responsive: React.FC<Props> = ({ above, below, children, className }) => {
+const Visible: React.FC<Props> = ({ above, below, children, className }) => {
   return (
     <div
       className={classNames(className, {
@@ -24,4 +24,4 @@ const Responsive: React.FC<Props> = ({ above, below, children, className }) => {
   );
 };
 
-export default Responsive;
+export default Visible;

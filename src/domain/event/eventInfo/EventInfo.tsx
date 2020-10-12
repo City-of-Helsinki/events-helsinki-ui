@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
 import Link from '../../../common/components/link/Link';
 import linkStyles from '../../../common/components/link/link.module.scss';
-import Responsive from '../../../common/components/responsive/Responsive';
+import Visible from '../../../common/components/visible/Visible';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import IconDirections from '../../../icons/IconDirections';
@@ -127,18 +127,18 @@ const EventInfo: React.FC<Props> = ({ event }) => {
         {/* Location info */}
         <InfoWithIcon icon={<IconLocation />}>
           <h2 className={styles.title}>{t('event.info.labelLocation')}</h2>
-          <Responsive below={'sm'}>
+          <Visible below={'sm'}>
             {[locationName, streetAddress, district, addressLocality]
               .filter((e) => e)
               .join(', ')}
-          </Responsive>
-          <Responsive above={'sm'}>
+          </Visible>
+          <Visible above={'sm'}>
             {[locationName, streetAddress, district, addressLocality]
               .filter((e) => e)
               .map((item) => {
                 return <div key={item}>{item}</div>;
               })}
-          </Responsive>
+          </Visible>
           <Link isExternal={true} to={getServiceMapUrl(event, locale, false)}>
             {t('event.info.openMap')}
           </Link>
@@ -198,15 +198,15 @@ const EventInfo: React.FC<Props> = ({ event }) => {
         <OrganizationInfo event={event} />
 
         {/* Price info */}
-        <Responsive below={'sm'}>
+        <Visible below={'sm'}>
           <InfoWithIcon icon={<IconTicket />}>
             <h2 className={styles.title}>{t('event.info.labelPrice')}</h2>
             {eventPriceText || '-'}
           </InfoWithIcon>
-        </Responsive>
+        </Visible>
 
         {offerInfoUrl && (
-          <Responsive below={'sm'} className={styles.buyButtonWrapper}>
+          <Visible below={'sm'} className={styles.buyButtonWrapper}>
             <Button
               aria-label={t('event.info.ariaLabelBuyTickets')}
               fullWidth={true}
@@ -215,7 +215,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
             >
               {t('event.info.buttonBuyTickets')}
             </Button>
-          </Responsive>
+          </Visible>
         )}
       </div>
     </div>

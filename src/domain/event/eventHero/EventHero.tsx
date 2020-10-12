@@ -5,7 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import IconButton from '../../../common/components/iconButton/IconButton';
 import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
-import Responsive from '../../../common/components/responsive/Responsive';
+import Visible from '../../../common/components/visible/Visible';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
@@ -104,7 +104,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
                 <EventName event={event} />
               </h1>
               <div className={styles.description}>{shortDescription}</div>
-              <Responsive above="sm" className={styles.date}>
+              <Visible above="sm" className={styles.date}>
                 {!!startTime &&
                   getDateRangeStr({
                     start: startTime,
@@ -113,9 +113,9 @@ const EventHero: React.FC<Props> = ({ event }) => {
                     includeTime: true,
                     timeAbbreviation: t('commons.timeAbbreviation'),
                   })}
-              </Responsive>
+              </Visible>
 
-              <Responsive above="sm" className={styles.location}>
+              <Visible above="sm" className={styles.location}>
                 <InfoWithIcon icon={<IconLocation />}>
                   <LocationText
                     event={event}
@@ -123,13 +123,13 @@ const EventHero: React.FC<Props> = ({ event }) => {
                     showLocationName={true}
                   />
                 </InfoWithIcon>
-              </Responsive>
+              </Visible>
 
-              <Responsive above="sm" className={styles.price}>
+              <Visible above="sm" className={styles.price}>
                 <InfoWithIcon icon={<IconTicket />}>
                   {eventPriceText || '-'}
                 </InfoWithIcon>
-              </Responsive>
+              </Visible>
 
               {showKeywords && (
                 <div className={styles.categoryWrapper}>
@@ -141,7 +141,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
                 </div>
               )}
               {showBuyButton && (
-                <Responsive above="sm" className={styles.buyButtonWrapper}>
+                <Visible above="sm" className={styles.buyButtonWrapper}>
                   <Button
                     aria-label={t('event.hero.ariaLabelBuyTickets')}
                     onClick={goToBuyTicketsPage}
@@ -149,7 +149,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
                   >
                     {t('event.hero.buttonBuyTickets')}
                   </Button>
-                </Responsive>
+                </Visible>
               )}
             </div>
           </div>
