@@ -85,7 +85,7 @@ afterAll(() => {
 test('test for accessibility violations', async () => {
   const { container } = renderComponent();
 
-  await actWait(500);
+  await actWait();
 
   const results = await axe(container);
   expect(results).toHaveNoViolations();
@@ -94,7 +94,6 @@ test('test for accessibility violations', async () => {
 test('should clear all filters and search field', async () => {
   const { history } = renderComponent();
 
-  await actWait(500);
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe(search);
 
@@ -114,8 +113,6 @@ test('should clear all filters and search field', async () => {
 
 test('should change search query after clicking autosuggest menu item', async () => {
   const { history } = renderComponent();
-
-  await actWait(500);
 
   const searchInput = screen.getByRole('textbox', { name: /mitä etsit\?/i });
   userEvent.type(searchInput, searchValue);
@@ -138,9 +135,11 @@ test('should change search query after clicking autosuggest menu item', async ()
 test('should change search query after checking only children events checkbox', async () => {
   const { history } = renderComponent();
 
-  await actWait(500);
+  const onlyChildrenEventsCheckbox = await screen.findByRole('checkbox', {
+    name: /näytä vain lastentapahtumat/i,
+  });
 
-  userEvent.click(screen.getByText(/näytä vain lastentapahtumat/i));
+  userEvent.click(onlyChildrenEventsCheckbox);
 
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe('?onlyChildrenEvents=true&text=jazz');
@@ -149,9 +148,11 @@ test('should change search query after checking only children events checkbox', 
 test('should change search query after checking only evening events checkbox', async () => {
   const { history } = renderComponent();
 
-  await actWait(500);
+  const onlyEveningEventsCheckbox = await screen.findByRole('checkbox', {
+    name: /näytä vain iltatapahtumat/i,
+  });
 
-  userEvent.click(screen.getByText(/näytä vain iltatapahtumat/i));
+  userEvent.click(onlyEveningEventsCheckbox);
 
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe('?onlyEveningEvents=true&text=jazz');
@@ -160,9 +161,11 @@ test('should change search query after checking only evening events checkbox', a
 test('should change search query after checking is free checkbox', async () => {
   const { history } = renderComponent();
 
-  await actWait(500);
+  const isFreeCheckbox = await screen.findByRole('checkbox', {
+    name: /näytä vain maksuttomat/i,
+  });
 
-  userEvent.click(screen.getByText(/näytä vain maksuttomat/i));
+  userEvent.click(isFreeCheckbox);
 
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe('?isFree=true&text=jazz');
@@ -171,9 +174,11 @@ test('should change search query after checking is free checkbox', async () => {
 test('should change search query after selecting today date type and pressing submit button', async () => {
   const { history } = renderComponent();
 
-  await actWait(500);
+  const chooseDateButton = await screen.findByRole('button', {
+    name: /valitse ajankohta/i,
+  });
 
-  userEvent.click(screen.getByRole('button', { name: /valitse ajankohta/i }));
+  userEvent.click(chooseDateButton);
   userEvent.click(screen.getByRole('checkbox', { name: /tänään/i }));
 
   userEvent.click(screen.getByRole('button', { name: /hae/i }));
@@ -185,9 +190,11 @@ test('should change search query after selecting start date and pressing submit 
   advanceTo('2020-10-04');
   const { history } = renderComponent();
 
-  await actWait(500);
+  const chooseDateButton = await screen.findByRole('button', {
+    name: /valitse ajankohta/i,
+  });
 
-  userEvent.click(screen.getByRole('button', { name: /valitse ajankohta/i }));
+  userEvent.click(chooseDateButton);
   userEvent.click(
     // The reason to use getAllByRole is that there is also mobile date selector with same text,
     // which is hidden using css

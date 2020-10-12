@@ -4,11 +4,11 @@ import React from 'react';
 import { KeywordListDocument } from '../../../../generated/graphql';
 import { fakeKeywords } from '../../../../util/mockDataUtils';
 import {
-  actWait,
   configure,
   render,
   screen,
   userEvent,
+  waitFor,
 } from '../../../../util/testUtils';
 import LandingPageSearch from '../LandingPageSearch';
 
@@ -64,7 +64,9 @@ test('should route to event search page after clicking autosuggest menu item', a
   userEvent.type(searchInput, searchValue);
 
   // Wait autosuggest search internal input debounce
-  await actWait(500);
+  await waitFor(() => {
+    screen.getByRole('option', { name: /musiikkiklubit/i });
+  });
 
   userEvent.click(screen.getByRole('option', { name: /musiikkiklubit/i }));
   expect(history.location.pathname).toBe('/fi/events');
