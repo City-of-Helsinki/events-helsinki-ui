@@ -163,7 +163,7 @@ it('all the event cards should be visible and load more button should load more 
   });
 });
 
-it('should show console.error messa when loading next event page fails', async () => {
+it('should show console.error message when loading next event page fails', async () => {
   console.error = jest.fn();
   const mocks = [
     ...commonMocks,
