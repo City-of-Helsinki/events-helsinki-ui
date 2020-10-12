@@ -127,12 +127,12 @@ const EventInfo: React.FC<Props> = ({ event }) => {
         {/* Location info */}
         <InfoWithIcon icon={<IconLocation />}>
           <h2 className={styles.title}>{t('event.info.labelLocation')}</h2>
-          <Visible below={'sm'}>
+          <Visible below="sm">
             {[locationName, streetAddress, district, addressLocality]
               .filter((e) => e)
               .join(', ')}
           </Visible>
-          <Visible above={'sm'}>
+          <Visible above="sm">
             {[locationName, streetAddress, district, addressLocality]
               .filter((e) => e)
               .map((item) => {
@@ -198,7 +198,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
         <OrganizationInfo event={event} />
 
         {/* Price info */}
-        <Visible below={'sm'}>
+        <Visible below="sm">
           <InfoWithIcon icon={<IconTicket />}>
             <h2 className={styles.title}>{t('event.info.labelPrice')}</h2>
             {eventPriceText || '-'}
@@ -206,7 +206,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
         </Visible>
 
         {offerInfoUrl && (
-          <Visible below={'sm'} className={styles.buyButtonWrapper}>
+          <Visible below="sm" className={styles.buyButtonWrapper}>
             <Button
               aria-label={t('event.info.ariaLabelBuyTickets')}
               fullWidth={true}
