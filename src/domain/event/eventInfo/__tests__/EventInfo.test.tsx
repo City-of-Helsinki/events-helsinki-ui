@@ -72,76 +72,37 @@ it('should render event info fields', async () => {
   render(<EventInfo event={event} />, { mocks });
   await actWait();
 
-  // Event info fields
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.info.labelDateAndTime,
-    })
-  ).toBeInTheDocument();
+  const itemsByRole = [
+    { role: 'heading', name: translations.event.info.labelDateAndTime },
+    { role: 'heading', name: translations.event.info.labelLocation },
+    { role: 'heading', name: translations.event.info.labelLanguages },
+    { role: 'heading', name: translations.event.info.labelOtherInfo },
+    { role: 'link', name: translations.event.info.extlinkFacebook },
+    { role: 'heading', name: translations.event.info.labelDirections },
+    { role: 'link', name: translations.event.location.directionsGoogle },
+    { role: 'link', name: translations.event.location.directionsHSL },
+    { role: 'heading', name: translations.event.info.labelOrganizer },
+    { role: 'heading', name: translations.event.info.labelPrice },
+  ];
 
-  expect(
-    screen.queryByText('Ma 22.6.2020, klo 10.00 – 13.00')
-  ).toBeInTheDocument();
+  itemsByRole.forEach(({ role, name }) => {
+    expect(screen.queryByRole(role, { name })).toBeInTheDocument();
+  });
 
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.info.labelLocation,
-    })
-  ).toBeInTheDocument();
+  const itemsByText = [
+    'Ma 22.6.2020, klo 10.00 – 13.00',
+    addressLocality,
+    locationName,
+    streetAddress,
+    email,
+    telephone,
+    organizationName,
+    price,
+  ];
 
-  expect(screen.queryByText(addressLocality)).toBeInTheDocument();
-  expect(screen.queryByText(district)).toBeInTheDocument();
-  expect(screen.queryByText(locationName)).toBeInTheDocument();
-  expect(screen.queryByText(streetAddress)).toBeInTheDocument();
-
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.info.labelLanguages,
-    })
-  ).toBeInTheDocument();
-
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.info.labelOtherInfo,
-    })
-  ).toBeInTheDocument();
-  expect(screen.queryByText(email)).toBeInTheDocument();
-  expect(screen.queryByText(telephone)).toBeInTheDocument();
-  expect(
-    screen.queryByRole('link', {
-      name: translations.event.info.extlinkFacebook,
-    })
-  ).toBeInTheDocument();
-
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.info.labelDirections,
-    })
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByRole('link', {
-      name: translations.event.location.directionsGoogle,
-    })
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByRole('link', {
-      name: translations.event.location.directionsHSL,
-    })
-  ).toBeInTheDocument();
-
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.info.labelOrganizer,
-    })
-  ).toBeInTheDocument();
-  expect(screen.queryByText(organizationName)).toBeInTheDocument();
-
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.info.labelPrice,
-    })
-  ).toBeInTheDocument();
-  expect(screen.queryByText(price)).toBeInTheDocument();
+  itemsByText.forEach((item) => {
+    expect(screen.queryByText(item)).toBeInTheDocument();
+  });
 });
 
 it('should hide other info section', async () => {

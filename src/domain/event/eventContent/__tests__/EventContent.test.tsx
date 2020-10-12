@@ -35,100 +35,43 @@ it('should render event content fields', async () => {
   render(<EventContent event={event} />);
   await actWait();
 
-  // Event info headers
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.info.labelDateAndTime,
-    })
-  ).toBeInTheDocument();
+  const itemsByRole = [
+    { role: 'heading', name: translations.event.info.labelDateAndTime },
+    { role: 'heading', name: translations.event.info.labelLocation },
+    { role: 'heading', name: translations.event.info.labelLanguages },
+    { role: 'heading', name: translations.event.info.labelOtherInfo },
+    { role: 'heading', name: translations.event.info.labelDirections },
+    { role: 'heading', name: translations.event.info.labelPrice },
+    { role: 'heading', name: translations.event.description.title },
+    { role: 'heading', name: translations.event.shareLinks.title },
+    { role: 'button', name: translations.commons.shareLinks.buttonCopyLink },
+    { role: 'button', name: translations.commons.shareLink.shareOnFacebook },
+    { role: 'button', name: translations.commons.shareLink.shareOnTwitter },
+    { role: 'button', name: translations.commons.shareLink.shareOnLinkedIn },
+    { role: 'heading', name: translations.event.location.title },
+    { role: 'link', name: translations.event.location.openMap },
+  ];
 
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.info.labelLocation,
-    })
-  ).toBeInTheDocument();
+  itemsByRole.forEach(({ role, name }) => {
+    expect(screen.queryByRole(role, { name })).toBeInTheDocument();
+  });
 
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.info.labelLanguages,
-    })
-  ).toBeInTheDocument();
+  const itemsByText = [
+    description,
+    [streetAddress, district, addressLocality].join(', '),
+  ];
 
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.info.labelOtherInfo,
-    })
-  ).toBeInTheDocument();
+  itemsByText.forEach((item) => {
+    expect(screen.queryByText(item)).toBeInTheDocument();
+  });
 
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.info.labelDirections,
-    })
-  ).toBeInTheDocument();
+  // Both location and event info have directions links so test that both are available
+  const itemsAllByRole = [
+    { role: 'link', name: translations.event.location.directionsGoogle },
+    { role: 'link', name: translations.event.location.directionsHSL },
+  ];
 
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.info.labelPrice,
-    })
-  ).toBeInTheDocument();
-
-  // Description
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.description.title,
-    })
-  ).toBeInTheDocument();
-  expect(screen.queryByText(description)).toBeInTheDocument();
-
-  // Social media share buttons
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.shareLinks.title,
-    })
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByRole('button', {
-      name: translations.commons.shareLinks.buttonCopyLink,
-    })
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByRole('button', {
-      name: translations.commons.shareLink.shareOnFacebook,
-    })
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByRole('button', {
-      name: translations.commons.shareLink.shareOnTwitter,
-    })
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByRole('button', {
-      name: translations.commons.shareLink.shareOnLinkedIn,
-    })
-  ).toBeInTheDocument();
-
-  // Location
-  expect(
-    screen.queryByRole('heading', {
-      name: translations.event.location.title,
-    })
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByRole('link', {
-      name: translations.event.location.openMap,
-    })
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByText([streetAddress, district, addressLocality].join(', '))
-  ).toBeInTheDocument();
-  expect(
-    screen.queryAllByRole('link', {
-      name: translations.event.location.directionsGoogle,
-    })
-  ).toHaveLength(2);
-  expect(
-    screen.queryAllByRole('link', {
-      name: translations.event.location.directionsHSL,
-    })
-  ).toHaveLength(2);
+  itemsAllByRole.forEach(({ role, name }) => {
+    expect(screen.queryAllByRole(role, { name })).toHaveLength(2);
+  });
 });
