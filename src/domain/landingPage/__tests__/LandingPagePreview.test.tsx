@@ -39,7 +39,7 @@ const testPath = `${ROUTES.HOME_PREVIEW.replace(
 )}?draft=true`;
 const routes = [testPath];
 
-const getWrapper = () =>
+const renderComponent = () =>
   renderWithRoute(<LandingPagePreview />, {
     mocks,
     routes,
@@ -47,7 +47,7 @@ const getWrapper = () =>
   });
 
 it('should render landing page preview correctly', async () => {
-  getWrapper();
+  renderComponent();
 
   await waitFor(() => {
     expect(
@@ -59,7 +59,7 @@ it('should render landing page preview correctly', async () => {
 });
 
 it('should show preview banner', async () => {
-  getWrapper();
+  renderComponent();
 
   await waitFor(() => {
     expect(

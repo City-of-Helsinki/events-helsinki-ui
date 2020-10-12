@@ -95,12 +95,12 @@ afterAll(() => {
   clear();
 });
 
-const getWrapper = (mocks: MockedResponse[] = defaultMocks) =>
+const renderComponent = (mocks: MockedResponse[] = defaultMocks) =>
   render(<OtherEventTimesEvents event={event} />, { mocks });
 
 test('should render other event times', async () => {
   advanceTo(new Date('2020-08-11'));
-  getWrapper();
+  renderComponent();
 
   const toggleButton = screen.getByRole('button', {
     name: translations.event.otherTimes.buttonShow,
@@ -153,7 +153,7 @@ test('should call console.error when loading next event page fails', async () =>
       error: new Error('not found'),
     },
   ];
-  getWrapper(mocks);
+  renderComponent(mocks);
 
   const toggleButton = screen.getByRole('button', {
     name: translations.event.otherTimes.buttonShow,
@@ -175,7 +175,7 @@ test('should call console.error when loading next event page fails', async () =>
 
 test('should go to event page of other event time', async () => {
   advanceTo(new Date('2020-08-11'));
-  const { history } = getWrapper();
+  const { history } = renderComponent();
 
   const toggleButton = screen.getByRole('button', {
     name: translations.event.otherTimes.buttonShow,

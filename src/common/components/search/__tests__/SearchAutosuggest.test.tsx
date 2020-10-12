@@ -45,18 +45,18 @@ const defaultProps = {
   placeholder,
   searchValue,
 };
-const getWrapper = (props?: Partial<SearchAutosuggestProps>) =>
+const renderComponent = (props?: Partial<SearchAutosuggestProps>) =>
   render(<SearchAutosuggest {...defaultProps} {...props} />, { mocks });
 
 test('matches snapshot', async () => {
-  const { container } = getWrapper();
+  const { container } = renderComponent();
   await act(wait);
 
   expect(container.firstChild).toMatchSnapshot();
 });
 
 test('should open menu after typing search value', async () => {
-  const { getByPlaceholderText } = getWrapper({ searchValue: '' });
+  const { getByPlaceholderText } = renderComponent({ searchValue: '' });
   const searchInput = getByPlaceholderText(placeholder);
 
   await act(wait);
@@ -71,7 +71,7 @@ test('should open menu after typing search value', async () => {
 });
 
 test('should close menu with esc key', async () => {
-  const { getByPlaceholderText } = getWrapper();
+  const { getByPlaceholderText } = renderComponent();
   const searchInput = getByPlaceholderText(placeholder);
 
   await act(wait);
@@ -86,7 +86,7 @@ test('should close menu with esc key', async () => {
 });
 
 test('should allow navigation with down arrows', async () => {
-  const { getByPlaceholderText } = getWrapper();
+  const { getByPlaceholderText } = renderComponent();
   const searchInput = getByPlaceholderText(placeholder);
 
   await act(wait);
@@ -107,7 +107,7 @@ test('should allow navigation with down arrows', async () => {
 });
 
 test('should allow navigation with up arrows', async () => {
-  const { getByPlaceholderText } = getWrapper();
+  const { getByPlaceholderText } = renderComponent();
   const searchInput = getByPlaceholderText(placeholder);
 
   await act(wait);
@@ -134,7 +134,7 @@ test('should allow navigation with up arrows', async () => {
 });
 
 test('first item should be focused when opening menu by down arrow', async () => {
-  const { getByPlaceholderText } = getWrapper();
+  const { getByPlaceholderText } = renderComponent();
   const searchInput = getByPlaceholderText(placeholder);
 
   await act(wait);
@@ -154,7 +154,7 @@ test('first item should be focused when opening menu by down arrow', async () =>
 });
 
 test('last item should be focused when opening menu by up arrow', async () => {
-  const { getByPlaceholderText } = getWrapper();
+  const { getByPlaceholderText } = renderComponent();
   const searchInput = getByPlaceholderText(placeholder);
 
   await act(wait);
@@ -178,7 +178,7 @@ test('last item should be focused when opening menu by up arrow', async () => {
 
 test('should call onOptionClick by pressing enter', async () => {
   const onEnter = jest.fn();
-  const { getByPlaceholderText } = getWrapper({ onOptionClick: onEnter });
+  const { getByPlaceholderText } = renderComponent({ onOptionClick: onEnter });
   const searchInput = getByPlaceholderText(placeholder);
 
   await act(wait);

@@ -88,7 +88,7 @@ afterAll(() => {
   clear();
 });
 
-const getWrapper = (
+const renderComponent = (
   collection: CollectionFieldsFragment,
   mocks: MockedResponse[] = defaultMocks
 ) => render(<EventList collection={collection} />, { mocks });
@@ -98,7 +98,7 @@ test('should show event list correctly', async () => {
   const collection = fakeCollection({
     eventListTitle: { fi: eventListTitle },
   }) as CollectionFieldsFragment;
-  getWrapper(collection);
+  renderComponent(collection);
 
   await waitFor(() => {
     expect(
@@ -141,7 +141,7 @@ test('should call console.error if loading next page fails', async () => {
   const collection = fakeCollection({
     eventListTitle: { fi: eventListTitle },
   }) as CollectionFieldsFragment;
-  getWrapper(collection, mocks);
+  renderComponent(collection, mocks);
 
   await waitFor(() => {
     expect(
@@ -170,7 +170,7 @@ test('should not show event list when eventListQuery is empty string', async () 
     eventListTitle: { fi: eventListTitle },
   }) as CollectionFieldsFragment;
 
-  getWrapper(collection);
+  renderComponent(collection);
 
   await waitFor(() => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();

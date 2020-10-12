@@ -47,11 +47,11 @@ const defaultProps: MultiselectDropdownProps = {
   title,
   value: [],
 };
-const getWrapper = (props?: Partial<MultiselectDropdownProps>) =>
+const renderComponent = (props?: Partial<MultiselectDropdownProps>) =>
   render(<MultiSelectDropdown {...defaultProps} {...props} />);
 
 test('should set focus to input after clicking toggle button', async () => {
-  getWrapper();
+  renderComponent();
 
   const toggleButton = screen.getByRole('button', { name: title });
   fireEvent.click(toggleButton);
@@ -64,7 +64,7 @@ test('should set focus to input after clicking toggle button', async () => {
 });
 
 test('should filter results based on user search and options[].text field', async () => {
-  getWrapper();
+  renderComponent();
 
   const toggleButton = screen.getByRole('button', { name: title });
   fireEvent.click(toggleButton);
@@ -80,7 +80,7 @@ test('should filter results based on user search and options[].text field', asyn
 });
 
 test('should reset keyboard navigation position after a new search', async () => {
-  getWrapper();
+  renderComponent();
 
   const toggleButton = screen.getByRole('button', { name: title });
   fireEvent.click(toggleButton);
@@ -111,7 +111,7 @@ test('should reset keyboard navigation position after a new search', async () =>
 
 describe('ArrowUp, ArrowDown', () => {
   test('should allow navigation with up and down arrows', async () => {
-    getWrapper();
+    renderComponent();
 
     const toggleButton = screen.getByRole('button', { name: title });
     fireEvent.click(toggleButton);
@@ -134,7 +134,7 @@ describe('ArrowUp, ArrowDown', () => {
   });
 
   test('should select last item if the first keyboard navigation is button up', () => {
-    getWrapper();
+    renderComponent();
 
     const toggleButton = screen.getByRole('button', { name: title });
     fireEvent.click(toggleButton);
@@ -149,7 +149,7 @@ describe('ArrowUp, ArrowDown', () => {
   });
 
   test('should reset to start position when user goes up in the first member of the list', () => {
-    getWrapper();
+    renderComponent();
 
     const toggleButton = screen.getByRole('button', { name: title });
     fireEvent.click(toggleButton);
@@ -169,7 +169,7 @@ describe('ArrowUp, ArrowDown', () => {
   });
 
   test('should reset to start position when user goes down from the last member of the list', () => {
-    getWrapper();
+    renderComponent();
 
     const toggleButton = screen.getByRole('button', { name: title });
     fireEvent.click(toggleButton);
@@ -195,7 +195,7 @@ describe('ArrowUp, ArrowDown', () => {
 
 describe('Escape', () => {
   test('should close suggestions with escape', () => {
-    getWrapper();
+    renderComponent();
 
     const toggleButton = screen.getByRole('button', { name: title });
     fireEvent.click(toggleButton);
@@ -214,7 +214,7 @@ describe('Escape', () => {
 });
 
 test('should not open dropdown when user focuses toggle button', () => {
-  getWrapper();
+  renderComponent();
 
   const toggleButton = screen.getByRole('button', { name: title });
   act(() => toggleButton.focus());
@@ -223,7 +223,7 @@ test('should not open dropdown when user focuses toggle button', () => {
 });
 
 test('should open dropdown when user clicks on toggle button', () => {
-  getWrapper();
+  renderComponent();
 
   const toggleButton = screen.getByRole('button', { name: title });
   fireEvent.click(toggleButton);
@@ -233,7 +233,7 @@ test('should open dropdown when user clicks on toggle button', () => {
 
 describe('when dropdown has been closed, it should reopen with', () => {
   const getClosedInput = async () => {
-    const helpers = getWrapper();
+    const helpers = renderComponent();
 
     const toggleButton = screen.getByRole('button', { name: title });
     fireEvent.click(toggleButton);

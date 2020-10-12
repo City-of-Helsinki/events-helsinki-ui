@@ -72,7 +72,7 @@ const search = '?text=jazz';
 const testRoute = `${pathname}${search}`;
 const routes = [testRoute];
 
-const getWrapper = () =>
+const renderComponent = () =>
   render(<Search scrollToResultList={jest.fn()} />, {
     mocks,
     routes,
@@ -83,7 +83,7 @@ afterAll(() => {
 });
 
 test('test for accessibility violations', async () => {
-  const { container } = getWrapper();
+  const { container } = renderComponent();
 
   await actWait(500);
 
@@ -92,7 +92,7 @@ test('test for accessibility violations', async () => {
 });
 
 test('should clear all filters and search field', async () => {
-  const { history } = getWrapper();
+  const { history } = renderComponent();
 
   await actWait(500);
   expect(history.location.pathname).toBe(pathname);
@@ -113,7 +113,7 @@ test('should clear all filters and search field', async () => {
 });
 
 test('should change search query after clicking autosuggest menu item', async () => {
-  const { history } = getWrapper();
+  const { history } = renderComponent();
 
   await actWait(500);
 
@@ -136,7 +136,7 @@ test('should change search query after clicking autosuggest menu item', async ()
 });
 
 test('should change search query after checking only children events checkbox', async () => {
-  const { history } = getWrapper();
+  const { history } = renderComponent();
 
   await actWait(500);
 
@@ -147,7 +147,7 @@ test('should change search query after checking only children events checkbox', 
 });
 
 test('should change search query after checking only evening events checkbox', async () => {
-  const { history } = getWrapper();
+  const { history } = renderComponent();
 
   await actWait(500);
 
@@ -158,7 +158,7 @@ test('should change search query after checking only evening events checkbox', a
 });
 
 test('should change search query after checking is free checkbox', async () => {
-  const { history } = getWrapper();
+  const { history } = renderComponent();
 
   await actWait(500);
 
@@ -169,7 +169,7 @@ test('should change search query after checking is free checkbox', async () => {
 });
 
 test('should change search query after selecting today date type and pressing submit button', async () => {
-  const { history } = getWrapper();
+  const { history } = renderComponent();
 
   await actWait(500);
 
@@ -183,7 +183,7 @@ test('should change search query after selecting today date type and pressing su
 
 test('should change search query after selecting start date and pressing submit button', async () => {
   advanceTo('2020-10-04');
-  const { history } = getWrapper();
+  const { history } = renderComponent();
 
   await actWait(500);
 

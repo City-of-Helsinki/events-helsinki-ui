@@ -1,6 +1,7 @@
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import React from 'react';
 
+import { userEvent } from '../../../../util/testUtils';
 import CopyButton from '../CopyButton';
 
 // `copy-to-clipboard` is not jsdom compatible so we are replacing it with a
@@ -15,40 +16,44 @@ const defaultProps = {
   string: testString,
   successMessage: testMessage,
 };
-const getWrapper = props => render(<CopyButton {...defaultProps} {...props} />);
+const renderComponent = (props) =>
+  render(<CopyButton {...defaultProps} {...props} />);
 
 test('should show success message when copying succeeds that displays for 4 seconds', () => {
   jest.useFakeTimers();
 
-  const { getByLabelText, queryByText } = getWrapper();
+  renderComponent();
 
-  fireEvent.click(getByLabelText(testLabel));
+  userEvent.click(screen.getByLabelText(testLabel));
 
-  expect(queryByText(testMessage)).not.toEqual(null);
+  expect(screen.queryByText(testMessage)).toBeInTheDocument();
 
   // Fast forwards by 4s
   act(() => {
     jest.advanceTimersByTime(4000);
   });
 
-  expect(queryByText(testMessage)).toEqual(null);
+  expect(screen.queryByText(testMessage)).not.toBeInTheDocument();
 });
 
 test('should add success class for 4s after a successful copy', () => {
   jest.useFakeTimers();
   const testClass = 'class';
   const testSuccessClass = 'success-class';
-  const { getByLabelText } = getWrapper({
+  renderComponent({
     className: testClass,
     successClass: testSuccessClass,
   });
 
-  fireEvent.click(getByLabelText(testLabel));
-  expect(getByLabelText(testLabel)).toHaveClass(testClass, testSuccessClass);
+  userEvent.click(screen.getByLabelText(testLabel));
+  expect(screen.getByLabelText(testLabel)).toHaveClass(
+    testClass,
+    testSuccessClass
+  );
 
   act(() => {
     jest.advanceTimersByTime(4000);
   });
 
-  expect(getByLabelText(testLabel)).toHaveClass(testClass);
+  expect(screen.getByLabelText(testLabel)).toHaveClass(testClass);
 });

@@ -39,10 +39,10 @@ afterAll(() => {
   clear();
 });
 
-const getWrapper = () => render(<EventCard event={event} />);
+const renderComponent = () => render(<EventCard event={event} />);
 
 test('test for accessibility violations', async () => {
-  const { container } = getWrapper();
+  const { container } = renderComponent();
 
   const results = await axe(container);
   expect(results).toHaveNoViolations();
@@ -50,7 +50,7 @@ test('test for accessibility violations', async () => {
 
 test('should go to event page by clicking event card', () => {
   advanceTo('2020-10-05');
-  const { history } = getWrapper();
+  const { history } = renderComponent();
 
   expect(history.location.pathname).toEqual('/');
 
@@ -67,7 +67,7 @@ test('should go to event page by clicking event card', () => {
 });
 
 test('should go to event page by clicking button', () => {
-  const { history } = getWrapper();
+  const { history } = renderComponent();
 
   expect(history.location.pathname).toEqual('/');
 

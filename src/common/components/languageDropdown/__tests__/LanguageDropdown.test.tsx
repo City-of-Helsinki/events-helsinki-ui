@@ -24,11 +24,11 @@ const defaultProps = {
   onChange,
   value: SUPPORT_LANGUAGES.FI,
 };
-const getWrapper = () => render(<LanguageDropdown {...defaultProps} />);
+const renderComponent = () => render(<LanguageDropdown {...defaultProps} />);
 
 describe('ArrowUp, ArrowDown', () => {
   test('should allow navigation with up and down arrows', async () => {
-    const { getByTestId, getByText } = getWrapper();
+    const { getByTestId, getByText } = renderComponent();
     const button = getByTestId(buttonTestId);
     fireEvent.click(button);
     act(() => button.focus());
@@ -48,7 +48,7 @@ describe('ArrowUp, ArrowDown', () => {
   });
 
   test('should select last item if the first keyboard navigation is button up', () => {
-    const { getByTestId, getByText } = getWrapper();
+    const { getByTestId, getByText } = renderComponent();
     const button = getByTestId(buttonTestId);
 
     fireEvent.click(button);
@@ -61,7 +61,7 @@ describe('ArrowUp, ArrowDown', () => {
   });
 
   test('should select first item when user goes down in the last member of the list', () => {
-    const { getByTestId, getByText } = getWrapper();
+    const { getByTestId, getByText } = renderComponent();
     const button = getByTestId(buttonTestId);
 
     fireEvent.click(button);
@@ -79,7 +79,7 @@ describe('ArrowUp, ArrowDown', () => {
 
 describe('Escape', () => {
   test('should close suggestions with escape', () => {
-    const { getByTestId } = getWrapper();
+    const { getByTestId } = renderComponent();
     const button = getByTestId(buttonTestId);
 
     fireEvent.click(button);
@@ -97,7 +97,7 @@ describe('Escape', () => {
 
 describe('when dropdown has been closed, it should reopen with', () => {
   const getClosedInput = () => {
-    const helpers = getWrapper();
+    const helpers = renderComponent();
     const { getByTestId } = helpers;
     const button = getByTestId(buttonTestId);
 

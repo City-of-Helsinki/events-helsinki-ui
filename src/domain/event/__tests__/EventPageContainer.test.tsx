@@ -40,7 +40,7 @@ const mocks = [
 const testPath = ROUTES.EVENT.replace(':id', id);
 const routes = [testPath];
 
-const getWrapper = () =>
+const renderComponent = () =>
   renderWithRoute(<EventPageContainer />, {
     mocks,
     routes,
@@ -53,7 +53,7 @@ afterAll(() => {
 
 it('should render event', async () => {
   advanceTo('2020-10-01');
-  getWrapper();
+  renderComponent();
 
   await waitFor(() => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
@@ -63,7 +63,7 @@ it('should render event', async () => {
 
 it('should show error info when event is closed', async () => {
   advanceTo('2020-10-10');
-  getWrapper();
+  renderComponent();
 
   await waitFor(() => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();

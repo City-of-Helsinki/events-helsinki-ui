@@ -29,12 +29,12 @@ const defaultProps = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getWrapper = (props) =>
+const renderComponent = (props) =>
   render(<MobileDateSelector {...defaultProps} {...props} />);
 
 describe('MobileDateSelector component', () => {
   test('should have correct date types selected', async () => {
-    getWrapper();
+    renderComponent();
 
     expect(
       screen.getByRole('button', { name: dateTypeOptions[0] })
@@ -54,7 +54,7 @@ describe('MobileDateSelector component', () => {
   });
 
   test('custom date type should be selected when startDate is selected', async () => {
-    getWrapper({ startDate: new Date('2018-12-12') });
+    renderComponent({ startDate: new Date('2018-12-12') });
 
     expect(
       screen.getByRole('button', { name: dateTypeOptions[4] })
@@ -62,7 +62,7 @@ describe('MobileDateSelector component', () => {
   });
 
   test('custom date type should be selected when endDate is selected', async () => {
-    getWrapper({ startDate: new Date('2018-12-12') });
+    renderComponent({ startDate: new Date('2018-12-12') });
 
     expect(
       screen.getByRole('button', { name: dateTypeOptions[4] })
@@ -72,7 +72,7 @@ describe('MobileDateSelector component', () => {
 
 describe('Escape', () => {
   test('should close date selector menu with escape', () => {
-    getWrapper();
+    renderComponent();
     userEvent.click(screen.getByRole('button', { name: /valitse päivät/i }));
 
     // Check that menu is open
@@ -85,7 +85,7 @@ describe('Escape', () => {
 
 describe('when menu has been closed, it should reopen with', () => {
   const getClosedInput = () => {
-    const helpers = getWrapper();
+    const helpers = renderComponent();
 
     const button = screen.getByRole('button', { name: /valitse päivät/i });
     userEvent.click(button);

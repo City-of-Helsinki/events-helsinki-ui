@@ -35,7 +35,7 @@ const mocks = [
   },
 ];
 
-const getWrapper = (route: string) =>
+const renderComponent = (route: string) =>
   render(<AppRoutes />, { mocks, routes: [route] });
 
 beforeEach(() => {
@@ -45,14 +45,14 @@ beforeEach(() => {
 });
 
 it('user from supported locale will be redirect to App with that locale', async () => {
-  getWrapper('/en/');
+  renderComponent('/en/');
   await actWait();
 
   expect(i18n.language).toEqual('en');
 });
 
 it('user from unsupported locale prefix will be redirect to route with support prefix', async () => {
-  const { history } = getWrapper('/vi/');
+  const { history } = renderComponent('/vi/');
   await actWait();
 
   expect(i18n.language).toEqual('fi');
@@ -60,7 +60,7 @@ it('user from unsupported locale prefix will be redirect to route with support p
 });
 
 it('user without locale prefix will be redirect to route with support prefix', async () => {
-  const { history } = getWrapper('/foo-url');
+  const { history } = renderComponent('/foo-url');
   await actWait();
 
   expect(i18n.language).toEqual('fi');
@@ -68,7 +68,7 @@ it('user without locale prefix will be redirect to route with support prefix', a
 });
 
 it('user with route with unsupport locale will be redirect to App anyway, with supported locale', async () => {
-  const { history } = getWrapper('/dk/foo');
+  const { history } = renderComponent('/dk/foo');
   await actWait();
 
   expect(i18n.language).toEqual('fi');

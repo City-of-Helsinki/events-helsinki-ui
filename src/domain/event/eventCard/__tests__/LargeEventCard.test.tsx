@@ -8,12 +8,12 @@ import { fakeEvent } from '../../../../util/mockDataUtils';
 import { render, screen } from '../../../../util/testUtils';
 import LargeEventCard from '../LargeEventCard';
 
-const getWrapper = (event: EventFieldsFragment) =>
+const renderComponent = (event: EventFieldsFragment) =>
   render(<LargeEventCard event={event} />);
 
 test('test for accessibility violations', async () => {
   const event = fakeEvent() as EventFieldsFragment;
-  const { container } = getWrapper(event);
+  const { container } = renderComponent(event);
 
   const results = await axe(container);
   expect(results).toHaveNoViolations();
@@ -30,7 +30,7 @@ test('should show buy button when event has an offer', () => {
       },
     ],
   }) as EventFieldsFragment;
-  getWrapper(event);
+  renderComponent(event);
 
   const button = screen.queryByRole('button', {
     name: /osta liput - linkki avautuu uudessa ikkunassa/i,
@@ -53,7 +53,7 @@ test('should hide buy button when event is free', () => {
       },
     ],
   }) as EventFieldsFragment;
-  getWrapper(event);
+  renderComponent(event);
 
   expect(
     screen.queryByRole('button', {
@@ -75,7 +75,7 @@ test('should hide buy button when event is closed', () => {
     startTime: '2017-01-01',
   }) as EventFieldsFragment;
 
-  getWrapper(event);
+  renderComponent(event);
 
   expect(
     screen.queryByRole('button', {
@@ -89,7 +89,7 @@ test('should go to event page by click Read more button', () => {
     id: '123',
   }) as EventFieldsFragment;
 
-  const { history } = getWrapper(event);
+  const { history } = renderComponent(event);
 
   expect(history.location.pathname).toEqual('/');
 
@@ -110,7 +110,7 @@ test('should go to event page by clicking event card', () => {
     id: '123',
   }) as EventFieldsFragment;
 
-  const { history } = getWrapper(event);
+  const { history } = renderComponent(event);
 
   expect(history.location.pathname).toEqual('/');
 
