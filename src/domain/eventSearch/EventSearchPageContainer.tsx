@@ -7,6 +7,7 @@ import {
   withRouter,
 } from 'react-router';
 import { scroller } from 'react-scroll';
+import { toast } from 'react-toastify';
 
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import SrOnly from '../../common/components/srOnly/SrOnly';
@@ -73,7 +74,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
           },
         });
       } catch (e) {
-        console.error(e);
+        toast.error(t('eventSearch.errorLoadMode'));
       }
     }
     setIsFetchingMore(false);

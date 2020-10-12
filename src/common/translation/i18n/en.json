@@ -71,6 +71,9 @@
       "textEventNotFound": "Event not found",
       "textOnlyExpiredEvents": "Unfortunately all the events in this collection have already passed. Have a look at our other recommendations and collections to find more interesting events."
     },
+    "eventList": {
+      "errorLoadMore": "Failed to load events"
+    },
     "expired": {
       "linkSearchEvents": "To all collections",
       "text": "Unfortunately this particular collections has already been removed. Luckily there are many other collections and recommendations, so have a look and explore all the other interesting things the city has to offer.",
@@ -133,6 +136,7 @@
       "buttonBuyTickets": "Buy tickets",
       "directionsGoogle": "Directions (Google)",
       "directionsHSL": "Directions (HSL)",
+      "errorLoadMore": "Failed to load events",
       "extlinkFacebook": "Facebook",
       "extlinkInstagram": "Instagram",
       "extlinkTwitter": "Twitter",
@@ -183,6 +187,7 @@
     "ariaLiveSearchReady": "{{count}} search results",
     "buttonClearFilters": "Clear filters",
     "buttonLoadMore": "Show more events ({{count}})",
+    "errorLoadMore": "Failed to load events",
     "noResultsInfo": {
       "bigText": "Sorry, no search results were found for the search criteria you selected",
       "smallText": "Try changing your search criteria and you're sure to find something to do!"

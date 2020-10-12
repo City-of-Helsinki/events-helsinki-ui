@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
@@ -20,6 +22,8 @@ interface Props {
 const EventList: React.FC<Props> = ({ collection }) => {
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const locale = useLocale();
+  const { t } = useTranslation();
+
   const { eventListQuery, eventListTitle } = getCollectionFields(
     collection,
     locale
@@ -70,9 +74,10 @@ const EventList: React.FC<Props> = ({ collection }) => {
           },
         });
       } catch (e) {
-        console.error(e);
+        toast.error(t('collection.eventList.errorLoadMore'));
       }
     }
+
     setIsFetchingMore(false);
   };
 

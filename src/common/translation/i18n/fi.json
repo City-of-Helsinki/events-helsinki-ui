@@ -71,6 +71,9 @@
       "textEventNotFound": "Tapahtumaa ei löydy",
       "textOnlyExpiredEvents": "Valitettavasti tämän kokoelman kaikki suositellut tapahtumat ovat jo ehtineet päättyä. Käy tutustumassa muihin suosituksiimme ja löydä itsellesi tekemistä."
     },
+    "eventList": {
+      "errorLoadMore": "Tapahtumien lataaminen epäonnistui"
+    },
     "expired": {
       "linkSearchEvents": "Tutustu kaikkiin kokoelmiin",
       "text": "Valitettavasti etsimäsi kokoelma on poistettu. Onneksi uusia kokoelmia syntyy koko ajan, joten käy kurkkaamassa mitä muuta kiinnostavaa kaupungissa tapahtuu.",
@@ -133,6 +136,7 @@
       "buttonBuyTickets": "Osta liput",
       "directionsGoogle": "Reittiohjeet (Google)",
       "directionsHSL": "Reittiohjeet (HSL)",
+      "errorLoadMode": "Tapahtumien lataaminen epäonnistui",
       "extlinkFacebook": "Facebook",
       "extlinkInstagram": "Instagram",
       "extlinkTwitter": "Twitter",
@@ -183,6 +187,7 @@
     "ariaLiveSearchReady": "{{count}} hakutulosta",
     "buttonClearFilters": "Tyhjennä hakuehdot",
     "buttonLoadMore": "Näytä lisää tapahtumia ({{count}})",
+    "errorLoadMode": "Tapahtumien lataaminen epäonnistui",
     "noResultsInfo": {
       "bigText": "Voi vitsi, valitsemillasi hakuehdoilla ei löytynyt yhtään hakutulosta",
       "smallText": "Kokeile muuttamalla hakuehtoja ja varmasti löydät jotain kiinnostavaa tekemistä!"

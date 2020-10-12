@@ -6,6 +6,7 @@ import { advanceTo, clear } from 'jest-date-mock';
 import React from 'react';
 import routeData from 'react-router';
 import { scroller } from 'react-scroll';
+import { toast } from 'react-toastify';
 
 import translations from '../../../common/translation/i18n/fi.json';
 import {
@@ -163,8 +164,8 @@ it('all the event cards should be visible and load more button should load more 
   });
 });
 
-it('should show console.error message when loading next event page fails', async () => {
-  console.error = jest.fn();
+it('should show toastr message when loading next event page fails', async () => {
+  toast.error = jest.fn();
   const mocks = [
     ...commonMocks,
     {
@@ -201,7 +202,7 @@ it('should show console.error message when loading next event page fails', async
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  expect(console.error).toBeCalled();
+  expect(toast.error).toBeCalledWith(translations.eventSearch.errorLoadMode);
 });
 
 it('should scroll to event defined in react-router location state', async () => {

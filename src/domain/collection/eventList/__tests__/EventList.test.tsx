@@ -2,6 +2,7 @@
 import { MockedResponse } from '@apollo/react-testing';
 import { advanceTo, clear } from 'jest-date-mock';
 import React from 'react';
+import { toast } from 'react-toastify';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import {
@@ -125,9 +126,9 @@ test('should show event list correctly', async () => {
   });
 });
 
-test('should call console.error if loading next page fails', async () => {
-  console.error = jest.fn();
+test('should show toastr if loading next page fails', async () => {
   advanceTo('2020-10-03');
+  toast.error = jest.fn();
   const mocks = [
     ...commonMocks,
     {
@@ -159,7 +160,9 @@ test('should call console.error if loading next page fails', async () => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  expect(console.error).toBeCalled();
+  expect(toast.error).toBeCalledWith(
+    translations.collection.eventList.errorLoadMore
+  );
 });
 
 test('should not show event list when eventListQuery is empty string', async () => {

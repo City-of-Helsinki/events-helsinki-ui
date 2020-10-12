@@ -4,6 +4,7 @@ import { addDays } from 'date-fns';
 import { advanceTo, clear } from 'jest-date-mock';
 import range from 'lodash/range';
 import React from 'react';
+import { toast } from 'react-toastify';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import {
@@ -140,8 +141,8 @@ test('should render other event times', async () => {
   });
 });
 
-test('should call console.error when loading next event page fails', async () => {
-  console.error = jest.fn();
+test('should show toastr when loading next event page fails', async () => {
+  toast.error = jest.fn();
   advanceTo(new Date('2020-08-11'));
   const mocks = [
     ...commonMocks,
@@ -170,7 +171,7 @@ test('should call console.error when loading next event page fails', async () =>
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  expect(console.error).toBeCalled();
+  expect(toast.error).toBeCalledWith(translations.event.info.errorLoadMode);
 });
 
 test('should go to event page of other event time', async () => {

@@ -71,6 +71,9 @@
       "textEventNotFound": "Samlingen hittades inte",
       "textOnlyExpiredEvents": "Tyvärr har denna kollektions rekommenderade evenemang redan gått. Bekanta dig mig våra övriga rekommendationer och hitta fler intressanta evenemang."
     },
+    "eventList": {
+      "errorLoadMore": "Det gick inte att ladda evenemangen"
+    },
     "expired": {
       "linkSearchEvents": "Till alla kollektioner",
       "text": "Tyvärr har denna kollektion redan tagits bort. Men vilken tur att de finns många fler kollektioner, så ta dig en titt på allt annat intressant det händer i staden.",
@@ -133,6 +136,7 @@
       "buttonBuyTickets": "Köp biljetter",
       "directionsGoogle": "Ruttbeskrivning (Google)",
       "directionsHSL": "Ruttbeskrivning (HSL)",
+      "errorLoadMore": "Det gick inte att ladda evenemangen",
       "extlinkFacebook": "Facebook",
       "extlinkInstagram": "Instagram",
       "extlinkTwitter": "Twitter",
@@ -183,6 +187,7 @@
     "ariaLiveSearchReady": "{{count}} sökresultat",
     "buttonClearFilters": "Töm sökfilter",
     "buttonLoadMore": "Visa fler evenemang ({{count}})",
+    "errorLoadMore": "Det gick inte att ladda evenemangen",
     "noResultsInfo": {
       "bigText": "Tyvärr hittades inga resultat för de sökkriterier du valt.",
       "smallText": "Försök att ändra dina sökkriterier så hittar du säkert något som passar dig!"

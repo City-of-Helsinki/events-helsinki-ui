@@ -1,5 +1,6 @@
 import '../../common/translation/i18n/init.client';
 import '../../globals';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { createInstance, MatomoProvider } from '@datapunt/matomo-tracker-react';
 import React from 'react';
@@ -7,6 +8,7 @@ import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import { useSSR } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import { ScrollToTop } from '../../common/route/RouteUtils';
 import apolloClient from './apollo/apolloClient';
@@ -23,6 +25,7 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
+      <ToastContainer />
       <ApolloProvider client={apolloClient}>
         <ApolloHooksProvider client={apolloClient}>
           <ScrollToTop />
