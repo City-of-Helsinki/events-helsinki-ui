@@ -49,12 +49,13 @@ const EventKeywords: React.FC<Props> = ({
     scrollToTop();
   };
 
-  if (
-    !today &&
-    !thisWeek &&
-    (!keywords.length || !showKeywords) &&
-    (!freeEvent || !showIsFree)
-  ) {
+  const showComponent =
+    today ||
+    thisWeek ||
+    (showKeywords && keywords.length) ||
+    (showIsFree && freeEvent);
+
+  if (showComponent) {
     return null;
   }
 
