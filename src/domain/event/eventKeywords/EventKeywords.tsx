@@ -55,7 +55,7 @@ const EventKeywords: React.FC<Props> = ({
     (showKeywords && keywords.length) ||
     (showIsFree && freeEvent);
 
-  if (showComponent) {
+  if (!showComponent) {
     return null;
   }
 
