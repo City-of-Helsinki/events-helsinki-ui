@@ -1,77 +1,124 @@
-import classNames from "classnames";
-import React from "react";
+import classNames from 'classnames';
+import { IconAngleDown, IconAngleUp, IconSearch } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import useKeyboardNavigation from "../../../hooks/useDropdownKeyboardNavigation";
-import IconAngleDown from "../../../icons/IconAngleDown";
-import IconAngleUp from "../../../icons/IconAngleUp";
-import Checkbox from "../input/Checkbox";
-import ScrollIntoViewWithFocus from "../scrollIntoViewWithFocus/ScrollIntoViewWithFocus";
-import SearchLabel from "../search/searchLabel/SearchLabel";
-import DropdownMenu from "./DropdownMenu";
-import styles from "./multiSelectDropdown.module.scss";
+import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
+import Checkbox from '../checkbox/Checkbox';
+import ScrollIntoViewWithFocus from '../scrollIntoViewWithFocus/ScrollIntoViewWithFocus';
+import SearchLabel from '../search/searchLabel/SearchLabel';
+import DropdownMenu from './DropdownMenu';
+import styles from './multiSelectDropdown.module.scss';
 
-type Option = {
+const SELECT_ALL = 'SELECT_ALL';
+
+export type Option = {
   text: string;
   value: string;
 };
 
-interface Props {
+export interface MultiselectDropdownProps {
   checkboxName: string;
   icon: React.ReactElement;
+  inputPlaceholder?: string;
+  inputValue?: string;
   name: string;
   onChange: (values: string[]) => void;
   options: Option[];
+  renderOptionText?: (optionValue: string) => React.ReactChild;
+  selectAllText?: string;
+  setInputValue?: (newVal: string) => void;
+  showSearch?: boolean;
+  showSelectAll?: boolean;
   title: string;
   value: string[];
 }
 
-const Dropdown: React.FC<Props> = ({
+const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
   checkboxName,
   icon,
+  inputPlaceholder,
+  inputValue,
   name,
   onChange,
   options,
+  renderOptionText,
+  selectAllText,
+  setInputValue,
+  showSearch,
+  showSelectAll,
   title,
-  value
+  value,
 }) => {
-  const [input, setInput] = React.useState("");
-  const inputWrapper = React.useRef<HTMLDivElement | null>(null);
+  const { t } = useTranslation();
+  const inputPlaceholderText =
+    inputPlaceholder || t('commons.multiSelectDropdown.inputPlaceholder');
+  const [internalInput, setInternalInput] = React.useState('');
+  const input = inputValue !== undefined ? inputValue : internalInput;
+
+  const dropdown = React.useRef<HTMLDivElement | null>(null);
+  const toggleButton = React.useRef<HTMLButtonElement | null>(null);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
-  const clearButtonRef = React.useRef<HTMLButtonElement | null>(null);
-  const filteredOptions = React.useMemo(
-    () =>
-      options.filter(option =>
+
+  const filteredOptions = React.useMemo(() => {
+    return [
+      showSelectAll && {
+        text: selectAllText || t('commons.multiSelectDropdown.selectAll'),
+        value: SELECT_ALL,
+      },
+      ...options.filter((option) =>
         option.text.toLowerCase().includes(input.toLowerCase())
       ),
-    [input, options]
+    ].filter((e) => e) as Option[];
+  }, [input, options, selectAllText, showSelectAll, t]);
+
+  const handleInputValueChange = React.useCallback(
+    (val: string) => {
+      setInternalInput(val);
+
+      if (setInputValue) {
+        setInputValue(val);
+      }
+    },
+    [setInputValue]
   );
-  const dropdown = React.useRef<HTMLDivElement | null>(null);
-  const [
+
+  const {
     focusedIndex,
-    setupKeyboardNav,
-    teardownKeyboardNav
-  ] = useKeyboardNavigation({
+    setup: setupKeyboardNav,
+    teardown: teardownKeyboardNav,
+  } = useKeyboardNavigation({
     container: dropdown,
-    listLength: filteredOptions.length
+    listLength: filteredOptions.length,
+    onKeyDown: (event: KeyboardEvent) => {
+      switch (event.key) {
+        // Close menu on ESC key
+        case 'Escape':
+          setIsMenuOpen(false);
+          setFocusToToggleButton();
+          break;
+        case 'ArrowUp':
+          ensureDropdownIsOpen();
+          break;
+        case 'ArrowDown':
+          ensureDropdownIsOpen();
+          break;
+        case 'Enter':
+          if (isToggleButtonFocused()) {
+            handleToggleButtonClick();
+          }
+      }
+    },
   });
+
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  const isComponentFocused = React.useCallback(() => {
-    const active = document.activeElement;
-    const current = dropdown && dropdown.current;
-
-    if (current && active instanceof Node && current.contains(active)) {
-      return true;
-    }
-    return false;
-  }, [dropdown]);
 
   const handleDocumentClick = (event: MouseEvent) => {
     const target = event.target;
-    const current = dropdown && dropdown.current;
+    const current = dropdown.current;
 
     // Close menu when clicking outside of the component
-    if (!(current && target instanceof Node && current.contains(target))) {
+    if (!(target instanceof Node && current?.contains(target))) {
       setIsMenuOpen(false);
     }
   };
@@ -80,7 +127,7 @@ const Dropdown: React.FC<Props> = ({
     (option: string) => {
       onChange(
         value.includes(option)
-          ? value.filter(v => v !== option)
+          ? value.filter((v) => v !== option)
           : [...value, option]
       );
     },
@@ -93,108 +140,109 @@ const Dropdown: React.FC<Props> = ({
     }
   }, [isMenuOpen]);
 
-  const isInputWrapperFocused = () => {
-    const target = document.activeElement;
-    const current = inputWrapper.current;
+  const isToggleButtonFocused = () => {
+    const active = document.activeElement;
+    const current = toggleButton.current;
 
-    if (!(current && target instanceof Node && current.contains(target))) {
-      return false;
-    }
+    return !!current?.contains(active);
+  };
 
-    return true;
+  const setFocusToToggleButton = () => {
+    toggleButton.current?.focus();
   };
 
   const toggleMenu = React.useCallback(() => {
     setIsMenuOpen(!isMenuOpen);
   }, [isMenuOpen]);
 
-  const handleDocumentKeyDown = React.useCallback(
-    (event: KeyboardEvent) => {
-      // Handle keyboard events only if current element is focused
-      if (!isComponentFocused()) return;
-      switch (event.key) {
-        // Close menu on ESC key
-        case "Escape":
-          setIsMenuOpen(false);
-          break;
-        case "ArrowUp":
-          ensureDropdownIsOpen();
-          break;
-        case "ArrowDown":
-          ensureDropdownIsOpen();
-          break;
-        case "Enter":
-          if (isInputWrapperFocused()) {
-            toggleMenu();
-          }
-          event.preventDefault();
-      }
-    },
-    [ensureDropdownIsOpen, isComponentFocused, toggleMenu]
-  );
-
   const handleDocumentFocusin = (event: FocusEvent) => {
     const target = event.target;
-    const current = dropdown && dropdown.current;
+    const current = dropdown.current;
 
-    if (!(current && target instanceof Node && current.contains(target))) {
+    if (!(target instanceof Node && current?.contains(target))) {
       setIsMenuOpen(false);
     }
   };
 
   React.useEffect(() => {
     setupKeyboardNav();
-    document.addEventListener("click", handleDocumentClick);
-    document.addEventListener("keydown", handleDocumentKeyDown);
-    document.addEventListener("focusin", handleDocumentFocusin);
+    document.addEventListener('click', handleDocumentClick);
+    document.addEventListener('focusin', handleDocumentFocusin);
     // Clean up event listener to prevent memory leaks
     return () => {
       teardownKeyboardNav();
-      document.removeEventListener("click", handleDocumentClick);
-      document.removeEventListener("keydown", handleDocumentKeyDown);
-      document.removeEventListener("focusin", handleDocumentFocusin);
+      document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener('focusin', handleDocumentFocusin);
     };
-  }, [handleDocumentKeyDown, setupKeyboardNav, teardownKeyboardNav]);
+  }, [setupKeyboardNav, teardownKeyboardNav]);
+
+  const setFocusToInput = () => {
+    inputRef.current?.focus();
+  };
+
+  const handleToggleButtonClick = () => {
+    toggleMenu();
+
+    setTimeout(() => {
+      if (!isMenuOpen) {
+        setFocusToInput();
+      }
+    }, 0);
+  };
+
+  const handleClear = React.useCallback(() => {
+    onChange([]);
+    handleInputValueChange('');
+  }, [handleInputValueChange, onChange]);
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const val = event.target.value;
-    toggleOption(val);
-  };
-
-  const handleClear = () => {
-    onChange([]);
-  };
-
-  const handleInputWrapperClick = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
+    if (val === SELECT_ALL) {
+      handleClear();
+    } else {
+      toggleOption(val);
     }
-    toggleMenu();
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    ensureDropdownIsOpen();
-    setInput(event.target.value);
+    handleInputValueChange(event.target.value);
   };
 
   const selectedText = React.useMemo(() => {
-    const valueLabels = value.map(val => {
-      const result = options.find(option => option.value === val);
-      return result ? result.text : null;
-    });
+    const valueLabels = value
+      .map((val) => {
+        if (renderOptionText) {
+          return renderOptionText(val);
+        } else {
+          const result = options.find((option) => option.value === val);
+          return result?.text || null;
+        }
+      })
+      .sort();
     if (valueLabels.length > 1) {
-      return `${valueLabels[0]} + ${valueLabels.length - 1}`;
-    } else {
-      return valueLabels.join();
+      return (
+        <>
+          {valueLabels[0]} + {valueLabels.length - 1}
+        </>
+      );
     }
-  }, [options, value]);
+    return valueLabels[0];
+  }, [options, renderOptionText, value]);
+
+  React.useEffect(() => {
+    if (!isMenuOpen) {
+      handleInputValueChange('');
+    }
+  }, [handleInputValueChange, isMenuOpen]);
 
   return (
     <div className={styles.dropdown} ref={dropdown}>
-      <div
-        className={styles.inputWrapper}
-        onClick={handleInputWrapperClick}
-        ref={inputWrapper}
+      <button
+        aria-label={title}
+        className={styles.toggleButton}
+        onClick={handleToggleButtonClick}
+        ref={toggleButton}
+        type="button"
       >
         {!!value.length && <div className={styles.isSelectedIndicator} />}
         <div className={styles.iconWrapper}>{icon}</div>
@@ -202,51 +250,62 @@ const Dropdown: React.FC<Props> = ({
           <SearchLabel htmlFor={name} srOnly={true}>
             {title}
           </SearchLabel>
-          {selectedText && !input && (
-            <div className={styles.selectedText}>{selectedText}</div>
-          )}
-          <input
-            ref={inputRef}
-            id={name}
-            name={name}
-            placeholder={selectedText ? "" : title}
-            onChange={handleInputChange}
-            value={input}
-          />
+          <div className={styles.titleText}>{selectedText || title}</div>
         </div>
         <div className={styles.arrowWrapper}>
           {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
         </div>
-      </div>
-      <DropdownMenu
-        buttonRef={clearButtonRef}
-        isOpen={isMenuOpen}
-        onClear={handleClear}
-      >
+      </button>
+      <DropdownMenu isOpen={isMenuOpen} onClear={handleClear}>
+        {showSearch && (
+          <div className={styles.inputWrapper}>
+            <IconSearch size="s" />
+            <SearchLabel htmlFor={name} srOnly={true}>
+              {inputPlaceholderText}
+            </SearchLabel>
+
+            <input
+              ref={inputRef}
+              id={name}
+              name={name}
+              placeholder={inputPlaceholderText}
+              onChange={handleInputChange}
+              value={input}
+            />
+          </div>
+        )}
+
         {filteredOptions.map((option, index) => {
           const isFocused = index === focusedIndex;
+          const isChecked =
+            option.value === SELECT_ALL
+              ? !value.length
+              : value.includes(option.value);
 
-          const setFocus = (ref: HTMLLabelElement) => {
-            if (isFocused && ref) {
-              ref.focus();
+          const setFocus = (ref: HTMLInputElement) => {
+            if (isFocused) {
+              ref?.focus();
             }
           };
 
           return (
-            <ScrollIntoViewWithFocus key={option.value} isFocused={isFocused}>
+            <ScrollIntoViewWithFocus
+              className={classNames(styles.dropdownItem, {
+                [styles['dropdownItem--first']]: index === 0,
+                [styles['dropdownItem--isFocused']]: isFocused,
+              })}
+              key={option.value}
+              isFocused={isFocused}
+            >
               <Checkbox
                 ref={setFocus}
-                checked={value.includes(option.value)}
+                checked={isChecked}
+                id={`${checkboxName}_${option.value}`}
+                label={option.text}
                 name={checkboxName}
                 onChange={handleValueChange}
                 value={option.value}
-                className={classNames(styles.dropdownItem, {
-                  [styles["dropdownItem--first"]]: index === 0,
-                  [styles["dropdownItem--isFocused"]]: isFocused
-                })}
-              >
-                {option.text}
-              </Checkbox>
+              />
             </ScrollIntoViewWithFocus>
           );
         })}
@@ -255,4 +314,4 @@ const Dropdown: React.FC<Props> = ({
   );
 };
 
-export default Dropdown;
+export default MultiSelectDropdown;

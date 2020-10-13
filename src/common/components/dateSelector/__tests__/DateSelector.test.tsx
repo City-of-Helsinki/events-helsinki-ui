@@ -1,27 +1,145 @@
-import * as React from "react";
-import { MemoryRouter } from "react-router";
-import renderer from "react-test-renderer";
+import * as React from 'react';
 
-import DateSelector from "../DateSelector";
+import { DATE_TYPES } from '../../../../constants';
+import {
+  arrowDownKeyPressHelper,
+  arrowUpKeyPressHelper,
+  escKeyPressHelper,
+  render,
+  screen,
+  userEvent,
+} from '../../../../util/testUtils';
+import translations from '../../../translation/i18n/fi.json';
+import DateSelector, { DateSelectorProps } from '../DateSelector';
+import { testIds } from '../DateSelectorMenu';
 
-test("DateSelector matches snapshot", () => {
-  const component = renderer.create(
-    <MemoryRouter>
-      <DateSelector
-        dateTypes={["type1", "type2"]}
-        endDate={new Date("2019-12-01")}
-        isCustomDate={false}
-        name="date"
-        onChangeDateTypes={() => {}}
-        onChangeEndDate={() => {}}
-        onChangeStartDate={() => {}}
-        startDate={new Date("2019-11-01")}
-        toggleIsCustomDate={() => {}}
-      />
-    </MemoryRouter>
-  );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+const defaultProps: DateSelectorProps = {
+  dateTypes: [],
+  endDate: null,
+  isCustomDate: false,
+  name: 'date',
+  onChangeDateTypes: jest.fn(),
+  onChangeEndDate: jest.fn(),
+  onChangeStartDate: jest.fn(),
+  startDate: null,
+  toggleIsCustomDate: jest.fn(),
+};
+
+const renderComponent = (props?: Partial<DateSelectorProps>) =>
+  render(<DateSelector {...defaultProps} {...props} />);
+
+test('should render selected date types when single option is selected', () => {
+  renderComponent({ dateTypes: [DATE_TYPES.TODAY] });
+
+  expect(screen.getByText(translations.commons.dateSelector.dateTypeToday));
 });
 
-export {};
+test('should render selected date types when multiple options are selected', () => {
+  renderComponent({ dateTypes: [DATE_TYPES.TOMORROW, DATE_TYPES.TODAY] });
+
+  expect(
+    screen.getByText(`${translations.commons.dateSelector.dateTypeToday} + 1`)
+  );
+});
+
+test('should add date type', () => {
+  const onChangeDateTypes = jest.fn();
+  renderComponent({
+    dateTypes: [],
+    onChangeDateTypes,
+  });
+
+  const toggleButton = screen.getByRole('button', {
+    name: translations.commons.dateSelector.title,
+  });
+
+  userEvent.click(toggleButton);
+  expect(screen.queryByTestId(testIds.menu)).toBeInTheDocument();
+
+  userEvent.click(
+    screen.getByRole('checkbox', {
+      name: translations.commons.dateSelector.dateTypeToday,
+    })
+  );
+
+  expect(onChangeDateTypes).toBeCalledWith([DATE_TYPES.TODAY]);
+});
+
+test('should call toggleIsCustomDate function ', async () => {
+  const toggleIsCustomDate = jest.fn();
+  renderComponent({
+    dateTypes: [],
+    toggleIsCustomDate,
+  });
+
+  const toggleButton = screen.getByRole('button', {
+    name: translations.commons.dateSelector.title,
+  });
+
+  userEvent.click(toggleButton);
+  expect(screen.queryByTestId(testIds.menu)).toBeInTheDocument();
+
+  const customDatesButton = screen.getByRole('button', {
+    name: translations.commons.dateSelector.menu.buttonCustom,
+  });
+  userEvent.click(customDatesButton);
+
+  expect(toggleIsCustomDate).toHaveBeenCalled();
+});
+
+test('should remove date type', () => {
+  const onChangeDateTypes = jest.fn();
+  renderComponent({
+    dateTypes: [DATE_TYPES.TODAY, DATE_TYPES.TOMORROW],
+    onChangeDateTypes,
+  });
+
+  const toggleButton = screen.getByRole('button', {
+    name: translations.commons.dateSelector.title,
+  });
+
+  userEvent.click(toggleButton);
+  expect(screen.queryByTestId(testIds.menu)).toBeInTheDocument();
+
+  userEvent.click(
+    screen.getByRole('checkbox', {
+      name: translations.commons.dateSelector.dateTypeToday,
+    })
+  );
+
+  expect(onChangeDateTypes).toBeCalledWith([DATE_TYPES.TOMORROW]);
+});
+
+describe('should open menu with', () => {
+  const getClosedMenu = async () => {
+    renderComponent();
+
+    const toggleButton = screen.getByRole('button', {
+      name: translations.commons.dateSelector.title,
+    });
+
+    userEvent.click(toggleButton);
+    expect(screen.queryByTestId(testIds.menu)).toBeInTheDocument();
+
+    escKeyPressHelper();
+
+    expect(screen.queryByTestId(testIds.menu)).not.toBeInTheDocument();
+    expect(toggleButton).toHaveFocus();
+  };
+
+  test('ArrowDown', () => {
+    getClosedMenu();
+
+    arrowDownKeyPressHelper();
+
+    expect(screen.queryByTestId(testIds.menu)).toBeInTheDocument();
+  });
+
+  test('ArrowUp', () => {
+    getClosedMenu();
+
+    arrowUpKeyPressHelper();
+
+    expect(screen.queryByTestId(testIds.menu)).toBeInTheDocument();
+  });
+});

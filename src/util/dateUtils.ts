@@ -1,13 +1,13 @@
-import { format as formatDateStr } from "date-fns";
-import isAfter from "date-fns/isAfter";
-import isValid from "date-fns/isValid";
-import { enGB as en, fi, sv } from "date-fns/locale";
-import parse from "date-fns/parse";
-import get from "lodash/get";
-import isNumber from "lodash/isNumber";
+import { format as formatDateStr } from 'date-fns';
+import isAfter from 'date-fns/isAfter';
+import isValid from 'date-fns/isValid';
+import { enGB as en, fi } from 'date-fns/locale';
+import parse from 'date-fns/parse';
+import get from 'lodash/get';
+
+import sv from './date-fns/locale/sv';
 
 const locales = { en, fi, sv };
-
 /**
  * Format date string
  * @param date
@@ -15,17 +15,16 @@ const locales = { en, fi, sv };
  * @returns {string}
  */
 export const formatDate = (
-  date: Date | number | null,
-  format = "dd.MM.yyyy",
-  locale = "fi"
+  date: Date | null,
+  format = 'dd.MM.yyyy',
+  locale = 'fi'
 ): string => {
   if (!date) {
-    return "";
+    return '';
   }
 
-  const d = isNumber(date) ? date : new Date(date);
-  return formatDateStr(d, format, {
-    locale: get(locales, locale)
+  return formatDateStr(date, format, {
+    locale: get(locales, locale),
   }).trim();
 };
 
@@ -35,7 +34,7 @@ export const formatDate = (
  * @returns {boolean}
  */
 const isValidDate = (date: Date): boolean =>
-  isValid(date) && isAfter(date, new Date("1000-01-01"));
+  isValid(date) && isAfter(date, new Date('1000-01-01'));
 
 /**
  * Test is entered string a date string in Finnish format without dots (e.g. 31122019)
@@ -51,7 +50,7 @@ const isShortDateStr = (str: string) =>
  * @returns {object}
  */
 const getShortDateStr = (str: string): string =>
-  [str.substring(0, 2), str.substring(2, 4), str.substring(4, 9)].join(".");
+  [str.substring(0, 2), str.substring(2, 4), str.substring(4, 9)].join('.');
 
 /**
  * Get date object from valid Finnish date string
@@ -59,14 +58,14 @@ const getShortDateStr = (str: string): string =>
  * @returns {object}
  */
 const getParsedDate = (value: string): Date =>
-  parse(value, "dd.MM.yyyy", new Date(), { locale: fi });
+  parse(value, 'dd.MM.yyyy', new Date(), { locale: fi });
 
 /**
  * Convert string in Finnish date format (e.g. 31.12.2019) or in format without dots (e.g. 31122019) to Date object
  * @param value
  * @returns {object}
  */
-export const convertFinnishDateStrToDate = (str: string) => {
+export const convertFinnishDateStrToDate = (str: string): Date | null => {
   let parsedDate = getParsedDate(str);
 
   if (isValidDate(parsedDate)) {

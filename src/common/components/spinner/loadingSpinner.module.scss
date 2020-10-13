@@ -1,20 +1,60 @@
-@import 'mixins';
+$spinnerWidth: 4.375rem;
 
 .spinnerWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
+
+  &.hasPadding {
+    padding: 10rem 0;
+  }
 }
 
-.spinner{
-    position: relative;
-    height: $spinnerHeight;
-    width: $spinnerHeight;
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  8.33% {
+    fill: var(--color-coat-of-arms-blue);
+  }
+  25% {
+    fill: var(--color-copper);
+  }
+  33.33% {
+    transform: rotate(360deg);
+  }
+  41.66% {
+    fill: var(--color-copper);
+  }
+  58.33% {
+    fill: var(--color-suomenlinna);
+  }
+  66.67% {
+    transform: rotate(720deg);
+  }
+  75% {
+    fill: ar(--color-suomenlinna);
+  }
+  91.67% {
+    fill: var(--color-coat-of-arms-blue);
+  }
+  100% {
+    transform: rotate(1080deg);
+  }
+}
 
-    div {
-        @include add_spinner();
-    }
+.spinner {
+  width: $spinnerWidth;
+  height: $spinnerWidth;
+  border-radius: 50%;
+  fill: var(--color-coat-of-arms-blue);
+  animation: spinner 3.6s ease-in-out infinite;
+
+  svg {
+    width: $spinnerWidth;
+    height: 57.14%;
+  }
 }

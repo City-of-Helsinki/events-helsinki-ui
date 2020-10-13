@@ -1,7 +1,6 @@
-@import "./vendor/normalize";
-@import "colors";
-@import "fonts";
-@import "layout";
+@import './vendor/normalize';
+@import 'fonts';
+@import 'layout';
 
 html {
   height: 100%;
@@ -17,46 +16,19 @@ body {
 
 #root {
   flex: 1;
-}
-
-h1 {
-  font-size: $h1-font-size;
-}
-
-h2 {
-  font-size: $h2-font-size;
-}
-
-h3 {
-  font-size: $h3-font-size;
-}
-
-h4 {
-  font-size: $h4-font-size;
-}
-
-h5 {
-  font-size: $h5-font-size;
-}
-
-h6 {
-  font-size: $h6-font-size;
+  background-color: var(--color-black-5);
 }
 
 a {
   &:focus {
-    outline: 2px solid $hel-black;
+    outline: 2px solid var(--color-black);
   }
 }
 
 button {
+  border: none;
+  background-color: transparent;
   cursor: pointer;
-}
-
-label {
-  font-size: $label-font-size;
-  font-weight: $label-font-weight;
-  line-height: normal;
 }
 
 @include respond-below(sm) {

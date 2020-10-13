@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  class="staticPageHero"
+>
+  <div
+    class="container"
+  >
+    Test content
+  </div>
+</div>
+`;

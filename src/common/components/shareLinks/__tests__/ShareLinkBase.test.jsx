@@ -1,11 +1,11 @@
-import { fireEvent, render } from "@testing-library/react";
-import React from "react";
+import { fireEvent, render } from '@testing-library/react';
+import React from 'react';
 
-import ShareLinkBase from "../ShareLinkBase";
+import ShareLinkBase from '../ShareLinkBase';
 
-const getWrapper = props => render(<ShareLinkBase {...props} />);
-const testLabel = "Share Link";
-const testWindowName = "Window name";
+const renderComponent = (props) => render(<ShareLinkBase {...props} />);
+const testLabel = 'Share Link';
+const testWindowName = 'Window name';
 
 let jestOpen = null;
 
@@ -19,35 +19,35 @@ afterAll(() => {
   window.open = jestOpen;
 });
 
-test("should apply an aria label", () => {
-  const { queryByLabelText } = getWrapper({
+test('should apply an aria label', () => {
+  const { queryByLabelText } = renderComponent({
     linkLabel: testLabel,
-    windowName: testWindowName
+    windowName: testWindowName,
   });
 
   expect(queryByLabelText(testLabel)).not.toEqual(null);
 });
 
-test("should have button attribute", () => {
-  const { queryByLabelText } = getWrapper({
+test('should have button attribute', () => {
+  const { queryByLabelText } = renderComponent({
     linkLabel: testLabel,
-    windowName: testWindowName
+    windowName: testWindowName,
   });
 
-  expect(queryByLabelText(testLabel)).toHaveAttribute("type", "button");
+  expect(queryByLabelText(testLabel)).toHaveAttribute('type', 'button');
 });
 
-test("should launch sharing link in a pop up window with encoded uri components", () => {
-  const url = "https://localhost";
+test('should launch sharing link in a pop up window with encoded uri components', () => {
+  const url = 'https://localhost';
   const queryParameters = {
-    url: "https://helsinki.fi/path/"
+    url: 'https://helsinki.fi/path/',
   };
-  const spy = jest.spyOn(window, "open");
-  const { getByLabelText } = getWrapper({
+  const spy = jest.spyOn(window, 'open');
+  const { getByLabelText } = renderComponent({
     linkLabel: testLabel,
     queryParameters,
     url,
-    windowName: testWindowName
+    windowName: testWindowName,
   });
   const link = getByLabelText(testLabel);
 

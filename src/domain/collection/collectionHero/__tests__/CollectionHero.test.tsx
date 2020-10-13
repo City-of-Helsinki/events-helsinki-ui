@@ -1,33 +1,23 @@
-import pretty from "pretty";
-import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
-import wait from "waait";
+import { render, screen } from '@testing-library/react';
+import React from 'react';
 
-import { mockCollection } from "../../constants";
-import CollectionHero from "../CollectionHero";
+import { CollectionFieldsFragment } from '../../../../generated/graphql';
+import { fakeCollection } from '../../../../util/mockDataUtils';
+import CollectionHero from '../CollectionHero';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let container: any = null;
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement("div");
-  document.body.appendChild(container);
-});
+const title = 'Collection title';
+const description = 'Collection description';
+const linkText = 'Collection link text';
+const collection = fakeCollection({
+  description: { fi: description },
+  linkText: { fi: linkText },
+  title: { fi: title },
+}) as CollectionFieldsFragment;
 
-afterEach(() => {
-  // cleanup on exiting
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
+test('should render collection hero fields', async () => {
+  render(<CollectionHero collection={collection} />);
 
-test("CollectionHero should match snapshot", async () => {
-  await act(async () => {
-    render(<CollectionHero collectionData={mockCollection} />, container);
-
-    await wait(0); // wait for response
-  });
-
-  expect(pretty(container.innerHTML)).toMatchSnapshot();
+  expect(screen.queryByText(title)).toBeInTheDocument();
+  expect(screen.queryByText(description)).toBeInTheDocument();
+  expect(screen.queryByText(linkText)).toBeInTheDocument();
 });

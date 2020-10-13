@@ -2,12 +2,11 @@
 
 exports[`SupriseMeButton matches snapshot 1`] = `
 <button
-  className="supriseMeButton"
-  onClick={[Function]}
+  class="supriseMeButton"
   type="button"
 >
   <div
-    className="text"
+    class="text"
   >
     Koeta onneasi
   </div>

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  class="srOnly test"
+>
+  <div>
+    Test
+  </div>
+</div>
+`;
+
+exports[`matches snapshot 2`] = `
+<span
+  class="srOnly"
+>
+  <div>
+    Test
+  </div>
+</span>
+`;

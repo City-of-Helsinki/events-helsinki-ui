@@ -1,214 +1,170 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DateSelectorMenu matches snapshot 1`] = `
+exports[`matches snapshot 1`] = `
 <div
-  className="dateSelectorMenu"
+  class="dateSelectorMenu"
+  data-testid="date-selector-menu"
 >
   <div
-    className="wrapper"
+    class="checkboxWrapper"
   >
-    <label
-      className="checkbox"
+    <div
+      class="Checkbox-module_checkbox__3L0GR checkbox_hds-checkbox__9HMCz"
+      style="--background-unselected: var(--color-white); line-height: 24px;"
     >
-      <span
-        className="checkmarkWrapper"
+      <input
+        aria-checked="false"
+        class="Checkbox-module_input__3VZvy checkbox_hds-checkbox__input__1w0pu"
+        id="name_today"
+        name="date"
+        type="checkbox"
+        value="today"
+      />
+      <label
+        class="Checkbox-module_label__L5AN1 checkbox_hds-checkbox__label__3HoD3"
+        for="name_today"
       >
-        <input
-          checked={false}
-          name="date"
-          onChange={[Function]}
-          type="checkbox"
-          value="today"
-        />
-        <span
-          className="checkmark"
-        />
-      </span>
-      Tänään
-    </label>
-    <label
-      className="checkbox"
+        Tänään
+      </label>
+    </div>
+    <div
+      class="Checkbox-module_checkbox__3L0GR checkbox_hds-checkbox__9HMCz"
+      style="--background-unselected: var(--color-white); line-height: 24px;"
     >
-      <span
-        className="checkmarkWrapper"
+      <input
+        aria-checked="false"
+        class="Checkbox-module_input__3VZvy checkbox_hds-checkbox__input__1w0pu"
+        id="name_tomorrow"
+        name="date"
+        type="checkbox"
+        value="tomorrow"
+      />
+      <label
+        class="Checkbox-module_label__L5AN1 checkbox_hds-checkbox__label__3HoD3"
+        for="name_tomorrow"
       >
-        <input
-          checked={false}
-          name="date"
-          onChange={[Function]}
-          type="checkbox"
-          value="tomorrow"
-        />
-        <span
-          className="checkmark"
-        />
-      </span>
-      Huomenna
-    </label>
-    <label
-      className="checkbox"
+        Huomenna
+      </label>
+    </div>
+    <div
+      class="Checkbox-module_checkbox__3L0GR checkbox_hds-checkbox__9HMCz"
+      style="--background-unselected: var(--color-white); line-height: 24px;"
     >
-      <span
-        className="checkmarkWrapper"
+      <input
+        aria-checked="false"
+        class="Checkbox-module_input__3VZvy checkbox_hds-checkbox__input__1w0pu"
+        id="name_this_week"
+        name="date"
+        type="checkbox"
+        value="this_week"
+      />
+      <label
+        class="Checkbox-module_label__L5AN1 checkbox_hds-checkbox__label__3HoD3"
+        for="name_this_week"
       >
-        <input
-          checked={false}
-          name="date"
-          onChange={[Function]}
-          type="checkbox"
-          value="this_week"
-        />
-        <span
-          className="checkmark"
-        />
-      </span>
-      Tällä viikolla
-    </label>
-    <label
-      className="checkbox"
+        Tällä viikolla
+      </label>
+    </div>
+    <div
+      class="Checkbox-module_checkbox__3L0GR checkbox_hds-checkbox__9HMCz"
+      style="--background-unselected: var(--color-white); line-height: 24px;"
     >
-      <span
-        className="checkmarkWrapper"
+      <input
+        aria-checked="false"
+        class="Checkbox-module_input__3VZvy checkbox_hds-checkbox__input__1w0pu"
+        id="name_weekend"
+        name="date"
+        type="checkbox"
+        value="weekend"
+      />
+      <label
+        class="Checkbox-module_label__L5AN1 checkbox_hds-checkbox__label__3HoD3"
+        for="name_weekend"
       >
-        <input
-          checked={false}
-          name="date"
-          onChange={[Function]}
-          type="checkbox"
-          value="weekend"
-        />
-        <span
-          className="checkmark"
-        />
-      </span>
-      Viikonloppuna
-    </label>
+        Viikonloppuna
+      </label>
+    </div>
   </div>
   <button
-    className="button btnSelectDates"
-    onClick={[Function]}
+    class="button btnSelectDates"
     type="button"
   >
     <svg
-      className=""
-      height="100%"
-      viewBox="0 0 27 26"
-      width="100%"
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+      viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g
         fill="none"
-        fillRule="evenodd"
-        stroke="none"
-        strokeWidth="1"
+        fill-rule="evenodd"
       >
-        <g
-          stroke="#000000"
-          strokeWidth="2"
-          transform="translate(-49.000000, -1173.000000)"
-        >
-          <g
-            transform="translate(25.000000, 850.000000)"
-          >
-            <g
-              transform="translate(25.000000, 324.000000)"
-            >
-              <line
-                strokeLinecap="square"
-                x1="12.5"
-                x2="12.5"
-                y1="19.1666667"
-                y2="12.5"
-              />
-              <line
-                strokeLinecap="square"
-                x1="15.8333333"
-                x2="9.16666667"
-                y1="15.8333333"
-                y2="15.8333333"
-              />
-              <line
-                x1="25"
-                x2="0"
-                y1="8.33333333"
-                y2="8.33333333"
-              />
-              <rect
-                height="20"
-                strokeLinecap="square"
-                width="25"
-                x="0"
-                y="3.33333333"
-              />
-              <line
-                strokeLinecap="square"
-                x1="6.66666667"
-                x2="6.66666667"
-                y1="0"
-                y2="3.33333333"
-              />
-              <line
-                strokeLinecap="square"
-                x1="18.3333333"
-                x2="18.3333333"
-                y1="0"
-                y2="3.33333333"
-              />
-            </g>
-          </g>
-        </g>
+        <path
+          d="M0 0h24v24H0z"
+        />
+        <path
+          d="M20 14v3h3v2h-3v3h-2v-3h-3v-2h3v-3h2zM17 2a1 1 0 011 1v1h4v8h-2v-1H4v8h9v2H2V4h4V3a1 1 0 112 0v1h8V3a1 1 0 011-1zm3 4H4v3h16V6z"
+          fill="currentColor"
+        />
       </g>
     </svg>
     <div
-      className="buttonText"
+      class="buttonText"
     >
       Valitse päivät
     </div>
     <svg
-      className=""
-      height="100%"
-      viewBox="0 0 199.404 199.404"
-      width="100%"
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+      viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g>
-        <polygon
-          points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119  "
+      <g
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <path
+          d="M0 24V0h24v24z"
+        />
+        <path
+          d="M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z"
+          fill="currentColor"
         />
       </g>
     </svg>
   </button>
   <button
-    className="button btnBack hidden"
-    onClick={[Function]}
+    class="button btnBack hidden"
     type="button"
   >
     <svg
-      className=""
-      height="100%"
-      viewBox="0 0 199.404 199.404"
-      width="100%"
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+      viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g>
-        <polygon
-          points="135.412,0 35.709,99.702 135.412,199.404 163.695,171.119 92.277,99.702 163.695,28.285  "
+      <g
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <path
+          d="M24 0v24H0V0z"
+        />
+        <path
+          d="M10.5 12l5 5-1.5 1.5L7.5 12 14 5.5 15.5 7z"
+          fill="currentColor"
         />
       </g>
     </svg>
     <div
-      className="buttonText"
+      class="buttonText"
     >
       Takaisin
     </div>
   </button>
   <button
-    className="button btnClose hidden"
-    onClick={[Function]}
+    class="button btnClose hidden"
     type="button"
   >
     <div
-      className="buttonText"
+      class="buttonText"
     >
       Sulje
     </div>

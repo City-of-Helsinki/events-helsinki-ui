@@ -1,99 +1,49 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const QUERY_COLLECTION_DETAILS = gql`
-  query CollectionDetails($id: ID!) {
-    collectionDetails(id: $id) {
-      id
-      curatedEvents
-      curatedEventsTitle {
-        en
-        fi
-        sv
-      }
-      description {
-        en
-        fi
-        sv
-      }
-      eventListQuery
-      eventListTitle {
-        en
-        fi
-        sv
-      }
-      linkText {
-        en
-        fi
-        sv
-      }
-      linkUrl {
-        en
-        fi
-        sv
-      }
-      shortDescription {
-        en
-        fi
-        sv
-      }
-      similarCollectionsTitle {
-        en
-        fi
-        sv
-      }
-      title {
-        en
-        fi
-        sv
-      }
+  fragment collectionFields on CollectionDetails {
+    id
+    heroImage {
+      ...cmsImageFields
+    }
+    boxColor
+    curatedEvents
+    curatedEventsTitle {
+      ...localizedFields
+    }
+    description {
+      ...localizedFields
+    }
+    expired
+    eventListQuery {
+      ...localizedFields
+    }
+    eventListTitle {
+      ...localizedFields
+    }
+    linkText {
+      ...localizedFields
+    }
+    linkUrl {
+      ...localizedFields
+    }
+    slug
+    socialMediaDescription {
+      ...localizedFields
+    }
+    title {
+      ...localizedFields
     }
   }
-  query CollectionList {
-    collectionList {
+  query CollectionDetails($draft: Boolean, $slug: ID!) {
+    collectionDetails(draft: $draft, slug: $slug) {
+      ...collectionFields
+    }
+  }
+  query CollectionList($visibleOnFrontpage: Boolean) {
+    collectionList(visibleOnFrontpage: $visibleOnFrontpage) {
       data {
-        id
-        curatedEvents
-        curatedEventsTitle {
-          en
-          fi
-          sv
-        }
-        description {
-          en
-          fi
-          sv
-        }
-        eventListQuery
-        eventListTitle {
-          en
-          fi
-          sv
-        }
-        linkText {
-          en
-          fi
-          sv
-        }
-        linkUrl {
-          en
-          fi
-          sv
-        }
-        shortDescription {
-          en
-          fi
-          sv
-        }
-        similarCollectionsTitle {
-          en
-          fi
-          sv
-        }
-        title {
-          en
-          fi
-          sv
-        }
+        ...collectionFields
       }
     }
   }

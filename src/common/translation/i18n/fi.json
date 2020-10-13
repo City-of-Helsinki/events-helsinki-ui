@@ -1,4 +1,10 @@
 {
+  "about": {
+    "title": "Tietoa palvelusta"
+  },
+  "accessibility": {
+    "title": "Saavutettavuus­seloste"
+  },
   "appName": "Tapahtumat",
   "commons": {
     "autosuggest": {
@@ -10,10 +16,6 @@
     },
     "category": {
       "ariaButtonRemove": "Poista kategoria: {{category}}"
-    },
-    "collectionCard": {
-      "ariaLabelLink": "Siirry kokoelmaan: {{title}}",
-      "count": "{{count}} kpl"
     },
     "dateSelector": {
       "dateTypeAll": "Koska tahansa",
@@ -31,68 +33,21 @@
       },
       "title": "Valitse ajankohta"
     },
-    "districts": {
-      "alppiharju": "Alppiharju",
-      "eira": "Eira",
-      "etuTöölö": "Etu-töölö",
-      "haaga": "Haaga",
-      "hermanni": "Hermanni",
-      "herttoniemi": "Herttoniemi",
-      "kaarela": "Kaarela",
-      "kaartinkaupunki": "Kaartinkaupunki",
-      "kaivopuisto": "Kaivopuisto",
-      "kallio": "Kallio",
-      "kamppi": "Kamppi",
-      "katajanokka": "Katajanokka",
-      "kluuvi": "Kluuvi",
-      "konala": "Konala",
-      "koskela": "Koskela",
-      "kruununhaka": "Kruununhaka",
-      "kulosaari": "Kulosaari ja Mustikkamaa-Korkeasaari",
-      "kumpula": "Kumpula",
-      "käpylä": "Käpylä",
-      "laajasalo": "Laajasalo, Villinki ja Santahamina",
-      "laakso": "Laakso",
-      "lauttasaari": "Lauttasaari",
-      "länsisatama": "Länsisatama",
-      "malmi": "Malmi",
-      "meilahti": "Meilahti",
-      "mellunkylä": "Mellunkylä",
-      "munkkiniemi": "Munkkiniemi",
-      "oulunkylä": "Oulunkylä",
-      "pakila": "Pakila",
-      "pitäjämäki": "Pitäjämäki",
-      "pukinmäki": "Pukinmäki",
-      "punavuori": "Punavuori",
-      "ruskeasuo": "Ruskeasuo",
-      "suomenlinna": "Suomenlinna ja ulkosaaret",
-      "suurmetsä": "Suurmetsä",
-      "suutarila": "Suutarila",
-      "sörnäinen": "Sörnäinen",
-      "takaTöölö": "Taka-Töölö",
-      "tammisalo": "Tammisalo",
-      "tapaninkylä": "Tapaninkylä",
-      "ullanlinna": "Ullanlinna",
-      "vallila": "Vallila",
-      "vanhakaupunki": "Vanhakaupunki",
-      "vartiokylä": "Vartiokylä",
-      "vartiosaari": "Vartiosaari",
-      "viikki": "Viikki",
-      "vuosaari": "Vuosaari",
-      "östersundom": "Östersundom"
-    },
     "dropdown": {
       "menu": {
         "buttonClear": "Tyhjennä valinnat"
       }
     },
-    "eventCard": {
-      "ariaLabelLink": "Siirry tapahtumaan: {{name}}" 
-    },
     "filter": {
       "ariaButtonRemove": "Poista suodatin: {{filter}}"
     },
+    "linkSkipToContent": "Siirry sisältöön",
     "loading": "Ladataan...",
+    "multiSelectDropdown": {
+      "inputPlaceholder": "Kirjoita hakusana",
+      "selectAll": "Valitse kaikki"
+    },
+    "preview": "Esikatselu",
     "shareLink": {
       "shareOnFacebook": "Jaa Facebookissa",
       "shareOnTwitter": "Jaa Twitterissä",
@@ -103,14 +58,31 @@
       "messageLinkCopySuccess": "Linkki kopioitu leikepöydälle"
     },
     "supriseMe": "Koeta onneasi",
-    "targets": {
-      "children": "Lapsille",
-      "youngPeople": "Nuorille"
-    }
+    "timeAbbreviation": "klo"
   },
   "collection": {
+    "buttonShowAllPastEvents": "Näytä kaikki menneet",
+    "collectionCard": {
+      "ariaLabelLink": "Siirry kokoelmaan: {{title}}",
+      "count": "{{count}} kpl"
+    },
     "curatedEvents": {
-      "textEventNotFound": "Tapahtumaa ei löydy"
+      "linkOnlyExpiredEvents": "Tutustu kaikkiin kokoelmiin",
+      "textEventNotFound": "Tapahtumaa ei löydy",
+      "textOnlyExpiredEvents": "Valitettavasti tämän kokoelman kaikki suositellut tapahtumat ovat jo ehtineet päättyä. Käy tutustumassa muihin suosituksiimme ja löydä itsellesi tekemistä."
+    },
+    "eventList": {
+      "errorLoadMore": "Tapahtumien lataaminen epäonnistui"
+    },
+    "expired": {
+      "linkSearchEvents": "Tutustu kaikkiin kokoelmiin",
+      "text": "Valitettavasti etsimäsi kokoelma on poistettu. Onneksi uusia kokoelmia syntyy koko ajan, joten käy kurkkaamassa mitä muuta kiinnostavaa kaupungissa tapahtuu.",
+      "title": "Etsimäsi kokoelma on poistettu"
+    },
+    "languageNotSupported": {
+      "linkSearchEvents": "Tutustu kaikkiin kokoelmiin",
+      "text": "Valitettavasti etsimääsi kokoelmaa ei ole saatavilla kaikilla kielillä. Onneksi tekeminen ei lopu tähän, käy selaamassa muita kokoelmia ja löydä kiinnostavia tapahtumia.",
+      "title": "Kokoelmaa ei löydy suomeksi"
     },
     "notFound": {
       "linkSearchEvents": "Hae itsellesi tekemistä",
@@ -120,37 +92,57 @@
     "shareLinks": {
       "title": "Jaa kokoelma"
     },
-    "title": "Ladataan kokoelmaa..."
+    "title": "Ladataan kokoelmaa...",
+    "titlePastRecommendations": "Menneet suositukset",
+    "titleSimilarCollections": "Suosittelemme myös näitä"
+  },
+  "collectionList": {
+    "pageTitle": "Suosittelemme",
+    "title": "Kokosimme sinulle tekemistä"
   },
   "event": {
     "categories": {
-      "labelFree": "Ilmainen",
+      "labelFree": "Maksuton",
       "labelThisWeek": "Tällä viikolla",
       "labelToday": "Tänään"
     },
     "description": {
       "title": "Kuvaus"
     },
+    "eventCancelled": "Tapahtuma peruttu",
+    "eventCard": {
+      "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
+      "ariaLabelLink": "Siirry tapahtumaan: {{name}}",
+      "ariaLabelReadMore": "Lue lisää: {{name}}",
+      "buttonBuyTickets": "Osta liput",
+      "buttonReadMore": "Lue lisää",
+      "dateAndTime": "{{date}}, klo {{time}}",
+      "isFree": "Maksuton"
+    },
     "hero": {
       "ariaLabelBackButton": "Takaisin tapahtumahakuun",
+      "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
       "buttonBuyTickets": "Osta liput",
       "buttonToHomePage": "Siirry etusivulle",
       "offers": {
-        "isFree": "Ilmainen"
+        "isFree": "Maksuton"
       },
-      "textEventClosed": "Etsimäsi tapahtuma on jo ehtinyt päättyä"
+      "textEventClosed": "Älä huoli, Helsingistä löytyy paljon muuta tekemistä.",
+      "titleEventClosed": "Höh, etsimäsi tapahtuma on jo ehtinyt päättyä"
     },
     "info": {
+      "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
       "buttonAddToCalendar": "Lisää kalenteriin",
       "buttonBuyTickets": "Osta liput",
       "directionsGoogle": "Reittiohjeet (Google)",
       "directionsHSL": "Reittiohjeet (HSL)",
+      "errorLoadMode": "Tapahtumien lataaminen epäonnistui",
       "extlinkFacebook": "Facebook",
       "extlinkInstagram": "Instagram",
       "extlinkTwitter": "Twitter",
       "extlinkYoutube": "Youtube",
       "labelDateAndTime": "Päivä ja aika",
-      "labelDistricts": "Löydä perille",
+      "labelDirections": "Löydä perille",
       "labelLanguages": "Kielet",
       "labelLocation": "Paikka",
       "labelOrganizer": "Järjestäjän tiedot",
@@ -159,7 +151,7 @@
       "linkSearchByOrganization": "Katso muut järjestäjän tapahtumat",
       "linkWebPage": "Verkkosivu",
       "offers": {
-        "isFree": "Ilmainen"
+        "isFree": "Maksuton"
       },
       "openMap": "Avaa kartta",
       "textCalendarLinkDescription": "{{description}} Lue lisää: {{link}}"
@@ -167,6 +159,7 @@
     "location": {
       "directionsGoogle": "Reittiohjeet (Google)",
       "directionsHSL": "Reittiohjeet (HSL)",
+      "mapTitle": "Sijainti",
       "openMap": "Avaa kartta uuteen ikkunaan",
       "title": "Sijainti"
     },
@@ -176,7 +169,9 @@
       "title": "Oho, nyt iski 404!"
     },
     "otherTimes": {
-      "buttonReadMore": "Lue lisää",
+      "buttonHide": "Piilota muut tapahtuma-ajat",
+      "buttonReadMore": "Lue lisää: {{date}}",
+      "buttonShow": "Näytä muut tapahtuma-ajat",
       "title": "Tapahtuman muut ajat"
     },
     "shareLinks": {
@@ -188,53 +183,49 @@
     "title": "Ladataan tapahtumaa..."
   },
   "eventSearch": {
+    "ariaLiveLoading": "Haetaan tapahtumia",
+    "ariaLiveSearchReady": "{{count}} hakutulosta",
     "buttonClearFilters": "Tyhjennä hakuehdot",
-    "buttonLoadMore": "Lataa lisää tapahtumia",
-    "event": {
-      "buttonBuyTickets": "Osta liput",
-      "buttonReadMore": "Lue lisää",
-      "dateAndTime": "{{date}}, kello {{time}}",
-      "offers": {
-        "isFree": "Ilmainen"
-      }
-    },
-    "filters": {
-      "buttonRemoveSearchWord": "Poista hakusana",
-      "textNoFilters": "Ei hakuehtoja",
-      "titleSummary": "Valitsemasi hakuehdot:"
-    },
+    "buttonLoadMore": "Näytä lisää tapahtumia ({{count}})",
+    "errorLoadMode": "Tapahtumien lataaminen epäonnistui",
     "noResultsInfo": {
       "bigText": "Voi vitsi, valitsemillasi hakuehdoilla ei löytynyt yhtään hakutulosta",
       "smallText": "Kokeile muuttamalla hakuehtoja ja varmasti löydät jotain kiinnostavaa tekemistä!"
     },
     "search": {
       "buttonSearch": "Hae",
+      "checkboxIsFree": "Näytä vain maksuttomat",
+      "checkboxOnlyChildrenEvents": "Näytä vain lastentapahtumat",
+      "checkboxOnlyEveningEvents": "Näytä vain iltatapahtumat",
       "labelCategory": "Millaista haet?",
       "labelDateRange": "Mille ajankohdalle etsit?",
       "labelDistrict": "Mistä etsit?",
       "labelSearchField": "Mitä etsit?",
       "labelTargetGroup": "Kenelle etsit?",
       "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
+      "selectAllDivisions": "Kaikki alueet",
+      "selectAllPlaces": "Kaikki tapahtumapaikat",
       "titleDropdownCategory": "Valitse kategoria",
-      "titleDropdownDistrict": "Valitse alue",
-      "titleDropdownTargetGroup": "Valitse kenelle"
+      "titleDropdownDivision": "Etsi alue",
+      "titleDropdownPlace": "Etsi tapahtumapaikka"
     },
     "textFoundEvents": "{{count}} hakutulosta",
     "title": "Tapahtumahaku"
   },
   "footer": {
     "linkAbout": "Tietoa palvelusta",
+    "linkAccessibility": "Saavutettavuus­seloste",
     "linkFeedback": "Anna palautetta",
+    "linkFeedbackUrl": "https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta",
     "searchCollections": "Suosittelemme",
     "searchEvents": "Etsi tekemistä",
     "titleCategories": "Kategoriat"
-
   },
   "header": {
     "ariaButtonCloseMenu": "Sulje valikko",
     "ariaButtonOpenMenu": "Avaa valikko",
     "ariaLabelLogo": "Etusivu",
-    "changeLanguage": "Vaihda kieli",
+    "changeLanguage": "Suomi - kielivalikko",
     "languages": {
       "en": "In English",
       "fi": "Suomeksi",
@@ -260,10 +251,9 @@
     "collections": {
       "title": "Suosittelemme"
     },
-    "hero": {
-      "buttonText": "Katso vinkit",
-      "subTitle": "Kokosimme yhteen",
-      "title": "Syysloman riehakkaimmat riennot!"
+    "notFound": {
+      "text": "Syystä tai toisesta hakemaasi kotisivua ei löydy.",
+      "title": "Oho, nyt iski 404!"
     },
     "search": {
       "buttonSearch": "Hae",

@@ -1,16 +1,12 @@
-@import "layout";
-@import "mixins";
-
-$logoHeight: 3.25rem;
-$logoWidth: 7rem;
+@import 'layout';
 
 .bottomFooter {
-  background-color: #ffe28e;
-  padding: 2.5rem 0 1.25rem;
+  background-color: var(--color-summer-light-50);
+  padding: 1.25rem 0;
   display: block;
 
   @include respond-below(sm) {
-    padding: 3.75rem 0 5rem;
+    padding: 3.75rem 0;
   }
 
   .contentWrapper {
@@ -22,37 +18,28 @@ $logoWidth: 7rem;
   }
 
   .linkContainer {
-    flex: 1 1 0%;
     display: flex;
     align-items: center;
 
     @include respond-below(sm) {
       flex-direction: column;
-      margin-bottom: 3rem;
     }
 
     a {
       margin-right: 2.5rem;
-      font-size: 1.125rem;
-      color: $hel-black;
+      font-size: var(--fontsize-body-l);
+      color: var(--color-black);
       text-decoration: underline;
       font-weight: normal;
 
       @include respond-below(sm) {
         margin-right: 0;
         margin-bottom: 1.25rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
       }
     }
-  } 
-  .logoWrapper {
-    display: flex;
-    justify-content: center;
-  }
-
-  .helsinkiLogo {
-    @include helsinki-logo($hel-black);
-    background-position: center;
-    height: $logoHeight;
-    width: $logoWidth;
   }
 }

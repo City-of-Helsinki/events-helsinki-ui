@@ -1,6 +1,4 @@
-@import "fonts";
-@import "layout";
-@import "variables";
+@import 'layout';
 
 .eventCards {
   display: grid;
@@ -10,8 +8,12 @@
     grid-gap: 1.75rem 3rem;
   }
 
-
   @include respond_above(md) {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+.loadMoreWrapper {
+  margin-top: var(--spacing-xl);
+  text-align: center;
 }

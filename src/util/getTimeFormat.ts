@@ -1,14 +1,14 @@
 /**
  * Get localised time format
  */
-export default (lng: string) => {
+export default (lng: string): string => {
   switch (lng) {
-    case "en":
-      return "h:mm a";
-    case "sv":
-      return "HH:mm";
-    case "fi":
+    case 'en':
+      return 'h:mm aaaa';
+    case 'sv':
+      return 'HH:mm';
+    case 'fi':
     default:
-      return "HH.mm";
+      return 'HH.mm';
   }
 };

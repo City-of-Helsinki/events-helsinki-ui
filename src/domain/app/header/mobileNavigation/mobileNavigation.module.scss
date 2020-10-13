@@ -1,0 +1,16 @@
+@import 'layout';
+
+.mobileNavigation {
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+
+  @include respond-above(sm) {
+    display: none;
+  }
+
+  .mobileHeader {
+    display: grid;
+    background-color: var(--color-white);
+  }
+}

@@ -1,26 +1,33 @@
-import "../../common/translation/i18n/init.client";
-import "../../globals";
+import '../../common/translation/i18n/init.client';
+import '../../globals';
+import 'react-toastify/dist/ReactToastify.css';
 
-import React, { FunctionComponent } from "react";
-import { ApolloProvider } from "react-apollo";
-import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
-import { useSSR } from "react-i18next";
-import { BrowserRouter } from "react-router-dom";
+import { createInstance, MatomoProvider } from '@datapunt/matomo-tracker-react';
+import React from 'react';
+import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
+import { useSSR } from 'react-i18next';
+import { BrowserRouter } from 'react-router-dom';
 
-import createGraphqlClient from "../../util/createGraphqlClient";
-import AppRoutes from "./AppRoutes";
+import apolloClient from './apollo/apolloClient';
+import App from './App';
 
-const BrowserApp: FunctionComponent = () => {
+const instance = createInstance({
+  disabled: process.env.REACT_APP_MATOMO_ENABLED !== 'true',
+  urlBase: process.env.REACT_APP_MATOMO_URL_BASE as string,
+  siteId: Number(process.env.REACT_APP_MATOMO_SITE_ID),
+});
+
+const BrowserApp: React.FC = () => {
   useSSR(window.initialI18nStore, window.initialLanguage);
-
-  const uri = process.env.REACT_APP_GRAPHQL_BASE_URL || "";
-  const client = createGraphqlClient(uri);
 
   return (
     <BrowserRouter>
-      <ApolloProvider client={client}>
-        <ApolloHooksProvider client={client}>
-          <AppRoutes />
+      <ApolloProvider client={apolloClient}>
+        <ApolloHooksProvider client={apolloClient}>
+          <MatomoProvider value={instance}>
+            <App />
+          </MatomoProvider>
         </ApolloHooksProvider>
       </ApolloProvider>
     </BrowserRouter>

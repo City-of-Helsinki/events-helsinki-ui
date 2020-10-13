@@ -1,0 +1,18 @@
+.accessibilityPage {
+  --content-width: 1050px;
+
+  padding-bottom: 4rem;
+
+  h1,
+  h2,
+  li,
+  p {
+    max-width: var(--content-width);
+  }
+
+  p,
+  li {
+    font-size: var(--fontsize-body-medium);
+    line-height: var(--lineheight-l);
+  }
+}

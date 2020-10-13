@@ -1,9 +1,8 @@
-@import "colors";
-@import "layout";
+@import 'layout';
 
 .dateSelectorMenu {
-  background: $hel-white;
-  color: $hel-black;
+  background: var(--color-white);
+  color: var(--color-black);
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 
@@ -35,18 +34,32 @@
 
     svg:last-child {
       margin-left: 0.75rem;
-      height: 0.75rem;
-      width: 0.75rem;
     }
 
     &:focus {
-      outline: 2px solid $hel-black;
+      outline: 2px solid var(--color-black);
       outline-offset: -2px;
     }
   }
 
   .hidden {
     display: none;
+  }
+
+  .checkboxWrapper {
+    padding: 1rem;
+
+    div {
+      margin: 1rem 0;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .wrapper {
@@ -59,23 +72,21 @@
   }
 
   .btnSelectDates {
-    border-top: 1px solid $hel-light; 
+    border-top: 1px solid var(--color-coat-of-arms-silver);
     font-weight: 500;
   }
 
   .btnBack {
     font-weight: 500;
-    border-bottom: 1px solid $hel-gray; 
+    border-bottom: 1px solid var(--color-coat-of-arms-silver);
 
     svg:first-child {
       margin-right: 0.75rem;
-      height: 0.75rem;
-      width: 0.75rem;
     }
   }
 
   .btnClose {
-    border-top: 1px solid $hel-light; 
+    border-top: 1px solid var(--color-coat-of-arms-silver);
 
     .buttonText {
       text-align: center;

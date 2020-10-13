@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div>
+  <p>
+    Valitettavasti tämän kokoelman kaikki suositellut tapahtumat ovat jo ehtineet päättyä. Käy tutustumassa muihin suosituksiimme ja löydä itsellesi tekemistä.
+  </p>
+  <a
+    class="link defaultColor defaultSize"
+    href="/fi/collections"
+  >
+    Tutustu kaikkiin kokoelmiin
+    <svg
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <path
+          d="M0 24V0h24v24z"
+        />
+        <path
+          d="M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z"
+          fill="currentColor"
+        />
+      </g>
+    </svg>
+  </a>
+</div>
+`;

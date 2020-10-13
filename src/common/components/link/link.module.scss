@@ -1,0 +1,65 @@
+.link {
+  display: flex;
+  align-items: center;
+  color: var(--color-tram-dark-50);
+  font-size: var(--fontsize-body-l);
+  font-weight: 500;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  padding: unset;
+  text-align: left;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 2px solid var(--color-black);
+  }
+
+  svg {
+    margin-left: 1rem;
+    fill: var(--color-tram-dark-50);
+  }
+}
+
+.defaultColor {
+  color: var(--color-tram-dark-50);
+
+  svg {
+    fill: var(--color-tram-dark-50);
+  }
+}
+
+.whiteColor {
+  color: var(--color-white);
+
+  svg {
+    fill: var(--color-white);
+  }
+
+  &:focus {
+    outline-color: var(--color-white);
+  }
+}
+
+.defaultSize {
+  font-size: var(--fontsize-body-l);
+
+  svg {
+    margin-left: 1rem;
+  }
+}
+
+.smallSize {
+  font-size: var(--fontsize-body-m);
+
+  svg {
+    margin-left: 0.5rem;
+  }
+
+  &:focus {
+    outline-offset: 2px;
+  }
+}

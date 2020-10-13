@@ -1,21 +1,19 @@
-import classNames from "classnames";
-import { IconClose } from "hds-react";
-import React from "react";
-import { useTranslation } from "react-i18next";
+import classNames from 'classnames';
+import { IconCross } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import styles from "./filterButton.module.scss";
+import styles from './filterButton.module.scss';
 
 export type FilterType =
-  | "category"
-  | "date"
-  | "dateType"
-  | "district"
-  | "keyword"
-  | "place"
-  | "publisher"
-  | "searchWord"
-  | "target"
-  | "yso";
+  | 'category'
+  | 'date'
+  | 'dateType'
+  | 'division'
+  | 'place'
+  | 'publisher'
+  | 'target'
+  | 'text';
 
 interface Props {
   onRemove: (value: string, type: FilterType) => void;
@@ -37,11 +35,11 @@ const FilterButton: React.FC<Props> = ({ onRemove, text, type, value }) => {
         type="button"
         className={styles.closeButton}
         onClick={handleRemove}
-        aria-label={t("commons.filter.ariaButtonRemove", {
-          filter: text
+        aria-label={t('commons.filter.ariaButtonRemove', {
+          filter: text,
         })}
       >
-        <IconClose />
+        <IconCross size="s" />
       </button>
       {text}
     </div>

@@ -1,20 +1,19 @@
-import * as React from "react";
-import renderer from "react-test-renderer";
+import { render } from '@testing-library/react';
+import * as React from 'react';
 
-import AutosuggestMenu from "../AutosuggestMenu";
+import { AUTOSUGGEST_TYPES } from '../../../../constants';
+import AutosuggestMenu from '../AutosuggestMenu';
 
-test("AutosuggestMenu matches snapshot", () => {
-  const component = renderer.create(
+test('AutosuggestMenu matches snapshot', () => {
+  const { container } = render(
     <AutosuggestMenu
       focusedOption={0}
-      options={[{ text: "foo", type: "bar", value: "foo" }]}
+      options={[{ text: 'foo', type: AUTOSUGGEST_TYPES.TEXT, value: 'foo' }]}
       isOpen={true}
-      onClose={() => {}}
-      onOptionClick={() => {}}
+      onClose={jest.fn()}
+      onOptionClick={jest.fn()}
     />
   );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-});
 
-export {};
+  expect(container.firstChild).toMatchSnapshot();
+});

@@ -1,24 +1,22 @@
-import React, { FunctionComponent } from "react";
-import { useTranslation } from "react-i18next";
+import { IconAngleDown, IconAngleUp, IconCalendarClock } from 'hds-react';
+import React, { FunctionComponent } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { DATE_TYPES } from "../../../constants";
-import useLocale from "../../../hooks/useLocale";
-import IconAngleDown from "../../../icons/IconAngleDown";
-import IconAngleUp from "../../../icons/IconAngleUp";
-import IconCalendar from "../../../icons/IconCalendar";
-import { formatDate } from "../../../util/dateUtils";
-import { translateValue } from "../../../util/translateUtils";
-import styles from "./dateSelector.module.scss";
-import DateSelectorMenu from "./DateSelectorMenu";
+import { DATE_TYPES } from '../../../constants';
+import useLocale from '../../../hooks/useLocale';
+import { formatDate } from '../../../util/dateUtils';
+import { translateValue } from '../../../util/translateUtils';
+import styles from './dateSelector.module.scss';
+import DateSelectorMenu from './DateSelectorMenu';
 
 const dateTypeOptions = [
   DATE_TYPES.TODAY,
   DATE_TYPES.TOMORROW,
   DATE_TYPES.THIS_WEEK,
-  DATE_TYPES.WEEKEND
+  DATE_TYPES.WEEKEND,
 ];
 
-interface Props {
+export interface DateSelectorProps {
   dateTypes: string[];
   endDate: Date | null;
   isCustomDate: boolean;
@@ -30,7 +28,7 @@ interface Props {
   toggleIsCustomDate: () => void;
 }
 
-const DateSelector: FunctionComponent<Props> = ({
+const DateSelector: FunctionComponent<DateSelectorProps> = ({
   dateTypes,
   endDate,
   isCustomDate,
@@ -39,24 +37,14 @@ const DateSelector: FunctionComponent<Props> = ({
   onChangeEndDate,
   onChangeStartDate,
   startDate,
-  toggleIsCustomDate
+  toggleIsCustomDate,
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const backBtnRef = React.useRef<HTMLButtonElement | null>(null);
-  const toggleBtnRef = React.useRef<HTMLButtonElement | null>(null);
+  const customDatesBtnRef = React.useRef<HTMLButtonElement | null>(null);
   const dateSelector = React.useRef<HTMLDivElement | null>(null);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  const handleDocumentClick = (event: MouseEvent) => {
-    const target = event.target;
-    const current = dateSelector && dateSelector.current;
-
-    // Close menu when clicking outside of the component
-    if (!(current && target instanceof Node && current.contains(target))) {
-      setIsMenuOpen(false);
-    }
-  };
 
   const ensureMenuIsOpen = React.useCallback(() => {
     if (!isMenuOpen) {
@@ -64,73 +52,74 @@ const DateSelector: FunctionComponent<Props> = ({
     }
   }, [isMenuOpen]);
 
+  const ensureMenuIsClosed = React.useCallback(() => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [isMenuOpen]);
+
+  const handleDocumentClick = React.useCallback(
+    (event: MouseEvent) => {
+      const target = event.target;
+      const current = dateSelector.current;
+
+      // Close menu when clicking outside of the component
+      if (!(target instanceof Node && current?.contains(target))) {
+        ensureMenuIsClosed();
+      }
+    },
+    [ensureMenuIsClosed]
+  );
+
   const isComponentFocused = React.useCallback(() => {
     const active = document.activeElement;
-    const current = dateSelector && dateSelector.current;
+    const current = dateSelector.current;
 
-    if (current && active instanceof Node && current.contains(active)) {
-      return true;
-    }
-    return false;
+    return !!(active instanceof Node && current?.contains(active));
   }, [dateSelector]);
 
   const handleDocumentFocusin = React.useCallback(() => {
     if (!isComponentFocused()) {
-      setIsMenuOpen(false);
+      ensureMenuIsClosed();
     }
-  }, [isComponentFocused]);
+  }, [ensureMenuIsClosed, isComponentFocused]);
 
   const handleDocumentKeyDown = React.useCallback(
     (event: KeyboardEvent) => {
       if (!isComponentFocused()) return;
 
       switch (event.key) {
-        case "ArrowUp":
+        case 'ArrowUp':
+        case 'ArrowDown':
           ensureMenuIsOpen();
           event.preventDefault();
           break;
-        case "ArrowDown":
-          ensureMenuIsOpen();
-          event.preventDefault();
-          break;
-        case "Escape":
-          setIsMenuOpen(false);
+        case 'Escape':
+          ensureMenuIsClosed();
           event.preventDefault();
           break;
       }
     },
-    [ensureMenuIsOpen, isComponentFocused]
+    [ensureMenuIsClosed, ensureMenuIsOpen, isComponentFocused]
   );
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   React.useEffect(() => {
-    document.addEventListener("click", handleDocumentClick);
-    document.addEventListener("keydown", handleDocumentKeyDown);
-    document.addEventListener("focusin", handleDocumentFocusin);
+    document.addEventListener('click', handleDocumentClick);
+    document.addEventListener('keydown', handleDocumentKeyDown);
+    document.addEventListener('focusin', handleDocumentFocusin);
     // Clean up event listener to prevent memory leaks
     return () => {
-      document.removeEventListener("click", handleDocumentClick);
-      document.removeEventListener("keydown", handleDocumentKeyDown);
-      document.removeEventListener("focusin", handleDocumentFocusin);
+      document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener('keydown', handleDocumentKeyDown);
+      document.removeEventListener('focusin', handleDocumentFocusin);
     };
-  }, [handleDocumentFocusin, handleDocumentKeyDown]);
+  }, [handleDocumentClick, handleDocumentFocusin, handleDocumentKeyDown]);
 
   const handleToggleIsCustomDate = () => {
-    if (isCustomDate) {
-      setTimeout(() => {
-        if (toggleBtnRef && toggleBtnRef.current) {
-          toggleBtnRef.current.focus();
-        }
-      }, 1);
-    }
-
     toggleIsCustomDate();
   };
 
@@ -147,9 +136,10 @@ const DateSelector: FunctionComponent<Props> = ({
     const sortDateTypes = (a: string, b: string): number =>
       dateTypeOptions.indexOf(a) < dateTypeOptions.indexOf(b) ? -1 : 1;
 
-    const dateTypeLabels = dateTypes.sort(sortDateTypes).map(val => {
-      return translateValue("commons.dateSelector.dateType", val, t);
-    });
+    const dateTypeLabels = dateTypes
+      .sort(sortDateTypes)
+      .map((val) => translateValue('commons.dateSelector.dateType', val, t));
+
     if (dateTypeLabels.length > 1) {
       return `${dateTypeLabels[0]} + ${dateTypeLabels.length - 1}`;
     } else {
@@ -157,22 +147,28 @@ const DateSelector: FunctionComponent<Props> = ({
     }
   }, [dateTypes, endDate, locale, startDate, t]);
 
+  React.useEffect(() => {
+    if (isComponentFocused() && !isCustomDate) {
+      customDatesBtnRef.current?.focus();
+    }
+  }, [isComponentFocused, isCustomDate]);
+
   return (
     <div className={styles.dateSelector} ref={dateSelector}>
       <button
         aria-haspopup="true"
         aria-expanded={isMenuOpen}
-        aria-label={t("commons.dateSelector.title")}
+        aria-label={t('commons.dateSelector.title')}
         className={styles.button}
         onClick={toggleMenu}
         type="button"
       >
         <div className={styles.iconWrapper}>
-          <IconCalendar className={styles.iconCalendar} />
+          <IconCalendarClock />
         </div>
         <div className={styles.info}>
           <div className={styles.buttonTextWrapper}>
-            {selectedText || t("commons.dateSelector.title")}
+            {selectedText || t('commons.dateSelector.title')}
           </div>
         </div>
         <div className={styles.arrowWrapper}>
@@ -182,6 +178,7 @@ const DateSelector: FunctionComponent<Props> = ({
       {isSelected && <div className={styles.isSelectedIndicator} />}
       <DateSelectorMenu
         backBtnRef={backBtnRef}
+        customDatesBtnRef={customDatesBtnRef}
         dateTypes={dateTypes}
         dateTypeOptions={dateTypeOptions}
         endDate={endDate}
@@ -192,9 +189,8 @@ const DateSelector: FunctionComponent<Props> = ({
         onChangeEndDate={onChangeEndDate}
         onChangeStartDate={onChangeStartDate}
         startDate={startDate}
-        toggleBtnRef={toggleBtnRef}
         toggleIsCustomDate={handleToggleIsCustomDate}
-        onCloseMenu={closeMenu}
+        onCloseMenu={ensureMenuIsClosed}
       />
     </div>
   );

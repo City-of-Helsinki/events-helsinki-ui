@@ -1,98 +1,53 @@
 {
+  "about": {
+    "title": "Om tjänsten"
+  },
+  "accessibility": {
+    "title": "Tillgänglighets­utlåtande"
+  },
   "appName": "Evenemang",
   "commons": {
     "autosuggest": {
       "menu": {
         "ariaButtonClose": "Stäng menyn",
-        "info": "Du kan också söka efter nyckelordet du angav",
+        "info": "Du kan också leta med sökordet du angav",
         "title": "Sökförslag"
       }
     },
     "category": {
       "ariaButtonRemove": "Radera kategori: {{category}}"
     },
-    "collectionCard": {
-      "ariaLabelLink": "Gå till samlingen: {{title}}",
-      "count": "{{count}} st"
-    },
     "dateSelector": {
       "dateTypeAll": "När som helst",
       "dateTypeThisWeek": "Denna vecka",
       "dateTypeToday": "I dag",
       "dateTypeTomorrow": "I morgon",
-      "dateTypeWeekend": "På veckoslut",
+      "dateTypeWeekend": "På veckoslutet",
       "infoDate": "dd.mm.åååå",
       "labelEndDate": "Slutdatum",
       "labelStartDate": "Startdatum",
       "menu": {
         "buttonBack": "Tillbaka",
-        "buttonClose": "Stänga",
+        "buttonClose": "Stäng",
         "buttonCustom": "Välj datum"
       },
-      "title": "Välj period"
-    },
-    "districts": {
-      "alppiharju": "Åshöjden",
-      "eira": "Eira",
-      "etuTöölö": "Främre Tölö",
-      "haaga": "Haga",
-      "hermanni": "Hermanstad",
-      "herttoniemi": "Hertonäs",
-      "kaarela": "Kårböle",
-      "kaartinkaupunki": "Gardesstaden",
-      "kaivopuisto": "Brunnsparken",
-      "kallio": "Berghäll",
-      "kamppi": "Kampen",
-      "katajanokka": "Skatudden",
-      "kluuvi": "Gloet",
-      "konala": "Kånala",
-      "koskela": "Forsby",
-      "kruununhaka": "Kronohagen",
-      "kulosaari": "Brändö villastad och Blåbärslandet-Högholmen",
-      "kumpula": "Gumtäkt",
-      "käpylä": "Kottby",
-      "laajasalo": "Degerö, Villinge och Sandhamn",
-      "laakso": "Dal",
-      "lauttasaari": "Drumsö",
-      "länsisatama": "Västra hamnen",
-      "malmi": "Malm",
-      "meilahti": "Mejlans",
-      "mellunkylä": "Mellungsby",
-      "munkkiniemi": "Munksnäs",
-      "oulunkylä": "Åggelby",
-      "pakila": "Baggböle",
-      "pitäjämäki": "Sockenbacka",
-      "pukinmäki": "Bocksbacka",
-      "punavuori": "Rödbergen",
-      "ruskeasuo": "Brunakärr",
-      "suomenlinna": "Sveaborg och Utöarna",
-      "suurmetsä": "Storskog",
-      "suutarila": "Skomakarböle",
-      "sörnäinen": "Sörnäs",
-      "takaTöölö": "Bortre Tölö",
-      "tammisalo": "Tammelund",
-      "tapaninkylä": "Staffansby",
-      "ullanlinna": "Ulrikasborg",
-      "vallila": "Vallgård",
-      "vanhakaupunki": "Gammelstaden",
-      "vartiokylä": "Botby",
-      "vartiosaari": "Vårdö",
-      "viikki": "Vik",
-      "vuosaari": "Nordsjö",
-      "östersundom": "Östersundom"
+      "title": "Välj tidpunkt"
     },
     "dropdown": {
       "menu": {
-        "buttonClear": "Rensa val"
+        "buttonClear": "Töm valda"
       }
-    },
-    "eventCard": {
-      "ariaLabelLink": "Gå till evenemanget: {{name}}" 
     },
     "filter": {
       "ariaButtonRemove": "Ta bort filter: {{filter}}"
     },
+    "linkSkipToContent": "Gå till innehållet",
     "loading": "Laddning...",
+    "multiSelectDropdown": {
+      "inputPlaceholder": "Skriv sökord",
+      "selectAll": "Välj alla"
+    },
+    "preview": "Förhandsvisning",
     "shareLink": {
       "shareOnFacebook": "Dela på Facebook",
       "shareOnTwitter": "Dela på Twitter",
@@ -103,24 +58,47 @@
       "messageLinkCopySuccess": "Länk kopierad till urklipp"
     },
     "supriseMe": "Jag har tur",
-    "targets": {
-      "children": "Barn",
-      "youngPeople": "Unga människor"
-    }
+    "timeAbbreviation": "kl."
   },
   "collection": {
+    "buttonShowAllPastEvents": "Visa alla tidigare rekommendationer",
+    "collectionCard": {
+      "ariaLabelLink": "Gå till samlingen: {{title}}",
+      "count": "{{count}} st"
+    },
     "curatedEvents": {
-      "textEventNotFound": "Samlingen hittades inte"
+      "linkOnlyExpiredEvents": "Till alla kollektioner",
+      "textEventNotFound": "Samlingen hittades inte",
+      "textOnlyExpiredEvents": "Tyvärr har denna kollektions rekommenderade evenemang redan gått. Bekanta dig mig våra övriga rekommendationer och hitta fler intressanta evenemang."
+    },
+    "eventList": {
+      "errorLoadMore": "Det gick inte att ladda evenemangen"
+    },
+    "expired": {
+      "linkSearchEvents": "Till alla kollektioner",
+      "text": "Tyvärr har denna kollektion redan tagits bort. Men vilken tur att de finns många fler kollektioner, så ta dig en titt på allt annat intressant det händer i staden.",
+      "title": "Kollektionen du letar efter har tagits bort"
+    },
+    "languageNotSupported": {
+      "linkSearchEvents": "Till alla kollektioner",
+      "text": "Tyvärr har denna kollektion inte skapats för alla språk. Som tur tar inte evenemangen slut här, ta en titt på alla andra kollektioner och hitta intressanta evenemang.",
+      "title": "Kollektionen finns ej på svenska"
     },
     "notFound": {
-      "linkSearchEvents": "Sök efter evenemang",
-      "text": "Av en eller annan orsak så hittas inte samlingen du letade efter. Försök istället att hitta något att göra härifrån:",
+      "linkSearchEvents": "Sök saker att göra",
+      "text": "Av en eller annan orsak så hittas inte det du letade efter. Försök istället hitta aktiviteter här.",
       "title": "Oj nej, nu blev det 404!"
     },
     "shareLinks": {
-      "title": "Dela samling"
+      "title": "Dela detta"
     },
-    "title": "Laddar samling..."
+    "title": "Laddar samling...",
+    "titlePastRecommendations": "Rekommenderat tidigare",
+    "titleSimilarCollections": "Vi rekommenderar också dessa"
+  },
+  "collectionList": {
+    "pageTitle": "Vi rekommenderar",
+    "title": "Vi har samlat evenemangstips åt dig"
   },
   "event": {
     "categories": {
@@ -131,32 +109,46 @@
     "description": {
       "title": "Beskrivning"
     },
+    "eventCancelled": "Evenemanget inställt",
+    "eventCard": {
+      "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
+      "ariaLabelLink": "Gå till evenemanget: {{name}}",
+      "ariaLabelReadMore": "Läs mer: {{name}}",
+      "buttonBuyTickets": "Köp biljetter",
+      "buttonReadMore": "Läs mer",
+      "dateAndTime": "{{date}}, kl. {{time}}",
+      "isFree": "Gratis"
+    },
     "hero": {
       "ariaLabelBackButton": "Tillbaka till händelsessökning",
+      "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
       "buttonBuyTickets": "Köp biljetter",
-      "buttonToHomePage": "Gå till framsidan",
+      "buttonToHomePage": "Till framsidan",
       "offers": {
         "isFree": "Gratis"
       },
-      "textEventClosed": "Händelsen du letar efter är redan slut"
+      "textEventClosed": "Oroa dig inte, det finns många andra saker du kan göra i Helsingfors.",
+      "titleEventClosed": "Äsch då, evenemanget du letar efter har redan tagit slut"
     },
     "info": {
-      "buttonAddToCalendar": "Lägg till i kalendern",
+      "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
+      "buttonAddToCalendar": "Lägg till din kalender",
       "buttonBuyTickets": "Köp biljetter",
-      "directionsGoogle": "Vägbeskrivning (Google)",
-      "directionsHSL": "Vägbeskrivning (HSL)",
+      "directionsGoogle": "Ruttbeskrivning (Google)",
+      "directionsHSL": "Ruttbeskrivning (HSL)",
+      "errorLoadMore": "Det gick inte att ladda evenemangen",
       "extlinkFacebook": "Facebook",
       "extlinkInstagram": "Instagram",
       "extlinkTwitter": "Twitter",
       "extlinkYoutube": "Youtube",
       "labelDateAndTime": "Datum och tid",
-      "labelDistricts": "Hitta din väg",
+      "labelDirections": "Hitta fram",
       "labelLanguages": "Språk",
-      "labelLocation": "Lokalisering",
-      "labelOrganizer": "Arrangörsinformation",
-      "labelOtherInfo": "Annan information",
+      "labelLocation": "Plats",
+      "labelOrganizer": "Arrangör",
+      "labelOtherInfo": "Övrig information",
       "labelPrice": "Pris",
-      "linkSearchByOrganization": "Se andra evenemang av arrangören",
+      "linkSearchByOrganization": "Se arrangörens andra evenemang",
       "linkWebPage": "Webbsida",
       "offers": {
         "isFree": "Gratis"
@@ -165,82 +157,82 @@
       "textCalendarLinkDescription": "{{description}} Läs mer: {{link}}"
     },
     "location": {
-      "directionsGoogle": "Vägbeskrivning (Google)",
-      "directionsHSL": "Vägbeskrivning (HSL)",
+      "directionsGoogle": "Ruttbeskrivning (Google)",
+      "directionsHSL": "Ruttbeskrivning (HSL)",
+      "mapTitle": "Plats",
       "openMap": "Öppna kartan i ett nytt fönster",
-      "title": "Lokalisering"
+      "title": "Plats"
     },
     "notFound": {
-      "linkSearchEvents": "Sök efter evenemang",
+      "linkSearchEvents": "Sök saker att göra",
       "text": "Av en eller annan orsak så hittas inte evenemänget du letade efter. Försök istället att hitta något att göra härifrån:",
       "title": "Oj nej, nu blev det 404!"
     },
     "otherTimes": {
-      "buttonReadMore": "Läs mer",
-      "title": "Andra tider av evenemanget"
+      "buttonHide": "Dölj andra evenemangstider",
+      "buttonReadMore": "Läs mer: {{date}}",
+      "buttonShow": "Visa andra evenemangstider",
+      "title": "Andra evenemangstider"
     },
     "shareLinks": {
-      "title": "Dela händelsen"
+      "title": "Dela detta"
     },
     "similarEvents": {
-      "title": "Andra liknande händelser"
+      "title": "Liknande evenemang"
     },
     "title": "Laddar evenemang..."
   },
   "eventSearch": {
-    "buttonClearFilters": "Rensa filter",
-    "buttonLoadMore": "Ladda ner fler evenemang",
-    "event": {
-      "buttonBuyTickets": "Köp biljetter",
-      "buttonReadMore": "Läs mer",
-      "dateAndTime": "{{date}}, kl {{time}}",
-      "offers": {
-        "isFree": "Gratis"
-      }
-    },
-    "filters": {
-      "buttonRemoveSearchWord": "Ta bort sökordet",
-      "textNoFilters": "Inga sökkriterier",
-      "titleSummary": "Valda sökkriterier:"
-    },
+    "ariaLiveLoading": "Söker efter evenemang",
+    "ariaLiveSearchReady": "{{count}} sökresultat",
+    "buttonClearFilters": "Töm sökfilter",
+    "buttonLoadMore": "Visa fler evenemang ({{count}})",
+    "errorLoadMore": "Det gick inte att ladda evenemangen",
     "noResultsInfo": {
-      "bigText": "Tyvärr, inga sökresultat hittades för de sökkriterier du har valt",
-      "smallText": "Försök ändra dina sökkriterier så kommer du säkert att hitta något att göra!"
+      "bigText": "Tyvärr hittades inga resultat för de sökkriterier du valt.",
+      "smallText": "Försök att ändra dina sökkriterier så hittar du säkert något som passar dig!"
     },
     "search": {
       "buttonSearch": "Sök",
+      "checkboxIsFree": "Visa endast avgiftsfria",
+      "checkboxOnlyChildrenEvents": "Visa endast evenemang för barn",
+      "checkboxOnlyEveningEvents": "Visa endast kvällsprogram",
       "labelCategory": "Vilken typ av evenemang du letar efter?",
       "labelDateRange": "För vilken period du letar efter?",
       "labelDistrict": "Varifrån letar du efter??",
-      "labelSearchField": "Vad du letar efter?",
+      "labelSearchField": "Vad letar du efter?",
       "labelTargetGroup": "Vem du letar efter?",
-      "placeholder": "Ange ett nyckelord, t.ex. rock eller yoga",
+      "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
+      "selectAllDivisions": "Alla områden",
+      "selectAllPlaces": "Alla ställen",
       "titleDropdownCategory": "Välj kategori",
-      "titleDropdownDistrict": "Välj område",
-      "titleDropdownTargetGroup": "Välj vem"
+      "titleDropdownDivision": "Sök stadsdel eller område",
+      "titleDropdownPlace": "Sök evenemangsplats"
     },
     "textFoundEvents": "{{count}} sökresultat",
     "title": "Evenemang sök"
   },
   "footer": {
-    "linkAbout": "About",
-    "linkFeedback": "Ge feedback",
+    "linkAbout": "Om tjänsten",
+    "linkAccessibility": "Tillgänglighets­utlåtande",
+    "linkFeedback": "Ge respons",
+    "linkFeedbackUrl": "https://www.hel.fi/helsinki/sv/stad-och-forvaltning/delta/feedback/",
     "searchCollections": "Vi rekommenderar",
-    "searchEvents": "Sök efter evenemang",
+    "searchEvents": "Sök saker att göra",
     "titleCategories": "Kategorier"
   },
   "header": {
     "ariaButtonCloseMenu": "Stäng menyn",
     "ariaButtonOpenMenu": "Öppna menyn",
     "ariaLabelLogo": "Framsidan",
-    "changeLanguage": "Ändra språk",
+    "changeLanguage": "Svenska - språkval",
     "languages": {
       "en": "In English",
       "fi": "Suomeksi",
       "sv": "På svenska"
     },
     "searchCollections": "Vi rekommenderar",
-    "searchEvents": "Sök efter evenemang"
+    "searchEvents": "Sök saker att göra"
   },
   "home": {
     "category": {
@@ -252,35 +244,34 @@
       "movie": "Film",
       "museum": "Museer",
       "music": "Musik",
-      "nature": "Natur och utomhusaktiviteter",
+      "nature": "Natur och friluftsliv",
       "sport": "Motion och sport",
       "theatre": "Teater"
     },
     "collections": {
       "title": "Vi rekommenderar"
     },
-    "hero": {
-      "buttonText": "Se tips",
-      "subTitle": "Vi sätter ihop det",
-      "title": "Höstlovets fantastiska godsaker!"
+    "notFound": {
+      "text": "Av en eller annan orsak så hittas inte sidan du letade efter.",
+      "title": "Oj nej, nu blev det 404!"
     },
     "search": {
       "buttonSearch": "Sök",
       "labelDateRange": "För vilken period du letar efter?",
-      "labelSearchField": "Vad du letar efter?",
+      "labelSearchField": "Vad letar du efter?",
       "linkAdvancedSearch": "Avancerad sökning",
-      "placeholder": "Ange ett nyckelord, t.ex. rock eller yoga",
-      "title": "Sök efter evenemang"
+      "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
+      "title": "Sök saker att göra"
     }
   },
   "menu": {
-    "aboutService": "About",
+    "aboutService": "Om tjänsten",
     "mostPopular": "Toppsökningar",
     "searchCategories": "Bläddra i kategorier",
-    "searchEvents": "Sök efter evenemang"
+    "searchEvents": "Sök saker att göra"
   },
   "notFound": {
-    "linkSearchEvents": "Sök efter evenemang",
+    "linkSearchEvents": "Sök saker att göra",
     "text": "Av en eller annan orsak så hittas inte sidan du letade efter. Försök istället att hitta något att göra härifrån:",
     "title": "Oj nej, nu blev det 404!"
   }

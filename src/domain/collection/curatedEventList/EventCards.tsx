@@ -1,20 +1,40 @@
-import React from "react";
+import { Button } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import EventCard from "./EventCard";
-import styles from "./eventCards.module.scss";
+import { EventFieldsFragment } from '../../../generated/graphql';
+import LargeEventCard from '../../event/eventCard/LargeEventCard';
+import styles from './eventCards.module.scss';
 
 interface Props {
-  eventIds: Array<string | null>;
+  events: Array<EventFieldsFragment>;
+  onShowMore?: () => void;
+  showMoreButton?: boolean;
 }
 
-const SimilarEvents: React.FC<Props> = ({ eventIds }) => {
+const EventCards: React.FC<Props> = ({
+  events,
+  onShowMore,
+  showMoreButton,
+}) => {
+  const { t } = useTranslation();
+
   return (
-    <div className={styles.eventCards}>
-      {eventIds.map(
-        eventId => eventId && <EventCard key={eventId} eventId={eventId} />
+    <>
+      <div className={styles.eventCards}>
+        {events.map((event, id) => (
+          <LargeEventCard key={id} event={event} />
+        ))}
+      </div>
+      {showMoreButton && (
+        <div className={styles.loadMoreWrapper}>
+          <Button onClick={onShowMore} variant="success">
+            {t('collection.buttonShowAllPastEvents')}
+          </Button>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
-export default SimilarEvents;
+export default EventCards;

@@ -1,5 +1,7 @@
-import React from "react";
-import serialize from "serialize-javascript";
+import React from 'react';
+import serialize from 'serialize-javascript';
+
+type HelmetDatum = { toComponent: () => void };
 
 interface Props {
   assets: {
@@ -8,19 +10,13 @@ interface Props {
   };
   content: string;
   helmet: {
-    meta: {
-      toComponent: () => void;
-    };
-    title: {
-      toComponent: () => void;
-    };
-    link: {
-      toComponent: () => void;
-    };
+    link: HelmetDatum;
+    meta: HelmetDatum;
+    title: HelmetDatum;
   };
-  state: object;
+  state: Record<string, unknown>;
   canonicalUrl: string;
-  initialI18nStore: object;
+  initialI18nStore: Record<string, unknown>;
   initialLanguage: string;
 }
 
@@ -31,7 +27,7 @@ const Html: React.FC<Props> = ({
   state,
   canonicalUrl,
   initialI18nStore,
-  initialLanguage
+  initialLanguage,
 }) => {
   return (
     <html lang="en">
@@ -55,6 +51,11 @@ const Html: React.FC<Props> = ({
         {helmet.meta.toComponent()}
         {helmet.title.toComponent()}
         {helmet.link.toComponent()}
+        {Array.from(document.head.getElementsByTagName('style')).map(
+          (style) => (
+            <style type={style.type}>{style.innerHTML}</style>
+          )
+        )}
         {assets.css &&
           assets.css.map((c: string, idx: number) => (
             <link key={idx} href={c} rel="stylesheet" />
@@ -68,18 +69,18 @@ const Html: React.FC<Props> = ({
           dangerouslySetInnerHTML={{
             __html: `window.__APOLLO_STATE__=${JSON.stringify(state).replace(
               /</g,
-              "\\u003c"
-            )};`
+              '\\u003c'
+            )};`,
           }}
         />
         <script
           dangerouslySetInnerHTML={{
             __html: [
               `window.initialI18nStore=${serialize(initialI18nStore, {
-                isJSON: true
+                isJSON: true,
               })};`,
-              `window.initialLanguage="${initialLanguage}";`
-            ].join("\n")
+              `window.initialLanguage="${initialLanguage}";`,
+            ].join('\n'),
           }}
         />
         {assets.js &&

@@ -2,20 +2,51 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Event Helsinki client UI / SSR server
 
-## Development with Docker
+UI and SSR server for Tapahtumat Helsinki
 
-To build the project, you will need [Docker](https://www.docker.com/community-edition).
+## Environments
 
-Building the project
+Production environment:
+[TODO: Add url when deployed]
+Project is automatically deployed to production when adding new relase tag, e.g. release-v0.1.0, to repo
 
-    cp .env.example .env
-    docker-compose build
+Testing environment: [https://tapahtumat.test.kuva.hel.ninja](https://tapahtumat.test.kuva.hel.ninja)
+Project is automatically deployed to testing environment when pushing to develop brach
 
-Starting the application
+## Requirements
 
-    docker-compose up -d
+- Node 12.x
+- Yarn
+- Git
+- [Docker](https://www.docker.com/community-edition)
 
-The web application will run on http://localhost:3000
+## Setting up development environment locally with docker
+
+### Install events-helsinki-api-proxy locally
+
+Clone the repository (https://github.com/City-of-Helsinki/events-helsinki-api-proxy). Follow the instructions for running open-city-profile with docker.
+
+### Run events-helsinki-ui
+
+Create .env.development.local file and set REACT_APP_GRAPHQL_BASE_URL=http://localhost:4000/proxy/graphql
+
+Start the container
+
+    docker-compose up
+
+The web application should run at http://localhost:3000
+
+## Running production version with Docker
+
+Build the docker image
+
+    DOCKER_TARGET=production docker-compose build
+
+Start the container
+
+    docker-compose up
+
+The web application should run at http://localhost:3001
 
 ## Available Scripts
 
@@ -34,6 +65,22 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+### `yarn test:coverage`
+
+Launches the test runner and generates coverage report
+
+### `yarn browser-test`
+
+Running browser tests against test environment
+
+Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
+
+### `yarn browser-test:local`
+
+Running browser tests against local environment
+
+Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
+
 ### `yarn build`
 
 Builds the app for production to the `build` folder.<br />
@@ -49,13 +96,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### `yarn start:server`
 
 Runs the app in the production mode. Client ssr express server is used to serve the application<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-### `yarn update-sitemaps`
-
-Fetches events data from Linkedevents and collections data from cms and generates sitemaps for Google. See `.env` for configuration.
-
-Sitemaps will be used when MVP is released. This script should be added to docker production build in the future. Sitemaps should be added only in production.  
+Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 
 ### `yarn lint`
 
@@ -64,6 +105,10 @@ Run linter to all the files in app
 ### `yarn format-code`
 
 Fix all the linter errors
+
+## Browser tests
+
+Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
 
 ## Debugging
 

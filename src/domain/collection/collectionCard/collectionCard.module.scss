@@ -1,0 +1,212 @@
+@import 'layout';
+
+.collectionCardWrapper {
+  display: flex;
+  position: relative;
+  background-color: var(--color-white);
+  text-decoration: none;
+
+  .imageWrapper {
+    outline: none;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .textWrapper {
+    background-color: var(--color-white);
+    padding: var(--spacing-m);
+
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+
+    .count {
+      display: inline-block;
+      padding: var(--spacing-3-xs) var(--spacing-2-xs);
+      font-size: var(--fontsize-body-s);
+      background-color: var(--color-black);
+      color: var(--color-white);
+      margin-bottom: var(--spacing-s);
+    }
+
+    .titleWrapper {
+      align-self: flex-start;
+      hyphens: auto;
+    }
+
+    .title {
+      font-size: var(--fontsize-heading-m);
+      line-height: var(--lineheight-l);
+      font-weight: 600;
+      color: var(--color-black);
+      text-decoration: none;
+      display: block;
+    }
+
+    .description {
+      color: var(--color-black);
+      font-size: var(--fontsize-body-m);
+    }
+
+    .linkWrapper {
+      padding-top: var(--spacing-s);
+    }
+  }
+
+  &.smSize {
+    flex-direction: column;
+    grid-template-columns: auto 1fr;
+
+    @include respond-below(sm) {
+      flex-direction: row;
+    }
+
+    .imageWrapper {
+      min-height: 18rem;
+      text-decoration: none;
+
+      @include respond-below(sm) {
+        min-height: 10.5rem;
+        width: 7rem;
+      }
+    }
+
+    .textWrapper {
+      flex: 1 1 0%;
+      grid-template-rows: 1fr auto;
+
+      @include respond-below(sm) {
+        grid-template-columns: unset;
+        grid-template-rows: 1fr auto;
+        min-height: 7.25rem;
+        flex: 1 1 0%;
+      }
+
+      .countWrapper {
+        position: absolute;
+        top: var(--spacing-s);
+        left: var(--spacing-s);
+      }
+
+      .count {
+        background-color: var(--color-white);
+        color: var(--color-black);
+      }
+
+      .linkWrapper {
+        display: flex;
+        align-self: center;
+
+        @include respond-below(sm) {
+          padding-top: var(--spacing-s);
+          padding-left: 0;
+        }
+      }
+    }
+  }
+
+  &.mdSize {
+    flex-direction: column;
+
+    @include respond-below(sm) {
+      flex-direction: row;
+    }
+
+    .imageWrapper {
+      min-height: 18rem;
+      text-decoration: none;
+
+      @include respond-below(sm) {
+        min-height: 10.5rem;
+        flex: 1 1 0%;
+      }
+    }
+
+    .textWrapper {
+      flex: 1 1 0%;
+      grid-template-rows: 1fr auto;
+
+      @include respond-below(sm) {
+        grid-template-columns: unset;
+        grid-template-rows: 1fr auto;
+        min-height: 12.375rem;
+        flex: 1 1 0%;
+      }
+
+      .countWrapper {
+        position: absolute;
+        left: var(--spacing-s);
+        top: var(--spacing-s);
+      }
+
+      .count {
+        @include respond-above(sm) {
+          background-color: var(--color-white);
+          color: var(--color-black);
+        }
+      }
+
+      .linkWrapper {
+        display: flex;
+        align-self: center;
+
+        div {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  &.lgSize {
+    flex-direction: row-reverse;
+
+    @include respond-below(sm) {
+      flex-direction: column;
+    }
+
+    .imageWrapper {
+      min-height: 40.5rem;
+      flex: 3 1 0%;
+      text-decoration: none;
+
+      @include respond-below(sm) {
+        min-height: 12.75rem;
+      }
+    }
+
+    .textWrapper {
+      min-height: 40.5rem;
+      min-width: 31.25rem;
+      flex: 1 1 0%;
+
+      @include respond-below(sm) {
+        min-height: unset;
+        min-width: unset;
+      }
+
+      .titleWrapper {
+        align-self: center;
+      }
+
+      .title {
+        font-size: var(--fontsize-heading-l);
+        line-height: var(--lineheight-l);
+        margin-bottom: var(--spacing-s);
+
+        @include respond-below(sm) {
+          font-size: var(--fontsize-heading-m);
+          margin-bottom: var(--spacing-2-xs);
+        }
+      }
+
+      .description {
+        font-size: var(--fontsize-body-l);
+
+        @include respond-above(sm) {
+          font-size: var(--fontsize-body-m);
+          line-height: 2.25rem;
+        }
+      }
+    }
+  }
+}

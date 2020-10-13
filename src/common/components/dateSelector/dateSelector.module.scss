@@ -1,14 +1,13 @@
-@import "colors";
-
 .dateSelector {
   position: relative;
-  background: $hel-white;
-  
+  background: var(--color-white);
+
   box-sizing: border-box;
 
   .button {
     background: transparent;
     border: none;
+    color: var(--color-black);
     min-height: 3.375rem;
     padding: 0 1rem;
     width: 100%;
@@ -17,7 +16,7 @@
     align-items: center;
 
     &:focus {
-      outline: 2px solid $hel-black;
+      outline: 2px solid var(--color-black);
       outline-offset: -2px;
     }
   }
@@ -33,16 +32,12 @@
     svg {
       margin-right: 1rem;
     }
-
-    .iconCalendar {
-      stroke: $hel-black;
-    }
   }
 
   .info {
     flex: 1 1 0%;
     text-align: left;
-    color: $hel-black;
+    color: var(--color-black);
     position: relative;
     height: 1.25rem;
 
@@ -61,10 +56,8 @@
   .arrowWrapper {
     display: flex;
     align-self: center;
-    
+
     svg {
-      height: 0.75rem;
-      width: 0.75rem;
       margin-left: 0.75rem;
       pointer-events: none;
     }
@@ -77,5 +70,5 @@
   left: 0;
   right: 0;
   height: 3px;
-  background-color: $dark-green;
+  background-color: var(--color-tram-dark-50);
 }

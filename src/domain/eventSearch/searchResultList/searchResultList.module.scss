@@ -1,16 +1,13 @@
-@import "colors";
-@import "fonts";
-@import "layout";
-@import "variables";
+@import 'layout';
 
 .searchResultListContainer {
-  background-color: $hel-black-5;
-  padding: $largePadding 0;
+  background-color: var(--color-black-5);
+  padding: var(--spacing-xl) 0;
 }
 
 .count {
-  font-size: 1.125rem;
-  font-weight: $font-weight-bold;
+  font-size: var(--fontsize-body-l);
+  font-weight: 600;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
   text-align: center;
@@ -27,13 +24,9 @@
 
 .searchResultWrapper {
   display: grid;
-  grid-row-gap: 0.625rem;
-
-  @include respond_above(md) {
-    grid-row-gap: unset;
-    grid-column-gap: $largeMargin;
-    grid-template-columns: 2fr 5fr;
-  }
+  grid-row-gap: var(--spacing-xs);
+  max-width: 1120px;
+  margin: auto;
 
   .eventListWrapper {
     .loadMoreWrapper {

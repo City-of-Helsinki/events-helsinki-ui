@@ -1,20 +1,30 @@
-@import "colors";
-@import "fonts";
-@import "layout";
-@import "variables";
+@import 'layout';
 
 .collectionHero {
-  @include respond-above(sm) {
+  padding-bottom: 0;
+  background-color: var(--color-white);
+
+  @media all and (min-width: 769px) {
     display: grid;
     grid-row: span;
     place-content: flex-start;
+    padding-bottom: var(--spacing-xl);
 
     & > * {
-        grid-column: 2;
+      grid-column: 2;
     }
   }
 
-  @include respond-above(sm) {
+  h1 {
+    font-size: var(--fontsize-heading-l);
+    margin: 2rem 0 0.5rem;
+  }
+
+  @media all and (min-width: 769px) {
+    grid-template-columns: var(--spacing-l) 1fr;
+  }
+
+  @include respond-above(md) {
     grid-template-columns: 1fr 10fr 1fr;
   }
 
@@ -23,14 +33,10 @@
   }
 }
 
-.collectionHero {
-  background: $hel-white;
-  padding-bottom: 11rem;
-}
-
 .imageWithCard {
   max-width: 100%;
-  width: 100%;
+  width: 100% !important;
+  overflow: hidden;
 
   h2 {
     margin-bottom: 1rem;
@@ -46,29 +52,49 @@
   }
 
   a {
-    color: $hel-black;
+    color: var(--color-black);
     text-decoration: none;
-    font-weight: $link-font-weight;
+    font-weight: 500;
     display: flex;
 
     .linkIcon {
-      height: 0.75rem;
-      width: 0.75rem;
       margin-left: 0.5rem;
       align-self: center;
     }
   }
 
-  div:last-child {
-    max-width: unset;
-    
-    > div {
-      background-color: $hel-engel-light-50;
-      color: $hel-black;
-
-      @include respond-above(sm) {
-        width: 50%;
-      }
+  > div:first-child {
+    @include respond-below(xs) {
+      height: 16rem;
     }
   }
+
+  div:last-child {
+    max-width: unset;
+
+    @media all and (max-width: 768px) {
+      margin: 0;
+      padding-bottom: var(--spacing-s);
+    }
+  }
+}
+
+.copperBackgroundColor {
+  --card-background-primary: var(--color-copper-light-50) !important;
+  --card-color-primary: var(--color-black) !important;
+}
+
+.engelBackgroundColor {
+  --card-background-primary: var(--color-engel) !important;
+  --card-color-primary: var(--color-black) !important;
+}
+
+.fogBackgroundColor {
+  --card-background-primary: var(--color-fog-light-50) !important;
+  --card-color-primary: var(--color-black) !important;
+}
+
+.suomenlinnaBackgroundColor {
+  --card-background-primary: var(--color-suomenlinna-light-50) !important;
+  --card-color-primary: var(--color-black) !important;
 }

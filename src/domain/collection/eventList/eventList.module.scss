@@ -1,11 +1,4 @@
-@import "colors";
-@import "variables";
-
 .eventList {
-  background-color: $hel-black-5;
-  padding: $largePadding 0;
-
-  h2 {
-    text-align: center;
-  }
+  background-color: var(--color-black-5);
+  padding: var(--spacing-xl) 0;
 }

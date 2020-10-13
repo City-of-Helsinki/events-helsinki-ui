@@ -1,12 +1,10 @@
-import * as React from "react";
-import renderer from "react-test-renderer";
+import { render } from '@testing-library/react';
+import * as React from 'react';
 
-import SupriseMeButton from "../SupriseMeButton";
+import SupriseMeButton from '../SupriseMeButton';
 
-test("SupriseMeButton matches snapshot", () => {
-  const component = renderer.create(<SupriseMeButton onClick={() => {}} />);
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+test('SupriseMeButton matches snapshot', () => {
+  const { container } = render(<SupriseMeButton onClick={jest.fn()} />);
+
+  expect(container.firstChild).toMatchSnapshot();
 });
-
-export {};

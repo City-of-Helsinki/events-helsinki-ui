@@ -1,0 +1,27 @@
+@import 'layout';
+
+.similarEvents {
+  padding: var(--spacing-xl) 0;
+}
+
+.similarEventsTitle {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: var(--fontsize-heading-l);
+  font-weight: 600;
+}
+
+.similarEventList {
+  display: grid;
+  margin: 0;
+  grid-gap: var(--spacing-xs);
+
+  @include respond_above(sm) {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1.75rem 3rem;
+  }
+
+  @include respond_above(md) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}

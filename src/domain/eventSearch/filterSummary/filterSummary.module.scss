@@ -1,0 +1,24 @@
+@import 'layout';
+
+.filterSummary {
+  margin-bottom: var(--spacing-xs);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .clearButton {
+    padding: 0;
+    color: var(--color-black);
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 2px solid transparent;
+    text-decoration: underline;
+    text-align: left;
+
+    &:focus {
+      outline: 2px solid var(--color-black);
+      outline-offset: 0.25rem;
+    }
+  }
+}

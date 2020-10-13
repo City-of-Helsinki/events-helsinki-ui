@@ -1,105 +1,86 @@
-import getDateRangeStr from "../getDateRangeStr";
+import getDateRangeStr from '../getDateRangeStr';
 
-describe("getDateRangeStr function", () => {
-  it("should return date range string in Finnish", () => {
-    expect(getDateRangeStr("2019-12-03T08:42:36.318755Z", null, "fi")).toBe(
-      "Tiistai 3. joulukuuta 2019"
-    );
+describe('getDateRangeStr function', () => {
+  it('should return date range in correct format', () => {
     expect(
-      getDateRangeStr(
-        "2019-12-03T08:42:36.318755Z",
-        "2019-12-03T10:42:36.318755Z",
-        "fi"
-      )
-    ).toBe("Tiistai 3. joulukuuta 2019");
+      getDateRangeStr({
+        start: '2019-12-03T08:42:36.318755Z',
+        end: null,
+        locale: 'fi',
+      })
+    ).toBe('Ti 3.12.2019');
     expect(
-      getDateRangeStr(
-        "2019-12-03T08:42:36.318755Z",
-        "2019-12-13T10:42:36.318755Z",
-        "fi"
-      )
-    ).toBe("3 – 13.12.2019");
+      getDateRangeStr({
+        start: '2019-12-03T08:42:36.318755Z',
+        end: null,
+        locale: 'en',
+      })
+    ).toBe('Tue 3.12.2019');
     expect(
-      getDateRangeStr(
-        "2019-11-03T08:42:36.318755Z",
-        "2019-12-13T10:42:36.318755Z",
-        "fi"
-      )
-    ).toBe("3.11 – 13.12.2019");
+      getDateRangeStr({
+        start: '2019-12-03T08:42:36.318755Z',
+        end: null,
+        locale: 'en',
+        includeTime: true,
+        timeAbbreviation: 'at',
+      })
+    ).toBe('Tue 3.12.2019, at 10:42 a.m.');
     expect(
-      getDateRangeStr(
-        "2019-11-03T08:42:36.318755Z",
-        "2020-12-13T10:42:36.318755Z",
-        "fi"
-      )
-    ).toBe("3.11.2019 – 13.12.2020");
-  });
-
-  it("should return date range string in Swedish", () => {
-    expect(getDateRangeStr("2019-12-03T08:42:36.318755Z", null, "sv")).toBe(
-      "Tisdag 3. december 2019"
-    );
+      getDateRangeStr({
+        start: '2019-12-03T08:42:36.318755Z',
+        end: '2019-12-04T02:42:36.318755Z',
+        locale: 'fi',
+        includeTime: true,
+        timeAbbreviation: 'klo',
+      })
+    ).toBe('Ti 3.12.2019, klo 10.42 – 04.42');
     expect(
-      getDateRangeStr(
-        "2019-12-03T08:42:36.318755Z",
-        "2019-12-03T10:42:36.318755Z",
-        "sv"
-      )
-    ).toBe("Tisdag 3. december 2019");
+      getDateRangeStr({
+        start: '2019-12-03T08:42:36.318755Z',
+        end: '2019-12-03T10:42:36.318755Z',
+        locale: 'fi',
+        includeTime: false,
+      })
+    ).toBe('Ti 3.12.2019');
     expect(
-      getDateRangeStr(
-        "2019-12-03T08:42:36.318755Z",
-        "2019-12-13T10:42:36.318755Z",
-        "sv"
-      )
-    ).toBe("3 – 13.12.2019");
+      getDateRangeStr({
+        start: '2019-12-03T08:42:36.318755Z',
+        end: '2019-12-03T10:42:36.318755Z',
+        locale: 'fi',
+        includeTime: true,
+        timeAbbreviation: 'klo',
+      })
+    ).toBe('Ti 3.12.2019, klo 10.42 – 12.42');
     expect(
-      getDateRangeStr(
-        "2019-11-03T08:42:36.318755Z",
-        "2019-12-13T10:42:36.318755Z",
-        "sv"
-      )
-    ).toBe("3.11 – 13.12.2019");
+      getDateRangeStr({
+        start: '2019-12-03T08:42:36.318755Z',
+        end: '2019-12-04T02:42:36.318755Z',
+        locale: 'fi',
+        includeWeekday: false,
+        includeTime: true,
+        timeAbbreviation: 'klo',
+      })
+    ).toBe('3.12.2019, klo 10.42 – 04.42');
     expect(
-      getDateRangeStr(
-        "2019-11-03T08:42:36.318755Z",
-        "2020-12-13T10:42:36.318755Z",
-        "sv"
-      )
-    ).toBe("3.11.2019 – 13.12.2020");
-  });
-
-  it("should return date range string in English", () => {
-    expect(getDateRangeStr("2019-12-03T08:42:36.318755Z", null, "en")).toBe(
-      "Tuesday 3. December 2019"
-    );
+      getDateRangeStr({
+        start: '2019-12-03T08:42:36.318755Z',
+        end: '2019-12-13T10:42:36.318755Z',
+        locale: 'fi',
+      })
+    ).toBe('3 – 13.12.2019');
     expect(
-      getDateRangeStr(
-        "2019-12-03T08:42:36.318755Z",
-        "2019-12-03T10:42:36.318755Z",
-        "en"
-      )
-    ).toBe("Tuesday 3. December 2019");
+      getDateRangeStr({
+        start: '2019-11-03T08:42:36.318755Z',
+        end: '2019-12-13T10:42:36.318755Z',
+        locale: 'fi',
+      })
+    ).toBe('3.11 – 13.12.2019');
     expect(
-      getDateRangeStr(
-        "2019-12-03T08:42:36.318755Z",
-        "2019-12-13T10:42:36.318755Z",
-        "en"
-      )
-    ).toBe("3 – 13.12.2019");
-    expect(
-      getDateRangeStr(
-        "2019-11-03T08:42:36.318755Z",
-        "2019-12-13T10:42:36.318755Z",
-        "en"
-      )
-    ).toBe("3.11 – 13.12.2019");
-    expect(
-      getDateRangeStr(
-        "2019-11-03T08:42:36.318755Z",
-        "2020-12-13T10:42:36.318755Z",
-        "en"
-      )
-    ).toBe("3.11.2019 – 13.12.2020");
+      getDateRangeStr({
+        start: '2019-11-03T08:42:36.318755Z',
+        end: '2020-12-13T10:42:36.318755Z',
+        locale: 'fi',
+      })
+    ).toBe('3.11.2019 – 13.12.2020');
   });
 });

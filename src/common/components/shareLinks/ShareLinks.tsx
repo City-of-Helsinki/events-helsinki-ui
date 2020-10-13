@@ -1,14 +1,14 @@
-import classNames from "classnames";
-import React from "react";
-import { useTranslation } from "react-i18next";
+import classNames from 'classnames';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { ReactComponent as LinkIcon } from "../../../assets/icons/svg/link.svg";
-import isClient from "../../../util/isClient";
-import CopyButton from "../copyButton/CopyButton";
-import FacebookShareLink from "./FacebookShareLink";
-import LinkedInShareLink from "./LinkedInShareLink";
-import styles from "./shareLinks.module.scss";
-import TwitterShareLink from "./TwitterShareLink";
+import { ReactComponent as LinkIcon } from '../../../assets/icons/svg/link.svg';
+import isClient from '../../../util/isClient';
+import CopyButton from '../copyButton/CopyButton';
+import FacebookShareLink from './FacebookShareLink';
+import LinkedInShareLink from './LinkedInShareLink';
+import styles from './shareLinks.module.scss';
+import TwitterShareLink from './TwitterShareLink';
 
 export interface ShareLinksProps {
   title: string;
@@ -20,11 +20,13 @@ const ShareLinks: React.FC<ShareLinksProps> = ({ title }) => {
   // to pass the original request from the server. This same pattern was used in
   // MyHelsinki. Limitation is that sharing buttons will be re-rendered on client
   // side because href value is different
-  const href = isClient ? window.location.href : "";
+  const href = isClient
+    ? `${window.location.origin}${window.location.pathname}`
+    : '';
 
   return (
     <div className={styles.shareSubSection}>
-      <p className={styles.shareSubSectionTitle}>{title}</p>
+      <h2 className={styles.shareSubSectionTitle}>{title}</h2>
       <ul className={styles.shareLinkList}>
         <li
           className={classNames(styles.shareLinkItem, styles.relativePosition)}
@@ -36,10 +38,10 @@ const ShareLinks: React.FC<ShareLinksProps> = ({ title }) => {
             successClass={styles.linkCopyButtonSuccess}
             successMessage={
               <span className={styles.successTooltip}>
-                {t("commons.shareLinks.messageLinkCopySuccess")}
+                {t('commons.shareLinks.messageLinkCopySuccess')}
               </span>
             }
-            aria-label={t("commons.shareLinks.buttonCopyLink")}
+            aria-label={t('commons.shareLinks.buttonCopyLink')}
           >
             <LinkIcon />
           </CopyButton>

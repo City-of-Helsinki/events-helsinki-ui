@@ -1,15 +1,18 @@
-version: "3.7"
+version: '3.7'
 services:
   events-helsinki-client:
+    # https://github.com/facebook/create-react-app/issues/8688
+    # The stdin_open setting circumvents the above issue. Without this
+    # setting, docker-compose up won't work as expected.
+    stdin_open: true
+    container_name: events-helsinki-ui
+    image: events-helsinki-client
     build:
       context: .
-      dockerfile: Dockerfile
-      args:
-        - SASS_PATH=${SASS_PATH}
-        - REACT_APP_GRAPHQL_BASE_URL=${REACT_APP_GRAPHQL_BASE_URL}
-        - REACT_APP_SSR_PORT=${REACT_APP_SSR_PORT}
-        - REACT_APP_SENTRY_DSN=${REACT_APP_SENTRY_DSN}
-        - REACT_APP_SENTRY_ENVIRONMENT=${REACT_APP_SENTRY_ENVIRONMENT}
-    image: events-helsinki-client
+      target: ${DOCKER_TARGET:-development}
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
     ports:
-      - "${REACT_APP_SSR_PORT}:${REACT_APP_SSR_PORT}"
+      - '3000:3000'
+      - '3001:3001'

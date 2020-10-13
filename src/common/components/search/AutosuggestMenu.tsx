@@ -1,15 +1,10 @@
-import "hds-core/lib/icons/icon-location.css";
+import classNames from 'classnames';
+import { IconCross } from 'hds-react';
+import React, { FunctionComponent } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import classNames from "classnames";
-import { IconClose, IconLocation } from "hds-react";
-import React, { FunctionComponent } from "react";
-import { useTranslation } from "react-i18next";
-
-import { AUTOSUGGEST_TYPES } from "../../../constants";
-import IconHome from "../../../icons/IconHome";
-import IconTag from "../../../icons/IconTag";
-import { AutosuggestMenuOption } from "../../types";
-import styles from "./autosuggestMenu.module.scss";
+import { AutosuggestMenuOption } from '../../types';
+import styles from './autosuggestMenu.module.scss';
 
 interface Props {
   focusedOption: number;
@@ -24,7 +19,7 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
   isOpen,
   onClose,
   onOptionClick,
-  options
+  options,
 }) => {
   const { t } = useTranslation();
 
@@ -33,13 +28,13 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
   return (
     <div className={styles.autosuggestMenu}>
       <div className={styles.title}>
-        {t("commons.autosuggest.menu.title")}
+        {t('commons.autosuggest.menu.title')}
         <button
-          aria-label={t("commons.autosuggest.menu.ariaButtonClose")}
+          aria-label={t('commons.autosuggest.menu.ariaButtonClose')}
           className={styles.closeButton}
           onClick={onClose}
         >
-          <IconClose />
+          <IconCross />
         </button>
       </div>
       <ul className={styles.autosuggestOptions} role="listbox">
@@ -47,6 +42,7 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
           const handleClick = () => {
             onOptionClick(option);
           };
+
           return (
             <li
               key={index}
@@ -54,29 +50,22 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
                 styles.autosuggestOption,
                 styles[`autosuggestOption--${option.type}`],
                 {
-                  [styles["autosuggestOption--isFocused"]]:
-                    focusedOption === index
+                  [styles['autosuggestOption--isFocused']]:
+                    focusedOption === index,
                 }
               )}
               role="option"
+              tabIndex={-1}
+              onClick={handleClick}
               aria-selected={focusedOption === index}
             >
-              <div className={styles.colorIndicator} />
-              <div className={styles.icon}>
-                {option.type === AUTOSUGGEST_TYPES.DISTRICT && <IconLocation />}
-                {option.type === AUTOSUGGEST_TYPES.KEYWORD && <IconTag />}
-                {option.type === AUTOSUGGEST_TYPES.PLACE && <IconHome />}
-                {option.type === AUTOSUGGEST_TYPES.YSO && <IconTag />}
-              </div>
-              <div className={styles.textWrapper} onClick={handleClick}>
-                <div className={styles.text}>{option.text}</div>
-              </div>
+              <div className={styles.text}>{option.text}</div>
             </li>
           );
         })}
       </ul>
 
-      <div className={styles.info}>{t("commons.autosuggest.menu.info")}</div>
+      <div className={styles.info}>{t('commons.autosuggest.menu.info')}</div>
     </div>
   );
 };

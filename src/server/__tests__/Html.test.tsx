@@ -1,46 +1,45 @@
-import * as React from "react";
-import renderer from "react-test-renderer";
+import * as React from 'react';
+// Use react-test-renderer to avoid <html> cannot appear as a child of <div> warning
+import renderer from 'react-test-renderer';
 
-import Html from "../Html";
+import Html from '../Html';
 
-test("Html matches snapshot", () => {
-  const assets = {
-    css: ["test1.css", "test2.css"],
-    js: ["test1.js", "test2.js"]
-  };
-  const content = "<p>Test content</p>";
-  const canonicalUrl = "http://localhost:3000";
-  // Helmet.renderStatic() is not available on client side so use mock data to test
-  const helmet = {
-    link: {
-      toComponent: () => `<link rel="canonical" href="${canonicalUrl}" />`
+test('Html matches snapshot', () => {
+  const canonicalUrl = 'http://localhost:3000';
+
+  const props = {
+    assets: {
+      css: ['test1.css', 'test2.css'],
+      js: ['test1.js', 'test2.js'],
     },
-    meta: {
-      toComponent: () =>
-        '<meta data-react-helmet="true" name="description" content="testing react helmet">'
+    content: '<p>Test content</p>',
+    canonicalUrl,
+    helmet: {
+      link: {
+        toComponent: (): React.ReactElement => (
+          <link rel="canonical" href={canonicalUrl} />
+        ),
+      },
+      meta: {
+        toComponent: (): React.ReactElement => (
+          <meta name="description" content="testing react helmet" />
+        ),
+      },
+
+      title: {
+        toComponent: (): React.ReactElement => <title>Test title</title>,
+      },
     },
-    title: {
-      toComponent: () => "<title>Test title</title>"
-    }
+    initialI18nStore: {
+      en: {},
+      fi: {},
+      sv: {},
+    },
+    initialLanguage: 'fi',
+    state: {},
   };
 
-  const component = renderer.create(
-    <Html
-      assets={assets}
-      content={content}
-      helmet={helmet}
-      state={{}}
-      canonicalUrl={canonicalUrl}
-      initialI18nStore={{
-        en: {},
-        fi: {},
-        sv: {}
-      }}
-      initialLanguage="fi"
-    />
-  );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  const el = renderer.create(<Html {...props} />);
+
+  expect(el.toTree()).toMatchSnapshot();
 });
-
-export {};

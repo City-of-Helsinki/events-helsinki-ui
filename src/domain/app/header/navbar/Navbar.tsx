@@ -1,17 +1,20 @@
-import { IconSearch } from "hds-react";
-import * as React from "react";
-import { useTranslation } from "react-i18next";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import classNames from 'classnames';
+import { IconSearch, IconStar } from 'hds-react';
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
-import LanguageDropdown from "../../../../common/components/languageDropdown/LanguageDropdown";
-import IconLink from "../../../../common/components/link/IconLink";
-import { updateLocaleParam } from "../../../../common/route/RouteUtils";
-import { getCurrentLanguage } from "../../../../common/translation/TranslationUtils";
-import { SUPPORT_LANGUAGES } from "../../../../constants";
-import useLocale from "../../../../hooks/useLocale";
-import IconStar from "../../../../icons/IconStar";
-import { Language } from "../../../../types";
-import styles from "./navbar.module.scss";
+import IconLink from '../../../../common/components/link/IconLink';
+import { getCurrentLanguage } from '../../../../common/translation/TranslationUtils';
+import { SUPPORT_LANGUAGES } from '../../../../constants';
+import useLocale from '../../../../hooks/useLocale';
+import { Language } from '../../../../types';
+import scrollToTop from '../../../../util/scrollToTop';
+import { updateLocaleParam } from '../../../../util/updateLocaleParam';
+import { ROUTES } from '../../constants';
+import Container from '../../layout/Container';
+import LanguageDropdown from '../languageDropdown/LanguageDropdown';
+import styles from './navbar.module.scss';
 
 const Navbar: React.FC = () => {
   const { i18n, t } = useTranslation();
@@ -19,52 +22,62 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const locale = useLocale();
 
-  const languageOptions = Object.values(SUPPORT_LANGUAGES).map(language => {
+  const languageOptions = Object.values(SUPPORT_LANGUAGES).map((language) => {
     return {
       label: t(`header.languages.${language}`),
-      value: language
+      value: language,
     };
   });
 
   const handleChange = (newLanguage: Language) => {
     const currentLanguage = getCurrentLanguage(i18n);
+    const pathname = updateLocaleParam(
+      location.pathname,
+      currentLanguage,
+      newLanguage
+    );
+
+    i18n.changeLanguage(newLanguage);
     history.push({
-      pathname: updateLocaleParam(
-        location.pathname,
-        currentLanguage,
-        newLanguage
-      ),
-      search: location.search
+      pathname,
+      search: location.search,
     });
   };
 
-  return (
-    <div className={styles.navbarTop}>
-      <div className={styles.logoWrapper}>
-        <Link aria-label={t("header.ariaLabelLogo")} to={"/"}>
-          <div className={styles.logo} />
-          <div className={styles.appName}>{t("appName")}</div>
-        </Link>
-      </div>
+  const logoLang = locale === 'sv' ? 'sv' : 'fi';
 
-      <div className={styles.linkWrapper}>
-        <IconLink
-          icon={<IconSearch />}
-          text={t("header.searchEvents")}
-          to={`/${locale}/events`}
-        />
-        <IconLink
-          icon={<IconStar />}
-          text={t("header.searchCollections")}
-          to={`/${locale}/collections`}
-        />
+  return (
+    <Container>
+      <div className={styles.navbar}>
+        <div className={styles.logoWrapper}>
+          <Link aria-label={t('header.ariaLabelLogo')} to={'/'}>
+            <div className={classNames(styles.logo, styles[logoLang])} />
+            <div className={styles.appName}>{t('appName')}</div>
+          </Link>
+        </div>
+        <div className={styles.links}>
+          <IconLink
+            icon={<IconSearch />}
+            onClick={scrollToTop}
+            text={t('header.searchEvents')}
+            to={`/${locale}${ROUTES.EVENTS}`}
+          />
+          <IconLink
+            icon={<IconStar />}
+            onClick={scrollToTop}
+            text={t('header.searchCollections')}
+            to={`/${locale}${ROUTES.COLLECTIONS}`}
+          />
+        </div>
+        <div className={styles.actions}>
+          <LanguageDropdown
+            languageOptions={languageOptions}
+            onChange={handleChange}
+            value={locale}
+          />
+        </div>
       </div>
-      <LanguageDropdown
-        languageOptions={languageOptions}
-        onChange={handleChange}
-        value={locale}
-      />
-    </div>
+    </Container>
   );
 };
 

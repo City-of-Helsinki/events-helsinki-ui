@@ -1,9 +1,9 @@
-import { IconClose } from "hds-react";
-import React, { FunctionComponent } from "react";
-import { useTranslation } from "react-i18next";
+import { IconCross } from 'hds-react';
+import React, { FunctionComponent } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { Category as CategoryType } from "../../types";
-import styles from "./category.module.scss";
+import { Category as CategoryType } from '../../types';
+import styles from './category.module.scss';
 
 interface Props {
   category: CategoryType;
@@ -12,6 +12,7 @@ interface Props {
 
 const Category: FunctionComponent<Props> = ({ category, onRemove }) => {
   const { t } = useTranslation();
+
   const handleRemove = () => {
     onRemove(category);
   };
@@ -22,11 +23,11 @@ const Category: FunctionComponent<Props> = ({ category, onRemove }) => {
         type="button"
         className={styles.closeButton}
         onClick={handleRemove}
-        aria-label={t("commons.category.ariaButtonRemove", {
-          category: category.text
+        aria-label={t('commons.category.ariaButtonRemove', {
+          category: category.text,
         })}
       >
-        <IconClose />
+        <IconCross />
       </button>
       {category.text}
     </div>

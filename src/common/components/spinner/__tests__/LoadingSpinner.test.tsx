@@ -1,23 +1,27 @@
-import { shallow } from "enzyme";
-import React from "react";
+import { render } from '@testing-library/react';
+import React from 'react';
 
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from '../LoadingSpinner';
 
-it("LoadingSpinner matches snapshot", () => {
-  const spinner = shallow(<LoadingSpinner isLoading={true} />);
-  expect(spinner.html()).toMatchSnapshot();
+it('matches snapshot', () => {
+  const { container } = render(<LoadingSpinner isLoading={true} />);
+  expect(container.firstChild).toMatchSnapshot();
 });
 
-it("render spinner if isLoading is true", () => {
-  const spinner = shallow(<LoadingSpinner isLoading={true} />).children();
-  expect(spinner.prop("className")).toContain("spinner");
+it('render spinner if isLoading is true', () => {
+  const { container } = render(<LoadingSpinner isLoading={true} />);
+  expect((container.firstChild.firstChild as HTMLElement).classList).toContain(
+    'spinner'
+  );
 });
 
-it("render child component if isLoading is false", () => {
-  const spinner = shallow(
+it('render child component if isLoading is false', () => {
+  const { container } = render(
     <LoadingSpinner isLoading={false}>
       <div className="component"></div>
     </LoadingSpinner>
-  ).children();
-  expect(spinner.prop("className")).toEqual("component");
+  );
+  expect((container.firstChild as HTMLElement).classList).toContain(
+    'component'
+  );
 });

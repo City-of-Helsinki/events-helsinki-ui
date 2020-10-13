@@ -1,15 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import Container from "../layout/Container";
-import styles from "./header.module.scss";
-import Navbar from "./navbar/Navbar";
+import styles from './header.module.scss';
+import MobileNavigation from './mobileNavigation/MobileNavigation';
+import Navbar from './navbar/Navbar';
 
 const Header: React.FC = () => {
   return (
     <header className={styles.headerWrapper}>
-      <Container>
-        <Navbar />
-      </Container>
+      <Navbar />
+      <MobileNavigation />
     </header>
   );
 };

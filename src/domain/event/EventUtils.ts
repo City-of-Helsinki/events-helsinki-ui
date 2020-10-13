@@ -1,23 +1,41 @@
-import { isPast } from "date-fns";
-import capitalize from "lodash/capitalize";
+import { isPast, isThisWeek, isToday } from 'date-fns';
+import capitalize from 'lodash/capitalize';
 
-import { EventDetailsQuery } from "../../generated/graphql";
-import { Language } from "../../types";
-import getLocalisedString from "../../util/getLocalisedString";
+import { EVENT_STATUS } from '../../constants';
+import {
+  EventFieldsFragment,
+  PlaceFieldsFragment,
+} from '../../generated/graphql';
+import { Language } from '../../types';
+import getLocalisedString from '../../util/getLocalisedString';
 import {
   EVENT_KEYWORD_BLACK_LIST,
   EVENT_PLACEHOLDER_IMAGES,
-  EVENT_SOME_IMAGE
-} from "./constants";
-import { EventInList, EventUiKeyword } from "./types";
+  EVENT_SOME_IMAGE,
+} from './constants';
+import { KeywordOption } from './types';
+
+export const getEventCardId = (id: string): string => `event-card_${id}`;
+
+export const getLargeEventCardId = (id: string): string =>
+  `large-event-card_${id}`;
 
 /**
  * Check is event closed
  * @param event
  * @return {boolean}
  */
-export const isEventClosed = (event: EventInList): boolean => {
+export const isEventClosed = (event: EventFieldsFragment): boolean => {
   return !!event.endTime && isPast(new Date(event.endTime));
+};
+
+/**
+ * Check is event cancelled
+ * @param event
+ * @return {boolean}
+ */
+export const isEventCancelled = (event: EventFieldsFragment): boolean => {
+  return event.eventStatus === EVENT_STATUS.EVENT_CANCELLED;
 };
 
 /**
@@ -25,31 +43,10 @@ export const isEventClosed = (event: EventInList): boolean => {
  * @param eventData
  * @return {boolean}
  */
-export const isEventFree = (event: EventInList): boolean => {
-  const offer = event.offers.find(item => item.isFree);
+export const isEventFree = (event: EventFieldsFragment): boolean => {
+  const offer = event.offers.find((item) => item.isFree);
 
-  return !!offer && !!offer.isFree;
-};
-
-/**
- * Get event district info as string
- * @param {object} event
- * @param {string} locale
- * @return {string}
- */
-export const getEventDistrict = (
-  event: EventInList,
-  locale: Language
-): string | null => {
-  const location = event.location;
-  const divisions = (location && location.divisions) || [];
-  const district = divisions.find(division =>
-    ["district", "neighborhood"].includes(division.type)
-  );
-
-  return district && district.name
-    ? getLocalisedString(district.name, locale)
-    : null;
+  return !!offer?.isFree;
 };
 
 /**
@@ -58,10 +55,10 @@ export const getEventDistrict = (
  * @return {string}
  */
 export const getEventIdFromUrl = (url: string): string | null => {
-  const trimmedUrl = url.replace(/\?(.*)/, "");
+  const trimmedUrl = url.replace(/\?(.*)/, '');
   const eventId = trimmedUrl.match(/event\/(.*)/);
 
-  return eventId && eventId.length ? eventId[1].replace("/", "") : null;
+  return eventId?.[1].replace('/', '') || null;
 };
 
 /**
@@ -72,19 +69,19 @@ export const getEventIdFromUrl = (url: string): string | null => {
  * @return {string}
  */
 export const getEventPrice = (
-  event: EventInList,
+  event: EventFieldsFragment,
   locale: Language,
   isFreeText: string
 ): string => {
   return isEventFree(event)
     ? isFreeText
     : event.offers
-        .map(offer =>
-          getLocalisedString(offer.price || offer.description || {}, locale)
+        .map((offer) =>
+          getLocalisedString(offer.price || offer.description, locale)
         )
-        .filter(e => e)
+        .filter((e) => e)
         .sort()
-        .join(", ");
+        .join(', ');
 };
 
 /**
@@ -94,21 +91,22 @@ export const getEventPrice = (
  * @return {object[]}
  */
 export const getEventKeywords = (
-  event: EventInList,
+  event: EventFieldsFragment,
   locale: Language
-): EventUiKeyword[] => {
+): KeywordOption[] => {
   return event.keywords
-    .map(keyword => ({
-      id: keyword.id || "",
-      name: keyword.name ? capitalize(keyword.name[locale] || "").trim() : ""
+    .map((keyword) => ({
+      id: keyword.id || '',
+      name: capitalize(keyword.name?.[locale] || '').trim(),
     }))
     .filter(
       (keyword, index, arr) =>
+        !!keyword.id &&
         !!keyword.name &&
-        (!EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
-          arr.findIndex(
-            item => item.name.toLowerCase() === keyword.name.toLowerCase()
-          ) === index)
+        !EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
+        arr.findIndex(
+          (item) => item.name.toLowerCase() === keyword.name.toLowerCase()
+        ) === index
     )
     .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
 };
@@ -118,7 +116,9 @@ export const getEventKeywords = (
  * @param {object} event
  * @return {string}
  */
-export const getEventPlaceholderImageUrl = (event: EventInList): string => {
+export const getEventPlaceholderImageUrl = (
+  event: EventFieldsFragment
+): string => {
   const numbers = event.id.match(/\d+/g);
   const sum = numbers
     ? numbers.reduce((prev: number, cur: string) => prev + Number(cur), 0)
@@ -133,9 +133,10 @@ export const getEventPlaceholderImageUrl = (event: EventInList): string => {
  * @param {object} event
  * @return {string}
  */
-export const getEventImageUrl = (event: EventInList): string => {
-  const image = event.images.length ? event.images[0] : null;
-  return image ? image.url : getEventPlaceholderImageUrl(event);
+export const getEventImageUrl = (event: EventFieldsFragment): string => {
+  // const image = event.images.length ? event.images[0] : null;
+  const image = event.images[0];
+  return image?.url || getEventPlaceholderImageUrl(event);
 };
 
 /**
@@ -143,101 +144,184 @@ export const getEventImageUrl = (event: EventInList): string => {
  * @param {object} event
  * @return {string}
  */
-export const getEventSomeImageUrl = (event: EventInList): string => {
-  const image = event.images.length ? event.images[0] : null;
-  return image ? image.url : EVENT_SOME_IMAGE;
+export const getEventSomeImageUrl = (event: EventFieldsFragment): string => {
+  const image = event.images[0];
+  return image?.url || EVENT_SOME_IMAGE;
 };
 
 /**
- * Get Google link to show event location
- * @param {object} eventData
+ * Get event district info as string
+ * @param {object} event
  * @param {string} locale
  * @return {string}
  */
-export const getGoogleLink = (
-  eventData: EventDetailsQuery,
+export const getEventDistrict = (
+  event: EventFieldsFragment,
   locale: Language
-): string => {
-  const location = eventData.eventDetails.location;
-  const streetAddress = getLocalisedString(
-    (location && location.streetAddress) || {},
-    locale
+): string | null => {
+  const location = event.location;
+  const district = location?.divisions?.find((division) =>
+    ['district', 'neighborhood'].includes(division.type)
   );
-  const postalCode = (location && location.postalCode) || {};
-  const addressLocality = getLocalisedString(
-    (location && location.addressLocality) || {},
-    locale
-  );
-  const coordinates =
-    location && location.position
-      ? // Get coordinates for Google in correct order
-        [...location.position.coordinates].reverse()
-      : [];
 
-  return `https://www.google.com/maps/place/${streetAddress},+${postalCode}+${addressLocality}/@${coordinates.join(
-    ","
-  )}`.replace(/\s/g, "+");
+  return getLocalisedString(district?.name, locale);
+};
+
+/**
+ * Get event location fields
+ * @param {object} event
+ * @param {string} locale
+ * @return {string}
+ */
+const getEventLocationFields = (
+  event: EventFieldsFragment,
+  locale: Language
+) => {
+  const location = event.location;
+  return {
+    addressLocality: getLocalisedString(location?.addressLocality, locale),
+    coordinates: [...(location?.position?.coordinates || [])].reverse(),
+    district: getEventDistrict(event, locale),
+    location,
+    postalCode: location?.postalCode,
+    streetAddress: getLocalisedString(location?.streetAddress, locale),
+  };
+};
+
+/**
+ * Get palvelukartta compatible id for the location
+ * @param {object} location
+ * @return {string}
+ */
+export const getLocationId = (
+  location?: PlaceFieldsFragment | null
+): string => {
+  return location?.id ? location?.id.split(':').slice(1).join() : '';
+};
+
+/**
+ * Get service map url
+ * @param {object} event
+ * @param {string} locale
+ * @param {boolean} isEmbedded
+ * @return {string}
+ */
+export const getServiceMapUrl = (
+  event: EventFieldsFragment,
+  locale: Language,
+  isEmbedded?: boolean
+): string => {
+  const location = event.location;
+  const locationId = getLocationId(location);
+  return `https://palvelukartta.hel.fi/${locale}${
+    isEmbedded ? '/embed' : ''
+  }/unit/${locationId}`;
 };
 
 /**
  * Get Google link to show directions to event location
- * @param {object} eventData
+ * @param {object} event
  * @param {string} locale
  * @return {string}
  */
 export const getGoogleDirectionsLink = (
-  eventData: EventDetailsQuery,
+  event: EventFieldsFragment,
   locale: Language
 ): string => {
-  const location = eventData.eventDetails.location;
-  const streetAddress = getLocalisedString(
-    (location && location.streetAddress) || {},
-    locale
-  );
-  const postalCode = (location && location.postalCode) || {};
-  const addressLocality = getLocalisedString(
-    (location && location.addressLocality) || {},
-    locale
-  );
-  const coordinates =
-    location && location.position
-      ? // Get coordinates for Google in correct order
-        [...location.position.coordinates].reverse()
-      : [];
+  const {
+    addressLocality,
+    coordinates,
+    postalCode,
+    streetAddress,
+  } = getEventLocationFields(event, locale);
 
   return `https://www.google.com/maps/dir//${streetAddress},+${postalCode}+${addressLocality}/@${coordinates.join(
-    ","
-  )}`.replace(/\s/g, "+");
+    ','
+  )}`.replace(/\s/g, '+');
 };
 
 /**
  * Get HSL link to show directions to event location
- * @param {object} eventData
+ * @param {object} event
  * @param {string} locale
  * @return {string}
  */
 export const getHslDirectionsLink = (
-  eventData: EventDetailsQuery,
+  event: EventFieldsFragment,
   locale: Language
 ): string => {
-  const location = eventData.eventDetails.location;
-  const streetAddress = getLocalisedString(
-    (location && location.streetAddress) || {},
-    locale
-  );
-  const addressLocality = getLocalisedString(
-    (location && location.addressLocality) || {},
-    locale
-  );
-  const coordinates =
-    location && location.position
-      ? // Get coordinates for HSL in correct order
-        [...location.position.coordinates].reverse()
-      : [];
+  const {
+    addressLocality,
+    coordinates,
+    streetAddress,
+  } = getEventLocationFields(event, locale);
 
   return `https://reittiopas.hsl.fi/%20/${encodeURIComponent(
     streetAddress
   )},%20${encodeURIComponent(addressLocality)}::${coordinates.join(
-    ","
+    ','
   )}?locale=${locale}`;
+};
+
+/**
+ * Get offer info url
+ * @param {object} event
+ * @param {string} locale
+ * @return {string}
+ */
+const getOfferInfoUrl = (
+  event: EventFieldsFragment,
+  locale: Language
+): string => {
+  const offer = event.offers.find((item) =>
+    getLocalisedString(item.infoUrl, locale)
+  );
+
+  return getLocalisedString(offer?.infoUrl, locale);
+};
+
+/**
+ * Get event fields
+ * @param {object} event
+ * @param {string} locale
+ * @return {object}
+ */
+export const getEventFields = (
+  event: EventFieldsFragment,
+  locale: Language
+) => {
+  const eventLocation = event.location;
+  const offerInfoUrl = getOfferInfoUrl(event, locale);
+  const startTime = event.startTime;
+  return {
+    description: getLocalisedString(event.description, locale),
+    district: getEventDistrict(event, locale),
+    email: eventLocation?.email,
+    endTime: event.endTime,
+    id: event.id,
+    name: getLocalisedString(event.name, locale),
+    externalLinks: event.externalLinks,
+    googleDirectionsLink: getGoogleDirectionsLink(event, locale),
+    hslDirectionsLink: getHslDirectionsLink(event, locale),
+    imageUrl: getEventImageUrl(event),
+    infoUrl: getLocalisedString(event.infoUrl, locale),
+    keywords: getEventKeywords(event, locale),
+    languages: event.inLanguage
+      .map((item) => capitalize(getLocalisedString(item.name, locale)))
+      .filter((e) => e),
+    locationName: getLocalisedString(eventLocation?.name, locale),
+    offerInfoUrl,
+    placeholderImage: getEventPlaceholderImageUrl(event),
+    provider: getLocalisedString(event.provider, locale),
+    publisher: event.publisher || '',
+    shortDescription: getLocalisedString(event.shortDescription, locale),
+    someImageUrl: getEventSomeImageUrl(event),
+    startTime,
+    telephone: getLocalisedString(eventLocation?.telephone, locale),
+    freeEvent: isEventFree(event),
+    today: startTime ? isToday(new Date(startTime)) : false,
+    thisWeek: startTime ? isThisWeek(new Date(startTime)) : false,
+    showBuyButton: !!offerInfoUrl && !isEventFree(event),
+    ...getEventLocationFields(event, locale),
+  };
 };

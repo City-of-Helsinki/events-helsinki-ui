@@ -1,7 +1,7 @@
-import classNames from "classnames";
-import React, { MutableRefObject } from "react";
+import classNames from 'classnames';
+import React, { MutableRefObject } from 'react';
 
-import styles from "./toggleButton.module.scss";
+import styles from './toggleButton.module.scss';
 
 interface Props {
   buttonRef?: MutableRefObject<HTMLButtonElement | null>;
@@ -20,7 +20,7 @@ const ToggleButton: React.FC<Props> = ({
   onClick,
   testId,
   text,
-  value
+  value,
 }) => {
   const handleClick = () => {
     onClick(value);
@@ -30,7 +30,7 @@ const ToggleButton: React.FC<Props> = ({
       ref={buttonRef}
       data-testid={testId}
       className={classNames(styles.toggleButton, {
-        [styles.isSelected]: isSelected
+        [styles.isSelected]: isSelected,
       })}
       aria-pressed={isSelected}
       onClick={handleClick}

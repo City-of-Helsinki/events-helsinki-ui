@@ -1,19 +1,28 @@
-import * as React from "react";
-import renderer from "react-test-renderer";
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import * as React from 'react';
 
-import ToggleButton from "../ToggleButton";
+import ToggleButton from '../ToggleButton';
 
-test("ToggleButton matches snapshot", () => {
-  const component = renderer.create(
-    <ToggleButton
-      isSelected={true}
-      onClick={() => {}}
-      text={"Test button"}
-      value={"test"}
-    />
-  );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+const defaultProps = {
+  isSelected: true,
+  onClick: jest.fn(),
+  text: 'Test button',
+  value: 'test',
+};
+
+test('matches snapshot', () => {
+  const { container } = render(<ToggleButton {...defaultProps} />);
+
+  expect(container.firstChild).toMatchSnapshot();
 });
 
-export {};
+test('should call onClick', () => {
+  const onClick = jest.fn();
+  const { container } = render(
+    <ToggleButton {...defaultProps} onClick={onClick} />
+  );
+
+  userEvent.click(container.firstChild as HTMLElement);
+  expect(onClick).toBeCalledTimes(1);
+});

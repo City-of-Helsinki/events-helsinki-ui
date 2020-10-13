@@ -1,40 +1,37 @@
-import "react-datepicker/dist/react-datepicker.css";
-import "./datePicker.scss";
+import 'react-datepicker/dist/react-datepicker.css';
+import './datePicker.scss';
 
-import isEqual from "date-fns/isEqual";
-import fi from "date-fns/locale/fi";
-import sv from "date-fns/locale/sv";
-import React, { FunctionComponent } from "react";
-import DatePicker, { registerLocale } from "react-datepicker";
-import { useTranslation } from "react-i18next";
+import isEqual from 'date-fns/isEqual';
+import fi from 'date-fns/locale/fi';
+import sv from 'date-fns/locale/sv';
+import React, { FunctionComponent } from 'react';
+import DatePicker, { registerLocale } from 'react-datepicker';
 
-import { DATE_PICKER_INPUT_STATE } from "../../../constants";
-import { formatDate } from "../../../util/dateUtils";
-import DateRangeInputs from "./DateRangeInputs";
+import { DATE_PICKER_INPUT_STATE } from '../../../constants';
+import useLocale from '../../../hooks/useLocale';
+import { formatDate } from '../../../util/dateUtils';
+import DateRangeInputs from './DateRangeInputs';
 
-registerLocale("fi", fi);
-registerLocale("sv", sv);
+registerLocale('fi', fi);
+registerLocale('sv', sv);
 
-interface Props {
+export interface DateRangePickerProps {
   endDate: Date | null;
   isMenuOpen: boolean;
-  locale: string;
   name: string;
   onChangeEndDate: (date: Date | null) => void;
   onChangeStartDate: (date: Date | null) => void;
   startDate: Date | null;
 }
 
-const DateRangePicker: FunctionComponent<Props> = ({
+const DateRangePicker: FunctionComponent<DateRangePickerProps> = ({
   endDate,
   isMenuOpen,
-  locale,
   name,
   onChangeEndDate,
   onChangeStartDate,
-  startDate
+  startDate,
 }) => {
-  const { t } = useTranslation();
   // References to input fields to set focus
   const datePicker = React.useRef(null);
   const endDateRef = React.useRef<HTMLInputElement>(null);
@@ -43,6 +40,7 @@ const DateRangePicker: FunctionComponent<Props> = ({
   const [selectedDatePickerInput, setDatePickerInput] = React.useState<
     DATE_PICKER_INPUT_STATE
   >(DATE_PICKER_INPUT_STATE.NOT_SELECTED);
+  const locale = useLocale();
   // Raw dates to be saved for input fields
   const [startDateRaw, setStartDateRaw] = React.useState<string>(
     formatDate(startDate)
@@ -60,16 +58,11 @@ const DateRangePicker: FunctionComponent<Props> = ({
   ) => {
     switch (selectedInput) {
       case DATE_PICKER_INPUT_STATE.END_TIME_SELECTED:
-        if (!endDate || !date || !isEqual(date, endDate)) {
-          onChangeEndDate(date);
-        }
+        onChangeEndDate(date);
         setEndDateRaw(formatDate(date));
         break;
       case DATE_PICKER_INPUT_STATE.START_TIME_SELECTED:
-        if (!startDate || !date || !isEqual(date, startDate)) {
-          onChangeStartDate(date);
-        }
-
+        onChangeStartDate(date);
         setStartDateRaw(formatDate(date));
         break;
     }
@@ -88,9 +81,7 @@ const DateRangePicker: FunctionComponent<Props> = ({
       active instanceof Node &&
       endDateInput.contains(active)
     ) {
-      if (current) {
-        current.setSelected(endDate);
-      }
+      current?.setSelected(endDate);
     }
 
     if (
@@ -98,31 +89,29 @@ const DateRangePicker: FunctionComponent<Props> = ({
       active instanceof Node &&
       startDateInput.contains(active)
     ) {
-      if (current) {
-        current.setSelected(startDate);
-      }
+      current?.setSelected(startDate);
     }
   }, [endDate, startDate]);
 
   React.useEffect(() => {
-    document.addEventListener("focusin", handleDocumentFocusin);
+    document.addEventListener('focusin', handleDocumentFocusin);
     // Clean up event listener to prevent memory leaks
     return () => {
-      document.removeEventListener("focusin", handleDocumentFocusin);
+      document.removeEventListener('focusin', handleDocumentFocusin);
     };
   }, [handleDocumentFocusin]);
 
   React.useEffect(() => {
-    if (isMenuOpen && startDateRef.current) {
-      startDateRef.current.focus();
+    if (isMenuOpen) {
+      startDateRef.current?.focus();
     }
   }, [isMenuOpen]);
 
   // Change focus to end date input on this hook so
   // all other states has been changed as well
   React.useEffect(() => {
-    if (shouldChangeFocusToEnd && endDateRef.current) {
-      endDateRef.current.focus();
+    if (shouldChangeFocusToEnd) {
+      endDateRef.current?.focus();
       setShouldChangeFocusToEnd(false);
     }
   }, [shouldChangeFocusToEnd]);
@@ -150,7 +139,7 @@ const DateRangePicker: FunctionComponent<Props> = ({
         selected={selectedDate}
         // Inline datepicker doesn't have field so keep datepicker alway open instead
         open
-        popperClassName={"react-datepicker__no-popper"}
+        popperClassName={'react-datepicker__no-popper'}
         showPopperArrow={false}
         onChange={(date: Date) => {
           switch (selectedDatePickerInput) {
@@ -181,7 +170,6 @@ const DateRangePicker: FunctionComponent<Props> = ({
             startDate={startDate}
             startDateRaw={startDateRaw}
             startDateRef={startDateRef}
-            t={t}
           />
         }
         startDate={startDate}

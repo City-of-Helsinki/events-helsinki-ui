@@ -1,17 +1,11 @@
-import * as React from "react";
-import { MemoryRouter } from "react-router";
-import renderer from "react-test-renderer";
+import { axe } from 'jest-axe';
+import React from 'react';
 
-import BottomFooter from "../BottomFooter";
+import { render } from '../../../../util/testUtils';
+import BottomFooter from '../BottomFooter';
 
-test("BottomFooter matches snapshot", () => {
-  const component = renderer.create(
-    <MemoryRouter>
-      <BottomFooter />
-    </MemoryRouter>
-  );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+test('component should be accessible', async () => {
+  const { container } = render(<BottomFooter />);
+
+  expect(await axe(container)).toHaveNoViolations();
 });
-
-export {};

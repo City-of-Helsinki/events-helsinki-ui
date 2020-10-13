@@ -1,17 +1,14 @@
-@import "colors";
-@import "fonts";
-@import "layout";
-@import "variables";
+@import 'layout';
 
 .eventInfo {
   padding: 0;
-  font-size: 1.125rem;
+  font-size: var(--fontsize-body-l);
 
   display: grid;
   grid-template-columns: 1fr;
 
   @include respond_above(sm) {
-    padding: $largePadding;
+    padding: var(--spacing-xl);
   }
 
   @include respond_above(md) {
@@ -19,79 +16,6 @@
   }
 }
 
-.desktopOnly {
-  @include respond_below(sm) {
-    display: none !important;
-  }
-}
-
-.mobileOnly {
-  @include respond_above(sm) {
-    display: none !important;
-  }
-}
-
-.infoWithIcon {
-  display: flex;
-  margin-bottom: 1rem;
-
-  .iconWrapper {
-    width: 2.5rem;
-  }
-
-  .iconTextWrapper {
-    flex: 1 1 0%;
-    line-height: 1.5rem;
-
-    p {
-      font-size: $font-size-lg;
-      font-weight: 600;
-      margin: 0;
-    }
-  }
-}
-
-.iconCalendar {
-  stroke: $hel-black;
-  height: 1.5rem;
-  width: 1.5rem;
-}
-
-.icon {
-  height: 1.5rem;
-  width: 1.5rem;
-}
-
-.link {
-  display: flex;
-  align-items: center;
-  color: $dark-green;
-  font-size: $font-size-lg;
-  font-weight: $link-font-weight;
-  text-decoration: none;
-  background: transparent;
-  border: none;
-  padding: unset;
-  display: block;
-  width: 100%;
-  text-align: left;
-
-  &:hover {
-    text-decoration: underline;
-  }
-
-  &:focus {
-    outline: 2px solid $hel-black;
-  }
-
-  svg {
-    margin-left: 1rem;
-    height: 0.75rem;
-    width: 0.75rem;
-    fill: $dark-green;
-  }
-}
-
 .buyButtonWrapper {
-  margin-top: 1rem;
+  margin-top: var(--spacing-s);
 }

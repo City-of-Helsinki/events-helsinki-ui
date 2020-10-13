@@ -1,122 +1,97 @@
-import * as Sentry from "@sentry/browser";
-import classNames from "classnames";
-import { saveAs } from "file-saver";
+import * as Sentry from '@sentry/browser';
+import { saveAs } from 'file-saver';
 import {
+  Button,
   IconAngleRight,
-  IconInfo,
-  IconLanguage,
-  IconLocation
-} from "hds-react";
-import { createEvent, EventAttributes } from "ics";
-import capitalize from "lodash/capitalize";
-import React from "react";
-import { useTranslation } from "react-i18next";
+  IconCalendarClock,
+  IconGlobe,
+  IconInfoCircle,
+  IconLocation,
+  IconTicket,
+} from 'hds-react';
+import { createEvent, EventAttributes } from 'ics';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import Button from "../../../common/components/button/Button";
-import { EventDetailsQuery } from "../../../generated/graphql";
-import useLocale from "../../../hooks/useLocale";
-import IconCalendar from "../../../icons/IconCalendar";
-import IconDirections from "../../../icons/IconDirections";
-import IconTicket from "../../../icons/IconTicket";
-import { formatDate } from "../../../util/dateUtils";
-import getDateArray from "../../../util/getDateArray";
-import getDateRangeStr from "../../../util/getDateRangeStr";
-import getDomain from "../../../util/getDomain";
-import getLocalisedString from "../../../util/getLocalisedString";
-import getTimeRangeStr from "../../../util/getTimeRangeStr";
-import { translateValue } from "../../../util/translateUtils";
-import {
-  getEventDistrict,
-  getEventPrice,
-  getGoogleDirectionsLink,
-  getGoogleLink,
-  getHslDirectionsLink
-} from "../EventUtils";
-import OrganizationInfo from "../OrganizationInfo";
-import styles from "./eventInfo.module.scss";
-import OtherEventTimes from "./OtherEventTimes";
+import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
+import Link from '../../../common/components/link/Link';
+import linkStyles from '../../../common/components/link/link.module.scss';
+import Visible from '../../../common/components/visible/Visible';
+import { EventFieldsFragment } from '../../../generated/graphql';
+import useLocale from '../../../hooks/useLocale';
+import IconDirections from '../../../icons/IconDirections';
+import getDateArray from '../../../util/getDateArray';
+import getDateRangeStr from '../../../util/getDateRangeStr';
+import getDomain from '../../../util/getDomain';
+import { translateValue } from '../../../util/translateUtils';
+import { ROUTES } from '../../app/constants';
+import { getEventFields, getEventPrice, getServiceMapUrl } from '../EventUtils';
+import styles from './eventInfo.module.scss';
+import OrganizationInfo from './OrganizationInfo';
+import OtherEventTimes from './OtherEventTimes';
 
 interface Props {
-  eventData: EventDetailsQuery;
+  event: EventFieldsFragment;
 }
 
-const EventInfo: React.FC<Props> = ({ eventData }) => {
+const EventInfo: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
 
-  const offerInfoUrl = React.useMemo(() => {
-    const offer = eventData.eventDetails.offers.find(item =>
-      getLocalisedString(item.infoUrl || {}, locale)
-    );
-
-    return offer ? getLocalisedString(offer.infoUrl || {}, locale) : "";
-  }, [eventData.eventDetails.offers, locale]);
-
-  const startTime = eventData.eventDetails.startTime;
-  const endTime = eventData.eventDetails.endTime;
-  const eventLocation = eventData.eventDetails.location;
-  const addressLocality = getLocalisedString(
-    (eventLocation && eventLocation.addressLocality) || {},
-    locale
+  const {
+    addressLocality,
+    district,
+    email,
+    endTime,
+    externalLinks,
+    googleDirectionsLink,
+    hslDirectionsLink,
+    infoUrl,
+    languages,
+    locationName,
+    name,
+    offerInfoUrl,
+    shortDescription,
+    startTime,
+    streetAddress,
+    telephone,
+  } = getEventFields(event, locale);
+  const eventPriceText = getEventPrice(
+    event,
+    locale,
+    t('event.info.offers.isFree')
   );
-  const locationName = getLocalisedString(
-    (eventLocation && eventLocation.name) || {},
-    locale
+  const showOtherInfo = Boolean(
+    email || externalLinks.length || infoUrl || telephone
   );
-  const streetAddress = getLocalisedString(
-    (eventLocation && eventLocation.streetAddress) || {},
-    locale
-  );
-  const district = getEventDistrict(eventData.eventDetails, locale);
-
-  const languages = eventData.eventDetails.inLanguage
-    .map(item => capitalize(getLocalisedString(item.name || {}, locale)))
-    .filter(e => e);
-  const email = eventLocation && eventLocation.email;
-  const infoUrl = eventData.eventDetails.infoUrl
-    ? getLocalisedString(eventData.eventDetails.infoUrl, locale)
-    : null;
-  const telephone =
-    eventLocation && eventLocation.telephone
-      ? getLocalisedString(eventLocation.telephone, locale)
-      : null;
-  const externalLinks = eventData.eventDetails.externalLinks;
 
   const moveToBuyTicketsPage = () => {
     window.open(offerInfoUrl);
   };
 
   const downloadIcsFile = () => {
-    if (eventData.eventDetails.startTime) {
+    if (startTime) {
       const domain = getDomain();
-      const event: EventAttributes = {
-        description: t("event.info.textCalendarLinkDescription", {
-          description: getLocalisedString(
-            eventData.eventDetails.shortDescription || {},
-            locale
-          ),
-          link: `${domain}/${locale}/event/${eventData.eventDetails.id}`
+      const icsEvent: EventAttributes = {
+        description: t('event.info.textCalendarLinkDescription', {
+          description: shortDescription,
+          link: `${domain}/${locale}${ROUTES.EVENT.replace(':id', event.id)}`,
         }),
-        end: eventData.eventDetails.endTime
-          ? getDateArray(eventData.eventDetails.endTime)
-          : getDateArray(eventData.eventDetails.startTime),
+        end: endTime ? getDateArray(endTime) : getDateArray(startTime),
         location: [locationName, streetAddress, district, addressLocality]
-          .filter(e => e)
-          .join(", "),
+          .filter((e) => e)
+          .join(', '),
         productId: domain,
-        start: getDateArray(eventData.eventDetails.startTime),
-        startOutputType: "local",
-        title: getLocalisedString(eventData.eventDetails.name || {}, locale)
+        start: getDateArray(startTime),
+        startOutputType: 'local',
+        title: name,
       };
-      createEvent(event, (error: Error | undefined, value: string) => {
+      createEvent(icsEvent, (error: Error | undefined, value: string) => {
         if (error) {
           Sentry.captureException(error);
         } else {
-          const blob = new Blob([value], { type: "text/calendar" });
-          saveAs(
-            blob,
-            `event_${eventData.eventDetails.id.replace(/:/g, "")}.ics`
-          );
+          const blob = new Blob([value], { type: 'text/calendar' });
+          saveAs(blob, `event_${event.id.replace(/:/g, '')}.ics`);
         }
       });
     }
@@ -126,190 +101,121 @@ const EventInfo: React.FC<Props> = ({ eventData }) => {
     <div className={styles.eventInfo}>
       <div className={styles.contentWrapper}>
         {/* Date info */}
-        <div className={styles.infoWithIcon}>
-          <div className={styles.iconWrapper}>
-            <IconCalendar className={styles.iconCalendar} />
-          </div>
-          <div className={styles.iconTextWrapper}>
-            <p>{t("event.info.labelDateAndTime")}</p>
-            <div className={styles.mobileOnly}>
-              {!!startTime && getDateRangeStr(startTime, endTime, locale)}
-            </div>
+        <InfoWithIcon icon={<IconCalendarClock />}>
+          <h2 className={styles.title}>{t('event.info.labelDateAndTime')}</h2>
 
-            <div className={styles.desktopOnly}>
-              {!!startTime &&
-                getDateRangeStr(startTime, endTime, locale, false)}
-            </div>
-            <div className={styles.desktopOnly}>
-              {!!startTime &&
-                capitalize(formatDate(new Date(startTime), "cccc", locale))}
-            </div>
-            <div>
-              {!!startTime && getTimeRangeStr(startTime, endTime, locale)}
-            </div>
-            {eventData.eventDetails.startTime && (
-              <button className={styles.link} onClick={downloadIcsFile}>
-                {t("event.info.buttonAddToCalendar")}
+          {!!startTime && (
+            <>
+              {getDateRangeStr({
+                start: startTime,
+                end: endTime,
+                locale,
+                includeTime: true,
+                timeAbbreviation: t('commons.timeAbbreviation'),
+              })}
+              <button className={linkStyles.link} onClick={downloadIcsFile}>
+                {t('event.info.buttonAddToCalendar')}
                 <IconAngleRight />
               </button>
-            )}
-          </div>
-        </div>
+            </>
+          )}
+        </InfoWithIcon>
 
         {/* Other event times */}
-        <OtherEventTimes eventData={eventData} />
+        <OtherEventTimes event={event} />
 
         {/* Location info */}
-        <div className={styles.infoWithIcon}>
-          <div className={styles.iconWrapper}>
-            <IconLocation className={styles.icon} />
-          </div>
-          <div className={styles.iconTextWrapper}>
-            <p>{t("event.info.labelLocation")}</p>
-            <div className={styles.mobileOnly}>
-              {[locationName, streetAddress, district, addressLocality]
-                .filter(e => e)
-                .join(", ")}
-            </div>
-            {locationName && (
-              <div className={styles.desktopOnly}>{locationName}</div>
-            )}
-            {streetAddress && (
-              <div className={styles.desktopOnly}>{streetAddress}</div>
-            )}
-            {district && <div className={styles.desktopOnly}>{district}</div>}
-            {addressLocality && (
-              <div className={styles.desktopOnly}>{addressLocality}</div>
-            )}
-            <a
-              className={styles.link}
-              href={getGoogleLink(eventData, locale)}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {t("event.info.openMap")}
-              <IconAngleRight />
-            </a>
-          </div>
-        </div>
+        <InfoWithIcon icon={<IconLocation />}>
+          <h2 className={styles.title}>{t('event.info.labelLocation')}</h2>
+          <Visible below="sm">
+            {[locationName, streetAddress, district, addressLocality]
+              .filter((e) => e)
+              .join(', ')}
+          </Visible>
+          <Visible above="sm">
+            {[locationName, streetAddress, district, addressLocality]
+              .filter((e) => e)
+              .map((item) => {
+                return <div key={item}>{item}</div>;
+              })}
+          </Visible>
+          <Link isExternal={true} to={getServiceMapUrl(event, locale, false)}>
+            {t('event.info.openMap')}
+          </Link>
+        </InfoWithIcon>
 
         {/* Languages */}
         {!!languages.length && (
-          <div className={styles.infoWithIcon}>
-            <div className={styles.iconWrapper}>
-              <IconLanguage className={styles.icon} />
-            </div>
-            <div className={styles.iconTextWrapper}>
-              <p>{t("event.info.labelLanguages")}</p>
-              <div>{languages.join(", ")}</div>
-            </div>
-          </div>
+          <InfoWithIcon icon={<IconGlobe />}>
+            <h2 className={styles.title}>{t('event.info.labelLanguages')}</h2>
+            <div>{languages.join(', ')}</div>
+          </InfoWithIcon>
         )}
 
         {/* Other info */}
-        {(!!email || !!externalLinks.length || !!infoUrl || !!telephone) && (
-          <div className={styles.infoWithIcon}>
-            <div className={styles.iconWrapper}>
-              <IconInfo className={styles.icon} />
-            </div>
-            <div className={styles.iconTextWrapper}>
-              <p>{t("event.info.labelOtherInfo")}</p>
-              {email && <div>{email}</div>}
-              {telephone && <div>{telephone}</div>}
-              {infoUrl && (
-                <a
-                  className={styles.link}
-                  href={infoUrl}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {t("event.info.linkWebPage")}
-                  <IconAngleRight />
-                </a>
-              )}
+        {showOtherInfo && (
+          <InfoWithIcon icon={<IconInfoCircle />}>
+            <h2 className={styles.title}>{t('event.info.labelOtherInfo')}</h2>
+            {[email, telephone]
+              .filter((e) => e)
+              .map((item) => (
+                <div key={item}>{item}</div>
+              ))}
+            {infoUrl && (
+              <Link isExternal={true} to={infoUrl}>
+                {t('event.info.linkWebPage')}
+              </Link>
+            )}
 
-              {externalLinks.map((externalLink, index) => {
-                return (
-                  !!externalLink.link && (
-                    <a
-                      key={index}
-                      className={styles.link}
-                      href={externalLink.link}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      {translateValue(
-                        "event.info.",
-                        externalLink.name || "",
-                        t
-                      )}
-                      <IconAngleRight />
-                    </a>
-                  )
-                );
-              })}
-            </div>
-          </div>
+            {externalLinks.map((externalLink, index) => {
+              return (
+                !!externalLink.link && (
+                  <Link key={index} isExternal={true} to={externalLink.link}>
+                    {translateValue(
+                      'event.info.',
+                      externalLink.name as string,
+                      t
+                    )}
+                  </Link>
+                )
+              );
+            })}
+          </InfoWithIcon>
         )}
 
         {/* Directions */}
-        <div className={styles.infoWithIcon}>
-          <div className={styles.iconWrapper}>
-            <IconDirections className={styles.icon} />
-          </div>
-          <div className={styles.iconTextWrapper}>
-            <p>{t("event.info.labelDistricts")}</p>
-            <a
-              className={styles.link}
-              href={getGoogleDirectionsLink(eventData, locale)}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {t("event.info.directionsGoogle")}
-              <IconAngleRight />
-            </a>
-            <a
-              className={styles.link}
-              href={getHslDirectionsLink(eventData, locale)}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {t("event.info.directionsHSL")}
-              <IconAngleRight />
-            </a>
-          </div>
-        </div>
+        <InfoWithIcon icon={<IconDirections />}>
+          <h2 className={styles.title}>{t('event.info.labelDirections')}</h2>
+          <Link isExternal={true} to={googleDirectionsLink}>
+            {t('event.info.directionsGoogle')}
+          </Link>
+          <Link isExternal={true} to={hslDirectionsLink}>
+            {t('event.info.directionsHSL')}
+          </Link>
+        </InfoWithIcon>
+
         {/* Organization info */}
-        <OrganizationInfo eventData={eventData} />
+        <OrganizationInfo event={event} />
 
         {/* Price info */}
-        <div className={classNames(styles.infoWithIcon, styles.mobileOnly)}>
-          <div className={styles.iconWrapper}>
-            <IconTicket className={styles.icon} />
-          </div>
-          <div className={styles.iconTextWrapper}>
-            <p>{t("event.info.labelPrice")}</p>
-            {getEventPrice(
-              eventData.eventDetails,
-              locale,
-              t("event.info.offers.isFree")
-            ) || "-"}
-          </div>
-        </div>
+        <Visible below="sm">
+          <InfoWithIcon icon={<IconTicket />}>
+            <h2 className={styles.title}>{t('event.info.labelPrice')}</h2>
+            {eventPriceText || '-'}
+          </InfoWithIcon>
+        </Visible>
 
         {offerInfoUrl && (
-          <div
-            className={classNames(styles.buyButtonWrapper, styles.mobileOnly)}
-          >
+          <Visible below="sm" className={styles.buyButtonWrapper}>
             <Button
-              color="primary"
+              aria-label={t('event.info.ariaLabelBuyTickets')}
               fullWidth={true}
               onClick={moveToBuyTicketsPage}
-              size="default"
+              variant="success"
             >
-              {t("event.info.buttonBuyTickets")}
+              {t('event.info.buttonBuyTickets')}
             </Button>
-          </div>
+          </Visible>
         )}
       </div>
     </div>

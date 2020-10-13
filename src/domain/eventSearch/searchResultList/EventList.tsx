@@ -1,17 +1,17 @@
-import classNames from "classnames";
-import React from "react";
-import { useTranslation } from "react-i18next";
+import classNames from 'classnames';
+import { Button } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import Button from "../../../common/components/button/Button";
-import EventCard from "../../../common/components/eventCard/EventCard";
-import LargeEventCard from "../../../common/components/eventCard/LargeEventCard";
-import LoadingSpinner from "../../../common/components/spinner/LoadingSpinner";
-import { EventListQuery } from "../../../generated/graphql";
-import styles from "./eventList.module.scss";
+import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
+import { EventListQuery } from '../../../generated/graphql';
+import EventCard from '../../event/eventCard/EventCard';
+import LargeEventCard from '../../event/eventCard/LargeEventCard';
+import styles from './eventList.module.scss';
 
 interface Props {
   buttonCentered?: boolean;
-  cardSize?: "default" | "large";
+  cardSize?: 'default' | 'large';
   eventsData: EventListQuery;
   loading: boolean;
   onLoadMore: () => void;
@@ -19,22 +19,24 @@ interface Props {
 
 const EventList: React.FC<Props> = ({
   buttonCentered = false,
-  cardSize = "default",
+  cardSize = 'default',
   eventsData,
   loading,
-  onLoadMore
+  onLoadMore,
 }) => {
   const { t } = useTranslation();
   const events = eventsData.eventList.data;
+  const { count } = eventsData.eventList.meta;
+  const eventsLeft = count - events.length;
 
   return (
     <div className={classNames(styles.eventListWrapper, styles[cardSize])}>
       <div className={styles.eventsWrapper}>
-        {events.map(event => {
+        {events.map((event) => {
           switch (cardSize) {
-            case "default":
+            case 'default':
               return <EventCard key={event.id} event={event} />;
-            case "large":
+            case 'large':
             default:
               return <LargeEventCard key={event.id} event={event} />;
           }
@@ -42,13 +44,13 @@ const EventList: React.FC<Props> = ({
       </div>
       <div
         className={classNames(styles.loadMoreWrapper, {
-          [styles.buttonCentered]: buttonCentered
+          [styles.buttonCentered]: buttonCentered,
         })}
       >
-        <LoadingSpinner isLoading={loading}>
+        <LoadingSpinner hasPadding={!events.length} isLoading={loading}>
           {!!eventsData.eventList.meta.next && (
-            <Button color="primary" size="default" onClick={onLoadMore}>
-              {t("eventSearch.buttonLoadMore")}
+            <Button onClick={onLoadMore} variant="success">
+              {t('eventSearch.buttonLoadMore', { count: eventsLeft })}
             </Button>
           )}
         </LoadingSpinner>

@@ -1,251 +1,210 @@
-import { IconLocation, IconSearch } from "hds-react";
-import get from "lodash/get";
-import React, { FormEvent, FunctionComponent } from "react";
-import { useTranslation } from "react-i18next";
-import { useHistory, useLocation } from "react-router";
+import classNames from 'classnames';
+import { Button, IconHome, IconLocation, IconSearch } from 'hds-react';
+import uniq from 'lodash/uniq';
+import React, { FormEvent } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useHistory, useLocation } from 'react-router';
 
-import Button from "../../common/components/button/Button";
-import DateSelector from "../../common/components/dateSelector/DateSelector";
-import MultiSelectDropdown from "../../common/components/multiSelectDropdown/MultiSelectDropdown";
-import SearchAutosuggest from "../../common/components/search/SearchAutosuggest";
-import SearchLabel from "../../common/components/search/searchLabel/SearchLabel";
-import { AutosuggestMenuOption } from "../../common/types";
-import { CATEGORIES, DISTRICTS, TARGET_GROUPS } from "../../constants";
-import useLocale from "../../hooks/useLocale";
-import IconPerson from "../../icons/IconPerson";
-import IconRead from "../../icons/IconRead";
-import getUrlParamAsArray from "../../util/getUrlParamAsString";
-import { getSearchQuery } from "../../util/searchUtils";
-import { translateValue } from "../../util/translateUtils";
-import Container from "../app/layout/Container";
-import styles from "./search.module.scss";
+import Checkbox from '../../common/components/checkbox/Checkbox';
+import DateSelector from '../../common/components/dateSelector/DateSelector';
+import MultiSelectDropdown from '../../common/components/multiSelectDropdown/MultiSelectDropdown';
+import SearchAutosuggest from '../../common/components/search/SearchAutosuggest';
+import SearchLabel from '../../common/components/search/searchLabel/SearchLabel';
+import { AutosuggestMenuOption } from '../../common/types';
+import { useNeighborhoodListQuery } from '../../generated/graphql';
+import useLocale from '../../hooks/useLocale';
+import IconRead from '../../icons/IconRead';
+import getLocalisedString from '../../util/getLocalisedString';
+import { ROUTES } from '../app/constants';
+import Container from '../app/layout/Container';
+import PlaceSelector from '../place/placeSelector/PlaceSelector';
+import { DEFAULT_SEARCH_FILTERS, EVENT_SEARCH_FILTERS } from './constants';
+import FilterSummary from './filterSummary/FilterSummary';
+import styles from './search.module.scss';
+import { getCategoryOptions, getSearchFilters, getSearchQuery } from './utils';
 
-const Search: FunctionComponent = () => {
-  const { search } = useLocation();
-  const searchParams = React.useMemo(() => new URLSearchParams(search), [
-    search
-  ]);
+interface Props {
+  scrollToResultList: () => void;
+}
+
+const Search: React.FC<Props> = ({ scrollToResultList }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const [searchValue, setSearchValue] = React.useState("");
-  const [dateTypes, setDateTypes] = React.useState<string[]>([]);
+  const { push } = useHistory();
+  const { search } = useLocation();
+  const searchParams = React.useMemo(() => new URLSearchParams(search), [
+    search,
+  ]);
+
+  const [categoryInput, setCategoryInput] = React.useState('');
+  const [divisionInput, setDivisionInput] = React.useState('');
+  const [placeInput, setPlaceInput] = React.useState('');
+
+  const [selectedDateTypes, setSelectedDateTypes] = React.useState<string[]>(
+    []
+  );
   const [selectedCategories, setSelectedCategories] = React.useState<string[]>(
     []
   );
-  const [keywords, setKeywords] = React.useState<string[]>([]);
-  const [districts, setDistricts] = React.useState<string[]>([]);
-  const [places, setPlaces] = React.useState<string[]>([]);
-  const [targets, setTargets] = React.useState<string[]>([]);
-  const [startDate, setStartDate] = React.useState<Date | null>(null);
-  const [endDate, setEndDate] = React.useState<Date | null>(null);
+  const [selectedDivisions, setSelectedDivisions] = React.useState<string[]>(
+    []
+  );
+  const [selectedPlaces, setSelectedPlaces] = React.useState<string[]>([]);
+  const [start, setStart] = React.useState<Date | null>(null);
+  const [end, setEnd] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
-  const { push } = useHistory();
+  const [selectedTexts, setSelectedTexts] = React.useState<string[]>([]);
+  const [autosuggestInput, setAutosuggestInput] = React.useState('');
 
-  const districtOptions = React.useMemo(
-    () =>
-      Object.keys(DISTRICTS)
-        .map(key => {
-          return {
-            text: translateValue("commons.districts.", key, t),
-            value: get(DISTRICTS, key)
-          };
-        })
-        .sort((a, b) => (a.text >= b.text ? 1 : -1)),
-    [t]
-  );
+  const {
+    isFree,
+    keyword,
+    keywordNot,
+    onlyChildrenEvents,
+    onlyEveningEvents,
+    publisher,
+  } = getSearchFilters(searchParams);
 
-  const targetOptions = React.useMemo(
-    () =>
-      Object.keys(TARGET_GROUPS)
-        .map(key => {
-          return {
-            text: translateValue("commons.targets.", key, t),
-            value: get(TARGET_GROUPS, key)
-          };
-        })
-        .sort((a, b) => (a.text >= b.text ? 1 : -1)),
-    [t]
-  );
+  const searchFilters = {
+    categories: selectedCategories,
+    dateTypes: selectedDateTypes,
+    divisions: selectedDivisions,
+    end,
+    isFree,
+    keyword,
+    keywordNot,
+    onlyChildrenEvents,
+    onlyEveningEvents,
+    places: selectedPlaces,
+    publisher,
+    start,
+    text: selectedTexts,
+  };
 
-  const categories = React.useMemo(
-    () => [
-      {
-        text: t("home.category.movie"),
-        value: CATEGORIES.MOVIE
-      },
-      {
-        text: t("home.category.music"),
-        value: CATEGORIES.MUSIC
-      },
-      {
-        text: t("home.category.sport"),
-        value: CATEGORIES.SPORT
-      },
-      {
-        text: t("home.category.museum"),
-        value: CATEGORIES.MUSEUM
-      },
-      {
-        text: t("home.category.dance"),
-        value: CATEGORIES.DANCE
-      },
-      {
-        text: t("home.category.culture"),
-        value: CATEGORIES.CULTURE
-      },
-      {
-        text: t("home.category.nature"),
-        value: CATEGORIES.NATURE
-      },
-      {
-        text: t("home.category.influence"),
-        value: CATEGORIES.INFLUENCE
-      },
-      {
-        text: t("home.category.theatre"),
-        value: CATEGORIES.THEATRE
-      },
-      {
-        text: t("home.category.food"),
-        value: CATEGORIES.FOOD
-      },
-      {
-        text: t("home.category.misc"),
-        value: CATEGORIES.MISC
-      }
-    ],
-    [t]
-  );
+  const { data: neighborhoodsData } = useNeighborhoodListQuery();
+
+  const divisionOptions = neighborhoodsData
+    ? neighborhoodsData.neighborhoodList.data
+        .map((neighborhood) => ({
+          text: getLocalisedString(neighborhood.name, locale),
+          value: neighborhood.id,
+        }))
+        .sort((a, b) => (a.text >= b.text ? 1 : -1))
+    : [];
+
+  const categories = getCategoryOptions(t);
 
   const handleChangeDateTypes = (value: string[]) => {
-    setDateTypes(value);
+    setSelectedDateTypes(value);
   };
 
   const toggleIsCustomDate = () => {
     setIsCustomDate(!isCustomDate);
   };
 
-  const moveToSearchPage = React.useCallback(() => {
-    const search = getSearchQuery({
-      categories: selectedCategories,
-      dateTypes,
-      districts,
-      endDate,
-      keywords,
-      places,
-      publisher: null,
-      search: searchValue,
-      startDate,
-      targets
-    });
+  const moveToSearchPage = () => {
+    const filters = {
+      ...searchFilters,
+      text: uniq([...searchFilters.text, autosuggestInput]).filter(
+        (text) => text
+      ),
+    };
+    const search = getSearchQuery(filters);
 
-    push({ pathname: `/${locale}/events`, search });
-  }, [
-    dateTypes,
-    districts,
-    endDate,
-    keywords,
-    locale,
-    places,
-    push,
-    searchValue,
-    selectedCategories,
-    startDate,
-    targets
-  ]);
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+  };
 
   // Initialize fields when page is loaded
   React.useEffect(() => {
-    const searchVal = searchParams.get("search");
-    const end = searchParams.get("endDate");
-    const start = searchParams.get("startDate");
-    const dTypes = getUrlParamAsArray(searchParams, "dateTypes");
-    const categories = getUrlParamAsArray(searchParams, "categories");
-    const districts = getUrlParamAsArray(searchParams, "districts");
-    const keywords = getUrlParamAsArray(searchParams, "keywords");
-    const places = getUrlParamAsArray(searchParams, "places");
-    const targets = getUrlParamAsArray(searchParams, "targets");
-
-    setSearchValue(searchVal || "");
-
-    if (end) {
-      setEndDate(new Date(end));
-    } else {
-      setEndDate(null);
-    }
-
-    if (start) {
-      setStartDate(new Date(start));
-    } else {
-      setStartDate(null);
-    }
-
-    if (end || start) {
-      setIsCustomDate(true);
-    } else {
-      setDateTypes(dTypes);
-    }
+    const {
+      categories,
+      dateTypes,
+      divisions,
+      end: endTime,
+      places,
+      start: startTime,
+      text,
+    } = getSearchFilters(searchParams);
 
     setSelectedCategories(categories);
-    setDistricts(districts);
-    setKeywords(keywords);
-    setPlaces(places);
-    setTargets(targets);
+    setSelectedDivisions(divisions);
+    setSelectedPlaces(places);
+    setSelectedTexts(text);
+    setEnd(endTime);
+    setStart(startTime);
+
+    if (endTime || startTime) {
+      setIsCustomDate(true);
+    } else {
+      setSelectedDateTypes(dateTypes);
+    }
   }, [searchParams]);
 
   const handleMenuOptionClick = async (option: AutosuggestMenuOption) => {
-    const type = option.type;
-    const value = option.value;
-    const text = option.text;
+    const value = option.text;
 
-    const newSearchValue = text;
+    const { text } = getSearchFilters(searchParams);
 
-    // Get new districts
-    const newDistricts = getUrlParamAsArray(searchParams, "districts");
-    if (type === "district" && !newDistricts.includes(value)) {
-      newDistricts.push(value);
+    if (value && !text.includes(value)) {
+      text.push(value);
     }
 
-    // Get new keywords
-    const newKeywords = getUrlParamAsArray(searchParams, "keywords");
-    if (
-      (type === "keyword" || type === "yso") &&
-      !newKeywords.includes(value)
-    ) {
-      newKeywords.push(value);
-    }
-
-    // Get new keywords
-    const newPlaces = getUrlParamAsArray(searchParams, "places");
-    if (type === "place" && !newPlaces.includes(value)) {
-      newPlaces.push(value);
-    }
     const search = getSearchQuery({
-      categories: selectedCategories,
-      dateTypes,
-      districts: newDistricts,
-      endDate,
-      keywords: newKeywords,
-      places: newPlaces,
-      publisher: null,
-      search: newSearchValue,
-      startDate,
-      targets
+      ...searchFilters,
+      text,
     });
-    switch (type) {
-      case "district":
-        setDistricts(newDistricts);
-        break;
-      case "keyword":
-      case "yso":
-        setKeywords(newKeywords);
-        break;
-      case "place":
-        setPlaces(newPlaces);
-        break;
-    }
-    setSearchValue(newSearchValue);
-    push({ pathname: `/${locale}/events`, search });
+
+    setSelectedTexts(text);
+    setAutosuggestInput('');
+
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+    scrollToResultList();
+  };
+
+  const handleOnlyChildrenEventChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const search = getSearchQuery({
+      ...searchFilters,
+      onlyChildrenEvents: e.target.checked,
+    });
+
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+  };
+
+  const handleOnlyEveningEventChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const search = getSearchQuery({
+      ...searchFilters,
+      onlyEveningEvents: e.target.checked,
+    });
+
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+  };
+
+  const handleIsFreeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const search = getSearchQuery({
+      ...searchFilters,
+      isFree: e.target.checked,
+    });
+
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+  };
+
+  const clearInputValues = () => {
+    setCategoryInput('');
+    setDivisionInput('');
+    setPlaceInput('');
+    setAutosuggestInput('');
+  };
+
+  const clearFilters = () => {
+    const search = getSearchQuery(DEFAULT_SEARCH_FILTERS);
+
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+
+    clearInputValues();
   };
 
   const handleSubmit = (event?: FormEvent) => {
@@ -254,6 +213,9 @@ const Search: FunctionComponent = () => {
     }
 
     moveToSearchPage();
+
+    setAutosuggestInput('');
+    scrollToResultList();
   };
 
   return (
@@ -262,82 +224,126 @@ const Search: FunctionComponent = () => {
         <Container>
           <form onSubmit={handleSubmit}>
             <div className={styles.searchWrapper}>
-              <div className={styles.fieldsWrapper}>
-                <div className={styles.firstRow}>
+              <div className={styles.rowWrapper}>
+                <div className={classNames(styles.row, styles.autoSuggestRow)}>
                   <div>
                     <SearchLabel color="black" htmlFor="search">
-                      {t("eventSearch.search.labelSearchField")}
+                      {t('eventSearch.search.labelSearchField')}
                     </SearchLabel>
                     <SearchAutosuggest
-                      categories={[]}
                       name="search"
-                      onChangeSearchValue={setSearchValue}
+                      onChangeSearchValue={setAutosuggestInput}
                       onOptionClick={handleMenuOptionClick}
-                      placeholder={t("eventSearch.search.placeholder")}
-                      searchValue={searchValue}
+                      placeholder={t('eventSearch.search.placeholder')}
+                      searchValue={autosuggestInput}
                     />
                   </div>
                 </div>
-                <div className={styles.secondRow}>
+              </div>
+              <div className={styles.rowWrapper}>
+                <div className={styles.row}>
                   <div>
                     <MultiSelectDropdown
                       checkboxName="categoryOptions"
                       icon={<IconRead />}
+                      inputValue={categoryInput}
                       name="category"
                       onChange={setSelectedCategories}
                       options={categories}
-                      title={t("eventSearch.search.titleDropdownCategory")}
+                      setInputValue={setCategoryInput}
+                      showSearch={false}
+                      title={t('eventSearch.search.titleDropdownCategory')}
                       value={selectedCategories}
                     />
                   </div>
                   <div className={styles.dateSelectorWrapper}>
                     <DateSelector
-                      dateTypes={dateTypes}
-                      endDate={endDate}
+                      dateTypes={selectedDateTypes}
+                      endDate={end}
                       isCustomDate={isCustomDate}
                       name="date"
                       onChangeDateTypes={handleChangeDateTypes}
-                      onChangeEndDate={setEndDate}
-                      onChangeStartDate={setStartDate}
-                      startDate={startDate}
+                      onChangeEndDate={setEnd}
+                      onChangeStartDate={setStart}
+                      startDate={start}
                       toggleIsCustomDate={toggleIsCustomDate}
                     />
                   </div>
                   <div>
                     <MultiSelectDropdown
-                      checkboxName="districtOptions"
+                      checkboxName="divisionOptions"
                       icon={<IconLocation />}
-                      name="district"
-                      onChange={setDistricts}
-                      options={districtOptions}
-                      title={t("eventSearch.search.titleDropdownDistrict")}
-                      value={districts}
+                      inputValue={divisionInput}
+                      name="division"
+                      onChange={setSelectedDivisions}
+                      options={divisionOptions}
+                      selectAllText={t('eventSearch.search.selectAllDivisions')}
+                      setInputValue={setDivisionInput}
+                      showSearch={true}
+                      showSelectAll={true}
+                      title={t('eventSearch.search.titleDropdownDivision')}
+                      value={selectedDivisions}
                     />
                   </div>
                   <div>
-                    <MultiSelectDropdown
-                      checkboxName="targetOptions"
-                      icon={<IconPerson />}
-                      name="targets"
-                      onChange={setTargets}
-                      options={targetOptions}
-                      title={t("eventSearch.search.titleDropdownTargetGroup")}
-                      value={targets}
+                    <PlaceSelector
+                      checkboxName="placesCheckboxes"
+                      icon={<IconHome />}
+                      inputValue={placeInput}
+                      name="places"
+                      onChange={setSelectedPlaces}
+                      selectAllText={t('eventSearch.search.selectAllPlaces')}
+                      setInputValue={setPlaceInput}
+                      showSearch={true}
+                      showSelectAll={true}
+                      title={t('eventSearch.search.titleDropdownPlace')}
+                      value={selectedPlaces}
+                    />
+                  </div>
+                </div>
+                <div className={styles.buttonWrapper}>
+                  <Button
+                    fullWidth={true}
+                    iconLeft={<IconSearch />}
+                    variant="success"
+                    type="submit"
+                  >
+                    {t('eventSearch.search.buttonSearch')}
+                  </Button>
+                </div>
+              </div>
+              <div className={styles.rowWrapper}>
+                <div className={styles.row}>
+                  <div>
+                    <Checkbox
+                      className={styles.checkbox}
+                      checked={onlyChildrenEvents}
+                      id={EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS}
+                      label={t('eventSearch.search.checkboxOnlyChildrenEvents')}
+                      onChange={handleOnlyChildrenEventChange}
+                    />
+                  </div>
+                  <div>
+                    <Checkbox
+                      className={styles.checkbox}
+                      checked={isFree}
+                      id={EVENT_SEARCH_FILTERS.IS_FREE}
+                      label={t('eventSearch.search.checkboxIsFree')}
+                      onChange={handleIsFreeChange}
+                    />
+                  </div>
+                  <div>
+                    <Checkbox
+                      className={styles.checkbox}
+                      checked={onlyEveningEvents}
+                      id={EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS}
+                      label={t('eventSearch.search.checkboxOnlyEveningEvents')}
+                      onChange={handleOnlyEveningEventChange}
                     />
                   </div>
                 </div>
               </div>
-              <div className={styles.buttonWrapper}>
-                <Button
-                  color="primary"
-                  fullWidth={true}
-                  iconLeft={<IconSearch />}
-                  onClick={moveToSearchPage}
-                  size="default"
-                >
-                  {t("eventSearch.search.buttonSearch")}
-                </Button>
-              </div>
+              <FilterSummary onClear={clearFilters} />
             </div>
           </form>
         </Container>

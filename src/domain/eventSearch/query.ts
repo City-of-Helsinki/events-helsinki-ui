@@ -1,37 +1,53 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const QUERY_EVENT_LIST = gql`
   query EventList(
-    $divisions: [String]
-    $endDate: String
-    $include: [String]
+    $combinedText: [String]
+    $division: [String]
+    $end: String
+    $endsAfter: String
+    $endsBefore: String
     $inLanguage: String
-    $keywords: [String]
+    $include: [String]
+    $isFree: Boolean
+    $keyword: [String]
+    $keywordAnd: [String]
+    $keywordNot: [String]
     $language: String
-    $locations: [String]
+    $location: [String]
     $page: Int
     $pageSize: Int
     $publisher: ID
     $sort: String
-    $startDate: String
+    $start: String
+    $startsAfter: String
+    $startsBefore: String
     $superEvent: ID
     $superEventType: [String]
     $text: String
     $translation: String
   ) {
     eventList(
-      divisions: $divisions
-      endDate: $endDate
+      combinedText: $combinedText
+      division: $division
+      end: $end
+      endsAfter: $endsAfter
+      endsBefore: $endsBefore
       include: $include
       inLanguage: $inLanguage
-      keywords: $keywords
+      isFree: $isFree
+      keyword: $keyword
+      keywordAnd: $keywordAnd
+      keywordNot: $keywordNot
       language: $language
-      locations: $locations
+      location: $location
       page: $page
       pageSize: $pageSize
       publisher: $publisher
       sort: $sort
-      startDate: $startDate
+      start: $start
+      startsAfter: $startsAfter
+      startsBefore: $startsBefore
       superEvent: $superEvent
       superEventType: $superEventType
       text: $text
@@ -43,71 +59,14 @@ export const QUERY_EVENT_LIST = gql`
         previous
       }
       data {
-        id
-        images {
-          id
-          name
-          url
-        }
-        keywords {
-          id
-          name {
-            fi
-            sv
-            en
-          }
-        }
-        location {
-          divisions {
-            type
-            name {
-              fi
-              en
-              sv
-            }
-          }
-          name {
-            fi
-            en
-            sv
-          }
-          addressLocality {
-            fi
-            sv
-            en
-          }
-          streetAddress {
-            fi
-            sv
-            en
-          }
-        }
-        name {
-          fi
-          en
-          sv
-        }
-        offers {
-          isFree
-          description {
-            fi
-            sv
-            en
-          }
-          price {
-            fi
-            sv
-            en
-          }
-          infoUrl {
-            fi
-            sv
-            en
-          }
-        }
-        startTime
-        endTime
+        ...eventFields
       }
+    }
+  }
+
+  query EventsByIds($ids: [ID!]!, $include: [String]) {
+    eventsByIds(ids: $ids, include: $include) {
+      ...eventFields
     }
   }
 `;

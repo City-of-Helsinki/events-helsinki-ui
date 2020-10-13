@@ -1,4 +1,10 @@
 {
+  "about": {
+    "title": "About the service"
+  },
+  "accessibility": {
+    "title": "Accessibility Statement"
+  },
   "appName": "Events",
   "commons": {
     "autosuggest": {
@@ -11,16 +17,12 @@
     "category": {
       "ariaButtonRemove": "Remove category: {{category}}"
     },
-    "collectionCard": {
-      "ariaLabelLink": "Go to collection: {{title}}",
-      "count": "{{count}} pcs"
-    },
     "dateSelector": {
       "dateTypeAll": "At any day",
       "dateTypeThisWeek": "This week",
       "dateTypeToday": "Today",
       "dateTypeTomorrow": "Tomorrow",
-      "dateTypeWeekend": "Weekend",
+      "dateTypeWeekend": "This weekend",
       "infoDate": "dd.mm.yyyy",
       "labelEndDate": "End date",
       "labelStartDate": "Start date",
@@ -29,70 +31,23 @@
         "buttonClose": "Close",
         "buttonCustom": "Select dates"
       },
-      "title": "Select period"
-    },
-    "districts": {
-      "alppiharju": "Alppiharju",
-      "eira": "Eira",
-      "etuTöölö": "Etu-töölö",
-      "haaga": "Haaga",
-      "hermanni": "Hermanni",
-      "herttoniemi": "Herttoniemi",
-      "kaarela": "Kaarela",
-      "kaartinkaupunki": "Kaartinkaupunki",
-      "kaivopuisto": "Kaivopuisto",
-      "kallio": "Kallio",
-      "kamppi": "Kamppi",
-      "katajanokka": "Katajanokka",
-      "kluuvi": "Kluuvi",
-      "konala": "Konala",
-      "koskela": "Koskela",
-      "kruununhaka": "Kruununhaka",
-      "kulosaari": "Kulosaari and Mustikkamaa-Korkeasaari",
-      "kumpula": "Kumpula",
-      "käpylä": "Käpylä",
-      "laajasalo": "Laajasalo, Villinki and Santahamina",
-      "laakso": "Laakso",
-      "lauttasaari": "Lauttasaari",
-      "länsisatama": "Länsisatama",
-      "malmi": "Malmi",
-      "meilahti": "Meilahti",
-      "mellunkylä": "Mellunkylä",
-      "munkkiniemi": "Munkkiniemi",
-      "oulunkylä": "Oulunkylä",
-      "pakila": "Pakila",
-      "pitäjämäki": "Pitäjämäki",
-      "pukinmäki": "Pukinmäki",
-      "punavuori": "Punavuori",
-      "ruskeasuo": "Ruskeasuo",
-      "suomenlinna": "Suomenlinna and ulkosaaret",
-      "suurmetsä": "Suurmetsä",
-      "suutarila": "Suutarila",
-      "sörnäinen": "Sörnäinen",
-      "takaTöölö": "Taka-Töölö",
-      "tammisalo": "Tammisalo",
-      "tapaninkylä": "Tapaninkylä",
-      "ullanlinna": "Ullanlinna",
-      "vallila": "Vallila",
-      "vanhakaupunki": "Vanhakaupunki",
-      "vartiokylä": "Vartiokylä",
-      "vartiosaari": "Vartiosaari",
-      "viikki": "Viikki",
-      "vuosaari": "Vuosaari",
-      "östersundom": "Östersundom"
+      "title": "Select dates"
     },
     "dropdown": {
       "menu": {
         "buttonClear": "Clear selection"
       }
     },
-    "eventCard": {
-      "ariaLabelLink": "Go to event: {{name}}" 
-    },
     "filter": {
       "ariaButtonRemove": "Remove filter: {{filter}}"
     },
+    "linkSkipToContent": "Skip to content",
     "loading": "Loading...",
+    "multiSelectDropdown": {
+      "inputPlaceholder": "Write search word",
+      "selectAll": "Select all"
+    },
+    "preview": "Preview",
     "shareLink": {
       "shareOnFacebook": "Share on Facebook",
       "shareOnTwitter": "Share on Twitter",
@@ -103,14 +58,31 @@
       "messageLinkCopySuccess": "Link copied into clipboard"
     },
     "supriseMe": "I'm Feeling Lucky",
-    "targets": {
-      "children": "Children",
-      "youngPeople": "Young people"
-    }
+    "timeAbbreviation": "at"
   },
   "collection": {
+    "buttonShowAllPastEvents": "Show all past recommendations",
+    "collectionCard": {
+      "ariaLabelLink": "Go to collection: {{title}}",
+      "count": "{{count}} hits"
+    },
     "curatedEvents": {
-      "textEventNotFound": "Event not found"
+      "linkOnlyExpiredEvents": "To all collections",
+      "textEventNotFound": "Event not found",
+      "textOnlyExpiredEvents": "Unfortunately all the events in this collection have already passed. Have a look at our other recommendations and collections to find more interesting events."
+    },
+    "eventList": {
+      "errorLoadMore": "Failed to load events"
+    },
+    "expired": {
+      "linkSearchEvents": "To all collections",
+      "text": "Unfortunately this particular collections has already been removed. Luckily there are many other collections and recommendations, so have a look and explore all the other interesting things the city has to offer.",
+      "title": "This collection has been removed"
+    },
+    "languageNotSupported": {
+      "linkSearchEvents": "Go to all collections",
+      "text": "Unfortunately this collections has not been created in all different languages. Luckily there are many other recommendations, so have a look at the other collections and find loads of interesting events.",
+      "title": "This collection is not available in English"
     },
     "notFound": {
       "linkSearchEvents": "Find something to do",
@@ -118,9 +90,15 @@
       "title": "Oops, you got hit by a 404!"
     },
     "shareLinks": {
-      "title": "Share Collection"
+      "title": "Share collection"
     },
-    "title": "Loading collection..."
+    "title": "Loading collection...",
+    "titlePastRecommendations": "Past recommendations",
+    "titleSimilarCollections": "More recommendations for you"
+  },
+  "collectionList": {
+    "pageTitle": "See our recommendations",
+    "title": "Our suggestions for you"
   },
   "event": {
     "categories": {
@@ -131,26 +109,40 @@
     "description": {
       "title": "Description"
     },
+    "eventCancelled": "Event cancelled",
+    "eventCard": {
+      "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
+      "ariaLabelLink": "Go to event: {{name}}",
+      "ariaLabelReadMore": "Read more: {{name}}",
+      "buttonBuyTickets": "Buy tickets",
+      "buttonReadMore": "Read more",
+      "dateAndTime": "{{date}}, at {{time}}",
+      "isFree": "Free"
+    },
     "hero": {
       "ariaLabelBackButton": "Back to event search",
+      "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
       "buttonBuyTickets": "Buy tickets",
-      "buttonToHomePage": "Go to the homepage",
+      "buttonToHomePage": "Visit the landing page",
       "offers": {
         "isFree": "Free"
       },
-      "textEventClosed": "The event you are looking for has already ended"
+      "textEventClosed": "Worry not, there are lots of ther things to do in Helsinki.",
+      "titleEventClosed": "Oh no, the event you are looking for has already ended"
     },
     "info": {
+      "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
       "buttonAddToCalendar": "Add to calendar",
       "buttonBuyTickets": "Buy tickets",
       "directionsGoogle": "Directions (Google)",
       "directionsHSL": "Directions (HSL)",
+      "errorLoadMore": "Failed to load events",
       "extlinkFacebook": "Facebook",
       "extlinkInstagram": "Instagram",
       "extlinkTwitter": "Twitter",
       "extlinkYoutube": "Youtube",
       "labelDateAndTime": "Date and time",
-      "labelDistricts": "Find your way",
+      "labelDirections": "Find your way",
       "labelLanguages": "Languages",
       "labelLocation": "Location",
       "labelOrganizer": "Organizer information",
@@ -168,6 +160,7 @@
     "location": {
       "directionsGoogle": "Directions (Google)",
       "directionsHSL": "Directions (HSL)",
+      "mapTitle": "Location",
       "openMap": "Open the map in a new window",
       "title": "Location"
     },
@@ -177,54 +170,53 @@
       "title": "Oops, you got hit by a 404!"
     },
     "otherTimes": {
-      "buttonReadMore": "Read more",
+      "buttonHide": "Hide other event times",
+      "buttonReadMore": "Read more; {{date}}",
+      "buttonShow": "Show other event times",
       "title": "Other times of the event"
     },
     "shareLinks": {
       "title": "Share Event"
     },
     "similarEvents": {
-      "title": "Other similar events"
+      "title": "Similar events"
     }
   },
   "eventSearch": {
+    "ariaLiveLoading": "Searching for events",
+    "ariaLiveSearchReady": "{{count}} search results",
     "buttonClearFilters": "Clear filters",
-    "buttonLoadMore": "Load more events",
-    "event": {
-      "buttonBuyTickets": "Buy tickets",
-      "buttonReadMore": "Read more",
-      "dateAndTime": "{{date}}, at {{time}}",
-      "offers": {
-        "isFree": "Free"
-      }
-    },
-    "filters": {
-      "buttonRemoveSearchWord": "Remove search word",
-      "textNoFilters": "No search criteria",
-      "titleSummary": "Selected search criteria:"
-    },
+    "buttonLoadMore": "Show more events ({{count}})",
+    "errorLoadMore": "Failed to load events",
     "noResultsInfo": {
       "bigText": "Sorry, no search results were found for the search criteria you selected",
       "smallText": "Try changing your search criteria and you're sure to find something to do!"
     },
     "search": {
       "buttonSearch": "Search",
+      "checkboxIsFree": "Show only events that are free",
+      "checkboxOnlyChildrenEvents": "Show only events for children",
+      "checkboxOnlyEveningEvents": "Show only evening events",
       "labelCategory": "What kind of event you are looking for?",
       "labelDateRange": "For what period you are looking for?",
       "labelDistrict": "From where are you looking for?",
-      "labelSearchField": "What you are looking for?",
+      "labelSearchField": "What are you looking for",
       "labelTargetGroup": "Whom you are looking for?",
       "placeholder": "Enter a keyword, eg rock or yoga",
+      "selectAllDivisions": "All areas",
+      "selectAllPlaces": "All venues",
       "titleDropdownCategory": "Select category",
-      "titleDropdownDistrict": "Select area",
-      "titleDropdownTargetGroup": "Select for whom"
+      "titleDropdownDivision": "Search area",
+      "titleDropdownPlace": "Search venue"
     },
     "textFoundEvents": "{{count}} search results",
     "title": "Event search"
   },
   "footer": {
-    "linkAbout": "About",
+    "linkAbout": "About the service",
+    "linkAccessibility": "Accessibility Statement",
     "linkFeedback": "Give feedback",
+    "linkFeedbackUrl": "https://www.hel.fi/helsinki/en/administration/participate/feedback/",
     "searchCollections": "We recommend",
     "searchEvents": "Find something to do",
     "titleCategories": "Categories"
@@ -233,7 +225,7 @@
     "ariaButtonCloseMenu": "Close menu",
     "ariaButtonOpenMenu": "Open menu",
     "ariaLabelLogo": "Home",
-    "changeLanguage": "Change language",
+    "changeLanguage": "English - language selection",
     "languages": {
       "en": "In English",
       "fi": "Suomeksi",
@@ -244,37 +236,36 @@
   },
   "home": {
     "category": {
-      "culture": "Culture and art",
+      "culture": "Arts and culture",
       "dance": "Dance",
       "food": "Food",
       "influence": "Participate and influence",
       "misc": "Other",
-      "movie": "Movie",
+      "movie": "Movies",
       "museum": "Museums",
       "music": "Music",
       "nature": "Nature and outdoor activities",
       "sport": "Exercise and sports",
-      "theatre": "Theater"
+      "theatre": "Theatre"
     },
     "collections": {
-      "title": "We recommend"
+      "title": "See our recommendations"
     },
-    "hero": {
-      "buttonText": "See tips",
-      "subTitle": "We put it together",
-      "title": "The most tragic treats of an autumn holiday!"
+    "notFound": {
+      "text": "For one reason or another we can't find the landing page you are looking for.",
+      "title": "Oops, you got hit by a 404!"
     },
     "search": {
       "buttonSearch": "Search",
       "labelDateRange": "For what period you are looking for?",
-      "labelSearchField": "What you are looking for?",
-      "linkAdvancedSearch": "Advanced Search",
+      "labelSearchField": "What are you looking for",
+      "linkAdvancedSearch": "Advanced search",
       "placeholder": "Enter a keyword, eg rock or yoga",
       "title": "Find something to do"
     }
   },
   "menu": {
-    "aboutService": "About",
+    "aboutService": "About the service",
     "mostPopular": "Top searches",
     "searchCategories": "Browse Categories",
     "searchEvents": "Find something to do"

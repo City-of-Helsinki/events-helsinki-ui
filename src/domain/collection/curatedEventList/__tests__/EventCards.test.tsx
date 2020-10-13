@@ -1,58 +1,35 @@
-import { MockedProvider } from "@apollo/react-testing";
-import pretty from "pretty";
-import * as React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
-import { MemoryRouter } from "react-router";
-import wait from "waait";
+import * as React from 'react';
 
-import { EventDetailsDocument } from "../../../../generated/graphql";
-import { mockEventData } from "../../../event/constants";
-import EventCards from "../EventCards";
+import translations from '../../../../common/translation/i18n/fi.json';
+import { EventFieldsFragment } from '../../../../generated/graphql';
+import { fakeEvents } from '../../../../util/mockDataUtils';
+import { render, screen, userEvent } from '../../../../util/testUtils';
+import EventCards from '../EventCards';
 
-const mocks = [
-  {
-    request: {
-      query: EventDetailsDocument,
-      variables: {
-        id: mockEventData.eventDetails.id,
-        include: ["keywords", "location"]
-      }
-    },
-    result: {
-      data: mockEventData
-    }
-  }
-];
+const eventsResponse = fakeEvents(4);
+const events = eventsResponse.data as EventFieldsFragment[];
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let container: any = null;
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement("div");
-  document.body.appendChild(container);
-});
+test('should show fields for each event card', async () => {
+  render(<EventCards events={events} />);
 
-afterEach(() => {
-  // cleanup on exiting
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
-
-test("EventCards should match snapshot", async () => {
-  await act(async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <MemoryRouter>
-          <EventCards eventIds={[mockEventData.eventDetails.id]} />
-        </MemoryRouter>
-      </MockedProvider>,
-      container
+  events.forEach((event) => {
+    expect(screen.getByText(event.name.fi));
+    expect(
+      screen.getByText(
+        `${event.location.name.fi}, ${event.location.streetAddress.fi}, ${event.location.addressLocality.fi}`
+      )
     );
-
-    await wait(0); // wait for response
   });
+});
 
-  expect(pretty(container.innerHTML)).toMatchSnapshot();
+test('should call onShowMore', async () => {
+  const onShowMore = jest.fn();
+  render(
+    <EventCards events={events} onShowMore={onShowMore} showMoreButton={true} />
+  );
+
+  userEvent.click(
+    screen.getByText(translations.collection.buttonShowAllPastEvents)
+  );
+  expect(onShowMore).toBeCalledTimes(1);
 });

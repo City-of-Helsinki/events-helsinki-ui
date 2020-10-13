@@ -1,8 +1,8 @@
-import { Language } from "./types";
+import { Language } from './types';
 
 declare global {
   interface Window {
-    initialI18nStore: object;
+    initialI18nStore: Record<string, unknown>;
     initialLanguage: Language;
   }
 }

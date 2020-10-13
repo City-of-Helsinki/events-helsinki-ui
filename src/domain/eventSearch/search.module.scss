@@ -1,75 +1,85 @@
-@import "colors";
-@import "fonts";
-@import "layout";
-@import "variables";
+@import 'layout';
+
+$buttonWidth: 180px;
 
 .searchContainer {
-  
-  color: $hel-black;
-  background-color: $hel-copper-light-20;
-  padding: 2.375rem 0 3.75rem 0;
+  color: var(--color-black);
+  background-color: var(--color-copper-light-20);
+  padding: 2.375rem 0 1.5rem 0;
   position: relative;
 
-  .searchWrapper {
+  .rowWrapper {
     display: grid;
-    grid-gap: 0.625rem;
     height: fit-content;
     align-items: center;
 
     grid-template-columns: 1fr;
+    grid-gap: var(--spacing-m);
+
+    margin-bottom: var(--spacing-xs);
 
     @include respond-above(sm) {
-      grid-template-columns: 1fr auto;
-      grid-gap: $basePadding;
+      grid-template-columns: 1fr $buttonWidth;
+      grid-gap: var(--spacing-xs);
+
+      margin-bottom: var(--spacing-xs);
     }
 
     @include respond-above(md) {
-      grid-gap: $largePadding;
+      grid-gap: var(--spacing-xs);
     }
   }
 
-  .fieldsWrapper {
-    .firstRow {
-      margin-bottom: 0.625rem;
+  .buttonWrapper {
+    align-self: flex-end;
+  }
 
-      @include respond-above(sm) {
-        margin-bottom: $baseMargin;
-      }
+  .row {
+    display: grid;
+    grid-gap: var(--spacing-xs);
 
-      @include respond-above(md) {
-        grid-template-columns: 3fr 1fr;
-        grid-gap: 0.5rem;
-        display: grid;
-      }
+    @include respond-above(sm) {
+      grid-template-columns: 1fr 1fr;
+      grid-gap: var(--spacing-m);
     }
 
-    .secondRow {
-      display: grid;
-      grid-gap: 0.625rem;
-
-      @include respond-above(sm) {
-        grid-template-columns: 1fr 1fr;
-        grid-gap: $basePadding;
-      }
-
-      @include respond-above(md) {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-gap: $basePadding;
-      }
-    }
-    .dateSelectorWrapper {
-      align-self: flex-end;
+    @include respond-above(md) {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
     }
   }
-}
 
-.buttonWrapper {
-  align-self: flex-end;
+  .autoSuggestRow {
+    @include respond-above(sm) {
+      grid-template-columns: 1fr;
+    }
+
+    @include respond-above(md) {
+      div:first-child {
+        grid-column: 1 / 4;
+      }
+    }
+  }
+
+  .checkbox {
+    margin-top: var(--spacing-xs);
+
+    label {
+      display: flex;
+      align-items: center;
+    }
+    @include respond-above(sm) {
+      margin-top: 0;
+    }
+  }
+
+  .dateSelectorWrapper {
+    align-self: flex-end;
+  }
 }
 
 .label {
-  font-size: $label-font-size;
-  font-weight: $label-font-weight;
+  font-size: var(--fontsize-body-m);
+  font-weight: 500;
   line-height: normal;
 
   @include respond-below(sm) {

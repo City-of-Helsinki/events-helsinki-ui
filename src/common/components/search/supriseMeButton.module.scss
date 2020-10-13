@@ -1,9 +1,8 @@
-@import "colors";
-@import "layout";
+@import 'layout';
 
 .supriseMeButton {
   height: 4.75rem;
-  width: 4.75rem;  
+  width: 4.75rem;
   border-radius: 50%;
   position: absolute;
   top: -3.75rem;
@@ -12,7 +11,7 @@
   background-color: $hel-suomenlinna;
   border: none;
   cursor: pointer;
-  
+
   .text {
     height: 2rem;
     display: flex;
@@ -24,7 +23,7 @@
     width: 4.125rem;
     left: 0.3125rem;
     font-weight: 600;
-    color: $hel-black;
+    color: var(--color-black);
   }
 
   svg {

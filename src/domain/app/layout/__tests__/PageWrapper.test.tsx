@@ -1,9 +1,10 @@
-import { shallow } from "enzyme";
-import React from "react";
+import React from 'react';
 
-import PageWrapper from "../PageWrapper";
+import { render } from '../../../../util/testUtils';
+import PageWrapper from '../PageWrapper';
 
-it("PageWrapper matched snapshot", () => {
-  const pageWrapper = shallow(<PageWrapper />);
-  expect(pageWrapper.html()).toMatchSnapshot();
+it('matched snapshot', () => {
+  const { container } = render(<PageWrapper />);
+
+  expect(container.firstChild).toMatchSnapshot();
 });

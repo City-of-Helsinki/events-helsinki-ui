@@ -1,0 +1,57 @@
+@import 'layout';
+
+$logoWidth: 5.5rem;
+
+.eventContent {
+  background-color: var(--color-white);
+
+  .contentWrapper {
+    display: grid;
+
+    @include respond_above(sm) {
+      grid-template-columns: $logoWidth 1fr 1fr;
+
+      .infoColumn {
+        order: 3;
+      }
+
+      .descriptionColumn {
+        order: 2;
+      }
+    }
+  }
+}
+.descriptionTitle {
+  font-size: var(--fontsize-body-l);
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+
+  @include respond_above(sm) {
+    font-size: var(--fontsize-heading-l);
+  }
+}
+
+.description {
+  line-height: 1.5;
+
+  p {
+    font-size: var(--fontsize-body-l);
+    margin: 1rem 0;
+  }
+
+  a {
+    color: var(--color-black);
+    text-decoration: underline;
+  }
+}
+
+.horizontalDivider {
+  height: 2px;
+
+  border-bottom: 2px solid var(--color-black-40);
+}
+
+.largeWhiteSpace {
+  padding-top: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+}

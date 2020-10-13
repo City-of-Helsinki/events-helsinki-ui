@@ -1,11 +1,33 @@
-@import "colors";
-@import "variables";
-
 .curatedEventList {
-  background-color: $hel-black-5;
-  padding: $largePadding 0;
+  background-color: var(--color-black-5);
+  padding: 0;
 
-  .contentWrapper {
-    margin-top: -13rem;
+  h2 {
+    margin: 0;
+  }
+
+  .greyBackground {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-black-5);
+
+    p {
+      font-size: 1.25rem;
+      line-height: 2rem;
+      max-width: 65rem;
+    }
+
+    &.hasEvents {
+      padding-bottom: 10rem;
+    }
+  }
+
+  .content {
+    &.hasEvents {
+      margin-top: -8.125rem;
+    }
+  }
+
+  .titlePastRecommendations {
+    margin-top: 2.5rem;
   }
 }

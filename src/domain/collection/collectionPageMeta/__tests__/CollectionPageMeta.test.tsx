@@ -1,13 +1,20 @@
-import { render, waitForDomChange } from "@testing-library/react";
-import React from "react";
+import { render } from '@testing-library/react';
+import React from 'react';
 
-import { mockCollection } from "../../constants";
-import CollectionPageMeta, {
-  CollectionPageMetaProps
-} from "../CollectionPageMeta";
+import { CollectionFieldsFragment } from '../../../../generated/graphql';
+import { fakeCollection } from '../../../../util/mockDataUtils';
+import { actWait } from '../../../../util/testUtils';
+import CollectionPageMeta from '../CollectionPageMeta';
 
-const getWrapper = (props: CollectionPageMetaProps) =>
-  render(<CollectionPageMeta {...props} />);
+const image = 'https://localhost/example/path';
+const title = 'Collection title';
+const socialMediaDescription = 'Collection description';
+
+const collection = fakeCollection({
+  heroImage: { url: image },
+  socialMediaDescription: { fi: socialMediaDescription },
+  title: { fi: title },
+}) as CollectionFieldsFragment;
 
 // Rendering CollectionPageMeta creates a side effect--the document head will be
 // mutated. This mutation will persist between tests. This can be problematic:
@@ -22,39 +29,32 @@ let initialHeadInnerHTML: any = null;
 
 beforeEach(() => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const head: any = document.querySelector("head");
+  const head: any = document.querySelector('head');
   initialHeadInnerHTML = head.innerHTML;
 
-  document.head.innerHTML = "";
+  document.head.innerHTML = '';
 });
 
 afterEach(() => {
   document.head.innerHTML = initialHeadInnerHTML;
 });
 
-test("applies expected metadata", async () => {
-  const collectionTitle = mockCollection.collectionDetails.title.fi;
-  const collectionDescription =
-    mockCollection.collectionDetails.shortDescription.fi;
+test('applies expected metadata', async () => {
+  render(<CollectionPageMeta collection={collection} />);
 
-  // This function is usually used for the helpers it returns. However, the
-  // scope f the helpers is limited to `body`. As we need to assert against
-  // the content of the `head`, we have to make queries without helpers. We are
-  // using testing library to render for consistency.
-  getWrapper({ collectionData: mockCollection });
-
-  await waitForDomChange();
+  await actWait(300);
 
   const title = document.title;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const head: any = document.querySelector("head");
+  const head = document.querySelector('head');
   const metaDescription = head.querySelector('[name="description"]');
   const ogTitle = head.querySelector('[property="og:title"]');
   const ogDescription = head.querySelector('[property="og:description"]');
+  const ogImage = head.querySelector('[property="og:image"]');
   // TODO: Test also image url when implemented
 
-  expect(title).toEqual(collectionTitle);
-  expect(metaDescription).toHaveAttribute("content", collectionDescription);
-  expect(ogTitle).toHaveAttribute("content", collectionTitle);
-  expect(ogDescription).toHaveAttribute("content", collectionDescription);
+  expect(title).toEqual(title);
+  expect(metaDescription).toHaveAttribute('content', socialMediaDescription);
+  expect(ogTitle).toHaveAttribute('content', title);
+  expect(ogDescription).toHaveAttribute('content', socialMediaDescription);
+  expect(ogImage).toHaveAttribute('content', image);
 });

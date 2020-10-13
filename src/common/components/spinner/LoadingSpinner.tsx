@@ -1,17 +1,30 @@
-import React, { FunctionComponent } from "react";
+import classNames from 'classnames';
+import React, { FunctionComponent } from 'react';
 
-import styles from "./loadingSpinner.module.scss";
+import IconLoadingSpinner from '../../../icons/IconLoadingSpinner';
+import styles from './loadingSpinner.module.scss';
 
-const LoadingSpinner: FunctionComponent<{ isLoading: boolean }> = ({
+interface Props {
+  hasPadding?: boolean;
+  isLoading: boolean;
+}
+
+const LoadingSpinner: FunctionComponent<Props> = ({
+  hasPadding = true,
   isLoading,
-  children
+  children,
 }) => {
   return (
     <>
       {isLoading ? (
-        <div className={styles.spinnerWrapper}>
+        <div
+          className={classNames(styles.spinnerWrapper, {
+            [styles.hasPadding]: hasPadding,
+          })}
+          data-testid="loading-spinner"
+        >
           <div className={styles.spinner}>
-            <div />
+            <IconLoadingSpinner />
           </div>
         </div>
       ) : (

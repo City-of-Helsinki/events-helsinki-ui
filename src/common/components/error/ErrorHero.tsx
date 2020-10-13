@@ -1,17 +1,24 @@
-import { Koros } from "hds-react";
-import React, { FunctionComponent } from "react";
+import classNames from 'classnames';
+import { Koros } from 'hds-react';
+import React from 'react';
 
-import Container from "../../../domain/app/layout/Container";
-import Icon404 from "../../../icons/Icon404";
-import isTestEnv from "../../../util/isTestEnv";
-import styles from "./errorHero.module.scss";
+import Container from '../../../domain/app/layout/Container';
+import Icon404 from '../../../icons/Icon404';
+import isTestEnv from '../../../util/isTestEnv';
+import styles from './errorHero.module.scss';
 
 interface Props {
+  smallMargin?: boolean;
   text: string;
   title: string;
 }
 
-const NotFound: FunctionComponent<Props> = ({ children, text, title }) => {
+const NotFound: React.FC<Props> = ({
+  children,
+  smallMargin = false,
+  text,
+  title,
+}) => {
   return (
     <>
       <div className={styles.errorHero}>
@@ -22,8 +29,16 @@ const NotFound: FunctionComponent<Props> = ({ children, text, title }) => {
           <div className={styles.linkWrapper}>{children}</div>
         </Container>
       </div>
+
       {!isTestEnv && (
-        <Koros className={styles.koros} flipHorizontal={true} type="basic" />
+        /* istanbul ignore next */
+        <Koros
+          className={classNames(styles.koros, {
+            [styles.smallMargin]: smallMargin,
+          })}
+          flipHorizontal={true}
+          type="basic"
+        />
       )}
     </>
   );

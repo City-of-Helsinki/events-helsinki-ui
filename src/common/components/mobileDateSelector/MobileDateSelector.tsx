@@ -1,12 +1,13 @@
-import classNames from "classnames";
-import React from "react";
-import { useTranslation } from "react-i18next";
+import classNames from 'classnames';
+import { IconCalendar } from 'hds-react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { DATE_TYPES } from "../../../constants";
-import IconCalendar from "../../../icons/IconCalendar";
-import ToggleButton from "../toggleButton/ToggleButton";
-import styles from "./mobileDateSelector.module.scss";
-import MobileDateSelectorMenu from "./MobileDateSelectorMenu";
+import { DATE_TYPES } from '../../../constants';
+import { translateValue } from '../../../util/translateUtils';
+import ToggleButton from '../toggleButton/ToggleButton';
+import styles from './mobileDateSelector.module.scss';
+import MobileDateSelectorMenu from './MobileDateSelectorMenu';
 
 interface Props {
   dateTypes: string[];
@@ -25,9 +26,10 @@ const MobileDateSelector: React.FC<Props> = ({
   onChangeDateTypes,
   onChangeEndDate,
   onChangeStartDate,
-  startDate
+  startDate,
 }) => {
   const closeBtnRef = React.useRef<HTMLButtonElement | null>(null);
+  const toggleBtnRef = React.useRef<HTMLButtonElement | null>(null);
   const dateSelector = React.useRef<HTMLDivElement | null>(null);
 
   const { t } = useTranslation();
@@ -36,7 +38,7 @@ const MobileDateSelector: React.FC<Props> = ({
 
   const handleClickButton = (value: string) => {
     if (dateTypes.indexOf(value) !== -1) {
-      onChangeDateTypes(dateTypes.filter(item => item !== value));
+      onChangeDateTypes(dateTypes.filter((item) => item !== value));
     } else {
       onChangeDateTypes([...dateTypes, value]);
     }
@@ -48,63 +50,62 @@ const MobileDateSelector: React.FC<Props> = ({
     }
   }, [isMenuOpen]);
 
-  const isComponentFocused = React.useCallback(() => {
+  const isDateSelectorFocused = React.useCallback(() => {
     const active = document.activeElement;
-    const current = dateSelector && dateSelector.current;
+    const current = dateSelector.current;
 
-    if (current && active instanceof Node && current.contains(active)) {
-      return true;
-    }
-    return false;
+    return current?.contains(active);
   }, []);
 
   const handleDocumentClick = (event: MouseEvent) => {
     const target = event.target;
-    const current = dateSelector && dateSelector.current;
+    const current = dateSelector.current;
 
     // Close menu when clicking outside of the component
-    if (!(current && target instanceof Node && current.contains(target))) {
+    if (!(target instanceof Node && current?.contains(target))) {
       setIsMenuOpen(false);
     }
   };
 
   const handleDocumentFocusin = React.useCallback(() => {
-    if (!isComponentFocused()) {
+    if (!isDateSelectorFocused()) {
       setIsMenuOpen(false);
     }
-  }, [isComponentFocused]);
+  }, [isDateSelectorFocused]);
 
   const handleDocumentKeyDown = React.useCallback(
     (event: KeyboardEvent) => {
-      if (!isComponentFocused()) return;
+      if (!isDateSelectorFocused()) return;
 
       switch (event.key) {
-        case "ArrowUp":
+        case 'ArrowUp':
           ensureMenuIsOpen();
           event.preventDefault();
           break;
-        case "ArrowDown":
+        case 'ArrowDown':
           ensureMenuIsOpen();
           event.preventDefault();
           break;
-        case "Escape":
+        case 'Escape':
           setIsMenuOpen(false);
+          toggleBtnRef.current?.focus();
+
           event.preventDefault();
           break;
       }
     },
-    [ensureMenuIsOpen, isComponentFocused]
+    [ensureMenuIsOpen, isDateSelectorFocused]
   );
 
   React.useEffect(() => {
-    document.addEventListener("click", handleDocumentClick);
-    document.addEventListener("keydown", handleDocumentKeyDown);
-    document.addEventListener("focusin", handleDocumentFocusin);
+    document.addEventListener('click', handleDocumentClick);
+    document.addEventListener('keydown', handleDocumentKeyDown);
+    document.addEventListener('focusin', handleDocumentFocusin);
     // Clean up event listener to prevent memory leaks
     return () => {
-      document.removeEventListener("click", handleDocumentClick);
-      document.removeEventListener("keydown", handleDocumentKeyDown);
-      document.removeEventListener("focusin", handleDocumentFocusin);
+      document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener('keydown', handleDocumentKeyDown);
+      document.removeEventListener('focusin', handleDocumentFocusin);
     };
   }, [handleDocumentFocusin, handleDocumentKeyDown]);
 
@@ -118,44 +119,33 @@ const MobileDateSelector: React.FC<Props> = ({
 
   return (
     <div className={styles.mobileDateSelector}>
-      <ToggleButton
-        isSelected={dateTypes.indexOf(DATE_TYPES.TODAY) !== -1}
-        onClick={handleClickButton}
-        text={t("commons.dateSelector.dateTypeToday")}
-        value={DATE_TYPES.TODAY}
-      />
-      <ToggleButton
-        isSelected={dateTypes.indexOf(DATE_TYPES.TOMORROW) !== -1}
-        onClick={handleClickButton}
-        text={t("commons.dateSelector.dateTypeTomorrow")}
-        value={DATE_TYPES.TOMORROW}
-      />
-      <ToggleButton
-        isSelected={dateTypes.indexOf(DATE_TYPES.THIS_WEEK) !== -1}
-        onClick={handleClickButton}
-        text={t("commons.dateSelector.dateTypeThisWeek")}
-        value={DATE_TYPES.THIS_WEEK}
-      />
-      <ToggleButton
-        isSelected={dateTypes.indexOf(DATE_TYPES.WEEKEND) !== -1}
-        onClick={handleClickButton}
-        text={t("commons.dateSelector.dateTypeWeekend")}
-        value={DATE_TYPES.WEEKEND}
-      />
+      {Object.values(DATE_TYPES).map((dateType) => {
+        return (
+          <ToggleButton
+            key={dateType}
+            isSelected={dateTypes.indexOf(dateType) !== -1}
+            onClick={handleClickButton}
+            text={translateValue('commons.dateSelector.dateType', dateType, t)}
+            value={dateType}
+          />
+        );
+      })}
+
       <div ref={dateSelector} className={styles.menuWrapper}>
         <ToggleButton
+          buttonRef={toggleBtnRef}
           icon={
             <IconCalendar
               className={classNames(styles.iconCalendar, {
-                [styles.isSelected]: !!endDate || !!startDate
+                [styles.isSelected]: !!endDate || !!startDate,
               })}
             />
           }
           isSelected={!!endDate || !!startDate}
           onClick={toggleMenu}
-          testId={"open-date-selector-button"}
-          text={t("commons.dateSelector.menu.buttonCustom")}
-          value={"customDate"}
+          testId={'open-date-selector-button'}
+          text={t('commons.dateSelector.menu.buttonCustom')}
+          value={'customDate'}
         />
         <MobileDateSelectorMenu
           closeBtnRef={closeBtnRef}

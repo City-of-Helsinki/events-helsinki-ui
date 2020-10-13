@@ -1,15 +1,19 @@
-import { ApolloClient } from "apollo-client";
-import { i18n as i18nType } from "i18next";
-import * as React from "react";
-import { ApolloProvider } from "react-apollo";
-import { I18nextProvider } from "react-i18next";
-import { StaticRouter } from "react-router-dom";
+import { ApolloClient } from 'apollo-client';
+import { i18n as i18nType } from 'i18next';
+import * as React from 'react';
+import { ApolloProvider } from 'react-apollo';
+import { I18nextProvider } from 'react-i18next';
+import { StaticRouter } from 'react-router-dom';
 
-import AppRoutes from "../domain/app/AppRoutes";
+import App from '../domain/app/App';
+
+export interface StaticContext {
+  url?: string;
+}
 
 interface Props {
-  client: ApolloClient<object>;
-  context: object;
+  client: ApolloClient<Record<string, unknown>>;
+  context: StaticContext;
   url: string;
   i18n: i18nType;
 }
@@ -19,7 +23,7 @@ const ServerApp: React.FC<Props> = ({ client, context, url, i18n }) => {
     <I18nextProvider i18n={i18n}>
       <ApolloProvider client={client}>
         <StaticRouter location={url} context={context}>
-          <AppRoutes />
+          <App />
         </StaticRouter>
       </ApolloProvider>
     </I18nextProvider>
