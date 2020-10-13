@@ -5,7 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 import { I18nextProvider } from 'react-i18next';
 import { StaticRouter } from 'react-router-dom';
 
-import AppRoutes from '../domain/app/routes/AppRoutes';
+import App from '../domain/app/App';
 
 export interface StaticContext {
   url?: string;
@@ -23,7 +23,7 @@ const ServerApp: React.FC<Props> = ({ client, context, url, i18n }) => {
     <I18nextProvider i18n={i18n}>
       <ApolloProvider client={client}>
         <StaticRouter location={url} context={context}>
-          <AppRoutes />
+          <App />
         </StaticRouter>
       </ApolloProvider>
     </I18nextProvider>

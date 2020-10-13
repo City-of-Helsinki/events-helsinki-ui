@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { render } from '../../../util/testUtils';
+import { actWait, render } from '../../../util/testUtils';
 import App from '../App';
 
-it('renders without crashing', () => {
+it('renders without crashing', async () => {
   render(<App />);
+  await actWait();
 });

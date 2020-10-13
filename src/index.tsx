@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/browser';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './domain/app/App';
+import BrowserApp from './domain/app/BrowserApp';
 
 if (process.env.REACT_APP_SENTRY_ENVIRONMENT) {
   Sentry.init({
@@ -11,4 +11,4 @@ if (process.env.REACT_APP_SENTRY_ENVIRONMENT) {
   });
 }
 
-ReactDOM.hydrate(<App />, document.getElementById('root'));
+ReactDOM.hydrate(<BrowserApp />, document.getElementById('root'));
