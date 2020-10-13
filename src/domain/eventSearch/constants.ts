@@ -93,3 +93,17 @@ export const MUSEUM_KEYWORDS = [
   'matko:museo', // Museo
   'yso:p4934', // Museot
 ];
+
+export const MAPPED_CATEGORIES: Record<string, string> = {
+  [CATEGORIES.CULTURE]: CULTURE_KEYWORDS.join(','),
+  [CATEGORIES.DANCE]: 'yso:p1278',
+  [CATEGORIES.FOOD]: 'yso:p3670',
+  [CATEGORIES.INFLUENCE]: INFLUENCE_KEYWORDS.join(','),
+  [CATEGORIES.MISC]: 'yso:p2108',
+  [CATEGORIES.MOVIE]: 'yso:p1235',
+  [CATEGORIES.MUSEUM]: MUSEUM_KEYWORDS.join(','),
+  [CATEGORIES.MUSIC]: 'yso:p1808',
+  [CATEGORIES.NATURE]: 'yso:p2771',
+  [CATEGORIES.SPORT]: 'yso:p965',
+  [CATEGORIES.THEATRE]: 'yso:p2625',
+};

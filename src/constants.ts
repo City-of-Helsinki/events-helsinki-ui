@@ -10,6 +10,13 @@ export const AUTOSUGGEST_KEYWORD_BLACK_LIST = [
   'kulke:354', // Seniorit
 ];
 
+export const EXTLINK = {
+  EXTLINK_FACEBOOK: 'extlink_facebook',
+  EXTLINK_INSTAGRAM: 'extlink_instagram',
+  EXTLINK_TWITTER: 'extlink_twitter',
+  EXTLINK_YOUTUBE: 'extlink_youtube',
+};
+
 export const DATE_TYPES = {
   TODAY: 'today',
   TOMORROW: 'tomorrow',

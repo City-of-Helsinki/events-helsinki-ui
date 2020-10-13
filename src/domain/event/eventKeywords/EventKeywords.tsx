@@ -1,4 +1,3 @@
-import { isThisWeek, isToday } from 'date-fns';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
@@ -11,7 +10,7 @@ import scrollToTop from '../../../util/scrollToTop';
 import { ROUTES } from '../../app/constants';
 import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
 import { getSearchQuery } from '../../eventSearch/utils';
-import { getEventKeywords, isEventFree } from '../EventUtils';
+import { getEventFields } from '../EventUtils';
 
 interface Props {
   blackOnMobile?: boolean;
@@ -30,18 +29,15 @@ const EventKeywords: React.FC<Props> = ({
   const history = useHistory();
   const { t } = useTranslation();
   const locale = useLocale();
+  const { freeEvent, keywords, thisWeek, today } = getEventFields(
+    event,
+    locale
+  );
 
-  const startTime = event.startTime;
-  const today = startTime ? isToday(new Date(startTime)) : false;
-  const keywords = getEventKeywords(event, locale);
-
-  const thisWeek = startTime ? isThisWeek(new Date(startTime)) : false;
-
-  if (!today && !thisWeek && (!keywords || !keywords.length)) {
-    return null;
-  }
-
-  const handleClick = (type: 'dateType' | 'isFree' | 'text', value = '') => {
+  const handleClick = (
+    type: 'dateType' | 'isFree' | 'text',
+    value = ''
+  ) => () => {
     const search = getSearchQuery({
       ...DEFAULT_SEARCH_FILTERS,
       dateTypes: type === 'dateType' ? [value] : [],
@@ -52,6 +48,16 @@ const EventKeywords: React.FC<Props> = ({
     history.push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
     scrollToTop();
   };
+
+  const showComponent =
+    today ||
+    thisWeek ||
+    (showKeywords && keywords.length) ||
+    (showIsFree && freeEvent);
+
+  if (!showComponent) {
+    return null;
+  }
 
   return (
     <>
@@ -64,7 +70,7 @@ const EventKeywords: React.FC<Props> = ({
               hideOnMobile={hideKeywordsOnMobile}
               key={keyword.id}
               keyword={keyword.name}
-              onClick={() => handleClick('text', keyword.name)}
+              onClick={handleClick('text', keyword.name)}
             />
           );
         })}
@@ -72,21 +78,21 @@ const EventKeywords: React.FC<Props> = ({
         <Keyword
           color="engelLight50"
           keyword={t('event.categories.labelToday')}
-          onClick={() => handleClick('dateType', DATE_TYPES.TODAY)}
+          onClick={handleClick('dateType', DATE_TYPES.TODAY)}
         />
       )}
       {!today && thisWeek && (
         <Keyword
           color="engelLight50"
           keyword={t('event.categories.labelThisWeek')}
-          onClick={() => handleClick('dateType', DATE_TYPES.THIS_WEEK)}
+          onClick={handleClick('dateType', DATE_TYPES.THIS_WEEK)}
         />
       )}
-      {showIsFree && isEventFree(event) && (
+      {showIsFree && freeEvent && (
         <Keyword
           color="tramLight20"
           keyword={t('event.categories.labelFree')}
-          onClick={() => handleClick('isFree')}
+          onClick={handleClick('isFree')}
         />
       )}
     </>

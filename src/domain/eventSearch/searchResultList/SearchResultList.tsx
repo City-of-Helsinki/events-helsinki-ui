@@ -12,7 +12,6 @@ interface Props {
   eventsData: EventListQuery;
   loading: boolean;
   onLoadMore: () => void;
-  showCount?: boolean;
 }
 
 const SearchResultList: React.FC<Props> = ({

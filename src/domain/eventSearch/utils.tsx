@@ -1,4 +1,11 @@
-import { addDays, endOfWeek, isPast, startOfWeek, subDays } from 'date-fns';
+import {
+  addDays,
+  endOfWeek,
+  isPast,
+  isToday,
+  startOfWeek,
+  subDays,
+} from 'date-fns';
 import { IconSpeechbubbleText } from 'hds-react';
 import { TFunction } from 'i18next';
 import forEach from 'lodash/forEach';
@@ -24,11 +31,9 @@ import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
 import {
   CATEGORIES,
-  CULTURE_KEYWORDS,
   EVENT_SEARCH_FILTERS,
   EVENT_SORT_OPTIONS,
-  INFLUENCE_KEYWORDS,
-  MUSEUM_KEYWORDS,
+  MAPPED_CATEGORIES,
 } from './constants';
 import { CategoryOption, Filters, MappedFilters } from './types';
 
@@ -126,18 +131,12 @@ const getFilterDates = ({
   }
 
   if (dateTypes.includes(DATE_TYPES.WEEKEND)) {
-    end =
-      end && end > formatDate(sunday, dateFormat)
-        ? end
-        : formatDate(sunday, dateFormat);
+    end = formatDate(sunday, dateFormat);
     start = start && start < saturday ? start : saturday;
   }
 
   if (dateTypes.includes(DATE_TYPES.THIS_WEEK)) {
-    end =
-      end && end > formatDate(sunday, dateFormat)
-        ? end
-        : formatDate(sunday, dateFormat);
+    end = formatDate(sunday, dateFormat);
     start = formatDate(monday, dateFormat);
   }
 
@@ -174,7 +173,6 @@ export const getEventSearchVariables = ({
   sortOrder: EVENT_SORT_OPTIONS;
   superEventType: string[];
 }) => {
-  const dateFormat = 'yyyy-MM-dd';
   const {
     categories,
     dateTypes,
@@ -196,12 +194,12 @@ export const getEventSearchVariables = ({
     startTime: params.get(EVENT_SEARCH_FILTERS.START),
   });
 
-  if (!start || isPast(new Date(start))) {
-    start = getCurrentHour();
+  if (!start || isToday(new Date(start)) || isPast(new Date(start))) {
+    start = 'now';
   }
 
-  if (end && isPast(new Date(end))) {
-    end = formatDate(new Date(), dateFormat);
+  if (end && (isToday(new Date(end)) || isPast(new Date(end)))) {
+    end = 'today';
   }
 
   const mappedDivisions: string[] = divisions.length
@@ -214,34 +212,9 @@ export const getEventSearchVariables = ({
     keywordAnd.push('yso:p4354');
   }
 
-  const mappedCategories: string[] = categories.map((category) => {
-    switch (category) {
-      case CATEGORIES.CULTURE:
-        return CULTURE_KEYWORDS.join(',');
-      case CATEGORIES.DANCE:
-        return 'yso:p1278';
-      case CATEGORIES.FOOD:
-        return 'yso:p3670';
-      case CATEGORIES.INFLUENCE:
-        return INFLUENCE_KEYWORDS.join(',');
-      case CATEGORIES.MISC:
-        return 'yso:p2108';
-      case CATEGORIES.MOVIE:
-        return 'yso:p1235';
-      case CATEGORIES.MUSEUM:
-        return MUSEUM_KEYWORDS.join(',');
-      case CATEGORIES.MUSIC:
-        return 'yso:p1808';
-      case CATEGORIES.NATURE:
-        return 'yso:p2771';
-      case CATEGORIES.SPORT:
-        return 'yso:p965';
-      case CATEGORIES.THEATRE:
-        return 'yso:p2625';
-      default:
-        return '';
-    }
-  });
+  const mappedCategories: string[] = categories
+    .map((category) => MAPPED_CATEGORIES[category])
+    .filter((e) => e);
 
   // Combine and add keywords
 

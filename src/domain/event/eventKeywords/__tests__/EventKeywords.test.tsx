@@ -1,15 +1,113 @@
-import { render } from '@testing-library/react';
-import React from 'react';
-import { MemoryRouter } from 'react-router';
+import { advanceTo, clear } from 'jest-date-mock';
+import capitalize from 'lodash/capitalize';
+import * as React from 'react';
 
-import mockEvent from '../../__mocks__/eventDetails';
+import translations from '../../../../common/translation/i18n/fi.json';
+import {
+  EventFieldsFragment,
+  OfferFieldsFragment,
+} from '../../../../generated/graphql';
+import {
+  fakeEvent,
+  fakeKeyword,
+  fakeOffer,
+} from '../../../../util/mockDataUtils';
+import { render, screen, userEvent } from '../../../../util/testUtils';
 import EventKeywords from '../EventKeywords';
 
-it('EventKeywords matches snapshot', () => {
-  const { container } = render(
-    <MemoryRouter>
-      <EventKeywords event={mockEvent} showIsFree={true} />
-    </MemoryRouter>
+const startTime = '2020-06-22T07:00:00.000000Z';
+const endTime = '2020-06-22T10:00:00.000000Z';
+
+const keywordNames = ['keyword 1', 'keyword 2'];
+const keywords = keywordNames.map((name) =>
+  fakeKeyword({ name: { fi: name } })
+);
+
+const event = fakeEvent({
+  keywords,
+  startTime,
+  endTime,
+}) as EventFieldsFragment;
+
+afterAll(() => {
+  clear();
+});
+
+test('should render keywords and handle click', () => {
+  const { history } = render(
+    <EventKeywords event={event} showIsFree={true} showKeywords={true} />
   );
-  expect(container.firstChild).toMatchSnapshot();
+
+  keywordNames.forEach((keyword) => {
+    expect(
+      screen.queryByRole('button', { name: new RegExp(keyword, 'i') })
+    ).toBeInTheDocument();
+  });
+
+  userEvent.click(
+    screen.queryByRole('button', { name: new RegExp(keywordNames[0], 'i') })
+  );
+
+  expect(history.location.pathname).toBe('/fi/events');
+  expect(history.location.search).toBe(
+    `?text=${encodeURIComponent(capitalize(keywordNames[0]))}`
+  );
+});
+
+test('should not show keywords', () => {
+  render(
+    <EventKeywords event={event} showIsFree={true} showKeywords={false} />
+  );
+
+  keywordNames.forEach((keyword) => {
+    expect(
+      screen.queryByRole('button', { name: new RegExp(keyword, 'i') })
+    ).not.toBeInTheDocument();
+  });
+});
+
+test('should render today tag and handle click', () => {
+  advanceTo('2020-06-22');
+  const { history } = render(
+    <EventKeywords event={event} showIsFree={true} showKeywords={false} />
+  );
+
+  userEvent.click(
+    screen.queryByRole('button', {
+      name: translations.event.categories.labelToday,
+    })
+  );
+  expect(history.location.pathname).toBe('/fi/events');
+  expect(history.location.search).toBe('?dateTypes=today');
+});
+
+test('should render this week tag and handle click', () => {
+  advanceTo('2020-06-23');
+  const { history } = render(
+    <EventKeywords event={event} showIsFree={true} showKeywords={false} />
+  );
+
+  userEvent.click(
+    screen.queryByRole('button', {
+      name: translations.event.categories.labelThisWeek,
+    })
+  );
+  expect(history.location.pathname).toBe('/fi/events');
+  expect(history.location.search).toBe('?dateTypes=this_week');
+});
+
+test('should hide buy button for free events', () => {
+  const mockEvent = {
+    ...event,
+    offers: [fakeOffer({ isFree: true }) as OfferFieldsFragment],
+  };
+  render(
+    <EventKeywords event={mockEvent} showIsFree={true} showKeywords={false} />
+  );
+
+  expect(
+    screen.queryByRole('button', {
+      name: translations.event.categories.labelFree,
+    })
+  ).toBeInTheDocument();
 });

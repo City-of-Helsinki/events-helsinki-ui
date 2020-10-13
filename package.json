@@ -45,8 +45,8 @@
     "file-saver": "^2.0.2",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.3",
-    "hds-core": "0.13.2",
-    "hds-react": "0.13.2",
+    "hds-core": "0.13.3",
+    "hds-react": "0.13.3",
     "i18next": "^17.3.1",
     "i18next-browser-languagedetector": "^4.0.1",
     "i18next-express-middleware": "^1.9.1",
@@ -67,6 +67,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.3",
     "react-scroll": "^1.8.1",
+    "react-toastify": "^6.0.9",
     "sanitize-html": "^1.20.1",
     "serialize-javascript": "^3.1.0",
     "typescript": "3.9.3",
@@ -173,9 +174,6 @@
       "src/util/testUtils.tsx",
       "src/util/updateSitemap.ts",
       "src/util/date-fns/locale/buildLocalizeFn.ts"
-    ],
-    "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!hds-react)/"
     ]
   }
 }

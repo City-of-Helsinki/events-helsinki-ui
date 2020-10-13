@@ -38,7 +38,7 @@ afterAll(() => {
   clear();
 });
 
-test('should show all events ', async () => {
+test('should show all events', async () => {
   const events = fakeEvents(
     eventNames.length,
     eventNames.map((event, index) => ({
@@ -61,7 +61,7 @@ test('should show all events ', async () => {
   });
 });
 
-test('should show expired events ', async () => {
+test('should show expired events', async () => {
   advanceTo('2020-10-05');
 
   const events = fakeEvents(

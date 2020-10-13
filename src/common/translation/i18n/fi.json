@@ -17,10 +17,6 @@
     "category": {
       "ariaButtonRemove": "Poista kategoria: {{category}}"
     },
-    "collectionCard": {
-      "ariaLabelLink": "Siirry kokoelmaan: {{title}}",
-      "count": "{{count}} kpl"
-    },
     "dateSelector": {
       "dateTypeAll": "Koska tahansa",
       "dateTypeThisWeek": "Tällä viikolla",
@@ -41,9 +37,6 @@
       "menu": {
         "buttonClear": "Tyhjennä valinnat"
       }
-    },
-    "eventCard": {
-      "ariaLabelLink": "Siirry tapahtumaan: {{name}}"
     },
     "filter": {
       "ariaButtonRemove": "Poista suodatin: {{filter}}"
@@ -69,10 +62,17 @@
   },
   "collection": {
     "buttonShowAllPastEvents": "Näytä kaikki menneet",
+    "collectionCard": {
+      "ariaLabelLink": "Siirry kokoelmaan: {{title}}",
+      "count": "{{count}} kpl"
+    },
     "curatedEvents": {
       "linkOnlyExpiredEvents": "Tutustu kaikkiin kokoelmiin",
       "textEventNotFound": "Tapahtumaa ei löydy",
       "textOnlyExpiredEvents": "Valitettavasti tämän kokoelman kaikki suositellut tapahtumat ovat jo ehtineet päättyä. Käy tutustumassa muihin suosituksiimme ja löydä itsellesi tekemistä."
+    },
+    "eventList": {
+      "errorLoadMore": "Tapahtumien lataaminen epäonnistui"
     },
     "expired": {
       "linkSearchEvents": "Tutustu kaikkiin kokoelmiin",
@@ -110,6 +110,15 @@
       "title": "Kuvaus"
     },
     "eventCancelled": "Tapahtuma peruttu",
+    "eventCard": {
+      "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
+      "ariaLabelLink": "Siirry tapahtumaan: {{name}}",
+      "ariaLabelReadMore": "Lue lisää: {{name}}",
+      "buttonBuyTickets": "Osta liput",
+      "buttonReadMore": "Lue lisää",
+      "dateAndTime": "{{date}}, klo {{time}}",
+      "isFree": "Maksuton"
+    },
     "hero": {
       "ariaLabelBackButton": "Takaisin tapahtumahakuun",
       "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
@@ -118,7 +127,7 @@
       "offers": {
         "isFree": "Maksuton"
       },
-      "textEventClosed": "Älä huoli, Helsingistä löytyy paljon muuta tekemistä. ",
+      "textEventClosed": "Älä huoli, Helsingistä löytyy paljon muuta tekemistä.",
       "titleEventClosed": "Höh, etsimäsi tapahtuma on jo ehtinyt päättyä"
     },
     "info": {
@@ -127,12 +136,13 @@
       "buttonBuyTickets": "Osta liput",
       "directionsGoogle": "Reittiohjeet (Google)",
       "directionsHSL": "Reittiohjeet (HSL)",
+      "errorLoadMode": "Tapahtumien lataaminen epäonnistui",
       "extlinkFacebook": "Facebook",
       "extlinkInstagram": "Instagram",
       "extlinkTwitter": "Twitter",
       "extlinkYoutube": "Youtube",
       "labelDateAndTime": "Päivä ja aika",
-      "labelDistricts": "Löydä perille",
+      "labelDirections": "Löydä perille",
       "labelLanguages": "Kielet",
       "labelLocation": "Paikka",
       "labelOrganizer": "Järjestäjän tiedot",
@@ -177,15 +187,7 @@
     "ariaLiveSearchReady": "{{count}} hakutulosta",
     "buttonClearFilters": "Tyhjennä hakuehdot",
     "buttonLoadMore": "Näytä lisää tapahtumia ({{count}})",
-    "event": {
-      "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
-      "buttonBuyTickets": "Osta liput",
-      "buttonReadMore": "Lue lisää",
-      "dateAndTime": "{{date}}, klo {{time}}",
-      "offers": {
-        "isFree": "Maksuton"
-      }
-    },
+    "errorLoadMode": "Tapahtumien lataaminen epäonnistui",
     "noResultsInfo": {
       "bigText": "Voi vitsi, valitsemillasi hakuehdoilla ei löytynyt yhtään hakutulosta",
       "smallText": "Kokeile muuttamalla hakuehtoja ja varmasti löydät jotain kiinnostavaa tekemistä!"

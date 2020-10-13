@@ -7,23 +7,11 @@ $imageMobileHeight: 23.4375rem;
 $logoWidth: 5.5rem;
 
 .heroWrapper {
-  background: $hel-white;
+  background: var(--color-white);
   height: auto;
 
   @include respond_above(sm) {
-    background: $hel-copper-light-20;
-  }
-}
-
-.desktopOnly {
-  @include respond_below(sm) {
-    display: none !important;
-  }
-}
-
-.mobileOnly {
-  @include respond_above(sm) {
-    display: none !important;
+    background: var(--color-copper-light-20);
   }
 }
 
@@ -46,20 +34,6 @@ $logoWidth: 5.5rem;
     @include respond_below(sm) {
       padding: $basePadding 0;
       position: absolute;
-    }
-  }
-
-  .backButton {
-    height: 2.5rem;
-    width: 2.5rem;
-    border: none;
-    background-color: $hel-white;
-    display: flex;
-    justify-content: center;
-
-    svg {
-      height: 1.5rem;
-      width: 1.5rem;
     }
   }
 
@@ -106,7 +80,7 @@ $logoWidth: 5.5rem;
 
     .title {
       order: 3;
-      margin-top: 0.25rem;
+      margin: 0.25rem 0 0;
       font-size: 2rem;
       line-height: 2.5rem;
       font-weight: 600;
@@ -135,31 +109,6 @@ $logoWidth: 5.5rem;
     .buyButtonWrapper {
       order: 7;
     }
-
-    .infoWithIcon {
-      display: flex;
-      margin-top: 1rem;
-
-      .iconWrapper {
-        width: 2.5rem;
-      }
-
-      .iconTextWrapper {
-        flex: 1 1 0%;
-        line-height: 1.5rem;
-
-        p {
-          font-size: 1.125rem;
-          font-weight: 600;
-          margin: 0;
-        }
-      }
-    }
-  }
-
-  .icon {
-    height: 1.5rem;
-    width: 1.5rem;
   }
 
   .buyButtonWrapper {

@@ -1,11 +1,11 @@
-import classNames from 'classnames';
-import { isThisWeek, isToday } from 'date-fns';
 import { Button, IconArrowLeft, IconLocation, IconTicket } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import IconButton from '../../../common/components/iconButton/IconButton';
+import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
+import Visible from '../../../common/components/visible/Visible';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
@@ -15,7 +15,7 @@ import Container from '../../app/layout/Container';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
 import EventName from '../eventName/EventName';
-import { getEventFields, getEventPrice, isEventFree } from '../EventUtils';
+import { getEventFields, getEventPrice } from '../EventUtils';
 import styles from './eventHero.module.scss';
 
 interface Props {
@@ -37,15 +37,16 @@ const EventHero: React.FC<Props> = ({ event }) => {
     placeholderImage,
     shortDescription,
     startTime,
+    today,
+    thisWeek,
+    showBuyButton,
   } = getEventFields(event, locale);
   const eventPriceText = getEventPrice(
     event,
     locale,
     t('event.hero.offers.isFree')
   );
-  const today = startTime ? isToday(new Date(startTime)) : false;
-  const thisWeek = startTime ? isThisWeek(new Date(startTime)) : false;
-  const showBuyButton = !!offerInfoUrl && !isEventFree(event);
+
   const showKeywords = Boolean(today || thisWeek || keywords.length);
 
   const goToEventList = () => {
@@ -56,7 +57,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
     });
   };
 
-  const moveToBuyTicketsPage = () => {
+  const goToBuyTicketsPage = () => {
     window.open(offerInfoUrl);
   };
 
@@ -99,11 +100,11 @@ const EventHero: React.FC<Props> = ({ event }) => {
           </div>
           <div className={styles.leftPanel}>
             <div className={styles.textWrapper}>
-              <div className={styles.title}>
+              <h1 className={styles.title}>
                 <EventName event={event} />
-              </div>
+              </h1>
               <div className={styles.description}>{shortDescription}</div>
-              <div className={classNames(styles.date, styles.desktopOnly)}>
+              <Visible above="sm" className={styles.date}>
                 {!!startTime &&
                   getDateRangeStr({
                     start: startTime,
@@ -112,41 +113,24 @@ const EventHero: React.FC<Props> = ({ event }) => {
                     includeTime: true,
                     timeAbbreviation: t('commons.timeAbbreviation'),
                   })}
-              </div>
+              </Visible>
 
-              <div
-                className={classNames(
-                  styles.location,
-                  styles.infoWithIcon,
-                  styles.desktopOnly
-                )}
-              >
-                <div className={styles.iconWrapper}>
-                  <IconLocation className={styles.icon} />
-                </div>
-                <div className={styles.iconTextWrapper}>
+              <Visible above="sm" className={styles.location}>
+                <InfoWithIcon icon={<IconLocation />}>
                   <LocationText
                     event={event}
                     showDistrict={false}
                     showLocationName={true}
                   />
-                </div>
-              </div>
+                </InfoWithIcon>
+              </Visible>
 
-              <div
-                className={classNames(
-                  styles.price,
-                  styles.infoWithIcon,
-                  styles.desktopOnly
-                )}
-              >
-                <div className={styles.iconWrapper}>
-                  <IconTicket className={styles.icon} />
-                </div>
-                <div className={styles.iconTextWrapper}>
+              <Visible above="sm" className={styles.price}>
+                <InfoWithIcon icon={<IconTicket />}>
                   {eventPriceText || '-'}
-                </div>
-              </div>
+                </InfoWithIcon>
+              </Visible>
+
               {showKeywords && (
                 <div className={styles.categoryWrapper}>
                   <EventKeywords
@@ -157,20 +141,15 @@ const EventHero: React.FC<Props> = ({ event }) => {
                 </div>
               )}
               {showBuyButton && (
-                <div
-                  className={classNames(
-                    styles.buyButtonWrapper,
-                    styles.desktopOnly
-                  )}
-                >
+                <Visible above="sm" className={styles.buyButtonWrapper}>
                   <Button
                     aria-label={t('event.hero.ariaLabelBuyTickets')}
-                    onClick={moveToBuyTicketsPage}
+                    onClick={goToBuyTicketsPage}
                     variant="success"
                   >
                     {t('event.hero.buttonBuyTickets')}
                   </Button>
-                </div>
+                </Visible>
               )}
             </div>
           </div>

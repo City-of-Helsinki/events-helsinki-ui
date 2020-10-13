@@ -17,10 +17,6 @@
     "category": {
       "ariaButtonRemove": "Remove category: {{category}}"
     },
-    "collectionCard": {
-      "ariaLabelLink": "Go to collection: {{title}}",
-      "count": "{{count}} hits"
-    },
     "dateSelector": {
       "dateTypeAll": "At any day",
       "dateTypeThisWeek": "This week",
@@ -41,9 +37,6 @@
       "menu": {
         "buttonClear": "Clear selection"
       }
-    },
-    "eventCard": {
-      "ariaLabelLink": "Go to event: {{name}}"
     },
     "filter": {
       "ariaButtonRemove": "Remove filter: {{filter}}"
@@ -69,10 +62,17 @@
   },
   "collection": {
     "buttonShowAllPastEvents": "Show all past recommendations",
+    "collectionCard": {
+      "ariaLabelLink": "Go to collection: {{title}}",
+      "count": "{{count}} hits"
+    },
     "curatedEvents": {
       "linkOnlyExpiredEvents": "To all collections",
       "textEventNotFound": "Event not found",
       "textOnlyExpiredEvents": "Unfortunately all the events in this collection have already passed. Have a look at our other recommendations and collections to find more interesting events."
+    },
+    "eventList": {
+      "errorLoadMore": "Failed to load events"
     },
     "expired": {
       "linkSearchEvents": "To all collections",
@@ -106,9 +106,18 @@
       "labelThisWeek": "This week",
       "labelToday": "Today"
     },
-    "eventCancelled": "Event cancelled",
     "description": {
       "title": "Description"
+    },
+    "eventCancelled": "Event cancelled",
+    "eventCard": {
+      "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
+      "ariaLabelLink": "Go to event: {{name}}",
+      "ariaLabelReadMore": "Read more: {{name}}",
+      "buttonBuyTickets": "Buy tickets",
+      "buttonReadMore": "Read more",
+      "dateAndTime": "{{date}}, at {{time}}",
+      "isFree": "Free"
     },
     "hero": {
       "ariaLabelBackButton": "Back to event search",
@@ -118,7 +127,7 @@
       "offers": {
         "isFree": "Free"
       },
-      "textEventClosed": "Worry not, there are lots of ther things to do in Helsinki. ",
+      "textEventClosed": "Worry not, there are lots of ther things to do in Helsinki.",
       "titleEventClosed": "Oh no, the event you are looking for has already ended"
     },
     "info": {
@@ -127,12 +136,13 @@
       "buttonBuyTickets": "Buy tickets",
       "directionsGoogle": "Directions (Google)",
       "directionsHSL": "Directions (HSL)",
+      "errorLoadMore": "Failed to load events",
       "extlinkFacebook": "Facebook",
       "extlinkInstagram": "Instagram",
       "extlinkTwitter": "Twitter",
       "extlinkYoutube": "Youtube",
       "labelDateAndTime": "Date and time",
-      "labelDistricts": "Find your way",
+      "labelDirections": "Find your way",
       "labelLanguages": "Languages",
       "labelLocation": "Location",
       "labelOrganizer": "Organizer information",
@@ -177,15 +187,7 @@
     "ariaLiveSearchReady": "{{count}} search results",
     "buttonClearFilters": "Clear filters",
     "buttonLoadMore": "Show more events ({{count}})",
-    "event": {
-      "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
-      "buttonBuyTickets": "Buy tickets",
-      "buttonReadMore": "Read more",
-      "dateAndTime": "{{date}}, at {{time}}",
-      "offers": {
-        "isFree": "Free"
-      }
-    },
+    "errorLoadMore": "Failed to load events",
     "noResultsInfo": {
       "bigText": "Sorry, no search results were found for the search criteria you selected",
       "smallText": "Try changing your search criteria and you're sure to find something to do!"

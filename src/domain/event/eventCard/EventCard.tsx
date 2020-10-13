@@ -5,22 +5,22 @@ import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import { ROUTES } from '../../../domain/app/constants';
-import EventKeywords from '../../../domain/event/eventKeywords/EventKeywords';
-import LocationText from '../../../domain/event/eventLocation/EventLocationText';
-import EventName from '../../../domain/event/eventName/EventName';
-import {
-  getEventFields,
-  getEventPrice,
-  isEventClosed,
-} from '../../../domain/event/EventUtils';
+import IconButton from '../../../common/components/iconButton/IconButton';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import testImage from '../../../util/testImage';
-import IconButton from '../iconButton/IconButton';
+import { ROUTES } from '../../app/constants';
+import EventKeywords from '../eventKeywords/EventKeywords';
+import LocationText from '../eventLocation/EventLocationText';
+import EventName from '../eventName/EventName';
+import {
+  getEventCardId,
+  getEventFields,
+  getEventPrice,
+  isEventClosed,
+} from '../EventUtils';
 import styles from './eventCard.module.scss';
-import { getEventCardId } from './utils';
 
 interface Props {
   event: EventFieldsFragment;
@@ -78,8 +78,8 @@ const EventCard: React.FC<Props> = ({ event }) => {
 
   return (
     <Link
-      aria-label={t('commons.eventCard.ariaLabelLink', {
-        name: name,
+      aria-label={t('event.eventCard.ariaLabelLink', {
+        name,
       })}
       className={classNames(styles.eventCard, {
         [styles.eventClosed]: eventClosed,
@@ -125,7 +125,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
         <div className={styles.buttonWrapper}>
           <div ref={button}>
             <IconButton
-              ariaLabel={t('commons.eventCard.ariaLabelLink', {
+              ariaLabel={t('event.eventCard.ariaLabelLink', {
                 name,
               })}
               icon={<IconArrowRight />}

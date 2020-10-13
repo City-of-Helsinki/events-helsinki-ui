@@ -2,6 +2,7 @@
 import faker from 'faker';
 import merge from 'lodash/merge';
 
+import { EXTLINK } from '../constants';
 import {
   AboutPagesResponse,
   AccessibilityPagesResponse,
@@ -10,6 +11,7 @@ import {
   CollectionListResponse,
   EventDetails,
   EventListResponse,
+  ExternalLink,
   Image,
   InLanguage,
   Keyword,
@@ -20,6 +22,8 @@ import {
   LocalizedObject,
   Neighborhood,
   NeighborhoodListResponse,
+  Offer,
+  OrganizationDetails,
   Place,
   PlaceListResponse,
   StaticPage,
@@ -58,7 +62,7 @@ export const fakeEvent = (overrides?: Partial<EventDetails>): EventDetails => {
       startTime: '2020-07-13T05:51:05.761000Z',
       endTime: null,
       datePublished: null,
-      externalLinks: [] as any,
+      externalLinks: [fakeExternalLink()],
       offers: [] as any,
       subEvents: [] as any,
       eventStatus: 'EventScheduled',
@@ -69,6 +73,18 @@ export const fakeEvent = (overrides?: Partial<EventDetails>): EventDetails => {
     overrides
   );
 };
+
+export const fakeExternalLink = (
+  overrides?: Partial<ExternalLink>
+): ExternalLink =>
+  merge(
+    {
+      link: faker.internet.url(),
+      name: EXTLINK.EXTLINK_FACEBOOK,
+      __typename: 'ExternalLink',
+    },
+    overrides
+  );
 
 export const fakeImage = (overrides?: Partial<Image>): Image =>
   merge(
@@ -155,14 +171,35 @@ export const fakeKeyword = (overrides?: Partial<Keyword>): Keyword =>
       id: faker.random.uuid(),
       dataSource: 'yso',
       hasUpcomingEvents: true,
-      name: {
-        en: 'families',
-        fi: 'perheet',
-        sv: 'familjer',
-        __typename: 'LocalizedObject',
-      },
+      name: fakeLocalizedObject(),
       internalId: 'https://api.hel.fi/linkedevents-test/v1/keyword/yso:p4363/',
       __typename: 'Keyword',
+    },
+    overrides
+  );
+
+export const fakeOffer = (overrides?: Partial<Offer>): Offer =>
+  merge(
+    {
+      description: fakeLocalizedObject(),
+      infoUrl: fakeLocalizedObject(faker.internet.url()),
+      isFree: false,
+      price: fakeLocalizedObject(),
+      __typename: 'Offer',
+    },
+    overrides
+  );
+
+export const fakeOrganization = (
+  overrides?: Partial<OrganizationDetails>
+): OrganizationDetails =>
+  merge(
+    {
+      id: faker.random.uuid(),
+      internalId: faker.random.uuid(),
+      isAffiliated: false,
+      name: faker.company.companyName(),
+      __typename: 'OrganizationDetails',
     },
     overrides
   );

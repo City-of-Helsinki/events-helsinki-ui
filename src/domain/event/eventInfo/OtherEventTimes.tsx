@@ -3,6 +3,7 @@ import { IconAngleDown, IconArrowRight } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import IconButton from '../../../common/components/iconButton/IconButton';
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
@@ -74,11 +75,11 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
           },
         });
       } catch (e) {
-        console.error(e);
+        toast.error(t('event.info.errorLoadMode'));
       }
       setIsFetchingMore(false);
     },
-    [fetchMore, variables]
+    [fetchMore, t, variables]
   );
 
   React.useEffect(() => {
@@ -142,7 +143,9 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
                 <li key={subEvent.id}>
                   <span>{date}</span>
                   <IconButton
-                    ariaLabel={t('event.otherTimes.buttonReadMore', { date })}
+                    ariaLabel={t('event.otherTimes.buttonReadMore', {
+                      date,
+                    })}
                     icon={<IconArrowRight />}
                     onClick={moveToEventPage}
                     size="small"

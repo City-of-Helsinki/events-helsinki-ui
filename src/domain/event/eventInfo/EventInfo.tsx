@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/browser';
-import classNames from 'classnames';
 import { saveAs } from 'file-saver';
 import {
   Button,
@@ -14,8 +13,10 @@ import { createEvent, EventAttributes } from 'ics';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
 import Link from '../../../common/components/link/Link';
 import linkStyles from '../../../common/components/link/link.module.scss';
+import Visible from '../../../common/components/visible/Visible';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import IconDirections from '../../../icons/IconDirections';
@@ -100,140 +101,112 @@ const EventInfo: React.FC<Props> = ({ event }) => {
     <div className={styles.eventInfo}>
       <div className={styles.contentWrapper}>
         {/* Date info */}
-        <div className={styles.infoWithIcon}>
-          <div className={styles.iconWrapper}>
-            <IconCalendarClock className={styles.icon} />
-          </div>
-          <div className={styles.iconTextWrapper}>
-            <h2 className={styles.title}>{t('event.info.labelDateAndTime')}</h2>
+        <InfoWithIcon icon={<IconCalendarClock />}>
+          <h2 className={styles.title}>{t('event.info.labelDateAndTime')}</h2>
 
-            {!!startTime &&
-              getDateRangeStr({
+          {!!startTime && (
+            <>
+              {getDateRangeStr({
                 start: startTime,
                 end: endTime,
                 locale,
                 includeTime: true,
                 timeAbbreviation: t('commons.timeAbbreviation'),
               })}
-            {startTime && (
               <button className={linkStyles.link} onClick={downloadIcsFile}>
                 {t('event.info.buttonAddToCalendar')}
                 <IconAngleRight />
               </button>
-            )}
-          </div>
-        </div>
+            </>
+          )}
+        </InfoWithIcon>
 
         {/* Other event times */}
         <OtherEventTimes event={event} />
 
         {/* Location info */}
-        <div className={styles.infoWithIcon}>
-          <div className={styles.iconWrapper}>
-            <IconLocation className={styles.icon} />
-          </div>
-          <div className={styles.iconTextWrapper}>
-            <h2 className={styles.title}>{t('event.info.labelLocation')}</h2>
-            <div className={styles.mobileOnly}>
-              {[locationName, streetAddress, district, addressLocality]
-                .filter((e) => e)
-                .join(', ')}
-            </div>
-            {locationName && (
-              <div className={styles.desktopOnly}>{locationName}</div>
-            )}
-            {streetAddress && (
-              <div className={styles.desktopOnly}>{streetAddress}</div>
-            )}
-            {district && <div className={styles.desktopOnly}>{district}</div>}
-            {addressLocality && (
-              <div className={styles.desktopOnly}>{addressLocality}</div>
-            )}
-            <Link isExternal={true} to={getServiceMapUrl(event, locale, false)}>
-              {t('event.info.openMap')}
-            </Link>
-          </div>
-        </div>
+        <InfoWithIcon icon={<IconLocation />}>
+          <h2 className={styles.title}>{t('event.info.labelLocation')}</h2>
+          <Visible below="sm">
+            {[locationName, streetAddress, district, addressLocality]
+              .filter((e) => e)
+              .join(', ')}
+          </Visible>
+          <Visible above="sm">
+            {[locationName, streetAddress, district, addressLocality]
+              .filter((e) => e)
+              .map((item) => {
+                return <div key={item}>{item}</div>;
+              })}
+          </Visible>
+          <Link isExternal={true} to={getServiceMapUrl(event, locale, false)}>
+            {t('event.info.openMap')}
+          </Link>
+        </InfoWithIcon>
 
         {/* Languages */}
         {!!languages.length && (
-          <div className={styles.infoWithIcon}>
-            <div className={styles.iconWrapper}>
-              <IconGlobe className={styles.icon} />
-            </div>
-            <div className={styles.iconTextWrapper}>
-              <h2 className={styles.title}>{t('event.info.labelLanguages')}</h2>
-              <div>{languages.join(', ')}</div>
-            </div>
-          </div>
+          <InfoWithIcon icon={<IconGlobe />}>
+            <h2 className={styles.title}>{t('event.info.labelLanguages')}</h2>
+            <div>{languages.join(', ')}</div>
+          </InfoWithIcon>
         )}
 
         {/* Other info */}
         {showOtherInfo && (
-          <div className={styles.infoWithIcon}>
-            <div className={styles.iconWrapper}>
-              <IconInfoCircle className={styles.icon} />
-            </div>
-            <div className={styles.iconTextWrapper}>
-              <h2 className={styles.title}>{t('event.info.labelOtherInfo')}</h2>
-              {email && <div>{email}</div>}
-              {telephone && <div>{telephone}</div>}
-              {infoUrl && (
-                <Link isExternal={true} to={infoUrl}>
-                  {t('event.info.linkWebPage')}
-                </Link>
-              )}
+          <InfoWithIcon icon={<IconInfoCircle />}>
+            <h2 className={styles.title}>{t('event.info.labelOtherInfo')}</h2>
+            {[email, telephone]
+              .filter((e) => e)
+              .map((item) => (
+                <div key={item}>{item}</div>
+              ))}
+            {infoUrl && (
+              <Link isExternal={true} to={infoUrl}>
+                {t('event.info.linkWebPage')}
+              </Link>
+            )}
 
-              {externalLinks.map((externalLink, index) => {
-                return (
-                  !!externalLink.link && (
-                    <Link key={index} isExternal={true} to={externalLink.link}>
-                      {translateValue(
-                        'event.info.',
-                        externalLink.name || '',
-                        t
-                      )}
-                    </Link>
-                  )
-                );
-              })}
-            </div>
-          </div>
+            {externalLinks.map((externalLink, index) => {
+              return (
+                !!externalLink.link && (
+                  <Link key={index} isExternal={true} to={externalLink.link}>
+                    {translateValue(
+                      'event.info.',
+                      externalLink.name as string,
+                      t
+                    )}
+                  </Link>
+                )
+              );
+            })}
+          </InfoWithIcon>
         )}
 
         {/* Directions */}
-        <div className={styles.infoWithIcon}>
-          <div className={styles.iconWrapper}>
-            <IconDirections className={styles.icon} />
-          </div>
-          <div className={styles.iconTextWrapper}>
-            <h2 className={styles.title}>{t('event.info.labelDistricts')}</h2>
-            <Link isExternal={true} to={googleDirectionsLink}>
-              {t('event.info.directionsGoogle')}
-            </Link>
-            <Link isExternal={true} to={hslDirectionsLink}>
-              {t('event.info.directionsHSL')}
-            </Link>
-          </div>
-        </div>
+        <InfoWithIcon icon={<IconDirections />}>
+          <h2 className={styles.title}>{t('event.info.labelDirections')}</h2>
+          <Link isExternal={true} to={googleDirectionsLink}>
+            {t('event.info.directionsGoogle')}
+          </Link>
+          <Link isExternal={true} to={hslDirectionsLink}>
+            {t('event.info.directionsHSL')}
+          </Link>
+        </InfoWithIcon>
+
         {/* Organization info */}
         <OrganizationInfo event={event} />
 
         {/* Price info */}
-        <div className={classNames(styles.infoWithIcon, styles.mobileOnly)}>
-          <div className={styles.iconWrapper}>
-            <IconTicket className={styles.icon} />
-          </div>
-          <div className={styles.iconTextWrapper}>
+        <Visible below="sm">
+          <InfoWithIcon icon={<IconTicket />}>
             <h2 className={styles.title}>{t('event.info.labelPrice')}</h2>
             {eventPriceText || '-'}
-          </div>
-        </div>
+          </InfoWithIcon>
+        </Visible>
 
         {offerInfoUrl && (
-          <div
-            className={classNames(styles.buyButtonWrapper, styles.mobileOnly)}
-          >
+          <Visible below="sm" className={styles.buyButtonWrapper}>
             <Button
               aria-label={t('event.info.ariaLabelBuyTickets')}
               fullWidth={true}
@@ -242,7 +215,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
             >
               {t('event.info.buttonBuyTickets')}
             </Button>
-          </div>
+          </Visible>
         )}
       </div>
     </div>

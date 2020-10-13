@@ -1,4 +1,4 @@
-import { isPast } from 'date-fns';
+import { isPast, isThisWeek, isToday } from 'date-fns';
 import capitalize from 'lodash/capitalize';
 
 import { EVENT_STATUS } from '../../constants';
@@ -14,6 +14,11 @@ import {
   EVENT_SOME_IMAGE,
 } from './constants';
 import { KeywordOption } from './types';
+
+export const getEventCardId = (id: string): string => `event-card_${id}`;
+
+export const getLargeEventCardId = (id: string): string =>
+  `large-event-card_${id}`;
 
 /**
  * Check is event closed
@@ -53,7 +58,7 @@ export const getEventIdFromUrl = (url: string): string | null => {
   const trimmedUrl = url.replace(/\?(.*)/, '');
   const eventId = trimmedUrl.match(/event\/(.*)/);
 
-  return eventId?.length ? eventId[1].replace('/', '') : null;
+  return eventId?.[1].replace('/', '') || null;
 };
 
 /**
@@ -96,6 +101,7 @@ export const getEventKeywords = (
     }))
     .filter(
       (keyword, index, arr) =>
+        !!keyword.id &&
         !!keyword.name &&
         !EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
         arr.findIndex(
@@ -183,33 +189,13 @@ const getEventLocationFields = (
 };
 
 /**
- * Get Google link to show event location
- * @param {object} event
- * @param {string} locale
- * @return {string}
- */
-export const getGoogleLink = (
-  event: EventFieldsFragment,
-  locale: Language
-): string => {
-  const {
-    addressLocality,
-    coordinates,
-    postalCode,
-    streetAddress,
-  } = getEventLocationFields(event, locale);
-
-  return `https://www.google.com/maps/place/${streetAddress},+${postalCode}+${addressLocality}/@${coordinates.join(
-    ','
-  )}`.replace(/\s/g, '+');
-};
-
-/**
  * Get palvelukartta compatible id for the location
  * @param {object} location
  * @return {string}
  */
-const getLocationId = (location?: PlaceFieldsFragment | null) => {
+export const getLocationId = (
+  location?: PlaceFieldsFragment | null
+): string => {
   return location?.id ? location?.id.split(':').slice(1).join() : '';
 };
 
@@ -305,6 +291,8 @@ export const getEventFields = (
   locale: Language
 ) => {
   const eventLocation = event.location;
+  const offerInfoUrl = getOfferInfoUrl(event, locale);
+  const startTime = event.startTime;
   return {
     description: getLocalisedString(event.description, locale),
     district: getEventDistrict(event, locale),
@@ -317,17 +305,23 @@ export const getEventFields = (
     hslDirectionsLink: getHslDirectionsLink(event, locale),
     imageUrl: getEventImageUrl(event),
     infoUrl: getLocalisedString(event.infoUrl, locale),
-    keywords: event.keywords,
+    keywords: getEventKeywords(event, locale),
     languages: event.inLanguage
       .map((item) => capitalize(getLocalisedString(item.name, locale)))
       .filter((e) => e),
     locationName: getLocalisedString(eventLocation?.name, locale),
-    offerInfoUrl: getOfferInfoUrl(event, locale),
+    offerInfoUrl,
     placeholderImage: getEventPlaceholderImageUrl(event),
+    provider: getLocalisedString(event.provider, locale),
+    publisher: event.publisher || '',
     shortDescription: getLocalisedString(event.shortDescription, locale),
     someImageUrl: getEventSomeImageUrl(event),
-    startTime: event.startTime,
+    startTime,
     telephone: getLocalisedString(eventLocation?.telephone, locale),
+    freeEvent: isEventFree(event),
+    today: startTime ? isToday(new Date(startTime)) : false,
+    thisWeek: startTime ? isThisWeek(new Date(startTime)) : false,
+    showBuyButton: !!offerInfoUrl && !isEventFree(event),
     ...getEventLocationFields(event, locale),
   };
 };

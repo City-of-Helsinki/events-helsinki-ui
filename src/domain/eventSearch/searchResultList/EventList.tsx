@@ -3,10 +3,10 @@ import { Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import EventCard from '../../../common/components/eventCard/EventCard';
-import LargeEventCard from '../../../common/components/eventCard/LargeEventCard';
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import { EventListQuery } from '../../../generated/graphql';
+import EventCard from '../../event/eventCard/EventCard';
+import LargeEventCard from '../../event/eventCard/LargeEventCard';
 import styles from './eventList.module.scss';
 
 interface Props {

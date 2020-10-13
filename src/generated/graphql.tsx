@@ -616,6 +616,21 @@ export type LocalizedFieldsFragment = (
   & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
 );
 
+export type OfferFieldsFragment = (
+  { __typename?: 'Offer' }
+  & Pick<Offer, 'isFree'>
+  & { price: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & LocalizedFieldsFragment
+  )>, description: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & LocalizedFieldsFragment
+  )>, infoUrl: Maybe<(
+    { __typename?: 'LocalizedObject' }
+    & LocalizedFieldsFragment
+  )> }
+);
+
 export type EventFieldsFragment = (
   { __typename?: 'EventDetails' }
   & Pick<EventDetails, 'id' | 'eventStatus' | 'endTime' | 'startTime' | 'publisher'>
@@ -642,17 +657,7 @@ export type EventFieldsFragment = (
     & PlaceFieldsFragment
   )>, offers: Array<(
     { __typename?: 'Offer' }
-    & Pick<Offer, 'isFree'>
-    & { price: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & LocalizedFieldsFragment
-    )>, description: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & LocalizedFieldsFragment
-    )>, infoUrl: Maybe<(
-      { __typename?: 'LocalizedObject' }
-      & LocalizedFieldsFragment
-    )> }
+    & OfferFieldsFragment
   )>, name: (
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
@@ -1108,6 +1113,20 @@ export const PlaceFieldsFragmentDoc = gql`
   }
 }
     `;
+export const OfferFieldsFragmentDoc = gql`
+    fragment offerFields on Offer {
+  isFree
+  price {
+    ...localizedFields
+  }
+  description {
+    ...localizedFields
+  }
+  infoUrl {
+    ...localizedFields
+  }
+}
+    ${LocalizedFieldsFragmentDoc}`;
 export const EventFieldsFragmentDoc = gql`
     fragment eventFields on EventDetails {
   id
@@ -1136,16 +1155,7 @@ export const EventFieldsFragmentDoc = gql`
     ...placeFields
   }
   offers {
-    isFree
-    price {
-      ...localizedFields
-    }
-    description {
-      ...localizedFields
-    }
-    infoUrl {
-      ...localizedFields
-    }
+    ...offerFields
   }
   name {
     ...localizedFields
@@ -1168,7 +1178,8 @@ export const EventFieldsFragmentDoc = gql`
 }
     ${LocalizedFieldsFragmentDoc}
 ${KeywordFieldsFragmentDoc}
-${PlaceFieldsFragmentDoc}`;
+${PlaceFieldsFragmentDoc}
+${OfferFieldsFragmentDoc}`;
 export const LocalizedCmsImageFieldsFragmentDoc = gql`
     fragment localizedCmsImageFields on LocalizedCmsImage {
   en {
