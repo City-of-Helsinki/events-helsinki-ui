@@ -10,9 +10,9 @@ import { useSSR } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import { ScrollToTop } from '../../common/route/RouteUtils';
 import apolloClient from './apollo/apolloClient';
 import AppRoutes from './routes/AppRoutes';
+import ScrollToTop from './scrollToTop/ScrollToTop';
 
 const instance = createInstance({
   disabled: process.env.REACT_APP_MATOMO_ENABLED !== 'true',

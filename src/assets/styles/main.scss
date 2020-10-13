@@ -1,5 +1,4 @@
 @import './vendor/normalize';
-@import 'colors';
 @import 'fonts';
 @import 'layout';
 
@@ -22,7 +21,7 @@ body {
 
 a {
   &:focus {
-    outline: 2px solid $hel-black;
+    outline: 2px solid var(--color-black);
   }
 }
 

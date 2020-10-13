@@ -1,9 +1,8 @@
-@import "colors";
-@import "layout";
+@import 'layout';
 
 .dateSelectorMenu {
-  background: $hel-white;
-  color: $hel-black;
+  background: var(--color-white);
+  color: var(--color-black);
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 
@@ -38,7 +37,7 @@
     }
 
     &:focus {
-      outline: 2px solid $hel-black;
+      outline: 2px solid var(--color-black);
       outline-offset: -2px;
     }
   }
@@ -56,7 +55,7 @@
       &:first-child {
         margin-top: 0;
       }
-      
+
       &:last-child {
         margin-bottom: 0;
       }
@@ -73,13 +72,13 @@
   }
 
   .btnSelectDates {
-    border-top: 1px solid $hel-light; 
+    border-top: 1px solid var(--color-coat-of-arms-silver);
     font-weight: 500;
   }
 
   .btnBack {
     font-weight: 500;
-    border-bottom: 1px solid $hel-gray; 
+    border-bottom: 1px solid var(--color-coat-of-arms-silver);
 
     svg:first-child {
       margin-right: 0.75rem;
@@ -87,7 +86,7 @@
   }
 
   .btnClose {
-    border-top: 1px solid $hel-light; 
+    border-top: 1px solid var(--color-coat-of-arms-silver);
 
     .buttonText {
       text-align: center;

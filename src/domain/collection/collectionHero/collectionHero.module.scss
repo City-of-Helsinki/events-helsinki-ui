@@ -1,7 +1,4 @@
-@import 'colors';
-@import 'fonts';
 @import 'layout';
-@import 'variables';
 
 .collectionHero {
   padding-bottom: 0;
@@ -55,9 +52,9 @@
   }
 
   a {
-    color: $hel-black;
+    color: var(--color-black);
     text-decoration: none;
-    font-weight: $link-font-weight;
+    font-weight: 500;
     display: flex;
 
     .linkIcon {

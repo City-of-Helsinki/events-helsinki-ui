@@ -3,6 +3,7 @@
 exports[`matches snapshot 1`] = `
 <div
   class="dateSelectorMenu"
+  data-testid="date-selector-menu"
 >
   <div
     class="checkboxWrapper"

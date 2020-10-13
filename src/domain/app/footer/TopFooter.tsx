@@ -6,7 +6,6 @@ import { useHistory } from 'react-router';
 
 import CategoryFilter from '../../../common/components/category/CategoryFilter';
 import IconLink from '../../../common/components/link/IconLink';
-import { useMobileMenuContext } from '../../../common/components/mobileMenu/MobileMenu';
 import { Category } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import scrollToTop from '../../../util/scrollToTop';
@@ -16,8 +15,11 @@ import { ROUTES } from '../constants';
 import Container from '../layout/Container';
 import styles from './topFooter.module.scss';
 
+export const testIds = {
+  logo: 'top-footer-logo',
+};
+
 const TopFooter: FunctionComponent = () => {
-  const { isMobileMenuOpen } = useMobileMenuContext();
   const { t } = useTranslation();
   const locale = useLocale();
   const { push } = useHistory();
@@ -37,16 +39,12 @@ const TopFooter: FunctionComponent = () => {
   const logoLang = locale === 'sv' ? 'sv' : 'fi';
 
   return (
-    <div
-      aria-hidden={isMobileMenuOpen}
-      className={classNames(styles.topFooterWrapper, {
-        [styles.mobileMenuOpen]: isMobileMenuOpen,
-      })}
-    >
+    <div className={styles.topFooterWrapper}>
       <Container>
         <div className={styles.companyInfoWrapper}>
           <div className={styles.logoWrapper}>
             <div
+              data-testid={testIds.logo}
               className={classNames(styles.helsinkiLogo, styles[logoLang])}
             ></div>
             <div className={styles.appName}>{t('appName')}</div>

@@ -1,23 +1,9 @@
-@import "colors";
-@import "layout";
+@import 'layout';
 
 .bottomFooter {
-  background-color: $hel-summer-light-50;
+  background-color: var(--color-summer-light-50);
   padding: 1.25rem 0;
   display: block;
-
-  @include respond-below(sm) {
-    opacity: 1;
-    transition: visibility 0.2s, opacity 0.2s;
-  }
-
-  &.mobileMenuOpen {
-    @include respond-below(sm) {
-      visibility: hidden;
-      opacity: 0;     
-      transition: visibility 0.5s, opacity 0.5s;
-    }
-  }
 
   @include respond-below(sm) {
     padding: 3.75rem 0;
@@ -41,8 +27,8 @@
 
     a {
       margin-right: 2.5rem;
-      font-size: 1.125rem;
-      color: $hel-black;
+      font-size: var(--fontsize-body-l);
+      color: var(--color-black);
       text-decoration: underline;
       font-weight: normal;
 
@@ -55,5 +41,5 @@
         }
       }
     }
-  } 
+  }
 }

@@ -1,28 +1,29 @@
-@import "layout";
+@import 'layout';
 
 .pageLayout {
-    height: 100%;
-    width: 100%;
+  width: 100%;
 
-    display: grid;
+  display: grid;
 
-    grid-template-rows: auto 1fr auto;
-}
+  grid-template-rows: auto 1fr auto;
 
-.pageBody {
+  .pageBody {
     display: grid;
     align-content: flex-start;
+  }
 
+  &.mobileMenuOpen {
+    .pageBody {
+      @include respond-below(sm) {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.5s, opacity 0.5s;
+      }
+    }
     @include respond-below(sm) {
-        opacity: 1;
-        transition: visibility 0.2s, opacity 0.2s;
+      footer {
+        visibility: hidden;
+      }
     }
-
-    &.mobileMenuOpen {
-        @include respond-below(sm) {
-            visibility: hidden;
-            opacity: 0;     
-            transition: visibility 0.5s, opacity 0.5s;
-        }
-    }
+  }
 }

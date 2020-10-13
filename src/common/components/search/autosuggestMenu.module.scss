@@ -1,44 +1,44 @@
-@import "colors";
-
 .autosuggestMenu {
+  --border-color-option: #f9f9f9;
+
   position: absolute;
-  background: $hel-white;
+  background: var(--color-white);
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
-  min-height: 20px;
   right: 0;
   left: 0;
   top: 100%;
   z-index: 1;
 
   .title {
-    padding: 1rem;
+    padding: var(--spacing-s);
     text-align: center;
-    color: $medium-gray;
+    color: var(--color-black-50);
     font-weight: 500;
-    border-bottom: 1px solid $lightest-gray;
+    border-bottom: 1px solid var(--border-color-option);
 
     .closeButton {
       border: none;
       background: transparent;
       padding: 0;
       position: absolute;
-      right: 1rem;
+      right: var(--spacing-s);
+      margin-top: -2px;
 
       svg {
         display: block;
         margin: 0;
       }
       &:focus {
-        outline: 2px solid $hel-black;
+        outline: 2px solid var(--color-black);
         outline-offset: 2px;
       }
     }
   }
 
   .info {
-    padding: 1rem;
+    padding: var(--spacing-s);
     text-align: center;
-    color: $medium-gray;
+    color: var(--color-black-50);
     font-weight: 500;
   }
 
@@ -49,48 +49,18 @@
 
   .autosuggestOption {
     position: relative;
-    border-bottom: 1px solid $lightest-gray;
+    border-bottom: 1px solid var(--border-color-option);
     display: flex;
     align-items: center;
 
-    .icon {
-      height: 1.5rem;
-      width: 1.5rem;
-      margin-left: 1rem;
-
-      svg {
-        height: 1.5rem;
-        width: 1.5rem;
-      }
-    }
-    .textWrapper {
-      flex: 1 1 0%;
+    .text {
       cursor: pointer;
-
-      .text {
-        padding: 0.875rem;
-        color: $hel-black;
-      }
+      padding: var(--spacing-s) var(--spacing-m);
+      color: var(--color-black);
     }
   }
 
   .autosuggestOption--isFocused {
-    background-color: $hel-fog;
-  }
-
-  .autosuggestOption--district {
-    .colorIndicator {
-      background-color: $hel-metro;
-    } 
-
-    .icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      svg {
-        margin: 0
-      }
-    }
+    background-color: var(--color-fog);
   }
 }

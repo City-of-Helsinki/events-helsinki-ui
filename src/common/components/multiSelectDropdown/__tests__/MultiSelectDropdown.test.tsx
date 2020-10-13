@@ -13,7 +13,9 @@ import {
   arrowUpKeyPressHelper,
   enterKeyPressHelper,
   escKeyPressHelper,
+  userEvent,
 } from '../../../../util/testUtils';
+import translations from '../../../translation/i18n/fi.json';
 import MultiSelectDropdown, {
   MultiselectDropdownProps,
 } from '../MultiSelectDropdown';
@@ -54,7 +56,7 @@ test('should set focus to input after clicking toggle button', async () => {
   renderComponent();
 
   const toggleButton = screen.getByRole('button', { name: title });
-  fireEvent.click(toggleButton);
+  userEvent.click(toggleButton);
 
   const searchInput = screen.getByPlaceholderText(inputPlaceholder);
 
@@ -67,16 +69,22 @@ test('should filter results based on user search and options[].text field', asyn
   renderComponent();
 
   const toggleButton = screen.getByRole('button', { name: title });
-  fireEvent.click(toggleButton);
+  userEvent.click(toggleButton);
 
   const searchInput = screen.getByPlaceholderText(inputPlaceholder);
-  fireEvent.change(searchInput, { target: { value: 'Ele' } });
+  userEvent.type(searchInput, 'Ele');
 
   await wait();
 
-  expect(screen.queryByLabelText('Elephant')).not.toEqual(null);
-  expect(screen.queryByLabelText('Dog')).toEqual(null);
-  expect(screen.queryByLabelText('Squirrel')).toEqual(null);
+  expect(
+    screen.queryByRole('checkbox', { name: 'Elephant' })
+  ).toBeInTheDocument();
+  expect(
+    screen.queryByRole('checkbox', { name: 'Dox' })
+  ).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole('checkbox', { name: 'Squirrel' })
+  ).not.toBeInTheDocument();
 });
 
 test('should reset keyboard navigation position after a new search', async () => {
@@ -91,8 +99,8 @@ test('should reset keyboard navigation position after a new search', async () =>
   arrowDownKeyPressHelper();
 
   expect(
-    (screen.getByLabelText(options[0].text).parentElement as HTMLElement)
-      .parentElement
+    (screen.getByRole('checkbox', { name: options[0].text })
+      .parentElement as HTMLElement).parentElement
   ).toHaveClass('dropdownItem--isFocused');
 
   // Find something, then reset the search to ensure that all results are listed
@@ -104,7 +112,8 @@ test('should reset keyboard navigation position after a new search', async () =>
   // No element should have focus
   allOptions.forEach((text) => {
     expect(
-      (screen.getByLabelText(text).parentElement as HTMLElement).parentElement
+      (screen.getByRole('checkbox', { name: text })
+        .parentElement as HTMLElement).parentElement
     ).not.toHaveClass('dropdownItem--isFocused');
   });
 });
@@ -114,21 +123,20 @@ describe('ArrowUp, ArrowDown', () => {
     renderComponent();
 
     const toggleButton = screen.getByRole('button', { name: title });
-    fireEvent.click(toggleButton);
-    act(() => toggleButton.focus());
+    userEvent.click(toggleButton);
 
     arrowDownKeyPressHelper();
     arrowDownKeyPressHelper();
 
     expect(
-      (screen.getByLabelText(options[1].text).parentElement as HTMLElement)
+      screen.queryByRole('checkbox', { name: options[1].text }).parentElement
         .parentElement
     ).toHaveClass('dropdownItem--isFocused');
 
     arrowUpKeyPressHelper();
 
     expect(
-      (screen.getByLabelText(options[0].text).parentElement as HTMLElement)
+      screen.queryByRole('checkbox', { name: options[0].text }).parentElement
         .parentElement
     ).toHaveClass('dropdownItem--isFocused');
   });
@@ -137,14 +145,13 @@ describe('ArrowUp, ArrowDown', () => {
     renderComponent();
 
     const toggleButton = screen.getByRole('button', { name: title });
-    fireEvent.click(toggleButton);
-    act(() => toggleButton.focus());
+    userEvent.click(toggleButton);
 
     arrowUpKeyPressHelper();
 
     expect(
-      (screen.getByLabelText(options[options.length - 1].text)
-        .parentElement as HTMLElement).parentElement
+      screen.getByRole('checkbox', { name: options[options.length - 1].text })
+        .parentElement.parentElement
     ).toHaveClass('dropdownItem--isFocused');
   });
 
@@ -152,19 +159,16 @@ describe('ArrowUp, ArrowDown', () => {
     renderComponent();
 
     const toggleButton = screen.getByRole('button', { name: title });
-    fireEvent.click(toggleButton);
-    act(() => toggleButton.focus());
+    userEvent.click(toggleButton);
 
     arrowDownKeyPressHelper();
     arrowUpKeyPressHelper();
 
-    const allOptions = options.map(({ text }) => text);
-
     // No element should have focus
-    allOptions.forEach((text) => {
-      expect(screen.getByLabelText(text).parentElement).not.toHaveClass(
-        'dropdownItem--isFocused'
-      );
+    options.forEach((option) => {
+      expect(
+        screen.getByRole('checkbox', { name: option.text }).parentElement
+      ).not.toHaveClass('dropdownItem--isFocused');
     });
   });
 
@@ -172,23 +176,17 @@ describe('ArrowUp, ArrowDown', () => {
     renderComponent();
 
     const toggleButton = screen.getByRole('button', { name: title });
-    fireEvent.click(toggleButton);
-    act(() => toggleButton.focus());
+    userEvent.click(toggleButton);
 
-    options.forEach(() => {
-      arrowDownKeyPressHelper();
-    });
     // After we have selected the last item, press down once more to reset the
     // selection.
     arrowDownKeyPressHelper();
 
-    const allOptions = options.map(({ text }) => text);
-
     // No element should have focus
-    allOptions.forEach((text) => {
-      expect(screen.getByLabelText(text).parentElement).not.toHaveClass(
-        'dropdownItem--isFocused'
-      );
+    options.forEach((option) => {
+      expect(
+        screen.getByRole('checkbox', { name: option.text }).parentElement
+      ).not.toHaveClass('dropdownItem--isFocused');
     });
   });
 });
@@ -198,18 +196,21 @@ describe('Escape', () => {
     renderComponent();
 
     const toggleButton = screen.getByRole('button', { name: title });
-    fireEvent.click(toggleButton);
-    act(() => toggleButton.focus());
+    userEvent.click(toggleButton);
 
     // Check that we can find some of the content of the MultiSelectDropdown: this suggests
     // that it is open.
-    expect(screen.queryByLabelText(options[0].text)).not.toEqual(null);
+    expect(
+      screen.queryByRole('checkbox', { name: options[0].text })
+    ).toBeInTheDocument();
 
     escKeyPressHelper();
 
     // Assert that we can no longer find the menu content after we have pressed
     // Escape.
-    expect(screen.queryByLabelText(options[0].text)).toEqual(null);
+    expect(
+      screen.queryByRole('checkbox', { name: options[0].text })
+    ).not.toBeInTheDocument();
   });
 });
 
@@ -219,32 +220,90 @@ test('should not open dropdown when user focuses toggle button', () => {
   const toggleButton = screen.getByRole('button', { name: title });
   act(() => toggleButton.focus());
 
-  expect(screen.queryByLabelText(options[0].text)).toEqual(null);
+  expect(
+    screen.queryByRole('checkbox', { name: options[0].text })
+  ).not.toBeInTheDocument();
 });
 
 test('should open dropdown when user clicks on toggle button', () => {
   renderComponent();
 
   const toggleButton = screen.getByRole('button', { name: title });
-  fireEvent.click(toggleButton);
+  userEvent.click(toggleButton);
 
-  expect(screen.queryByLabelText(options[0].text)).not.toEqual(null);
+  expect(
+    screen.queryByRole('checkbox', { name: options[0].text })
+  ).toBeInTheDocument();
+});
+
+test('should call onChange when clicking checkbox', () => {
+  const onChange = jest.fn();
+  renderComponent({ onChange });
+
+  const toggleButton = screen.getByRole('button', { name: title });
+  userEvent.click(toggleButton);
+
+  userEvent.click(screen.queryByRole('checkbox', { name: options[0].text }));
+  expect(onChange).toBeCalledWith([options[0].value]);
+});
+
+test('should uncheck option', () => {
+  const onChange = jest.fn();
+  renderComponent({ onChange, value: [options[0].value] });
+
+  const toggleButton = screen.getByRole('button', { name: title });
+  userEvent.click(toggleButton);
+
+  userEvent.click(screen.queryByRole('checkbox', { name: options[0].text }));
+  expect(onChange).toBeCalledWith([]);
+});
+
+test('should call onChange with empty array when clicking select all checkbox', () => {
+  const onChange = jest.fn();
+  renderComponent({
+    onChange,
+    selectAllText: '',
+    showSelectAll: true,
+    value: [options[0].value],
+  });
+
+  const toggleButton = screen.getByRole('button', { name: title });
+  userEvent.click(toggleButton);
+
+  userEvent.click(
+    screen.queryByRole('checkbox', {
+      name: translations.commons.multiSelectDropdown.selectAll,
+    })
+  );
+  expect(onChange).toBeCalledWith([]);
+});
+
+test('should show selected text for single value', () => {
+  renderComponent({ value: [options[0].value] });
+
+  expect(screen.queryByText(options[0].text)).toBeInTheDocument();
+});
+
+test('should show selected text for single value', () => {
+  renderComponent({ value: [options[0].value, options[1].value] });
+
+  expect(screen.queryByText(`${options[1].text} + 1`)).toBeInTheDocument();
 });
 
 describe('when dropdown has been closed, it should reopen with', () => {
   const getClosedInput = async () => {
-    const helpers = renderComponent();
+    renderComponent();
 
     const toggleButton = screen.getByRole('button', { name: title });
-    fireEvent.click(toggleButton);
-    act(() => toggleButton.focus());
+    userEvent.click(toggleButton);
 
     escKeyPressHelper();
 
-    expect(screen.queryByLabelText(options[0].text)).toEqual(null);
-    expect(toggleButton).toHaveFocus();
+    expect(
+      screen.queryByRole('checkbox', { name: options[0].text })
+    ).not.toBeInTheDocument();
 
-    return helpers;
+    expect(toggleButton).toHaveFocus();
   };
 
   test('Enter', () => {
@@ -252,7 +311,9 @@ describe('when dropdown has been closed, it should reopen with', () => {
 
     enterKeyPressHelper();
 
-    expect(screen.queryByLabelText(options[0].text)).not.toEqual(null);
+    expect(
+      screen.queryByRole('checkbox', { name: options[0].text })
+    ).toBeInTheDocument();
   });
 
   test('ArrowDown', () => {
@@ -260,7 +321,9 @@ describe('when dropdown has been closed, it should reopen with', () => {
 
     arrowDownKeyPressHelper();
 
-    expect(screen.queryByLabelText(options[0].text)).not.toEqual(null);
+    expect(
+      screen.queryByRole('checkbox', { name: options[0].text })
+    ).toBeInTheDocument();
   });
 
   test('ArrowUp', () => {
@@ -268,6 +331,8 @@ describe('when dropdown has been closed, it should reopen with', () => {
 
     arrowDownKeyPressHelper();
 
-    expect(screen.queryByLabelText(options[0].text)).not.toEqual(null);
+    expect(
+      screen.queryByRole('checkbox', { name: options[0].text })
+    ).toBeInTheDocument();
   });
 });

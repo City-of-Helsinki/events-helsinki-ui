@@ -59,10 +59,7 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
               onClick={handleClick}
               aria-selected={focusedOption === index}
             >
-              <div className={styles.icon}></div>
-              <div className={styles.textWrapper}>
-                <div className={styles.text}>{option.text}</div>
-              </div>
+              <div className={styles.text}>{option.text}</div>
             </li>
           );
         })}

@@ -1,16 +1,10 @@
-@import "colors";
-@import "fonts";
-@import "layout";
-@import "variables";
+@import 'layout';
 
 $buttonWidth: 180px;
-$gridGapSmall: 0.625rem;
-$gridGapMedium: $basePadding;
-$gridGapLarge: $largePadding;
 
 .searchContainer {
-  color: $hel-black;
-  background-color: $hel-copper-light-20;
+  color: var(--color-black);
+  background-color: var(--color-copper-light-20);
   padding: 2.375rem 0 1.5rem 0;
   position: relative;
 
@@ -20,19 +14,19 @@ $gridGapLarge: $largePadding;
     align-items: center;
 
     grid-template-columns: 1fr;
-    grid-gap: $gridGapSmall;
+    grid-gap: var(--spacing-m);
 
-    margin-bottom: $gridGapSmall;
+    margin-bottom: var(--spacing-xs);
 
     @include respond-above(sm) {
       grid-template-columns: 1fr $buttonWidth;
-      grid-gap: $gridGapMedium;
+      grid-gap: var(--spacing-xs);
 
-      margin-bottom: $gridGapMedium;
+      margin-bottom: var(--spacing-xs);
     }
 
     @include respond-above(md) {
-      grid-gap: $gridGapLarge;
+      grid-gap: var(--spacing-xs);
     }
   }
 
@@ -42,11 +36,11 @@ $gridGapLarge: $largePadding;
 
   .row {
     display: grid;
-    grid-gap: $gridGapSmall;
+    grid-gap: var(--spacing-xs);
 
     @include respond-above(sm) {
       grid-template-columns: 1fr 1fr;
-      grid-gap: $gridGapMedium;
+      grid-gap: var(--spacing-m);
     }
 
     @include respond-above(md) {
@@ -67,7 +61,7 @@ $gridGapLarge: $largePadding;
   }
 
   .checkbox {
-    margin-top: $gridGapSmall;
+    margin-top: var(--spacing-xs);
 
     label {
       display: flex;
@@ -75,7 +69,7 @@ $gridGapLarge: $largePadding;
     }
     @include respond-above(sm) {
       margin-top: 0;
-    }    
+    }
   }
 
   .dateSelectorWrapper {
@@ -84,8 +78,8 @@ $gridGapLarge: $largePadding;
 }
 
 .label {
-  font-size: $label-font-size;
-  font-weight: $label-font-weight;
+  font-size: var(--fontsize-body-m);
+  font-weight: 500;
   line-height: normal;
 
   @include respond-below(sm) {

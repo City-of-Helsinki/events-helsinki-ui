@@ -16,7 +16,7 @@ const dateTypeOptions = [
   DATE_TYPES.WEEKEND,
 ];
 
-interface Props {
+export interface DateSelectorProps {
   dateTypes: string[];
   endDate: Date | null;
   isCustomDate: boolean;
@@ -28,7 +28,7 @@ interface Props {
   toggleIsCustomDate: () => void;
 }
 
-const DateSelector: FunctionComponent<Props> = ({
+const DateSelector: FunctionComponent<DateSelectorProps> = ({
   dateTypes,
   endDate,
   isCustomDate,
@@ -42,19 +42,9 @@ const DateSelector: FunctionComponent<Props> = ({
   const { t } = useTranslation();
   const locale = useLocale();
   const backBtnRef = React.useRef<HTMLButtonElement | null>(null);
-  const toggleBtnRef = React.useRef<HTMLButtonElement | null>(null);
+  const customDatesBtnRef = React.useRef<HTMLButtonElement | null>(null);
   const dateSelector = React.useRef<HTMLDivElement | null>(null);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  const handleDocumentClick = (event: MouseEvent) => {
-    const target = event.target;
-    const current = dateSelector && dateSelector.current;
-
-    // Close menu when clicking outside of the component
-    if (!(current && target instanceof Node && current.contains(target))) {
-      setIsMenuOpen(false);
-    }
-  };
 
   const ensureMenuIsOpen = React.useCallback(() => {
     if (!isMenuOpen) {
@@ -62,21 +52,37 @@ const DateSelector: FunctionComponent<Props> = ({
     }
   }, [isMenuOpen]);
 
+  const ensureMenuIsClosed = React.useCallback(() => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [isMenuOpen]);
+
+  const handleDocumentClick = React.useCallback(
+    (event: MouseEvent) => {
+      const target = event.target;
+      const current = dateSelector.current;
+
+      // Close menu when clicking outside of the component
+      if (!(target instanceof Node && current?.contains(target))) {
+        ensureMenuIsClosed();
+      }
+    },
+    [ensureMenuIsClosed]
+  );
+
   const isComponentFocused = React.useCallback(() => {
     const active = document.activeElement;
-    const current = dateSelector && dateSelector.current;
+    const current = dateSelector.current;
 
-    if (current && active instanceof Node && current.contains(active)) {
-      return true;
-    }
-    return false;
+    return !!(active instanceof Node && current?.contains(active));
   }, [dateSelector]);
 
   const handleDocumentFocusin = React.useCallback(() => {
     if (!isComponentFocused()) {
-      setIsMenuOpen(false);
+      ensureMenuIsClosed();
     }
-  }, [isComponentFocused]);
+  }, [ensureMenuIsClosed, isComponentFocused]);
 
   const handleDocumentKeyDown = React.useCallback(
     (event: KeyboardEvent) => {
@@ -84,25 +90,18 @@ const DateSelector: FunctionComponent<Props> = ({
 
       switch (event.key) {
         case 'ArrowUp':
-          ensureMenuIsOpen();
-          event.preventDefault();
-          break;
         case 'ArrowDown':
           ensureMenuIsOpen();
           event.preventDefault();
           break;
         case 'Escape':
-          setIsMenuOpen(false);
+          ensureMenuIsClosed();
           event.preventDefault();
           break;
       }
     },
-    [ensureMenuIsOpen, isComponentFocused]
+    [ensureMenuIsClosed, ensureMenuIsOpen, isComponentFocused]
   );
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -118,7 +117,7 @@ const DateSelector: FunctionComponent<Props> = ({
       document.removeEventListener('keydown', handleDocumentKeyDown);
       document.removeEventListener('focusin', handleDocumentFocusin);
     };
-  }, [handleDocumentFocusin, handleDocumentKeyDown]);
+  }, [handleDocumentClick, handleDocumentFocusin, handleDocumentKeyDown]);
 
   const handleToggleIsCustomDate = () => {
     toggleIsCustomDate();
@@ -137,9 +136,10 @@ const DateSelector: FunctionComponent<Props> = ({
     const sortDateTypes = (a: string, b: string): number =>
       dateTypeOptions.indexOf(a) < dateTypeOptions.indexOf(b) ? -1 : 1;
 
-    const dateTypeLabels = dateTypes.sort(sortDateTypes).map((val) => {
-      return translateValue('commons.dateSelector.dateType', val, t);
-    });
+    const dateTypeLabels = dateTypes
+      .sort(sortDateTypes)
+      .map((val) => translateValue('commons.dateSelector.dateType', val, t));
+
     if (dateTypeLabels.length > 1) {
       return `${dateTypeLabels[0]} + ${dateTypeLabels.length - 1}`;
     } else {
@@ -149,9 +149,7 @@ const DateSelector: FunctionComponent<Props> = ({
 
   React.useEffect(() => {
     if (isComponentFocused() && !isCustomDate) {
-      if (toggleBtnRef.current) {
-        toggleBtnRef.current.focus();
-      }
+      customDatesBtnRef.current?.focus();
     }
   }, [isComponentFocused, isCustomDate]);
 
@@ -180,6 +178,7 @@ const DateSelector: FunctionComponent<Props> = ({
       {isSelected && <div className={styles.isSelectedIndicator} />}
       <DateSelectorMenu
         backBtnRef={backBtnRef}
+        customDatesBtnRef={customDatesBtnRef}
         dateTypes={dateTypes}
         dateTypeOptions={dateTypeOptions}
         endDate={endDate}
@@ -190,9 +189,8 @@ const DateSelector: FunctionComponent<Props> = ({
         onChangeEndDate={onChangeEndDate}
         onChangeStartDate={onChangeStartDate}
         startDate={startDate}
-        toggleBtnRef={toggleBtnRef}
         toggleIsCustomDate={handleToggleIsCustomDate}
-        onCloseMenu={closeMenu}
+        onCloseMenu={ensureMenuIsClosed}
       />
     </div>
   );

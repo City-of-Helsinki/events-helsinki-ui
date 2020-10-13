@@ -1,15 +1,14 @@
-@import "layout";
-@import "variables";
+@import 'layout';
 
 .eventListWrapper {
   .eventsWrapper {
     display: grid;
-    grid-gap: 0.625rem;
+    grid-gap: var(--spacing-xs);
     margin-bottom: 1.5rem;
-    
+
     @include respond_above(sm) {
-      grid-gap: $largePadding;
-      margin-bottom: $largePadding;
+      grid-gap: var(--spacing-xl);
+      margin-bottom: var(--spacing-xl);
     }
   }
   .loadMoreWrapper {
@@ -23,7 +22,7 @@
   .eventsWrapper {
     display: grid;
     grid-template-columns: 1fr;
-    
+
     @include respond_above(sm) {
       grid-template-columns: 1fr 1fr;
       grid-gap: 1.75rem 3rem;

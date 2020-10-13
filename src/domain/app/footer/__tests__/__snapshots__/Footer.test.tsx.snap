@@ -3,7 +3,6 @@
 exports[`matches snapshot 1`] = `
 <footer>
   <div
-    aria-hidden="false"
     class="topFooterWrapper"
   >
     <div
@@ -17,6 +16,7 @@ exports[`matches snapshot 1`] = `
         >
           <div
             class="helsinkiLogo fi"
+            data-testid="top-footer-logo"
           />
           <div
             class="appName"
@@ -541,7 +541,6 @@ exports[`matches snapshot 1`] = `
     </div>
   </div>
   <div
-    aria-hidden="false"
     class="bottomFooter"
   >
     <div

@@ -1,5 +1,3 @@
-@import "colors";
-
 $spinnerWidth: 4.375rem;
 
 .spinnerWrapper {
@@ -20,39 +18,39 @@ $spinnerWidth: 4.375rem;
     transform: rotate(0deg);
   }
   8.33% {
-    fill: $hel-coat;
+    fill: var(--color-coat-of-arms-blue);
   }
   25% {
-  fill: $hel-copper;
+    fill: var(--color-copper);
   }
   33.33% {
     transform: rotate(360deg);
   }
   41.66% {
-    fill: $hel-copper;
+    fill: var(--color-copper);
   }
   58.33% {
-    fill: $hel-suomenlinna;
+    fill: var(--color-suomenlinna);
   }
   66.67% {
     transform: rotate(720deg);
   }
   75% {
-    fill: $hel-suomenlinna;
+    fill: ar(--color-suomenlinna);
   }
   91.67% {
-    fill: $hel-coat;
+    fill: var(--color-coat-of-arms-blue);
   }
   100% {
     transform: rotate(1080deg);
   }
 }
-  
+
 .spinner {
   width: $spinnerWidth;
   height: $spinnerWidth;
   border-radius: 50%;
-  fill: $hel-coat;
+  fill: var(--color-coat-of-arms-blue);
   animation: spinner 3.6s ease-in-out infinite;
 
   svg {

@@ -1,12 +1,9 @@
-@import "colors";
-@import "fonts";
-
 .link {
   display: flex;
   align-items: center;
-  color: $dark-green;
-  font-size: $font-size-lg;
-  font-weight: $link-font-weight;
+  color: var(--color-tram-dark-50);
+  font-size: var(--fontsize-body-l);
+  font-weight: 500;
   text-decoration: none;
   background: transparent;
   border: none;
@@ -18,37 +15,37 @@
   }
 
   &:focus {
-    outline: 2px solid $hel-black;
+    outline: 2px solid var(--color-black);
   }
 
   svg {
     margin-left: 1rem;
-    fill: $dark-green;
+    fill: var(--color-tram-dark-50);
   }
 }
 
 .defaultColor {
-  color: $dark-green;
+  color: var(--color-tram-dark-50);
 
   svg {
-    fill: $dark-green;
+    fill: var(--color-tram-dark-50);
   }
 }
 
 .whiteColor {
-  color: $hel-white;
+  color: var(--color-white);
 
   svg {
-    fill: $hel-white;
+    fill: var(--color-white);
   }
 
   &:focus {
-    outline-color: $hel-white;
+    outline-color: var(--color-white);
   }
 }
 
 .defaultSize {
-  font-size: $font-size-lg;
+  font-size: var(--fontsize-body-l);
 
   svg {
     margin-left: 1rem;
@@ -56,7 +53,7 @@
 }
 
 .smallSize {
-  font-size: $font-size-base;
+  font-size: var(--fontsize-body-m);
 
   svg {
     margin-left: 0.5rem;

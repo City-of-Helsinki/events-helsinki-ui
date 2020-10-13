@@ -1,11 +1,13 @@
-@import "colors";
-
 .dateRangeInputsContainer {
   display: grid;
   grid-template-columns: 1fr 2.5rem 1fr;
 }
 
 .dateInputWrapper {
+  --input-border-color-default: var(--color-black-50);
+  --input-border-color-hover: var(--color-black-90);
+  --focus-outline-color: var(--color-coat-of-arms-blue);
+
   label {
     font-size: 0.875rem;
   }
@@ -17,16 +19,21 @@
 
   .inputWrapper {
     display: flex;
-    border: 2px solid $light-gray;
-
+    border: none;
     .input {
       flex: 1 1 0%;
 
       input {
-        border: none;
+        border: 2px solid var(--input-border-color-default);
         width: 100%;
         padding: 0.6875rem 0.5rem;
         box-sizing: border-box;
+
+        &:focus {
+          box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+          outline-offset: 2px;
+          border-color: var(--input-border-color-focus);
+        }
       }
     }
 
@@ -36,7 +43,8 @@
       align-items: center;
       width: 2.5rem;
       height: 2.5rem;
-      border-left: 2px solid $light-gray;
+      border: 2px solid var(--input-border-color-default);
+      border-left: none;
 
       svg {
         height: 1.5rem;
@@ -44,7 +52,6 @@
       }
     }
   }
-  
 }
 
 .dateSeparator {

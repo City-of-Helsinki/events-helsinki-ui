@@ -91,9 +91,6 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
     container: dropdown,
     listLength: filteredOptions.length,
     onKeyDown: (event: KeyboardEvent) => {
-      // Handle keyboard events only if current element is focused
-      if (!isComponentFocused()) return;
-
       switch (event.key) {
         // Close menu on ESC key
         case 'Escape':
@@ -110,18 +107,11 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
           if (isToggleButtonFocused()) {
             handleToggleButtonClick();
           }
-          event.preventDefault();
       }
     },
   });
+
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  const isComponentFocused = () => {
-    const active = document.activeElement;
-    const current = dropdown.current;
-
-    return !!current?.contains(active);
-  };
 
   const handleDocumentClick = (event: MouseEvent) => {
     const target = event.target;
@@ -225,7 +215,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
           return renderOptionText(val);
         } else {
           const result = options.find((option) => option.value === val);
-          return result ? result.text : null;
+          return result?.text || null;
         }
       })
       .sort();
@@ -293,8 +283,8 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
               : value.includes(option.value);
 
           const setFocus = (ref: HTMLInputElement) => {
-            if (isFocused && ref) {
-              ref.focus();
+            if (isFocused) {
+              ref?.focus();
             }
           };
 

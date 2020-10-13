@@ -1,8 +1,6 @@
-@import "colors";
-
 .react-datepicker {
   border: none;
-  color: $hel-black;
+  color: var(--color-black);
   width: 100%;
 
   &__no-popper {
@@ -10,18 +8,18 @@
     transform: unset !important;
     margin-top: 10px;
   }
-  
+
   &__triangle {
     display: none;
   }
 
   &__header {
-    background-color: $hel-white;
+    background-color: var(--color-white);
     border-bottom: none;
   }
 
   &__navigation--previous {
-    background-image: url("../../../assets/icons/svg/copied-from-hds/angle-left.svg");
+    background-image: url('../../../assets/icons/svg/copied-from-hds/angle-left.svg');
     border: none;
     background-repeat: no-repeat;
     background-size: 0.75rem 0.75rem;
@@ -29,7 +27,7 @@
   }
 
   &__navigation--next {
-    background-image: url("../../../assets/icons/svg/copied-from-hds/angle-right.svg");
+    background-image: url('../../../assets/icons/svg/copied-from-hds/angle-right.svg');
     border: none;
     background-repeat: no-repeat;
     background-size: 0.75rem 0.75rem;
@@ -45,12 +43,12 @@
     font-size: 1rem;
     font-weight: 600;
     flex: 1 1 0%;
-    color: $hel-black;
+    color: var(--color-black);
   }
 
   &__current-month {
-    font-size: 1.125rem;
-    color: $hel-black;
+    font-size: var(--fontsize-body-l);
+    color: var(--color-black);
     margin-bottom: 0.5rem;
     font-weight: 500;
     text-transform: capitalize;
@@ -71,41 +69,41 @@
   &__day {
     flex: 1 1 0%;
     font-size: 0.875rem;
-    color: $hel-black;
+    color: var(--color-black);
     border-radius: 0 !important;
 
     &--outside-month {
-      color: $medium-gray;
+      color: var(--color-black-50);
     }
 
     &--in-range {
-      color: $hel-white;
-      background-color: $hel-coat;
+      color: var(--color-white);
+      background-color: var(--color-coat-of-arms-blue);
     }
 
     &--in-selecting-range {
-      color: $hel-white;
-      background-color: $hel-fog;
+      color: var(--color-white);
+      background-color: var(--color-fog);
     }
 
     &--in-selecting-range:hover {
-      color: $hel-white;
-      background-color: $hel-coat;
+      color: var(--color-white);
+      background-color: var(--color-coat-of-arms-blue);
     }
 
     &--selected {
-      color: $hel-white;
-      background-color: $hel-coat;
+      color: var(--color-white);
+      background-color: var(--color-coat-of-arms-blue);
     }
 
     &--keyboard-selected {
-      color: $hel-white;
-      background-color: $hel-bus;
+      color: var(--color-white);
+      background-color: var(--color-bus);
     }
 
     &--disabled {
-      color: $hel-black-40;
-      background-color: $hel-white;
+      color: var(--color-black-40);
+      background-color: var(--color-white);
     }
   }
 }

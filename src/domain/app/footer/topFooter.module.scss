@@ -1,4 +1,3 @@
-@import 'colors';
 @import 'layout';
 @import 'mixins';
 
@@ -7,29 +6,16 @@ $logoWidth: 9.5rem;
 $logoWidthSv: 12.625rem;
 
 .topFooterWrapper {
-  background-color: $hel-engel-light-50;
+  background-color: var(--color-engel-light-50);
   padding: 3.75rem 0 5rem;
   display: grid;
   align-items: center;
-
-  @include respond-below(sm) {
-    opacity: 1;
-    transition: visibility 0.2s, opacity 0.2s;
-  }
-
-  &.mobileMenuOpen {
-    @include respond-below(sm) {
-      visibility: hidden;
-      opacity: 0;
-      transition: visibility 0.5s, opacity 0.5s;
-    }
-  }
 }
 
 .companyInfoWrapper {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid $hel-silver;
+  border-bottom: 1px solid var(--color-coat-of-arms-silver);
   justify-content: space-between;
 
   @include respond-above(md) {

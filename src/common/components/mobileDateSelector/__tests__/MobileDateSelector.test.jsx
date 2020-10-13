@@ -32,60 +32,83 @@ const defaultProps = {
 const renderComponent = (props) =>
   render(<MobileDateSelector {...defaultProps} {...props} />);
 
-describe('MobileDateSelector component', () => {
-  test('should have correct date types selected', async () => {
-    renderComponent();
+test('should have correct date types selected', async () => {
+  renderComponent();
 
-    expect(
-      screen.getByRole('button', { name: dateTypeOptions[0] })
-    ).toHaveClass('isSelected');
-    expect(
-      screen.getByRole('button', { name: dateTypeOptions[1] })
-    ).not.toHaveClass('isSelected');
-    expect(
-      screen.getByRole('button', { name: dateTypeOptions[2] })
-    ).toHaveClass('isSelected');
-    expect(
-      screen.getByRole('button', { name: dateTypeOptions[3] })
-    ).not.toHaveClass('isSelected');
-    expect(
-      screen.getByRole('button', { name: dateTypeOptions[4] })
-    ).not.toHaveClass('isSelected');
-  });
-
-  test('custom date type should be selected when startDate is selected', async () => {
-    renderComponent({ startDate: new Date('2018-12-12') });
-
-    expect(
-      screen.getByRole('button', { name: dateTypeOptions[4] })
-    ).toHaveClass('isSelected');
-  });
-
-  test('custom date type should be selected when endDate is selected', async () => {
-    renderComponent({ startDate: new Date('2018-12-12') });
-
-    expect(
-      screen.getByRole('button', { name: dateTypeOptions[4] })
-    ).toHaveClass('isSelected');
-  });
+  expect(screen.getByRole('button', { name: dateTypeOptions[0] })).toHaveClass(
+    'isSelected'
+  );
+  expect(
+    screen.getByRole('button', { name: dateTypeOptions[1] })
+  ).not.toHaveClass('isSelected');
+  expect(screen.getByRole('button', { name: dateTypeOptions[2] })).toHaveClass(
+    'isSelected'
+  );
+  expect(
+    screen.getByRole('button', { name: dateTypeOptions[3] })
+  ).not.toHaveClass('isSelected');
+  expect(
+    screen.getByRole('button', { name: dateTypeOptions[4] })
+  ).not.toHaveClass('isSelected');
 });
 
-describe('Escape', () => {
-  test('should close date selector menu with escape', () => {
-    renderComponent();
-    userEvent.click(screen.getByRole('button', { name: /valitse päivät/i }));
+test('should call onChangeDateTypes and unselect option', async () => {
+  const onChangeDateTypes = jest.fn();
+  renderComponent({ onChangeDateTypes });
 
-    // Check that menu is open
-    expect(screen.queryByTestId(testIds.menu)).toBeInTheDocument();
-    escKeyPressHelper();
-    // Check that menu is closed
-    expect(screen.queryByTestId(testIds.menu)).not.toBeInTheDocument();
-  });
+  userEvent.click(screen.getByRole('button', { name: dateTypeOptions[0] }));
+  expect(onChangeDateTypes).toBeCalledWith([DATE_TYPES.WEEKEND]);
+});
+
+test('should call onChangeDateTypes and select option', async () => {
+  const onChangeDateTypes = jest.fn();
+  renderComponent({ onChangeDateTypes, dateTypes: [] });
+
+  userEvent.click(screen.getByRole('button', { name: dateTypeOptions[0] }));
+  expect(onChangeDateTypes).toBeCalledWith([DATE_TYPES.TODAY]);
+});
+
+test('custom date type should be selected when startDate is selected', async () => {
+  renderComponent({ startDate: new Date('2018-12-12') });
+
+  expect(screen.getByRole('button', { name: dateTypeOptions[4] })).toHaveClass(
+    'isSelected'
+  );
+});
+
+test('custom date type should be selected when endDate is selected', async () => {
+  renderComponent({ startDate: new Date('2018-12-12') });
+
+  expect(screen.getByRole('button', { name: dateTypeOptions[4] })).toHaveClass(
+    'isSelected'
+  );
+});
+
+test('should close date selector menu with escape', () => {
+  renderComponent();
+  userEvent.click(screen.getByRole('button', { name: /valitse päivät/i }));
+
+  // Check that menu is open
+  expect(screen.queryByTestId(testIds.menu)).toBeInTheDocument();
+  escKeyPressHelper();
+  // Check that menu is closed
+  expect(screen.queryByTestId(testIds.menu)).not.toBeInTheDocument();
+});
+
+test('should close date selector menu with close button', () => {
+  renderComponent();
+  userEvent.click(screen.getByRole('button', { name: /valitse päivät/i }));
+
+  // Check that menu is open
+  expect(screen.queryByTestId(testIds.menu)).toBeInTheDocument();
+  userEvent.click(screen.getByRole('button', { name: /sulje/i }));
+  // Check that menu is closed
+  expect(screen.queryByTestId(testIds.menu)).not.toBeInTheDocument();
 });
 
 describe('when menu has been closed, it should reopen with', () => {
-  const getClosedInput = () => {
-    const helpers = renderComponent();
+  const renderClosedMenu = () => {
+    renderComponent();
 
     const button = screen.getByRole('button', { name: /valitse päivät/i });
     userEvent.click(button);
@@ -99,12 +122,10 @@ describe('when menu has been closed, it should reopen with', () => {
     arrowDownKeyPressHelper();
 
     expect(screen.getByTestId(testIds.menu)).toBeInTheDocument();
-
-    return helpers;
   };
 
   test('ArrowDown', async () => {
-    getClosedInput();
+    renderClosedMenu();
 
     arrowDownKeyPressHelper();
 
@@ -112,7 +133,7 @@ describe('when menu has been closed, it should reopen with', () => {
   });
 
   test('ArrowUp', () => {
-    getClosedInput();
+    renderClosedMenu();
 
     arrowUpKeyPressHelper();
 

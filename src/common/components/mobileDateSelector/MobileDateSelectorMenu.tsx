@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import React, { FunctionComponent, MutableRefObject } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import useLocale from '../../../hooks/useLocale';
 import DateRangePicker from '../dateRangePicker/DateRangePicker';
 import styles from './mobileDateSelectorMenu.module.scss'; // the locale you want
 
@@ -32,7 +31,6 @@ const MobileDateSelectorMenu: FunctionComponent<Props> = ({
   startDate,
 }) => {
   const { t } = useTranslation();
-  const locale = useLocale();
 
   if (!isOpen) return null;
   return (
@@ -41,7 +39,6 @@ const MobileDateSelectorMenu: FunctionComponent<Props> = ({
         <DateRangePicker
           endDate={endDate}
           isMenuOpen={isOpen}
-          locale={locale}
           name={name}
           onChangeEndDate={onChangeEndDate}
           onChangeStartDate={onChangeStartDate}

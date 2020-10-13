@@ -1,7 +1,4 @@
-@import 'colors';
-@import 'fonts';
 @import 'layout';
-@import 'variables';
 
 $logoWidth: 5.5rem;
 
@@ -25,12 +22,12 @@ $logoWidth: 5.5rem;
   }
 }
 .descriptionTitle {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
+  font-size: var(--fontsize-body-l);
+  font-weight: 600;
   margin: 2rem 0 1rem;
 
   @include respond_above(sm) {
-    font-size: $h2-font-size;
+    font-size: var(--fontsize-heading-l);
   }
 }
 
@@ -38,12 +35,12 @@ $logoWidth: 5.5rem;
   line-height: 1.5;
 
   p {
-    font-size: $font-size-lg;
+    font-size: var(--fontsize-body-l);
     margin: 1rem 0;
   }
 
   a {
-    color: $hel-black;
+    color: var(--color-black);
     text-decoration: underline;
   }
 }
@@ -51,10 +48,10 @@ $logoWidth: 5.5rem;
 .horizontalDivider {
   height: 2px;
 
-  border-bottom: 2px solid $hel-black-40;
+  border-bottom: 2px solid var(--color-black-40);
 }
 
 .largeWhiteSpace {
-  padding-top: $largePadding;
-  margin-bottom: $largeMargin;
+  padding-top: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
 }

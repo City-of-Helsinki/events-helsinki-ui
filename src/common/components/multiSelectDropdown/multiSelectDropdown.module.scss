@@ -1,4 +1,3 @@
-@import 'colors';
 @import 'mixins';
 
 .dropdown {
@@ -36,7 +35,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background-color: $dark-green;
+    background-color: var(--color-tram-dark-50);
   }
 
   .iconWrapper {
@@ -51,7 +50,7 @@
   .title {
     flex: 1 1 0%;
     text-align: left;
-    color: $hel-black;
+    color: var(--color-black);
     position: relative;
 
     input {
@@ -62,7 +61,7 @@
       border: none;
       outline: none;
 
-      @include placeholder($hel-black);
+      @include placeholder(var(--color-black));
     }
 
     .titleText {
@@ -106,7 +105,7 @@
 
 .dropdownItem {
   margin: 0;
-  padding: calc(#{$basePadding} / 2) 1rem;
+  padding: var(--spacing-xs) var(--spacing-s);
 
   &--first {
     padding-top: 1rem;
