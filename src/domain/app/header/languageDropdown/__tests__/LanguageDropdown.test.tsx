@@ -26,12 +26,12 @@ const defaultProps = {
   value: SUPPORT_LANGUAGES.FI,
 };
 
-const getWrapper = (props?: Partial<LanguageDropdownProps>) => {
+const renderComponent = (props?: Partial<LanguageDropdownProps>) => {
   return render(<LanguageDropdown {...defaultProps} {...props} />);
 };
 
 test('should allow navigation with up and down arrows', async () => {
-  getWrapper();
+  renderComponent();
   const button = screen.getByRole('button', {
     name: translations.header.changeLanguage,
   });
@@ -53,7 +53,7 @@ test('should allow navigation with up and down arrows', async () => {
 });
 
 test('should select last item if the first keyboard navigation is button up', () => {
-  getWrapper();
+  renderComponent();
 
   const button = screen.getByRole('button', {
     name: translations.header.changeLanguage,
@@ -71,7 +71,7 @@ test('should select last item if the first keyboard navigation is button up', ()
 });
 
 test('should select first item when user goes down in the last member of the list', () => {
-  getWrapper();
+  renderComponent();
 
   const button = screen.getByRole('button', {
     name: translations.header.changeLanguage,
@@ -90,7 +90,7 @@ test('should select first item when user goes down in the last member of the lis
 
 test('should change language by clicking option', () => {
   const onChange = jest.fn();
-  getWrapper({ onChange });
+  renderComponent({ onChange });
 
   const button = screen.getByRole('button', {
     name: translations.header.changeLanguage,
@@ -109,7 +109,7 @@ test('should change language by clicking option', () => {
 
 test('should change language with enter', () => {
   const onChange = jest.fn();
-  getWrapper({ onChange });
+  renderComponent({ onChange });
 
   const button = screen.getByRole('button', {
     name: translations.header.changeLanguage,
@@ -126,7 +126,7 @@ test('should change language with enter', () => {
 
 describe('when dropdown is open closed, it should close with', () => {
   const getOpenDropdown = () => {
-    const helpers = getWrapper();
+    const helpers = renderComponent();
     const button = screen.getByRole('button', {
       name: translations.header.changeLanguage,
     });
@@ -173,7 +173,7 @@ describe('when dropdown is open closed, it should close with', () => {
 
 describe('when dropdown has been closed, it should reopen with', () => {
   const getClosedInput = () => {
-    const helpers = getWrapper();
+    const helpers = renderComponent();
     const button = screen.getByRole('button', {
       name: translations.header.changeLanguage,
     });

@@ -5,10 +5,10 @@ import translations from '../../../../../common/translation/i18n/fi.json';
 import { render, screen, userEvent } from '../../../../../util/testUtils';
 import Navbar from '../Navbar';
 
-const getWrapper = () => render(<Navbar />, { routes: ['/fi/home'] });
+const renderComponent = () => render(<Navbar />, { routes: ['/fi/home'] });
 
 it('component should be accessible', async () => {
-  const { container } = getWrapper();
+  const { container } = renderComponent();
 
   expect(await axe(container)).toHaveNoViolations();
 });
@@ -16,7 +16,7 @@ it('component should be accessible', async () => {
 test('should change language', async () => {
   const languageLabel = translations.header.languages.sv;
 
-  const { history } = getWrapper();
+  const { history } = renderComponent();
 
   const button = screen.getByRole('button', {
     name: translations.header.changeLanguage,

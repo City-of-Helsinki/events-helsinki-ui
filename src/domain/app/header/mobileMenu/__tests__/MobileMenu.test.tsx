@@ -8,7 +8,7 @@ import MobileMenu from '../MobileMenu';
 
 const routes = ['/fi/home'];
 
-const getWrapper = () =>
+const renderComponent = () =>
   render(<MobileMenu isMenuOpen={true} onClose={jest.fn()} />, { routes });
 
 beforeEach(() => {
@@ -16,19 +16,19 @@ beforeEach(() => {
 });
 
 it('component should be accessible', async () => {
-  const { container } = getWrapper();
+  const { container } = renderComponent();
 
   expect(await axe(container)).toHaveNoViolations();
 });
 
 it('matches snapshot', async () => {
-  const { container } = getWrapper();
+  const { container } = renderComponent();
 
   expect(container.firstChild).toMatchSnapshot();
 });
 
 it('should change language', async () => {
-  const { history } = getWrapper();
+  const { history } = renderComponent();
 
   userEvent.click(
     screen.queryByRole('link', { name: translations.header.languages.sv })

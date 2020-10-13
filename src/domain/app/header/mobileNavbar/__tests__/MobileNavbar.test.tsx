@@ -10,11 +10,11 @@ beforeEach(() => {
   i18n.changeLanguage('fi');
 });
 
-const getWrapper = () =>
+const renderComponent = () =>
   render(<MobileNavbar isMenuOpen={true} onToggleMenu={jest.fn()} />);
 
 it('component should be accessible', async () => {
-  const { container } = getWrapper();
+  const { container } = renderComponent();
   expect(await axe(container)).toHaveNoViolations();
 });
 
