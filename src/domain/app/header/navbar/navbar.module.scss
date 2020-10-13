@@ -20,7 +20,7 @@ $logoWidthSv: 7.1875rem;
 
     .appName {
       margin-left: var(--spacing-l);
-      font-size: --fontsize-heading-s;
+      font-size: var(--fontsize-heading-s);
       color: var(--color-black);
       font-weight: 600;
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Redirect, Route, Switch } from 'react-router';
+import { ToastContainer } from 'react-toastify';
 
 import { getCurrentLanguage } from '../../../common/translation/TranslationUtils';
 import { SUPPORT_LANGUAGES } from '../../../constants';
@@ -17,6 +18,7 @@ const AppRoutes: React.FC = () => {
 
   return (
     <MobileMenuProvider>
+      <ToastContainer />
       <ResetFocus />
       <PageLayout>
         <Switch>

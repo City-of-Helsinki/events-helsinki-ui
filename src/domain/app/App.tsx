@@ -8,7 +8,6 @@ import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import { useSSR } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 
 import apolloClient from './apollo/apolloClient';
 import AppRoutes from './routes/AppRoutes';
@@ -25,7 +24,6 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
-      <ToastContainer />
       <ApolloProvider client={apolloClient}>
         <ApolloHooksProvider client={apolloClient}>
           <ScrollToTop />
