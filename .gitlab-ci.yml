@@ -21,6 +21,7 @@ build-review:
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_ID: 64
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_ID: '$GL_QA_GTM_ID'
 
   only:
     refs:
@@ -41,6 +42,7 @@ build-staging:
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_ID: 64
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'true'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_ID: '$GL_QA_GTM_ID'
   only:
     refs:
       - develop
@@ -60,6 +62,7 @@ build-production:
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_ID: 64
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_ID: '$GL_PRODUCTION_GTM_ID'
   only:
     refs:
       - master
