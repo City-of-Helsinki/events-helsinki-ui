@@ -1,6 +1,12 @@
 import gql from 'graphql-tag';
 
 export const QUERY_ABOUT = gql`
+  fragment localizedCmsKeywords on LocalizedCmsKeywords {
+    en
+    fi
+    sv
+  }
+
   fragment staticPageFields on StaticPage {
     id
     expired
@@ -10,6 +16,9 @@ export const QUERY_ABOUT = gql`
     }
     contentSection {
       ...localizedFields
+    }
+    keywords {
+      ...localizedCmsKeywords
     }
   }
 

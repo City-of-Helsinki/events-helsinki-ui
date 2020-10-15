@@ -7,10 +7,12 @@ import { actWait } from '../../../../util/testUtils';
 import EventPageMeta from '../EventPageMeta';
 
 const eventName = 'Name of event';
+const keyword = 'event keyword';
 const eventDescription = 'Description for event';
 const eventImage = 'https://localhost/example/path';
 const event = fakeEvent({
   images: [{ internalId: '', name: '', url: eventImage }],
+  keywords: [{ internalId: '', name: { fi: keyword } }],
   name: {
     fi: eventName,
   },
@@ -48,12 +50,14 @@ test('applies expected metadata', async () => {
   const title = document.title;
   const head = document.querySelector('head');
   const metaDescription = head.querySelector('[name="description"]');
+  const metaKeywords = head.querySelector('[name="keywords"]');
   const ogTitle = head.querySelector('[property="og:title"]');
   const ogDescription = head.querySelector('[property="og:description"]');
   const ogImage = head.querySelector('[property="og:image"]');
 
   expect(title).toEqual(eventName);
   expect(metaDescription).toHaveAttribute('content', eventDescription);
+  expect(metaKeywords).toHaveAttribute('content', keyword);
   expect(ogTitle).toHaveAttribute('content', eventName);
   expect(ogDescription).toHaveAttribute('content', eventDescription);
   expect(ogImage).toHaveAttribute('content', eventImage);
