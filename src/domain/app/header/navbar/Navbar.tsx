@@ -50,7 +50,10 @@ const Navbar: React.FC = () => {
     <Container>
       <div className={styles.navbar}>
         <div className={styles.logoWrapper}>
-          <Link aria-label={t('header.ariaLabelLogo')} to={'/'}>
+          <Link
+            aria-label={t('header.ariaLabelLogo')}
+            to={`/${locale}${ROUTES.HOME}`}
+          >
             <div className={classNames(styles.logo, styles[logoLang])} />
             <div className={styles.appName}>{t('appName')}</div>
           </Link>
