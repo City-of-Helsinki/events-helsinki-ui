@@ -32,7 +32,7 @@ const EventPageMeta: React.FC<Props> = ({ event }) => {
       <meta
         name="keywords"
         content={keywords
-          .map((keyword) => keyword.name.toLocaleLowerCase())
+          .map((keyword) => keyword.name.toLowerCase())
           .join(', ')}
       />
       <meta name="twitter:card" content="summary" />
