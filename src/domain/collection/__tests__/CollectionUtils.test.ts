@@ -24,7 +24,7 @@ describe('getCollectionFields function', () => {
       eventListTitle,
       linkText,
       linkUrl,
-      socialMediadescription,
+      socialMediaDescription,
       title,
     } = getCollectionFields(collection, 'fi');
 
@@ -33,7 +33,7 @@ describe('getCollectionFields function', () => {
     expect(eventListTitle).toBe('');
     expect(linkText).toBe('');
     expect(linkUrl).toBe('');
-    expect(socialMediadescription).toBe('');
+    expect(socialMediaDescription).toBe('');
     expect(title).toBe('');
   });
 });

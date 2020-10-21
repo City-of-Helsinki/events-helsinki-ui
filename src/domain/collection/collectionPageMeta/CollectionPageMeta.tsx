@@ -13,7 +13,8 @@ const CollectionPageMeta: React.FC<Props> = ({ collection }) => {
   const locale = useLocale();
   const {
     heroBackgroundImage: image,
-    socialMediadescription: description,
+    keywords,
+    socialMediaDescription: description,
     title,
   } = getCollectionFields(collection, locale);
 
@@ -27,6 +28,10 @@ const CollectionPageMeta: React.FC<Props> = ({ collection }) => {
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
+      <meta
+        name="keywords"
+        content={keywords?.map((keyword) => keyword?.toLowerCase()).join(', ')}
+      />
       <meta name="twitter:card" content="summary" />
       {Object.entries(openGraphProperties).map(([property, value]) => (
         <meta key={property} property={`og:${property}`} content={value} />

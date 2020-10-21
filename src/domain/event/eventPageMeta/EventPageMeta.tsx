@@ -13,6 +13,7 @@ const EventPageMeta: React.FC<Props> = ({ event }) => {
   const locale = useLocale();
 
   const {
+    keywords,
     name,
     someImageUrl: image,
     shortDescription: description,
@@ -28,6 +29,12 @@ const EventPageMeta: React.FC<Props> = ({ event }) => {
     <Helmet>
       <title>{name}</title>
       <meta name="description" content={description} />
+      <meta
+        name="keywords"
+        content={keywords
+          .map((keyword) => keyword.name.toLowerCase())
+          .join(', ')}
+      />
       <meta name="twitter:card" content="summary" />
       {Object.entries(openGraphProperties).map(([property, value]) => (
         <meta key={property} property={`og:${property}`} content={value} />

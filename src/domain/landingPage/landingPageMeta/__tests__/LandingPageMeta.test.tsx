@@ -8,8 +8,10 @@ import LandingPageMeta from '../LandingPageMeta';
 
 const landingPageTitle = 'Landing page title';
 const landingPageDescription = 'Landing page description';
+const landingPageKeyword = 'landing page keyword';
 const landingPageImage = 'www.testurl.fi';
 const landingPage = fakeLandingPage({
+  keywords: { fi: [landingPageKeyword] },
   socialMediaImage: { fi: { url: landingPageImage } },
   metaInformation: { fi: landingPageDescription },
   pageTitle: { fi: landingPageTitle },
@@ -45,12 +47,14 @@ test('applies expected metadata', async () => {
   const title = document.title;
   const head = document.querySelector('head');
   const metaDescription = head.querySelector('[name="description"]');
+  const metaKeywords = head.querySelector('[name="keywords"]');
   const ogTitle = head.querySelector('[property="og:title"]');
   const ogDescription = head.querySelector('[property="og:description"]');
   const ogImage = head.querySelector('[property="og:image"]');
 
   expect(title).toEqual(landingPageTitle);
   expect(metaDescription).toHaveAttribute('content', landingPageDescription);
+  expect(metaKeywords).toHaveAttribute('content', landingPageKeyword);
   expect(ogTitle).toHaveAttribute('content', landingPageTitle);
   expect(ogDescription).toHaveAttribute('content', landingPageDescription);
   expect(ogImage).toHaveAttribute('content', landingPageImage);

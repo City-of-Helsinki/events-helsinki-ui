@@ -19,6 +19,7 @@ import {
   LandingPage,
   LandingPagesResponse,
   LocalizedCmsImage,
+  LocalizedCmsKeywords,
   LocalizedObject,
   Neighborhood,
   NeighborhoodListResponse,
@@ -251,6 +252,7 @@ export const fakeLandingPage = (
       heroBackgroundImageColor: fakeLocalizedObject('BLACK'),
       heroBackgroundImageMobile: fakeLocalizedCmsImage(),
       heroTopLayerImage: fakeLocalizedCmsImage(),
+      keywords: fakeLocalizedCmsKeywords(),
       metaInformation: fakeLocalizedObject(),
       pageTitle: fakeLocalizedObject(),
       socialMediaImage: fakeLocalizedCmsImage(),
@@ -284,6 +286,7 @@ export const fakeCollection = (
       expired: false,
       eventListTitle: fakeLocalizedObject(),
       heroImage: fakeCmsImage(),
+      keywords: fakeLocalizedCmsKeywords(),
       linkText: fakeLocalizedObject(),
       linkUrl: fakeLocalizedObject(faker.internet.url()),
       slug: faker.random.uuid(),
@@ -303,6 +306,22 @@ export const fakeCmsImage = (overrides?: Partial<CmsImage>): CmsImage =>
     },
     overrides
   );
+
+export const fakeLocalizedCmsKeywords = (
+  overrides?: Partial<LocalizedCmsKeywords>
+): LocalizedCmsKeywords =>
+  merge(
+    {
+      en: fakeCmsKeywords(),
+      fi: fakeCmsKeywords(),
+      sv: fakeCmsKeywords(),
+      __typename: 'LocalizedCmsKeywords',
+    },
+    overrides
+  );
+
+export const fakeCmsKeywords = (count = 1, keywords?: string[]): string[] =>
+  generateNodeArray((i) => keywords?.[i] || faker.company.companyName(), count);
 
 export const fakeLocalizedCmsImage = (
   overrides?: Partial<LocalizedCmsImage>
@@ -343,6 +362,7 @@ export const fakeStaticPage = (overrides?: Partial<StaticPage>): StaticPage =>
       expired: false,
       headingSection: fakeLocalizedObject(),
       contentSection: fakeLocalizedObject(),
+      keywords: fakeLocalizedCmsKeywords(),
       __typename: 'StaticPage',
     },
     overrides

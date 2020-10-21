@@ -109,6 +109,7 @@ export const getLandingPageFields = (
   pageTitle: landingPage.pageTitle?.[locale] || '',
   title: landingPage.title?.[locale] || '',
   description: landingPage.description?.[locale] || '',
+  keywords: landingPage.keywords?.[locale],
   titleAndDescriptionColor: getHeroTitleAndDescriptionColor(
     landingPage,
     locale
