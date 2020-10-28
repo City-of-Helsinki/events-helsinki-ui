@@ -60,6 +60,13 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
+### `yarn codegen`
+
+Codegen settings in <b>codegen.yml</b>
+
+- Generate static types for GraphQL queries by using the schema from the backend server. url to backend server is defined to REACT_APP_GRAPHQL_BASE_URL in .env.development.local
+- Generate react hooks for GraphQL queries from <b>query.ts</b> files.
+
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.<br />

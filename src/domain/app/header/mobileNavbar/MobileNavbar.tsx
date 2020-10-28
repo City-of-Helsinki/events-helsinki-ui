@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import useLocale from '../../../../hooks/useLocale';
+import { ROUTES } from '../../constants';
 import Container from '../../layout/Container';
 import styles from './mobileNavbar.module.scss';
 
@@ -25,7 +26,7 @@ const MobileNavbar: React.FC<Props> = ({ isMenuOpen, onToggleMenu }) => {
         <Link
           aria-label={t('header.ariaLabelLogo')}
           onClick={onToggleMenu}
-          to={'/'}
+          to={`/${locale}${ROUTES.HOME}`}
           className={styles.logoWrapper}
         >
           <div className={classNames(styles.logo, styles[logoLang])} />

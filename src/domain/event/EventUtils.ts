@@ -8,6 +8,7 @@ import {
 } from '../../generated/graphql';
 import { Language } from '../../types';
 import getLocalisedString from '../../util/getLocalisedString';
+import getSecureImage from '../../util/getSecureImage';
 import {
   EVENT_KEYWORD_BLACK_LIST,
   EVENT_PLACEHOLDER_IMAGES,
@@ -136,7 +137,10 @@ export const getEventPlaceholderImageUrl = (
 export const getEventImageUrl = (event: EventFieldsFragment): string => {
   // const image = event.images.length ? event.images[0] : null;
   const image = event.images[0];
-  return image?.url || getEventPlaceholderImageUrl(event);
+
+  return image?.url
+    ? getSecureImage(image.url)
+    : getEventPlaceholderImageUrl(event);
 };
 
 /**
@@ -146,7 +150,7 @@ export const getEventImageUrl = (event: EventFieldsFragment): string => {
  */
 export const getEventSomeImageUrl = (event: EventFieldsFragment): string => {
   const image = event.images[0];
-  return image?.url || EVENT_SOME_IMAGE;
+  return image?.url ? getSecureImage(image.url) : EVENT_SOME_IMAGE;
 };
 
 /**

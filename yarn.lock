@@ -3544,6 +3544,11 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-gtm-module@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-gtm-module/-/react-gtm-module-2.0.0.tgz#25a118bbcadd518f376ee52626ab0829cb824874"
+  integrity sha512-2d7TUhOQBG6cSVSSSWaoSu+Ds84VQFTuVKLeGNc2GtfA7JDr+z3ujl4n/rezaRRNEhjn+9SllwHy1iNxxP8jDg==
+
 "@types/react-helmet@^5.0.13":
   version "5.0.14"
   resolved "https://registry.yarnpkg.com/@types/react-helmet/-/react-helmet-5.0.14.tgz#a07979ccb2cee088e74e735c84058fc8607d32e4"
@@ -14501,6 +14506,11 @@ react-fast-compare@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
+
+react-gtm-module@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/react-gtm-module/-/react-gtm-module-2.0.11.tgz#14484dac8257acd93614e347c32da9c5ac524206"
+  integrity sha512-8gyj4TTxeP7eEyc2QKawEuQoAZdjKvMY4pgWfycGmqGByhs17fR+zEBs0JUDq4US/l+vbTl+6zvUIx27iDo/Vw==
 
 react-helmet@6.0.0-beta.2:
   version "6.0.0-beta.2"

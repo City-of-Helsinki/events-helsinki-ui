@@ -17,6 +17,7 @@ build-review:
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'dev'
     DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.test.kuva.hel.ninja/api'
     DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
+    DOCKER_BUILD_ARG_REACT_APP_IMAGE_PROXY_URL: 'https://api.hel.fi/linkedcourses/proxyimage/'
     DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'false'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_ID: 64
@@ -37,10 +38,14 @@ build-staging:
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'test'
     DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.test.kuva.hel.ninja/api'
     DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
+    DOCKER_BUILD_ARG_REACT_APP_IMAGE_PROXY_URL: 'https://api.hel.fi/linkedcourses/proxyimage/'
     DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'true'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_ID: 64
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'true'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_AUTH: '$GL_QA_GTM_AUTH'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_ID: '$GL_QA_GTM_ID'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_PREVIEW: '$GL_QA_GTM_PREVIEW'
   only:
     refs:
       - develop
@@ -56,10 +61,14 @@ build-production:
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'production'
     DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.prod.kuva.hel.ninja/api'
     DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
+    DOCKER_BUILD_ARG_REACT_APP_IMAGE_PROXY_URL: 'https://api.hel.fi/linkedcourses/proxyimage/'
     DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'false'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_ID: 64
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_AUTH: '$GL_PRODUCTION_GTM_AUTH'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_ID: '$GL_PRODUCTION_GTM_ID'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_PREVIEW: '$GL_PRODUCTION_GTM_PREVIEW'
   only:
     refs:
       - master

@@ -46,6 +46,7 @@ export type CollectionDetails = {
   goLiveAt?: Maybe<Scalars['String']>,
   hasUnpublishedChanges?: Maybe<Scalars['Boolean']>,
   heroImage?: Maybe<CmsImage>,
+  keywords?: Maybe<LocalizedCmsKeywords>,
   lastPublishedAt?: Maybe<Scalars['String']>,
   latestRevisionCreatedAt?: Maybe<Scalars['String']>,
   linkText?: Maybe<LocalizedObject>,
@@ -220,6 +221,7 @@ export type LandingPage = {
   latestRevisionCreatedAt?: Maybe<Scalars['String']>,
   title?: Maybe<LocalizedObject>,
   description?: Maybe<LocalizedObject>,
+  keywords?: Maybe<LocalizedCmsKeywords>,
   titleAndDescriptionColor?: Maybe<LocalizedObject>,
   buttonText?: Maybe<LocalizedObject>,
   buttonUrl?: Maybe<LocalizedObject>,
@@ -246,6 +248,13 @@ export type LocalizedCmsImage = {
   en?: Maybe<CmsImage>,
   fi?: Maybe<CmsImage>,
   sv?: Maybe<CmsImage>,
+};
+
+export type LocalizedCmsKeywords = {
+   __typename?: 'LocalizedCmsKeywords',
+  en?: Maybe<Array<Maybe<Scalars['String']>>>,
+  fi?: Maybe<Array<Maybe<Scalars['String']>>>,
+  sv?: Maybe<Array<Maybe<Scalars['String']>>>,
 };
 
 export type LocalizedObject = {
@@ -493,6 +502,7 @@ export type StaticPage = {
   locked?: Maybe<Scalars['Boolean']>,
   lockedAt?: Maybe<Scalars['String']>,
   firstPublishedAt?: Maybe<Scalars['String']>,
+  keywords?: Maybe<LocalizedCmsKeywords>,
   lastPublishedAt?: Maybe<Scalars['String']>,
   latestRevisionCreatedAt?: Maybe<Scalars['String']>,
   headingSection?: Maybe<LocalizedObject>,
@@ -508,6 +518,11 @@ export type Subscription = {
   _empty?: Maybe<Scalars['String']>,
 };
 
+export type LocalizedCmsKeywordsFragment = (
+  { __typename?: 'LocalizedCmsKeywords' }
+  & Pick<LocalizedCmsKeywords, 'en' | 'fi' | 'sv'>
+);
+
 export type StaticPageFieldsFragment = (
   { __typename?: 'StaticPage' }
   & Pick<StaticPage, 'id' | 'expired'>
@@ -517,6 +532,9 @@ export type StaticPageFieldsFragment = (
   )>, contentSection: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
+  )>, keywords: Maybe<(
+    { __typename?: 'LocalizedCmsKeywords' }
+    & LocalizedCmsKeywordsFragment
   )> }
 );
 
@@ -566,6 +584,9 @@ export type CollectionFieldsFragment = (
   )>, eventListTitle: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
+  )>, keywords: Maybe<(
+    { __typename?: 'LocalizedCmsKeywords' }
+    & LocalizedCmsKeywordsFragment
   )>, linkText: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
@@ -821,6 +842,9 @@ export type LandingPageFieldsFragment = (
   )>, metaInformation: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
+  )>, keywords: Maybe<(
+    { __typename?: 'LocalizedCmsKeywords' }
+    & LocalizedCmsKeywordsFragment
   )>, title: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
@@ -1000,6 +1024,13 @@ export const LocalizedFieldsFragmentDoc = gql`
   sv
 }
     `;
+export const LocalizedCmsKeywordsFragmentDoc = gql`
+    fragment localizedCmsKeywords on LocalizedCmsKeywords {
+  en
+  fi
+  sv
+}
+    `;
 export const StaticPageFieldsFragmentDoc = gql`
     fragment staticPageFields on StaticPage {
   id
@@ -1010,8 +1041,12 @@ export const StaticPageFieldsFragmentDoc = gql`
   contentSection {
     ...localizedFields
   }
+  keywords {
+    ...localizedCmsKeywords
+  }
 }
-    ${LocalizedFieldsFragmentDoc}`;
+    ${LocalizedFieldsFragmentDoc}
+${LocalizedCmsKeywordsFragmentDoc}`;
 export const CmsImageFieldsFragmentDoc = gql`
     fragment cmsImageFields on CmsImage {
   photographerCredit
@@ -1039,6 +1074,9 @@ export const CollectionFieldsFragmentDoc = gql`
   eventListTitle {
     ...localizedFields
   }
+  keywords {
+    ...localizedCmsKeywords
+  }
   linkText {
     ...localizedFields
   }
@@ -1054,7 +1092,8 @@ export const CollectionFieldsFragmentDoc = gql`
   }
 }
     ${CmsImageFieldsFragmentDoc}
-${LocalizedFieldsFragmentDoc}`;
+${LocalizedFieldsFragmentDoc}
+${LocalizedCmsKeywordsFragmentDoc}`;
 export const KeywordFieldsFragmentDoc = gql`
     fragment keywordFields on Keyword {
   id
@@ -1202,6 +1241,9 @@ export const LandingPageFieldsFragmentDoc = gql`
   metaInformation {
     ...localizedFields
   }
+  keywords {
+    ...localizedCmsKeywords
+  }
   title {
     ...localizedFields
   }
@@ -1234,6 +1276,7 @@ export const LandingPageFieldsFragmentDoc = gql`
   }
 }
     ${LocalizedFieldsFragmentDoc}
+${LocalizedCmsKeywordsFragmentDoc}
 ${LocalizedCmsImageFieldsFragmentDoc}`;
 export const OrganizationFieldsFragmentDoc = gql`
     fragment organizationFields on OrganizationDetails {

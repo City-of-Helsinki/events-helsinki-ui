@@ -12,10 +12,12 @@ interface Props {
 const LandingPageMeta: React.FC<Props> = ({ landingPage }) => {
   const locale = useLocale();
 
-  const { pageTitle, someImage: image, metaInformation } = getLandingPageFields(
-    landingPage,
-    locale
-  );
+  const {
+    keywords,
+    pageTitle,
+    someImage: image,
+    metaInformation,
+  } = getLandingPageFields(landingPage, locale);
 
   const openGraphProperties: { [key: string]: string } = {
     description: metaInformation,
@@ -27,6 +29,10 @@ const LandingPageMeta: React.FC<Props> = ({ landingPage }) => {
     <Helmet>
       <title>{pageTitle}</title>
       <meta name="description" content={openGraphProperties.description} />
+      <meta
+        name="keywords"
+        content={keywords?.map((keyword) => keyword?.toLowerCase()).join(', ')}
+      />
       <meta name="twitter:card" content="summary" />
       {Object.entries(openGraphProperties).map(([property, value]) => (
         <meta key={property} property={`og:${property}`} content={value} />

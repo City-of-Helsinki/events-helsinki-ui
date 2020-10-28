@@ -25,6 +25,9 @@ export const QUERY_KEYWORD = gql`
     metaInformation {
       ...localizedFields
     }
+    keywords {
+      ...localizedCmsKeywords
+    }
     title {
       ...localizedFields
     }

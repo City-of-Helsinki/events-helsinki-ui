@@ -21,6 +21,9 @@ export const QUERY_COLLECTION_DETAILS = gql`
     eventListTitle {
       ...localizedFields
     }
+    keywords {
+      ...localizedCmsKeywords
+    }
     linkText {
       ...localizedFields
     }
