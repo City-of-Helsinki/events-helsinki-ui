@@ -81,12 +81,12 @@
     },
     "languageNotSupported": {
       "linkSearchEvents": "Go to all collections",
-      "text": "Unfortunately this collections has not been created in all different languages. Luckily there are many other recommendations, so have a look at the other collections and find loads of interesting events.",
+      "text": "This content is not available in the language you are looking for. Luckily there are many other recommendations, so have a look at the other collections to find loads of interesting events.",
       "title": "This collection is not available in English"
     },
     "notFound": {
       "linkSearchEvents": "Find something to do",
-      "text": "For one reason or another we can't find the collection you are looking for. Instead, try searching for something interesting to do from here:",
+      "text": "For some reason we can't find the collection you are looking for. Try searching for something else here:",
       "title": "Oops, you got hit by a 404!"
     },
     "shareLinks": {
@@ -166,7 +166,7 @@
     },
     "notFound": {
       "linkSearchEvents": "Find something to do",
-      "text": "For one reason or another we can't find the event you are looking for. Instead, try searching for something interesting to do from here: ",
+      "text": "For some reason we can't find the event you are looking for. Try searching for something else here:",
       "title": "Oops, you got hit by a 404!"
     },
     "otherTimes": {
@@ -252,7 +252,7 @@
       "title": "See our recommendations"
     },
     "notFound": {
-      "text": "For one reason or another we can't find the landing page you are looking for.",
+      "text": "For some reason we can't find the landing page you are looking for.",
       "title": "Oops, you got hit by a 404!"
     },
     "search": {
@@ -272,7 +272,7 @@
   },
   "notFound": {
     "linkSearchEvents": "Find something to do",
-    "text": "For one reason or another we can't find the page you are looking for. Instead, try searching for something interesting to do from here:",
+    "text": "For some reason we can't find the page you are looking for. Try searching for something else here:",
     "title": "Oops, you got hit by a 404!"
   }
 }
