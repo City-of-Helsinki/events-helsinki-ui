@@ -50,7 +50,7 @@ const useTextWrapperWidth = ({
         }
       }
 
-      return Math.ceil(maxTextWidth);
+      return Math.ceil(Math.max(maxTextWidth, textWidth));
     }
 
     return null;

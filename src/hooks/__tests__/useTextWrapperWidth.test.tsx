@@ -22,6 +22,16 @@ test('should return correct text wrapper width', async () => {
   );
 
   expect(result2.current).toBe(495);
+
+  const { result: result3 } = renderHook(() =>
+    useTextWrapperWidth({
+      font: `600 80px Arial`,
+      maxTextWrapperWidth: 560,
+      title: 'Tapahtumia',
+    })
+  );
+
+  expect(result3.current).toBe(442);
 });
 
 test('should return greater value than maxTextWrapperWidth when single word is overflowing', async () => {
