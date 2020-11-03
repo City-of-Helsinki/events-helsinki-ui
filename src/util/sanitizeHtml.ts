@@ -3,6 +3,7 @@ import sanitize from 'sanitize-html';
 const sanitazeHtml = (html: string): string => {
   return sanitize(unescape(html), {
     allowedTags: [
+      'br',
       'h1',
       'h2',
       'h3',
