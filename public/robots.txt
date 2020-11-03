@@ -1,11 +1,8 @@
-User-agent: *
-Disallow: /
-
 # https://www.robotstxt.org/robotstxt.html
-# User-agent: *
-# Disallow: /*/about
-# Disallow: /*/accessibility
-# Disallow: /*/events
-# Disallow: /*/collections
+User-agent: *
+Disallow: /*/about
+Disallow: /*/accessibility
+Disallow: /*/events
+Disallow: /*/collections
 
-# Sitemap: https://tapahtumat.prod.kuva.hel.ninja/sitemap.xml
+Sitemap: https://tapahtumat.hel.fi/sitemap.xml
