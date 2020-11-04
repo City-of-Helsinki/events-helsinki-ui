@@ -1,8 +1,10 @@
+import { Resource } from 'i18next';
+
 import { Language } from './types';
 
 declare global {
   interface Window {
-    initialI18nStore: Record<string, unknown>;
+    initialI18nStore: Resource;
     initialLanguage: Language;
   }
 }
