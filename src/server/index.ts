@@ -6,7 +6,8 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import express, { Request, Response } from 'express';
-import i18nextMiddleware from 'i18next-express-middleware';
+import { Resource } from 'i18next';
+import i18nextMiddleware, { I18NextRequest } from 'i18next-express-middleware';
 import cron from 'node-cron';
 import React from 'react';
 import { getDataFromTree } from 'react-apollo';
@@ -39,12 +40,12 @@ const checkIsServerReady = (response: Response) => {
 };
 
 const getInitialI18nStore = (req: Request) => {
-  const initialI18nStore: {
-    [key: string]: string | Record<string, unknown>;
-  } = {};
+  const initialI18nStore: Resource = {};
 
   Object.values(SUPPORT_LANGUAGES).forEach((l: string) => {
-    initialI18nStore[l] = req.i18n.services.resourceStore.data[l];
+    initialI18nStore[
+      l
+    ] = (req as I18NextRequest).i18n.services.resourceStore.data[l];
   });
 
   return initialI18nStore;
@@ -77,7 +78,7 @@ app.use(async (req: Request, res: Response) => {
   const el = React.createElement(ServerApp, {
     client,
     context,
-    i18n: req.i18n,
+    i18n: (req as I18NextRequest).i18n,
     url: req.url,
   });
 
@@ -90,7 +91,7 @@ app.use(async (req: Request, res: Response) => {
     const helmet = Helmet.renderStatic();
     const assets = getAssets();
     const initialI18nStore = getInitialI18nStore(req);
-    const initialLanguage = req.i18n.languages[0];
+    const initialLanguage = (req as I18NextRequest).i18n.languages[0];
     const htmlEl = React.createElement(Html, {
       assets,
       canonicalUrl: `${getDomainFromRequest(req)}${req.url}`,
@@ -104,7 +105,7 @@ app.use(async (req: Request, res: Response) => {
     const html = ReactDOMServer.renderToString(htmlEl);
 
     if (context.url) {
-      res.redirect(301, context.url);
+      res.redirect(302, context.url);
     } else {
       res.status(200);
       res.send(`<!doctype html>${html}`);
