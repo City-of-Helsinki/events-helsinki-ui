@@ -11,10 +11,15 @@ import styles from './mobileNavbar.module.scss';
 
 interface Props {
   isMenuOpen: boolean;
+  onCloseMenu: () => void;
   onToggleMenu: () => void;
 }
 
-const MobileNavbar: React.FC<Props> = ({ isMenuOpen, onToggleMenu }) => {
+const MobileNavbar: React.FC<Props> = ({
+  isMenuOpen,
+  onCloseMenu,
+  onToggleMenu,
+}) => {
   const { t } = useTranslation();
   const locale = useLocale();
 
@@ -25,7 +30,7 @@ const MobileNavbar: React.FC<Props> = ({ isMenuOpen, onToggleMenu }) => {
       <div className={styles.mobileNavbar}>
         <Link
           aria-label={t('header.ariaLabelLogo')}
-          onClick={onToggleMenu}
+          onClick={onCloseMenu}
           to={`/${locale}${ROUTES.HOME}`}
           className={styles.logoWrapper}
         >
