@@ -6,7 +6,6 @@ import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import IconButton from '../../../common/components/iconButton/IconButton';
-import TruncatedText from '../../../common/components/truncatedText/TruncatedText';
 import { CollectionFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { ROUTES } from '../../app/constants';
@@ -79,12 +78,7 @@ const CollectionCard: React.FC<Props> = ({ collection, size }) => {
         <div className={styles.titleWrapper}>
           <span className={styles.title}>{title}</span>
           {showDescription && !!description && (
-            <TruncatedText
-              as="div"
-              className={styles.description}
-              maxLength={120}
-              text={description}
-            />
+            <div className={styles.description}>{description}</div>
           )}
         </div>
 

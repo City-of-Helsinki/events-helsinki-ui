@@ -19,6 +19,12 @@ const MobileNavigation: React.FC = () => {
     body.classList.remove('scrollDisabledOnMobile');
   };
 
+  const ensureMenuIsClosed = () => {
+    if (isMobileMenuOpen) {
+      toggleMenu();
+    }
+  };
+
   React.useEffect(() => {
     if (isMobileMenuOpen) {
       disabledBodyScrolling();
@@ -29,8 +35,12 @@ const MobileNavigation: React.FC = () => {
 
   return (
     <div className={styles.mobileNavigation}>
-      <MobileNavbar isMenuOpen={isMobileMenuOpen} onToggleMenu={toggleMenu} />
-      <MobileMenu isMenuOpen={isMobileMenuOpen} onClose={toggleMenu} />
+      <MobileNavbar
+        isMenuOpen={isMobileMenuOpen}
+        onCloseMenu={ensureMenuIsClosed}
+        onToggleMenu={toggleMenu}
+      />
+      <MobileMenu isMenuOpen={isMobileMenuOpen} onClose={ensureMenuIsClosed} />
     </div>
   );
 };
