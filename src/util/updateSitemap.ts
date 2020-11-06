@@ -336,11 +336,6 @@ const saveSitemapIndexPage = (pageAmount: number, time: Date) => {
     },
     elements: [
       {
-        type: 'instruction',
-        name: 'xml-stylesheet',
-        instruction: 'type="text/xsl" href="/sitemap.xsl"',
-      },
-      {
         type: 'element',
         name: 'sitemapindex',
         attributes: {
@@ -380,15 +375,11 @@ const saveSitemapPage = (elements: Element[], page: number) => {
     },
     elements: [
       {
-        type: 'instruction',
-        name: 'xml-stylesheet',
-        instruction: 'type="text/xsl" href="/sitemap.xsl"',
-      },
-      {
         type: 'element',
         name: 'urlset',
         attributes: {
           xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9',
+          'xmlns:xhtml': 'http://www.w3.org/1999/xhtml',
         },
         elements,
       },
