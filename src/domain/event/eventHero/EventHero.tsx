@@ -116,7 +116,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
               </Visible>
 
               <Visible above="sm" className={styles.location}>
-                <InfoWithIcon icon={<IconLocation />}>
+                <InfoWithIcon icon={<IconLocation />} title={''}>
                   <LocationText
                     event={event}
                     showDistrict={false}
@@ -126,7 +126,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
               </Visible>
 
               <Visible above="sm" className={styles.price}>
-                <InfoWithIcon icon={<IconTicket />}>
+                <InfoWithIcon icon={<IconTicket />} title={''}>
                   {eventPriceText || '-'}
                 </InfoWithIcon>
               </Visible>

@@ -12,7 +12,6 @@ import {
 import useLocale from '../../../hooks/useLocale';
 import { ROUTES } from '../../app/constants';
 import { getEventFields } from '../EventUtils';
-import styles from './eventInfo.module.scss';
 
 interface Props {
   event: EventFieldsFragment;
@@ -35,8 +34,10 @@ const OrganizationInfo: React.FC<Props> = ({ event }) => {
   };
 
   return (
-    <InfoWithIcon icon={<IconFaceSmile />}>
-      <h2 className={styles.title}>{t('event.info.labelOrganizer')}</h2>
+    <InfoWithIcon
+      icon={<IconFaceSmile />}
+      title={t('event.info.labelOrganizer')}
+    >
       <LoadingSpinner hasPadding={false} isLoading={loading}>
         <div>{provider || organizationName}</div>
         {publisher && (

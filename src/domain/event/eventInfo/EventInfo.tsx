@@ -101,9 +101,10 @@ const EventInfo: React.FC<Props> = ({ event }) => {
     <div className={styles.eventInfo}>
       <div className={styles.contentWrapper}>
         {/* Date info */}
-        <InfoWithIcon icon={<IconCalendarClock />}>
-          <h2 className={styles.title}>{t('event.info.labelDateAndTime')}</h2>
-
+        <InfoWithIcon
+          icon={<IconCalendarClock />}
+          title={t('event.info.labelDateAndTime')}
+        >
           {!!startTime && (
             <>
               {getDateRangeStr({
@@ -125,8 +126,10 @@ const EventInfo: React.FC<Props> = ({ event }) => {
         <OtherEventTimes event={event} />
 
         {/* Location info */}
-        <InfoWithIcon icon={<IconLocation />}>
-          <h2 className={styles.title}>{t('event.info.labelLocation')}</h2>
+        <InfoWithIcon
+          icon={<IconLocation />}
+          title={t('event.info.labelLocation')}
+        >
           <Visible below="sm">
             {[locationName, streetAddress, district, addressLocality]
               .filter((e) => e)
@@ -146,16 +149,20 @@ const EventInfo: React.FC<Props> = ({ event }) => {
 
         {/* Languages */}
         {!!languages.length && (
-          <InfoWithIcon icon={<IconGlobe />}>
-            <h2 className={styles.title}>{t('event.info.labelLanguages')}</h2>
+          <InfoWithIcon
+            icon={<IconGlobe />}
+            title={t('event.info.labelLanguages')}
+          >
             <div>{languages.join(', ')}</div>
           </InfoWithIcon>
         )}
 
         {/* Other info */}
         {showOtherInfo && (
-          <InfoWithIcon icon={<IconInfoCircle />}>
-            <h2 className={styles.title}>{t('event.info.labelOtherInfo')}</h2>
+          <InfoWithIcon
+            icon={<IconInfoCircle />}
+            title={t('event.info.labelOtherInfo')}
+          >
             {[email, telephone]
               .filter((e) => e)
               .map((item) => (
@@ -184,8 +191,10 @@ const EventInfo: React.FC<Props> = ({ event }) => {
         )}
 
         {/* Directions */}
-        <InfoWithIcon icon={<IconDirections />}>
-          <h2 className={styles.title}>{t('event.info.labelDirections')}</h2>
+        <InfoWithIcon
+          icon={<IconDirections />}
+          title={t('event.info.labelDirections')}
+        >
           <Link isExternal={true} to={googleDirectionsLink}>
             {t('event.info.directionsGoogle')}
           </Link>
@@ -199,8 +208,10 @@ const EventInfo: React.FC<Props> = ({ event }) => {
 
         {/* Price info */}
         <Visible below="sm">
-          <InfoWithIcon icon={<IconTicket />}>
-            <h2 className={styles.title}>{t('event.info.labelPrice')}</h2>
+          <InfoWithIcon
+            icon={<IconTicket />}
+            title={t('event.info.labelPrice')}
+          >
             {eventPriceText || '-'}
           </InfoWithIcon>
         </Visible>
