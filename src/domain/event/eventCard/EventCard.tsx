@@ -47,7 +47,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
   const eventPriceText = getEventPrice(
     event,
     locale,
-    t('eventSearch.event.offers.isFree')
+    t('event.eventCard.isFree')
   );
 
   const handleLinkClick = (ev: React.MouseEvent<HTMLAnchorElement>) => {
