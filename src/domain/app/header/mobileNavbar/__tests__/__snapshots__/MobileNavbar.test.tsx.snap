@@ -10,7 +10,7 @@ exports[`should show Swedish icon 1`] = `
     <a
       aria-label="Etusivu"
       class="logoWrapper"
-      href="/"
+      href="/sv/home"
     >
       <div
         class="logo sv"

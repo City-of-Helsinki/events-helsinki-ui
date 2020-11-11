@@ -107,7 +107,7 @@ describe('getEventSearchVariables function', () => {
       ...defaultParams,
       params: new URLSearchParams(`?categories=${CATEGORIES.SPORT}`),
     });
-    expect(keyword10).toContain('yso:p965');
+    expect(keyword10).toContain('yso:p916,yso:p965');
 
     const { keyword: keyword11 } = getEventSearchVariables({
       ...defaultParams,

@@ -29,6 +29,7 @@ const PlaceSelector: React.FC<Props> = ({
   const searchValue = useDebounce(input, 300);
 
   const { data: placesData } = usePlaceListQuery({
+    skip: !searchValue,
     variables: {
       divisions: ['kunta:helsinki'],
       hasUpcomingEvents: true,
