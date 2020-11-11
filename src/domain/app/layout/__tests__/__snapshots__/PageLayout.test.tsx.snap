@@ -24,7 +24,7 @@ exports[`matched snapshot 1`] = `
         >
           <a
             aria-label="Etusivu"
-            href="/"
+            href="/fi/home"
           >
             <div
               class="logo fi"
@@ -175,7 +175,7 @@ exports[`matched snapshot 1`] = `
           <a
             aria-label="Etusivu"
             class="logoWrapper"
-            href="/"
+            href="/fi/home"
           >
             <div
               class="logo fi"

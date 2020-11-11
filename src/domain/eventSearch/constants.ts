@@ -94,6 +94,11 @@ export const MUSEUM_KEYWORDS = [
   'yso:p4934', // Museot
 ];
 
+export const SPORT_KEYWORDS = [
+  'yso:p916', // Liikunta
+  'yso:p965', // Urheilu
+];
+
 export const MAPPED_CATEGORIES: Record<string, string> = {
   [CATEGORIES.CULTURE]: CULTURE_KEYWORDS.join(','),
   [CATEGORIES.DANCE]: 'yso:p1278',
@@ -104,6 +109,6 @@ export const MAPPED_CATEGORIES: Record<string, string> = {
   [CATEGORIES.MUSEUM]: MUSEUM_KEYWORDS.join(','),
   [CATEGORIES.MUSIC]: 'yso:p1808',
   [CATEGORIES.NATURE]: 'yso:p2771',
-  [CATEGORIES.SPORT]: 'yso:p965',
+  [CATEGORIES.SPORT]: SPORT_KEYWORDS.join(','),
   [CATEGORIES.THEATRE]: 'yso:p2625',
 };
