@@ -6,6 +6,7 @@
   background-color: #464646;
   padding: var(--spacing-l) var(--spacing-m);
   z-index: 1;
+  position: relative;
 
   @include respond-above(sm) {
     padding: var(--spacing-xl);
