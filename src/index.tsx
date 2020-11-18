@@ -1,3 +1,5 @@
+import 'react-app-polyfill/stable';
+
 import * as Sentry from '@sentry/browser';
 import React from 'react';
 import ReactDOM from 'react-dom';
