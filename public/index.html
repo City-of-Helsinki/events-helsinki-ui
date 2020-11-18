@@ -18,6 +18,8 @@
       href="%PUBLIC_URL%/images/apple-touch-icon.png"
     />
     <meta name="msapplication-TileColor" content="#da532c" />
+    <!-- Microsoft Edge 44.18362.449.0 needs this polyfill is to get rid of 'TextEncoder is not defined' error -->
+    <script src="https://cdn.jsdelivr.net/npm/text-encoding@0.7.0/lib/encoding.min.js"></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
