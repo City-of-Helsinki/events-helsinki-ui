@@ -1,11 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  RouteComponentProps,
-  useHistory,
-  useLocation,
-  withRouter,
-} from 'react-router';
+import { RouteComponentProps, useHistory, useLocation } from 'react-router';
 import { scroller } from 'react-scroll';
 import { toast } from 'react-toastify';
 
@@ -144,4 +139,4 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   );
 };
 
-export default withRouter(EventSearchPageContainer);
+export default EventSearchPageContainer;
