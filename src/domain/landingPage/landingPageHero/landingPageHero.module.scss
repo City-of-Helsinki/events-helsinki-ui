@@ -68,6 +68,7 @@
     width: 100%;
     box-sizing: border-box;
     transition: background-color 0.2s ease;
+    position: relative;
 
     @include respond-above(sm) {
       margin-bottom: 10rem;

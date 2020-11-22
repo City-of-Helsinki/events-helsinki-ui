@@ -5,6 +5,10 @@
   color: var(--color-black);
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  
+  input {
+    box-sizing: border-box;
+  }
 
   @include respond_above(sm) {
     position: absolute;
