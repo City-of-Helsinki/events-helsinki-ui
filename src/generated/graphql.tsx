@@ -22,6 +22,15 @@ export type AccessibilityPagesResponse = {
   data: Array<StaticPage>,
 };
 
+export type Audience = {
+   __typename?: 'Audience',
+  id?: Maybe<Scalars['ID']>,
+  name?: Maybe<LocalizedObject>,
+  internalId?: Maybe<Scalars['String']>,
+  internalContext?: Maybe<Scalars['String']>,
+  internalType?: Maybe<Scalars['String']>,
+};
+
 export type CmsImage = {
    __typename?: 'CmsImage',
   photographerCredit?: Maybe<Scalars['String']>,
@@ -95,7 +104,7 @@ export type EventDetails = {
   subEvents: Array<InternalIdObject>,
   images: Array<Image>,
   inLanguage: Array<InLanguage>,
-  audience: Array<InternalIdObject>,
+  audience: Array<Audience>,
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
   datePublished?: Maybe<Scalars['String']>,

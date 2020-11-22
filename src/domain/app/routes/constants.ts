@@ -1,7 +1,6 @@
 import { MAPPED_PLACES } from '../../eventSearch/constants';
 
 // Remember also update static urls to updateSitemap
-
 export type ROUTE_TYPES = {
   ABOUT: '/about';
   ACCESSIBILITY: '/accessibility';
