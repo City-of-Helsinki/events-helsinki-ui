@@ -212,6 +212,9 @@
     "textFoundEvents": "{{count}} sökresultat",
     "title": "Evenemang sök"
   },
+  "courseSearch": {
+    "title": "Kurssökning"
+  },
   "footer": {
     "linkAbout": "Om tjänsten",
     "linkAccessibility": "Tillgänglighets­utlåtande",

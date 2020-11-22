@@ -8,6 +8,7 @@ export const ROUTES = {
   COLLECTIONS: '/collections',
   EVENTS: '/events',
   EVENT: '/event/:id',
+  COURSES: '/courses',
   HOME: '/home',
   HOME_PREVIEW: '/home/:id',
   EVENT_PLACE: `/:place(${Object.keys(MAPPED_PLACES).join('|')})`,
