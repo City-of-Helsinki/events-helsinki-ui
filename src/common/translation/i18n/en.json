@@ -212,6 +212,9 @@
     "textFoundEvents": "{{count}} search results",
     "title": "Event search"
   },
+  "courseSearch": {
+    "title": "Course search"
+  },
   "footer": {
     "linkAbout": "About the service",
     "linkAccessibility": "Accessibility Statement",

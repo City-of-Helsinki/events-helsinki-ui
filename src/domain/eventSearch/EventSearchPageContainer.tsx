@@ -5,7 +5,6 @@ import {
   useHistory,
   useLocation,
   useParams,
-  withRouter,
 } from 'react-router';
 import { scroller } from 'react-scroll';
 import { toast } from 'react-toastify';
@@ -160,4 +159,4 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   );
 };
 
-export default withRouter(EventSearchPageContainer);
+export default EventSearchPageContainer;
