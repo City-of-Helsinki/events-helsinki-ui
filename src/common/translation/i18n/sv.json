@@ -213,7 +213,12 @@
     "title": "Evenemang sök"
   },
   "courseSearch": {
-    "title": "Kurssökning"
+    "title": "Hitta hobby",
+    "search": {
+      "placeholder": "Ange ett sökord, t. ex. Franska eller matlagning",
+      "labelSearchField": "Vad letar du efter?",
+      "checkboxAlsoOngoingCourses": "Visa även pågående kurser"
+    }
   },
   "footer": {
     "linkAbout": "Om tjänsten",

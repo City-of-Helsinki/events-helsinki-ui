@@ -2,25 +2,22 @@ import classNames from 'classnames';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { EventListQuery } from '../../../generated/graphql';
 import Container from '../../app/layout/Container';
-import EventList from './EventList';
 import NoResultsInfo from './NoResultsInfo';
 import styles from './searchResultList.module.scss';
 
 interface Props {
-  eventsData: EventListQuery;
   loading: boolean;
-  onLoadMore: () => void;
+  count: number;
+  listComponent: React.ReactElement;
 }
 
-const SearchResultList: React.FC<Props> = ({
-  eventsData,
+const SearchResultsContainer: React.FC<Props> = ({
   loading,
-  onLoadMore,
+  count,
+  listComponent,
 }) => {
   const { t } = useTranslation();
-  const count = eventsData.eventList.meta.count;
 
   return (
     <div className={styles.searchResultListContainer}>
@@ -32,16 +29,11 @@ const SearchResultList: React.FC<Props> = ({
             })}
           </h2>
           {!count && !loading && <NoResultsInfo />}
-          <EventList
-            cardSize="large"
-            eventsData={eventsData}
-            loading={loading}
-            onLoadMore={onLoadMore}
-          />
+          {listComponent}
         </div>
       </Container>
     </div>
   );
 };
 
-export default SearchResultList;
+export default SearchResultsContainer;

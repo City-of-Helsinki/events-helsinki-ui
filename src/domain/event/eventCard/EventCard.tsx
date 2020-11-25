@@ -6,11 +6,13 @@ import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import IconButton from '../../../common/components/iconButton/IconButton';
-import { EventFieldsFragment } from '../../../generated/graphql';
+import {
+  CourseFieldsFragment,
+  EventFieldsFragment,
+} from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import testImage from '../../../util/testImage';
-import { ROUTES } from '../../app/constants';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
 import EventName from '../eventName/EventName';
@@ -21,18 +23,22 @@ import {
   isEventClosed,
 } from '../EventUtils';
 import styles from './eventCard.module.scss';
+import { EVENT_ROUTE_MAPPER, EVENTS_ROUTE_MAPPER, EventType } from './types';
 
 interface Props {
-  event: EventFieldsFragment;
+  event: EventFieldsFragment | CourseFieldsFragment;
+  eventType?: EventType;
 }
 
-const EventCard: React.FC<Props> = ({ event }) => {
+const EventCard: React.FC<Props> = ({ event, eventType = EventType.EVENT }) => {
   const history = useHistory();
   const { search } = useLocation();
   const { t } = useTranslation();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const locale = useLocale();
   const button = React.useRef<HTMLDivElement>(null);
+  const eventRoute = EVENT_ROUTE_MAPPER[eventType];
+  const eventsRoute = EVENTS_ROUTE_MAPPER[eventType];
 
   const {
     endTime,
@@ -42,7 +48,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
     placeholderImage,
     startTime,
   } = getEventFields(event, locale);
-  const eventUrl = `/${locale}${ROUTES.EVENT.replace(':id', id)}${search}`;
+  const eventUrl = `/${locale}${eventRoute.replace(':id', id)}${search}`;
   const eventClosed = isEventClosed(event);
   const eventPriceText = getEventPrice(
     event,
@@ -119,6 +125,7 @@ const EventCard: React.FC<Props> = ({ event }) => {
               event={event}
               showIsFree={true}
               showKeywords={false}
+              eventsRoute={eventsRoute}
             />
           </div>
         </div>
@@ -146,7 +153,12 @@ const EventCard: React.FC<Props> = ({ event }) => {
         }}
       >
         <div className={styles.keywordWrapperDesktop}>
-          <EventKeywords event={event} showIsFree={true} showKeywords={false} />
+          <EventKeywords
+            event={event}
+            showIsFree={true}
+            showKeywords={false}
+            eventsRoute={eventsRoute}
+          />
         </div>
       </div>
     </Link>

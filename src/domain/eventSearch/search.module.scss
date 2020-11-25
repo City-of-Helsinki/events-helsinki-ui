@@ -40,11 +40,10 @@ $buttonWidth: 180px;
 
     @include respond-above(sm) {
       grid-template-columns: 1fr 1fr;
-      grid-gap: var(--spacing-m);
     }
 
     @include respond-above(md) {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 
