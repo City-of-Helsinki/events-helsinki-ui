@@ -9,6 +9,7 @@ export const ROUTES = {
   EVENTS: '/events',
   EVENT: '/event/:id',
   COURSES: '/courses',
+  COURSE: '/course/:id',
   HOME: '/home',
   HOME_PREVIEW: '/home/:id',
   EVENT_PLACE: `/:place(${Object.keys(MAPPED_PLACES).join('|')})`,

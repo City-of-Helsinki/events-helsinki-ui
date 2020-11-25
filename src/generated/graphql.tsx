@@ -685,6 +685,85 @@ export type CollectionListQuery = (
   ) }
 );
 
+export type CourseFieldsFragment = (
+  { __typename?: 'EventDetails' }
+  & { extensionCourse: Maybe<(
+    { __typename?: 'ExtensionCourse' }
+    & Pick<ExtensionCourse, 'enrolmentStartTime' | 'enrolmentEndTime' | 'maximumAttendeeCapacity' | 'minimumAttendeeCapacity' | 'remainingAttendeeCapacity'>
+  )> }
+  & EventFieldsFragment
+);
+
+export type CourseDetailsQueryVariables = {
+  id: Scalars['ID'],
+  include?: Maybe<Array<Maybe<Scalars['String']>>>
+};
+
+
+export type CourseDetailsQuery = (
+  { __typename?: 'Query' }
+  & { courseDetails: (
+    { __typename?: 'EventDetails' }
+    & CourseFieldsFragment
+  ) }
+);
+
+export type CourseListQueryVariables = {
+  combinedText?: Maybe<Array<Maybe<Scalars['String']>>>,
+  division?: Maybe<Array<Maybe<Scalars['String']>>>,
+  end?: Maybe<Scalars['String']>,
+  endsAfter?: Maybe<Scalars['String']>,
+  endsBefore?: Maybe<Scalars['String']>,
+  inLanguage?: Maybe<Scalars['String']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>,
+  isFree?: Maybe<Scalars['Boolean']>,
+  keyword?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>,
+  language?: Maybe<Scalars['String']>,
+  location?: Maybe<Array<Maybe<Scalars['String']>>>,
+  page?: Maybe<Scalars['Int']>,
+  pageSize?: Maybe<Scalars['Int']>,
+  publisher?: Maybe<Scalars['ID']>,
+  sort?: Maybe<Scalars['String']>,
+  start?: Maybe<Scalars['String']>,
+  startsAfter?: Maybe<Scalars['String']>,
+  startsBefore?: Maybe<Scalars['String']>,
+  superEvent?: Maybe<Scalars['ID']>,
+  superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
+  text?: Maybe<Scalars['String']>,
+  translation?: Maybe<Scalars['String']>
+};
+
+
+export type CourseListQuery = (
+  { __typename?: 'Query' }
+  & { courseList: (
+    { __typename?: 'EventListResponse' }
+    & { meta: (
+      { __typename?: 'Meta' }
+      & Pick<Meta, 'count' | 'next' | 'previous'>
+    ), data: Array<(
+      { __typename?: 'EventDetails' }
+      & CourseFieldsFragment
+    )> }
+  ) }
+);
+
+export type CoursesByIdsQueryVariables = {
+  ids: Array<Scalars['ID']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>
+};
+
+
+export type CoursesByIdsQuery = (
+  { __typename?: 'Query' }
+  & { coursesByIds: Array<(
+    { __typename?: 'EventDetails' }
+    & CourseFieldsFragment
+  )> }
+);
+
 export type LocalizedFieldsFragment = (
   { __typename?: 'LocalizedObject' }
   & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
@@ -849,7 +928,8 @@ export type KeywordListQueryVariables = {
   pageSize?: Maybe<Scalars['Int']>,
   showAllKeywords?: Maybe<Scalars['Boolean']>,
   sort?: Maybe<Scalars['String']>,
-  text?: Maybe<Scalars['String']>
+  text?: Maybe<Scalars['String']>,
+  source?: Maybe<LinkedEventsSource>
 };
 
 
@@ -1272,6 +1352,18 @@ export const EventFieldsFragmentDoc = gql`
 ${KeywordFieldsFragmentDoc}
 ${PlaceFieldsFragmentDoc}
 ${OfferFieldsFragmentDoc}`;
+export const CourseFieldsFragmentDoc = gql`
+    fragment courseFields on EventDetails {
+  ...eventFields
+  extensionCourse {
+    enrolmentStartTime
+    enrolmentEndTime
+    maximumAttendeeCapacity
+    minimumAttendeeCapacity
+    remainingAttendeeCapacity
+  }
+}
+    ${EventFieldsFragmentDoc}`;
 export const LocalizedCmsImageFieldsFragmentDoc = gql`
     fragment localizedCmsImageFields on LocalizedCmsImage {
   en {
@@ -1518,6 +1610,170 @@ export function useCollectionListLazyQuery(baseOptions?: ApolloReactHooks.LazyQu
 export type CollectionListQueryHookResult = ReturnType<typeof useCollectionListQuery>;
 export type CollectionListLazyQueryHookResult = ReturnType<typeof useCollectionListLazyQuery>;
 export type CollectionListQueryResult = ApolloReactCommon.QueryResult<CollectionListQuery, CollectionListQueryVariables>;
+export const CourseDetailsDocument = gql`
+    query CourseDetails($id: ID!, $include: [String]) {
+  courseDetails(id: $id, include: $include) {
+    ...courseFields
+  }
+}
+    ${CourseFieldsFragmentDoc}`;
+export type CourseDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<CourseDetailsQuery, CourseDetailsQueryVariables> | TChildProps;
+export function withCourseDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  CourseDetailsQuery,
+  CourseDetailsQueryVariables,
+  CourseDetailsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, CourseDetailsQuery, CourseDetailsQueryVariables, CourseDetailsProps<TChildProps>>(CourseDetailsDocument, {
+      alias: 'courseDetails',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useCourseDetailsQuery__
+ *
+ * To run a query within a React component, call `useCourseDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCourseDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCourseDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      include: // value for 'include'
+ *   },
+ * });
+ */
+export function useCourseDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CourseDetailsQuery, CourseDetailsQueryVariables>) {
+        return ApolloReactHooks.useQuery<CourseDetailsQuery, CourseDetailsQueryVariables>(CourseDetailsDocument, baseOptions);
+      }
+export function useCourseDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CourseDetailsQuery, CourseDetailsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CourseDetailsQuery, CourseDetailsQueryVariables>(CourseDetailsDocument, baseOptions);
+        }
+export type CourseDetailsQueryHookResult = ReturnType<typeof useCourseDetailsQuery>;
+export type CourseDetailsLazyQueryHookResult = ReturnType<typeof useCourseDetailsLazyQuery>;
+export type CourseDetailsQueryResult = ApolloReactCommon.QueryResult<CourseDetailsQuery, CourseDetailsQueryVariables>;
+export const CourseListDocument = gql`
+    query CourseList($combinedText: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordNot: [String], $language: String, $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+  courseList(combinedText: $combinedText, division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordNot: $keywordNot, language: $language, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
+    meta {
+      count
+      next
+      previous
+    }
+    data {
+      ...courseFields
+    }
+  }
+}
+    ${CourseFieldsFragmentDoc}`;
+export type CourseListProps<TChildProps = {}> = ApolloReactHoc.DataProps<CourseListQuery, CourseListQueryVariables> | TChildProps;
+export function withCourseList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  CourseListQuery,
+  CourseListQueryVariables,
+  CourseListProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, CourseListQuery, CourseListQueryVariables, CourseListProps<TChildProps>>(CourseListDocument, {
+      alias: 'courseList',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useCourseListQuery__
+ *
+ * To run a query within a React component, call `useCourseListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCourseListQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCourseListQuery({
+ *   variables: {
+ *      combinedText: // value for 'combinedText'
+ *      division: // value for 'division'
+ *      end: // value for 'end'
+ *      endsAfter: // value for 'endsAfter'
+ *      endsBefore: // value for 'endsBefore'
+ *      inLanguage: // value for 'inLanguage'
+ *      include: // value for 'include'
+ *      isFree: // value for 'isFree'
+ *      keyword: // value for 'keyword'
+ *      keywordAnd: // value for 'keywordAnd'
+ *      keywordNot: // value for 'keywordNot'
+ *      language: // value for 'language'
+ *      location: // value for 'location'
+ *      page: // value for 'page'
+ *      pageSize: // value for 'pageSize'
+ *      publisher: // value for 'publisher'
+ *      sort: // value for 'sort'
+ *      start: // value for 'start'
+ *      startsAfter: // value for 'startsAfter'
+ *      startsBefore: // value for 'startsBefore'
+ *      superEvent: // value for 'superEvent'
+ *      superEventType: // value for 'superEventType'
+ *      text: // value for 'text'
+ *      translation: // value for 'translation'
+ *   },
+ * });
+ */
+export function useCourseListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CourseListQuery, CourseListQueryVariables>) {
+        return ApolloReactHooks.useQuery<CourseListQuery, CourseListQueryVariables>(CourseListDocument, baseOptions);
+      }
+export function useCourseListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CourseListQuery, CourseListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CourseListQuery, CourseListQueryVariables>(CourseListDocument, baseOptions);
+        }
+export type CourseListQueryHookResult = ReturnType<typeof useCourseListQuery>;
+export type CourseListLazyQueryHookResult = ReturnType<typeof useCourseListLazyQuery>;
+export type CourseListQueryResult = ApolloReactCommon.QueryResult<CourseListQuery, CourseListQueryVariables>;
+export const CoursesByIdsDocument = gql`
+    query CoursesByIds($ids: [ID!]!, $include: [String]) {
+  coursesByIds(ids: $ids, include: $include) {
+    ...courseFields
+  }
+}
+    ${CourseFieldsFragmentDoc}`;
+export type CoursesByIdsProps<TChildProps = {}> = ApolloReactHoc.DataProps<CoursesByIdsQuery, CoursesByIdsQueryVariables> | TChildProps;
+export function withCoursesByIds<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  CoursesByIdsQuery,
+  CoursesByIdsQueryVariables,
+  CoursesByIdsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, CoursesByIdsQuery, CoursesByIdsQueryVariables, CoursesByIdsProps<TChildProps>>(CoursesByIdsDocument, {
+      alias: 'coursesByIds',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useCoursesByIdsQuery__
+ *
+ * To run a query within a React component, call `useCoursesByIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCoursesByIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCoursesByIdsQuery({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *      include: // value for 'include'
+ *   },
+ * });
+ */
+export function useCoursesByIdsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CoursesByIdsQuery, CoursesByIdsQueryVariables>) {
+        return ApolloReactHooks.useQuery<CoursesByIdsQuery, CoursesByIdsQueryVariables>(CoursesByIdsDocument, baseOptions);
+      }
+export function useCoursesByIdsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CoursesByIdsQuery, CoursesByIdsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CoursesByIdsQuery, CoursesByIdsQueryVariables>(CoursesByIdsDocument, baseOptions);
+        }
+export type CoursesByIdsQueryHookResult = ReturnType<typeof useCoursesByIdsQuery>;
+export type CoursesByIdsLazyQueryHookResult = ReturnType<typeof useCoursesByIdsLazyQuery>;
+export type CoursesByIdsQueryResult = ApolloReactCommon.QueryResult<CoursesByIdsQuery, CoursesByIdsQueryVariables>;
 export const EventDetailsDocument = gql`
     query EventDetails($id: ID!, $include: [String]) {
   eventDetails(id: $id, include: $include) {
@@ -1727,8 +1983,8 @@ export type KeywordDetailsQueryHookResult = ReturnType<typeof useKeywordDetailsQ
 export type KeywordDetailsLazyQueryHookResult = ReturnType<typeof useKeywordDetailsLazyQuery>;
 export type KeywordDetailsQueryResult = ApolloReactCommon.QueryResult<KeywordDetailsQuery, KeywordDetailsQueryVariables>;
 export const KeywordListDocument = gql`
-    query KeywordList($dataSource: String, $hasUpcomingEvents: Boolean, $page: Int, $pageSize: Int, $showAllKeywords: Boolean, $sort: String, $text: String) {
-  keywordList(dataSource: $dataSource, hasUpcomingEvents: $hasUpcomingEvents, page: $page, pageSize: $pageSize, showAllKeywords: $showAllKeywords, sort: $sort, text: $text) {
+    query KeywordList($dataSource: String, $hasUpcomingEvents: Boolean, $page: Int, $pageSize: Int, $showAllKeywords: Boolean, $sort: String, $text: String, $source: LinkedEventsSource) {
+  keywordList(dataSource: $dataSource, hasUpcomingEvents: $hasUpcomingEvents, page: $page, pageSize: $pageSize, showAllKeywords: $showAllKeywords, sort: $sort, text: $text, source: $source) {
     meta {
       count
       next
@@ -1771,6 +2027,7 @@ export function withKeywordList<TProps, TChildProps = {}>(operationOptions?: Apo
  *      showAllKeywords: // value for 'showAllKeywords'
  *      sort: // value for 'sort'
  *      text: // value for 'text'
+ *      source: // value for 'source'
  *   },
  * });
  */

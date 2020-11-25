@@ -20,9 +20,10 @@ import TextFilter from './TextFilter';
 
 interface Props {
   onClear: () => void;
+  route?: ROUTES.EVENTS | ROUTES.COURSES;
 }
 
-const FilterSummary: React.FC<Props> = ({ onClear }) => {
+const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { push } = useHistory();
@@ -88,7 +89,7 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
       text: type === 'text' ? text.filter((item) => item !== value) : text,
     });
 
-    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+    push({ pathname: `/${locale}${route || ROUTES.EVENTS}`, search });
   };
 
   const hasFilters =
