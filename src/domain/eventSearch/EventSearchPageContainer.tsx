@@ -1,11 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  RouteComponentProps,
-  useHistory,
-  useLocation,
-  useParams,
-} from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router';
 import { scroller } from 'react-scroll';
 import { toast } from 'react-toastify';
 
@@ -19,16 +14,18 @@ import useIsSmallScreen from '../../hooks/useIsSmallScreen';
 import useLocale from '../../hooks/useLocale';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
+import { EventType } from '../event/eventCard/types';
 import { getLargeEventCardId } from '../event/EventUtils';
+import EventList from '../eventList/EventList';
 import LandingPageMeta from '../landingPage/landingPageMeta/LandingPageMeta';
 import { isLanguageSupported } from '../landingPage/utils';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from './constants';
 import styles from './eventSearchPage.module.scss';
 import Search from './Search';
-import SearchResultList from './searchResultList/SearchResultList';
+import SearchResultsContainer from './searchResultList/SearchResultsContainer';
 import { getEventSearchVariables, getNextPage } from './utils';
 
-const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
+const EventSearchPageContainer: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
   const history = useHistory();
@@ -146,10 +143,20 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
         <LoadingSpinner isLoading={!isFetchingMore && loading}>
           {eventsData && (
             <MainContent offset={-70}>
-              <SearchResultList
-                eventsData={eventsData}
-                loading={isFetchingMore}
-                onLoadMore={handleLoadMore}
+              <SearchResultsContainer
+                count={eventsData.eventList.meta.count}
+                loading={loading}
+                listComponent={
+                  <EventList
+                    cardSize="large"
+                    events={eventsData.eventList.data}
+                    eventType={EventType.EVENT}
+                    hasNext={!!eventsData.eventList.meta.next}
+                    count={eventsData.eventList.meta.count}
+                    loading={loading}
+                    onLoadMore={handleLoadMore}
+                  />
+                }
               />
             </MainContent>
           )}

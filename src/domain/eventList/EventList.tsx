@@ -3,44 +3,54 @@ import { Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
-import { EventListQuery } from '../../../generated/graphql';
-import EventCard from '../../event/eventCard/EventCard';
-import LargeEventCard from '../../event/eventCard/LargeEventCard';
+import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
+import {
+  CourseFieldsFragment,
+  EventFieldsFragment,
+} from '../../generated/graphql';
+import BasicEventCard from '../event/eventCard/EventCard';
+import LargeEventCard from '../event/eventCard/LargeEventCard';
+import { EventType } from '../event/eventCard/types';
 import styles from './eventList.module.scss';
+
+const eventCardsMap = {
+  default: BasicEventCard,
+  large: LargeEventCard,
+};
 
 interface Props {
   buttonCentered?: boolean;
   cardSize?: 'default' | 'large';
-  eventsData: EventListQuery;
+  events: EventFieldsFragment[] | CourseFieldsFragment[];
+  count: number;
   loading: boolean;
+  hasNext: boolean;
+  eventType?: EventType;
   onLoadMore: () => void;
 }
 
 const EventList: React.FC<Props> = ({
   buttonCentered = false,
+  eventType = EventType.EVENT,
   cardSize = 'default',
-  eventsData,
+  events,
   loading,
+  count,
+  hasNext,
   onLoadMore,
 }) => {
   const { t } = useTranslation();
-  const events = eventsData.eventList.data;
-  const { count } = eventsData.eventList.meta;
   const eventsLeft = count - events.length;
+  const EventCard = eventCardsMap[cardSize];
 
   return (
     <div className={classNames(styles.eventListWrapper, styles[cardSize])}>
       <div className={styles.eventsWrapper}>
-        {events.map((event) => {
-          switch (cardSize) {
-            case 'default':
-              return <EventCard key={event.id} event={event} />;
-            case 'large':
-            default:
-              return <LargeEventCard key={event.id} event={event} />;
-          }
-        })}
+        {(events as (EventFieldsFragment | CourseFieldsFragment)[]).map(
+          (event) => (
+            <EventCard key={event.id} event={event} eventType={eventType} />
+          )
+        )}
       </div>
       <div
         className={classNames(styles.loadMoreWrapper, {
@@ -48,7 +58,7 @@ const EventList: React.FC<Props> = ({
         })}
       >
         <LoadingSpinner hasPadding={!events.length} isLoading={loading}>
-          {!!eventsData.eventList.meta.next && (
+          {hasNext && (
             <Button onClick={onLoadMore} variant="success">
               {t('eventSearch.buttonLoadMore', { count: eventsLeft })}
             </Button>

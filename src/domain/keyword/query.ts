@@ -25,6 +25,7 @@ export const QUERY_KEYWORD = gql`
     $showAllKeywords: Boolean
     $sort: String
     $text: String
+    $source: LinkedEventsSource
   ) {
     keywordList(
       dataSource: $dataSource
@@ -34,6 +35,7 @@ export const QUERY_KEYWORD = gql`
       showAllKeywords: $showAllKeywords
       sort: $sort
       text: $text
+      source: $source
     ) {
       meta {
         count

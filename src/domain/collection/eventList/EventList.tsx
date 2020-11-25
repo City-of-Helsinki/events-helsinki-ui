@@ -9,8 +9,8 @@ import {
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import Container from '../../app/layout/Container';
+import EventSearchList from '../../eventList/EventList';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from '../../eventSearch/constants';
-import EventSearchList from '../../eventSearch/searchResultList/EventList';
 import { getEventSearchVariables, getNextPage } from '../../eventSearch/utils';
 import { getCollectionFields } from '../CollectionUtils';
 import styles from './eventList.module.scss';
@@ -91,7 +91,9 @@ const EventList: React.FC<Props> = ({ collection }) => {
               <div className={styles.eventSearchListWrapper}>
                 <EventSearchList
                   buttonCentered={true}
-                  eventsData={eventsData}
+                  events={eventsData.eventList.data}
+                  hasNext={!!eventsData.eventList.meta.next}
+                  count={eventsData.eventList.meta.count}
                   loading={isFetchingMore}
                   onLoadMore={handleLoadMore}
                 />
