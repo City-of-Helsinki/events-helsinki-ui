@@ -11,10 +11,9 @@ import MultiSelectDropdown from '../../common/components/multiSelectDropdown/Mul
 import SearchAutosuggest from '../../common/components/search/SearchAutosuggest';
 import SearchLabel from '../../common/components/search/searchLabel/SearchLabel';
 import { AutosuggestMenuOption } from '../../common/types';
-import { useNeighborhoodListQuery } from '../../generated/graphql';
+import useDivisionOptions from '../../hooks/useDivisionOptions';
 import useLocale from '../../hooks/useLocale';
 import IconRead from '../../icons/IconRead';
-import getLocalisedString from '../../util/getLocalisedString';
 import Container from '../app/layout/Container';
 import { ROUTES } from '../app/routes/constants';
 import PlaceSelector from '../place/placeSelector/PlaceSelector';
@@ -86,16 +85,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     text: selectedTexts,
   };
 
-  const { data: neighborhoodsData } = useNeighborhoodListQuery();
-
-  const divisionOptions = neighborhoodsData
-    ? neighborhoodsData.neighborhoodList.data
-        .map((neighborhood) => ({
-          text: getLocalisedString(neighborhood.name, locale),
-          value: neighborhood.id,
-        }))
-        .sort((a, b) => (a.text >= b.text ? 1 : -1))
-    : [];
+  const divisionOptions = useDivisionOptions();
 
   const categories = getCategoryOptions(t);
 

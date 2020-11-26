@@ -11,10 +11,9 @@ import MultiSelectDropdown from '../../common/components/multiSelectDropdown/Mul
 import SearchAutosuggest from '../../common/components/search/SearchAutosuggest';
 import SearchLabel from '../../common/components/search/searchLabel/SearchLabel';
 import { AutosuggestMenuOption } from '../../common/types';
-import { useNeighborhoodListQuery } from '../../generated/graphql';
+import useDivisionOptions from '../../hooks/useDivisionOptions';
 import useLocale from '../../hooks/useLocale';
 import IconRead from '../../icons/IconRead';
-import getLocalisedString from '../../util/getLocalisedString';
 import { ROUTES } from '../app/constants';
 import Container from '../app/layout/Container';
 import {
@@ -54,6 +53,7 @@ const Search: React.FC = () => {
   const [start, setStart] = React.useState<Date | null>(null);
   const [end, setEnd] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
+  const divisionOptions = useDivisionOptions();
 
   const { onlyOngoingCourses } = getSearchFilters(searchParams);
 
@@ -140,17 +140,6 @@ const Search: React.FC = () => {
   const toggleIsCustomDate = () => {
     setIsCustomDate(!isCustomDate);
   };
-
-  const { data: neighborhoodsData } = useNeighborhoodListQuery();
-
-  const divisionOptions = neighborhoodsData
-    ? neighborhoodsData.neighborhoodList.data
-        .map((neighborhood) => ({
-          text: getLocalisedString(neighborhood.name, locale),
-          value: neighborhood.id,
-        }))
-        .sort((a, b) => (a.text >= b.text ? 1 : -1))
-    : [];
 
   const handleOnlyOngoingCoursesEventChange = (
     e: React.ChangeEvent<HTMLInputElement>
