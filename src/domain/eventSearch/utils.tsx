@@ -8,11 +8,6 @@ import {
 } from 'date-fns';
 import { IconSpeechbubbleText } from 'hds-react';
 import { TFunction } from 'i18next';
-import forEach from 'lodash/forEach';
-import isArray from 'lodash/isArray';
-import isEmpty from 'lodash/isEmpty';
-import isNil from 'lodash/isNil';
-import isNumber from 'lodash/isNumber';
 import React from 'react';
 
 import { DATE_TYPES } from '../../constants';
@@ -27,6 +22,7 @@ import IconSports from '../../icons/IconSports';
 import IconTheatre from '../../icons/IconTheatre';
 import IconTree from '../../icons/IconTree';
 import { Language } from '../../types';
+import buildQueryFromObject from '../../util/buildQuery';
 import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
 import {
@@ -305,23 +301,26 @@ export const getSearchQuery = (filters: Filters): string => {
   if (newFilters.end || newFilters.start) {
     delete newFilters.dateTypes;
   }
-  const query: string[] = [];
 
-  forEach(newFilters, (filter, key) => {
-    if (!isEmpty(filter) || isNumber(filter) || typeof filter === 'boolean') {
-      if (isArray(filter)) {
-        const items: Array<string | number> = [];
+  return buildQueryFromObject(newFilters);
 
-        forEach(filter, (item: string | number) => {
-          items.push(encodeURIComponent(item));
-        });
+  // const query: string[] = [];
 
-        query.push(`${key}=${items.join(',')}`);
-      } else if (!isNil(filter)) {
-        query.push(`${key}=${encodeURIComponent(filter)}`);
-      }
-    }
-  });
+  // forEach(newFilters, (filter, key) => {
+  //   if (!isEmpty(filter) || isNumber(filter) || typeof filter === 'boolean') {
+  //     if (isArray(filter)) {
+  //       const items: Array<string | number> = [];
 
-  return query.length ? `?${query.join('&')}` : '';
+  //       forEach(filter, (item: string | number) => {
+  //         items.push(encodeURIComponent(item));
+  //       });
+
+  //       query.push(`${key}=${items.join(',')}`);
+  //     } else if (!isNil(filter)) {
+  //       query.push(`${key}=${encodeURIComponent(filter)}`);
+  //     }
+  //   }
+  // });
+
+  // return query.length ? `?${query.join('&')}` : '';
 };

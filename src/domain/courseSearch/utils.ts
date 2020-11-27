@@ -1,12 +1,11 @@
-import { forEach, isArray, isEmpty, isNil, isNumber } from 'lodash';
-
 import { Meta } from '../../generated/graphql';
+import buildQueryFromObject from '../../util/buildQuery';
 import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
 import { EVENT_SEARCH_FILTERS } from '../eventSearch/constants';
 import { Filters, MappedFilters } from './types';
 
-export const getSearchFilters = (searchParams: URLSearchParams) => {
+export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
   const endTime = searchParams.get(EVENT_SEARCH_FILTERS.END);
   const end = endTime ? new Date(endTime) : null;
 
@@ -46,25 +45,7 @@ export const getSearchQuery = (filters: Filters): string => {
     delete newFilters.dateTypes;
   }
 
-  const query: string[] = [];
-
-  forEach(newFilters, (filter, key) => {
-    if (!isEmpty(filter) || isNumber(filter) || typeof filter === 'boolean') {
-      if (isArray(filter)) {
-        const items: Array<string | number> = [];
-
-        forEach(filter, (item: string | number) => {
-          items.push(encodeURIComponent(item));
-        });
-
-        query.push(`${key}=${items.join(',')}`);
-      } else if (!isNil(filter)) {
-        query.push(`${key}=${encodeURIComponent(filter)}`);
-      }
-    }
-  });
-
-  return query.length ? `?${query.join('&')}` : '';
+  return buildQueryFromObject(newFilters);
 };
 
 export const getNextPage = (meta: Meta): number | null => {
