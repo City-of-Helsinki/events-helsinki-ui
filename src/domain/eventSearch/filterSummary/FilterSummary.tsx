@@ -104,7 +104,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
   if (!hasFilters) return null;
 
   return (
-    <div className={styles.filterSummary}>
+    <div className={styles.filterSummary} data-testid="filter-summary">
       {text.map((item, index) => (
         <TextFilter key={index} text={item} onRemove={handleFilterRemove} />
       ))}

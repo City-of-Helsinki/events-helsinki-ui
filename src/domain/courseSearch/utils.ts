@@ -1,5 +1,5 @@
 import { Meta } from '../../generated/graphql';
-import buildQueryFromObject from '../../util/buildQuery';
+import buildQueryFromObject from '../../util/buildQueryFromObject';
 import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
 import { EVENT_SEARCH_FILTERS } from '../eventSearch/constants';
@@ -26,6 +26,8 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
     text: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.TEXT),
     start,
     end,
+    isFree:
+      searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true' ? true : false,
     onlyOngoingCourses:
       searchParams.get(EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES) === 'true'
         ? true
@@ -33,9 +35,19 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
   };
 };
 
+export const getNextPage = (meta: Meta): number | null => {
+  if (!meta.next) return null;
+
+  const urlParts = meta.next.split('?');
+  const searchParams = new URLSearchParams(decodeURIComponent(urlParts[1]));
+  const page = searchParams.get(EVENT_SEARCH_FILTERS.PAGE);
+  return page ? Number(page) : null;
+};
+
 export const getSearchQuery = (filters: Filters): string => {
   const newFilters: MappedFilters = {
     ...filters,
+    isFree: filters.isFree ? true : undefined,
     start: formatDate(filters.start, 'yyyy-MM-dd'),
     end: formatDate(filters.end, 'yyyy-MM-dd'),
     onlyOngoingCourses: filters.onlyOngoingCourses ? true : undefined,
@@ -46,13 +58,4 @@ export const getSearchQuery = (filters: Filters): string => {
   }
 
   return buildQueryFromObject(newFilters);
-};
-
-export const getNextPage = (meta: Meta): number | null => {
-  if (!meta.next) return null;
-
-  const urlParts = meta.next.split('?');
-  const searchParams = new URLSearchParams(decodeURIComponent(urlParts[1]));
-  const page = searchParams.get(EVENT_SEARCH_FILTERS.PAGE);
-  return page ? Number(page) : null;
 };
