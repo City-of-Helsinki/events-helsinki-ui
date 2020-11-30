@@ -135,12 +135,9 @@ export const getEventPlaceholderImageUrl = (
  * @return {string}
  */
 export const getEventImageUrl = (event: EventFieldsFragment): string => {
-  // const image = event.images.length ? event.images[0] : null;
   const image = event.images[0];
 
-  return image?.url
-    ? getSecureImage(image.url)
-    : getEventPlaceholderImageUrl(event);
+  return getSecureImage(image?.url) || getEventPlaceholderImageUrl(event);
 };
 
 /**
@@ -150,7 +147,7 @@ export const getEventImageUrl = (event: EventFieldsFragment): string => {
  */
 export const getEventSomeImageUrl = (event: EventFieldsFragment): string => {
   const image = event.images[0];
-  return image?.url ? getSecureImage(image.url) : EVENT_SOME_IMAGE;
+  return getSecureImage(image?.url) || EVENT_SOME_IMAGE;
 };
 
 /**
