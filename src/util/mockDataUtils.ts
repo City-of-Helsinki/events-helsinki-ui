@@ -11,6 +11,7 @@ import {
   CollectionListResponse,
   EventDetails,
   EventListResponse,
+  ExtensionCourse,
   ExternalLink,
   Image,
   InLanguage,
@@ -45,7 +46,7 @@ export const fakeEvents = (
 });
 
 export const fakeEvent = (overrides?: Partial<EventDetails>): EventDetails => {
-  return merge(
+  return merge<EventDetails, typeof overrides>(
     {
       id: `hel:${faker.random.uuid()}`,
       internalId: faker.random.uuid(),
@@ -69,7 +70,24 @@ export const fakeEvent = (overrides?: Partial<EventDetails>): EventDetails => {
       eventStatus: 'EventScheduled',
       superEvent: null,
       dataSource: 'hel',
+      extensionCourse: fakeExtensionCourse(),
       __typename: 'EventDetails',
+    },
+    overrides
+  );
+};
+
+export const fakeExtensionCourse = (
+  overrides?: Partial<ExtensionCourse>
+): ExtensionCourse => {
+  return merge<ExtensionCourse, typeof overrides>(
+    {
+      __typename: 'ExtensionCourse',
+      enrolmentEndTime: '',
+      enrolmentStartTime: '',
+      maximumAttendeeCapacity: 10,
+      minimumAttendeeCapacity: 1,
+      remainingAttendeeCapacity: 5,
     },
     overrides
   );
