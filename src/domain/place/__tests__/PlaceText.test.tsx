@@ -1,6 +1,9 @@
 import * as React from 'react';
 
-import { PlaceDetailsDocument } from '../../../generated/graphql';
+import {
+  LinkedEventsSource,
+  PlaceDetailsDocument,
+} from '../../../generated/graphql';
 import { fakePlace } from '../../../util/mockDataUtils';
 import { render, screen, waitFor } from '../../../util/testUtils';
 import PlaceText from '../PlaceText';
@@ -21,6 +24,7 @@ const mocks = [
       query: PlaceDetailsDocument,
       variables: {
         id: placeId,
+        source: LinkedEventsSource.Linkedevents,
       },
     },
     result: placeResponse,

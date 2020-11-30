@@ -2,6 +2,7 @@ import { IconStar } from 'hds-react';
 import React from 'react';
 
 import {
+  LinkedEventsSource,
   PlaceDetailsDocument,
   PlaceListDocument,
 } from '../../../../generated/graphql';
@@ -21,6 +22,7 @@ const variables = {
   hasUpcomingEvents: true,
   pageSize: 10,
   text: '',
+  source: LinkedEventsSource.Linkedevents,
 };
 
 const placeNames = [
@@ -89,7 +91,7 @@ const mocks = [
   {
     request: {
       query: PlaceDetailsDocument,
-      variables: { id: placeId },
+      variables: { id: placeId, source: LinkedEventsSource.Linkedevents },
     },
     result: placeDetailsResponse,
   },

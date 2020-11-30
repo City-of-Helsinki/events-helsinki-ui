@@ -431,7 +431,11 @@ export type QueryEventListArgs = {
   superEvent?: Maybe<Scalars['ID']>,
   superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
   text?: Maybe<Scalars['String']>,
-  translation?: Maybe<Scalars['String']>
+  translation?: Maybe<Scalars['String']>,
+  audienceMinAgeLt?: Maybe<Scalars['String']>,
+  audienceMinAgeGt?: Maybe<Scalars['String']>,
+  audienceMaxAgeLt?: Maybe<Scalars['String']>,
+  audienceMaxAgeGt?: Maybe<Scalars['String']>
 };
 
 
@@ -471,7 +475,11 @@ export type QueryCourseListArgs = {
   superEvent?: Maybe<Scalars['ID']>,
   superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
   text?: Maybe<Scalars['String']>,
-  translation?: Maybe<Scalars['String']>
+  translation?: Maybe<Scalars['String']>,
+  audienceMinAgeLt?: Maybe<Scalars['String']>,
+  audienceMinAgeGt?: Maybe<Scalars['String']>,
+  audienceMaxAgeLt?: Maybe<Scalars['String']>,
+  audienceMaxAgeGt?: Maybe<Scalars['String']>
 };
 
 
@@ -1112,7 +1120,8 @@ export type PlaceFieldsFragment = (
 );
 
 export type PlaceDetailsQueryVariables = {
-  id: Scalars['ID']
+  id: Scalars['ID'],
+  source?: Maybe<LinkedEventsSource>
 };
 
 
@@ -1132,7 +1141,8 @@ export type PlaceListQueryVariables = {
   pageSize?: Maybe<Scalars['Int']>,
   showAllPlaces?: Maybe<Scalars['Boolean']>,
   sort?: Maybe<Scalars['String']>,
-  text?: Maybe<Scalars['String']>
+  text?: Maybe<Scalars['String']>,
+  source?: Maybe<LinkedEventsSource>
 };
 
 
@@ -2231,8 +2241,8 @@ export type OrganizationDetailsQueryHookResult = ReturnType<typeof useOrganizati
 export type OrganizationDetailsLazyQueryHookResult = ReturnType<typeof useOrganizationDetailsLazyQuery>;
 export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>;
 export const PlaceDetailsDocument = gql`
-    query PlaceDetails($id: ID!) {
-  placeDetails(id: $id) {
+    query PlaceDetails($id: ID!, $source: LinkedEventsSource) {
+  placeDetails(id: $id, source: $source) {
     ...placeFields
   }
 }
@@ -2262,6 +2272,7 @@ export function withPlaceDetails<TProps, TChildProps = {}>(operationOptions?: Ap
  * const { data, loading, error } = usePlaceDetailsQuery({
  *   variables: {
  *      id: // value for 'id'
+ *      source: // value for 'source'
  *   },
  * });
  */
@@ -2275,8 +2286,8 @@ export type PlaceDetailsQueryHookResult = ReturnType<typeof usePlaceDetailsQuery
 export type PlaceDetailsLazyQueryHookResult = ReturnType<typeof usePlaceDetailsLazyQuery>;
 export type PlaceDetailsQueryResult = ApolloReactCommon.QueryResult<PlaceDetailsQuery, PlaceDetailsQueryVariables>;
 export const PlaceListDocument = gql`
-    query PlaceList($dataSource: String, $divisions: [String], $hasUpcomingEvents: Boolean, $page: Int, $pageSize: Int, $showAllPlaces: Boolean, $sort: String, $text: String) {
-  placeList(dataSource: $dataSource, divisions: $divisions, hasUpcomingEvents: $hasUpcomingEvents, page: $page, pageSize: $pageSize, showAllPlaces: $showAllPlaces, sort: $sort, text: $text) {
+    query PlaceList($dataSource: String, $divisions: [String], $hasUpcomingEvents: Boolean, $page: Int, $pageSize: Int, $showAllPlaces: Boolean, $sort: String, $text: String, $source: LinkedEventsSource) {
+  placeList(dataSource: $dataSource, divisions: $divisions, hasUpcomingEvents: $hasUpcomingEvents, page: $page, pageSize: $pageSize, showAllPlaces: $showAllPlaces, sort: $sort, text: $text, source: $source) {
     meta {
       count
       next
@@ -2320,6 +2331,7 @@ export function withPlaceList<TProps, TChildProps = {}>(operationOptions?: Apoll
  *      showAllPlaces: // value for 'showAllPlaces'
  *      sort: // value for 'sort'
  *      text: // value for 'text'
+ *      source: // value for 'source'
  *   },
  * });
  */
