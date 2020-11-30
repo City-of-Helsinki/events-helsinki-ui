@@ -22,7 +22,7 @@ import IconSports from '../../icons/IconSports';
 import IconTheatre from '../../icons/IconTheatre';
 import IconTree from '../../icons/IconTree';
 import { Language } from '../../types';
-import buildQueryFromObject from '../../util/buildQuery';
+import buildQueryFromObject from '../../util/buildQueryFromObject';
 import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
 import {
@@ -303,24 +303,4 @@ export const getSearchQuery = (filters: Filters): string => {
   }
 
   return buildQueryFromObject(newFilters);
-
-  // const query: string[] = [];
-
-  // forEach(newFilters, (filter, key) => {
-  //   if (!isEmpty(filter) || isNumber(filter) || typeof filter === 'boolean') {
-  //     if (isArray(filter)) {
-  //       const items: Array<string | number> = [];
-
-  //       forEach(filter, (item: string | number) => {
-  //         items.push(encodeURIComponent(item));
-  //       });
-
-  //       query.push(`${key}=${items.join(',')}`);
-  //     } else if (!isNil(filter)) {
-  //       query.push(`${key}=${encodeURIComponent(filter)}`);
-  //     }
-  //   }
-  // });
-
-  // return query.length ? `?${query.join('&')}` : '';
 };

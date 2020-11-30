@@ -26,7 +26,11 @@ import PlaceSelector from '../place/placeSelector/PlaceSelector';
 import styles from './search.module.scss';
 import { getSearchFilters, getSearchQuery } from './utils';
 
-const Search: React.FC = () => {
+interface Props {
+  scrollToResultList?: () => void;
+}
+
+const Search: React.FC<Props> = () => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { push } = useHistory();
@@ -116,6 +120,7 @@ const Search: React.FC = () => {
     moveToSearchPage();
 
     setAutosuggestInput('');
+    // TODO: scroll
     // scrollToResultList();
   };
 

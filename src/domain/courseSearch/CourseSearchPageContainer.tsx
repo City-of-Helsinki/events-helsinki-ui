@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 import { toast } from 'react-toastify';
 
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
@@ -20,7 +20,6 @@ import { getNextPage } from './utils';
 const CourseSearchPageContainer: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const history = useHistory();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 

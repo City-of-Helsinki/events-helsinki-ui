@@ -2,11 +2,12 @@ export interface Filters {
   categories: string[];
   dateTypes: string[];
   divisions: string[];
-  onlyOngoingCourses?: boolean;
   places: string[];
   text: string[];
   start: Date | null;
   end: Date | null;
+  isFree?: boolean;
+  onlyOngoingCourses?: boolean;
 }
 
 export interface MappedFilters {
