@@ -88,14 +88,22 @@
     }
 
     .title {
-      font-size: 3.25rem;
+      // font-size: 3.25rem;
+      // line-height: 60px;
+      // changed due to longer covid text
+      font-size: 2rem;
+      line-height: 50px;
+
+
       font-weight: 600;
-      line-height: 60px;
       margin: 0 0 1rem;
 
       @include respond-above(md) {
-        font-size: 5rem;
-        line-height: 92px;
+        // font-size: 5rem;
+        // line-height: 92px;
+        // changed due to longer covid text
+        font-size: 3rem;
+        line-height: 72px;
       }
     }
 
