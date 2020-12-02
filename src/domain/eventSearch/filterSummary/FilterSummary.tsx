@@ -10,7 +10,7 @@ import useLocale from '../../../hooks/useLocale';
 import { formatDate } from '../../../util/dateUtils';
 import getLocalisedString from '../../../util/getLocalisedString';
 import { translateValue } from '../../../util/translateUtils';
-import { ROUTES } from '../../app/constants';
+import { ROUTES } from '../../app/routes/constants';
 import { getSearchFilters, getSearchQuery } from '../utils';
 import DateFilter from './DateFilter';
 import styles from './filterSummary.module.scss';

@@ -3,7 +3,7 @@ import { Button, IconHome, IconLocation, IconSearch } from 'hds-react';
 import uniq from 'lodash/uniq';
 import React, { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router';
 
 import Checkbox from '../../common/components/checkbox/Checkbox';
 import DateSelector from '../../common/components/dateSelector/DateSelector';
@@ -15,10 +15,14 @@ import { useNeighborhoodListQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import IconRead from '../../icons/IconRead';
 import getLocalisedString from '../../util/getLocalisedString';
-import { ROUTES } from '../app/constants';
 import Container from '../app/layout/Container';
+import { ROUTES } from '../app/routes/constants';
 import PlaceSelector from '../place/placeSelector/PlaceSelector';
-import { DEFAULT_SEARCH_FILTERS, EVENT_SEARCH_FILTERS } from './constants';
+import {
+  DEFAULT_SEARCH_FILTERS,
+  EVENT_SEARCH_FILTERS,
+  MAPPED_PLACES,
+} from './constants';
 import FilterSummary from './filterSummary/FilterSummary';
 import styles from './search.module.scss';
 import { getCategoryOptions, getSearchFilters, getSearchQuery } from './utils';
@@ -32,6 +36,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   const locale = useLocale();
   const { push } = useHistory();
   const { search } = useLocation();
+  const params = useParams<{ place?: string }>();
   const searchParams = React.useMemo(() => new URLSearchParams(search), [
     search,
   ]);
@@ -126,6 +131,12 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
       text,
     } = getSearchFilters(searchParams);
 
+    const pathPlace = params.place && MAPPED_PLACES[params.place.toLowerCase()];
+
+    if (pathPlace) {
+      places.push(pathPlace);
+    }
+
     setSelectedCategories(categories);
     setSelectedDivisions(divisions);
     setSelectedPlaces(places);
@@ -138,7 +149,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     } else {
       setSelectedDateTypes(dateTypes);
     }
-  }, [searchParams]);
+  }, [searchParams, params]);
 
   const handleMenuOptionClick = async (option: AutosuggestMenuOption) => {
     const value = option.text;

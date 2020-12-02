@@ -34,6 +34,7 @@ import {
   EVENT_SEARCH_FILTERS,
   EVENT_SORT_OPTIONS,
   MAPPED_CATEGORIES,
+  MAPPED_PLACES,
 } from './constants';
 import { CategoryOption, Filters, MappedFilters } from './types';
 
@@ -165,6 +166,7 @@ export const getEventSearchVariables = ({
   params,
   sortOrder,
   superEventType,
+  place,
 }: {
   include: string[];
   language: Language;
@@ -172,6 +174,7 @@ export const getEventSearchVariables = ({
   params: URLSearchParams;
   sortOrder: EVENT_SORT_OPTIONS;
   superEventType: string[];
+  place?: string;
 }) => {
   const {
     categories,
@@ -186,6 +189,12 @@ export const getEventSearchVariables = ({
     publisher,
     text,
   } = getSearchFilters(params);
+
+  const pathPlace = place && MAPPED_PLACES[place.toLowerCase()];
+
+  if (pathPlace) {
+    places.push(pathPlace);
+  }
 
   const startsAfter = onlyEveningEvents ? '16' : undefined;
   let { start, end } = getFilterDates({

@@ -24,7 +24,7 @@ import getDateArray from '../../../util/getDateArray';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import getDomain from '../../../util/getDomain';
 import { translateValue } from '../../../util/translateUtils';
-import { ROUTES } from '../../app/constants';
+import { ROUTES } from '../../app/routes/constants';
 import { getEventFields, getEventPrice, getServiceMapUrl } from '../EventUtils';
 import styles from './eventInfo.module.scss';
 import OrganizationInfo from './OrganizationInfo';

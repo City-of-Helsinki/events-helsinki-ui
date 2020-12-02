@@ -263,3 +263,5 @@ it('should scroll to result list on mobile screen', async () => {
 
   expect(scroller.scrollTo).toBeCalled();
 });
+
+it('searches events correctly with event place in path, e.g. /fi/annantalo', () => {});
