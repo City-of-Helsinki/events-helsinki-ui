@@ -1,6 +1,5 @@
 import { act } from '@testing-library/react';
 import i18n from 'i18next';
-import pick from 'lodash/pick';
 import React from 'react';
 
 import {
