@@ -48,6 +48,7 @@ exports[`matched snapshot 1`] = `
             >
               <svg
                 class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -80,6 +81,7 @@ exports[`matched snapshot 1`] = `
             >
               <svg
                 class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -119,6 +121,7 @@ exports[`matched snapshot 1`] = `
             >
               <svg
                 class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik iconLanguage"
+                role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -141,6 +144,7 @@ exports[`matched snapshot 1`] = `
                 FI
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik iconAngleDown"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -195,6 +199,7 @@ exports[`matched snapshot 1`] = `
             >
               <svg
                 class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -233,6 +238,7 @@ exports[`matched snapshot 1`] = `
               >
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -260,6 +266,7 @@ exports[`matched snapshot 1`] = `
               >
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -362,6 +369,7 @@ exports[`matched snapshot 1`] = `
               >
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -394,6 +402,7 @@ exports[`matched snapshot 1`] = `
               >
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -455,6 +464,7 @@ exports[`matched snapshot 1`] = `
                 </span>
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -462,12 +472,12 @@ exports[`matched snapshot 1`] = `
                     fill="none"
                     fill-rule="evenodd"
                   >
-                    <path
-                      d="M0 24V0h24v24z"
+                    <polygon
+                      points="0 24 0 0 24 0 24 24"
                     />
-                    <path
-                      d="M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z"
+                    <polygon
                       fill="currentColor"
+                      points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
                     />
                   </g>
                 </svg>
@@ -498,6 +508,7 @@ exports[`matched snapshot 1`] = `
                 </span>
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -505,12 +516,12 @@ exports[`matched snapshot 1`] = `
                     fill="none"
                     fill-rule="evenodd"
                   >
-                    <path
-                      d="M0 24V0h24v24z"
+                    <polygon
+                      points="0 24 0 0 24 0 24 24"
                     />
-                    <path
-                      d="M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z"
+                    <polygon
                       fill="currentColor"
+                      points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
                     />
                   </g>
                 </svg>
@@ -541,6 +552,7 @@ exports[`matched snapshot 1`] = `
                 </span>
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -548,12 +560,12 @@ exports[`matched snapshot 1`] = `
                     fill="none"
                     fill-rule="evenodd"
                   >
-                    <path
-                      d="M0 24V0h24v24z"
+                    <polygon
+                      points="0 24 0 0 24 0 24 24"
                     />
-                    <path
-                      d="M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z"
+                    <polygon
                       fill="currentColor"
+                      points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
                     />
                   </g>
                 </svg>
@@ -584,6 +596,7 @@ exports[`matched snapshot 1`] = `
                 </span>
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -591,12 +604,12 @@ exports[`matched snapshot 1`] = `
                     fill="none"
                     fill-rule="evenodd"
                   >
-                    <path
-                      d="M0 24V0h24v24z"
+                    <polygon
+                      points="0 24 0 0 24 0 24 24"
                     />
-                    <path
-                      d="M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z"
+                    <polygon
                       fill="currentColor"
+                      points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
                     />
                   </g>
                 </svg>
@@ -627,6 +640,7 @@ exports[`matched snapshot 1`] = `
                 </span>
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -634,12 +648,12 @@ exports[`matched snapshot 1`] = `
                     fill="none"
                     fill-rule="evenodd"
                   >
-                    <path
-                      d="M0 24V0h24v24z"
+                    <polygon
+                      points="0 24 0 0 24 0 24 24"
                     />
-                    <path
-                      d="M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z"
+                    <polygon
                       fill="currentColor"
+                      points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
                     />
                   </g>
                 </svg>
@@ -670,6 +684,7 @@ exports[`matched snapshot 1`] = `
                 </span>
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -677,12 +692,12 @@ exports[`matched snapshot 1`] = `
                     fill="none"
                     fill-rule="evenodd"
                   >
-                    <path
-                      d="M0 24V0h24v24z"
+                    <polygon
+                      points="0 24 0 0 24 0 24 24"
                     />
-                    <path
-                      d="M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z"
+                    <polygon
                       fill="currentColor"
+                      points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
                     />
                   </g>
                 </svg>
@@ -713,6 +728,7 @@ exports[`matched snapshot 1`] = `
                 </span>
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -720,12 +736,12 @@ exports[`matched snapshot 1`] = `
                     fill="none"
                     fill-rule="evenodd"
                   >
-                    <path
-                      d="M0 24V0h24v24z"
+                    <polygon
+                      points="0 24 0 0 24 0 24 24"
                     />
-                    <path
-                      d="M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z"
+                    <polygon
                       fill="currentColor"
+                      points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
                     />
                   </g>
                 </svg>
@@ -737,6 +753,7 @@ exports[`matched snapshot 1`] = `
               <button>
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -758,6 +775,7 @@ exports[`matched snapshot 1`] = `
                 </span>
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -765,12 +783,12 @@ exports[`matched snapshot 1`] = `
                     fill="none"
                     fill-rule="evenodd"
                   >
-                    <path
-                      d="M0 24V0h24v24z"
+                    <polygon
+                      points="0 24 0 0 24 0 24 24"
                     />
-                    <path
-                      d="M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z"
+                    <polygon
                       fill="currentColor"
+                      points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
                     />
                   </g>
                 </svg>
@@ -801,6 +819,7 @@ exports[`matched snapshot 1`] = `
                 </span>
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -808,12 +827,12 @@ exports[`matched snapshot 1`] = `
                     fill="none"
                     fill-rule="evenodd"
                   >
-                    <path
-                      d="M0 24V0h24v24z"
+                    <polygon
+                      points="0 24 0 0 24 0 24 24"
                     />
-                    <path
-                      d="M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z"
+                    <polygon
                       fill="currentColor"
+                      points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
                     />
                   </g>
                 </svg>
@@ -844,6 +863,7 @@ exports[`matched snapshot 1`] = `
                 </span>
                 <svg
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -851,12 +871,12 @@ exports[`matched snapshot 1`] = `
                     fill="none"
                     fill-rule="evenodd"
                   >
-                    <path
-                      d="M0 24V0h24v24z"
+                    <polygon
+                      points="0 24 0 0 24 0 24 24"
                     />
-                    <path
-                      d="M13 12.5l-5-5L9.5 6l6.5 6.5L9.5 19 8 17.5z"
+                    <polygon
                       fill="currentColor"
+                      points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
                     />
                   </g>
                 </svg>
