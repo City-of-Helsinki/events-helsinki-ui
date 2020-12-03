@@ -26,6 +26,7 @@ import {
   within,
 } from '../../../util/testUtils';
 import apolloClient from '../../app/apollo/apolloClient';
+import { filterSummaryContainerTestId } from '../../eventSearch/filterSummary/FilterSummary';
 import CourseSearchPageContainer from '../CourseSearchPageContainer';
 
 configure({ defaultHidden: true });
@@ -277,7 +278,9 @@ it('initializes search fields correctly from query', async () => {
     })
   ).toHaveTextContent(/Elokuva \+ 1/i);
 
-  const filterSummaryContainer = within(screen.getByTestId('filter-summary'));
+  const filterSummaryContainer = within(
+    screen.getByTestId(filterSummaryContainerTestId)
+  );
 
   expect(filterSummaryContainer.queryByText('jazz')).toBeInTheDocument();
   expect(filterSummaryContainer.queryByText('Alppiharju')).toBeInTheDocument();

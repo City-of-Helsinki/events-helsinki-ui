@@ -18,6 +18,8 @@ import PlaceFilter from './PlaceFilter';
 import PublisherFilter from './PublisherFilter';
 import TextFilter from './TextFilter';
 
+export const filterSummaryContainerTestId = 'filter-summary';
+
 interface Props {
   onClear: () => void;
   route?: ROUTES.EVENTS | ROUTES.COURSES;
@@ -104,7 +106,10 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
   if (!hasFilters) return null;
 
   return (
-    <div className={styles.filterSummary} data-testid="filter-summary">
+    <div
+      className={styles.filterSummary}
+      data-testid={filterSummaryContainerTestId}
+    >
       {text.map((item, index) => (
         <TextFilter key={index} text={item} onRemove={handleFilterRemove} />
       ))}
