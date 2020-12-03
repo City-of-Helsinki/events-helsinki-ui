@@ -12,10 +12,9 @@ import { EventType } from '../event/eventCard/types';
 import EventList from '../eventList/EventList';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from '../eventSearch/constants';
 import SearchResultsContainer from '../eventSearch/searchResultList/SearchResultsContainer';
-import { getEventSearchVariables } from '../eventSearch/utils';
+import { getEventSearchVariables, getNextPage } from '../eventSearch/utils';
 import styles from './courseSearchPageContainer.module.scss';
 import CourseSearch from './Search';
-import { getNextPage } from './utils';
 
 const CourseSearchPageContainer: React.FC = () => {
   const { t } = useTranslation();

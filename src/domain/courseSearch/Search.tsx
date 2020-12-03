@@ -22,10 +22,13 @@ import {
   EVENT_SEARCH_FILTERS,
 } from '../eventSearch/constants';
 import FilterSummary from '../eventSearch/filterSummary/FilterSummary';
-import { getCategoryOptions } from '../eventSearch/utils';
+import {
+  getCategoryOptions,
+  getSearchFilters,
+  getSearchQuery,
+} from '../eventSearch/utils';
 import PlaceSelector from '../place/placeSelector/PlaceSelector';
 import styles from './search.module.scss';
-import { getSearchFilters, getSearchQuery } from './utils';
 
 interface Props {
   scrollToResultList?: () => void;
