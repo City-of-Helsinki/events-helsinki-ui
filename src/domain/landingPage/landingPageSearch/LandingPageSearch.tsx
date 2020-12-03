@@ -11,7 +11,7 @@ import SearchAutosuggest from '../../../common/components/search/SearchAutosugge
 import SearchLabel from '../../../common/components/search/searchLabel/SearchLabel';
 import { AutosuggestMenuOption, Category } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
-import { ROUTES } from '../../app/constants';
+import { ROUTES } from '../../app/routes/constants';
 import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
 import { getCategoryOptions, getSearchQuery } from '../../eventSearch/utils';
 import styles from './landingPageSearch.module.scss';

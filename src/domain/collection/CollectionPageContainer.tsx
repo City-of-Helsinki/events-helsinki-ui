@@ -11,9 +11,9 @@ import {
   useCollectionDetailsQuery,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
-import { ROUTES } from '../app/constants';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
+import { ROUTES } from '../app/routes/constants';
 import CollectionHero from './collectionHero/CollectionHero';
 import styles from './collectionPage.module.scss';
 import CollectionPageMeta from './collectionPageMeta/CollectionPageMeta';

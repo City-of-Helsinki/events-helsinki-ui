@@ -7,7 +7,7 @@ import { DATE_TYPES } from '../../../constants';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import scrollToTop from '../../../util/scrollToTop';
-import { ROUTES } from '../../app/constants';
+import { ROUTES } from '../../app/routes/constants';
 import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
 import { getSearchQuery } from '../../eventSearch/utils';
 import { getEventFields } from '../EventUtils';

@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import IconButton from '../../../common/components/iconButton/IconButton';
 import { CollectionFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { ROUTES } from '../../app/constants';
+import { ROUTES } from '../../app/routes/constants';
 import { getCollectionFields } from '../CollectionUtils';
 import styles from './collectionCard.module.scss';
 

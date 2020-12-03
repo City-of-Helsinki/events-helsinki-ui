@@ -9,7 +9,7 @@ import {
 } from '../../../generated/graphql';
 import { fakeCollection } from '../../../util/mockDataUtils';
 import { renderWithRoute } from '../../../util/testUtils';
-import { ROUTES } from '../../app/constants';
+import { ROUTES } from '../../app/routes/constants';
 import CollectionPageContainer from '../CollectionPageContainer';
 
 const collection = fakeCollection() as CollectionFieldsFragment;

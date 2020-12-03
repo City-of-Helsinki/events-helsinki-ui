@@ -10,7 +10,7 @@ import useLocale from '../../../../hooks/useLocale';
 import scrollToTop from '../../../../util/scrollToTop';
 import { translateValue } from '../../../../util/translateUtils';
 import { updateLocaleParam } from '../../../../util/updateLocaleParam';
-import { ROUTES } from '../../constants';
+import { ROUTES } from '../../routes/constants';
 import styles from './mobileMenu.module.scss';
 
 export const mobileMenuDataId = 'mobile-menu';

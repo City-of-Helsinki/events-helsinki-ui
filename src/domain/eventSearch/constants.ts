@@ -112,3 +112,13 @@ export const MAPPED_CATEGORIES: Record<string, string> = {
   [CATEGORIES.SPORT]: SPORT_KEYWORDS.join(','),
   [CATEGORIES.THEATRE]: 'yso:p2625',
 };
+
+export const MAPPED_PLACES: Record<string, string> = {
+  annantalo: 'tprek:7254',
+  caisa: 'tprek:7256',
+  espanlava: 'tprek:7265',
+  kanneltalo: 'tprek:7255',
+  savoyteatteri: 'tprek:7258',
+  stoa: 'tprek:7259',
+  vuotalo: 'tprek:7260',
+};
