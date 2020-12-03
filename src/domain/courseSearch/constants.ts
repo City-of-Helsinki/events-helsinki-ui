@@ -4,7 +4,7 @@ export const DEFAULT_SEARCH_FILTERS = {
   divisions: [],
   end: null,
   isFree: false,
-  onlyOngoingCourses: false,
+  alsoOngoingCourses: false,
   places: [],
   start: null,
   text: [],

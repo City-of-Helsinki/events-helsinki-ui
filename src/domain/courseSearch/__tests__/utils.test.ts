@@ -1,9 +1,4 @@
-import { advanceTo, clear } from 'jest-date-mock';
-
-import { DATE_TYPES } from '../../../constants';
-import { Language } from '../../../types';
-import { EVENT_SORT_OPTIONS } from '../../eventSearch/constants';
-import { CATEGORIES, DEFAULT_SEARCH_FILTERS } from '../constants';
+import { DEFAULT_SEARCH_FILTERS } from '../constants';
 import { getNextPage, getSearchFilters, getSearchQuery } from '../utils';
 
 describe('getSearchQuery function', () => {
@@ -57,40 +52,40 @@ describe('getSearchFilters function', () => {
     expect(
       getSearchFilters(
         new URLSearchParams(
-          '?categories=123,321&divisions=dkfjglr,kgkfjdur&onlyOngoingCourses=true'
+          '?categories=123,321&divisions=dkfjglr,kgkfjdur&alsoOngoingCourses=true'
         )
       )
     ).toEqual({
       ...DEFAULT_SEARCH_FILTERS,
       categories: ['123', '321'],
       divisions: ['dkfjglr', 'kgkfjdur'],
-      onlyOngoingCourses: true,
+      alsoOngoingCourses: true,
     });
 
     expect(
       getSearchFilters(
         new URLSearchParams(
-          '?categories=123,321&divisions=dkfjglr,kgkfjdur&onlyOngoingCourses=true'
+          '?categories=123,321&divisions=dkfjglr,kgkfjdur&alsoOngoingCourses=true'
         )
       )
     ).toEqual({
       ...DEFAULT_SEARCH_FILTERS,
       categories: ['123', '321'],
       divisions: ['dkfjglr', 'kgkfjdur'],
-      onlyOngoingCourses: true,
+      alsoOngoingCourses: true,
     });
 
     expect(
       getSearchFilters(
         new URLSearchParams(
-          '?categories=123,321&divisions=dkfjglr,kgkfjdur&onlyOngoingCourses=true&start=12-12-2020&end=11-12-2020'
+          '?categories=123,321&divisions=dkfjglr,kgkfjdur&alsoOngoingCourses=true&start=12-12-2020&end=11-12-2020'
         )
       )
     ).toEqual({
       ...DEFAULT_SEARCH_FILTERS,
       categories: ['123', '321'],
       divisions: ['dkfjglr', 'kgkfjdur'],
-      onlyOngoingCourses: true,
+      alsoOngoingCourses: true,
       end: new Date('2020-11-11T22:00:00.000Z'),
       start: new Date('2020-12-11T22:00:00.000Z'),
     });
