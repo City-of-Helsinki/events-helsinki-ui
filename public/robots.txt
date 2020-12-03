@@ -2,7 +2,6 @@
 User-agent: *
 Disallow: /*/about
 Disallow: /*/accessibility
-Disallow: /*/events
 Disallow: /*/collections
 
 Sitemap: https://tapahtumat.hel.fi/sitemap.xml
