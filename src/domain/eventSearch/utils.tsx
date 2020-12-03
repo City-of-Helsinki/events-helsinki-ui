@@ -220,7 +220,7 @@ export const getEventSearchVariables = ({
     end,
     include,
     isFree: isFree || undefined,
-    keyword: [...keyword, ...mappedCategories],
+    keyword: [...(keyword ? keyword : []), ...mappedCategories],
     keywordAnd,
     keywordNot,
     language,
@@ -281,6 +281,10 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
       searchParams.get(EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS) === 'true'
         ? true
         : false,
+    alsoOngoingCourses:
+      searchParams.get(EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES) === 'true'
+        ? true
+        : false,
     places: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.PLACES),
     publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
     start,
@@ -295,6 +299,7 @@ export const getSearchQuery = (filters: Filters): string => {
     isFree: filters.isFree ? true : undefined,
     onlyChildrenEvents: filters.onlyChildrenEvents ? true : undefined,
     onlyEveningEvents: filters.onlyEveningEvents ? true : undefined,
+    alsoOngoingCourses: filters.alsoOngoingCourses ? true : undefined,
     start: formatDate(filters.start, 'yyyy-MM-dd'),
   };
 
