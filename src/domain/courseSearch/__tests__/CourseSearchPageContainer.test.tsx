@@ -73,7 +73,7 @@ const courseListVariables = {
 const courseListVariables2 = {
   combinedText: ['jazz'],
   division: ['kaupunginosa:alppiharju', 'kaupunginosa:aluemeri'],
-  end: '2020-12-01',
+  end: '2020-12-02',
   include: ['keywords', 'location'],
   isFree: undefined,
   keyword: ['yso:p1235', 'yso:p1808'],
@@ -84,7 +84,7 @@ const courseListVariables2 = {
   pageSize: 10,
   publisher: null,
   sort: 'end_time',
-  start: '2020-12-01',
+  start: '2020-12-02',
   startsAfter: undefined,
   superEventType: ['umbrella', 'none'],
 };
@@ -239,6 +239,7 @@ it('renders title and search fields', async () => {
 });
 
 it('initializes search fields correctly from query', async () => {
+  advanceTo('2020-12-01');
   renderComponent(
     [...defaultMocks],
     [
