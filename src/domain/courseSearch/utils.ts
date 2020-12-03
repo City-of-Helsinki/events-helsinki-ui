@@ -28,7 +28,7 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
     end,
     isFree:
       searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true' ? true : false,
-    onlyOngoingCourses:
+    alsoOngoingCourses:
       searchParams.get(EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES) === 'true'
         ? true
         : false,
@@ -50,7 +50,7 @@ export const getSearchQuery = (filters: Filters): string => {
     isFree: filters.isFree ? true : undefined,
     start: formatDate(filters.start, 'yyyy-MM-dd'),
     end: formatDate(filters.end, 'yyyy-MM-dd'),
-    onlyOngoingCourses: filters.onlyOngoingCourses ? true : undefined,
+    alsoOngoingCourses: filters.alsoOngoingCourses ? true : undefined,
   };
 
   if (newFilters.end || newFilters.start) {

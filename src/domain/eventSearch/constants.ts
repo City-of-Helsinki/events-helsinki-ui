@@ -50,7 +50,7 @@ export enum EVENT_SEARCH_FILTERS {
   KEYWORD = 'keyword',
   KEYWORD_NOT = 'keywordNot',
   ONLY_CHILDREN_EVENTS = 'onlyChildrenEvents',
-  ALSO_ONGOING_COURSES = 'onlyOngoingCourses',
+  ALSO_ONGOING_COURSES = 'alsoOngoingCourses',
   ONLY_EVENING_EVENTS = 'onlyEveningEvents',
   PAGE = 'page',
   PLACES = 'places',

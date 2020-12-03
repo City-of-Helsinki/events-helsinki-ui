@@ -60,10 +60,10 @@ const Search: React.FC<Props> = () => {
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
   const divisionOptions = useDivisionOptions();
 
-  const { onlyOngoingCourses } = getSearchFilters(searchParams);
+  const { alsoOngoingCourses } = getSearchFilters(searchParams);
 
   const searchFilters = {
-    onlyOngoingCourses,
+    alsoOngoingCourses,
     categories: selectedCategories,
     dateTypes: selectedDateTypes,
     divisions: selectedDivisions,
@@ -147,12 +147,12 @@ const Search: React.FC<Props> = () => {
     setIsCustomDate(!isCustomDate);
   };
 
-  const handleOnlyOngoingCoursesEventChange = (
+  const handleAlsoOngoingCoursesEventChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const search = getSearchQuery({
       ...searchFilters,
-      onlyOngoingCourses: e.target.checked,
+      alsoOngoingCourses: e.target.checked,
     });
 
     push({ pathname: `/${locale}${ROUTES.COURSES}`, search });
@@ -176,6 +176,7 @@ const Search: React.FC<Props> = () => {
     setAutosuggestInput('');
 
     push({ pathname: `/${locale}${ROUTES.COURSES}`, search });
+    // TODO: handle scrolling
     // scrollToResultList();
   };
 
@@ -263,10 +264,10 @@ const Search: React.FC<Props> = () => {
             <div className={classNames(styles.gridRow)}>
               <div>
                 <Checkbox
-                  checked={onlyOngoingCourses}
+                  checked={alsoOngoingCourses}
                   id={EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES}
                   label={t('courseSearch.search.checkboxAlsoOngoingCourses')}
-                  onChange={handleOnlyOngoingCoursesEventChange}
+                  onChange={handleAlsoOngoingCoursesEventChange}
                 />
               </div>
               <div className={classNames(styles.searchButtonWrapper)}>
