@@ -26,7 +26,7 @@ const EventKeywords: React.FC<Props> = ({
   hideKeywordsOnMobile = false,
   showIsFree,
   showKeywords = true,
-  eventsRoute,
+  eventsRoute = ROUTES.EVENTS,
 }) => {
   const history = useHistory();
   const { t } = useTranslation();
@@ -48,7 +48,7 @@ const EventKeywords: React.FC<Props> = ({
     });
 
     history.push({
-      pathname: `/${locale}${eventsRoute || ROUTES.EVENTS}`,
+      pathname: `/${locale}${eventsRoute}`,
       search,
     });
     scrollToTop();
