@@ -7,7 +7,7 @@ export interface Filters {
   start: Date | null;
   end: Date | null;
   isFree?: boolean;
-  onlyOngoingCourses?: boolean;
+  alsoOngoingCourses?: boolean;
 }
 
 export interface MappedFilters {
@@ -15,7 +15,7 @@ export interface MappedFilters {
   dateTypes?: string[];
   divisions: string[];
   isFree?: boolean;
-  onlyOngoingCourses?: boolean;
+  alsoOngoingCourses?: boolean;
   places: string[];
   publisher?: string | null;
   text: string[];
