@@ -233,9 +233,8 @@
     "titleCategories": "Kategorier"
   },
   "header": {
-    "ariaButtonCloseMenu": "Stäng menyn",
-    "ariaButtonOpenMenu": "Öppna menyn",
-    "ariaLabelLogo": "Framsidan",
+    "menuToggleAriaLabel": "Menyn",
+    "skipToContentLabel": "Gå till innehållet",
     "changeLanguage": "Svenska - språkval",
     "languages": {
       "en": "In English",

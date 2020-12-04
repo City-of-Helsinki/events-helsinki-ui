@@ -3,22 +3,19 @@ import React, { FunctionComponent } from 'react';
 
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
-import { useMobileMenuContext } from '../header/mobileMenu/MobileMenu';
-import SkipLink from '../skipLink/SkipLink';
 import styles from './pageLayout.module.scss';
 
 const PageLayout: FunctionComponent = ({ children }) => {
-  const { isMobileMenuOpen } = useMobileMenuContext();
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
   return (
-    <div
-      className={classNames(styles.pageLayout, {
-        [styles.mobileMenuOpen]: isMobileMenuOpen,
-      })}
-    >
-      <SkipLink />
-      <Header />
-
-      <div className={styles.pageBody}>{children}</div>
+    <div>
+      <Header menuOpen={menuOpen} onMenuToggle={toggleMenu} />
+      <div aria-hidden={menuOpen} className={styles.pageBody}>
+        {children}
+      </div>
       <Footer />
     </div>
   );

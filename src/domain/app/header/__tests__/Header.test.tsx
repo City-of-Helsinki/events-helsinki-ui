@@ -1,11 +1,10 @@
 import { axe } from 'jest-axe';
 import React from 'react';
+import translations from '../../../../common/translation/i18n/fi.json';
+import { render, screen, userEvent } from '../../../../util/testUtils';
+import Header from '../Header';
 
-import translations from '../../../../../common/translation/i18n/fi.json';
-import { render, screen, userEvent } from '../../../../../util/testUtils';
-import Navbar from '../Navbar';
-
-const renderComponent = () => render(<Navbar />, { routes: ['/fi/home'] });
+const renderComponent = () => render(<Header />, { routes: ['/fi/home'] });
 
 it('component should be accessible', async () => {
   const { container } = renderComponent();
