@@ -233,9 +233,8 @@
     "titleCategories": "Kategoriat"
   },
   "header": {
-    "ariaButtonCloseMenu": "Sulje valikko",
-    "ariaButtonOpenMenu": "Avaa valikko",
-    "ariaLabelLogo": "Etusivu",
+    "menuToggleAriaLabel": "Valikko",
+    "skipToContentLabel": "Siirry sisältöön",
     "changeLanguage": "Suomi - kielivalikko",
     "languages": {
       "en": "In English",

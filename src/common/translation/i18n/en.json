@@ -233,9 +233,8 @@
     "titleCategories": "Categories"
   },
   "header": {
-    "ariaButtonCloseMenu": "Close menu",
-    "ariaButtonOpenMenu": "Open menu",
-    "ariaLabelLogo": "Home",
+    "menuToggleAriaLabel": "Menu",
+    "skipToContentLabel": "Skip to content",
     "changeLanguage": "English - language selection",
     "languages": {
       "en": "In English",

@@ -11,7 +11,7 @@ Production environment:
 Project is automatically deployed to production when adding new relase tag, e.g. release-v0.1.0, to repo
 
 Testing environment: [https://tapahtumat.test.kuva.hel.ninja](https://tapahtumat.test.kuva.hel.ninja)
-Project is automatically deployed to testing environment when pushing to develop brach
+Project is automatically deployed to testing environment when pushing to develop branch
 
 ## Requirements
 
@@ -24,11 +24,13 @@ Project is automatically deployed to testing environment when pushing to develop
 
 ### Install events-helsinki-api-proxy locally
 
-Clone the repository (https://github.com/City-of-Helsinki/events-helsinki-api-proxy). Follow the instructions for running open-city-profile with docker.
+Clone the repository (https://github.com/City-of-Helsinki/events-helsinki-ui). Follow the instructions for running open-city-profile with docker.
 
 ### Run events-helsinki-ui
 
-Create .env.development.local file and set REACT_APP_GRAPHQL_BASE_URL=http://localhost:4000/proxy/graphql
+Create `.env.development.local` file and set 
+
+    REACT_APP_GRAPHQL_BASE_URL=http://localhost:4000/proxy/graphql
 
 Start the container
 
