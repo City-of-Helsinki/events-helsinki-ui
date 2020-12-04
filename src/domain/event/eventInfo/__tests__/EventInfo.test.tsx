@@ -19,7 +19,6 @@ import {
   userEvent,
 } from '../../../../util/testUtils';
 import EventInfo from '../EventInfo';
-
 configure({ defaultHidden: true });
 
 const organizationId = '1';
@@ -77,10 +76,19 @@ it('should render event info fields', async () => {
     { role: 'heading', name: translations.event.info.labelLocation },
     { role: 'heading', name: translations.event.info.labelLanguages },
     { role: 'heading', name: translations.event.info.labelOtherInfo },
-    { role: 'link', name: translations.event.info.extlinkFacebook },
+    {
+      role: 'link',
+      name: `${translations.event.info.extlinkFacebook} ${translations.commons.srOnly.opensInANewTab}`,
+    },
     { role: 'heading', name: translations.event.info.labelDirections },
-    { role: 'link', name: translations.event.location.directionsGoogle },
-    { role: 'link', name: translations.event.location.directionsHSL },
+    {
+      role: 'link',
+      name: `${translations.event.location.directionsGoogle} ${translations.commons.srOnly.opensInANewTab}`,
+    },
+    {
+      role: 'link',
+      name: `${translations.event.location.directionsHSL} ${translations.commons.srOnly.opensInANewTab}`,
+    },
     { role: 'heading', name: translations.event.info.labelOrganizer },
     { role: 'heading', name: translations.event.info.labelPrice },
   ];
