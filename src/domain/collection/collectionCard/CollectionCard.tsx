@@ -89,7 +89,7 @@ const CollectionCard: React.FC<Props> = ({ collection, size }) => {
                 title,
               })}
               aria-hidden={true}
-              icon={<IconArrowRight />}
+              icon={<IconArrowRight aria-hidden/>}
               onClick={moveToCollectionPage}
               size="default"
             />

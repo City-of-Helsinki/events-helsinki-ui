@@ -96,11 +96,11 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         onClick={toggleIsCustomDate}
         type="button"
       >
-        <IconCalendarPlus />
+        <IconCalendarPlus aria-hidden />
         <div className={styles.buttonText}>
           {t('commons.dateSelector.menu.buttonCustom')}
         </div>
-        <IconAngleRight />
+        <IconAngleRight aria-hidden />
       </button>
 
       <button
@@ -111,7 +111,7 @@ const DateSelectorMenu: FunctionComponent<Props> = ({
         onClick={toggleIsCustomDate}
         type="button"
       >
-        <IconAngleLeft />
+        <IconAngleLeft aria-hidden />
         <div className={styles.buttonText}>
           {t('commons.dateSelector.menu.buttonBack')}
         </div>

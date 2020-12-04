@@ -40,7 +40,7 @@ const CategoryFilter: FunctionComponent<Props> = ({
       <button onClick={handleClick}>
         {icon}
         <span>{text}</span>
-        <IconAngleRight />
+        <IconAngleRight aria-hidden />
       </button>
     </div>
   );

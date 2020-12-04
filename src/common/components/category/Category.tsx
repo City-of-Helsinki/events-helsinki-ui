@@ -27,7 +27,7 @@ const Category: FunctionComponent<Props> = ({ category, onRemove }) => {
           category: category.text,
         })}
       >
-        <IconCross />
+        <IconCross aria-hidden />
       </button>
       {category.text}
     </div>

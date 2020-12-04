@@ -143,7 +143,7 @@ const EventCard: React.FC<Props> = ({ event, eventType = EventType.EVENT }) => {
               ariaLabel={t('event.eventCard.ariaLabelLink', {
                 name,
               })}
-              icon={<IconArrowRight />}
+              icon={<IconArrowRight aria-hidden />}
               onClick={goToEventPage}
               size="default"
             />

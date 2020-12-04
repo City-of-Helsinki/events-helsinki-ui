@@ -83,12 +83,12 @@ const MobileMenu: React.FC<Props> = ({ isMenuOpen, onClose }) => {
 
   const links = [
     {
-      icon: <IconSearch />,
+      icon: <IconSearch aria-hidden />,
       text: t('header.searchEvents'),
       to: `/${locale}${ROUTES.EVENTS}`,
     },
     {
-      icon: <IconStar />,
+      icon: <IconStar aria-hidden />,
       text: t('header.searchCollections'),
       to: `/${locale}${ROUTES.COLLECTIONS}`,
     },

@@ -47,7 +47,7 @@ const MobileNavbar: React.FC<Props> = ({
                 : t('header.ariaButtonOpenMenu')
             }
           >
-            {isMenuOpen ? <IconCross /> : <IconMenuHamburger />}
+            {isMenuOpen ? <IconCross aria-hidden /> : <IconMenuHamburger aria-hidden />}
           </button>
         </div>
       </div>

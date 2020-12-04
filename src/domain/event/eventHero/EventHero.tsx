@@ -83,7 +83,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
             <IconButton
               ariaLabel={t('event.hero.ariaLabelBackButton')}
               backgroundColor="white"
-              icon={<IconArrowLeft />}
+              icon={<IconArrowLeft aria-hidden />}
               onClick={goToEventList}
               size="default"
             />
@@ -116,7 +116,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
               </Visible>
 
               <Visible above="sm" className={styles.location}>
-                <InfoWithIcon icon={<IconLocation />} title={''}>
+                <InfoWithIcon icon={<IconLocation aria-hidden />} title={''}>
                   <LocationText
                     event={event}
                     showDistrict={false}
@@ -126,7 +126,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
               </Visible>
 
               <Visible above="sm" className={styles.price}>
-                <InfoWithIcon icon={<IconTicket />} title={''}>
+                <InfoWithIcon icon={<IconTicket aria-hidden />} title={''}>
                   {eventPriceText || '-'}
                 </InfoWithIcon>
               </Visible>
