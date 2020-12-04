@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import Link from '../../../common/components/link/Link';
 import useLocale from '../../../hooks/useLocale';
-import { ROUTES } from '../../app/constants';
+import { ROUTES } from '../../app/routes/constants';
 
 const OnlyExpiredEvents: React.FC = () => {
   const locale = useLocale();

@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 import ErrorHero from '../../common/components/error/ErrorHero';
 import useLocale from '../../hooks/useLocale';
-import { ROUTES } from '../app/constants';
 import PageWrapper from '../app/layout/PageWrapper';
+import { ROUTES } from '../app/routes/constants';
 
 const NotFound: FunctionComponent = () => {
   const { t } = useTranslation();

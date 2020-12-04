@@ -11,8 +11,8 @@ import useLocale from '../../../../hooks/useLocale';
 import { Language } from '../../../../types';
 import scrollToTop from '../../../../util/scrollToTop';
 import { updateLocaleParam } from '../../../../util/updateLocaleParam';
-import { ROUTES } from '../../constants';
 import Container from '../../layout/Container';
+import { ROUTES } from '../../routes/constants';
 import LanguageDropdown from '../languageDropdown/LanguageDropdown';
 import styles from './navbar.module.scss';
 

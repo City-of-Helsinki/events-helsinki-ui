@@ -10,7 +10,7 @@ import {
   useOrganizationDetailsQuery,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { ROUTES } from '../../app/constants';
+import { ROUTES } from '../../app/routes/constants';
 import { getEventFields } from '../EventUtils';
 
 interface Props {

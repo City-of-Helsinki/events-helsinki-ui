@@ -4,6 +4,7 @@ import {
   RouteComponentProps,
   useHistory,
   useLocation,
+  useParams,
   withRouter,
 } from 'react-router';
 import { scroller } from 'react-scroll';
@@ -28,6 +29,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
   const locale = useLocale();
   const history = useHistory();
   const location = useLocation();
+  const params = useParams<{ place?: string }>();
   const searchParams = new URLSearchParams(location.search);
   const eventFilters = React.useMemo(() => {
     return getEventSearchVariables({
@@ -35,10 +37,11 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
       language: locale,
       pageSize: PAGE_SIZE,
       params: searchParams,
+      place: params.place,
       sortOrder: EVENT_SORT_OPTIONS.END_TIME,
       superEventType: ['umbrella', 'none'],
     });
-  }, [locale, searchParams]);
+  }, [locale, params, searchParams]);
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
 
   const isSmallScreen = useIsSmallScreen();
