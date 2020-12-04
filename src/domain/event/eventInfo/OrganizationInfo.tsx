@@ -35,7 +35,7 @@ const OrganizationInfo: React.FC<Props> = ({ event }) => {
 
   return (
     <InfoWithIcon
-      icon={<IconFaceSmile />}
+      icon={<IconFaceSmile aria-hidden />}
       title={t('event.info.labelOrganizer')}
     >
       <LoadingSpinner hasPadding={false} isLoading={loading}>

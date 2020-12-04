@@ -45,7 +45,11 @@
     "loading": "Loading...",
     "multiSelectDropdown": {
       "inputPlaceholder": "Write search word",
-      "selectAll": "Select all"
+      "selectAll": "Select all",
+      "srOnly": {
+        "dropdownOpened" : "Multiselect Dropdown opened",
+        "dropdownClosed" : "Multiselect Dropdown closed"
+      }
     },
     "preview": "Preview",
     "shareLink": {
@@ -56,6 +60,9 @@
     "shareLinks": {
       "buttonCopyLink": "Copy link address",
       "messageLinkCopySuccess": "Link copied into clipboard"
+    },
+    "srOnly" : {
+      "opensInANewTab": "Opens in a new tab"
     },
     "supriseMe": "I'm Feeling Lucky",
     "timeAbbreviation": "at"

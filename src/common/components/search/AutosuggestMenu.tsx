@@ -34,7 +34,7 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
           className={styles.closeButton}
           onClick={onClose}
         >
-          <IconCross />
+          <IconCross aria-hidden />
         </button>
       </div>
       <ul className={styles.autosuggestOptions} role="listbox">

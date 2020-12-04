@@ -131,7 +131,7 @@ const Search: React.FC = () => {
             <div className={styles.buttonWrapper}>
               <Button
                 fullWidth={true}
-                iconLeft={<IconSearch />}
+                iconLeft={<IconSearch aria-hidden />}
                 onClick={handleSubmit}
                 variant="success"
               >

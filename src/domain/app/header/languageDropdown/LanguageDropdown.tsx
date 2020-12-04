@@ -163,10 +163,10 @@ const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
         className={styles.languageDropdownButton}
         onClick={toggleMenu}
       >
-        <IconGlobe className={styles.iconLanguage} />
+        <IconGlobe className={styles.iconLanguage} aria-hidden />
         <div className={styles.textWrapper}>
           {value.toUpperCase()}
-          <IconAngleDown
+          <IconAngleDown aria-hidden
             className={isMenuOpen ? styles.iconAngleUp : styles.iconAngleDown}
           />
         </div>

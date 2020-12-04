@@ -7,6 +7,7 @@ import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation'
 import Checkbox from '../checkbox/Checkbox';
 import ScrollIntoViewWithFocus from '../scrollIntoViewWithFocus/ScrollIntoViewWithFocus';
 import SearchLabel from '../search/searchLabel/SearchLabel';
+import SrOnly from '../srOnly/SrOnly';
 import DropdownMenu from './DropdownMenu';
 import styles from './multiSelectDropdown.module.scss';
 
@@ -253,13 +254,24 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
           <div className={styles.titleText}>{selectedText || title}</div>
         </div>
         <div className={styles.arrowWrapper}>
-          {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
+          <SrOnly>
+            {t(
+              `multiSelectDropdown.srOnly.${
+                isMenuOpen ? 'dropdownOpened' : 'dropdownClosed'
+              }`
+            )}
+          </SrOnly>
+          {isMenuOpen ? (
+            <IconAngleUp aria-hidden />
+          ) : (
+            <IconAngleDown aria-hidden />
+          )}
         </div>
       </button>
       <DropdownMenu isOpen={isMenuOpen} onClear={handleClear}>
         {showSearch && (
           <div className={styles.inputWrapper}>
-            <IconSearch size="s" />
+            <IconSearch size="s" aria-hidden />
             <SearchLabel htmlFor={name} srOnly={true}>
               {inputPlaceholderText}
             </SearchLabel>

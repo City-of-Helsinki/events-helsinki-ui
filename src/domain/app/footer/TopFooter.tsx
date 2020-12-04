@@ -51,13 +51,13 @@ const TopFooter: FunctionComponent = () => {
           </div>
           <div className={styles.iconLinkWrapper}>
             <IconLink
-              icon={<IconSearch />}
+              icon={<IconSearch aria-hidden />}
               onClick={scrollToTop}
               text={t('footer.searchEvents')}
               to={`/${locale}${ROUTES.EVENTS}`}
             />
             <IconLink
-              icon={<IconStar />}
+              icon={<IconStar aria-hidden />}
               onClick={scrollToTop}
               text={t('footer.searchCollections')}
               to={`/${locale}${ROUTES.COLLECTIONS}`}

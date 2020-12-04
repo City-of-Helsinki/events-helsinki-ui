@@ -47,6 +47,7 @@ exports[`matched snapshot 1`] = `
               class="iconWrapper"
             >
               <svg
+                aria-hidden="true"
                 class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                 role="img"
                 viewBox="0 0 24 24"
@@ -80,6 +81,7 @@ exports[`matched snapshot 1`] = `
               class="iconWrapper"
             >
               <svg
+                aria-hidden="true"
                 class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                 role="img"
                 viewBox="0 0 24 24"
@@ -120,6 +122,7 @@ exports[`matched snapshot 1`] = `
               id="languageDropdown-button"
             >
               <svg
+                aria-hidden="true"
                 class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik iconLanguage"
                 role="img"
                 viewBox="0 0 24 24"
@@ -143,6 +146,7 @@ exports[`matched snapshot 1`] = `
               >
                 FI
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik iconAngleDown"
                   role="img"
                   viewBox="0 0 24 24"
@@ -198,6 +202,7 @@ exports[`matched snapshot 1`] = `
               class="menuButton"
             >
               <svg
+                aria-hidden="true"
                 class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                 role="img"
                 viewBox="0 0 24 24"
@@ -237,6 +242,7 @@ exports[`matched snapshot 1`] = `
                 href="/fi/events"
               >
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
@@ -265,6 +271,7 @@ exports[`matched snapshot 1`] = `
                 href="/fi/collections"
               >
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
@@ -368,6 +375,7 @@ exports[`matched snapshot 1`] = `
                 class="iconWrapper"
               >
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
@@ -401,6 +409,7 @@ exports[`matched snapshot 1`] = `
                 class="iconWrapper"
               >
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
@@ -463,6 +472,7 @@ exports[`matched snapshot 1`] = `
                   Elokuva
                 </span>
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
@@ -507,6 +517,7 @@ exports[`matched snapshot 1`] = `
                   Musiikki
                 </span>
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
@@ -551,6 +562,7 @@ exports[`matched snapshot 1`] = `
                   Liikunta ja urheilu
                 </span>
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
@@ -595,6 +607,7 @@ exports[`matched snapshot 1`] = `
                   Museot
                 </span>
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
@@ -639,6 +652,7 @@ exports[`matched snapshot 1`] = `
                   Tanssi
                 </span>
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
@@ -683,6 +697,7 @@ exports[`matched snapshot 1`] = `
                   Kulttuuri ja taide
                 </span>
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
@@ -727,6 +742,7 @@ exports[`matched snapshot 1`] = `
                   Luonto ja ulkoilu
                 </span>
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
@@ -752,6 +768,7 @@ exports[`matched snapshot 1`] = `
             >
               <button>
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
@@ -774,6 +791,7 @@ exports[`matched snapshot 1`] = `
                   Osallistu ja vaikuta
                 </span>
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
@@ -818,6 +836,7 @@ exports[`matched snapshot 1`] = `
                   Teatteri
                 </span>
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
@@ -862,6 +881,7 @@ exports[`matched snapshot 1`] = `
                   Ruoka
                 </span>
                 <svg
+                  aria-hidden="true"
                   class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"

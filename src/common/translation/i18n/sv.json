@@ -45,7 +45,11 @@
     "loading": "Laddning...",
     "multiSelectDropdown": {
       "inputPlaceholder": "Skriv sökord",
-      "selectAll": "Välj alla"
+      "selectAll": "Välj alla",
+      "srOnly": {
+        "dropdownOpened" : "multiselect rullgardinsmenyn öppnas",
+        "dropdownClosed" : "multiselect rullgardinsmenyn stängd"
+      }
     },
     "preview": "Förhandsvisning",
     "shareLink": {
@@ -56,6 +60,9 @@
     "shareLinks": {
       "buttonCopyLink": "Kopiera länk adress",
       "messageLinkCopySuccess": "Länk kopierad till urklipp"
+    },
+    "srOnly" : {
+      "opensInANewTab": "Öppnas i en ny flik"
     },
     "supriseMe": "Jag har tur",
     "timeAbbreviation": "kl."
