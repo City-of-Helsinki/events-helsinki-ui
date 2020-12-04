@@ -51,9 +51,15 @@ it('should render event content fields', async () => {
     { role: 'button', name: translations.commons.shareLink.shareOnTwitter },
     { role: 'button', name: translations.commons.shareLink.shareOnLinkedIn },
     { role: 'heading', name: translations.event.location.title },
-    { role: 'link', name: translations.event.location.openMap },
+    {
+      role: 'link',
+      name: `${translations.event.location.openMap} ${translations.commons.srOnly.opensInANewTab}`,
+    },
+    {
+      role: 'link',
+      name: `${translations.event.location.directionsHSL} ${translations.commons.srOnly.opensInANewTab}`,
+    },
   ];
-
   itemsByRole.forEach(({ role, name }) => {
     expect(screen.queryByRole(role, { name })).toBeInTheDocument();
   });
@@ -69,8 +75,10 @@ it('should render event content fields', async () => {
 
   // Both location and event info have directions links so test that both are available
   const itemsAllByRole = [
-    { role: 'link', name: translations.event.location.directionsGoogle },
-    { role: 'link', name: translations.event.location.directionsHSL },
+    {
+      role: 'link',
+      name: `${translations.event.location.directionsGoogle} ${translations.commons.srOnly.opensInANewTab}`,
+    },
   ];
 
   itemsAllByRole.forEach(({ role, name }) => {
