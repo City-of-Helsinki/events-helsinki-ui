@@ -6,7 +6,10 @@ import { useHistory, useLocation } from 'react-router-dom';
 import IconButton from '../../../common/components/iconButton/IconButton';
 import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
 import Visible from '../../../common/components/visible/Visible';
-import { EventFieldsFragment } from '../../../generated/graphql';
+import {
+  CourseFieldsFragment,
+  EventFieldsFragment,
+} from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import testImage from '../../../util/testImage';
@@ -19,7 +22,7 @@ import { getEventFields, getEventPrice } from '../EventUtils';
 import styles from './eventHero.module.scss';
 
 interface Props {
-  event: EventFieldsFragment;
+  event: EventFieldsFragment | CourseFieldsFragment;
 }
 
 const EventHero: React.FC<Props> = ({ event }) => {

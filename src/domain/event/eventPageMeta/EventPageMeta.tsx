@@ -1,12 +1,15 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import { EventFieldsFragment } from '../../../generated/graphql';
+import {
+  CourseFieldsFragment,
+  EventFieldsFragment,
+} from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { getEventFields } from '../EventUtils';
 
 interface Props {
-  event: EventFieldsFragment;
+  event: EventFieldsFragment | CourseFieldsFragment;
 }
 
 const EventPageMeta: React.FC<Props> = ({ event }) => {

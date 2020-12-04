@@ -3,7 +3,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import ShareLinks from '../../../common/components/shareLinks/ShareLinks';
-import { EventFieldsFragment } from '../../../generated/graphql';
+import {
+  CourseFieldsFragment,
+  EventFieldsFragment,
+} from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import sanitizeHtml from '../../../util/sanitizeHtml';
 import Container from '../../app/layout/Container';
@@ -13,7 +16,7 @@ import { getEventFields } from '../EventUtils';
 import styles from './eventContent.module.scss';
 
 interface Props {
-  event: EventFieldsFragment;
+  event: EventFieldsFragment | CourseFieldsFragment;
 }
 
 const EventContent: React.FC<Props> = ({ event }) => {

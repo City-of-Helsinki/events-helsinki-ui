@@ -11,6 +11,7 @@ import AboutPage from '../../about/AboutPage';
 import AccessbilityPage from '../../accessibility/AccessbilityPage';
 import CollectionPageContainer from '../../collection/CollectionPageContainer';
 import CollectionListPage from '../../collectionList/CollectionListPage';
+import CoursePageContainer from '../../course/CoursePageContainer';
 import CourseSearchPageContainer from '../../courseSearch/CourseSearchPageContainer';
 import EventPageContainer from '../../event/EventPageContainer';
 import EventSearchPageContainer from '../../eventSearch/EventSearchPageContainer';
@@ -76,6 +77,11 @@ const App: FunctionComponent<RouteComponentProps<{
         exact
         path={`/${locale}${ROUTES.COURSES}`}
         component={CourseSearchPageContainer}
+      />
+      <Route
+        exact
+        path={`/${locale}${ROUTES.COURSE}`}
+        component={CoursePageContainer}
       />
       <Route component={NotFound} />
     </Switch>

@@ -4,6 +4,7 @@ import { useLocation } from 'react-router';
 
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
+  CourseFieldsFragment,
   EventFieldsFragment,
   useEventListQuery,
 } from '../../../generated/graphql';
@@ -25,7 +26,7 @@ import { getEventFields } from '../EventUtils';
 import styles from './similarEvents.module.scss';
 
 interface Props {
-  event: EventFieldsFragment;
+  event: EventFieldsFragment | CourseFieldsFragment;
 }
 
 const SimilarEvents: React.FC<Props> = ({ event }) => {
