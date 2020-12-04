@@ -117,7 +117,7 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
         }
       >
         <span>{t('event.otherTimes.title')}</span>
-        <IconAngleDown />
+        <IconAngleDown aria-hidden/>
       </button>
       {isListOpen && (
         <>
@@ -146,7 +146,7 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
                     ariaLabel={t('event.otherTimes.buttonReadMore', {
                       date,
                     })}
-                    icon={<IconArrowRight />}
+                    icon={<IconArrowRight aria-hidden />}
                     onClick={moveToEventPage}
                     size="small"
                   />

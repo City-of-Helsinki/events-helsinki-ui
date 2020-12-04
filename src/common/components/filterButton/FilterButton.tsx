@@ -39,7 +39,7 @@ const FilterButton: React.FC<Props> = ({ onRemove, text, type, value }) => {
           filter: text,
         })}
       >
-        <IconCross size="s" />
+        <IconCross size="s" aria-hidden />
       </button>
       {text}
     </div>

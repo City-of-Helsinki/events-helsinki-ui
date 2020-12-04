@@ -6,6 +6,7 @@ import { DATE_TYPES } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
 import { formatDate } from '../../../util/dateUtils';
 import { translateValue } from '../../../util/translateUtils';
+import SrOnly from '../srOnly/SrOnly';
 import styles from './dateSelector.module.scss';
 import DateSelectorMenu from './DateSelectorMenu';
 
@@ -164,7 +165,7 @@ const DateSelector: FunctionComponent<DateSelectorProps> = ({
         type="button"
       >
         <div className={styles.iconWrapper}>
-          <IconCalendarClock />
+          <IconCalendarClock aria-hidden />
         </div>
         <div className={styles.info}>
           <div className={styles.buttonTextWrapper}>
@@ -172,7 +173,18 @@ const DateSelector: FunctionComponent<DateSelectorProps> = ({
           </div>
         </div>
         <div className={styles.arrowWrapper}>
-          {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
+          <SrOnly>
+            {t(
+              `commons.dateSelector.srOnly.${
+                isMenuOpen ? 'calendarOpened' : 'calendarClosed'
+              }`
+            )}
+          </SrOnly>
+          {isMenuOpen ? (
+            <IconAngleUp aria-hidden />
+          ) : (
+            <IconAngleDown aria-hidden />
+          )}
         </div>
       </button>
       {isSelected && <div className={styles.isSelectedIndicator} />}

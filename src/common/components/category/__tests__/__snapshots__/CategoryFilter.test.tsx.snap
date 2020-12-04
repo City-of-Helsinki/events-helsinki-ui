@@ -28,6 +28,7 @@ exports[`matches snapshot 1`] = `
       text
     </span>
     <svg
+      aria-hidden="true"
       class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
       role="img"
       viewBox="0 0 24 24"

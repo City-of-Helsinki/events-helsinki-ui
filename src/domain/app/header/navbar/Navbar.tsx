@@ -60,13 +60,13 @@ const Navbar: React.FC = () => {
         </div>
         <div className={styles.links}>
           <IconLink
-            icon={<IconSearch />}
+            icon={<IconSearch aria-hidden />}
             onClick={scrollToTop}
             text={t('header.searchEvents')}
             to={`/${locale}${ROUTES.EVENTS}`}
           />
           <IconLink
-            icon={<IconStar />}
+            icon={<IconStar aria-hidden />}
             onClick={scrollToTop}
             text={t('header.searchCollections')}
             to={`/${locale}${ROUTES.COLLECTIONS}`}

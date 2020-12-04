@@ -102,7 +102,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
       <div className={styles.contentWrapper}>
         {/* Date info */}
         <InfoWithIcon
-          icon={<IconCalendarClock />}
+          icon={<IconCalendarClock aria-hidden />}
           title={t('event.info.labelDateAndTime')}
         >
           {!!startTime && (
@@ -116,7 +116,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
               })}
               <button className={linkStyles.link} onClick={downloadIcsFile}>
                 {t('event.info.buttonAddToCalendar')}
-                <IconAngleRight />
+                <IconAngleRight aria-hidden />
               </button>
             </>
           )}
@@ -127,7 +127,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
 
         {/* Location info */}
         <InfoWithIcon
-          icon={<IconLocation />}
+          icon={<IconLocation aria-hidden />}
           title={t('event.info.labelLocation')}
         >
           <Visible below="sm">
@@ -150,7 +150,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
         {/* Languages */}
         {!!languages.length && (
           <InfoWithIcon
-            icon={<IconGlobe />}
+            icon={<IconGlobe aria-hidden />}
             title={t('event.info.labelLanguages')}
           >
             <div>{languages.join(', ')}</div>
@@ -160,7 +160,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
         {/* Other info */}
         {showOtherInfo && (
           <InfoWithIcon
-            icon={<IconInfoCircle />}
+            icon={<IconInfoCircle aria-hidden />}
             title={t('event.info.labelOtherInfo')}
           >
             {[email, telephone]
@@ -192,7 +192,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
 
         {/* Directions */}
         <InfoWithIcon
-          icon={<IconDirections />}
+          icon={<IconDirections aria-hidden />}
           title={t('event.info.labelDirections')}
         >
           <Link isExternal={true} to={googleDirectionsLink}>
@@ -209,7 +209,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
         {/* Price info */}
         <Visible below="sm">
           <InfoWithIcon
-            icon={<IconTicket />}
+            icon={<IconTicket aria-hidden />}
             title={t('event.info.labelPrice')}
           >
             {eventPriceText || '-'}
