@@ -121,4 +121,5 @@ export const MAPPED_PLACES: Record<string, string> = {
   savoyteatteri: 'tprek:7258',
   stoa: 'tprek:7259',
   vuotalo: 'tprek:7260',
+  malmitalo: 'tprek:8740',
 };

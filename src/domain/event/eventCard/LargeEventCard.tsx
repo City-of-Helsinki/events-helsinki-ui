@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import buttonStyles from '../../../common/components/button/button.module.scss';
@@ -22,6 +22,7 @@ import {
   isEventFree,
 } from '../EventUtils';
 import styles from './largeEventCard.module.scss';
+import { addPlaceFromPathToQueryString } from './utils';
 
 interface Props {
   event: EventFieldsFragment;
@@ -30,6 +31,7 @@ interface Props {
 const LargeEventCard: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
+  const params = useParams<{ place?: string }>();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const { search } = useLocation();
   const locale = useLocale();
@@ -44,10 +46,11 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
     startTime,
   } = getEventFields(event, locale);
   const eventClosed = isEventClosed(event);
+  const modifiedSearch = addPlaceFromPathToQueryString(search, params.place);
   const eventUrl = `/${locale}${ROUTES.EVENT.replace(
     ':id',
     event.id
-  )}${search}`;
+  )}${modifiedSearch}`;
   const showBuyButton = !eventClosed && !!offerInfoUrl && !isEventFree(event);
 
   const goToBuyTicketsPage = () => {

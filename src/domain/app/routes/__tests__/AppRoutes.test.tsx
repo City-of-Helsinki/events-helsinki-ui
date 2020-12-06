@@ -159,7 +159,7 @@ it('user with route with unsupport locale will be redirect to App anyway, with s
 });
 
 describe('test each place path /:locale/:place', () => {
-  Object.keys(MAPPED_PLACES).forEach((place) => {
+  Object.keys(placeIdMap).forEach((place) => {
     it(`renders event search with place from path: ${place}`, async () => {
       renderComponent(`/fi/${place}`);
 
