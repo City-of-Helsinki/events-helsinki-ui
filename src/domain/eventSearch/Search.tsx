@@ -234,7 +234,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                 <div>
                   <MultiSelectDropdown
                     checkboxName="categoryOptions"
-                    icon={<IconRead />}
+                    icon={<IconRead aria-hidden />}
                     inputValue={categoryInput}
                     name="category"
                     onChange={setSelectedCategories}
@@ -261,7 +261,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                 <div>
                   <MultiSelectDropdown
                     checkboxName="divisionOptions"
-                    icon={<IconLocation />}
+                    icon={<IconLocation aria-hidden />}
                     inputValue={divisionInput}
                     name="division"
                     onChange={setSelectedDivisions}
@@ -277,7 +277,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                 <div>
                   <PlaceSelector
                     checkboxName="placesCheckboxes"
-                    icon={<IconHome />}
+                    icon={<IconHome aria-hidden />}
                     inputValue={placeInput}
                     name="places"
                     onChange={setSelectedPlaces}
@@ -293,7 +293,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
               <div className={styles.buttonWrapper}>
                 <Button
                   fullWidth={true}
-                  iconLeft={<IconSearch />}
+                  iconLeft={<IconSearch aria-hidden />}
                   variant="success"
                   type="submit"
                 >
