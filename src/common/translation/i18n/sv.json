@@ -45,11 +45,7 @@
     "loading": "Laddning...",
     "multiSelectDropdown": {
       "inputPlaceholder": "Skriv sökord",
-      "selectAll": "Välj alla",
-      "srOnly": {
-        "dropdownOpened" : "multiselect rullgardinsmenyn öppnas",
-        "dropdownClosed" : "multiselect rullgardinsmenyn stängd"
-      }
+      "selectAll": "Välj alla"
     },
     "preview": "Förhandsvisning",
     "shareLink": {

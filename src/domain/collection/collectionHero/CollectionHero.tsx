@@ -39,7 +39,7 @@ const CollectionHero: React.FC<Props> = ({ collection }) => {
       >
         <h1>{title}</h1>
         {!!description && <TextWithLineBreaks as="p" text={description} />}
-        {!!linkText && !!linkText && (
+        {!!linkText && (
           <a href={linkUrl} target="_blank" rel="noopener noreferrer">
             {linkText}
             <SrOnly>{t('commons.srOnly.opensInANewTab')}</SrOnly>

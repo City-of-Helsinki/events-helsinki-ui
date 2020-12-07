@@ -31,11 +31,7 @@
         "buttonClose": "Sulje",
         "buttonCustom": "Valitse päivät"
       },
-      "title": "Valitse ajankohta",
-      "srOnly": {
-        "calendarOpened" : "Kalenteri on avattu",
-        "calendarClosed" : "kalenteri on suljettu"
-      }
+      "title": "Valitse ajankohta"
     },
     "dropdown": {
       "menu": {
@@ -49,11 +45,7 @@
     "loading": "Ladataan...",
     "multiSelectDropdown": {
       "inputPlaceholder": "Kirjoita hakusana",
-      "selectAll": "Valitse kaikki",
-      "srOnly": {
-        "dropdownOpened" : "Monivalinta-alasvetovalikko on avattu",
-        "dropdownClosed" : "Monivalinta-alasvetovalikko on suljettu"
-      }
+      "selectAll": "Valitse kaikki"
     },
     "preview": "Esikatselu",
     "shareLink": {

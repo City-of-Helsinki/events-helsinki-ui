@@ -6,7 +6,6 @@ import { DATE_TYPES } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
 import { formatDate } from '../../../util/dateUtils';
 import { translateValue } from '../../../util/translateUtils';
-import SrOnly from '../srOnly/SrOnly';
 import styles from './dateSelector.module.scss';
 import DateSelectorMenu from './DateSelectorMenu';
 
@@ -173,13 +172,6 @@ const DateSelector: FunctionComponent<DateSelectorProps> = ({
           </div>
         </div>
         <div className={styles.arrowWrapper}>
-          <SrOnly>
-            {t(
-              `commons.dateSelector.srOnly.${
-                isMenuOpen ? 'calendarOpened' : 'calendarClosed'
-              }`
-            )}
-          </SrOnly>
           {isMenuOpen ? (
             <IconAngleUp aria-hidden />
           ) : (
