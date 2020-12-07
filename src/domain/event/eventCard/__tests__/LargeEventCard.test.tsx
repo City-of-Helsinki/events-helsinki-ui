@@ -158,11 +158,18 @@ describe('test all event places for modified query string', () => {
         })
       );
 
-      expect(push).toHaveBeenCalledWith(
-        `/fi/event/${event.id}?places=${encodeURIComponent(
-          MAPPED_PLACES[place]
-        )}`
-      );
+      expect(push.mock.calls).toEqual([
+        [
+          `/fi/event/${event.id}?places=${encodeURIComponent(
+            MAPPED_PLACES[place]
+          )}`,
+        ],
+        [
+          `/fi/event/${event.id}?places=${encodeURIComponent(
+            MAPPED_PLACES[place]
+          )}`,
+        ],
+      ]);
     });
   });
 });
