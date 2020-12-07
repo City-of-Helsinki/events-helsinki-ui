@@ -3,6 +3,8 @@ import range from 'lodash/range';
 import { promisify } from 'util';
 import * as convert from 'xml-js';
 
+import { MAPPED_PLACES } from '../domain/eventSearch/constants';
+
 export type Language = 'en' | 'fi' | 'sv';
 export type TitleKey = 'title_en' | 'title_fi' | 'title_sv';
 
@@ -36,7 +38,9 @@ export type Element = {
 const writeFile = promisify(fs.writeFile);
 
 const LANGUAGES = ['en', 'fi', 'sv'];
-const STATIC_URLS = ['home'];
+const STATIC_URLS = ['home', 'events', 'collections'].concat(
+  Object.keys(MAPPED_PLACES)
+);
 const CMS_URL = process.env.REACT_APP_CMS_URL;
 const LINKED_EVENTS_URL = process.env.REACT_APP_LINKED_EVENTS_URL;
 const HOST = process.env.PUBLIC_URL;
