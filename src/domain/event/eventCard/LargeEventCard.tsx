@@ -31,6 +31,8 @@ interface Props {
 const LargeEventCard: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
+  // place comes from place param in clean url on events search page
+  // see ROUTES.EVENT_PLACE (routes/constants.ts)
   const params = useParams<{ place?: string }>();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const { search } = useLocation();

@@ -31,6 +31,8 @@ const EventCard: React.FC<Props> = ({ event }) => {
   const history = useHistory();
   const { search } = useLocation();
   const { t } = useTranslation();
+  // place comes from place param in clean url on events search page
+  // see ROUTES.EVENT_PLACE (routes/constants.ts)
   const params = useParams<{ place?: string }>();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const locale = useLocale();
