@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 import Footer from '../footer/Footer';

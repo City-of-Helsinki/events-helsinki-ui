@@ -10,12 +10,12 @@ import { updateLocaleParam } from '../../../util/updateLocaleParam';
 import { ROUTES } from '../constants';
 import styles from './header.module.scss';
 
-export interface NavProps {
+export interface HeaderProps {
   menuOpen: boolean;
   onMenuToggle: () => void;
 }
-const Header: React.FC<NavProps> = ({ menuOpen, onMenuToggle }) => {
-  const { i18n, t } = useTranslation();
+const Header: React.FC<HeaderProps> = ({ menuOpen, onMenuToggle }) => {
+  const { t } = useTranslation();
   const history = useHistory();
   const location = useLocation();
   const locale = useLocale();
