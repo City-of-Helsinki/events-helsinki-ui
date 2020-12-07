@@ -2,7 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
-import { useCollectionListQuery } from '../../generated/graphql';
+import {
+  useCollectionListQuery,
+  useLandingPagesQuery,
+} from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import Container from '../app/layout/Container';
 import MainContent from '../app/layout/MainContent';
@@ -12,12 +15,20 @@ import {
   isCollectionExpired,
   isLanguageSupported,
 } from '../collection/CollectionUtils';
+import LandingPageMeta from '../landingPage/landingPageMeta/LandingPageMeta';
+import { isLanguageSupported as isLanguagePageLanguageSupported } from '../landingPage/utils';
 import styles from './collectionListPage.module.scss';
 
 const CollectionListPage: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { data: collectionsData, loading } = useCollectionListQuery();
+  const { data: landingPageData } = useLandingPagesQuery({
+    variables: { visibleOnFrontpage: true },
+  });
+  const landingPage = landingPageData?.landingPages.data.find((page) =>
+    isLanguagePageLanguageSupported(page, locale)
+  );
 
   const collections =
     collectionsData?.collectionList.data.filter(
@@ -33,6 +44,7 @@ const CollectionListPage: React.FC = () => {
       className={styles.collectionListPage}
       title="collectionList.pageTitle"
     >
+      {landingPage && <LandingPageMeta landingPage={landingPage} />}
       <MainContent offset={-70}>
         <LoadingSpinner isLoading={loading}>
           <div className={styles.largeCardWrapper}>

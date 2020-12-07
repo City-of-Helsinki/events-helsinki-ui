@@ -12,12 +12,17 @@ import { toast } from 'react-toastify';
 
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import SrOnly from '../../common/components/srOnly/SrOnly';
-import { useEventListQuery } from '../../generated/graphql';
+import {
+  useEventListQuery,
+  useLandingPagesQuery,
+} from '../../generated/graphql';
 import useIsSmallScreen from '../../hooks/useIsSmallScreen';
 import useLocale from '../../hooks/useLocale';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import { getLargeEventCardId } from '../event/EventUtils';
+import LandingPageMeta from '../landingPage/landingPageMeta/LandingPageMeta';
+import { isLanguageSupported } from '../landingPage/utils';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from './constants';
 import styles from './eventSearchPage.module.scss';
 import Search from './Search';
@@ -51,6 +56,13 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
     ssr: false,
     variables: eventFilters,
   });
+
+  const { data: landingPageData } = useLandingPagesQuery({
+    variables: { visibleOnFrontpage: true },
+  });
+  const landingPage = landingPageData?.landingPages.data.find((page) =>
+    isLanguageSupported(page, locale)
+  );
 
   const handleLoadMore = async () => {
     const page = eventsData?.eventList.meta
@@ -121,6 +133,7 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
       className={styles.eventSearchPageWrapper}
       title="eventSearch.title"
     >
+      {landingPage && <LandingPageMeta landingPage={landingPage} />}
       <SrOnly as="h1">{t('eventSearch.title')}</SrOnly>
       <Search scrollToResultList={scrollToResultList} />
       <div id="resultList">
