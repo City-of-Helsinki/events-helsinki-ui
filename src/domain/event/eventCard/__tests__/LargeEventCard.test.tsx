@@ -5,7 +5,9 @@ import React from 'react';
 import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
 import { fakeEvent } from '../../../../util/mockDataUtils';
-import { render, screen } from '../../../../util/testUtils';
+import { render, renderWithRoute, screen } from '../../../../util/testUtils';
+import { ROUTES } from '../../../app/routes/constants';
+import { MAPPED_PLACES } from '../../../eventSearch/constants';
 import LargeEventCard from '../LargeEventCard';
 
 const renderComponent = (event: EventFieldsFragment) =>
@@ -32,11 +34,9 @@ test('should show buy button when event has an offer', () => {
   }) as EventFieldsFragment;
   renderComponent(event);
 
-  const button = screen.queryByRole('button', {
+  const button = screen.getByRole('button', {
     name: /osta liput - linkki avautuu uudessa ikkunassa/i,
   });
-
-  expect(button).toBeInTheDocument();
 
   userEvent.click(button);
   expect(global.open).toBeCalledWith('https://example.domain');
@@ -124,4 +124,52 @@ test('should go to event page by clicking event card', () => {
   );
 
   expect(history.location.pathname).toEqual('/fi/event/123');
+});
+
+describe('test all event places for modified query string', () => {
+  Object.keys(MAPPED_PLACES).forEach((place) => {
+    it(`clicking event link and button works correctly if path is /${place}`, () => {
+      const event = fakeEvent() as EventFieldsFragment;
+      const { history } = renderWithRoute(<LargeEventCard event={event} />, {
+        routes: [`/fi/${place}`],
+        path: `/fi${ROUTES.EVENT_PLACE}`,
+      });
+
+      const push = jest.spyOn(history, 'push');
+
+      userEvent.click(
+        screen.queryByRole('link', {
+          name: translations.event.eventCard.ariaLabelLink.replace(
+            '{{name}}',
+            event.name.fi
+          ),
+        })
+      );
+
+      // goBack to have the event card rendered (path need to match after url has changed)
+      history.goBack();
+
+      userEvent.click(
+        screen.getByRole('button', {
+          name: translations.event.eventCard.ariaLabelReadMore.replace(
+            '{{name}}',
+            event.name.fi
+          ),
+        })
+      );
+
+      expect(push.mock.calls).toEqual([
+        [
+          `/fi/event/${event.id}?places=${encodeURIComponent(
+            MAPPED_PLACES[place]
+          )}`,
+        ],
+        [
+          `/fi/event/${event.id}?places=${encodeURIComponent(
+            MAPPED_PLACES[place]
+          )}`,
+        ],
+      ]);
+    });
+  });
 });

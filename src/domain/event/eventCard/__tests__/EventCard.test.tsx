@@ -6,7 +6,9 @@ import React from 'react';
 import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
 import { fakeEvent, fakeKeywords } from '../../../../util/mockDataUtils';
-import { render, screen } from '../../../../util/testUtils';
+import { render, renderWithRoute, screen } from '../../../../util/testUtils';
+import { ROUTES } from '../../../app/routes/constants';
+import { MAPPED_PLACES } from '../../../eventSearch/constants';
 import EventCard from '../EventCard';
 
 const keywordNames = ['Keyword 1', 'Keyword 2'];
@@ -81,4 +83,43 @@ test('should go to event page by clicking button', () => {
   );
 
   expect(history.location.pathname).toEqual('/fi/event/123');
+});
+
+describe('test all event places for modified query string', () => {
+  Object.keys(MAPPED_PLACES).forEach((place) => {
+    it(`clicking event link and button works correctly if path is /${place}`, () => {
+      const { history } = renderWithRoute(<EventCard event={event} />, {
+        routes: [`/fi/${place}`],
+        path: `/fi${ROUTES.EVENT_PLACE}`,
+      });
+
+      const push = jest.spyOn(history, 'push');
+
+      userEvent.click(
+        screen.queryByRole('link', {
+          name: translations.event.eventCard.ariaLabelLink.replace(
+            '{{name}}',
+            event.name.fi
+          ),
+        })
+      );
+
+      // goBack to have the event card rendered (path need to match after url has changed)
+      history.goBack();
+
+      userEvent.click(
+        screen.queryByRole('button', {
+          name: translations.event.eventCard.ariaLabelLink.replace(
+            '{{name}}',
+            event.name.fi
+          ),
+        })
+      );
+
+      expect(push.mock.calls).toEqual([
+        [`/fi/event/${id}?places=${encodeURIComponent(MAPPED_PLACES[place])}`],
+        [`/fi/event/${id}?places=${encodeURIComponent(MAPPED_PLACES[place])}`],
+      ]);
+    });
+  });
 });
