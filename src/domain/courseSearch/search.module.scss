@@ -1,0 +1,59 @@
+@import 'layout';
+
+.searchContainer {
+  --buttonWidth: 180px;
+
+  color: var(--color-black);
+  background-color: var(--color-fog-light-50);
+  padding: 1.8rem 0;
+  position: relative;
+
+  h1 {
+    margin-top: 0;
+  }
+
+  .autoSuggestRow {
+    align-items: flex-end;
+
+    @include respond-above(sm) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-gap: var(--spacing-xs);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    & > :first-child {
+      @include respond-above(sm) {
+        grid-column: 1 / 4;
+      }
+    }
+  }
+
+  .gridRow {
+    display: grid;
+    height: fit-content;
+    align-items: center;
+
+    grid-template-columns: 1fr;
+    grid-gap: var(--spacing-xs);
+
+    margin-bottom: var(--spacing-xs);
+
+    @include respond-above(sm) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-gap: var(--spacing-xs);
+      margin-bottom: var(--spacing-xs);
+    }
+  }
+
+  .autoSuggestRow {
+    align-items: flex-end;
+  }
+
+  .searchButtonWrapper {
+    @include respond-above(sm) {
+     grid-column: 4;
+    }
+  }
+}
+
+

@@ -11,10 +11,9 @@ import MultiSelectDropdown from '../../common/components/multiSelectDropdown/Mul
 import SearchAutosuggest from '../../common/components/search/SearchAutosuggest';
 import SearchLabel from '../../common/components/search/searchLabel/SearchLabel';
 import { AutosuggestMenuOption } from '../../common/types';
-import { useNeighborhoodListQuery } from '../../generated/graphql';
+import useDivisionOptions from '../../hooks/useDivisionOptions';
 import useLocale from '../../hooks/useLocale';
 import IconRead from '../../icons/IconRead';
-import getLocalisedString from '../../util/getLocalisedString';
 import { ROUTES } from '../app/constants';
 import Container from '../app/layout/Container';
 import PlaceSelector from '../place/placeSelector/PlaceSelector';
@@ -81,16 +80,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     text: selectedTexts,
   };
 
-  const { data: neighborhoodsData } = useNeighborhoodListQuery();
-
-  const divisionOptions = neighborhoodsData
-    ? neighborhoodsData.neighborhoodList.data
-        .map((neighborhood) => ({
-          text: getLocalisedString(neighborhood.name, locale),
-          value: neighborhood.id,
-        }))
-        .sort((a, b) => (a.text >= b.text ? 1 : -1))
-    : [];
+  const divisionOptions = useDivisionOptions();
 
   const categories = getCategoryOptions(t);
 
@@ -219,136 +209,134 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   };
 
   return (
-    <>
-      <div className={styles.searchContainer}>
-        <Container>
-          <form onSubmit={handleSubmit}>
-            <div className={styles.searchWrapper}>
-              <div className={styles.rowWrapper}>
-                <div className={classNames(styles.row, styles.autoSuggestRow)}>
-                  <div>
-                    <SearchLabel color="black" htmlFor="search">
-                      {t('eventSearch.search.labelSearchField')}
-                    </SearchLabel>
-                    <SearchAutosuggest
-                      name="search"
-                      onChangeSearchValue={setAutosuggestInput}
-                      onOptionClick={handleMenuOptionClick}
-                      placeholder={t('eventSearch.search.placeholder')}
-                      searchValue={autosuggestInput}
-                    />
-                  </div>
+    <div className={styles.searchContainer}>
+      <Container>
+        <form onSubmit={handleSubmit}>
+          <div className={styles.searchWrapper}>
+            <div className={styles.rowWrapper}>
+              <div className={classNames(styles.row, styles.autoSuggestRow)}>
+                <div>
+                  <SearchLabel color="black" htmlFor="search">
+                    {t('eventSearch.search.labelSearchField')}
+                  </SearchLabel>
+                  <SearchAutosuggest
+                    name="search"
+                    onChangeSearchValue={setAutosuggestInput}
+                    onOptionClick={handleMenuOptionClick}
+                    placeholder={t('eventSearch.search.placeholder')}
+                    searchValue={autosuggestInput}
+                  />
                 </div>
               </div>
-              <div className={styles.rowWrapper}>
-                <div className={styles.row}>
-                  <div>
-                    <MultiSelectDropdown
-                      checkboxName="categoryOptions"
-                      icon={<IconRead />}
-                      inputValue={categoryInput}
-                      name="category"
-                      onChange={setSelectedCategories}
-                      options={categories}
-                      setInputValue={setCategoryInput}
-                      showSearch={false}
-                      title={t('eventSearch.search.titleDropdownCategory')}
-                      value={selectedCategories}
-                    />
-                  </div>
-                  <div className={styles.dateSelectorWrapper}>
-                    <DateSelector
-                      dateTypes={selectedDateTypes}
-                      endDate={end}
-                      isCustomDate={isCustomDate}
-                      name="date"
-                      onChangeDateTypes={handleChangeDateTypes}
-                      onChangeEndDate={setEnd}
-                      onChangeStartDate={setStart}
-                      startDate={start}
-                      toggleIsCustomDate={toggleIsCustomDate}
-                    />
-                  </div>
-                  <div>
-                    <MultiSelectDropdown
-                      checkboxName="divisionOptions"
-                      icon={<IconLocation />}
-                      inputValue={divisionInput}
-                      name="division"
-                      onChange={setSelectedDivisions}
-                      options={divisionOptions}
-                      selectAllText={t('eventSearch.search.selectAllDivisions')}
-                      setInputValue={setDivisionInput}
-                      showSearch={true}
-                      showSelectAll={true}
-                      title={t('eventSearch.search.titleDropdownDivision')}
-                      value={selectedDivisions}
-                    />
-                  </div>
-                  <div>
-                    <PlaceSelector
-                      checkboxName="placesCheckboxes"
-                      icon={<IconHome />}
-                      inputValue={placeInput}
-                      name="places"
-                      onChange={setSelectedPlaces}
-                      selectAllText={t('eventSearch.search.selectAllPlaces')}
-                      setInputValue={setPlaceInput}
-                      showSearch={true}
-                      showSelectAll={true}
-                      title={t('eventSearch.search.titleDropdownPlace')}
-                      value={selectedPlaces}
-                    />
-                  </div>
-                </div>
-                <div className={styles.buttonWrapper}>
-                  <Button
-                    fullWidth={true}
-                    iconLeft={<IconSearch />}
-                    variant="success"
-                    type="submit"
-                  >
-                    {t('eventSearch.search.buttonSearch')}
-                  </Button>
-                </div>
-              </div>
-              <div className={styles.rowWrapper}>
-                <div className={styles.row}>
-                  <div>
-                    <Checkbox
-                      className={styles.checkbox}
-                      checked={onlyChildrenEvents}
-                      id={EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS}
-                      label={t('eventSearch.search.checkboxOnlyChildrenEvents')}
-                      onChange={handleOnlyChildrenEventChange}
-                    />
-                  </div>
-                  <div>
-                    <Checkbox
-                      className={styles.checkbox}
-                      checked={isFree}
-                      id={EVENT_SEARCH_FILTERS.IS_FREE}
-                      label={t('eventSearch.search.checkboxIsFree')}
-                      onChange={handleIsFreeChange}
-                    />
-                  </div>
-                  <div>
-                    <Checkbox
-                      className={styles.checkbox}
-                      checked={onlyEveningEvents}
-                      id={EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS}
-                      label={t('eventSearch.search.checkboxOnlyEveningEvents')}
-                      onChange={handleOnlyEveningEventChange}
-                    />
-                  </div>
-                </div>
-              </div>
-              <FilterSummary onClear={clearFilters} />
             </div>
-          </form>
-        </Container>
-      </div>
-    </>
+            <div className={styles.rowWrapper}>
+              <div className={styles.row}>
+                <div>
+                  <MultiSelectDropdown
+                    checkboxName="categoryOptions"
+                    icon={<IconRead />}
+                    inputValue={categoryInput}
+                    name="category"
+                    onChange={setSelectedCategories}
+                    options={categories}
+                    setInputValue={setCategoryInput}
+                    showSearch={false}
+                    title={t('eventSearch.search.titleDropdownCategory')}
+                    value={selectedCategories}
+                  />
+                </div>
+                <div className={styles.dateSelectorWrapper}>
+                  <DateSelector
+                    dateTypes={selectedDateTypes}
+                    endDate={end}
+                    isCustomDate={isCustomDate}
+                    name="date"
+                    onChangeDateTypes={handleChangeDateTypes}
+                    onChangeEndDate={setEnd}
+                    onChangeStartDate={setStart}
+                    startDate={start}
+                    toggleIsCustomDate={toggleIsCustomDate}
+                  />
+                </div>
+                <div>
+                  <MultiSelectDropdown
+                    checkboxName="divisionOptions"
+                    icon={<IconLocation />}
+                    inputValue={divisionInput}
+                    name="division"
+                    onChange={setSelectedDivisions}
+                    options={divisionOptions}
+                    selectAllText={t('eventSearch.search.selectAllDivisions')}
+                    setInputValue={setDivisionInput}
+                    showSearch={true}
+                    showSelectAll={true}
+                    title={t('eventSearch.search.titleDropdownDivision')}
+                    value={selectedDivisions}
+                  />
+                </div>
+                <div>
+                  <PlaceSelector
+                    checkboxName="placesCheckboxes"
+                    icon={<IconHome />}
+                    inputValue={placeInput}
+                    name="places"
+                    onChange={setSelectedPlaces}
+                    selectAllText={t('eventSearch.search.selectAllPlaces')}
+                    setInputValue={setPlaceInput}
+                    showSearch={true}
+                    showSelectAll={true}
+                    title={t('eventSearch.search.titleDropdownPlace')}
+                    value={selectedPlaces}
+                  />
+                </div>
+              </div>
+              <div className={styles.buttonWrapper}>
+                <Button
+                  fullWidth={true}
+                  iconLeft={<IconSearch />}
+                  variant="success"
+                  type="submit"
+                >
+                  {t('eventSearch.search.buttonSearch')}
+                </Button>
+              </div>
+            </div>
+            <div className={styles.rowWrapper}>
+              <div className={styles.row}>
+                <div>
+                  <Checkbox
+                    className={styles.checkbox}
+                    checked={onlyChildrenEvents}
+                    id={EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS}
+                    label={t('eventSearch.search.checkboxOnlyChildrenEvents')}
+                    onChange={handleOnlyChildrenEventChange}
+                  />
+                </div>
+                <div>
+                  <Checkbox
+                    className={styles.checkbox}
+                    checked={isFree}
+                    id={EVENT_SEARCH_FILTERS.IS_FREE}
+                    label={t('eventSearch.search.checkboxIsFree')}
+                    onChange={handleIsFreeChange}
+                  />
+                </div>
+                <div>
+                  <Checkbox
+                    className={styles.checkbox}
+                    checked={onlyEveningEvents}
+                    id={EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS}
+                    label={t('eventSearch.search.checkboxOnlyEveningEvents')}
+                    onChange={handleOnlyEveningEventChange}
+                  />
+                </div>
+              </div>
+            </div>
+            <FilterSummary onClear={clearFilters} />
+          </div>
+        </form>
+      </Container>
+    </div>
   );
 };
 

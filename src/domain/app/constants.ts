@@ -6,6 +6,8 @@ export enum ROUTES {
   COLLECTIONS = '/collections',
   EVENTS = '/events',
   EVENT = '/event/:id',
+  COURSES = '/courses',
+  COURSE = '/course/:id',
   HOME = '/home',
   HOME_PREVIEW = '/home/:id',
 }

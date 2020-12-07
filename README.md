@@ -62,6 +62,8 @@ You will also see any lint errors in the console.
 
 ### `yarn codegen`
 
+For this script to work you need to have .env.development.local file and set REACT_APP_GRAPHQL_BASE_URL environment variable
+
 Codegen settings in <b>codegen.yml</b>
 
 - Generate static types for GraphQL queries by using the schema from the backend server. url to backend server is defined to REACT_APP_GRAPHQL_BASE_URL in .env.development.local

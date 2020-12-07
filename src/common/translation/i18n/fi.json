@@ -212,6 +212,14 @@
     "textFoundEvents": "{{count}} hakutulosta",
     "title": "Tapahtumahaku"
   },
+  "courseSearch": {
+    "title": "Löydä harrastus",
+    "search": {
+      "placeholder": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
+      "labelSearchField": "Mitä etsit?",
+      "checkboxAlsoOngoingCourses": "Näytä myös meneillään olevat"
+    }
+  },
   "footer": {
     "linkAbout": "Tietoa palvelusta",
     "linkAccessibility": "Saavutettavuus­seloste",

@@ -6,11 +6,13 @@ import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import buttonStyles from '../../../common/components/button/button.module.scss';
-import { EventFieldsFragment } from '../../../generated/graphql';
+import {
+  CourseFieldsFragment,
+  EventFieldsFragment,
+} from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import testImage from '../../../util/testImage';
-import { ROUTES } from '../../app/constants';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
 import EventName from '../eventName/EventName';
@@ -22,18 +24,25 @@ import {
   isEventFree,
 } from '../EventUtils';
 import styles from './largeEventCard.module.scss';
+import { EVENT_ROUTE_MAPPER, EVENTS_ROUTE_MAPPER, EventType } from './types';
 
 interface Props {
-  event: EventFieldsFragment;
+  event: EventFieldsFragment | CourseFieldsFragment;
+  eventType?: EventType;
 }
 
-const LargeEventCard: React.FC<Props> = ({ event }) => {
+const LargeEventCard: React.FC<Props> = ({
+  event,
+  eventType = EventType.EVENT,
+}) => {
   const { t } = useTranslation();
   const { push } = useHistory();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const { search } = useLocation();
   const locale = useLocale();
   const button = React.useRef<HTMLDivElement>(null);
+  const eventRoute = EVENT_ROUTE_MAPPER[eventType];
+  const eventsRoute = EVENTS_ROUTE_MAPPER[eventType];
 
   const {
     endTime,
@@ -44,10 +53,7 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
     startTime,
   } = getEventFields(event, locale);
   const eventClosed = isEventClosed(event);
-  const eventUrl = `/${locale}${ROUTES.EVENT.replace(
-    ':id',
-    event.id
-  )}${search}`;
+  const eventUrl = `/${locale}${eventRoute.replace(':id', event.id)}${search}`;
   const showBuyButton = !eventClosed && !!offerInfoUrl && !isEventFree(event);
 
   const goToBuyTicketsPage = () => {
@@ -121,6 +127,7 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
             event={event}
             hideKeywordsOnMobile={true}
             showIsFree={true}
+            eventsRoute={eventsRoute}
           />
         </div>
         <div className={styles.buttonWrapper}>
@@ -166,6 +173,7 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
             event={event}
             hideKeywordsOnMobile={true}
             showIsFree={true}
+            eventsRoute={eventsRoute}
           />
         </div>
       </div>

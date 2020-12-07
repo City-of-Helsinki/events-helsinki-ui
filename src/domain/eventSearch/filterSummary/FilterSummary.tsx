@@ -18,11 +18,14 @@ import PlaceFilter from './PlaceFilter';
 import PublisherFilter from './PublisherFilter';
 import TextFilter from './TextFilter';
 
+export const filterSummaryContainerTestId = 'filter-summary';
+
 interface Props {
   onClear: () => void;
+  route?: ROUTES.EVENTS | ROUTES.COURSES;
 }
 
-const FilterSummary: React.FC<Props> = ({ onClear }) => {
+const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { push } = useHistory();
@@ -88,7 +91,7 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
       text: type === 'text' ? text.filter((item) => item !== value) : text,
     });
 
-    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+    push({ pathname: `/${locale}${route || ROUTES.EVENTS}`, search });
   };
 
   const hasFilters =
@@ -103,7 +106,10 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
   if (!hasFilters) return null;
 
   return (
-    <div className={styles.filterSummary}>
+    <div
+      className={styles.filterSummary}
+      data-testid={filterSummaryContainerTestId}
+    >
       {text.map((item, index) => (
         <TextFilter key={index} text={item} onRemove={handleFilterRemove} />
       ))}

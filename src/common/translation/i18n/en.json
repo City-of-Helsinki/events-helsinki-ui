@@ -200,7 +200,7 @@
       "labelCategory": "What kind of event you are looking for?",
       "labelDateRange": "For what period you are looking for?",
       "labelDistrict": "From where are you looking for?",
-      "labelSearchField": "What are you looking for",
+      "labelSearchField": "What are you looking for?",
       "labelTargetGroup": "Whom you are looking for?",
       "placeholder": "Enter a keyword, eg rock or yoga",
       "selectAllDivisions": "All areas",
@@ -211,6 +211,14 @@
     },
     "textFoundEvents": "{{count}} search results",
     "title": "Event search"
+  },
+  "courseSearch": {
+    "title": "Find hobby",
+    "search": {
+      "placeholder": "Enter a keyword, eg. French or cooking",
+      "labelSearchField": "What are you looking for?",
+      "checkboxAlsoOngoingCourses": "Show also ongoing courses"
+    }
   },
   "footer": {
     "linkAbout": "About the service",

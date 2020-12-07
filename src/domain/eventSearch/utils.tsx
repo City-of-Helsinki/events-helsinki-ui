@@ -8,11 +8,6 @@ import {
 } from 'date-fns';
 import { IconSpeechbubbleText } from 'hds-react';
 import { TFunction } from 'i18next';
-import forEach from 'lodash/forEach';
-import isArray from 'lodash/isArray';
-import isEmpty from 'lodash/isEmpty';
-import isNil from 'lodash/isNil';
-import isNumber from 'lodash/isNumber';
 import React from 'react';
 
 import { DATE_TYPES } from '../../constants';
@@ -27,6 +22,7 @@ import IconSports from '../../icons/IconSports';
 import IconTheatre from '../../icons/IconTheatre';
 import IconTree from '../../icons/IconTree';
 import { Language } from '../../types';
+import buildQueryFromObject from '../../util/buildQueryFromObject';
 import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
 import {
@@ -224,7 +220,7 @@ export const getEventSearchVariables = ({
     end,
     include,
     isFree: isFree || undefined,
-    keyword: [...keyword, ...mappedCategories],
+    keyword: [...(keyword ? keyword : []), ...mappedCategories],
     keywordAnd,
     keywordNot,
     language,
@@ -285,6 +281,10 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
       searchParams.get(EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS) === 'true'
         ? true
         : false,
+    alsoOngoingCourses:
+      searchParams.get(EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES) === 'true'
+        ? true
+        : false,
     places: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.PLACES),
     publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
     start,
@@ -299,29 +299,13 @@ export const getSearchQuery = (filters: Filters): string => {
     isFree: filters.isFree ? true : undefined,
     onlyChildrenEvents: filters.onlyChildrenEvents ? true : undefined,
     onlyEveningEvents: filters.onlyEveningEvents ? true : undefined,
+    alsoOngoingCourses: filters.alsoOngoingCourses ? true : undefined,
     start: formatDate(filters.start, 'yyyy-MM-dd'),
   };
 
   if (newFilters.end || newFilters.start) {
     delete newFilters.dateTypes;
   }
-  const query: string[] = [];
 
-  forEach(newFilters, (filter, key) => {
-    if (!isEmpty(filter) || isNumber(filter) || typeof filter === 'boolean') {
-      if (isArray(filter)) {
-        const items: Array<string | number> = [];
-
-        forEach(filter, (item: string | number) => {
-          items.push(encodeURIComponent(item));
-        });
-
-        query.push(`${key}=${items.join(',')}`);
-      } else if (!isNil(filter)) {
-        query.push(`${key}=${encodeURIComponent(filter)}`);
-      }
-    }
-  });
-
-  return query.length ? `?${query.join('&')}` : '';
+  return buildQueryFromObject(newFilters);
 };

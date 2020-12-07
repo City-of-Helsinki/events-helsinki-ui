@@ -3,7 +3,10 @@ import React from 'react';
 import MultiSelectDropdown, {
   MultiselectDropdownProps,
 } from '../../../common/components/multiSelectDropdown/MultiSelectDropdown';
-import { usePlaceListQuery } from '../../../generated/graphql';
+import {
+  LinkedEventsSource,
+  usePlaceListQuery,
+} from '../../../generated/graphql';
 import useDebounce from '../../../hooks/useDebounce';
 import useLocale from '../../../hooks/useLocale';
 import getLocalisedString from '../../../util/getLocalisedString';
@@ -15,11 +18,14 @@ const { getPlaceDetailsFromCache } = isClient
   : /* istanbul ignore next */
     { getPlaceDetailsFromCache: null };
 
-type Props = Omit<MultiselectDropdownProps, 'options'>;
+type Props = Omit<MultiselectDropdownProps, 'options'> & {
+  source?: LinkedEventsSource;
+};
 
 const PlaceSelector: React.FC<Props> = ({
   inputValue,
   setInputValue,
+  source = LinkedEventsSource.Linkedevents,
   ...props
 }) => {
   const locale = useLocale();
@@ -32,9 +38,11 @@ const PlaceSelector: React.FC<Props> = ({
     skip: !searchValue,
     variables: {
       divisions: ['kunta:helsinki'],
-      hasUpcomingEvents: true,
+      // TODO: set hasUpcomingEvents to true when Linked Courses is updated
+      hasUpcomingEvents: source === LinkedEventsSource.Linkedevents,
       pageSize: 10,
       text: searchValue,
+      source,
     },
   });
 
@@ -52,7 +60,7 @@ const PlaceSelector: React.FC<Props> = ({
       const place = getPlaceDetailsFromCache(id);
       return getLocalisedString(place.placeDetails.name, locale);
     } catch {
-      return <PlaceText id={id} />;
+      return <PlaceText id={id} source={source} />;
     }
   };
 
