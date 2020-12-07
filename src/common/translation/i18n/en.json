@@ -45,11 +45,7 @@
     "loading": "Loading...",
     "multiSelectDropdown": {
       "inputPlaceholder": "Write search word",
-      "selectAll": "Select all",
-      "srOnly": {
-        "dropdownOpened" : "Multiselect Dropdown opened",
-        "dropdownClosed" : "Multiselect Dropdown closed"
-      }
+      "selectAll": "Select all"
     },
     "preview": "Preview",
     "shareLink": {
