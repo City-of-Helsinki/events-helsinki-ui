@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Button, IconArrowLeft, IconLocation, IconTicket } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -79,7 +80,9 @@ const EventHero: React.FC<Props> = ({ event }) => {
   }, [imageUrl]);
 
   return (
-    <div className={styles.heroWrapper}>
+    <div
+      className={classNames(styles.heroWrapper, styles.eventBackgroundColor)}
+    >
       <Container>
         <div className={styles.contentWrapper}>
           <div className={styles.backButtonWrapper}>
@@ -106,7 +109,9 @@ const EventHero: React.FC<Props> = ({ event }) => {
               <h1 className={styles.title}>
                 <EventName event={event} />
               </h1>
-              <div className={styles.description}>{shortDescription}</div>
+              {shortDescription && (
+                <div className={styles.description}>{shortDescription}</div>
+              )}
               <Visible above="sm" className={styles.date}>
                 {!!startTime &&
                   getDateRangeStr({
@@ -117,23 +122,45 @@ const EventHero: React.FC<Props> = ({ event }) => {
                     timeAbbreviation: t('commons.timeAbbreviation'),
                   })}
               </Visible>
+              <div className={styles.additionalInfo}>
+                <Visible above="sm" className={styles.location}>
+                  <InfoWithIcon icon={<IconLocation />} title={''}>
+                    <LocationText
+                      event={event}
+                      showDistrict={false}
+                      showLocationName={true}
+                    />
+                  </InfoWithIcon>
+                </Visible>
 
-              <Visible above="sm" className={styles.location}>
-                <InfoWithIcon icon={<IconLocation aria-hidden />} title={''}>
-                  <LocationText
-                    event={event}
-                    showDistrict={false}
-                    showLocationName={true}
-                  />
-                </InfoWithIcon>
-              </Visible>
+                <Visible above="sm" className={styles.location}>
+                  <InfoWithIcon icon={<IconLocation aria-hidden />} title={''}>
+                    <LocationText
+                      event={event}
+                      showDistrict={false}
+                      showLocationName={true}
+                    />
+                  </InfoWithIcon>
+                </Visible>
 
-              <Visible above="sm" className={styles.price}>
-                <InfoWithIcon icon={<IconTicket aria-hidden />} title={''}>
-                  {eventPriceText || '-'}
-                </InfoWithIcon>
-              </Visible>
+                <Visible above="sm" className={styles.price}>
+                  <InfoWithIcon icon={<IconTicket aria-hidden />} title={''}>
+                    {eventPriceText || '-'}
+                  </InfoWithIcon>
+                </Visible>
 
+                {showBuyButton && (
+                  <Visible above="sm" className={styles.buyButtonWrapper}>
+                    <Button
+                      aria-label={t('event.hero.ariaLabelBuyTickets')}
+                      onClick={goToBuyTicketsPage}
+                      variant="success"
+                    >
+                      {t('event.hero.buttonBuyTickets')}
+                    </Button>
+                  </Visible>
+                )}
+              </div>
               {showKeywords && (
                 <div className={styles.categoryWrapper}>
                   <EventKeywords
@@ -142,17 +169,6 @@ const EventHero: React.FC<Props> = ({ event }) => {
                     showIsFree={true}
                   />
                 </div>
-              )}
-              {showBuyButton && (
-                <Visible above="sm" className={styles.buyButtonWrapper}>
-                  <Button
-                    aria-label={t('event.hero.ariaLabelBuyTickets')}
-                    onClick={goToBuyTicketsPage}
-                    variant="success"
-                  >
-                    {t('event.hero.buttonBuyTickets')}
-                  </Button>
-                </Visible>
               )}
             </div>
           </div>

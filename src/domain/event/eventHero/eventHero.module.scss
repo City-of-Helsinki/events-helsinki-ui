@@ -7,9 +7,17 @@ $logoWidth: 5.5rem;
 .heroWrapper {
   background: var(--color-white);
   height: auto;
+}
 
+.eventBackgroundColor {
   @include respond_above(sm) {
     background: var(--color-copper-light);
+  }
+}
+
+.courseBackgroundColor {
+  @include respond_above(sm) {
+    background: var(--color-fog-light-50);
   }
 }
 
@@ -45,6 +53,11 @@ $logoWidth: 5.5rem;
     @include respond_below(sm) {
       margin: 0 (0 - var(--spacing-m));
     }
+  }
+
+  .additionalInfo {
+    order: 6;
+    margin-top: var(--spacing-s);
   }
 
   .leftPanel {
@@ -87,7 +100,7 @@ $logoWidth: 5.5rem;
 
     .description {
       order: 4;
-      margin-top: 0.25rem;
+      margin-top: var(--spacing-xs);
       font-size: 1.375rem;
       line-height: 2rem;
       color: var(--color-black-70);
