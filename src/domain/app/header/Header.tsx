@@ -87,7 +87,7 @@ const Header: React.FC<HeaderProps> = ({ menuOpen, onMenuToggle }) => {
       </Navigation.Row>
       <Navigation.Actions>
         <Navigation.LanguageSelector
-          buttonAriaLabel={t('header.ariaButtonOpenMenu')}
+          buttonAriaLabel={t('header.changeLanguage')}
           className={styles.languageSelector}
           label={t(`header.languages.${locale}`)}
         >

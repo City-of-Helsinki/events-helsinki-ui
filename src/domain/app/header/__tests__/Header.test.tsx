@@ -81,7 +81,7 @@ test('should change language', async () => {
   expect(history.location.pathname).toBe('/fi');
 
   const button = screen.getByRole('button', {
-    name: translations.header.ariaButtonOpenMenu,
+    name: translations.header.changeLanguage,
   });
   userEvent.click(button);
 
