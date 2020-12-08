@@ -9,12 +9,13 @@ import {
 import { Language } from '../../types';
 import getLocalisedString from '../../util/getLocalisedString';
 import getSecureImage from '../../util/getSecureImage';
+import { isCourseEvent } from '../../util/typeGuards';
 import {
   EVENT_KEYWORD_BLACK_LIST,
   EVENT_PLACEHOLDER_IMAGES,
   EVENT_SOME_IMAGE,
 } from './constants';
-import { KeywordOption } from './types';
+import { EventFields, KeywordOption } from './types';
 
 export const getEventCardId = (id: string): string => `event-card_${id}`;
 
@@ -189,6 +190,15 @@ const getEventLocationFields = (
   };
 };
 
+const getCourseFields = (event: EventFields) => {
+  if (isCourseEvent(event)) {
+    // return all courseFields without __typename :)
+    // might be stupid?
+    const { __typename, ...courseFields } = event.extensionCourse || {};
+    return courseFields;
+  }
+};
+
 /**
  * Get palvelukartta compatible id for the location
  * @param {object} location
@@ -208,7 +218,7 @@ export const getLocationId = (
  * @return {string}
  */
 export const getServiceMapUrl = (
-  event: EventFieldsFragment,
+  event: EventFields,
   locale: Language,
   isEmbedded?: boolean
 ): string => {
@@ -281,16 +291,34 @@ const getOfferInfoUrl = (
   return getLocalisedString(offer?.infoUrl, locale);
 };
 
+export const getEventAudience = (
+  event: EventFieldsFragment,
+  locale: Language
+): KeywordOption[] => {
+  return event.audience
+    .map((audience) => ({
+      id: audience.id || '',
+      name: capitalize(audience.name?.[locale] || '').trim(),
+    }))
+    .filter(
+      (audience, index, arr) =>
+        !!audience.id &&
+        !!audience.name &&
+        !EVENT_KEYWORD_BLACK_LIST.includes(audience.id) &&
+        arr.findIndex(
+          (item) => item.name.toLowerCase() === audience.name.toLowerCase()
+        ) === index
+    )
+    .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
+};
+
 /**
  * Get event fields
  * @param {object} event
  * @param {string} locale
  * @return {object}
  */
-export const getEventFields = (
-  event: EventFieldsFragment,
-  locale: Language
-) => {
+export const getEventFields = (event: EventFields, locale: Language) => {
   const eventLocation = event.location;
   const offerInfoUrl = getOfferInfoUrl(event, locale);
   const startTime = event.startTime;
@@ -323,6 +351,8 @@ export const getEventFields = (
     today: startTime ? isToday(new Date(startTime)) : false,
     thisWeek: startTime ? isThisWeek(new Date(startTime)) : false,
     showBuyButton: !!offerInfoUrl && !isEventFree(event),
+    audience: getEventAudience(event, locale),
+    ...getCourseFields(event),
     ...getEventLocationFields(event, locale),
   };
 };

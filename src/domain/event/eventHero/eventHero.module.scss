@@ -7,17 +7,9 @@ $logoWidth: 5.5rem;
 .heroWrapper {
   background: var(--color-white);
   height: auto;
-}
 
-.eventBackgroundColor {
   @include respond_above(sm) {
-    background: var(--color-copper-light);
-  }
-}
-
-.courseBackgroundColor {
-  @include respond_above(sm) {
-    background: var(--color-fog-light-50);
+    background: var(--hero-background-color, var(--color-copper-light-20));
   }
 }
 

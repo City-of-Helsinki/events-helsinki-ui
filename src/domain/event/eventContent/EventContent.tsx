@@ -3,23 +3,21 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import ShareLinks from '../../../common/components/shareLinks/ShareLinks';
-import {
-  CourseFieldsFragment,
-  EventFieldsFragment,
-} from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import sanitizeHtml from '../../../util/sanitizeHtml';
 import Container from '../../app/layout/Container';
 import EventInfo from '../eventInfo/EventInfo';
 import EventLocation from '../eventLocation/EventLocation';
 import { getEventFields } from '../EventUtils';
+import { EventFields, EventType } from '../types';
 import styles from './eventContent.module.scss';
 
 interface Props {
-  event: EventFieldsFragment | CourseFieldsFragment;
+  event: EventFields;
+  eventType?: EventType;
 }
 
-const EventContent: React.FC<Props> = ({ event }) => {
+const EventContent: React.FC<Props> = ({ event, eventType }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { description } = getEventFields(event, locale);
@@ -29,7 +27,7 @@ const EventContent: React.FC<Props> = ({ event }) => {
       <Container>
         <div className={styles.contentWrapper}>
           <div className={styles.infoColumn}>
-            <EventInfo event={event} />
+            <EventInfo event={event} eventType={eventType} />
           </div>
           <div className={styles.descriptionColumn}>
             {description && (

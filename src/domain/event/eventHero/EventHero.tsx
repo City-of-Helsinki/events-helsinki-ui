@@ -7,10 +7,6 @@ import { useHistory, useLocation } from 'react-router-dom';
 import IconButton from '../../../common/components/iconButton/IconButton';
 import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
 import Visible from '../../../common/components/visible/Visible';
-import {
-  CourseFieldsFragment,
-  EventFieldsFragment,
-} from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import testImage from '../../../util/testImage';
@@ -20,13 +16,20 @@ import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
 import EventName from '../eventName/EventName';
 import { getEventFields, getEventPrice } from '../EventUtils';
+import { EventFields, EventType } from '../types';
 import styles from './eventHero.module.scss';
 
-interface Props {
-  event: EventFieldsFragment | CourseFieldsFragment;
+export interface Props {
+  event: EventFields;
+  eventType: EventType;
 }
 
-const EventHero: React.FC<Props> = ({ event }) => {
+const eventListRouteMap = {
+  course: ROUTES.COURSES,
+  event: ROUTES.EVENTS,
+};
+
+const EventHero: React.FC<Props> = ({ event, eventType }) => {
   const { t } = useTranslation();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const locale = useLocale();
@@ -55,7 +58,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
 
   const goToEventList = () => {
     history.push({
-      pathname: `/${locale}${ROUTES.EVENTS}`,
+      pathname: `/${locale}${eventListRouteMap[eventType]}`,
       search,
       state: { eventId: event.id },
     });
@@ -80,9 +83,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
   }, [imageUrl]);
 
   return (
-    <div
-      className={classNames(styles.heroWrapper, styles.eventBackgroundColor)}
-    >
+    <div className={classNames(styles.heroWrapper)}>
       <Container>
         <div className={styles.contentWrapper}>
           <div className={styles.backButtonWrapper}>
@@ -123,16 +124,6 @@ const EventHero: React.FC<Props> = ({ event }) => {
                   })}
               </Visible>
               <div className={styles.additionalInfo}>
-                <Visible above="sm" className={styles.location}>
-                  <InfoWithIcon icon={<IconLocation />} title={''}>
-                    <LocationText
-                      event={event}
-                      showDistrict={false}
-                      showLocationName={true}
-                    />
-                  </InfoWithIcon>
-                </Visible>
-
                 <Visible above="sm" className={styles.location}>
                   <InfoWithIcon icon={<IconLocation aria-hidden />} title={''}>
                     <LocationText

@@ -64,6 +64,7 @@ const event = fakeEvent({
     name: { fi: locationName },
     streetAddress: { fi: streetAddress },
   },
+  extensionCourse: null,
   offers: [fakeOffer({ isFree: false, price: { fi: price } })],
 }) as EventFieldsFragment;
 

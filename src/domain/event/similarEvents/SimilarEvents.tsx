@@ -3,11 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
-import {
-  CourseFieldsFragment,
-  EventFieldsFragment,
-  useEventListQuery,
-} from '../../../generated/graphql';
+import { useEventListQuery } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import Container from '../../app/layout/Container';
 // Use same page size as on event search page
@@ -23,13 +19,14 @@ import {
 import { SIMILAR_EVENTS_AMOUNT } from '../constants';
 import EventCard from '../eventCard/EventCard';
 import { getEventFields } from '../EventUtils';
+import { EventFields } from '../types';
 import styles from './similarEvents.module.scss';
 
 interface Props {
-  event: EventFieldsFragment | CourseFieldsFragment;
+  event: EventFields;
 }
 
-const SimilarEvents: React.FC<Props> = ({ event }) => {
+const SimiliarEvents: React.FC<Props> = ({ event }) => {
   const locale = useLocale();
   const { search } = useLocation();
   const { keywords } = getEventFields(event, locale);
@@ -85,4 +82,4 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
   );
 };
 
-export default SimilarEvents;
+export default SimiliarEvents;

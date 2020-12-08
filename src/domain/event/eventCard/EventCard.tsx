@@ -6,10 +6,6 @@ import { useHistory, useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import IconButton from '../../../common/components/iconButton/IconButton';
-import {
-  CourseFieldsFragment,
-  EventFieldsFragment,
-} from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import testImage from '../../../util/testImage';
@@ -22,12 +18,13 @@ import {
   getEventPrice,
   isEventClosed,
 } from '../EventUtils';
+import { EventFields } from '../types';
 import styles from './eventCard.module.scss';
 import { EVENT_ROUTE_MAPPER, EVENTS_ROUTE_MAPPER, EventType } from './types';
 import { addPlaceFromPathToQueryString } from './utils';
 
 interface Props {
-  event: EventFieldsFragment | CourseFieldsFragment;
+  event: EventFields;
   eventType?: EventType;
 }
 

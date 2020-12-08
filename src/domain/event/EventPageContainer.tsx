@@ -49,9 +49,13 @@ const EventPageContainer: React.FC = () => {
             <>
               {/* Wait for data to be accessible before updating metadata */}
               <EventPageMeta event={event} />
-              {eventClosed ? <EventClosedHero /> : <EventHero event={event} />}
+              {eventClosed ? (
+                <EventClosedHero />
+              ) : (
+                <EventHero event={event} eventType="event" />
+              )}
               {/* Show event content only if event is open */}
-              {!eventClosed && <EventContent event={event} />}
+              {!eventClosed && <EventContent event={event} eventType="event" />}
               {/* Hide similar event on SSR to make initial load faster */}
               {isClient && <SimilarEvents event={event} />}
             </>

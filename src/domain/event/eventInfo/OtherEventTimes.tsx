@@ -7,20 +7,18 @@ import { toast } from 'react-toastify';
 
 import IconButton from '../../../common/components/iconButton/IconButton';
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
-import {
-  EventFieldsFragment,
-  useEventListQuery,
-} from '../../../generated/graphql';
+import { useEventListQuery } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import { ROUTES } from '../../app/routes/constants';
 import { EVENT_SORT_OPTIONS } from '../../eventSearch/constants';
 import { getCurrentHour, getNextPage } from '../../eventSearch/utils';
 import { getEventIdFromUrl } from '../EventUtils';
+import { EventFields } from '../types';
 import styles from './otherEventTimes.module.scss';
 
 interface Props {
-  event: EventFieldsFragment;
+  event: EventFields;
 }
 
 const OtherEventTimes: React.FC<Props> = ({ event }) => {

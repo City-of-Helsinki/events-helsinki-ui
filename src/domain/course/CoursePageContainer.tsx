@@ -14,10 +14,10 @@ import { ROUTES } from '../app/routes/constants';
 import EventClosedHero from '../event/eventClosedHero/EventClosedHero';
 import EventContent from '../event/eventContent/EventContent';
 import EventHero from '../event/eventHero/EventHero';
-import styles from '../event/eventPage.module.scss';
 import EventPageMeta from '../event/eventPageMeta/EventPageMeta';
 import { isEventClosed } from '../event/EventUtils';
 import SimilarEvents from '../event/similarEvents/SimilarEvents';
+import styles from './coursePage.module.scss';
 
 interface RouteParams {
   id: string;
@@ -33,7 +33,7 @@ const CoursePageContainer: React.FC = () => {
   const { data: courseData, loading } = useCourseDetailsQuery({
     variables: {
       id: courseId,
-      include: ['in_language', 'keywords', 'location'],
+      include: ['in_language', 'keywords', 'location', 'audience'],
     },
   });
 
@@ -42,7 +42,7 @@ const CoursePageContainer: React.FC = () => {
   const courseClosed = !course || isEventClosed(course);
 
   return (
-    <PageWrapper className={styles.eventPageWrapper} title="event.title">
+    <PageWrapper className={styles.coursePageWrapper} title="event.title">
       <MainContent offset={-70}>
         <LoadingSpinner isLoading={loading}>
           {course ? (
@@ -52,10 +52,12 @@ const CoursePageContainer: React.FC = () => {
               {courseClosed ? (
                 <EventClosedHero />
               ) : (
-                <EventHero event={course} />
+                <EventHero event={course} eventType="course" />
               )}
               {/* Show event content only if event is open */}
-              {!courseClosed && <EventContent event={course} />}
+              {!courseClosed && (
+                <EventContent event={course} eventType="course" />
+              )}
               {/* Hide similar event on SSR to make initial load faster */}
               {isClient && <SimilarEvents event={course} />}
             </>
