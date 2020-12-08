@@ -24,7 +24,7 @@ Project is automatically deployed to testing environment when pushing to develop
 
 ### Install events-helsinki-api-proxy locally
 
-Clone the repository (https://github.com/City-of-Helsinki/events-helsinki-ui). Follow the instructions for running open-city-profile with docker.
+Clone the repository (https://github.com/City-of-Helsinki/events-helsinki-api-proxy). Follow the instructions for running open-city-profile with docker.
 
 ### Run events-helsinki-ui
 

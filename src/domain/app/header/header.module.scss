@@ -1,4 +1,5 @@
 @import 'node_modules/hds-design-tokens/lib/breakpoint/breakpoint.scss';
+@import 'breakpoints';
 
 .navigation {
   .navigationItem {
@@ -21,7 +22,7 @@
   }
 
   .languageSelector {
-    @media only screen and (max-width: $breakpoint-m) {
+    @include respond-below($breakpoint-m) {
       position: absolute;
       right: var(--spacing-5-xl);
     }
