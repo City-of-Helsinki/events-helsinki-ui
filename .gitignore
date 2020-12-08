@@ -26,3 +26,6 @@ yarn-error.log*
 
 # sitemaps
 /public/sitemap*.xml
+
+# ItelliJ
+*.iml
