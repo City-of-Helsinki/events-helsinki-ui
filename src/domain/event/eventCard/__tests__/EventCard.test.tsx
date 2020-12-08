@@ -57,10 +57,10 @@ test('should go to event page by clicking event card', () => {
   expect(history.location.pathname).toEqual('/');
 
   userEvent.click(
-    screen.queryByRole('link', {
+    screen.getByRole('link', {
       name: translations.event.eventCard.ariaLabelLink.replace(
         '{{name}}',
-        event.name.fi
+        event.name.fi as any
       ),
     })
   );
@@ -74,10 +74,10 @@ test('should go to event page by clicking button', () => {
   expect(history.location.pathname).toEqual('/');
 
   userEvent.click(
-    screen.queryByRole('button', {
+    screen.getByRole('button', {
       name: translations.event.eventCard.ariaLabelLink.replace(
         '{{name}}',
-        event.name.fi
+        event.name.fi as any
       ),
     })
   );
