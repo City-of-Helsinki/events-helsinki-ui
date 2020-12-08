@@ -253,13 +253,17 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
           <div className={styles.titleText}>{selectedText || title}</div>
         </div>
         <div className={styles.arrowWrapper}>
-          {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
+          {isMenuOpen ? (
+            <IconAngleUp aria-hidden />
+          ) : (
+            <IconAngleDown aria-hidden />
+          )}
         </div>
       </button>
       <DropdownMenu isOpen={isMenuOpen} onClear={handleClear}>
         {showSearch && (
           <div className={styles.inputWrapper}>
-            <IconSearch size="s" />
+            <IconSearch size="s" aria-hidden />
             <SearchLabel htmlFor={name} srOnly={true}>
               {inputPlaceholderText}
             </SearchLabel>

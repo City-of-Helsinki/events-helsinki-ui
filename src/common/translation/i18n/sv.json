@@ -57,6 +57,9 @@
       "buttonCopyLink": "Kopiera länk adress",
       "messageLinkCopySuccess": "Länk kopierad till urklipp"
     },
+    "srOnly" : {
+      "opensInANewTab": "Öppnas i en ny flik"
+    },
     "supriseMe": "Jag har tur",
     "timeAbbreviation": "kl."
   },

@@ -57,6 +57,9 @@
       "buttonCopyLink": "Copy link address",
       "messageLinkCopySuccess": "Link copied into clipboard"
     },
+    "srOnly" : {
+      "opensInANewTab": "Opens in a new tab"
+    },
     "supriseMe": "I'm Feeling Lucky",
     "timeAbbreviation": "at"
   },

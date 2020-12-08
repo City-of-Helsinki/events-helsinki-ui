@@ -139,6 +139,7 @@ const MobileDateSelector: React.FC<Props> = ({
               className={classNames(styles.iconCalendar, {
                 [styles.isSelected]: !!endDate || !!startDate,
               })}
+              aria-hidden
             />
           }
           isSelected={!!endDate || !!startDate}
