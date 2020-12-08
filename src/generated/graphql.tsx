@@ -843,6 +843,13 @@ export type EventFieldsFragment = (
   )>, infoUrl: Maybe<(
     { __typename?: 'LocalizedObject' }
     & LocalizedFieldsFragment
+  )>, audience: Array<(
+    { __typename?: 'Audience' }
+    & Pick<Audience, 'id'>
+    & { name: Maybe<(
+      { __typename?: 'LocalizedObject' }
+      & LocalizedFieldsFragment
+    )> }
   )> }
 );
 
@@ -1365,6 +1372,12 @@ export const EventFieldsFragmentDoc = gql`
   }
   infoUrl {
     ...localizedFields
+  }
+  audience {
+    id
+    name {
+      ...localizedFields
+    }
   }
 }
     ${LocalizedFieldsFragmentDoc}
