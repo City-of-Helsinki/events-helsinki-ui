@@ -1,5 +1,7 @@
 import { screen } from '@testing-library/testcafe';
 
+import translationsFi from '../../src/common/translation/i18n/fi.json';
+import translationsSv from '../../src/common/translation/i18n/sv.json';
 import { header } from '../selectors/header';
 import { getPathname } from '../utils/clientUtils';
 import { getEnvUrl } from '../utils/settings';
@@ -8,9 +10,16 @@ fixture('Landing page').page(getEnvUrl('/fi/home'));
 
 test('Changing language on landing page', async (t) => {
   await t
-    .expect(screen.getAllByRole('link', { name: /etsi tekemistä/i }).count)
+    .expect(
+      screen.getAllByRole('link', { name: translationsFi.header.searchEvents })
+        .count
+    )
     .eql(2)
-    .expect(screen.getAllByRole('link', { name: /suosittelemme/i }).count)
+    .expect(
+      screen.getAllByRole('link', {
+        name: translationsFi.header.searchCollections,
+      }).count
+    )
     .eql(2);
 
   await t
@@ -20,8 +29,15 @@ test('Changing language on landing page', async (t) => {
     .eql('/sv/home');
 
   await t
-    .expect(screen.getAllByRole('link', { name: /sök saker att göra/i }).count)
+    .expect(
+      screen.getAllByRole('link', { name: translationsSv.header.searchEvents })
+        .count
+    )
     .eql(2)
-    .expect(screen.getAllByRole('link', { name: /vi rekommenderar/i }).count)
+    .expect(
+      screen.getAllByRole('link', {
+        name: translationsSv.header.searchCollections,
+      }).count
+    )
     .eql(2);
 });
