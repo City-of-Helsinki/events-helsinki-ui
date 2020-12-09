@@ -177,9 +177,6 @@
       "src/util/testUtils.tsx",
       "src/util/updateSitemap.ts",
       "src/util/date-fns/locale/buildLocalizeFn.ts"
-    ],
-    "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!hds-react)/"
     ]
   }
 }
