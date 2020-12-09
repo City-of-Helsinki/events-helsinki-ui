@@ -36,10 +36,10 @@ const isDefined = (value: any) => !isNil(value);
 
 interface Props {
   event: EventFields;
-  eventType?: EventType;
+  eventType: EventType;
 }
 
-const EventInfo: React.FC<Props> = ({ event }) => {
+const EventInfo: React.FC<Props> = ({ event, eventType }) => {
   const { t } = useTranslation();
   const locale = useLocale();
 
@@ -215,9 +215,9 @@ const EventInfo: React.FC<Props> = ({ event }) => {
                 {t('event.info.linkWebPage')}
               </Link>
             )}
-            {courseInfoRows.map((i) => (
-              <div>
-                {i.label}: {i.value}
+            {courseInfoRows.map((row) => (
+              <div key={row.label}>
+                {row.label}: {row.value}
               </div>
             ))}
             {externalLinks.map((externalLink, index) => {
@@ -250,7 +250,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
         </InfoWithIcon>
 
         {/* Organization info */}
-        <OrganizationInfo event={event} />
+        <OrganizationInfo event={event} eventType={eventType} />
 
         {/* Price info */}
         <Visible below="sm">

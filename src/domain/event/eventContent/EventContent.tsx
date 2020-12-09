@@ -14,7 +14,7 @@ import styles from './eventContent.module.scss';
 
 interface Props {
   event: EventFields;
-  eventType?: EventType;
+  eventType: EventType;
 }
 
 const EventContent: React.FC<Props> = ({ event, eventType }) => {
