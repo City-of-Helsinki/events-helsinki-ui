@@ -1,4 +1,4 @@
-import { Navigation } from 'hds-react/components/Navigation';
+import { Navigation } from 'hds-react';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
