@@ -11,13 +11,16 @@ import isClient from '../../util/isClient';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
+import { EventType } from './eventCard/types';
 import EventClosedHero from './eventClosedHero/EventClosedHero';
 import EventContent from './eventContent/EventContent';
 import EventHero from './eventHero/EventHero';
 import styles from './eventPage.module.scss';
 import EventPageMeta from './eventPageMeta/EventPageMeta';
 import { isEventClosed } from './EventUtils';
+import { useSimiliarEventsQuery } from './queryUtils';
 import SimilarEvents from './similarEvents/SimilarEvents';
+import { EventFields } from './types';
 
 interface RouteParams {
   id: string;
@@ -57,7 +60,7 @@ const EventPageContainer: React.FC = () => {
               {/* Show event content only if event is open */}
               {!eventClosed && <EventContent event={event} eventType="event" />}
               {/* Hide similar event on SSR to make initial load faster */}
-              {isClient && <SimilarEvents event={event} />}
+              {isClient && <SimiliarEventsContainer event={event} />}
             </>
           ) : (
             <ErrorHero
@@ -72,6 +75,21 @@ const EventPageContainer: React.FC = () => {
         </LoadingSpinner>
       </MainContent>
     </PageWrapper>
+  );
+};
+
+// this wrapper/container component is needed because we want to query similiar events
+// in the client side but hooks cannot be conditional :)
+const SimiliarEventsContainer: React.FC<{ event: EventFields }> = ({
+  event,
+}) => {
+  const { data, loading } = useSimiliarEventsQuery(event);
+  return (
+    <SimilarEvents
+      events={data}
+      loading={loading}
+      eventsType={EventType.EVENT}
+    />
   );
 };
 

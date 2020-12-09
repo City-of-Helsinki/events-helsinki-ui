@@ -13,6 +13,7 @@ import {
   fakeKeywords,
 } from '../../../../util/mockDataUtils';
 import { render, screen, waitFor } from '../../../../util/testUtils';
+import { EventType } from '../../eventCard/types';
 import SimilarEvents from '../SimilarEvents';
 
 const keywordIds = ['yso:1', 'yso:2'];
@@ -61,7 +62,14 @@ afterAll(() => {
 
 test('should render similar event cards', async () => {
   advanceTo(new Date('2020-08-11'));
-  render(<SimilarEvents event={event} />, { mocks });
+  render(
+    <SimilarEvents
+      events={events.data as any}
+      eventsType={EventType.EVENT}
+      loading={false}
+    />,
+    { mocks }
+  );
 
   await waitFor(() => {
     expect(
