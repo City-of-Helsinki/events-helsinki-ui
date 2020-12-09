@@ -13,7 +13,7 @@ import { SIMILAR_EVENTS_AMOUNT } from './constants';
 import { getEventFields } from './EventUtils';
 import { EventFields } from './types';
 
-const useSimiliarEventsQueryVariables = (event: EventFields) => {
+const useSimilarEventsQueryVariables = (event: EventFields) => {
   const locale = useLocale();
   const { search } = useLocation();
   const { keywords } = getEventFields(event, locale);
@@ -36,8 +36,8 @@ const useSimiliarEventsQueryVariables = (event: EventFields) => {
   }, [locale, searchParams]);
 };
 
-export const useSimiliarEventsQuery = (event: EventFields) => {
-  const eventFilters = useSimiliarEventsQueryVariables(event);
+export const useSimilarEventsQuery = (event: EventFields) => {
+  const eventFilters = useSimilarEventsQueryVariables(event);
 
   const { data: eventsData, loading } = useEventListQuery({
     ssr: false,
@@ -55,8 +55,8 @@ export const useSimiliarEventsQuery = (event: EventFields) => {
   return { data, loading };
 };
 
-export const useSimiliarCoursesQuery = (event: EventFields) => {
-  const eventFilters = useSimiliarEventsQueryVariables(event);
+export const useSimilarCoursesQuery = (event: EventFields) => {
+  const eventFilters = useSimilarEventsQueryVariables(event);
 
   const { data: eventsData, loading } = useCourseListQuery({
     ssr: false,

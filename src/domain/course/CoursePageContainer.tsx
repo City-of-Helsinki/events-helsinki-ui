@@ -17,7 +17,7 @@ import EventContent from '../event/eventContent/EventContent';
 import EventHero from '../event/eventHero/EventHero';
 import EventPageMeta from '../event/eventPageMeta/EventPageMeta';
 import { isEventClosed } from '../event/EventUtils';
-import { useSimiliarCoursesQuery } from '../event/queryUtils';
+import { useSimilarCoursesQuery } from '../event/queryUtils';
 import SimilarEvents from '../event/similarEvents/SimilarEvents';
 import { EventFields } from '../event/types';
 import styles from './coursePage.module.scss';
@@ -62,7 +62,7 @@ const CoursePageContainer: React.FC = () => {
                 <EventContent event={course} eventType="course" />
               )}
               {/* Hide similar event on SSR to make initial load faster */}
-              {isClient && <SimiliarCoursesContainer event={course} />}
+              {isClient && <SimilarCoursesContainer event={course} />}
             </>
           ) : (
             <ErrorHero
@@ -80,12 +80,12 @@ const CoursePageContainer: React.FC = () => {
   );
 };
 
-// this wrapper/container component is needed because we want to query similiar events
+// this wrapper/container component is needed because we want to query similar events
 // in the client side but hooks cannot be conditional :)
-const SimiliarCoursesContainer: React.FC<{ event: EventFields }> = ({
+const SimilarCoursesContainer: React.FC<{ event: EventFields }> = ({
   event,
 }) => {
-  const { data, loading } = useSimiliarCoursesQuery(event);
+  const { data, loading } = useSimilarCoursesQuery(event);
   return (
     <SimilarEvents
       events={data}

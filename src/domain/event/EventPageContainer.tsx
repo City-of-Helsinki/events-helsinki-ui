@@ -18,7 +18,7 @@ import EventHero from './eventHero/EventHero';
 import styles from './eventPage.module.scss';
 import EventPageMeta from './eventPageMeta/EventPageMeta';
 import { isEventClosed } from './EventUtils';
-import { useSimiliarEventsQuery } from './queryUtils';
+import { useSimilarEventsQuery } from './queryUtils';
 import SimilarEvents from './similarEvents/SimilarEvents';
 import { EventFields } from './types';
 
@@ -60,7 +60,7 @@ const EventPageContainer: React.FC = () => {
               {/* Show event content only if event is open */}
               {!eventClosed && <EventContent event={event} eventType="event" />}
               {/* Hide similar event on SSR to make initial load faster */}
-              {isClient && <SimiliarEventsContainer event={event} />}
+              {isClient && <SimilarEventsContainer event={event} />}
             </>
           ) : (
             <ErrorHero
@@ -78,12 +78,12 @@ const EventPageContainer: React.FC = () => {
   );
 };
 
-// this wrapper/container component is needed because we want to query similiar events
+// this wrapper/container component is needed because we want to query similar events
 // in the client side but hooks cannot be conditional :)
-const SimiliarEventsContainer: React.FC<{ event: EventFields }> = ({
+const SimilarEventsContainer: React.FC<{ event: EventFields }> = ({
   event,
 }) => {
-  const { data, loading } = useSimiliarEventsQuery(event);
+  const { data, loading } = useSimilarEventsQuery(event);
   return (
     <SimilarEvents
       events={data}

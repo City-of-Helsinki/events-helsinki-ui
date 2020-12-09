@@ -14,7 +14,7 @@ interface Props {
   eventsType: EventType;
 }
 
-const SimiliarEvents: React.FC<Props> = ({ events, loading, eventsType }) => {
+const SimilarEvents: React.FC<Props> = ({ events, loading, eventsType }) => {
   const { t } = useTranslation();
 
   return (
@@ -43,4 +43,4 @@ const SimiliarEvents: React.FC<Props> = ({ events, loading, eventsType }) => {
   );
 };
 
-export default SimiliarEvents;
+export default SimilarEvents;
