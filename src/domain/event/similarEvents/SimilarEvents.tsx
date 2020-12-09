@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next';
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import Container from '../../app/layout/Container';
 import EventCard from '../eventCard/EventCard';
-import { EventType } from '../eventCard/types';
-import { EventFields } from '../types';
+import { EventFields, EventType } from '../types';
 import styles from './similarEvents.module.scss';
 
 interface Props {

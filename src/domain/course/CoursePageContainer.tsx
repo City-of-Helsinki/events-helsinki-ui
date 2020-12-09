@@ -11,7 +11,6 @@ import isClient from '../../util/isClient';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
-import { EventType } from '../event/eventCard/types';
 import EventClosedHero from '../event/eventClosedHero/EventClosedHero';
 import EventContent from '../event/eventContent/EventContent';
 import EventHero from '../event/eventHero/EventHero';
@@ -19,7 +18,7 @@ import EventPageMeta from '../event/eventPageMeta/EventPageMeta';
 import { isEventClosed } from '../event/EventUtils';
 import { useSimilarCoursesQuery } from '../event/queryUtils';
 import SimilarEvents from '../event/similarEvents/SimilarEvents';
-import { EventFields } from '../event/types';
+import { EventFields, EventType } from '../event/types';
 import styles from './coursePage.module.scss';
 
 interface RouteParams {
@@ -55,11 +54,11 @@ const CoursePageContainer: React.FC = () => {
               {courseClosed ? (
                 <EventClosedHero />
               ) : (
-                <EventHero event={course} eventType="course" />
+                <EventHero event={course} eventType={EventType.COURSE} />
               )}
               {/* Show event content only if event is open */}
               {!courseClosed && (
-                <EventContent event={course} eventType="course" />
+                <EventContent event={course} eventType={EventType.COURSE} />
               )}
               {/* Hide similar event on SSR to make initial load faster */}
               {isClient && <SimilarCoursesContainer event={course} />}

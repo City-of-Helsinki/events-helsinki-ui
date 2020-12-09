@@ -152,7 +152,7 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
         </InfoWithIcon>
 
         {/* Other event times */}
-        <OtherEventTimes event={event} />
+        <OtherEventTimes event={event} eventType={eventType} />
 
         {/* Location info */}
         <InfoWithIcon

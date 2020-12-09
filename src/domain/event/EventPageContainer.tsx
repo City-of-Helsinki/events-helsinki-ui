@@ -11,7 +11,6 @@ import isClient from '../../util/isClient';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
-import { EventType } from './eventCard/types';
 import EventClosedHero from './eventClosedHero/EventClosedHero';
 import EventContent from './eventContent/EventContent';
 import EventHero from './eventHero/EventHero';
@@ -20,7 +19,7 @@ import EventPageMeta from './eventPageMeta/EventPageMeta';
 import { isEventClosed } from './EventUtils';
 import { useSimilarEventsQuery } from './queryUtils';
 import SimilarEvents from './similarEvents/SimilarEvents';
-import { EventFields } from './types';
+import { EventFields, EventType } from './types';
 
 interface RouteParams {
   id: string;
@@ -55,10 +54,12 @@ const EventPageContainer: React.FC = () => {
               {eventClosed ? (
                 <EventClosedHero />
               ) : (
-                <EventHero event={event} eventType="event" />
+                <EventHero event={event} eventType={EventType.EVENT} />
               )}
               {/* Show event content only if event is open */}
-              {!eventClosed && <EventContent event={event} eventType="event" />}
+              {!eventClosed && (
+                <EventContent event={event} eventType={EventType.EVENT} />
+              )}
               {/* Hide similar event on SSR to make initial load faster */}
               {isClient && <SimilarEventsContainer event={event} />}
             </>

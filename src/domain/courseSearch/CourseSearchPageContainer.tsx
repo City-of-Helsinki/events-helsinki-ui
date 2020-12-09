@@ -8,7 +8,7 @@ import { useCourseListQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
-import { EventType } from '../event/eventCard/types';
+import { EventType } from '../event/types';
 import EventList from '../eventList/EventList';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from '../eventSearch/constants';
 import SearchResultsContainer from '../eventSearch/searchResultList/SearchResultsContainer';

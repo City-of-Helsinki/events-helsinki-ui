@@ -19,9 +19,13 @@ import {
   isEventClosed,
   isEventFree,
 } from '../EventUtils';
-import { EventFields } from '../types';
+import {
+  EVENT_ROUTE_MAPPER,
+  EventFields,
+  EVENTS_ROUTE_MAPPER,
+  EventType,
+} from '../types';
 import styles from './largeEventCard.module.scss';
-import { EVENT_ROUTE_MAPPER, EVENTS_ROUTE_MAPPER, EventType } from './types';
 import { addPlaceFromPathToQueryString } from './utils';
 
 interface Props {

@@ -10,8 +10,7 @@ import {
 } from '../../generated/graphql';
 import BasicEventCard from '../event/eventCard/EventCard';
 import LargeEventCard from '../event/eventCard/LargeEventCard';
-import { EventType } from '../event/eventCard/types';
-import { EventFields } from '../event/types';
+import { EventFields, EventType } from '../event/types';
 import styles from './eventList.module.scss';
 
 const eventCardsMap = {

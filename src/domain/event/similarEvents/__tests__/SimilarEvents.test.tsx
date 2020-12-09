@@ -13,7 +13,7 @@ import {
   fakeKeywords,
 } from '../../../../util/mockDataUtils';
 import { render, screen, waitFor } from '../../../../util/testUtils';
-import { EventType } from '../../eventCard/types';
+import { EventType } from '../../types';
 import SimilarEvents from '../SimilarEvents';
 
 const keywordIds = ['yso:1', 'yso:2'];

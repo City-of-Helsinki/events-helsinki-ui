@@ -11,23 +11,17 @@ import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import testImage from '../../../util/testImage';
 import Container from '../../app/layout/Container';
-import { ROUTES } from '../../app/routes/constants';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
 import EventName from '../eventName/EventName';
 import { getEventFields, getEventPrice } from '../EventUtils';
-import { EventFields, EventType } from '../types';
+import { EventFields, EVENTS_ROUTE_MAPPER, EventType } from '../types';
 import styles from './eventHero.module.scss';
 
 export interface Props {
   event: EventFields;
   eventType: EventType;
 }
-
-const eventListRouteMap = {
-  course: ROUTES.COURSES,
-  event: ROUTES.EVENTS,
-};
 
 const EventHero: React.FC<Props> = ({ event, eventType }) => {
   const { t } = useTranslation();
@@ -58,7 +52,7 @@ const EventHero: React.FC<Props> = ({ event, eventType }) => {
 
   const goToEventList = () => {
     history.push({
-      pathname: `/${locale}${eventListRouteMap[eventType]}`,
+      pathname: `/${locale}${EVENTS_ROUTE_MAPPER[eventType]}`,
       search,
       state: { eventId: event.id },
     });

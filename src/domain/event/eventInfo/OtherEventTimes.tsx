@@ -14,11 +14,12 @@ import { ROUTES } from '../../app/routes/constants';
 import { EVENT_SORT_OPTIONS } from '../../eventSearch/constants';
 import { getCurrentHour, getNextPage } from '../../eventSearch/utils';
 import { getEventIdFromUrl } from '../EventUtils';
-import { EventFields } from '../types';
+import { EventFields, EventType } from '../types';
 import styles from './otherEventTimes.module.scss';
 
 interface Props {
   event: EventFields;
+  eventType: EventType;
 }
 
 const OtherEventTimes: React.FC<Props> = ({ event }) => {

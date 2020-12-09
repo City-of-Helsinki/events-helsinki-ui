@@ -10,9 +10,8 @@ import {
   useOrganizationDetailsQuery,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
-import { EVENTS_ROUTE_MAPPER } from '../eventCard/types';
 import { getEventFields } from '../EventUtils';
-import { EventType } from '../types';
+import { EVENTS_ROUTE_MAPPER, EventType } from '../types';
 
 interface Props {
   event: EventFieldsFragment;
