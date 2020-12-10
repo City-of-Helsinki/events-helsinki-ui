@@ -4,11 +4,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import IconButton from '../../../common/components/iconButton/IconButton';
-import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
-import useLocale from '../../../hooks/useLocale';
-import getDateRangeStr from '../../../util/getDateRangeStr';
-import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../types';
+import IconButton from '../../../../common/components/iconButton/IconButton';
+import LoadingSpinner from '../../../../common/components/spinner/LoadingSpinner';
+import useLocale from '../../../../hooks/useLocale';
+import getDateRangeStr from '../../../../util/getDateRangeStr';
+import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../../types';
 import styles from './otherEventTimes.module.scss';
 
 interface Props {

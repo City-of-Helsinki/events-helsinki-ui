@@ -4,7 +4,7 @@
  */
 export default (url: string): Promise<unknown> => {
   // Define the promise
-  const imgPromise = new Promise(function imgPromise(resolve, reject) {
+  const imgPromise = new Promise<void>(function imgPromise(resolve, reject) {
     // Create the image
     const imgElement = new Image();
 
