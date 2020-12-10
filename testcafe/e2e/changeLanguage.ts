@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/testcafe';
+import { screen, within } from '@testing-library/testcafe';
 
 import translationsFi from '../../src/common/translation/i18n/fi.json';
 import translationsSv from '../../src/common/translation/i18n/sv.json';
@@ -8,19 +8,27 @@ import { getEnvUrl } from '../utils/settings';
 
 fixture('Landing page').page(getEnvUrl('/fi/home'));
 
-test('Changing language on landing page', async (t) => {
-  await t
+const withinHeader = () => within(screen.getByRole('banner'));
+const withinFooter = () => within(screen.getByRole('contentinfo'));
+
+const expectToHaveLinks = (t, withinF, translations) =>
+  t
     .expect(
-      screen.getAllByRole('link', { name: translationsFi.header.searchEvents })
-        .count
+      withinF().getByRole('link', {
+        name: translations.header.searchEvents,
+      }).exists
     )
-    .eql(2)
+    .ok()
     .expect(
-      screen.getAllByRole('link', {
-        name: translationsFi.header.searchCollections,
-      }).count
+      withinF().getByRole('link', {
+        name: translations.header.searchCollections,
+      }).exists
     )
-    .eql(2);
+    .ok();
+
+test('expect to have header and footer with links', async (t) => {
+  await expectToHaveLinks(t, withinHeader, translationsFi);
+  await expectToHaveLinks(t, withinFooter, translationsFi);
 
   await t
     .click(header.languageSelector)
@@ -28,16 +36,6 @@ test('Changing language on landing page', async (t) => {
     .expect(getPathname())
     .eql('/sv/home');
 
-  await t
-    .expect(
-      screen.getAllByRole('link', { name: translationsSv.header.searchEvents })
-        .count
-    )
-    .eql(2)
-    .expect(
-      screen.getAllByRole('link', {
-        name: translationsSv.header.searchCollections,
-      }).count
-    )
-    .eql(2);
+  await expectToHaveLinks(t, withinHeader, translationsSv);
+  await expectToHaveLinks(t, withinFooter, translationsSv);
 });
