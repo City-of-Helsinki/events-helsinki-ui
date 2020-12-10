@@ -1,16 +1,26 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
+import { toast } from 'react-toastify';
 
-import { useCourseListQuery, useEventListQuery } from '../../generated/graphql';
+import {
+  EventListQueryVariables,
+  useCourseListQuery,
+  useEventListQuery,
+} from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import {
   DEFAULT_SEARCH_FILTERS,
   EVENT_SORT_OPTIONS,
   PAGE_SIZE,
 } from '../eventSearch/constants';
-import { getEventSearchVariables, getSearchQuery } from '../eventSearch/utils';
+import {
+  getEventSearchVariables,
+  getNextPage,
+  getSearchQuery,
+} from '../eventSearch/utils';
 import { SIMILAR_EVENTS_AMOUNT } from './constants';
-import { getEventFields } from './EventUtils';
+import { getEventFields, getEventIdFromUrl } from './EventUtils';
 import { EventFields } from './types';
 
 const useSimilarEventsQueryVariables = (event: EventFields) => {
@@ -72,4 +82,139 @@ export const useSimilarCoursesQuery = (event: EventFields) => {
       .slice(0, SIMILAR_EVENTS_AMOUNT) || [];
 
   return { data, loading };
+};
+
+const useOtherEventTimesVariables = (event: EventFields) => {
+  const superEventId = React.useMemo(
+    () => getEventIdFromUrl(event.superEvent?.internalId || ''),
+    [event.superEvent]
+  );
+
+  const variables = React.useMemo(
+    (): EventListQueryVariables => ({
+      include: ['keywords', 'location'],
+      sort: EVENT_SORT_OPTIONS.START_TIME,
+      start: 'now',
+      superEvent: superEventId,
+    }),
+    [superEventId]
+  );
+
+  return { superEventId, variables };
+};
+
+export const useOtherEventTimes = (event: EventFields) => {
+  const { t } = useTranslation();
+  const [isFetchingMore, setIsFetchingMore] = React.useState(false);
+  const { variables, superEventId } = useOtherEventTimesVariables(event);
+  const { data: subEventsData, fetchMore, loading } = useEventListQuery({
+    skip: !superEventId,
+    ssr: false,
+    variables,
+  });
+
+  const handleLoadMore = React.useCallback(
+    async (page: number) => {
+      setIsFetchingMore(true);
+
+      try {
+        await fetchMore({
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+
+            const events = [
+              ...prev.eventList.data,
+              ...fetchMoreResult.eventList.data,
+            ];
+            fetchMoreResult.eventList.data = events;
+
+            return fetchMoreResult;
+          },
+          variables: {
+            ...variables,
+            page: page,
+          },
+        });
+      } catch (e) {
+        toast.error(t('event.info.errorLoadMode'));
+      }
+      setIsFetchingMore(false);
+    },
+    [fetchMore, t, variables]
+  );
+
+  React.useEffect(() => {
+    const page = subEventsData?.eventList.meta
+      ? getNextPage(subEventsData.eventList.meta)
+      : null;
+
+    if (page) {
+      handleLoadMore(page);
+    }
+  }, [handleLoadMore, subEventsData]);
+
+  const subEvents =
+    subEventsData?.eventList.data.filter(
+      (subEvent) => subEvent.id !== event.id
+    ) || [];
+
+  return { events: subEvents, loading, isFetchingMore, superEventId };
+};
+
+export const useOtherCourseTimes = (event: EventFields) => {
+  const { t } = useTranslation();
+  const [isFetchingMore, setIsFetchingMore] = React.useState(false);
+  const { variables, superEventId } = useOtherEventTimesVariables(event);
+  const { data: subEventsData, fetchMore, loading } = useCourseListQuery({
+    skip: !superEventId,
+    ssr: false,
+    variables,
+  });
+
+  const handleLoadMore = React.useCallback(
+    async (page: number) => {
+      setIsFetchingMore(true);
+
+      try {
+        await fetchMore({
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+
+            const events = [
+              ...prev.courseList.data,
+              ...fetchMoreResult.courseList.data,
+            ];
+            fetchMoreResult.courseList.data = events;
+
+            return fetchMoreResult;
+          },
+          variables: {
+            ...variables,
+            page: page,
+          },
+        });
+      } catch (e) {
+        toast.error(t('event.info.errorLoadMode'));
+      }
+      setIsFetchingMore(false);
+    },
+    [fetchMore, t, variables]
+  );
+
+  React.useEffect(() => {
+    const page = subEventsData?.courseList.meta
+      ? getNextPage(subEventsData.courseList.meta)
+      : null;
+
+    if (page) {
+      handleLoadMore(page);
+    }
+  }, [handleLoadMore, subEventsData]);
+
+  const subEvents =
+    subEventsData?.courseList.data.filter(
+      (subEvent) => subEvent.id !== event.id
+    ) || [];
+
+  return { events: subEvents, loading, isFetchingMore, superEventId };
 };

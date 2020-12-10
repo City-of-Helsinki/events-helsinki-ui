@@ -27,6 +27,7 @@ import getDomain from '../../../util/getDomain';
 import { translateValue } from '../../../util/translateUtils';
 import { ROUTES } from '../../app/routes/constants';
 import { getEventFields, getEventPrice, getServiceMapUrl } from '../EventUtils';
+import { useOtherCourseTimes, useOtherEventTimes } from '../queryUtils';
 import { EventFields, EventType } from '../types';
 import styles from './eventInfo.module.scss';
 import OrganizationInfo from './OrganizationInfo';
@@ -152,7 +153,11 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
         </InfoWithIcon>
 
         {/* Other event times */}
-        <OtherEventTimes event={event} eventType={eventType} />
+        {eventType === EventType.EVENT ? (
+          <OtherEventTimesContainer event={event} />
+        ) : eventType === EventType.COURSE ? (
+          <OtherCourseTimesContainer event={event} />
+        ) : null}
 
         {/* Location info */}
         <InfoWithIcon
@@ -277,6 +282,34 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
       </div>
     </div>
   );
+};
+
+const OtherEventTimesContainer: React.FC<{ event: EventFields }> = ({
+  event,
+}) => {
+  const { superEventId, ...props } = useOtherEventTimes(event);
+
+  return superEventId ? (
+    <OtherEventTimes
+      {...props}
+      superEventId={superEventId}
+      eventType={EventType.EVENT}
+    />
+  ) : null;
+};
+
+const OtherCourseTimesContainer: React.FC<{ event: EventFields }> = ({
+  event,
+}) => {
+  const { superEventId, ...props } = useOtherCourseTimes(event);
+
+  return superEventId ? (
+    <OtherEventTimes
+      {...props}
+      superEventId={superEventId}
+      eventType={EventType.COURSE}
+    />
+  ) : null;
 };
 
 export default EventInfo;
