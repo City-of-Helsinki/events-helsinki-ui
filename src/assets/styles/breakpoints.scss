@@ -1,0 +1,79 @@
+@import 'node_modules/hds-design-tokens/lib/breakpoint/breakpoint.scss';
+
+
+//
+//  MEDIA QUERIES
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// A list of breakpoints.
+$breakpoints: (
+        $breakpoint-xs,
+        $breakpoint-s,
+        $breakpoint-m,
+        $breakpoint-l,
+        $breakpoint-xl,
+);
+
+
+//
+//  RESPOND ABOVE
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// @include respond-above($breakpoint.s) {}
+@mixin respond-above($breakpoint) {
+
+  @if not index($breakpoints, $breakpoint) {
+    // If the breakpoint doesn't exist in the list.
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  } @else {
+    // If the breakpoint exists in the list.
+    // Write the media query.
+    @media only screen and (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+
+//
+//  RESPOND BELOW
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// @include respond-below($breakpoint.s) {}
+@mixin respond-below($breakpoint) {
+
+  @if not index($breakpoints, $breakpoint) {
+    // If the breakpoint doesn't exist in the list.
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  } @else {
+    // Write the media query.
+    @media only screen and (max-width: ($breakpoint - 1)) {
+      @content;
+    }
+  }
+}
+
+//
+//  RESPOND BETWEEN
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// @include respond-between($breakpoint.s, $breakpoint.m) {}
+@mixin respond-between($lower, $upper) {
+
+  @if index($breakpoints, $lower) and index($breakpoints, $upper) {
+    // Write the media query.
+    @media only screen and (min-width: $lower) and (max-width: ($upper - 1)) {
+      @content;
+    }
+  }  // If lower breakpoint is invalid.
+  @else if (not index($breakpoints, $lower)) {
+    // Log a warning.
+    @warn 'Your lower breakpoint was invalid: #{$lower}.';
+  } // If upper breakpoint is invalid.
+  @else if (not index($breakpoints, $upper)) {
+    // Log a warning.
+    @warn 'Your upper breakpoint was invalid: #{$upper}.';
+  }
+}

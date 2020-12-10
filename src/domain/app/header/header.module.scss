@@ -1,9 +1,34 @@
-@import 'layout';
+@import 'node_modules/hds-design-tokens/lib/breakpoint/breakpoint.scss';
+@import 'breakpoints';
 
-.headerWrapper {
-  display: grid;
-  background-color: var(--color-white);
-  position: sticky;
-  top: 0;
-  z-index: 1001;
+.navigation {
+  .navigationItem {
+    color: var(--navigation-item-color) !important;
+  }
+  .addEventItem {
+    margin-left: auto !important;
+
+    &.hidden {
+      visibility: hidden;
+    }
+
+    svg {
+      margin-right: var(--spacing-xs);
+    }
+  }
+  .navigationItemLabel {
+    display: flex;
+    align-items: center;
+  }
+
+  .languageSelector {
+    @include respond-below($breakpoint-m) {
+      position: absolute;
+      right: var(--spacing-5-xl);
+    }
+    & > div {
+      left: unset;
+      right: 0;
+    }
+  }
 }

@@ -1,153 +1,96 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matched snapshot 1`] = `
-<div
-  class="pageLayout"
->
-  <a
-    class="skipLink"
-    href="/#maincontent"
-  >
-    Siirry sisältöön
-  </a>
+exports[`matches snapshot 1`] = `
+<div>
   <header
-    class="headerWrapper"
+    class="Navigation-module_header__2HNOX Navigation-module_theme-light__36nmi navigation"
   >
+    <a
+      class="Navigation-module_skipToContent__2p54x"
+      href="#maincontent"
+    >
+      Siirry sisältöön
+    </a>
     <div
-      class="container"
+      class="Navigation-module_headerBackgroundWrapper__137R3"
     >
       <div
-        class="navbar"
+        class="Navigation-module_headerContainer__2YPsu"
       >
-        <div
-          class="logoWrapper"
+        <a
+          class="Navigation-module_title__3zRBe"
+          href="/fi/home"
         >
-          <a
-            aria-label="Etusivu"
-            href="/fi/home"
+          <svg
+            aria-hidden="true"
+            class="Logo-module_logo__Y2mwP Navigation-module_logo__1sEy6"
+            role="img"
+            viewBox="0 0 78 36"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              class="logo fi"
+            <path
+              d="M75.753 2.251v20.7c0 3.95-3.275 7.178-7.31 7.178h-22.26c-2.674 0-5.205.96-7.183 2.739a10.749 10.749 0 00-7.183-2.74H9.509c-4.003 0-7.247-3.21-7.247-7.177V2.25h73.491zM40.187 34.835a8.47 8.47 0 016.012-2.471h22.245c5.268 0 9.556-4.219 9.556-9.413V0H0v22.935c0 5.194 4.256 9.413 9.509 9.413h22.308c2.263 0 4.398.882 6.012 2.471L39.016 36l1.17-1.165z"
+              fill="currentColor"
             />
-            <div
-              class="appName"
-            >
-              Tapahtumat
-            </div>
-          </a>
-        </div>
+            <path
+              d="M67.522 11.676c0 .681-.556 1.177-1.255 1.177-.7 0-1.255-.496-1.255-1.177 0-.682.556-1.178 1.255-1.178.7-.03 1.255.465 1.255 1.178zm-2.352 9.622h2.178v-7.546H65.17v7.546zm-3.909-4.556l2.845 4.556h-2.368l-1.907-3.022-1.033 1.271v1.75h-2.161V10.453h2.16v5.004c0 .93-.11 1.86-.11 1.86h.047s.509-.821.938-1.41l1.653-2.154h2.542l-2.606 2.99zm-6.817-.278c0-1.875-.938-2.898-2.432-2.898-1.271 0-1.939.728-2.32 1.426h-.048l.112-1.24h-2.162v7.546h2.162V16.82c0-.868.524-1.472 1.335-1.472.81 0 1.16.527 1.16 1.534v4.416h2.177l.016-4.834zm-8.931-4.788c0 .681-.557 1.177-1.256 1.177-.7 0-1.255-.496-1.255-1.177 0-.682.556-1.178 1.255-1.178.715-.03 1.256.465 1.256 1.178zm-2.352 9.622h2.177v-7.546H43.16v7.546zm-3.75-2.107c0-.605-.859-.729-1.86-1.008-1.16-.294-2.622-.867-2.622-2.308 0-1.426 1.398-2.324 3.051-2.324 1.541 0 2.956.712 3.544 1.72l-1.86 1.022c-.19-.666-.762-1.193-1.62-1.193-.557 0-1.018.232-1.018.682 0 .573 1.018.635 2.162.991 1.208.372 2.32.915 2.32 2.294 0 1.518-1.446 2.417-3.115 2.417-1.811 0-3.242-.744-3.877-1.952l1.89-1.039c.24.822.922 1.441 1.955 1.441.62 0 1.05-.248 1.05-.743zm-6.882-8.677h-2.177v8.692c0 .775.175 1.348.509 1.705.35.356.89.526 1.636.526.255 0 .525-.03.78-.077.27-.062.476-.14.65-.233l.191-1.425a2.07 2.07 0 01-.46.124c-.128.03-.287.03-.461.03-.286 0-.414-.077-.509-.216-.111-.14-.159-.387-.159-.744v-8.382zm-7.246 4.57c-.795 0-1.446.558-1.621 1.581h3.05c.017-.899-.587-1.58-1.43-1.58zm3.353 3.007H23.63c.095 1.224.794 1.828 1.7 1.828.81 0 1.367-.527 1.494-1.24l1.828 1.007c-.54.961-1.7 1.798-3.322 1.798-2.16 0-3.75-1.472-3.75-3.951 0-2.464 1.62-3.951 3.703-3.951 2.081 0 3.464 1.44 3.464 3.486-.016.604-.111 1.023-.111 1.023zm-11.077 3.207h2.257V10.916h-2.257v4.107h-4.243v-4.091H11.06v10.366h2.256v-4.292h4.243v4.292z"
+              fill="currentColor"
+            />
+          </svg>
+          <span>
+            Tapahtumat
+          </span>
+        </a>
         <div
-          class="links"
+          class="Navigation-module_headerContent__3zHbK"
         >
-          <a
-            class="iconLink default"
-            href="/fi/events"
+          <nav
+            class="NavigationRow-module_navigation__24tui"
           >
-            <div
-              class="iconWrapper"
+            <a
+              class="NavigationItem-module_rowItem__2QxRz navigationItem"
+              href="/fi/events"
             >
-              <svg
-                aria-hidden="true"
-                class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
               >
-                <g
-                  fill="none"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    d="M0 0h24v24H0z"
-                  />
-                  <path
-                    d="M15 1a8 8 0 11-4.798 14.402l-6.401 6.4-1.591-1.59 6.398-6.4A8 8 0 0115 1zm0 2a6 6 0 100 12 6 6 0 000-12z"
-                    fill="currentColor"
-                  />
-                </g>
-              </svg>
-            </div>
-            <div
-              class="textWrapper"
+                Etsi tekemistä
+              </span>
+            </a>
+            <a
+              class="NavigationItem-module_rowItem__2QxRz navigationItem"
+              href="/fi/collections"
             >
-              Etsi tekemistä
-            </div>
-          </a>
-          <a
-            class="iconLink default"
-            href="/fi/collections"
-          >
-            <div
-              class="iconWrapper"
-            >
-              <svg
-                aria-hidden="true"
-                class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
               >
-                <g
-                  fill="none"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    d="M0 0h24v24H0z"
-                  />
-                  <path
-                    d="M5.202 22.231l.217-1.728.737-5.847-3.973-4.278L1 9.115l1.69-.331 5.712-1.079 2.777-5.173L12 1l.821 1.532 2.777 5.173 5.712 1.079 1.69.33-1.183 1.264-3.985 4.29.737 5.835.229 1.728-1.558-.748L12 18.971l-5.24 2.512-1.558.748zm2.294-3.211l4.106-1.974.398-.184.398.184 4.094 1.974-.58-4.56-.06-.454.314-.319 3.103-3.346-4.444-.846-.446-.086-.206-.404L12 4.959 9.827 9.005l-.218.404-.434.086-4.444.846 3.103 3.346.302.319-.048.454-.592 4.56z"
-                    fill="currentColor"
-                  />
-                </g>
-              </svg>
-            </div>
-            <div
-              class="textWrapper"
-            >
-              Suosittelemme
-            </div>
-          </a>
-        </div>
-        <div
-          class="actions"
-        >
+                Suosittelemme
+              </span>
+            </a>
+          </nav>
           <div
-            class="languageDropdown"
+            class="NavigationActions-module_navigationActions__2D8MK"
           >
-            <button
-              aria-expanded="false"
-              aria-haspopup="true"
-              aria-label="Suomi - kielivalikko"
-              class="languageDropdownButton"
-              id="languageDropdown-button"
+            <div
+              class="MenuButton-module_menuButton__3T9k9 languageSelector"
             >
-              <svg
-                aria-hidden="true"
-                class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik iconLanguage"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              <button
+                aria-controls="languageSelector-menu"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="Suomi - kielivalikko"
+                class="MenuButton-module_toggleButton__3WH1a"
+                id="languageSelector-button"
+                type="button"
               >
-                <g
-                  fill="none"
-                  fill-rule="evenodd"
+                <span
+                  class="MenuButton-module_toggleButtonLabel__3NiHR"
                 >
-                  <path
-                    d="M0 0h24v24H0z"
-                  />
-                  <path
-                    d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zM7.345 17.04c-.666.07-1.33.157-1.991.258a8.509 8.509 0 003.898 2.748 12.433 12.433 0 01-1.907-3.005zm9.311.009a12.437 12.437 0 01-1.9 2.995 8.519 8.519 0 003.883-2.735l-.697-.103a43.226 43.226 0 00-1.286-.157zm-3.906-.245v3.18c.961-.902 1.74-1.942 2.317-3.076-.77-.056-1.543-.09-2.317-.104zm-1.5-.001c-.737.012-1.474.042-2.209.091l-.105.008a11.137 11.137 0 002.314 3.077v-3.176zm9.217-4.053h-2.759c-.058.98-.23 1.935-.51 2.853.783.091 1.562.203 2.336.335a8.437 8.437 0 00.933-3.188zM4.46 15.926l.05-.008a44.627 44.627 0 012.296-.324 12.278 12.278 0 01-.508-2.844H3.533c.1 1.138.423 2.212.926 3.176zm8.291-3.176v2.556c.977.017 1.954.065 2.927.146.29-.866.47-1.771.534-2.702H12.75zm-1.5 0H7.795c.063.928.243 1.832.532 2.696.972-.08 1.947-.126 2.923-.142V12.75zm8.284-4.689l-.316.054c-.67.11-1.344.204-2.02.283.28.917.452 1.872.51 2.852h2.76a8.446 8.446 0 00-.934-3.189zM4.46 8.074l-.017.033a8.446 8.446 0 00-.91 3.143h2.765c.059-.977.23-1.93.508-2.845-.786-.089-1.568-.2-2.346-.33zm11.218.474l-.47.037c-.817.058-1.637.095-2.457.11v2.554h3.461a10.803 10.803 0 00-.534-2.7zm-7.35.007l-.039.116a10.808 10.808 0 00-.493 2.579h3.455V8.695a45.328 45.328 0 01-2.923-.141zm2.923-4.533a11.137 11.137 0 00-2.315 3.077c.77.053 1.543.086 2.315.099V4.022zm1.5-.005v3.18a43.965 43.965 0 002.317-.103 11.127 11.127 0 00-2.316-3.077zm-3.497-.064l-.027.01a8.517 8.517 0 00-3.873 2.74c.661.101 1.326.187 1.993.257a12.43 12.43 0 011.907-3.007zm5.504.004l.142.169a12.424 12.424 0 011.758 2.825c.663-.07 1.324-.157 1.982-.259a8.51 8.51 0 00-3.882-2.735z"
-                    fill="currentColor"
-                  />
-                </g>
-              </svg>
-              <div
-                class="textWrapper"
-              >
-                FI
+                  Suomeksi
+                </span>
                 <svg
                   aria-hidden="true"
-                  class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik iconAngleDown"
+                  class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
                   role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
@@ -165,176 +108,56 @@ exports[`matched snapshot 1`] = `
                     />
                   </g>
                 </svg>
+              </button>
+              <div
+                aria-labelledby="languageSelector-button"
+                class="Menu-module_menu__FuqT0"
+                id="languageSelector-menu"
+                role="region"
+                style="top: 10px; min-width: 190px;"
+              >
+                <a
+                  class="Menu-module_item__3yQdE "
+                  href="#"
+                  lang="fi"
+                >
+                  <span
+                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
+                  >
+                    Suomeksi
+                  </span>
+                </a>
+                <a
+                  class="Menu-module_item__3yQdE "
+                  href="#"
+                  lang="sv"
+                >
+                  <span
+                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
+                  >
+                    På svenska
+                  </span>
+                </a>
+                <a
+                  class="Menu-module_item__3yQdE "
+                  href="#"
+                  lang="en"
+                >
+                  <span
+                    class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
+                  >
+                    In English
+                  </span>
+                </a>
               </div>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="mobileNavigation"
-    >
-      <div
-        class="container"
-      >
-        <div
-          class="mobileNavbar"
-        >
-          <a
-            aria-label="Etusivu"
-            class="logoWrapper"
-            href="/fi/home"
-          >
-            <div
-              class="logo fi"
-            />
-            <div
-              class="appName"
-            >
-              Tapahtumat
             </div>
-          </a>
-          <div
-            class="buttonWrapper"
-          >
-            <button
-              aria-label="Avaa valikko"
-              class="menuButton"
-            >
-              <svg
-                aria-hidden="true"
-                class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  fill="none"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    d="M0 0h24v24H0z"
-                  />
-                  <path
-                    d="M22 17v2H2v-2h20zm0-6v2H2v-2h20zm0-6v2H2V5h20z"
-                    fill="currentColor"
-                  />
-                </g>
-              </svg>
-            </button>
           </div>
-        </div>
-      </div>
-      <div
-        aria-hidden="true"
-        class="mobileMenu"
-        data-testid="mobile-menu"
-        style="visibility: hidden;"
-      >
-        <div
-          class="linkWrapper"
-        >
-          <ul>
-            <li
-              class="link"
-            >
-              <a
-                href="/fi/events"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-                  role="img"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g
-                    fill="none"
-                    fill-rule="evenodd"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                    />
-                    <path
-                      d="M15 1a8 8 0 11-4.798 14.402l-6.401 6.4-1.591-1.59 6.398-6.4A8 8 0 0115 1zm0 2a6 6 0 100 12 6 6 0 000-12z"
-                      fill="currentColor"
-                    />
-                  </g>
-                </svg>
-                Etsi tekemistä
-              </a>
-            </li>
-            <li
-              class="link"
-            >
-              <a
-                href="/fi/collections"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
-                  role="img"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g
-                    fill="none"
-                    fill-rule="evenodd"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                    />
-                    <path
-                      d="M5.202 22.231l.217-1.728.737-5.847-3.973-4.278L1 9.115l1.69-.331 5.712-1.079 2.777-5.173L12 1l.821 1.532 2.777 5.173 5.712 1.079 1.69.33-1.183 1.264-3.985 4.29.737 5.835.229 1.728-1.558-.748L12 18.971l-5.24 2.512-1.558.748zm2.294-3.211l4.106-1.974.398-.184.398.184 4.094 1.974-.58-4.56-.06-.454.314-.319 3.103-3.346-4.444-.846-.446-.086-.206-.404L12 4.959 9.827 9.005l-.218.404-.434.086-4.444.846 3.103 3.346.302.319-.048.454-.592 4.56z"
-                      fill="currentColor"
-                    />
-                  </g>
-                </svg>
-                Suosittelemme
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div
-          class="languageSelectWrapper"
-        >
-          <ul>
-            <li
-              class="languageLink isSelected"
-            >
-              <a
-                href="/"
-                lang="fi"
-              >
-                Suomeksi
-              </a>
-            </li>
-            <li
-              class="languageLink"
-            >
-              <a
-                href="/"
-                lang="sv"
-              >
-                På svenska
-              </a>
-            </li>
-            <li
-              class="languageLink"
-            >
-              <a
-                href="/"
-                lang="en"
-              >
-                In English
-              </a>
-            </li>
-          </ul>
         </div>
       </div>
     </div>
   </header>
   <div
+    aria-hidden="false"
     class="pageBody"
   >
     <div>
