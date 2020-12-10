@@ -72,13 +72,13 @@
   }
 
   .btnSelectDates {
-    border-top: 1px solid var(--color-coat-of-arms-silver);
+    border-top: 1px solid var(--color-silver);
     font-weight: 500;
   }
 
   .btnBack {
     font-weight: 500;
-    border-bottom: 1px solid var(--color-coat-of-arms-silver);
+    border-bottom: 1px solid var(--color-silver);
 
     svg:first-child {
       margin-right: 0.75rem;
@@ -86,7 +86,7 @@
   }
 
   .btnClose {
-    border-top: 1px solid var(--color-coat-of-arms-silver);
+    border-top: 1px solid var(--color-silver);
 
     .buttonText {
       text-align: center;
