@@ -230,7 +230,10 @@
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/sv/stad-och-forvaltning/delta/feedback/",
     "searchCollections": "Vi rekommenderar",
     "searchEvents": "Sök saker att göra",
-    "titleCategories": "Kategorier"
+    "titleCategories": "Kategorier",
+    "backToTop": "Tillbaka till toppen",
+    "copyright": "Copyright",
+    "allRightsReserved": "Alla rättigheter förbehållna"
   },
   "header": {
     "menuToggleAriaLabel": "Menyn",

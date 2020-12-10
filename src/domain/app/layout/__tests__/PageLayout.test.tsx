@@ -2,7 +2,7 @@ import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
-import { render, screen } from '../../../../util/testUtils';
+import { render, screen, within } from '../../../../util/testUtils';
 import PageLayout from '../PageLayout';
 
 const getWrapper = () =>
@@ -17,6 +17,8 @@ it('matches snapshot', () => {
   expect(container.firstChild).toMatchSnapshot();
 });
 
+const withinHeader = () => within(screen.getByRole('banner'));
+
 describe('on mobile view', () => {
   it('should have opened by clicking menu button', async () => {
     global.innerWidth = 500;
@@ -27,7 +29,6 @@ describe('on mobile view', () => {
     });
 
     userEvent.click(button);
-
-    expect(screen.getByRole('navigation')).toBeInTheDocument();
+    expect(withinHeader().getByRole('navigation')).toBeInTheDocument();
   });
 });

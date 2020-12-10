@@ -230,7 +230,10 @@
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta",
     "searchCollections": "Suosittelemme",
     "searchEvents": "Etsi tekemistä",
-    "titleCategories": "Kategoriat"
+    "titleCategories": "Kategoriat",
+    "backToTop": "Takaisin alkuun",
+    "copyright": "Copyright",
+    "allRightsReserved": "Kaikki oikeudet pidätetään"
   },
   "header": {
     "menuToggleAriaLabel": "Valikko",
