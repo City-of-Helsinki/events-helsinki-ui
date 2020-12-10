@@ -1,7 +1,7 @@
 @import 'layout';
 
 .errorHero {
-  background-color: var(--color-copper-light-20);
+  background-color: var(--color-copper-light);
   text-align: center;
   align-self: center;
 
@@ -51,7 +51,7 @@
 }
 
 .koros {
-  fill: var(--color-copper-light-20);
+  fill: var(--color-copper-light);
   margin-bottom: 10rem;
 
   &.smallMargin {

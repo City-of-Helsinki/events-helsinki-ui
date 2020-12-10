@@ -9,7 +9,7 @@ $logoWidth: 5.5rem;
   height: auto;
 
   @include respond_above(sm) {
-    background: var(--color-copper-light-20);
+    background: var(--color-copper-light);
   }
 }
 

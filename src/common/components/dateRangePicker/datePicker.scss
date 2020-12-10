@@ -78,7 +78,7 @@
 
     &--in-range {
       color: var(--color-white);
-      background-color: var(--color-coat-of-arms-blue);
+      background-color: var(--color-coat-of-arms);
     }
 
     &--in-selecting-range {
@@ -88,12 +88,12 @@
 
     &--in-selecting-range:hover {
       color: var(--color-white);
-      background-color: var(--color-coat-of-arms-blue);
+      background-color: var(--color-coat-of-arms);
     }
 
     &--selected {
       color: var(--color-white);
-      background-color: var(--color-coat-of-arms-blue);
+      background-color: var(--color-coat-of-arms);
     }
 
     &--keyboard-selected {

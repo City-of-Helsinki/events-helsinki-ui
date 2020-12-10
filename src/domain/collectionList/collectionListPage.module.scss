@@ -2,7 +2,7 @@
 
 .largeCardWrapper {
   padding-bottom: 5rem;
-  background-color: var(--color-copper-light-20);
+  background-color: var(--color-copper-light);
 
   @include respond_above(sm) {
     padding-bottom: 12rem;
