@@ -6,7 +6,7 @@ $logoWidth: 9.5rem;
 $logoWidthSv: 12.625rem;
 
 .topFooterWrapper {
-  background-color: var(--color-engel-light-50);
+  background-color: var(--color-engel-medium-light);
   padding: 3.75rem 0 5rem;
   display: grid;
   align-items: center;
@@ -15,7 +15,7 @@ $logoWidthSv: 12.625rem;
 .companyInfoWrapper {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid var(--color-coat-of-arms-silver);
+  border-bottom: 1px solid var(--color-silver);
   justify-content: space-between;
 
   @include respond-above(md) {
