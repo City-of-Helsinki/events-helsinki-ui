@@ -65,7 +65,7 @@ const Header: React.FC<HeaderProps> = ({ menuOpen, onMenuToggle }) => {
       menuOpen={menuOpen}
       onMenuToggle={onMenuToggle}
       menuToggleAriaLabel={t('header.menuToggleAriaLabel')}
-      skipTo={`${location.pathname}${location.search}#${MAIN_CONTENT_ID}`}
+      skipTo={`#${MAIN_CONTENT_ID}`}
       skipToContentLabel={t('header.skipToContentLabel')}
       className={styles.navigation}
       onTitleClick={goToPage(`/${locale}${ROUTES.HOME}`)}

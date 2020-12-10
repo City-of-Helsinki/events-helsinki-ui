@@ -6,7 +6,7 @@ exports[`matches snapshot 1`] = `
 >
   <a
     class="Navigation-module_skipToContent__2p54x"
-    href="/sv#maincontent"
+    href="#maincontent"
   >
     Siirry sisältöön
   </a>
