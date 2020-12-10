@@ -1,0 +1,40 @@
+@import 'layout';
+@import 'mixins';
+
+.divider {
+  background-color: var(--footer-divider-color);
+  border: 0;
+  height: 1px;
+  margin: 0 0 var(--spacing-xs);
+  width: 100%;
+}
+
+.topFooterWrapper {
+  margin: 0 var(--spacing-m);
+  padding: 0 0 3rem;
+  display: grid;
+  align-items: center;
+}
+
+.categoriesTitle {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.categoriesInnerWrapper {
+  padding: 1.5rem 0 0;
+  display: grid;
+  align-items: center;
+  height: fit-content;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem 3.25rem;
+
+  @include respond-above(sm) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include respond-above(md) {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}

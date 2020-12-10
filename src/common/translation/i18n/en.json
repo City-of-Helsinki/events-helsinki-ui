@@ -230,7 +230,10 @@
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/en/administration/participate/feedback/",
     "searchCollections": "We recommend",
     "searchEvents": "Find something to do",
-    "titleCategories": "Categories"
+    "titleCategories": "Categories",
+    "backToTop": "Back to top",
+    "copyright": "Copyright",
+    "allRightsReserved": "All rights reserved"
   },
   "header": {
     "menuToggleAriaLabel": "Menu",
