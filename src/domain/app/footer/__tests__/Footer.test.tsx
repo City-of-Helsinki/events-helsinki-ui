@@ -1,17 +1,10 @@
 import * as React from 'react';
-import { MemoryRouter } from 'react-router';
-import * as renderer from 'react-test-renderer';
 
+import { render } from '../../../../util/testUtils';
 import Footer from '../Footer';
 
-test('Footer matches snapshot', () => {
-  const component = renderer.create(
-    <MemoryRouter>
-      <Footer />
-    </MemoryRouter>
-  );
-  const tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-});
+test('matches snapshot', () => {
+  const { container } = render(<Footer />);
 
-export {};
+  expect(container.firstChild).toMatchSnapshot();
+});
