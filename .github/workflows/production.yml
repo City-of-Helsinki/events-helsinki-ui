@@ -1,0 +1,58 @@
+name: Build & Production
+on:
+  push:
+    tags:
+      - 'release-*'
+
+env:
+  CONTAINER_REGISTRY: ghcr.io
+  CONTAINER_REGISTRY_USER: ${{ secrets.GHCR_CONTAINER_REGISTRY_USER }}
+  CONTAINER_REGISTRY_PASSWORD: ${{ secrets.GHCR_TOKEN }}
+  CONTAINER_REGISTRY_REPO: ghcr.io/city-of-helsinki/${{ github.event.repository.name }}
+  REPO_NAME: ${{ github.event.repository.name }}
+  KUBECONFIG_RAW: ${{ secrets.KUBECONFIG_RAW_STABLE }}
+  BUILD_ARTIFACT_FOLDER: 'build_artifacts'
+  SERVICE_ARTIFACT_FOLDER: 'service_artifacts'
+  SERVICE_PORT: 3001
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        uses: andersinno/kolga-build-action@v2
+        env:
+          DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-production
+          DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.hel.fi
+          DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
+          DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.prod.kuva.hel.ninja/proxy/graphql'
+          DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: ${{ secrets.GH_SENTRY_DSN }}
+          DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'production'
+          DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.prod.kuva.hel.ninja/api'
+          DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
+          DOCKER_BUILD_ARG_REACT_APP_IMAGE_PROXY_URL: 'https://images.weserv.nl/?w=1024&url='
+          DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'true'
+          DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
+          DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_ID: 64
+          DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'true'
+          DOCKER_BUILD_ARG_REACT_APP_GTM_AUTH: ${{ secrets.GH_PRODUCTION_GTM_AUTH }}
+          DOCKER_BUILD_ARG_REACT_APP_GTM_ID: ${{ secrets.GH_PRODUCTION_GTM_ID }}
+          DOCKER_BUILD_ARG_REACT_APP_GTM_PREVIEW: ${{ secrets.GH_PRODUCTION_GTM_PREVIEW }}
+
+  production:
+    runs-on: ubuntu-latest
+    name: Production
+    steps:
+      - uses: actions/checkout@v2
+      - uses: andersinno/kolga-setup-action@v2
+
+      - name: Deploy
+        uses: andersinno/kolga-deploy-action@v2
+        with:
+          track: 'stable'
+        env:
+          K8S_NAMESPACE: ${{ secrets.K8S_NAMESPACE_STABLE }}
+          ENVIRONMENT_URL: https://${{ secrets.ENVIRONMENT_URL_STABLE }}
+          DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-production
