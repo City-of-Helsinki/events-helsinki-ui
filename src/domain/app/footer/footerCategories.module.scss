@@ -31,10 +31,10 @@
   grid-gap: 1rem 3.25rem;
 
   @include respond-above(sm) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   @include respond-above(md) {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(5, 1fr);
   }
 }

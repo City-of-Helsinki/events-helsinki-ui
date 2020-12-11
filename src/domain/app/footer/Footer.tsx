@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import useLocale from '../../../hooks/useLocale';
 import { ROUTES } from '../constants';
 import FooterCategories from './FooterCategories';
-import styles from './footerCategories.module.scss';
 
 const footerTheme = {
   '--footer-background': 'var(--color-engel-medium-light)',
