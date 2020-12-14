@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 export const QUERY_EVENT_LIST = gql`
   query EventList(
     $allOngoingAnd: [String]
-    $division: [String]
     $end: String
     $endsAfter: String
     $endsBefore: String
@@ -29,7 +28,6 @@ export const QUERY_EVENT_LIST = gql`
   ) {
     eventList(
       allOngoingAnd: $allOngoingAnd
-      division: $division
       end: $end
       endsAfter: $endsAfter
       endsBefore: $endsBefore

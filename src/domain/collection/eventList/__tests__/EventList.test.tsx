@@ -47,7 +47,6 @@ const loadMoreEventsResponse = {
 
 const variables = {
   allOngoingAnd: ['jooga'],
-  division: ['kunta:helsinki'],
   end: '',
   include: ['keywords', 'location'],
   isFree: true,

@@ -55,7 +55,6 @@ const eventListResponse = { data: { eventList: fakeEvents(3) } };
 
 const eventListBaseVariables = {
   allOngoingAnd: [],
-  division: ['kunta:helsinki'],
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,

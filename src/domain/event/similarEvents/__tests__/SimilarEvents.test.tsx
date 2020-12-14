@@ -19,7 +19,6 @@ const keywordIds = ['yso:1', 'yso:2'];
 
 const variables = {
   allOngoingAnd: [],
-  division: ['kunta:helsinki'],
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,
