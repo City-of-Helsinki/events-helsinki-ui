@@ -228,7 +228,7 @@ export const getEventSearchVariables = ({
   // Combine and add keywords
 
   return {
-    combinedText: text,
+    allOngoingAnd: text,
     division: mappedDivisions.sort(),
     end,
     include,

@@ -22,6 +22,15 @@ export type AccessibilityPagesResponse = {
   data: Array<StaticPage>,
 };
 
+export type Audience = {
+   __typename?: 'Audience',
+  id?: Maybe<Scalars['ID']>,
+  name?: Maybe<LocalizedObject>,
+  internalId?: Maybe<Scalars['String']>,
+  internalContext?: Maybe<Scalars['String']>,
+  internalType?: Maybe<Scalars['String']>,
+};
+
 export type CmsImage = {
    __typename?: 'CmsImage',
   photographerCredit?: Maybe<Scalars['String']>,
@@ -95,7 +104,7 @@ export type EventDetails = {
   subEvents: Array<InternalIdObject>,
   images: Array<Image>,
   inLanguage: Array<InLanguage>,
-  audience: Array<InternalIdObject>,
+  audience: Array<Audience>,
   createdTime?: Maybe<Scalars['String']>,
   lastModifiedTime?: Maybe<Scalars['String']>,
   datePublished?: Maybe<Scalars['String']>,
@@ -105,7 +114,6 @@ export type EventDetails = {
   audienceMinAge?: Maybe<Scalars['String']>,
   audienceMaxAge?: Maybe<Scalars['String']>,
   superEventType?: Maybe<Scalars['String']>,
-  extensionCourse?: Maybe<ExtensionCourse>,
   name: LocalizedObject,
   locationExtraInfo?: Maybe<LocalizedObject>,
   shortDescription?: Maybe<LocalizedObject>,
@@ -116,6 +124,7 @@ export type EventDetails = {
   internalId?: Maybe<Scalars['String']>,
   internalContext?: Maybe<Scalars['String']>,
   internalType?: Maybe<Scalars['String']>,
+  extensionCourse?: Maybe<ExtensionCourse>,
 };
 
 export type EventListResponse = {
@@ -242,6 +251,11 @@ export type LandingPagesResponse = {
    __typename?: 'LandingPagesResponse',
   data: Array<LandingPage>,
 };
+
+export enum LinkedEventsSource {
+  Linkedevents = 'LINKEDEVENTS',
+  Linkedcourses = 'LINKEDCOURSES'
+}
 
 export type LocalizedCmsImage = {
    __typename?: 'LocalizedCmsImage',
@@ -371,6 +385,9 @@ export type Query = {
   eventDetails: EventDetails,
   eventList: EventListResponse,
   eventsByIds: Array<EventDetails>,
+  courseDetails: EventDetails,
+  courseList: EventListResponse,
+  coursesByIds: Array<EventDetails>,
   keywordDetails: Keyword,
   keywordList: KeywordListResponse,
   landingPage: LandingPage,
@@ -400,6 +417,12 @@ export type QueryEventDetailsArgs = {
 
 
 export type QueryEventListArgs = {
+  localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
+  localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
+  internetOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
+  internetOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
+  allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
+  allOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
   combinedText?: Maybe<Array<Maybe<Scalars['String']>>>,
   division?: Maybe<Array<Maybe<Scalars['String']>>>,
   end?: Maybe<Scalars['String']>,
@@ -423,7 +446,11 @@ export type QueryEventListArgs = {
   superEvent?: Maybe<Scalars['ID']>,
   superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
   text?: Maybe<Scalars['String']>,
-  translation?: Maybe<Scalars['String']>
+  translation?: Maybe<Scalars['String']>,
+  audienceMinAgeLt?: Maybe<Scalars['String']>,
+  audienceMinAgeGt?: Maybe<Scalars['String']>,
+  audienceMaxAgeLt?: Maybe<Scalars['String']>,
+  audienceMaxAgeGt?: Maybe<Scalars['String']>
 };
 
 
@@ -433,8 +460,59 @@ export type QueryEventsByIdsArgs = {
 };
 
 
+export type QueryCourseDetailsArgs = {
+  id?: Maybe<Scalars['ID']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>
+};
+
+
+export type QueryCourseListArgs = {
+  localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
+  localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
+  internetOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
+  internetOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
+  allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
+  allOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
+  combinedText?: Maybe<Array<Maybe<Scalars['String']>>>,
+  division?: Maybe<Array<Maybe<Scalars['String']>>>,
+  end?: Maybe<Scalars['String']>,
+  endsAfter?: Maybe<Scalars['String']>,
+  endsBefore?: Maybe<Scalars['String']>,
+  inLanguage?: Maybe<Scalars['String']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>,
+  isFree?: Maybe<Scalars['Boolean']>,
+  keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keyword?: Maybe<Array<Maybe<Scalars['String']>>>,
+  language?: Maybe<Scalars['String']>,
+  location?: Maybe<Array<Maybe<Scalars['String']>>>,
+  page?: Maybe<Scalars['Int']>,
+  pageSize?: Maybe<Scalars['Int']>,
+  publisher?: Maybe<Scalars['ID']>,
+  sort?: Maybe<Scalars['String']>,
+  start?: Maybe<Scalars['String']>,
+  startsAfter?: Maybe<Scalars['String']>,
+  startsBefore?: Maybe<Scalars['String']>,
+  superEvent?: Maybe<Scalars['ID']>,
+  superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
+  text?: Maybe<Scalars['String']>,
+  translation?: Maybe<Scalars['String']>,
+  audienceMinAgeLt?: Maybe<Scalars['String']>,
+  audienceMinAgeGt?: Maybe<Scalars['String']>,
+  audienceMaxAgeLt?: Maybe<Scalars['String']>,
+  audienceMaxAgeGt?: Maybe<Scalars['String']>
+};
+
+
+export type QueryCoursesByIdsArgs = {
+  ids: Array<Scalars['ID']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>
+};
+
+
 export type QueryKeywordDetailsArgs = {
-  id: Scalars['ID']
+  id: Scalars['ID'],
+  source?: Maybe<LinkedEventsSource>
 };
 
 
@@ -445,7 +523,8 @@ export type QueryKeywordListArgs = {
   pageSize?: Maybe<Scalars['Int']>,
   showAllKeywords?: Maybe<Scalars['Boolean']>,
   sort?: Maybe<Scalars['String']>,
-  text?: Maybe<Scalars['String']>
+  text?: Maybe<Scalars['String']>,
+  source?: Maybe<LinkedEventsSource>
 };
 
 
@@ -461,12 +540,14 @@ export type QueryLandingPagesArgs = {
 
 
 export type QueryOrganizationDetailsArgs = {
-  id?: Maybe<Scalars['ID']>
+  id: Scalars['ID'],
+  source?: Maybe<LinkedEventsSource>
 };
 
 
 export type QueryPlaceDetailsArgs = {
-  id: Scalars['ID']
+  id: Scalars['ID'],
+  source?: Maybe<LinkedEventsSource>
 };
 
 
@@ -478,7 +559,8 @@ export type QueryPlaceListArgs = {
   pageSize?: Maybe<Scalars['Int']>,
   showAllPlaces?: Maybe<Scalars['Boolean']>,
   sort?: Maybe<Scalars['String']>,
-  text?: Maybe<Scalars['String']>
+  text?: Maybe<Scalars['String']>,
+  source?: Maybe<LinkedEventsSource>
 };
 
 export type StaticPage = {

@@ -54,7 +54,7 @@ const collectionListResponse = {
 const eventListResponse = { data: { eventList: fakeEvents(3) } };
 
 const eventListBaseVariables = {
-  combinedText: [],
+  allOngoingAnd: [],
   division: ['kunta:helsinki'],
   end: '',
   include: ['keywords', 'location'],
