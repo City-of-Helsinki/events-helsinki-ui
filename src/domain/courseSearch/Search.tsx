@@ -15,8 +15,8 @@ import { LinkedEventsSource } from '../../generated/graphql';
 import useDivisionOptions from '../../hooks/useDivisionOptions';
 import useLocale from '../../hooks/useLocale';
 import IconRead from '../../icons/IconRead';
-import { ROUTES } from '../app/constants';
 import Container from '../app/layout/Container';
+import { ROUTES } from '../app/routes/constants';
 import {
   DEFAULT_SEARCH_FILTERS,
   EVENT_SEARCH_FILTERS,

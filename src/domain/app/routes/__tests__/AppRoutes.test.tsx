@@ -6,6 +6,7 @@ import {
   CollectionListDocument,
   EventListDocument,
   LandingPagesDocument,
+  LinkedEventsSource,
   PlaceDetailsDocument,
 } from '../../../../generated/graphql';
 import {
@@ -22,7 +23,6 @@ import {
   screen,
   waitFor,
 } from '../../../../util/testUtils';
-import { MAPPED_PLACES } from '../../../eventSearch/constants';
 import AppRoutes from '../AppRoutes';
 
 const placeToPlaceString = {
@@ -105,6 +105,7 @@ const mocks = [
         query: PlaceDetailsDocument,
         variables: {
           id: placeIdMap[key],
+          source: LinkedEventsSource.Linkedevents,
         },
       },
       result: {

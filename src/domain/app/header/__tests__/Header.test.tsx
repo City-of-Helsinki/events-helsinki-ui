@@ -10,7 +10,7 @@ import {
   userEvent,
   waitFor,
 } from '../../../../util/testUtils';
-import { ROUTES } from '../../constants';
+import { ROUTES } from '../../routes/constants';
 import Header, { HeaderProps } from '../Header';
 
 const defaultProps: HeaderProps = {

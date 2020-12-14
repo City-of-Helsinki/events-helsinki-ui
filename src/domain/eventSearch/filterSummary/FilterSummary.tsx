@@ -22,7 +22,7 @@ export const filterSummaryContainerTestId = 'filter-summary';
 
 interface Props {
   onClear: () => void;
-  route?: ROUTES.EVENTS | ROUTES.COURSES;
+  route?: '/events' | '/courses';
 }
 
 const FilterSummary: React.FC<Props> = ({ onClear, route }) => {

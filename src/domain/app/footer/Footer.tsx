@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import useLocale from '../../../hooks/useLocale';
-import { ROUTES } from '../constants';
+import { ROUTES } from '../routes/constants';
 import FooterCategories from './FooterCategories';
 
 const footerTheme = {
