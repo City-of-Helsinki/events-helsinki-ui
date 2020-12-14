@@ -6,6 +6,7 @@ import {
   CollectionListDocument,
   EventListDocument,
   LandingPagesDocument,
+  LinkedEventsSource,
   PlaceDetailsDocument,
 } from '../../../../generated/graphql';
 import {
@@ -102,6 +103,7 @@ const mocks = [
         query: PlaceDetailsDocument,
         variables: {
           id: placeIdMap[key],
+          source: LinkedEventsSource.Linkedevents,
         },
       },
       result: {

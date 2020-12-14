@@ -7,7 +7,7 @@ import { MAIN_CONTENT_ID, SUPPORT_LANGUAGES } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
 import { OptionType } from '../../../types';
 import { updateLocaleParam } from '../../../util/updateLocaleParam';
-import { ROUTES } from '../constants';
+import { ROUTES } from '../routes/constants';
 import styles from './header.module.scss';
 
 export interface HeaderProps {

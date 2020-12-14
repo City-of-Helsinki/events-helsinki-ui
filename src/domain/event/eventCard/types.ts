@@ -1,4 +1,4 @@
-import { ROUTES } from '../../app/constants';
+import { ROUTES } from '../../app/routes/constants';
 
 export enum EventType {
   EVENT = 'event',

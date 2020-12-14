@@ -8,7 +8,7 @@ import useLocale from '../../../hooks/useLocale';
 import scrollToTop from '../../../util/scrollToTop';
 import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
 import { getCategoryOptions, getSearchQuery } from '../../eventSearch/utils';
-import { ROUTES } from '../constants';
+import { ROUTES } from '../routes/constants';
 import styles from './footerCategories.module.scss';
 
 const FooterCategories: FunctionComponent = () => {
