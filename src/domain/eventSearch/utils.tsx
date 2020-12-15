@@ -16,7 +16,7 @@ import isNumber from 'lodash/isNumber';
 import React from 'react';
 
 import { DATE_TYPES } from '../../constants';
-import { Meta } from '../../generated/graphql';
+import { Maybe, Meta } from '../../generated/graphql';
 import IconCultureAndArts from '../../icons/IconCultureAndArts';
 import IconDance from '../../icons/IconDance';
 import IconFood from '../../icons/IconFood';
@@ -211,9 +211,9 @@ export const getEventSearchVariables = ({
     end = 'today';
   }
 
-  const mappedDivisions: string[] = divisions.length
+  const mappedDivisions: Maybe<string[]> = divisions.length
     ? [...divisions]
-    : ['kunta:helsinki'];
+    : null;
 
   const keywordAnd: string[] = [];
 
@@ -229,7 +229,7 @@ export const getEventSearchVariables = ({
 
   return {
     allOngoingAnd: text,
-    division: mappedDivisions.sort(),
+    ...(mappedDivisions && { division: mappedDivisions.sort() }),
     end,
     include,
     isFree: isFree || undefined,
