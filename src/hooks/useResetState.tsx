@@ -1,10 +1,7 @@
 import React from 'react';
 
-function useResetState<S>(
-  initialState: S | (() => S),
-  resetTime: number
-): [S, React.Dispatch<React.SetStateAction<S>>] {
-  const [state, setState] = React.useState<S>(initialState);
+function useResetState(initialState: any, resetTime: number) {
+  const [state, setState] = React.useState(initialState);
 
   React.useEffect(() => {
     let ignore = false;
