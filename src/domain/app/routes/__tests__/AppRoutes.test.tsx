@@ -22,7 +22,6 @@ import {
   screen,
   waitFor,
 } from '../../../../util/testUtils';
-import { MAPPED_PLACES } from '../../../eventSearch/constants';
 import AppRoutes from '../AppRoutes';
 
 const placeToPlaceString = {
@@ -54,7 +53,6 @@ const collectionListResponse = {
 const eventListResponse = { data: { eventList: fakeEvents(3) } };
 
 const eventListBaseVariables = {
-  allOngoingAnd: [],
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,

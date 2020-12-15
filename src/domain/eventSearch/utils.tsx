@@ -16,7 +16,7 @@ import isNumber from 'lodash/isNumber';
 import React from 'react';
 
 import { DATE_TYPES } from '../../constants';
-import { Meta } from '../../generated/graphql';
+import { Meta, QueryEventListArgs } from '../../generated/graphql';
 import IconCultureAndArts from '../../icons/IconCultureAndArts';
 import IconDance from '../../icons/IconDance';
 import IconFood from '../../icons/IconFood';
@@ -175,7 +175,7 @@ export const getEventSearchVariables = ({
   sortOrder: EVENT_SORT_OPTIONS;
   superEventType: string[];
   place?: string;
-}) => {
+}): QueryEventListArgs => {
   const {
     categories,
     dateTypes,
@@ -221,11 +221,13 @@ export const getEventSearchVariables = ({
     .map((category) => MAPPED_CATEGORIES[category])
     .filter((e) => e);
 
+  const hasDivisions = !isEmpty(divisions);
+  const hasText = !isEmpty(text);
   // Combine and add keywords
-
   return {
-    allOngoingAnd: text,
-    ...(!isEmpty(divisions) && { division: divisions.sort() }),
+    ...(hasText &&
+      (hasDivisions ? { localOngoingAnd: text } : { allOngoingAnd: text })),
+    ...(hasDivisions && { division: divisions.sort() }),
     end,
     include,
     isFree: isFree || undefined,
