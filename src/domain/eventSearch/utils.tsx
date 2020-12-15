@@ -16,7 +16,7 @@ import isNumber from 'lodash/isNumber';
 import React from 'react';
 
 import { DATE_TYPES } from '../../constants';
-import { Maybe, Meta } from '../../generated/graphql';
+import { Meta } from '../../generated/graphql';
 import IconCultureAndArts from '../../icons/IconCultureAndArts';
 import IconDance from '../../icons/IconDance';
 import IconFood from '../../icons/IconFood';
@@ -211,10 +211,6 @@ export const getEventSearchVariables = ({
     end = 'today';
   }
 
-  const mappedDivisions: Maybe<string[]> = divisions.length
-    ? [...divisions]
-    : null;
-
   const keywordAnd: string[] = [];
 
   if (onlyChildrenEvents) {
@@ -229,7 +225,7 @@ export const getEventSearchVariables = ({
 
   return {
     allOngoingAnd: text,
-    ...(mappedDivisions && { division: mappedDivisions.sort() }),
+    ...(!isEmpty(divisions) && { division: divisions.sort() }),
     end,
     include,
     isFree: isFree || undefined,
