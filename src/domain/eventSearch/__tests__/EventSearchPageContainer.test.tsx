@@ -39,8 +39,7 @@ const eventsLoadMoreResponse = {
   },
 };
 const eventListVariables = {
-  combinedText: ['jazz'],
-  division: ['kunta:helsinki'],
+  allOngoingAnd: ['jazz'],
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,

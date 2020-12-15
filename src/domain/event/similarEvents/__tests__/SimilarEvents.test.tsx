@@ -19,8 +19,7 @@ import SimilarEvents from '../SimilarEvents';
 const keywordIds = ['yso:1', 'yso:2'];
 
 const variables = {
-  combinedText: [],
-  division: ['kunta:helsinki'],
+  allOngoingAnd: [],
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,

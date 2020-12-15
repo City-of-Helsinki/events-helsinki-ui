@@ -417,6 +417,12 @@ export type QueryEventDetailsArgs = {
 
 
 export type QueryEventListArgs = {
+  localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
+  localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
+  internetOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
+  internetOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
+  allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
+  allOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
   combinedText?: Maybe<Array<Maybe<Scalars['String']>>>,
   division?: Maybe<Array<Maybe<Scalars['String']>>>,
   end?: Maybe<Scalars['String']>,
@@ -461,6 +467,12 @@ export type QueryCourseDetailsArgs = {
 
 
 export type QueryCourseListArgs = {
+  localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
+  localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
+  internetOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
+  internetOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
+  allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
+  allOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
   combinedText?: Maybe<Array<Maybe<Scalars['String']>>>,
   division?: Maybe<Array<Maybe<Scalars['String']>>>,
   end?: Maybe<Scalars['String']>,
@@ -868,8 +880,7 @@ export type EventDetailsQuery = (
 );
 
 export type EventListQueryVariables = {
-  combinedText?: Maybe<Array<Maybe<Scalars['String']>>>,
-  division?: Maybe<Array<Maybe<Scalars['String']>>>,
+  allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
   end?: Maybe<Scalars['String']>,
   endsAfter?: Maybe<Scalars['String']>,
   endsBefore?: Maybe<Scalars['String']>,
@@ -1852,8 +1863,8 @@ export type EventDetailsQueryHookResult = ReturnType<typeof useEventDetailsQuery
 export type EventDetailsLazyQueryHookResult = ReturnType<typeof useEventDetailsLazyQuery>;
 export type EventDetailsQueryResult = ApolloReactCommon.QueryResult<EventDetailsQuery, EventDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($combinedText: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordNot: [String], $language: String, $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
-  eventList(combinedText: $combinedText, division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordNot: $keywordNot, language: $language, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
+    query EventList($allOngoingAnd: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordNot: [String], $language: String, $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+  eventList(allOngoingAnd: $allOngoingAnd, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordNot: $keywordNot, language: $language, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
     meta {
       count
       next
@@ -1889,8 +1900,7 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  * @example
  * const { data, loading, error } = useEventListQuery({
  *   variables: {
- *      combinedText: // value for 'combinedText'
- *      division: // value for 'division'
+ *      allOngoingAnd: // value for 'allOngoingAnd'
  *      end: // value for 'end'
  *      endsAfter: // value for 'endsAfter'
  *      endsBefore: // value for 'endsBefore'
