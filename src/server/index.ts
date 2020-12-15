@@ -8,6 +8,7 @@ import { HttpLink } from 'apollo-link-http';
 import express, { Request, Response } from 'express';
 import { Resource } from 'i18next';
 import i18nextMiddleware, { I18NextRequest } from 'i18next-express-middleware';
+import morgan from 'morgan';
 import cron from 'node-cron';
 import React from 'react';
 import { getDataFromTree } from 'react-apollo';
@@ -52,6 +53,8 @@ const getInitialI18nStore = (req: Request) => {
 };
 
 const app = express();
+
+app.use(morgan('tiny'));
 
 app.use(express.static(__dirname, { index: false }));
 
