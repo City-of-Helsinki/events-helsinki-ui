@@ -8,6 +8,7 @@ import {
 } from 'date-fns';
 import { IconSpeechbubbleText } from 'hds-react';
 import { TFunction } from 'i18next';
+import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 
 import { DATE_TYPES } from '../../constants';
@@ -207,10 +208,6 @@ export const getEventSearchVariables = ({
     end = 'today';
   }
 
-  const mappedDivisions: string[] = divisions.length
-    ? [...divisions]
-    : ['kunta:helsinki'];
-
   const keywordAnd: string[] = [];
 
   if (onlyChildrenEvents) {
@@ -224,8 +221,8 @@ export const getEventSearchVariables = ({
   // Combine and add keywords
 
   return {
-    combinedText: text,
-    division: mappedDivisions.sort(),
+    allOngoingAnd: text,
+    ...(!isEmpty(divisions) && { division: divisions.sort() }),
     end,
     include,
     isFree: isFree || undefined,
