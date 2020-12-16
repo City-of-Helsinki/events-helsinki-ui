@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 export const QUERY_EVENT_LIST = gql`
   query EventList(
     $allOngoingAnd: [String]
+    $division: [String]
     $end: String
     $endsAfter: String
     $endsBefore: String
@@ -13,6 +14,7 @@ export const QUERY_EVENT_LIST = gql`
     $keywordAnd: [String]
     $keywordNot: [String]
     $language: String
+    $localOngoingAnd: [String]
     $location: [String]
     $page: Int
     $pageSize: Int
@@ -28,6 +30,7 @@ export const QUERY_EVENT_LIST = gql`
   ) {
     eventList(
       allOngoingAnd: $allOngoingAnd
+      division: $division
       end: $end
       endsAfter: $endsAfter
       endsBefore: $endsBefore
@@ -38,6 +41,7 @@ export const QUERY_EVENT_LIST = gql`
       keywordAnd: $keywordAnd
       keywordNot: $keywordNot
       language: $language
+      localOngoingAnd: $localOngoingAnd
       location: $location
       page: $page
       pageSize: $pageSize

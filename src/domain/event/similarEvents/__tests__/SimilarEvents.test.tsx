@@ -18,7 +18,6 @@ import SimilarEvents from '../SimilarEvents';
 const keywordIds = ['yso:1', 'yso:2'];
 
 const variables = {
-  allOngoingAnd: [],
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,
