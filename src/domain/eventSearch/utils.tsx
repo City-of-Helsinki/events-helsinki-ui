@@ -210,6 +210,7 @@ export const getEventSearchVariables = ({
 
   // Combine and add keywords
 
+  console.log(text);
   return {
     allOngoingAnd: text,
     ...(!isEmpty(divisions) && { division: divisions.sort() }),

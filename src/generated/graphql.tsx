@@ -738,7 +738,7 @@ export type CourseDetailsQuery = (
 );
 
 export type CourseListQueryVariables = {
-  combinedText?: Maybe<Array<Maybe<Scalars['String']>>>,
+  allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
   division?: Maybe<Array<Maybe<Scalars['String']>>>,
   end?: Maybe<Scalars['String']>,
   endsAfter?: Maybe<Scalars['String']>,
@@ -1699,8 +1699,8 @@ export type CourseDetailsQueryHookResult = ReturnType<typeof useCourseDetailsQue
 export type CourseDetailsLazyQueryHookResult = ReturnType<typeof useCourseDetailsLazyQuery>;
 export type CourseDetailsQueryResult = ApolloReactCommon.QueryResult<CourseDetailsQuery, CourseDetailsQueryVariables>;
 export const CourseListDocument = gql`
-    query CourseList($combinedText: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordNot: [String], $language: String, $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
-  courseList(combinedText: $combinedText, division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordNot: $keywordNot, language: $language, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
+    query CourseList($allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordNot: [String], $language: String, $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+  courseList(combinedText: $allOngoingAnd, division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordNot: $keywordNot, language: $language, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
     meta {
       count
       next
@@ -1736,7 +1736,7 @@ export function withCourseList<TProps, TChildProps = {}>(operationOptions?: Apol
  * @example
  * const { data, loading, error } = useCourseListQuery({
  *   variables: {
- *      combinedText: // value for 'combinedText'
+ *      allOngoingAnd: // value for 'allOngoingAnd'
  *      division: // value for 'division'
  *      end: // value for 'end'
  *      endsAfter: // value for 'endsAfter'
