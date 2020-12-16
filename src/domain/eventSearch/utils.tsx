@@ -221,13 +221,13 @@ export const getEventSearchVariables = ({
     .map((category) => MAPPED_CATEGORIES[category])
     .filter((e) => e);
 
-  const hasDivisions = !isEmpty(divisions);
+  const hasLocation = !isEmpty(divisions) || !isEmpty(places);
   const hasText = !isEmpty(text);
   // Combine and add keywords
   return {
     ...(hasText &&
-      (hasDivisions ? { localOngoingAnd: text } : { allOngoingAnd: text })),
-    ...(hasDivisions && { division: divisions.sort() }),
+      (hasLocation ? { localOngoingAnd: text } : { allOngoingAnd: text })),
+    ...(hasLocation && { division: divisions.sort() }),
     end,
     include,
     isFree: isFree || undefined,
