@@ -5,7 +5,7 @@ import {
   CollectionListDocument,
 } from '../../../../generated/graphql';
 import { fakeCollections } from '../../../../util/mockDataUtils';
-import { actWait, render, screen, waitFor } from '../../../../util/testUtils';
+import { render, screen, waitFor } from '../../../../util/testUtils';
 import SimilarCollections from '../SimilarCollections';
 
 const collectionNames = [

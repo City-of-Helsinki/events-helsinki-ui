@@ -1,0 +1,7 @@
+{
+  "*.{js,jsx,tsx}": [
+    "yarn format-code",
+    "yarn test:staged",
+    "prettier --write",
+  ]
+}

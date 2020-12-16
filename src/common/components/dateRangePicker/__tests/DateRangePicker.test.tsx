@@ -77,7 +77,7 @@ test('should call onChangeEndDate with clicking date', async () => {
   });
 
   userEvent.click(endDateInput);
-  userEvent.click(screen.getByRole('option', { name: /day\-15/i }));
+  userEvent.click(screen.getByRole('option', { name: /day-15/i }));
 
   const startDateInput = screen.getByRole('textbox', {
     name: /alkamispäivä/i,
@@ -148,7 +148,7 @@ test('should call onChangeStartDate with clicking date', async () => {
   });
   userEvent.click(startDateInput);
 
-  userEvent.click(screen.getByRole('option', { name: /day\-15/i }));
+  userEvent.click(screen.getByRole('option', { name: /day-15/i }));
 
   const endDateInput = screen.getByRole('textbox', {
     name: /loppumispäivä/i,

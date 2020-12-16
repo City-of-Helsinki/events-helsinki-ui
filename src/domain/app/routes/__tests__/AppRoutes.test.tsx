@@ -22,7 +22,6 @@ import {
   screen,
   waitFor,
 } from '../../../../util/testUtils';
-import { MAPPED_PLACES } from '../../../eventSearch/constants';
 import AppRoutes from '../AppRoutes';
 
 const placeToPlaceString = {
