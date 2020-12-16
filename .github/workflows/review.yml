@@ -11,7 +11,6 @@ env:
   BUILD_ARTIFACT_FOLDER: 'build_artifacts'
   SERVICE_ARTIFACT_FOLDER: 'service_artifacts'
   BASE_DOMAIN: ${{ secrets.BASE_DOMAIN_STAGING }}
-  K8S_PROBE_INITIAL_DELAY: 120
   SERVICE_PORT: 3001
 
 jobs:
@@ -47,5 +46,6 @@ jobs:
       - name: Deploy
         uses: andersinno/kolga-deploy-action@v2
         env:
+          K8S_PROBE_INITIAL_DELAY: 120
           ENVIRONMENT_URL: https://${{ env.K8S_NAMESPACE }}.${{ env.BASE_DOMAIN }}
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-review
