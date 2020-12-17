@@ -53,6 +53,7 @@ describe('getEventSearchVariables function', () => {
       params: new URLSearchParams(`?categories=${CATEGORIES.CULTURE}`),
     });
     expect(keyword1).toContain(
+      // eslint-disable-next-line max-len
       'kulke:33,kulke:51,kulke:205,kulke:351,matko:teatteri,yso:p360,yso:p1235,yso:p1278,yso:p1808,yso:p2625,yso:p2739,yso:p2850,yso:p2851,yso:p4934,yso:p5121,yso:p6889,yso:p7969,yso:p8113,yso:p8144,yso:p9592,yso:p9593,yso:p10105,yso:p16327'
     );
 

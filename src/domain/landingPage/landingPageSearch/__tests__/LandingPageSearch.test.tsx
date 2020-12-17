@@ -103,7 +103,7 @@ test('should route to event search page after selecting start date and pressing 
     // which is hidden using css
     screen.getAllByRole('button', { name: /valitse päivät/i })[0]
   );
-  userEvent.click(screen.getByRole('option', { name: /day\-6/i }));
+  userEvent.click(screen.getByRole('option', { name: /day-6/i }));
 
   userEvent.click(screen.getByRole('button', { name: /hae/i }));
   expect(history.location.pathname).toBe('/fi/events');
