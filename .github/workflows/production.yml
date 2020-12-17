@@ -32,6 +32,7 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'production'
           DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.prod.kuva.hel.ninja/api'
           DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
+          DOCKER_BUILD_ARG_REACT_APP_LINKED_COURSES_URL: 'https://api.hel.fi/linkedcourses/v1'
           DOCKER_BUILD_ARG_REACT_APP_IMAGE_PROXY_URL: 'https://images.weserv.nl/?w=1024&url='
           DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'true'
           DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'

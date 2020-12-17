@@ -3,10 +3,21 @@ import range from 'lodash/range';
 import { promisify } from 'util';
 import * as convert from 'xml-js';
 
+import { ROUTES } from '../domain/app/routes/constants';
 import { MAPPED_PLACES } from '../domain/eventSearch/constants';
 
 export type Language = 'en' | 'fi' | 'sv';
 export type TitleKey = 'title_en' | 'title_fi' | 'title_sv';
+
+const eventTypeRouteMap = {
+  event: ROUTES.EVENT,
+  course: ROUTES.COURSE,
+};
+
+const eventTypeURLMap = {
+  event: process.env.REACT_APP_LINKED_EVENTS_URL,
+  course: process.env.REACT_APP_LINKED_COURSES_URL,
+};
 
 export type Collection = {
   expired: boolean;
@@ -38,9 +49,13 @@ export type Element = {
 const writeFile = promisify(fs.writeFile);
 
 const LANGUAGES = ['en', 'fi', 'sv'];
-const STATIC_URLS = ['home', 'events', 'collections', ...Object.keys(MAPPED_PLACES)]
+const STATIC_URLS = [
+  'home',
+  'events',
+  'collections',
+  ...Object.keys(MAPPED_PLACES),
+];
 const CMS_URL = process.env.REACT_APP_CMS_URL;
-const LINKED_EVENTS_URL = process.env.REACT_APP_LINKED_EVENTS_URL;
 const HOST = process.env.PUBLIC_URL;
 const PAGE_SIZE = 100;
 const URLS_PER_FILE = 1000;
@@ -197,7 +212,10 @@ const getCollectionUrlElements = async (): Promise<Element[]> => {
         elements: [
           getTextElement(
             'loc',
-            `${HOST}/${language}/collection/${collection.slug}`
+            `${HOST}/${language}${ROUTES.COLLECTION.replace(
+              ':slug',
+              collection.slug
+            )}`
           ),
           ...LANGUAGES.filter(
             (l) =>
@@ -209,7 +227,10 @@ const getCollectionUrlElements = async (): Promise<Element[]> => {
               attributes: {
                 rel: 'alternate',
                 hreflang,
-                href: `${HOST}/${hreflang}/collection/${collection.slug}`,
+                href: `${HOST}/${hreflang}${ROUTES.COLLECTION.replace(
+                  ':slug',
+                  collection.slug
+                )}`,
               },
               elements: [],
             })
@@ -232,9 +253,13 @@ const getCollectionUrlElements = async (): Promise<Element[]> => {
  * @param {number} page
  * @return {Object[]}
  */
-const getEventsPage = async (start: Date, page: number) => {
+const getEventsPage = async (
+  eventType: 'event' | 'course',
+  start: Date,
+  page: number
+) => {
   const url =
-    `${LINKED_EVENTS_URL}/event` +
+    `${eventTypeURLMap[eventType]}/event` +
     `?start=${start.toISOString()}` +
     `&page_size=${PAGE_SIZE}` +
     `&page=${page}` +
@@ -263,10 +288,10 @@ const getEventsPage = async (start: Date, page: number) => {
  * @param {string} start
  * @return {Object[]}
  */
-const getEvents = async (start: Date) => {
+const getEvents = async (eventType: 'event' | 'course', start: Date) => {
   const events: Event[] = [];
 
-  const result = await getEventsPage(start, 1);
+  const result = await getEventsPage(eventType, start, 1);
   events.push(...result.data);
 
   const count = result.meta.count;
@@ -275,7 +300,7 @@ const getEvents = async (start: Date) => {
   if (pageAmount > 1) {
     const pages = range(2, pageAmount + 1);
     const results = await Promise.all(
-      pages.map((page) => getEventsPage(start, page))
+      pages.map((page) => getEventsPage(eventType, start, page))
     );
     results.forEach((result) => events.push(...result.data));
   }
@@ -287,8 +312,11 @@ const getEvents = async (start: Date) => {
  * @param {string} time
  * @return {Object[]}
  */
-const getEventUrlElements = async (time: Date): Promise<Element[]> => {
-  const events = await getEvents(time);
+const getEventUrlElements = async (
+  eventType: 'event' | 'course',
+  time: Date
+): Promise<Element[]> => {
+  const events = await getEvents(eventType, time);
 
   const elements: Element[] = [];
   events.forEach((event) => {
@@ -298,7 +326,13 @@ const getEventUrlElements = async (time: Date): Promise<Element[]> => {
       const element = getElement({
         name: 'url',
         elements: [
-          getTextElement('loc', `${HOST}/${language}/event/${event.id}`),
+          getTextElement(
+            'loc',
+            `${HOST}/${language}${eventTypeRouteMap[eventType].replace(
+              ':id',
+              event.id
+            )}`
+          ),
           ...LANGUAGES.filter(
             (l) =>
               l !== language && isEventLanguageSupported(event, l as Language)
@@ -308,7 +342,9 @@ const getEventUrlElements = async (time: Date): Promise<Element[]> => {
               attributes: {
                 rel: 'alternate',
                 hreflang,
-                href: `${HOST}/${hreflang}/event/${event.id}`,
+                href: `${HOST}/${hreflang}${eventTypeRouteMap[
+                  eventType
+                ].replace(':id', event.id)}`,
               },
               elements: [],
             })
@@ -422,14 +458,20 @@ const updateSitemaps = async (): Promise<boolean> => {
   try {
     const time = new Date();
     const staticUrlElements = getStaticUrlElements(time);
-    const [collectionUrlElements, eventUrlElements] = await Promise.all([
+    const [
+      collectionUrlElements,
+      eventUrlElements,
+      courseUrlElements,
+    ] = await Promise.all([
       getCollectionUrlElements(),
-      getEventUrlElements(time),
+      getEventUrlElements('event', time),
+      getEventUrlElements('course', time),
     ]);
     const elements = [
       ...staticUrlElements,
       ...collectionUrlElements,
       ...eventUrlElements,
+      ...courseUrlElements,
     ];
 
     await saveSitemapFiles(elements, time);
