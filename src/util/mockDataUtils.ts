@@ -6,6 +6,7 @@ import { EXTLINK } from '../constants';
 import {
   AboutPagesResponse,
   AccessibilityPagesResponse,
+  Audience,
   CmsImage,
   CollectionDetails,
   CollectionListResponse,
@@ -72,6 +73,26 @@ export const fakeEvent = (overrides?: Partial<EventDetails>): EventDetails => {
       dataSource: 'hel',
       extensionCourse: fakeExtensionCourse(),
       __typename: 'EventDetails',
+    },
+    overrides
+  );
+};
+
+export const fakeAudience = (
+  count = 1,
+  audience?: Partial<Audience>[]
+): Audience[] => {
+  return generateNodeArray((i) => fakeTargetGroup(audience?.[i]), count);
+};
+
+export const fakeTargetGroup = (overrides?: Partial<Audience>): Audience => {
+  return merge<Audience, typeof overrides>(
+    {
+      __typename: 'Audience',
+      id: faker.random.uuid(),
+      internalContext: '',
+      internalId: faker.random.uuid(),
+      name: fakeLocalizedObject(faker.random.word()),
     },
     overrides
   );
