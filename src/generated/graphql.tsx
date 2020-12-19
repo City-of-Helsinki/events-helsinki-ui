@@ -31,6 +31,21 @@ export type Audience = {
   internalType?: Maybe<Scalars['String']>,
 };
 
+export type BannerPage = {
+   __typename?: 'BannerPage',
+  title?: Maybe<LocalizedObject>,
+  description?: Maybe<LocalizedObject>,
+  keywords?: Maybe<LocalizedCmsKeywords>,
+  titleAndDescriptionColor?: Maybe<LocalizedObject>,
+  buttonText?: Maybe<LocalizedObject>,
+  buttonUrl?: Maybe<LocalizedObject>,
+  heroBackgroundImage?: Maybe<LocalizedCmsImage>,
+  heroBackgroundImageMobile?: Maybe<LocalizedCmsImage>,
+  heroBackgroundImageColor?: Maybe<LocalizedObject>,
+  heroTopLayerImage?: Maybe<LocalizedCmsImage>,
+  socialMediaImage?: Maybe<LocalizedCmsImage>,
+};
+
 export type CmsImage = {
    __typename?: 'CmsImage',
   photographerCredit?: Maybe<Scalars['String']>,
@@ -48,6 +63,7 @@ export type CollectionDetails = {
   description?: Maybe<LocalizedObject>,
   draftTitle?: Maybe<Scalars['String']>,
   eventListQuery?: Maybe<LocalizedObject>,
+  courseListQuery?: Maybe<LocalizedObject>,
   eventListTitle?: Maybe<LocalizedObject>,
   expireAt?: Maybe<Scalars['String']>,
   expired?: Maybe<Scalars['Boolean']>,
@@ -209,6 +225,8 @@ export type KeywordListResponse = {
 export type LandingPage = {
    __typename?: 'LandingPage',
   id: Scalars['ID'],
+  topBanner?: Maybe<BannerPage>,
+  bottomBanner?: Maybe<BannerPage>,
   path?: Maybe<Scalars['String']>,
   depth?: Maybe<Scalars['Int']>,
   numchild?: Maybe<Scalars['Int']>,
