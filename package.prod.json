@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "canvas": "^2.6.1"
+  },
+  "scripts": {
+    "start:server": "node build/server.js"
+  }
+}
