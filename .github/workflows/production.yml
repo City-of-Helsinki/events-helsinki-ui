@@ -43,6 +43,7 @@ jobs:
 
   production:
     runs-on: ubuntu-latest
+    needs: build
     name: Production
     steps:
       - uses: actions/checkout@v2
