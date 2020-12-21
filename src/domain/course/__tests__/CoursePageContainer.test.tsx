@@ -1,5 +1,4 @@
 import { advanceTo, clear } from 'jest-date-mock';
-import { forEach } from 'lodash';
 import React from 'react';
 
 import translations from '../../../common/translation/i18n/fi.json';
@@ -10,7 +9,6 @@ import {
 import {
   fakeEvent,
   fakeKeyword,
-  fakeKeywords,
   fakeLocalizedObject,
   fakeTargetGroup,
 } from '../../../util/mockDataUtils';
@@ -47,6 +45,7 @@ const courseRequest = {
   },
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const similarCoursesListRequest = {
   query: CourseListDocument,
   variables: {
@@ -109,7 +108,7 @@ afterAll(() => {
   clear();
 });
 
-it.only('should render course page with all the correct info', async () => {
+it('should render course page with all the correct info', async () => {
   advanceTo('2020-10-01');
   renderComponent();
 
@@ -144,7 +143,7 @@ it('should show error info when course is closed', async () => {
 it("should show error info when event doesn't exist", async () => {
   const mocks = [
     {
-      request,
+      request: courseRequest,
       error: new Error('not found'),
     },
   ];

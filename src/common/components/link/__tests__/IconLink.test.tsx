@@ -1,7 +1,7 @@
 import { IconSearch } from 'hds-react';
 import React from 'react';
 
-import { render, screen, userEvent, waitFor } from '../../../../util/testUtils';
+import { render, screen, userEvent } from '../../../../util/testUtils';
 import IconLink from '../IconLink';
 
 it('should show link text', () => {

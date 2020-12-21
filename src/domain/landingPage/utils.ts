@@ -102,6 +102,7 @@ export const getLandingPageSomeImageUrl = (
  * @param {string} locale
  * @return {string}
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getLandingPageFields = (
   landingPage: LandingPageFieldsFragment,
   locale: Language

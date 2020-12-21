@@ -161,7 +161,7 @@ test('should change search query after selecting start date and pressing submit 
     // which is hidden using css
     screen.getAllByRole('button', { name: /valitse päivät/i })[0]
   );
-  userEvent.click(screen.getByRole('option', { name: /day\-6/i }));
+  userEvent.click(screen.getByRole('option', { name: /day-6/i }));
 
   userEvent.click(screen.getByRole('button', { name: /hae/i }));
 

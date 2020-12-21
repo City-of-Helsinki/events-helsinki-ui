@@ -25,6 +25,7 @@ import EventSearchPageContainer from '../EventSearchPageContainer';
 const meta = {
   count: 20,
   next:
+    // eslint-disable-next-line max-len
     'https://api.hel.fi/linkedevents/v1/event/?division=kunta%3Ahelsinki&include=keywords%2Clocation&language=fi&page=2&page_size=10&sort=end_time&start=2020-08-12T17&super_event_type=umbrella%2Cnone&text=jazz',
   previous: null,
   __typename: 'Meta',
@@ -263,4 +264,4 @@ it('should scroll to result list on mobile screen', async () => {
   expect(scroller.scrollTo).toBeCalled();
 });
 
-it('searches events correctly with event place in path, e.g. /fi/annantalo', () => {});
+//it('searches events correctly with event place in path, e.g. /fi/annantalo', () => {});

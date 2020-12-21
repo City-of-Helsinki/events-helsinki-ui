@@ -60,12 +60,13 @@ test('should go to event page by clicking event card', () => {
     screen.getByRole('link', {
       name: translations.event.eventCard.ariaLabelLink.replace(
         '{{name}}',
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         event.name.fi as any
       ),
     })
   );
 
-  expect(history.location.pathname).toEqual('/fi/event/123');
+  expect(history.location.pathname).toEqual('/fi/events/123');
 });
 
 test('should go to event page by clicking button', () => {
@@ -77,12 +78,13 @@ test('should go to event page by clicking button', () => {
     screen.getByRole('button', {
       name: translations.event.eventCard.ariaLabelLink.replace(
         '{{name}}',
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         event.name.fi as any
       ),
     })
   );
 
-  expect(history.location.pathname).toEqual('/fi/event/123');
+  expect(history.location.pathname).toEqual('/fi/events/123');
 });
 
 describe('test all event places for modified query string', () => {
@@ -117,8 +119,8 @@ describe('test all event places for modified query string', () => {
       );
 
       expect(push.mock.calls).toEqual([
-        [`/fi/event/${id}?places=${encodeURIComponent(MAPPED_PLACES[place])}`],
-        [`/fi/event/${id}?places=${encodeURIComponent(MAPPED_PLACES[place])}`],
+        [`/fi/events/${id}?places=${encodeURIComponent(MAPPED_PLACES[place])}`],
+        [`/fi/events/${id}?places=${encodeURIComponent(MAPPED_PLACES[place])}`],
       ]);
     });
   });

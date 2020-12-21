@@ -46,6 +46,7 @@ const useSimilarEventsQueryVariables = (event: EventFields) => {
   }, [locale, searchParams]);
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useSimilarEventsQuery = (event: EventFields) => {
   const eventFilters = useSimilarEventsQueryVariables(event);
 
@@ -65,6 +66,7 @@ export const useSimilarEventsQuery = (event: EventFields) => {
   return { data, loading };
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useSimilarCoursesQuery = (event: EventFields) => {
   const eventFilters = useSimilarEventsQueryVariables(event);
 
@@ -103,6 +105,7 @@ const useOtherEventTimesVariables = (event: EventFields) => {
   return { superEventId, variables };
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useOtherEventTimes = (event: EventFields) => {
   const { t } = useTranslation();
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
@@ -161,6 +164,7 @@ export const useOtherEventTimes = (event: EventFields) => {
   return { events: subEvents, loading, isFetchingMore, superEventId };
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useOtherCourseTimes = (event: EventFields) => {
   const { t } = useTranslation();
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);

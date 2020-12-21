@@ -6,6 +6,7 @@ import getUrlParamAsArray from '../../util/getUrlParamAsArray';
 import { EVENT_SEARCH_FILTERS } from '../eventSearch/constants';
 import { Filters, MappedFilters } from './types';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getSearchFilters = (searchParams: URLSearchParams) => {
   const endTime = searchParams.get(EVENT_SEARCH_FILTERS.END);
   const end = endTime ? new Date(endTime) : null;

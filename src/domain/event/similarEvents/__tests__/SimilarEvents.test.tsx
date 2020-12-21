@@ -19,7 +19,6 @@ import SimilarEvents from '../SimilarEvents';
 const keywordIds = ['yso:1', 'yso:2'];
 
 const variables = {
-  allOngoingAnd: [],
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,
@@ -39,6 +38,7 @@ const keywords = fakeKeywords(
   keywordIds.length,
   keywordIds.map((id) => ({ id, name: { fi: id } }))
 ).data;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const event = fakeEvent({
   keywords,
 }) as EventFieldsFragment;
@@ -63,6 +63,7 @@ test('should render similar event cards', async () => {
   advanceTo(new Date('2020-08-11'));
   render(
     <SimilarEvents
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       events={events.data as any}
       eventsType={EventType.EVENT}
       loading={false}

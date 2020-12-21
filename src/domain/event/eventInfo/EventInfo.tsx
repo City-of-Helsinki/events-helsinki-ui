@@ -33,6 +33,7 @@ import OrganizationInfo from './OrganizationInfo';
 import OtherCourseTimesContainer from './otherEventTimes/OtherCourseTimesContainer';
 import OtherEventTimesContainer from './otherEventTimes/OtherEventTimesContainer';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isDefined = (value: any) => !isNil(value);
 
 interface Props {

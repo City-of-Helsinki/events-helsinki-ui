@@ -318,6 +318,7 @@ export const getEventAudience = (
  * @param {string} locale
  * @return {object}
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getEventFields = (event: EventFields, locale: Language) => {
   const eventLocation = event.location;
   const offerInfoUrl = getOfferInfoUrl(event, locale);

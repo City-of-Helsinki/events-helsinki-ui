@@ -12,7 +12,7 @@ import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 
 import { DATE_TYPES } from '../../constants';
-import { Meta } from '../../generated/graphql';
+import { Meta, QueryEventListArgs } from '../../generated/graphql';
 import IconCultureAndArts from '../../icons/IconCultureAndArts';
 import IconDance from '../../icons/IconDance';
 import IconFood from '../../icons/IconFood';
@@ -146,6 +146,7 @@ const getFilterDates = ({
  * @param {object} filterOptions
  * @return {object}
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getEventSearchVariables = ({
   include,
   language,
@@ -162,7 +163,7 @@ export const getEventSearchVariables = ({
   sortOrder: EVENT_SORT_OPTIONS;
   superEventType: string[];
   place?: string;
-}) => {
+}): QueryEventListArgs => {
   const {
     categories,
     dateTypes,
@@ -208,12 +209,14 @@ export const getEventSearchVariables = ({
     .map((category) => MAPPED_CATEGORIES[category])
     .filter((e) => e);
 
+  const hasLocation = !isEmpty(divisions) || !isEmpty(places);
+  const hasText = !isEmpty(text);
   // Combine and add keywords
 
-  console.log(text);
   return {
-    allOngoingAnd: text,
-    ...(!isEmpty(divisions) && { division: divisions.sort() }),
+    ...(hasText &&
+      (hasLocation ? { localOngoingAnd: text } : { allOngoingAnd: text })),
+    ...(hasLocation && { division: divisions.sort() }),
     end,
     include,
     isFree: isFree || undefined,

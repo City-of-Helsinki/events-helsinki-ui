@@ -30,6 +30,7 @@ const event = fakeEvent({
 const meta = {
   count: 20,
   next:
+    // eslint-disable-next-line max-len
     'https://api.hel.fi/linkedcourses/v1/event/?include=keyword,location&page=2&sort=start_time&start=2020-08-11T03&super_event=hel:123',
   previous: null,
   __typename: 'Meta',
@@ -201,5 +202,5 @@ test('should go to event page of other event time', async () => {
     })
   );
 
-  expect(history.location.pathname).toBe(`/fi/course/${event.id}`);
+  expect(history.location.pathname).toBe(`/fi/courses/${event.id}`);
 });

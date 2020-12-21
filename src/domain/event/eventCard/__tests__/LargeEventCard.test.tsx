@@ -102,7 +102,7 @@ test('should go to event page by click Read more button', () => {
     })
   );
 
-  expect(history.location.pathname).toEqual('/fi/event/123');
+  expect(history.location.pathname).toEqual('/fi/events/123');
 });
 
 test('should go to event page by clicking event card', () => {
@@ -123,7 +123,7 @@ test('should go to event page by clicking event card', () => {
     })
   );
 
-  expect(history.location.pathname).toEqual('/fi/event/123');
+  expect(history.location.pathname).toEqual('/fi/events/123');
 });
 
 describe('test all event places for modified query string', () => {
@@ -160,12 +160,12 @@ describe('test all event places for modified query string', () => {
 
       expect(push.mock.calls).toEqual([
         [
-          `/fi/event/${event.id}?places=${encodeURIComponent(
+          `/fi/events/${event.id}?places=${encodeURIComponent(
             MAPPED_PLACES[place]
           )}`,
         ],
         [
-          `/fi/event/${event.id}?places=${encodeURIComponent(
+          `/fi/events/${event.id}?places=${encodeURIComponent(
             MAPPED_PLACES[place]
           )}`,
         ],

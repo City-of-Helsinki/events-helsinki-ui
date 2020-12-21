@@ -54,7 +54,7 @@ const collectionListResponse = {
 const eventListResponse = { data: { eventList: fakeEvents(3) } };
 
 const eventListBaseVariables = {
-  allOngoingAnd: [],
+  division: [],
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,

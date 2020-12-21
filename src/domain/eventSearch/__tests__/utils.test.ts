@@ -6,6 +6,7 @@ import {
   CATEGORIES,
   DEFAULT_SEARCH_FILTERS,
   EVENT_SORT_OPTIONS,
+  MAPPED_PLACES,
 } from '../constants';
 import { getEventSearchVariables, getNextPage, getSearchQuery } from '../utils';
 
@@ -52,6 +53,7 @@ describe('getEventSearchVariables function', () => {
       params: new URLSearchParams(`?categories=${CATEGORIES.CULTURE}`),
     });
     expect(keyword1).toContain(
+      // eslint-disable-next-line max-len
       'kulke:33,kulke:51,kulke:205,kulke:351,matko:teatteri,yso:p360,yso:p1235,yso:p1278,yso:p1808,yso:p2625,yso:p2739,yso:p2850,yso:p2851,yso:p4934,yso:p5121,yso:p6889,yso:p7969,yso:p8113,yso:p8144,yso:p9592,yso:p9593,yso:p10105,yso:p16327'
     );
 
@@ -219,6 +221,65 @@ describe('getEventSearchVariables function', () => {
       params: new URLSearchParams(`?divisions=kunta:espoo`),
     });
     expect(division).toContain('kunta:espoo');
+  });
+
+  it('should not use *Ongoing params when no text present', () => {
+    const {
+      allOngoingAnd,
+      localOngoingAnd,
+      division,
+    } = getEventSearchVariables({
+      ...defaultParams,
+      params: new URLSearchParams(),
+    });
+    expect(division).toBeUndefined();
+    expect(allOngoingAnd).toBeUndefined();
+    expect(localOngoingAnd).toBeUndefined();
+  });
+
+  it('should use allOngoing without division when only text present', () => {
+    const {
+      allOngoingAnd,
+      localOngoingAnd,
+      division,
+    } = getEventSearchVariables({
+      ...defaultParams,
+      params: new URLSearchParams(`?text=Rock`),
+    });
+    expect(division).toBeUndefined();
+    expect(allOngoingAnd).toEqual(['Rock']);
+    expect(localOngoingAnd).toBeUndefined();
+  });
+
+  it('should search localOngoing when division given', () => {
+    const {
+      allOngoingAnd,
+      localOngoingAnd,
+      division,
+    } = getEventSearchVariables({
+      ...defaultParams,
+      params: new URLSearchParams(
+        `?text=Rock&divisions=kaupunginosa:alppiharju`
+      ),
+    });
+    expect(division).toContain('kaupunginosa:alppiharju');
+    expect(allOngoingAnd).toBeUndefined();
+    expect(localOngoingAnd).toEqual(['Rock']);
+  });
+
+  it('should search localOngoing when a place given', () => {
+    const place = MAPPED_PLACES['annantalo'];
+    const {
+      allOngoingAnd,
+      localOngoingAnd,
+      location,
+    } = getEventSearchVariables({
+      ...defaultParams,
+      params: new URLSearchParams(`?text=Rock&places=${place}`),
+    });
+    expect(location).toContain(place);
+    expect(allOngoingAnd).toBeUndefined();
+    expect(localOngoingAnd).toEqual(['Rock']);
   });
 });
 

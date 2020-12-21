@@ -11,7 +11,7 @@ it('should scroll to component when focused', async () => {
       <span>CHILDREN</span>
     </ScrollIntoViewWithFocus>
   );
-  
+
   expect(scrollIntoViewMock).toBeCalledWith({
     block: 'nearest',
     inline: 'nearest',
