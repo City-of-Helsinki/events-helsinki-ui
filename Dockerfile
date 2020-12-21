@@ -17,7 +17,7 @@ RUN yarn policies set-version $YARN_VERSION
 USER appuser
 
 # Install dependencies
-COPY --chown=appuser:appuser package*.json *yarn* /app/
+COPY --chown=appuser:appuser package.json *yarn* /app/
 RUN yarn && yarn cache clean --force
 
 # Copy all files
@@ -34,9 +34,10 @@ ENV NODE_ENV $NODE_ENV
 # Bake package.json start command into the image
 CMD ["yarn", "start"]
 
-# ==========================================
-FROM appbase as production
-# ==========================================
+# =============================
+FROM appbase as prodbuilder
+# =============================
+
 # Use non-root user
 USER appuser
 
@@ -81,8 +82,20 @@ ARG REACT_APP_GTM_PREVIEW
 # Build application
 RUN yarn build
 
+# ==========================================
+FROM helsinkitest/node:12-slim as production
+# ==========================================
+# Use non-root user
+USER appuser
+
+COPY --chown=appuser:appuser package.prod.json /app/package.json
+RUN yarn && yarn cache clean --force
+
+COPY --chown=appuser:appuser --from=prodbuilder /app/build/ /app/build/
+
 # Expose port
 EXPOSE 3001
 
 # Start ssr server
 CMD yarn start:server
+

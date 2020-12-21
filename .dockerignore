@@ -3,6 +3,7 @@
 !public
 !src
 !package.json
+!package.prod.json
 !tsconfig.json
 !yarn.lock
 !.env
