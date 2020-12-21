@@ -27,9 +27,6 @@ test('should set text wrapper max-width', () => {
   render(<LandingPageHero landingPage={landingPage} />);
 
   expect(screen.getByTestId(testIds.content) as HTMLDivElement).toHaveStyle({
-    maxWidth: '520px',
-  });
-  expect(screen.getByTestId(testIds.content) as HTMLDivElement).toHaveStyle({
     backgroundColor: 'rgba(255, 255, 255, 0.7)',
   });
 });
@@ -44,10 +41,6 @@ test('should set text wrapper max-width', () => {
       }}
     />
   );
-
-  expect(screen.getByTestId(testIds.content) as HTMLDivElement).toHaveStyle({
-    maxWidth: '340px',
-  });
 });
 
 test('should set text wrapper background color', () => {
