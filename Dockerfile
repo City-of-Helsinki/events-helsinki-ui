@@ -17,7 +17,7 @@ RUN yarn policies set-version $YARN_VERSION
 USER appuser
 
 # Install dependencies
-COPY --chown=appuser:appuser package*.json *yarn* /app/
+COPY --chown=appuser:appuser package.json *yarn* /app/
 RUN yarn && yarn cache clean --force
 
 # Copy all files
