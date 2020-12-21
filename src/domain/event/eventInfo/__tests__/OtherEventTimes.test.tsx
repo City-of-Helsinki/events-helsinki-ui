@@ -104,7 +104,7 @@ test('should render other event times', async () => {
   advanceTo(new Date('2020-08-11'));
   renderComponent();
 
-  const toggleButton = screen.getByRole('button', {
+  const toggleButton = await screen.findByRole('button', {
     name: translations.event.otherTimes.buttonShow,
   });
 
@@ -157,7 +157,7 @@ test('should show toastr when loading next event page fails', async () => {
   ];
   renderComponent(mocks);
 
-  const toggleButton = screen.getByRole('button', {
+  const toggleButton = await screen.findByRole('button', {
     name: translations.event.otherTimes.buttonShow,
   });
 
@@ -172,7 +172,7 @@ test('should go to event page of other event time', async () => {
   advanceTo(new Date('2020-08-11'));
   const { history } = renderComponent();
 
-  const toggleButton = screen.getByRole('button', {
+  const toggleButton = await screen.findByRole('button', {
     name: translations.event.otherTimes.buttonShow,
   });
 

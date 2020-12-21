@@ -36,7 +36,7 @@ const OtherEventTimes: React.FC<Props> = ({
     setIsListOpen(!isListOpen);
   };
 
-  if (!superEventId) return null;
+  if (!superEventId || events.length === 0) return null;
 
   return (
     <div className={styles.otherEventTimes}>
