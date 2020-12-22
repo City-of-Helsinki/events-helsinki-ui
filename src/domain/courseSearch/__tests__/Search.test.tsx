@@ -168,3 +168,16 @@ test('should change search query after selecting start date and pressing submit 
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe('?text=jazz&start=2020-10-06');
 });
+
+test('should change search query after checking is free checkbox', async () => {
+  const { history } = renderComponent();
+
+  const isFreeCheckbox = await screen.findByRole('checkbox', {
+    name: /näytä vain maksuttomat/i,
+  });
+
+  userEvent.click(isFreeCheckbox);
+
+  expect(history.location.pathname).toBe(pathname);
+  expect(history.location.search).toBe('?isFree=true&text=jazz');
+});
