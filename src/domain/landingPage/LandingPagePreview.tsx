@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router';
 
@@ -9,6 +9,7 @@ import { useLandingPageQuery } from '../../generated/graphql';
 import Container from '../app/layout/Container';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
+import BannerHero from '../banner/bannerHero/BannerHero';
 import LandingPageHero from './landingPageHero/LandingPageHero';
 import LandingPageMeta from './landingPageMeta/LandingPageMeta';
 import Search from './landingPageSearch/LandingPageSearch';
@@ -28,7 +29,6 @@ const LandingPagePreview: React.FC = () => {
     variables: { draft, id: params.id },
   });
   const landingPage = landingPageData?.landingPage;
-
   return (
     <PageWrapper>
       <LoadingSpinner isLoading={loading}>
@@ -43,12 +43,15 @@ const LandingPagePreview: React.FC = () => {
                 <Search />
               </Container>
             </MainContent>
+            {landingPage.bottomBanner && (
+              <BannerHero banner={landingPage.bottomBanner} />
+            )}
           </>
         ) : (
           <ErrorHero
             text={t('home.notFound.text')}
             title={t('home.notFound.title')}
-          ></ErrorHero>
+          />
         )}
       </LoadingSpinner>
     </PageWrapper>

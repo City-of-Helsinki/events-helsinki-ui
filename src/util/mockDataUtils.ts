@@ -6,6 +6,7 @@ import { EXTLINK } from '../constants';
 import {
   AboutPagesResponse,
   AccessibilityPagesResponse,
+  BannerPage,
   CmsImage,
   CollectionDetails,
   CollectionListResponse,
@@ -241,28 +242,45 @@ export const fakeLandingPages = (
 
 export const fakeLandingPage = (
   overrides?: Partial<LandingPage>
-): LandingPage =>
-  merge(
-    {
-      id: faker.random.uuid(),
-      buttonText: fakeLocalizedObject(),
-      buttonUrl: fakeLocalizedObject(faker.internet.url()),
-      description: fakeLocalizedObject(),
-      heroBackgroundImage: fakeLocalizedCmsImage(),
-      heroBackgroundImageColor: fakeLocalizedObject('BLACK'),
-      heroBackgroundImageMobile: fakeLocalizedCmsImage(),
-      heroTopLayerImage: fakeLocalizedCmsImage(),
-      keywords: fakeLocalizedCmsKeywords(),
-      metaInformation: fakeLocalizedObject(),
-      pageTitle: fakeLocalizedObject(),
-      socialMediaImage: fakeLocalizedCmsImage(),
-      title: fakeLocalizedObject(),
-      titleAndDescriptionColor: fakeLocalizedObject('BLACK'),
-      __typename: 'LandingPage',
-    },
-    overrides
-  );
+): LandingPage => {
+  return {
+    id: faker.random.uuid(),
+    bottomBanner: fakeBanner(),
+    buttonText: fakeLocalizedObject(),
+    buttonUrl: fakeLocalizedObject(faker.internet.url()),
+    description: fakeLocalizedObject(),
+    heroBackgroundImage: fakeLocalizedCmsImage(),
+    heroBackgroundImageColor: fakeLocalizedObject('BLACK'),
+    heroBackgroundImageMobile: fakeLocalizedCmsImage(),
+    heroTopLayerImage: fakeLocalizedCmsImage(),
+    keywords: fakeLocalizedCmsKeywords(),
+    metaInformation: fakeLocalizedObject(),
+    pageTitle: fakeLocalizedObject(),
+    socialMediaImage: fakeLocalizedCmsImage(),
+    title: fakeLocalizedObject(),
+    titleAndDescriptionColor: fakeLocalizedObject('BLACK'),
+    __typename: 'LandingPage',
+    ...overrides,
+  };
+};
 
+export const fakeBanner = (overrides?: Partial<BannerPage>): BannerPage => {
+  return {
+    buttonText: fakeLocalizedObject(),
+    buttonUrl: fakeLocalizedObject(faker.internet.url()),
+    description: fakeLocalizedObject(),
+    heroBackgroundImage: fakeLocalizedCmsImage(),
+    heroBackgroundImageColor: fakeLocalizedObject('BLACK'),
+    heroBackgroundImageMobile: fakeLocalizedCmsImage(),
+    heroTopLayerImage: fakeLocalizedCmsImage(),
+    keywords: fakeLocalizedCmsKeywords(),
+    socialMediaImage: fakeLocalizedCmsImage(),
+    title: fakeLocalizedObject(),
+    titleAndDescriptionColor: fakeLocalizedObject('BLACK'),
+    __typename: 'BannerPage',
+    ...overrides,
+  };
+};
 export const fakeCollections = (
   count = 1,
   collections?: Partial<CollectionDetails>[]

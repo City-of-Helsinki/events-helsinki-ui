@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
@@ -10,6 +10,7 @@ import useLocale from '../../hooks/useLocale';
 import Container from '../app/layout/Container';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
+import BannerHero from '../banner/bannerHero/BannerHero';
 import CollectionCards from '../collection/collectionCard/CollectionCards';
 import {
   isCollectionExpired,
@@ -74,6 +75,9 @@ const Home: React.FC = () => {
               </Container>
             </div>
           </MainContent>
+        )}
+        {landingPage?.bottomBanner && (
+          <BannerHero banner={landingPage.bottomBanner} />
         )}
       </LoadingSpinner>
     </PageWrapper>

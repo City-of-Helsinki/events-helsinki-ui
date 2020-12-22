@@ -1,0 +1,134 @@
+@import 'layout';
+
+.bannerHero {
+  position: relative;
+  width: 100%;
+  height: above;
+  padding-bottom: 6rem;
+
+  @include respond-above(sm) {
+    padding-bottom: unset;
+  }
+
+  @include respond-above(md) {
+    min-height: 42.6875rem;
+  }
+
+  .desktopBackgroundImage {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    @include respond-below(sm) {
+      display: none;
+    }
+  }
+
+  .mobileBackgroundImage {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    @include respond-above(sm) {
+      display: none;
+    }
+  }
+
+  .image {
+    position: absolute;
+    top: 0;
+    right: 20%;
+    height: 100%;
+    width: 24.9375rem;
+    background-position: center calc(100% - 5.5rem);
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    @include respond-below(sm) {
+      display: none;
+    }
+  }
+
+  .content {
+    margin-top: var(--spacing-xl);
+    z-index: 1;
+    width: fit-content;
+    padding: var(--spacing-m);
+    background-color: transparent;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease;
+    position: relative;
+
+    @include respond-above(sm) {
+      margin-bottom: 10rem;
+      margin-left: calc(0rem - var(--spacing-xl));
+      padding: var(--spacing-xl);
+      box-sizing: content-box;
+      max-width: 25rem;
+    }
+
+    @include respond-above(md) {
+      margin-left: 0rem;
+      max-width: 35rem;
+    }
+
+    .description {
+      font-size: var(--fontsize-body-l);
+    }
+
+    .title {
+      // font-size: 3.25rem;
+      // line-height: 60px;
+      // changed due to longer covid text
+      font-size: 2rem;
+      line-height: 50px;
+
+
+      font-weight: 600;
+      margin: 0 0 1rem;
+
+      @include respond-above(md) {
+        // font-size: 5rem;
+        // line-height: 92px;
+        // changed due to longer covid text
+        font-size: 3rem;
+        line-height: 72px;
+      }
+    }
+
+    &.colorBlack {
+      color: var(--color-black);
+    }
+
+    &.colorWhite {
+      color: var(--color-white);
+    }
+  }
+}
+
+.copperBackgroundColor {
+  background-color: var(--color-copper-light-50);
+}
+
+.engelBackgroundColor {
+  background-color: var(--color-engel);
+}
+
+.fogBackgroundColor {
+  background-color: var(--color-fog-light-50);
+}
+
+.suomenlinnaBackgroundColor {
+  background-color: var(--color-suomenlinna-light-50);
+}

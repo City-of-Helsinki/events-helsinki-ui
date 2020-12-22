@@ -58,6 +58,44 @@ export const QUERY_KEYWORD = gql`
     socialMediaImage {
       ...localizedCmsImageFields
     }
+    bottomBanner {
+      ...BannerPageFields
+    }
+  }
+  fragment BannerPageFields on BannerPage {
+    title {
+      ...localizedFields
+    }
+    description {
+      ...localizedFields
+    }
+    keywords {
+      ...localizedCmsKeywords
+    }
+    titleAndDescriptionColor {
+      ...localizedFields
+    }
+    buttonText {
+      ...localizedFields
+    }
+    buttonUrl {
+      ...localizedFields
+    }
+    heroBackgroundImage {
+      ...localizedCmsImageFields
+    }
+    heroBackgroundImageColor {
+      ...localizedFields
+    }
+    heroBackgroundImageMobile {
+      ...localizedCmsImageFields
+    }
+    heroTopLayerImage {
+      ...localizedCmsImageFields
+    }
+    socialMediaImage {
+      ...localizedCmsImageFields
+    }
   }
   query LandingPage($draft: Boolean, $id: ID!) {
     landingPage(draft: $draft, id: $id) {

@@ -1,5 +1,6 @@
 import { LandingPageFieldsFragment } from '../../generated/graphql';
 import { LandingPageTextColor, Language } from '../../types';
+import { getBannerFields } from '../banner/bannerUtils';
 import { LANDING_PAGE_SOME_IMAGE } from './constants';
 
 /**
@@ -123,4 +124,5 @@ export const getLandingPageFields = (
   heroBackgroundImageMobile: getHeroBackgroundImageMobile(landingPage, locale),
   heroTopLayerImage: getHeroTopLayerImage(landingPage, locale),
   someImage: getLandingPageSomeImageUrl(landingPage, locale),
+  bottomBanner: getBannerFields(locale, landingPage.bottomBanner),
 });

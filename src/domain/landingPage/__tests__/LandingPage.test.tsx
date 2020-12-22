@@ -1,21 +1,30 @@
-import React from 'react';
+import * as React from 'react';
 
 import {
   CollectionListDocument,
   LandingPagesDocument,
 } from '../../../generated/graphql';
-import { fakeCollections, fakeLandingPages } from '../../../util/mockDataUtils';
+import {
+  fakeBanner,
+  fakeCollections,
+  fakeLandingPages,
+  fakeLocalizedObject,
+} from '../../../util/mockDataUtils';
 import { render, screen, waitFor } from '../../../util/testUtils';
 import LandingPage from '../LandingPage';
 
-const landingPageDescription = 'Landing page description';
+const topBannerDescription = 'topBanner page description';
+const bottomBannerDescription = 'bottomBanner description';
 const landingPageTitle = 'Landing page title';
 const landingPagesResponse = {
   data: {
     landingPages: fakeLandingPages(1, [
       {
-        description: { fi: landingPageDescription },
-        title: { fi: landingPageTitle },
+        description: fakeLocalizedObject(topBannerDescription),
+        bottomBanner: fakeBanner({
+          description: fakeLocalizedObject(bottomBannerDescription),
+        }),
+        title: fakeLocalizedObject(landingPageTitle),
       },
     ]),
   },
@@ -60,9 +69,10 @@ it('should render landing page correctly', async () => {
     ).toBeInTheDocument();
   });
 
-  expect(screen.getByText(landingPageDescription)).toBeInTheDocument();
+  expect(screen.getByText(topBannerDescription)).toBeInTheDocument();
   collections.data.forEach((collection) => {
     expect(screen.getByText(collection.title.fi)).toBeInTheDocument();
     expect(screen.getByText(collection.description.fi)).toBeInTheDocument();
   });
+  expect(screen.getByText(bottomBannerDescription)).toBeInTheDocument();
 });

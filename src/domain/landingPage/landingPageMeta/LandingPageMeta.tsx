@@ -1,10 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import { Helmet } from 'react-helmet';
 
 import { LandingPageFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import { getBannerFields } from '../../banner/bannerUtils';
 import { getLandingPageFields } from '../utils';
-
 interface Props {
   landingPage: LandingPageFieldsFragment;
 }
@@ -15,13 +15,16 @@ const LandingPageMeta: React.FC<Props> = ({ landingPage }) => {
   const {
     keywords,
     pageTitle,
-    someImage: image,
+    someImage: topBannerSoMeImage,
     metaInformation,
   } = getLandingPageFields(landingPage, locale);
-
-  const openGraphProperties: { [key: string]: string } = {
+  const { someImage: bottomBannerSoMeImage } = getBannerFields(
+    locale,
+    landingPage.bottomBanner
+  );
+  const openGraphProperties = {
     description: metaInformation,
-    image: image,
+    image: [topBannerSoMeImage, bottomBannerSoMeImage],
     title: pageTitle,
   };
 
@@ -34,9 +37,12 @@ const LandingPageMeta: React.FC<Props> = ({ landingPage }) => {
         content={keywords?.map((keyword) => keyword?.toLowerCase()).join(', ')}
       />
       <meta name="twitter:card" content="summary" />
-      {Object.entries(openGraphProperties).map(([property, value]) => (
-        <meta key={property} property={`og:${property}`} content={value} />
-      ))}
+      {Object.entries(openGraphProperties).flatMap(([property, value]) => {
+        const valueList = (Array.isArray(value) ? value : [value]) as string[];
+        return valueList.map((value: string) => (
+          <meta key={property} property={`og:${property}`} content={value} />
+        ));
+      })}
     </Helmet>
   );
 };
