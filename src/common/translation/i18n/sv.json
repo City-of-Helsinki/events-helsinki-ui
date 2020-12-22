@@ -176,9 +176,9 @@
       "title": "Oj nej, nu blev det 404!"
     },
     "otherTimes": {
-      "buttonHide": "Dölj andra evenemangstider",
+      "buttonHide": "Dölj",
       "buttonReadMore": "Läs mer: {{date}}",
-      "buttonShow": "Visa andra evenemangstider",
+      "buttonShow": "Visa",
       "title": "Andra evenemangstider"
     },
     "shareLinks": {

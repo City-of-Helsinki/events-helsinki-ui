@@ -176,9 +176,9 @@
       "title": "Oho, nyt iski 404!"
     },
     "otherTimes": {
-      "buttonHide": "Piilota muut tapahtuma-ajat",
+      "buttonHide": "Piilota",
       "buttonReadMore": "Lue lisää: {{date}}",
-      "buttonShow": "Näytä muut tapahtuma-ajat",
+      "buttonShow": "Näytä",
       "title": "Tapahtuman muut ajat"
     },
     "shareLinks": {

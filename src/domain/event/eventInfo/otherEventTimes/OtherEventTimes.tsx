@@ -1,10 +1,11 @@
-import classNames from 'classnames';
-import { IconAngleDown, IconArrowRight } from 'hds-react';
+import { IconAngleDown, IconArrowRight, IconCalendarPlus } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import IconButton from '../../../../common/components/iconButton/IconButton';
+import InfoWithIcon from '../../../../common/components/infoWithIcon/InfoWithIcon';
+import linkStyles from '../../../../common/components/link/link.module.scss';
 import LoadingSpinner from '../../../../common/components/spinner/LoadingSpinner';
 import useLocale from '../../../../hooks/useLocale';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
@@ -40,20 +41,17 @@ const OtherEventTimes: React.FC<Props> = ({
 
   return (
     <div className={styles.otherEventTimes}>
-      <button
-        className={classNames(styles.toggleButton, {
-          [styles.isListOpen]: isListOpen,
-        })}
-        onClick={toggleList}
-        aria-label={
-          isListOpen
-            ? t('event.otherTimes.buttonHide')
-            : t('event.otherTimes.buttonShow')
-        }
+      <InfoWithIcon
+        icon={<IconCalendarPlus aria-hidden />}
+        title={t('event.otherTimes.title')}
       >
-        <span>{t('event.otherTimes.title')}</span>
-        <IconAngleDown aria-hidden />
-      </button>
+        <button className={linkStyles.link} onClick={toggleList}>
+          {isListOpen
+            ? t('event.otherTimes.buttonHide')
+            : t('event.otherTimes.buttonShow')}
+          <IconAngleDown aria-hidden />
+        </button>
+      </InfoWithIcon>
       {isListOpen && (
         <>
           <ul className={styles.timeList}>

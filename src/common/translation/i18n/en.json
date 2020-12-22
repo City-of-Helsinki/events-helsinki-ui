@@ -177,9 +177,9 @@
       "title": "Oops, you got hit by a 404!"
     },
     "otherTimes": {
-      "buttonHide": "Hide other event times",
+      "buttonHide": "Hide",
       "buttonReadMore": "Read more; {{date}}",
-      "buttonShow": "Show other event times",
+      "buttonShow": "Show",
       "title": "Other times of the event"
     },
     "shareLinks": {
