@@ -13,6 +13,8 @@ interface Props {
   eventsType: EventType;
 }
 
+export const similarEventsListTestId = 'similar-events-list';
+
 const SimilarEvents: React.FC<Props> = ({ events, loading, eventsType }) => {
   const { t } = useTranslation();
 
@@ -24,7 +26,10 @@ const SimilarEvents: React.FC<Props> = ({ events, loading, eventsType }) => {
             <h2 className={styles.similarEventsTitle}>
               {t('event.similarEvents.title')}
             </h2>
-            <div className={styles.similarEventList}>
+            <div
+              className={styles.similarEventList}
+              data-testid={similarEventsListTestId}
+            >
               {events.map((item) => {
                 return (
                   <EventCard

@@ -20,6 +20,8 @@ interface Props {
   eventType: EventType;
 }
 
+export const otherEventTimesListTestId = 'other-event-times-list';
+
 const OtherEventTimes: React.FC<Props> = ({
   events,
   loading,
@@ -54,7 +56,10 @@ const OtherEventTimes: React.FC<Props> = ({
       </InfoWithIcon>
       {isListOpen && (
         <>
-          <ul className={styles.timeList}>
+          <ul
+            className={styles.timeList}
+            data-testid={otherEventTimesListTestId}
+          >
             {events.map((event) => {
               const moveToEventPage = () => {
                 const eventUrl = `/${locale}${EVENT_ROUTE_MAPPER[

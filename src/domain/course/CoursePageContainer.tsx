@@ -85,6 +85,7 @@ const SimilarCoursesContainer: React.FC<{ event: EventFields }> = ({
   event,
 }) => {
   const { data, loading } = useSimilarCoursesQuery(event);
+
   return (
     <SimilarEvents
       events={data}

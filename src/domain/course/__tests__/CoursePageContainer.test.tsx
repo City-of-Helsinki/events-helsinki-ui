@@ -8,12 +8,20 @@ import {
 } from '../../../generated/graphql';
 import {
   fakeEvent,
+  fakeEvents,
   fakeKeyword,
   fakeLocalizedObject,
   fakeTargetGroup,
 } from '../../../util/mockDataUtils';
-import { renderWithRoute, screen, waitFor } from '../../../util/testUtils';
+import {
+  renderWithRoute,
+  screen,
+  userEvent,
+  waitFor,
+} from '../../../util/testUtils';
 import { ROUTES } from '../../app/routes/constants';
+import { otherEventTimesListTestId } from '../../event/eventInfo/otherEventTimes/OtherEventTimes';
+import { similarEventsListTestId } from '../../event/similarEvents/SimilarEvents';
 import CoursePageContainer from '../CoursePageContainer';
 
 const id = '1';
@@ -23,7 +31,18 @@ const startTime = '2020-10-05T07:00:00.000000Z';
 const endTime = '2020-10-05T10:00:00.000000Z';
 
 const audience = ['Aikuiset', 'Lapset'];
-const keywords = ['Avouinti', 'Eläimet', 'Grillaus'];
+const keywords = [
+  { name: 'Avouinti', id: 'keyword1' },
+  { name: 'Eläimet', id: 'keyword2' },
+  { name: 'Grillaus', id: 'keyword3' },
+];
+const superEventId = 'harrastushaku:13433';
+const otherEventTimesCount = 3;
+const similarEventTimesCount = 10;
+const similarCoursesNames = [
+  'JUMPPI-streetdance Suurpellossa, Opimäen koululla!',
+  'Narrin teatteriryhmä Rastilassa',
+];
 
 const course = fakeEvent({
   id,
@@ -31,10 +50,16 @@ const course = fakeEvent({
   endTime,
   name: fakeLocalizedObject(name),
   description: fakeLocalizedObject(description),
-  keywords: keywords.map((k) => fakeKeyword({ name: fakeLocalizedObject(k) })),
+  keywords: keywords.map((k) =>
+    fakeKeyword({ name: fakeLocalizedObject(k.name), id: k.id })
+  ),
   audience: audience.map((targetGroup) =>
     fakeTargetGroup({ name: fakeLocalizedObject(targetGroup) })
   ),
+  superEvent: {
+    __typename: 'InternalIdObject',
+    internalId: `https://api.hel.fi/linkedcourses/v1/event/${superEventId}/`,
+  },
 });
 
 const courseRequest = {
@@ -45,34 +70,13 @@ const courseRequest = {
   },
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const similarCoursesListRequest = {
   query: CourseListDocument,
   variables: {
-    combinedText: [],
-    division: ['kunta:helsinki'],
     end: '',
     include: ['keywords', 'location'],
-    keyword: [
-      'yso:p17887',
-      'yso:p2023',
-      'yso:p26265',
-      'yso:p2901',
-      'yso:p23137',
-      'yso:p16485',
-      'yso:p4354',
-      'yso:p2357',
-      'yso:p916',
-      'yso:p13084',
-      'yso:p11617',
-      'yso:p6062',
-      'yso:p6381',
-      'yso:p14049',
-      'yso:p11384',
-      'yso:p4330',
-      'yso:p24893',
-      'yso:p3792',
-    ],
+    isFree: undefined,
+    keyword: ['keyword1', 'keyword2', 'keyword3'],
     keywordAnd: [],
     keywordNot: [],
     language: 'fi',
@@ -81,16 +85,48 @@ const similarCoursesListRequest = {
     publisher: null,
     sort: 'end_time',
     start: 'now',
+    startsAfter: undefined,
     superEventType: ['umbrella', 'none'],
+  },
+};
+
+const otherCoursesRequest = {
+  query: CourseListDocument,
+  variables: {
+    include: ['keywords', 'location'],
+    sort: 'start_time',
+    start: 'now',
+    superEvent: superEventId,
   },
 };
 
 const courseResponse = { data: { courseDetails: course } };
 
+const similarCoursesResponse = {
+  data: {
+    courseList: fakeEvents(
+      similarEventTimesCount,
+      similarCoursesNames.map((name) => ({ name: fakeLocalizedObject(name) }))
+    ),
+  },
+};
+
+const otherCoursesResponse = {
+  data: { courseList: fakeEvents(otherEventTimesCount) },
+};
+
 const mocks = [
   {
     request: courseRequest,
     result: courseResponse,
+  },
+  {
+    request: otherCoursesRequest,
+    result: otherCoursesResponse,
+  },
+  {
+    request: similarCoursesListRequest,
+    result: similarCoursesResponse,
   },
 ];
 
@@ -108,7 +144,7 @@ afterAll(() => {
   clear();
 });
 
-it('should render course page with all the correct info', async () => {
+it('should render info and load other courses + similar courses', async () => {
   advanceTo('2020-10-01');
   renderComponent();
 
@@ -121,7 +157,28 @@ it('should render course page with all the correct info', async () => {
   expect(screen.queryByText(description)).toBeInTheDocument();
 
   keywords.forEach((keyword) => {
-    expect(screen.queryByRole('button', { name: keyword })).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: keyword.name })
+    ).toBeInTheDocument();
+  });
+
+  await screen.findByText('Tapahtuman muut ajat');
+
+  // click show other times
+  userEvent.click(screen.getByRole('button', { name: 'Näytä' }));
+
+  expect(screen.getByTestId(otherEventTimesListTestId).children).toHaveLength(
+    otherEventTimesCount
+  );
+
+  expect(screen.getByTestId(similarEventsListTestId).children).toHaveLength(8);
+
+  similarCoursesNames.forEach((courseName) => {
+    expect(
+      screen.queryByLabelText(`Siirry tapahtumaan: ${courseName}`, {
+        selector: 'a',
+      })
+    ).toBeInTheDocument();
   });
 });
 
