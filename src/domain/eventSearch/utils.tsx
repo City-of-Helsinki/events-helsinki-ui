@@ -8,6 +8,7 @@ import {
 } from 'date-fns';
 import { IconSpeechbubbleText } from 'hds-react';
 import { TFunction } from 'i18next';
+import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 
 import { DATE_TYPES } from '../../constants';

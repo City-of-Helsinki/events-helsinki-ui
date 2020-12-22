@@ -34,6 +34,7 @@ configure({ defaultHidden: true });
 const meta = {
   count: 20,
   next:
+    // eslint-disable-next-line max-len
     'https://api.hel.fi/linkedevents/v1/event/?division=kunta%3Ahelsinki&include=keywords%2Clocation&language=fi&page=2&page_size=10&sort=end_time&start=2020-08-12T17&super_event_type=umbrella%2Cnone&text=jazz',
   previous: null,
   __typename: 'Meta',
@@ -53,8 +54,7 @@ const eventsLoadMoreResponse = {
 };
 
 const courseListVariables = {
-  combinedText: ['jazz'],
-  division: ['kunta:helsinki'],
+  allOngoingAnd: ['jazz'],
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,
@@ -72,7 +72,7 @@ const courseListVariables = {
 };
 
 const courseListVariables2 = {
-  combinedText: ['jazz'],
+  localOngoingAnd: ['jazz'],
   division: ['kaupunginosa:alppiharju', 'kaupunginosa:aluemeri'],
   end: '2020-12-02',
   include: ['keywords', 'location'],
@@ -244,6 +244,7 @@ it('initializes search fields correctly from query', async () => {
   renderComponent(
     [...defaultMocks],
     [
+      // eslint-disable-next-line max-len
       '/fi/courses?categories=movie,music&dateTypes=tomorrow&divisions=kaupunginosa%3Aalppiharju,kaupunginosa%3Aaluemeri&places=tprek%3A9302&text=jazz',
     ]
   );
