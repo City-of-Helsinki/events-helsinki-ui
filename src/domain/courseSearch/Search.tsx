@@ -63,13 +63,14 @@ const Search: React.FC<Props> = () => {
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
   const divisionOptions = useDivisionOptions();
 
-  const { alsoOngoingCourses } = getSearchFilters(searchParams);
+  const { alsoOngoingCourses, isFree } = getSearchFilters(searchParams);
 
   const searchFilters = {
     alsoOngoingCourses,
     categories: selectedCategories,
     dateTypes: selectedDateTypes,
     divisions: selectedDivisions,
+    isFree,
     places: selectedPlaces,
     text: selectedTexts,
     start,
@@ -183,6 +184,15 @@ const Search: React.FC<Props> = () => {
     // scrollToResultList();
   };
 
+  const handleIsFreeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const search = getSearchQuery({
+      ...searchFilters,
+      isFree: e.target.checked,
+    });
+
+    push({ pathname: `/${locale}${ROUTES.COURSES}`, search });
+  };
+
   return (
     <div className={styles.searchContainer}>
       <Container>
@@ -271,6 +281,15 @@ const Search: React.FC<Props> = () => {
                   id={EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES}
                   label={t('courseSearch.search.checkboxAlsoOngoingCourses')}
                   onChange={handleAlsoOngoingCoursesEventChange}
+                />
+              </div>
+              <div>
+                <Checkbox
+                  className={styles.checkbox}
+                  checked={isFree}
+                  id={EVENT_SEARCH_FILTERS.IS_FREE}
+                  label={t('courseSearch.search.checkboxIsFree')}
+                  onChange={handleIsFreeChange}
                 />
               </div>
               <div className={classNames(styles.searchButtonWrapper)}>
