@@ -35,7 +35,7 @@ const EventPageContainer: React.FC = () => {
   const { data: eventData, loading } = useEventDetailsQuery({
     variables: {
       id: eventId,
-      include: ['in_language', 'keywords', 'location'],
+      include: ['in_language', 'keywords', 'location', 'audience'],
     },
   });
 
