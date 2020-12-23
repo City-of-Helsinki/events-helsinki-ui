@@ -17,7 +17,6 @@ import {
   isLanguageSupported,
 } from '../collection/CollectionUtils';
 import styles from './landingPage.module.scss';
-import LandingPageHero from './landingPageHero/LandingPageHero';
 import LandingPageMeta from './landingPageMeta/LandingPageMeta';
 import Search from './landingPageSearch/LandingPageSearch';
 import { isLanguageSupported as isLanguagePageLanguageSupported } from './utils';
@@ -54,7 +53,9 @@ const Home: React.FC = () => {
         {!!landingPage && (
           <>
             <LandingPageMeta landingPage={landingPage} />
-            <LandingPageHero landingPage={landingPage} />
+            {landingPage.topBanner && (
+              <BannerHero banner={landingPage.topBanner} />
+            )}
           </>
         )}
         {!!collectionsData && (

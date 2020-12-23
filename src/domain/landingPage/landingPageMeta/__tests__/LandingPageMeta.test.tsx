@@ -12,13 +12,15 @@ const landingPageKeyword = 'landing page keyword';
 const topBannerImage = 'www.topbannerurl.fi';
 const bottomBannerImage = 'www.bottombannerurl.fi';
 const landingPage = fakeLandingPage({
+  metaInformation: { fi: landingPageDescription },
+  pageTitle: { fi: landingPageTitle },
   keywords: { fi: [landingPageKeyword] },
-  socialMediaImage: { fi: { url: topBannerImage } },
+  topBanner: fakeBanner({
+    socialMediaImage: { fi: { url: topBannerImage } },
+  }),
   bottomBanner: fakeBanner({
     socialMediaImage: { fi: { url: bottomBannerImage } },
   }),
-  metaInformation: { fi: landingPageDescription },
-  pageTitle: { fi: landingPageTitle },
 }) as LandingPageFieldsFragment;
 
 // Rendering EventPageMeta creates a side effect--the document head will be

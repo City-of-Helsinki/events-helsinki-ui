@@ -11,9 +11,9 @@ import { BANNER_SOME_IMAGE } from './bannerConstants';
 export const getHeroBackgroundColor = (
   locale: Language,
   banner?: Maybe<BannerPage>
-): string | undefined => {
+): string => {
   const backgroundColor = banner?.heroBackgroundImageColor?.[locale];
-  return backgroundColor?.toLowerCase();
+  return backgroundColor?.toLowerCase() || 'inherit';
 };
 
 /**

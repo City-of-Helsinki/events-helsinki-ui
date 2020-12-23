@@ -247,16 +247,7 @@ export type LandingPage = {
   lastPublishedAt?: Maybe<Scalars['String']>;
   latestRevisionCreatedAt?: Maybe<Scalars['String']>;
   title?: Maybe<LocalizedObject>;
-  description?: Maybe<LocalizedObject>;
   keywords?: Maybe<LocalizedCmsKeywords>;
-  titleAndDescriptionColor?: Maybe<LocalizedObject>;
-  buttonText?: Maybe<LocalizedObject>;
-  buttonUrl?: Maybe<LocalizedObject>;
-  heroBackgroundImage?: Maybe<LocalizedCmsImage>;
-  heroBackgroundImageMobile?: Maybe<LocalizedCmsImage>;
-  heroBackgroundImageColor?: Maybe<LocalizedObject>;
-  heroTopLayerImage?: Maybe<LocalizedCmsImage>;
-  socialMediaImage?: Maybe<LocalizedCmsImage>;
   metaInformation?: Maybe<LocalizedObject>;
   pageTitle?: Maybe<LocalizedObject>;
   contentType?: Maybe<Scalars['Int']>;
@@ -868,33 +859,7 @@ export type LandingPageFieldsFragment = { __typename?: 'LandingPage' } & Pick<
       { __typename?: 'LocalizedCmsKeywords' } & LocalizedCmsKeywordsFragment
     >;
     title: Maybe<{ __typename?: 'LocalizedObject' } & LocalizedFieldsFragment>;
-    description: Maybe<
-      { __typename?: 'LocalizedObject' } & LocalizedFieldsFragment
-    >;
-    titleAndDescriptionColor: Maybe<
-      { __typename?: 'LocalizedObject' } & LocalizedFieldsFragment
-    >;
-    buttonText: Maybe<
-      { __typename?: 'LocalizedObject' } & LocalizedFieldsFragment
-    >;
-    buttonUrl: Maybe<
-      { __typename?: 'LocalizedObject' } & LocalizedFieldsFragment
-    >;
-    heroBackgroundImage: Maybe<
-      { __typename?: 'LocalizedCmsImage' } & LocalizedCmsImageFieldsFragment
-    >;
-    heroBackgroundImageColor: Maybe<
-      { __typename?: 'LocalizedObject' } & LocalizedFieldsFragment
-    >;
-    heroBackgroundImageMobile: Maybe<
-      { __typename?: 'LocalizedCmsImage' } & LocalizedCmsImageFieldsFragment
-    >;
-    heroTopLayerImage: Maybe<
-      { __typename?: 'LocalizedCmsImage' } & LocalizedCmsImageFieldsFragment
-    >;
-    socialMediaImage: Maybe<
-      { __typename?: 'LocalizedCmsImage' } & LocalizedCmsImageFieldsFragment
-    >;
+    topBanner: Maybe<{ __typename?: 'BannerPage' } & BannerPageFieldsFragment>;
     bottomBanner: Maybe<
       { __typename?: 'BannerPage' } & BannerPageFieldsFragment
     >;
@@ -1335,32 +1300,8 @@ export const LandingPageFieldsFragmentDoc = gql`
     title {
       ...localizedFields
     }
-    description {
-      ...localizedFields
-    }
-    titleAndDescriptionColor {
-      ...localizedFields
-    }
-    buttonText {
-      ...localizedFields
-    }
-    buttonUrl {
-      ...localizedFields
-    }
-    heroBackgroundImage {
-      ...localizedCmsImageFields
-    }
-    heroBackgroundImageColor {
-      ...localizedFields
-    }
-    heroBackgroundImageMobile {
-      ...localizedCmsImageFields
-    }
-    heroTopLayerImage {
-      ...localizedCmsImageFields
-    }
-    socialMediaImage {
-      ...localizedCmsImageFields
+    topBanner {
+      ...BannerPageFields
     }
     bottomBanner {
       ...BannerPageFields
@@ -1368,7 +1309,6 @@ export const LandingPageFieldsFragmentDoc = gql`
   }
   ${LocalizedFieldsFragmentDoc}
   ${LocalizedCmsKeywordsFragmentDoc}
-  ${LocalizedCmsImageFieldsFragmentDoc}
   ${BannerPageFieldsFragmentDoc}
 `;
 export const OrganizationFieldsFragmentDoc = gql`

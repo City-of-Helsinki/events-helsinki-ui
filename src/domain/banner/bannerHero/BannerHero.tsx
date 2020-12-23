@@ -66,11 +66,11 @@ const BannerHero: React.FC<Props> = ({ banner }) => {
   const textWrapperWidth = useTextWrapperWidth({
     font: `600 ${fontSize}px HelsinkiGrotesk`,
     maxTextWrapperWidth,
-    title,
+    title: title as string,
   });
 
   const handleButtonClick = () => {
-    window.open(buttonUrl, '_self');
+    window.open(buttonUrl as string, '_self');
   };
 
   React.useLayoutEffect(() => {
@@ -99,20 +99,25 @@ const BannerHero: React.FC<Props> = ({ banner }) => {
       <div
         className={styles.desktopBackgroundImage}
         style={{
-          backgroundImage: heroBackgroundImage && `url(${heroBackgroundImage})`,
+          backgroundImage: heroBackgroundImage
+            ? `url(${heroBackgroundImage})`
+            : 'none',
         }}
       />
       <div
         className={styles.mobileBackgroundImage}
         style={{
-          backgroundImage:
-            heroBackgroundImageMobile && `url(${heroBackgroundImageMobile})`,
+          backgroundImage: heroBackgroundImageMobile
+            ? `url(${heroBackgroundImageMobile})`
+            : 'none',
         }}
       />
       <div
         className={styles.image}
         style={{
-          backgroundImage: heroTopLayerImage && `url(${heroTopLayerImage})`,
+          backgroundImage: heroTopLayerImage
+            ? `url(${heroTopLayerImage})`
+            : 'none',
         }}
       />
       <Container>
@@ -120,7 +125,8 @@ const BannerHero: React.FC<Props> = ({ banner }) => {
           ref={textWrapper}
           className={classNames(
             styles.content,
-            styles[`color${capitalize(titleAndDescriptionColor)}`]
+            titleAndDescriptionColor &&
+              styles[`color${capitalize(titleAndDescriptionColor as string)}`]
           )}
           data-testid={testIds.content}
         >

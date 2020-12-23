@@ -6,8 +6,8 @@ import { BannerPageFieldsFragment } from '../../../../generated/graphql';
 import { fakeBanner } from '../../../../util/mockDataUtils';
 import BannerHero, { testIds } from '../BannerHero';
 
-const title = 'Landing page title';
-const description = 'Landing page description';
+const title = 'Banner title';
+const description = 'Banner page description';
 const buttonText = 'Button text';
 const banner = fakeBanner({
   buttonText: { fi: buttonText },
@@ -26,15 +26,15 @@ test('should be rendered correctly', () => {
 test('should set text wrapper max-width', () => {
   render(<BannerHero banner={banner} />);
 
-  expect(screen.getByTestId(testIds.content) as HTMLDivElement).toHaveStyle({
-    maxWidth: '520px',
-  });
-  expect(screen.getByTestId(testIds.content) as HTMLDivElement).toHaveStyle({
+  expect(screen.getByTestId(testIds.content).style.maxWidth).toMatch(
+    /(43[7-9])|(44[0-2])px/
+  );
+  expect(screen.getByTestId(testIds.content)).toHaveStyle({
     backgroundColor: 'rgba(255, 255, 255, 0.7)',
   });
 });
 
-test('should set text wrapper max-width', () => {
+test('should set text wrapper max-width when innerWidth = 1000', () => {
   global.innerWidth = 1000;
   render(
     <BannerHero
@@ -44,10 +44,9 @@ test('should set text wrapper max-width', () => {
       }}
     />
   );
-
-  expect(screen.getByTestId(testIds.content) as HTMLDivElement).toHaveStyle({
-    maxWidth: '340px',
-  });
+  expect(screen.getByTestId(testIds.content).style.maxWidth).toMatch(
+    /28[3-9]px/
+  );
 });
 
 test('should set text wrapper background color', () => {

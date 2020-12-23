@@ -10,7 +10,6 @@ import Container from '../app/layout/Container';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import BannerHero from '../banner/bannerHero/BannerHero';
-import LandingPageHero from './landingPageHero/LandingPageHero';
 import LandingPageMeta from './landingPageMeta/LandingPageMeta';
 import Search from './landingPageSearch/LandingPageSearch';
 
@@ -35,9 +34,10 @@ const LandingPagePreview: React.FC = () => {
         {!!landingPage ? (
           <>
             <LandingPageMeta landingPage={landingPage} />
-
             <PreviewBanner />
-            <LandingPageHero landingPage={landingPage} />
+            {landingPage.topBanner && (
+              <BannerHero banner={landingPage.topBanner} />
+            )}
             <MainContent offset={-150}>
               <Container>
                 <Search />

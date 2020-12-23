@@ -12,12 +12,14 @@ interface Props {
 const LandingPageMeta: React.FC<Props> = ({ landingPage }) => {
   const locale = useLocale();
 
-  const {
-    keywords,
-    pageTitle,
-    someImage: topBannerSoMeImage,
-    metaInformation,
-  } = getLandingPageFields(landingPage, locale);
+  const { keywords, pageTitle, metaInformation } = getLandingPageFields(
+    landingPage,
+    locale
+  );
+  const { someImage: topBannerSoMeImage } = getBannerFields(
+    locale,
+    landingPage.topBanner
+  );
   const { someImage: bottomBannerSoMeImage } = getBannerFields(
     locale,
     landingPage.bottomBanner

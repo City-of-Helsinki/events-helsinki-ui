@@ -75,7 +75,7 @@ export const getCategoryOptions = (t: TFunction): CategoryOption[] => [
     value: CATEGORIES.NATURE,
   },
   {
-    icon: <IconSpeechbubbleText aria-hidden />,
+    icon: <IconSpeechbubbleText />,
     text: t('home.category.influence'),
     value: CATEGORIES.INFLUENCE,
   },

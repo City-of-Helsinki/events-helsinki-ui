@@ -28,35 +28,8 @@ export const QUERY_KEYWORD = gql`
     keywords {
       ...localizedCmsKeywords
     }
-    title {
-      ...localizedFields
-    }
-    description {
-      ...localizedFields
-    }
-    titleAndDescriptionColor {
-      ...localizedFields
-    }
-    buttonText {
-      ...localizedFields
-    }
-    buttonUrl {
-      ...localizedFields
-    }
-    heroBackgroundImage {
-      ...localizedCmsImageFields
-    }
-    heroBackgroundImageColor {
-      ...localizedFields
-    }
-    heroBackgroundImageMobile {
-      ...localizedCmsImageFields
-    }
-    heroTopLayerImage {
-      ...localizedCmsImageFields
-    }
-    socialMediaImage {
-      ...localizedCmsImageFields
+    topBanner {
+      ...BannerPageFields
     }
     bottomBanner {
       ...BannerPageFields
