@@ -39,6 +39,14 @@ const OtherEventTimes: React.FC<Props> = ({
     setIsListOpen(!isListOpen);
   };
 
+  const moveToEventPage = (eventId: string) => {
+    const eventUrl = `/${locale}${EVENT_ROUTE_MAPPER[eventType].replace(
+      ':id',
+      eventId
+    )}${search}`;
+    history.push(eventUrl);
+  };
+
   if (!superEventId || events.length === 0) return null;
 
   return (
@@ -61,12 +69,6 @@ const OtherEventTimes: React.FC<Props> = ({
             data-testid={otherEventTimesListTestId}
           >
             {events.map((event) => {
-              const moveToEventPage = () => {
-                const eventUrl = `/${locale}${EVENT_ROUTE_MAPPER[
-                  eventType
-                ].replace(':id', event.id)}${search}`;
-                history.push(eventUrl);
-              };
               const date = event.startTime
                 ? getDateRangeStr({
                     start: event.startTime,
@@ -84,7 +86,7 @@ const OtherEventTimes: React.FC<Props> = ({
                       date,
                     })}
                     icon={<IconArrowRight aria-hidden />}
-                    onClick={moveToEventPage}
+                    onClick={() => moveToEventPage(event.id)}
                     size="small"
                   />
                 </li>
