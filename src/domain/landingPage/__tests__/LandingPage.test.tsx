@@ -1,3 +1,5 @@
+import { act } from '@testing-library/react';
+import { axe } from 'jest-axe';
 import * as React from 'react';
 
 import {
@@ -78,4 +80,13 @@ it('should render landing page correctly', async () => {
     screen.getByRole('heading', { name: bottomBannerTitle })
   ).toBeInTheDocument();
   expect(screen.getByText(bottomBannerDescription)).toBeInTheDocument();
+});
+
+test('Landing page should be accessible', async () => {
+  const { container } = render(<LandingPage />);
+  let axeResult = undefined;
+  await act(async () => {
+    axeResult = await axe(container);
+  });
+  expect(axeResult).toHaveNoViolations();
 });

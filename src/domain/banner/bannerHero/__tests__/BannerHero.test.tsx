@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 import * as React from 'react';
 
 import { BannerPageFieldsFragment } from '../../../../generated/graphql';
 import { fakeBanner } from '../../../../util/mockDataUtils';
 import BannerHero, { testIds } from '../BannerHero';
-
 const title = 'Banner title';
 const description = 'Banner page description';
 const buttonText = 'Button text';
@@ -70,4 +70,9 @@ test('should open buttonUrl', () => {
 
   userEvent.click(screen.getByRole('button', { name: buttonText }));
   expect(global.open).toBeCalled();
+});
+
+test('Banner should be accessible', async () => {
+  const { container } = render(<BannerHero banner={banner} />);
+  expect(await axe(container)).toHaveNoViolations();
 });
