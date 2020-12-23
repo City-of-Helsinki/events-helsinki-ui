@@ -66,11 +66,11 @@ const BannerHero: React.FC<Props> = ({ banner }) => {
   const textWrapperWidth = useTextWrapperWidth({
     font: `600 ${fontSize}px HelsinkiGrotesk`,
     maxTextWrapperWidth,
-    title: title as string,
+    title,
   });
 
   const handleButtonClick = () => {
-    window.open(buttonUrl as string, '_self');
+    window.open(buttonUrl, '_self');
   };
 
   React.useLayoutEffect(() => {
@@ -126,7 +126,7 @@ const BannerHero: React.FC<Props> = ({ banner }) => {
           className={classNames(
             styles.content,
             titleAndDescriptionColor &&
-              styles[`color${capitalize(titleAndDescriptionColor as string)}`]
+              styles[`color${capitalize(titleAndDescriptionColor)}`]
           )}
           data-testid={testIds.content}
         >

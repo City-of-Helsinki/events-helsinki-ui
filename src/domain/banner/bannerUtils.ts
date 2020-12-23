@@ -90,10 +90,11 @@ export const getSomeImageUrl = (
  * @param {object} banner
  * @return {string}
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getBannerFields = (
   locale: Language,
   banner?: Maybe<BannerPage>
-): Record<string, string | Maybe<string>[] | null | undefined> => {
+) => {
   return {
     title: banner?.title?.[locale] || '',
     description: banner?.description?.[locale] || '',
