@@ -13,7 +13,7 @@ const cli = new CLIEngine({});
 module.exports = {
   '**/*.{ts,tsx,js,jsx}': [
     (changedFiles) =>
-      'yarn format-code ' +
+      'eslint --fix --max-warnings=0 ' +
       changedFiles.filter((file) => !cli.isPathIgnored(file)).join(' '),
     'yarn test:staged',
     'prettier --write',
