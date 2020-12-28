@@ -8,6 +8,7 @@ export type ROUTE_TYPES = {
   COLLECTIONS: '/collections';
   EVENTS: '/events';
   EVENT: '/events/:id';
+  EVENT_DEPRECATED: '/event/:id';
   COURSES: '/courses';
   COURSE: '/courses/:id';
   HOME: '/home';
@@ -22,6 +23,7 @@ export const ROUTES: ROUTE_TYPES = {
   COLLECTIONS: '/collections',
   EVENTS: '/events',
   EVENT: '/events/:id',
+  EVENT_DEPRECATED: '/event/:id',
   COURSES: '/courses',
   COURSE: '/courses/:id',
   HOME: '/home',

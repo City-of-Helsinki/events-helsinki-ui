@@ -83,6 +83,12 @@ const App: FunctionComponent<RouteComponentProps<{
         path={`/${locale}${ROUTES.COURSE}`}
         component={CoursePageContainer}
       />
+      {/* Redirect to next single event page url */}
+      <Redirect
+        exact
+        path={`/${locale}${ROUTES.EVENT_DEPRECATED}`}
+        to={`/${locale}${ROUTES.EVENT}`}
+      />
       <Route component={NotFound} />
     </Switch>
   );
