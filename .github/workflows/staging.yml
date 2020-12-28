@@ -2,7 +2,7 @@ name: Build & Staging
 on:
   push:
     branches:
-      - develop
+      - master
 
 env:
   CONTAINER_REGISTRY: ghcr.io
