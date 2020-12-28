@@ -3,14 +3,14 @@ import { Button } from 'hds-react';
 import capitalize from 'lodash/capitalize';
 import React from 'react';
 
-import Container from '../../../domain/app/layout/Container';
-import { LandingPageFieldsFragment } from '../../../generated/graphql';
+import { BannerPage } from '../../../generated/graphql';
 import useBreakpoint from '../../../hooks/useBreakpoint';
 import useLocale from '../../../hooks/useLocale';
 import useTextWrapperWidth from '../../../hooks/useTextWrapperWidth';
 import { Breakpoint } from '../../../types';
-import { getLandingPageFields } from '../utils';
-import styles from './landingPageHero.module.scss';
+import Container from '../../app/layout/Container';
+import { getBannerFields } from '../bannerUtils';
+import styles from './bannerHero.module.scss';
 
 export const testIds = {
   content: 'landing-page-hero-content',
@@ -36,10 +36,10 @@ const getTextFontSize = (breakpoint: Breakpoint) => {
 };
 
 interface Props {
-  landingPage: LandingPageFieldsFragment;
+  banner: BannerPage;
 }
 
-const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
+const BannerHero: React.FC<Props> = ({ banner }) => {
   const textWrapper = React.useRef<HTMLDivElement>(null);
   const locale = useLocale();
   const breakpoint = useBreakpoint();
@@ -61,7 +61,7 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
     heroTopLayerImage,
     title,
     titleAndDescriptionColor,
-  } = getLandingPageFields(landingPage, locale);
+  } = getBannerFields(locale, banner);
 
   const textWrapperWidth = useTextWrapperWidth({
     font: `600 ${fontSize}px HelsinkiGrotesk`,
@@ -92,35 +92,41 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
 
   return (
     <div
-      className={classNames(styles.landingPageHero, {
+      className={classNames(styles.bannerHero, {
         [styles[`${backgroundColor}BackgroundColor`]]: backgroundColor,
       })}
     >
       <div
         className={styles.desktopBackgroundImage}
         style={{
-          backgroundImage: heroBackgroundImage && `url(${heroBackgroundImage})`,
+          backgroundImage: heroBackgroundImage
+            ? `url(${heroBackgroundImage})`
+            : 'none',
         }}
-      ></div>
+      />
       <div
         className={styles.mobileBackgroundImage}
         style={{
-          backgroundImage:
-            heroBackgroundImageMobile && `url(${heroBackgroundImageMobile})`,
+          backgroundImage: heroBackgroundImageMobile
+            ? `url(${heroBackgroundImageMobile})`
+            : 'none',
         }}
-      ></div>
+      />
       <div
         className={styles.image}
         style={{
-          backgroundImage: heroTopLayerImage && `url(${heroTopLayerImage})`,
+          backgroundImage: heroTopLayerImage
+            ? `url(${heroTopLayerImage})`
+            : 'none',
         }}
-      ></div>
+      />
       <Container>
         <div
           ref={textWrapper}
           className={classNames(
             styles.content,
-            styles[`color${capitalize(titleAndDescriptionColor)}`]
+            titleAndDescriptionColor &&
+              styles[`color${capitalize(titleAndDescriptionColor)}`]
           )}
           data-testid={testIds.content}
         >
@@ -137,4 +143,4 @@ const LandingPageHero: React.FC<Props> = ({ landingPage }) => {
   );
 };
 
-export default LandingPageHero;
+export default BannerHero;
