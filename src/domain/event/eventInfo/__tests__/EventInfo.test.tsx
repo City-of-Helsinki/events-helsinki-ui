@@ -18,6 +18,7 @@ import {
   screen,
   userEvent,
 } from '../../../../util/testUtils';
+import { EventType } from '../../types';
 import EventInfo from '../EventInfo';
 configure({ defaultHidden: true });
 
@@ -69,7 +70,7 @@ const event = fakeEvent({
 }) as EventFieldsFragment;
 
 it('should render event info fields', async () => {
-  render(<EventInfo event={event} />, { mocks });
+  render(<EventInfo event={event} eventType={EventType.EVENT} />, { mocks });
   await actWait();
 
   const itemsByRole = [
@@ -126,7 +127,9 @@ it('should hide other info section', async () => {
       telephone: null,
     },
   };
-  render(<EventInfo event={mockEvent} />, { mocks });
+  render(<EventInfo event={mockEvent} eventType={EventType.EVENT} />, {
+    mocks,
+  });
   await actWait();
 
   // Event info fields
@@ -142,7 +145,7 @@ it('should hide other info section', async () => {
 
 it('should open ticket buy page', async () => {
   global.open = jest.fn();
-  render(<EventInfo event={event} />, { mocks });
+  render(<EventInfo event={event} eventType={EventType.EVENT} />, { mocks });
   await actWait();
 
   // Event info fields
@@ -157,7 +160,7 @@ it('should open ticket buy page', async () => {
 
 it('should create ics file succesfully', async () => {
   FileSaver.saveAs = jest.fn();
-  render(<EventInfo event={event} />, { mocks });
+  render(<EventInfo event={event} eventType={EventType.EVENT} />, { mocks });
   await actWait();
 
   // Event info fields
@@ -172,7 +175,13 @@ it('should create ics file succesfully', async () => {
 
 it('should create ics file succesfully when end time is not defined', async () => {
   FileSaver.saveAs = jest.fn();
-  render(<EventInfo event={{ ...event, endTime: null }} />, { mocks });
+  render(
+    <EventInfo
+      event={{ ...event, endTime: null }}
+      eventType={EventType.EVENT}
+    />,
+    { mocks }
+  );
   await actWait();
 
   // Event info fields

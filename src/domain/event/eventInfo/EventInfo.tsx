@@ -25,9 +25,8 @@ import getDateArray from '../../../util/getDateArray';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import getDomain from '../../../util/getDomain';
 import { translateValue } from '../../../util/translateUtils';
-import { ROUTES } from '../../app/routes/constants';
 import { getEventFields, getEventPrice, getServiceMapUrl } from '../EventUtils';
-import { EventFields, EventType } from '../types';
+import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../types';
 import styles from './eventInfo.module.scss';
 import OrganizationInfo from './OrganizationInfo';
 import OtherCourseTimesContainer from './otherEventTimes/OtherCourseTimesContainer';
@@ -106,7 +105,10 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
       const icsEvent: EventAttributes = {
         description: t('event.info.textCalendarLinkDescription', {
           description: shortDescription,
-          link: `${domain}/${locale}${ROUTES.EVENT.replace(':id', event.id)}`,
+          link: `${domain}/${locale}${EVENT_ROUTE_MAPPER[eventType].replace(
+            ':id',
+            event.id
+          )}`,
         }),
         end: endTime ? getDateArray(endTime) : getDateArray(startTime),
         location: [locationName, streetAddress, district, addressLocality]
