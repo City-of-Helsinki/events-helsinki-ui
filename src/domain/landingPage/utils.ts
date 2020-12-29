@@ -12,7 +12,7 @@ export const isLanguageSupported = (
   landingPage: LandingPageFieldsFragment,
   locale: Language
 ): boolean => {
-  return Boolean(landingPage.title?.[locale]);
+  return Boolean(landingPage.pageTitle?.[locale]);
 };
 
 /**
