@@ -224,7 +224,8 @@
     "search": {
       "placeholder": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
       "labelSearchField": "Mitä etsit?",
-      "checkboxAlsoOngoingCourses": "Näytä myös meneillään olevat"
+      "checkboxAlsoOngoingCourses": "Näytä myös meneillään olevat",
+      "checkboxIsFree": "Näytä vain maksuttomat"
     }
   },
   "footer": {

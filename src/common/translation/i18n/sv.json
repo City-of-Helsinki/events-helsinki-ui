@@ -222,6 +222,7 @@
   "courseSearch": {
     "title": "Hitta hobby",
     "search": {
+      "checkboxIsFree": "Visa endast avgiftsfria",
       "placeholder": "Ange ett sökord, t. ex. Franska eller matlagning",
       "labelSearchField": "Vad letar du efter?",
       "checkboxAlsoOngoingCourses": "Visa även pågående kurser"

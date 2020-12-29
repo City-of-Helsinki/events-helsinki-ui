@@ -224,7 +224,8 @@
     "search": {
       "placeholder": "Enter a keyword, eg. French or cooking",
       "labelSearchField": "What are you looking for?",
-      "checkboxAlsoOngoingCourses": "Show also ongoing courses"
+      "checkboxAlsoOngoingCourses": "Show also ongoing courses",
+      "checkboxIsFree": "Show only courses that are free"
     }
   },
   "footer": {
