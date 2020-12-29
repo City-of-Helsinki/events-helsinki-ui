@@ -119,7 +119,7 @@ const EventSearchPageContainer: React.FC = () => {
       // Clear eventId value to keep scroll position correctly
       const state = { ...location.state };
       delete state.eventId;
-      history.replace({ ...location, state });
+      history.replace({ state });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
