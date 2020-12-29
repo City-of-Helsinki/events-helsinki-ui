@@ -27,64 +27,75 @@ import buildQueryFromObject from '../../util/buildQueryFromObject';
 import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
 import {
-  CATEGORIES,
+  COURSE_CATEGORIES,
+  EVENT_CATEGORIES,
   EVENT_SEARCH_FILTERS,
+  EVENT_SEARCH_SOURCES,
   EVENT_SORT_OPTIONS,
   MAPPED_CATEGORIES,
+  MAPPED_CATEGORY_TERMS,
   MAPPED_PLACES,
 } from './constants';
 import { CategoryOption, Filters, MappedFilters } from './types';
 
-export const getCategoryOptions = (t: TFunction): CategoryOption[] => [
+export const getEventCategoryOptions = (t: TFunction): CategoryOption[] => [
   {
     icon: <IconMovies />,
     text: t('home.category.movie'),
-    value: CATEGORIES.MOVIE,
+    value: EVENT_CATEGORIES.MOVIE,
   },
   {
     icon: <IconMusic />,
     text: t('home.category.music'),
-    value: CATEGORIES.MUSIC,
+    value: EVENT_CATEGORIES.MUSIC,
   },
   {
     icon: <IconSports />,
     text: t('home.category.sport'),
-    value: CATEGORIES.SPORT,
+    value: EVENT_CATEGORIES.SPORT,
   },
   {
     icon: <IconMuseum />,
     text: t('home.category.museum'),
-    value: CATEGORIES.MUSEUM,
+    value: EVENT_CATEGORIES.MUSEUM,
   },
   {
     icon: <IconDance />,
     text: t('home.category.dance'),
-    value: CATEGORIES.DANCE,
+    value: EVENT_CATEGORIES.DANCE,
   },
   {
     icon: <IconCultureAndArts />,
     text: t('home.category.culture'),
-    value: CATEGORIES.CULTURE,
+    value: EVENT_CATEGORIES.CULTURE,
   },
   {
     icon: <IconTree />,
     text: t('home.category.nature'),
-    value: CATEGORIES.NATURE,
+    value: EVENT_CATEGORIES.NATURE,
   },
   {
     icon: <IconSpeechbubbleText aria-hidden />,
     text: t('home.category.influence'),
-    value: CATEGORIES.INFLUENCE,
+    value: EVENT_CATEGORIES.INFLUENCE,
   },
   {
     icon: <IconTheatre />,
     text: t('home.category.theatre'),
-    value: CATEGORIES.THEATRE,
+    value: EVENT_CATEGORIES.THEATRE,
   },
   {
     icon: <IconFood />,
     text: t('home.category.food'),
-    value: CATEGORIES.FOOD,
+    value: EVENT_CATEGORIES.FOOD,
+  },
+];
+
+export const getCourseCategoryOptions = (t: TFunction): CategoryOption[] => [
+  {
+    icon: <IconMovies />,
+    text: t('home.category.movie'),
+    value: COURSE_CATEGORIES.MOVIE,
   },
 ];
 
@@ -165,6 +176,7 @@ export const getEventSearchVariables = ({
   sortOrder,
   superEventType,
   place,
+  searchSource,
 }: {
   include: string[];
   language: Language;
@@ -173,6 +185,7 @@ export const getEventSearchVariables = ({
   sortOrder: EVENT_SORT_OPTIONS;
   superEventType: string[];
   place?: string;
+  searchSource?: EVENT_SEARCH_SOURCES;
 }): QueryEventListArgs => {
   const {
     categories,
@@ -215,10 +228,14 @@ export const getEventSearchVariables = ({
     keywordAnd.push('yso:p4354');
   }
 
+  const keywordsParamName =
+    MAPPED_CATEGORY_TERMS[searchSource || EVENT_SEARCH_SOURCES.EVENTS];
   const mappedCategories: string[] = categories
-    .map((category) => MAPPED_CATEGORIES[category])
+    .map(
+      (category) =>
+        MAPPED_CATEGORIES[searchSource || EVENT_SEARCH_SOURCES.EVENTS][category]
+    )
     .filter((e) => e);
-
   const hasLocation = !isEmpty(divisions) || !isEmpty(places);
   const hasText = !isEmpty(text);
   // Combine and add keywords
@@ -229,7 +246,7 @@ export const getEventSearchVariables = ({
     end,
     include,
     isFree: isFree || undefined,
-    keyword: [...(keyword ? keyword : []), ...mappedCategories],
+    [keywordsParamName]: [...(keyword ? keyword : []), ...mappedCategories],
     keywordAnd,
     keywordNot,
     language,

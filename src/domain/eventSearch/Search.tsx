@@ -18,13 +18,17 @@ import Container from '../app/layout/Container';
 import { ROUTES } from '../app/routes/constants';
 import PlaceSelector from '../place/placeSelector/PlaceSelector';
 import {
-  DEFAULT_SEARCH_FILTERS,
+  EVENT_DEFAULT_SEARCH_FILTERS,
   EVENT_SEARCH_FILTERS,
   MAPPED_PLACES,
 } from './constants';
 import FilterSummary from './filterSummary/FilterSummary';
 import styles from './search.module.scss';
-import { getCategoryOptions, getSearchFilters, getSearchQuery } from './utils';
+import {
+  getEventCategoryOptions,
+  getSearchFilters,
+  getSearchQuery,
+} from './utils';
 
 interface Props {
   scrollToResultList: () => void;
@@ -87,7 +91,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
 
   const divisionOptions = useDivisionOptions();
 
-  const categories = getCategoryOptions(t);
+  const categories = getEventCategoryOptions(t);
 
   const handleChangeDateTypes = (value: string[]) => {
     setSelectedDateTypes(value);
@@ -201,7 +205,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   };
 
   const clearFilters = () => {
-    const search = getSearchQuery(DEFAULT_SEARCH_FILTERS);
+    const search = getSearchQuery(EVENT_DEFAULT_SEARCH_FILTERS);
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
 
