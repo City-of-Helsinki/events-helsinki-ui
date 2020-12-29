@@ -1,20 +1,26 @@
 import { render } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 
 import { LandingPageFieldsFragment } from '../../../../generated/graphql';
-import { fakeLandingPage } from '../../../../util/mockDataUtils';
+import { fakeBanner, fakeLandingPage } from '../../../../util/mockDataUtils';
 import { actWait } from '../../../../util/testUtils';
 import LandingPageMeta from '../LandingPageMeta';
 
 const landingPageTitle = 'Landing page title';
 const landingPageDescription = 'Landing page description';
 const landingPageKeyword = 'landing page keyword';
-const landingPageImage = 'www.testurl.fi';
+const topBannerImage = 'www.topbannerurl.fi';
+const bottomBannerImage = 'www.bottombannerurl.fi';
 const landingPage = fakeLandingPage({
-  keywords: { fi: [landingPageKeyword] },
-  socialMediaImage: { fi: { url: landingPageImage } },
   metaInformation: { fi: landingPageDescription },
   pageTitle: { fi: landingPageTitle },
+  keywords: { fi: [landingPageKeyword] },
+  topBanner: fakeBanner({
+    socialMediaImage: { fi: { url: topBannerImage } },
+  }),
+  bottomBanner: fakeBanner({
+    socialMediaImage: { fi: { url: bottomBannerImage } },
+  }),
 }) as LandingPageFieldsFragment;
 
 // Rendering EventPageMeta creates a side effect--the document head will be
@@ -50,12 +56,14 @@ test('applies expected metadata', async () => {
   const metaKeywords = head.querySelector('[name="keywords"]');
   const ogTitle = head.querySelector('[property="og:title"]');
   const ogDescription = head.querySelector('[property="og:description"]');
-  const ogImage = head.querySelector('[property="og:image"]');
+  const ogImages = head.querySelectorAll('[property="og:image"]');
 
   expect(title).toEqual(landingPageTitle);
   expect(metaDescription).toHaveAttribute('content', landingPageDescription);
   expect(metaKeywords).toHaveAttribute('content', landingPageKeyword);
   expect(ogTitle).toHaveAttribute('content', landingPageTitle);
   expect(ogDescription).toHaveAttribute('content', landingPageDescription);
-  expect(ogImage).toHaveAttribute('content', landingPageImage);
+  expect(ogImages).toHaveLength(2);
+  expect(ogImages[0]).toHaveAttribute('content', topBannerImage);
+  expect(ogImages[1]).toHaveAttribute('content', bottomBannerImage);
 });

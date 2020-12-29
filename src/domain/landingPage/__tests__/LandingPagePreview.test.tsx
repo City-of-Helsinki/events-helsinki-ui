@@ -1,21 +1,33 @@
-import React from 'react';
+import * as React from 'react';
 
 import translations from '../../../common/translation/i18n/fi.json';
 import { LandingPageDocument } from '../../../generated/graphql';
-import { fakeLandingPage } from '../../../util/mockDataUtils';
-import { renderWithRoute, screen, waitFor } from '../../../util/testUtils';
+import {
+  fakeBanner,
+  fakeLandingPage,
+  fakeLocalizedObject,
+} from '../../../util/mockDataUtils';
+import { renderWithRoute, screen } from '../../../util/testUtils';
 import { ROUTES } from '../../app/routes/constants';
 import LandingPagePreview from '../LandingPagePreview';
 
 const landingPageId = '1';
-const landingPageDescription = 'Landing page description';
-const landingPageTitle = 'Landing page title';
+const topBannerDescription = 'Landing page description';
+const topBannerTitle = 'Landing page title';
+const bottomBannerDescription = 'bottom banner description';
+const bottomBannerTitle = 'bottom banner title';
 const landingPageResponse = {
   data: {
     landingPage: fakeLandingPage({
       id: landingPageId,
-      description: { fi: landingPageDescription },
-      title: { fi: landingPageTitle },
+      topBanner: fakeBanner({
+        title: fakeLocalizedObject(topBannerTitle),
+        description: fakeLocalizedObject(topBannerDescription),
+      }),
+      bottomBanner: fakeBanner({
+        title: fakeLocalizedObject(bottomBannerTitle),
+        description: fakeLocalizedObject(bottomBannerDescription),
+      }),
     }),
   },
 };
@@ -46,26 +58,11 @@ const renderComponent = () =>
     path: ROUTES.HOME_PREVIEW,
   });
 
-it('should render landing page preview correctly', async () => {
+it('should render landing page previews correctly', async () => {
   renderComponent();
-
-  await waitFor(() => {
-    expect(
-      screen.getByRole('heading', { name: landingPageTitle })
-    ).toBeInTheDocument();
-  });
-
-  expect(screen.getByText(landingPageDescription)).toBeInTheDocument();
-});
-
-it('should show preview banner', async () => {
-  renderComponent();
-
-  await waitFor(() => {
-    expect(
-      screen.getByRole('heading', { name: landingPageTitle })
-    ).toBeInTheDocument();
-  });
-
+  await screen.findByRole('heading', { name: topBannerTitle });
+  await screen.findByRole('heading', { name: bottomBannerTitle });
+  expect(screen.getByText(topBannerDescription)).toBeInTheDocument();
+  expect(screen.getByText(bottomBannerDescription)).toBeInTheDocument();
   expect(screen.getByText(translations.commons.preview)).toBeInTheDocument();
 });

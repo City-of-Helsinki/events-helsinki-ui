@@ -1,21 +1,36 @@
-import React from 'react';
+import { act } from '@testing-library/react';
+import { axe } from 'jest-axe';
+import * as React from 'react';
 
 import {
   CollectionListDocument,
   LandingPagesDocument,
 } from '../../../generated/graphql';
-import { fakeCollections, fakeLandingPages } from '../../../util/mockDataUtils';
-import { render, screen, waitFor } from '../../../util/testUtils';
+import {
+  fakeBanner,
+  fakeCollections,
+  fakeLandingPages,
+  fakeLocalizedObject,
+} from '../../../util/mockDataUtils';
+import { render, screen } from '../../../util/testUtils';
 import LandingPage from '../LandingPage';
 
-const landingPageDescription = 'Landing page description';
-const landingPageTitle = 'Landing page title';
+const topBannerDescription = 'topBanner page description';
+const bottomBannerDescription = 'bottomBanner description';
+const topBannerTitle = 'topBanner page title';
+const bottomBannerTitle = 'bottomBanner page title';
 const landingPagesResponse = {
   data: {
     landingPages: fakeLandingPages(1, [
       {
-        description: { fi: landingPageDescription },
-        title: { fi: landingPageTitle },
+        topBanner: fakeBanner({
+          title: fakeLocalizedObject(topBannerTitle),
+          description: fakeLocalizedObject(topBannerDescription),
+        }),
+        bottomBanner: fakeBanner({
+          title: fakeLocalizedObject(bottomBannerTitle),
+          description: fakeLocalizedObject(bottomBannerDescription),
+        }),
       },
     ]),
   },
@@ -54,15 +69,24 @@ it('should render landing page correctly', async () => {
     mocks,
   });
 
-  await waitFor(() => {
-    expect(
-      screen.getByRole('heading', { name: landingPageTitle })
-    ).toBeInTheDocument();
-  });
+  await screen.findByRole('heading', { name: topBannerTitle });
 
-  expect(screen.getByText(landingPageDescription)).toBeInTheDocument();
+  expect(screen.getByText(topBannerDescription)).toBeInTheDocument();
   collections.data.forEach((collection) => {
     expect(screen.getByText(collection.title.fi)).toBeInTheDocument();
     expect(screen.getByText(collection.description.fi)).toBeInTheDocument();
   });
+  expect(
+    screen.getByRole('heading', { name: bottomBannerTitle })
+  ).toBeInTheDocument();
+  expect(screen.getByText(bottomBannerDescription)).toBeInTheDocument();
+});
+
+test('Landing page should be accessible', async () => {
+  const { container } = render(<LandingPage />);
+  let axeResult = undefined;
+  await act(async () => {
+    axeResult = await axe(container);
+  });
+  expect(axeResult).toHaveNoViolations();
 });
