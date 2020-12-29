@@ -27,7 +27,7 @@ const CollectionListPage: React.FC = () => {
     variables: { visibleOnFrontpage: true },
   });
   const landingPage = landingPageData?.landingPages.data.find((page) =>
-    isLanguagePageLanguageSupported(page, locale)
+    isLanguagePageLanguageSupported(page.topBanner, locale)
   );
 
   const collections =

@@ -7,6 +7,7 @@ import {
   AboutPagesResponse,
   AccessibilityPagesResponse,
   Audience,
+  BannerPage,
   CmsImage,
   CollectionDetails,
   CollectionListResponse,
@@ -284,6 +285,20 @@ export const fakeLandingPage = (
   merge(
     {
       id: faker.random.uuid(),
+      topBanner: fakeBanner(),
+      bottomBanner: fakeBanner(),
+      keywords: fakeLocalizedCmsKeywords(),
+      metaInformation: fakeLocalizedObject(),
+      pageTitle: fakeLocalizedObject(),
+      title: fakeLocalizedObject(),
+      __typename: 'LandingPage',
+    },
+    overrides
+  );
+
+export const fakeBanner = (overrides?: Partial<BannerPage>): BannerPage =>
+  merge(
+    {
       buttonText: fakeLocalizedObject(),
       buttonUrl: fakeLocalizedObject(faker.internet.url()),
       description: fakeLocalizedObject(),
@@ -292,12 +307,10 @@ export const fakeLandingPage = (
       heroBackgroundImageMobile: fakeLocalizedCmsImage(),
       heroTopLayerImage: fakeLocalizedCmsImage(),
       keywords: fakeLocalizedCmsKeywords(),
-      metaInformation: fakeLocalizedObject(),
-      pageTitle: fakeLocalizedObject(),
       socialMediaImage: fakeLocalizedCmsImage(),
       title: fakeLocalizedObject(),
       titleAndDescriptionColor: fakeLocalizedObject('BLACK'),
-      __typename: 'LandingPage',
+      __typename: 'BannerPage',
     },
     overrides
   );

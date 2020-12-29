@@ -28,11 +28,22 @@ export const QUERY_KEYWORD = gql`
     keywords {
       ...localizedCmsKeywords
     }
+    topBanner {
+      ...BannerPageFields
+    }
+    bottomBanner {
+      ...BannerPageFields
+    }
+  }
+  fragment BannerPageFields on BannerPage {
     title {
       ...localizedFields
     }
     description {
       ...localizedFields
+    }
+    keywords {
+      ...localizedCmsKeywords
     }
     titleAndDescriptionColor {
       ...localizedFields

@@ -1,22 +1,22 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 import * as React from 'react';
 
-import { LandingPageFieldsFragment } from '../../../../generated/graphql';
-import { fakeLandingPage } from '../../../../util/mockDataUtils';
-import LandingPageHero, { testIds } from '../LandingPageHero';
-
-const title = 'Landing page title';
-const description = 'Landing page description';
+import { BannerPageFieldsFragment } from '../../../../generated/graphql';
+import { fakeBanner } from '../../../../util/mockDataUtils';
+import BannerHero, { testIds } from '../BannerHero';
+const title = 'Banner title';
+const description = 'Banner page description';
 const buttonText = 'Button text';
-const landingPage = fakeLandingPage({
+const banner = fakeBanner({
   buttonText: { fi: buttonText },
   description: { fi: description },
   title: { fi: title },
-}) as LandingPageFieldsFragment;
+}) as BannerPageFieldsFragment;
 
 test('should be rendered correctly', () => {
-  render(<LandingPageHero landingPage={landingPage} />);
+  render(<BannerHero banner={banner} />);
 
   expect(screen.getByText(title)).toBeInTheDocument();
   expect(screen.getByText(description)).toBeInTheDocument();
@@ -24,30 +24,36 @@ test('should be rendered correctly', () => {
 });
 
 test('should set text wrapper max-width', () => {
-  render(<LandingPageHero landingPage={landingPage} />);
+  render(<BannerHero banner={banner} />);
 
-  expect(screen.getByTestId(testIds.content) as HTMLDivElement).toHaveStyle({
+  expect(screen.getByTestId(testIds.content).style.maxWidth).toMatch(
+    /(43[7-9])|(44[0-2])px/
+  );
+  expect(screen.getByTestId(testIds.content)).toHaveStyle({
     backgroundColor: 'rgba(255, 255, 255, 0.7)',
   });
 });
 
-test('should set text wrapper max-width', () => {
+test('should set text wrapper max-width when innerWidth = 1000', () => {
   global.innerWidth = 1000;
   render(
-    <LandingPageHero
-      landingPage={{
-        ...landingPage,
+    <BannerHero
+      banner={{
+        ...banner,
         titleAndDescriptionColor: { fi: 'WHITE' },
       }}
     />
+  );
+  expect(screen.getByTestId(testIds.content).style.maxWidth).toMatch(
+    /28[3-9]px/
   );
 });
 
 test('should set text wrapper background color', () => {
   render(
-    <LandingPageHero
-      landingPage={{
-        ...landingPage,
+    <BannerHero
+      banner={{
+        ...banner,
         titleAndDescriptionColor: { fi: 'WHITE' },
       }}
     />
@@ -60,8 +66,13 @@ test('should set text wrapper background color', () => {
 
 test('should open buttonUrl', () => {
   global.open = jest.fn();
-  render(<LandingPageHero landingPage={landingPage} />);
+  render(<BannerHero banner={banner} />);
 
   userEvent.click(screen.getByRole('button', { name: buttonText }));
   expect(global.open).toBeCalled();
+});
+
+test('Banner should be accessible', async () => {
+  const { container } = render(<BannerHero banner={banner} />);
+  expect(await axe(container)).toHaveNoViolations();
 });

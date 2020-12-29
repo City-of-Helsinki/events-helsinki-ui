@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
@@ -10,13 +10,13 @@ import useLocale from '../../hooks/useLocale';
 import Container from '../app/layout/Container';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
+import BannerHero from '../banner/bannerHero/BannerHero';
 import CollectionCards from '../collection/collectionCard/CollectionCards';
 import {
   isCollectionExpired,
   isLanguageSupported,
 } from '../collection/CollectionUtils';
 import styles from './landingPage.module.scss';
-import LandingPageHero from './landingPageHero/LandingPageHero';
 import LandingPageMeta from './landingPageMeta/LandingPageMeta';
 import Search from './landingPageSearch/LandingPageSearch';
 import { isLanguageSupported as isLanguagePageLanguageSupported } from './utils';
@@ -34,7 +34,7 @@ const Home: React.FC = () => {
   });
 
   const landingPage = landingPageData?.landingPages.data.find((page) =>
-    isLanguagePageLanguageSupported(page, locale)
+    isLanguagePageLanguageSupported(page.topBanner, locale)
   );
   const collections = collectionsData
     ? collectionsData.collectionList.data.filter(
@@ -53,7 +53,9 @@ const Home: React.FC = () => {
         {!!landingPage && (
           <>
             <LandingPageMeta landingPage={landingPage} />
-            <LandingPageHero landingPage={landingPage} />
+            {landingPage.topBanner && (
+              <BannerHero banner={landingPage.topBanner} />
+            )}
           </>
         )}
         {!!collectionsData && (
@@ -74,6 +76,9 @@ const Home: React.FC = () => {
               </Container>
             </div>
           </MainContent>
+        )}
+        {landingPage?.bottomBanner && (
+          <BannerHero banner={landingPage.bottomBanner} />
         )}
       </LoadingSpinner>
     </PageWrapper>
