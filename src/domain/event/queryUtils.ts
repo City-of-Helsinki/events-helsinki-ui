@@ -4,6 +4,8 @@ import { useLocation } from 'react-router';
 import { toast } from 'react-toastify';
 
 import {
+  CourseListQuery,
+  EventListQuery,
   EventListQueryVariables,
   useCourseListQuery,
   useEventListQuery,
@@ -46,44 +48,51 @@ const useSimilarEventsQueryVariables = (event: EventFields) => {
   }, [locale, searchParams]);
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const useSimilarEventsQuery = (event: EventFields) => {
-  const eventFilters = useSimilarEventsQueryVariables(event);
+const getSimilarEventsQueryData = (
+  query: EventListQuery | CourseListQuery | undefined
+) => {
+  if (!query) return null;
 
-  const { data: eventsData, loading } = useEventListQuery({
+  if ('eventList' in query) {
+    return query.eventList.data;
+  }
+  if ('courseList' in query) {
+    return query.courseList.data;
+  }
+  throw new Error('invalid type' + query);
+};
+
+type UseEventQuery = typeof useCourseListQuery | typeof useEventListQuery;
+
+type SimilarEventsQueryResult = {
+  data: NonNullable<ReturnType<typeof getSimilarEventsQueryData>>;
+  loading: boolean;
+};
+
+export const useSimilarEventsQuery = (
+  event: EventFields,
+  useEventQuery: UseEventQuery = useEventListQuery
+): SimilarEventsQueryResult => {
+  const eventFilters = useSimilarEventsQueryVariables(event);
+  const { data: eventsData, loading } = useEventQuery({
     ssr: false,
     variables: eventFilters,
   });
-
   // To display only certain amount of events.
   // Always fetch data by using same page size to get events from cache
   const data =
-    eventsData?.eventList.data
+    getSimilarEventsQueryData(eventsData)
       // Don't show current event on the list
-      .filter((item) => item.id !== event.id)
+      ?.filter((item) => item.id !== event.id)
       .slice(0, SIMILAR_EVENTS_AMOUNT) || [];
 
   return { data, loading };
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const useSimilarCoursesQuery = (event: EventFields) => {
-  const eventFilters = useSimilarEventsQueryVariables(event);
-
-  const { data: eventsData, loading } = useCourseListQuery({
-    ssr: false,
-    variables: eventFilters,
-  });
-
-  // To display only certain amount of events.
-  // Always fetch data by using same page size to get events from cache
-  const data =
-    eventsData?.courseList.data
-      // Don't show current event on the list
-      .filter((item) => item.id !== event.id)
-      .slice(0, SIMILAR_EVENTS_AMOUNT) || [];
-
-  return { data, loading };
+export const useSimilarCoursesQuery = (
+  event: EventFields
+): SimilarEventsQueryResult => {
+  return useSimilarEventsQuery(event, useCourseListQuery);
 };
 
 const useOtherEventTimesVariables = (event: EventFields) => {
