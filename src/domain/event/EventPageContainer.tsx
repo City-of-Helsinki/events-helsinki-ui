@@ -85,6 +85,7 @@ const SimilarEventsContainer: React.FC<{ event: EventFields }> = ({
   event,
 }) => {
   const { data, loading } = useSimilarEventsQuery(event);
+
   return (
     <SimilarEvents
       events={data}

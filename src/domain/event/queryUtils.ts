@@ -4,7 +4,9 @@ import { useLocation } from 'react-router';
 import { toast } from 'react-toastify';
 
 import {
+  CourseFieldsFragment,
   CourseListQuery,
+  EventFieldsFragment,
   EventListQuery,
   EventListQueryVariables,
   useCourseListQuery,
@@ -64,15 +66,15 @@ const getSimilarEventsQueryData = (
 
 type UseEventQuery = typeof useCourseListQuery | typeof useEventListQuery;
 
-type SimilarEventsQueryResult = {
-  data: NonNullable<ReturnType<typeof getSimilarEventsQueryData>>;
+type SimilarEventsQueryResult<T> = {
+  data: T[];
   loading: boolean;
 };
 
-export const useSimilarEventsQuery = (
+export const useSimilarEventsQuery = <T extends EventFieldsFragment>(
   event: EventFields,
   useEventQuery: UseEventQuery = useEventListQuery
-): SimilarEventsQueryResult => {
+): SimilarEventsQueryResult<T> => {
   const eventFilters = useSimilarEventsQueryVariables(event);
   const { data: eventsData, loading } = useEventQuery({
     ssr: false,
@@ -80,18 +82,17 @@ export const useSimilarEventsQuery = (
   });
   // To display only certain amount of events.
   // Always fetch data by using same page size to get events from cache
-  const data =
-    getSimilarEventsQueryData(eventsData)
-      // Don't show current event on the list
-      ?.filter((item) => item.id !== event.id)
-      .slice(0, SIMILAR_EVENTS_AMOUNT) || [];
+  const data = (getSimilarEventsQueryData(eventsData)
+    // Don't show current event on the list
+    ?.filter((item) => item.id !== event.id)
+    .slice(0, SIMILAR_EVENTS_AMOUNT) || []) as T[];
 
   return { data, loading };
 };
 
-export const useSimilarCoursesQuery = (
+export const useSimilarCoursesQuery = <T extends CourseFieldsFragment>(
   event: EventFields
-): SimilarEventsQueryResult => {
+): SimilarEventsQueryResult<T> => {
   return useSimilarEventsQuery(event, useCourseListQuery);
 };
 
