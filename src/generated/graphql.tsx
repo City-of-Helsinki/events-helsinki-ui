@@ -247,7 +247,16 @@ export type LandingPage = {
   lastPublishedAt?: Maybe<Scalars['String']>;
   latestRevisionCreatedAt?: Maybe<Scalars['String']>;
   title?: Maybe<LocalizedObject>;
+  description?: Maybe<LocalizedObject>;
   keywords?: Maybe<LocalizedCmsKeywords>;
+  titleAndDescriptionColor?: Maybe<LocalizedObject>;
+  buttonText?: Maybe<LocalizedObject>;
+  buttonUrl?: Maybe<LocalizedObject>;
+  heroBackgroundImage?: Maybe<LocalizedCmsImage>;
+  heroBackgroundImageMobile?: Maybe<LocalizedCmsImage>;
+  heroBackgroundImageColor?: Maybe<LocalizedObject>;
+  heroTopLayerImage?: Maybe<LocalizedCmsImage>;
+  socialMediaImage?: Maybe<LocalizedCmsImage>;
   metaInformation?: Maybe<LocalizedObject>;
   pageTitle?: Maybe<LocalizedObject>;
   contentType?: Maybe<Scalars['Int']>;
@@ -858,7 +867,6 @@ export type LandingPageFieldsFragment = { __typename?: 'LandingPage' } & Pick<
     keywords: Maybe<
       { __typename?: 'LocalizedCmsKeywords' } & LocalizedCmsKeywordsFragment
     >;
-    title: Maybe<{ __typename?: 'LocalizedObject' } & LocalizedFieldsFragment>;
     topBanner: Maybe<{ __typename?: 'BannerPage' } & BannerPageFieldsFragment>;
     bottomBanner: Maybe<
       { __typename?: 'BannerPage' } & BannerPageFieldsFragment
@@ -1296,9 +1304,6 @@ export const LandingPageFieldsFragmentDoc = gql`
     }
     keywords {
       ...localizedCmsKeywords
-    }
-    title {
-      ...localizedFields
     }
     topBanner {
       ...BannerPageFields
