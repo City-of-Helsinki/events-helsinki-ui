@@ -176,7 +176,7 @@ export const getEventSearchVariables = ({
   sortOrder,
   superEventType,
   place,
-  searchSource,
+  searchSource = EVENT_SEARCH_SOURCES.EVENTS,
 }: {
   include: string[];
   language: Language;
@@ -185,7 +185,7 @@ export const getEventSearchVariables = ({
   sortOrder: EVENT_SORT_OPTIONS;
   superEventType: string[];
   place?: string;
-  searchSource?: EVENT_SEARCH_SOURCES;
+  searchSource: EVENT_SEARCH_SOURCES;
 }): QueryEventListArgs => {
   const {
     categories,
@@ -228,13 +228,9 @@ export const getEventSearchVariables = ({
     keywordAnd.push('yso:p4354');
   }
 
-  const keywordsParamName =
-    MAPPED_CATEGORY_TERMS[searchSource || EVENT_SEARCH_SOURCES.EVENTS];
+  const keywordsParamName = MAPPED_CATEGORY_TERMS[searchSource];
   const mappedCategories: string[] = categories
-    .map(
-      (category) =>
-        MAPPED_CATEGORIES[searchSource || EVENT_SEARCH_SOURCES.EVENTS][category]
-    )
+    .map((category) => MAPPED_CATEGORIES[searchSource][category])
     .filter((e) => e);
   const hasLocation = !isEmpty(divisions) || !isEmpty(places);
   const hasText = !isEmpty(text);
