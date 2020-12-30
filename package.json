@@ -86,7 +86,7 @@
     "build:server": "NODE_ENV=production webpack --progress --mode production --config config/webpack.server.config.js",
     "codegen": "graphql-codegen -r dotenv/config dotenv_config_path=.env.development.local  --config codegen.yml",
     "test": "TZ=Europe/Helsinki react-scripts test --env=jest-environment-jsdom-sixteen",
-    "ci": "CI=true yarn test --verbose --runInBand --coverage",
+    "ci": "CI=true yarn test --verbose --coverage",
     "test:staged": "yarn test --watchAll=false --findRelatedTests",
     "test:coverage": "yarn test --coverage --watchAll=false",
     "test:debug": "TZ=Europe/Helsinki react-scripts --inspect-brk test --runInBand --no-cache",
