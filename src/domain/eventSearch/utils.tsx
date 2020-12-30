@@ -185,7 +185,7 @@ export const getEventSearchVariables = ({
   sortOrder: EVENT_SORT_OPTIONS;
   superEventType: string[];
   place?: string;
-  searchSource: EVENT_SEARCH_SOURCES;
+  searchSource?: EVENT_SEARCH_SOURCES;
 }): QueryEventListArgs => {
   const {
     categories,
