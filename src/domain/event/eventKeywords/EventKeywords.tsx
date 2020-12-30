@@ -8,7 +8,7 @@ import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import scrollToTop from '../../../util/scrollToTop';
 import { ROUTES } from '../../app/routes/constants';
-import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
+import { EVENT_DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
 import { getSearchQuery } from '../../eventSearch/utils';
 import { getEventFields } from '../EventUtils';
 
@@ -41,7 +41,7 @@ const EventKeywords: React.FC<Props> = ({
     value = ''
   ) => () => {
     const search = getSearchQuery({
-      ...DEFAULT_SEARCH_FILTERS,
+      ...EVENT_DEFAULT_SEARCH_FILTERS,
       dateTypes: type === 'dateType' ? [value] : [],
       isFree: type === 'isFree',
       text: type === 'text' ? [value] : [],

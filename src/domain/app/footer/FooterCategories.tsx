@@ -6,8 +6,11 @@ import CategoryFilter from '../../../common/components/category/CategoryFilter';
 import { Category } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import scrollToTop from '../../../util/scrollToTop';
-import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
-import { getCategoryOptions, getSearchQuery } from '../../eventSearch/utils';
+import { EVENT_DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
+import {
+  getEventCategoryOptions,
+  getSearchQuery,
+} from '../../eventSearch/utils';
 import { ROUTES } from '../routes/constants';
 import styles from './footerCategories.module.scss';
 
@@ -18,7 +21,7 @@ const FooterCategories: FunctionComponent = () => {
 
   const handleCategoryClick = (category: Category) => {
     const search = getSearchQuery({
-      ...DEFAULT_SEARCH_FILTERS,
+      ...EVENT_DEFAULT_SEARCH_FILTERS,
       categories: [category.value],
     });
 
@@ -26,7 +29,7 @@ const FooterCategories: FunctionComponent = () => {
     scrollToTop();
   };
 
-  const categories = getCategoryOptions(t);
+  const categories = getEventCategoryOptions(t);
 
   return (
     <div className={styles.topFooterWrapper}>
