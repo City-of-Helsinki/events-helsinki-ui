@@ -23,32 +23,6 @@ test('should be rendered correctly', () => {
   expect(screen.getByText(buttonText)).toBeInTheDocument();
 });
 
-test('should set text wrapper max-width', () => {
-  render(<BannerHero banner={banner} />);
-
-  expect(screen.getByTestId(testIds.content).style.maxWidth).toMatch(
-    /(43[7-9])|(44[0-2])px/
-  );
-  expect(screen.getByTestId(testIds.content)).toHaveStyle({
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
-  });
-});
-
-test('should set text wrapper max-width when innerWidth = 1000', () => {
-  global.innerWidth = 1000;
-  render(
-    <BannerHero
-      banner={{
-        ...banner,
-        titleAndDescriptionColor: { fi: 'WHITE' },
-      }}
-    />
-  );
-  expect(screen.getByTestId(testIds.content).style.maxWidth).toMatch(
-    /28[3-9]px/
-  );
-});
-
 test('should set text wrapper background color', () => {
   render(
     <BannerHero
