@@ -34,7 +34,7 @@ const Home: React.FC = () => {
   });
 
   const landingPage = landingPageData?.landingPages.data.find((page) =>
-    isLanguagePageLanguageSupported(page.topBanner, locale)
+    isLanguagePageLanguageSupported(page, locale)
   );
   const collections = collectionsData
     ? collectionsData.collectionList.data.filter(
