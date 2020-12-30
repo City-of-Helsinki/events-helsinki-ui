@@ -9,13 +9,13 @@ import styles from './searchResultList.module.scss';
 interface Props {
   loading: boolean;
   count: number;
-  listComponent: React.ReactElement;
+  eventList: React.ReactElement;
 }
 
 const SearchResultsContainer: React.FC<Props> = ({
   loading,
   count,
-  listComponent,
+  eventList,
 }) => {
   const { t } = useTranslation();
 
@@ -29,7 +29,7 @@ const SearchResultsContainer: React.FC<Props> = ({
             })}
           </h2>
           {!count && !loading && <NoResultsInfo />}
-          {listComponent}
+          {eventList}
         </div>
       </Container>
     </div>
