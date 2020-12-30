@@ -1,9 +1,9 @@
-import { CATEGORIES } from './constants';
+import { COURSE_CATEGORIES, EVENT_CATEGORIES } from './constants';
 
 export interface CategoryOption {
   icon: React.ReactElement;
   text: string;
-  value: CATEGORIES;
+  value: EVENT_CATEGORIES | COURSE_CATEGORIES;
 }
 
 export interface Filters {

@@ -12,8 +12,11 @@ import SearchLabel from '../../../common/components/search/searchLabel/SearchLab
 import { AutosuggestMenuOption, Category } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import { ROUTES } from '../../app/routes/constants';
-import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
-import { getCategoryOptions, getSearchQuery } from '../../eventSearch/utils';
+import { EVENT_DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
+import {
+  getEventCategoryOptions,
+  getSearchQuery,
+} from '../../eventSearch/utils';
 import styles from './landingPageSearch.module.scss';
 
 const Search: React.FC = () => {
@@ -26,7 +29,7 @@ const Search: React.FC = () => {
   const [autosuggestInput, setAutosuggestInput] = React.useState('');
   const { push } = useHistory();
 
-  const categories = getCategoryOptions(t);
+  const categories = getEventCategoryOptions(t);
 
   const handleChangeDateTypes = (value: string[]) => {
     setDateTypes(value);
@@ -46,7 +49,7 @@ const Search: React.FC = () => {
 
   const handleSubmit = () => {
     const search = getSearchQuery({
-      ...DEFAULT_SEARCH_FILTERS,
+      ...EVENT_DEFAULT_SEARCH_FILTERS,
       dateTypes,
       end,
       start,
@@ -58,7 +61,7 @@ const Search: React.FC = () => {
 
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
     const search = getSearchQuery({
-      ...DEFAULT_SEARCH_FILTERS,
+      ...EVENT_DEFAULT_SEARCH_FILTERS,
       dateTypes,
       end,
       start,
@@ -69,7 +72,7 @@ const Search: React.FC = () => {
 
   const handleCategoryClick = (category: Category) => {
     const search = getSearchQuery({
-      ...DEFAULT_SEARCH_FILTERS,
+      ...EVENT_DEFAULT_SEARCH_FILTERS,
       categories: [category.value],
       dateTypes,
       end,

@@ -1,7 +1,4 @@
-import {
-  BannerPageFieldsFragment,
-  LandingPageFieldsFragment,
-} from '../../generated/graphql';
+import { LandingPageFieldsFragment } from '../../generated/graphql';
 import { Language } from '../../types';
 import { getBannerFields } from '../banner/bannerUtils';
 
@@ -12,10 +9,10 @@ import { getBannerFields } from '../banner/bannerUtils';
  * @return {boolean}
  */
 export const isLanguageSupported = (
-  landingPage: BannerPageFieldsFragment | null | undefined,
+  landingPage: LandingPageFieldsFragment,
   locale: Language
 ): boolean => {
-  return Boolean(landingPage?.title?.[locale]);
+  return Boolean(landingPage.pageTitle?.[locale]);
 };
 
 /**

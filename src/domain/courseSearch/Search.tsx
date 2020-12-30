@@ -18,12 +18,12 @@ import IconRead from '../../icons/IconRead';
 import Container from '../app/layout/Container';
 import { ROUTES } from '../app/routes/constants';
 import {
-  DEFAULT_SEARCH_FILTERS,
+  COURSE_DEFAULT_SEARCH_FILTERS,
   EVENT_SEARCH_FILTERS,
 } from '../eventSearch/constants';
 import FilterSummary from '../eventSearch/filterSummary/FilterSummary';
 import {
-  getCategoryOptions,
+  getCourseCategoryOptions,
   getSearchFilters,
   getSearchQuery,
 } from '../eventSearch/utils';
@@ -110,7 +110,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   };
 
   const clearFilters = () => {
-    const search = getSearchQuery(DEFAULT_SEARCH_FILTERS);
+    const search = getSearchQuery(COURSE_DEFAULT_SEARCH_FILTERS);
 
     push({ pathname: `/${locale}${ROUTES.COURSES}`, search });
 
@@ -128,7 +128,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     scrollToResultList();
   };
 
-  const categories = getCategoryOptions(t);
+  const categories = getCourseCategoryOptions(t);
 
   const moveToSearchPage = () => {
     const filters = {

@@ -2,7 +2,12 @@ import { Filters } from './types';
 // Page size of the event list
 export const PAGE_SIZE = 10;
 
-export enum CATEGORIES {
+export enum EVENT_SEARCH_SOURCES {
+  EVENTS = 'events',
+  COURSES = 'courses',
+}
+
+export enum EVENT_CATEGORIES {
   CULTURE = 'culture',
   DANCE = 'dance',
   FOOD = 'food',
@@ -16,7 +21,12 @@ export enum CATEGORIES {
   THEATRE = 'theatre',
 }
 
-export const DEFAULT_SEARCH_FILTERS: Filters = {
+//todo: to be replaced with valid values
+export enum COURSE_CATEGORIES {
+  MOVIE = 'movie',
+}
+
+export const EVENT_DEFAULT_SEARCH_FILTERS: Filters = {
   categories: [],
   dateTypes: [],
   divisions: [],
@@ -26,6 +36,18 @@ export const DEFAULT_SEARCH_FILTERS: Filters = {
   keywordNot: [],
   places: [],
   publisher: null,
+  start: null,
+  text: [],
+};
+
+export const COURSE_DEFAULT_SEARCH_FILTERS = {
+  categories: [],
+  dateTypes: [],
+  divisions: [],
+  end: null,
+  isFree: false,
+  alsoOngoingCourses: false,
+  places: [],
   start: null,
   text: [],
 };
@@ -100,18 +122,33 @@ export const SPORT_KEYWORDS = [
   'yso:p965', // Urheilu
 ];
 
-export const MAPPED_CATEGORIES: Record<string, string> = {
-  [CATEGORIES.CULTURE]: CULTURE_KEYWORDS.join(','),
-  [CATEGORIES.DANCE]: 'yso:p1278',
-  [CATEGORIES.FOOD]: 'yso:p3670',
-  [CATEGORIES.INFLUENCE]: INFLUENCE_KEYWORDS.join(','),
-  [CATEGORIES.MISC]: 'yso:p2108',
-  [CATEGORIES.MOVIE]: 'yso:p1235',
-  [CATEGORIES.MUSEUM]: MUSEUM_KEYWORDS.join(','),
-  [CATEGORIES.MUSIC]: 'yso:p1808',
-  [CATEGORIES.NATURE]: 'yso:p2771',
-  [CATEGORIES.SPORT]: SPORT_KEYWORDS.join(','),
-  [CATEGORIES.THEATRE]: 'yso:p2625',
+export const MAPPED_EVENT_CATEGORIES: Record<string, string> = {
+  [EVENT_CATEGORIES.CULTURE]: CULTURE_KEYWORDS.join(','),
+  [EVENT_CATEGORIES.DANCE]: 'yso:p1278',
+  [EVENT_CATEGORIES.FOOD]: 'yso:p3670',
+  [EVENT_CATEGORIES.INFLUENCE]: INFLUENCE_KEYWORDS.join(','),
+  [EVENT_CATEGORIES.MISC]: 'yso:p2108',
+  [EVENT_CATEGORIES.MOVIE]: 'yso:p1235',
+  [EVENT_CATEGORIES.MUSEUM]: MUSEUM_KEYWORDS.join(','),
+  [EVENT_CATEGORIES.MUSIC]: 'yso:p1808',
+  [EVENT_CATEGORIES.NATURE]: 'yso:p2771',
+  [EVENT_CATEGORIES.SPORT]: SPORT_KEYWORDS.join(','),
+  [EVENT_CATEGORIES.THEATRE]: 'yso:p2625',
+};
+
+//todo: replace with valid keyword ids
+export const MAPPED_COURSE_CATEGORIES: Record<string, string> = {
+  [EVENT_CATEGORIES.MOVIE]: 'yso:p1235',
+};
+
+export const MAPPED_CATEGORIES: Record<string, Record<string, string>> = {
+  [EVENT_SEARCH_SOURCES.COURSES]: MAPPED_COURSE_CATEGORIES,
+  [EVENT_SEARCH_SOURCES.EVENTS]: MAPPED_EVENT_CATEGORIES,
+};
+
+export const MAPPED_CATEGORY_TERMS: Record<string, string> = {
+  [EVENT_SEARCH_SOURCES.COURSES]: 'keyword_set_AND',
+  [EVENT_SEARCH_SOURCES.EVENTS]: 'keyword',
 };
 
 export const MAPPED_PLACES: Record<string, string> = {

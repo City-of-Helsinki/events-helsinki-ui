@@ -3,8 +3,8 @@ import { advanceTo, clear } from 'jest-date-mock';
 import { DATE_TYPES } from '../../../constants';
 import { Language } from '../../../types';
 import {
-  CATEGORIES,
-  DEFAULT_SEARCH_FILTERS,
+  EVENT_CATEGORIES,
+  EVENT_DEFAULT_SEARCH_FILTERS,
   EVENT_SORT_OPTIONS,
   MAPPED_PLACES,
 } from '../constants';
@@ -16,11 +16,11 @@ afterAll(() => {
 
 describe('getSearchQuery function', () => {
   it('get search query', () => {
-    expect(getSearchQuery(DEFAULT_SEARCH_FILTERS)).toBe('');
+    expect(getSearchQuery(EVENT_DEFAULT_SEARCH_FILTERS)).toBe('');
 
     expect(
       getSearchQuery({
-        ...DEFAULT_SEARCH_FILTERS,
+        ...EVENT_DEFAULT_SEARCH_FILTERS,
         categories: ['category1', 'category2'],
         dateTypes: ['type1', 'type2'],
         text: ['test'],
@@ -29,7 +29,7 @@ describe('getSearchQuery function', () => {
 
     expect(
       getSearchQuery({
-        ...DEFAULT_SEARCH_FILTERS,
+        ...EVENT_DEFAULT_SEARCH_FILTERS,
         dateTypes: ['type1', 'type2'],
         end: new Date('2019-12-20'),
         start: new Date('2019-11-20'),
@@ -50,7 +50,7 @@ describe('getEventSearchVariables function', () => {
   it('should return correct keywords per category', () => {
     const { keyword: keyword1 } = getEventSearchVariables({
       ...defaultParams,
-      params: new URLSearchParams(`?categories=${CATEGORIES.CULTURE}`),
+      params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.CULTURE}`),
     });
     expect(keyword1).toContain(
       // eslint-disable-next-line max-len
@@ -59,61 +59,61 @@ describe('getEventSearchVariables function', () => {
 
     const { keyword: keyword2 } = getEventSearchVariables({
       ...defaultParams,
-      params: new URLSearchParams(`?categories=${CATEGORIES.DANCE}`),
+      params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.DANCE}`),
     });
     expect(keyword2).toContain('yso:p1278');
 
     const { keyword: keyword3 } = getEventSearchVariables({
       ...defaultParams,
-      params: new URLSearchParams(`?categories=${CATEGORIES.FOOD}`),
+      params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.FOOD}`),
     });
     expect(keyword3).toContain('yso:p3670');
 
     const { keyword: keyword4 } = getEventSearchVariables({
       ...defaultParams,
-      params: new URLSearchParams(`?categories=${CATEGORIES.INFLUENCE}`),
+      params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.INFLUENCE}`),
     });
     expect(keyword4).toContain('yso:p1657,yso:p10727');
 
     const { keyword: keyword5 } = getEventSearchVariables({
       ...defaultParams,
-      params: new URLSearchParams(`?categories=${CATEGORIES.MISC}`),
+      params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.MISC}`),
     });
     expect(keyword5).toContain('yso:p2108');
 
     const { keyword: keyword6 } = getEventSearchVariables({
       ...defaultParams,
-      params: new URLSearchParams(`?categories=${CATEGORIES.MOVIE}`),
+      params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.MOVIE}`),
     });
     expect(keyword6).toContain('yso:p1235');
 
     const { keyword: keyword7 } = getEventSearchVariables({
       ...defaultParams,
-      params: new URLSearchParams(`?categories=${CATEGORIES.MUSEUM}`),
+      params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.MUSEUM}`),
     });
     expect(keyword7).toContain('matko:museo,yso:p4934');
 
     const { keyword: keyword8 } = getEventSearchVariables({
       ...defaultParams,
-      params: new URLSearchParams(`?categories=${CATEGORIES.MUSIC}`),
+      params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.MUSIC}`),
     });
     expect(keyword8).toContain('yso:p1808');
 
     const { keyword: keyword9 } = getEventSearchVariables({
       ...defaultParams,
-      params: new URLSearchParams(`?categories=${CATEGORIES.NATURE}`),
+      params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.NATURE}`),
     });
     expect(keyword9).toContain('yso:p2771');
 
     const { keyword: keyword10 } = getEventSearchVariables({
       ...defaultParams,
-      params: new URLSearchParams(`?categories=${CATEGORIES.SPORT}`),
+      params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.SPORT}`),
     });
     expect(keyword10).toContain('yso:p916,yso:p965');
 
     const { keyword: keyword11 } = getEventSearchVariables({
       ...defaultParams,
-      params: new URLSearchParams(`?categories=${CATEGORIES.THEATRE}`),
+      params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.THEATRE}`),
     });
     expect(keyword11).toContain('yso:p2625');
 

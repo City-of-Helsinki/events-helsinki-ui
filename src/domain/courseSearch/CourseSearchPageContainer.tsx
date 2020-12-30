@@ -13,7 +13,11 @@ import PageWrapper from '../app/layout/PageWrapper';
 import { getLargeEventCardId } from '../event/EventUtils';
 import { EventType } from '../event/types';
 import EventList from '../eventList/EventList';
-import { EVENT_SORT_OPTIONS, PAGE_SIZE } from '../eventSearch/constants';
+import {
+  EVENT_SEARCH_SOURCES,
+  EVENT_SORT_OPTIONS,
+  PAGE_SIZE,
+} from '../eventSearch/constants';
 import SearchResultsContainer from '../eventSearch/searchResultList/SearchResultsContainer';
 import { getEventSearchVariables, getNextPage } from '../eventSearch/utils';
 import styles from './courseSearchPageContainer.module.scss';
@@ -36,6 +40,7 @@ const CourseSearchPageContainer: React.FC = () => {
       params: searchParams,
       sortOrder: EVENT_SORT_OPTIONS.END_TIME,
       superEventType: ['umbrella', 'none'],
+      searchSource: EVENT_SEARCH_SOURCES.COURSES,
     });
   }, [locale, searchParams]);
 

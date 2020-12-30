@@ -14,7 +14,7 @@ import {
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import {
-  DEFAULT_SEARCH_FILTERS,
+  EVENT_DEFAULT_SEARCH_FILTERS,
   EVENT_SORT_OPTIONS,
   PAGE_SIZE,
 } from '../eventSearch/constants';
@@ -32,7 +32,7 @@ const useSimilarEventsQueryVariables = (event: EventFields) => {
   const { search } = useLocation();
   const { keywords } = getEventFields(event, locale);
   const eventSearch = getSearchQuery({
-    ...DEFAULT_SEARCH_FILTERS,
+    ...EVENT_DEFAULT_SEARCH_FILTERS,
     keyword: keywords.map((keyword) => keyword.id),
   });
 
