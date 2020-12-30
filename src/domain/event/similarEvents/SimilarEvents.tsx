@@ -11,7 +11,7 @@ import useLocale from '../../../hooks/useLocale';
 import Container from '../../app/layout/Container';
 // Use same page size as on event search page
 import {
-  DEFAULT_SEARCH_FILTERS,
+  EVENT_DEFAULT_SEARCH_FILTERS,
   EVENT_SORT_OPTIONS,
   PAGE_SIZE,
 } from '../../eventSearch/constants';
@@ -33,7 +33,7 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
   const { search } = useLocation();
   const { keywords } = getEventFields(event, locale);
   const eventSearch = getSearchQuery({
-    ...DEFAULT_SEARCH_FILTERS,
+    ...EVENT_DEFAULT_SEARCH_FILTERS,
     keyword: keywords.map((keyword) => keyword.id),
   });
 
