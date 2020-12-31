@@ -54,11 +54,10 @@ const CoursePageContainer: React.FC = () => {
               {courseClosed ? (
                 <EventClosedHero />
               ) : (
-                <EventHero event={course} eventType={EventType.COURSE} />
-              )}
-              {/* Show event content only if event is open */}
-              {!courseClosed && (
-                <EventContent event={course} eventType={EventType.COURSE} />
+                <>
+                  <EventHero event={course} eventType={EventType.COURSE} />
+                  <EventContent event={course} eventType={EventType.COURSE} />
+                </>
               )}
               {/* Hide similar event on SSR to make initial load faster */}
               {isClient && <SimilarCoursesContainer event={course} />}

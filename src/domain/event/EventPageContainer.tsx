@@ -54,11 +54,10 @@ const EventPageContainer: React.FC = () => {
               {eventClosed ? (
                 <EventClosedHero />
               ) : (
-                <EventHero event={event} eventType={EventType.EVENT} />
-              )}
-              {/* Show event content only if event is open */}
-              {!eventClosed && (
-                <EventContent event={event} eventType={EventType.EVENT} />
+                <>
+                  <EventHero event={event} eventType={EventType.EVENT} />
+                  <EventContent event={event} eventType={EventType.EVENT} />
+                </>
               )}
               {/* Hide similar event on SSR to make initial load faster */}
               {isClient && <SimilarEventsContainer event={event} />}
