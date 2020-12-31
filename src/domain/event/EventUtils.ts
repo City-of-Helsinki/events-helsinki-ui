@@ -4,6 +4,7 @@ import capitalize from 'lodash/capitalize';
 import { EVENT_STATUS } from '../../constants';
 import {
   EventFieldsFragment,
+  LocalizedObject,
   PlaceFieldsFragment,
 } from '../../generated/graphql';
 import { Language } from '../../types';
@@ -86,31 +87,26 @@ export const getEventPrice = (
         .join(', ');
 };
 
-/**
- * Get event keywords
- * @param {object} event
- * @param {string} locale
- * @return {object[]}
- */
-export const getEventKeywords = (
-  event: EventFieldsFragment,
+export const getKeywordList = (
+  list: {
+    id?: string | null;
+    name: LocalizedObject | null;
+  }[] = [],
   locale: Language
 ): KeywordOption[] => {
-  return event.keywords
-    .map((keyword) => ({
-      id: keyword.id || '',
-      name: capitalize(keyword.name?.[locale] || '').trim(),
+  return list
+    .map((listItem) => ({
+      id: listItem.id || '',
+      name: capitalize(listItem.name?.[locale] || '').trim(),
     }))
     .filter(
-      (keyword, index, arr) =>
-        !!keyword.id &&
-        !!keyword.name &&
-        !EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
-        arr.findIndex(
-          (item) => item.name.toLowerCase() === keyword.name.toLowerCase()
-        ) === index
+      (listItem, index, arr) =>
+        !!listItem.id &&
+        !!listItem.name &&
+        !EVENT_KEYWORD_BLACK_LIST.includes(listItem.id) &&
+        arr.findIndex((item) => item.name === listItem.name) === index
     )
-    .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
+    .sort((a, b) => (a.name > b.name ? 1 : -1));
 };
 
 /**
@@ -291,27 +287,6 @@ const getOfferInfoUrl = (
   return getLocalisedString(offer?.infoUrl, locale);
 };
 
-export const getEventAudience = (
-  event: EventFieldsFragment,
-  locale: Language
-): KeywordOption[] => {
-  return event.audience
-    .map((audience) => ({
-      id: audience.id || '',
-      name: capitalize(audience.name?.[locale] || '').trim(),
-    }))
-    .filter(
-      (audience, index, arr) =>
-        !!audience.id &&
-        !!audience.name &&
-        !EVENT_KEYWORD_BLACK_LIST.includes(audience.id) &&
-        arr.findIndex(
-          (item) => item.name.toLowerCase() === audience.name.toLowerCase()
-        ) === index
-    )
-    .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
-};
-
 /**
  * Get event fields
  * @param {object} event
@@ -335,7 +310,7 @@ export const getEventFields = (event: EventFields, locale: Language) => {
     hslDirectionsLink: getHslDirectionsLink(event, locale),
     imageUrl: getEventImageUrl(event),
     infoUrl: getLocalisedString(event.infoUrl, locale),
-    keywords: getEventKeywords(event, locale),
+    keywords: getKeywordList(event.keywords, locale),
     languages: event.inLanguage
       .map((item) => capitalize(getLocalisedString(item.name, locale)))
       .filter((e) => e),
@@ -352,7 +327,7 @@ export const getEventFields = (event: EventFields, locale: Language) => {
     today: startTime ? isToday(new Date(startTime)) : false,
     thisWeek: startTime ? isThisWeek(new Date(startTime)) : false,
     showBuyButton: !!offerInfoUrl && !isEventFree(event),
-    audience: getEventAudience(event, locale),
+    audience: getKeywordList(event.audience, locale),
     ...getCourseFields(event),
     ...getEventLocationFields(event, locale),
   };
