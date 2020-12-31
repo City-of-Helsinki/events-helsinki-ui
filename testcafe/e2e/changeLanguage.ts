@@ -11,24 +11,27 @@ fixture('Landing page').page(getEnvUrl('/fi/home'));
 const withinHeader = () => within(screen.getByRole('banner'));
 const withinFooter = () => within(screen.getByRole('contentinfo'));
 
-const expectToHaveLinks = (t, withinF, translations) =>
-  t
-    .expect(
-      withinF().getByRole('link', {
-        name: translations.header.searchEvents,
-      }).exists
-    )
-    .ok()
-    .expect(
-      withinF().getByRole('link', {
-        name: translations.header.searchCollections,
-      }).exists
-    )
-    .ok();
+const expectToHaveLinks = async (t, withinF, translations) => {
+  for (let i = 0; i < translations.length; i += 1) {
+    await t
+      .expect(
+        withinF().getByRole('link', {
+          name: translations[i],
+        }).exists
+      )
+      .ok();
+  }
+};
 
 test('expect to have header and footer with links', async (t) => {
-  await expectToHaveLinks(t, withinHeader, translationsFi);
-  await expectToHaveLinks(t, withinFooter, translationsFi);
+  await expectToHaveLinks(t, withinHeader, [
+    translationsFi.header.searchEvents,
+    translationsFi.header.searchCollections,
+  ]);
+  await expectToHaveLinks(t, withinFooter, [
+    translationsFi.footer.searchEvents,
+    translationsFi.footer.searchCollections,
+  ]);
 
   await t
     .click(header.languageSelector)
