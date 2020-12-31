@@ -8,8 +8,10 @@ import {
 } from '../../../../generated/graphql';
 import {
   fakeEvent,
+  fakeLocalizedObject,
   fakeOffer,
   fakeOrganization,
+  fakeTargetGroup,
 } from '../../../../util/mockDataUtils';
 import {
   actWait,
@@ -51,6 +53,10 @@ const district = 'Malmi';
 const locationName = 'Location name';
 const streetAddress = 'Test address 1';
 const price = '12 €';
+const targetGroups = ['lapset', 'aikuiset'];
+const maximumAttendeeCapacity = 20;
+const minimumAttendeeCapacity = 10;
+const remainingAttendeeCapacity = 5;
 const event = fakeEvent({
   startTime,
   endTime,
@@ -65,8 +71,15 @@ const event = fakeEvent({
     name: { fi: locationName },
     streetAddress: { fi: streetAddress },
   },
-  extensionCourse: null,
+  extensionCourse: {
+    maximumAttendeeCapacity: maximumAttendeeCapacity,
+    minimumAttendeeCapacity: minimumAttendeeCapacity,
+    remainingAttendeeCapacity: remainingAttendeeCapacity,
+  },
   offers: [fakeOffer({ isFree: false, price: { fi: price } })],
+  audience: targetGroups.map((targetGroup) =>
+    fakeTargetGroup({ name: fakeLocalizedObject(targetGroup) })
+  ),
 }) as EventFieldsFragment;
 
 it('should render event info fields', async () => {
@@ -78,6 +91,7 @@ it('should render event info fields', async () => {
     { role: 'heading', name: translations.event.info.labelLocation },
     { role: 'heading', name: translations.event.info.labelLanguages },
     { role: 'heading', name: translations.event.info.labelOtherInfo },
+    { role: 'heading', name: translations.event.info.labelAudience },
     {
       role: 'link',
       name: `${translations.event.info.extlinkFacebook} ${translations.commons.srOnly.opensInANewTab}`,
@@ -108,6 +122,9 @@ it('should render event info fields', async () => {
     telephone,
     organizationName,
     price,
+    `${translations.event.info.labelMinAttendeeCapacity}: ${minimumAttendeeCapacity}`,
+    `${translations.event.info.labelMaxAttendeeCapacity}: ${maximumAttendeeCapacity}`,
+    `${translations.event.info.labelSeatsLeft}: ${remainingAttendeeCapacity}`,
   ];
 
   itemsByText.forEach((item) => {
@@ -126,6 +143,7 @@ it('should hide other info section', async () => {
       externalLinks: [],
       telephone: null,
     },
+    extensionCourse: null,
   };
   render(<EventInfo event={mockEvent} eventType={EventType.EVENT} />, {
     mocks,
