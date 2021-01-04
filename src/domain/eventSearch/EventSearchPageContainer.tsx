@@ -57,7 +57,7 @@ const EventSearchPageContainer: React.FC = () => {
     variables: { visibleOnFrontpage: true },
   });
   const landingPage = landingPageData?.landingPages.data.find((page) =>
-    isLanguageSupported(page.topBanner, locale)
+    isLanguageSupported(page, locale)
   );
 
   const handleLoadMore = async () => {
