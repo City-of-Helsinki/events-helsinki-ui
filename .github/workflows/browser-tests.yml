@@ -20,8 +20,6 @@ jobs:
       matrix:
         os: [windows-latest]
     env:
-      BROWSER_TESTS_UID: ${{ secrets.BROWSER_TESTS_UID }}
-      BROWSER_TESTS_PWD: ${{ secrets.BROWSER_TESTS_PWD }}
       BROWSER_TESTS_LOCAL_ENV_URL: ${{ secrets.BROWSER_TESTS_LOCAL_ENV_URL }}
     steps:
       - uses: actions/checkout@v2
