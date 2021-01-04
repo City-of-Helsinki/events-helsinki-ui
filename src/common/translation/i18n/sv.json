@@ -221,7 +221,8 @@
       "checkboxIsFree": "Visa endast avgiftsfria",
       "placeholder": "Ange ett sökord, t. ex. Franska eller matlagning",
       "labelSearchField": "Vad letar du efter?",
-      "checkboxAlsoOngoingCourses": "Visa även pågående kurser"
+      "checkboxAlsoOngoingCourses": "Visa även pågående kurser",
+      "titleDropdownHobbyType": "Hobby type"
     }
   },
   "footer": {
@@ -261,6 +262,14 @@
       "nature": "Natur och friluftsliv",
       "sport": "Motion och sport",
       "theatre": "Teater"
+    },
+    "hobby": {
+      "clubs": "Clubs",
+      "courses": "Courses",
+      "camps": "Camps",
+      "trips": "Trips",
+      "workshops": "Workshops",
+      "onlineStudies": "Online studies"
     },
     "collections": {
       "title": "Vi rekommenderar"

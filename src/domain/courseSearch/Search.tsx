@@ -24,6 +24,7 @@ import {
 import FilterSummary from '../eventSearch/filterSummary/FilterSummary';
 import {
   getCourseCategoryOptions,
+  getCourseHobbyTypeOptions,
   getSearchFilters,
   getSearchQuery,
 } from '../eventSearch/utils';
@@ -45,8 +46,12 @@ const Search: React.FC<Props> = () => {
 
   const [autosuggestInput, setAutosuggestInput] = React.useState('');
   const [categoryInput, setCategoryInput] = React.useState('');
+  const [hobbyTypeInput, setHobbyTypeInput] = React.useState('');
   const [divisionInput, setDivisionInput] = React.useState('');
   const [selectedCategories, setSelectedCategories] = React.useState<string[]>(
+    []
+  );
+  const [selectedHobbyTypes, setSelectedHobbyTypes] = React.useState<string[]>(
     []
   );
   const [selectedPlaces, setSelectedPlaces] = React.useState<string[]>([]);
@@ -68,6 +73,7 @@ const Search: React.FC<Props> = () => {
   const searchFilters = {
     alsoOngoingCourses,
     categories: selectedCategories,
+    hobbyTypes: selectedHobbyTypes,
     dateTypes: selectedDateTypes,
     divisions: selectedDivisions,
     isFree,
@@ -81,6 +87,7 @@ const Search: React.FC<Props> = () => {
   React.useEffect(() => {
     const {
       categories,
+      hobbyTypes,
       dateTypes,
       divisions,
       places,
@@ -90,6 +97,7 @@ const Search: React.FC<Props> = () => {
     } = getSearchFilters(searchParams);
 
     setSelectedCategories(categories);
+    setSelectedHobbyTypes(hobbyTypes || []);
     setSelectedDivisions(divisions);
     setSelectedPlaces(places);
     setSelectedTexts(text);
@@ -104,6 +112,7 @@ const Search: React.FC<Props> = () => {
 
   const clearInputValues = () => {
     setCategoryInput('');
+    setHobbyTypeInput('');
     setDivisionInput('');
     setPlaceInput('');
     setAutosuggestInput('');
@@ -130,6 +139,7 @@ const Search: React.FC<Props> = () => {
   };
 
   const categories = getCourseCategoryOptions(t);
+  const hobbyTypes = getCourseHobbyTypeOptions(t);
 
   const moveToSearchPage = () => {
     const filters = {
@@ -228,6 +238,20 @@ const Search: React.FC<Props> = () => {
               </div>
             </div>
             <div className={classNames(styles.gridRow)}>
+              <div>
+                <MultiSelectDropdown
+                  checkboxName="hobbyTypeOptions"
+                  icon={<IconRead aria-hidden />}
+                  inputValue={hobbyTypeInput}
+                  name="hobbyType"
+                  onChange={setSelectedHobbyTypes}
+                  options={hobbyTypes}
+                  setInputValue={setHobbyTypeInput}
+                  showSearch={false}
+                  title={t('courseSearch.search.titleDropdownHobbyType')}
+                  value={selectedHobbyTypes}
+                />
+              </div>
               <div className={styles.dateSelectorWrapper}>
                 <DateSelector
                   dateTypes={selectedDateTypes}
