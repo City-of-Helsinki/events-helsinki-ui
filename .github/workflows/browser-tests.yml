@@ -10,7 +10,6 @@ on:
   workflow_dispatch:
 env:
   TZ: Europe/Helsinki
-  SERVICE_URL: http://localhost:3001
 
 jobs:
   test:
@@ -20,7 +19,7 @@ jobs:
       matrix:
         os: [windows-latest]
     env:
-      BROWSER_TESTS_LOCAL_ENV_URL: ${{ secrets.BROWSER_TESTS_LOCAL_ENV_URL }}
+      BROWSER_TESTS_LOCAL_ENV_URL: http://localhost:3000 #TODO: ${{ secrets.BROWSER_TESTS_LOCAL_ENV_URL }} is not set
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js environment
