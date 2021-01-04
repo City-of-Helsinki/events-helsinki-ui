@@ -33,10 +33,7 @@ interface Props {
   eventType?: EventType;
 }
 
-const LargeEventCard: React.FC<Props> = ({
-  event,
-  eventType = EventType.EVENT,
-}) => {
+const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
   // place comes from place param in clean url on events search page

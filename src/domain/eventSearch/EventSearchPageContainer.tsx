@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 
 import { useEventListQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
-import { EventType } from '../event/types';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from './constants';
 import Search from './Search';
 import SearchPage from './SearchPage';
@@ -76,7 +75,7 @@ const EventSearchPageContainer: React.FC = () => {
       isFetchingMoreEvents={isFetchingMore}
       isLoadingEvents={loading}
       pageTitle={t('eventSearch.title')}
-      eventType={EventType.EVENT}
+      eventType="event"
     />
   );
 };

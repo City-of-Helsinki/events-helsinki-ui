@@ -18,7 +18,7 @@ import EventPageMeta from '../event/eventPageMeta/EventPageMeta';
 import { isEventClosed } from '../event/EventUtils';
 import { useSimilarCoursesQuery } from '../event/queryUtils';
 import SimilarEvents from '../event/similarEvents/SimilarEvents';
-import { EventFields, EventType } from '../event/types';
+import { EventFields } from '../event/types';
 import styles from './coursePage.module.scss';
 
 interface RouteParams {
@@ -55,8 +55,8 @@ const CoursePageContainer: React.FC = () => {
                 <EventClosedHero />
               ) : (
                 <>
-                  <EventHero event={course} eventType={EventType.COURSE} />
-                  <EventContent event={course} eventType={EventType.COURSE} />
+                  <EventHero event={course} eventType="course" />
+                  <EventContent event={course} eventType="course" />
                 </>
               )}
               {/* Hide similar event on SSR to make initial load faster */}
@@ -85,13 +85,7 @@ const SimilarCoursesContainer: React.FC<{ event: EventFields }> = ({
 }) => {
   const { data, loading } = useSimilarCoursesQuery(event);
 
-  return (
-    <SimilarEvents
-      events={data}
-      loading={loading}
-      eventsType={EventType.COURSE}
-    />
-  );
+  return <SimilarEvents events={data} loading={loading} eventsType="course" />;
 };
 
 export default CoursePageContainer;

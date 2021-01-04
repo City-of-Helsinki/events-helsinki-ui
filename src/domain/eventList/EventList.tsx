@@ -31,7 +31,7 @@ interface Props {
 
 const EventList: React.FC<Props> = ({
   buttonCentered = false,
-  eventType = EventType.EVENT,
+  eventType = 'event',
   cardSize = 'default',
   events,
   loading,

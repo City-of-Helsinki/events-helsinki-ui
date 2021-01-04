@@ -156,9 +156,9 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
         </InfoWithIcon>
 
         {/* Other event times */}
-        {eventType === EventType.EVENT ? (
+        {eventType === 'event' ? (
           <OtherEventTimesContainer event={event} />
-        ) : eventType === EventType.COURSE ? (
+        ) : eventType === 'course' ? (
           <OtherCourseTimesContainer event={event} />
         ) : null}
 

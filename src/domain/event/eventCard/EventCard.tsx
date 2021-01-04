@@ -32,7 +32,7 @@ interface Props {
   eventType?: EventType;
 }
 
-const EventCard: React.FC<Props> = ({ event, eventType = EventType.EVENT }) => {
+const EventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
   const history = useHistory();
   const { search } = useLocation();
   const { t } = useTranslation();

@@ -13,7 +13,6 @@ import {
   fakeOffer,
 } from '../../../../util/mockDataUtils';
 import { render, screen, userEvent } from '../../../../util/testUtils';
-import { EventType } from '../../types';
 import EventHero, { Props as EventHeroProps } from '../EventHero';
 
 const name = 'Event name';
@@ -49,9 +48,7 @@ afterAll(() => {
 });
 
 const renderComponent = (props?: Partial<EventHeroProps>) => {
-  return render(
-    <EventHero event={event} eventType={EventType.EVENT} {...props} />
-  );
+  return render(<EventHero event={event} eventType="event" {...props} />);
 };
 
 test('should render event name, description and location', () => {

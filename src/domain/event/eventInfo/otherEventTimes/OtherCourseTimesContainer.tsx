@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useOtherCourseTimes } from '../../queryUtils';
-import { EventFields, EventType } from '../../types';
+import { EventFields } from '../../types';
 import OtherEventTimes from './OtherEventTimes';
 
 const OtherCourseTimesContainer: React.FC<{ event: EventFields }> = ({
@@ -13,7 +13,7 @@ const OtherCourseTimesContainer: React.FC<{ event: EventFields }> = ({
     <OtherEventTimes
       {...props}
       superEventId={superEventId}
-      eventType={EventType.COURSE}
+      eventType="course"
     />
   ) : null;
 };

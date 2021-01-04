@@ -11,17 +11,14 @@ export type KeywordOption = {
 
 export type EventFields = EventFieldsFragment | CourseFieldsFragment;
 
-export enum EventType {
-  EVENT = 'event',
-  COURSE = 'course',
-}
+export type EventType = 'event' | 'course';
 
-export const EVENT_ROUTE_MAPPER = {
-  [EventType.EVENT]: ROUTES.EVENT,
-  [EventType.COURSE]: ROUTES.COURSE,
+export const EVENT_ROUTE_MAPPER: Record<EventType, string> = {
+  event: ROUTES.EVENT,
+  course: ROUTES.COURSE,
 };
 
 export const EVENTS_ROUTE_MAPPER = {
-  [EventType.EVENT]: ROUTES.EVENTS,
-  [EventType.COURSE]: ROUTES.COURSES,
+  event: ROUTES.EVENTS,
+  course: ROUTES.COURSES,
 };

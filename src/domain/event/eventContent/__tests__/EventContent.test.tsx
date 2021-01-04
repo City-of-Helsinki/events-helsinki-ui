@@ -4,7 +4,6 @@ import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
 import { fakeEvent } from '../../../../util/mockDataUtils';
 import { actWait, configure, render, screen } from '../../../../util/testUtils';
-import { EventType } from '../../types';
 import EventContent from '../EventContent';
 
 configure({ defaultHidden: true });
@@ -35,7 +34,7 @@ const event = fakeEvent({
 }) as EventFieldsFragment;
 
 it('should render event content fields', async () => {
-  render(<EventContent event={event} eventType={EventType.EVENT} />);
+  render(<EventContent event={event} eventType="event" />);
   await actWait();
 
   const itemsByRole = [

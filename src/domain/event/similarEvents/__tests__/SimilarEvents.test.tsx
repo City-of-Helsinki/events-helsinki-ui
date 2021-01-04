@@ -13,7 +13,6 @@ import {
   fakeKeywords,
 } from '../../../../util/mockDataUtils';
 import { render, screen, waitFor } from '../../../../util/testUtils';
-import { EventType } from '../../types';
 import SimilarEvents from '../SimilarEvents';
 
 const keywordIds = ['yso:1', 'yso:2'];
@@ -65,7 +64,7 @@ test('should render similar event cards', async () => {
     <SimilarEvents
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       events={events.data as any}
-      eventsType={EventType.EVENT}
+      eventsType="event"
       loading={false}
     />,
     { mocks }

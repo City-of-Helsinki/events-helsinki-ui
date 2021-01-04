@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 
 import { useCourseListQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
-import { EventType } from '../event/types';
 import {
   EVENT_SEARCH_SOURCES,
   EVENT_SORT_OPTIONS,
@@ -77,7 +76,7 @@ const CourseSearchPageContainer: React.FC = () => {
       handleLoadMore={handleLoadMore}
       isFetchingMoreEvents={isFetchingMore}
       eventsList={coursesData?.courseList}
-      eventType={EventType.COURSE}
+      eventType="course"
     />
   );
 };

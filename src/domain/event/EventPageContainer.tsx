@@ -19,7 +19,7 @@ import EventPageMeta from './eventPageMeta/EventPageMeta';
 import { isEventClosed } from './EventUtils';
 import { useSimilarEventsQuery } from './queryUtils';
 import SimilarEvents from './similarEvents/SimilarEvents';
-import { EventFields, EventType } from './types';
+import { EventFields } from './types';
 
 interface RouteParams {
   id: string;
@@ -55,8 +55,8 @@ const EventPageContainer: React.FC = () => {
                 <EventClosedHero />
               ) : (
                 <>
-                  <EventHero event={event} eventType={EventType.EVENT} />
-                  <EventContent event={event} eventType={EventType.EVENT} />
+                  <EventHero event={event} eventType="event" />
+                  <EventContent event={event} eventType="event" />
                 </>
               )}
               {/* Hide similar event on SSR to make initial load faster */}
@@ -85,13 +85,7 @@ const SimilarEventsContainer: React.FC<{ event: EventFields }> = ({
 }) => {
   const { data, loading } = useSimilarEventsQuery(event);
 
-  return (
-    <SimilarEvents
-      events={data}
-      loading={loading}
-      eventsType={EventType.EVENT}
-    />
-  );
+  return <SimilarEvents events={data} loading={loading} eventsType="event" />;
 };
 
 export default EventPageContainer;
