@@ -10,16 +10,11 @@ on:
   workflow_dispatch:
 env:
   TZ: Europe/Helsinki
-
+  BROWSER_TESTS_LOCAL_ENV_URL: http://localhost:3001
 jobs:
   test:
     name: Run browser tests
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest]
-    env:
-      BROWSER_TESTS_LOCAL_ENV_URL: http://localhost:3000 #TODO: ${{ secrets.BROWSER_TESTS_LOCAL_ENV_URL }} is not set
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js environment
@@ -38,7 +33,9 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn --prefer-offline
-      - name: Run TestCafe tests
+      - name: Build production app
+        run: yarn build
+      - name: Start production app and run TestCafe tests against it
         run: yarn browser-test:ci
       - name: Upload screenshots of failed tests
         uses: actions/upload-artifact@v2
