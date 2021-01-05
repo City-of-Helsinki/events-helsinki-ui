@@ -10,16 +10,11 @@ on:
   workflow_dispatch:
 env:
   TZ: Europe/Helsinki
-
+  BROWSER_TESTS_LOCAL_ENV_URL: http://localhost:3001
 jobs:
   test:
     name: Run browser tests
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest]
-    env:
-      BROWSER_TESTS_LOCAL_ENV_URL: http://localhost:3000 #TODO: ${{ secrets.BROWSER_TESTS_LOCAL_ENV_URL }} is not set
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js environment
@@ -37,9 +32,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies
-        run: yarn --prefer-offline --frozen-lockfile --check-files
-      - name: Run TestCafe tests
-        run: yarn browser-test:ci
+        run: yarn --prefer-offline --frozen-lockfile --check-files --production=false
+      - name: Set node config to set msvs_version to 2015 #see https://github.com/nodejs/node-gyp/issues/1747
+        run: npm config set msvs_version 2015
+      - name: Build production app
+        run: yarn build
+      - name: Start production app and run TestCafe tests against it
+        run: yarn browser-start-and-test:ci
       - name: Upload screenshots of failed tests
         uses: actions/upload-artifact@v2
         if: failure()
