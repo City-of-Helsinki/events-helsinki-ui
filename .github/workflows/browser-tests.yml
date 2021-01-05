@@ -33,6 +33,8 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn --prefer-offline
+      - name: Install cross-env dependency (to make env vaiables work in windows-latest)
+        run: yarn add cross-env
       - name: Build production app
         run: yarn build
       - name: Start production app and run TestCafe tests against it
