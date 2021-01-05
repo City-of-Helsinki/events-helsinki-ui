@@ -19,8 +19,6 @@ jobs:
     name: Build
     steps:
       - uses: actions/checkout@v2
-      - name: Install cross-env dependency
-        run: yarn add cross-env
       - name: Build
         uses: andersinno/kolga-build-action@v2
         env:
