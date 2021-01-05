@@ -33,12 +33,10 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn --prefer-offline --frozen-lockfile --check-files
-      - name: Install cross-env dependency (to make env variables work in windows-latest)
-        run: yarn add cross-env --force
       - name: Set node config to set msvs_version to 2015 #see https://github.com/nodejs/node-gyp/issues/1747
         run: npm config set msvs_version 2015
       - name: Build production app
-        run: yarn build
+        run: yarn build:windows
       - name: Start production app and run TestCafe tests against it
         run: yarn browser-start-and-test:ci
       - name: Upload screenshots of failed tests
