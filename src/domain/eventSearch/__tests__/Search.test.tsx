@@ -206,3 +206,18 @@ test('should change search query after selecting start date and pressing submit 
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe('?start=2020-10-06&text=jazz');
 });
+
+test('should change search query after clicking category menu item', async () => {
+  const { history } = renderComponent();
+
+  const chooseCategoryButton = await screen.findByRole('button', {
+    name: /valitse kategoria/i,
+  });
+
+  userEvent.click(chooseCategoryButton);
+  userEvent.click(screen.getByRole('checkbox', { name: /elokuva/i }));
+
+  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  expect(history.location.pathname).toBe(pathname);
+  expect(history.location.search).toBe('?categories=movie&text=jazz');
+});
