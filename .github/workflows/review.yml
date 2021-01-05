@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install cross-env dependency
-        run: yarn global add cross-env
+        run: yarn add cross-env --force
       - name: Build
         uses: andersinno/kolga-build-action@v2
         env:
