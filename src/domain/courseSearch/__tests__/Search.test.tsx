@@ -210,4 +210,14 @@ test('should change search query after clicking hobby type menu item', async () 
   userEvent.click(screen.getByRole('button', { name: /hae/i }));
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe('?hobbyTypes=clubs&text=jazz');
+
+  //multiple selection
+  userEvent.click(chooseHobbyTypeButton);
+  userEvent.click(screen.getByRole('checkbox', { name: /leirit/i }));
+  userEvent.click(screen.getByRole('checkbox', { name: /retket/i }));
+  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  expect(history.location.pathname).toBe(pathname);
+  expect(history.location.search).toBe(
+    '?hobbyTypes=clubs,camps,trips&text=jazz'
+  );
 });
