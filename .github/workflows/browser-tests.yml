@@ -37,7 +37,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies
-        run: yarn --prefer-offline
+        run: yarn --prefer-offline --frozen-lockfile --check-files
       - name: Run TestCafe tests
         run: yarn browser-test:ci
       - name: Upload screenshots of failed tests

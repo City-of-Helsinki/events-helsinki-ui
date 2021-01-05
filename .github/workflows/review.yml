@@ -52,6 +52,7 @@ jobs:
     needs: review
     name: Acceptance tests
     steps:
+      - uses: actions/checkout@v2
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
         with:
@@ -67,7 +68,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies
-        run: yarn --only-dev --prefer-offline
+        run: yarn --only-dev --prefer-offline --frozen-lockfile --check-files
       - name: Run TestCafe tests
         run: yarn browser-test:ci2
         env:
