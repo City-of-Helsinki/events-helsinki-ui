@@ -32,9 +32,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies
-        run: yarn --prefer-offline
-      - name: Install cross-env dependency (to make env variables work in windows-latest)
-        run: yarn add cross-env
+        run: yarn --prefer-offline --production=false # we need cross-env from dev dependencies
       - name: Set node config to set msvs_version to 2015 #see https://github.com/nodejs/node-gyp/issues/1747
         run: npm config set msvs_version 2015
       - name: Build production app
