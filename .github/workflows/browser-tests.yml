@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 env:
   TZ: Europe/Helsinki
-  BROWSER_TESTS_LOCAL_ENV_URL: http://localhost:3001
+  BROWSER_TESTS_LOCAL_ENV_URL: http://localhost:3000
 jobs:
   test:
     name: Run browser tests
