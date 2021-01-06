@@ -79,7 +79,7 @@ jobs:
         run: yarn browser-test:ci
         env:
           # https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action
-          BROWSER_TESTS_LOCAL_ENV_URL: https://${{ needs.deploy.outputs.namespace }}.${{ env.BASE_DOMAIN }}
+          BROWSER_TESTS_LOCAL_ENV_URL: https://events-helsinki-ui-testcafe-re-9e.${{ env.BASE_DOMAIN }}
       - name: Upload screenshots of failed tests
         uses: actions/upload-artifact@v2
         if: failure()
