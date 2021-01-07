@@ -1,4 +1,4 @@
-name: Build & Staging & Smoke tests
+name: Build & Staging & Acceptance tests
 on:
   push:
     branches:
@@ -56,10 +56,10 @@ jobs:
           K8S_NAMESPACE: ${{ secrets.K8S_NAMESPACE_STAGING }}
           ENVIRONMENT_URL: https://${{ secrets.ENVIRONMENT_URL_STAGING }}
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-staging
-  smoke-tests:
+  acceptance-tests:
     runs-on: windows-latest
     needs: staging
-    name: Smoke tests for staging
+    name: Acceprance tests for staging
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js environment

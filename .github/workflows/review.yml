@@ -73,7 +73,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn --prefer-offline --frozen-lockfile --check-files
-      - name: Run TestCafe tests
+      - name: Run Acceptance Tests (TestCafe Browser Tests)
         run: yarn browser-test:ci
       - name: Upload screenshots of failed tests
         uses: actions/upload-artifact@v2
