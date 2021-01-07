@@ -181,3 +181,43 @@ test('should change search query after checking is free checkbox', async () => {
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe('?isFree=true&text=jazz');
 });
+
+test('should change search query after clicking category menu item', async () => {
+  const { history } = renderComponent();
+
+  const chooseCategoryButton = await screen.findByRole('button', {
+    name: /valitse kategoria/i,
+  });
+
+  userEvent.click(chooseCategoryButton);
+  userEvent.click(screen.getByRole('checkbox', { name: /elokuva/i }));
+
+  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  expect(history.location.pathname).toBe(pathname);
+  expect(history.location.search).toBe('?categories=movie&text=jazz');
+});
+
+test('should change search query after clicking hobby type menu item', async () => {
+  const { history } = renderComponent();
+
+  const chooseHobbyTypeButton = await screen.findByRole('button', {
+    name: /harrastusmuoto/i,
+  });
+
+  userEvent.click(chooseHobbyTypeButton);
+  userEvent.click(screen.getByRole('checkbox', { name: /kerhot/i }));
+
+  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  expect(history.location.pathname).toBe(pathname);
+  expect(history.location.search).toBe('?hobbyTypes=clubs&text=jazz');
+
+  //multiple selection
+  userEvent.click(chooseHobbyTypeButton);
+  userEvent.click(screen.getByRole('checkbox', { name: /leirit/i }));
+  userEvent.click(screen.getByRole('checkbox', { name: /retket/i }));
+  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  expect(history.location.pathname).toBe(pathname);
+  expect(history.location.search).toBe(
+    '?hobbyTypes=clubs,camps,trips&text=jazz'
+  );
+});

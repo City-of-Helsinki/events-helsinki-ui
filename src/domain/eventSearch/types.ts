@@ -1,4 +1,8 @@
-import { COURSE_CATEGORIES, EVENT_CATEGORIES } from './constants';
+import {
+  COURSE_CATEGORIES,
+  COURSE_HOBBY_TYPES,
+  EVENT_CATEGORIES,
+} from './constants';
 
 export interface CategoryOption {
   icon: React.ReactElement;
@@ -6,8 +10,15 @@ export interface CategoryOption {
   value: EVENT_CATEGORIES | COURSE_CATEGORIES;
 }
 
+export interface HobbyTypeOption {
+  icon: React.ReactElement;
+  text: string;
+  value: COURSE_HOBBY_TYPES;
+}
+
 export interface Filters {
   categories: string[];
+  hobbyTypes?: string[];
   dateTypes: string[];
   divisions: string[];
   end: Date | null;
@@ -25,6 +36,7 @@ export interface Filters {
 
 export interface MappedFilters {
   categories: string[];
+  hobbyTypes?: string[];
   dateTypes?: string[];
   divisions: string[];
   end?: string | null;

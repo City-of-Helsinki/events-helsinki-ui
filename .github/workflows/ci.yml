@@ -5,7 +5,8 @@ on:
   push:
     branches: [master]
   workflow_dispatch:
-
+env:
+  TZ: Europe/Helsinki
 jobs:
   test:
     name: Test
