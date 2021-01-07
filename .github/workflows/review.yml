@@ -37,8 +37,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    outputs:
-      namespace:  ${{ steps.namespace.outputs.value }}
+#  TODO: enable when kolga-deploy-action supports output url
+#    outputs:
+#      namespace:  ${{ steps.namespace.outputs.value }}
     name: Deploy
     steps:
       - uses: actions/checkout@v2
@@ -48,41 +49,44 @@ jobs:
         env:
           ENVIRONMENT_URL: https://${{ env.K8S_NAMESPACE }}.${{ env.BASE_DOMAIN }}
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-review
-      - name: Namespace
-        id: namespace
-        run: echo "::set-output name=value::${{ env.K8S_NAMESPACE }}"
-  acceptance-tests:
-    runs-on: windows-latest
-    needs: deploy
-    name: Acceptance tests
-    steps:
-      - name: echoing namespace
-        run: echo "${{ needs.deploy.outputs.namespace }}"
-      - uses: actions/checkout@v2
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: '12'
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      - uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install dependencies
-        run: yarn --prefer-offline --frozen-lockfile --check-files --production=false
-      - name: Run TestCafe tests
-        run: yarn browser-test:ci
-        env:
-          # https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action
-          BROWSER_TESTS_LOCAL_ENV_URL: https://events-helsinki-ui-testcafe-re-9e.${{ env.BASE_DOMAIN }}
-      - name: Upload screenshots of failed tests
-        uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: screenshots
-          path: screenshots/
+#  TODO: enable when kolga-deploy-action supports output url
+#      - name: Namespace
+#        id: namespace
+#        run: echo "::set-output name=value::${{ env.K8S_NAMESPACE }}"
+
+#  TODO: enable when kolga-deploy-action supports output url
+#  acceptance-tests:
+#    runs-on: windows-latest
+#    needs: deploy
+#    name: Acceptance tests
+#    steps:
+#      - name: echoing namespace
+#        run: echo "${{ needs.deploy.outputs.namespace }}"
+#      - uses: actions/checkout@v2
+#      - name: Setup Node.js environment
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: '12'
+#      - name: Get yarn cache directory path
+#        id: yarn-cache-dir-path
+#        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+#      - uses: actions/cache@v2
+#        id: yarn-cache
+#        with:
+#          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+#          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#          restore-keys: |
+#            ${{ runner.os }}-yarn-
+#      - name: Install dependencies
+#        run: yarn --prefer-offline --frozen-lockfile --check-files --production=false
+#      - name: Run TestCafe tests
+#        run: yarn browser-test:ci
+#        env:
+#          # https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action
+#          BROWSER_TESTS_LOCAL_ENV_URL: https://${{ needs.deploy.outputs.namespace }}.${{ env.BASE_DOMAIN }}
+#      - name: Upload screenshots of failed tests
+#        uses: actions/upload-artifact@v2
+#        if: failure()
+#        with:
+#          name: screenshots
+#          path: screenshots/

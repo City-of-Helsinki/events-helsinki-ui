@@ -40,7 +40,6 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_GTM_AUTH: ${{ secrets.GH_QA_GTM_AUTH }}
           DOCKER_BUILD_ARG_REACT_APP_GTM_ID: ${{ secrets.GH_QA_GTM_ID }}
           DOCKER_BUILD_ARG_REACT_APP_GTM_PREVIEW: ${{ secrets.GH_QA_GTM_PREVIEW }}
-
   staging:
     runs-on: ubuntu-latest
     needs: build
@@ -57,3 +56,35 @@ jobs:
           K8S_NAMESPACE: ${{ secrets.K8S_NAMESPACE_STAGING }}
           ENVIRONMENT_URL: https://${{ secrets.ENVIRONMENT_URL_STAGING }}
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-staging
+  smoke-tests:
+    runs-on: windows-latest
+    needs: staging
+    name: Smoke tests for staging
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: '12'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install dependencies
+        run: yarn --prefer-offline --frozen-lockfile --check-files --production=false
+      - name: Run TestCafe tests
+        run: yarn browser-test:ci
+        env:
+          BROWSER_TESTS_LOCAL_ENV_URL: https://${{ secrets.ENVIRONMENT_URL_STAGING }}
+      - name: Upload screenshots of failed tests
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: screenshots
+          path: screenshots/
