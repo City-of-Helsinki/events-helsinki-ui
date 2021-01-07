@@ -16,6 +16,10 @@ import {
   isCollectionExpired,
   isLanguageSupported,
 } from '../collection/CollectionUtils';
+import {
+  getCourseCategoryOptions,
+  getEventCategoryOptions,
+} from '../eventSearch/utils';
 import styles from './frontPage.module.scss';
 import LandingPageMeta from './landingPageMeta/LandingPageMeta';
 import LandingPageSearch from './landingPageSearchSection/LandingPageSearchSection';
@@ -66,11 +70,13 @@ const LandingPage: React.FC = () => {
                   type="event"
                   title={t('home.eventSearch.title')}
                   searchPlaceholder={t('home.eventSearch.placeholder')}
+                  popularCategories={getEventCategoryOptions(t)}
                 />
                 <LandingPageSearch
                   type="course"
                   title={t('home.courseSearch.title')}
                   searchPlaceholder={t('home.courseSearch.placeholder')}
+                  popularCategories={getCourseCategoryOptions(t)}
                 />
               </div>
             </div>

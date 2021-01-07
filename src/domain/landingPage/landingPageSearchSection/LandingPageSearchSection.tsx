@@ -6,26 +6,32 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 
 import SearchAutosuggest from '../../../common/components/search/SearchAutosuggest';
-import { AutosuggestMenuOption, Category } from '../../../common/types';
+import { AutosuggestMenuOption } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import { EVENTS_ROUTE_MAPPER, EventType } from '../../event/types';
 import { EVENT_DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
 import { getSearchQuery } from '../../eventSearch/utils';
 import styles from './landingPageSearchSection.module.scss';
 
+const buttonColor = 'black';
+
 const Search: React.FC<{
   title: string;
   searchPlaceholder: string;
   type: EventType;
-  handleCategoryClick?: (category: Category) => void;
-}> = ({ type, title, searchPlaceholder, handleCategoryClick }) => {
+  popularCategories: {
+    text: string;
+    icon: React.ReactElement;
+    value: string;
+  }[];
+}> = ({ type, title, searchPlaceholder, popularCategories }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const [autosuggestInput, setAutosuggestInput] = React.useState('');
-  const { push } = useHistory();
+  const history = useHistory();
 
   const goToSearchPage = (search: string) => {
-    push({
+    history.push({
       pathname: `/${locale}${EVENTS_ROUTE_MAPPER[type]}`,
       search,
       state: { scrollToResults: true },
@@ -55,7 +61,11 @@ const Search: React.FC<{
   //     categories: [category.value],
   //   });
 
-  //   goToSearchPage(search);
+  //   history.push({
+  //     pathname: `/${locale}${ROUTES.EVENTS}`,
+  //     search,
+  //     state: { scrollToResults: true },
+  //   });
   // };
 
   return (
@@ -81,6 +91,24 @@ const Search: React.FC<{
             <Button onClick={handleSubmit} variant="success">
               {t('home.eventSearch.buttonSearch')}
             </Button>
+          </div>
+        </div>
+        <div className={styles.popularCategories}>
+          <p className={styles.categoriesTitle}>Suosituimmat kategoriat</p>
+          <div className={styles.categoriesButtons}>
+            {popularCategories.map((category) => (
+              <Button
+                variant="secondary"
+                iconLeft={category.icon}
+                style={{
+                  color: buttonColor,
+                  borderColor: buttonColor,
+                  backgroundColor: 'transparent',
+                }}
+              >
+                {category.text}
+              </Button>
+            ))}
           </div>
         </div>
       </div>

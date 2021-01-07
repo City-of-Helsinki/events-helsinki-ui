@@ -8,7 +8,7 @@
 }
 
 .typeCourse {
-  --background-color: var(--color-fog-dark);
+  --background-color: var(--color-fog-medium-light);
 }
 
 .typeEvent {
@@ -20,7 +20,6 @@
   padding: var(--spacing-xl);
   z-index: 1;
   position: relative;
- 
 
   @include respond-above(md) {
     padding: var(--spacing-xl) 0;
@@ -28,7 +27,7 @@
   }
 
   @include respond-below(sm) {
-    padding: var(--spacing-2-xl) 0.75rem;
+    padding: var(--spacing-2-xl) var(0.75rem + var(--spacing-m));
     padding-bottom: 5rem;
   }
 
@@ -37,7 +36,7 @@
     grid-template-columns: 1fr 10fr 1fr;
     padding: var(--spacing-xl) 0;
     padding-bottom: 4rem;
-    
+
     & > * {
       grid-column: 2;
     }
@@ -53,12 +52,16 @@
   h2 {
     font-size: var(--fontsize-heading-m);
     margin: 0;
+
+    @include respond-above(md) {
+      font-size: var(--fontsize-heading-l);
+    }
   }
 
   .titleWrapper {
     padding-top: 1.3125rem;
     min-width: 11.1rem;
-    margin-bottom: var(--spacing-s);
+    margin-bottom: var(--spacing-m);
   }
 
   .autosuggestWrapper {
@@ -73,5 +76,29 @@
 
   .buttonWrapper {
     align-self: flex-end;
+  }
+
+  .popularCategories {
+    margin-top: 1rem;
+
+    @include respond-above(md) {
+      margin-top: 3rem;
+    }
+  }
+
+  .categoriesTitle {
+    font-size: var(--fontsize-body-l);
+    font-weight: 500;
+  }
+
+  .categoriesButtons {
+    --button-spacing: calc(var(--spacing-2-xs) / 2);
+    display: flex;
+    flex-wrap: wrap;
+    margin: calc(-1 * var(--button-spacing));
+
+    & > * {
+      margin: var(--button-spacing);
+    }
   }
 }
