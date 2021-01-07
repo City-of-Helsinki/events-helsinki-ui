@@ -4,6 +4,7 @@
   position: relative;
   background-color: var(--background-color);
   clip-path: url(#wave);
+  z-index: 1;
 }
 
 .typeCourse {
@@ -19,7 +20,6 @@
   padding: var(--spacing-xl);
   z-index: 1;
   position: relative;
-  overflow: auto;
  
 
   @include respond-above(md) {
@@ -28,7 +28,7 @@
   }
 
   @include respond-below(sm) {
-    padding: var(--spacing-xl) 0.75rem;
+    padding: var(--spacing-2-xl) 0.75rem;
     padding-bottom: 5rem;
   }
 
@@ -36,7 +36,7 @@
     display: grid;
     grid-template-columns: 1fr 10fr 1fr;
     padding: var(--spacing-xl) 0;
-    padding-bottom: 5rem;
+    padding-bottom: 4rem;
     
     & > * {
       grid-column: 2;

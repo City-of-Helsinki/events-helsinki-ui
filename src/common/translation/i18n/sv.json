@@ -274,13 +274,15 @@
       "text": "Av en eller annan orsak så hittas inte sidan du letade efter.",
       "title": "Oj nej, nu blev det 404!"
     },
-    "search": {
+    "eventSearch": {
       "buttonSearch": "Sök",
-      "labelDateRange": "För vilken period du letar efter?",
-      "labelSearchField": "Vad letar du efter?",
-      "linkAdvancedSearch": "Avancerad sökning",
       "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
       "title": "Sök saker att göra"
+    },
+    "courseSearch": {
+      "buttonSearch": "Sök",
+      "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
+      "title": "Hitta hobby"
     }
   },
   "menu": {

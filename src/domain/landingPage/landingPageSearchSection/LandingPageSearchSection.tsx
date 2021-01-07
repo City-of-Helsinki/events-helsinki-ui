@@ -79,7 +79,7 @@ const Search: React.FC<{
               searchValue={autosuggestInput}
             />
             <Button onClick={handleSubmit} variant="success">
-              {t('home.search.buttonSearch')}
+              {t('home.eventSearch.buttonSearch')}
             </Button>
           </div>
         </div>

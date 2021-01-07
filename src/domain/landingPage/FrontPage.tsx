@@ -64,13 +64,13 @@ const LandingPage: React.FC = () => {
               <div className={styles.searchInnerContainer}>
                 <LandingPageSearch
                   type="event"
-                  title="Löydä tekemistä"
-                  searchPlaceholder="Kirjoita hakusana, esim. rock tai jooga"
+                  title={t('home.eventSearch.title')}
+                  searchPlaceholder={t('home.eventSearch.placeholder')}
                 />
                 <LandingPageSearch
                   type="course"
-                  title="Löydä harrastuksia"
-                  searchPlaceholder="Kirjoita hakusana, esim. rock tai jooga"
+                  title={t('home.courseSearch.title')}
+                  searchPlaceholder={t('home.courseSearch.placeholder')}
                 />
               </div>
             </div>
