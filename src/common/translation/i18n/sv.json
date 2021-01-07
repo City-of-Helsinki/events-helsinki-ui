@@ -274,6 +274,9 @@
       "text": "Av en eller annan orsak så hittas inte sidan du letade efter.",
       "title": "Oj nej, nu blev det 404!"
     },
+    "search": {
+      "popularCategories": "Populära kategorier"
+    },
     "eventSearch": {
       "buttonSearch": "Sök",
       "placeholder": "Ange ett sökord, t. ex. rock eller yoga",

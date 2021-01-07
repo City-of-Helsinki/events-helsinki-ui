@@ -274,6 +274,9 @@
       "text": "For some reason we can't find the landing page you are looking for.",
       "title": "Oops, you got hit by a 404!"
     },
+    "search": {
+      "popularCategories": "Popular categories"
+    },
     "eventSearch": {
       "buttonSearch": "Search",
       "placeholder": "Enter a keyword, eg rock or yoga",

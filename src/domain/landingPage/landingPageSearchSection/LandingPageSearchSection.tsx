@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 
 import SearchAutosuggest from '../../../common/components/search/SearchAutosuggest';
-import { AutosuggestMenuOption } from '../../../common/types';
+import { AutosuggestMenuOption, Category } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import { EVENTS_ROUTE_MAPPER, EventType } from '../../event/types';
 import { EVENT_DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
@@ -55,18 +55,18 @@ const Search: React.FC<{
     goToSearchPage(search);
   };
 
-  // const handleCategoryClick = (category: Category) => {
-  //   const search = getSearchQuery({
-  //     ...EVENT_DEFAULT_SEARCH_FILTERS,
-  //     categories: [category.value],
-  //   });
+  const handleCategoryClick = (category: Category) => {
+    const search = getSearchQuery({
+      ...EVENT_DEFAULT_SEARCH_FILTERS,
+      categories: [category.value],
+    });
 
-  //   history.push({
-  //     pathname: `/${locale}${ROUTES.EVENTS}`,
-  //     search,
-  //     state: { scrollToResults: true },
-  //   });
-  // };
+    history.push({
+      pathname: `/${locale}${EVENTS_ROUTE_MAPPER[type]}`,
+      search,
+      state: { scrollToResults: true },
+    });
+  };
 
   return (
     <div
@@ -94,12 +94,15 @@ const Search: React.FC<{
           </div>
         </div>
         <div className={styles.popularCategories}>
-          <p className={styles.categoriesTitle}>Suosituimmat kategoriat</p>
+          <p className={styles.categoriesTitle}>
+            {t('home.search.popularCategories')}
+          </p>
           <div className={styles.categoriesButtons}>
             {popularCategories.map((category) => (
               <Button
                 variant="secondary"
                 iconLeft={category.icon}
+                onClick={() => handleCategoryClick(category)}
                 style={{
                   color: buttonColor,
                   borderColor: buttonColor,

@@ -274,6 +274,9 @@
       "text": "Syystä tai toisesta hakemaasi kotisivua ei löydy.",
       "title": "Oho, nyt iski 404!"
     },
+    "search": {
+      "popularCategories": "Suositut kategoriat"
+    },
     "eventSearch": {
       "buttonSearch": "Hae",
       "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
