@@ -30,7 +30,7 @@ const Html: React.FC<Props> = ({
   initialLanguage,
 }) => {
   return (
-    <html lang="en">
+    <html lang={initialLanguage}>
       <head>
         <meta charSet="utf-8" />
         <meta
