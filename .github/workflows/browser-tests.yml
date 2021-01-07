@@ -37,10 +37,8 @@ jobs:
         run: npm config set msvs_version 2015
       - name: Build production app
         run: yarn build:windows
-      - name: start production app
-        run: yarn start
       - name: Run TestCafe tests
-        run: yarn browser-test:ci:ci
+        run: yarn browser-start-and-test:ci
       - name: Upload screenshots of failed tests
         uses: actions/upload-artifact@v2
         if: failure()

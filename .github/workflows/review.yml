@@ -1,4 +1,4 @@
-name: Deploy + Browser-Tests
+name: Build & Review
 on: [pull_request]
 
 env:
@@ -34,13 +34,13 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
           DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_ID: 64
           DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
-  deploy:
+  review:
     runs-on: ubuntu-latest
     needs: build
 #  TODO: enable when kolga-deploy-action supports output url
 #    outputs:
 #      namespace:  ${{ steps.namespace.outputs.value }}
-    name: Deploy
+    name: Review
     steps:
       - uses: actions/checkout@v2
       - uses: andersinno/kolga-setup-action@v2
@@ -57,7 +57,7 @@ jobs:
 #  TODO: enable when kolga-deploy-action supports output url
 #  acceptance-tests:
 #    runs-on: windows-latest
-#    needs: deploy
+#    needs: review
 #    name: Acceptance tests
 #    steps:
 #      - name: echoing namespace
