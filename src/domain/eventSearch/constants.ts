@@ -26,6 +26,16 @@ export enum COURSE_CATEGORIES {
   MOVIE = 'movie',
 }
 
+//todo: to be replaced with valid values
+export enum COURSE_HOBBY_TYPES {
+  CLUBS = 'clubs',
+  COURSES = 'courses',
+  CAMPS = 'camps',
+  TRIPS = 'trips',
+  WORKSHOPS = 'workshops',
+  ONLINE_STUDIES = 'online_studies',
+}
+
 export const EVENT_DEFAULT_SEARCH_FILTERS: Filters = {
   categories: [],
   dateTypes: [],
@@ -42,6 +52,7 @@ export const EVENT_DEFAULT_SEARCH_FILTERS: Filters = {
 
 export const COURSE_DEFAULT_SEARCH_FILTERS = {
   categories: [],
+  hobbyTypes: [],
   dateTypes: [],
   divisions: [],
   end: null,
@@ -65,6 +76,7 @@ export enum EVENT_SORT_OPTIONS {
 
 export enum EVENT_SEARCH_FILTERS {
   CATEGORIES = 'categories',
+  HOBBY_TYPES = 'hobbyTypes',
   DATE_TYPES = 'dateTypes',
   DIVISIONS = 'divisions',
   END = 'end',
@@ -146,7 +158,17 @@ export const MAPPED_CATEGORIES: Record<string, Record<string, string>> = {
   [EVENT_SEARCH_SOURCES.EVENTS]: MAPPED_EVENT_CATEGORIES,
 };
 
-export const MAPPED_CATEGORY_TERMS: Record<string, string> = {
+//todo: replace with valid keyword ids
+export const MAPPED_COURSE_HOBBY_TYPES: Record<string, string> = {
+  [COURSE_HOBBY_TYPES.CLUBS]: 'yso:p1235',
+  [COURSE_HOBBY_TYPES.COURSES]: 'yso:p1235',
+  [COURSE_HOBBY_TYPES.CAMPS]: 'yso:p1235',
+  [COURSE_HOBBY_TYPES.TRIPS]: 'yso:p1235',
+  [COURSE_HOBBY_TYPES.WORKSHOPS]: 'yso:p1235',
+  [COURSE_HOBBY_TYPES.ONLINE_STUDIES]: 'yso:p1235',
+};
+
+export const MAPPED_KEYWORD_TERMS: Record<string, string> = {
   [EVENT_SEARCH_SOURCES.COURSES]: 'keyword_set_AND',
   [EVENT_SEARCH_SOURCES.EVENTS]: 'keyword',
 };

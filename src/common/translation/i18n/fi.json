@@ -221,7 +221,8 @@
       "placeholder": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
       "labelSearchField": "Mitä etsit?",
       "checkboxAlsoOngoingCourses": "Näytä myös meneillään olevat",
-      "checkboxIsFree": "Näytä vain maksuttomat"
+      "checkboxIsFree": "Näytä vain maksuttomat",
+      "titleDropdownHobbyType": "Harrastusmuoto"
     }
   },
   "footer": {
@@ -261,6 +262,14 @@
       "nature": "Luonto ja ulkoilu",
       "sport": "Liikunta ja urheilu",
       "theatre": "Teatteri"
+    },
+    "hobby": {
+      "clubs": "Kerhot",
+      "courses": "Kurssit",
+      "camps": "Leirit",
+      "trips": "Retket",
+      "workshops": "Työpajat",
+      "onlineStudies": "Verkkoopetus"
     },
     "collections": {
       "title": "Suosittelemme"
