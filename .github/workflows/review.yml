@@ -1,4 +1,4 @@
-name: Build & Review
+name: Build & Review & Acceptance Tests
 on: [pull_request]
 
 env:
@@ -37,8 +37,6 @@ jobs:
   review:
     runs-on: ubuntu-latest
     needs: build
-    outputs:
-      deploy-url:  ${{ steps.deploy-url.outputs.value }}
     name: Review
     steps:
       - uses: actions/checkout@v2
@@ -57,16 +55,8 @@ jobs:
         id: deploy-url
         run: |
           DEPLOY_URL=$(kubectl get ingress -n "${{ env.K8S_NAMESPACE }}" -o jsonpath='{.items[0].spec.rules[0].host}')
-          echo "::set-output name=value::https://$DEPLOY_URL"
+          echo "BROWSER_TESTS_LOCAL_ENV_URL=https://$DEPLOY_URL" >> $GITHUB_ENV
         shell: bash
-  acceptance-tests:
-    runs-on: windows-latest
-    needs: review
-    name: Acceptance tests
-    steps:
-      - name: echoing deploy-url
-        run: echo "${{ needs.deploy.outputs.deploy-url }}"
-      - uses: actions/checkout@v2
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
         with:
@@ -82,12 +72,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies
-        run: yarn --prefer-offline --frozen-lockfile --check-files --production=false
+        run: yarn --prefer-offline --frozen-lockfile --check-files
       - name: Run TestCafe tests
         run: yarn browser-test:ci
-        env:
-          # https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action
-          BROWSER_TESTS_LOCAL_ENV_URL: ${{ needs.deploy.outputs.deploy-url }}
       - name: Upload screenshots of failed tests
         uses: actions/upload-artifact@v2
         if: failure()

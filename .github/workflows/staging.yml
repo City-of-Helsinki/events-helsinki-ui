@@ -1,4 +1,4 @@
-name: Build & Staging
+name: Build & Staging & Smoke tests
 on:
   push:
     branches:

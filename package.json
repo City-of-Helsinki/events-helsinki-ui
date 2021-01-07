@@ -93,7 +93,6 @@
     "test:coverage": "yarn test --coverage --watchAll=false",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
     "browser-test": "testcafe \"chrome --window-size='1920,1080'\" testcafe/e2e/",
-    "browser-start-and-test:ci": "start-server-and-test start http://localhost:3000 browser-test:ci",
     "browser-test:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" -s takeOnFails=true testcafe/e2e/",
     "lint": "eslint --ext js,ts,tsx src",
     "format-code": "eslint --ext js,ts,tsx src --fix --max-warnings=0"

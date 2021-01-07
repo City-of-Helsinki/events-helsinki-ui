@@ -1,4 +1,4 @@
-name: Build & Production
+name: Build & Production & Smoke Tests
 on:
   push:
     tags:
