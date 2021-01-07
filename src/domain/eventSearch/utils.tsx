@@ -28,15 +28,22 @@ import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
 import {
   COURSE_CATEGORIES,
+  COURSE_HOBBY_TYPES,
   EVENT_CATEGORIES,
   EVENT_SEARCH_FILTERS,
   EVENT_SEARCH_SOURCES,
   EVENT_SORT_OPTIONS,
   MAPPED_CATEGORIES,
-  MAPPED_CATEGORY_TERMS,
+  MAPPED_COURSE_HOBBY_TYPES,
+  MAPPED_KEYWORD_TERMS,
   MAPPED_PLACES,
 } from './constants';
-import { CategoryOption, Filters, MappedFilters } from './types';
+import {
+  CategoryOption,
+  Filters,
+  HobbyTypeOption,
+  MappedFilters,
+} from './types';
 
 export const getEventCategoryOptions = (t: TFunction): CategoryOption[] => [
   {
@@ -91,11 +98,46 @@ export const getEventCategoryOptions = (t: TFunction): CategoryOption[] => [
   },
 ];
 
+// todo: fix icons and list of options when defined
 export const getCourseCategoryOptions = (t: TFunction): CategoryOption[] => [
   {
     icon: <IconMovies />,
     text: t('home.category.movie'),
     value: COURSE_CATEGORIES.MOVIE,
+  },
+];
+
+// todo: fix icons and list of options when defined
+export const getCourseHobbyTypeOptions = (t: TFunction): HobbyTypeOption[] => [
+  {
+    icon: <IconMovies />,
+    text: t('home.hobby.clubs'),
+    value: COURSE_HOBBY_TYPES.CLUBS,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.hobby.courses'),
+    value: COURSE_HOBBY_TYPES.COURSES,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.hobby.camps'),
+    value: COURSE_HOBBY_TYPES.CAMPS,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.hobby.trips'),
+    value: COURSE_HOBBY_TYPES.TRIPS,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.hobby.workshops'),
+    value: COURSE_HOBBY_TYPES.WORKSHOPS,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.hobby.onlineStudies'),
+    value: COURSE_HOBBY_TYPES.ONLINE_STUDIES,
   },
 ];
 
@@ -179,6 +221,7 @@ export const getEventSearchVariables = ({
 }): QueryEventListArgs => {
   const {
     categories,
+    hobbyTypes,
     dateTypes,
     divisions,
     isFree,
@@ -218,10 +261,14 @@ export const getEventSearchVariables = ({
     keywordAnd.push('yso:p4354');
   }
 
-  const keywordsParamName = MAPPED_CATEGORY_TERMS[searchSource];
+  const keywordsParamName = MAPPED_KEYWORD_TERMS[searchSource];
   const mappedCategories: string[] = categories
     .map((category) => MAPPED_CATEGORIES[searchSource][category])
     .filter((e) => e);
+  const mappedHobbyTypes: string[] =
+    hobbyTypes
+      ?.map((hobbyType) => MAPPED_COURSE_HOBBY_TYPES[hobbyType])
+      .filter((e) => e) || [];
   const hasLocation = !isEmpty(divisions) || !isEmpty(places);
   const hasText = !isEmpty(text);
   // Combine and add keywords
@@ -233,7 +280,11 @@ export const getEventSearchVariables = ({
     end,
     include,
     isFree: isFree || undefined,
-    [keywordsParamName]: [...(keyword ? keyword : []), ...mappedCategories],
+    [keywordsParamName]: [
+      ...(keyword ? keyword : []),
+      ...mappedCategories,
+      ...mappedHobbyTypes,
+    ],
     keywordAnd,
     keywordNot,
     language,
@@ -272,6 +323,10 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
     categories: getUrlParamAsArray(
       searchParams,
       EVENT_SEARCH_FILTERS.CATEGORIES
+    ),
+    hobbyTypes: getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.HOBBY_TYPES
     ),
     dateTypes: getUrlParamAsArray(
       searchParams,

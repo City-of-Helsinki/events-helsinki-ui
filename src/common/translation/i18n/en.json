@@ -225,7 +225,8 @@
       "placeholder": "Enter a keyword, eg. French or cooking",
       "labelSearchField": "What are you looking for?",
       "checkboxAlsoOngoingCourses": "Show also ongoing courses",
-      "checkboxIsFree": "Show only courses that are free"
+      "checkboxIsFree": "Show only courses that are free",
+      "titleDropdownHobbyType": "Hobby type"
     }
   },
   "footer": {
@@ -266,6 +267,14 @@
       "nature": "Nature and outdoor activities",
       "sport": "Exercise and sports",
       "theatre": "Theatre"
+    },
+    "hobby": {
+      "clubs": "Clubs",
+      "courses": "Courses",
+      "camps": "Camps",
+      "trips": "Trips",
+      "workshops": "Workshops",
+      "onlineStudies": "Online studies"
     },
     "collections": {
       "title": "See our recommendations"
