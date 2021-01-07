@@ -718,7 +718,7 @@ export type CourseDetailsQuery = { __typename?: 'Query' } & {
 };
 
 export type CourseListQueryVariables = {
-  combinedText?: Maybe<Array<Maybe<Scalars['String']>>>;
+  allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   division?: Maybe<Array<Maybe<Scalars['String']>>>;
   end?: Maybe<Scalars['String']>;
   endsAfter?: Maybe<Scalars['String']>;
@@ -813,6 +813,13 @@ export type EventFieldsFragment = { __typename?: 'EventDetails' } & Pick<
     >;
     infoUrl: Maybe<
       { __typename?: 'LocalizedObject' } & LocalizedFieldsFragment
+    >;
+    audience: Array<
+      { __typename?: 'Audience' } & Pick<Audience, 'id'> & {
+          name: Maybe<
+            { __typename?: 'LocalizedObject' } & LocalizedFieldsFragment
+          >;
+        }
     >;
   };
 
@@ -1300,6 +1307,12 @@ export const EventFieldsFragmentDoc = gql`
     }
     infoUrl {
       ...localizedFields
+    }
+    audience {
+      id
+      name {
+        ...localizedFields
+      }
     }
   }
   ${LocalizedFieldsFragmentDoc}
@@ -1805,7 +1818,7 @@ export type CourseDetailsQueryResult = ApolloReactCommon.QueryResult<
 >;
 export const CourseListDocument = gql`
   query CourseList(
-    $combinedText: [String]
+    $allOngoingAnd: [String]
     $division: [String]
     $end: String
     $endsAfter: String
@@ -1831,7 +1844,7 @@ export const CourseListDocument = gql`
     $translation: String
   ) {
     courseList(
-      combinedText: $combinedText
+      combinedText: $allOngoingAnd
       division: $division
       end: $end
       endsAfter: $endsAfter
@@ -1902,7 +1915,7 @@ export function withCourseList<TProps, TChildProps = {}>(
  * @example
  * const { data, loading, error } = useCourseListQuery({
  *   variables: {
- *      combinedText: // value for 'combinedText'
+ *      allOngoingAnd: // value for 'allOngoingAnd'
  *      division: // value for 'division'
  *      end: // value for 'end'
  *      endsAfter: // value for 'endsAfter'

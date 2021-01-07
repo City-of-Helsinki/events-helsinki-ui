@@ -29,6 +29,7 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'dev'
           DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.test.kuva.hel.ninja/api'
           DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
+          DOCKER_BUILD_ARG_REACT_APP_LINKED_COURSES_URL: 'https://api.hel.fi/linkedcourses/v1'
           DOCKER_BUILD_ARG_REACT_APP_IMAGE_PROXY_URL: 'https://images.weserv.nl/?w=1024&url='
           DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'false'
           DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
@@ -46,5 +47,6 @@ jobs:
       - name: Deploy
         uses: andersinno/kolga-deploy-action@v2
         env:
+          K8S_PROBE_INITIAL_DELAY: 120
           ENVIRONMENT_URL: https://${{ env.K8S_NAMESPACE }}.${{ env.BASE_DOMAIN }}
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-review

@@ -1,4 +1,3 @@
-import { act } from '@testing-library/react';
 import i18n from 'i18next';
 import React from 'react';
 
@@ -122,16 +121,15 @@ const renderComponent = (route: string) =>
   render(<AppRoutes />, { mocks, routes: [route] });
 
 beforeEach(() => {
-  act(() => {
-    i18n.changeLanguage('fi');
-  });
+  i18n.changeLanguage('fi');
 });
 
 it('user from supported locale will be redirect to App with that locale', async () => {
-  renderComponent('/en/');
-  await actWait();
+  renderComponent('/en');
 
-  expect(i18n.language).toEqual('en');
+  await waitFor(() => {
+    expect(i18n.language).toEqual('en');
+  });
 });
 
 it('user from unsupported locale prefix will be redirect to route with support prefix', async () => {

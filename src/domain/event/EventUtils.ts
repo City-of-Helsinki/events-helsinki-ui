@@ -4,17 +4,19 @@ import capitalize from 'lodash/capitalize';
 import { EVENT_STATUS } from '../../constants';
 import {
   EventFieldsFragment,
+  LocalizedObject,
   PlaceFieldsFragment,
 } from '../../generated/graphql';
 import { Language } from '../../types';
 import getLocalisedString from '../../util/getLocalisedString';
 import getSecureImage from '../../util/getSecureImage';
+import { isCourseEvent } from '../../util/typeGuards';
 import {
   EVENT_KEYWORD_BLACK_LIST,
   EVENT_PLACEHOLDER_IMAGES,
   EVENT_SOME_IMAGE,
 } from './constants';
-import { KeywordOption } from './types';
+import { EventFields, KeywordOption } from './types';
 
 export const getEventCardId = (id: string): string => `event-card_${id}`;
 
@@ -85,31 +87,26 @@ export const getEventPrice = (
         .join(', ');
 };
 
-/**
- * Get event keywords
- * @param {object} event
- * @param {string} locale
- * @return {object[]}
- */
-export const getEventKeywords = (
-  event: EventFieldsFragment,
+export const getKeywordList = (
+  list: {
+    id?: string | null;
+    name: LocalizedObject | null;
+  }[] = [],
   locale: Language
 ): KeywordOption[] => {
-  return event.keywords
-    .map((keyword) => ({
-      id: keyword.id || '',
-      name: capitalize(keyword.name?.[locale] || '').trim(),
+  return list
+    .map((listItem) => ({
+      id: listItem.id || '',
+      name: capitalize(listItem.name?.[locale] || '').trim(),
     }))
     .filter(
-      (keyword, index, arr) =>
-        !!keyword.id &&
-        !!keyword.name &&
-        !EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
-        arr.findIndex(
-          (item) => item.name.toLowerCase() === keyword.name.toLowerCase()
-        ) === index
+      (listItem, index, arr) =>
+        !!listItem.id &&
+        !!listItem.name &&
+        !EVENT_KEYWORD_BLACK_LIST.includes(listItem.id) &&
+        arr.findIndex((item) => item.name === listItem.name) === index
     )
-    .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
+    .sort((a, b) => (a.name > b.name ? 1 : -1));
 };
 
 /**
@@ -189,6 +186,15 @@ const getEventLocationFields = (
   };
 };
 
+const getCourseFields = (event: EventFields) => {
+  if (isCourseEvent(event)) {
+    // return all courseFields without __typename :)
+    // might be stupid?
+    const { __typename, ...courseFields } = event.extensionCourse || {};
+    return courseFields;
+  }
+};
+
 /**
  * Get palvelukartta compatible id for the location
  * @param {object} location
@@ -208,7 +214,7 @@ export const getLocationId = (
  * @return {string}
  */
 export const getServiceMapUrl = (
-  event: EventFieldsFragment,
+  event: EventFields,
   locale: Language,
   isEmbedded?: boolean
 ): string => {
@@ -288,10 +294,7 @@ const getOfferInfoUrl = (
  * @return {object}
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const getEventFields = (
-  event: EventFieldsFragment,
-  locale: Language
-) => {
+export const getEventFields = (event: EventFields, locale: Language) => {
   const eventLocation = event.location;
   const offerInfoUrl = getOfferInfoUrl(event, locale);
   const startTime = event.startTime;
@@ -307,7 +310,7 @@ export const getEventFields = (
     hslDirectionsLink: getHslDirectionsLink(event, locale),
     imageUrl: getEventImageUrl(event),
     infoUrl: getLocalisedString(event.infoUrl, locale),
-    keywords: getEventKeywords(event, locale),
+    keywords: getKeywordList(event.keywords, locale),
     languages: event.inLanguage
       .map((item) => capitalize(getLocalisedString(item.name, locale)))
       .filter((e) => e),
@@ -324,6 +327,8 @@ export const getEventFields = (
     today: startTime ? isToday(new Date(startTime)) : false,
     thisWeek: startTime ? isThisWeek(new Date(startTime)) : false,
     showBuyButton: !!offerInfoUrl && !isEventFree(event),
+    audience: getKeywordList(event.audience, locale),
+    ...getCourseFields(event),
     ...getEventLocationFields(event, locale),
   };
 };

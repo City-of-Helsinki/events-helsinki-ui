@@ -10,7 +10,7 @@ const NoResultsInfo: React.FC = () => {
   return (
     <div className={styles.noResultsInfo}>
       <div className={styles.iconWrapper}>
-        <IconSearch aria-hidden/>
+        <IconSearch aria-hidden />
       </div>
       <div className={styles.bigText}>
         {t('eventSearch.noResultsInfo.bigText')}

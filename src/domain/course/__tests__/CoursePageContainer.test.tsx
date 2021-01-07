@@ -3,8 +3,8 @@ import React from 'react';
 
 import translations from '../../../common/translation/i18n/fi.json';
 import {
-  EventDetailsDocument,
-  EventListDocument,
+  CourseDetailsDocument,
+  CourseListDocument,
 } from '../../../generated/graphql';
 import {
   fakeEvent,
@@ -20,13 +20,13 @@ import {
   waitFor,
 } from '../../../util/testUtils';
 import { ROUTES } from '../../app/routes/constants';
-import { otherEventTimesListTestId } from '../eventInfo/otherEventTimes/OtherEventTimes';
-import EventPageContainer from '../EventPageContainer';
-import { similarEventsListTestId } from '../similarEvents/SimilarEvents';
+import { otherEventTimesListTestId } from '../../event/eventInfo/otherEventTimes/OtherEventTimes';
+import { similarEventsListTestId } from '../../event/similarEvents/SimilarEvents';
+import CoursePageContainer from '../CoursePageContainer';
 
 const id = '1';
-const name = 'Event title';
-const description = 'Event descirption';
+const name = 'Course title';
+const description = 'Course descirption';
 const startTime = '2020-10-05T07:00:00.000000Z';
 const endTime = '2020-10-05T10:00:00.000000Z';
 
@@ -39,16 +39,16 @@ const keywords = [
 const superEventId = 'harrastushaku:13433';
 const otherEventTimesCount = 3;
 const similarEventTimesCount = 10;
-const similarEventsNames = [
+const similarCoursesNames = [
   'JUMPPI-streetdance Suurpellossa, Opimäen koululla!',
   'Narrin teatteriryhmä Rastilassa',
 ];
 
-const event = fakeEvent({
+const course = fakeEvent({
   id,
   startTime,
   endTime,
-  name: { fi: name },
+  name: fakeLocalizedObject(name),
   description: fakeLocalizedObject(description),
   keywords: keywords.map((k) =>
     fakeKeyword({ name: fakeLocalizedObject(k.name), id: k.id })
@@ -58,20 +58,20 @@ const event = fakeEvent({
   ),
   superEvent: {
     __typename: 'InternalIdObject',
-    internalId: `https://api.hel.fi/linkedevents/v1/event/${superEventId}/`,
+    internalId: `https://api.hel.fi/linkedcourses/v1/event/${superEventId}/`,
   },
 });
 
-const eventRequest = {
-  query: EventDetailsDocument,
+const courseRequest = {
+  query: CourseDetailsDocument,
   variables: {
     id,
     include: ['in_language', 'keywords', 'location', 'audience'],
   },
 };
 
-const similarEventsListRequest = {
-  query: EventListDocument,
+const similarCoursesListRequest = {
+  query: CourseListDocument,
   variables: {
     end: '',
     include: ['keywords', 'location'],
@@ -90,8 +90,8 @@ const similarEventsListRequest = {
   },
 };
 
-const otherEventsRequest = {
-  query: EventListDocument,
+const otherCoursesRequest = {
+  query: CourseListDocument,
   variables: {
     include: ['keywords', 'location'],
     sort: 'start_time',
@@ -100,66 +100,57 @@ const otherEventsRequest = {
   },
 };
 
-const request = {
-  query: EventDetailsDocument,
-  variables: {
-    id,
-    include: ['in_language', 'keywords', 'location'],
-  },
-};
+const courseResponse = { data: { courseDetails: course } };
 
-const similarEventsResponse = {
+const similarCoursesResponse = {
   data: {
-    eventList: fakeEvents(
+    courseList: fakeEvents(
       similarEventTimesCount,
-      similarEventsNames.map((name) => ({ name: fakeLocalizedObject(name) }))
+      similarCoursesNames.map((name) => ({ name: fakeLocalizedObject(name) }))
     ),
   },
 };
 
-const eventResponse = { data: { eventDetails: event } };
-
-const otherEventsResponse = {
-  data: { eventList: fakeEvents(otherEventTimesCount) },
+const otherCoursesResponse = {
+  data: { courseList: fakeEvents(otherEventTimesCount) },
 };
 
 const mocks = [
   {
-    request: eventRequest,
-    result: eventResponse,
+    request: courseRequest,
+    result: courseResponse,
   },
   {
-    request: otherEventsRequest,
-    result: otherEventsResponse,
+    request: otherCoursesRequest,
+    result: otherCoursesResponse,
   },
   {
-    request: similarEventsListRequest,
-    result: similarEventsResponse,
+    request: similarCoursesListRequest,
+    result: similarCoursesResponse,
   },
 ];
 
-const testPath = ROUTES.EVENT.replace(':id', id);
+const testPath = ROUTES.COURSE.replace(':id', id);
 const routes = [testPath];
 
 const renderComponent = () =>
-  renderWithRoute(<EventPageContainer />, {
+  renderWithRoute(<CoursePageContainer />, {
     mocks,
     routes,
-    path: ROUTES.EVENT,
+    path: ROUTES.COURSE,
   });
 
 afterAll(() => {
   clear();
 });
 
-it('should render info and load other events + similar events', async () => {
+it('should render info and load other courses + similar courses', async () => {
   advanceTo('2020-10-01');
   renderComponent();
 
   await waitFor(() => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
-
   expect(screen.queryByRole('heading', { name })).toBeInTheDocument();
 
   expect(screen.queryByRole('heading', { name: 'Kuvaus' })).toBeInTheDocument();
@@ -182,16 +173,16 @@ it('should render info and load other events + similar events', async () => {
 
   expect(screen.getByTestId(similarEventsListTestId).children).toHaveLength(8);
 
-  similarEventsNames.forEach((eventName) => {
+  similarCoursesNames.forEach((courseName) => {
     expect(
-      screen.queryByLabelText(`Siirry tapahtumaan: ${eventName}`, {
+      screen.queryByLabelText(`Siirry tapahtumaan: ${courseName}`, {
         selector: 'a',
       })
     ).toBeInTheDocument();
   });
 });
 
-it('should show error info when event is closed', async () => {
+it('should show error info when course is closed', async () => {
   advanceTo('2020-10-10');
   renderComponent();
 
@@ -209,15 +200,15 @@ it('should show error info when event is closed', async () => {
 it("should show error info when event doesn't exist", async () => {
   const mocks = [
     {
-      request,
+      request: courseRequest,
       error: new Error('not found'),
     },
   ];
 
-  renderWithRoute(<EventPageContainer />, {
+  renderWithRoute(<CoursePageContainer />, {
     mocks,
     routes,
-    path: ROUTES.EVENT,
+    path: ROUTES.COURSE,
   });
 
   await waitFor(() => {

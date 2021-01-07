@@ -195,16 +195,6 @@ const getFilterDates = ({
 };
 
 /**
- * Get current hour as string to event query
- * @return {string}
- */
-export const getCurrentHour = (): string => {
-  const dateFormat = 'yyyy-MM-dd';
-  const now = new Date();
-  return `${formatDate(now, dateFormat)}T${formatDate(now, 'HH')}`;
-};
-
-/**
  * Get event list request filters from url parameters
  * @param {object} filterOptions
  * @return {object}
@@ -282,6 +272,7 @@ export const getEventSearchVariables = ({
   const hasLocation = !isEmpty(divisions) || !isEmpty(places);
   const hasText = !isEmpty(text);
   // Combine and add keywords
+
   return {
     ...(hasText &&
       (hasLocation ? { localOngoingAnd: text } : { allOngoingAnd: text })),

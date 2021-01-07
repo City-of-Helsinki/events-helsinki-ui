@@ -3,21 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 import { toast } from 'react-toastify';
 
-import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import { useCourseListQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
-import MainContent from '../app/layout/MainContent';
-import PageWrapper from '../app/layout/PageWrapper';
-import { EventType } from '../event/eventCard/types';
-import EventList from '../eventList/EventList';
 import {
   EVENT_SEARCH_SOURCES,
   EVENT_SORT_OPTIONS,
   PAGE_SIZE,
 } from '../eventSearch/constants';
-import SearchResultsContainer from '../eventSearch/searchResultList/SearchResultsContainer';
+import SearchPage from '../eventSearch/SearchPage';
 import { getEventSearchVariables, getNextPage } from '../eventSearch/utils';
-import styles from './courseSearchPageContainer.module.scss';
 import CourseSearch from './Search';
 
 const CourseSearchPageContainer: React.FC = () => {
@@ -25,20 +19,17 @@ const CourseSearchPageContainer: React.FC = () => {
   const locale = useLocale();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
 
-  const eventFilters = React.useMemo(() => {
-    return getEventSearchVariables({
-      include: ['keywords', 'location'],
-      language: locale,
-      pageSize: PAGE_SIZE,
-      params: searchParams,
-      sortOrder: EVENT_SORT_OPTIONS.END_TIME,
-      superEventType: ['umbrella', 'none'],
-      searchSource: EVENT_SEARCH_SOURCES.COURSES,
-    });
-  }, [locale, searchParams]);
+  const eventFilters = getEventSearchVariables({
+    include: ['keywords', 'location'],
+    language: locale,
+    pageSize: PAGE_SIZE,
+    params: searchParams,
+    sortOrder: EVENT_SORT_OPTIONS.END_TIME,
+    superEventType: ['umbrella', 'none'],
+    searchSource: EVENT_SEARCH_SOURCES.COURSES,
+  });
 
   const { data: coursesData, fetchMore, loading } = useCourseListQuery({
     notifyOnNetworkStatusChange: true,
@@ -78,35 +69,15 @@ const CourseSearchPageContainer: React.FC = () => {
   };
 
   return (
-    <PageWrapper
-      title="courseSearch.title"
-      className={styles.courseSearchPageContainer}
-    >
-      <CourseSearch />
-      <div id="resultList">
-        <LoadingSpinner isLoading={!isFetchingMore && loading}>
-          {coursesData && (
-            <MainContent offset={-70}>
-              <SearchResultsContainer
-                count={coursesData.courseList.meta.count}
-                loading={loading}
-                listComponent={
-                  <EventList
-                    cardSize="large"
-                    eventType={EventType.COURSE}
-                    events={coursesData.courseList.data}
-                    count={coursesData.courseList.meta.count}
-                    loading={loading}
-                    hasNext={!!coursesData.courseList.meta.next}
-                    onLoadMore={handleLoadMore}
-                  />
-                }
-              />
-            </MainContent>
-          )}
-        </LoadingSpinner>
-      </div>
-    </PageWrapper>
+    <SearchPage
+      SearchComponent={CourseSearch}
+      pageTitle="courseSearch.title"
+      isLoadingEvents={loading}
+      handleLoadMore={handleLoadMore}
+      isFetchingMoreEvents={isFetchingMore}
+      eventsList={coursesData?.courseList}
+      eventType="course"
+    />
   );
 };
 

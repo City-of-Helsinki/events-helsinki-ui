@@ -148,6 +148,10 @@
       "labelDirections": "Find your way",
       "labelLanguages": "Languages",
       "labelLocation": "Location",
+      "labelAudience": "Target groups",
+      "labelMinAttendeeCapacity": "Min. attendee capacity",
+      "labelMaxAttendeeCapacity": "Max. attendee capacity",
+      "labelSeatsLeft": "Seats left",
       "labelOrganizer": "Organizer information",
       "labelOtherInfo": "Other information",
       "labelPrice": "Price",
@@ -173,9 +177,9 @@
       "title": "Oops, you got hit by a 404!"
     },
     "otherTimes": {
-      "buttonHide": "Hide other event times",
+      "buttonHide": "Hide",
       "buttonReadMore": "Read more; {{date}}",
-      "buttonShow": "Show other event times",
+      "buttonShow": "Show",
       "title": "Other times of the event"
     },
     "shareLinks": {
@@ -247,7 +251,8 @@
       "sv": "På svenska"
     },
     "searchCollections": "We recommend",
-    "searchEvents": "Find something to do"
+    "searchEvents": "Events",
+    "searchHobbies": "Hobbies"
   },
   "home": {
     "category": {

@@ -148,6 +148,10 @@
       "labelDirections": "Löydä perille",
       "labelLanguages": "Kielet",
       "labelLocation": "Paikka",
+      "labelAudience": "Kohderyhmät",
+      "labelMinAttendeeCapacity": "Min. osallistujamäärä",
+      "labelMaxAttendeeCapacity": "Max. osallistujamäärä",
+      "labelSeatsLeft": "Paikkoja jäljellä",
       "labelOrganizer": "Järjestäjän tiedot",
       "labelOtherInfo": "Muut tiedot",
       "labelPrice": "Hinta",
@@ -172,9 +176,9 @@
       "title": "Oho, nyt iski 404!"
     },
     "otherTimes": {
-      "buttonHide": "Piilota muut tapahtuma-ajat",
+      "buttonHide": "Piilota",
       "buttonReadMore": "Lue lisää: {{date}}",
-      "buttonShow": "Näytä muut tapahtuma-ajat",
+      "buttonShow": "Näytä",
       "title": "Tapahtuman muut ajat"
     },
     "shareLinks": {
@@ -247,7 +251,8 @@
       "sv": "På svenska"
     },
     "searchCollections": "Suosittelemme",
-    "searchEvents": "Etsi tekemistä"
+    "searchEvents": "Etsi tapahtumia",
+    "searchHobbies": "Harrastukset"
   },
   "home": {
     "category": {

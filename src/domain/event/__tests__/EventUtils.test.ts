@@ -15,21 +15,21 @@ import {
   getEventFields,
   getEventIdFromUrl,
   getEventImageUrl,
-  getEventKeywords,
   getEventPlaceholderImageUrl,
   getEventSomeImageUrl,
+  getKeywordList,
   getLocationId,
   getServiceMapUrl,
 } from '../EventUtils';
 
-describe('getEventKeywords function', () => {
+describe('getKeywordList function', () => {
   it('should sort and capitalize keywords', () => {
     const keywords = fakeKeywords(2, [
       { name: { fi: 'keyword 2' } },
       { name: { fi: 'keyword 1' } },
     ]).data;
     const event = fakeEvent({ keywords }) as EventFieldsFragment;
-    const sortedKeywords = getEventKeywords(event, 'fi');
+    const sortedKeywords = getKeywordList(event.keywords, 'fi');
 
     expect(map(sortedKeywords, 'name')).toStrictEqual([
       'Keyword 1',
@@ -37,18 +37,21 @@ describe('getEventKeywords function', () => {
     ]);
   });
 
-  it('should remove duplicate keywords', () => {
-    const keywords = fakeKeywords(3, [
+  it('should remove duplicate keywords (not case sensitive)', () => {
+    const keywords = fakeKeywords(5, [
       { name: { fi: 'keyword 1' } },
       { name: { fi: 'keyword 2' } },
       { name: { fi: 'keyword 2' } },
+      { name: { fi: 'KeYwoRD 3' } },
+      { name: { fi: 'keyWord 3' } },
     ]).data;
     const event = fakeEvent({ keywords }) as EventFieldsFragment;
-    const sortedKeywords = getEventKeywords(event, 'fi');
+    const sortedKeywords = getKeywordList(event.keywords, 'fi');
 
     expect(map(sortedKeywords, 'name')).toStrictEqual([
       'Keyword 1',
       'Keyword 2',
+      'Keyword 3',
     ]);
   });
 
@@ -58,7 +61,7 @@ describe('getEventKeywords function', () => {
       { ...fakeKeyword(), name: null },
     ];
     const event = fakeEvent({ keywords }) as EventFieldsFragment;
-    const eventKeywords = getEventKeywords(event, 'fi');
+    const eventKeywords = getKeywordList(event.keywords, 'fi');
 
     expect(eventKeywords).toHaveLength(0);
   });

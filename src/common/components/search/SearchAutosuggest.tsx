@@ -209,7 +209,7 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
       ref={container}
     >
       <div className={styles.iconWrapper}>
-        <IconSearch size="s" aria-hidden/>
+        <IconSearch size="s" aria-hidden />
       </div>
       <div className={styles.inputWrapper}>
         <input

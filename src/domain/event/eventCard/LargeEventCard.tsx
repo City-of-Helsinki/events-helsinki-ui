@@ -6,10 +6,6 @@ import { useHistory, useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import buttonStyles from '../../../common/components/button/button.module.scss';
-import {
-  CourseFieldsFragment,
-  EventFieldsFragment,
-} from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import testImage from '../../../util/testImage';
@@ -23,19 +19,21 @@ import {
   isEventClosed,
   isEventFree,
 } from '../EventUtils';
+import {
+  EVENT_ROUTE_MAPPER,
+  EventFields,
+  EVENTS_ROUTE_MAPPER,
+  EventType,
+} from '../types';
 import styles from './largeEventCard.module.scss';
-import { EVENT_ROUTE_MAPPER, EVENTS_ROUTE_MAPPER, EventType } from './types';
 import { addPlaceFromPathToQueryString } from './utils';
 
 interface Props {
-  event: EventFieldsFragment | CourseFieldsFragment;
+  event: EventFields;
   eventType?: EventType;
 }
 
-const LargeEventCard: React.FC<Props> = ({
-  event,
-  eventType = EventType.EVENT,
-}) => {
+const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
   // place comes from place param in clean url on events search page

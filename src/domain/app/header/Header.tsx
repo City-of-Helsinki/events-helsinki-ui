@@ -56,6 +56,10 @@ const Header: React.FC<HeaderProps> = ({ menuOpen, onMenuToggle }) => {
       url: `/${locale}${ROUTES.EVENTS}`,
     },
     {
+      label: t('header.searchHobbies'),
+      url: `/${locale}${ROUTES.COURSES}`,
+    },
+    {
       label: t('header.searchCollections'),
       url: `/${locale}${ROUTES.COLLECTIONS}`,
     },

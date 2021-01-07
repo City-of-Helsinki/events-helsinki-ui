@@ -10,7 +10,7 @@ import {
 } from '../../generated/graphql';
 import BasicEventCard from '../event/eventCard/EventCard';
 import LargeEventCard from '../event/eventCard/LargeEventCard';
-import { EventType } from '../event/eventCard/types';
+import { EventFields, EventType } from '../event/types';
 import styles from './eventList.module.scss';
 
 const eventCardsMap = {
@@ -31,7 +31,7 @@ interface Props {
 
 const EventList: React.FC<Props> = ({
   buttonCentered = false,
-  eventType = EventType.EVENT,
+  eventType = 'event',
   cardSize = 'default',
   events,
   loading,
@@ -46,11 +46,9 @@ const EventList: React.FC<Props> = ({
   return (
     <div className={classNames(styles.eventListWrapper, styles[cardSize])}>
       <div className={styles.eventsWrapper}>
-        {(events as (EventFieldsFragment | CourseFieldsFragment)[]).map(
-          (event) => (
-            <EventCard key={event.id} event={event} eventType={eventType} />
-          )
-        )}
+        {(events as EventFields[]).map((event) => (
+          <EventCard key={event.id} event={event} eventType={eventType} />
+        ))}
       </div>
       <div
         className={classNames(styles.loadMoreWrapper, {

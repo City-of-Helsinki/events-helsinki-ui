@@ -37,6 +37,7 @@ const keywords = fakeKeywords(
   keywordIds.length,
   keywordIds.map((id) => ({ id, name: { fi: id } }))
 ).data;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const event = fakeEvent({
   keywords,
 }) as EventFieldsFragment;
@@ -59,7 +60,15 @@ afterAll(() => {
 
 test('should render similar event cards', async () => {
   advanceTo(new Date('2020-08-11'));
-  render(<SimilarEvents event={event} />, { mocks });
+  render(
+    <SimilarEvents
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      events={events.data as any}
+      eventsType="event"
+      loading={false}
+    />,
+    { mocks }
+  );
 
   await waitFor(() => {
     expect(

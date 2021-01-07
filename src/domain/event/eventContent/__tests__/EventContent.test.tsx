@@ -34,7 +34,7 @@ const event = fakeEvent({
 }) as EventFieldsFragment;
 
 it('should render event content fields', async () => {
-  render(<EventContent event={event} />);
+  render(<EventContent event={event} eventType="event" />);
   await actWait();
 
   const itemsByRole = [

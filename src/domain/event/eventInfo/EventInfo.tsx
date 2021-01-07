@@ -5,11 +5,13 @@ import {
   IconAngleRight,
   IconCalendarClock,
   IconGlobe,
+  IconGroup,
   IconInfoCircle,
   IconLocation,
   IconTicket,
 } from 'hds-react';
 import { createEvent, EventAttributes } from 'ics';
+import isNil from 'lodash/isNil';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -17,24 +19,28 @@ import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
 import Link from '../../../common/components/link/Link';
 import linkStyles from '../../../common/components/link/link.module.scss';
 import Visible from '../../../common/components/visible/Visible';
-import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import IconDirections from '../../../icons/IconDirections';
 import getDateArray from '../../../util/getDateArray';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import getDomain from '../../../util/getDomain';
 import { translateValue } from '../../../util/translateUtils';
-import { ROUTES } from '../../app/routes/constants';
 import { getEventFields, getEventPrice, getServiceMapUrl } from '../EventUtils';
+import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../types';
 import styles from './eventInfo.module.scss';
 import OrganizationInfo from './OrganizationInfo';
-import OtherEventTimes from './OtherEventTimes';
+import OtherCourseTimesContainer from './otherEventTimes/OtherCourseTimesContainer';
+import OtherEventTimesContainer from './otherEventTimes/OtherEventTimesContainer';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isDefined = (value: any) => !isNil(value);
 
 interface Props {
-  event: EventFieldsFragment;
+  event: EventFields;
+  eventType: EventType;
 }
 
-const EventInfo: React.FC<Props> = ({ event }) => {
+const EventInfo: React.FC<Props> = ({ event, eventType }) => {
   const { t } = useTranslation();
   const locale = useLocale();
 
@@ -55,14 +61,38 @@ const EventInfo: React.FC<Props> = ({ event }) => {
     startTime,
     streetAddress,
     telephone,
+    audience,
+    maximumAttendeeCapacity,
+    minimumAttendeeCapacity,
+    remainingAttendeeCapacity,
   } = getEventFields(event, locale);
   const eventPriceText = getEventPrice(
     event,
     locale,
     t('event.info.offers.isFree')
   );
+
+  const courseInfoRows = [
+    {
+      value: minimumAttendeeCapacity,
+      label: t('event.info.labelMinAttendeeCapacity'),
+    },
+    {
+      value: maximumAttendeeCapacity,
+      label: t('event.info.labelMaxAttendeeCapacity'),
+    },
+    {
+      value: remainingAttendeeCapacity,
+      label: t('event.info.labelSeatsLeft'),
+    },
+  ].filter(({ value }) => isDefined(value));
+
   const showOtherInfo = Boolean(
-    email || externalLinks.length || infoUrl || telephone
+    email ||
+      externalLinks.length ||
+      infoUrl ||
+      telephone ||
+      courseInfoRows.length
   );
 
   const moveToBuyTicketsPage = () => {
@@ -75,7 +105,10 @@ const EventInfo: React.FC<Props> = ({ event }) => {
       const icsEvent: EventAttributes = {
         description: t('event.info.textCalendarLinkDescription', {
           description: shortDescription,
-          link: `${domain}/${locale}${ROUTES.EVENT.replace(':id', event.id)}`,
+          link: `${domain}/${locale}${EVENT_ROUTE_MAPPER[eventType].replace(
+            ':id',
+            event.id
+          )}`,
         }),
         end: endTime ? getDateArray(endTime) : getDateArray(startTime),
         location: [locationName, streetAddress, district, addressLocality]
@@ -123,7 +156,11 @@ const EventInfo: React.FC<Props> = ({ event }) => {
         </InfoWithIcon>
 
         {/* Other event times */}
-        <OtherEventTimes event={event} />
+        {eventType === 'event' ? (
+          <OtherEventTimesContainer event={event} />
+        ) : eventType === 'course' ? (
+          <OtherCourseTimesContainer event={event} />
+        ) : null}
 
         {/* Location info */}
         <InfoWithIcon
@@ -147,6 +184,18 @@ const EventInfo: React.FC<Props> = ({ event }) => {
           </Link>
         </InfoWithIcon>
 
+        {/* Audience */}
+        {!!audience.length && (
+          <InfoWithIcon
+            icon={<IconGroup />}
+            title={t('event.info.labelAudience')}
+          >
+            {audience.map((item) => (
+              <div key={item.id}>{item.name}</div>
+            ))}
+          </InfoWithIcon>
+        )}
+
         {/* Languages */}
         {!!languages.length && (
           <InfoWithIcon
@@ -168,12 +217,17 @@ const EventInfo: React.FC<Props> = ({ event }) => {
               .map((item) => (
                 <div key={item}>{item}</div>
               ))}
+
             {infoUrl && (
               <Link isExternal={true} to={infoUrl}>
                 {t('event.info.linkWebPage')}
               </Link>
             )}
-
+            {courseInfoRows.map((row) => (
+              <div key={row.label}>
+                {row.label}: {row.value}
+              </div>
+            ))}
             {externalLinks.map((externalLink, index) => {
               return (
                 !!externalLink.link && (
@@ -204,7 +258,7 @@ const EventInfo: React.FC<Props> = ({ event }) => {
         </InfoWithIcon>
 
         {/* Organization info */}
-        <OrganizationInfo event={event} />
+        <OrganizationInfo event={event} eventType={eventType} />
 
         {/* Price info */}
         <Visible below="sm">

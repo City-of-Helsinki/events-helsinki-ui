@@ -32,10 +32,10 @@ import PlaceSelector from '../place/placeSelector/PlaceSelector';
 import styles from './search.module.scss';
 
 interface Props {
-  scrollToResultList?: () => void;
+  scrollToResultList: () => void;
 }
 
-const Search: React.FC<Props> = () => {
+const Search: React.FC<Props> = ({ scrollToResultList }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { push } = useHistory();
@@ -134,8 +134,7 @@ const Search: React.FC<Props> = () => {
     moveToSearchPage();
 
     setAutosuggestInput('');
-    // TODO: scroll
-    // scrollToResultList();
+    scrollToResultList();
   };
 
   const categories = getCourseCategoryOptions(t);
@@ -190,8 +189,7 @@ const Search: React.FC<Props> = () => {
     setAutosuggestInput('');
 
     push({ pathname: `/${locale}${ROUTES.COURSES}`, search });
-    // TODO: handle scrolling
-    // scrollToResultList();
+    scrollToResultList();
   };
 
   const handleIsFreeChange = (e: React.ChangeEvent<HTMLInputElement>) => {

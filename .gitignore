@@ -9,6 +9,7 @@
 
 # testing
 /coverage
+/screenshot
 
 # production
 /build
@@ -29,3 +30,5 @@ yarn-error.log*
 
 # ItelliJ
 *.iml
+
+

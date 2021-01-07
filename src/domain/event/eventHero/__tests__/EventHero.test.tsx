@@ -13,7 +13,7 @@ import {
   fakeOffer,
 } from '../../../../util/mockDataUtils';
 import { render, screen, userEvent } from '../../../../util/testUtils';
-import EventHero from '../EventHero';
+import EventHero, { Props as EventHeroProps } from '../EventHero';
 
 const name = 'Event name';
 const startTime = '2020-06-22T07:00:00.000000Z';
@@ -47,8 +47,12 @@ afterAll(() => {
   clear();
 });
 
+const renderComponent = (props?: Partial<EventHeroProps>) => {
+  return render(<EventHero event={event} eventType="event" {...props} />);
+};
+
 test('should render event name, description and location', () => {
-  render(<EventHero event={event} />);
+  renderComponent();
 
   expect(screen.queryByRole('heading', { name })).toBeInTheDocument();
   expect(screen.queryByText(shortDescription)).toBeInTheDocument();
@@ -60,10 +64,10 @@ test('should render event name, description and location', () => {
 });
 
 test('should go to event list', () => {
-  const { history } = render(<EventHero event={event} />);
+  const { history } = renderComponent();
 
   userEvent.click(
-    screen.queryByRole('button', {
+    screen.getByRole('button', {
       name: translations.event.hero.ariaLabelBackButton,
     })
   );
@@ -71,7 +75,7 @@ test('should go to event list', () => {
 });
 
 test('should render keywords', () => {
-  render(<EventHero event={event} />);
+  renderComponent();
 
   keywordNames.forEach((keyword) => {
     expect(screen.queryByText(capitalize(keyword))).toBeInTheDocument();
@@ -80,7 +84,7 @@ test('should render keywords', () => {
 
 test('should render today tag', () => {
   advanceTo('2020-06-22');
-  render(<EventHero event={event} />);
+  renderComponent();
 
   expect(
     screen.queryByRole('button', {
@@ -96,7 +100,7 @@ test('should render today tag', () => {
 
 test('should render this week tag', () => {
   advanceTo('2020-06-23');
-  render(<EventHero event={event} />);
+  renderComponent();
 
   expect(
     screen.queryByRole('button', {
@@ -115,7 +119,7 @@ test('should hide buy button for free events', () => {
     ...event,
     offers: [fakeOffer({ isFree: true }) as OfferFieldsFragment],
   };
-  render(<EventHero event={mockEvent} />);
+  render(<EventHero event={mockEvent} eventType="event" />);
 
   expect(
     screen.queryByRole('button', {
@@ -131,7 +135,7 @@ test('should show buy button', () => {
     offers: [fakeOffer({ isFree: false }) as OfferFieldsFragment],
   };
 
-  render(<EventHero event={mockEvent} />);
+  render(<EventHero event={mockEvent} eventType="event" />);
 
   userEvent.click(
     screen.queryByRole('button', {

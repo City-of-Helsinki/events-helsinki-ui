@@ -8,19 +8,20 @@ import { toast } from 'react-toastify';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import {
+  CourseListDocument,
   EventFieldsFragment,
   EventListDocument,
 } from '../../../../generated/graphql';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
 import { fakeEvent, fakeEvents } from '../../../../util/mockDataUtils';
 import { render, screen, userEvent, waitFor } from '../../../../util/testUtils';
-import OtherEventTimesContainer from '../otherEventTimes/OtherEventTimesContainer';
+import OtherCourseTimesContainer from '../otherEventTimes/OtherCourseTimesContainer';
 
 const startTime = '2020-10-01T16:00:00Z';
 const endTime = '2020-10-01T18:00:00Z';
 
 const superEventId = 'hel:123';
-const superEventInternalId = `https://api.hel.fi/linkedevents/v1/event/${superEventId}`;
+const superEventInternalId = `https://api.hel.fi/linkedcourses/v1/event/${superEventId}`;
 
 const event = fakeEvent({
   superEvent: { internalId: superEventInternalId },
@@ -30,14 +31,14 @@ const meta = {
   count: 20,
   next:
     // eslint-disable-next-line max-len
-    'https://api.hel.fi/linkedevents/v1/event/?include=keyword,location&page=2&sort=start_time&start=2020-08-11T03&super_event=hel:123',
+    'https://api.hel.fi/linkedcourses/v1/event/?include=keyword,location&page=2&sort=start_time&start=2020-08-11T03&super_event=hel:123',
   previous: null,
   __typename: 'Meta',
 };
 
 const otherEventsResponse = {
   data: {
-    eventList: {
+    courseList: {
       ...fakeEvents(
         10,
         range(1, 11).map((i) => ({
@@ -52,7 +53,7 @@ const otherEventsResponse = {
 
 const otherEventsLoadMoreResponse = {
   data: {
-    eventList: {
+    courseList: {
       ...fakeEvents(
         10,
         range(11, 21).map((i) => ({
@@ -75,7 +76,7 @@ const variables = {
 const commonMocks = [
   {
     request: {
-      query: EventListDocument,
+      query: CourseListDocument,
       variables,
     },
     result: otherEventsResponse,
@@ -86,7 +87,7 @@ const defaultMocks = [
   ...commonMocks,
   {
     request: {
-      query: EventListDocument,
+      query: CourseListDocument,
       variables: { ...variables, page: 2 },
     },
     result: otherEventsLoadMoreResponse,
@@ -98,7 +99,7 @@ afterAll(() => {
 });
 
 const renderComponent = (mocks: MockedResponse[] = defaultMocks) =>
-  render(<OtherEventTimesContainer event={event} />, { mocks });
+  render(<OtherCourseTimesContainer event={event} />, { mocks });
 
 test('should render other event times', async () => {
   advanceTo(new Date('2020-08-11'));
@@ -114,7 +115,7 @@ test('should render other event times', async () => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  otherEventsResponse.data.eventList.data.forEach((event) => {
+  otherEventsResponse.data.courseList.data.forEach((event) => {
     const dateStr = getDateRangeStr({
       start: event.startTime,
       end: event.endTime,
@@ -130,7 +131,7 @@ test('should render other event times', async () => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  otherEventsLoadMoreResponse.data.eventList.data.forEach((event) => {
+  otherEventsLoadMoreResponse.data.courseList.data.forEach((event) => {
     const dateStr = getDateRangeStr({
       start: event.startTime,
       end: event.endTime,
@@ -182,7 +183,7 @@ test('should go to event page of other event time', async () => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  const event = otherEventsResponse.data.eventList.data[0];
+  const event = otherEventsResponse.data.courseList.data[0];
   const dateStr = getDateRangeStr({
     start: event.startTime,
     end: event.endTime,
@@ -201,5 +202,5 @@ test('should go to event page of other event time', async () => {
     })
   );
 
-  expect(history.location.pathname).toBe(`/fi/events/${event.id}`);
+  expect(history.location.pathname).toBe(`/fi/courses/${event.id}`);
 });
