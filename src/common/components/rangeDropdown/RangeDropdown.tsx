@@ -1,5 +1,5 @@
 import { Checkbox, IconAngleDown, IconAngleUp, TextInput } from 'hds-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
 import SearchLabel from '../search/searchLabel/SearchLabel';
@@ -29,7 +29,7 @@ export interface RangeDropdownProps {
   maxInputLabel: string;
   maxInputFixedValue?: string;
   name: string;
-  onChange: (values: string[]) => void;
+  onChange: (minValue: string, maxValue: string) => void;
   fixedValuesText?: string;
   showFixedValuesText?: boolean;
   title: string;
@@ -97,6 +97,8 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
           Number(val) >= Number(internalMinInput)
         ) {
           setInternalMaxInput(val);
+        } else if (internalMaxInput === '') {
+          setInternalMaxInput(internalMinInput);
         }
       };
 
@@ -115,6 +117,10 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
     },
     [internalMaxInput, internalMinInput, maxInputEndValue, minInputStartValue]
   );
+
+  useEffect(() => {
+    onChange(internalMinInput, internalMaxInput);
+  }, [internalMaxInput, internalMinInput, onChange]);
 
   const {
     //focusedIndex,
@@ -137,7 +143,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
           ensureDropdownIsOpen();
           break;
         case 'Enter':
-          //does not work
+          //todo: does not work
           if (isToggleButtonFocused()) {
             handleToggleButtonClick();
           }
@@ -214,9 +220,10 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   };
 
   const handleClear = React.useCallback(() => {
-    onChange([]);
+    onChange('', '');
     setInternalMinInput('');
     setInternalMaxInput('');
+    setInternalIsFixedValues(false);
   }, [onChange]);
 
   const handleInputChange = (
@@ -292,14 +299,16 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
             label={maxInputLabel}
           />
         </div>
-        <Checkbox
-          className={styles.rangeCheckbox}
-          checked={internalIsFixedValues}
-          id={`${name}_setDefaultRangeValues`}
-          label={fixedValuesText}
-          name={'rangeCheckbox'}
-          onChange={handleCheckboxChange}
-        />
+        {showFixedValuesText && (
+          <Checkbox
+            className={styles.rangeCheckbox}
+            checked={internalIsFixedValues}
+            id={`${name}_setDefaultRangeValues`}
+            label={fixedValuesText}
+            name={'rangeCheckbox'}
+            onChange={handleCheckboxChange}
+          />
+        )}
       </DropdownMenu>
     </div>
   );

@@ -357,6 +357,8 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
     publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
     start,
     text: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.TEXT),
+    minAge: searchParams.get(EVENT_SEARCH_FILTERS.MIN_AGE) || '',
+    maxAge: searchParams.get(EVENT_SEARCH_FILTERS.MAX_AGE) || '',
   };
 };
 

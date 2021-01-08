@@ -32,6 +32,8 @@ export interface Filters {
   publisher?: string | null;
   start: Date | null;
   text: string[];
+  minAge?: string;
+  maxAge?: string;
 }
 
 export interface MappedFilters {

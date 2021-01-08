@@ -70,9 +70,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   const [selectedDivisions, setSelectedDivisions] = React.useState<string[]>(
     []
   );
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [minAgeInput, setMinAgeInput] = React.useState('');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [maxAgeInput, setMaxAgeInput] = React.useState('');
   const [start, setStart] = React.useState<Date | null>(null);
   const [end, setEnd] = React.useState<Date | null>(null);
@@ -92,6 +90,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     text: selectedTexts,
     start,
     end,
+    minAge: minAgeInput,
+    maxAge: maxAgeInput,
   };
 
   // Initialize fields when page is loaded
@@ -105,6 +105,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
       text,
       end: endTime,
       start: startTime,
+      minAge,
+      maxAge,
     } = getSearchFilters(searchParams);
 
     setSelectedCategories(categories);
@@ -113,6 +115,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     setSelectedPlaces(places);
     setSelectedTexts(text);
     setSelectedDateTypes(dateTypes);
+    setMinAgeInput(minAge || '');
+    setMaxAgeInput(maxAge || '');
 
     if (endTime || startTime) {
       setIsCustomDate(true);
@@ -127,6 +131,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     setDivisionInput('');
     setPlaceInput('');
     setAutosuggestInput('');
+    setMinAgeInput('');
+    setMaxAgeInput('');
   };
 
   const clearFilters = () => {
@@ -210,6 +216,11 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     });
 
     push({ pathname: `/${locale}${ROUTES.COURSES}`, search });
+  };
+
+  const handleSetAgeValues = (minAge: string, maxAge: string) => {
+    setMinAgeInput(minAge);
+    setMaxAgeInput(maxAge);
   };
 
   return (
@@ -303,7 +314,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                   maxInputEndValue={'100'}
                   maxInputFixedValue={'100'}
                   name="ageLimitValues"
-                  onChange={setSelectedDivisions}
+                  onChange={handleSetAgeValues}
                   fixedValuesText={t(
                     'courseSearch.search.showOnlyAdultCourses'
                   )}
