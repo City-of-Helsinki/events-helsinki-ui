@@ -72,6 +72,9 @@ const LandingPage: React.FC = () => {
                   searchPlaceholder={t('home.eventSearch.placeholder')}
                   popularCategories={getEventCategoryOptions(t)}
                 />
+                {/* Background helper used to get the wave-effect without 
+                    course search panel being on top of event search panel */}
+                <div className={styles.backgroundHelper} />
                 <LandingPageSearch
                   type="course"
                   title={t('home.courseSearch.title')}
