@@ -226,7 +226,11 @@
       "placeholder": "Ange ett sökord, t. ex. Franska eller matlagning",
       "labelSearchField": "Vad letar du efter?",
       "checkboxAlsoOngoingCourses": "Visa även pågående kurser",
-      "titleDropdownHobbyType": "Hobby type"
+      "titleDropdownHobbyType": "Hobby type",
+      "showOnlyAdultCourses": "Show only adult courses",
+      "ageLimitValues": "Age group",
+      "ageLimitMin": "From age",
+      "ageLimitMax": "To age"
     }
   },
   "footer": {

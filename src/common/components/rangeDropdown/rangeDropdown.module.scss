@@ -83,29 +83,33 @@
     }
   }
 
-  .inputWrapper {
+  .rangeInputsWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     border-bottom: 2px solid var(--color-black-10);
+    padding: var(--spacing-m) var(--spacing-s);
+
+    .rangeArrowWrapper {
+      margin: var(--spacing-s) var(--spacing-s) 0 var(--spacing-s);
+    }
 
     input {
       height: var(--spacing-2-xl);
       width: 100%;
-      padding: 0 var(--spacing-s) 0 var(--spacing-2-xl);
-      border: none;
-      outline: none;
-    }
-
-    svg {
-      position: absolute;
-      top: 50%;
-      left: var(--spacing-s);
-      transform: translateY(-50%);
     }
   }
 }
 
-.dropdownItem {
-  margin: 0;
-  padding: var(--spacing-xs) var(--spacing-s);
+.rangeCheckbox {
+  margin: var(--spacing-s) var(--spacing-s);
+  margin-top: var(--spacing-s) !important;
+  input {
+    color: var(--color-white);
+  }
+}
 
+.checkbox--isFocused {
+  background-color: var(--color-fog);
 }

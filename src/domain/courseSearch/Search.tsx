@@ -1,5 +1,11 @@
 import classNames from 'classnames';
-import { Button, IconHome, IconLocation, IconSearch } from 'hds-react';
+import {
+  Button,
+  IconArrowRight,
+  IconHome,
+  IconLocation,
+  IconSearch,
+} from 'hds-react';
 import { uniq } from 'lodash';
 import React, { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +14,7 @@ import { useHistory, useLocation } from 'react-router';
 import Checkbox from '../../common/components/checkbox/Checkbox';
 import DateSelector from '../../common/components/dateSelector/DateSelector';
 import MultiSelectDropdown from '../../common/components/multiSelectDropdown/MultiSelectDropdown';
+import RangeDropdown from '../../common/components/rangeDropdown/RangeDropdown';
 import SearchAutosuggest from '../../common/components/search/SearchAutosuggest';
 import SearchLabel from '../../common/components/search/searchLabel/SearchLabel';
 import { AutosuggestMenuOption } from '../../common/types';
@@ -63,6 +70,10 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   const [selectedDivisions, setSelectedDivisions] = React.useState<string[]>(
     []
   );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [minAgeInput, setMinAgeInput] = React.useState('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [maxAgeInput, setMaxAgeInput] = React.useState('');
   const [start, setStart] = React.useState<Date | null>(null);
   const [end, setEnd] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
@@ -276,6 +287,28 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                   showSearch={true}
                   showSelectAll={true}
                   title={t('eventSearch.search.titleDropdownDivision')}
+                  value={selectedDivisions}
+                />
+              </div>
+              <div>
+                <RangeDropdown
+                  checkboxName="ageLimitValues"
+                  rangeIcon={<IconArrowRight aria-hidden />}
+                  minInputValue={minAgeInput}
+                  minInputLabel={t('courseSearch.search.ageLimitMin')}
+                  minInputStartValue={'0'}
+                  minInputFixedValue={'18'}
+                  maxInputValue={maxAgeInput}
+                  maxInputLabel={t('courseSearch.search.ageLimitMax')}
+                  maxInputEndValue={'100'}
+                  maxInputFixedValue={'100'}
+                  name="ageLimitValues"
+                  onChange={setSelectedDivisions}
+                  fixedValuesText={t(
+                    'courseSearch.search.showOnlyAdultCourses'
+                  )}
+                  showFixedValuesText={true}
+                  title={t('courseSearch.search.ageLimitValues')}
                   value={selectedDivisions}
                 />
               </div>

@@ -226,7 +226,11 @@
       "labelSearchField": "What are you looking for?",
       "checkboxAlsoOngoingCourses": "Show also ongoing courses",
       "checkboxIsFree": "Show only courses that are free",
-      "titleDropdownHobbyType": "Hobby type"
+      "titleDropdownHobbyType": "Hobby type",
+      "showOnlyAdultCourses": "Show only adult courses",
+      "ageLimitValues": "Age group",
+      "ageLimitMin": "From age",
+      "ageLimitMax": "To age"
     }
   },
   "footer": {
