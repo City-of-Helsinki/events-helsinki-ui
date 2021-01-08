@@ -13,7 +13,7 @@ import {
   fakeLocalizedObject,
 } from '../../../util/mockDataUtils';
 import { render, screen } from '../../../util/testUtils';
-import FrontPage from '../FrontPage';
+import FrontPage from '../LandingPage';
 
 const topBannerDescription = 'topBanner page description';
 const bottomBannerDescription = 'bottomBanner description';

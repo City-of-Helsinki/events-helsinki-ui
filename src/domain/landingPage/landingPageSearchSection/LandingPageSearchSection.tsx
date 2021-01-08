@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Button } from 'hds-react';
+import { Button, IconMinus, IconPlus } from 'hds-react';
 import capitalize from 'lodash/capitalize';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -36,6 +36,9 @@ const Search: React.FC<SearchProps> = ({
   const { t } = useTranslation();
   const locale = useLocale();
   const [autosuggestInput, setAutosuggestInput] = React.useState('');
+  const [categoriesVisibleMobile, setCategoriesVisibleMobile] = React.useState(
+    false
+  );
   const history = useHistory();
   const inputName = `${type}Search`;
 
@@ -77,6 +80,10 @@ const Search: React.FC<SearchProps> = ({
     });
   };
 
+  const toggleCategories = () => {
+    setCategoriesVisibleMobile((categoriesVisible) => !categoriesVisible);
+  };
+
   return (
     <div
       className={classNames(
@@ -105,7 +112,22 @@ const Search: React.FC<SearchProps> = ({
             </Button>
           </div>
         </div>
-        <div className={styles.popularCategories}>
+        <Button
+          className={styles.showCategoriesButton}
+          variant="supplementary"
+          theme="black"
+          iconRight={categoriesVisibleMobile ? <IconMinus /> : <IconPlus />}
+          onClick={toggleCategories}
+        >
+          {categoriesVisibleMobile
+            ? 'Piilota suosituimmat kategoriat'
+            : 'Näytä suosituimmat kategoriat'}
+        </Button>
+        <div
+          className={classNames(styles.popularCategories, {
+            [styles.categoriesOpen]: categoriesVisibleMobile,
+          })}
+        >
           <p className={styles.categoriesTitle}>
             {t('home.search.popularCategories')}
           </p>

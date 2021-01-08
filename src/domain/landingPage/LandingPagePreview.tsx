@@ -13,7 +13,7 @@ import {
   getCourseCategoryOptions,
   getEventCategoryOptions,
 } from '../eventSearch/utils';
-import styles from './frontPage.module.scss';
+import styles from './landingPage.module.scss';
 import LandingPageMeta from './landingPageMeta/LandingPageMeta';
 import LandingPageSearch from './landingPageSearchSection/LandingPageSearchSection';
 

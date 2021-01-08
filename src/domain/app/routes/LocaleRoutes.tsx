@@ -15,7 +15,7 @@ import CoursePageContainer from '../../course/CoursePageContainer';
 import CourseSearchPageContainer from '../../courseSearch/CourseSearchPageContainer';
 import EventPageContainer from '../../event/EventPageContainer';
 import EventSearchPageContainer from '../../eventSearch/EventSearchPageContainer';
-import LandingPage from '../../landingPage/FrontPage';
+import LandingPage from '../../landingPage/LandingPage';
 import LandingPagePreview from '../../landingPage/LandingPagePreview';
 import NotFound from '../../notFound/NotFound';
 import { ROUTES } from './constants';

@@ -28,7 +28,7 @@
 
   @include respond-below(sm) {
     padding: var(--spacing-2-xl) var(0.75rem + var(--spacing-m));
-    padding-bottom: 4rem;
+    padding-bottom: 1rem;
   }
 
   @include respond-between(sm, md) {
@@ -47,6 +47,10 @@
     height: fit-content;
     align-items: center;
     position: relative;
+
+    @include respond-below(sm) {
+      margin-bottom: 0;
+    }
   }
 
   h2 {
@@ -78,12 +82,29 @@
     align-self: flex-end;
   }
 
+  .showCategoriesButton {
+    margin-left: calc(-1 * (var(--spacing-2-xs) + var(--spacing-s)));
+    background-color: transparent !important;
+
+    @include respond-above(sm) {
+      display: none;
+    }
+  }
+
   .popularCategories {
     margin-top: 1rem;
 
     @include respond-above(md) {
       margin-top: 3rem;
     }
+
+    @include respond-below(sm) {
+      display: none;
+    }
+  }
+
+  .categoriesOpen {
+    display: block;
   }
 
   .categoriesTitle {
