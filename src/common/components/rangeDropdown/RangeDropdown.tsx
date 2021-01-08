@@ -20,7 +20,7 @@ export interface RangeDropdownProps {
   checkboxName: string;
   icon?: React.ReactElement;
   rangeIcon: React.ReactElement;
-  minInputStartValue: string;
+  minInputStartValue?: string;
   minInputValue?: string;
   minInputFixedValue?: string;
   minInputLabel: string;
@@ -60,10 +60,17 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
     false
   );
 
+  const minInputStartValueNormalized = minInputStartValue || '';
+  const minInputValueNormalized = minInputValue || '';
+  const minInputFixedValueNormalized = minInputFixedValue || '';
+  const maxInputEndValueNormalized = maxInputEndValue || '';
+  const maxInputValueNormalized = maxInputValue || '';
+  const maxInputFixedValueNormalized = maxInputFixedValue || '';
+
   const getInputValue = (value: string) => {
     return value !== '' &&
-      Number(value) >= Number(minInputStartValue || '') &&
-      Number(value) <= Number(maxInputEndValue || '')
+      Number(value) >= Number(minInputStartValueNormalized) &&
+      Number(value) <= Number(maxInputEndValueNormalized)
       ? value
       : '';
   };
@@ -91,10 +98,10 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
             Number(val) <= Number(internalMaxInput)
           ) {
             setInternalMinInput(val);
-            onChange(val, maxInputValue || '');
+            onChange(val, maxInputValueNormalized);
           } else if (internalMaxInput === '') {
             setInternalMinInput(val);
-            onChange(val, maxInputValue || '');
+            onChange(val, maxInputValueNormalized);
           }
         }
       };
@@ -106,7 +113,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
           Number(val) >= Number(minInputValue)
         ) {
           setInternalMaxInput(val);
-          onChange(minInputValue || '', val);
+          onChange(minInputValueNormalized, val);
         } else if (internalMaxInput === '') {
           setInternalMaxInput(internalMinInput);
         }
@@ -129,15 +136,15 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
       internalMaxInput,
       internalMinInput,
       maxInputEndValue,
-      maxInputValue,
+      maxInputValueNormalized,
       minInputStartValue,
       minInputValue,
+      minInputValueNormalized,
       onChange,
     ]
   );
 
   const {
-    //focusedIndex,
     setup: setupKeyboardNav,
     teardown: teardownKeyboardNav,
   } = useKeyboardNavigation({
@@ -186,7 +193,6 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   const isToggleButtonFocused = () => {
     const active = document.activeElement;
     const current = toggleButton.current;
-
     return !!current?.contains(active);
   };
 
@@ -196,13 +202,13 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
 
   const toggleMenu = React.useCallback(() => {
     setIsMenuOpen(!isMenuOpen);
-    if (minInputValue === '') {
+    if (minInputValueNormalized === '') {
       setInternalMinInput('');
     }
-    if (maxInputValue === '') {
+    if (maxInputValueNormalized === '') {
       setInternalMaxInput('');
     }
-  }, [isMenuOpen, maxInputValue, minInputValue]);
+  }, [isMenuOpen, maxInputValueNormalized, minInputValueNormalized]);
 
   const handleDocumentFocusin = (event: FocusEvent) => {
     const target = event.target;
@@ -257,9 +263,9 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
     if (internalIsFixedValues) {
       handleClear();
     } else {
-      onChange(minInputFixedValue || '', maxInputFixedValue || '');
-      setInternalMinInput(minInputFixedValue || '');
-      setInternalMaxInput(maxInputFixedValue || '');
+      onChange(minInputFixedValueNormalized, maxInputFixedValueNormalized);
+      setInternalMinInput(minInputFixedValueNormalized);
+      setInternalMaxInput(maxInputFixedValueNormalized);
     }
     setInternalIsFixedValues(!internalIsFixedValues);
   };
