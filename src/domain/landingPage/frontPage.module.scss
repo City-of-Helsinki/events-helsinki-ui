@@ -42,10 +42,6 @@
     }
   }
 
-  > :first-child {
-    z-index: 2;
-  }
-
   @include respond-above(md) {
     display: grid;
     grid-template-columns: 1fr 1fr;

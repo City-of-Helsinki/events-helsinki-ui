@@ -28,14 +28,14 @@
 
   @include respond-below(sm) {
     padding: var(--spacing-2-xl) var(0.75rem + var(--spacing-m));
-    padding-bottom: 5rem;
+    padding-bottom: 6rem;
   }
 
   @include respond-between(sm, md) {
     display: grid;
     grid-template-columns: 1fr 10fr 1fr;
     padding: var(--spacing-xl) 0;
-    padding-bottom: 4rem;
+    padding-bottom: 6rem;
 
     & > * {
       grid-column: 2;
