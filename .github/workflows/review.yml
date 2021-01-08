@@ -37,7 +37,7 @@ jobs:
   review:
     runs-on: ubuntu-latest
     needs: build
-    name: Review
+    name: Review + Acceptance Tests
     steps:
       - uses: actions/checkout@v2
       - uses: andersinno/kolga-setup-action@v2
