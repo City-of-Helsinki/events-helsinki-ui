@@ -34,12 +34,16 @@
 
 .searchInnerContainer {
   max-width: 100%;
-  & > :not(:first-child) {
+  > :not(:first-child) {
     margin-top: -3rem;
 
     @include respond-above(md) {
       margin-top: 0;
     }
+  }
+
+  > :first-child {
+    z-index: 2;
   }
 
   @include respond-above(md) {

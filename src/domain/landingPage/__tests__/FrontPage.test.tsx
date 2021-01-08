@@ -13,7 +13,7 @@ import {
   fakeLocalizedObject,
 } from '../../../util/mockDataUtils';
 import { render, screen } from '../../../util/testUtils';
-import LandingPage from '../LandingPage';
+import FrontPage from '../FrontPage';
 
 const topBannerDescription = 'topBanner page description';
 const bottomBannerDescription = 'bottomBanner description';
@@ -65,7 +65,7 @@ const mocks = [
 ];
 
 it('should render landing page correctly', async () => {
-  render(<LandingPage />, {
+  render(<FrontPage />, {
     mocks,
   });
 
@@ -83,7 +83,7 @@ it('should render landing page correctly', async () => {
 });
 
 test('Landing page should be accessible', async () => {
-  const { container } = render(<LandingPage />);
+  const { container } = render(<FrontPage />);
   let axeResult = undefined;
   await act(async () => {
     axeResult = await axe(container);

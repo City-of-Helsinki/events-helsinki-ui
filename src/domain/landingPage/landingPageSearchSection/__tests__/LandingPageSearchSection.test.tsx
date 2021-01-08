@@ -1,7 +1,8 @@
-import { advanceTo } from 'jest-date-mock';
 import React from 'react';
 
 import { KeywordListDocument } from '../../../../generated/graphql';
+import IconMovies from '../../../../icons/IconMovies';
+import IconMusic from '../../../../icons/IconMusic';
 import { fakeKeywords } from '../../../../util/mockDataUtils';
 import {
   configure,
@@ -10,7 +11,10 @@ import {
   userEvent,
   waitFor,
 } from '../../../../util/testUtils';
-import LandingPageSearch from '../LandingPageSearch';
+import { EVENT_CATEGORIES } from '../../../eventSearch/constants';
+import LandingPageSearchSection, {
+  SearchProps,
+} from '../LandingPageSearchSection';
 
 configure({ defaultHidden: true });
 
@@ -35,18 +39,57 @@ const mocks = [
   },
 ];
 
+const renderComponent = (props?: Partial<SearchProps>) => {
+  return render(
+    <LandingPageSearchSection
+      popularCategories={[
+        {
+          icon: <IconMovies />,
+          text: 'Elokuvat',
+          value: EVENT_CATEGORIES.MOVIE,
+        },
+        {
+          icon: <IconMusic />,
+          text: 'Musiikki',
+          value: EVENT_CATEGORIES.MUSIC,
+        },
+        {
+          icon: <IconMusic />,
+          text: 'Kulttuuri ja taide',
+          value: EVENT_CATEGORIES.CULTURE,
+        },
+      ]}
+      searchPlaceholder="placeholder"
+      title="Löydä tekemistä"
+      type="event"
+      {...props}
+    />,
+    { mocks }
+  );
+};
+
 test('should route to event search page after clicking submit button', async () => {
-  const { history } = render(<LandingPageSearch />, { mocks });
+  const { history } = renderComponent();
 
   userEvent.click(screen.getByRole('button', { name: /hae/i }));
   expect(history.location.pathname).toBe('/fi/events');
   expect(history.location.search).toBe(``);
 });
 
-test('should route to event search page with correct search query after clicking submit button', async () => {
-  const { history } = render(<LandingPageSearch />, { mocks });
+test('should route to course search page after clicking submit button', async () => {
+  const { history } = renderComponent({ type: 'course' });
 
-  const searchInput = screen.getByRole('textbox', { name: /mitä etsit\?/i });
+  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  expect(history.location.pathname).toBe('/fi/courses');
+  expect(history.location.search).toBe(``);
+});
+
+test('should route to event search page with correct search query after clicking submit button', async () => {
+  const { history } = renderComponent();
+
+  const searchInput = screen.getByRole('textbox', {
+    name: /löydä tekemistä/i,
+  });
   userEvent.type(searchInput, searchValue);
 
   // Check that auto-suggest menu is open
@@ -58,9 +101,11 @@ test('should route to event search page with correct search query after clicking
 });
 
 test('should route to event search page after clicking autosuggest menu item', async () => {
-  const { history } = render(<LandingPageSearch />, { mocks });
+  const { history } = renderComponent();
 
-  const searchInput = screen.getByRole('textbox', { name: /mitä etsit\?/i });
+  const searchInput = screen.getByRole('textbox', {
+    name: /löydä tekemistä/i,
+  });
   userEvent.type(searchInput, searchValue);
 
   // Wait autosuggest search internal input debounce
@@ -74,38 +119,10 @@ test('should route to event search page after clicking autosuggest menu item', a
 });
 
 test('should route to event search page after clicking category', async () => {
-  const { history } = render(<LandingPageSearch />, { mocks });
+  const { history } = renderComponent();
 
   userEvent.click(screen.getByText(/kulttuuri ja taide/i));
 
   expect(history.location.pathname).toBe('/fi/events');
   expect(history.location.search).toBe('?categories=culture');
-});
-
-test('should route to event search page after selecting today date type and pressing submit button', async () => {
-  const { history } = render(<LandingPageSearch />, { mocks });
-
-  userEvent.click(screen.getByRole('button', { name: /valitse ajankohta/i }));
-  userEvent.click(screen.getByRole('checkbox', { name: /tänään/i }));
-
-  userEvent.click(screen.getByRole('button', { name: /hae/i }));
-  expect(history.location.pathname).toBe('/fi/events');
-  expect(history.location.search).toBe('?dateTypes=today');
-});
-
-test('should route to event search page after selecting start date and pressing submit button', async () => {
-  advanceTo('2020-10-04');
-  const { history } = render(<LandingPageSearch />, { mocks });
-
-  userEvent.click(screen.getByRole('button', { name: /valitse ajankohta/i }));
-  userEvent.click(
-    // The reason to use getAllByRole is that there is also mobile date selector with same text,
-    // which is hidden using css
-    screen.getAllByRole('button', { name: /valitse päivät/i })[0]
-  );
-  userEvent.click(screen.getByRole('option', { name: /day-6/i }));
-
-  userEvent.click(screen.getByRole('button', { name: /hae/i }));
-  expect(history.location.pathname).toBe('/fi/events');
-  expect(history.location.search).toBe('?start=2020-10-06');
 });

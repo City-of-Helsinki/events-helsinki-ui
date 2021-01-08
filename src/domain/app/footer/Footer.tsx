@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import useLocale from '../../../hooks/useLocale';
 import { ROUTES } from '../routes/constants';
+import styles from './footer.module.scss';
 import FooterCategories from './FooterCategories';
 
 const footerTheme = {
@@ -15,7 +16,7 @@ const FooterSection: FunctionComponent = () => {
   const { t } = useTranslation();
   const locale = useLocale();
   return (
-    <Footer title={t('appName')} theme={footerTheme}>
+    <Footer title={t('appName')} theme={footerTheme} className={styles.footer}>
       <Footer.Navigation>
         <Footer.Item
           as={Link}

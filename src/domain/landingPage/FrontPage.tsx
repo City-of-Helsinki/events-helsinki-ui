@@ -94,6 +94,9 @@ const LandingPage: React.FC = () => {
             </div>
           </MainContent>
         )}
+        {landingPage?.bottomBanner && (
+          <BannerHero banner={landingPage.bottomBanner} />
+        )}
       </LoadingSpinner>
       <svg width="0" height="0">
         <defs>

@@ -10,7 +10,7 @@
     padding-bottom: unset;
   }
 
-  @include respond-above(md) {
+  @include respond-above(xlg) {
     min-height: 42.6875rem;
   }
 
@@ -69,9 +69,9 @@
     box-sizing: border-box;
     transition: background-color 0.2s ease;
     position: relative;
+    margin-bottom: 6rem;
 
     @include respond-above(sm) {
-      margin-bottom: 10rem;
       margin-left: calc(0rem - var(--spacing-xl));
       padding: var(--spacing-xl);
       box-sizing: content-box;
@@ -81,6 +81,10 @@
     @include respond-above(md) {
       margin-left: 0rem;
       max-width: 35rem;
+    }
+
+    @include respond-above(xlg) {
+      margin-bottom: 10rem;
     }
 
     .description {

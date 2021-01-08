@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 
 import SearchAutosuggest from '../../../common/components/search/SearchAutosuggest';
+import SearchLabel from '../../../common/components/search/searchLabel/SearchLabel';
 import { AutosuggestMenuOption, Category } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import { EVENTS_ROUTE_MAPPER, EventType } from '../../event/types';
@@ -15,7 +16,7 @@ import styles from './landingPageSearchSection.module.scss';
 
 const buttonColor = 'black';
 
-const Search: React.FC<{
+export type SearchProps = {
   title: string;
   searchPlaceholder: string;
   type: EventType;
@@ -24,11 +25,19 @@ const Search: React.FC<{
     icon: React.ReactElement;
     value: string;
   }[];
-}> = ({ type, title, searchPlaceholder, popularCategories }) => {
+};
+
+const Search: React.FC<SearchProps> = ({
+  type,
+  title,
+  searchPlaceholder,
+  popularCategories,
+}) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const [autosuggestInput, setAutosuggestInput] = React.useState('');
   const history = useHistory();
+  const inputName = `${type}Search`;
 
   const goToSearchPage = (search: string) => {
     history.push({
@@ -81,8 +90,11 @@ const Search: React.FC<{
             <h2>{title}</h2>
           </div>
           <div className={styles.autosuggestWrapper}>
+            <SearchLabel htmlFor={inputName} srOnly>
+              {title}
+            </SearchLabel>
             <SearchAutosuggest
-              name={`${type}Search`}
+              name={inputName}
               onChangeSearchValue={setAutosuggestInput}
               onOptionClick={handleMenuOptionClick}
               placeholder={searchPlaceholder}
@@ -100,6 +112,7 @@ const Search: React.FC<{
           <div className={styles.categoriesButtons}>
             {popularCategories.map((category) => (
               <Button
+                key={category.value}
                 variant="secondary"
                 iconLeft={category.icon}
                 onClick={() => handleCategoryClick(category)}
