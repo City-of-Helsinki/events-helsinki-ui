@@ -50,7 +50,7 @@ build-staging:
     DOCKER_BUILD_ARG_REACT_APP_GTM_PREVIEW: '$GL_QA_GTM_PREVIEW'
   only:
     refs:
-      - develop
+      - master
 
 build-production:
   extends: .build
@@ -86,7 +86,7 @@ staging:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-staging'
   only:
     refs:
-      - develop
+      - master
 
 production:
   variables:
