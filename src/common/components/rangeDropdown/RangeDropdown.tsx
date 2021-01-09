@@ -2,8 +2,8 @@ import { Checkbox, IconAngleDown, IconAngleUp, TextInput } from 'hds-react';
 import React, { useCallback } from 'react';
 
 import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
+import DropdownMenu from '../dropdownMenu/DropdownMenu';
 import SearchLabel from '../search/searchLabel/SearchLabel';
-import DropdownMenu from './DropdownMenu';
 import styles from './rangeDropdown.module.scss';
 
 export enum RANGE_INPUT {
