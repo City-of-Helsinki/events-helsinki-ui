@@ -1,5 +1,5 @@
 import { Checkbox, IconAngleDown, IconAngleUp, TextInput } from 'hds-react';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
 import SearchLabel from '../search/searchLabel/SearchLabel';
@@ -9,6 +9,8 @@ import styles from './rangeDropdown.module.scss';
 export enum RANGE_INPUT {
   MIN = 'min',
   MAX = 'max',
+  //for initial values from query string
+  ALL = 'all',
 }
 
 export type Option = {
@@ -54,91 +56,90 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   title,
   value,
 }) => {
-  const [internalMinInput, setInternalMinInput] = React.useState('');
-  const [internalMaxInput, setInternalMaxInput] = React.useState('');
   const [internalIsFixedValues, setInternalIsFixedValues] = React.useState(
     false
   );
 
-  const minInputStartValueNormalized = minInputStartValue || '';
   const minInputValueNormalized = minInputValue || '';
+  const maxInputValueNormalized = maxInputValue || '';
+  const minInputStartValueNormalized = minInputStartValue || '';
   const minInputFixedValueNormalized = minInputFixedValue || '';
   const maxInputEndValueNormalized = maxInputEndValue || '';
-  const maxInputValueNormalized = maxInputValue || '';
   const maxInputFixedValueNormalized = maxInputFixedValue || '';
-
-  const getInputValue = (value: string) => {
-    return value !== '' &&
-      Number(value) >= Number(minInputStartValueNormalized) &&
-      Number(value) <= Number(maxInputEndValueNormalized)
-      ? value
-      : '';
-  };
-
-  let minInput = getInputValue(minInputValue || internalMinInput);
-  const maxInput = getInputValue(maxInputValue || internalMaxInput);
-
-  if (maxInput && Number(minInput) > Number(maxInput)) {
-    minInput = maxInput;
-  }
 
   const dropdown = React.useRef<HTMLDivElement | null>(null);
   const toggleButton = React.useRef<HTMLButtonElement | null>(null);
   const inputMinRef = React.useRef<HTMLInputElement | null>(null);
 
-  const handleInputValueChange = React.useCallback(
+  //set values without validation
+  const handleInputChange = (inputType: RANGE_INPUT, val: string) => {
+    switch (inputType) {
+      case RANGE_INPUT.MIN:
+        onChange(val, maxInputValueNormalized);
+        break;
+      case RANGE_INPUT.MAX:
+        onChange(minInputValueNormalized, val);
+        break;
+      default:
+        break;
+    }
+  };
+
+  //validate values on blur
+  const handleInputBlur = useCallback(
     (inputType: RANGE_INPUT, val: string) => {
-      const handleMinValueChange = (val: string) => {
-        if (
-          Number(val) >= Number(minInputStartValue) &&
-          Number(val) <= Number(maxInputEndValue)
-        ) {
-          if (
-            internalMaxInput !== '' &&
-            Number(val) <= Number(internalMaxInput)
-          ) {
-            setInternalMinInput(val);
-            onChange(val, maxInputValueNormalized);
-          } else if (internalMaxInput === '') {
-            setInternalMinInput(val);
-            onChange(val, maxInputValueNormalized);
-          }
+      const getValidatedMinValue = (val: string): string => {
+        let resultValue = val;
+        if (Number(val) < Number(minInputStartValueNormalized)) {
+          resultValue = minInputStartValueNormalized;
+        } else if (Number(val) > Number(maxInputEndValueNormalized)) {
+          resultValue = maxInputEndValueNormalized;
         }
+        if (
+          maxInputValueNormalized &&
+          Number(val) > Number(maxInputValueNormalized)
+        ) {
+          resultValue = maxInputValueNormalized;
+        }
+        return resultValue;
       };
 
-      const handleMaxValueChange = (val: string) => {
-        if (
-          Number(val) <= Number(maxInputEndValue) &&
-          Number(val) >= Number(minInputStartValue) &&
-          Number(val) >= Number(minInputValue)
-        ) {
-          setInternalMaxInput(val);
-          onChange(minInputValueNormalized, val);
-        } else if (internalMaxInput === '') {
-          setInternalMaxInput(internalMinInput);
+      const getValidatedMaxValue = (val: string): string => {
+        let resultValue = val;
+        if (Number(val) > Number(maxInputEndValueNormalized)) {
+          resultValue = maxInputEndValueNormalized;
+        } else if (Number(val) < Number(minInputStartValueNormalized)) {
+          resultValue = minInputStartValueNormalized;
         }
+        if (
+          minInputValueNormalized &&
+          Number(val) < Number(minInputValueNormalized)
+        ) {
+          resultValue = minInputValueNormalized;
+        }
+        return resultValue;
       };
-
       switch (inputType) {
         case RANGE_INPUT.MIN:
-          handleMinValueChange(val);
+          onChange(getValidatedMinValue(val), maxInputValueNormalized);
           break;
         case RANGE_INPUT.MAX:
-          if (Number(val) <= Number(maxInputEndValue)) {
-            handleMaxValueChange(val);
-          }
+          onChange(minInputValueNormalized, getValidatedMaxValue(val));
+          break;
+        case RANGE_INPUT.ALL:
+          onChange(
+            getValidatedMinValue(minInputValueNormalized),
+            getValidatedMaxValue(maxInputValueNormalized)
+          );
           break;
         default:
           break;
       }
     },
     [
-      internalMaxInput,
-      internalMinInput,
-      maxInputEndValue,
+      maxInputEndValueNormalized,
       maxInputValueNormalized,
-      minInputStartValue,
-      minInputValue,
+      minInputStartValueNormalized,
       minInputValueNormalized,
       onChange,
     ]
@@ -202,13 +203,11 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
 
   const toggleMenu = React.useCallback(() => {
     setIsMenuOpen(!isMenuOpen);
-    if (minInputValueNormalized === '') {
-      setInternalMinInput('');
+    if (!isMenuOpen) {
+      //validate initial values
+      handleInputBlur(RANGE_INPUT.ALL, '');
     }
-    if (maxInputValueNormalized === '') {
-      setInternalMaxInput('');
-    }
-  }, [isMenuOpen, maxInputValueNormalized, minInputValueNormalized]);
+  }, [handleInputBlur, isMenuOpen]);
 
   const handleDocumentFocusin = (event: FocusEvent) => {
     const target = event.target;
@@ -247,25 +246,14 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
 
   const handleClear = React.useCallback(() => {
     onChange('', '');
-    setInternalMinInput('');
-    setInternalMaxInput('');
     setInternalIsFixedValues(false);
   }, [onChange]);
-
-  const handleInputChange = (
-    inputType: RANGE_INPUT,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    handleInputValueChange(inputType, event.target.value);
-  };
 
   const handleCheckboxChange = () => {
     if (internalIsFixedValues) {
       handleClear();
     } else {
       onChange(minInputFixedValueNormalized, maxInputFixedValueNormalized);
-      setInternalMinInput(minInputFixedValueNormalized);
-      setInternalMaxInput(maxInputFixedValueNormalized);
     }
     setInternalIsFixedValues(!internalIsFixedValues);
   };
@@ -303,9 +291,11 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
             id={name}
             name={name}
             placeholder={minInputStartValue}
-            onChange={(e) => handleInputChange(RANGE_INPUT.MIN, e)}
-            value={minInput}
+            onChange={(e) => handleInputChange(RANGE_INPUT.MIN, e.target.value)}
+            onBlur={(e) => handleInputBlur(RANGE_INPUT.MIN, e.target.value)}
+            value={minInputValueNormalized}
             label={minInputLabel}
+            disabled={internalIsFixedValues}
           />
           {rangeIcon && (
             <div className={styles.rangeArrowWrapper}>{rangeIcon}</div>
@@ -315,9 +305,11 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
             id={name}
             name={name}
             placeholder={maxInputEndValue}
-            onChange={(e) => handleInputChange(RANGE_INPUT.MAX, e)}
-            value={maxInput}
+            onChange={(e) => handleInputChange(RANGE_INPUT.MAX, e.target.value)}
+            onBlur={(e) => handleInputBlur(RANGE_INPUT.MAX, e.target.value)}
+            value={maxInputValueNormalized}
             label={maxInputLabel}
+            disabled={internalIsFixedValues}
           />
         </div>
         {showFixedValuesText && (
