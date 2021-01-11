@@ -166,11 +166,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
         case 'ArrowDown':
           ensureDropdownIsOpen();
           break;
-        case 'Enter':
-          //todo: does not work
-          if (isToggleButtonFocused()) {
-            handleToggleButtonClick();
-          }
+        //case Enter works by default as onClick event defined
       }
     },
   });
@@ -192,12 +188,6 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
       setIsMenuOpen(true);
     }
   }, [isMenuOpen]);
-
-  const isToggleButtonFocused = () => {
-    const active = document.activeElement;
-    const current = toggleButton.current;
-    return !!current?.contains(active);
-  };
 
   const setFocusToToggleButton = () => {
     toggleButton.current?.focus();
