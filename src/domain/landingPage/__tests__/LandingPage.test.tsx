@@ -15,7 +15,7 @@ import {
   fakeLocalizedObject,
 } from '../../../util/mockDataUtils';
 import { render, screen } from '../../../util/testUtils';
-import FrontPage from '../LandingPage';
+import LandingPage from '../LandingPage';
 
 const topBannerDescription = 'topBanner page description';
 const bottomBannerDescription = 'bottomBanner description';
@@ -71,7 +71,7 @@ const mocks = [
 ];
 
 test('Landing page should be accessible', async () => {
-  const { container } = render(<FrontPage />);
+  const { container } = render(<LandingPage />);
   let axeResult = undefined;
   await act(async () => {
     axeResult = await axe(container);
@@ -80,7 +80,7 @@ test('Landing page should be accessible', async () => {
 });
 
 it('should render landing page correctly', async () => {
-  render(<FrontPage />, {
+  render(<LandingPage />, {
     mocks,
   });
 
@@ -100,7 +100,7 @@ it('should render landing page correctly', async () => {
 it('renders different placeholder for inputs in mobile', async () => {
   jest.spyOn(useMobile, 'useMobile').mockReturnValue(true);
 
-  render(<FrontPage />, {
+  render(<LandingPage />, {
     mocks,
   });
 
