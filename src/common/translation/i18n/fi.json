@@ -61,7 +61,8 @@
     "timeAbbreviation": "klo",
     "srOnly" : {
       "opensInANewTab": "Avautuu uudessa välilehdessä"
-    }
+    },
+    "yearsShort": "v"
   },
   "collection": {
     "buttonShowAllPastEvents": "Näytä kaikki menneet",

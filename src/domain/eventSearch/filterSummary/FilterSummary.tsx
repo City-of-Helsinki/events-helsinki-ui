@@ -12,6 +12,7 @@ import getLocalisedString from '../../../util/getLocalisedString';
 import { translateValue } from '../../../util/translateUtils';
 import { ROUTES } from '../../app/routes/constants';
 import { getSearchFilters, getSearchQuery } from '../utils';
+import AgeFilter from './AgeFilter';
 import DateFilter from './DateFilter';
 import styles from './filterSummary.module.scss';
 import PlaceFilter from './PlaceFilter';
@@ -43,6 +44,8 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
     publisher,
     start,
     text,
+    audienceMinAgeGt,
+    audienceMaxAgeLt,
   } = getSearchFilters(searchParams);
 
   const dateText =
@@ -89,6 +92,8 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
       publisher: type !== 'publisher' ? publisher : null,
       start: type === 'date' ? null : start,
       text: type === 'text' ? text.filter((item) => item !== value) : text,
+      audienceMinAgeGt: type === 'minAge' ? '' : audienceMinAgeGt,
+      audienceMaxAgeLt: type === 'maxAge' ? '' : audienceMaxAgeLt,
     });
 
     push({ pathname: `/${locale}${route || ROUTES.EVENTS}`, search });
@@ -101,7 +106,9 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
     !!dateTypes.length ||
     !!divisions.length ||
     !!places.length ||
-    !!text.length;
+    !!text.length ||
+    !!(audienceMinAgeGt || '').length ||
+    !!(audienceMaxAgeLt || '').length;
 
   if (!hasFilters) return null;
 
@@ -154,6 +161,20 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
           value={dateType}
         />
       ))}
+      {audienceMinAgeGt && (
+        <AgeFilter
+          type="minAge"
+          value={audienceMinAgeGt}
+          onRemove={handleFilterRemove}
+        />
+      )}
+      {audienceMaxAgeLt && (
+        <AgeFilter
+          type="maxAge"
+          value={audienceMaxAgeLt}
+          onRemove={handleFilterRemove}
+        />
+      )}
       <button className={styles.clearButton} onClick={onClear} type="button">
         {t('eventSearch.buttonClearFilters')}
       </button>
