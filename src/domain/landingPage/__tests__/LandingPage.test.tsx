@@ -64,6 +64,15 @@ const mocks = [
   },
 ];
 
+test('Landing page should be accessible', async () => {
+  const { container } = render(<FrontPage />);
+  let axeResult = undefined;
+  await act(async () => {
+    axeResult = await axe(container);
+  });
+  expect(axeResult).toHaveNoViolations();
+});
+
 it('should render landing page correctly', async () => {
   render(<FrontPage />, {
     mocks,
@@ -80,13 +89,4 @@ it('should render landing page correctly', async () => {
     screen.getByRole('heading', { name: bottomBannerTitle })
   ).toBeInTheDocument();
   expect(screen.getByText(bottomBannerDescription)).toBeInTheDocument();
-});
-
-test('Landing page should be accessible', async () => {
-  const { container } = render(<FrontPage />);
-  let axeResult = undefined;
-  await act(async () => {
-    axeResult = await axe(container);
-  });
-  expect(axeResult).toHaveNoViolations();
 });
