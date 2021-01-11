@@ -320,7 +320,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                   )}
                   showFixedValuesText={true}
                   title={t('courseSearch.search.ageLimitValues')}
-                  value={selectedDivisions}
+                  value={[minAgeInput, maxAgeInput]}
                 />
               </div>
               <div>

@@ -96,6 +96,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
           resultValue = maxInputEndValueNormalized;
         }
         if (
+          val &&
           maxInputValueNormalized &&
           Number(val) > Number(maxInputValueNormalized)
         ) {
@@ -112,6 +113,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
           resultValue = minInputStartValueNormalized;
         }
         if (
+          val &&
           minInputValueNormalized &&
           Number(val) < Number(minInputValueNormalized)
         ) {
@@ -267,7 +269,9 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
         ref={toggleButton}
         type="button"
       >
-        {!!value.length && <div className={styles.isSelectedIndicator} />}
+        {!!value.filter(Boolean).length && (
+          <div className={styles.isSelectedIndicator} />
+        )}
         <div className={styles.iconWrapper}>{icon}</div>
         <div className={styles.title}>
           <SearchLabel htmlFor={name} srOnly={true}>
