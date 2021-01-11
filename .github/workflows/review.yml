@@ -1,4 +1,4 @@
-name: Build & Review
+name: Build & Review & Acceptance Tests
 on: [pull_request]
 
 env:
@@ -35,18 +35,51 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
           DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_ID: 64
           DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
-
   review:
     runs-on: ubuntu-latest
     needs: build
-    name: Review
+    name: Review + Acceptance Tests
     steps:
       - uses: actions/checkout@v2
       - uses: andersinno/kolga-setup-action@v2
-
       - name: Deploy
         uses: andersinno/kolga-deploy-action@v2
         env:
           K8S_PROBE_INITIAL_DELAY: 120
           ENVIRONMENT_URL: https://${{ env.K8S_NAMESPACE }}.${{ env.BASE_DOMAIN }}
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-review
+      - name: Setup kubectl
+        run: |
+          echo "${{ env.KUBECONFIG_RAW }}" > $(pwd)/kubeconfig
+          echo "KUBECONFIG=$(pwd)/kubeconfig" >> $GITHUB_ENV
+        shell: bash
+      - name: Get Review Deploy URL
+        id: deploy-url
+        run: |
+          DEPLOY_URL=$(kubectl get ingress -n "${{ env.K8S_NAMESPACE }}" -o jsonpath='{.items[0].spec.rules[0].host}')
+          echo "BROWSER_TESTS_LOCAL_ENV_URL=https://$DEPLOY_URL" >> $GITHUB_ENV
+        shell: bash
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: '12'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install dependencies
+        run: yarn --prefer-offline --frozen-lockfile --check-files
+      - name: Run Acceptance Tests (TestCafe Browser Tests)
+        run: yarn browser-test:ci
+      - name: Upload screenshots of failed tests
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: screenshots
+          path: screenshots/
