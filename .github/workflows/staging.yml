@@ -59,7 +59,7 @@ jobs:
   acceptance-tests:
     runs-on: windows-latest
     needs: staging
-    name: Acceprance tests for staging
+    name: Acceptance tests for staging
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js environment
