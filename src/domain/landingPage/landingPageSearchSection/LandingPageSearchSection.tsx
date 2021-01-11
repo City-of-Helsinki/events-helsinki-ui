@@ -27,6 +27,8 @@ export type SearchProps = {
   }[];
 };
 
+export const popularCategoriesContainerTestId = 'popular-categories-container';
+
 const Search: React.FC<SearchProps> = ({
   type,
   title,
@@ -123,6 +125,7 @@ const Search: React.FC<SearchProps> = ({
             : t('home.search.showPopularCategories')}
         </Button>
         <div
+          data-testid={popularCategoriesContainerTestId}
           className={classNames(styles.popularCategories, {
             [styles.categoriesOpen]: categoriesVisibleMobile,
           })}

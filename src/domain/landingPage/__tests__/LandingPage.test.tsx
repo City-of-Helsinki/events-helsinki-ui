@@ -2,10 +2,12 @@ import { act } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import * as React from 'react';
 
+import translations from '../../../common/translation/i18n/fi.json';
 import {
   CollectionListDocument,
   LandingPagesDocument,
 } from '../../../generated/graphql';
+import * as useMobile from '../../../hooks/useMobile';
 import {
   fakeBanner,
   fakeCollections,
@@ -42,6 +44,10 @@ const collectionsResponse = {
     collectionList: collections,
   },
 };
+
+beforeEach(() => {
+  jest.spyOn(useMobile, 'useMobile').mockReturnValue(false);
+});
 
 const mocks = [
   {
@@ -89,4 +95,18 @@ it('should render landing page correctly', async () => {
     screen.getByRole('heading', { name: bottomBannerTitle })
   ).toBeInTheDocument();
   expect(screen.getByText(bottomBannerDescription)).toBeInTheDocument();
+});
+
+it('renders different placeholder for inputs in mobile', async () => {
+  jest.spyOn(useMobile, 'useMobile').mockReturnValue(true);
+
+  render(<FrontPage />, {
+    mocks,
+  });
+
+  await screen.findByRole('heading', { name: topBannerTitle });
+
+  expect(
+    screen.getAllByPlaceholderText(translations.home.search.placeholder)
+  ).toHaveLength(2);
 });

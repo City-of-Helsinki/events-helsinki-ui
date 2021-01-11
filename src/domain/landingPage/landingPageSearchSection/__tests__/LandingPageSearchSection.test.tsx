@@ -1,5 +1,6 @@
 import React from 'react';
 
+import translations from '../../../../common/translation/i18n/fi.json';
 import { KeywordListDocument } from '../../../../generated/graphql';
 import IconMovies from '../../../../icons/IconMovies';
 import IconMusic from '../../../../icons/IconMusic';
@@ -13,6 +14,7 @@ import {
 } from '../../../../util/testUtils';
 import { EVENT_CATEGORIES } from '../../../eventSearch/constants';
 import LandingPageSearchSection, {
+  popularCategoriesContainerTestId,
   SearchProps,
 } from '../LandingPageSearchSection';
 
@@ -125,4 +127,38 @@ test('should route to event search page after clicking category', async () => {
 
   expect(history.location.pathname).toBe('/fi/events');
   expect(history.location.search).toBe('?categories=culture');
+});
+
+test('toggling categories in mobile work correctly', () => {
+  renderComponent();
+
+  expect(screen.getByTestId(popularCategoriesContainerTestId)).not.toHaveClass(
+    'categoriesOpen'
+  );
+
+  userEvent.click(
+    screen.getByRole('button', {
+      name: translations.home.search.showPopularCategories,
+    })
+  );
+
+  expect(screen.getByTestId(popularCategoriesContainerTestId)).toHaveClass(
+    'categoriesOpen'
+  );
+
+  expect(
+    screen.queryByRole('button', {
+      name: translations.home.search.showPopularCategories,
+    })
+  ).not.toBeInTheDocument();
+
+  userEvent.click(
+    screen.getByRole('button', {
+      name: translations.home.search.hidePopularCategories,
+    })
+  );
+
+  expect(screen.getByTestId(popularCategoriesContainerTestId)).not.toHaveClass(
+    'categoriesOpen'
+  );
 });
