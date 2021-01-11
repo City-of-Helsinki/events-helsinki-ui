@@ -82,7 +82,7 @@ Running browser tests against test environment
 
 Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
 
-### `yarn browser-test:local`
+### `yarn browser-test`
 
 Running browser tests against local environment
 
