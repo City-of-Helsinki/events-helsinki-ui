@@ -284,7 +284,10 @@
       "title": "Oj nej, nu blev det 404!"
     },
     "search": {
-      "popularCategories": "Populära kategorier"
+      "popularCategories": "Populära kategorier",
+      "placeholder": "Skriv sökord",
+      "showPopularCategories": "Visa de mest populära kategorierna",
+      "hidePopularCategories": "Dölj de mest populära kategorierna"
     },
     "eventSearch": {
       "buttonSearch": "Sök",

@@ -7,6 +7,7 @@ import {
   useLandingPagesQuery,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
+import { useMobile } from '../../hooks/useMobile';
 import Container from '../app/layout/Container';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -28,6 +29,7 @@ import { isLanguageSupported as isLanguagePageLanguageSupported } from './utils'
 const LandingPage: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
+  const isMobile = useMobile();
 
   const { data: landingPageData, loading } = useLandingPagesQuery({
     variables: { visibleOnFrontpage: true },
@@ -69,7 +71,11 @@ const LandingPage: React.FC = () => {
                 <LandingPageSearch
                   type="event"
                   title={t('home.eventSearch.title')}
-                  searchPlaceholder={t('home.eventSearch.placeholder')}
+                  searchPlaceholder={
+                    isMobile
+                      ? t('home.search.placeholder')
+                      : t('home.eventSearch.placeholder')
+                  }
                   popularCategories={getEventCategoryOptions(t)}
                 />
                 {/* Background helper used to get the wave-effect without 
@@ -78,7 +84,11 @@ const LandingPage: React.FC = () => {
                 <LandingPageSearch
                   type="course"
                   title={t('home.courseSearch.title')}
-                  searchPlaceholder={t('home.courseSearch.placeholder')}
+                  searchPlaceholder={
+                    isMobile
+                      ? t('home.search.placeholder')
+                      : t('home.courseSearch.placeholder')
+                  }
                   popularCategories={getCourseCategoryOptions(t)}
                 />
               </div>

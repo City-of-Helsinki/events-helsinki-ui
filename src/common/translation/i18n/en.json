@@ -284,7 +284,10 @@
       "title": "Oops, you got hit by a 404!"
     },
     "search": {
-      "popularCategories": "Popular categories"
+      "popularCategories": "Popular categories",
+      "placeholder": "Write search word",
+      "showPopularCategories": "Show most popular categories",
+      "hidePopularCategories": "Hide most popular categories"
     },
     "eventSearch": {
       "buttonSearch": "Search",

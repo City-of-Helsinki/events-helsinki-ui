@@ -284,7 +284,10 @@
       "title": "Oho, nyt iski 404!"
     },
     "search": {
-      "popularCategories": "Suosituimmat kategoriat"
+      "popularCategories": "Suosituimmat kategoriat",
+      "placeholder": "Kirjoita hakusana",
+      "showPopularCategories": "Näytä suosituimmat kategoriat",
+      "hidePopularCategories": "Piilota suosituimmat kategoriat"
     },
     "eventSearch": {
       "buttonSearch": "Hae",

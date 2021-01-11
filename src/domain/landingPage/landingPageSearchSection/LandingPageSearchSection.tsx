@@ -55,7 +55,6 @@ const Search: React.FC<SearchProps> = ({
       ...EVENT_DEFAULT_SEARCH_FILTERS,
       text: autosuggestInput ? [autosuggestInput] : [],
     });
-
     goToSearchPage(search);
   };
 
@@ -120,8 +119,8 @@ const Search: React.FC<SearchProps> = ({
           onClick={toggleCategories}
         >
           {categoriesVisibleMobile
-            ? 'Piilota suosituimmat kategoriat'
-            : 'Näytä suosituimmat kategoriat'}
+            ? t('home.search.hidePopularCategories')
+            : t('home.search.showPopularCategories')}
         </Button>
         <div
           className={classNames(styles.popularCategories, {
