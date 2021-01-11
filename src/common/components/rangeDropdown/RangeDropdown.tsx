@@ -69,7 +69,6 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
 
   const dropdown = React.useRef<HTMLDivElement | null>(null);
   const toggleButton = React.useRef<HTMLButtonElement | null>(null);
-  const inputMinRef = React.useRef<HTMLInputElement | null>(null);
 
   //set values without validation
   const handleInputChange = (inputType: RANGE_INPUT, val: string) => {
@@ -148,11 +147,12 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   );
 
   const {
+    focusedIndex,
     setup: setupKeyboardNav,
     teardown: teardownKeyboardNav,
   } = useKeyboardNavigation({
     container: dropdown,
-    listLength: 1,
+    listLength: 3,
     onKeyDown: (event: KeyboardEvent) => {
       switch (event.key) {
         // Close menu on ESC key
@@ -232,18 +232,8 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
     };
   }, [setupKeyboardNav, teardownKeyboardNav]);
 
-  const setFocusToInput = () => {
-    inputMinRef.current?.focus();
-  };
-
   const handleToggleButtonClick = () => {
     toggleMenu();
-
-    setTimeout(() => {
-      if (!isMenuOpen) {
-        setFocusToInput();
-      }
-    }, 0);
   };
 
   const handleClear = React.useCallback(() => {
@@ -258,6 +248,12 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
       onChange(minInputFixedValueNormalized, maxInputFixedValueNormalized);
     }
     setInternalIsFixedValues(!internalIsFixedValues);
+  };
+
+  const setFocus = (ref: HTMLInputElement) => {
+    if (ref?.id && ref?.id.split('_')[1] === focusedIndex?.toString()) {
+      ref?.focus();
+    }
   };
 
   return (
@@ -290,10 +286,10 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
       <DropdownMenu isOpen={isMenuOpen} onClear={handleClear}>
         <div className={styles.rangeInputsWrapper}>
           <TextInput
+            ref={setFocus}
             type="number"
-            ref={inputMinRef}
-            id={name}
-            name={name}
+            id={`${name}_0`}
+            name={`${name}_0`}
             placeholder={minInputStartValue}
             onChange={(e) => handleInputChange(RANGE_INPUT.MIN, e.target.value)}
             onBlur={(e) => handleInputBlur(RANGE_INPUT.MIN, e.target.value)}
@@ -305,9 +301,10 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
             <div className={styles.rangeArrowWrapper}>{rangeIcon}</div>
           )}
           <TextInput
+            ref={setFocus}
             type="number"
-            id={name}
-            name={name}
+            id={`${name}_1`}
+            name={`${name}_1`}
             placeholder={maxInputEndValue}
             onChange={(e) => handleInputChange(RANGE_INPUT.MAX, e.target.value)}
             onBlur={(e) => handleInputBlur(RANGE_INPUT.MAX, e.target.value)}
@@ -318,11 +315,12 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
         </div>
         {showFixedValuesText && (
           <Checkbox
+            ref={setFocus}
             className={styles.rangeCheckbox}
             checked={internalIsFixedValues}
-            id={`${name}_setDefaultRangeValues`}
+            id={`${name}_2`}
             label={fixedValuesText}
-            name={'rangeCheckbox'}
+            name={`${name}_2`}
             onChange={handleCheckboxChange}
           />
         )}
