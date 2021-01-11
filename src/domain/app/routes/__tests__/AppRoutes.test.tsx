@@ -53,6 +53,8 @@ const collectionListResponse = {
 const eventListResponse = { data: { eventList: fakeEvents(3) } };
 
 const eventListBaseVariables = {
+  audienceMinAgeGt: '',
+  audienceMaxAgeLt: '',
   division: [],
   end: '',
   include: ['keywords', 'location'],

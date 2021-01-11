@@ -50,6 +50,7 @@ export type CmsImage = {
   __typename?: 'CmsImage';
   photographerCredit?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
 };
 
 export type CollectionDetails = {
@@ -247,16 +248,7 @@ export type LandingPage = {
   lastPublishedAt?: Maybe<Scalars['String']>;
   latestRevisionCreatedAt?: Maybe<Scalars['String']>;
   title?: Maybe<LocalizedObject>;
-  description?: Maybe<LocalizedObject>;
   keywords?: Maybe<LocalizedCmsKeywords>;
-  titleAndDescriptionColor?: Maybe<LocalizedObject>;
-  buttonText?: Maybe<LocalizedObject>;
-  buttonUrl?: Maybe<LocalizedObject>;
-  heroBackgroundImage?: Maybe<LocalizedCmsImage>;
-  heroBackgroundImageMobile?: Maybe<LocalizedCmsImage>;
-  heroBackgroundImageColor?: Maybe<LocalizedObject>;
-  heroTopLayerImage?: Maybe<LocalizedCmsImage>;
-  socialMediaImage?: Maybe<LocalizedCmsImage>;
   metaInformation?: Maybe<LocalizedObject>;
   pageTitle?: Maybe<LocalizedObject>;
   contentType?: Maybe<Scalars['Int']>;
@@ -719,6 +711,8 @@ export type CourseDetailsQuery = { __typename?: 'Query' } & {
 
 export type CourseListQueryVariables = {
   allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
+  audienceMaxAgeLt?: Maybe<Scalars['String']>;
+  audienceMinAgeGt?: Maybe<Scalars['String']>;
   division?: Maybe<Array<Maybe<Scalars['String']>>>;
   end?: Maybe<Scalars['String']>;
   endsAfter?: Maybe<Scalars['String']>;
@@ -1819,6 +1813,8 @@ export type CourseDetailsQueryResult = ApolloReactCommon.QueryResult<
 export const CourseListDocument = gql`
   query CourseList(
     $allOngoingAnd: [String]
+    $audienceMaxAgeLt: String
+    $audienceMinAgeGt: String
     $division: [String]
     $end: String
     $endsAfter: String
@@ -1844,6 +1840,8 @@ export const CourseListDocument = gql`
     $translation: String
   ) {
     courseList(
+      audienceMaxAgeLt: $audienceMaxAgeLt
+      audienceMinAgeGt: $audienceMinAgeGt
       combinedText: $allOngoingAnd
       division: $division
       end: $end
@@ -1916,6 +1914,8 @@ export function withCourseList<TProps, TChildProps = {}>(
  * const { data, loading, error } = useCourseListQuery({
  *   variables: {
  *      allOngoingAnd: // value for 'allOngoingAnd'
+ *      audienceMaxAgeLt: // value for 'audienceMaxAgeLt'
+ *      audienceMinAgeGt: // value for 'audienceMinAgeGt'
  *      division: // value for 'division'
  *      end: // value for 'end'
  *      endsAfter: // value for 'endsAfter'

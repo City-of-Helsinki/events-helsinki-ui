@@ -232,6 +232,8 @@ export const getEventSearchVariables = ({
     places,
     publisher,
     text,
+    audienceMinAgeGt,
+    audienceMaxAgeLt,
   } = getSearchFilters(params);
 
   const pathPlace = place && MAPPED_PLACES[place.toLowerCase()];
@@ -295,6 +297,8 @@ export const getEventSearchVariables = ({
     start,
     startsAfter,
     superEventType,
+    audienceMinAgeGt,
+    audienceMaxAgeLt,
   };
 };
 
@@ -357,8 +361,8 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
     publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
     start,
     text: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.TEXT),
-    minAge: searchParams.get(EVENT_SEARCH_FILTERS.MIN_AGE) || '',
-    maxAge: searchParams.get(EVENT_SEARCH_FILTERS.MAX_AGE) || '',
+    audienceMinAgeGt: searchParams.get(EVENT_SEARCH_FILTERS.MIN_AGE) || '',
+    audienceMaxAgeLt: searchParams.get(EVENT_SEARCH_FILTERS.MAX_AGE) || '',
   };
 };
 

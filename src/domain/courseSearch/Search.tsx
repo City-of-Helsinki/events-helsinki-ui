@@ -105,8 +105,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
       text,
       end: endTime,
       start: startTime,
-      minAge,
-      maxAge,
+      audienceMinAgeGt,
+      audienceMaxAgeLt,
     } = getSearchFilters(searchParams);
 
     setSelectedCategories(categories);
@@ -115,8 +115,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     setSelectedPlaces(places);
     setSelectedTexts(text);
     setSelectedDateTypes(dateTypes);
-    setMinAgeInput(minAge || '');
-    setMaxAgeInput(maxAge || '');
+    setMinAgeInput(audienceMinAgeGt || '');
+    setMaxAgeInput(audienceMaxAgeLt || '');
 
     if (endTime || startTime) {
       setIsCustomDate(true);

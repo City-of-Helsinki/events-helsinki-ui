@@ -73,6 +73,8 @@ const eventRequest = {
 const similarEventsListRequest = {
   query: EventListDocument,
   variables: {
+    audienceMinAgeGt: '',
+    audienceMaxAgeLt: '',
     end: '',
     include: ['keywords', 'location'],
     isFree: undefined,
