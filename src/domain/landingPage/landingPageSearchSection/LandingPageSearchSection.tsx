@@ -8,10 +8,11 @@ import { useHistory } from 'react-router';
 import SearchAutosuggest from '../../../common/components/search/SearchAutosuggest';
 import SearchLabel from '../../../common/components/search/searchLabel/SearchLabel';
 import WaveClipPath from '../../../common/components/waveClipPath/WaveClipPath';
-import { AutosuggestMenuOption, Category } from '../../../common/types';
+import { AutosuggestMenuOption } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import { EVENTS_ROUTE_MAPPER, EventType } from '../../event/types';
 import { EVENT_DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
+import { CategoryOption } from '../../eventSearch/types';
 import { getSearchQuery } from '../../eventSearch/utils';
 import styles from './landingPageSearchSection.module.scss';
 
@@ -21,11 +22,7 @@ export type SearchProps = {
   title: string;
   searchPlaceholder: string;
   type: EventType;
-  popularCategories: {
-    text: string;
-    icon: React.ReactElement;
-    value: string;
-  }[];
+  popularCategories: CategoryOption[];
 };
 
 export const popularCategoriesContainerTestId = 'popular-categories-container';
@@ -69,7 +66,7 @@ const Search: React.FC<SearchProps> = ({
     goToSearchPage(search);
   };
 
-  const handleCategoryClick = (category: Category) => {
+  const handleCategoryClick = (category: CategoryOption) => {
     const search = getSearchQuery({
       ...EVENT_DEFAULT_SEARCH_FILTERS,
       categories: [category.value],
