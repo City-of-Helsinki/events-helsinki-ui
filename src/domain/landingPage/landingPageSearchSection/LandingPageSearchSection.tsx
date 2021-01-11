@@ -1,12 +1,13 @@
 import classNames from 'classnames';
 import { Button, IconMinus, IconPlus } from 'hds-react';
 import capitalize from 'lodash/capitalize';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 
 import SearchAutosuggest from '../../../common/components/search/SearchAutosuggest';
 import SearchLabel from '../../../common/components/search/searchLabel/SearchLabel';
+import WaveClipPath from '../../../common/components/waveClipPath/WaveClipPath';
 import { AutosuggestMenuOption, Category } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import { EVENTS_ROUTE_MAPPER, EventType } from '../../event/types';
@@ -152,6 +153,7 @@ const Search: React.FC<SearchProps> = ({
           </div>
         </div>
       </div>
+      <WaveClipPath />
     </div>
   );
 };
