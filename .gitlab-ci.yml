@@ -1,0 +1,90 @@
+include:
+  - project: 'city-of-helsinki/kuva/ci-cd-config/ci-configuration'
+    ref: v2
+    file: '/.gitlab-ci-template.yml'
+
+variables:
+  SERVICE_PORT: 3001
+
+build-review:
+  # These variables are available only for review env and are merged with the general variables defined above.
+  extends: .build
+  variables:
+    DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-review'
+    DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
+    DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
+    DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: '$GL_SENTRY_DSN'
+    DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'dev'
+    DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.test.kuva.hel.ninja/api'
+    DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
+    DOCKER_BUILD_ARG_REACT_APP_IMAGE_PROXY_URL: 'https://images.weserv.nl/?w=1024&url='
+    DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'false'
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_ID: 64
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
+
+  only:
+    refs:
+      - external_pull_requests
+
+build-staging:
+  extends: .build
+  variables:
+    DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-staging'
+    DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.test.kuva.hel.ninja
+    DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
+    DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
+    DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: '$GL_SENTRY_DSN'
+    DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'test'
+    DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.test.kuva.hel.ninja/api'
+    DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
+    DOCKER_BUILD_ARG_REACT_APP_IMAGE_PROXY_URL: 'https://images.weserv.nl/?w=1024&url='
+    DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'false'
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_ID: 64
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_AUTH: '$GL_QA_GTM_AUTH'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_ID: '$GL_QA_GTM_ID'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_PREVIEW: '$GL_QA_GTM_PREVIEW'
+  only:
+    refs:
+      - develop
+
+build-production:
+  extends: .build
+  variables:
+    DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-production'
+    DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.hel.fi
+    DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
+    DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.prod.kuva.hel.ninja/proxy/graphql'
+    DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: '$GL_SENTRY_DSN'
+    DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'production'
+    DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.prod.kuva.hel.ninja/api'
+    DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
+    DOCKER_BUILD_ARG_REACT_APP_IMAGE_PROXY_URL: 'https://images.weserv.nl/?w=1024&url='
+    DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'true'
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_ID: 64
+    DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'true'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_AUTH: '$GL_PRODUCTION_GTM_AUTH'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_ID: '$GL_PRODUCTION_GTM_ID'
+    DOCKER_BUILD_ARG_REACT_APP_GTM_PREVIEW: '$GL_PRODUCTION_GTM_PREVIEW'
+  only:
+    refs:
+      - /^release-.*$/
+
+review:
+  variables:
+    DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-review'
+    POSTGRES_ENABLED: 0
+
+staging:
+  variables:
+    DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-staging'
+  only:
+    refs:
+      - develop
+
+production:
+  variables:
+    DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-production'
