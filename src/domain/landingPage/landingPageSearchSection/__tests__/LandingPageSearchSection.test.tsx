@@ -41,26 +41,28 @@ const mocks = [
   },
 ];
 
+const popularCategories = [
+  {
+    icon: <IconMovies />,
+    text: 'Elokuvat',
+    value: EVENT_CATEGORIES.MOVIE,
+  },
+  {
+    icon: <IconMusic />,
+    text: 'Musiikki',
+    value: EVENT_CATEGORIES.MUSIC,
+  },
+  {
+    icon: <IconMusic />,
+    text: 'Kulttuuri ja taide',
+    value: EVENT_CATEGORIES.CULTURE,
+  },
+];
+
 const renderComponent = (props?: Partial<SearchProps>) => {
   return render(
     <LandingPageSearchSection
-      popularCategories={[
-        {
-          icon: <IconMovies />,
-          text: 'Elokuvat',
-          value: EVENT_CATEGORIES.MOVIE,
-        },
-        {
-          icon: <IconMusic />,
-          text: 'Musiikki',
-          value: EVENT_CATEGORIES.MUSIC,
-        },
-        {
-          icon: <IconMusic />,
-          text: 'Kulttuuri ja taide',
-          value: EVENT_CATEGORIES.CULTURE,
-        },
-      ]}
+      popularCategories={popularCategories}
       searchPlaceholder="placeholder"
       title="Löydä tekemistä"
       type="event"
@@ -69,6 +71,16 @@ const renderComponent = (props?: Partial<SearchProps>) => {
     { mocks }
   );
 };
+
+test('should render all categories buttons', () => {
+  renderComponent({ popularCategories });
+
+  popularCategories.forEach((category) => {
+    expect(
+      screen.queryByRole('button', { name: category.text })
+    ).toBeInTheDocument();
+  });
+});
 
 test('should route to event search page after clicking submit button', async () => {
   const { history } = renderComponent();
