@@ -75,6 +75,8 @@ jobs:
         run: yarn --prefer-offline --frozen-lockfile --check-files
       - name: Run Acceptance Tests (TestCafe Browser Tests)
         run: yarn browser-test:ci
+        env:
+          REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
       - name: Upload screenshots of failed tests
         uses: actions/upload-artifact@v2
         if: failure()

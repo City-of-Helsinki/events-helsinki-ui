@@ -11,8 +11,9 @@ import {
   getSdk,
   LandingPageFieldsFragment,
 } from '../utils/generated/graphql';
+import { getGraphQLUrl } from '../utils/settings';
 
-const client = new GraphQLClient('http://localhost:4000/proxy/graphql');
+const client = new GraphQLClient(getGraphQLUrl());
 const sdk = getSdk(client);
 
 export const getExpectedLandingPageCmsData = async (
