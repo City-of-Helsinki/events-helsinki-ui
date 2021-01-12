@@ -1,7 +1,6 @@
+import { GraphQLClient } from 'graphql-request';
+import { print } from 'graphql';
 import gql from 'graphql-tag';
-import * as ApolloReactCommon from '@apollo/react-common';
-import * as ApolloReactHoc from '@apollo/react-hoc';
-import * as ApolloReactHooks from '@apollo/react-hooks';
 export type Maybe<T> = T | null;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -1324,73 +1323,6 @@ export const AboutPagesDocument = gql`
   }
   ${StaticPageFieldsFragmentDoc}
 `;
-export type AboutPagesProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<AboutPagesQuery, AboutPagesQueryVariables>
-  | TChildProps;
-export function withAboutPages<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    AboutPagesQuery,
-    AboutPagesQueryVariables,
-    AboutPagesProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    AboutPagesQuery,
-    AboutPagesQueryVariables,
-    AboutPagesProps<TChildProps>
-  >(AboutPagesDocument, {
-    alias: 'aboutPages',
-    ...operationOptions,
-  });
-}
-
-/**
- * __useAboutPagesQuery__
- *
- * To run a query within a React component, call `useAboutPagesQuery` and pass it any options that fit your needs.
- * When your component renders, `useAboutPagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAboutPagesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useAboutPagesQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    AboutPagesQuery,
-    AboutPagesQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<AboutPagesQuery, AboutPagesQueryVariables>(
-    AboutPagesDocument,
-    baseOptions
-  );
-}
-export function useAboutPagesLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    AboutPagesQuery,
-    AboutPagesQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    AboutPagesQuery,
-    AboutPagesQueryVariables
-  >(AboutPagesDocument, baseOptions);
-}
-export type AboutPagesQueryHookResult = ReturnType<typeof useAboutPagesQuery>;
-export type AboutPagesLazyQueryHookResult = ReturnType<
-  typeof useAboutPagesLazyQuery
->;
-export type AboutPagesQueryResult = ApolloReactCommon.QueryResult<
-  AboutPagesQuery,
-  AboutPagesQueryVariables
->;
 export const AccessibilityPagesDocument = gql`
   query AccessibilityPages {
     accessibilityPages {
@@ -1401,78 +1333,6 @@ export const AccessibilityPagesDocument = gql`
   }
   ${StaticPageFieldsFragmentDoc}
 `;
-export type AccessibilityPagesProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<
-      AccessibilityPagesQuery,
-      AccessibilityPagesQueryVariables
-    >
-  | TChildProps;
-export function withAccessibilityPages<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    AccessibilityPagesQuery,
-    AccessibilityPagesQueryVariables,
-    AccessibilityPagesProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    AccessibilityPagesQuery,
-    AccessibilityPagesQueryVariables,
-    AccessibilityPagesProps<TChildProps>
-  >(AccessibilityPagesDocument, {
-    alias: 'accessibilityPages',
-    ...operationOptions,
-  });
-}
-
-/**
- * __useAccessibilityPagesQuery__
- *
- * To run a query within a React component, call `useAccessibilityPagesQuery` and pass it any options that fit your needs.
- * When your component renders, `useAccessibilityPagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAccessibilityPagesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useAccessibilityPagesQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    AccessibilityPagesQuery,
-    AccessibilityPagesQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<
-    AccessibilityPagesQuery,
-    AccessibilityPagesQueryVariables
-  >(AccessibilityPagesDocument, baseOptions);
-}
-export function useAccessibilityPagesLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    AccessibilityPagesQuery,
-    AccessibilityPagesQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    AccessibilityPagesQuery,
-    AccessibilityPagesQueryVariables
-  >(AccessibilityPagesDocument, baseOptions);
-}
-export type AccessibilityPagesQueryHookResult = ReturnType<
-  typeof useAccessibilityPagesQuery
->;
-export type AccessibilityPagesLazyQueryHookResult = ReturnType<
-  typeof useAccessibilityPagesLazyQuery
->;
-export type AccessibilityPagesQueryResult = ApolloReactCommon.QueryResult<
-  AccessibilityPagesQuery,
-  AccessibilityPagesQueryVariables
->;
 export const CollectionDetailsDocument = gql`
   query CollectionDetails($draft: Boolean, $slug: ID!) {
     collectionDetails(draft: $draft, slug: $slug) {
@@ -1481,80 +1341,6 @@ export const CollectionDetailsDocument = gql`
   }
   ${CollectionFieldsFragmentDoc}
 `;
-export type CollectionDetailsProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<
-      CollectionDetailsQuery,
-      CollectionDetailsQueryVariables
-    >
-  | TChildProps;
-export function withCollectionDetails<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    CollectionDetailsQuery,
-    CollectionDetailsQueryVariables,
-    CollectionDetailsProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    CollectionDetailsQuery,
-    CollectionDetailsQueryVariables,
-    CollectionDetailsProps<TChildProps>
-  >(CollectionDetailsDocument, {
-    alias: 'collectionDetails',
-    ...operationOptions,
-  });
-}
-
-/**
- * __useCollectionDetailsQuery__
- *
- * To run a query within a React component, call `useCollectionDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useCollectionDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCollectionDetailsQuery({
- *   variables: {
- *      draft: // value for 'draft'
- *      slug: // value for 'slug'
- *   },
- * });
- */
-export function useCollectionDetailsQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    CollectionDetailsQuery,
-    CollectionDetailsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<
-    CollectionDetailsQuery,
-    CollectionDetailsQueryVariables
-  >(CollectionDetailsDocument, baseOptions);
-}
-export function useCollectionDetailsLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    CollectionDetailsQuery,
-    CollectionDetailsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    CollectionDetailsQuery,
-    CollectionDetailsQueryVariables
-  >(CollectionDetailsDocument, baseOptions);
-}
-export type CollectionDetailsQueryHookResult = ReturnType<
-  typeof useCollectionDetailsQuery
->;
-export type CollectionDetailsLazyQueryHookResult = ReturnType<
-  typeof useCollectionDetailsLazyQuery
->;
-export type CollectionDetailsQueryResult = ApolloReactCommon.QueryResult<
-  CollectionDetailsQuery,
-  CollectionDetailsQueryVariables
->;
 export const CollectionListDocument = gql`
   query CollectionList($visibleOnFrontpage: Boolean) {
     collectionList(visibleOnFrontpage: $visibleOnFrontpage) {
@@ -1565,76 +1351,6 @@ export const CollectionListDocument = gql`
   }
   ${CollectionFieldsFragmentDoc}
 `;
-export type CollectionListProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<CollectionListQuery, CollectionListQueryVariables>
-  | TChildProps;
-export function withCollectionList<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    CollectionListQuery,
-    CollectionListQueryVariables,
-    CollectionListProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    CollectionListQuery,
-    CollectionListQueryVariables,
-    CollectionListProps<TChildProps>
-  >(CollectionListDocument, {
-    alias: 'collectionList',
-    ...operationOptions,
-  });
-}
-
-/**
- * __useCollectionListQuery__
- *
- * To run a query within a React component, call `useCollectionListQuery` and pass it any options that fit your needs.
- * When your component renders, `useCollectionListQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCollectionListQuery({
- *   variables: {
- *      visibleOnFrontpage: // value for 'visibleOnFrontpage'
- *   },
- * });
- */
-export function useCollectionListQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    CollectionListQuery,
-    CollectionListQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<
-    CollectionListQuery,
-    CollectionListQueryVariables
-  >(CollectionListDocument, baseOptions);
-}
-export function useCollectionListLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    CollectionListQuery,
-    CollectionListQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    CollectionListQuery,
-    CollectionListQueryVariables
-  >(CollectionListDocument, baseOptions);
-}
-export type CollectionListQueryHookResult = ReturnType<
-  typeof useCollectionListQuery
->;
-export type CollectionListLazyQueryHookResult = ReturnType<
-  typeof useCollectionListLazyQuery
->;
-export type CollectionListQueryResult = ApolloReactCommon.QueryResult<
-  CollectionListQuery,
-  CollectionListQueryVariables
->;
 export const EventDetailsDocument = gql`
   query EventDetails($id: ID!, $include: [String]) {
     eventDetails(id: $id, include: $include) {
@@ -1643,77 +1359,6 @@ export const EventDetailsDocument = gql`
   }
   ${EventFieldsFragmentDoc}
 `;
-export type EventDetailsProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<EventDetailsQuery, EventDetailsQueryVariables>
-  | TChildProps;
-export function withEventDetails<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    EventDetailsQuery,
-    EventDetailsQueryVariables,
-    EventDetailsProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    EventDetailsQuery,
-    EventDetailsQueryVariables,
-    EventDetailsProps<TChildProps>
-  >(EventDetailsDocument, {
-    alias: 'eventDetails',
-    ...operationOptions,
-  });
-}
-
-/**
- * __useEventDetailsQuery__
- *
- * To run a query within a React component, call `useEventDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useEventDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useEventDetailsQuery({
- *   variables: {
- *      id: // value for 'id'
- *      include: // value for 'include'
- *   },
- * });
- */
-export function useEventDetailsQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    EventDetailsQuery,
-    EventDetailsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<
-    EventDetailsQuery,
-    EventDetailsQueryVariables
-  >(EventDetailsDocument, baseOptions);
-}
-export function useEventDetailsLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    EventDetailsQuery,
-    EventDetailsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    EventDetailsQuery,
-    EventDetailsQueryVariables
-  >(EventDetailsDocument, baseOptions);
-}
-export type EventDetailsQueryHookResult = ReturnType<
-  typeof useEventDetailsQuery
->;
-export type EventDetailsLazyQueryHookResult = ReturnType<
-  typeof useEventDetailsLazyQuery
->;
-export type EventDetailsQueryResult = ApolloReactCommon.QueryResult<
-  EventDetailsQuery,
-  EventDetailsQueryVariables
->;
 export const EventListDocument = gql`
   query EventList(
     $allOngoingAnd: [String]
@@ -1781,98 +1426,6 @@ export const EventListDocument = gql`
   }
   ${EventFieldsFragmentDoc}
 `;
-export type EventListProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<EventListQuery, EventListQueryVariables>
-  | TChildProps;
-export function withEventList<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    EventListQuery,
-    EventListQueryVariables,
-    EventListProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    EventListQuery,
-    EventListQueryVariables,
-    EventListProps<TChildProps>
-  >(EventListDocument, {
-    alias: 'eventList',
-    ...operationOptions,
-  });
-}
-
-/**
- * __useEventListQuery__
- *
- * To run a query within a React component, call `useEventListQuery` and pass it any options that fit your needs.
- * When your component renders, `useEventListQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useEventListQuery({
- *   variables: {
- *      allOngoingAnd: // value for 'allOngoingAnd'
- *      division: // value for 'division'
- *      end: // value for 'end'
- *      endsAfter: // value for 'endsAfter'
- *      endsBefore: // value for 'endsBefore'
- *      inLanguage: // value for 'inLanguage'
- *      include: // value for 'include'
- *      isFree: // value for 'isFree'
- *      keyword: // value for 'keyword'
- *      keywordAnd: // value for 'keywordAnd'
- *      keywordNot: // value for 'keywordNot'
- *      language: // value for 'language'
- *      localOngoingAnd: // value for 'localOngoingAnd'
- *      location: // value for 'location'
- *      page: // value for 'page'
- *      pageSize: // value for 'pageSize'
- *      publisher: // value for 'publisher'
- *      sort: // value for 'sort'
- *      start: // value for 'start'
- *      startsAfter: // value for 'startsAfter'
- *      startsBefore: // value for 'startsBefore'
- *      superEvent: // value for 'superEvent'
- *      superEventType: // value for 'superEventType'
- *      text: // value for 'text'
- *      translation: // value for 'translation'
- *   },
- * });
- */
-export function useEventListQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    EventListQuery,
-    EventListQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<EventListQuery, EventListQueryVariables>(
-    EventListDocument,
-    baseOptions
-  );
-}
-export function useEventListLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    EventListQuery,
-    EventListQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<EventListQuery, EventListQueryVariables>(
-    EventListDocument,
-    baseOptions
-  );
-}
-export type EventListQueryHookResult = ReturnType<typeof useEventListQuery>;
-export type EventListLazyQueryHookResult = ReturnType<
-  typeof useEventListLazyQuery
->;
-export type EventListQueryResult = ApolloReactCommon.QueryResult<
-  EventListQuery,
-  EventListQueryVariables
->;
 export const EventsByIdsDocument = gql`
   query EventsByIds($ids: [ID!]!, $include: [String]) {
     eventsByIds(ids: $ids, include: $include) {
@@ -1881,75 +1434,6 @@ export const EventsByIdsDocument = gql`
   }
   ${EventFieldsFragmentDoc}
 `;
-export type EventsByIdsProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<EventsByIdsQuery, EventsByIdsQueryVariables>
-  | TChildProps;
-export function withEventsByIds<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    EventsByIdsQuery,
-    EventsByIdsQueryVariables,
-    EventsByIdsProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    EventsByIdsQuery,
-    EventsByIdsQueryVariables,
-    EventsByIdsProps<TChildProps>
-  >(EventsByIdsDocument, {
-    alias: 'eventsByIds',
-    ...operationOptions,
-  });
-}
-
-/**
- * __useEventsByIdsQuery__
- *
- * To run a query within a React component, call `useEventsByIdsQuery` and pass it any options that fit your needs.
- * When your component renders, `useEventsByIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useEventsByIdsQuery({
- *   variables: {
- *      ids: // value for 'ids'
- *      include: // value for 'include'
- *   },
- * });
- */
-export function useEventsByIdsQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    EventsByIdsQuery,
-    EventsByIdsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<EventsByIdsQuery, EventsByIdsQueryVariables>(
-    EventsByIdsDocument,
-    baseOptions
-  );
-}
-export function useEventsByIdsLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    EventsByIdsQuery,
-    EventsByIdsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    EventsByIdsQuery,
-    EventsByIdsQueryVariables
-  >(EventsByIdsDocument, baseOptions);
-}
-export type EventsByIdsQueryHookResult = ReturnType<typeof useEventsByIdsQuery>;
-export type EventsByIdsLazyQueryHookResult = ReturnType<
-  typeof useEventsByIdsLazyQuery
->;
-export type EventsByIdsQueryResult = ApolloReactCommon.QueryResult<
-  EventsByIdsQuery,
-  EventsByIdsQueryVariables
->;
 export const KeywordDetailsDocument = gql`
   query KeywordDetails($id: ID!) {
     keywordDetails(id: $id) {
@@ -1958,76 +1442,6 @@ export const KeywordDetailsDocument = gql`
   }
   ${KeywordFieldsFragmentDoc}
 `;
-export type KeywordDetailsProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<KeywordDetailsQuery, KeywordDetailsQueryVariables>
-  | TChildProps;
-export function withKeywordDetails<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    KeywordDetailsQuery,
-    KeywordDetailsQueryVariables,
-    KeywordDetailsProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    KeywordDetailsQuery,
-    KeywordDetailsQueryVariables,
-    KeywordDetailsProps<TChildProps>
-  >(KeywordDetailsDocument, {
-    alias: 'keywordDetails',
-    ...operationOptions,
-  });
-}
-
-/**
- * __useKeywordDetailsQuery__
- *
- * To run a query within a React component, call `useKeywordDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useKeywordDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useKeywordDetailsQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useKeywordDetailsQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    KeywordDetailsQuery,
-    KeywordDetailsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<
-    KeywordDetailsQuery,
-    KeywordDetailsQueryVariables
-  >(KeywordDetailsDocument, baseOptions);
-}
-export function useKeywordDetailsLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    KeywordDetailsQuery,
-    KeywordDetailsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    KeywordDetailsQuery,
-    KeywordDetailsQueryVariables
-  >(KeywordDetailsDocument, baseOptions);
-}
-export type KeywordDetailsQueryHookResult = ReturnType<
-  typeof useKeywordDetailsQuery
->;
-export type KeywordDetailsLazyQueryHookResult = ReturnType<
-  typeof useKeywordDetailsLazyQuery
->;
-export type KeywordDetailsQueryResult = ApolloReactCommon.QueryResult<
-  KeywordDetailsQuery,
-  KeywordDetailsQueryVariables
->;
 export const KeywordListDocument = gql`
   query KeywordList(
     $dataSource: String
@@ -2059,80 +1473,6 @@ export const KeywordListDocument = gql`
   }
   ${KeywordFieldsFragmentDoc}
 `;
-export type KeywordListProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<KeywordListQuery, KeywordListQueryVariables>
-  | TChildProps;
-export function withKeywordList<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    KeywordListQuery,
-    KeywordListQueryVariables,
-    KeywordListProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    KeywordListQuery,
-    KeywordListQueryVariables,
-    KeywordListProps<TChildProps>
-  >(KeywordListDocument, {
-    alias: 'keywordList',
-    ...operationOptions,
-  });
-}
-
-/**
- * __useKeywordListQuery__
- *
- * To run a query within a React component, call `useKeywordListQuery` and pass it any options that fit your needs.
- * When your component renders, `useKeywordListQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useKeywordListQuery({
- *   variables: {
- *      dataSource: // value for 'dataSource'
- *      hasUpcomingEvents: // value for 'hasUpcomingEvents'
- *      page: // value for 'page'
- *      pageSize: // value for 'pageSize'
- *      showAllKeywords: // value for 'showAllKeywords'
- *      sort: // value for 'sort'
- *      text: // value for 'text'
- *   },
- * });
- */
-export function useKeywordListQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    KeywordListQuery,
-    KeywordListQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<KeywordListQuery, KeywordListQueryVariables>(
-    KeywordListDocument,
-    baseOptions
-  );
-}
-export function useKeywordListLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    KeywordListQuery,
-    KeywordListQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    KeywordListQuery,
-    KeywordListQueryVariables
-  >(KeywordListDocument, baseOptions);
-}
-export type KeywordListQueryHookResult = ReturnType<typeof useKeywordListQuery>;
-export type KeywordListLazyQueryHookResult = ReturnType<
-  typeof useKeywordListLazyQuery
->;
-export type KeywordListQueryResult = ApolloReactCommon.QueryResult<
-  KeywordListQuery,
-  KeywordListQueryVariables
->;
 export const LandingPageDocument = gql`
   query LandingPage($draft: Boolean, $id: ID!) {
     landingPage(draft: $draft, id: $id) {
@@ -2141,75 +1481,6 @@ export const LandingPageDocument = gql`
   }
   ${LandingPageFieldsFragmentDoc}
 `;
-export type LandingPageProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<LandingPageQuery, LandingPageQueryVariables>
-  | TChildProps;
-export function withLandingPage<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    LandingPageQuery,
-    LandingPageQueryVariables,
-    LandingPageProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    LandingPageQuery,
-    LandingPageQueryVariables,
-    LandingPageProps<TChildProps>
-  >(LandingPageDocument, {
-    alias: 'landingPage',
-    ...operationOptions,
-  });
-}
-
-/**
- * __useLandingPageQuery__
- *
- * To run a query within a React component, call `useLandingPageQuery` and pass it any options that fit your needs.
- * When your component renders, `useLandingPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useLandingPageQuery({
- *   variables: {
- *      draft: // value for 'draft'
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useLandingPageQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    LandingPageQuery,
-    LandingPageQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<LandingPageQuery, LandingPageQueryVariables>(
-    LandingPageDocument,
-    baseOptions
-  );
-}
-export function useLandingPageLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    LandingPageQuery,
-    LandingPageQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    LandingPageQuery,
-    LandingPageQueryVariables
-  >(LandingPageDocument, baseOptions);
-}
-export type LandingPageQueryHookResult = ReturnType<typeof useLandingPageQuery>;
-export type LandingPageLazyQueryHookResult = ReturnType<
-  typeof useLandingPageLazyQuery
->;
-export type LandingPageQueryResult = ApolloReactCommon.QueryResult<
-  LandingPageQuery,
-  LandingPageQueryVariables
->;
 export const LandingPagesDocument = gql`
   query LandingPages($visibleOnFrontpage: Boolean) {
     landingPages(visibleOnFrontpage: $visibleOnFrontpage) {
@@ -2220,76 +1491,6 @@ export const LandingPagesDocument = gql`
   }
   ${LandingPageFieldsFragmentDoc}
 `;
-export type LandingPagesProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<LandingPagesQuery, LandingPagesQueryVariables>
-  | TChildProps;
-export function withLandingPages<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    LandingPagesQuery,
-    LandingPagesQueryVariables,
-    LandingPagesProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    LandingPagesQuery,
-    LandingPagesQueryVariables,
-    LandingPagesProps<TChildProps>
-  >(LandingPagesDocument, {
-    alias: 'landingPages',
-    ...operationOptions,
-  });
-}
-
-/**
- * __useLandingPagesQuery__
- *
- * To run a query within a React component, call `useLandingPagesQuery` and pass it any options that fit your needs.
- * When your component renders, `useLandingPagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useLandingPagesQuery({
- *   variables: {
- *      visibleOnFrontpage: // value for 'visibleOnFrontpage'
- *   },
- * });
- */
-export function useLandingPagesQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    LandingPagesQuery,
-    LandingPagesQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<
-    LandingPagesQuery,
-    LandingPagesQueryVariables
-  >(LandingPagesDocument, baseOptions);
-}
-export function useLandingPagesLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    LandingPagesQuery,
-    LandingPagesQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    LandingPagesQuery,
-    LandingPagesQueryVariables
-  >(LandingPagesDocument, baseOptions);
-}
-export type LandingPagesQueryHookResult = ReturnType<
-  typeof useLandingPagesQuery
->;
-export type LandingPagesLazyQueryHookResult = ReturnType<
-  typeof useLandingPagesLazyQuery
->;
-export type LandingPagesQueryResult = ApolloReactCommon.QueryResult<
-  LandingPagesQuery,
-  LandingPagesQueryVariables
->;
 export const NeighborhoodListDocument = gql`
   query NeighborhoodList {
     neighborhoodList {
@@ -2309,78 +1510,6 @@ export const NeighborhoodListDocument = gql`
     }
   }
 `;
-export type NeighborhoodListProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<
-      NeighborhoodListQuery,
-      NeighborhoodListQueryVariables
-    >
-  | TChildProps;
-export function withNeighborhoodList<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    NeighborhoodListQuery,
-    NeighborhoodListQueryVariables,
-    NeighborhoodListProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    NeighborhoodListQuery,
-    NeighborhoodListQueryVariables,
-    NeighborhoodListProps<TChildProps>
-  >(NeighborhoodListDocument, {
-    alias: 'neighborhoodList',
-    ...operationOptions,
-  });
-}
-
-/**
- * __useNeighborhoodListQuery__
- *
- * To run a query within a React component, call `useNeighborhoodListQuery` and pass it any options that fit your needs.
- * When your component renders, `useNeighborhoodListQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useNeighborhoodListQuery({
- *   variables: {
- *   },
- * });
- */
-export function useNeighborhoodListQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    NeighborhoodListQuery,
-    NeighborhoodListQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<
-    NeighborhoodListQuery,
-    NeighborhoodListQueryVariables
-  >(NeighborhoodListDocument, baseOptions);
-}
-export function useNeighborhoodListLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    NeighborhoodListQuery,
-    NeighborhoodListQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    NeighborhoodListQuery,
-    NeighborhoodListQueryVariables
-  >(NeighborhoodListDocument, baseOptions);
-}
-export type NeighborhoodListQueryHookResult = ReturnType<
-  typeof useNeighborhoodListQuery
->;
-export type NeighborhoodListLazyQueryHookResult = ReturnType<
-  typeof useNeighborhoodListLazyQuery
->;
-export type NeighborhoodListQueryResult = ApolloReactCommon.QueryResult<
-  NeighborhoodListQuery,
-  NeighborhoodListQueryVariables
->;
 export const OrganizationDetailsDocument = gql`
   query OrganizationDetails($id: ID!) {
     organizationDetails(id: $id) {
@@ -2389,79 +1518,6 @@ export const OrganizationDetailsDocument = gql`
   }
   ${OrganizationFieldsFragmentDoc}
 `;
-export type OrganizationDetailsProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<
-      OrganizationDetailsQuery,
-      OrganizationDetailsQueryVariables
-    >
-  | TChildProps;
-export function withOrganizationDetails<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    OrganizationDetailsQuery,
-    OrganizationDetailsQueryVariables,
-    OrganizationDetailsProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    OrganizationDetailsQuery,
-    OrganizationDetailsQueryVariables,
-    OrganizationDetailsProps<TChildProps>
-  >(OrganizationDetailsDocument, {
-    alias: 'organizationDetails',
-    ...operationOptions,
-  });
-}
-
-/**
- * __useOrganizationDetailsQuery__
- *
- * To run a query within a React component, call `useOrganizationDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useOrganizationDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useOrganizationDetailsQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useOrganizationDetailsQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    OrganizationDetailsQuery,
-    OrganizationDetailsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<
-    OrganizationDetailsQuery,
-    OrganizationDetailsQueryVariables
-  >(OrganizationDetailsDocument, baseOptions);
-}
-export function useOrganizationDetailsLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    OrganizationDetailsQuery,
-    OrganizationDetailsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    OrganizationDetailsQuery,
-    OrganizationDetailsQueryVariables
-  >(OrganizationDetailsDocument, baseOptions);
-}
-export type OrganizationDetailsQueryHookResult = ReturnType<
-  typeof useOrganizationDetailsQuery
->;
-export type OrganizationDetailsLazyQueryHookResult = ReturnType<
-  typeof useOrganizationDetailsLazyQuery
->;
-export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<
-  OrganizationDetailsQuery,
-  OrganizationDetailsQueryVariables
->;
 export const PlaceDetailsDocument = gql`
   query PlaceDetails($id: ID!) {
     placeDetails(id: $id) {
@@ -2470,76 +1526,6 @@ export const PlaceDetailsDocument = gql`
   }
   ${PlaceFieldsFragmentDoc}
 `;
-export type PlaceDetailsProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<PlaceDetailsQuery, PlaceDetailsQueryVariables>
-  | TChildProps;
-export function withPlaceDetails<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    PlaceDetailsQuery,
-    PlaceDetailsQueryVariables,
-    PlaceDetailsProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    PlaceDetailsQuery,
-    PlaceDetailsQueryVariables,
-    PlaceDetailsProps<TChildProps>
-  >(PlaceDetailsDocument, {
-    alias: 'placeDetails',
-    ...operationOptions,
-  });
-}
-
-/**
- * __usePlaceDetailsQuery__
- *
- * To run a query within a React component, call `usePlaceDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `usePlaceDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = usePlaceDetailsQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function usePlaceDetailsQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    PlaceDetailsQuery,
-    PlaceDetailsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<
-    PlaceDetailsQuery,
-    PlaceDetailsQueryVariables
-  >(PlaceDetailsDocument, baseOptions);
-}
-export function usePlaceDetailsLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    PlaceDetailsQuery,
-    PlaceDetailsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    PlaceDetailsQuery,
-    PlaceDetailsQueryVariables
-  >(PlaceDetailsDocument, baseOptions);
-}
-export type PlaceDetailsQueryHookResult = ReturnType<
-  typeof usePlaceDetailsQuery
->;
-export type PlaceDetailsLazyQueryHookResult = ReturnType<
-  typeof usePlaceDetailsLazyQuery
->;
-export type PlaceDetailsQueryResult = ApolloReactCommon.QueryResult<
-  PlaceDetailsQuery,
-  PlaceDetailsQueryVariables
->;
 export const PlaceListDocument = gql`
   query PlaceList(
     $dataSource: String
@@ -2573,78 +1559,121 @@ export const PlaceListDocument = gql`
   }
   ${PlaceFieldsFragmentDoc}
 `;
-export type PlaceListProps<TChildProps = {}> =
-  | ApolloReactHoc.DataProps<PlaceListQuery, PlaceListQueryVariables>
-  | TChildProps;
-export function withPlaceList<TProps, TChildProps = {}>(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    PlaceListQuery,
-    PlaceListQueryVariables,
-    PlaceListProps<TChildProps>
-  >
-) {
-  return ApolloReactHoc.withQuery<
-    TProps,
-    PlaceListQuery,
-    PlaceListQueryVariables,
-    PlaceListProps<TChildProps>
-  >(PlaceListDocument, {
-    alias: 'placeList',
-    ...operationOptions,
-  });
+export function getSdk(client: GraphQLClient) {
+  return {
+    AboutPages(variables?: AboutPagesQueryVariables): Promise<AboutPagesQuery> {
+      return client.request<AboutPagesQuery>(
+        print(AboutPagesDocument),
+        variables
+      );
+    },
+    AccessibilityPages(
+      variables?: AccessibilityPagesQueryVariables
+    ): Promise<AccessibilityPagesQuery> {
+      return client.request<AccessibilityPagesQuery>(
+        print(AccessibilityPagesDocument),
+        variables
+      );
+    },
+    CollectionDetails(
+      variables: CollectionDetailsQueryVariables
+    ): Promise<CollectionDetailsQuery> {
+      return client.request<CollectionDetailsQuery>(
+        print(CollectionDetailsDocument),
+        variables
+      );
+    },
+    CollectionList(
+      variables?: CollectionListQueryVariables
+    ): Promise<CollectionListQuery> {
+      return client.request<CollectionListQuery>(
+        print(CollectionListDocument),
+        variables
+      );
+    },
+    EventDetails(
+      variables: EventDetailsQueryVariables
+    ): Promise<EventDetailsQuery> {
+      return client.request<EventDetailsQuery>(
+        print(EventDetailsDocument),
+        variables
+      );
+    },
+    EventList(variables?: EventListQueryVariables): Promise<EventListQuery> {
+      return client.request<EventListQuery>(
+        print(EventListDocument),
+        variables
+      );
+    },
+    EventsByIds(
+      variables: EventsByIdsQueryVariables
+    ): Promise<EventsByIdsQuery> {
+      return client.request<EventsByIdsQuery>(
+        print(EventsByIdsDocument),
+        variables
+      );
+    },
+    KeywordDetails(
+      variables: KeywordDetailsQueryVariables
+    ): Promise<KeywordDetailsQuery> {
+      return client.request<KeywordDetailsQuery>(
+        print(KeywordDetailsDocument),
+        variables
+      );
+    },
+    KeywordList(
+      variables?: KeywordListQueryVariables
+    ): Promise<KeywordListQuery> {
+      return client.request<KeywordListQuery>(
+        print(KeywordListDocument),
+        variables
+      );
+    },
+    LandingPage(
+      variables: LandingPageQueryVariables
+    ): Promise<LandingPageQuery> {
+      return client.request<LandingPageQuery>(
+        print(LandingPageDocument),
+        variables
+      );
+    },
+    LandingPages(
+      variables?: LandingPagesQueryVariables
+    ): Promise<LandingPagesQuery> {
+      return client.request<LandingPagesQuery>(
+        print(LandingPagesDocument),
+        variables
+      );
+    },
+    NeighborhoodList(
+      variables?: NeighborhoodListQueryVariables
+    ): Promise<NeighborhoodListQuery> {
+      return client.request<NeighborhoodListQuery>(
+        print(NeighborhoodListDocument),
+        variables
+      );
+    },
+    OrganizationDetails(
+      variables: OrganizationDetailsQueryVariables
+    ): Promise<OrganizationDetailsQuery> {
+      return client.request<OrganizationDetailsQuery>(
+        print(OrganizationDetailsDocument),
+        variables
+      );
+    },
+    PlaceDetails(
+      variables: PlaceDetailsQueryVariables
+    ): Promise<PlaceDetailsQuery> {
+      return client.request<PlaceDetailsQuery>(
+        print(PlaceDetailsDocument),
+        variables
+      );
+    },
+    PlaceList(variables?: PlaceListQueryVariables): Promise<PlaceListQuery> {
+      return client.request<PlaceListQuery>(
+        print(PlaceListDocument),
+        variables
+      );
+    },
+  };
 }
-
-/**
- * __usePlaceListQuery__
- *
- * To run a query within a React component, call `usePlaceListQuery` and pass it any options that fit your needs.
- * When your component renders, `usePlaceListQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = usePlaceListQuery({
- *   variables: {
- *      dataSource: // value for 'dataSource'
- *      divisions: // value for 'divisions'
- *      hasUpcomingEvents: // value for 'hasUpcomingEvents'
- *      page: // value for 'page'
- *      pageSize: // value for 'pageSize'
- *      showAllPlaces: // value for 'showAllPlaces'
- *      sort: // value for 'sort'
- *      text: // value for 'text'
- *   },
- * });
- */
-export function usePlaceListQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    PlaceListQuery,
-    PlaceListQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<PlaceListQuery, PlaceListQueryVariables>(
-    PlaceListDocument,
-    baseOptions
-  );
-}
-export function usePlaceListLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    PlaceListQuery,
-    PlaceListQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<PlaceListQuery, PlaceListQueryVariables>(
-    PlaceListDocument,
-    baseOptions
-  );
-}
-export type PlaceListQueryHookResult = ReturnType<typeof usePlaceListQuery>;
-export type PlaceListLazyQueryHookResult = ReturnType<
-  typeof usePlaceListLazyQuery
->;
-export type PlaceListQueryResult = ApolloReactCommon.QueryResult<
-  PlaceListQuery,
-  PlaceListQueryVariables
->;

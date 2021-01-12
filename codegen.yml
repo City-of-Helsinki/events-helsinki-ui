@@ -10,3 +10,8 @@ generates:
     config:
       withHooks: true
       withComponent: false
+  browser-tests/utils/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-graphql-request"
