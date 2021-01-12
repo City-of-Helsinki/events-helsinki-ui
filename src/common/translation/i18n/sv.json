@@ -284,12 +284,20 @@
       "title": "Oj nej, nu blev det 404!"
     },
     "search": {
+      "popularCategories": "Populära kategorier",
+      "placeholder": "Skriv sökord",
+      "showPopularCategories": "Visa de mest populära kategorierna",
+      "hidePopularCategories": "Dölj de mest populära kategorierna"
+    },
+    "eventSearch": {
       "buttonSearch": "Sök",
-      "labelDateRange": "För vilken period du letar efter?",
-      "labelSearchField": "Vad letar du efter?",
-      "linkAdvancedSearch": "Avancerad sökning",
       "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
       "title": "Sök saker att göra"
+    },
+    "courseSearch": {
+      "buttonSearch": "Sök",
+      "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
+      "title": "Hitta hobby"
     }
   },
   "menu": {

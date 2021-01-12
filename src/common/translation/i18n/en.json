@@ -284,12 +284,20 @@
       "title": "Oops, you got hit by a 404!"
     },
     "search": {
+      "popularCategories": "Popular categories",
+      "placeholder": "Write search word",
+      "showPopularCategories": "Show most popular categories",
+      "hidePopularCategories": "Hide most popular categories"
+    },
+    "eventSearch": {
       "buttonSearch": "Search",
-      "labelDateRange": "For what period you are looking for?",
-      "labelSearchField": "What are you looking for",
-      "linkAdvancedSearch": "Advanced search",
       "placeholder": "Enter a keyword, eg rock or yoga",
       "title": "Find something to do"
+    },
+    "courseSearch": {
+      "buttonSearch": "Search",
+      "placeholder": "Enter a keyword, eg. French or cooking",
+      "title": "Find hobbies"
     }
   },
   "menu": {
