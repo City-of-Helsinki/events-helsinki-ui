@@ -6,7 +6,7 @@ import {
   getExpectedLandingPageCmsData,
 } from '../expected-data/landingPageData';
 import { header } from '../selectors/header';
-import { getPageTitle, getPathname, navigateBack } from '../utils/clientUtils';
+import { getPageTitle, getPathname, navigateBack } from '../utils/browserUtils';
 import {
   BannerPageFieldsFragment,
   CollectionFieldsFragment,
