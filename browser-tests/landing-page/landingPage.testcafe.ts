@@ -7,11 +7,12 @@ import {
 } from '../expected-data/landingPageData';
 import { header } from '../selectors/header';
 import { getPageTitle, getPathname, navigateBack } from '../utils/browserUtils';
-import {
-  BannerPageFieldsFragment,
-  CollectionFieldsFragment,
-} from '../utils/generated/graphql';
+import { CollectionFieldsFragment } from '../utils/generated/graphql';
 import { getEnvUrl } from '../utils/settings';
+import {
+  expectBannerDataIsPresent,
+  expectCollectionDataIsPresent,
+} from './landingPage.utils';
 
 fixture('Landing page').page(getEnvUrl('/fi/home'));
 
@@ -43,37 +44,6 @@ test('topBanner, collections and bottomBanner data are present', async (t) => {
   await expectBannerDataIsPresent(t, bottomBanner);
 });
 
-const expectBannerDataIsPresent = async (
-  t,
-  banner: BannerPageFieldsFragment,
-  locale = SUPPORT_LANGUAGES.FI
-) => {
-  await t
-    .expect(
-      screen.getAllByRole('heading', { name: banner.title[locale] }).exists
-    )
-    .ok()
-    .expect(
-      screen.getAllByRole('button', { name: banner.buttonText[locale] }).exists
-    )
-    .ok()
-    .expect(screen.findByText(banner.description[locale]).exists)
-    .ok();
-};
-
-const expectCollectionDataIsPresent = async (
-  t,
-  collectionList: CollectionFieldsFragment[],
-  locale = SUPPORT_LANGUAGES.FI
-) => {
-  await t.expect(collectionList.length).gt(0);
-  for (const { title } of collectionList) {
-    await t
-      .expect(screen.getAllByLabelText(new RegExp(title[locale])).exists)
-      .ok();
-  }
-};
-
 test('collection urls work', async (t) => {
   const collectionList = await getExpectedCollectionList();
   await t.expect(collectionList.length).gt(0);
@@ -81,6 +51,7 @@ test('collection urls work', async (t) => {
     await navigateToCollectionPageAndBack(t, collection);
   }
 });
+
 const navigateToCollectionPageAndBack = async (
   t,
   collection: CollectionFieldsFragment,
