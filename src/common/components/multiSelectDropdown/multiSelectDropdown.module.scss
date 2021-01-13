@@ -108,4 +108,15 @@
   margin: 0;
   padding: var(--spacing-xs) var(--spacing-s);
 
+  &--first {
+    padding-top: 1rem;
+  }
+
+  &--isFocused {
+    background-color: var(--color-fog);
+  }
+}
+
+.checkbox--isFocused {
+  background-color: var(--color-fog);
 }
