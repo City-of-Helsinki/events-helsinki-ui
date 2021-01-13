@@ -312,7 +312,6 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                   maxInputValue={maxAgeInput}
                   maxInputLabel={t('courseSearch.search.ageLimitMax')}
                   maxInputEndValue={'100'}
-                  maxInputFixedValue={'100'}
                   name="ageLimitValues"
                   onChange={handleSetAgeValues}
                   fixedValuesText={t(

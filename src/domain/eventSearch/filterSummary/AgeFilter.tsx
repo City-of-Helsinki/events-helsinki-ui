@@ -5,13 +5,13 @@ import FilterButton, {
   FilterType,
 } from '../../../common/components/filterButton/FilterButton';
 
-interface Props {
+export interface AgeFilterProps {
   value: string;
   type: 'minAge' | 'maxAge';
   onRemove: (value: string, type: FilterType) => void;
 }
 
-const AgeFilter: React.FC<Props> = ({ value, type, onRemove }) => {
+const AgeFilter: React.FC<AgeFilterProps> = ({ value, type, onRemove }) => {
   const { t } = useTranslation();
   const text = type === 'minAge' ? 'ageLimitMin' : 'ageLimitMax';
 

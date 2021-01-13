@@ -221,3 +221,46 @@ test('should change search query after clicking hobby type menu item', async () 
     '?hobbyTypes=clubs,camps,trips&text=jazz'
   );
 });
+
+test('should change search query after clicking age limit menu item', async () => {
+  const { history } = renderComponent();
+
+  const chooseAgeLimitButton = await screen.findByRole('button', {
+    name: /kohderyhmä/i,
+  });
+
+  userEvent.click(chooseAgeLimitButton);
+  const minAgeInput = screen.getByRole('spinbutton', {
+    name: /ikä alkaen/i,
+  });
+  const minAge = '10';
+  userEvent.type(minAgeInput, minAge);
+
+  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  expect(history.location.pathname).toBe(pathname);
+  expect(history.location.search).toBe('?text=jazz&minAge=10');
+
+  userEvent.click(chooseAgeLimitButton);
+  const maxAgeInput = screen.getByRole('spinbutton', {
+    name: /ikä päättyen/i,
+  });
+
+  const maxAge = '20';
+  userEvent.type(maxAgeInput, maxAge);
+
+  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  expect(history.location.pathname).toBe(pathname);
+  expect(history.location.search).toBe('?text=jazz&minAge=10&maxAge=20');
+
+  //for default age value (18+)
+  userEvent.click(chooseAgeLimitButton);
+  userEvent.click(
+    screen.getByRole('checkbox', {
+      name: /näytä vain aikuisten harrastukset/i,
+    })
+  );
+
+  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  expect(history.location.pathname).toBe(pathname);
+  expect(history.location.search).toBe('?text=jazz&minAge=18');
+});

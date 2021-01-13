@@ -1,4 +1,5 @@
 @import 'mixins';
+@import 'layout';
 
 .dropdown {
   position: relative;
@@ -90,6 +91,9 @@
     position: relative;
     border-bottom: 2px solid var(--color-black-10);
     padding: var(--spacing-m) var(--spacing-s);
+    @include respond-between(sm, lg) {
+      flex-direction: column;
+    }
 
     .rangeArrowWrapper {
       margin: var(--spacing-s) var(--spacing-s) 0 var(--spacing-s);

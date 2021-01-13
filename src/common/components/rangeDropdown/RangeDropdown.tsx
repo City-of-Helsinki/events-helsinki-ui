@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Checkbox, IconAngleDown, IconAngleUp, TextInput } from 'hds-react';
 import React, { useCallback } from 'react';
 
@@ -56,6 +57,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   title,
   value,
 }) => {
+  const [isFocused, setIsFocused] = React.useState('');
   const [internalIsFixedValues, setInternalIsFixedValues] = React.useState(
     false
   );
@@ -243,6 +245,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   const setFocus = (ref: HTMLInputElement) => {
     if (ref?.id && ref?.id.split('_')[1] === focusedIndex?.toString()) {
       ref?.focus();
+      setIsFocused(ref?.id);
     }
   };
 
@@ -286,6 +289,9 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
             value={minInputValueNormalized}
             label={minInputLabel}
             disabled={internalIsFixedValues}
+            className={
+              (isFocused === `${name}_0` && 'rangeTextInput--isFocused') || ''
+            }
           />
           {rangeIcon && (
             <div className={styles.rangeArrowWrapper}>{rangeIcon}</div>
@@ -301,12 +307,18 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
             value={maxInputValueNormalized}
             label={maxInputLabel}
             disabled={internalIsFixedValues}
+            className={
+              (isFocused === `${name}_1` && 'rangeTextInput--isFocused') || ''
+            }
           />
         </div>
         {showFixedValuesText && (
           <Checkbox
             ref={setFocus}
-            className={styles.rangeCheckbox}
+            className={classNames(
+              styles.rangeCheckbox,
+              isFocused === `${name}_2` && 'rangeCheckbox--isFocused'
+            )}
             checked={internalIsFixedValues}
             id={`${name}_2`}
             label={fixedValuesText}
