@@ -122,9 +122,11 @@ app.use(async (req: Request, res: Response) => {
     // await getDataFromTree(el) fails if any GraphQl request fails.
     // Try to generate html withour apollo state
     // TODO: Downside is that page is re-rendered on client which causes blinking
+    console.error(e);
     try {
       generateHtmlAndSendResponse();
     } catch (e) {
+      console.error(e);
       res.send('Something went very very wrong. Failed to catch error.');
     }
   }
