@@ -16,7 +16,7 @@ import { getGraphQLUrl } from '../utils/settings';
 const client = new GraphQLClient(getGraphQLUrl());
 const sdk = getSdk(client);
 
-export const getExpectedLandingPageCmsData = async (
+const getLandingPageCmsData = async (
   locale: SUPPORT_LANGUAGES = SUPPORT_LANGUAGES.FI
 ): Promise<LandingPageFieldsFragment> => {
   const {
@@ -28,7 +28,7 @@ export const getExpectedLandingPageCmsData = async (
   return landingPage;
 };
 
-export const getExpectedCollectionList = async (
+const getCollectionList = async (
   locale: SUPPORT_LANGUAGES = SUPPORT_LANGUAGES.FI
 ): Promise<CollectionFieldsFragment[]> => {
   const {
@@ -40,4 +40,9 @@ export const getExpectedCollectionList = async (
       !isCollectionExpired(collection)
   );
   return collectionList;
+};
+
+export const landingPageDataSource = {
+  getLandingPageCmsData,
+  getCollectionList,
 };

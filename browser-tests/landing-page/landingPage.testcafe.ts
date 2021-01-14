@@ -1,10 +1,7 @@
 import { screen } from '@testing-library/testcafe';
 
 import { SUPPORT_LANGUAGES } from '../../src/constants';
-import {
-  getExpectedCollectionList,
-  getExpectedLandingPageCmsData,
-} from '../expected-data/landingPageData';
+import { landingPageDataSource } from '../datasources/landingPageDataSource';
 import { header } from '../selectors/header';
 import { getPageTitle, getPathname, navigateBack } from '../utils/browserUtils';
 import { CollectionFieldsFragment } from '../utils/generated/graphql';
@@ -37,15 +34,18 @@ test('Changing language on landing page', async (t) => {
 });
 
 test('topBanner, collections and bottomBanner data are present', async (t) => {
-  const { topBanner, bottomBanner } = await getExpectedLandingPageCmsData();
-  const collectionList = await getExpectedCollectionList();
+  const {
+    topBanner,
+    bottomBanner,
+  } = await landingPageDataSource.getLandingPageCmsData();
+  const collectionList = await landingPageDataSource.getCollectionList();
   await expectBannerDataIsPresent(t, topBanner);
   await expectCollectionDataIsPresent(t, collectionList);
   await expectBannerDataIsPresent(t, bottomBanner);
 });
 
 test('collection urls work', async (t) => {
-  const collectionList = await getExpectedCollectionList();
+  const collectionList = await landingPageDataSource.getCollectionList();
   await t.expect(collectionList.length).gt(0);
   for (const collection of collectionList) {
     await navigateToCollectionPageAndBack(t, collection);

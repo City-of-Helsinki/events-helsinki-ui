@@ -9,19 +9,15 @@ import {
 
 export const expectBannerDataIsPresent = async (
   t: TestController,
-  banner: BannerPageFieldsFragment,
+  { title, buttonText, description }: BannerPageFieldsFragment,
   locale = SUPPORT_LANGUAGES.FI
 ): Promise<void> => {
   await t
-    .expect(
-      screen.getAllByRole('heading', { name: banner.title[locale] }).exists
-    )
+    .expect(screen.findByRole('heading', { name: title[locale] }).exists)
     .ok()
-    .expect(
-      screen.getAllByRole('button', { name: banner.buttonText[locale] }).exists
-    )
+    .expect(screen.findByRole('button', { name: buttonText[locale] }).exists)
     .ok()
-    .expect(screen.findByText(banner.description[locale]).exists)
+    .expect(screen.findByText(description[locale]).exists)
     .ok();
 };
 
