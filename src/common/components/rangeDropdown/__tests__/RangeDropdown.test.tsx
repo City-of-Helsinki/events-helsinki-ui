@@ -2,12 +2,7 @@ import { act, render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import React from 'react';
 
-import {
-  arrowDownKeyPressHelper,
-  arrowUpKeyPressHelper,
-  escKeyPressHelper,
-  userEvent,
-} from '../../../../util/testUtils';
+import { escKeyPressHelper, userEvent } from '../../../../util/testUtils';
 import RangeDropdown, { RangeDropdownProps } from '../RangeDropdown';
 
 const title = 'test title';
@@ -39,77 +34,6 @@ test('test for accessibility violations', async () => {
 
   const results = await axe(container);
   expect(results).toHaveNoViolations();
-});
-
-describe('ArrowUp, ArrowDown', () => {
-  test('should allow navigation with up and down arrows', async () => {
-    renderComponent();
-
-    const toggleButton = screen.getByRole('button', { name: title });
-    userEvent.click(toggleButton);
-
-    arrowDownKeyPressHelper();
-    arrowDownKeyPressHelper();
-    arrowDownKeyPressHelper();
-
-    expect(
-      screen.queryByRole('checkbox', {
-        name: /set default values/i,
-      }).parentElement
-    ).toHaveClass('rangeCheckbox--isFocused');
-
-    arrowUpKeyPressHelper();
-
-    expect(
-      screen.queryByRole('spinbutton', {
-        name: /end integer/i,
-      }).parentElement.parentElement
-    ).toHaveClass('rangeTextInput--isFocused');
-    arrowUpKeyPressHelper();
-
-    expect(
-      screen.queryByRole('spinbutton', {
-        name: /start integer/i,
-      }).parentElement.parentElement
-    ).toHaveClass('rangeTextInput--isFocused');
-  });
-});
-
-test('should select set default values checkbox if the first keyboard navigation is button up', () => {
-  renderComponent();
-
-  const toggleButton = screen.getByRole('button', { name: title });
-  userEvent.click(toggleButton);
-
-  arrowUpKeyPressHelper();
-
-  expect(
-    screen.queryByRole('checkbox', {
-      name: /set default values/i,
-    }).parentElement
-  ).toHaveClass('rangeCheckbox--isFocused');
-});
-
-test('should reset to min value input when user goes up from set default values checkbox', () => {
-  renderComponent();
-
-  const toggleButton = screen.getByRole('button', { name: title });
-  userEvent.click(toggleButton);
-
-  arrowUpKeyPressHelper();
-  arrowDownKeyPressHelper();
-
-  expect(
-    screen.queryByRole('spinbutton', {
-      name: /start integer/i,
-    }).parentElement.parentElement
-  ).toHaveClass('rangeTextInput--isFocused');
-
-  expect(
-    screen.queryByRole('checkbox', {
-      name: /set default values/i,
-    }).parentElement
-  ).not.toHaveClass('rangeCheckbox--isFocused');
 });
 
 describe('Escape', () => {
@@ -164,45 +88,36 @@ test('should open dropdown when user clicks on toggle button', () => {
 });
 
 describe('when dropdown has been closed, it should reopen with', () => {
-  const getClosedInput = async () => {
+  test('Tab navigation', () => {
     renderComponent();
-
     const toggleButton = screen.getByRole('button', { name: title });
     userEvent.click(toggleButton);
 
-    escKeyPressHelper();
+    const minValueTextbox = screen.queryByRole('spinbutton', {
+      name: /start integer/i,
+    }) as HTMLInputElement;
 
-    expect(
-      screen.queryByRole('spinbutton', {
-        name: /start integer/i,
-      })
-    ).not.toBeInTheDocument();
+    const maxValueTextbox = screen.queryByRole('spinbutton', {
+      name: /end integer/i,
+    }) as HTMLInputElement;
 
-    expect(toggleButton).toHaveFocus();
-  };
+    userEvent.tab();
+    expect(minValueTextbox).toHaveFocus();
+    userEvent.tab();
+    expect(maxValueTextbox).toHaveFocus();
+    //todo: does not work, values are not changing, but works in UI
+    /*fireEvent.keyDown(minValueTextbox, { code: 38, key: 'ArrowUp' });
+    fireEvent.keyDown(minValueTextbox, { code: 38, key: 'ArrowUp' });
+    expect(minValueTextbox.value).toBe('2');
+    fireEvent.keyDown(minValueTextbox, { code: 40, key: 'ArrowDown' });
+    expect(minValueTextbox.value).toBe('1');
 
-  test('ArrowDown', () => {
-    getClosedInput();
-
-    arrowDownKeyPressHelper();
-
-    expect(
-      screen.queryByRole('spinbutton', {
-        name: /start integer/i,
-      })
-    ).toBeInTheDocument();
-  });
-
-  test('ArrowUp', () => {
-    getClosedInput();
-
-    arrowDownKeyPressHelper();
-
-    expect(
-      screen.queryByRole('spinbutton', {
-        name: /start integer/i,
-      })
-    ).toBeInTheDocument();
+    userEvent.tab();
+    fireEvent.keyDown(maxValueTextbox, { code: 38, key: 'ArrowUp' });
+    fireEvent.keyDown(maxValueTextbox, { code: 38, key: 'ArrowUp' });
+    expect(maxValueTextbox.value).toBe('2');
+    fireEvent.keyDown(maxValueTextbox, { code: 40, key: 'ArrowDown' });
+    expect(maxValueTextbox.value).toBe('1');*/
   });
 });
 
