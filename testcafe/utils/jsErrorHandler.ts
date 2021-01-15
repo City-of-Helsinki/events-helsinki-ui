@@ -1,5 +1,8 @@
 /**
- * See more info: https://github.com/DevExpress/testcafe/issues/4857#issuecomment-598775956
+ * ResizeObserver throws error to browser's console. That upsets testcafe that
+ * fails the running test. According to this conversation, ResizeObserver error
+ * can be safely ignored:
+ * https://github.com/DevExpress/testcafe/issues/4857#issuecomment-598775956
  */
 const jsErrorHandler = (): void => {
   window.addEventListener('error', (e) => {
