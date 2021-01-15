@@ -3,6 +3,12 @@ import TestController from 'testcafe';
 
 import { SUPPORT_LANGUAGES } from '../../src/constants';
 import {
+  getPageTitle,
+  getPathname,
+  getUrl,
+  navigateBack,
+} from '../utils/browserUtils';
+import {
   BannerPageFieldsFragment,
   CollectionFieldsFragment,
 } from '../utils/generated/graphql';
@@ -32,4 +38,34 @@ export const expectCollectionDataIsPresent = async (
       .expect(screen.getAllByLabelText(new RegExp(title[locale])).exists)
       .ok();
   }
+};
+
+export const navigateToCollectionPageAndBack = async (
+  t: TestController,
+  collection: CollectionFieldsFragment,
+  locale = SUPPORT_LANGUAGES.FI
+): Promise<void> => {
+  const {
+    title: { [locale]: collectionTitle },
+    slug,
+  } = collection;
+  await t
+    .click(screen.getAllByLabelText(new RegExp(collectionTitle)))
+    .expect(getPathname())
+    .eql(`/${locale}/collection/${slug}`)
+    .expect(getPageTitle())
+    .eql(collectionTitle);
+  await navigateBack();
+  await t.expect(getPathname()).eql(`/${locale}/home`);
+};
+
+export const navigateToBannerUrl = async (
+  t: TestController,
+  { buttonText, buttonUrl, title }: BannerPageFieldsFragment,
+  locale = SUPPORT_LANGUAGES.FI
+): Promise<void> => {
+  await t
+    .click(screen.getAllByRole('button', { name: buttonText[locale] }))
+    .expect(getUrl())
+    .eql(`${buttonUrl[locale]}`);
 };

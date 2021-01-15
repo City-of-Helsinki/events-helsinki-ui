@@ -1,14 +1,14 @@
 import { screen } from '@testing-library/testcafe';
 
-import { SUPPORT_LANGUAGES } from '../../src/constants';
 import { landingPageDataSource } from '../datasources/landingPageDataSource';
 import { header } from '../selectors/header';
-import { getPageTitle, getPathname, navigateBack } from '../utils/browserUtils';
-import { CollectionFieldsFragment } from '../utils/generated/graphql';
+import { getPageTitle, getPathname } from '../utils/browserUtils';
 import { getEnvUrl } from '../utils/settings';
 import {
   expectBannerDataIsPresent,
   expectCollectionDataIsPresent,
+  navigateToBannerUrl,
+  navigateToCollectionPageAndBack,
 } from './landingPage.utils';
 
 fixture('Landing page').page(getEnvUrl('/fi/home'));
@@ -33,6 +33,24 @@ test('Changing language on landing page', async (t) => {
     .eql(2);
 });
 
+test('Event search page is navigable from landing page header', async (t) => {
+  await t
+    .click(screen.findAllByRole('link', { name: 'Etsi tekemistä' }))
+    .expect(getPathname())
+    .eql(`/fi/events`)
+    .expect(getPageTitle())
+    .eql('Tapahtumat');
+});
+
+test('Recommended page is navigable from landing page header', async (t) => {
+  await t
+    .click(screen.findAllByRole('link', { name: 'Suosittelemme' }))
+    .expect(getPathname())
+    .eql(`/fi/collections`)
+    .expect(getPageTitle())
+    .eql('Tapahtumat');
+});
+
 test('topBanner, collections and bottomBanner data are present', async (t) => {
   const {
     topBanner,
@@ -52,21 +70,12 @@ test('collection urls work', async (t) => {
   }
 });
 
-const navigateToCollectionPageAndBack = async (
-  t,
-  collection: CollectionFieldsFragment,
-  locale = SUPPORT_LANGUAGES.FI
-) => {
-  const {
-    title: { [locale]: collectionTitle },
-    slug,
-  } = collection;
-  await t
-    .click(screen.getAllByLabelText(new RegExp(collectionTitle)))
-    .expect(getPathname())
-    .eql(`/${locale}/collection/${slug}`)
-    .expect(getPageTitle())
-    .eql(collectionTitle);
-  await navigateBack();
-  await t.expect(getPathname()).eql(`/${locale}/home`);
-};
+test('top banner url work', async (t) => {
+  const { topBanner } = await landingPageDataSource.getLandingPageCmsData();
+  await navigateToBannerUrl(t, topBanner);
+});
+
+test('bottom banner url work', async (t) => {
+  const { bottomBanner } = await landingPageDataSource.getLandingPageCmsData();
+  await navigateToBannerUrl(t, bottomBanner);
+});
