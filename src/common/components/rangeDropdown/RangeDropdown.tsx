@@ -62,6 +62,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   const [internalIsFixedValues, setInternalIsFixedValues] = React.useState(
     false
   );
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const minInputValueNormalized = minInputValue || '';
   const maxInputValueNormalized = maxInputValue || '';
@@ -157,19 +158,13 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
     listLength: 3,
     onKeyDown: (event: KeyboardEvent) => {
       switch (event.key) {
-        // Close menu on ESC key
-        case 'Escape':
-          setIsMenuOpen(false);
-          setFocusedIndex(-1);
-          setFocusToToggleButton();
+        case 'ArrowDown':
+          ensureDropdownIsOpen();
           break;
         case 'ArrowUp':
-          handleNumberChange(1);
-          break;
-        case 'ArrowDown':
-          handleNumberChange(-1);
-          break;
-        //case Enter works by default as onClick event defined
+          if (document.activeElement === toggleButtonRef.current) {
+            setIsMenuOpen(false);
+          }
       }
     },
   });
@@ -178,20 +173,11 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
     setFocusedIndex(Number(id.split('_')[1]));
   };
 
-  const handleNumberChange = (adj: number) => {
-    let rangeInput = RANGE_INPUT.MIN;
-    let valueNormalized = minInputValueNormalized;
-    if (focusedIndex === 1) {
-      rangeInput = RANGE_INPUT.MAX;
-      valueNormalized = maxInputValueNormalized;
+  const ensureDropdownIsOpen = React.useCallback(() => {
+    if (!isMenuOpen) {
+      setIsMenuOpen(true);
     }
-    handleInputChange(
-      rangeInput,
-      (Number(valueNormalized) + 1 * adj).toString()
-    );
-  };
-
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  }, [isMenuOpen]);
 
   const handleDocumentClick = (event: MouseEvent) => {
     const target = event.target;
@@ -201,10 +187,6 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
     if (!(target instanceof Node && current?.contains(target))) {
       setIsMenuOpen(false);
     }
-  };
-
-  const setFocusToToggleButton = () => {
-    toggleButtonRef.current?.focus();
   };
 
   const toggleMenu = React.useCallback(() => {
