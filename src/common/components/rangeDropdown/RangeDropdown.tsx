@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import { Checkbox, IconAngleDown, IconAngleUp, TextInput } from 'hds-react';
 import React, { useCallback } from 'react';
 
-import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
 import DropdownMenu from '../dropdownMenu/DropdownMenu';
 import SearchLabel from '../search/searchLabel/SearchLabel';
 import styles from './rangeDropdown.module.scss';
@@ -62,6 +61,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   const [internalIsFixedValues, setInternalIsFixedValues] = React.useState(
     false
   );
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const minInputValueNormalized = minInputValue || '';
   const maxInputValueNormalized = maxInputValue || '';
@@ -149,49 +149,9 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
     ]
   );
 
-  const {
-    setup: setupKeyboardNav,
-    teardown: teardownKeyboardNav,
-  } = useKeyboardNavigation({
-    container: dropdown,
-    listLength: 3,
-    onKeyDown: (event: KeyboardEvent) => {
-      switch (event.key) {
-        // Close menu on ESC key
-        case 'Escape':
-          setIsMenuOpen(false);
-          setFocusedIndex(-1);
-          setFocusToToggleButton();
-          break;
-        case 'ArrowUp':
-          handleNumberChange(1);
-          break;
-        case 'ArrowDown':
-          handleNumberChange(-1);
-          break;
-        //case Enter works by default as onClick event defined
-      }
-    },
-  });
-
   const handleInputFocus = (id: string) => {
     setFocusedIndex(Number(id.split('_')[1]));
   };
-
-  const handleNumberChange = (adj: number) => {
-    let rangeInput = RANGE_INPUT.MIN;
-    let valueNormalized = minInputValueNormalized;
-    if (focusedIndex === 1) {
-      rangeInput = RANGE_INPUT.MAX;
-      valueNormalized = maxInputValueNormalized;
-    }
-    handleInputChange(
-      rangeInput,
-      (Number(valueNormalized) + 1 * adj).toString()
-    );
-  };
-
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const handleDocumentClick = (event: MouseEvent) => {
     const target = event.target;
@@ -201,10 +161,6 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
     if (!(target instanceof Node && current?.contains(target))) {
       setIsMenuOpen(false);
     }
-  };
-
-  const setFocusToToggleButton = () => {
-    toggleButtonRef.current?.focus();
   };
 
   const toggleMenu = React.useCallback(() => {
@@ -226,19 +182,29 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   };
 
   React.useEffect(() => {
-    setupKeyboardNav();
     document.addEventListener('click', handleDocumentClick);
     document.addEventListener('focusin', handleDocumentFocusin);
     // Clean up event listener to prevent memory leaks
     return () => {
-      teardownKeyboardNav();
       document.removeEventListener('click', handleDocumentClick);
       document.removeEventListener('focusin', handleDocumentFocusin);
     };
-  }, [setupKeyboardNav, teardownKeyboardNav]);
+  }, []);
 
   const handleToggleButtonClick = () => {
     toggleMenu();
+  };
+
+  const handleToggleButtonKeyDown = (
+    event: React.KeyboardEvent<HTMLButtonElement>
+  ) => {
+    if (event.key === 'ArrowDown') {
+      setIsMenuOpen(true);
+    } else if (event.key === 'ArrowUp') {
+      setIsMenuOpen(false);
+    } else if (event.key === 'Escape') {
+      setIsMenuOpen(false);
+    }
   };
 
   const handleClear = React.useCallback(() => {
@@ -261,7 +227,9 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
         aria-label={title}
         className={styles.toggleButton}
         onClick={handleToggleButtonClick}
+        onKeyDown={handleToggleButtonKeyDown}
         ref={toggleButtonRef}
+        tabIndex={0}
         type="button"
       >
         {!!value.filter(Boolean).length && (

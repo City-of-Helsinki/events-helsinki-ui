@@ -1,8 +1,8 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import React from 'react';
 
-import { escKeyPressHelper, userEvent } from '../../../../util/testUtils';
+import { userEvent } from '../../../../util/testUtils';
 import RangeDropdown, { RangeDropdownProps } from '../RangeDropdown';
 
 const title = 'test title';
@@ -49,7 +49,7 @@ describe('Escape', () => {
       })
     ).toBeInTheDocument();
 
-    escKeyPressHelper();
+    fireEvent.keyDown(toggleButton, { code: 27, key: 'Escape' });
 
     // Assert that we can no longer find the menu content after we have pressed
     // Escape.
@@ -87,6 +87,36 @@ test('should open dropdown when user clicks on toggle button', () => {
   ).toBeInTheDocument();
 });
 
+test('should open dropdown when toggle button is active and user presses ArrowDown', () => {
+  renderComponent();
+
+  const toggleButton = screen.getByRole('button', { name: title });
+  act(() => toggleButton.focus());
+
+  fireEvent.keyDown(toggleButton, { code: 40, key: 'ArrowDown' });
+
+  expect(
+    screen.queryByRole('spinbutton', {
+      name: /start integer/i,
+    })
+  ).toBeInTheDocument();
+});
+
+test('should close dropdown when toggle button is active and user presses ArrowUp', () => {
+  renderComponent();
+
+  const toggleButton = screen.getByRole('button', { name: title });
+  act(() => toggleButton.focus());
+
+  fireEvent.keyDown(toggleButton, { code: 38, key: 'ArrowUp' });
+
+  expect(
+    screen.queryByRole('spinbutton', {
+      name: /start integer/i,
+    })
+  ).not.toBeInTheDocument();
+});
+
 describe('when dropdown has been closed, it should reopen with', () => {
   test('Tab navigation', () => {
     renderComponent();
@@ -103,17 +133,17 @@ describe('when dropdown has been closed, it should reopen with', () => {
 
     userEvent.tab();
     expect(minValueTextbox).toHaveFocus();
-    userEvent.tab();
-    expect(maxValueTextbox).toHaveFocus();
-    //todo: does not work, values are not changing, but works in UI
+
+    //todo: fix input value change does not work
     /*fireEvent.keyDown(minValueTextbox, { code: 38, key: 'ArrowUp' });
     fireEvent.keyDown(minValueTextbox, { code: 38, key: 'ArrowUp' });
     expect(minValueTextbox.value).toBe('2');
     fireEvent.keyDown(minValueTextbox, { code: 40, key: 'ArrowDown' });
-    expect(minValueTextbox.value).toBe('1');
+    expect(minValueTextbox.value).toBe('1');*/
 
     userEvent.tab();
-    fireEvent.keyDown(maxValueTextbox, { code: 38, key: 'ArrowUp' });
+    expect(maxValueTextbox).toHaveFocus();
+    /*fireEvent.keyDown(maxValueTextbox, { code: 38, key: 'ArrowUp' });
     fireEvent.keyDown(maxValueTextbox, { code: 38, key: 'ArrowUp' });
     expect(maxValueTextbox.value).toBe('2');
     fireEvent.keyDown(maxValueTextbox, { code: 40, key: 'ArrowDown' });
