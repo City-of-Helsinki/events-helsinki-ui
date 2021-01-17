@@ -76,6 +76,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
 
   //set values without validation
   const handleInputChange = (inputType: RANGE_INPUT, val: string) => {
+    console.log('moi');
     switch (inputType) {
       case RANGE_INPUT.MIN:
         onChange(val, maxInputValueNormalized);
@@ -150,34 +151,15 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
     ]
   );
 
-  const {
-    setup: setupKeyboardNav,
-    teardown: teardownKeyboardNav,
-  } = useKeyboardNavigation({
-    container: dropdown,
-    listLength: 3,
-    onKeyDown: (event: KeyboardEvent) => {
-      switch (event.key) {
-        case 'ArrowDown':
-          ensureDropdownIsOpen();
-          break;
-        case 'ArrowUp':
-          if (document.activeElement === toggleButtonRef.current) {
-            setIsMenuOpen(false);
-          }
-      }
-    },
-  });
-
   const handleInputFocus = (id: string) => {
     setFocusedIndex(Number(id.split('_')[1]));
   };
 
-  const ensureDropdownIsOpen = React.useCallback(() => {
-    if (!isMenuOpen) {
-      setIsMenuOpen(true);
-    }
-  }, [isMenuOpen]);
+  // const ensureDropdownIsOpen = React.useCallback(() => {
+  //   if (!isMenuOpen) {
+  //     setIsMenuOpen(true);
+  //   }
+  // }, [isMenuOpen]);
 
   const handleDocumentClick = (event: MouseEvent) => {
     const target = event.target;
@@ -208,16 +190,14 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   };
 
   React.useEffect(() => {
-    setupKeyboardNav();
     document.addEventListener('click', handleDocumentClick);
     document.addEventListener('focusin', handleDocumentFocusin);
     // Clean up event listener to prevent memory leaks
     return () => {
-      teardownKeyboardNav();
       document.removeEventListener('click', handleDocumentClick);
       document.removeEventListener('focusin', handleDocumentFocusin);
     };
-  }, [setupKeyboardNav, teardownKeyboardNav]);
+  }, []);
 
   const handleToggleButtonClick = () => {
     toggleMenu();
