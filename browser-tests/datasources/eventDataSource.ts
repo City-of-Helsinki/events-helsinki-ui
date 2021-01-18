@@ -16,11 +16,19 @@ export const getHelsinkiEvents = async (
   count = PAGE_SIZE,
   locale = SUPPORT_LANGUAGES.FI
 ): Promise<EventFieldsFragment[]> => {
+  return await getEvents(count, locale, 'divisions=kunta:helsinki');
+};
+
+export const getEvents = async (
+  count = PAGE_SIZE,
+  locale = SUPPORT_LANGUAGES.FI,
+  queryParams = ''
+): Promise<EventFieldsFragment[]> => {
   const {
     eventList: { data },
   } = await sdk.EventList(
     getEventSearchVariables({
-      params: new URLSearchParams(`?divisions=kunta:helsinki`),
+      params: new URLSearchParams(`?${queryParams}`),
       include: ['keywords', 'location'],
       language: SUPPORT_LANGUAGES.FI,
       pageSize: count,

@@ -9,9 +9,10 @@ import {
   Neighborhood,
   PlaceFieldsFragment,
 } from '../utils/generated/graphql';
-export const selectors = {
-  neighbourhoodFilter: screen.findByLabelText('Etsi alue'),
-  neighbourhoodCheckbox: (n: Neighborhood) =>
+import { regExpEscaped } from '../utils/regexp.util';
+export const eventSearchPageSelectors = {
+  neighborhoodFilter: screen.findByLabelText('Etsi alue'),
+  neighborhoodCheckbox: (n: Neighborhood) =>
     screen.findByRole('checkbox', { name: n.name.fi }),
   placeFilter: screen.findByLabelText('Etsi tapahtumapaikka'),
   placeSearchInput: screen.findByLabelText('Kirjoita hakusana'),
@@ -23,9 +24,11 @@ export const selectors = {
   eventNotFoundText: screen.findByText(
     'Voi vitsi, valitsemillasi hakuehdoilla ei löytynyt yhtään hakutulosta'
   ),
+  clickMoreButton: screen.findByRole('button', {
+    name: /Näytä lisää tapahtumia/g,
+  }),
   forEventCard: (event: EventFieldsFragment) => {
     const withinEventCard = () => within(screen.getByTestId(event.id));
-
     const {
       startTime,
       endTime,
@@ -36,7 +39,7 @@ export const selectors = {
     return {
       eventTitleLink: () =>
         withinEventCard().getByRole('link', {
-          name: new RegExp(event.name.fi, 'g'),
+          name: regExpEscaped(event.name.fi, 'g'),
         }),
       keywordLink: (keyword: KeywordOption) =>
         withinEventCard().getByRole('button', { name: keyword.name }),

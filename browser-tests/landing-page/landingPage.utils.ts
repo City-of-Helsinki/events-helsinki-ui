@@ -12,6 +12,7 @@ import {
   BannerPageFieldsFragment,
   CollectionFieldsFragment,
 } from '../utils/generated/graphql';
+import { regExpEscaped } from '../utils/regexp.util';
 
 export const expectBannerDataIsPresent = async (
   t: TestController,
@@ -35,7 +36,7 @@ export const expectCollectionDataIsPresent = async (
   await t.expect(collectionList.length).gt(0);
   for (const { title } of collectionList) {
     await t
-      .expect(screen.getAllByLabelText(new RegExp(title[locale])).exists)
+      .expect(screen.getAllByLabelText(regExpEscaped(title[locale])).exists)
       .ok();
   }
 };
@@ -50,7 +51,7 @@ export const navigateToCollectionPageAndBack = async (
     slug,
   } = collection;
   await t
-    .click(screen.getAllByLabelText(new RegExp(collectionTitle)))
+    .click(screen.getAllByLabelText(regExpEscaped(collectionTitle)))
     .expect(getPathname())
     .eql(`/${locale}/collection/${slug}`)
     .expect(getPageTitle())

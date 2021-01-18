@@ -1,55 +1,17 @@
-import { screen } from '@testing-library/testcafe';
-
 import { landingPageDataSource } from '../datasources/landingPageDataSource';
-import { header } from '../selectors/header';
-import { getPageTitle, getPathname } from '../utils/browserUtils';
 import { getEnvUrl } from '../utils/settings';
-import {
-  expectBannerDataIsPresent,
-  expectCollectionDataIsPresent,
-  navigateToBannerUrl,
-  navigateToCollectionPageAndBack,
-} from './landingPage.utils';
+import { getLandingPageActions } from './landingPage.actions';
+import { getLandingPageExpectations } from './landingPage.expectations';
 
-fixture('Landing page').page(getEnvUrl('/fi/home'));
+let actions: ReturnType<typeof getLandingPageActions>;
+let expectations: ReturnType<typeof getLandingPageExpectations>;
 
-test('Changing language on landing page', async (t) => {
-  await t
-    .expect(screen.getAllByRole('link', { name: /etsi tekemistä/i }).count)
-    .eql(2)
-    .expect(screen.getAllByRole('link', { name: /suosittelemme/i }).count)
-    .eql(2);
-
-  await t
-    .click(header.languageSelector)
-    .click(header.languageSelectorItemSv)
-    .expect(getPathname())
-    .eql('/sv/home');
-
-  await t
-    .expect(screen.getAllByRole('link', { name: /sök saker att göra/i }).count)
-    .eql(2)
-    .expect(screen.getAllByRole('link', { name: /vi rekommenderar/i }).count)
-    .eql(2);
-});
-
-test('Event search page is navigable from landing page header', async (t) => {
-  await t
-    .click(screen.findAllByRole('link', { name: 'Etsi tekemistä' }))
-    .expect(getPathname())
-    .eql(`/fi/events`)
-    .expect(getPageTitle())
-    .eql('Tapahtumat');
-});
-
-test('Recommended page is navigable from landing page header', async (t) => {
-  await t
-    .click(screen.findAllByRole('link', { name: 'Suosittelemme' }))
-    .expect(getPathname())
-    .eql(`/fi/collections`)
-    .expect(getPageTitle())
-    .eql('Tapahtumat');
-});
+fixture('Landing page')
+  .page(getEnvUrl('/fi/home'))
+  .beforeEach(async (t) => {
+    actions = getLandingPageActions(t);
+    expectations = getLandingPageExpectations(t);
+  });
 
 test('topBanner, collections and bottomBanner data are present', async (t) => {
   const {
@@ -57,25 +19,25 @@ test('topBanner, collections and bottomBanner data are present', async (t) => {
     bottomBanner,
   } = await landingPageDataSource.getLandingPageCmsData();
   const collectionList = await landingPageDataSource.getCollectionList();
-  await expectBannerDataIsPresent(t, topBanner);
-  await expectCollectionDataIsPresent(t, collectionList);
-  await expectBannerDataIsPresent(t, bottomBanner);
+  await expectations.withinBanner(topBanner, 'top').bannerDataIsVisible();
+  await expectations.collectionsAreVisible(collectionList);
+  await expectations.withinBanner(bottomBanner, 'bottom').bannerDataIsVisible();
 });
 
 test('collection urls work', async (t) => {
   const collectionList = await landingPageDataSource.getCollectionList();
   await t.expect(collectionList.length).gt(0);
   for (const collection of collectionList) {
-    await navigateToCollectionPageAndBack(t, collection);
+    await actions.navigateToCollectionAndBack(collection);
   }
 });
 
-test('top banner url work', async (t) => {
+test('top banner url work', async () => {
   const { topBanner } = await landingPageDataSource.getLandingPageCmsData();
-  await navigateToBannerUrl(t, topBanner);
+  await actions.navigateToBannerUrl(topBanner, 'top');
 });
 
-test('bottom banner url work', async (t) => {
+test('bottom banner url work', async () => {
   const { bottomBanner } = await landingPageDataSource.getLandingPageCmsData();
-  await navigateToBannerUrl(t, bottomBanner);
+  await actions.navigateToBannerUrl(bottomBanner, 'bottom');
 });
