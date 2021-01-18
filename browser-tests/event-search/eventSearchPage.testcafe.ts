@@ -32,10 +32,7 @@ test('shows neighborhoods in filter options', async (t) => {
     );
   }
 });
-/**
- * Note: This is kinda slow test.
- * Perhaps we could check just some of the places instead of all of them
- */
+
 test('shows Helsinki places in filter options', async (t) => {
   const placeOptions = await searchFilterDataSource.getHelsinkiPlaceOptions();
   await t.expect(placeOptions.length).gt(0);
