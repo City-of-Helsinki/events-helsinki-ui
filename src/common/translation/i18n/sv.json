@@ -60,6 +60,7 @@
     "srOnly" : {
       "opensInANewTab": "Öppnas i en ny flik"
     },
+    "yearsShort": "år",
     "supriseMe": "Jag har tur",
     "timeAbbreviation": "kl."
   },
@@ -226,7 +227,11 @@
       "placeholder": "Ange ett sökord, t. ex. Franska eller matlagning",
       "labelSearchField": "Vad letar du efter?",
       "checkboxAlsoOngoingCourses": "Visa även pågående kurser",
-      "titleDropdownHobbyType": "Hobby type"
+      "titleDropdownHobbyType": "Hobby type",
+      "showOnlyAdultCourses": "Show only adult courses",
+      "ageLimitValues": "Age group",
+      "ageLimitMin": "From age",
+      "ageLimitMax": "To age"
     }
   },
   "footer": {

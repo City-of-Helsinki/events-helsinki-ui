@@ -1,0 +1,119 @@
+@import 'mixins';
+@import 'layout';
+
+.dropdown {
+  position: relative;
+  background: var(--color-white);
+
+  box-sizing: border-box;
+
+  .toggleButton {
+    cursor: pointer;
+    border: 0.125rem solid var(--color-white);
+    background: transparent;
+    min-height: 3.375rem;
+    padding: 0 0.875rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--color-white);
+    outline: none;
+
+    &:focus {
+      border-color: var(--color-black);
+    }
+
+    svg {
+      height: 1.25rem;
+      width: 1.25rem;
+    }
+  }
+
+  .isSelectedIndicator {
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--color-tram-dark);
+  }
+
+  .iconWrapper {
+    display: flex;
+    align-self: center;
+
+    svg {
+      margin-right: 1rem;
+    }
+  }
+
+  .title {
+    flex: 1 1 0%;
+    text-align: left;
+    color: var(--color-black);
+    position: relative;
+    overflow: hidden;
+
+    input {
+      height: 100%;
+      line-height: 1.25rem;
+      padding-left: 0;
+      width: 100%;
+      border: none;
+      outline: none;
+
+      @include placeholder(var(--color-black));
+    }
+
+    .titleText {
+      line-height: 1.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .arrowWrapper {
+    display: flex;
+    align-self: center;
+
+    svg {
+      margin-left: 0.75rem;
+      pointer-events: none;
+    }
+  }
+
+  .rangeInputsWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-bottom: 2px solid var(--color-black-10);
+    padding: var(--spacing-m) var(--spacing-s);
+    @include respond-between(sm, lg) {
+      flex-direction: column;
+    }
+
+    .rangeArrowWrapper {
+      margin: var(--spacing-s) var(--spacing-s) 0 var(--spacing-s);
+    }
+
+    input {
+      height: var(--spacing-2-xl);
+      width: 100%;
+    }
+  }
+}
+
+.rangeCheckbox {
+  margin: var(--spacing-s) var(--spacing-s);
+  margin-top: var(--spacing-s) !important;
+  input {
+    color: var(--color-white);
+  }
+}
+
+.checkbox--isFocused {
+  background-color: var(--color-fog);
+}

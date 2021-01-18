@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 
 import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
 import Checkbox from '../checkbox/Checkbox';
+import DropdownMenu from '../dropdownMenu/DropdownMenu';
 import ScrollIntoViewWithFocus from '../scrollIntoViewWithFocus/ScrollIntoViewWithFocus';
 import SearchLabel from '../search/searchLabel/SearchLabel';
-import DropdownMenu from './DropdownMenu';
 import styles from './multiSelectDropdown.module.scss';
 
 const SELECT_ALL = 'SELECT_ALL';

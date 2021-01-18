@@ -41,6 +41,8 @@ const eventsLoadMoreResponse = {
 };
 const eventListVariables = {
   allOngoingAnd: ['jazz'],
+  audienceMinAgeGt: '',
+  audienceMaxAgeLt: '',
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,

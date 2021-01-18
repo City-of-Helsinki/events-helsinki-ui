@@ -32,6 +32,8 @@ export interface Filters {
   publisher?: string | null;
   start: Date | null;
   text: string[];
+  audienceMinAgeGt?: string;
+  audienceMaxAgeLt?: string;
 }
 
 export interface MappedFilters {
@@ -50,4 +52,6 @@ export interface MappedFilters {
   publisher?: string | null;
   start?: string | null;
   text: string[];
+  audienceMinAgeGt?: string;
+  audienceMaxAgeLt?: string;
 }

@@ -61,7 +61,8 @@
     "timeAbbreviation": "klo",
     "srOnly" : {
       "opensInANewTab": "Avautuu uudessa välilehdessä"
-    }
+    },
+    "yearsShort": "v"
   },
   "collection": {
     "buttonShowAllPastEvents": "Näytä kaikki menneet",
@@ -226,7 +227,11 @@
       "labelSearchField": "Mitä etsit?",
       "checkboxAlsoOngoingCourses": "Näytä myös meneillään olevat",
       "checkboxIsFree": "Näytä vain maksuttomat",
-      "titleDropdownHobbyType": "Harrastusmuoto"
+      "titleDropdownHobbyType": "Harrastusmuoto",
+      "showOnlyAdultCourses": "Näytä vain aikuisten harrastukset",
+      "ageLimitValues": "Kohderyhmä",
+      "ageLimitMin": "Ikä alkaen",
+      "ageLimitMax": "Ikä päättyen"
     }
   },
   "footer": {

@@ -73,6 +73,8 @@ const courseRequest = {
 const similarCoursesListRequest = {
   query: CourseListDocument,
   variables: {
+    audienceMinAgeGt: '',
+    audienceMaxAgeLt: '',
     end: '',
     include: ['keywords', 'location'],
     isFree: undefined,

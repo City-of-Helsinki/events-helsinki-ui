@@ -1,5 +1,11 @@
 import classNames from 'classnames';
-import { Button, IconHome, IconLocation, IconSearch } from 'hds-react';
+import {
+  Button,
+  IconArrowRight,
+  IconHome,
+  IconLocation,
+  IconSearch,
+} from 'hds-react';
 import { uniq } from 'lodash';
 import React, { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +14,7 @@ import { useHistory, useLocation } from 'react-router';
 import Checkbox from '../../common/components/checkbox/Checkbox';
 import DateSelector from '../../common/components/dateSelector/DateSelector';
 import MultiSelectDropdown from '../../common/components/multiSelectDropdown/MultiSelectDropdown';
+import RangeDropdown from '../../common/components/rangeDropdown/RangeDropdown';
 import SearchAutosuggest from '../../common/components/search/SearchAutosuggest';
 import SearchLabel from '../../common/components/search/searchLabel/SearchLabel';
 import { AutosuggestMenuOption } from '../../common/types';
@@ -63,6 +70,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   const [selectedDivisions, setSelectedDivisions] = React.useState<string[]>(
     []
   );
+  const [minAgeInput, setMinAgeInput] = React.useState('');
+  const [maxAgeInput, setMaxAgeInput] = React.useState('');
   const [start, setStart] = React.useState<Date | null>(null);
   const [end, setEnd] = React.useState<Date | null>(null);
   const [isCustomDate, setIsCustomDate] = React.useState<boolean>(false);
@@ -81,6 +90,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     text: selectedTexts,
     start,
     end,
+    minAge: minAgeInput,
+    maxAge: maxAgeInput,
   };
 
   // Initialize fields when page is loaded
@@ -94,6 +105,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
       text,
       end: endTime,
       start: startTime,
+      audienceMinAgeGt,
+      audienceMaxAgeLt,
     } = getSearchFilters(searchParams);
 
     setSelectedCategories(categories);
@@ -102,6 +115,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     setSelectedPlaces(places);
     setSelectedTexts(text);
     setSelectedDateTypes(dateTypes);
+    setMinAgeInput(audienceMinAgeGt || '');
+    setMaxAgeInput(audienceMaxAgeLt || '');
 
     if (endTime || startTime) {
       setIsCustomDate(true);
@@ -116,6 +131,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     setDivisionInput('');
     setPlaceInput('');
     setAutosuggestInput('');
+    setMinAgeInput('');
+    setMaxAgeInput('');
   };
 
   const clearFilters = () => {
@@ -201,6 +218,11 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     push({ pathname: `/${locale}${ROUTES.COURSES}`, search });
   };
 
+  const handleSetAgeValues = (minAge: string, maxAge: string) => {
+    setMinAgeInput(minAge);
+    setMaxAgeInput(maxAge);
+  };
+
   return (
     <div className={styles.searchContainer}>
       <Container>
@@ -277,6 +299,27 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                   showSelectAll={true}
                   title={t('eventSearch.search.titleDropdownDivision')}
                   value={selectedDivisions}
+                />
+              </div>
+              <div>
+                <RangeDropdown
+                  checkboxName="ageLimitValues"
+                  rangeIcon={<IconArrowRight aria-hidden />}
+                  minInputValue={minAgeInput}
+                  minInputLabel={t('courseSearch.search.ageLimitMin')}
+                  minInputStartValue={'0'}
+                  minInputFixedValue={'18'}
+                  maxInputValue={maxAgeInput}
+                  maxInputLabel={t('courseSearch.search.ageLimitMax')}
+                  maxInputEndValue={'100'}
+                  name="ageLimitValues"
+                  onChange={handleSetAgeValues}
+                  fixedValuesText={t(
+                    'courseSearch.search.showOnlyAdultCourses'
+                  )}
+                  showFixedValuesText={true}
+                  title={t('courseSearch.search.ageLimitValues')}
+                  value={[minAgeInput, maxAgeInput]}
                 />
               </div>
               <div>

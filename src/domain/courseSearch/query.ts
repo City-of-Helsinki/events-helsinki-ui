@@ -3,6 +3,8 @@ import gql from 'graphql-tag';
 export const QUERY_EVENT_LIST = gql`
   query CourseList(
     $allOngoingAnd: [String]
+    $audienceMaxAgeLt: String
+    $audienceMinAgeGt: String
     $division: [String]
     $end: String
     $endsAfter: String
@@ -28,6 +30,8 @@ export const QUERY_EVENT_LIST = gql`
     $translation: String
   ) {
     courseList(
+      audienceMaxAgeLt: $audienceMaxAgeLt
+      audienceMinAgeGt: $audienceMinAgeGt
       combinedText: $allOngoingAnd
       division: $division
       end: $end

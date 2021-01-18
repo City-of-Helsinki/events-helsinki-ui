@@ -47,6 +47,8 @@ const loadMoreEventsResponse = {
 
 const variables = {
   allOngoingAnd: ['jooga'],
+  audienceMinAgeGt: '',
+  audienceMaxAgeLt: '',
   end: '',
   include: ['keywords', 'location'],
   isFree: true,

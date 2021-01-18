@@ -13,7 +13,9 @@ export type FilterType =
   | 'place'
   | 'publisher'
   | 'target'
-  | 'text';
+  | 'text'
+  | 'minAge'
+  | 'maxAge';
 
 interface Props {
   onRemove: (value: string, type: FilterType) => void;
