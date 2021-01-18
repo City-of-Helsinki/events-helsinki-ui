@@ -127,13 +127,13 @@ const EventHero: React.FC<Props> = ({ event, eventType }) => {
                     />
                   </InfoWithIcon>
                 </Visible>
-
-                <Visible above="sm" className={styles.price}>
-                  <InfoWithIcon icon={<IconTicket aria-hidden />} title={''}>
-                    {eventPriceText || '-'}
-                  </InfoWithIcon>
-                </Visible>
-
+                {eventPriceText && (
+                  <Visible above="sm" className={styles.price}>
+                    <InfoWithIcon icon={<IconTicket aria-hidden />} title={''}>
+                      {eventPriceText}
+                    </InfoWithIcon>
+                  </Visible>
+                )}
                 {showBuyButton && (
                   <Visible above="sm" className={styles.buyButtonWrapper}>
                     <Button
