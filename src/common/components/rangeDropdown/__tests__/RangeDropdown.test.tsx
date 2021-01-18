@@ -26,8 +26,16 @@ const defaultProps: RangeDropdownProps = {
   title: title,
   value: [],
 };
-const renderComponent = (props?: Partial<RangeDropdownProps>) =>
-  render(<RangeDropdown {...defaultProps} {...props} />);
+const renderComponent = (props?: Partial<RangeDropdownProps>) => {
+  const { rerender, ...utils } = render(
+    <RangeDropdown {...defaultProps} {...props} />
+  );
+  return {
+    ...utils,
+    rerender: (props?: Partial<RangeDropdownProps>) =>
+      rerender(<RangeDropdown {...defaultProps} {...props} />),
+  };
+};
 
 test('test for accessibility violations', async () => {
   const { container } = renderComponent();
@@ -117,42 +125,29 @@ test('should close dropdown when toggle button is active and user presses ArrowU
   ).not.toBeInTheDocument();
 });
 
-describe('when dropdown has been closed, it should reopen with', () => {
-  test('Tab navigation', () => {
-    renderComponent();
-    const toggleButton = screen.getByRole('button', { name: title });
-    userEvent.click(toggleButton);
+test('can be navigated with tab', () => {
+  renderComponent();
+  const toggleButton = screen.getByRole('button', { name: title });
+  userEvent.click(toggleButton);
 
-    const minValueTextbox = screen.queryByRole('spinbutton', {
-      name: /start integer/i,
-    }) as HTMLInputElement;
+  const minValueTextbox = screen.queryByRole('spinbutton', {
+    name: /start integer/i,
+  }) as HTMLInputElement;
 
-    const maxValueTextbox = screen.queryByRole('spinbutton', {
-      name: /end integer/i,
-    }) as HTMLInputElement;
+  const maxValueTextbox = screen.queryByRole('spinbutton', {
+    name: /end integer/i,
+  }) as HTMLInputElement;
 
-    userEvent.tab();
-    expect(minValueTextbox).toHaveFocus();
+  userEvent.tab();
+  expect(minValueTextbox).toHaveFocus();
 
-    //todo: fix input value change does not work
-    /*fireEvent.keyDown(minValueTextbox, { code: 38, key: 'ArrowUp' });
-    fireEvent.keyDown(minValueTextbox, { code: 38, key: 'ArrowUp' });
-    expect(minValueTextbox.value).toBe('2');
-    fireEvent.keyDown(minValueTextbox, { code: 40, key: 'ArrowDown' });
-    expect(minValueTextbox.value).toBe('1');*/
-
-    userEvent.tab();
-    expect(maxValueTextbox).toHaveFocus();
-    /*fireEvent.keyDown(maxValueTextbox, { code: 38, key: 'ArrowUp' });
-    fireEvent.keyDown(maxValueTextbox, { code: 38, key: 'ArrowUp' });
-    expect(maxValueTextbox.value).toBe('2');
-    fireEvent.keyDown(maxValueTextbox, { code: 40, key: 'ArrowDown' });
-    expect(maxValueTextbox.value).toBe('1');*/
-  });
+  userEvent.tab();
+  expect(maxValueTextbox).toHaveFocus();
 });
 
-test('should set default value', () => {
-  renderComponent();
+test('should call onChange correctly when setting fixed values with checkbox', () => {
+  const onChange = jest.fn();
+  const { rerender } = renderComponent({ onChange });
 
   const toggleButton = screen.getByRole('button', { name: title });
   userEvent.click(toggleButton);
@@ -168,18 +163,24 @@ test('should set default value', () => {
   });
 
   expect(minValueTextbox).toBeInTheDocument();
-  expect(minValueTextbox.value).toBe('0');
+  expect(minValueTextbox).toHaveValue(0);
   expect(maxValueTextbox).toBeInTheDocument();
-  expect(maxValueTextbox.value).toBe('100');
+  expect(maxValueTextbox).toHaveValue(100);
   expect(setDefaultsCheckbox).toBeInTheDocument();
 
   //click defaults
   userEvent.click(setDefaultsCheckbox);
 
+  expect(onChange).toHaveBeenCalledWith('18', '80');
+
   expect(minValueTextbox).toHaveAttribute('disabled');
   expect(maxValueTextbox).toHaveAttribute('disabled');
 
-  //todo: for some reason value not changing with disabled attribute
-  //expect(minValueTextbox.value).toBe('18');
-  //expect(maxValueTextbox.value).toBe('80');
+  expect(minValueTextbox).toHaveValue(0);
+  expect(maxValueTextbox).toHaveValue(100);
+
+  rerender({ minInputValue: '18', maxInputValue: '80' });
+
+  expect(minValueTextbox).toHaveValue(18);
+  expect(maxValueTextbox).toHaveValue(80);
 });

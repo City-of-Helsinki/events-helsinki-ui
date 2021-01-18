@@ -91,8 +91,8 @@ export enum EVENT_SEARCH_FILTERS {
   PUBLISHER = 'publisher',
   START = 'start',
   TEXT = 'text',
-  MIN_AGE = 'minAge',
-  MAX_AGE = 'maxAge',
+  MIN_AGE = 'audienceMinAgeGt',
+  MAX_AGE = 'audienceMaxAgeLt',
 }
 
 export const CULTURE_KEYWORDS = [
