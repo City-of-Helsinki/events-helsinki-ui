@@ -1,43 +1,43 @@
 import { landingPageDataSource } from '../datasources/landingPageDataSource';
 import { getEnvUrl } from '../utils/settings';
-import { getLandingPageActions } from './landingPage.actions';
-import { getLandingPageExpectations } from './landingPage.expectations';
+import { getUrlUtils } from '../utils/url.utils';
+import { getLandingPageComponents } from './landingPage.components';
 
-let actions: ReturnType<typeof getLandingPageActions>;
-let expectations: ReturnType<typeof getLandingPageExpectations>;
+let components: ReturnType<typeof getLandingPageComponents>;
+let urlUtils: ReturnType<typeof getUrlUtils>;
 
 fixture('Landing page')
   .page(getEnvUrl('/fi/home'))
   .beforeEach(async (t) => {
-    actions = getLandingPageActions(t);
-    expectations = getLandingPageExpectations(t);
+    components = getLandingPageComponents(t);
+    urlUtils = getUrlUtils(t);
   });
 
-test('topBanner, collections and bottomBanner data are present', async (t) => {
+test('banner data is present and links work', async () => {
   const {
-    topBanner,
     bottomBanner,
+    topBanner,
   } = await landingPageDataSource.getLandingPageCmsData();
-  const collectionList = await landingPageDataSource.getCollectionList();
-  await expectations.withinBanner(topBanner, 'top').bannerDataIsVisible();
-  await expectations.collectionsAreVisible(collectionList);
-  await expectations.withinBanner(bottomBanner, 'bottom').bannerDataIsVisible();
+  const topBannerComponent = components.topBanner(topBanner);
+  await topBannerComponent.expectations.bannerDataIsVisible();
+  await topBannerComponent.actions.clickButtonLink();
+  await urlUtils.expectations.urlChangedToBannerPage(topBanner);
+  await urlUtils.actions.navigateToLandingPage();
+  const bottomBannerComponent = components.bottomBanner(bottomBanner);
+  await bottomBannerComponent.expectations.bannerDataIsVisible();
+  await bottomBannerComponent.actions.clickButtonLink();
+  await urlUtils.expectations.urlChangedToBannerPage(bottomBanner);
 });
 
 test('collection urls work', async (t) => {
   const collectionList = await landingPageDataSource.getCollectionList();
   await t.expect(collectionList.length).gt(0);
   for (const collection of collectionList) {
-    await actions.navigateToCollectionAndBack(collection);
+    const collectionCard = components.collectionCard(collection);
+    await collectionCard.expectations.collectionTitleIsVisible();
+    await collectionCard.actions.clickCollectionLink();
+    await urlUtils.expectations.urlChangedToCollectionPage(collection);
+    await urlUtils.actions.navigateToLandingPage();
+    await urlUtils.expectations.urlChangedToLandingPage();
   }
-});
-
-test('top banner url work', async () => {
-  const { topBanner } = await landingPageDataSource.getLandingPageCmsData();
-  await actions.navigateToBannerUrl(topBanner, 'top');
-});
-
-test('bottom banner url work', async () => {
-  const { bottomBanner } = await landingPageDataSource.getLandingPageCmsData();
-  await actions.navigateToBannerUrl(bottomBanner, 'bottom');
 });

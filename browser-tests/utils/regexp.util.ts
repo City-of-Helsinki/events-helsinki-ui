@@ -7,7 +7,7 @@ export const escapeRegExp = (text: string): string => {
 
 export const splitBySentences = (text: string): string[] =>
   text
-    .replace(/(<[^>]*>|[.,])/g, '____')
+    .replace(/(<[^>]*>|[.,!?()])/g, '____')
     .split('____')
     .map((s) => s.trim())
-    .filter((s) => /\S/.test(s));
+    .filter((s) => /[^.,!?()]+/.test(s));

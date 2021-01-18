@@ -1,35 +1,33 @@
 import { landingPageDataSource } from '../datasources/landingPageDataSource';
 import { getEnvUrl } from '../utils/settings';
-import { getLandingPageActions } from './landingPage.actions';
-import { getLandingPageExpectations } from './landingPage.expectations';
+import { getUrlUtils } from '../utils/url.utils';
+import { getLandingPageComponents } from './landingPage.components';
 
-let actions: ReturnType<typeof getLandingPageActions>;
-let expectations: ReturnType<typeof getLandingPageExpectations>;
+let components: ReturnType<typeof getLandingPageComponents>;
+let urlUtils: ReturnType<typeof getUrlUtils>;
 
-fixture('Landing Page Preview')
+fixture('Landing page preview')
   .page(getEnvUrl('/fi/home'))
   .beforeEach(async (t) => {
-    actions = getLandingPageActions(t);
-    expectations = getLandingPageExpectations(t);
+    components = getLandingPageComponents(t);
+    urlUtils = getUrlUtils(t);
+    t.ctx = {};
   });
 
-test('topBanner and bottomBanner data are present', async (t) => {
+test('banner data is present and links work', async () => {
   const {
-    id,
-    topBanner,
     bottomBanner,
+    topBanner,
+    id: pageId,
   } = await landingPageDataSource.getLandingPageCmsData();
-  await t.navigateTo(getEnvUrl(`fi/home/${id}`));
-  await expectations.withinBanner(topBanner, 'top').bannerDataIsVisible();
-  await expectations.withinBanner(bottomBanner, 'bottom').bannerDataIsVisible();
-});
-
-test('top banner url work', async () => {
-  const { topBanner } = await landingPageDataSource.getLandingPageCmsData();
-  await actions.navigateToBannerUrl(topBanner, 'top');
-});
-
-test('bottom banner url work', async () => {
-  const { bottomBanner } = await landingPageDataSource.getLandingPageCmsData();
-  await actions.navigateToBannerUrl(bottomBanner, 'bottom');
+  await urlUtils.actions.navigateToLandingPreviewPage(pageId);
+  const topBannerComponent = components.topBanner(topBanner);
+  await topBannerComponent.expectations.bannerDataIsVisible();
+  await topBannerComponent.actions.clickButtonLink();
+  await urlUtils.expectations.urlChangedToBannerPage(topBanner);
+  await urlUtils.actions.navigateToLandingPreviewPage(pageId);
+  const bottomBannerComponent = components.bottomBanner(bottomBanner);
+  await bottomBannerComponent.expectations.bannerDataIsVisible();
+  await bottomBannerComponent.actions.clickButtonLink();
+  await urlUtils.expectations.urlChangedToBannerPage(bottomBanner);
 });
