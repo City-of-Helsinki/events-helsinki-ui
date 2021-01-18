@@ -93,7 +93,7 @@
     "test:coverage": "yarn test --coverage --watchAll=false",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
     "browser-test": "testcafe \"chrome --window-size='1920,1080'\" browser-tests/",
-    "browser-test:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" -s takeOnFails=true browser-tests/",
+    "browser-test:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" -s takeOnFails=true --assertion-timeout 10000 browser-tests/",
     "lint": "eslint --ext js,ts,tsx src",
     "format-code": "eslint --ext js,ts,tsx src --fix --max-warnings=0"
   },
