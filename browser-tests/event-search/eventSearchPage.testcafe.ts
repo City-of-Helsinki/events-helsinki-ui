@@ -1,7 +1,11 @@
+import TestController from 'testcafe';
+
 import { SUPPORT_LANGUAGES } from '../../src/constants';
+import { getEventFields } from '../../src/domain/event/EventUtils';
 import { PAGE_SIZE } from '../../src/domain/eventSearch/constants';
 import { getEvents, getHelsinkiEvents } from '../datasources/eventDataSource';
 import { searchFilterDataSource } from '../datasources/searchFilterDataSource';
+import { EventFieldsFragment } from '../utils/generated/graphql';
 import {
   selectRandomValueFromArray,
   selectRandomValuesFromArray,
@@ -67,41 +71,36 @@ test('Free text search shows event card data for helsinki event', async () => {
   await urlUtils.expectations.urlChangedToEventPage(event);
 });
 
-test('search url finds event by name', async (t) => {
+test('search url finds event by free text search', async (t) => {
   const [event] = await getHelsinkiEvents();
   for (const locale of Object.values(SUPPORT_LANGUAGES)) {
-    if (event.name[locale]) {
-      t.ctx.locale = locale;
-      await getUrlUtils(t).actions.navigateToSearchUrl(event.name[locale]);
-      await components.eventCard(event).expectations.isPresent();
-    }
+    const {
+      name,
+      shortDescription,
+      description,
+      locationName,
+      streetAddress,
+    } = getEventFields(event, locale);
+
+    const randomDescriptionSentence = selectRandomValueFromArray(
+      splitBySentences(description)
+    );
+    await testSearchEventByText(t, event, name);
+    await testSearchEventByText(t, event, shortDescription);
+    await testSearchEventByText(t, event, randomDescriptionSentence);
+    await testSearchEventByText(t, event, locationName);
+    await testSearchEventByText(t, event, streetAddress);
   }
 });
 
-test('search url finds event by short description', async (t) => {
-  const [event] = await getHelsinkiEvents();
-  for (const locale of Object.values(SUPPORT_LANGUAGES)) {
-    if (event.description[locale]) {
-      t.ctx.locale = locale;
-      await urlUtils.actions.navigateToSearchUrl(
-        event.shortDescription[locale]
-      );
-      await components.eventCard(event).expectations.isPresent();
-    }
+const testSearchEventByText = async (
+  t: TestController,
+  event: EventFieldsFragment,
+  freeText: string
+) => {
+  if (!freeText) {
+    return;
   }
-});
-
-test('search url finds event by description', async (t) => {
-  const [event] = await getHelsinkiEvents();
-  for (const locale of Object.values(SUPPORT_LANGUAGES)) {
-    if (event.description[locale]) {
-      t.ctx.locale = locale;
-      const randomSentenceFromDescription = selectRandomValueFromArray(
-        splitBySentences(event.description[locale])
-      );
-      t.ctx.randomSentenceFromDescription = randomSentenceFromDescription;
-      await urlUtils.actions.navigateToSearchUrl(randomSentenceFromDescription);
-      await components.eventCard(event).expectations.isPresent();
-    }
-  }
-});
+  await urlUtils.actions.navigateToSearchUrl(freeText);
+  await components.eventCard(event).expectations.isPresent();
+};
