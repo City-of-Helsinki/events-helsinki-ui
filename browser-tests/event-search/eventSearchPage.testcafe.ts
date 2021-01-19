@@ -1,6 +1,10 @@
 import TestController from 'testcafe';
 
-import { SUPPORT_LANGUAGES } from '../../src/constants';
+import {
+  DATE_TYPES,
+  DEFAULT_LANGUAGE,
+  SUPPORT_LANGUAGES,
+} from '../../src/constants';
 import { getEventFields } from '../../src/domain/event/EventUtils';
 import { PAGE_SIZE } from '../../src/domain/eventSearch/constants';
 import { getEvents, getHelsinkiEvents } from '../datasources/eventDataSource';
@@ -104,3 +108,21 @@ const testSearchEventByText = async (
   await urlUtils.actions.navigateToSearchUrl(freeText);
   await components.eventCard(event).expectations.isPresent();
 };
+
+test.only('Future events can be searched', async () => {
+  const searchContainer = components.searchContainer();
+  await searchContainer.actions.openDateFilters();
+  for (const dateRange of [DATE_TYPES.TOMORROW, DATE_TYPES.WEEKEND]) {
+    const [event] = await getHelsinkiEvents(
+      PAGE_SIZE,
+      DEFAULT_LANGUAGE,
+      `dateTypes=${dateRange}`
+    );
+
+    await searchContainer.actions.selectDateRange(dateRange);
+    await searchContainer.actions.clickSearchButton();
+    await components.eventCard(event).expectations.isPresent();
+    await searchContainer.actions.openDateFilters();
+    await searchContainer.actions.selectDateRange(dateRange); // unselect previous choice
+  }
+});

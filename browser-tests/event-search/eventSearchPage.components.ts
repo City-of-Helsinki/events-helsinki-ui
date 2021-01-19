@@ -2,9 +2,11 @@
 import { screen, within } from '@testing-library/testcafe';
 import TestController from 'testcafe';
 
+import translations from '../../src/common/translation/i18n/fi.json';
 import { getEventFields } from '../../src/domain/event/EventUtils';
 import { KeywordOption } from '../../src/domain/event/types';
 import getDateRangeStr from '../../src/util/getDateRangeStr';
+import toPascalCase from '../../src/util/toPascalCase';
 import { getErrorMessage } from '../utils/error.util';
 import {
   EventFieldsFragment,
@@ -12,6 +14,8 @@ import {
   PlaceFieldsFragment,
 } from '../utils/generated/graphql';
 import { regExpEscaped } from '../utils/regexp.util';
+
+type DateRange = 'Tänään' | 'Huomenna' | 'Tällä viikolla' | 'Viikonloppuna';
 
 export const getEventSearchPageComponents = (t: TestController) => {
   const searchContainer = () => {
@@ -21,6 +25,17 @@ export const getEventSearchPageComponents = (t: TestController) => {
       },
       withinComponent() {
         return within(screen.getByTestId('searchContainer'));
+      },
+      searchButton() {
+        return this.withinComponent().findByRole('button', { name: 'Hae' });
+      },
+      dateRangeFilter() {
+        return this.withinComponent().findByLabelText('Valitse ajankohta');
+      },
+      dateRangeCheckbox(range: string) {
+        return this.withinComponent().findByRole('checkbox', {
+          name: range,
+        });
       },
       neighborhoodFilter() {
         return this.withinComponent().findByLabelText('Etsi alue');
@@ -60,6 +75,23 @@ export const getEventSearchPageComponents = (t: TestController) => {
       },
     };
     const actions = {
+      async clickSearchButton() {
+        await expectations.isPresent();
+        await t.click(selectors.searchButton());
+      },
+      async openDateFilters() {
+        await expectations.isPresent();
+        await t.click(selectors.dateRangeFilter());
+      },
+      async selectDateRange(dateRange: string) {
+        await expectations.isPresent();
+        const dateRangeValue =
+          translations.commons.dateSelector[
+            `dateType${toPascalCase(dateRange)}`
+          ];
+        t.ctx.dateRange = dateRangeValue;
+        await t.click(selectors.dateRangeCheckbox(dateRangeValue));
+      },
       async openNeighborhoodFilters() {
         await expectations.isPresent();
         await t.click(selectors.neighborhoodFilter());
@@ -144,6 +176,7 @@ export const getEventSearchPageComponents = (t: TestController) => {
       addressLocality,
       keywords,
     } = getEventFields(event, 'fi');
+    t.ctx.event = event;
     const selectors = {
       component() {
         return screen.findByTestId(event.id);
@@ -182,7 +215,7 @@ export const getEventSearchPageComponents = (t: TestController) => {
       async isPresent() {
         await t
           .expect(selectors.component().exists)
-          .ok(getErrorMessage(t), { timeout: 60000 });
+          .ok(getErrorMessage(t), { timeout: 30000 });
       },
       async titleLinkIsPresent() {
         await this.isPresent();
