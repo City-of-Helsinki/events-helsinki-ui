@@ -90,8 +90,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     text: selectedTexts,
     start,
     end,
-    minAge: minAgeInput,
-    maxAge: maxAgeInput,
+    audienceMinAgeGt: minAgeInput,
+    audienceMaxAgeLt: maxAgeInput,
   };
 
   // Initialize fields when page is loaded

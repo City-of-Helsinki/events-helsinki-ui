@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { Checkbox, IconAngleDown, IconAngleUp, TextInput } from 'hds-react';
-import React, { useCallback } from 'react';
+import React from 'react';
 
 import DropdownMenu from '../dropdownMenu/DropdownMenu';
 import SearchLabel from '../search/searchLabel/SearchLabel';
@@ -56,7 +56,6 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   title,
   value,
 }) => {
-  const [focusedIndex, setFocusedIndex] = React.useState(-1);
   const [internalIsFixedValues, setInternalIsFixedValues] = React.useState(
     false
   );
@@ -78,61 +77,46 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   };
 
   //validate values on blur
-  const handleInputBlur = useCallback(
-    (inputType: RANGE_INPUT, val: string) => {
-      const getValidatedMinValue = (val: string): string => {
-        let resultValue = val;
-        if (Number(val) < Number(minInputStartValue)) {
-          resultValue = minInputStartValue;
-        } else if (Number(val) > Number(maxInputEndValue)) {
-          resultValue = maxInputEndValue;
-        }
-        if (val && maxInputValue && Number(val) > Number(maxInputValue)) {
-          resultValue = maxInputValue;
-        }
-        return resultValue;
-      };
-
-      const getValidatedMaxValue = (val: string): string => {
-        let resultValue = val;
-        if (Number(val) > Number(maxInputEndValue)) {
-          resultValue = maxInputEndValue;
-        } else if (Number(val) < Number(minInputStartValue)) {
-          resultValue = minInputStartValue;
-        }
-        if (val && minInputValue && Number(val) < Number(minInputValue)) {
-          resultValue = minInputValue;
-        }
-        return resultValue;
-      };
-      switch (inputType) {
-        case RANGE_INPUT.MIN:
-          onChange(getValidatedMinValue(val), maxInputValue);
-          break;
-        case RANGE_INPUT.MAX:
-          onChange(minInputValue, getValidatedMaxValue(val));
-          break;
-        case RANGE_INPUT.ALL:
-          onChange(
-            getValidatedMinValue(minInputValue),
-            getValidatedMaxValue(maxInputValue)
-          );
-          break;
-        default:
-          break;
+  const handleInputBlur = (inputType: RANGE_INPUT, val: string) => {
+    const getValidatedMinValue = (val: string): string => {
+      let resultValue = val;
+      if (Number(val) < Number(minInputStartValue)) {
+        resultValue = minInputStartValue;
+      } else if (Number(val) > Number(maxInputEndValue)) {
+        resultValue = maxInputEndValue;
       }
-    },
-    [
-      maxInputEndValue,
-      maxInputValue,
-      minInputStartValue,
-      minInputValue,
-      onChange,
-    ]
-  );
+      if (val && maxInputValue && Number(val) > Number(maxInputValue)) {
+        resultValue = maxInputValue;
+      }
+      return resultValue;
+    };
 
-  const handleInputFocus = (id: string) => {
-    setFocusedIndex(Number(id.split('_')[1]));
+    const getValidatedMaxValue = (val: string): string => {
+      let resultValue = val;
+      if (Number(val) > Number(maxInputEndValue)) {
+        resultValue = maxInputEndValue;
+      } else if (Number(val) < Number(minInputStartValue)) {
+        resultValue = minInputStartValue;
+      }
+      if (val && minInputValue && Number(val) < Number(minInputValue)) {
+        resultValue = minInputValue;
+      }
+      return resultValue;
+    };
+
+    switch (inputType) {
+      case RANGE_INPUT.MIN:
+        onChange(getValidatedMinValue(val), maxInputValue);
+        break;
+      case RANGE_INPUT.MAX:
+        onChange(minInputValue, getValidatedMaxValue(val));
+        break;
+      case RANGE_INPUT.ALL:
+        onChange(
+          getValidatedMinValue(minInputValue),
+          getValidatedMaxValue(maxInputValue)
+        );
+    }
   };
 
   const handleDocumentClick = (event: MouseEvent) => {
@@ -159,7 +143,6 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
 
     if (!(target instanceof Node && current?.contains(target))) {
       setIsMenuOpen(false);
-      setFocusedIndex(-1);
     }
   };
 
@@ -181,8 +164,10 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
     event: React.KeyboardEvent<HTMLButtonElement>
   ) => {
     if (event.key === 'ArrowDown') {
+      event.preventDefault();
       setIsMenuOpen(true);
     } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
       setIsMenuOpen(false);
     } else if (event.key === 'Escape') {
       setIsMenuOpen(false);
@@ -237,19 +222,12 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
           <TextInput
             type="number"
             id={`${name}_0`}
-            name={`${name}_0`}
             placeholder={minInputStartValue}
             onChange={(e) => handleInputChange(RANGE_INPUT.MIN, e.target.value)}
             onBlur={(e) => handleInputBlur(RANGE_INPUT.MIN, e.target.value)}
-            onFocus={(e) => handleInputFocus(e.target.id)}
             value={minInputValue}
             label={minInputLabel}
             disabled={internalIsFixedValues}
-            className={
-              (`${name}_${focusedIndex}` === `${name}_0` &&
-                'rangeTextInput--isFocused') ||
-              ''
-            }
           />
           {rangeIcon && (
             <div className={styles.rangeArrowWrapper}>{rangeIcon}</div>
@@ -257,34 +235,21 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
           <TextInput
             type="number"
             id={`${name}_1`}
-            name={`${name}_1`}
             placeholder={maxInputEndValue}
             onChange={(e) => handleInputChange(RANGE_INPUT.MAX, e.target.value)}
             onBlur={(e) => handleInputBlur(RANGE_INPUT.MAX, e.target.value)}
-            onFocus={(e) => handleInputFocus(e.target.id)}
             value={maxInputValue}
             label={maxInputLabel}
             disabled={internalIsFixedValues}
-            className={
-              (`${name}_${focusedIndex}` === `${name}_1` &&
-                'rangeTextInput--isFocused') ||
-              ''
-            }
           />
         </div>
         {showFixedValuesText && (
           <Checkbox
-            className={classNames(
-              styles.rangeCheckbox,
-              `${name}_${focusedIndex}` === `${name}_2` &&
-                'rangeCheckbox--isFocused'
-            )}
+            className={classNames(styles.rangeCheckbox)}
             checked={internalIsFixedValues}
             id={`${name}_2`}
             label={fixedValuesText}
-            name={`${name}_2`}
             onChange={handleCheckboxChange}
-            onFocus={(e) => handleInputFocus(e.target.id)}
           />
         )}
       </DropdownMenu>
