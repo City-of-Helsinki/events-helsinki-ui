@@ -4,7 +4,7 @@
   position: relative;
   width: 100%;
   height: above;
-  padding-bottom: 6rem;
+  padding-bottom: 3rem;
 
   @include respond-above(sm) {
     padding-bottom: unset;
