@@ -17,43 +17,64 @@ export const getEventSearchPageComponents = (t: TestController) => {
   const searchContainer = () => {
     const selectors = {
       component() {
+        return screen.findByTestId('searchContainer');
+      },
+      withinComponent() {
         return within(screen.getByTestId('searchContainer'));
       },
       neighborhoodFilter() {
-        return this.component().getByLabelText('Etsi alue');
+        return this.withinComponent().findByLabelText('Etsi alue');
       },
       neighborhoodCheckbox(n: Neighborhood) {
-        return this.component().getByRole('checkbox', { name: n.name.fi });
+        return this.withinComponent().findByRole('checkbox', {
+          name: n.name.fi,
+        });
       },
       placeFilter() {
-        return this.component().getByLabelText('Etsi tapahtumapaikka');
+        return this.withinComponent().findByLabelText('Etsi tapahtumapaikka');
       },
       placeSearchInput() {
-        return this.component().getByLabelText('Kirjoita hakusana');
+        return this.withinComponent().findByLabelText('Kirjoita hakusana');
       },
       placeCheckbox(place: PlaceFieldsFragment) {
-        return this.component().getByRole('checkbox', {
+        return this.withinComponent().findByRole('checkbox', {
           name: place.name.fi,
         });
       },
       searchInput() {
-        return this.component().getByPlaceholderText(
+        return this.withinComponent().findByPlaceholderText(
           'Kirjoita hakusana, esim. rock tai jooga'
         );
       },
     };
+    const expectations = {
+      async isPresent() {
+        await t.expect(selectors.component().exists).ok(getErrorMessage(t));
+      },
+      async neighborhoodOptionIsPresent(neighborhood: Neighborhood) {
+        await this.isPresent();
+        t.ctx.neighborhood = neighborhood;
+        await t
+          .expect(selectors.neighborhoodCheckbox(neighborhood).exists)
+          .ok(getErrorMessage(t));
+      },
+    };
     const actions = {
       async openNeighborhoodFilters() {
+        await expectations.isPresent();
         await t.click(selectors.neighborhoodFilter());
       },
       async selectNeighborhoodFilter(neighborhood: Neighborhood) {
+        await expectations.isPresent();
         t.ctx.neighborhood = neighborhood;
         await t.click(selectors.neighborhoodCheckbox(neighborhood));
       },
       async openPlaceFilters() {
+        await expectations.isPresent();
         await t.click(selectors.placeFilter());
       },
       async selectPlaceFilter(place: PlaceFieldsFragment) {
+        await expectations.isPresent();
         t.ctx.place = place;
         await t
           .click(selectors.placeSearchInput())
@@ -62,53 +83,56 @@ export const getEventSearchPageComponents = (t: TestController) => {
           .click(selectors.placeCheckbox(place));
       },
       async inputSearchTextAndPressEnter(searchString: string) {
+        await expectations.isPresent();
         t.ctx.searchString = searchString;
         await t
           .typeText(selectors.searchInput(), searchString)
           .pressKey('enter');
       },
     };
-    const expectations = {
-      async neighborhoodOptionIsVisible(neighborhood: Neighborhood) {
-        t.ctx.neighborhood = neighborhood;
-        await t
-          .expect(selectors.neighborhoodCheckbox(neighborhood).exists)
-          .ok(getErrorMessage(t));
-      },
-    };
+
     return {
       selectors,
-      actions,
       expectations,
+      actions,
     };
   };
   const resultList = () => {
     const selectors = {
       component() {
+        return screen.findByTestId('resultList');
+      },
+      withinComponent() {
         return within(screen.getByTestId('resultList'));
       },
       clickMoreButton() {
-        return this.component().getByRole('button', {
+        return this.withinComponent().findByRole('button', {
           name: /Näytä lisää tapahtumia/g,
         });
       },
     };
-    const actions = {
-      async clickShowMoreEventsButton() {
-        await t.click(selectors.clickMoreButton());
-      },
-    };
     const expectations = {
+      async isPresent() {
+        await t.expect(selectors.component().exists).ok(getErrorMessage(t));
+      },
       async allEventCardsAreVisible(events: EventFieldsFragment[]) {
+        await this.isPresent();
         for (const event of events) {
           await eventCard(event).expectations.titleLinkIsPresent();
         }
       },
     };
+    const actions = {
+      async clickShowMoreEventsButton() {
+        await expectations.isPresent();
+        await t.click(selectors.clickMoreButton());
+      },
+    };
+
     return {
       selectors,
-      actions,
       expectations,
+      actions,
     };
   };
   const eventCard = (event: EventFieldsFragment) => {
@@ -122,18 +146,23 @@ export const getEventSearchPageComponents = (t: TestController) => {
     } = getEventFields(event, 'fi');
     const selectors = {
       component() {
+        return screen.findByTestId(event.id);
+      },
+      withinComponent() {
         return within(screen.getByTestId(event.id));
       },
       eventTitleLink() {
-        return this.component().getByRole('link', {
+        return this.withinComponent().findByRole('link', {
           name: regExpEscaped(event.name.fi, 'g'),
         });
       },
       keywordLink(keyword: KeywordOption) {
-        return this.component().getByRole('button', { name: keyword.name });
+        return this.withinComponent().findByRole('button', {
+          name: keyword.name,
+        });
       },
       dateRangeText() {
-        return this.component().getByText(
+        return this.withinComponent().findByText(
           getDateRangeStr({
             start: startTime,
             end: endTime,
@@ -144,30 +173,34 @@ export const getEventSearchPageComponents = (t: TestController) => {
         );
       },
       addressText() {
-        return this.component().getByText(
+        return this.withinComponent().findByText(
           `${locationName}, ${streetAddress}, ${addressLocality}`
         );
       },
     };
-    const actions = {
-      async clickEventLink() {
-        await t.click(selectors.eventTitleLink());
-      },
-    };
     const expectations = {
+      async isPresent() {
+        await t
+          .expect(selectors.component().exists)
+          .ok(getErrorMessage(t), { timeout: 60000 });
+      },
       async titleLinkIsPresent() {
+        await this.isPresent();
         await t
           .expect(selectors.eventTitleLink().exists)
-          .ok(getErrorMessage(t), { timeout: 90000 });
+          .ok(getErrorMessage(t));
       },
       async eventTimeIsPresent() {
+        await this.isPresent();
         await t.expect(selectors.dateRangeText().exists).ok(getErrorMessage(t));
       },
       async addressIsPresent() {
+        await this.isPresent();
         await t.expect(selectors.addressText().exists).ok(getErrorMessage(t));
       },
       async keywordButtonsArePresent() {
         await t.expect(keywords.length).gt(0, getErrorMessage(t));
+        await this.isPresent();
         for (const keyword of keywords) {
           t.ctx.keyword = keyword;
           await t
@@ -176,10 +209,16 @@ export const getEventSearchPageComponents = (t: TestController) => {
         }
       },
     };
+    const actions = {
+      async clickEventLink() {
+        await expectations.isPresent();
+        await t.click(selectors.eventTitleLink());
+      },
+    };
     return {
       selectors,
-      actions,
       expectations,
+      actions,
     };
   };
   return {

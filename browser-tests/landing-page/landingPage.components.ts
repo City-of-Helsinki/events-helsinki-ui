@@ -13,35 +13,43 @@ export const getLandingPageComponents = (t: TestController) => {
   const banner = (banner: BannerPageFieldsFragment, type: 'top' | 'bottom') => {
     t.ctx.banner = banner;
     t.ctx.bannerType = type;
-    const component = () => within(screen.getByTestId(`${type}-banner`));
     const selectors = {
+      component() {
+        return screen.findByTestId(`${type}-banner`);
+      },
+      withinComponent() {
+        return within(screen.getByTestId(`${type}-banner`));
+      },
       title() {
-        return component().getByRole('heading', {
+        return this.withinComponent().findByRole('heading', {
           name: regExpEscaped(banner.title.fi),
         });
       },
       buttonLink() {
-        return component().getByRole('button', {
+        return this.withinComponent().findByRole('button', {
           name: regExpEscaped(banner.buttonText.fi),
         });
       },
       descriptionText() {
-        return component().getByText(regExpEscaped(banner.description.fi));
-      },
-    };
-    const actions = {
-      async clickButtonLink() {
-        return await t.click(selectors.buttonLink());
+        return this.withinComponent().findByText(
+          regExpEscaped(banner.description.fi)
+        );
       },
     };
     const expectations = {
+      async isPresent() {
+        await t.expect(selectors.component().exists).ok(getErrorMessage(t));
+      },
       async bannerTitleIsVisible() {
+        await this.isPresent();
         await t.expect(selectors.title().exists).ok(getErrorMessage(t));
       },
       async bannerButtonIsVisible() {
+        await this.isPresent();
         await t.expect(selectors.buttonLink().exists).ok(getErrorMessage(t));
       },
       async bannerDescriptionIsVisible() {
+        await this.isPresent();
         await t
           .expect(selectors.descriptionText().exists)
           .ok(getErrorMessage(t));
@@ -52,10 +60,17 @@ export const getLandingPageComponents = (t: TestController) => {
         await this.bannerDescriptionIsVisible();
       },
     };
+    const actions = {
+      async clickButtonLink() {
+        await expectations.isPresent();
+        await t.click(selectors.buttonLink());
+      },
+    };
+
     return {
       selectors,
-      actions,
       expectations,
+      actions,
     };
   };
   const topBanner = (bannerData: BannerPageFieldsFragment) =>
@@ -64,28 +79,41 @@ export const getLandingPageComponents = (t: TestController) => {
     banner(bannerData, 'bottom');
 
   const collectionCard = (collection: CollectionFieldsFragment) => {
-    const component = () => within(screen.getByTestId(collection.id));
     const selectors = {
-      collectionTitle() {
-        return component().getByLabelText(regExpEscaped(collection.title.fi));
+      component() {
+        return screen.findByTestId(collection.id);
       },
-    };
-    const actions = {
-      async clickCollectionLink() {
-        await t.click(selectors.collectionTitle());
+      withinComponent() {
+        return within(screen.getByTestId(collection.id));
+      },
+      collectionTitle() {
+        return this.withinComponent().findByLabelText(
+          regExpEscaped(collection.title.fi)
+        );
       },
     };
     const expectations = {
+      async isPresent() {
+        await t.expect(selectors.component().exists).ok(getErrorMessage(t));
+      },
       async collectionTitleIsVisible() {
+        await this.isPresent();
         await t
           .expect(selectors.collectionTitle().exists)
           .ok(getErrorMessage(t));
       },
     };
+    const actions = {
+      async clickCollectionLink() {
+        await expectations.isPresent();
+        await t.click(selectors.collectionTitle());
+      },
+    };
+
     return {
       selectors,
-      actions,
       expectations,
+      actions,
     };
   };
   return {

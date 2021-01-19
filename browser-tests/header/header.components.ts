@@ -6,6 +6,7 @@ import translationsEn from '../../src/common/translation/i18n/en.json';
 import translationsFi from '../../src/common/translation/i18n/fi.json';
 import translationsSv from '../../src/common/translation/i18n/sv.json';
 import { DEFAULT_LANGUAGE, SUPPORT_LANGUAGES } from '../../src/constants';
+import { getErrorMessage } from '../utils/error.util';
 
 const getTranslations = (locale: SUPPORT_LANGUAGES) => {
   switch (locale) {
@@ -24,33 +25,42 @@ export const getHeaderComponents = (
 ) => {
   t.ctx.locale = locale;
   const component = () => {
+    return screen.findByRole('banner');
+  };
+  const withinComponent = () => {
     return within(screen.getByRole('banner'));
   };
   const languageSelector = () => {
     const selectors = {
       languageSelector() {
-        return component().getByRole('button', {
+        return withinComponent().findByRole('button', {
           name: getTranslations(t.ctx.locale).header.changeLanguage,
         });
       },
       languageSelectorItem(lang: SUPPORT_LANGUAGES) {
-        return component().getByRole('menuitem', {
+        return withinComponent().findByRole('menuitem', {
           name: getTranslations(t.ctx.locale).header.languages[lang],
         });
       },
       eventSearchTab() {
-        return component().getByRole('link', {
+        return withinComponent().findByRole('link', {
           name: getTranslations(t.ctx.locale).header.searchEvents,
         });
       },
       recommendationsTab() {
-        return component().getByRole('link', {
+        return withinComponent().findByRole('link', {
           name: getTranslations(t.ctx.locale).header.searchCollections,
         });
       },
     };
+    const expectations = {
+      async isPresent() {
+        await t.expect(component().exists).ok(getErrorMessage(t));
+      },
+    };
     const actions = {
       async changeLanguage(lang: SUPPORT_LANGUAGES) {
+        await expectations.isPresent();
         const result = await t
           .click(selectors.languageSelector())
           .click(selectors.languageSelectorItem(lang));
@@ -58,46 +68,58 @@ export const getHeaderComponents = (
         return result;
       },
     };
-    const expectations = {};
+
     return {
       selectors,
-      actions,
       expectations,
+      actions,
     };
   };
   const tabs = () => {
     const selectors = {
       eventSearchTab() {
-        return component().getByRole('link', {
+        return withinComponent().findByRole('link', {
           name: getTranslations(t.ctx.locale).header.searchEvents,
         });
       },
       recommendationsTab() {
-        return component().getByRole('link', {
+        return withinComponent().findByRole('link', {
           name: getTranslations(t.ctx.locale).header.searchCollections,
         });
       },
     };
+    const expectations = {
+      async isPresent() {
+        await t.expect(component().exists).ok(getErrorMessage(t));
+      },
+      async eventSearchPageTabIsVisible() {
+        await this.isPresent();
+        await t
+          .expect(selectors.eventSearchTab().exists)
+          .ok(getErrorMessage(t));
+      },
+      async recommendationsPageTabIsVisible() {
+        await this.isPresent();
+        await t
+          .expect(selectors.recommendationsTab().exists)
+          .ok(getErrorMessage(t));
+      },
+    };
     const actions = {
       async clickEventSearchPageTab() {
+        await expectations.isPresent();
         await t.click(selectors.eventSearchTab());
       },
       async clickRecommendationsPageTab() {
+        await expectations.isPresent();
         await t.click(selectors.recommendationsTab());
       },
     };
-    const expectations = {
-      async eventSearchPageTabIsVisible() {
-        await t.expect(selectors.eventSearchTab().exists).ok();
-      },
-      async recommendationsPageTabIsVisible() {
-        await t.expect(selectors.recommendationsTab().exists).ok();
-      },
-    };
+
     return {
       selectors,
-      actions,
       expectations,
+      actions,
     };
   };
   return {

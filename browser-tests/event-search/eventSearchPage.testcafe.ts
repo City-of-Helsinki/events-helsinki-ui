@@ -27,7 +27,7 @@ test('shows neighborhoods in filter options', async (t) => {
   const searchContainer = components.searchContainer();
   await searchContainer.actions.openNeighborhoodFilters();
   for (const neighborhood of neighborhoodOptions) {
-    await searchContainer.expectations.neighborhoodOptionIsVisible(
+    await searchContainer.expectations.neighborhoodOptionIsPresent(
       neighborhood
     );
   }
@@ -73,7 +73,7 @@ test('search url finds event by name', async (t) => {
     if (event.name[locale]) {
       t.ctx.locale = locale;
       await getUrlUtils(t).actions.navigateToSearchUrl(event.name[locale]);
-      await components.eventCard(event).expectations.titleLinkIsPresent();
+      await components.eventCard(event).expectations.isPresent();
     }
   }
 });
@@ -86,7 +86,7 @@ test('search url finds event by short description', async (t) => {
       await urlUtils.actions.navigateToSearchUrl(
         event.shortDescription[locale]
       );
-      await components.eventCard(event).expectations.titleLinkIsPresent();
+      await components.eventCard(event).expectations.isPresent();
     }
   }
 });
@@ -101,7 +101,7 @@ test('search url finds event by description', async (t) => {
       );
       t.ctx.randomSentenceFromDescription = randomSentenceFromDescription;
       await urlUtils.actions.navigateToSearchUrl(randomSentenceFromDescription);
-      await components.eventCard(event).expectations.titleLinkIsPresent();
+      await components.eventCard(event).expectations.isPresent();
     }
   }
 });
