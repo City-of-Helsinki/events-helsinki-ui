@@ -6,8 +6,8 @@ import {
   startOfWeek,
   subDays,
 } from 'date-fns';
-import { IconSpeechbubbleText } from 'hds-react';
 import { TFunction } from 'i18next';
+import forEach from 'lodash/forEach';
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 
@@ -21,7 +21,6 @@ import IconMuseum from '../../icons/IconMuseum';
 import IconMusic from '../../icons/IconMusic';
 import IconSports from '../../icons/IconSports';
 import IconTheatre from '../../icons/IconTheatre';
-import IconTree from '../../icons/IconTree';
 import { Language } from '../../types';
 import buildQueryFromObject from '../../util/buildQueryFromObject';
 import { formatDate } from '../../util/dateUtils';
@@ -31,11 +30,8 @@ import {
   COURSE_HOBBY_TYPES,
   EVENT_CATEGORIES,
   EVENT_SEARCH_FILTERS,
-  EVENT_SEARCH_SOURCES,
   EVENT_SORT_OPTIONS,
   MAPPED_CATEGORIES,
-  MAPPED_COURSE_HOBBY_TYPES,
-  MAPPED_KEYWORD_TERMS,
   MAPPED_PLACES,
 } from './constants';
 import {
@@ -52,24 +48,10 @@ export const getEventCategoryOptions = (t: TFunction): CategoryOption[] => [
     value: EVENT_CATEGORIES.MOVIE,
   },
   {
-    icon: <IconMusic />,
-    text: t('home.category.music'),
-    value: EVENT_CATEGORIES.MUSIC,
-  },
-  {
+    //todo: what icon?
     icon: <IconSports />,
-    text: t('home.category.sport'),
-    value: EVENT_CATEGORIES.SPORT,
-  },
-  {
-    icon: <IconMuseum />,
-    text: t('home.category.museum'),
-    value: EVENT_CATEGORIES.MUSEUM,
-  },
-  {
-    icon: <IconDance />,
-    text: t('home.category.dance'),
-    value: EVENT_CATEGORIES.DANCE,
+    text: t('home.category.language'),
+    value: EVENT_CATEGORIES.LANGUAGE,
   },
   {
     icon: <IconCultureAndArts />,
@@ -77,24 +59,40 @@ export const getEventCategoryOptions = (t: TFunction): CategoryOption[] => [
     value: EVENT_CATEGORIES.CULTURE,
   },
   {
-    icon: <IconTree />,
-    text: t('home.category.nature'),
-    value: EVENT_CATEGORIES.NATURE,
+    //todo: what icon?
+    icon: <IconCultureAndArts />,
+    text: t('home.category.crafting'),
+    value: EVENT_CATEGORIES.CRAFTING,
   },
   {
-    icon: <IconSpeechbubbleText aria-hidden />,
-    text: t('home.category.influence'),
-    value: EVENT_CATEGORIES.INFLUENCE,
+    icon: <IconSports />,
+    text: t('home.category.sport'),
+    value: EVENT_CATEGORIES.SPORT,
   },
   {
-    icon: <IconTheatre />,
-    text: t('home.category.theatre'),
-    value: EVENT_CATEGORIES.THEATRE,
+    icon: <IconMusic />,
+    text: t('home.category.music'),
+    value: EVENT_CATEGORIES.MUSIC,
+  },
+  {
+    icon: <IconMuseum />,
+    text: t('home.category.game'),
+    value: EVENT_CATEGORIES.GAME,
   },
   {
     icon: <IconFood />,
     text: t('home.category.food'),
     value: EVENT_CATEGORIES.FOOD,
+  },
+  {
+    icon: <IconDance />,
+    text: t('home.category.dance'),
+    value: EVENT_CATEGORIES.DANCE,
+  },
+  {
+    icon: <IconTheatre />,
+    text: t('home.category.theatre'),
+    value: EVENT_CATEGORIES.THEATRE,
   },
 ];
 
@@ -208,7 +206,6 @@ export const getEventSearchVariables = ({
   sortOrder,
   superEventType,
   place,
-  searchSource = EVENT_SEARCH_SOURCES.EVENTS,
 }: {
   include: string[];
   language: Language;
@@ -217,11 +214,9 @@ export const getEventSearchVariables = ({
   sortOrder: EVENT_SORT_OPTIONS;
   superEventType: string[];
   place?: string;
-  searchSource?: EVENT_SEARCH_SOURCES;
 }): QueryEventListArgs => {
   const {
     categories,
-    hobbyTypes,
     dateTypes,
     divisions,
     isFree,
@@ -263,14 +258,14 @@ export const getEventSearchVariables = ({
     keywordAnd.push('yso:p4354');
   }
 
-  const keywordsParamName = MAPPED_KEYWORD_TERMS[searchSource];
-  const mappedCategories: string[] = categories
-    .map((category) => MAPPED_CATEGORIES[searchSource][category])
-    .filter((e) => e);
-  const mappedHobbyTypes: string[] =
-    hobbyTypes
-      ?.map((hobbyType) => MAPPED_COURSE_HOBBY_TYPES[hobbyType])
-      .filter((e) => e) || [];
+  let mappedEventCategories: string[] = [];
+
+  forEach(categories, (category: string) => {
+    mappedEventCategories = mappedEventCategories.concat(
+      MAPPED_CATEGORIES[language.toUpperCase()][category]
+    );
+  });
+
   const hasLocation = !isEmpty(divisions) || !isEmpty(places);
   const hasText = !isEmpty(text);
   // Combine and add keywords
@@ -282,11 +277,9 @@ export const getEventSearchVariables = ({
     end,
     include,
     isFree: isFree || undefined,
-    [keywordsParamName]: [
-      ...(keyword ? keyword : []),
-      ...mappedCategories,
-      ...mappedHobbyTypes,
-    ],
+    //events categories reserved set1
+    localOngoingOrSet1: [...mappedEventCategories],
+    keyword: [...(keyword ? keyword : [])],
     keywordAnd,
     keywordNot,
     language,

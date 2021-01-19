@@ -63,6 +63,7 @@ const eventListBaseVariables = {
   keywordAnd: [],
   keywordNot: [],
   language: 'fi',
+  localOngoingOrSet1: [],
   pageSize: 10,
   publisher: null,
   sort: 'end_time',

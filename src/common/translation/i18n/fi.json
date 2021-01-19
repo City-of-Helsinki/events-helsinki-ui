@@ -261,10 +261,13 @@
   },
   "home": {
     "category": {
+      "crafting": "Kädentaidot",
       "culture": "Kulttuuri ja taide",
       "dance": "Tanssi",
       "food": "Ruoka",
+      "game": "Pelit",
       "influence": "Osallistu ja vaikuta",
+      "language": "Kieli",
       "misc": "Muut",
       "movie": "Elokuva",
       "museum": "Museot",

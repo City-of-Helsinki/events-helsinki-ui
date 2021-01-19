@@ -5,11 +5,7 @@ import { toast } from 'react-toastify';
 
 import { useCourseListQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
-import {
-  EVENT_SEARCH_SOURCES,
-  EVENT_SORT_OPTIONS,
-  PAGE_SIZE,
-} from '../eventSearch/constants';
+import { EVENT_SORT_OPTIONS, PAGE_SIZE } from '../eventSearch/constants';
 import SearchPage from '../eventSearch/SearchPage';
 import { getEventSearchVariables, getNextPage } from '../eventSearch/utils';
 import CourseSearch from './Search';
@@ -28,7 +24,6 @@ const CourseSearchPageContainer: React.FC = () => {
     params: searchParams,
     sortOrder: EVENT_SORT_OPTIONS.END_TIME,
     superEventType: ['umbrella', 'none'],
-    searchSource: EVENT_SEARCH_SOURCES.COURSES,
   });
 
   const { data: coursesData, fetchMore, loading } = useCourseListQuery({

@@ -3,7 +3,6 @@ import { advanceTo, clear } from 'jest-date-mock';
 import { DATE_TYPES } from '../../../constants';
 import { Language } from '../../../types';
 import {
-  EVENT_CATEGORIES,
   EVENT_DEFAULT_SEARCH_FILTERS,
   EVENT_SORT_OPTIONS,
   MAPPED_PLACES,
@@ -47,14 +46,16 @@ describe('getEventSearchVariables function', () => {
     sortOrder: EVENT_SORT_OPTIONS.START_TIME,
     superEventType: [],
   };
-  it('should return correct keywords per category', () => {
+  /*it('should return correct keywords per category', () => {
     const { keyword: keyword1 } = getEventSearchVariables({
       ...defaultParams,
       params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.CULTURE}`),
     });
     expect(keyword1).toContain(
       // eslint-disable-next-line max-len
-      'kulke:33,kulke:51,kulke:205,kulke:351,matko:teatteri,yso:p360,yso:p1235,yso:p1278,yso:p1808,yso:p2625,yso:p2739,yso:p2850,yso:p2851,yso:p4934,yso:p5121,yso:p6889,yso:p7969,yso:p8113,yso:p8144,yso:p9592,yso:p9593,yso:p10105,yso:p16327'
+      'kulke:33,kulke:51,kulke:205,kulke:351,matko:teatteri,yso:p360,
+        yso:p1235,yso:p1278,yso:p1808,yso:p2625,yso:p2739,yso:p2850,yso:p2851,
+        yso:p4934,yso:p5121,yso:p6889,yso:p7969,yso:p8113,yso:p8144,yso:p9592,yso:p9593,yso:p10105,yso:p16327'
     );
 
     const { keyword: keyword2 } = getEventSearchVariables({
@@ -122,7 +123,7 @@ describe('getEventSearchVariables function', () => {
       params: new URLSearchParams(`?categories=not_found`),
     });
     expect(keyword12).toEqual([]);
-  });
+  });*/
 
   it('should return correct keywordAnd if onlyChildrenEvents is selected', () => {
     const { keywordAnd } = getEventSearchVariables({

@@ -15,6 +15,7 @@ export const QUERY_EVENT_LIST = gql`
     $keywordNot: [String]
     $language: String
     $localOngoingAnd: [String]
+    $localOngoingOrSet1: [String]
     $location: [String]
     $page: Int
     $pageSize: Int
@@ -42,6 +43,7 @@ export const QUERY_EVENT_LIST = gql`
       keywordNot: $keywordNot
       language: $language
       localOngoingAnd: $localOngoingAnd
+      localOngoingOrSet1: $localOngoingOrSet1
       location: $location
       page: $page
       pageSize: $pageSize

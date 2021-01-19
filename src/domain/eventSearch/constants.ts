@@ -8,16 +8,15 @@ export enum EVENT_SEARCH_SOURCES {
 }
 
 export enum EVENT_CATEGORIES {
-  CULTURE = 'culture',
-  DANCE = 'dance',
-  FOOD = 'food',
-  INFLUENCE = 'influence',
-  MISC = 'misc',
   MOVIE = 'movie',
-  MUSEUM = 'museum',
-  MUSIC = 'music',
-  NATURE = 'nature',
+  LANGUAGE = 'language',
+  CULTURE = 'culture',
+  CRAFTING = 'crafting',
   SPORT = 'sport',
+  MUSIC = 'music',
+  GAME = 'game',
+  FOOD = 'food',
+  DANCE = 'dance',
   THEATRE = 'theatre',
 }
 
@@ -95,69 +94,103 @@ export enum EVENT_SEARCH_FILTERS {
   MAX_AGE = 'maxAge',
 }
 
-export const CULTURE_KEYWORDS = [
-  'kulke:33', // Teatteri
-  'kulke:51', // Sirkus
-  'kulke:205', // Elokuva ja media
-  'kulke:351', // Teatteri ja sirkus
-  'matko:teatteri', // teatteri
-  'yso:p360', // cultural events
-  'yso:p1235', // films
-  'yso:p1278', // dance (performing arts)
-  'yso:p1808', // music
-  'yso:p2625', // in Finnish teatteritaide, "theatre arts"
-  'yso:p2739', // fine arts
-  'yso:p2850', // performing arts
-  'yso:p2851', // art
-  'yso:p4934', // museums
-  'yso:p5121', // exhibitions
-  'yso:p6889', // art exhibitions
-  'yso:p7969', // literary art
-  'yso:p8113', // literature
-  'yso:p8144', // art museums
-  'yso:p9592', // modern art
-  'yso:p9593', // contemporary art
-  'yso:p10105', // contemporary dance
-  'yso:p16327', // cinema (art forms)
+export const MOVIE_KEYWORDS_FI = ['elokuva', 'elokuvat', 'media', 'mediataide'];
+
+export const LANGUAGE_KEYWORDS_FI = ['kielet', 'kieltenopetus'];
+
+export const CULTURE_KEYWORDS_FI = [
+  'teatteri',
+  'sirkus',
+  'elokuva',
+  'media',
+  'kulttuuritapahtumat',
+  'teatteritaide',
+  'tanssi (esittävä taide)',
+  'musiikki',
+  'kuvataide',
+  'esittävät taiteet',
+  'taide',
+  'museot',
+  'näyttelyt',
+  'taidenäyttelyt',
+  'kirjallisuus',
+  'sanataide',
+  'taidemuseot',
+  'nykytanssi',
+  'nykytaide',
+  'elokuvataide',
 ];
 
-export const INFLUENCE_KEYWORDS = [
-  'yso:p1657', // Vaikuttaminen
-  'yso:p10727', // Osallistuminen
+export const CRAFTING_KEYWORDS_FI = ['käsityö', 'käsityöt'];
+
+export const SPORT_KEYWORDS_FI = [
+  'liikunta',
+  'urheilu',
+  'perheliikunta',
+  'ulkoliikunta',
+  'liikuntapalvelut',
+  'liikuntatapahtumat',
+  'liikuntaharrastus',
+  'urheilu- ja liikuntajärjestöt',
 ];
 
-export const MUSEUM_KEYWORDS = [
-  'matko:museo', // Museo
-  'yso:p4934', // Museot
+export const MUSIC_KEYWORDS_FI = [
+  'musiikki',
+  'konsertit',
+  'popmusiikki',
+  'jazz',
+  'taidemusiikki',
+  'populaarimusiikki',
+  'ooppera',
+  'musiikkiklubit',
+  'lastenmusiikki',
+  'elävä musiikki',
+  'kuoromusiikki',
+  'heavy metal',
+  'kansanmusiikki',
+  'joulumusiikki',
+  'urkumusiikki',
 ];
 
-export const SPORT_KEYWORDS = [
-  'yso:p916', // Liikunta
-  'yso:p965', // Urheilu
+export const GAME_KEYWORDS_FI = ['pelit', 'lautapelit'];
+
+export const FOOD_KEYWORDS_FI = ['ruoka', 'katuruoka', 'ruokakulttuuri'];
+
+export const DANCE_KEYWORDS_FI = ['tanssi', 'nykytanssi', 'tanssitapahtumat'];
+
+export const THEATRE_KEYWORDS_FI = [
+  'teatteritaide',
+  'teatteritapahtumat',
+  'lastenteatteri',
+  'musiikkiteatteri',
+  'nukketeatteri',
+  'nukketeatterit',
+  'kesäteatterit',
 ];
 
-export const MAPPED_EVENT_CATEGORIES: Record<string, string> = {
-  [EVENT_CATEGORIES.CULTURE]: CULTURE_KEYWORDS.join(','),
-  [EVENT_CATEGORIES.DANCE]: 'yso:p1278',
-  [EVENT_CATEGORIES.FOOD]: 'yso:p3670',
-  [EVENT_CATEGORIES.INFLUENCE]: INFLUENCE_KEYWORDS.join(','),
-  [EVENT_CATEGORIES.MISC]: 'yso:p2108',
-  [EVENT_CATEGORIES.MOVIE]: 'yso:p1235',
-  [EVENT_CATEGORIES.MUSEUM]: MUSEUM_KEYWORDS.join(','),
-  [EVENT_CATEGORIES.MUSIC]: 'yso:p1808',
-  [EVENT_CATEGORIES.NATURE]: 'yso:p2771',
-  [EVENT_CATEGORIES.SPORT]: SPORT_KEYWORDS.join(','),
-  [EVENT_CATEGORIES.THEATRE]: 'yso:p2625',
+export const MAPPED_EVENT_CATEGORIES_FI: Record<string, string[]> = {
+  [EVENT_CATEGORIES.MOVIE]: MOVIE_KEYWORDS_FI,
+  [EVENT_CATEGORIES.LANGUAGE]: LANGUAGE_KEYWORDS_FI,
+  [EVENT_CATEGORIES.CULTURE]: CULTURE_KEYWORDS_FI,
+  [EVENT_CATEGORIES.CRAFTING]: CRAFTING_KEYWORDS_FI,
+  [EVENT_CATEGORIES.SPORT]: SPORT_KEYWORDS_FI,
+  [EVENT_CATEGORIES.MUSIC]: MUSIC_KEYWORDS_FI,
+  [EVENT_CATEGORIES.GAME]: GAME_KEYWORDS_FI,
+  [EVENT_CATEGORIES.FOOD]: FOOD_KEYWORDS_FI,
+  [EVENT_CATEGORIES.DANCE]: DANCE_KEYWORDS_FI,
+  [EVENT_CATEGORIES.THEATRE]: THEATRE_KEYWORDS_FI,
+};
+
+export const MAPPED_CATEGORIES: Record<string, Record<string, string[]>> = {
+  FI: MAPPED_EVENT_CATEGORIES_FI,
+  //todo: fix after demo
+  SE: MAPPED_EVENT_CATEGORIES_FI,
+  EN: MAPPED_EVENT_CATEGORIES_FI,
 };
 
 //todo: replace with valid keyword ids
 export const MAPPED_COURSE_CATEGORIES: Record<string, string> = {
   [EVENT_CATEGORIES.MOVIE]: 'yso:p1235',
-};
-
-export const MAPPED_CATEGORIES: Record<string, Record<string, string>> = {
-  [EVENT_SEARCH_SOURCES.COURSES]: MAPPED_COURSE_CATEGORIES,
-  [EVENT_SEARCH_SOURCES.EVENTS]: MAPPED_EVENT_CATEGORIES,
 };
 
 //todo: replace with valid keyword ids
@@ -168,11 +201,6 @@ export const MAPPED_COURSE_HOBBY_TYPES: Record<string, string> = {
   [COURSE_HOBBY_TYPES.TRIPS]: 'yso:p1235',
   [COURSE_HOBBY_TYPES.WORKSHOPS]: 'yso:p1235',
   [COURSE_HOBBY_TYPES.ONLINE_STUDIES]: 'yso:p1235',
-};
-
-export const MAPPED_KEYWORD_TERMS: Record<string, string> = {
-  [EVENT_SEARCH_SOURCES.COURSES]: 'keyword_set_AND',
-  [EVENT_SEARCH_SOURCES.EVENTS]: 'keyword',
 };
 
 export const MAPPED_PLACES: Record<string, string> = {

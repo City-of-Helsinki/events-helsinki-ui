@@ -83,6 +83,7 @@ const similarCoursesListRequest = {
     keywordNot: [],
     language: 'fi',
     location: [],
+    localOngoingOrSet1: [],
     pageSize: 10,
     publisher: null,
     sort: 'end_time',

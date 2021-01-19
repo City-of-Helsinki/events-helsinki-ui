@@ -261,10 +261,13 @@
   },
   "home": {
     "category": {
+      "crafting": "Crafting",
       "culture": "Arts and culture",
       "dance": "Dance",
       "food": "Food",
+      "game": "Games",
       "influence": "Participate and influence",
+      "language": "Language",
       "misc": "Other",
       "movie": "Movies",
       "museum": "Museums",

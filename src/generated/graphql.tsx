@@ -425,6 +425,9 @@ export type QueryEventDetailsArgs = {
 export type QueryEventListArgs = {
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
   allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -472,6 +475,9 @@ export type QueryCourseDetailsArgs = {
 export type QueryCourseListArgs = {
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
   allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -840,6 +846,7 @@ export type EventListQueryVariables = {
   keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>;
   language?: Maybe<Scalars['String']>;
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>;
   location?: Maybe<Array<Maybe<Scalars['String']>>>;
   page?: Maybe<Scalars['Int']>;
   pageSize?: Maybe<Scalars['Int']>;
@@ -2145,6 +2152,7 @@ export const EventListDocument = gql`
     $keywordNot: [String]
     $language: String
     $localOngoingAnd: [String]
+    $localOngoingOrSet1: [String]
     $location: [String]
     $page: Int
     $pageSize: Int
@@ -2172,6 +2180,7 @@ export const EventListDocument = gql`
       keywordNot: $keywordNot
       language: $language
       localOngoingAnd: $localOngoingAnd
+      localOngoingOrSet1: $localOngoingOrSet1
       location: $location
       page: $page
       pageSize: $pageSize
@@ -2244,6 +2253,7 @@ export function withEventList<TProps, TChildProps = {}>(
  *      keywordNot: // value for 'keywordNot'
  *      language: // value for 'language'
  *      localOngoingAnd: // value for 'localOngoingAnd'
+ *      localOngoingOrSet1: // value for 'localOngoingOrSet1'
  *      location: // value for 'location'
  *      page: // value for 'page'
  *      pageSize: // value for 'pageSize'

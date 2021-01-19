@@ -261,10 +261,13 @@
   },
   "home": {
     "category": {
+      "crafting": "Hantverk",
       "culture": "Kultur och konst",
       "dance": "Dans",
       "food": "Mat",
+      "game": "Spel",
       "influence": "Delta och påverka",
+      "language": "Språk",
       "misc": "Andra",
       "movie": "Film",
       "museum": "Museer",
