@@ -8,7 +8,6 @@ import {
   DEFAULT_LANGUAGE,
   SUPPORT_LANGUAGES,
 } from '../../src/constants';
-import { getEventFields } from '../../src/domain/event/EventUtils';
 import { PAGE_SIZE } from '../../src/domain/eventSearch/constants';
 import { getEvents, getHelsinkiEvents } from '../datasources/eventDataSource';
 import { searchFilterDataSource } from '../datasources/searchFilterDataSource';
@@ -81,27 +80,16 @@ test('Free text search shows event card data for helsinki event', async () => {
 test('search url finds event by free text search', async (t) => {
   const [event] = await getHelsinkiEvents();
   for (const locale of Object.values(SUPPORT_LANGUAGES)) {
-    if (event.name[locale]) {
-      const {
-        name,
-        shortDescription,
-        description,
-        locationName,
-        streetAddress,
-        keywords,
-      } = getEventFields(event, locale);
-
-      const randomDescriptionSentence = selectRandomValueFromArray(
-        splitBySentences(description)
-      );
-      const randomKeyword = selectRandomValueFromArray(keywords);
-      await testSearchEventByText(t, event, name);
-      await testSearchEventByText(t, event, shortDescription);
-      await testSearchEventByText(t, event, randomDescriptionSentence);
-      await testSearchEventByText(t, event, locationName);
-      await testSearchEventByText(t, event, streetAddress);
-      await testSearchEventByText(t, event, randomKeyword.name);
-    }
+    const randomDescriptionSentence =
+      event.description[locale] &&
+      selectRandomValueFromArray(splitBySentences(event.description[locale]));
+    const randomKeyword = selectRandomValueFromArray(event.keywords);
+    await testSearchEventByText(t, event, event.name[locale]);
+    await testSearchEventByText(t, event, event.shortDescription[locale]);
+    await testSearchEventByText(t, event, randomDescriptionSentence);
+    await testSearchEventByText(t, event, event.location.name[locale]);
+    await testSearchEventByText(t, event, event.location.streetAddress[locale]);
+    await testSearchEventByText(t, event, randomKeyword.name[locale]);
   }
 });
 
