@@ -126,7 +126,9 @@
     "hero": {
       "ariaLabelBackButton": "Tillbaka till händelsessökning",
       "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
+      "ariaLabelEnrol": "Registrera - Länken öppnas i ett annat fönster",
       "buttonBuyTickets": "Köp biljetter",
+      "buttonEnrol": "Registrering",
       "buttonToHomePage": "Till framsidan",
       "offers": {
         "isFree": "Gratis"

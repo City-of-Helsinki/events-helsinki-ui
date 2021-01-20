@@ -4,11 +4,13 @@ import * as React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import {
+  EventDetails,
   EventFieldsFragment,
   OfferFieldsFragment,
 } from '../../../../generated/graphql';
 import {
   fakeEvent,
+  fakeExternalLink,
   fakeKeyword,
   fakeOffer,
 } from '../../../../util/mockDataUtils';
@@ -28,27 +30,33 @@ const keywords = keywordNames.map((name) =>
   fakeKeyword({ name: { fi: name } })
 );
 
-const event = fakeEvent({
-  name: { fi: name },
-  keywords,
-  startTime,
-  endTime,
-  publisher: '',
-  shortDescription: { fi: shortDescription },
-  location: {
-    internalId: 'tprek:8740',
-    addressLocality: { fi: addressLocality },
-    name: { fi: locationName },
-    streetAddress: { fi: streetAddress },
-  },
-}) as EventFieldsFragment;
+const getFakeEvent = (overrides?: Partial<EventDetails>) => {
+  return fakeEvent({
+    name: { fi: name },
+    keywords,
+    startTime,
+    endTime,
+    publisher: '',
+    shortDescription: { fi: shortDescription },
+    location: {
+      internalId: 'tprek:8740',
+      addressLocality: { fi: addressLocality },
+      name: { fi: locationName },
+      streetAddress: { fi: streetAddress },
+    },
+    externalLinks: null,
+    ...overrides,
+  }) as EventFieldsFragment;
+};
 
 afterAll(() => {
   clear();
 });
 
 const renderComponent = (props?: Partial<EventHeroProps>) => {
-  return render(<EventHero event={event} eventType="event" {...props} />);
+  return render(
+    <EventHero event={getFakeEvent()} eventType="event" {...props} />
+  );
 };
 
 test('should render event name, description and location', () => {
@@ -115,10 +123,9 @@ test('should render this week tag', () => {
 });
 
 test('should hide buy button for free events', () => {
-  const mockEvent = {
-    ...event,
+  const mockEvent = getFakeEvent({
     offers: [fakeOffer({ isFree: true }) as OfferFieldsFragment],
-  };
+  });
   render(<EventHero event={mockEvent} eventType="event" />);
 
   expect(
@@ -130,17 +137,49 @@ test('should hide buy button for free events', () => {
 
 test('should show buy button', () => {
   global.open = jest.fn();
-  const mockEvent = {
-    ...event,
+  const mockEvent = getFakeEvent({
     offers: [fakeOffer({ isFree: false }) as OfferFieldsFragment],
-  };
+  });
 
   render(<EventHero event={mockEvent} eventType="event" />);
 
-  userEvent.click(
+  expect(
     screen.queryByRole('button', {
+      name: new RegExp(translations.event.hero.buttonEnrol, 'i'),
+    })
+  ).not.toBeInTheDocument();
+
+  userEvent.click(
+    screen.getByRole('button', {
       name: new RegExp(translations.event.hero.buttonBuyTickets, 'i'),
     })
   );
   expect(global.open).toBeCalledTimes(1);
+});
+
+test('Register button should be visible and clickable', () => {
+  global.open = jest.fn();
+  const registrationUrl = 'https://harrastushaku.fi/register/13290';
+  const mockEvent = getFakeEvent({
+    externalLinks: [
+      fakeExternalLink({
+        link: registrationUrl,
+        name: 'registration',
+      }),
+    ],
+  });
+
+  render(<EventHero event={mockEvent} eventType="course" />);
+
+  expect(
+    screen.queryByText(translations.event.hero.buttonEnrol)
+  ).toBeInTheDocument();
+
+  userEvent.click(
+    screen.getByRole('button', {
+      name: translations.event.hero.ariaLabelEnrol,
+    })
+  );
+
+  expect(global.open).toBeCalledWith(registrationUrl);
 });

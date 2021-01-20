@@ -126,7 +126,9 @@
     "hero": {
       "ariaLabelBackButton": "Back to event search",
       "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
+      "ariaLabelEnrol": "Enrol - The link will open in a new window",
       "buttonBuyTickets": "Buy tickets",
+      "buttonEnrol": "Registration",
       "buttonToHomePage": "Visit the landing page",
       "offers": {
         "isFree": "Free"

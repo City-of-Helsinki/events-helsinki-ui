@@ -126,7 +126,9 @@
     "hero": {
       "ariaLabelBackButton": "Takaisin tapahtumahakuun",
       "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
+      "ariaLabelEnrol": "Ilmoittaudu - Linkki avautuu uudessa ikkunassa",
       "buttonBuyTickets": "Osta liput",
+      "buttonEnrol": "Ilmoittaudu mukaan",
       "buttonToHomePage": "Siirry etusivulle",
       "offers": {
         "isFree": "Maksuton"

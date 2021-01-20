@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import buttonStyles from '../../../common/components/button/button.module.scss';
 import IconButton from '../../../common/components/iconButton/IconButton';
 import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
 import Visible from '../../../common/components/visible/Visible';
@@ -41,6 +42,7 @@ const EventHero: React.FC<Props> = ({ event, eventType }) => {
     today,
     thisWeek,
     showBuyButton,
+    registrationUrl,
   } = getEventFields(event, locale);
   const eventPriceText = getEventPrice(
     event,
@@ -142,6 +144,17 @@ const EventHero: React.FC<Props> = ({ event, eventType }) => {
                       variant="success"
                     >
                       {t('event.hero.buttonBuyTickets')}
+                    </Button>
+                  </Visible>
+                )}
+                {registrationUrl && (
+                  <Visible className={styles.registrationButtonWrapper}>
+                    <Button
+                      className={buttonStyles.buttonCoatBlue}
+                      aria-label={t('event.hero.ariaLabelEnrol')}
+                      onClick={() => window.open(registrationUrl)}
+                    >
+                      {t('event.hero.buttonEnrol')}
                     </Button>
                   </Visible>
                 )}
