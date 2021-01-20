@@ -4,9 +4,12 @@ import translationsFi from '../../src/common/translation/i18n/fi.json';
 import translationsSv from '../../src/common/translation/i18n/sv.json';
 import { header } from '../selectors/header';
 import { getPathname } from '../utils/clientUtils';
+import jsErrorHandler from '../utils/jsErrorHandler';
 import { getEnvUrl } from '../utils/settings';
 
-fixture('Landing page').page(getEnvUrl('/fi/home'));
+fixture('Landing page')
+  .clientScripts(jsErrorHandler)
+  .page(getEnvUrl('/fi/home'));
 
 const withinHeader = () => within(screen.getByRole('banner'));
 const withinFooter = () => within(screen.getByRole('contentinfo'));
