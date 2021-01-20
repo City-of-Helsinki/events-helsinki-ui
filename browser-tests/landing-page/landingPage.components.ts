@@ -11,8 +11,8 @@ import { regExpEscaped } from '../utils/regexp.util';
 
 export const getLandingPageComponents = (t: TestController) => {
   const banner = (banner: BannerPageFieldsFragment, type: 'top' | 'bottom') => {
-    t.ctx.banner = banner;
-    t.ctx.bannerType = type;
+    t.ctx.expectedBannerType = type;
+    t.ctx.expectedBanner = banner;
     const selectors = {
       component() {
         return screen.findByTestId(`${type}-banner`);

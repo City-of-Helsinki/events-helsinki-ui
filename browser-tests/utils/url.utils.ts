@@ -34,7 +34,7 @@ export const getUrlUtils = (t: TestController) => {
       await t.expect(getPathname()).eql(`/fi/home`);
     },
     async urlChangedToEventPage(event: EventFieldsFragment) {
-      t.ctx.event = event;
+      t.ctx.expectedEvent = event;
       await t
         .expect(getPathname())
         .eql(`/fi/event/${event.id}`, getErrorMessage(t))

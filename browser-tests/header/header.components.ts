@@ -23,7 +23,7 @@ export const getHeaderComponents = (
   t: TestController,
   locale = DEFAULT_LANGUAGE
 ) => {
-  t.ctx.locale = locale;
+  t.ctx.expectedLanguage = locale;
   const component = () => {
     return screen.findByRole('banner');
   };
@@ -34,22 +34,23 @@ export const getHeaderComponents = (
     const selectors = {
       languageSelector() {
         return withinComponent().findByRole('button', {
-          name: getTranslations(t.ctx.locale).header.changeLanguage,
+          name: getTranslations(t.ctx.expectedLanguage).header.changeLanguage,
         });
       },
       languageSelectorItem(lang: SUPPORT_LANGUAGES) {
         return withinComponent().findByRole('menuitem', {
-          name: getTranslations(t.ctx.locale).header.languages[lang],
+          name: getTranslations(t.ctx.expectedLanguage).header.languages[lang],
         });
       },
       eventSearchTab() {
         return withinComponent().findByRole('link', {
-          name: getTranslations(t.ctx.locale).header.searchEvents,
+          name: getTranslations(t.ctx.expectedLanguage).header.searchEvents,
         });
       },
       recommendationsTab() {
         return withinComponent().findByRole('link', {
-          name: getTranslations(t.ctx.locale).header.searchCollections,
+          name: getTranslations(t.ctx.expectedLanguage).header
+            .searchCollections,
         });
       },
     };
@@ -64,7 +65,7 @@ export const getHeaderComponents = (
         const result = await t
           .click(selectors.languageSelector())
           .click(selectors.languageSelectorItem(lang));
-        t.ctx.locale = lang;
+        t.ctx.expectedLanguage = lang;
         return result;
       },
     };
@@ -79,12 +80,13 @@ export const getHeaderComponents = (
     const selectors = {
       eventSearchTab() {
         return withinComponent().findByRole('link', {
-          name: getTranslations(t.ctx.locale).header.searchEvents,
+          name: getTranslations(t.ctx.expectedLanguage).header.searchEvents,
         });
       },
       recommendationsTab() {
         return withinComponent().findByRole('link', {
-          name: getTranslations(t.ctx.locale).header.searchCollections,
+          name: getTranslations(t.ctx.expectedLanguage).header
+            .searchCollections,
         });
       },
     };

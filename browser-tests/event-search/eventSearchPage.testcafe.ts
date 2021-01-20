@@ -1,3 +1,6 @@
+import addDays from 'date-fns/addDays';
+import endOfWeek from 'date-fns/endOfWeek';
+import subDays from 'date-fns/subDays';
 import TestController from 'testcafe';
 
 import {
@@ -78,22 +81,27 @@ test('Free text search shows event card data for helsinki event', async () => {
 test('search url finds event by free text search', async (t) => {
   const [event] = await getHelsinkiEvents();
   for (const locale of Object.values(SUPPORT_LANGUAGES)) {
-    const {
-      name,
-      shortDescription,
-      description,
-      locationName,
-      streetAddress,
-    } = getEventFields(event, locale);
+    if (event.name[locale]) {
+      const {
+        name,
+        shortDescription,
+        description,
+        locationName,
+        streetAddress,
+        keywords,
+      } = getEventFields(event, locale);
 
-    const randomDescriptionSentence = selectRandomValueFromArray(
-      splitBySentences(description)
-    );
-    await testSearchEventByText(t, event, name);
-    await testSearchEventByText(t, event, shortDescription);
-    await testSearchEventByText(t, event, randomDescriptionSentence);
-    await testSearchEventByText(t, event, locationName);
-    await testSearchEventByText(t, event, streetAddress);
+      const randomDescriptionSentence = selectRandomValueFromArray(
+        splitBySentences(description)
+      );
+      const randomKeyword = selectRandomValueFromArray(keywords);
+      await testSearchEventByText(t, event, name);
+      await testSearchEventByText(t, event, shortDescription);
+      await testSearchEventByText(t, event, randomDescriptionSentence);
+      await testSearchEventByText(t, event, locationName);
+      await testSearchEventByText(t, event, streetAddress);
+      await testSearchEventByText(t, event, randomKeyword.name);
+    }
   }
 });
 
@@ -109,7 +117,7 @@ const testSearchEventByText = async (
   await components.eventCard(event).expectations.isPresent();
 };
 
-test.only('Future events can be searched', async () => {
+test('Future events can be searched', async () => {
   const searchContainer = components.searchContainer();
   await searchContainer.actions.openDateFilters();
   for (const dateRange of [DATE_TYPES.TOMORROW, DATE_TYPES.WEEKEND]) {
@@ -122,7 +130,25 @@ test.only('Future events can be searched', async () => {
     await searchContainer.actions.selectDateRange(dateRange);
     await searchContainer.actions.clickSearchButton();
     await components.eventCard(event).expectations.isPresent();
+    await components
+      .eventCard(event)
+      .expectations.containsDate(getDate(dateRange));
     await searchContainer.actions.openDateFilters();
     await searchContainer.actions.selectDateRange(dateRange); // unselect previous choice
   }
 });
+
+const getDate = (dateRange: string) => {
+  const today = new Date();
+  const sunday = endOfWeek(today, { weekStartsOn: 1 });
+  const saturday = subDays(sunday, 1);
+  switch (dateRange) {
+    case DATE_TYPES.TODAY:
+    case DATE_TYPES.THIS_WEEK:
+      return today;
+    case DATE_TYPES.TOMORROW:
+      return addDays(today, 1);
+    case DATE_TYPES.WEEKEND:
+      return today && today > saturday ? today : saturday;
+  }
+};

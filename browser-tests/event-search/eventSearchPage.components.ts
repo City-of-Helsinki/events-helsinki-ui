@@ -5,17 +5,17 @@ import TestController from 'testcafe';
 import translations from '../../src/common/translation/i18n/fi.json';
 import { getEventFields } from '../../src/domain/event/EventUtils';
 import { KeywordOption } from '../../src/domain/event/types';
+import { formatDate } from '../../src/util/dateUtils';
 import getDateRangeStr from '../../src/util/getDateRangeStr';
 import toPascalCase from '../../src/util/toPascalCase';
 import { getErrorMessage } from '../utils/error.util';
+import { getExpectedEventContext } from '../utils/event.utils';
 import {
   EventFieldsFragment,
   Neighborhood,
   PlaceFieldsFragment,
 } from '../utils/generated/graphql';
 import { regExpEscaped } from '../utils/regexp.util';
-
-type DateRange = 'Tänään' | 'Huomenna' | 'Tällä viikolla' | 'Viikonloppuna';
 
 export const getEventSearchPageComponents = (t: TestController) => {
   const searchContainer = () => {
@@ -168,6 +168,7 @@ export const getEventSearchPageComponents = (t: TestController) => {
     };
   };
   const eventCard = (event: EventFieldsFragment) => {
+    t.ctx.expectedEvent = getExpectedEventContext(event);
     const {
       startTime,
       endTime,
@@ -176,7 +177,6 @@ export const getEventSearchPageComponents = (t: TestController) => {
       addressLocality,
       keywords,
     } = getEventFields(event, 'fi');
-    t.ctx.event = event;
     const selectors = {
       component() {
         return screen.findByTestId(event.id);
@@ -193,6 +193,9 @@ export const getEventSearchPageComponents = (t: TestController) => {
         return this.withinComponent().findByRole('button', {
           name: keyword.name,
         });
+      },
+      containsText(text: string) {
+        return this.withinComponent().findByText(RegExp(text, 'gi'));
       },
       dateRangeText() {
         return this.withinComponent().findByText(
@@ -225,10 +228,24 @@ export const getEventSearchPageComponents = (t: TestController) => {
       },
       async eventTimeIsPresent() {
         await this.isPresent();
+        t.ctx.expectedEvent = getExpectedEventContext(
+          event,
+          'startTime',
+          'endTime'
+        );
         await t.expect(selectors.dateRangeText().exists).ok(getErrorMessage(t));
+      },
+      async containsDate(date: Date) {
+        await this.isPresent();
+        const formattedDate = formatDate(date, 'd.M.yyyy');
+        t.ctx.expectedDate = formattedDate;
+        await t
+          .expect(selectors.containsText(formattedDate).exists)
+          .ok(getErrorMessage(t));
       },
       async addressIsPresent() {
         await this.isPresent();
+        t.ctx.expectedEvent = getExpectedEventContext(event, 'location');
         await t.expect(selectors.addressText().exists).ok(getErrorMessage(t));
       },
       async keywordButtonsArePresent() {
