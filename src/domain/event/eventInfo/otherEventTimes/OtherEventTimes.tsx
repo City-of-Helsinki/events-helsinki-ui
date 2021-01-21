@@ -1,4 +1,9 @@
-import { IconAngleDown, IconArrowRight, IconCalendarPlus } from 'hds-react';
+import {
+  IconAngleDown,
+  IconAngleUp,
+  IconArrowRight,
+  IconCalendarPlus,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -61,7 +66,11 @@ const OtherEventTimes: React.FC<Props> = ({
           {isListOpen
             ? t('event.otherTimes.buttonHide')
             : t('event.otherTimes.buttonShow')}
-          <IconAngleDown aria-hidden />
+          {isListOpen ? (
+            <IconAngleUp aria-hidden />
+          ) : (
+            <IconAngleDown aria-hidden />
+          )}
         </button>
       </InfoWithIcon>
       {isListOpen && (
