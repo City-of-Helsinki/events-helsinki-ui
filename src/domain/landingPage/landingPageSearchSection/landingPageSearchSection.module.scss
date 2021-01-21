@@ -3,8 +3,11 @@
 .landingPageSearchWrapper {
   position: relative;
   background-color: var(--background-color);
-  clip-path: url(#wave);
   z-index: 1;
+
+  @include respond-below(md) {
+    clip-path: url(#wave);
+  }
 }
 
 .typeCourse {
