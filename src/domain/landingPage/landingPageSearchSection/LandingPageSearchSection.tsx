@@ -114,6 +114,7 @@ const Search: React.FC<SearchProps> = ({
         <button
           className={styles.showCategoriesButton}
           onClick={toggleCategories}
+          aria-expanded={categoriesVisibleMobile}
         >
           {categoriesVisibleMobile
             ? t('home.search.hidePopularCategories')
