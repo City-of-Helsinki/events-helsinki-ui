@@ -65,6 +65,14 @@ test('should add className when focused with tab', () => {
   expect(focusableText).toHaveClass(focusClassName);
   expect(focusableText).toHaveAttribute(focusAttributeName);
 
+  // focus should go back
+  userEvent.tab({ shift: true });
+
+  expect(firstButton).toHaveFocus();
+  expect(firstButton).toHaveClass(focusClassName);
+  expect(firstButton).toHaveAttribute(focusAttributeName);
+
+  userEvent.tab();
   userEvent.tab();
 
   const secondButton = getButton('Button 2');
