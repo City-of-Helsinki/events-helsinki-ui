@@ -48,11 +48,25 @@ export const fakeEvents = (
 });
 
 export const fakeEvent = (overrides?: Partial<EventDetails>): EventDetails => {
+  const names: string[] = [];
+
+  const uniqueName = (): string => {
+    const name = faker.name.title();
+
+    if (names.includes(name)) {
+      return uniqueName();
+    } else {
+      names.push(name);
+    }
+
+    return name;
+  };
+
   return merge<EventDetails, typeof overrides>(
     {
       id: `hel:${faker.random.uuid()}`,
       internalId: faker.random.uuid(),
-      name: fakeLocalizedObject(faker.name.title()),
+      name: fakeLocalizedObject(uniqueName()),
       publisher: 'provider:123',
       provider: fakeLocalizedObject(),
       shortDescription: fakeLocalizedObject(),
