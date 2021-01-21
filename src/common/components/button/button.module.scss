@@ -19,3 +19,18 @@
   background-color: var(--color-black-80);
   border-color: var(--color-black-80);
 }
+
+
+.buttonCoatBlue {
+  --button-background-color: var(--color-coat-of-arms);
+  --button-hover-color: var(--color-coat-of-arms-dark);
+
+  --background-color: var(--button-background-color);
+  --border-color: var(--button-background-color);
+  --background-color-hover: var(--button-hover-color);
+  --background-color-focus: var(--button-hover-color);
+  --background-color-hover-focus: var(--button-hover-color);
+  --border-color-focus: var(--button-hover-color);
+  --border-color-hover-focus: var(--button-hover-color);
+  --border-color-hover: var(--button-hover-color);
+}

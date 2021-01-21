@@ -14,6 +14,16 @@
   @include respond_above(md) {
     grid-template-columns: 1fr 1fr;
   }
+
+  button, a {
+    outline: none !important;
+  }
+
+  .focusVisible {
+    &:focus {
+      outline: 2px solid var(--color-black) !important;
+    }
+  }
 }
 
 .buyButtonWrapper {

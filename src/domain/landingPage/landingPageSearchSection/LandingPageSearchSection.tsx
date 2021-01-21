@@ -111,17 +111,18 @@ const Search: React.FC<SearchProps> = ({
             </Button>
           </div>
         </div>
-        <Button
+        <button
           className={styles.showCategoriesButton}
-          variant="supplementary"
-          theme="black"
-          iconRight={categoriesVisibleMobile ? <IconMinus /> : <IconPlus />}
           onClick={toggleCategories}
+          aria-expanded={categoriesVisibleMobile}
         >
           {categoriesVisibleMobile
             ? t('home.search.hidePopularCategories')
             : t('home.search.showPopularCategories')}
-        </Button>
+          <div className={styles.buttonIcon}>
+            {categoriesVisibleMobile ? <IconMinus /> : <IconPlus />}
+          </div>
+        </button>
         <div
           data-testid={popularCategoriesContainerTestId}
           className={classNames(styles.popularCategories, {

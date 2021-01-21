@@ -1,4 +1,9 @@
-import { IconAngleDown, IconArrowRight, IconCalendarPlus } from 'hds-react';
+import {
+  IconAngleDown,
+  IconAngleUp,
+  IconArrowRight,
+  IconCalendarPlus,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -7,6 +12,7 @@ import IconButton from '../../../../common/components/iconButton/IconButton';
 import InfoWithIcon from '../../../../common/components/infoWithIcon/InfoWithIcon';
 import linkStyles from '../../../../common/components/link/link.module.scss';
 import LoadingSpinner from '../../../../common/components/spinner/LoadingSpinner';
+import useIsSmallScreen from '../../../../hooks/useIsSmallScreen';
 import useLocale from '../../../../hooks/useLocale';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
 import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../../types';
@@ -34,6 +40,7 @@ const OtherEventTimes: React.FC<Props> = ({
   const history = useHistory();
   const { search } = useLocation();
   const [isListOpen, setIsListOpen] = React.useState(false);
+  const isSmallScreen = useIsSmallScreen();
 
   const toggleList = () => {
     setIsListOpen(!isListOpen);
@@ -59,7 +66,11 @@ const OtherEventTimes: React.FC<Props> = ({
           {isListOpen
             ? t('event.otherTimes.buttonHide')
             : t('event.otherTimes.buttonShow')}
-          <IconAngleDown aria-hidden />
+          {isListOpen ? (
+            <IconAngleUp aria-hidden />
+          ) : (
+            <IconAngleDown aria-hidden />
+          )}
         </button>
       </InfoWithIcon>
       {isListOpen && (
@@ -87,7 +98,7 @@ const OtherEventTimes: React.FC<Props> = ({
                     })}
                     icon={<IconArrowRight aria-hidden />}
                     onClick={() => moveToEventPage(event.id)}
-                    size="small"
+                    size={isSmallScreen ? 'default' : 'small'}
                   />
                 </li>
               );

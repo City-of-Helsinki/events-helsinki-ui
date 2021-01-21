@@ -287,6 +287,12 @@ const getOfferInfoUrl = (
   return getLocalisedString(offer?.infoUrl, locale);
 };
 
+const getRegistrationUrl = (event: EventFieldsFragment) => {
+  return event.externalLinks?.find((externalLink) => {
+    return externalLink.name === 'registration';
+  })?.link;
+};
+
 /**
  * Get event fields
  * @param {object} event
@@ -297,6 +303,7 @@ const getOfferInfoUrl = (
 export const getEventFields = (event: EventFields, locale: Language) => {
   const eventLocation = event.location;
   const offerInfoUrl = getOfferInfoUrl(event, locale);
+  const registrationUrl = getRegistrationUrl(event);
   const startTime = event.startTime;
   return {
     description: getLocalisedString(event.description, locale),
@@ -316,6 +323,7 @@ export const getEventFields = (event: EventFields, locale: Language) => {
       .filter((e) => e),
     locationName: getLocalisedString(eventLocation?.name, locale),
     offerInfoUrl,
+    registrationUrl,
     placeholderImage: getEventPlaceholderImageUrl(event),
     provider: getLocalisedString(event.provider, locale),
     publisher: event.publisher || '',
