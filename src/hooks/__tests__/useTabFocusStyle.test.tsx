@@ -2,13 +2,13 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
-import useFocusStyle, { focusAttributeName } from '../useFocusStyle';
+import useTabFocusStyle, { focusAttributeName } from '../useTabFocusStyle';
 
 const focusClassName = 'focused';
 
 const TestComponent: React.FC = () => {
   const container = React.useRef<HTMLDivElement | null>(null);
-  useFocusStyle({
+  useTabFocusStyle({
     container,
     className: focusClassName,
   });
@@ -18,6 +18,8 @@ const TestComponent: React.FC = () => {
       <button type="button">Outside button</button>
       <div ref={container}>
         <button type="button">Button 1</button>
+        <div tabIndex={0}>Focusable text</div>
+        <div>Non-focusable text</div>
         <button type="button">Button 2</button>
         <button type="button" tabIndex={-1}>
           Button 3
@@ -55,6 +57,13 @@ test('should add className when focused with tab', () => {
   expect(firstButton).toHaveFocus();
   expect(firstButton).not.toHaveClass(focusClassName);
   expect(firstButton).not.toHaveAttribute(focusAttributeName);
+
+  userEvent.tab();
+
+  const focusableText = screen.getByText('Focusable text');
+  expect(focusableText).toHaveFocus();
+  expect(focusableText).toHaveClass(focusClassName);
+  expect(focusableText).toHaveAttribute(focusAttributeName);
 
   userEvent.tab();
 

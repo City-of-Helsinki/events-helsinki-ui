@@ -19,8 +19,8 @@ import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
 import Link from '../../../common/components/link/Link';
 import linkStyles from '../../../common/components/link/link.module.scss';
 import Visible from '../../../common/components/visible/Visible';
-import useFocusStyle from '../../../hooks/useFocusStyle';
 import useLocale from '../../../hooks/useLocale';
+import useTabFocusStyle from '../../../hooks/useTabFocusStyle';
 import IconDirections from '../../../icons/IconDirections';
 import getDateArray from '../../../util/getDateArray';
 import getDateRangeStr from '../../../util/getDateRangeStr';
@@ -45,7 +45,7 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const eventInfoContainer = React.useRef<HTMLDivElement | null>(null);
-  useFocusStyle({
+  useTabFocusStyle({
     container: eventInfoContainer,
     className: styles.focusVisible,
   });

@@ -12,6 +12,7 @@ import {
   fakeEvent,
   fakeExternalLink,
   fakeKeyword,
+  fakeLocalizedObject,
   fakeOffer,
 } from '../../../../util/mockDataUtils';
 import { render, screen, userEvent } from '../../../../util/testUtils';
@@ -137,12 +138,20 @@ test('should hide buy button for free events', () => {
 
 test('should show buy button', () => {
   global.open = jest.fn();
+  const infoUrl = 'https://test.url';
   const mockEvent = getFakeEvent({
-    offers: [fakeOffer({ isFree: false }) as OfferFieldsFragment],
+    offers: [
+      fakeOffer({
+        isFree: false,
+        infoUrl: fakeLocalizedObject(infoUrl),
+      }) as OfferFieldsFragment,
+    ],
+    externalLinks: null,
   });
 
   render(<EventHero event={mockEvent} eventType="event" />);
 
+  // shouldn't be rendred when externalLinks are not present
   expect(
     screen.queryByRole('button', {
       name: new RegExp(translations.event.hero.buttonEnrol, 'i'),
@@ -154,7 +163,7 @@ test('should show buy button', () => {
       name: new RegExp(translations.event.hero.buttonBuyTickets, 'i'),
     })
   );
-  expect(global.open).toBeCalledTimes(1);
+  expect(global.open).toHaveBeenCalledWith(infoUrl);
 });
 
 test('Register button should be visible and clickable', () => {

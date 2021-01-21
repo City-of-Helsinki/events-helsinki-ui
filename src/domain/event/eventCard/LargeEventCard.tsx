@@ -62,7 +62,9 @@ const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
   )}${modifiedSearch}`;
   const showBuyButton = !eventClosed && !!offerInfoUrl && !isEventFree(event);
 
-  const goToBuyTicketsPage = () => {
+  const goToBuyTicketsPage = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // avoids also navigating to details page
+    e.preventDefault();
     window.open(offerInfoUrl);
   };
 

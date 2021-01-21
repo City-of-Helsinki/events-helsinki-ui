@@ -5,7 +5,7 @@ export const focusAttributeName = 'data-focus-visible-added';
 /*
  * Adds given className to focusable elements only when focus is triggreded by tab-button.
  */
-const useFocusStyle = ({
+const useTabFocusStyle = ({
   container,
   className,
 }: {
@@ -69,4 +69,4 @@ const useFocusStyle = ({
   }, []);
 };
 
-export default useFocusStyle;
+export default useTabFocusStyle;
