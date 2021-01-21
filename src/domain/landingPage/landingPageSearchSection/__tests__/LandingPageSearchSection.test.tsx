@@ -148,11 +148,13 @@ test('toggling categories in mobile work correctly', () => {
     'categoriesOpen'
   );
 
-  userEvent.click(
-    screen.getByRole('button', {
-      name: translations.home.search.showPopularCategories,
-    })
-  );
+  const showPopularCategoriesButton = screen.getByRole('button', {
+    name: translations.home.search.showPopularCategories,
+  });
+
+  expect(showPopularCategoriesButton).toHaveAttribute('aria-expanded', 'false');
+  userEvent.click(showPopularCategoriesButton);
+  expect(showPopularCategoriesButton).toHaveAttribute('aria-expanded', 'true');
 
   expect(screen.getByTestId(popularCategoriesContainerTestId)).toHaveClass(
     'categoriesOpen'
@@ -164,11 +166,12 @@ test('toggling categories in mobile work correctly', () => {
     })
   ).not.toBeInTheDocument();
 
-  userEvent.click(
-    screen.getByRole('button', {
-      name: translations.home.search.hidePopularCategories,
-    })
-  );
+  const hidePopularCategoriesButton = screen.getByRole('button', {
+    name: translations.home.search.hidePopularCategories,
+  });
+  expect(hidePopularCategoriesButton).toHaveAttribute('aria-expanded', 'true');
+  userEvent.click(hidePopularCategoriesButton);
+  expect(hidePopularCategoriesButton).toHaveAttribute('aria-expanded', 'false');
 
   expect(screen.getByTestId(popularCategoriesContainerTestId)).not.toHaveClass(
     'categoriesOpen'
