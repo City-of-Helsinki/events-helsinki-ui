@@ -8,11 +8,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import IconButton from '../../../../common/components/iconButton/IconButton';
 import InfoWithIcon from '../../../../common/components/infoWithIcon/InfoWithIcon';
 import linkStyles from '../../../../common/components/link/link.module.scss';
 import LoadingSpinner from '../../../../common/components/spinner/LoadingSpinner';
-import useIsSmallScreen from '../../../../hooks/useIsSmallScreen';
 import useLocale from '../../../../hooks/useLocale';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
 import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../../types';
@@ -40,7 +38,6 @@ const OtherEventTimes: React.FC<Props> = ({
   const history = useHistory();
   const { search } = useLocation();
   const [isListOpen, setIsListOpen] = React.useState(false);
-  const isSmallScreen = useIsSmallScreen();
 
   const toggleList = () => {
     setIsListOpen(!isListOpen);
@@ -62,7 +59,11 @@ const OtherEventTimes: React.FC<Props> = ({
         icon={<IconCalendarPlus aria-hidden />}
         title={t('event.otherTimes.title')}
       >
-        <button className={linkStyles.link} onClick={toggleList}>
+        <button
+          className={linkStyles.link}
+          onClick={toggleList}
+          aria-expanded={isListOpen}
+        >
           {isListOpen
             ? t('event.otherTimes.buttonHide')
             : t('event.otherTimes.buttonShow')}
@@ -91,15 +92,26 @@ const OtherEventTimes: React.FC<Props> = ({
                 : '';
               return (
                 <li key={event.id}>
-                  <span>{date}</span>
-                  <IconButton
-                    ariaLabel={t('event.otherTimes.buttonReadMore', {
+                  <button
+                    className={styles.listButton}
+                    onClick={() => moveToEventPage(event.id)}
+                    aria-label={t('event.otherTimes.buttonReadMore', {
                       date,
                     })}
-                    icon={<IconArrowRight aria-hidden />}
-                    onClick={() => moveToEventPage(event.id)}
-                    size={isSmallScreen ? 'default' : 'small'}
-                  />
+                  >
+                    <span>{date}</span>
+                    {/* <IconButton
+                      ariaLabel={t('event.otherTimes.buttonReadMore', {
+                        date,
+                      })}
+                      icon={<IconArrowRight aria-hidden />}
+                      onClick={() => moveToEventPage(event.id)}
+                      size={isSmallScreen ? 'default' : 'small'}
+                    /> */}
+                    <div className={styles.arrowContainer}>
+                      <IconArrowRight aria-hidden />
+                    </div>
+                  </button>
                 </li>
               );
             })}
