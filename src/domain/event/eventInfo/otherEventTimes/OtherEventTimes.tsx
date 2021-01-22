@@ -100,14 +100,6 @@ const OtherEventTimes: React.FC<Props> = ({
                     })}
                   >
                     <span>{date}</span>
-                    {/* <IconButton
-                      ariaLabel={t('event.otherTimes.buttonReadMore', {
-                        date,
-                      })}
-                      icon={<IconArrowRight aria-hidden />}
-                      onClick={() => moveToEventPage(event.id)}
-                      size={isSmallScreen ? 'default' : 'small'}
-                    /> */}
                     <div className={styles.arrowContainer}>
                       <IconArrowRight aria-hidden />
                     </div>
