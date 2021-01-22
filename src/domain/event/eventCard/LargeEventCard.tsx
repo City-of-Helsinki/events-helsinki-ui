@@ -85,98 +85,97 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
   }, [imageUrl]);
 
   return (
-    <span data-testid={event.id}>
-      <Link
-        aria-label={t('event.eventCard.ariaLabelLink', {
-          name,
-        })}
-        className={classNames(styles.eventCard, {
-          [styles.eventClosed]: eventClosed,
-        })}
-        id={getLargeEventCardId(event.id)}
-        onClick={handleLinkClick}
-        to={eventUrl}
-      >
-        {/* INFO WRAPPER. Re-order info wrapper and text wrapper on css */}
-        <div className={styles.infoWrapper}>
-          <div className={styles.eventName}>
-            <EventName event={event} />
-          </div>
-          <div className={styles.eventDateAndTime}>
-            {!!startTime &&
-              getDateRangeStr({
-                start: startTime,
-                end: endTime,
-                locale,
-                includeTime: true,
-                timeAbbreviation: t('commons.timeAbbreviation'),
-              })}
-          </div>
-          <div className={styles.eventLocation}>
-            <LocationText
-              event={event}
-              showDistrict={false}
-              showLocationName={true}
-            />
-          </div>
-          <div className={styles.eventPrice}>
-            {getEventPrice(event, locale, t('event.eventCard.isFree'))}
-          </div>
-          <div className={styles.keywordWrapperDesktop}>
-            <EventKeywords
-              event={event}
-              hideKeywordsOnMobile={true}
-              showIsFree={true}
-            />
-          </div>
-          <div className={styles.buttonWrapper}>
-            <div>
-              {showBuyButton && (
-                <Button
-                  aria-label={t('event.eventCard.ariaLabelBuyTickets')}
-                  fullWidth
-                  onClick={goToBuyTicketsPage}
-                  size="small"
-                  variant="success"
-                >
-                  {t('event.eventCard.buttonBuyTickets')}
-                </Button>
-              )}
-            </div>
-            <div ref={button}>
+    <Link
+      aria-label={t('event.eventCard.ariaLabelLink', {
+        name,
+      })}
+      className={classNames(styles.eventCard, {
+        [styles.eventClosed]: eventClosed,
+      })}
+      id={getLargeEventCardId(event.id)}
+      data-testid={event.id}
+      onClick={handleLinkClick}
+      to={eventUrl}
+    >
+      {/* INFO WRAPPER. Re-order info wrapper and text wrapper on css */}
+      <div className={styles.infoWrapper}>
+        <div className={styles.eventName}>
+          <EventName event={event} />
+        </div>
+        <div className={styles.eventDateAndTime}>
+          {!!startTime &&
+            getDateRangeStr({
+              start: startTime,
+              end: endTime,
+              locale,
+              includeTime: true,
+              timeAbbreviation: t('commons.timeAbbreviation'),
+            })}
+        </div>
+        <div className={styles.eventLocation}>
+          <LocationText
+            event={event}
+            showDistrict={false}
+            showLocationName={true}
+          />
+        </div>
+        <div className={styles.eventPrice}>
+          {getEventPrice(event, locale, t('event.eventCard.isFree'))}
+        </div>
+        <div className={styles.keywordWrapperDesktop}>
+          <EventKeywords
+            event={event}
+            hideKeywordsOnMobile={true}
+            showIsFree={true}
+          />
+        </div>
+        <div className={styles.buttonWrapper}>
+          <div>
+            {showBuyButton && (
               <Button
-                aria-label={t('event.eventCard.ariaLabelReadMore', { name })}
-                className={buttonStyles.buttonGray}
+                aria-label={t('event.eventCard.ariaLabelBuyTickets')}
                 fullWidth
-                onClick={goToEventPage}
+                onClick={goToBuyTicketsPage}
                 size="small"
-                type="button"
+                variant="success"
               >
-                {t('event.eventCard.buttonReadMore')}
+                {t('event.eventCard.buttonBuyTickets')}
               </Button>
-            </div>
+            )}
+          </div>
+          <div ref={button}>
+            <Button
+              aria-label={t('event.eventCard.ariaLabelReadMore', { name })}
+              className={buttonStyles.buttonGray}
+              fullWidth
+              onClick={goToEventPage}
+              size="small"
+              type="button"
+            >
+              {t('event.eventCard.buttonReadMore')}
+            </Button>
           </div>
         </div>
+      </div>
 
-        {/* IMAGE WRAPPER */}
-        <div
-          className={styles.imageWrapper}
-          style={{
-            backgroundImage: `url(${
-              showBackupImage ? placeholderImage : imageUrl
-            })`,
-          }}
-        >
-          <div className={styles.keywordWrapper}>
-            <EventKeywords
-              event={event}
-              hideKeywordsOnMobile={true}
-              showIsFree={true}
-            />
-          </div>
+      {/* IMAGE WRAPPER */}
+      <div
+        className={styles.imageWrapper}
+        style={{
+          backgroundImage: `url(${
+            showBackupImage ? placeholderImage : imageUrl
+          })`,
+        }}
+      >
+        <div className={styles.keywordWrapper}>
+          <EventKeywords
+            event={event}
+            hideKeywordsOnMobile={true}
+            showIsFree={true}
+          />
         </div>
-      </Link>
-    </span>
+      </div>
+    </Link>
   );
 };
 

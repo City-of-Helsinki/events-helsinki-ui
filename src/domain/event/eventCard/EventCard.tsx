@@ -85,76 +85,45 @@ const EventCard: React.FC<Props> = ({ event }) => {
   }, [imageUrl]);
 
   return (
-    <span data-testid={event.id}>
-      <Link
-        aria-label={t('event.eventCard.ariaLabelLink', {
-          name,
-        })}
-        className={classNames(styles.eventCard, {
-          [styles.eventClosed]: eventClosed,
-        })}
-        id={getEventCardId(id)}
-        onClick={handleLinkClick}
-        to={eventUrl}
-      >
-        {/* INFO WRAPPER. Re-order info wrapper and text wrapper on css */}
-        <div className={styles.infoWrapper}>
-          <div className={styles.textWrapper}>
-            <div className={styles.eventName}>
-              <EventName event={event} />
-            </div>
-            <div className={styles.eventDateAndTime}>
-              {!!startTime &&
-                getDateRangeStr({
-                  start: startTime,
-                  end: endTime,
-                  locale,
-                  includeWeekday: false,
-                  includeTime: true,
-                  timeAbbreviation: t('commons.timeAbbreviation'),
-                })}
-            </div>
-            <div className={styles.eventLocation}>
-              <LocationText
-                event={event}
-                showDistrict={false}
-                showLocationName={true}
-              />
-            </div>
-            <div className={styles.eventPrice}>{eventPriceText}</div>
-
-            <div className={styles.keywordWrapperMobile}>
-              <EventKeywords
-                event={event}
-                showIsFree={true}
-                showKeywords={false}
-              />
-            </div>
+    <Link
+      aria-label={t('event.eventCard.ariaLabelLink', {
+        name,
+      })}
+      className={classNames(styles.eventCard, {
+        [styles.eventClosed]: eventClosed,
+      })}
+      id={getEventCardId(id)}
+      data-testid={event.id}
+      onClick={handleLinkClick}
+      to={eventUrl}
+    >
+      {/* INFO WRAPPER. Re-order info wrapper and text wrapper on css */}
+      <div className={styles.infoWrapper}>
+        <div className={styles.textWrapper}>
+          <div className={styles.eventName}>
+            <EventName event={event} />
           </div>
-          <div className={styles.buttonWrapper}>
-            <div ref={button}>
-              <IconButton
-                ariaLabel={t('event.eventCard.ariaLabelLink', {
-                  name,
-                })}
-                icon={<IconArrowRight />}
-                onClick={goToEventPage}
-                size="default"
-              />
-            </div>
+          <div className={styles.eventDateAndTime}>
+            {!!startTime &&
+              getDateRangeStr({
+                start: startTime,
+                end: endTime,
+                locale,
+                includeWeekday: false,
+                includeTime: true,
+                timeAbbreviation: t('commons.timeAbbreviation'),
+              })}
           </div>
-        </div>
+          <div className={styles.eventLocation}>
+            <LocationText
+              event={event}
+              showDistrict={false}
+              showLocationName={true}
+            />
+          </div>
+          <div className={styles.eventPrice}>{eventPriceText}</div>
 
-        {/* IMAGE WRAPPER */}
-        <div
-          className={styles.imageWrapper}
-          style={{
-            backgroundImage: `url(${
-              showBackupImage ? placeholderImage : imageUrl
-            })`,
-          }}
-        >
-          <div className={styles.keywordWrapperDesktop}>
+          <div className={styles.keywordWrapperMobile}>
             <EventKeywords
               event={event}
               showIsFree={true}
@@ -162,8 +131,34 @@ const EventCard: React.FC<Props> = ({ event }) => {
             />
           </div>
         </div>
-      </Link>
-    </span>
+        <div className={styles.buttonWrapper}>
+          <div ref={button}>
+            <IconButton
+              ariaLabel={t('event.eventCard.ariaLabelLink', {
+                name,
+              })}
+              icon={<IconArrowRight />}
+              onClick={goToEventPage}
+              size="default"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* IMAGE WRAPPER */}
+      <div
+        className={styles.imageWrapper}
+        style={{
+          backgroundImage: `url(${
+            showBackupImage ? placeholderImage : imageUrl
+          })`,
+        }}
+      >
+        <div className={styles.keywordWrapperDesktop}>
+          <EventKeywords event={event} showIsFree={true} showKeywords={false} />
+        </div>
+      </div>
+    </Link>
   );
 };
 
