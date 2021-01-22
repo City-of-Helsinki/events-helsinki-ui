@@ -69,7 +69,6 @@ test.only('Free text search shows event card data for helsinki event', async () 
     .searchContainer()
     .actions.inputSearchTextAndPressEnter(event.name.fi);
   const eventCard = components.eventCard(event);
-  await eventCard.expectations.titleLinkIsPresent();
   await eventCard.expectations.eventTimeIsPresent();
   await eventCard.expectations.addressIsPresent();
   await eventCard.expectations.keywordButtonsArePresent();

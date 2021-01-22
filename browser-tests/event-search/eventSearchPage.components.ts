@@ -154,7 +154,7 @@ export const getEventSearchPageComponents = (t: TestController) => {
       async allEventCardsAreVisible(events: EventFieldsFragment[]) {
         await this.isPresent();
         for (const event of events) {
-          await eventCard(event).expectations.titleLinkIsPresent();
+          await eventCard(event).expectations.isPresent();
         }
       },
     };
@@ -224,12 +224,6 @@ export const getEventSearchPageComponents = (t: TestController) => {
           .expect(selectors.component().exists)
           .ok(await getErrorMessage(t), { timeout: 30000 });
       },
-      async titleLinkIsPresent() {
-        await this.isPresent();
-        await t
-          .expect(selectors.eventTitleLink().exists)
-          .ok(await getErrorMessage(t));
-      },
       async eventTimeIsPresent() {
         await this.isPresent();
         t.ctx.expectedEvent = getExpectedEventContext(
@@ -270,7 +264,7 @@ export const getEventSearchPageComponents = (t: TestController) => {
     const actions = {
       async clickEventLink() {
         await expectations.isPresent();
-        await t.click(selectors.eventTitleLink());
+        await t.click(selectors.component());
       },
     };
     return {
