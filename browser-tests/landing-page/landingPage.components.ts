@@ -12,28 +12,35 @@ import { regExpEscaped } from '../utils/regexp.util';
 export const getLandingPageComponents = (t: TestController) => {
   const banner = (banner: BannerPageFieldsFragment, type: 'top' | 'bottom') => {
     t.ctx.expectedBannerType = type;
-    t.ctx.expectedBanner = banner;
+    t.ctx.expectedBanner = {
+      title: banner.title.fi,
+      description: banner.description.fi,
+    };
     const selectors = {
       component() {
         return screen.findByTestId(`${type}-banner`);
       },
       withinComponent() {
+        t.ctx.withinTestId = `${type}-banner`;
         return within(screen.getByTestId(`${type}-banner`));
       },
       title() {
-        return this.withinComponent().findByRole('heading', {
-          name: regExpEscaped(banner.title.fi),
-        });
+        t.ctx.findByRole = [
+          'heading',
+          { name: regExpEscaped(banner.title.fi) },
+        ];
+        return this.withinComponent().findByRole.apply(null, t.ctx.findByRole);
       },
       buttonLink() {
-        return this.withinComponent().findByRole('button', {
-          name: regExpEscaped(banner.buttonText.fi),
-        });
+        t.ctx.findByRole = [
+          'button',
+          { name: regExpEscaped(banner.buttonText.fi) },
+        ];
+        return this.withinComponent().findByRole.apply(null, t.ctx.findByRole);
       },
       descriptionText() {
-        return this.withinComponent().findByText(
-          regExpEscaped(banner.description.fi)
-        );
+        t.ctx.findByText = regExpEscaped(banner.description.fi);
+        return this.withinComponent().findByText(t.ctx.findByText);
       },
     };
     const expectations = {
@@ -88,12 +95,12 @@ export const getLandingPageComponents = (t: TestController) => {
         return screen.findByTestId(collection.id);
       },
       withinComponent() {
-        return within(screen.getByTestId(collection.id));
+        t.ctx.withinTestId = collection.id;
+        return within(screen.getByTestId(t.ctx.withinTestId));
       },
       collectionTitle() {
-        return this.withinComponent().findByLabelText(
-          regExpEscaped(collection.title.fi)
-        );
+        t.ctx.findByLabelText = regExpEscaped(collection.title.fi);
+        return this.withinComponent().findByLabelText(t.ctx.findByLabelText);
       },
     };
     const expectations = {

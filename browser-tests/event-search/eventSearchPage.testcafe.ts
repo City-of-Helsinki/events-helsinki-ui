@@ -63,7 +63,7 @@ test('"click more events" -button works', async (t) => {
   await resultList.expectations.allEventCardsAreVisible(events);
 });
 
-test.only('Free text search shows event card data for helsinki event', async () => {
+test('Free text search shows event card data for helsinki event', async () => {
   const [event] = await getHelsinkiEvents();
   await components
     .searchContainer()

@@ -15,7 +15,6 @@ import {
   Neighborhood,
   PlaceFieldsFragment,
 } from '../utils/generated/graphql';
-import { regExpEscaped } from '../utils/regexp.util';
 
 export const getEventSearchPageComponents = (t: TestController) => {
   const searchContainer = () => {
@@ -24,7 +23,8 @@ export const getEventSearchPageComponents = (t: TestController) => {
         return screen.findByTestId('searchContainer');
       },
       withinComponent() {
-        return within(screen.getByTestId('searchContainer'));
+        t.ctx.withinTestId = 'searchContainer';
+        return within(screen.getByTestId(t.ctx.withinTestId));
       },
       searchButton() {
         return this.withinComponent().findByRole('button', { name: 'Hae' });
@@ -33,17 +33,15 @@ export const getEventSearchPageComponents = (t: TestController) => {
         return this.withinComponent().findByLabelText('Valitse ajankohta');
       },
       dateRangeCheckbox(range: string) {
-        return this.withinComponent().findByRole('checkbox', {
-          name: range,
-        });
+        t.ctx.findByRole = ['checkbox', { name: range }];
+        return this.withinComponent().findByRole.apply(null, t.ctx.findByRole);
       },
       neighborhoodFilter() {
         return this.withinComponent().findByLabelText('Etsi alue');
       },
       neighborhoodCheckbox(n: Neighborhood) {
-        return this.withinComponent().findByRole('checkbox', {
-          name: n.name.fi,
-        });
+        t.ctx.findByRole = ['checkbox', { name: n.name.fi }];
+        return this.withinComponent().findByRole.apply(null, t.ctx.findByRole);
       },
       placeFilter() {
         return this.withinComponent().findByLabelText('Etsi tapahtumapaikka');
@@ -52,9 +50,8 @@ export const getEventSearchPageComponents = (t: TestController) => {
         return this.withinComponent().findByLabelText('Kirjoita hakusana');
       },
       placeCheckbox(place: PlaceFieldsFragment) {
-        return this.withinComponent().findByRole('checkbox', {
-          name: place.name.fi,
-        });
+        t.ctx.findByRole = ['checkbox', { name: place.name.fi }];
+        return this.withinComponent().findByRole.apply(null, t.ctx.findByRole);
       },
       searchInput() {
         return this.withinComponent().findByPlaceholderText(
@@ -70,7 +67,6 @@ export const getEventSearchPageComponents = (t: TestController) => {
       },
       async neighborhoodOptionIsPresent(neighborhood: Neighborhood) {
         await this.isPresent();
-        t.ctx.neighborhood = neighborhood;
         await t
           .expect(selectors.neighborhoodCheckbox(neighborhood).exists)
           .ok(await getErrorMessage(t));
@@ -91,7 +87,6 @@ export const getEventSearchPageComponents = (t: TestController) => {
           translations.commons.dateSelector[
             `dateType${toPascalCase(dateRange)}`
           ];
-        t.ctx.dateRange = dateRangeValue;
         await t.click(selectors.dateRangeCheckbox(dateRangeValue));
       },
       async openNeighborhoodFilters() {
@@ -100,7 +95,6 @@ export const getEventSearchPageComponents = (t: TestController) => {
       },
       async selectNeighborhoodFilter(neighborhood: Neighborhood) {
         await expectations.isPresent();
-        t.ctx.neighborhood = neighborhood;
         await t.click(selectors.neighborhoodCheckbox(neighborhood));
       },
       async openPlaceFilters() {
@@ -109,18 +103,18 @@ export const getEventSearchPageComponents = (t: TestController) => {
       },
       async selectPlaceFilter(place: PlaceFieldsFragment) {
         await expectations.isPresent();
-        t.ctx.place = place;
+        t.ctx.typeText = place.name.fi;
         await t
           .click(selectors.placeSearchInput())
           .pressKey('ctrl+a delete') // clears previous input
-          .typeText(selectors.placeSearchInput(), place.name.fi)
+          .typeText(selectors.placeSearchInput(), t.ctx.typeText)
           .click(selectors.placeCheckbox(place));
       },
       async inputSearchTextAndPressEnter(searchString: string) {
         await expectations.isPresent();
-        t.ctx.searchString = searchString;
+        t.ctx.typeText = searchString;
         await t
-          .typeText(selectors.searchInput(), searchString)
+          .typeText(selectors.searchInput(), t.ctx.typeText)
           .pressKey('enter');
       },
     };
@@ -137,7 +131,8 @@ export const getEventSearchPageComponents = (t: TestController) => {
         return screen.findByTestId('resultList');
       },
       withinComponent() {
-        return within(screen.getByTestId('resultList'));
+        t.ctx.withinTestId = 'resultList';
+        return within(screen.getByTestId(t.ctx.withinTestId));
       },
       clickMoreButton() {
         return this.withinComponent().findByRole('button', {
@@ -186,36 +181,30 @@ export const getEventSearchPageComponents = (t: TestController) => {
         return screen.findByTestId(event.id);
       },
       withinComponent() {
-        return within(screen.getByTestId(event.id));
-      },
-      eventTitleLink() {
-        return this.withinComponent().findByRole('link', {
-          name: regExpEscaped(event.name.fi, 'g'),
-        });
+        t.ctx.withinTestId = event.id;
+        return within(screen.getByTestId(t.ctx.withinTestId));
       },
       keywordLink(keyword: KeywordOption) {
-        return this.withinComponent().findByRole('button', {
-          name: keyword.name,
-        });
+        t.ctx.findByRole = ['button', { name: keyword.name }];
+        return this.withinComponent().findByRole.apply(null, t.ctx.findByRole);
       },
       containsText(text: string) {
-        return this.withinComponent().findByText(RegExp(text, 'gi'));
+        t.ctx.findByText = RegExp(text, 'gi');
+        return this.withinComponent().findByText(t.ctx.findByText);
       },
       dateRangeText() {
-        return this.withinComponent().findByText(
-          getDateRangeStr({
-            start: startTime,
-            end: endTime,
-            locale: 'fi',
-            includeTime: true,
-            timeAbbreviation: 'klo',
-          })
-        );
+        t.ctx.findByText = getDateRangeStr({
+          start: startTime,
+          end: endTime,
+          locale: 'fi',
+          includeTime: true,
+          timeAbbreviation: 'klo',
+        });
+        return this.withinComponent().findByText(t.ctx.findByText);
       },
       addressText() {
-        return this.withinComponent().findByText(
-          `${locationName}, ${streetAddress}, ${addressLocality}`
-        );
+        t.ctx.findByText = `${locationName}, ${streetAddress}, ${addressLocality}`;
+        return this.withinComponent().findByText(t.ctx.findByText);
       },
     };
     const expectations = {
@@ -226,11 +215,6 @@ export const getEventSearchPageComponents = (t: TestController) => {
       },
       async eventTimeIsPresent() {
         await this.isPresent();
-        t.ctx.expectedEvent = getExpectedEventContext(
-          event,
-          'startTime',
-          'endTime'
-        );
         await t
           .expect(selectors.dateRangeText().exists)
           .ok(await getErrorMessage(t));
@@ -238,14 +222,12 @@ export const getEventSearchPageComponents = (t: TestController) => {
       async containsDate(date: Date) {
         await this.isPresent();
         const formattedDate = formatDate(date, 'd.M.yyyy');
-        t.ctx.expectedDate = formattedDate;
         await t
           .expect(selectors.containsText(formattedDate).exists)
           .ok(await getErrorMessage(t));
       },
       async addressIsPresent() {
         await this.isPresent();
-        t.ctx.expectedEvent = getExpectedEventContext(event, 'location');
         await t
           .expect(selectors.addressText().exists)
           .ok(await getErrorMessage(t));
@@ -254,7 +236,6 @@ export const getEventSearchPageComponents = (t: TestController) => {
         await t.expect(keywords.length).gt(0, await getErrorMessage(t));
         await this.isPresent();
         for (const keyword of keywords) {
-          t.ctx.keyword = keyword;
           await t
             .expect(selectors.keywordLink(keyword).exists)
             .ok(await getErrorMessage(t));
