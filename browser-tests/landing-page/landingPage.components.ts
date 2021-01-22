@@ -38,21 +38,25 @@ export const getLandingPageComponents = (t: TestController) => {
     };
     const expectations = {
       async isPresent() {
-        await t.expect(selectors.component().exists).ok(getErrorMessage(t));
+        await t
+          .expect(selectors.component().exists)
+          .ok(await getErrorMessage(t));
       },
       async bannerTitleIsVisible() {
         await this.isPresent();
-        await t.expect(selectors.title().exists).ok(getErrorMessage(t));
+        await t.expect(selectors.title().exists).ok(await getErrorMessage(t));
       },
       async bannerButtonIsVisible() {
         await this.isPresent();
-        await t.expect(selectors.buttonLink().exists).ok(getErrorMessage(t));
+        await t
+          .expect(selectors.buttonLink().exists)
+          .ok(await getErrorMessage(t));
       },
       async bannerDescriptionIsVisible() {
         await this.isPresent();
         await t
           .expect(selectors.descriptionText().exists)
-          .ok(getErrorMessage(t));
+          .ok(await getErrorMessage(t));
       },
       async bannerDataIsVisible() {
         await this.bannerTitleIsVisible();
@@ -94,13 +98,15 @@ export const getLandingPageComponents = (t: TestController) => {
     };
     const expectations = {
       async isPresent() {
-        await t.expect(selectors.component().exists).ok(getErrorMessage(t));
+        await t
+          .expect(selectors.component().exists)
+          .ok(await getErrorMessage(t));
       },
       async collectionTitleIsVisible() {
         await this.isPresent();
         await t
           .expect(selectors.collectionTitle().exists)
-          .ok(getErrorMessage(t));
+          .ok(await getErrorMessage(t));
       },
     };
     const actions = {

@@ -56,7 +56,7 @@ export const getHeaderComponents = (
     };
     const expectations = {
       async isPresent() {
-        await t.expect(component().exists).ok(getErrorMessage(t));
+        await t.expect(component().exists).ok(await getErrorMessage(t));
       },
     };
     const actions = {
@@ -92,19 +92,19 @@ export const getHeaderComponents = (
     };
     const expectations = {
       async isPresent() {
-        await t.expect(component().exists).ok(getErrorMessage(t));
+        await t.expect(component().exists).ok(await getErrorMessage(t));
       },
       async eventSearchPageTabIsVisible() {
         await this.isPresent();
         await t
           .expect(selectors.eventSearchTab().exists)
-          .ok(getErrorMessage(t));
+          .ok(await getErrorMessage(t));
       },
       async recommendationsPageTabIsVisible() {
         await this.isPresent();
         await t
           .expect(selectors.recommendationsTab().exists)
-          .ok(getErrorMessage(t));
+          .ok(await getErrorMessage(t));
       },
     };
     const actions = {

@@ -37,9 +37,9 @@ export const getUrlUtils = (t: TestController) => {
       t.ctx.expectedEvent = event;
       await t
         .expect(getPathname())
-        .eql(`/fi/event/${event.id}`, getErrorMessage(t))
+        .eql(`/fi/event/${event.id}`, await getErrorMessage(t))
         .expect(getPageTitle())
-        .eql(event.name.fi, getErrorMessage(t));
+        .eql(event.name.fi, await getErrorMessage(t));
     },
     async urlChangedToEventSearchPage() {
       await t
@@ -59,15 +59,15 @@ export const getUrlUtils = (t: TestController) => {
       t.ctx.banner = banner;
       await t
         .expect(getUrl())
-        .eql(`${banner.buttonUrl.fi}`, getErrorMessage(t));
+        .eql(`${banner.buttonUrl.fi}`, await getErrorMessage(t));
     },
     async urlChangedToCollectionPage(collection: CollectionFieldsFragment) {
       t.ctx.collection = collection;
       await t
         .expect(getPathname())
-        .eql(`/fi/collection/${collection.slug}`, getErrorMessage(t))
+        .eql(`/fi/collection/${collection.slug}`, await getErrorMessage(t))
         .expect(getPageTitle())
-        .eql(collection.title.fi, getErrorMessage(t));
+        .eql(collection.title.fi, await getErrorMessage(t));
     },
   };
   return {

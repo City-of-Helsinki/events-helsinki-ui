@@ -64,14 +64,16 @@ export const getEventSearchPageComponents = (t: TestController) => {
     };
     const expectations = {
       async isPresent() {
-        await t.expect(selectors.component().exists).ok(getErrorMessage(t));
+        await t
+          .expect(selectors.component().exists)
+          .ok(await getErrorMessage(t));
       },
       async neighborhoodOptionIsPresent(neighborhood: Neighborhood) {
         await this.isPresent();
         t.ctx.neighborhood = neighborhood;
         await t
           .expect(selectors.neighborhoodCheckbox(neighborhood).exists)
-          .ok(getErrorMessage(t));
+          .ok(await getErrorMessage(t));
       },
     };
     const actions = {
@@ -145,7 +147,9 @@ export const getEventSearchPageComponents = (t: TestController) => {
     };
     const expectations = {
       async isPresent() {
-        await t.expect(selectors.component().exists).ok(getErrorMessage(t));
+        await t
+          .expect(selectors.component().exists)
+          .ok(await getErrorMessage(t));
       },
       async allEventCardsAreVisible(events: EventFieldsFragment[]) {
         await this.isPresent();
@@ -218,13 +222,13 @@ export const getEventSearchPageComponents = (t: TestController) => {
       async isPresent() {
         await t
           .expect(selectors.component().exists)
-          .ok(getErrorMessage(t), { timeout: 30000 });
+          .ok(await getErrorMessage(t), { timeout: 30000 });
       },
       async titleLinkIsPresent() {
         await this.isPresent();
         await t
           .expect(selectors.eventTitleLink().exists)
-          .ok(getErrorMessage(t));
+          .ok(await getErrorMessage(t));
       },
       async eventTimeIsPresent() {
         await this.isPresent();
@@ -233,7 +237,9 @@ export const getEventSearchPageComponents = (t: TestController) => {
           'startTime',
           'endTime'
         );
-        await t.expect(selectors.dateRangeText().exists).ok(getErrorMessage(t));
+        await t
+          .expect(selectors.dateRangeText().exists)
+          .ok(await getErrorMessage(t));
       },
       async containsDate(date: Date) {
         await this.isPresent();
@@ -241,21 +247,23 @@ export const getEventSearchPageComponents = (t: TestController) => {
         t.ctx.expectedDate = formattedDate;
         await t
           .expect(selectors.containsText(formattedDate).exists)
-          .ok(getErrorMessage(t));
+          .ok(await getErrorMessage(t));
       },
       async addressIsPresent() {
         await this.isPresent();
         t.ctx.expectedEvent = getExpectedEventContext(event, 'location');
-        await t.expect(selectors.addressText().exists).ok(getErrorMessage(t));
+        await t
+          .expect(selectors.addressText().exists)
+          .ok(await getErrorMessage(t));
       },
       async keywordButtonsArePresent() {
-        await t.expect(keywords.length).gt(0, getErrorMessage(t));
+        await t.expect(keywords.length).gt(0, await getErrorMessage(t));
         await this.isPresent();
         for (const keyword of keywords) {
           t.ctx.keyword = keyword;
           await t
             .expect(selectors.keywordLink(keyword).exists)
-            .ok(getErrorMessage(t));
+            .ok(await getErrorMessage(t));
         }
       },
     };
