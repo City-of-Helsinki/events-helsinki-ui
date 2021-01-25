@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [windows-latest]
     env:
       BROWSER_TESTS_UID: ${{ secrets.BROWSER_TESTS_UID }}
       BROWSER_TESTS_PWD: ${{ secrets.BROWSER_TESTS_PWD }}
