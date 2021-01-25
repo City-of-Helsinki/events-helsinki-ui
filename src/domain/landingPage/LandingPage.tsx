@@ -60,7 +60,7 @@ const LandingPage: React.FC = () => {
           <>
             <LandingPageMeta landingPage={landingPage} />
             {landingPage.topBanner && (
-              <BannerHero banner={landingPage.topBanner} />
+              <BannerHero banner={landingPage.topBanner} location="top" />
             )}
           </>
         )}
@@ -108,7 +108,7 @@ const LandingPage: React.FC = () => {
           </MainContent>
         )}
         {landingPage?.bottomBanner && (
-          <BannerHero banner={landingPage.bottomBanner} />
+          <BannerHero banner={landingPage.bottomBanner} location="bottom" />
         )}
       </LoadingSpinner>
     </PageWrapper>
