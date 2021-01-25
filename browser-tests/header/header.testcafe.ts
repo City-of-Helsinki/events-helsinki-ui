@@ -15,23 +15,25 @@ fixture('Landing page header')
   });
 
 test('Changing language on landing page', async () => {
-  const tabs = components.tabs();
-  const languageSelector = components.languageSelector();
-  await tabs.expectations.eventSearchPageTabIsVisible();
-  await tabs.expectations.recommendationsPageTabIsVisible();
+  const headerTabs = await components.headerTabs();
+  const languageSelector = await components.languageSelector();
+  await headerTabs.expectations.eventSearchPageTabIsVisible();
+  await headerTabs.expectations.recommendationsPageTabIsVisible();
 
   await languageSelector.actions.changeLanguage(SUPPORT_LANGUAGES.SV);
 
-  await tabs.expectations.eventSearchPageTabIsVisible();
-  await tabs.expectations.recommendationsPageTabIsVisible();
+  await headerTabs.expectations.eventSearchPageTabIsVisible();
+  await headerTabs.expectations.recommendationsPageTabIsVisible();
 });
 
 test('Event search page is navigable from landing page header', async () => {
-  await components.tabs().actions.clickEventSearchPageTab();
+  const headerTabs = await components.headerTabs();
+  await headerTabs.actions.clickEventSearchPageTab();
   await urlUtils.expectations.urlChangedToEventSearchPage();
 });
 
 test('Recommended page is navigable from landing page header', async () => {
-  await components.tabs().actions.clickRecommendationsPageTab();
+  const headerTabs = await components.headerTabs();
+  await headerTabs.actions.clickRecommendationsPageTab();
   await urlUtils.expectations.urlChangedToRecommendationsPage();
 });

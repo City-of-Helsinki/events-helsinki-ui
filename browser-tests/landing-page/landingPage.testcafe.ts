@@ -18,13 +18,13 @@ test('banner data is present and links work', async () => {
     bottomBanner,
     topBanner,
   } = await landingPageDataSource.getLandingPageCmsData();
-  const topBannerComponent = components.topBanner(topBanner);
-  await topBannerComponent.expectations.bannerDataIsVisible();
+  const topBannerComponent = await components.topBanner(topBanner);
+  await topBannerComponent.expectations.bannerDataIsPresent();
   await topBannerComponent.actions.clickButtonLink();
   await urlUtils.expectations.urlChangedToBannerPage(topBanner);
   await urlUtils.actions.navigateToLandingPage();
-  const bottomBannerComponent = components.bottomBanner(bottomBanner);
-  await bottomBannerComponent.expectations.bannerDataIsVisible();
+  const bottomBannerComponent = await components.bottomBanner(bottomBanner);
+  await bottomBannerComponent.expectations.bannerDataIsPresent();
   await bottomBannerComponent.actions.clickButtonLink();
   await urlUtils.expectations.urlChangedToBannerPage(bottomBanner);
 });
@@ -33,8 +33,8 @@ test('collection urls work', async (t) => {
   const collectionList = await landingPageDataSource.getCollectionList();
   await t.expect(collectionList.length).gt(0);
   for (const collection of collectionList) {
-    const collectionCard = components.collectionCard(collection);
-    await collectionCard.expectations.collectionTitleIsVisible();
+    const collectionCard = await components.collectionCard(collection);
+    await collectionCard.expectations.collectionTitleIsPresent();
     await collectionCard.actions.clickCollectionLink();
     await urlUtils.expectations.urlChangedToCollectionPage(collection);
     await urlUtils.actions.navigateToLandingPage();

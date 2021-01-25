@@ -24,44 +24,42 @@ export const getHeaderComponents = (
   locale = DEFAULT_LANGUAGE
 ) => {
   t.ctx.expectedLanguage = locale;
-  const component = () => {
+  const header = () => {
     return screen.findByRole('banner');
   };
-  const withinComponent = () => {
+  const withinHeader = () => {
     return within(screen.getByRole('banner'));
   };
-  const languageSelector = () => {
+  const isHeaderPresent = async () => {
+    await t.expect(header().exists).ok(await getErrorMessage(t));
+  };
+  const languageSelector = async () => {
+    await isHeaderPresent();
     const selectors = {
       languageSelector() {
-        return withinComponent().findByRole('button', {
+        return withinHeader().findByRole('button', {
           name: getTranslations(t.ctx.expectedLanguage).header.changeLanguage,
         });
       },
       languageSelectorItem(lang: SUPPORT_LANGUAGES) {
-        return withinComponent().findByRole('menuitem', {
+        return withinHeader().findByRole('menuitem', {
           name: getTranslations(t.ctx.expectedLanguage).header.languages[lang],
         });
       },
       eventSearchTab() {
-        return withinComponent().findByRole('link', {
+        return withinHeader().findByRole('link', {
           name: getTranslations(t.ctx.expectedLanguage).header.searchEvents,
         });
       },
       recommendationsTab() {
-        return withinComponent().findByRole('link', {
+        return withinHeader().findByRole('link', {
           name: getTranslations(t.ctx.expectedLanguage).header
             .searchCollections,
         });
       },
     };
-    const expectations = {
-      async isPresent() {
-        await t.expect(component().exists).ok(await getErrorMessage(t));
-      },
-    };
     const actions = {
       async changeLanguage(lang: SUPPORT_LANGUAGES) {
-        await expectations.isPresent();
         const result = await t
           .click(selectors.languageSelector())
           .click(selectors.languageSelectorItem(lang));
@@ -69,39 +67,33 @@ export const getHeaderComponents = (
         return result;
       },
     };
-
     return {
       selectors,
-      expectations,
       actions,
     };
   };
-  const tabs = () => {
+  const headerTabs = async () => {
+    await isHeaderPresent();
     const selectors = {
       eventSearchTab() {
-        return withinComponent().findByRole('link', {
+        return withinHeader().findByRole('link', {
           name: getTranslations(t.ctx.expectedLanguage).header.searchEvents,
         });
       },
       recommendationsTab() {
-        return withinComponent().findByRole('link', {
+        return withinHeader().findByRole('link', {
           name: getTranslations(t.ctx.expectedLanguage).header
             .searchCollections,
         });
       },
     };
     const expectations = {
-      async isPresent() {
-        await t.expect(component().exists).ok(await getErrorMessage(t));
-      },
       async eventSearchPageTabIsVisible() {
-        await this.isPresent();
         await t
           .expect(selectors.eventSearchTab().exists)
           .ok(await getErrorMessage(t));
       },
       async recommendationsPageTabIsVisible() {
-        await this.isPresent();
         await t
           .expect(selectors.recommendationsTab().exists)
           .ok(await getErrorMessage(t));
@@ -109,11 +101,9 @@ export const getHeaderComponents = (
     };
     const actions = {
       async clickEventSearchPageTab() {
-        await expectations.isPresent();
         await t.click(selectors.eventSearchTab());
       },
       async clickRecommendationsPageTab() {
-        await expectations.isPresent();
         await t.click(selectors.recommendationsTab());
       },
     };
@@ -126,6 +116,6 @@ export const getHeaderComponents = (
   };
   return {
     languageSelector,
-    tabs,
+    headerTabs,
   };
 };

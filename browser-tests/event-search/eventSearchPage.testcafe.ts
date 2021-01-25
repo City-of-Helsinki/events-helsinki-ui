@@ -1,6 +1,3 @@
-import addDays from 'date-fns/addDays';
-import endOfWeek from 'date-fns/endOfWeek';
-import subDays from 'date-fns/subDays';
 import TestController from 'testcafe';
 
 import {
@@ -11,6 +8,7 @@ import {
 import { PAGE_SIZE } from '../../src/domain/eventSearch/constants';
 import { getEvents, getHelsinkiEvents } from '../datasources/eventDataSource';
 import { searchFilterDataSource } from '../datasources/searchFilterDataSource';
+import { getEventDate } from '../utils/event.utils';
 import { EventFieldsFragment } from '../utils/generated/graphql';
 import {
   selectRandomValueFromArray,
@@ -34,22 +32,20 @@ fixture('Event search page')
 test('shows neighborhoods in filter options', async (t) => {
   const neighborhoodOptions = await searchFilterDataSource.getNeighborhoodOptions();
   await t.expect(neighborhoodOptions.length).gt(0);
-  const searchContainer = components.searchContainer();
-  await searchContainer.actions.openNeighborhoodFilters();
+  const searchBanner = await components.searchBanner();
+  await searchBanner.actions.openNeighborhoodFilters();
   for (const neighborhood of neighborhoodOptions) {
-    await searchContainer.expectations.neighborhoodOptionIsPresent(
-      neighborhood
-    );
+    await searchBanner.expectations.neighborhoodOptionIsPresent(neighborhood);
   }
 });
 
 test('shows Helsinki places in filter options', async (t) => {
   const placeOptions = await searchFilterDataSource.getHelsinkiPlaceOptions();
   await t.expect(placeOptions.length).gt(0);
-  const searchContainer = components.searchContainer();
-  await searchContainer.actions.openPlaceFilters();
+  const searchBanner = await components.searchBanner();
+  await searchBanner.actions.openPlaceFilters();
   for (const place of selectRandomValuesFromArray(placeOptions, 3)) {
-    await searchContainer.actions.selectPlaceFilter(place);
+    await searchBanner.actions.selectPlaceFilter(place);
   }
 });
 
@@ -58,17 +54,16 @@ test('"click more events" -button works', async (t) => {
   // some events may have been filtered if they are not in finnish
   // we need to find more events than one PAGE_SIZE in order to try clickMoreEventsButton
   await t.expect(events.length).gt(PAGE_SIZE);
-  const resultList = components.resultList();
-  await resultList.actions.clickShowMoreEventsButton();
-  await resultList.expectations.allEventCardsAreVisible(events);
+  const searchResults = await components.searchResults();
+  await searchResults.actions.clickShowMoreEventsButton();
+  await searchResults.expectations.allEventCardsAreVisible(events);
 });
 
 test('Free text search shows event card data for helsinki event', async () => {
   const [event] = await getHelsinkiEvents();
-  await components
-    .searchContainer()
-    .actions.inputSearchTextAndPressEnter(event.name.fi);
-  const eventCard = components.eventCard(event);
+  const searchBanner = await components.searchBanner();
+  await searchBanner.actions.inputSearchTextAndPressEnter(event.name.fi);
+  const eventCard = await components.eventCard(event);
   await eventCard.expectations.eventTimeIsPresent();
   await eventCard.expectations.addressIsPresent();
   await eventCard.expectations.keywordButtonsArePresent();
@@ -83,30 +78,57 @@ test('search url finds event by free text search', async (t) => {
       event.description[locale] &&
       selectRandomValueFromArray(splitBySentences(event.description[locale]));
     const randomKeyword = selectRandomValueFromArray(event.keywords);
-    await testSearchEventByText(t, event, event.name[locale]);
-    await testSearchEventByText(t, event, event.shortDescription[locale]);
-    await testSearchEventByText(t, event, randomDescriptionSentence);
-    await testSearchEventByText(t, event, event.location.name[locale]);
-    await testSearchEventByText(t, event, event.location.streetAddress[locale]);
-    await testSearchEventByText(t, event, randomKeyword.name[locale]);
+    await testSearchEventByText(t, event, event.name[locale], 'name');
+    await testSearchEventByText(
+      t,
+      event,
+      event.shortDescription[locale],
+      'shortDescription'
+    );
+    await testSearchEventByText(
+      t,
+      event,
+      randomDescriptionSentence,
+      'description'
+    );
+    await testSearchEventByText(
+      t,
+      event,
+      event.location.name[locale],
+      'location'
+    );
+    await testSearchEventByText(
+      t,
+      event,
+      event.location.streetAddress[locale],
+      'location'
+    );
+    await testSearchEventByText(
+      t,
+      event,
+      randomKeyword.name[locale],
+      'keywords'
+    );
   }
 });
 
 const testSearchEventByText = async (
   t: TestController,
   event: EventFieldsFragment,
-  freeText: string
+  freeText: string,
+  expectedField?: keyof EventFieldsFragment
 ) => {
   if (!freeText) {
     return;
   }
   await urlUtils.actions.navigateToSearchUrl(freeText);
-  await components.eventCard(event).expectations.isPresent();
+  const eventCard = await components.eventCard(event);
+  await eventCard.expectations.componentIsPresent(expectedField);
 };
 
 test('Future events can be searched', async () => {
-  const searchContainer = components.searchContainer();
-  await searchContainer.actions.openDateFilters();
+  const searchBanner = await components.searchBanner();
+  await searchBanner.actions.openDateFilters();
   for (const dateRange of [DATE_TYPES.TOMORROW, DATE_TYPES.WEEKEND]) {
     const [event] = await getHelsinkiEvents(
       PAGE_SIZE,
@@ -114,28 +136,11 @@ test('Future events can be searched', async () => {
       `dateTypes=${dateRange}`
     );
 
-    await searchContainer.actions.selectDateRange(dateRange);
-    await searchContainer.actions.clickSearchButton();
-    await components.eventCard(event).expectations.isPresent();
-    await components
-      .eventCard(event)
-      .expectations.containsDate(getDate(dateRange));
-    await searchContainer.actions.openDateFilters();
-    await searchContainer.actions.selectDateRange(dateRange); // unselect previous choice
+    await searchBanner.actions.selectDateRange(dateRange);
+    await searchBanner.actions.clickSearchButton();
+    const eventCard = await components.eventCard(event);
+    await eventCard.expectations.containsDate(getEventDate(dateRange));
+    await searchBanner.actions.openDateFilters();
+    await searchBanner.actions.selectDateRange(dateRange); // unselect previous choice
   }
 });
-
-const getDate = (dateRange: string) => {
-  const today = new Date();
-  const sunday = endOfWeek(today, { weekStartsOn: 1 });
-  const saturday = subDays(sunday, 1);
-  switch (dateRange) {
-    case DATE_TYPES.TODAY:
-    case DATE_TYPES.THIS_WEEK:
-      return today;
-    case DATE_TYPES.TOMORROW:
-      return addDays(today, 1);
-    case DATE_TYPES.WEEKEND:
-      return today && today > saturday ? today : saturday;
-  }
-};

@@ -21,13 +21,13 @@ test('banner data is present and links work', async () => {
     id: pageId,
   } = await landingPageDataSource.getLandingPageCmsData();
   await urlUtils.actions.navigateToLandingPreviewPage(pageId);
-  const topBannerComponent = components.topBanner(topBanner);
-  await topBannerComponent.expectations.bannerDataIsVisible();
+  const topBannerComponent = await components.topBanner(topBanner);
+  await topBannerComponent.expectations.bannerDataIsPresent();
   await topBannerComponent.actions.clickButtonLink();
   await urlUtils.expectations.urlChangedToBannerPage(topBanner);
   await urlUtils.actions.navigateToLandingPreviewPage(pageId);
-  const bottomBannerComponent = components.bottomBanner(bottomBanner);
-  await bottomBannerComponent.expectations.bannerDataIsVisible();
+  const bottomBannerComponent = await components.bottomBanner(bottomBanner);
+  await bottomBannerComponent.expectations.bannerDataIsPresent();
   await bottomBannerComponent.actions.clickButtonLink();
   await urlUtils.expectations.urlChangedToBannerPage(bottomBanner);
 });

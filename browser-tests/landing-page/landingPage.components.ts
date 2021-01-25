@@ -10,17 +10,20 @@ import {
 import { regExpEscaped } from '../utils/regexp.util';
 
 export const getLandingPageComponents = (t: TestController) => {
-  const banner = (banner: BannerPageFieldsFragment, type: 'top' | 'bottom') => {
-    t.ctx.expectedBannerType = type;
-    t.ctx.expectedBanner = {
-      title: banner.title.fi,
-      description: banner.description.fi,
-    };
+  const banner = async (
+    banner: BannerPageFieldsFragment,
+    type: 'top' | 'bottom'
+  ) => {
     const selectors = {
-      component() {
+      banner() {
+        t.ctx.expectedBannerType = type;
+        t.ctx.expectedBanner = {
+          title: banner.title.fi,
+          description: banner.description.fi,
+        };
         return screen.findByTestId(`${type}-banner`);
       },
-      withinComponent() {
+      withinBanner() {
         t.ctx.withinTestId = `${type}-banner`;
         return within(screen.getByTestId(`${type}-banner`));
       },
@@ -29,43 +32,38 @@ export const getLandingPageComponents = (t: TestController) => {
           'heading',
           { name: regExpEscaped(banner.title.fi) },
         ];
-        return this.withinComponent().findByRole.apply(null, t.ctx.findByRole);
+        return this.withinBanner().findByRole.apply(null, t.ctx.findByRole);
       },
       buttonLink() {
         t.ctx.findByRole = [
           'button',
           { name: regExpEscaped(banner.buttonText.fi) },
         ];
-        return this.withinComponent().findByRole.apply(null, t.ctx.findByRole);
+        return this.withinBanner().findByRole.apply(null, t.ctx.findByRole);
       },
       descriptionText() {
         t.ctx.findByText = regExpEscaped(banner.description.fi);
-        return this.withinComponent().findByText(t.ctx.findByText);
+        return this.withinBanner().findByText(t.ctx.findByText);
       },
     };
     const expectations = {
-      async isPresent() {
-        await t
-          .expect(selectors.component().exists)
-          .ok(await getErrorMessage(t));
+      async isBannerPresent() {
+        await t.expect(selectors.banner().exists).ok(await getErrorMessage(t));
       },
       async bannerTitleIsVisible() {
-        await this.isPresent();
         await t.expect(selectors.title().exists).ok(await getErrorMessage(t));
       },
       async bannerButtonIsVisible() {
-        await this.isPresent();
         await t
           .expect(selectors.buttonLink().exists)
           .ok(await getErrorMessage(t));
       },
       async bannerDescriptionIsVisible() {
-        await this.isPresent();
         await t
           .expect(selectors.descriptionText().exists)
           .ok(await getErrorMessage(t));
       },
-      async bannerDataIsVisible() {
+      async bannerDataIsPresent() {
         await this.bannerTitleIsVisible();
         await this.bannerButtonIsVisible();
         await this.bannerDescriptionIsVisible();
@@ -73,11 +71,10 @@ export const getLandingPageComponents = (t: TestController) => {
     };
     const actions = {
       async clickButtonLink() {
-        await expectations.isPresent();
         await t.click(selectors.buttonLink());
       },
     };
-
+    await expectations.isBannerPresent();
     return {
       selectors,
       expectations,
@@ -89,28 +86,29 @@ export const getLandingPageComponents = (t: TestController) => {
   const bottomBanner = (bannerData: BannerPageFieldsFragment) =>
     banner(bannerData, 'bottom');
 
-  const collectionCard = (collection: CollectionFieldsFragment) => {
+  const collectionCard = async (collection: CollectionFieldsFragment) => {
     const selectors = {
-      component() {
+      collectionCard() {
         return screen.findByTestId(collection.id);
       },
-      withinComponent() {
+      withinCollectionCard() {
         t.ctx.withinTestId = collection.id;
         return within(screen.getByTestId(t.ctx.withinTestId));
       },
       collectionTitle() {
         t.ctx.findByLabelText = regExpEscaped(collection.title.fi);
-        return this.withinComponent().findByLabelText(t.ctx.findByLabelText);
+        return this.withinCollectionCard().findByLabelText(
+          t.ctx.findByLabelText
+        );
       },
     };
     const expectations = {
-      async isPresent() {
+      async collectionCardIsPresent() {
         await t
-          .expect(selectors.component().exists)
+          .expect(selectors.collectionCard().exists)
           .ok(await getErrorMessage(t));
       },
-      async collectionTitleIsVisible() {
-        await this.isPresent();
+      async collectionTitleIsPresent() {
         await t
           .expect(selectors.collectionTitle().exists)
           .ok(await getErrorMessage(t));
@@ -118,11 +116,10 @@ export const getLandingPageComponents = (t: TestController) => {
     };
     const actions = {
       async clickCollectionLink() {
-        await expectations.isPresent();
         await t.click(selectors.collectionTitle());
       },
     };
-
+    await expectations.collectionCardIsPresent();
     return {
       selectors,
       expectations,
