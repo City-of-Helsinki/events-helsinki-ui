@@ -95,6 +95,7 @@
     "browser-test-debug": "testcafe $NODE_DEBUG_OPTION \"chrome --window-size='1920,1080'\" browser-tests/",
     "browser-test": "testcafe \"chrome --window-size='1920,1080'\" browser-tests/",
     "browser-test:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" --screenshots takeOnFails=true browser-tests/",
+    "start-and-run-browser-test:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" --app \"yarn start\" --app-init-delay=60000 -screenshots takeOnFails=true browser-tests/ ",
     "lint": "eslint --ext js,ts,tsx src",
     "format-code": "eslint --ext js,ts,tsx src --fix --max-warnings=0"
   },

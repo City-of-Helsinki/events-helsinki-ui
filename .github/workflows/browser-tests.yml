@@ -38,9 +38,8 @@ jobs:
       - name: Install dependencies
         run: yarn --prefer-offline --frozen-lockfile --check-files
       - name: Run Acceptance Tests (TestCafe Browser Tests)
-        run: yarn browser-test:ci
+        run: yarn start-and-run-browser-test:ci
         env:
-          BROWSER_TESTS_LOCAL_ENV_URL: http://localhost:3000
           REACT_APP_GRAPHQL_BASE_URL: https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql
       - name: Upload screenshots of failed tests
         uses: actions/upload-artifact@v2
