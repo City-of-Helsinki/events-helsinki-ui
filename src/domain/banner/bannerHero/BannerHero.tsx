@@ -130,9 +130,8 @@ const BannerHero: React.FC<Props> = ({ banner, location }) => {
           data-testid={testIds.heroTopLayerImage}
           style={{
             backgroundImage: `url(${heroTopLayerImage})`,
-            backgroundPosition: `center calc(100% - ${
-              location === 'top' ? 5.5 : 0
-            }rem)`,
+            // prettier-ignore
+            backgroundPosition: `center calc(100% - ${location === 'top' ? 5.5 : 0}rem)`,
           }}
         />
       )}
