@@ -67,7 +67,7 @@ export const getUrlUtils = (t: TestController) => {
         .expect(getPathname())
         .eql(`/fi/collection/${collection.slug}`, await getErrorMessage(t))
         .expect(getPageTitle())
-        .eql(collection.title.fi, await getErrorMessage(t));
+        .eql(collection.title.fi, await getErrorMessage(t), { timeout: 10000 });
     },
   };
   return {
