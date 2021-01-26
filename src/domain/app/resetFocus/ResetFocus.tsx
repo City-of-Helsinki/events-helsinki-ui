@@ -19,7 +19,7 @@ const ResetFocus = (): React.ReactElement => {
     }
   }, [pathname]);
 
-  return <div ref={node} tabIndex={-1} id={resetFocusId}></div>;
+  return <div ref={node} tabIndex={-1} id={resetFocusId} />;
 };
 
 export default ResetFocus;
