@@ -16,62 +16,50 @@ import {
   PlaceFieldsFragment,
 } from '../utils/generated/graphql';
 
-export const getEventSearchPageComponents = (t: TestController) => {
+export const getEventSearchPage = (t: TestController) => {
   const searchBanner = async () => {
-    await screen.findByTestId('searchContainer');
+    const withinSearchBanner = () => {
+      t.ctx.withinTestId = 'searchContainer';
+      return within(screen.getByTestId(t.ctx.withinTestId));
+    };
     const selectors = {
       searchBanner() {
         return screen.findByTestId('searchContainer');
       },
-      withinSearchBanner() {
-        t.ctx.withinTestId = 'searchContainer';
-        return within(screen.getByTestId(t.ctx.withinTestId));
-      },
       searchButton() {
-        return this.withinSearchBanner().findByRole('button', { name: 'Hae' });
+        return withinSearchBanner().findByRole('button', { name: 'Hae' });
       },
       dateRangeFilter() {
-        return this.withinSearchBanner().findByLabelText('Valitse ajankohta');
+        return withinSearchBanner().findByLabelText('Valitse ajankohta');
       },
       dateRangeCheckbox(range: string) {
         t.ctx.findByRole = ['checkbox', { name: range }];
-        return this.withinSearchBanner().findByRole.apply(
-          null,
-          t.ctx.findByRole
-        );
+        return withinSearchBanner().findByRole.apply(null, t.ctx.findByRole);
       },
       neighborhoodFilter() {
-        return this.withinSearchBanner().findByLabelText('Etsi alue');
+        return withinSearchBanner().findByLabelText('Etsi alue');
       },
       neighborhoodCheckbox(n: Neighborhood) {
         t.ctx.findByRole = ['checkbox', { name: n.name.fi }];
-        return this.withinSearchBanner().findByRole.apply(
-          null,
-          t.ctx.findByRole
-        );
+        return withinSearchBanner().findByRole.apply(null, t.ctx.findByRole);
       },
       placeFilter() {
-        return this.withinSearchBanner().findByLabelText(
-          'Etsi tapahtumapaikka'
-        );
+        return withinSearchBanner().findByLabelText('Etsi tapahtumapaikka');
       },
       placeSearchInput() {
-        return this.withinSearchBanner().findByLabelText('Kirjoita hakusana');
+        return withinSearchBanner().findByLabelText('Kirjoita hakusana');
       },
       placeCheckbox(place: PlaceFieldsFragment) {
         t.ctx.findByRole = ['checkbox', { name: place.name.fi }];
-        return this.withinSearchBanner().findByRole.apply(
-          null,
-          t.ctx.findByRole
-        );
+        return withinSearchBanner().findByRole.apply(null, t.ctx.findByRole);
       },
       searchInput() {
-        return this.withinSearchBanner().findByPlaceholderText(
+        return withinSearchBanner().findByPlaceholderText(
           'Kirjoita hakusana, esim. rock tai jooga'
         );
       },
       clearFiltersButton() {
-        return this.withinSearchBanner().findByRole('button', {
+        return withinSearchBanner().findByRole('button', {
           name: 'Tyhjennä hakuehdot',
         });
       },
@@ -137,16 +125,16 @@ export const getEventSearchPageComponents = (t: TestController) => {
     };
   };
   const searchResults = async () => {
+    const withinSearchResultList = () => {
+      t.ctx.withinTestId = 'resultList';
+      return within(screen.getByTestId(t.ctx.withinTestId));
+    };
     const selectors = {
       searchResultList() {
         return screen.findByTestId('resultList');
       },
-      withinSearchResultList() {
-        t.ctx.withinTestId = 'resultList';
-        return within(screen.getByTestId(t.ctx.withinTestId));
-      },
       clickMoreButton() {
-        return this.withinSearchResultList().findByRole('button', {
+        return withinSearchResultList().findByRole('button', {
           name: /Näytä lisää tapahtumia/g,
         });
       },
@@ -160,7 +148,7 @@ export const getEventSearchPageComponents = (t: TestController) => {
       async allEventCardsAreVisible(events: EventFieldsFragment[]) {
         for (const e of events) {
           const event = await eventCard(e);
-          await event.expectations.componentIsPresent();
+          await event.expectations.evenrCardIsPresent();
         }
       },
     };
@@ -186,21 +174,22 @@ export const getEventSearchPageComponents = (t: TestController) => {
       addressLocality,
       keywords,
     } = getEventFields(event, 'fi');
+
+    const withinEventCard = () => {
+      t.ctx.withinTestId = event.id;
+      return within(screen.getByTestId(t.ctx.withinTestId));
+    };
     const selectors = {
       eventCard() {
         return screen.findByTestId(event.id);
       },
-      withinEventCard() {
-        t.ctx.withinTestId = event.id;
-        return within(screen.getByTestId(t.ctx.withinTestId));
-      },
       keywordLink(keyword: KeywordOption) {
         t.ctx.findByRole = ['button', { name: keyword.name }];
-        return this.withinEventCard().findByRole.apply(null, t.ctx.findByRole);
+        return withinEventCard().findByRole.apply(null, t.ctx.findByRole);
       },
       containsText(text: string) {
         t.ctx.findByText = RegExp(text, 'gi');
-        return this.withinEventCard().findByText(t.ctx.findByText);
+        return withinEventCard().findByText(t.ctx.findByText);
       },
       dateRangeText() {
         t.ctx.findByText = getDateRangeStr({
@@ -210,15 +199,15 @@ export const getEventSearchPageComponents = (t: TestController) => {
           includeTime: true,
           timeAbbreviation: 'klo',
         });
-        return this.withinEventCard().findByText(t.ctx.findByText);
+        return withinEventCard().findByText(t.ctx.findByText);
       },
       addressText() {
         t.ctx.findByText = `${locationName}, ${streetAddress}, ${addressLocality}`;
-        return this.withinEventCard().findByText(t.ctx.findByText);
+        return withinEventCard().findByText(t.ctx.findByText);
       },
     };
     const expectations = {
-      async componentIsPresent(expectedField?: keyof EventFieldsFragment) {
+      async evenrCardIsPresent(expectedField?: keyof EventFieldsFragment) {
         const results = await searchResults();
         await results.expectations.searchResultListIsPresent();
         t.ctx.withinTestId = 'resultList';
@@ -259,7 +248,7 @@ export const getEventSearchPageComponents = (t: TestController) => {
         await t.click(selectors.eventCard());
       },
     };
-    await expectations.componentIsPresent();
+    await expectations.evenrCardIsPresent();
     return {
       selectors,
       expectations,

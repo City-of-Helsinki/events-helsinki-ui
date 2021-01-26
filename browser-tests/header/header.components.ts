@@ -19,10 +19,7 @@ const getTranslations = (locale: SUPPORT_LANGUAGES) => {
   }
 };
 
-export const getHeaderComponents = (
-  t: TestController,
-  locale = DEFAULT_LANGUAGE
-) => {
+export const getHeader = (t: TestController, locale = DEFAULT_LANGUAGE) => {
   t.ctx.expectedLanguage = locale;
   const header = () => {
     return screen.findByRole('banner');

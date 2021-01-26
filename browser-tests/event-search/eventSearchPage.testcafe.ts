@@ -17,14 +17,14 @@ import {
 import { splitBySentences } from '../utils/regexp.util';
 import { getEnvUrl } from '../utils/settings';
 import { getUrlUtils } from '../utils/url.utils';
-import { getEventSearchPageComponents } from './eventSearchPage.components';
+import { getEventSearchPage } from './eventSearchPage.components';
 
-let components: ReturnType<typeof getEventSearchPageComponents>;
+let eventSearchPage: ReturnType<typeof getEventSearchPage>;
 let urlUtils: ReturnType<typeof getUrlUtils>;
 fixture('Event search page')
   .page(getEnvUrl('/fi/events'))
   .beforeEach(async (t) => {
-    components = getEventSearchPageComponents(t);
+    eventSearchPage = getEventSearchPage(t);
     urlUtils = getUrlUtils(t);
     t.ctx = {};
   });
@@ -32,7 +32,7 @@ fixture('Event search page')
 test('shows neighborhoods in filter options', async (t) => {
   const neighborhoodOptions = await searchFilterDataSource.getNeighborhoodOptions();
   await t.expect(neighborhoodOptions.length).gt(0);
-  const searchBanner = await components.searchBanner();
+  const searchBanner = await eventSearchPage.searchBanner();
   await searchBanner.actions.openNeighborhoodFilters();
   for (const neighborhood of neighborhoodOptions) {
     await searchBanner.expectations.neighborhoodOptionIsPresent(neighborhood);
@@ -42,7 +42,7 @@ test('shows neighborhoods in filter options', async (t) => {
 test('shows Helsinki places in filter options', async (t) => {
   const placeOptions = await searchFilterDataSource.getHelsinkiPlaceOptions();
   await t.expect(placeOptions.length).gt(0);
-  const searchBanner = await components.searchBanner();
+  const searchBanner = await eventSearchPage.searchBanner();
   await searchBanner.actions.openPlaceFilters();
   for (const place of selectRandomValuesFromArray(placeOptions, 3)) {
     await searchBanner.actions.selectPlaceFilter(place);
@@ -54,7 +54,7 @@ test('"click more events" -button works', async (t) => {
   // some events may have been filtered if they are not in finnish
   // we need to find more events than one PAGE_SIZE in order to try clickMoreEventsButton
   await t.expect(events.length).gt(PAGE_SIZE);
-  const searchResults = await components.searchResults();
+  const searchResults = await eventSearchPage.searchResults();
   await searchResults.actions.clickShowMoreEventsButton();
   await searchResults.expectations.allEventCardsAreVisible(events);
 });
@@ -62,7 +62,7 @@ test('"click more events" -button works', async (t) => {
 test('Search url by event name shows event card data for helsinki event', async () => {
   const [event] = await getHelsinkiEvents();
   await urlUtils.actions.navigateToSearchUrl(event.name.fi);
-  const eventCard = await components.eventCard(event);
+  const eventCard = await eventSearchPage.eventCard(event);
   await eventCard.expectations.eventTimeIsPresent();
   await eventCard.expectations.addressIsPresent();
   await eventCard.expectations.keywordButtonsArePresent();
@@ -120,15 +120,15 @@ const testSearchEventByText = async (
   if (!freeText) {
     return;
   }
-  const searchBanner = await components.searchBanner();
+  const searchBanner = await eventSearchPage.searchBanner();
   await searchBanner.actions.inputSearchTextAndPressEnter(freeText);
-  const eventCard = await components.eventCard(event);
-  await eventCard.expectations.componentIsPresent(expectedField);
+  const eventCard = await eventSearchPage.eventCard(event);
+  await eventCard.expectations.evenrCardIsPresent(expectedField);
   await searchBanner.actions.clickClearFiltersButton();
 };
 
 test('Future events can be searched', async () => {
-  const searchBanner = await components.searchBanner();
+  const searchBanner = await eventSearchPage.searchBanner();
   await searchBanner.actions.openDateFilters();
   for (const dateRange of [DATE_TYPES.TOMORROW, DATE_TYPES.WEEKEND]) {
     const [event] = await getHelsinkiEvents(
@@ -139,7 +139,7 @@ test('Future events can be searched', async () => {
 
     await searchBanner.actions.selectDateRange(dateRange);
     await searchBanner.actions.clickSearchButton();
-    const eventCard = await components.eventCard(event);
+    const eventCard = await eventSearchPage.eventCard(event);
     await eventCard.expectations.containsDate(getEventDate(dateRange));
     await searchBanner.actions.openDateFilters();
     await searchBanner.actions.selectDateRange(dateRange); // unselect previous choice
