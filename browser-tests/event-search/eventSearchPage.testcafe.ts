@@ -59,10 +59,9 @@ test('"click more events" -button works', async (t) => {
   await searchResults.expectations.allEventCardsAreVisible(events);
 });
 
-test('Free text search shows event card data for helsinki event', async () => {
+test('Search url by event name shows event card data for helsinki event', async () => {
   const [event] = await getHelsinkiEvents();
-  const searchBanner = await components.searchBanner();
-  await searchBanner.actions.inputSearchTextAndPressEnter(event.name.fi);
+  await urlUtils.actions.navigateToSearchUrl(event.name.fi);
   const eventCard = await components.eventCard(event);
   await eventCard.expectations.eventTimeIsPresent();
   await eventCard.expectations.addressIsPresent();
@@ -71,7 +70,7 @@ test('Free text search shows event card data for helsinki event', async () => {
   await urlUtils.expectations.urlChangedToEventPage(event);
 });
 
-test('search url finds event by free text search', async (t) => {
+test('Free text search finds event by free text search', async (t) => {
   const [event] = await getHelsinkiEvents();
   for (const locale of Object.values(SUPPORT_LANGUAGES)) {
     const randomDescriptionSentence =
@@ -121,9 +120,11 @@ const testSearchEventByText = async (
   if (!freeText) {
     return;
   }
-  await urlUtils.actions.navigateToSearchUrl(freeText);
+  const searchBanner = await components.searchBanner();
+  await searchBanner.actions.inputSearchTextAndPressEnter(freeText);
   const eventCard = await components.eventCard(event);
   await eventCard.expectations.componentIsPresent(expectedField);
+  await searchBanner.actions.clickClearFiltersButton();
 };
 
 test('Future events can be searched', async () => {

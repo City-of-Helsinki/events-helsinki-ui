@@ -70,6 +70,11 @@ export const getEventSearchPageComponents = (t: TestController) => {
           'Kirjoita hakusana, esim. rock tai jooga'
         );
       },
+      clearFiltersButton() {
+        return this.withinSearchBanner().findByRole('button', {
+          name: 'Tyhjennä hakuehdot',
+        });
+      },
     };
     const expectations = {
       async searchBannerIsPresent() {
@@ -119,6 +124,9 @@ export const getEventSearchPageComponents = (t: TestController) => {
         await t
           .typeText(selectors.searchInput(), t.ctx.typeText)
           .pressKey('enter');
+      },
+      async clickClearFiltersButton() {
+        await t.click(selectors.clearFiltersButton());
       },
     };
     await expectations.searchBannerIsPresent();
