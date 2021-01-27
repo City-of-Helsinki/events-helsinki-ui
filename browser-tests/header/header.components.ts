@@ -6,6 +6,7 @@ import translationsEn from '../../src/common/translation/i18n/en.json';
 import translationsFi from '../../src/common/translation/i18n/fi.json';
 import translationsSv from '../../src/common/translation/i18n/sv.json';
 import { DEFAULT_LANGUAGE, SUPPORT_LANGUAGES } from '../../src/constants';
+import { withinContext } from '../utils/context.util';
 import { getErrorMessage } from '../utils/error.util';
 
 const getTranslations = (locale: SUPPORT_LANGUAGES) => {
@@ -25,7 +26,7 @@ export const getHeader = (t: TestController, locale = DEFAULT_LANGUAGE) => {
     return screen.findByRole('banner');
   };
   const withinHeader = () => {
-    return within(screen.getByRole('banner'));
+    return withinContext(t, within(screen.getByRole('banner')));
   };
   const isHeaderPresent = async () => {
     await t.expect(header().exists).ok(await getErrorMessage(t));

@@ -8,6 +8,7 @@ import { KeywordOption } from '../../src/domain/event/types';
 import { formatDate } from '../../src/util/dateUtils';
 import getDateRangeStr from '../../src/util/getDateRangeStr';
 import toPascalCase from '../../src/util/toPascalCase';
+import { withinContext } from '../utils/context.util';
 import { getErrorMessage } from '../utils/error.util';
 import { getExpectedEventContext } from '../utils/event.utils';
 import {
@@ -20,7 +21,7 @@ export const getEventSearchPage = (t: TestController) => {
   const searchBanner = async () => {
     const withinSearchBanner = () => {
       t.ctx.withinTestId = 'searchContainer';
-      return within(screen.getByTestId(t.ctx.withinTestId));
+      return withinContext(t, within(screen.getByTestId(t.ctx.withinTestId)));
     };
     const selectors = {
       searchBanner() {
@@ -33,15 +34,13 @@ export const getEventSearchPage = (t: TestController) => {
         return withinSearchBanner().findByLabelText('Valitse ajankohta');
       },
       dateRangeCheckbox(range: string) {
-        t.ctx.findByRole = ['checkbox', { name: range }];
-        return withinSearchBanner().findByRole.apply(null, t.ctx.findByRole);
+        return withinSearchBanner().findByRole('checkbox', { name: range });
       },
       neighborhoodFilter() {
         return withinSearchBanner().findByLabelText('Etsi alue');
       },
       neighborhoodCheckbox(n: Neighborhood) {
-        t.ctx.findByRole = ['checkbox', { name: n.name.fi }];
-        return withinSearchBanner().findByRole.apply(null, t.ctx.findByRole);
+        return withinSearchBanner().findByRole('checkbox', { name: n.name.fi });
       },
       placeFilter() {
         return withinSearchBanner().findByLabelText('Etsi tapahtumapaikka');
@@ -50,8 +49,9 @@ export const getEventSearchPage = (t: TestController) => {
         return withinSearchBanner().findByLabelText('Kirjoita hakusana');
       },
       placeCheckbox(place: PlaceFieldsFragment) {
-        t.ctx.findByRole = ['checkbox', { name: place.name.fi }];
-        return withinSearchBanner().findByRole.apply(null, t.ctx.findByRole);
+        return withinSearchBanner().findByRole('checkbox', {
+          name: place.name.fi,
+        });
       },
       searchInput() {
         return withinSearchBanner().findByPlaceholderText(
@@ -127,7 +127,7 @@ export const getEventSearchPage = (t: TestController) => {
   const searchResults = async () => {
     const withinSearchResultList = () => {
       t.ctx.withinTestId = 'resultList';
-      return within(screen.getByTestId(t.ctx.withinTestId));
+      return withinContext(t, within(screen.getByTestId(t.ctx.withinTestId)));
     };
     const selectors = {
       searchResultList() {
@@ -177,33 +177,33 @@ export const getEventSearchPage = (t: TestController) => {
 
     const withinEventCard = () => {
       t.ctx.withinTestId = event.id;
-      return within(screen.getByTestId(t.ctx.withinTestId));
+      return withinContext(t, within(screen.getByTestId(t.ctx.withinTestId)));
     };
     const selectors = {
       eventCard() {
         return screen.findByTestId(event.id);
       },
       keywordLink(keyword: KeywordOption) {
-        t.ctx.findByRole = ['button', { name: keyword.name }];
-        return withinEventCard().findByRole.apply(null, t.ctx.findByRole);
+        return withinEventCard().findByRole('button', { name: keyword.name });
       },
       containsText(text: string) {
-        t.ctx.findByText = RegExp(text, 'gi');
-        return withinEventCard().findByText(t.ctx.findByText);
+        return withinEventCard().findByText(RegExp(text, 'gi'));
       },
       dateRangeText() {
-        t.ctx.findByText = getDateRangeStr({
-          start: startTime,
-          end: endTime,
-          locale: 'fi',
-          includeTime: true,
-          timeAbbreviation: 'klo',
-        });
-        return withinEventCard().findByText(t.ctx.findByText);
+        return withinEventCard().findByText(
+          getDateRangeStr({
+            start: startTime,
+            end: endTime,
+            locale: 'fi',
+            includeTime: true,
+            timeAbbreviation: 'klo',
+          })
+        );
       },
       addressText() {
-        t.ctx.findByText = `${locationName}, ${streetAddress}, ${addressLocality}`;
-        return withinEventCard().findByText(t.ctx.findByText);
+        return withinEventCard().findByText(
+          `${locationName}, ${streetAddress}, ${addressLocality}`
+        );
       },
     };
     const expectations = {

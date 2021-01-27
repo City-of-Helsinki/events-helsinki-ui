@@ -2,6 +2,7 @@
 import { screen, within } from '@testing-library/testcafe';
 import TestController from 'testcafe';
 
+import { withinContext } from '../utils/context.util';
 import { getErrorMessage } from '../utils/error.util';
 import {
   BannerPageFieldsFragment,
@@ -16,7 +17,7 @@ export const getLandingPageComponents = (t: TestController) => {
   ) => {
     const withinBanner = () => {
       t.ctx.withinTestId = `${type}-banner`;
-      return within(screen.getByTestId(`${type}-banner`));
+      return withinContext(t, within(screen.getByTestId(t.ctx.withinTestId)));
     };
     const selectors = {
       banner() {
@@ -89,7 +90,7 @@ export const getLandingPageComponents = (t: TestController) => {
   const collectionCard = async (collection: CollectionFieldsFragment) => {
     const withinCollectionCard = () => {
       t.ctx.withinTestId = collection.id;
-      return within(screen.getByTestId(t.ctx.withinTestId));
+      return withinContext(t, within(screen.getByTestId(t.ctx.withinTestId)));
     };
     const selectors = {
       collectionCard() {
