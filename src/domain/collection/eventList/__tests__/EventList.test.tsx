@@ -52,7 +52,7 @@ const variables = {
   end: '',
   include: ['keywords', 'location'],
   isFree: true,
-  keyword: [],
+  //keyword: [],
   keywordAnd: [],
   keywordOrSet1: [],
   keywordNot: [],
