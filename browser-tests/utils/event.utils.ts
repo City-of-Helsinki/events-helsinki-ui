@@ -4,13 +4,25 @@ import subDays from 'date-fns/subDays';
 
 import { DATE_TYPES } from '../../src/constants';
 import { EventFieldsFragment } from './generated/graphql';
+
+const removeEmpty = (obj) => {
+  Object.keys(obj).forEach(
+    (k) =>
+      (obj[k] && typeof obj[k] === 'object' && removeEmpty(obj[k])) ||
+      (!obj[k] && obj[k] !== undefined && delete obj[k])
+  );
+  return obj;
+};
+
 export const getExpectedEventContext = (
   event: Partial<EventFieldsFragment>,
   ...fieldsToPick: Array<keyof EventFieldsFragment>
 ): Partial<EventFieldsFragment> =>
-  fieldsToPick.reduce(
-    (fields, field) => ({ ...fields, [field]: event[field] }),
-    { id: event.id, name: event.name }
+  removeEmpty(
+    fieldsToPick.reduce(
+      (fields, field) => ({ ...fields, [field]: event[field] }),
+      { id: event.id, name: event.name }
+    )
   );
 
 export const getEventDate = (dateRange: string): Date => {

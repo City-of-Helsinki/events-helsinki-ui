@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import TestController, { ClientFunction } from 'testcafe';
 
-import { getErrorMessage } from './error.util';
 import {
   BannerPageFieldsFragment,
   CollectionFieldsFragment,
   EventFieldsFragment,
 } from './generated/graphql';
 import { getEnvUrl } from './settings';
+import { getErrorMessage } from './testcafe.utils';
 
 const getPathname = ClientFunction(() => document.location.pathname);
 const getUrl = ClientFunction(() => document.location.href);
@@ -31,7 +31,7 @@ export const getUrlUtils = (t: TestController) => {
   };
   const expectations = {
     async urlChangedToLandingPage() {
-      await t.expect(getPathname()).eql(`/fi/home`);
+      await t.expect(getPathname()).eql(`/fi/home`, await getErrorMessage(t));
     },
     async urlChangedToEventPage(event: EventFieldsFragment) {
       t.ctx.expectedEvent = event;
@@ -44,16 +44,16 @@ export const getUrlUtils = (t: TestController) => {
     async urlChangedToEventSearchPage() {
       await t
         .expect(getPathname())
-        .eql(`/fi/events`)
+        .eql(`/fi/events`, await getErrorMessage(t))
         .expect(getPageTitle())
-        .eql('Tapahtumat');
+        .eql('Tapahtumat', await getErrorMessage(t));
     },
     async urlChangedToRecommendationsPage() {
       await t
         .expect(getPathname())
-        .eql(`/fi/collections`)
+        .eql(`/fi/collections`, await getErrorMessage(t))
         .expect(getPageTitle())
-        .eql('Tapahtumat');
+        .eql('Tapahtumat', await getErrorMessage(t));
     },
     async urlChangedToBannerPage(banner: BannerPageFieldsFragment) {
       t.ctx.banner = banner;

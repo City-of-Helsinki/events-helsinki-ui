@@ -1,5 +1,6 @@
 import { landingPageDataSource } from '../datasources/landingPageDataSource';
 import { getEnvUrl } from '../utils/settings';
+import { clearContext } from '../utils/testcafe.utils';
 import { getUrlUtils } from '../utils/url.utils';
 import { getLandingPageComponents } from './landingPage.components';
 
@@ -9,9 +10,9 @@ let urlUtils: ReturnType<typeof getUrlUtils>;
 fixture('Landing page preview')
   .page(getEnvUrl('/fi/home'))
   .beforeEach(async (t) => {
+    clearContext(t);
     components = getLandingPageComponents(t);
     urlUtils = getUrlUtils(t);
-    t.ctx = {};
   });
 
 test('banner data is present and links work', async () => {

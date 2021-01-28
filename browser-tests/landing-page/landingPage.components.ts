@@ -1,24 +1,26 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { screen, within } from '@testing-library/testcafe';
 import TestController from 'testcafe';
 
-import { withinContext } from '../utils/context.util';
-import { getErrorMessage } from '../utils/error.util';
 import {
   BannerPageFieldsFragment,
   CollectionFieldsFragment,
 } from '../utils/generated/graphql';
 import { regExpEscaped } from '../utils/regexp.util';
+import {
+  getErrorMessage,
+  screenContext,
+  withinContext,
+} from '../utils/testcafe.utils';
 
 export const getLandingPageComponents = (t: TestController) => {
+  const within = withinContext(t);
+  const screen = screenContext(t);
   const banner = async (
     banner: BannerPageFieldsFragment,
     type: 'top' | 'bottom'
   ) => {
-    const withinBanner = () => {
-      t.ctx.withinTestId = `${type}-banner`;
-      return withinContext(t, within(screen.getByTestId(t.ctx.withinTestId)));
-    };
+    const withinBanner = () => within(screen.getByTestId(`${type}-banner`));
+
     const selectors = {
       banner() {
         t.ctx.expectedBannerType = type;
@@ -88,10 +90,8 @@ export const getLandingPageComponents = (t: TestController) => {
     banner(bannerData, 'bottom');
 
   const collectionCard = async (collection: CollectionFieldsFragment) => {
-    const withinCollectionCard = () => {
-      t.ctx.withinTestId = collection.id;
-      return withinContext(t, within(screen.getByTestId(t.ctx.withinTestId)));
-    };
+    const withinCollectionCard = () =>
+      within(screen.getByTestId(collection.id));
     const selectors = {
       collectionCard() {
         return screen.findByTestId(collection.id);

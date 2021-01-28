@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { screen, within } from '@testing-library/testcafe';
 import TestController from 'testcafe';
 
 import translationsEn from '../../src/common/translation/i18n/en.json';
 import translationsFi from '../../src/common/translation/i18n/fi.json';
 import translationsSv from '../../src/common/translation/i18n/sv.json';
 import { DEFAULT_LANGUAGE, SUPPORT_LANGUAGES } from '../../src/constants';
-import { withinContext } from '../utils/context.util';
-import { getErrorMessage } from '../utils/error.util';
+import {
+  getErrorMessage,
+  screenContext,
+  withinContext,
+} from '../utils/testcafe.utils';
 
 const getTranslations = (locale: SUPPORT_LANGUAGES) => {
   switch (locale) {
@@ -20,19 +22,24 @@ const getTranslations = (locale: SUPPORT_LANGUAGES) => {
   }
 };
 
-export const getHeader = (t: TestController, locale = DEFAULT_LANGUAGE) => {
+export const findHeader = async (
+  t: TestController,
+  locale = DEFAULT_LANGUAGE
+) => {
   t.ctx.expectedLanguage = locale;
+  const within = withinContext(t);
+  const screen = screenContext(t);
+
   const header = () => {
     return screen.findByRole('banner');
   };
   const withinHeader = () => {
-    return withinContext(t, within(screen.getByRole('banner')));
+    return within(screen.getByRole('banner'));
   };
   const isHeaderPresent = async () => {
     await t.expect(header().exists).ok(await getErrorMessage(t));
   };
-  const languageSelector = async () => {
-    await isHeaderPresent();
+  const languageSelector = () => {
     const selectors = {
       languageSelector() {
         return withinHeader().findByRole('button', {
@@ -70,8 +77,7 @@ export const getHeader = (t: TestController, locale = DEFAULT_LANGUAGE) => {
       actions,
     };
   };
-  const headerTabs = async () => {
-    await isHeaderPresent();
+  const headerTabs = () => {
     const selectors = {
       eventSearchTab() {
         return withinHeader().findByRole('link', {
@@ -112,6 +118,7 @@ export const getHeader = (t: TestController, locale = DEFAULT_LANGUAGE) => {
       actions,
     };
   };
+  await isHeaderPresent();
   return {
     languageSelector,
     headerTabs,
