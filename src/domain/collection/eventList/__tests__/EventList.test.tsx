@@ -54,6 +54,7 @@ const variables = {
   isFree: true,
   keyword: [],
   keywordAnd: [],
+  keywordOrSet1: [],
   keywordNot: [],
   language: 'fi',
   location: [],

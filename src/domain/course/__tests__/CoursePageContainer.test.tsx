@@ -80,6 +80,7 @@ const similarCoursesListRequest = {
     isFree: undefined,
     keyword: ['keyword1', 'keyword2', 'keyword3'],
     keywordAnd: [],
+    keywordOrSet1: [],
     keywordNot: [],
     language: 'fi',
     location: [],

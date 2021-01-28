@@ -23,6 +23,7 @@ const variables = {
   isFree: undefined,
   keyword: keywordIds,
   keywordAnd: [],
+  keywordOrSet1: [],
   keywordNot: [],
   language: 'fi',
   location: [],

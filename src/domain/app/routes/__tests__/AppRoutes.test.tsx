@@ -61,6 +61,7 @@ const eventListBaseVariables = {
   isFree: undefined,
   keyword: [],
   keywordAnd: [],
+  keywordOrSet1: [],
   keywordNot: [],
   language: 'fi',
   pageSize: 10,

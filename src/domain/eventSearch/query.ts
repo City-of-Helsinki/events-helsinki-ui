@@ -12,6 +12,7 @@ export const QUERY_EVENT_LIST = gql`
     $isFree: Boolean
     $keyword: [String]
     $keywordAnd: [String]
+    $keywordOrSet1: [String]
     $keywordNot: [String]
     $language: String
     $localOngoingAnd: [String]
@@ -39,6 +40,7 @@ export const QUERY_EVENT_LIST = gql`
       isFree: $isFree
       keyword: $keyword
       keywordAnd: $keywordAnd
+      keywordOrSet1: $keywordOrSet1
       keywordNot: $keywordNot
       language: $language
       localOngoingAnd: $localOngoingAnd

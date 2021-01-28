@@ -172,7 +172,7 @@ export const MAPPED_COURSE_HOBBY_TYPES: Record<string, string> = {
 
 export const MAPPED_KEYWORD_TERMS: Record<string, string> = {
   [EVENT_SEARCH_SOURCES.COURSES]: 'keyword_set_AND',
-  [EVENT_SEARCH_SOURCES.EVENTS]: 'keyword',
+  [EVENT_SEARCH_SOURCES.EVENTS]: 'keywordOrSet1',
 };
 
 export const MAPPED_PLACES: Record<string, string> = {

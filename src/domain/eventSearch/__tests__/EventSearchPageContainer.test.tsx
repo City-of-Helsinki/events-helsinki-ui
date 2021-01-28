@@ -48,6 +48,7 @@ const eventListVariables = {
   isFree: undefined,
   keyword: [],
   keywordAnd: [],
+  keywordOrSet1: [],
   keywordNot: [],
   language: 'fi',
   location: [],
