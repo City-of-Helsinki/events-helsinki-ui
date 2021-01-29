@@ -19,17 +19,18 @@ export const getLandingPageComponents = (t: TestController) => {
     banner: BannerPageFieldsFragment,
     type: 'top' | 'bottom'
   ) => {
+    t.ctx.expectedBannerType = type;
+    t.ctx.expectedBanner = {
+      title: banner.title.fi,
+      description: banner.description.fi,
+    };
+    await t
+      .expect(screen.findByTestId(`${type}-banner`).exists)
+      .ok(await getErrorMessage(t));
+
     const withinBanner = () => within(screen.getByTestId(`${type}-banner`));
 
     const selectors = {
-      banner() {
-        t.ctx.expectedBannerType = type;
-        t.ctx.expectedBanner = {
-          title: banner.title.fi,
-          description: banner.description.fi,
-        };
-        return screen.findByTestId(`${type}-banner`);
-      },
       title() {
         t.ctx.findByRole = [
           'heading',
@@ -63,9 +64,6 @@ export const getLandingPageComponents = (t: TestController) => {
         .ok(await getErrorMessage(t));
     };
     const expectations = {
-      async isBannerPresent() {
-        await t.expect(selectors.banner().exists).ok(await getErrorMessage(t));
-      },
       async bannerDataIsPresent() {
         await bannerTitleIsVisible();
         await bannerButtonIsVisible();
@@ -77,9 +75,7 @@ export const getLandingPageComponents = (t: TestController) => {
         await t.click(selectors.buttonLink());
       },
     };
-    await expectations.isBannerPresent();
     return {
-      selectors,
       expectations,
       actions,
     };
@@ -92,21 +88,18 @@ export const getLandingPageComponents = (t: TestController) => {
   const collectionCard = async (collection: CollectionFieldsFragment) => {
     const withinCollectionCard = () =>
       within(screen.getByTestId(collection.id));
+
+    await t
+      .expect(screen.findByTestId(collection.id).exists)
+      .ok(await getErrorMessage(t));
+
     const selectors = {
-      collectionCard() {
-        return screen.findByTestId(collection.id);
-      },
       collectionTitle() {
         t.ctx.findByLabelText = regExpEscaped(collection.title.fi);
         return withinCollectionCard().findByLabelText(t.ctx.findByLabelText);
       },
     };
     const expectations = {
-      async collectionCardIsPresent() {
-        await t
-          .expect(selectors.collectionCard().exists)
-          .ok(await getErrorMessage(t));
-      },
       async collectionTitleIsPresent() {
         await t
           .expect(selectors.collectionTitle().exists)
@@ -118,9 +111,7 @@ export const getLandingPageComponents = (t: TestController) => {
         await t.click(selectors.collectionTitle());
       },
     };
-    await expectations.collectionCardIsPresent();
     return {
-      selectors,
       expectations,
       actions,
     };

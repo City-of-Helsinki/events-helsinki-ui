@@ -30,14 +30,12 @@ export const findHeader = async (
   const within = withinContext(t);
   const screen = screenContext(t);
 
-  const header = () => {
-    return screen.findByRole('banner');
-  };
+  await t
+    .expect(screen.findByRole('banner').exists)
+    .ok(await getErrorMessage(t));
+
   const withinHeader = () => {
     return within(screen.getByRole('banner'));
-  };
-  const isHeaderPresent = async () => {
-    await t.expect(header().exists).ok(await getErrorMessage(t));
   };
   const languageSelector = () => {
     const selectors = {
@@ -73,7 +71,6 @@ export const findHeader = async (
       },
     };
     return {
-      selectors,
       actions,
     };
   };
@@ -113,12 +110,10 @@ export const findHeader = async (
     };
 
     return {
-      selectors,
       expectations,
       actions,
     };
   };
-  await isHeaderPresent();
   return {
     languageSelector,
     headerTabs,

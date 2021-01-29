@@ -23,12 +23,13 @@ export const getEventSearchPage = (t: TestController) => {
   const within = withinContext(t);
   const screen = screenContext(t);
   const findSearchBanner = async () => {
+    await t
+      .expect(screen.findByTestId('searchContainer').exists)
+      .ok(await getErrorMessage(t));
+
     const withinSearchBanner = () =>
       within(screen.getByTestId('searchContainer'));
     const selectors = {
-      searchBanner() {
-        return screen.findByTestId('searchContainer');
-      },
       searchButton() {
         return withinSearchBanner().findByRole('button', { name: 'Hae' });
       },
@@ -67,11 +68,6 @@ export const getEventSearchPage = (t: TestController) => {
       },
     };
     const expectations = {
-      async searchBannerIsPresent() {
-        await t
-          .expect(selectors.searchBanner().exists)
-          .ok(await getErrorMessage(t));
-      },
       async neighborhoodOptionIsPresent(neighborhood: Neighborhood) {
         await t
           .expect(selectors.neighborhoodCheckbox(neighborhood).exists)
@@ -119,20 +115,19 @@ export const getEventSearchPage = (t: TestController) => {
         await t.click(selectors.clearFiltersButton());
       },
     };
-    await expectations.searchBannerIsPresent();
     return {
-      selectors,
       expectations,
       actions,
     };
   };
   const findSearchResultList = async () => {
+    await t
+      .expect(screen.findByTestId('resultList').exists)
+      .ok(await getErrorMessage(t));
+
     const withinSearchResultList = () =>
       within(screen.getByTestId('resultList'));
     const selectors = {
-      searchResultList() {
-        return screen.findByTestId('resultList');
-      },
       clickMoreButton() {
         return withinSearchResultList().findByRole('button', {
           name: /Näytä lisää tapahtumia/g,
@@ -140,11 +135,6 @@ export const getEventSearchPage = (t: TestController) => {
       },
     };
     const expectations = {
-      async searchResultListIsPresent() {
-        await t
-          .expect(selectors.searchResultList().exists)
-          .ok(await getErrorMessage(t));
-      },
       async allEventCardsAreVisible(events: EventFieldsFragment[]) {
         for (const e of events) {
           await eventCard(e);
@@ -169,12 +159,19 @@ export const getEventSearchPage = (t: TestController) => {
         addressLocality,
         keywords,
       } = getEventFields(event, 'fi');
-
+      const eventCard = () => {
+        return withinSearchResultList().findByTestId(event.id);
+      };
       const withinEventCard = () => within(screen.getByTestId(event.id));
+
+      if (searchedField) {
+        t.ctx.expectedEvent = getExpectedEventContext(event, searchedField);
+      }
+      await t
+        .expect(eventCard().exists)
+        .ok(await getErrorMessage(t), { timeout: 15000 });
+
       const selectors = {
-        eventCard() {
-          return withinSearchResultList().findByTestId(event.id);
-        },
         keywordLink(keyword: KeywordOption) {
           return withinEventCard().findByRole('button', { name: keyword.name });
         },
@@ -199,14 +196,6 @@ export const getEventSearchPage = (t: TestController) => {
         },
       };
       const expectations = {
-        async eventCardIsPresent(searchedField?: keyof EventFieldsFragment) {
-          if (searchedField) {
-            t.ctx.expectedEvent = getExpectedEventContext(event, searchedField);
-          }
-          await t
-            .expect(selectors.eventCard().exists)
-            .ok(await getErrorMessage(t), { timeout: 15000 });
-        },
         async eventTimeIsPresent() {
           await t
             .expect(selectors.dateRangeText().exists)
@@ -234,19 +223,15 @@ export const getEventSearchPage = (t: TestController) => {
       };
       const actions = {
         async clickEventLink() {
-          await t.click(selectors.eventCard());
+          await t.click(eventCard());
         },
       };
-      await expectations.eventCardIsPresent(searchedField);
       return {
-        selectors,
         expectations,
         actions,
       };
     };
-    await expectations.searchResultListIsPresent();
     return {
-      selectors,
       expectations,
       actions,
       eventCard,
