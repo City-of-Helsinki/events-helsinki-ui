@@ -134,11 +134,6 @@ export const getCourseHobbyTypeOptions = (t: TFunction): HobbyTypeOption[] => [
     text: t('home.hobby.workshops'),
     value: COURSE_HOBBY_TYPES.WORKSHOPS,
   },
-  {
-    icon: <IconMovies />,
-    text: t('home.hobby.onlineStudies'),
-    value: COURSE_HOBBY_TYPES.ONLINE_STUDIES,
-  },
 ];
 
 /**
@@ -264,13 +259,20 @@ export const getEventSearchVariables = ({
   }
 
   const keywordsParamName = MAPPED_KEYWORD_TERMS[searchSource];
-  const mappedCategories: string[] = categories
-    .map((category) => MAPPED_CATEGORIES[searchSource][category])
-    .filter((e) => e);
-  const mappedHobbyTypes: string[] =
-    hobbyTypes
-      ?.map((hobbyType) => MAPPED_COURSE_HOBBY_TYPES[hobbyType])
-      .filter((e) => e) || [];
+  let mappedCategories: string[] = [];
+  categories.map(
+    (category) =>
+      (mappedCategories = mappedCategories
+        .concat(MAPPED_CATEGORIES[searchSource][category]?.split(','))
+        .filter((e) => e))
+  );
+  let mappedHobbyTypes: string[] = [];
+  hobbyTypes?.map(
+    (hobbyType) =>
+      (mappedHobbyTypes = mappedHobbyTypes
+        .concat(MAPPED_COURSE_HOBBY_TYPES[hobbyType]?.split(','))
+        .filter((e) => e))
+  );
   const hasLocation = !isEmpty(divisions) || !isEmpty(places);
   const hasText = !isEmpty(text);
   // Combine and add keywords
@@ -282,11 +284,8 @@ export const getEventSearchVariables = ({
     end,
     include,
     isFree: isFree || undefined,
-    [keywordsParamName]: [
-      ...(keyword ? keyword : []),
-      ...mappedCategories,
-      ...mappedHobbyTypes,
-    ],
+    [keywordsParamName]: [...(keyword ? keyword : []), ...mappedCategories],
+    keywordOrSet3: [...mappedHobbyTypes],
     keywordAnd,
     keywordNot,
     language,

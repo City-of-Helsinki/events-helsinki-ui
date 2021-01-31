@@ -52,7 +52,7 @@ describe('getEventSearchVariables function', () => {
       ...defaultParams,
       params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.CULTURE}`),
     });
-    expect(keyword1).toContain(
+    expect(keyword1.join(',')).toContain(
       // eslint-disable-next-line max-len
       'kulke:33,kulke:51,kulke:205,kulke:351,matko:teatteri,yso:p360,yso:p1235,yso:p1278,yso:p1808,yso:p2625,yso:p2739,yso:p2850,yso:p2851,yso:p4934,yso:p5121,yso:p6889,yso:p7969,yso:p8113,yso:p8144,yso:p9592,yso:p9593,yso:p10105,yso:p16327'
     );
@@ -73,7 +73,7 @@ describe('getEventSearchVariables function', () => {
       ...defaultParams,
       params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.INFLUENCE}`),
     });
-    expect(keyword4).toContain('yso:p1657,yso:p10727');
+    expect(keyword4.join(',')).toContain('yso:p1657,yso:p10727');
 
     const { keywordOrSet1: keyword5 } = getEventSearchVariables({
       ...defaultParams,
@@ -91,7 +91,7 @@ describe('getEventSearchVariables function', () => {
       ...defaultParams,
       params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.MUSEUM}`),
     });
-    expect(keyword7).toContain('matko:museo,yso:p4934');
+    expect(keyword7.join(',')).toContain('matko:museo,yso:p4934');
 
     const { keywordOrSet1: keyword8 } = getEventSearchVariables({
       ...defaultParams,
@@ -109,7 +109,7 @@ describe('getEventSearchVariables function', () => {
       ...defaultParams,
       params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.SPORT}`),
     });
-    expect(keyword10).toContain('yso:p916,yso:p965');
+    expect(keyword10.join(',')).toContain('yso:p916,yso:p965');
 
     const { keywordOrSet1: keyword11 } = getEventSearchVariables({
       ...defaultParams,

@@ -62,6 +62,7 @@ const eventListBaseVariables = {
   //keyword: [],
   keywordAnd: [],
   keywordOrSet1: [],
+  keywordOrSet3: [],
   keywordNot: [],
   language: 'fi',
   pageSize: 10,
