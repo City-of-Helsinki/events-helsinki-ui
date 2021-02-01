@@ -21,7 +21,10 @@ export const withinContext = (t: TestController): typeof within => (selector) =>
     };
   });
 
-const injectCallback = <Key extends string, Obj extends Record<Key, unknown>>(
+const injectCallback = <
+  Key extends string,
+  Obj extends Record<Key, (...args) => Selector | SelectorPromise>
+>(
   obj: Obj,
   callback: (...args) => void
 ): Obj =>
