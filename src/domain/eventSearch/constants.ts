@@ -123,3 +123,5 @@ export const MAPPED_PLACES: Record<string, string> = {
   vuotalo: 'tprek:7260',
   malmitalo: 'tprek:8740',
 };
+
+export const MARKETING_COLLECTION_SLUGS = ['talviloma'];

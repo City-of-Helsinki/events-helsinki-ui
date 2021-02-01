@@ -1,4 +1,7 @@
-import { MAPPED_PLACES } from '../../eventSearch/constants';
+import {
+  MAPPED_PLACES,
+  MARKETING_COLLECTION_SLUGS,
+} from '../../eventSearch/constants';
 
 // Remember also update static urls to updateSitemap
 export const ROUTES = {
@@ -11,4 +14,5 @@ export const ROUTES = {
   HOME: '/home',
   HOME_PREVIEW: '/home/:id',
   EVENT_PLACE: `/:place(${Object.keys(MAPPED_PLACES).join('|')})`,
+  MARKETING_COLLECTION: `/:slug(${MARKETING_COLLECTION_SLUGS.join('|')})`,
 };

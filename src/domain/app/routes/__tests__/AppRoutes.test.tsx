@@ -1,14 +1,17 @@
+import { MockedResponse } from '@apollo/react-testing';
 import { act } from '@testing-library/react';
 import i18n from 'i18next';
-import React from 'react';
+import * as React from 'react';
 
 import {
+  CollectionFieldsFragment,
   CollectionListDocument,
   EventListDocument,
   LandingPagesDocument,
   PlaceDetailsDocument,
 } from '../../../../generated/graphql';
 import {
+  fakeCollection,
   fakeCollections,
   fakeEvents,
   fakeLandingPages,
@@ -22,6 +25,8 @@ import {
   screen,
   waitFor,
 } from '../../../../util/testUtils';
+import { getMocks as getCollectionMocks } from '../../../collection/__tests__/CollectionPageContainer.test';
+import { MARKETING_COLLECTION_SLUGS } from '../../../eventSearch/constants';
 import AppRoutes from '../AppRoutes';
 
 const placeToPlaceString = {
@@ -116,8 +121,10 @@ const mocks = [
   }),
 ];
 
-const renderComponent = (route: string) =>
-  render(<AppRoutes />, { mocks, routes: [route] });
+const renderComponent = (
+  route: string,
+  requestMocks: MockedResponse[] = mocks
+) => render(<AppRoutes />, { mocks: requestMocks, routes: [route] });
 
 beforeEach(() => {
   act(() => {
@@ -177,6 +184,34 @@ describe('test each place path /:locale/:place', () => {
       expect(
         screen.getByRole('heading', { name: '3 hakutulosta' })
       ).toBeInTheDocument();
+    });
+  });
+});
+
+describe('test each marketing collection /:locale/:slug', () => {
+  MARKETING_COLLECTION_SLUGS.forEach((slug) => {
+    const expectedCollection = fakeCollection({
+      slug,
+    }) as CollectionFieldsFragment;
+
+    it(`renders collection page for: ${slug} when found`, async () => {
+      renderComponent(`/fi/${slug}`, getCollectionMocks(expectedCollection));
+      await waitFor(() => {
+        expect(
+          screen.getByText(expectedCollection.title.fi)
+        ).toBeInTheDocument();
+        expect(
+          screen.getByText(expectedCollection.description.fi)
+        ).toBeInTheDocument();
+      });
+    });
+    it(`renders not found -collection page when ${slug} not found`, async () => {
+      renderComponent(`/fi/${slug}`);
+      await waitFor(() => {
+        expect(
+          screen.getByText(/Syystä tai toisesta hakemaasi kokoelmaa ei löydy/)
+        ).toBeInTheDocument();
+      });
     });
   });
 });
