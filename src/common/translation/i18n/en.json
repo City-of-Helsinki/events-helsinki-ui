@@ -273,7 +273,21 @@
       "music": "Music",
       "nature": "Nature and outdoor activities",
       "sport": "Exercise and sports",
-      "theatre": "Theatre"
+      "theatre": "Theatre",
+      "courses":{
+        "movieAndMedia":"Film and media",
+        "languages": "Languages",
+        "literature": "Kirjallisuus ja sanataide (en)",
+        "artsAndCulture":"Kädentaidot (en)",
+        "visualArts":"Visual arts",
+        "handicrafts":"Kädentaidot (en)",
+        "sport": "Liikunta ja ulkoilu (en)",
+        "music": "Music",
+        "games": "Games",
+        "food": "Food",
+        "dance": "Dance",
+        "theatre": "Theatre"
+      }
     },
     "hobby": {
       "clubs": "Clubs",
