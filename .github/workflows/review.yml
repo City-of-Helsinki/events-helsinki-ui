@@ -1,5 +1,12 @@
 name: Build & Review & Acceptance Tests
-on: [pull_request]
+on:
+  pull_request:
+  push:
+    branches: [master]
+  schedule:
+    # Every hour from 6 - 23
+    - cron: '0 6-23 * * *'
+  workflow_dispatch:
 
 env:
   CONTAINER_REGISTRY: ghcr.io
@@ -75,6 +82,8 @@ jobs:
         run: yarn --prefer-offline --frozen-lockfile --check-files
       - name: Run Acceptance Tests (TestCafe Browser Tests)
         run: yarn browser-test:ci
+        env:
+          REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
       - name: Upload screenshots of failed tests
         uses: actions/upload-artifact@v2
         if: failure()

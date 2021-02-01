@@ -12,6 +12,7 @@ const slug = 'collection-title';
 const title = 'Collection title';
 
 const collection = fakeCollection({
+  id: slug,
   description: { fi: description },
   slug,
   heroImage: { url: heroImage },

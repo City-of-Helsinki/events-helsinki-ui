@@ -135,8 +135,11 @@ const EventSearchPageContainer: React.FC<RouteComponentProps> = () => {
     >
       {landingPage && <LandingPageMeta landingPage={landingPage} />}
       <SrOnly as="h1">{t('eventSearch.title')}</SrOnly>
-      <Search scrollToResultList={scrollToResultList} />
-      <div id="resultList">
+      <Search
+        scrollToResultList={scrollToResultList}
+        data-testid="searchContainer"
+      />
+      <div id="resultList" data-testid="resultList">
         <SrOnly aria-live="polite" aria-atomic={true}>
           {loading
             ? t('eventSearch.ariaLiveLoading')

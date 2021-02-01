@@ -4,6 +4,7 @@ exports[`matches snapshot 1`] = `
 <a
   aria-label="Siirry kokoelmaan: Collection title"
   class="collectionCardWrapper lgSize"
+  data-testid="collection-title"
   href="/fi/collection/collection-title"
 >
   <div
