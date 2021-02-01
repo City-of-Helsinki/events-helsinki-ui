@@ -71,6 +71,11 @@ const App: FunctionComponent<RouteComponentProps<{
         path={`/${locale}${ROUTES.EVENT_PLACE}`}
         component={EventSearchPageContainer}
       />
+      <Route
+        exact
+        path={`/${locale}${ROUTES.MARKETING_COLLECTION}`}
+        component={CollectionPageContainer}
+      />
       <Route component={NotFound} />
     </Switch>
   );

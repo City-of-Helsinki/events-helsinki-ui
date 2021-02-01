@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { ROUTES } from '../../../../domain/app/routes/constants';
 import { CollectionFieldsFragment } from '../../../../generated/graphql';
@@ -28,7 +28,7 @@ test('matches snapshot', () => {
   expect(container.firstChild).toMatchSnapshot();
 });
 
-test('should hide desciprion', () => {
+test('should hide description', () => {
   render(<CollectionCard collection={collection} size="md" />);
 
   expect(screen.getByText(title)).toBeInTheDocument();
