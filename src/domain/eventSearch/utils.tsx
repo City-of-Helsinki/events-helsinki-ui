@@ -311,7 +311,7 @@ export const getEventSearchVariables = ({
     keywordAnd.push('yso:p4354');
   }
 
-  const keywordsParamName = MAPPED_KEYWORD_TERMS[searchSource];
+  const categoriesParamName = MAPPED_KEYWORD_TERMS[searchSource];
   let mappedCategories: string[] = [];
   categories.map(
     (category) =>
@@ -330,14 +330,21 @@ export const getEventSearchVariables = ({
   const hasText = !isEmpty(text);
   // Combine and add keywords
 
+  //free text search
+  const freeTextSearchParam =
+    searchSource === EVENT_SEARCH_SOURCES.EVENTS
+      ? hasLocation
+        ? { localOngoingAnd: text }
+        : { allOngoingAnd: text }
+      : { allOngoingAnd: text };
+
   return {
-    ...(hasText &&
-      (hasLocation ? { localOngoingAnd: text } : { allOngoingAnd: text })),
+    ...(hasText && freeTextSearchParam),
     ...(hasLocation && { division: divisions.sort() }),
     end,
     include,
     isFree: isFree || undefined,
-    [keywordsParamName]: [...(keyword ? keyword : []), ...mappedCategories],
+    [categoriesParamName]: [...(keyword ? keyword : []), ...mappedCategories],
     keywordOrSet3: [...mappedHobbyTypes],
     keywordAnd,
     keywordNot,
