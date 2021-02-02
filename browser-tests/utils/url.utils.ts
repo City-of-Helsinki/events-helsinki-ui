@@ -37,7 +37,7 @@ export const getUrlUtils = (t: TestController) => {
       t.ctx.expectedEvent = event;
       await t
         .expect(getPathname())
-        .eql(`/fi/event/${event.id}`, await getErrorMessage(t))
+        .eql(`/fi/events/${event.id}`, await getErrorMessage(t))
         .expect(getPageTitle())
         .eql(event.name.fi, await getErrorMessage(t));
     },

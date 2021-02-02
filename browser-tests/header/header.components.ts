@@ -45,7 +45,7 @@ export const findHeader = async (
         });
       },
       languageSelectorItem(lang: SUPPORT_LANGUAGES) {
-        return withinHeader().findByRole('menuitem', {
+        return withinHeader().findByRole('link', {
           name: getTranslations(t.ctx.expectedLanguage).header.languages[lang],
         });
       },
