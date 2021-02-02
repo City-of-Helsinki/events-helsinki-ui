@@ -80,7 +80,8 @@ const SearchPage: React.FC<{
       // Clear eventId value to keep scroll position correctly
       const state = { ...location.state };
       delete state.eventId;
-      history.replace({ state });
+      // location.search seems to reset if not added here (...location)
+      history.replace({ ...location, state });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
