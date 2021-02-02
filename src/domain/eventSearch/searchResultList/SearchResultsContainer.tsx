@@ -20,7 +20,7 @@ const SearchResultsContainer: React.FC<Props> = ({
   const { t } = useTranslation();
 
   return (
-    <div className={styles.searchResultListContainer}>
+    <div className={styles.searchResultListContainer} data-testid="resultList">
       <Container>
         <div className={classNames(styles.searchResultWrapper)}>
           <h2 className={styles.count}>

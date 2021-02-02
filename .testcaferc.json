@@ -2,8 +2,10 @@
   "clientScripts": [
     { "module": "@testing-library/dom/dist/@testing-library/dom.umd.js" }
   ],
-  "tsConfigPath": "./tsconfig.testcafe.json",
   "screenshots": {
     "takeOnFails": true
+  },
+  "compilerOptions": {
+    "typescript": { "configPath": "./tsconfig.testcafe.json"}
   }
 }
