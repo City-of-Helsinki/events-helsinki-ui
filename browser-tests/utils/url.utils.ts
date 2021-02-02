@@ -48,6 +48,13 @@ export const getUrlUtils = (t: TestController) => {
         .expect(getPageTitle())
         .eql('Tapahtumat', await getErrorMessage(t));
     },
+    async urlChangedToCourseSearchPage() {
+      await t
+        .expect(getPathname())
+        .eql(`/fi/courses`, await getErrorMessage(t))
+        .expect(getPageTitle())
+        .eql('Tapahtumat', await getErrorMessage(t)); // TODO: perhaps wrong title?
+    },
     async urlChangedToRecommendationsPage() {
       await t
         .expect(getPathname())

@@ -424,6 +424,9 @@ export type QueryEventDetailsArgs = {
 export type QueryEventListArgs = {
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
   allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -437,6 +440,9 @@ export type QueryEventListArgs = {
   include?: Maybe<Array<Maybe<Scalars['String']>>>;
   isFree?: Maybe<Scalars['Boolean']>;
   keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>;
   keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>;
   keyword?: Maybe<Array<Maybe<Scalars['String']>>>;
   language?: Maybe<Scalars['String']>;
@@ -471,6 +477,9 @@ export type QueryCourseDetailsArgs = {
 export type QueryCourseListArgs = {
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
   allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -484,6 +493,9 @@ export type QueryCourseListArgs = {
   include?: Maybe<Array<Maybe<Scalars['String']>>>;
   isFree?: Maybe<Scalars['Boolean']>;
   keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>;
   keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>;
   keyword?: Maybe<Array<Maybe<Scalars['String']>>>;
   language?: Maybe<Scalars['String']>;
@@ -686,6 +698,73 @@ export type CollectionListQuery = { __typename?: 'Query' } & {
   };
 };
 
+export type CourseFieldsFragment = { __typename?: 'EventDetails' } & {
+  extensionCourse: Maybe<
+    { __typename?: 'ExtensionCourse' } & Pick<
+      ExtensionCourse,
+      | 'enrolmentStartTime'
+      | 'enrolmentEndTime'
+      | 'maximumAttendeeCapacity'
+      | 'minimumAttendeeCapacity'
+      | 'remainingAttendeeCapacity'
+    >
+  >;
+} & EventFieldsFragment;
+
+export type CourseDetailsQueryVariables = {
+  id: Scalars['ID'];
+  include?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type CourseDetailsQuery = { __typename?: 'Query' } & {
+  courseDetails: { __typename?: 'EventDetails' } & CourseFieldsFragment;
+};
+
+export type CourseListQueryVariables = {
+  allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
+  audienceMaxAgeLt?: Maybe<Scalars['String']>;
+  audienceMinAgeGt?: Maybe<Scalars['String']>;
+  division?: Maybe<Array<Maybe<Scalars['String']>>>;
+  end?: Maybe<Scalars['String']>;
+  endsAfter?: Maybe<Scalars['String']>;
+  endsBefore?: Maybe<Scalars['String']>;
+  inLanguage?: Maybe<Scalars['String']>;
+  include?: Maybe<Array<Maybe<Scalars['String']>>>;
+  isFree?: Maybe<Scalars['Boolean']>;
+  keyword?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>;
+  language?: Maybe<Scalars['String']>;
+  location?: Maybe<Array<Maybe<Scalars['String']>>>;
+  page?: Maybe<Scalars['Int']>;
+  pageSize?: Maybe<Scalars['Int']>;
+  publisher?: Maybe<Scalars['ID']>;
+  sort?: Maybe<Scalars['String']>;
+  start?: Maybe<Scalars['String']>;
+  startsAfter?: Maybe<Scalars['String']>;
+  startsBefore?: Maybe<Scalars['String']>;
+  superEvent?: Maybe<Scalars['ID']>;
+  superEventType?: Maybe<Array<Maybe<Scalars['String']>>>;
+  text?: Maybe<Scalars['String']>;
+  translation?: Maybe<Scalars['String']>;
+};
+
+export type CourseListQuery = { __typename?: 'Query' } & {
+  courseList: { __typename?: 'EventListResponse' } & {
+    meta: { __typename?: 'Meta' } & Pick<Meta, 'count' | 'next' | 'previous'>;
+    data: Array<{ __typename?: 'EventDetails' } & CourseFieldsFragment>;
+  };
+};
+
+export type CoursesByIdsQueryVariables = {
+  ids: Array<Scalars['ID']>;
+  include?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type CoursesByIdsQuery = { __typename?: 'Query' } & {
+  coursesByIds: Array<{ __typename?: 'EventDetails' } & CourseFieldsFragment>;
+};
+
 export type LocalizedFieldsFragment = { __typename?: 'LocalizedObject' } & Pick<
   LocalizedObject,
   'en' | 'fi' | 'sv'
@@ -739,6 +818,13 @@ export type EventFieldsFragment = { __typename?: 'EventDetails' } & Pick<
     >;
     infoUrl: Maybe<
       { __typename?: 'LocalizedObject' } & LocalizedFieldsFragment
+    >;
+    audience: Array<
+      { __typename?: 'Audience' } & Pick<Audience, 'id'> & {
+          name: Maybe<
+            { __typename?: 'LocalizedObject' } & LocalizedFieldsFragment
+          >;
+        }
     >;
   };
 
@@ -823,6 +909,7 @@ export type KeywordListQueryVariables = {
   showAllKeywords?: Maybe<Scalars['Boolean']>;
   sort?: Maybe<Scalars['String']>;
   text?: Maybe<Scalars['String']>;
+  source?: Maybe<LinkedEventsSource>;
 };
 
 export type KeywordListQuery = { __typename?: 'Query' } & {
@@ -1000,6 +1087,7 @@ export type PlaceFieldsFragment = { __typename?: 'Place' } & Pick<
 
 export type PlaceDetailsQueryVariables = {
   id: Scalars['ID'];
+  source?: Maybe<LinkedEventsSource>;
 };
 
 export type PlaceDetailsQuery = { __typename?: 'Query' } & {
@@ -1015,6 +1103,7 @@ export type PlaceListQueryVariables = {
   showAllPlaces?: Maybe<Scalars['Boolean']>;
   sort?: Maybe<Scalars['String']>;
   text?: Maybe<Scalars['String']>;
+  source?: Maybe<LinkedEventsSource>;
 };
 
 export type PlaceListQuery = { __typename?: 'Query' } & {
@@ -1224,11 +1313,30 @@ export const EventFieldsFragmentDoc = gql`
     infoUrl {
       ...localizedFields
     }
+    audience {
+      id
+      name {
+        ...localizedFields
+      }
+    }
   }
   ${LocalizedFieldsFragmentDoc}
   ${KeywordFieldsFragmentDoc}
   ${PlaceFieldsFragmentDoc}
   ${OfferFieldsFragmentDoc}
+`;
+export const CourseFieldsFragmentDoc = gql`
+  fragment courseFields on EventDetails {
+    ...eventFields
+    extensionCourse {
+      enrolmentStartTime
+      enrolmentEndTime
+      maximumAttendeeCapacity
+      minimumAttendeeCapacity
+      remainingAttendeeCapacity
+    }
+  }
+  ${EventFieldsFragmentDoc}
 `;
 export const LocalizedCmsImageFieldsFragmentDoc = gql`
   fragment localizedCmsImageFields on LocalizedCmsImage {
@@ -1351,6 +1459,91 @@ export const CollectionListDocument = gql`
   }
   ${CollectionFieldsFragmentDoc}
 `;
+export const CourseDetailsDocument = gql`
+  query CourseDetails($id: ID!, $include: [String]) {
+    courseDetails(id: $id, include: $include) {
+      ...courseFields
+    }
+  }
+  ${CourseFieldsFragmentDoc}
+`;
+export const CourseListDocument = gql`
+  query CourseList(
+    $allOngoingAnd: [String]
+    $audienceMaxAgeLt: String
+    $audienceMinAgeGt: String
+    $division: [String]
+    $end: String
+    $endsAfter: String
+    $endsBefore: String
+    $inLanguage: String
+    $include: [String]
+    $isFree: Boolean
+    $keyword: [String]
+    $keywordAnd: [String]
+    $keywordNot: [String]
+    $language: String
+    $location: [String]
+    $page: Int
+    $pageSize: Int
+    $publisher: ID
+    $sort: String
+    $start: String
+    $startsAfter: String
+    $startsBefore: String
+    $superEvent: ID
+    $superEventType: [String]
+    $text: String
+    $translation: String
+  ) {
+    courseList(
+      audienceMaxAgeLt: $audienceMaxAgeLt
+      audienceMinAgeGt: $audienceMinAgeGt
+      combinedText: $allOngoingAnd
+      division: $division
+      end: $end
+      endsAfter: $endsAfter
+      endsBefore: $endsBefore
+      include: $include
+      inLanguage: $inLanguage
+      isFree: $isFree
+      keyword: $keyword
+      keywordAnd: $keywordAnd
+      keywordNot: $keywordNot
+      language: $language
+      location: $location
+      page: $page
+      pageSize: $pageSize
+      publisher: $publisher
+      sort: $sort
+      start: $start
+      startsAfter: $startsAfter
+      startsBefore: $startsBefore
+      superEvent: $superEvent
+      superEventType: $superEventType
+      text: $text
+      translation: $translation
+    ) {
+      meta {
+        count
+        next
+        previous
+      }
+      data {
+        ...courseFields
+      }
+    }
+  }
+  ${CourseFieldsFragmentDoc}
+`;
+export const CoursesByIdsDocument = gql`
+  query CoursesByIds($ids: [ID!]!, $include: [String]) {
+    coursesByIds(ids: $ids, include: $include) {
+      ...courseFields
+    }
+  }
+  ${CourseFieldsFragmentDoc}
+`;
 export const EventDetailsDocument = gql`
   query EventDetails($id: ID!, $include: [String]) {
     eventDetails(id: $id, include: $include) {
@@ -1451,6 +1644,7 @@ export const KeywordListDocument = gql`
     $showAllKeywords: Boolean
     $sort: String
     $text: String
+    $source: LinkedEventsSource
   ) {
     keywordList(
       dataSource: $dataSource
@@ -1460,6 +1654,7 @@ export const KeywordListDocument = gql`
       showAllKeywords: $showAllKeywords
       sort: $sort
       text: $text
+      source: $source
     ) {
       meta {
         count
@@ -1519,8 +1714,8 @@ export const OrganizationDetailsDocument = gql`
   ${OrganizationFieldsFragmentDoc}
 `;
 export const PlaceDetailsDocument = gql`
-  query PlaceDetails($id: ID!) {
-    placeDetails(id: $id) {
+  query PlaceDetails($id: ID!, $source: LinkedEventsSource) {
+    placeDetails(id: $id, source: $source) {
       ...placeFields
     }
   }
@@ -1536,6 +1731,7 @@ export const PlaceListDocument = gql`
     $showAllPlaces: Boolean
     $sort: String
     $text: String
+    $source: LinkedEventsSource
   ) {
     placeList(
       dataSource: $dataSource
@@ -1546,6 +1742,7 @@ export const PlaceListDocument = gql`
       showAllPlaces: $showAllPlaces
       sort: $sort
       text: $text
+      source: $source
     ) {
       meta {
         count
@@ -1588,6 +1785,28 @@ export function getSdk(client: GraphQLClient) {
     ): Promise<CollectionListQuery> {
       return client.request<CollectionListQuery>(
         print(CollectionListDocument),
+        variables
+      );
+    },
+    CourseDetails(
+      variables: CourseDetailsQueryVariables
+    ): Promise<CourseDetailsQuery> {
+      return client.request<CourseDetailsQuery>(
+        print(CourseDetailsDocument),
+        variables
+      );
+    },
+    CourseList(variables?: CourseListQueryVariables): Promise<CourseListQuery> {
+      return client.request<CourseListQuery>(
+        print(CourseListDocument),
+        variables
+      );
+    },
+    CoursesByIds(
+      variables: CoursesByIdsQueryVariables
+    ): Promise<CoursesByIdsQuery> {
+      return client.request<CoursesByIdsQuery>(
+        print(CoursesByIdsDocument),
         variables
       );
     },
