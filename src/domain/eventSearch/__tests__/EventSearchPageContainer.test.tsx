@@ -2,6 +2,7 @@
 import { MockedResponse } from '@apollo/react-testing';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createMemoryHistory } from 'history';
 import { advanceTo, clear } from 'jest-date-mock';
 import React from 'react';
 import routeData from 'react-router';
@@ -30,7 +31,9 @@ const meta = {
   previous: null,
   __typename: 'Meta',
 };
-const eventsResponse = { data: { eventList: { ...fakeEvents(10), meta } } };
+const eventsResponse = {
+  data: { eventList: { ...fakeEvents(10), meta } },
+};
 const eventsLoadMoreResponse = {
   data: {
     eventList: {
@@ -116,6 +119,10 @@ const defaultMocks = [
 
 afterAll(() => {
   clear();
+});
+
+afterEach(() => {
+  jest.restoreAllMocks();
 });
 
 const pathname = '/fi/events';
@@ -264,6 +271,37 @@ it('should scroll to result list on mobile screen', async () => {
   });
 
   expect(scroller.scrollTo).toBeCalled();
+});
+
+it('scrolls to eventcard and calls history.replace correctly (deletes eventId from state)', async () => {
+  const history = createMemoryHistory();
+  const historyObject = {
+    search: '?dateTypes=tomorrow,this_week',
+    state: { eventId: '123' },
+    pathname: '/fi/events',
+  };
+  history.push(historyObject);
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  jest.spyOn(console, 'warn').mockImplementationOnce(() => {});
+  const replaceSpy = jest.spyOn(history, 'replace');
+
+  render(<EventSearchPageContainer />, {
+    mocks: defaultMocks,
+    routes,
+    history,
+  });
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  expect(replaceSpy).toHaveBeenCalledWith(
+    expect.objectContaining({
+      search: historyObject.search,
+      pathname: historyObject.pathname,
+    })
+  );
 });
 
 //it('searches events correctly with event place in path, e.g. /fi/annantalo', () => {});
