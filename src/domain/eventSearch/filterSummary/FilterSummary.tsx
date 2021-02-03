@@ -46,6 +46,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
     text,
     audienceMinAgeGt,
     audienceMaxAgeLt,
+    hobbyTypes,
   } = getSearchFilters(searchParams);
 
   const dateText =
@@ -74,6 +75,10 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
         type === 'category'
           ? categories.filter((category) => category !== value)
           : categories,
+      hobbyTypes:
+        type === 'hobbyType'
+          ? hobbyTypes?.filter((hobbyType) => hobbyType !== value)
+          : hobbyTypes,
       dateTypes:
         type === 'dateType'
           ? dateTypes.filter((dateType) => dateType !== value)
@@ -102,6 +107,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
   const hasFilters =
     !!publisher ||
     !!categories.length ||
+    !!hobbyTypes?.length ||
     !!dateText ||
     !!dateTypes.length ||
     !!divisions.length ||
@@ -127,6 +133,15 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
           text={translateValue('home.category.', category, t)}
           type="category"
           value={category}
+        />
+      ))}
+      {hobbyTypes?.map((hobbyType) => (
+        <FilterButton
+          key={hobbyType}
+          onRemove={handleFilterRemove}
+          text={translateValue('home.hobby.', hobbyType, t)}
+          type="hobbyType"
+          value={hobbyType}
         />
       ))}
       {publisher && (

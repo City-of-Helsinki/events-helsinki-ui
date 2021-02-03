@@ -7,6 +7,7 @@ import styles from './filterButton.module.scss';
 
 export type FilterType =
   | 'category'
+  | 'hobbyType'
   | 'date'
   | 'dateType'
   | 'division'
