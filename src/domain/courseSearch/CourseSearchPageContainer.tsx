@@ -31,8 +31,6 @@ const CourseSearchPageContainer: React.FC = () => {
     searchSource: EVENT_SEARCH_SOURCES.COURSES,
   });
 
-  console.log(eventFilters);
-
   const { data: coursesData, fetchMore, loading } = useCourseListQuery({
     notifyOnNetworkStatusChange: true,
     ssr: false,
