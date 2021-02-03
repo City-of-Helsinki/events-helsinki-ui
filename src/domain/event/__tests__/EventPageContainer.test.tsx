@@ -1,12 +1,17 @@
 import { advanceTo, clear } from 'jest-date-mock';
-import React from 'react';
+import * as React from 'react';
 
 import translations from '../../../common/translation/i18n/fi.json';
-import { EventDetailsDocument } from '../../../generated/graphql';
-import { fakeEvent } from '../../../util/mockDataUtils';
+import {
+  EventDetailsDocument,
+  EventFieldsFragment,
+} from '../../../generated/graphql';
+import { setFeatureFlags } from '../../../util/featureFlags.test.utils';
+import { fakeEvent, fakeEvents } from '../../../util/mockDataUtils';
 import { renderWithRoute, screen, waitFor } from '../../../util/testUtils';
 import { ROUTES } from '../../app/routes/constants';
 import EventPageContainer from '../EventPageContainer';
+import { createMocks as cresteSimilarEventsMocks } from '../similarEvents/__tests__/SimilarEvents.test';
 
 const id = '1';
 const name = 'Event title';
@@ -18,7 +23,7 @@ const event = fakeEvent({
   startTime,
   endTime,
   name: { fi: name },
-});
+}) as EventFieldsFragment;
 
 const request = {
   query: EventDetailsDocument,
@@ -29,12 +34,13 @@ const request = {
 };
 
 const eventResponse = { data: { eventDetails: event } };
-
+const similarEvents = fakeEvents(3);
 const mocks = [
   {
     request,
     result: eventResponse,
   },
+  ...cresteSimilarEventsMocks(event, similarEvents),
 ];
 
 const testPath = ROUTES.EVENT.replace(':id', id);
@@ -99,4 +105,33 @@ it("should show error info when event doesn't exist", async () => {
       name: translations.event.notFound.title,
     })
   ).toBeInTheDocument();
+});
+
+describe(`when SIMILAR_EVENTS feature flag`, () => {
+  it('shows similar events when flag is on', async () => {
+    setFeatureFlags({ SHOW_SIMILAR_EVENTS: true });
+    advanceTo('2020-10-01');
+    renderComponent();
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+    });
+    expect(
+      screen.queryByRole('heading', {
+        name: translations.event.similarEvents.title,
+      })
+    ).toBeInTheDocument();
+  });
+  it('doesnt shor similar events when flag is off', async () => {
+    setFeatureFlags({ SHOW_SIMILAR_EVENTS: false });
+    advanceTo('2020-10-01');
+    renderComponent();
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+    });
+    expect(
+      screen.queryByRole('heading', {
+        name: translations.event.similarEvents.title,
+      })
+    ).not.toBeInTheDocument();
+  });
 });
