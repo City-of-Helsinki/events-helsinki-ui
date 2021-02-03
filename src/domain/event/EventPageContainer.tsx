@@ -7,6 +7,7 @@ import ErrorHero from '../../common/components/error/ErrorHero';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import { useEventDetailsQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
+import { getFeatureFlags } from '../../util/featureFlags';
 import isClient from '../../util/isClient';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -40,7 +41,6 @@ const EventPageContainer: React.FC = () => {
   const event = eventData?.eventDetails;
 
   const eventClosed = !event || isEventClosed(event);
-
   return (
     <PageWrapper className={styles.eventPageWrapper} title="event.title">
       <MainContent offset={-70}>
@@ -53,7 +53,9 @@ const EventPageContainer: React.FC = () => {
               {/* Show event content only if event is open */}
               {!eventClosed && <EventContent event={event} />}
               {/* Hide similar event on SSR to make initial load faster */}
-              {isClient && <SimilarEvents event={event} />}
+              {isClient && getFeatureFlags().SHOW_SIMILAR_EVENTS && (
+                <SimilarEvents event={event} />
+              )}
             </>
           ) : (
             <ErrorHero

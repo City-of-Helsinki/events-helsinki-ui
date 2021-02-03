@@ -63,7 +63,6 @@ const SimilarEvents: React.FC<Props> = ({ event }) => {
       // Don't show current event on the list
       .filter((item) => item.id !== event.id)
       .slice(0, SIMILAR_EVENTS_AMOUNT) || [];
-
   return (
     <div className={styles.similarEvents}>
       <LoadingSpinner hasPadding={false} isLoading={loading}>
