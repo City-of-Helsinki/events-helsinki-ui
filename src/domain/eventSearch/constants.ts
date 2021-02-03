@@ -118,10 +118,11 @@ export const MAPPED_PLACES: Record<string, string> = {
   caisa: 'tprek:7256',
   espanlava: 'tprek:7265',
   kanneltalo: 'tprek:7255',
+  malmitalo: 'tprek:8740',
+  maunulatalo: 'tprek:56070',
   savoyteatteri: 'tprek:7258',
   stoa: 'tprek:7259',
   vuotalo: 'tprek:7260',
-  malmitalo: 'tprek:8740',
 };
 
 export const MARKETING_COLLECTION_SLUGS = ['talviloma'];
