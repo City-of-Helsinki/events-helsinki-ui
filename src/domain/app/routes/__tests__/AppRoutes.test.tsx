@@ -26,7 +26,10 @@ import {
   waitFor,
 } from '../../../../util/testUtils';
 import { getMocks as getCollectionMocks } from '../../../collection/__tests__/CollectionPageContainer.test';
-import { MARKETING_COLLECTION_SLUGS } from '../../../eventSearch/constants';
+import {
+  MAPPED_PLACES,
+  MARKETING_COLLECTION_SLUGS,
+} from '../../../eventSearch/constants';
 import AppRoutes from '../AppRoutes';
 
 const placeToPlaceString = {
@@ -34,19 +37,10 @@ const placeToPlaceString = {
   caisa: 'Caisa',
   espanlava: 'Espanlava',
   kanneltalo: 'Kanneltalo',
+  maunulatalo: 'Maunula-talo',
   savoyteatteri: 'Savoy-teatteri',
   stoa: 'Stoa',
   vuotalo: 'Vuotalo',
-};
-
-const placeIdMap = {
-  annantalo: 'tprek:7254',
-  caisa: 'tprek:7256',
-  espanlava: 'tprek:7265',
-  kanneltalo: 'tprek:7255',
-  savoyteatteri: 'tprek:7258',
-  stoa: 'tprek:7259',
-  vuotalo: 'tprek:7260',
 };
 
 configure({ defaultHidden: true });
@@ -90,24 +84,24 @@ const mocks = [
     result: collectionListResponse,
   },
   // generate mock response for each place query
-  ...Object.keys(placeIdMap).map((key) => {
+  ...Object.keys(MAPPED_PLACES).map((key) => {
     return {
       request: {
         query: EventListDocument,
         variables: {
           ...eventListBaseVariables,
-          location: [placeIdMap[key]],
+          location: [MAPPED_PLACES[key]],
         },
       },
       result: eventListResponse,
     };
   }),
-  ...Object.keys(placeIdMap).map((key) => {
+  ...Object.keys(MAPPED_PLACES).map((key) => {
     return {
       request: {
         query: PlaceDetailsDocument,
         variables: {
-          id: placeIdMap[key],
+          id: MAPPED_PLACES[key],
         },
       },
       result: {
@@ -164,7 +158,7 @@ it('user with route with unsupport locale will be redirect to App anyway, with s
 });
 
 describe('test each place path /:locale/:place', () => {
-  Object.keys(placeIdMap).forEach((place) => {
+  Object.keys(MAPPED_PLACES).forEach((place) => {
     it(`renders event search with place from path: ${place}`, async () => {
       renderComponent(`/fi/${place}`);
 
