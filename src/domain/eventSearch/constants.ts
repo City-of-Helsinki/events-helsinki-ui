@@ -22,7 +22,7 @@ export enum EVENT_CATEGORIES {
 }
 
 export enum COURSE_CATEGORIES {
-  MOVIE = 'movie',
+  MOVIE = 'movie_and_media',
   LANGUAGES = 'languages',
   LITERATURE = 'literature',
   ARTS_AND_CULTURE = 'arts_and_culture',

@@ -1,5 +1,5 @@
 /* eslint-disable */
-/*import { MockedResponse } from '@apollo/react-testing';
+import { MockedResponse } from '@apollo/react-testing';
 import { advanceTo } from 'jest-date-mock';
 import React from 'react';
 import { toast } from 'react-toastify';
@@ -59,7 +59,8 @@ const courseListVariables = {
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,
-  keyword: [],
+  keywordOrSet2: [],
+  keywordOrSet3: [],
   keywordAnd: [],
   keywordNot: [],
   language: 'fi',
@@ -70,6 +71,8 @@ const courseListVariables = {
   start: 'now',
   startsAfter: undefined,
   superEventType: ['umbrella', 'none'],
+  audienceMinAgeGt: '',
+  audienceMaxAgeLt: ''
 };
 
 const courseListVariables2 = {
@@ -78,7 +81,14 @@ const courseListVariables2 = {
   end: '2020-12-02',
   include: ['keywords', 'location'],
   isFree: undefined,
-  keyword: ['yso:p1235', 'yso:p1808'],
+  keywordOrSet2: ['yso:p1808',  'yso:p10871',
+  'yso:p20421', 'yso:p2969',
+  'yso:p23171', 'yso:p27962',
+  'yso:p18718', 'yso:p18434',
+  'yso:p15521', 'yso:p13408',
+  'yso:p29932', 'yso:p768',
+  'yso:p2841'],
+  keywordOrSet3: [],
   keywordAnd: [],
   keywordNot: [],
   language: 'fi',
@@ -89,6 +99,8 @@ const courseListVariables2 = {
   start: '2020-12-02',
   startsAfter: undefined,
   superEventType: ['umbrella', 'none'],
+  audienceMinAgeGt: '',
+  audienceMaxAgeLt: ''
 };
 
 const neighborhoodsResponse = {
@@ -369,9 +381,4 @@ it('should show toastr message when loading next event page fails', async () => 
   });
 
   expect(toast.error).toBeCalledWith(translations.eventSearch.errorLoadMode);
-});
-*/
-// TODO: fix the tests when keyword_sets are available.
-it('renders title and search fields', async () => {
-  expect(true).toBe(true);
 });

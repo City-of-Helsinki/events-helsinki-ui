@@ -130,7 +130,11 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
         <FilterButton
           key={category}
           onRemove={handleFilterRemove}
-          text={translateValue('home.category.', category, t)}
+          text={translateValue(
+            `home.category.${route === '/courses' ? 'courses' : ''}.`,
+            category,
+            t
+          )}
           type="category"
           value={category}
         />
