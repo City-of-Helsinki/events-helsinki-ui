@@ -107,7 +107,7 @@ it("should show error info when event doesn't exist", async () => {
   ).toBeInTheDocument();
 });
 
-describe(`when SIMILAR_EVENTS feature flag`, () => {
+describe(`SIMILAR_EVENTS feature flag`, () => {
   it('shows similar events when flag is on', async () => {
     setFeatureFlags({ SHOW_SIMILAR_EVENTS: true });
     advanceTo('2020-10-01');
@@ -121,7 +121,7 @@ describe(`when SIMILAR_EVENTS feature flag`, () => {
       })
     ).toBeInTheDocument();
   });
-  it('doesnt shor similar events when flag is off', async () => {
+  it('doesnt show similar events when flag is off', async () => {
     setFeatureFlags({ SHOW_SIMILAR_EVENTS: false });
     advanceTo('2020-10-01');
     renderComponent();
