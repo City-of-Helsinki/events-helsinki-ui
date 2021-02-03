@@ -194,7 +194,7 @@ test('should change search query after clicking category menu item', async () =>
 
   userEvent.click(screen.getByRole('button', { name: /hae/i }));
   expect(history.location.pathname).toBe(pathname);
-  expect(history.location.search).toBe('?categories=movie&text=jazz');
+  expect(history.location.search).toBe('?categories=movie_and_media&text=jazz');
 });
 
 test('should change search query after clicking hobby type menu item', async () => {
