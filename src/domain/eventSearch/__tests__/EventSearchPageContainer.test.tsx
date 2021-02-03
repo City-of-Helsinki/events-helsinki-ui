@@ -46,7 +46,6 @@ const eventListVariables = {
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,
-  //keyword: [],
   keywordAnd: [],
   keywordOrSet1: [],
   keywordOrSet3: [],

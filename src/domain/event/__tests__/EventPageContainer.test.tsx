@@ -78,7 +78,6 @@ const similarEventsListRequest = {
     end: '',
     include: ['keywords', 'location'],
     isFree: undefined,
-    //keyword: ['keyword1', 'keyword2', 'keyword3'],
     keywordAnd: [],
     keywordOrSet1: ['keyword1', 'keyword2', 'keyword3'],
     keywordOrSet3: [],
