@@ -424,6 +424,9 @@ export type QueryEventDetailsArgs = {
 export type QueryEventListArgs = {
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
   allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -437,6 +440,9 @@ export type QueryEventListArgs = {
   include?: Maybe<Array<Maybe<Scalars['String']>>>;
   isFree?: Maybe<Scalars['Boolean']>;
   keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>;
   keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>;
   keyword?: Maybe<Array<Maybe<Scalars['String']>>>;
   language?: Maybe<Scalars['String']>;
@@ -471,6 +477,9 @@ export type QueryCourseDetailsArgs = {
 export type QueryCourseListArgs = {
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>;
+  localOngoingOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
   allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -484,6 +493,9 @@ export type QueryCourseListArgs = {
   include?: Maybe<Array<Maybe<Scalars['String']>>>;
   isFree?: Maybe<Scalars['Boolean']>;
   keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>;
   keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>;
   keyword?: Maybe<Array<Maybe<Scalars['String']>>>;
   language?: Maybe<Scalars['String']>;
