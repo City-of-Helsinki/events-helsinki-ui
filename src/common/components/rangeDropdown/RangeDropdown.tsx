@@ -64,15 +64,17 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   const dropdown = React.useRef<HTMLDivElement | null>(null);
   const toggleButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
-  //set values without validation
+  //set values with prevalidation, rest of validation on blur
   const handleInputChange = (inputType: RANGE_INPUT, val: string) => {
-    switch (inputType) {
-      case RANGE_INPUT.MIN:
-        onChange(val, maxInputValue);
-        break;
-      case RANGE_INPUT.MAX:
-        onChange(minInputValue, val);
-        break;
+    if (maxInputEndValue ? val.length <= maxInputEndValue.length : true) {
+      switch (inputType) {
+        case RANGE_INPUT.MIN:
+          onChange(val, maxInputValue);
+          break;
+        case RANGE_INPUT.MAX:
+          onChange(minInputValue, val);
+          break;
+      }
     }
   };
 
