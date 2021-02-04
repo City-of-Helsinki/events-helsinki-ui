@@ -12,10 +12,7 @@ import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import BannerHero from '../banner/bannerHero/BannerHero';
 import CollectionCards from '../collection/collectionCard/CollectionCards';
-import {
-  isCollectionExpired,
-  isLanguageSupported,
-} from '../collection/CollectionUtils';
+import { isCollectionVisible } from '../collection/CollectionUtils';
 import styles from './landingPage.module.scss';
 import LandingPageMeta from './landingPageMeta/LandingPageMeta';
 import Search from './landingPageSearch/LandingPageSearch';
@@ -37,10 +34,8 @@ const Home: React.FC = () => {
     isLanguagePageLanguageSupported(page, locale)
   );
   const collections = collectionsData
-    ? collectionsData.collectionList.data.filter(
-        (collection) =>
-          isLanguageSupported(collection, locale) &&
-          !isCollectionExpired(collection)
+    ? collectionsData.collectionList.data.filter((collection) =>
+        isCollectionVisible(collection, locale)
       )
     : [];
 

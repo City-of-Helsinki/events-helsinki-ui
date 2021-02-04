@@ -5,11 +5,11 @@ import * as React from 'react';
 
 import {
   CollectionFieldsFragment,
-  CollectionListDocument,
   EventListDocument,
   LandingPagesDocument,
   PlaceDetailsDocument,
 } from '../../../../generated/graphql';
+import { getCollectionQueryListMocks } from '../../../../util/collections.common.tests';
 import {
   fakeCollection,
   fakeCollections,
@@ -46,9 +46,7 @@ const placeToPlaceString = {
 configure({ defaultHidden: true });
 
 const landingPagesResponse = { data: { landingPages: fakeLandingPages(1) } };
-const collectionListResponse = {
-  data: { collectionList: fakeCollections(1) },
-};
+const collections = fakeCollections(1);
 const eventListResponse = { data: { eventList: fakeEvents(3) } };
 
 const eventListBaseVariables = {
@@ -76,13 +74,7 @@ const mocks = [
     },
     result: landingPagesResponse,
   },
-  {
-    request: {
-      query: CollectionListDocument,
-      variables: { visibleOnFrontpage: true },
-    },
-    result: collectionListResponse,
-  },
+  ...getCollectionQueryListMocks(collections, { visibleOnFrontpage: true }),
   // generate mock response for each place query
   ...Object.keys(MAPPED_PLACES).map((key) => {
     return {

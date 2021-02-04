@@ -11,10 +11,7 @@ import Container from '../app/layout/Container';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import CollectionCards from '../collection/collectionCard/CollectionCards';
-import {
-  isCollectionExpired,
-  isLanguageSupported,
-} from '../collection/CollectionUtils';
+import { isCollectionVisible } from '../collection/CollectionUtils';
 import LandingPageMeta from '../landingPage/landingPageMeta/LandingPageMeta';
 import { isLanguageSupported as isLanguagePageLanguageSupported } from '../landingPage/utils';
 import styles from './collectionListPage.module.scss';
@@ -31,10 +28,8 @@ const CollectionListPage: React.FC = () => {
   );
 
   const collections =
-    collectionsData?.collectionList.data.filter(
-      (collection) =>
-        isLanguageSupported(collection, locale) &&
-        !isCollectionExpired(collection)
+    collectionsData?.collectionList.data.filter((collection) =>
+      isCollectionVisible(collection, locale)
     ) || [];
   const largeCollections = collections.slice(0, 1);
   const mdAndSmCollections = collections.slice(1);

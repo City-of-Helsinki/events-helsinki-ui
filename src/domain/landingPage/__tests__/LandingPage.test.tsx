@@ -2,10 +2,11 @@ import { act } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import * as React from 'react';
 
+import { LandingPagesDocument } from '../../../generated/graphql';
 import {
-  CollectionListDocument,
-  LandingPagesDocument,
-} from '../../../generated/graphql';
+  collectionListFilterTests,
+  getCollectionQueryListMocks,
+} from '../../../util/collections.common.tests';
 import {
   fakeBanner,
   fakeCollections,
@@ -37,22 +38,12 @@ const landingPagesResponse = {
 };
 
 const collections = fakeCollections(1);
-const collectionsResponse = {
-  data: {
-    collectionList: collections,
-  },
-};
 
-const mocks = [
-  {
-    request: {
-      query: CollectionListDocument,
-      variables: {
-        visibleOnFrontpage: true,
-      },
-    },
-    result: collectionsResponse,
-  },
+const collectionListQueryMock = getCollectionQueryListMocks(collections, {
+  visibleOnFrontpage: true,
+});
+
+const landingPagesQueryMock = [
   {
     request: {
       query: LandingPagesDocument,
@@ -66,7 +57,7 @@ const mocks = [
 
 it('should render landing page correctly', async () => {
   render(<LandingPage />, {
-    mocks,
+    mocks: [...collectionListQueryMock, ...landingPagesQueryMock],
   });
 
   await screen.findByRole('heading', { name: topBannerTitle });
@@ -89,4 +80,10 @@ test('Landing page should be accessible', async () => {
     axeResult = await axe(container);
   });
   expect(axeResult).toHaveNoViolations();
+});
+
+describe('collection list filters', () => {
+  collectionListFilterTests(<LandingPage />, 7, landingPagesQueryMock, {
+    visibleOnFrontpage: true,
+  });
 });
