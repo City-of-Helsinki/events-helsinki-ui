@@ -224,3 +224,22 @@ it("should show error info when event doesn't exist", async () => {
     })
   ).toBeInTheDocument();
 });
+
+it('should link to courses search when clicking tags', async () => {
+  advanceTo('2020-10-01');
+  const { history } = renderComponent();
+
+  const pushSpy = jest.spyOn(history, 'push');
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  // click keyword / tag
+  userEvent.click(screen.getByRole('button', { name: 'Avouinti' }));
+
+  expect(pushSpy).toHaveBeenCalledWith({
+    pathname: '/fi/courses',
+    search: '?text=Avouinti',
+  });
+});

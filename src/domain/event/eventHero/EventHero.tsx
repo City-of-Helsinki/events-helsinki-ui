@@ -30,6 +30,7 @@ const EventHero: React.FC<Props> = ({ event, eventType }) => {
   const locale = useLocale();
   const history = useHistory();
   const { search } = useLocation();
+  const eventsRoute = EVENTS_ROUTE_MAPPER[eventType];
 
   const {
     endTime,
@@ -162,6 +163,7 @@ const EventHero: React.FC<Props> = ({ event, eventType }) => {
               {showKeywords && (
                 <div className={styles.categoryWrapper}>
                   <EventKeywords
+                    eventsRoute={eventsRoute}
                     blackOnMobile={true}
                     event={event}
                     showIsFree={true}
