@@ -20,7 +20,7 @@ it('calls onRemove callback when remove button is clicked', () => {
   const onClickMock = jest.fn();
   render(<AgeFilter {...props} onRemove={onClickMock} />);
 
-  expect(screen.queryByText(`Ikä alkaen ${props.value} v`)).toBeInTheDocument();
+  expect(screen.queryByText(`Alkaen ${props.value} v`)).toBeInTheDocument();
 
   userEvent.click(screen.getByRole('button'));
 
