@@ -48,6 +48,8 @@ Start the container
 
 The web application should run at http://localhost:3001
 
+Production docker container uses `package.prod.json` file instead of `package.json` to only included needed packages for server side code in the final image (to reduce image size). Whole node_modules directory from previous stages is not needed.
+
 ## Available Scripts
 
 In the project directory, you can run:
