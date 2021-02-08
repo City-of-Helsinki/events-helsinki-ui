@@ -321,7 +321,7 @@ export const getEventSearchVariables = ({
   ) =>
     list
       ?.reduce<string[]>(
-        (prev, val: string) => prev.concat(map[val]?.split(',')),
+        (prev, val: string) => prev.concat(map[val]?.split(',')) ?? [],
         []
       )
       .filter((e) => e);
