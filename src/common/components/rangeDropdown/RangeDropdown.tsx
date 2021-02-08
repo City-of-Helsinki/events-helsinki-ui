@@ -66,6 +66,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
 
   //set values with prevalidation, rest of validation on blur
   const handleInputChange = (inputType: RANGE_INPUT, val: string) => {
+    console.log('val', val);
     const allowChange =
       (maxInputEndValue && val.length <= maxInputEndValue.length) ?? true;
     if (allowChange) {
@@ -109,9 +110,11 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
 
     switch (inputType) {
       case RANGE_INPUT.MIN:
+        console.log('MIN', getValidatedValue(val), maxInputValue);
         onChange(getValidatedValue(val), maxInputValue);
         break;
       case RANGE_INPUT.MAX:
+        console.log('MAX', minInputValue, getValidatedValue(val));
         onChange(minInputValue, getValidatedValue(val));
         break;
       case RANGE_INPUT.ALL:
