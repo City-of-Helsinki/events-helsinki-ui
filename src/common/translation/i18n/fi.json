@@ -274,13 +274,13 @@
       "nature": "Luonto ja ulkoilu",
       "sport": "Liikunta ja urheilu",
       "theatre": "Teatteri",
-      "courses":{
-        "movieAndMedia":"Elokuva ja media",
+      "courses": {
+        "movieAndMedia": "Elokuva ja media",
         "languages": "Kielet",
         "literature": "Kirjallisuus ja sanataide",
-        "artsAndCulture":"Kulttuuri ja taide",
-        "visualArts":"Kuvataide",
-        "handicrafts":"Kädentaidot",
+        "artsAndCulture": "Kulttuuri ja taide",
+        "visualArts": "Kuvataide",
+        "handicrafts": "Kädentaidot",
         "sport": "Liikunta ja ulkoilu",
         "music": "Musiikki",
         "games": "Pelit",

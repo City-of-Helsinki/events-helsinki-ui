@@ -56,6 +56,13 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
         }`.trim()
       : '';
 
+  const getFilteredList = (
+    type: string,
+    listType: FilterType,
+    value: string,
+    list: string[] = []
+  ) => (type === listType ? list.filter((v) => v !== value) : list);
+
   const { data: neighborhoodsData } = useNeighborhoodListQuery();
 
   const getNeighorhoodName = React.useCallback(
@@ -71,32 +78,19 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
 
   const handleFilterRemove = (value: string, type: FilterType) => {
     const search = getSearchQuery({
-      categories:
-        type === 'category'
-          ? categories.filter((category) => category !== value)
-          : categories,
-      hobbyTypes:
-        type === 'hobbyType'
-          ? hobbyTypes?.filter((hobbyType) => hobbyType !== value)
-          : hobbyTypes,
-      dateTypes:
-        type === 'dateType'
-          ? dateTypes.filter((dateType) => dateType !== value)
-          : dateTypes,
-      divisions:
-        type === 'division'
-          ? divisions.filter((division) => division !== value)
-          : divisions,
+      categories: getFilteredList(type, 'category', value, categories),
+      hobbyTypes: getFilteredList(type, 'hobbyType', value, hobbyTypes),
+      dateTypes: getFilteredList(type, 'dateType', value, dateTypes),
+      divisions: getFilteredList(type, 'division', value, divisions),
       end: type === 'date' ? null : end,
       isFree,
       keyword,
       keywordNot,
       onlyChildrenEvents,
-      places:
-        type === 'place' ? places.filter((place) => place !== value) : places,
+      places: getFilteredList(type, 'place', value, places),
       publisher: type !== 'publisher' ? publisher : null,
       start: type === 'date' ? null : start,
-      text: type === 'text' ? text.filter((item) => item !== value) : text,
+      text: getFilteredList(type, 'text', value, text),
       audienceMinAgeGt: type === 'minAge' ? '' : audienceMinAgeGt,
       audienceMaxAgeLt: type === 'maxAge' ? '' : audienceMaxAgeLt,
     });

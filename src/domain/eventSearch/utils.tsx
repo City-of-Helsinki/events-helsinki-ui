@@ -312,30 +312,32 @@ export const getEventSearchVariables = ({
   }
 
   const categoriesParamName = MAPPED_KEYWORD_TERMS[searchSource];
-  let mappedCategories: string[] = [];
-  categories.map(
-    (category) =>
-      (mappedCategories = mappedCategories
-        .concat(MAPPED_CATEGORIES[searchSource][category]?.split(','))
-        .filter((e) => e))
-  );
-  let mappedHobbyTypes: string[] = [];
-  hobbyTypes?.map(
-    (hobbyType) =>
-      (mappedHobbyTypes = mappedHobbyTypes
-        .concat(MAPPED_COURSE_HOBBY_TYPES[hobbyType]?.split(','))
-        .filter((e) => e))
-  );
+
+  const categoryMap = MAPPED_CATEGORIES[searchSource];
+
+  const mappedCategories = categories
+    ?.reduce<string[]>(
+      (prev, category) => prev.concat(categoryMap[category]?.split(',')),
+      []
+    )
+    .filter((e) => e);
+
+  const mappedHobbyTypes = hobbyTypes
+    ?.reduce<string[]>(
+      (prev, hobbyType) =>
+        prev.concat(MAPPED_COURSE_HOBBY_TYPES[hobbyType]?.split(',')),
+      []
+    )
+    .filter((e) => e);
+
   const hasLocation = !isEmpty(divisions) || !isEmpty(places);
   const hasText = !isEmpty(text);
-  // Combine and add keywords
 
   //free text search
+  const isEventsSearch = searchSource === EVENT_SEARCH_SOURCES.EVENTS;
   const freeTextSearchParam =
-    searchSource === EVENT_SEARCH_SOURCES.EVENTS
-      ? hasLocation
-        ? { localOngoingAnd: text }
-        : { allOngoingAnd: text }
+    isEventsSearch && hasLocation
+      ? { localOngoingAnd: text }
       : { allOngoingAnd: text };
 
   return {
@@ -344,7 +346,7 @@ export const getEventSearchVariables = ({
     end,
     include,
     isFree: isFree || undefined,
-    [categoriesParamName]: [...(keyword ? keyword : []), ...mappedCategories],
+    [categoriesParamName]: [...(keyword ?? []), ...mappedCategories],
     keywordOrSet3: [...mappedHobbyTypes],
     keywordAnd,
     keywordNot,

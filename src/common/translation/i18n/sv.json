@@ -274,13 +274,13 @@
       "nature": "Natur och friluftsliv",
       "sport": "Motion och sport",
       "theatre": "Teater",
-      "courses":{
-        "movieAndMedia":"Film och media",
+      "courses": {
+        "movieAndMedia": "Film och media",
         "languages": "Språk",
         "literature": "Litteratur och ordkonst",
-        "artsAndCulture":"Kultur och konst",
-        "visualArts":"Bildkonst",
-        "handicrafts":"Kädentaidot (sv)",
+        "artsAndCulture": "Kultur och konst",
+        "visualArts": "Bildkonst",
+        "handicrafts": "Kädentaidot (sv)",
         "sport": "Motion och friluftsliv",
         "music": "Musik",
         "games": "Pelit (sv)",
