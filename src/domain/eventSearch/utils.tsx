@@ -315,20 +315,23 @@ export const getEventSearchVariables = ({
 
   const categoryMap = MAPPED_CATEGORIES[searchSource];
 
-  const mappedCategories = categories
-    ?.reduce<string[]>(
-      (prev, category) => prev.concat(categoryMap[category]?.split(',')),
-      []
-    )
-    .filter((e) => e);
+  const getMappedPropertyValues = (
+    list: string[],
+    map: Record<string, string>
+  ) =>
+    list
+      ?.reduce<string[]>(
+        (prev, val: string) => prev.concat(map[val]?.split(',')),
+        []
+      )
+      .filter((e) => e);
 
-  const mappedHobbyTypes = hobbyTypes
-    ?.reduce<string[]>(
-      (prev, hobbyType) =>
-        prev.concat(MAPPED_COURSE_HOBBY_TYPES[hobbyType]?.split(',')),
-      []
-    )
-    .filter((e) => e);
+  const mappedCategories = getMappedPropertyValues(categories, categoryMap);
+
+  const mappedHobbyTypes = getMappedPropertyValues(
+    hobbyTypes ?? [],
+    MAPPED_COURSE_HOBBY_TYPES
+  );
 
   const hasLocation = !isEmpty(divisions) || !isEmpty(places);
   const hasText = !isEmpty(text);
