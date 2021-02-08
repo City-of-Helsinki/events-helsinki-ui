@@ -211,11 +211,54 @@ describe('Validation', () => {
     expect(maxValueTextbox).toBeInTheDocument();
     expect(maxValueTextbox).toHaveValue(100);
 
-    rerender({ minInputValue: '20', maxInputValue: '100' });
+    //min is negative
+    rerender({ minInputValue: '-1', maxInputValue: '100', onChange });
 
-    userEvent.click(maxValueTextbox);
+    userEvent.tab();
     await waitFor(() => {
-      expect(onChange).toHaveBeenCalledWith('20', '100');
+      expect(onChange).toHaveBeenCalledWith('0', '100');
+    });
+
+    //max is negative
+    rerender({ minInputValue: '0', maxInputValue: '-1', onChange });
+
+    userEvent.tab();
+    await waitFor(() => {
+      expect(onChange).toHaveBeenCalledWith('0', '0');
+    });
+  });
+
+  test('should fix min value and max value if min > max', async () => {
+    const onChange = jest.fn();
+    const { rerender } = renderComponent({ onChange });
+
+    const toggleButton = screen.getByRole('button', { name: title });
+    userEvent.click(toggleButton);
+    userEvent.tab();
+    const minValueTextbox = screen.queryByRole('spinbutton', {
+      name: /start integer/i,
+    }) as HTMLInputElement;
+    const maxValueTextbox = screen.queryByRole('spinbutton', {
+      name: /end integer/i,
+    }) as HTMLInputElement;
+
+    expect(minValueTextbox).toBeInTheDocument();
+    expect(minValueTextbox).toHaveValue(0);
+    expect(maxValueTextbox).toBeInTheDocument();
+    expect(maxValueTextbox).toHaveValue(100);
+
+    rerender({ minInputValue: '10', maxInputValue: '5', onChange });
+
+    userEvent.tab();
+    await waitFor(() => {
+      expect(onChange).toHaveBeenCalledWith('5', '5');
+    });
+
+    rerender({ minInputValue: '5', maxInputValue: '10', onChange });
+
+    userEvent.tab();
+    await waitFor(() => {
+      expect(onChange).toHaveBeenCalledWith('5', '5');
     });
   });
 });
