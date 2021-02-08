@@ -646,7 +646,7 @@ export type CollectionFieldsFragment = {
   __typename?: 'CollectionDetails';
 } & Pick<
   CollectionDetails,
-  'id' | 'boxColor' | 'curatedEvents' | 'expired' | 'slug'
+  'id' | 'boxColor' | 'curatedEvents' | 'expired' | 'live' | 'slug'
 > & {
     heroImage: Maybe<{ __typename?: 'CmsImage' } & CmsImageFieldsFragment>;
     curatedEventsTitle: Maybe<
@@ -1104,6 +1104,7 @@ export const CollectionFieldsFragmentDoc = gql`
     linkUrl {
       ...localizedFields
     }
+    live
     slug
     socialMediaDescription {
       ...localizedFields

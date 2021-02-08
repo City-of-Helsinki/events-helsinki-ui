@@ -10,6 +10,7 @@ export type TitleKey = 'title_en' | 'title_fi' | 'title_sv';
 
 export type Collection = {
   expired: boolean;
+  live: boolean;
   last_published_at: string;
   slug: string;
   title_en?: string;
@@ -51,7 +52,8 @@ const PAGE_SIZE = 100;
 const URLS_PER_FILE = 1000;
 const PATH_TO_SITEMAPS: string = __dirname;
 
-const isCollectionExpired = (collection: Collection) => collection.expired;
+const collectionHasNotExpired = (collection: Collection) => !collection.expired;
+const isCollectionLive = (collection: Collection) => collection.live;
 
 const isCollectionLanguageSupported = (
   collection: Collection,
@@ -104,7 +106,7 @@ const getElement = ({
 /**
  * Get xml text element in non-compact format
  * @param {string} name
- * @param {Object[]} elements
+ * @param text
  */
 const getTextElement = (name: string, text: string) => ({
   type: 'element',
@@ -141,7 +143,8 @@ const getCollections = async (): Promise<Collection[]> => {
 
   collections.push(
     ...result.filter(
-      (collection: Collection) => !isCollectionExpired(collection)
+      (collection: Collection) =>
+        collectionHasNotExpired(collection) && isCollectionLive(collection)
     )
   );
 
@@ -150,8 +153,8 @@ const getCollections = async (): Promise<Collection[]> => {
 
 /**
  * Get static url elements
- * @param {string} date
  * @return {Object[]}
+ * @param time
  */
 const getStaticUrlElements = (time: Date): Element[] => {
   const elements: Element[] = [];
@@ -195,7 +198,8 @@ const getCollectionUrlElements = async (): Promise<Element[]> => {
     LANGUAGES.filter(
       (language) =>
         isCollectionLanguageSupported(collection, language as Language) &&
-        !isCollectionExpired(collection)
+        collectionHasNotExpired(collection) &&
+        isCollectionLive(collection)
     ).forEach((language) => {
       const element = getElement({
         name: 'url',
