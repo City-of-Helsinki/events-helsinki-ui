@@ -43,7 +43,7 @@ const collectionListQueryMock = getCollectionQueryListMocks(collections, {
   visibleOnFrontpage: true,
 });
 
-const landingPagesQueryMock = [
+const landingPagesQueryMocks = [
   {
     request: {
       query: LandingPagesDocument,
@@ -57,7 +57,7 @@ const landingPagesQueryMock = [
 
 it('should render landing page correctly', async () => {
   render(<LandingPage />, {
-    mocks: [...collectionListQueryMock, ...landingPagesQueryMock],
+    mocks: [...collectionListQueryMock, ...landingPagesQueryMocks],
   });
 
   await screen.findByRole('heading', { name: topBannerTitle });
@@ -83,7 +83,12 @@ test('Landing page should be accessible', async () => {
 });
 
 describe('collection list filters', () => {
-  collectionListFilterTests(<LandingPage />, 7, landingPagesQueryMock, {
-    visibleOnFrontpage: true,
+  collectionListFilterTests({
+    component: <LandingPage />,
+    generatedCollectionListSize: 7,
+    mocks: landingPagesQueryMocks,
+    variables: {
+      visibleOnFrontpage: true,
+    },
   });
 });

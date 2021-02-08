@@ -4,5 +4,5 @@ import { collectionListFilterTests } from '../../../util/collections.common.test
 import CollectionListPage from '../CollectionListPage';
 
 describe('collection list filters', () => {
-  collectionListFilterTests(<CollectionListPage />);
+  collectionListFilterTests({ component: <CollectionListPage /> });
 });

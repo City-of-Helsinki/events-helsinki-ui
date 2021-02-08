@@ -48,8 +48,8 @@ test('should show similar collections', async () => {
 });
 
 describe('similar collections filters', () => {
-  collectionListFilterTests(
-    <SimilarCollections collection={collection} />,
-    SIMILAR_COLLECTIONS_AMOUNT
-  );
+  collectionListFilterTests({
+    component: <SimilarCollections collection={collection} />,
+    generatedCollectionListSize: SIMILAR_COLLECTIONS_AMOUNT,
+  });
 });

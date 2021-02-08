@@ -46,7 +46,7 @@ export const isLanguageSupported = (
 };
 
 /**
- * Test is collection expired
+ * Test has collection expired
  * @param {object} collection
  * @return {boolean}
  */
@@ -55,6 +55,10 @@ export const isCollectionExpired = (
 ): boolean => {
   return Boolean(collection.expired);
 };
+
+export const collectionHasNotExpired = (
+  collection: CollectionFieldsFragment
+): boolean => !isCollectionExpired(collection);
 
 export const isCollectionLive = (
   collection: CollectionFieldsFragment
@@ -68,7 +72,7 @@ export const isCollectionVisible = (
 ): boolean => {
   return (
     isLanguageSupported(collection, locale) &&
-    !isCollectionExpired(collection) &&
+    collectionHasNotExpired(collection) &&
     isCollectionLive(collection)
   );
 };

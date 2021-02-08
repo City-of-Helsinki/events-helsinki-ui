@@ -52,7 +52,7 @@ const PAGE_SIZE = 100;
 const URLS_PER_FILE = 1000;
 const PATH_TO_SITEMAPS: string = __dirname;
 
-const isCollectionExpired = (collection: Collection) => collection.expired;
+const collectionHasNotExpired = (collection: Collection) => !collection.expired;
 const isCollectionLive = (collection: Collection) => collection.live;
 
 const isCollectionLanguageSupported = (
@@ -144,7 +144,7 @@ const getCollections = async (): Promise<Collection[]> => {
   collections.push(
     ...result.filter(
       (collection: Collection) =>
-        !isCollectionExpired(collection) && isCollectionLive(collection)
+        collectionHasNotExpired(collection) && isCollectionLive(collection)
     )
   );
 
@@ -198,7 +198,7 @@ const getCollectionUrlElements = async (): Promise<Element[]> => {
     LANGUAGES.filter(
       (language) =>
         isCollectionLanguageSupported(collection, language as Language) &&
-        !isCollectionExpired(collection) &&
+        collectionHasNotExpired(collection) &&
         isCollectionLive(collection)
     ).forEach((language) => {
       const element = getElement({

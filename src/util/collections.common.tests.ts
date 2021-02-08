@@ -23,12 +23,17 @@ export const getCollectionQueryListMocks = (
   },
 ];
 
-const renderAndWaitForComponentToBeLoaded = async (
-  component: React.ReactElement,
-  collections: CollectionListResponse,
-  mocks: MockedResponse[] = [],
-  variables?: CollectionListQueryVariables
-) => {
+const renderAndWaitForComponentToBeLoaded = async ({
+  component,
+  collections,
+  mocks = [],
+  variables,
+}: {
+  component: React.ReactElement;
+  collections: CollectionListResponse;
+  mocks: MockedResponse[];
+  variables?: CollectionListQueryVariables;
+}) => {
   const collectionMocks = getCollectionQueryListMocks(collections, variables);
   render(component, { mocks: [...collectionMocks, ...mocks] });
 
@@ -37,19 +42,25 @@ const renderAndWaitForComponentToBeLoaded = async (
   });
 };
 
-const renderComponentAndExpectOddCollectionsToBePresent = async (
-  component: React.ReactElement,
-  collections: CollectionListResponse,
-  collectionNames: string[],
-  mocks: MockedResponse[] = [],
-  variables?: CollectionListQueryVariables
-) => {
-  await renderAndWaitForComponentToBeLoaded(
+const renderComponentAndExpectOddCollectionsToBePresent = async ({
+  component,
+  collections,
+  collectionNames,
+  mocks = [],
+  variables,
+}: {
+  component: React.ReactElement;
+  collections: CollectionListResponse;
+  collectionNames: string[];
+  mocks?: MockedResponse[];
+  variables?: CollectionListQueryVariables;
+}) => {
+  await renderAndWaitForComponentToBeLoaded({
     component,
     collections,
     mocks,
-    variables
-  );
+    variables,
+  });
 
   collections.data.forEach((collection, index) => {
     if (index % 2) {
@@ -62,12 +73,17 @@ const renderComponentAndExpectOddCollectionsToBePresent = async (
   });
 };
 
-export const collectionListFilterTests = (
-  component: React.ReactElement,
+export const collectionListFilterTests = ({
+  component,
   generatedCollectionListSize = 7,
-  mocks: MockedResponse[] = [],
-  variables?: CollectionListQueryVariables
-): void => {
+  mocks = [],
+  variables,
+}: {
+  component: React.ReactElement;
+  generatedCollectionListSize?: number;
+  mocks?: MockedResponse[];
+  variables?: CollectionListQueryVariables;
+}): void => {
   const collectionIds = range(generatedCollectionListSize).map((id) =>
     (id + 1).toString()
   );
@@ -81,12 +97,12 @@ export const collectionListFilterTests = (
         title: { fi: collectionNames[index] },
       }))
     );
-    await renderAndWaitForComponentToBeLoaded(
+    await renderAndWaitForComponentToBeLoaded({
       component,
       collections,
       mocks,
-      variables
-    );
+      variables,
+    });
 
     collections.data.forEach((collection) => {
       expect(screen.getByText(collection.title.fi)).toBeInTheDocument();
@@ -102,13 +118,13 @@ export const collectionListFilterTests = (
       }))
     );
 
-    await renderComponentAndExpectOddCollectionsToBePresent(
+    await renderComponentAndExpectOddCollectionsToBePresent({
       component,
       collections,
       collectionNames,
       mocks,
-      variables
-    );
+      variables,
+    });
   });
 
   it('should not show expired collections', async () => {
@@ -121,13 +137,13 @@ export const collectionListFilterTests = (
       }))
     );
 
-    await renderComponentAndExpectOddCollectionsToBePresent(
+    await renderComponentAndExpectOddCollectionsToBePresent({
       component,
       collections,
       collectionNames,
       mocks,
-      variables
-    );
+      variables,
+    });
   });
 
   it('should not show collections that are not live', async () => {
@@ -139,12 +155,12 @@ export const collectionListFilterTests = (
         title: { fi: collectionNames[index] },
       }))
     );
-    await renderComponentAndExpectOddCollectionsToBePresent(
+    await renderComponentAndExpectOddCollectionsToBePresent({
       component,
       collections,
       collectionNames,
       mocks,
-      variables
-    );
+      variables,
+    });
   });
 };
