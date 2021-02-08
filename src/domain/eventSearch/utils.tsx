@@ -319,12 +319,10 @@ export const getEventSearchVariables = ({
     list: string[],
     map: Record<string, string>
   ) =>
-    list
-      ?.reduce<string[]>(
-        (prev, val: string) => prev.concat(map[val]?.split(',')) ?? [],
-        []
-      )
-      .filter((e) => e);
+    list?.reduce<string[]>(
+      (prev, val: string) => prev.concat(map[val]?.split(',') ?? []),
+      []
+    );
 
   const mappedCategories = getMappedPropertyValues(categories, categoryMap);
 
