@@ -253,12 +253,5 @@ describe('Validation', () => {
     await waitFor(() => {
       expect(onChange).toHaveBeenCalledWith('5', '5');
     });
-
-    rerender({ minInputValue: '5', maxInputValue: '10', onChange });
-
-    userEvent.tab();
-    await waitFor(() => {
-      expect(onChange).toHaveBeenCalledWith('5', '5');
-    });
   });
 });
