@@ -12,10 +12,6 @@ import Container from '../../app/layout/Container';
 import { getBannerFields } from '../bannerUtils';
 import styles from './bannerHero.module.scss';
 
-export const testIds = {
-  content: 'landing-page-hero-content',
-};
-
 const getTextWrapperMaxWidth = (breakpoint: Breakpoint) => {
   switch (breakpoint) {
     case 'md':
@@ -37,9 +33,20 @@ const getTextFontSize = (breakpoint: Breakpoint) => {
 
 interface Props {
   banner: BannerPage;
+  location: 'top' | 'bottom';
 }
 
-const BannerHero: React.FC<Props> = ({ banner }) => {
+export const getTestIds = (
+  location: Props['location']
+): Record<string, string> => ({
+  container: `${location}-banner`,
+  content: `${location}-banner-content`,
+  desktopBackgroundImage: `${location}-desktopBackgroundImage`,
+  mobileBackgroundImage: `${location}-mobileBackgroundImage`,
+  heroTopLayerImage: `${location}-heroTopLayerImage`,
+});
+
+const BannerHero: React.FC<Props> = ({ banner, location }) => {
   const textWrapper = React.useRef<HTMLDivElement>(null);
   const locale = useLocale();
   const breakpoint = useBreakpoint();
@@ -90,14 +97,18 @@ const BannerHero: React.FC<Props> = ({ banner }) => {
     }
   }, [textWrapperWidth, titleAndDescriptionColor]);
 
+  const testIds = getTestIds(location);
+
   return (
     <div
       className={classNames(styles.bannerHero, {
         [styles[`${backgroundColor}BackgroundColor`]]: backgroundColor,
       })}
+      data-testid={testIds.container}
     >
       <div
         className={styles.desktopBackgroundImage}
+        data-testid={testIds.desktopBackgroundImage}
         style={{
           backgroundImage: heroBackgroundImage
             ? `url(${heroBackgroundImage})`
@@ -106,20 +117,24 @@ const BannerHero: React.FC<Props> = ({ banner }) => {
       />
       <div
         className={styles.mobileBackgroundImage}
+        data-testid={testIds.mobileBackgroundImage}
         style={{
           backgroundImage: heroBackgroundImageMobile
             ? `url(${heroBackgroundImageMobile})`
             : 'none',
         }}
       />
-      <div
-        className={styles.image}
-        style={{
-          backgroundImage: heroTopLayerImage
-            ? `url(${heroTopLayerImage})`
-            : 'none',
-        }}
-      />
+      {heroTopLayerImage && (
+        <div
+          className={styles.image}
+          data-testid={testIds.heroTopLayerImage}
+          style={{
+            backgroundImage: `url(${heroTopLayerImage})`,
+            // prettier-ignore
+            backgroundPosition: `center calc(100% - ${location === 'top' ? 5.5 : 0}rem)`,
+          }}
+        />
+      )}
       <Container>
         <div
           ref={textWrapper}

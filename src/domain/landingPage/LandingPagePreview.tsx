@@ -41,7 +41,7 @@ const LandingPagePreview: React.FC = () => {
             <LandingPageMeta landingPage={landingPage} />
             <PreviewBanner />
             {landingPage.topBanner && (
-              <BannerHero banner={landingPage.topBanner} />
+              <BannerHero banner={landingPage.topBanner} location="top" />
             )}
             <MainContent offset={-150}>
               <div className={styles.searchContainer}>
@@ -65,7 +65,7 @@ const LandingPagePreview: React.FC = () => {
               </div>
             </MainContent>
             {landingPage.bottomBanner && (
-              <BannerHero banner={landingPage.bottomBanner} />
+              <BannerHero banner={landingPage.bottomBanner} location="bottom" />
             )}
           </>
         ) : (

@@ -23,7 +23,10 @@ import styles from './eventSearchPage.module.scss';
 import SearchResultsContainer from './searchResultList/SearchResultsContainer';
 
 const SearchPage: React.FC<{
-  SearchComponent: React.FC<{ scrollToResultList: () => void }>;
+  SearchComponent: React.FC<{
+    scrollToResultList: () => void;
+    'data-testid'?: string;
+  }>;
   pageTitle: string;
   eventsList?: CourseListQuery['courseList'] | EventListQuery['eventList'];
   isLoadingEvents: boolean;
@@ -90,8 +93,11 @@ const SearchPage: React.FC<{
     <PageWrapper className={styles.eventSearchPageWrapper} title={pageTitle}>
       {landingPage && <LandingPageMeta landingPage={landingPage} />}
       <SrOnly as="h1">{t(pageTitle)}</SrOnly>
-      <SearchComponent scrollToResultList={scrollToResultList} />
-      <div id="resultList">
+      <SearchComponent
+        scrollToResultList={scrollToResultList}
+        data-testid="searchContainer"
+      />
+      <div id="resultList" data-testid="resultList">
         <SrOnly aria-live="polite" aria-atomic={true}>
           {isLoadingEvents
             ? t('eventSearch.ariaLiveLoading')

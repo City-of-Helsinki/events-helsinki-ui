@@ -102,6 +102,7 @@ const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
         [styles.eventClosed]: eventClosed,
       })}
       id={getLargeEventCardId(event.id)}
+      data-testid={event.id}
       onClick={handleLinkClick}
       to={eventUrl}
     >
