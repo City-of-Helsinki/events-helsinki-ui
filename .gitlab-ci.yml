@@ -23,7 +23,8 @@ build-review:
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_SITE_ID: 64
     DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
-
+      # Feature flags
+      DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_EVENTS: 'false'
   only:
     refs:
       - external_pull_requests
@@ -48,6 +49,8 @@ build-staging:
     DOCKER_BUILD_ARG_REACT_APP_GTM_AUTH: '$GL_QA_GTM_AUTH'
     DOCKER_BUILD_ARG_REACT_APP_GTM_ID: '$GL_QA_GTM_ID'
     DOCKER_BUILD_ARG_REACT_APP_GTM_PREVIEW: '$GL_QA_GTM_PREVIEW'
+    # Feature flags
+    DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_EVENTS: 'false'
   only:
     refs:
       - master
@@ -72,6 +75,8 @@ build-production:
     DOCKER_BUILD_ARG_REACT_APP_GTM_AUTH: '$GL_PRODUCTION_GTM_AUTH'
     DOCKER_BUILD_ARG_REACT_APP_GTM_ID: '$GL_PRODUCTION_GTM_ID'
     DOCKER_BUILD_ARG_REACT_APP_GTM_PREVIEW: '$GL_PRODUCTION_GTM_PREVIEW'
+    # Feature flags
+    DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_EVENTS: 'false'
   only:
     refs:
       - /^release-.*$/

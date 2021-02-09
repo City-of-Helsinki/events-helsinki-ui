@@ -46,7 +46,7 @@ export const isLanguageSupported = (
 };
 
 /**
- * Test is collection expired
+ * Test has collection expired
  * @param {object} collection
  * @return {boolean}
  */
@@ -54,6 +54,27 @@ export const isCollectionExpired = (
   collection: CollectionFieldsFragment
 ): boolean => {
   return Boolean(collection.expired);
+};
+
+export const collectionHasNotExpired = (
+  collection: CollectionFieldsFragment
+): boolean => !isCollectionExpired(collection);
+
+export const isCollectionLive = (
+  collection: CollectionFieldsFragment
+): boolean => {
+  return Boolean(collection.live);
+};
+
+export const isCollectionVisible = (
+  collection: CollectionFieldsFragment,
+  locale: Language
+): boolean => {
+  return (
+    isLanguageSupported(collection, locale) &&
+    collectionHasNotExpired(collection) &&
+    isCollectionLive(collection)
+  );
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

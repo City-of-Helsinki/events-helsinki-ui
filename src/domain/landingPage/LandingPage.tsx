@@ -13,10 +13,7 @@ import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import BannerHero from '../banner/bannerHero/BannerHero';
 import CollectionCards from '../collection/collectionCard/CollectionCards';
-import {
-  isCollectionExpired,
-  isLanguageSupported,
-} from '../collection/CollectionUtils';
+import { isCollectionVisible } from '../collection/CollectionUtils';
 import {
   getCourseCategoryOptions,
   getEventCategoryOptions,
@@ -43,10 +40,8 @@ const LandingPage: React.FC = () => {
     isLanguagePageLanguageSupported(page, locale)
   );
   const collections = collectionsData
-    ? collectionsData.collectionList.data.filter(
-        (collection) =>
-          isLanguageSupported(collection, locale) &&
-          !isCollectionExpired(collection)
+    ? collectionsData.collectionList.data.filter((collection) =>
+        isCollectionVisible(collection, locale)
       )
     : [];
 
@@ -64,35 +59,36 @@ const LandingPage: React.FC = () => {
             )}
           </>
         )}
-        {!!collectionsData && (
-          <MainContent offset={-150}>
-            <div className={styles.searchContainer}>
-              <div className={styles.searchInnerContainer}>
-                <LandingPageSearch
-                  type="event"
-                  title={t('home.eventSearch.title')}
-                  searchPlaceholder={
-                    isMobile
-                      ? t('home.search.placeholder')
-                      : t('home.eventSearch.placeholder')
-                  }
-                  popularCategories={getEventCategoryOptions(t)}
-                />
-                {/* Background helper used to get the wave-effect without 
+
+        <MainContent offset={-150}>
+          <div className={styles.searchContainer}>
+            <div className={styles.searchInnerContainer}>
+              <LandingPageSearch
+                type="event"
+                title={t('home.eventSearch.title')}
+                searchPlaceholder={
+                  isMobile
+                    ? t('home.search.placeholder')
+                    : t('home.eventSearch.placeholder')
+                }
+                popularCategories={getEventCategoryOptions(t)}
+              />
+              {/* Background helper used to get the wave-effect without
                     course search panel being on top of event search panel */}
-                <div className={styles.backgroundHelper} />
-                <LandingPageSearch
-                  type="course"
-                  title={t('home.courseSearch.title')}
-                  searchPlaceholder={
-                    isMobile
-                      ? t('home.search.placeholder')
-                      : t('home.courseSearch.placeholder')
-                  }
-                  popularCategories={getCourseCategoryOptions(t)}
-                />
-              </div>
+              <div className={styles.backgroundHelper} />
+              <LandingPageSearch
+                type="course"
+                title={t('home.courseSearch.title')}
+                searchPlaceholder={
+                  isMobile
+                    ? t('home.search.placeholder')
+                    : t('home.courseSearch.placeholder')
+                }
+                popularCategories={getCourseCategoryOptions(t)}
+              />
             </div>
+          </div>
+          {!!collectionsData && (
             <div className={styles.collectionCardContainer}>
               <Container>
                 <div>
@@ -105,8 +101,8 @@ const LandingPage: React.FC = () => {
                 </div>
               </Container>
             </div>
-          </MainContent>
-        )}
+          )}
+        </MainContent>
         {landingPage?.bottomBanner && (
           <BannerHero banner={landingPage.bottomBanner} location="bottom" />
         )}

@@ -1,11 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 
+import { CollectionFieldsFragment } from '../../../../generated/graphql';
 import {
-  CollectionFieldsFragment,
-  CollectionListDocument,
-} from '../../../../generated/graphql';
+  collectionListFilterTests,
+  getCollectionQueryListMocks,
+} from '../../../../util/collections.common.tests';
 import { fakeCollections } from '../../../../util/mockDataUtils';
 import { render, screen, waitFor } from '../../../../util/testUtils';
+import { SIMILAR_COLLECTIONS_AMOUNT } from '../../constants';
 import SimilarCollections from '../SimilarCollections';
 
 const collectionNames = [
@@ -22,16 +24,8 @@ const collections = fakeCollections(
   }))
 );
 const collection = collections.data[0] as CollectionFieldsFragment;
-const collectionsResponse = { data: { collectionList: collections } };
 
-const mocks = [
-  {
-    request: {
-      query: CollectionListDocument,
-    },
-    result: collectionsResponse,
-  },
-];
+const mocks = getCollectionQueryListMocks(collections);
 
 test('should show similar collections', async () => {
   render(<SimilarCollections collection={collection} />, {
@@ -50,5 +44,12 @@ test('should show similar collections', async () => {
     } else {
       expect(screen.getByText(name)).toBeInTheDocument();
     }
+  });
+});
+
+describe('similar collections filters', () => {
+  collectionListFilterTests({
+    component: <SimilarCollections collection={collection} />,
+    generatedCollectionListSize: SIMILAR_COLLECTIONS_AMOUNT,
   });
 });

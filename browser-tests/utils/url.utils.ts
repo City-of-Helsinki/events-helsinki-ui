@@ -72,7 +72,10 @@ export const getUrlUtils = (t: TestController) => {
       t.ctx.collection = collection;
       await t
         .expect(getPathname())
-        .eql(`/fi/collection/${collection.slug}`, await getErrorMessage(t))
+        .eql(
+          `/fi/collection/${encodeURIComponent(collection.slug)}`,
+          await getErrorMessage(t)
+        )
         .expect(getPageTitle())
         .eql(collection.title.fi, await getErrorMessage(t), { timeout: 10000 });
     },

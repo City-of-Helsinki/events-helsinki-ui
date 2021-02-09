@@ -1,11 +1,13 @@
 import { advanceTo, clear } from 'jest-date-mock';
-import React from 'react';
+import * as React from 'react';
 
 import translations from '../../../common/translation/i18n/fi.json';
 import {
   EventDetailsDocument,
+  EventFieldsFragment,
   EventListDocument,
 } from '../../../generated/graphql';
+import { setFeatureFlags } from '../../../util/featureFlags.test.utils';
 import {
   fakeEvent,
   fakeEvents,
@@ -22,7 +24,7 @@ import {
 import { ROUTES } from '../../app/routes/constants';
 import { otherEventTimesListTestId } from '../eventInfo/otherEventTimes/OtherEventTimes';
 import EventPageContainer from '../EventPageContainer';
-import { similarEventsListTestId } from '../similarEvents/SimilarEvents';
+import { createMocks as cresteSimilarEventsMocks } from '../similarEvents/__tests__/SimilarEvents.test';
 
 const id = '1';
 const name = 'Event title';
@@ -38,11 +40,6 @@ const keywords = [
 ];
 const superEventId = 'harrastushaku:13433';
 const otherEventTimesCount = 3;
-const similarEventTimesCount = 10;
-const similarEventsNames = [
-  'JUMPPI-streetdance Suurpellossa, Opimäen koululla!',
-  'Narrin teatteriryhmä Rastilassa',
-];
 
 const event = fakeEvent({
   id,
@@ -60,7 +57,7 @@ const event = fakeEvent({
     __typename: 'InternalIdObject',
     internalId: `https://api.hel.fi/linkedevents/v1/event/${superEventId}/`,
   },
-});
+}) as EventFieldsFragment;
 
 const eventRequest = {
   query: EventDetailsDocument,
@@ -69,29 +66,6 @@ const eventRequest = {
     include: ['in_language', 'keywords', 'location', 'audience'],
   },
 };
-
-const similarEventsListRequest = {
-  query: EventListDocument,
-  variables: {
-    audienceMinAgeGt: '',
-    audienceMaxAgeLt: '',
-    end: '',
-    include: ['keywords', 'location'],
-    isFree: undefined,
-    keyword: ['keyword1', 'keyword2', 'keyword3'],
-    keywordAnd: [],
-    keywordNot: [],
-    language: 'fi',
-    location: [],
-    pageSize: 10,
-    publisher: null,
-    sort: 'end_time',
-    start: 'now',
-    startsAfter: undefined,
-    superEventType: ['umbrella', 'none'],
-  },
-};
-
 const otherEventsRequest = {
   query: EventListDocument,
   variables: {
@@ -101,7 +75,6 @@ const otherEventsRequest = {
     superEvent: superEventId,
   },
 };
-
 const request = {
   query: EventDetailsDocument,
   variables: {
@@ -110,21 +83,11 @@ const request = {
   },
 };
 
-const similarEventsResponse = {
-  data: {
-    eventList: fakeEvents(
-      similarEventTimesCount,
-      similarEventsNames.map((name) => ({ name: fakeLocalizedObject(name) }))
-    ),
-  },
-};
-
 const eventResponse = { data: { eventDetails: event } };
-
 const otherEventsResponse = {
   data: { eventList: fakeEvents(otherEventTimesCount) },
 };
-
+const similarEvents = fakeEvents(3);
 const mocks = [
   {
     request: eventRequest,
@@ -134,10 +97,7 @@ const mocks = [
     request: otherEventsRequest,
     result: otherEventsResponse,
   },
-  {
-    request: similarEventsListRequest,
-    result: similarEventsResponse,
-  },
+  ...cresteSimilarEventsMocks(event, similarEvents),
 ];
 
 const testPath = ROUTES.EVENT.replace(':id', id);
@@ -181,16 +141,6 @@ it('should render info and load other events + similar events', async () => {
   expect(screen.getByTestId(otherEventTimesListTestId).children).toHaveLength(
     otherEventTimesCount
   );
-
-  expect(screen.getByTestId(similarEventsListTestId).children).toHaveLength(8);
-
-  similarEventsNames.forEach((eventName) => {
-    expect(
-      screen.queryByLabelText(`Siirry tapahtumaan: ${eventName}`, {
-        selector: 'a',
-      })
-    ).toBeInTheDocument();
-  });
 });
 
 it('should show error info when event is closed', async () => {
@@ -231,4 +181,42 @@ it("should show error info when event doesn't exist", async () => {
       name: translations.event.notFound.title,
     })
   ).toBeInTheDocument();
+});
+
+describe(`SIMILAR_EVENTS feature flag`, () => {
+  it('shows similar events when flag is on', async () => {
+    setFeatureFlags({ SHOW_SIMILAR_EVENTS: true });
+    advanceTo('2020-10-01');
+    renderComponent();
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+    });
+    expect(
+      screen.queryByRole('heading', {
+        name: translations.event.similarEvents.title,
+      })
+    ).toBeInTheDocument();
+
+    similarEvents.data.forEach(({ name }) => {
+      expect(
+        screen.queryByLabelText(`Siirry tapahtumaan: ${name.fi}`, {
+          selector: 'a',
+        })
+      ).toBeInTheDocument();
+    });
+  });
+
+  it('doesnt show similar events when flag is off', async () => {
+    setFeatureFlags({ SHOW_SIMILAR_EVENTS: false });
+    advanceTo('2020-10-01');
+    renderComponent();
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+    });
+    expect(
+      screen.queryByRole('heading', {
+        name: translations.event.similarEvents.title,
+      })
+    ).not.toBeInTheDocument();
+  });
 });

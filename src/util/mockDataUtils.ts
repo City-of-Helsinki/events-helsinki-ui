@@ -355,6 +355,7 @@ export const fakeCollection = (
       keywords: fakeLocalizedCmsKeywords(),
       linkText: fakeLocalizedObject(),
       linkUrl: fakeLocalizedObject(faker.internet.url()),
+      live: true,
       slug: faker.random.uuid(),
       socialMediaDescription: fakeLocalizedObject(),
       title: fakeLocalizedObject(),

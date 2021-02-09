@@ -1,10 +1,7 @@
 import { GraphQLClient } from 'graphql-request';
 
 import { SUPPORT_LANGUAGES } from '../../src/constants';
-import {
-  isCollectionExpired,
-  isLanguageSupported,
-} from '../../src/domain/collection/CollectionUtils';
+import { isCollectionVisible } from '../../src/domain/collection/CollectionUtils';
 import { isLanguageSupported as isLanguagePageLanguageSupported } from '../../src/domain/landingPage/utils';
 import {
   CollectionFieldsFragment,
@@ -34,10 +31,8 @@ const getCollectionList = async (
   const {
     collectionList: { data },
   } = await sdk.CollectionList({ visibleOnFrontpage: true });
-  const collectionList = data.filter(
-    (collection) =>
-      isLanguageSupported(collection, locale) &&
-      !isCollectionExpired(collection)
+  const collectionList = data.filter((collection) =>
+    isCollectionVisible(collection, locale)
   );
   return collectionList;
 };

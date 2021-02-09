@@ -30,6 +30,7 @@ export const QUERY_COLLECTION_DETAILS = gql`
     linkUrl {
       ...localizedFields
     }
+    live
     slug
     socialMediaDescription {
       ...localizedFields

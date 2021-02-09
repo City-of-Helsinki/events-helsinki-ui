@@ -18,7 +18,6 @@ export const similarEventsListTestId = 'similar-events-list';
 
 const SimilarEvents: React.FC<Props> = ({ events, loading, eventsType }) => {
   const { t } = useTranslation();
-
   return (
     <div className={styles.similarEvents}>
       <LoadingSpinner hasPadding={false} isLoading={loading}>

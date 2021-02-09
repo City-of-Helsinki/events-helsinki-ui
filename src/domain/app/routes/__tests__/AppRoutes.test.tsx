@@ -1,14 +1,17 @@
+import { MockedResponse } from '@apollo/react-testing';
 import i18n from 'i18next';
-import React from 'react';
+import * as React from 'react';
 
 import {
-  CollectionListDocument,
+  CollectionFieldsFragment,
   EventListDocument,
   LandingPagesDocument,
   LinkedEventsSource,
   PlaceDetailsDocument,
 } from '../../../../generated/graphql';
+import { getCollectionQueryListMocks } from '../../../../util/collections.common.tests';
 import {
+  fakeCollection,
   fakeCollections,
   fakeEvents,
   fakeLandingPages,
@@ -22,6 +25,11 @@ import {
   screen,
   waitFor,
 } from '../../../../util/testUtils';
+import { getMocks as getCollectionMocks } from '../../../collection/__tests__/CollectionPageContainer.test';
+import {
+  MAPPED_PLACES,
+  MARKETING_COLLECTION_SLUGS,
+} from '../../../eventSearch/constants';
 import AppRoutes from '../AppRoutes';
 
 const placeToPlaceString = {
@@ -29,27 +37,16 @@ const placeToPlaceString = {
   caisa: 'Caisa',
   espanlava: 'Espanlava',
   kanneltalo: 'Kanneltalo',
+  maunulatalo: 'Maunula-talo',
   savoyteatteri: 'Savoy-teatteri',
   stoa: 'Stoa',
   vuotalo: 'Vuotalo',
 };
 
-const placeIdMap = {
-  annantalo: 'tprek:7254',
-  caisa: 'tprek:7256',
-  espanlava: 'tprek:7265',
-  kanneltalo: 'tprek:7255',
-  savoyteatteri: 'tprek:7258',
-  stoa: 'tprek:7259',
-  vuotalo: 'tprek:7260',
-};
-
 configure({ defaultHidden: true });
 
 const landingPagesResponse = { data: { landingPages: fakeLandingPages(1) } };
-const collectionListResponse = {
-  data: { collectionList: fakeCollections(1) },
-};
+const collections = fakeCollections(1);
 const eventListResponse = { data: { eventList: fakeEvents(3) } };
 
 const eventListBaseVariables = {
@@ -79,32 +76,26 @@ const mocks = [
     },
     result: landingPagesResponse,
   },
-  {
-    request: {
-      query: CollectionListDocument,
-      variables: { visibleOnFrontpage: true },
-    },
-    result: collectionListResponse,
-  },
+  ...getCollectionQueryListMocks(collections, { visibleOnFrontpage: true }),
   // generate mock response for each place query
-  ...Object.keys(placeIdMap).map((key) => {
+  ...Object.keys(MAPPED_PLACES).map((key) => {
     return {
       request: {
         query: EventListDocument,
         variables: {
           ...eventListBaseVariables,
-          location: [placeIdMap[key]],
+          location: [MAPPED_PLACES[key]],
         },
       },
       result: eventListResponse,
     };
   }),
-  ...Object.keys(placeIdMap).map((key) => {
+  ...Object.keys(MAPPED_PLACES).map((key) => {
     return {
       request: {
         query: PlaceDetailsDocument,
         variables: {
-          id: placeIdMap[key],
+          id: MAPPED_PLACES[key],
           source: LinkedEventsSource.Linkedevents,
         },
       },
@@ -119,8 +110,10 @@ const mocks = [
   }),
 ];
 
-const renderComponent = (route: string) =>
-  render(<AppRoutes />, { mocks, routes: [route] });
+const renderComponent = (
+  route: string,
+  requestMocks: MockedResponse[] = mocks
+) => render(<AppRoutes />, { mocks: requestMocks, routes: [route] });
 
 beforeEach(() => {
   i18n.changeLanguage('fi');
@@ -159,7 +152,7 @@ it('user with route with unsupport locale will be redirect to App anyway, with s
 });
 
 describe('test each place path /:locale/:place', () => {
-  Object.keys(placeIdMap).forEach((place) => {
+  Object.keys(MAPPED_PLACES).forEach((place) => {
     it(`renders event search with place from path: ${place}`, async () => {
       renderComponent(`/fi/${place}`);
 
@@ -179,6 +172,34 @@ describe('test each place path /:locale/:place', () => {
       expect(
         screen.getByRole('heading', { name: '3 hakutulosta' })
       ).toBeInTheDocument();
+    });
+  });
+});
+
+describe('test each marketing collection /:locale/:slug', () => {
+  MARKETING_COLLECTION_SLUGS.forEach((slug) => {
+    const expectedCollection = fakeCollection({
+      slug,
+    }) as CollectionFieldsFragment;
+
+    it(`renders collection page for: ${slug} when found`, async () => {
+      renderComponent(`/fi/${slug}`, getCollectionMocks(expectedCollection));
+      await waitFor(() => {
+        expect(
+          screen.getByText(expectedCollection.title.fi)
+        ).toBeInTheDocument();
+        expect(
+          screen.getByText(expectedCollection.description.fi)
+        ).toBeInTheDocument();
+      });
+    });
+    it(`renders not found -collection page when ${slug} not found`, async () => {
+      renderComponent(`/fi/${slug}`);
+      await waitFor(() => {
+        expect(
+          screen.getByText(/Syystä tai toisesta hakemaasi kokoelmaa ei löydy/)
+        ).toBeInTheDocument();
+      });
     });
   });
 });

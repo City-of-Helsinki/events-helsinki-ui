@@ -241,7 +241,6 @@ export const getEventSearchVariables = ({
   if (pathPlace) {
     places.push(pathPlace);
   }
-
   const startsAfter = onlyEveningEvents ? '16' : undefined;
   let { start, end } = getFilterDates({
     dateTypes,
