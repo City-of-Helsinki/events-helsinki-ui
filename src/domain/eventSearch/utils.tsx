@@ -312,7 +312,6 @@ export const getEventSearchVariables = ({
   }
 
   const categoriesParamName = MAPPED_KEYWORD_TERMS[searchSource];
-
   const categoryMap = MAPPED_CATEGORIES[searchSource];
 
   const getMappedPropertyValues = (
@@ -325,7 +324,6 @@ export const getEventSearchVariables = ({
     );
 
   const mappedCategories = getMappedPropertyValues(categories, categoryMap);
-
   const mappedHobbyTypes = getMappedPropertyValues(
     hobbyTypes ?? [],
     MAPPED_COURSE_HOBBY_TYPES
@@ -348,7 +346,7 @@ export const getEventSearchVariables = ({
     include,
     isFree: isFree || undefined,
     [categoriesParamName]: [...(keyword ?? []), ...mappedCategories],
-    keywordOrSet3: [...mappedHobbyTypes],
+    keywordOrSet3: mappedHobbyTypes,
     keywordAnd,
     keywordNot,
     language,

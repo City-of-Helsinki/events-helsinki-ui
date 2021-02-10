@@ -56,13 +56,6 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
         }`.trim()
       : '';
 
-  const getFilteredList = (
-    type: string,
-    listType: FilterType,
-    value: string,
-    list: string[] = []
-  ) => (type === listType ? list.filter((v) => v !== value) : list);
-
   const { data: neighborhoodsData } = useNeighborhoodListQuery();
 
   const getNeighorhoodName = React.useCallback(
@@ -77,20 +70,23 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
   );
 
   const handleFilterRemove = (value: string, type: FilterType) => {
+    const getFilteredList = (listType: FilterType, list: string[] = []) =>
+      type === listType ? list.filter((v) => v !== value) : list;
+
     const search = getSearchQuery({
-      categories: getFilteredList(type, 'category', value, categories),
-      hobbyTypes: getFilteredList(type, 'hobbyType', value, hobbyTypes),
-      dateTypes: getFilteredList(type, 'dateType', value, dateTypes),
-      divisions: getFilteredList(type, 'division', value, divisions),
+      categories: getFilteredList('category', categories),
+      hobbyTypes: getFilteredList('hobbyType', hobbyTypes),
+      dateTypes: getFilteredList('dateType', dateTypes),
+      divisions: getFilteredList('division', divisions),
       end: type === 'date' ? null : end,
       isFree,
       keyword,
       keywordNot,
       onlyChildrenEvents,
-      places: getFilteredList(type, 'place', value, places),
+      places: getFilteredList('place', places),
       publisher: type !== 'publisher' ? publisher : null,
       start: type === 'date' ? null : start,
-      text: getFilteredList(type, 'text', value, text),
+      text: getFilteredList('text', text),
       audienceMinAgeGt: type === 'minAge' ? '' : audienceMinAgeGt,
       audienceMaxAgeLt: type === 'maxAge' ? '' : audienceMaxAgeLt,
     });
