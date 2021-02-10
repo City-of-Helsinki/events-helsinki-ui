@@ -3,11 +3,12 @@ import { axe } from 'jest-axe';
 import * as React from 'react';
 
 import translations from '../../../common/translation/i18n/fi.json';
-import {
-  CollectionListDocument,
-  LandingPagesDocument,
-} from '../../../generated/graphql';
+import { LandingPagesDocument } from '../../../generated/graphql';
 import * as useMobile from '../../../hooks/useMobile';
+import {
+  collectionListFilterTests,
+  getCollectionQueryListMocks,
+} from '../../../util/collections.common.tests';
 import {
   fakeBanner,
   fakeCollections,
@@ -39,26 +40,16 @@ const landingPagesResponse = {
 };
 
 const collections = fakeCollections(1);
-const collectionsResponse = {
-  data: {
-    collectionList: collections,
-  },
-};
 
 beforeEach(() => {
   jest.spyOn(useMobile, 'useMobile').mockReturnValue(false);
 });
 
-const mocks = [
-  {
-    request: {
-      query: CollectionListDocument,
-      variables: {
-        visibleOnFrontpage: true,
-      },
-    },
-    result: collectionsResponse,
-  },
+const collectionListQueryMock = getCollectionQueryListMocks(collections, {
+  visibleOnFrontpage: true,
+});
+
+const landingPagesQueryMocks = [
   {
     request: {
       query: LandingPagesDocument,
@@ -81,7 +72,7 @@ test('Landing page should be accessible', async () => {
 
 it('should render landing page correctly', async () => {
   render(<LandingPage />, {
-    mocks,
+    mocks: [...collectionListQueryMock, ...landingPagesQueryMocks],
   });
 
   await screen.findByRole('heading', { name: topBannerTitle });
@@ -101,7 +92,7 @@ it('renders different placeholder for inputs in mobile', async () => {
   jest.spyOn(useMobile, 'useMobile').mockReturnValue(true);
 
   render(<LandingPage />, {
-    mocks,
+    mocks: landingPagesQueryMocks,
   });
 
   await screen.findByRole('heading', { name: topBannerTitle });
@@ -109,4 +100,15 @@ it('renders different placeholder for inputs in mobile', async () => {
   expect(
     screen.getAllByPlaceholderText(translations.home.search.placeholder)
   ).toHaveLength(2);
+});
+
+describe('collection list filters', () => {
+  collectionListFilterTests({
+    component: <LandingPage />,
+    generatedCollectionListSize: 7,
+    mocks: landingPagesQueryMocks,
+    variables: {
+      visibleOnFrontpage: true,
+    },
+  });
 });

@@ -53,6 +53,7 @@ const CollectionCard: React.FC<Props> = ({ collection, size }) => {
 
   return (
     <Link
+      data-testid={collection.id}
       aria-label={t('collection.collectionCard.ariaLabelLink', {
         title,
       })}

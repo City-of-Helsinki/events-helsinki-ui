@@ -1,6 +1,7 @@
+import { MockedResponse } from '@apollo/react-testing';
 import { screen, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
-import React from 'react';
+import * as React from 'react';
 
 import translations from '../../../common/translation/i18n/fi.json';
 import {
@@ -20,16 +21,16 @@ const draftRoutes = [
   `${ROUTES.COLLECTION.replace(':slug', collection.slug)}?draft=true`,
 ];
 
-const getMocks = (
+export const getMocks = (
   collectionDetails: CollectionFieldsFragment,
   draft = false
-) => [
+): MockedResponse[] => [
   {
     request: {
       query: CollectionDetailsDocument,
       variables: {
         draft,
-        slug: collection.slug,
+        slug: collectionDetails.slug,
       },
     },
     result: {

@@ -32,9 +32,13 @@ import {
 
 interface Props {
   scrollToResultList: () => void;
+  'data-testid'?: string;
 }
 
-const Search: React.FC<Props> = ({ scrollToResultList }) => {
+const Search: React.FC<Props> = ({
+  scrollToResultList,
+  'data-testid': dataTestId,
+}) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { push } = useHistory();
@@ -224,7 +228,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   };
 
   return (
-    <div className={styles.searchContainer}>
+    <div className={styles.searchContainer} data-testid={dataTestId}>
       <Container>
         <form onSubmit={handleSubmit}>
           <div className={styles.searchWrapper}>

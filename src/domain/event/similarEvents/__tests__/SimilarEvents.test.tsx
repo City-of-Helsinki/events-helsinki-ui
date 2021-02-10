@@ -1,3 +1,4 @@
+import { MockedResponse } from '@apollo/react-testing';
 import { clear } from 'console';
 import { advanceTo } from 'jest-date-mock';
 import React from 'react';
@@ -14,47 +15,49 @@ import {
 } from '../../../../util/mockDataUtils';
 import { render, screen, waitFor } from '../../../../util/testUtils';
 import SimilarEvents from '../SimilarEvents';
-
 const keywordIds = ['yso:1', 'yso:2'];
 
-const variables = {
-  end: '',
-  include: ['keywords', 'location'],
-  isFree: undefined,
-  keyword: keywordIds,
-  keywordAnd: [],
-  keywordOrSet1: [],
-  keywordOrSet3: [],
-  keywordNot: [],
-  language: 'fi',
-  location: [],
-  pageSize: 10,
-  publisher: null,
-  sort: 'end_time',
-  start: 'now',
-  startsAfter: undefined,
-  superEventType: ['umbrella', 'none'],
-};
 const keywords = fakeKeywords(
   keywordIds.length,
   keywordIds.map((id) => ({ id, name: { fi: id } }))
 ).data;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const event = fakeEvent({
   keywords,
 }) as EventFieldsFragment;
-const events = fakeEvents(3);
-const eventsResponse = { data: { eventList: events } };
+const expectedSimilarEvents = fakeEvents(3);
 
-const mocks = [
+export const createMocks = (
+  rootEvent: EventFieldsFragment = event,
+  similarEvents = expectedSimilarEvents
+): MockedResponse[] => [
   {
     request: {
       query: EventListDocument,
-      variables,
+      variables: {
+        audienceMinAgeGt: '',
+        audienceMaxAgeLt: '',
+        end: '',
+        include: ['keywords', 'location'],
+        isFree: undefined,
+        keywordAnd: [],
+        keywordOrSet1: ['keyword1', 'keyword2', 'keyword3'],
+        keywordOrSet3: [],
+        keywordNot: [],
+        language: 'fi',
+        location: [],
+        pageSize: 10,
+        publisher: null,
+        sort: 'end_time',
+        start: 'now',
+        startsAfter: undefined,
+        superEventType: ['umbrella', 'none'],
+      },
     },
-    result: eventsResponse,
+    result: { data: { eventList: similarEvents } },
   },
 ];
+
+const mocks = createMocks();
 
 afterAll(() => {
   clear();
@@ -65,7 +68,7 @@ test('should render similar event cards', async () => {
   render(
     <SimilarEvents
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      events={events.data as any}
+      events={expectedSimilarEvents.data as any}
       eventsType="event"
       loading={false}
     />,
@@ -80,7 +83,7 @@ test('should render similar event cards', async () => {
     ).toBeInTheDocument();
   });
 
-  events.data.forEach((event) => {
+  expectedSimilarEvents.data.forEach((event) => {
     expect(
       screen.queryByRole('link', {
         name: translations.event.eventCard.ariaLabelLink.replace(

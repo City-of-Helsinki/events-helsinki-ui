@@ -100,6 +100,7 @@ const EventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
         [styles.eventClosed]: eventClosed,
       })}
       id={getEventCardId(id)}
+      data-testid={event.id}
       onClick={handleLinkClick}
       to={eventUrl}
     >
