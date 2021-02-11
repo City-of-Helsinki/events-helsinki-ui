@@ -11,19 +11,36 @@ export interface StaticContext {
   url?: string;
 }
 
+export type ReqContextType = {
+  host: string;
+  url: string;
+};
+
 interface Props {
   client: ApolloClient<Record<string, unknown>>;
-  context: StaticContext;
-  url: string;
+  staticContext: StaticContext;
+  reqContext: ReqContextType;
   i18n: i18nType;
 }
 
-const ServerApp: React.FC<Props> = ({ client, context, url, i18n }) => {
+export const ReqContext = React.createContext<ReqContextType>({
+  host: '',
+  url: '',
+});
+
+const ServerApp: React.FC<Props> = ({
+  client,
+  staticContext,
+  reqContext,
+  i18n,
+}) => {
   return (
     <I18nextProvider i18n={i18n}>
       <ApolloProvider client={client}>
-        <StaticRouter location={url} context={context}>
-          <App />
+        <StaticRouter location={reqContext.url} context={staticContext}>
+          <ReqContext.Provider value={reqContext}>
+            <App />
+          </ReqContext.Provider>
         </StaticRouter>
       </ApolloProvider>
     </I18nextProvider>

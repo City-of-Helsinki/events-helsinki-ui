@@ -20,7 +20,7 @@ import getDomainFromRequest from '../util/getDomainFromRequest';
 import updateSitemaps from '../util/updateSitemap';
 import { getAssets } from './assets';
 import Html from './Html';
-import ServerApp, { StaticContext } from './ServerApp';
+import ServerApp, { ReqContextType, StaticContext } from './ServerApp';
 
 const OK = 'OK';
 const SERVER_IS_NOT_READY = 'SERVER_IS_NOT_READY';
@@ -73,13 +73,16 @@ app.use(async (req: Request, res: Response) => {
     }),
     ssrMode: true,
   });
-  const context: StaticContext = {};
-
+  const staticContext: StaticContext = {};
+  const reqContext: ReqContextType = {
+    url: req.url,
+    host: getDomainFromRequest(req),
+  };
   const el = React.createElement(ServerApp, {
     client,
-    context,
+    staticContext,
+    reqContext,
     i18n: (req as I18NextRequest).i18n,
-    url: req.url,
   });
 
   // Function to generate html and send response to client
@@ -104,8 +107,8 @@ app.use(async (req: Request, res: Response) => {
 
     const html = ReactDOMServer.renderToString(htmlEl);
 
-    if (context.url) {
-      res.redirect(302, context.url);
+    if (staticContext.url) {
+      res.redirect(302, staticContext.url);
     } else {
       res.status(200);
       res.send(`<!doctype html>${html}`);
