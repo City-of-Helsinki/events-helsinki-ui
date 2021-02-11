@@ -15,6 +15,8 @@ export const QUERY_EVENT_LIST = gql`
     $keyword: [String]
     $keywordAnd: [String]
     $keywordNot: [String]
+    $keywordOrSet2: [String]
+    $keywordOrSet3: [String]
     $language: String
     $location: [String]
     $page: Int
@@ -42,6 +44,8 @@ export const QUERY_EVENT_LIST = gql`
       isFree: $isFree
       keyword: $keyword
       keywordAnd: $keywordAnd
+      keywordOrSet2: $keywordOrSet2
+      keywordOrSet3: $keywordOrSet3
       keywordNot: $keywordNot
       language: $language
       location: $location

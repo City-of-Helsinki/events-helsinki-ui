@@ -46,6 +46,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
     text,
     audienceMinAgeGt,
     audienceMaxAgeLt,
+    hobbyTypes,
   } = getSearchFilters(searchParams);
 
   const dateText =
@@ -69,29 +70,23 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
   );
 
   const handleFilterRemove = (value: string, type: FilterType) => {
+    const getFilteredList = (listType: FilterType, list: string[] = []) =>
+      type === listType ? list.filter((v) => v !== value) : list;
+
     const search = getSearchQuery({
-      categories:
-        type === 'category'
-          ? categories.filter((category) => category !== value)
-          : categories,
-      dateTypes:
-        type === 'dateType'
-          ? dateTypes.filter((dateType) => dateType !== value)
-          : dateTypes,
-      divisions:
-        type === 'division'
-          ? divisions.filter((division) => division !== value)
-          : divisions,
+      categories: getFilteredList('category', categories),
+      hobbyTypes: getFilteredList('hobbyType', hobbyTypes),
+      dateTypes: getFilteredList('dateType', dateTypes),
+      divisions: getFilteredList('division', divisions),
       end: type === 'date' ? null : end,
       isFree,
       keyword,
       keywordNot,
       onlyChildrenEvents,
-      places:
-        type === 'place' ? places.filter((place) => place !== value) : places,
+      places: getFilteredList('place', places),
       publisher: type !== 'publisher' ? publisher : null,
       start: type === 'date' ? null : start,
-      text: type === 'text' ? text.filter((item) => item !== value) : text,
+      text: getFilteredList('text', text),
       audienceMinAgeGt: type === 'minAge' ? '' : audienceMinAgeGt,
       audienceMaxAgeLt: type === 'maxAge' ? '' : audienceMaxAgeLt,
     });
@@ -102,6 +97,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
   const hasFilters =
     !!publisher ||
     !!categories.length ||
+    !!hobbyTypes?.length ||
     !!dateText ||
     !!dateTypes.length ||
     !!divisions.length ||
@@ -124,9 +120,22 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
         <FilterButton
           key={category}
           onRemove={handleFilterRemove}
-          text={translateValue('home.category.', category, t)}
+          text={translateValue(
+            `home.category.${route === '/courses' ? 'courses.' : ''}`,
+            category,
+            t
+          )}
           type="category"
           value={category}
+        />
+      ))}
+      {hobbyTypes?.map((hobbyType) => (
+        <FilterButton
+          key={hobbyType}
+          onRemove={handleFilterRemove}
+          text={translateValue('home.hobby.', hobbyType, t)}
+          type="hobbyType"
+          value={hobbyType}
         />
       ))}
       {publisher && (

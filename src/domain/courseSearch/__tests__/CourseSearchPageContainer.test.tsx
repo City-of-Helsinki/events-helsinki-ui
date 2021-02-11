@@ -1,5 +1,5 @@
 /* eslint-disable */
-/*import { MockedResponse } from '@apollo/react-testing';
+import { MockedResponse } from '@apollo/react-testing';
 import { advanceTo } from 'jest-date-mock';
 import React from 'react';
 import { toast } from 'react-toastify';
@@ -59,7 +59,8 @@ const courseListVariables = {
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,
-  keyword: [],
+  keywordOrSet2: [],
+  keywordOrSet3: [],
   keywordAnd: [],
   keywordNot: [],
   language: 'fi',
@@ -70,15 +71,26 @@ const courseListVariables = {
   start: 'now',
   startsAfter: undefined,
   superEventType: ['umbrella', 'none'],
+  audienceMinAgeGt: '',
+  audienceMaxAgeLt: '',
 };
 
 const courseListVariables2 = {
-  localOngoingAnd: ['jazz'],
+  allOngoingAnd: ['jazz'],
   division: ['kaupunginosa:alppiharju', 'kaupunginosa:aluemeri'],
   end: '2020-12-02',
   include: ['keywords', 'location'],
   isFree: undefined,
-  keyword: ['yso:p1235', 'yso:p1808'],
+  keywordOrSet2: [
+    'yso:p1235',
+    'kulke:29',
+    'yso:p16327',
+    'kulke:205',
+    'yso:p9731',
+    'kulke:87',
+    'yso:p1979',
+  ],
+  keywordOrSet3: [],
   keywordAnd: [],
   keywordNot: [],
   language: 'fi',
@@ -89,6 +101,8 @@ const courseListVariables2 = {
   start: '2020-12-02',
   startsAfter: undefined,
   superEventType: ['umbrella', 'none'],
+  audienceMinAgeGt: '',
+  audienceMaxAgeLt: '',
 };
 
 const neighborhoodsResponse = {
@@ -216,7 +230,7 @@ it('renders title and search fields', async () => {
   });
 
   expect(
-    screen.getByRole('heading', { name: translations.courseSearch.title })
+    screen.getAllByRole('heading', { name: translations.courseSearch.title })[0]
   ).toBeInTheDocument();
 
   expect(
@@ -246,7 +260,7 @@ it('initializes search fields correctly from query', async () => {
     [...defaultMocks],
     [
       // eslint-disable-next-line max-len
-      '/fi/courses?categories=movie,music&dateTypes=tomorrow&divisions=kaupunginosa%3Aalppiharju,kaupunginosa%3Aaluemeri&places=tprek%3A9302&text=jazz',
+      '/fi/courses?categories=movie_and_media&dateTypes=tomorrow&divisions=kaupunginosa%3Aalppiharju,kaupunginosa%3Aaluemeri&places=tprek%3A9302&text=jazz',
     ]
   );
 
@@ -273,12 +287,6 @@ it('initializes search fields correctly from query', async () => {
       name: translations.eventSearch.search.titleDropdownPlace,
     })
   ).toHaveTextContent(/Helsingin Kaupunginteatteri/i);
-
-  expect(
-    screen.getByRole('button', {
-      name: translations.eventSearch.search.titleDropdownCategory,
-    })
-  ).toHaveTextContent(/Elokuva \+ 1/i);
 
   const filterSummaryContainer = within(
     screen.getByTestId(filterSummaryContainerTestId)
@@ -369,9 +377,4 @@ it('should show toastr message when loading next event page fails', async () => 
   });
 
   expect(toast.error).toBeCalledWith(translations.eventSearch.errorLoadMode);
-});
-*/
-// TODO: fix the tests when keyword_sets are available.
-it('renders title and search fields', async () => {
-  expect(true).toBe(true);
 });

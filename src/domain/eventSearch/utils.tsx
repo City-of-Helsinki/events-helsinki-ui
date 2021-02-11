@@ -98,16 +98,69 @@ export const getEventCategoryOptions = (t: TFunction): CategoryOption[] => [
   },
 ];
 
-// todo: fix icons and list of options when defined
 export const getCourseCategoryOptions = (t: TFunction): CategoryOption[] => [
   {
     icon: <IconMovies />,
-    text: t('home.category.movie'),
+    text: t('home.category.courses.movieAndMedia'),
     value: COURSE_CATEGORIES.MOVIE,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.languages'),
+    value: COURSE_CATEGORIES.LANGUAGES,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.literature'),
+    value: COURSE_CATEGORIES.LITERATURE,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.artsAndCulture'),
+    value: COURSE_CATEGORIES.ARTS_AND_CULTURE,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.visualArts'),
+    value: COURSE_CATEGORIES.VISUAL_ARTS,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.handicrafts'),
+    value: COURSE_CATEGORIES.HANDICRAFTS,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.sport'),
+    value: COURSE_CATEGORIES.SPORT,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.music'),
+    value: COURSE_CATEGORIES.MUSIC,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.games'),
+    value: COURSE_CATEGORIES.GAMES,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.food'),
+    value: COURSE_CATEGORIES.FOOD,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.dance'),
+    value: COURSE_CATEGORIES.DANCE,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.theatre'),
+    value: COURSE_CATEGORIES.THEATRE,
   },
 ];
 
-// todo: fix icons and list of options when defined
 export const getCourseHobbyTypeOptions = (t: TFunction): HobbyTypeOption[] => [
   {
     icon: <IconMovies />,
@@ -133,11 +186,6 @@ export const getCourseHobbyTypeOptions = (t: TFunction): HobbyTypeOption[] => [
     icon: <IconMovies />,
     text: t('home.hobby.workshops'),
     value: COURSE_HOBBY_TYPES.WORKSHOPS,
-  },
-  {
-    icon: <IconMovies />,
-    text: t('home.hobby.onlineStudies'),
-    value: COURSE_HOBBY_TYPES.ONLINE_STUDIES,
   },
 ];
 
@@ -262,30 +310,42 @@ export const getEventSearchVariables = ({
     keywordAnd.push('yso:p4354');
   }
 
-  const keywordsParamName = MAPPED_KEYWORD_TERMS[searchSource];
-  const mappedCategories: string[] = categories
-    .map((category) => MAPPED_CATEGORIES[searchSource][category])
-    .filter((e) => e);
-  const mappedHobbyTypes: string[] =
-    hobbyTypes
-      ?.map((hobbyType) => MAPPED_COURSE_HOBBY_TYPES[hobbyType])
-      .filter((e) => e) || [];
+  const categoriesParamName = MAPPED_KEYWORD_TERMS[searchSource];
+  const categoryMap = MAPPED_CATEGORIES[searchSource];
+
+  const getMappedPropertyValues = (
+    list: string[],
+    map: Record<string, string[]>
+  ) =>
+    list?.reduce<string[]>(
+      (prev, val: string) => prev.concat(map[val] ?? []),
+      []
+    );
+
+  const mappedCategories = getMappedPropertyValues(categories, categoryMap);
+  const mappedHobbyTypes = getMappedPropertyValues(
+    hobbyTypes ?? [],
+    MAPPED_COURSE_HOBBY_TYPES
+  );
+
   const hasLocation = !isEmpty(divisions) || !isEmpty(places);
   const hasText = !isEmpty(text);
-  // Combine and add keywords
+
+  //free text search
+  const isEventsSearch = searchSource === EVENT_SEARCH_SOURCES.EVENTS;
+  const freeTextSearchParam =
+    isEventsSearch && hasLocation
+      ? { localOngoingAnd: text }
+      : { allOngoingAnd: text };
 
   return {
-    ...(hasText &&
-      (hasLocation ? { localOngoingAnd: text } : { allOngoingAnd: text })),
+    ...(hasText && freeTextSearchParam),
     ...(hasLocation && { division: divisions.sort() }),
     end,
     include,
     isFree: isFree || undefined,
-    [keywordsParamName]: [
-      ...(keyword ? keyword : []),
-      ...mappedCategories,
-      ...mappedHobbyTypes,
-    ],
+    [categoriesParamName]: [...(keyword ?? []), ...mappedCategories],
+    keywordOrSet3: mappedHobbyTypes,
     keywordAnd,
     keywordNot,
     language,
