@@ -315,10 +315,10 @@ export const getEventSearchVariables = ({
 
   const getMappedPropertyValues = (
     list: string[],
-    map: Record<string, string>
+    map: Record<string, string[]>
   ) =>
     list?.reduce<string[]>(
-      (prev, val: string) => prev.concat(map[val]?.split(',') ?? []),
+      (prev, val: string) => prev.concat(map[val] ?? []),
       []
     );
 
