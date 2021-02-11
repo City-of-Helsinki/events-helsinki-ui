@@ -1,4 +1,10 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import { axe } from 'jest-axe';
 import React from 'react';
 
@@ -183,4 +189,69 @@ test('should call onChange correctly when setting fixed values with checkbox', (
 
   expect(minValueTextbox).toHaveValue(18);
   expect(maxValueTextbox).toHaveValue(80);
+});
+
+describe('Validation', () => {
+  test('should fix min value and max value if initial values are negative', async () => {
+    const onChange = jest.fn();
+    const { rerender } = renderComponent({ onChange });
+
+    const toggleButton = screen.getByRole('button', { name: title });
+    userEvent.click(toggleButton);
+    userEvent.tab();
+    const minValueTextbox = screen.queryByRole('spinbutton', {
+      name: /start integer/i,
+    }) as HTMLInputElement;
+    const maxValueTextbox = screen.queryByRole('spinbutton', {
+      name: /end integer/i,
+    }) as HTMLInputElement;
+
+    expect(minValueTextbox).toBeInTheDocument();
+    expect(minValueTextbox).toHaveValue(0);
+    expect(maxValueTextbox).toBeInTheDocument();
+    expect(maxValueTextbox).toHaveValue(100);
+
+    //min is negative
+    rerender({ minInputValue: '-1', maxInputValue: '100', onChange });
+
+    userEvent.tab();
+    await waitFor(() => {
+      expect(onChange).toHaveBeenCalledWith('0', '100');
+    });
+
+    //max is negative
+    rerender({ minInputValue: '0', maxInputValue: '-1', onChange });
+
+    userEvent.tab();
+    await waitFor(() => {
+      expect(onChange).toHaveBeenCalledWith('0', '0');
+    });
+  });
+
+  test('should fix min value and max value if min > max', async () => {
+    const onChange = jest.fn();
+    const { rerender } = renderComponent({ onChange });
+
+    const toggleButton = screen.getByRole('button', { name: title });
+    userEvent.click(toggleButton);
+    userEvent.tab();
+    const minValueTextbox = screen.queryByRole('spinbutton', {
+      name: /start integer/i,
+    }) as HTMLInputElement;
+    const maxValueTextbox = screen.queryByRole('spinbutton', {
+      name: /end integer/i,
+    }) as HTMLInputElement;
+
+    expect(minValueTextbox).toBeInTheDocument();
+    expect(minValueTextbox).toHaveValue(0);
+    expect(maxValueTextbox).toBeInTheDocument();
+    expect(maxValueTextbox).toHaveValue(100);
+
+    rerender({ minInputValue: '10', maxInputValue: '5', onChange });
+
+    userEvent.tab();
+    await waitFor(() => {
+      expect(onChange).toHaveBeenCalledWith('5', '5');
+    });
+  });
 });

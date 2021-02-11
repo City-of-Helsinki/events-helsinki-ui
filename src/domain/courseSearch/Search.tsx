@@ -311,13 +311,12 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                   minInputFixedValue={'18'}
                   maxInputValue={maxAgeInput}
                   maxInputLabel={t('courseSearch.search.ageLimitMax')}
-                  maxInputEndValue={'100'}
+                  maxInputEndValue={'99'}
                   name="ageLimitValues"
                   onChange={handleSetAgeValues}
                   fixedValuesText={t(
                     'courseSearch.search.showOnlyAdultCourses'
                   )}
-                  showFixedValuesText={true}
                   title={t('courseSearch.search.ageLimitValues')}
                   value={[minAgeInput, maxAgeInput]}
                 />

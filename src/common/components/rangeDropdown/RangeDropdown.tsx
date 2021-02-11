@@ -64,41 +64,44 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   const dropdown = React.useRef<HTMLDivElement | null>(null);
   const toggleButtonRef = React.useRef<HTMLButtonElement | null>(null);
 
-  //set values without validation
+  //set values with prevalidation, rest of validation on blur
   const handleInputChange = (inputType: RANGE_INPUT, val: string) => {
-    switch (inputType) {
-      case RANGE_INPUT.MIN:
-        onChange(val, maxInputValue);
-        break;
-      case RANGE_INPUT.MAX:
-        onChange(minInputValue, val);
-        break;
+    const allowChange =
+      (maxInputEndValue && val.length <= maxInputEndValue.length) ?? true;
+    if (allowChange) {
+      switch (inputType) {
+        case RANGE_INPUT.MIN:
+          onChange(val, maxInputValue);
+          break;
+        case RANGE_INPUT.MAX:
+          onChange(minInputValue, val);
+          break;
+      }
     }
   };
 
   //validate values on blur
   const handleInputBlur = (inputType: RANGE_INPUT, val: string) => {
-    const getValidatedMinValue = (val: string): string => {
+    const getValidatedValue = (val: string): string => {
       let resultValue = val;
       if (Number(val) < Number(minInputStartValue)) {
         resultValue = minInputStartValue;
       } else if (Number(val) > Number(maxInputEndValue)) {
         resultValue = maxInputEndValue;
       }
-      if (val && maxInputValue && Number(val) > Number(maxInputValue)) {
+      if (
+        inputType !== RANGE_INPUT.MAX &&
+        val &&
+        maxInputValue &&
+        Number(val) > Number(maxInputValue)
+      ) {
         resultValue = maxInputValue;
-      }
-      return resultValue;
-    };
-
-    const getValidatedMaxValue = (val: string): string => {
-      let resultValue = val;
-      if (Number(val) > Number(maxInputEndValue)) {
-        resultValue = maxInputEndValue;
-      } else if (Number(val) < Number(minInputStartValue)) {
-        resultValue = minInputStartValue;
-      }
-      if (val && minInputValue && Number(val) < Number(minInputValue)) {
+      } else if (
+        inputType !== RANGE_INPUT.MIN &&
+        val &&
+        minInputValue &&
+        Number(val) < Number(minInputValue)
+      ) {
         resultValue = minInputValue;
       }
       return resultValue;
@@ -106,15 +109,15 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
 
     switch (inputType) {
       case RANGE_INPUT.MIN:
-        onChange(getValidatedMinValue(val), maxInputValue);
+        onChange(getValidatedValue(val), maxInputValue);
         break;
       case RANGE_INPUT.MAX:
-        onChange(minInputValue, getValidatedMaxValue(val));
+        onChange(minInputValue, getValidatedValue(val));
         break;
       case RANGE_INPUT.ALL:
         onChange(
-          getValidatedMinValue(minInputValue),
-          getValidatedMaxValue(maxInputValue)
+          getValidatedValue(minInputValue),
+          getValidatedValue(maxInputValue)
         );
     }
   };

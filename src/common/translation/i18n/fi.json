@@ -231,9 +231,9 @@
       "checkboxIsFree": "Näytä vain maksuttomat",
       "titleDropdownHobbyType": "Harrastusmuoto",
       "showOnlyAdultCourses": "Näytä vain aikuisten harrastukset",
-      "ageLimitValues": "Kohderyhmä",
-      "ageLimitMin": "Ikä alkaen",
-      "ageLimitMax": "Ikä päättyen"
+      "ageLimitValues": "Ikä",
+      "ageLimitMin": "Alkaen",
+      "ageLimitMax": "Päättyen"
     }
   },
   "footer": {

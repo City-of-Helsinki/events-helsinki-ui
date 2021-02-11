@@ -5,7 +5,7 @@ exports[`matches snapshot 1`] = `
   class="filter minAge"
 >
   <button
-    aria-label="Poista suodatin: Ikä alkaen 10 v"
+    aria-label="Poista suodatin: Alkaen 10 v"
     class="closeButton"
     type="button"
   >
@@ -31,6 +31,6 @@ exports[`matches snapshot 1`] = `
       </g>
     </svg>
   </button>
-  Ikä alkaen 10 v
+  Alkaen 10 v
 </div>
 `;

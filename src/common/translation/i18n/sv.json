@@ -231,9 +231,9 @@
       "checkboxAlsoOngoingCourses": "Visa även pågående kurser",
       "titleDropdownHobbyType": "Hobby type",
       "showOnlyAdultCourses": "Show only adult courses",
-      "ageLimitValues": "Age group",
-      "ageLimitMin": "From age",
-      "ageLimitMax": "To age"
+      "ageLimitValues": "Ålder",
+      "ageLimitMin": "Från",
+      "ageLimitMax": "Till"
     }
   },
   "footer": {
