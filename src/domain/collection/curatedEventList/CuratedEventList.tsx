@@ -1,10 +1,13 @@
 import classNames from 'classnames';
+import { Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
   CollectionFieldsFragment,
+  EventsByIdsDocument,
   useEventsByIdsQuery,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
@@ -16,6 +19,8 @@ import EventCards from './EventCards';
 import OnlyExpiredEvents from './OnlyExpiredEvents';
 
 const PAST_EVENTS_DEFAULT_SIZE = 4;
+const PAGE_SIZE = 10;
+const INITIAL_PAGE = 1;
 
 interface Props {
   collection: CollectionFieldsFragment;
@@ -25,6 +30,9 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const [showAllPastEvents, setShowAllPastEvents] = React.useState(false);
+  const [isFetchingMore, setIsFetchingMore] = React.useState(false);
+  const page = React.useRef(INITIAL_PAGE);
+  const currentEventsCount = page.current * PAGE_SIZE;
   const eventIds = React.useMemo(
     () =>
       collection.curatedEvents
@@ -32,10 +40,49 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
         .filter((e) => e),
     [collection.curatedEvents]
   );
+  const isMoreToLoad = currentEventsCount < eventIds.length;
 
-  const { data: eventsData, loading } = useEventsByIdsQuery({
-    variables: { ids: eventIds, include: ['keywords', 'location'] },
+  const queryVariables = {
+    ids: eventIds.slice(0, PAGE_SIZE),
+    include: ['keywords', 'location'],
+  };
+
+  const {
+    data: eventsData,
+    loading,
+    fetchMore,
+    client: apolloClient,
+  } = useEventsByIdsQuery({
+    variables: queryVariables,
   });
+
+  // When component is unmounting, we need to delete the paginated data from cache
+  // and only persist the first page with writeQuery. Otherwise when page count resets and
+  // events are fetched again, it returns all the events form cache that were previously fetched.
+  // Then page and event array lenght don't match up...
+  React.useEffect(() => {
+    return () => {
+      try {
+        const data = apolloClient.readQuery({
+          query: EventsByIdsDocument,
+          variables: queryVariables,
+        });
+        apolloClient.writeQuery({
+          query: EventsByIdsDocument,
+          variables: queryVariables,
+          data: {
+            eventsByIds: data.eventsByIds.slice(0, PAGE_SIZE),
+          },
+        });
+      } catch (e) {
+        if (process.env.NODE_ENV !== 'test') {
+          // eslint-disable-next-line no-console
+          console.error('Clearing cache failed: ', e);
+        }
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const events =
     eventsData?.eventsByIds.filter((event) => !isEventClosed(event)) || [];
@@ -45,6 +92,37 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
 
   const handleShowAllPastEvents = () => {
     setShowAllPastEvents(true);
+  };
+
+  const onLoadMoreEvents = async () => {
+    if (isMoreToLoad) {
+      setIsFetchingMore(true);
+      try {
+        await fetchMore({
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+            const events = [
+              ...prev.eventsByIds,
+              ...fetchMoreResult.eventsByIds,
+            ];
+            fetchMoreResult.eventsByIds = events;
+            return fetchMoreResult;
+          },
+          variables: {
+            ids: eventIds.slice(
+              currentEventsCount,
+              currentEventsCount + PAGE_SIZE
+            ),
+            include: ['keywords', 'location'],
+          },
+        });
+        page.current = page.current + 1;
+      } catch (e) {
+        toast.error(t('collection.eventList.errorLoadMore'));
+      }
+
+      setIsFetchingMore(false);
+    }
   };
 
   const visiblePastEvent = pastEvents.slice(
@@ -89,6 +167,24 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
                     }
                   />
                 </>
+              )}
+              {isMoreToLoad && (
+                <div className={styles.loadMoreWrapper}>
+                  <LoadingSpinner
+                    hasPadding={!events.length}
+                    isLoading={isFetchingMore}
+                  >
+                    <Button
+                      onClick={onLoadMoreEvents}
+                      variant="success"
+                      disabled={isFetchingMore}
+                    >
+                      {t('eventSearch.buttonLoadMore', {
+                        count: eventIds.length - currentEventsCount,
+                      })}
+                    </Button>
+                  </LoadingSpinner>
+                </div>
               )}
             </Container>
           </div>
