@@ -5,42 +5,39 @@ import { ApolloProvider } from 'react-apollo';
 import { I18nextProvider } from 'react-i18next';
 import { StaticRouter } from 'react-router-dom';
 
+import {
+  ServerRequestContext,
+  ServerRequestContextType,
+} from '../contexts/ServerRequestContext';
 import App from '../domain/app/App';
 
 export interface StaticContext {
   url?: string;
 }
 
-export type ReqContextType = {
-  host: string;
-  url: string;
-};
-
 interface Props {
   client: ApolloClient<Record<string, unknown>>;
   staticContext: StaticContext;
-  reqContext: ReqContextType;
+  serverRequestContext: ServerRequestContextType;
   i18n: i18nType;
 }
-
-export const ReqContext = React.createContext<ReqContextType>({
-  host: '',
-  url: '',
-});
 
 const ServerApp: React.FC<Props> = ({
   client,
   staticContext,
-  reqContext,
+  serverRequestContext,
   i18n,
 }) => {
   return (
     <I18nextProvider i18n={i18n}>
       <ApolloProvider client={client}>
-        <StaticRouter location={reqContext.url} context={staticContext}>
-          <ReqContext.Provider value={reqContext}>
+        <StaticRouter
+          location={serverRequestContext.url}
+          context={staticContext}
+        >
+          <ServerRequestContext.Provider value={serverRequestContext}>
             <App />
-          </ReqContext.Provider>
+          </ServerRequestContext.Provider>
         </StaticRouter>
       </ApolloProvider>
     </I18nextProvider>

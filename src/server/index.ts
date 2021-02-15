@@ -16,11 +16,12 @@ import { Helmet } from 'react-helmet';
 
 import i18next from '../common/translation/i18n/init.server';
 import { SUPPORT_LANGUAGES } from '../constants';
+import { ServerRequestContextType } from '../contexts/ServerRequestContext';
 import getDomainFromRequest from '../util/getDomainFromRequest';
 import updateSitemaps from '../util/updateSitemap';
 import { getAssets } from './assets';
 import Html from './Html';
-import ServerApp, { ReqContextType, StaticContext } from './ServerApp';
+import ServerApp, { StaticContext } from './ServerApp';
 
 const OK = 'OK';
 const SERVER_IS_NOT_READY = 'SERVER_IS_NOT_READY';
@@ -74,14 +75,14 @@ app.use(async (req: Request, res: Response) => {
     ssrMode: true,
   });
   const staticContext: StaticContext = {};
-  const reqContext: ReqContextType = {
+  const serverRequestContext: ServerRequestContextType = {
     url: req.url,
     host: getDomainFromRequest(req),
   };
   const el = React.createElement(ServerApp, {
     client,
     staticContext,
-    reqContext,
+    serverRequestContext,
     i18n: (req as I18NextRequest).i18n,
   });
 

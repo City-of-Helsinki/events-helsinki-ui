@@ -10,7 +10,7 @@ it('renders without crashing', () => {
       client={null}
       staticContext={{}}
       i18n={i18n}
-      reqContext={{ host: 'https://localhost', url: '/testpath' }}
+      serverRequestContext={{ host: 'https://localhost', url: '/testpath' }}
     />
   );
 });

@@ -1,10 +1,15 @@
 import { useContext } from 'react';
 
-import { ReqContext, ReqContextType } from '../server/ServerApp';
+import {
+  ServerRequestContext,
+  ServerRequestContextType,
+} from '../contexts/ServerRequestContext';
 import isClient from '../util/isClient';
 
-export const useURIComponents = (): ReqContextType => {
-  let { host, url } = useContext(ReqContext);
+export const useURIComponents = (): ServerRequestContextType => {
+  // ReqContext is only used on sever side render so this return only the default values "" on client side render
+  // in client side we get this info from window.location
+  let { host, url } = useContext(ServerRequestContext);
 
   if (isClient) {
     host = `${window.location.protocol}//${window.location.hostname}`;
