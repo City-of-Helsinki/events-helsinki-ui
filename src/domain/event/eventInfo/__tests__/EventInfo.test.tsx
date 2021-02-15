@@ -104,7 +104,6 @@ it('should render event info fields', async () => {
       role: 'link',
       name: `${translations.event.location.directionsHSL} ${translations.commons.srOnly.opensInANewTab}`,
     },
-    { role: 'heading', name: translations.event.info.labelOrganizer },
     { role: 'heading', name: translations.event.info.labelPrice },
   ];
 

@@ -1,4 +1,4 @@
-import { IconFaceSmile } from 'hds-react';
+import { IconFaceSmile, IconLayers } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -35,19 +35,31 @@ const OrganizationInfo: React.FC<Props> = ({ event, eventType }) => {
   };
 
   return (
-    <InfoWithIcon
-      icon={<IconFaceSmile aria-hidden />}
-      title={t('event.info.labelOrganizer')}
-    >
-      <LoadingSpinner hasPadding={false} isLoading={loading}>
-        <div>{provider || organizationName}</div>
-        {publisher && (
-          <Link to={getSearchLink()}>
-            {t('event.info.linkSearchByOrganization')}
-          </Link>
-        )}
-      </LoadingSpinner>
-    </InfoWithIcon>
+    <>
+      {provider && (
+        <InfoWithIcon
+          icon={<IconFaceSmile />}
+          title={t('event.info.labelOrganizer')}
+        >
+          <div>{provider}</div>
+        </InfoWithIcon>
+      )}
+      {publisher && (
+        <InfoWithIcon
+          icon={<IconLayers />}
+          title={t('event.info.labelPublisher')}
+        >
+          <LoadingSpinner hasPadding={false} isLoading={loading}>
+            <>
+              {organizationName && <div>{organizationName}</div>}
+              <Link to={getSearchLink()}>
+                {t('event.info.linkSearchByOrganization')}
+              </Link>
+            </>
+          </LoadingSpinner>
+        </InfoWithIcon>
+      )}
+    </>
   );
 };
 
