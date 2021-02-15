@@ -2,13 +2,14 @@ import classNames from 'classnames';
 import { IconArrowRight } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useLocation, useParams } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import IconButton from '../../../common/components/iconButton/IconButton';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
+import { addEntryToQueryString } from '../../../util/queryString';
 import testImage from '../../../util/testImage';
 import { ROUTES } from '../../app/routes/constants';
 import EventKeywords from '../eventKeywords/EventKeywords';
@@ -21,7 +22,6 @@ import {
   isEventClosed,
 } from '../EventUtils';
 import styles from './eventCard.module.scss';
-import { addPlaceFromPathToQueryString } from './utils';
 
 interface Props {
   event: EventFieldsFragment;
@@ -29,11 +29,8 @@ interface Props {
 
 const EventCard: React.FC<Props> = ({ event }) => {
   const history = useHistory();
-  const { search } = useLocation();
+  const { search, pathname } = useLocation();
   const { t } = useTranslation();
-  // place comes from place param in clean url on events search page
-  // see ROUTES.EVENT_PLACE (routes/constants.ts)
-  const params = useParams<{ place?: string }>();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const locale = useLocale();
   const button = React.useRef<HTMLDivElement>(null);
@@ -46,11 +43,12 @@ const EventCard: React.FC<Props> = ({ event }) => {
     placeholderImage,
     startTime,
   } = getEventFields(event, locale);
-  const modifiedSearch = addPlaceFromPathToQueryString(search, params.place);
-  const eventUrl = `/${locale}${ROUTES.EVENT.replace(
-    ':id',
-    id
-  )}${modifiedSearch}`;
+
+  const queryString = addEntryToQueryString(search, {
+    param: 'returnPath',
+    value: pathname,
+  });
+  const eventUrl = `/${locale}${ROUTES.EVENT.replace(':id', id)}${queryString}`;
   const eventClosed = isEventClosed(event);
   const eventPriceText = getEventPrice(
     event,

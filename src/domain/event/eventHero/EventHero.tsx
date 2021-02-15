@@ -11,10 +11,13 @@ import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import testImage from '../../../util/testImage';
 import Container from '../../app/layout/Container';
-import { ROUTES } from '../../app/routes/constants';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
 import EventName from '../eventName/EventName';
+import {
+  extractLatestReturnPath,
+  ReturnParams,
+} from '../eventQueryString.util';
 import { getEventFields, getEventPrice } from '../EventUtils';
 import styles from './eventHero.module.scss';
 
@@ -46,13 +49,14 @@ const EventHero: React.FC<Props> = ({ event }) => {
     locale,
     t('event.hero.offers.isFree')
   );
-
   const showKeywords = Boolean(today || thisWeek || keywords.length);
 
-  const goToEventList = () => {
+  const returnParam = extractLatestReturnPath(search);
+
+  const goBack = ({ returnPath, remainingQueryString }: ReturnParams) => {
     history.push({
-      pathname: `/${locale}${ROUTES.EVENTS}`,
-      search,
+      pathname: `/${locale}${returnPath}`,
+      search: remainingQueryString,
       state: { eventId: event.id },
     });
   };
@@ -84,7 +88,7 @@ const EventHero: React.FC<Props> = ({ event }) => {
               ariaLabel={t('event.hero.ariaLabelBackButton')}
               backgroundColor="white"
               icon={<IconArrowLeft />}
-              onClick={goToEventList}
+              onClick={() => goBack(returnParam)}
               size="default"
             />
           </div>

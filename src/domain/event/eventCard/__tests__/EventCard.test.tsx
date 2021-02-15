@@ -117,8 +117,8 @@ describe('test all event places for modified query string', () => {
       );
 
       expect(push.mock.calls).toEqual([
-        [`/fi/event/${id}?places=${encodeURIComponent(MAPPED_PLACES[place])}`],
-        [`/fi/event/${id}?places=${encodeURIComponent(MAPPED_PLACES[place])}`],
+        [`/fi/event/${id}?returnPath=${encodeURIComponent('/' + place)}`],
+        [`/fi/event/${id}?returnPath=${encodeURIComponent('/' + place)}`],
       ]);
     });
   });
