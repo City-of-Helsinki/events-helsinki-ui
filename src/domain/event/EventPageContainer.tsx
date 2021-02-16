@@ -1,15 +1,11 @@
-import { last } from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import ErrorHero from '../../common/components/error/ErrorHero';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
-import {
-  useEventDetailsLazyQuery,
-  useEventDetailsQuery,
-} from '../../generated/graphql';
+import { useEventDetailsQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import { getFeatureFlags } from '../../util/featureFlags';
 import isClient from '../../util/isClient';
@@ -36,7 +32,6 @@ const EventPageContainer: React.FC = () => {
   const params = useParams<RouteParams>();
   const eventId = params.id;
   const locale = useLocale();
-  const [superEventId, setSuperEventId] = useState('');
 
   const { data: eventData, loading } = useEventDetailsQuery({
     variables: {
@@ -45,31 +40,7 @@ const EventPageContainer: React.FC = () => {
     },
   });
 
-  const [
-    getData,
-    { data: superEvent, loading: superEventLoading },
-  ] = useEventDetailsLazyQuery({
-    variables: {
-      id: superEventId,
-      include: ['in_language', 'keywords', 'location', 'audience'],
-    },
-  });
-
   const event = eventData?.eventDetails;
-
-  useEffect(() => {
-    if (event) {
-      setSuperEventId(
-        last(event.superEvent?.internalId?.split('/').filter((e) => e)) || ''
-      );
-    }
-  }, [event]);
-
-  useEffect(() => {
-    if (superEventId) {
-      getData();
-    }
-  }, [getData, superEventId]);
 
   const eventClosed = !event || isEventClosed(event);
   return (
@@ -84,13 +55,7 @@ const EventPageContainer: React.FC = () => {
                 <EventClosedHero />
               ) : (
                 <>
-                  <EventHero
-                    event={event}
-                    superEvent={
-                      superEventLoading ? superEvent?.eventDetails : null
-                    }
-                    eventType="event"
-                  />
+                  <EventHero event={event} eventType="event" />
                   <EventContent event={event} eventType="event" />
                 </>
               )}

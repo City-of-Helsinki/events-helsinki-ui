@@ -35,6 +35,9 @@ const CoursePageContainer: React.FC = () => {
   const courseId = params.id;
   const locale = useLocale();
   const [superEventId, setSuperEventId] = useState('');
+  const [superEventData, setSuperEventData] = React.useState<
+    EventFields | null | undefined
+  >(null);
 
   const { data: courseData, loading } = useCourseDetailsQuery({
     variables: {
@@ -43,10 +46,7 @@ const CoursePageContainer: React.FC = () => {
     },
   });
 
-  const [
-    getData,
-    { data: superEvent, loading: superEventLoading },
-  ] = useCourseDetailsLazyQuery({
+  const [getData, { data: superEvent }] = useCourseDetailsLazyQuery({
     variables: {
       id: superEventId,
       include: ['in_language', 'keywords', 'location', 'audience'],
@@ -57,12 +57,15 @@ const CoursePageContainer: React.FC = () => {
 
   useEffect(() => {
     if (course) {
-      setSuperEventId(
-        course.superEvent?.internalId
-          ?.split('/')
-          .filter((e) => e)
-          .pop() || ''
-      );
+      const superEventIdData = course.superEvent?.internalId
+        ?.split('/')
+        .filter((e) => e)
+        .pop();
+      if (superEventIdData) {
+        setSuperEventId(superEventIdData);
+      } else {
+        setSuperEventData(undefined);
+      }
     }
   }, [course]);
 
@@ -71,6 +74,10 @@ const CoursePageContainer: React.FC = () => {
       getData();
     }
   }, [getData, superEventId]);
+
+  useEffect(() => {
+    setSuperEventData(superEvent?.courseDetails || null);
+  }, [superEvent]);
 
   const courseClosed = !course || isEventClosed(course);
 
@@ -88,9 +95,7 @@ const CoursePageContainer: React.FC = () => {
                 <>
                   <EventHero
                     event={course}
-                    superEvent={
-                      superEventLoading ? superEvent?.courseDetails : null
-                    }
+                    superEvent={superEventData}
                     eventType="course"
                   />
                   <EventContent event={course} eventType="course" />

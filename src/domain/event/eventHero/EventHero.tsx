@@ -22,7 +22,7 @@ import styles from './eventHero.module.scss';
 export interface Props {
   event: EventFields;
   eventType: EventType;
-  superEvent: EventFields | null | undefined;
+  superEvent?: EventFields | null | undefined;
 }
 
 const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
@@ -115,7 +115,7 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
                 <div className={styles.description}>{shortDescription}</div>
               )}
               <Visible above="sm" className={styles.date}>
-                {superEvent !== undefined &&
+                {superEvent !== null &&
                   !!superEventStartTime &&
                   getDateRangeStr({
                     start: superEventStartTime,

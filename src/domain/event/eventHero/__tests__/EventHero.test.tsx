@@ -56,12 +56,7 @@ afterAll(() => {
 
 const renderComponent = (props?: Partial<EventHeroProps>) => {
   return render(
-    <EventHero
-      event={getFakeEvent()}
-      superEvent={getFakeEvent()}
-      eventType="event"
-      {...props}
-    />
+    <EventHero event={getFakeEvent()} eventType="event" {...props} />
   );
 };
 
@@ -132,9 +127,7 @@ test('should hide buy button for free events', () => {
   const mockEvent = getFakeEvent({
     offers: [fakeOffer({ isFree: true }) as OfferFieldsFragment],
   });
-  render(
-    <EventHero event={mockEvent} superEvent={mockEvent} eventType="event" />
-  );
+  render(<EventHero event={mockEvent} eventType="event" />);
 
   expect(
     screen.queryByRole('button', {
@@ -156,9 +149,7 @@ test('should show buy button', () => {
     externalLinks: null,
   });
 
-  render(
-    <EventHero event={mockEvent} superEvent={mockEvent} eventType="event" />
-  );
+  render(<EventHero event={mockEvent} eventType="event" />);
 
   // shouldn't be rendred when externalLinks are not present
   expect(
@@ -187,9 +178,7 @@ test('Register button should be visible and clickable', () => {
     ],
   });
 
-  render(
-    <EventHero event={mockEvent} superEvent={mockEvent} eventType="course" />
-  );
+  render(<EventHero event={mockEvent} eventType="course" />);
 
   expect(
     screen.queryByText(translations.event.hero.buttonEnrol)
