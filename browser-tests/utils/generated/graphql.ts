@@ -645,7 +645,7 @@ export type CollectionFieldsFragment = {
   __typename?: 'CollectionDetails';
 } & Pick<
   CollectionDetails,
-  'id' | 'boxColor' | 'curatedEvents' | 'expired' | 'slug'
+  'id' | 'boxColor' | 'curatedEvents' | 'expired' | 'live' | 'slug'
 > & {
     heroImage: Maybe<{ __typename?: 'CmsImage' } & CmsImageFieldsFragment>;
     curatedEventsTitle: Maybe<
@@ -734,6 +734,8 @@ export type CourseListQueryVariables = {
   keyword?: Maybe<Array<Maybe<Scalars['String']>>>;
   keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>;
   language?: Maybe<Scalars['String']>;
   location?: Maybe<Array<Maybe<Scalars['String']>>>;
   page?: Maybe<Scalars['Int']>;
@@ -848,6 +850,7 @@ export type EventListQueryVariables = {
   isFree?: Maybe<Scalars['Boolean']>;
   keyword?: Maybe<Array<Maybe<Scalars['String']>>>;
   keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
+  keywordOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>;
   keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>;
   language?: Maybe<Scalars['String']>;
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -1180,6 +1183,7 @@ export const CollectionFieldsFragmentDoc = gql`
     linkUrl {
       ...localizedFields
     }
+    live
     slug
     socialMediaDescription {
       ...localizedFields
@@ -1482,6 +1486,8 @@ export const CourseListDocument = gql`
     $keyword: [String]
     $keywordAnd: [String]
     $keywordNot: [String]
+    $keywordOrSet2: [String]
+    $keywordOrSet3: [String]
     $language: String
     $location: [String]
     $page: Int
@@ -1509,6 +1515,8 @@ export const CourseListDocument = gql`
       isFree: $isFree
       keyword: $keyword
       keywordAnd: $keywordAnd
+      keywordOrSet2: $keywordOrSet2
+      keywordOrSet3: $keywordOrSet3
       keywordNot: $keywordNot
       language: $language
       location: $location
@@ -1564,6 +1572,7 @@ export const EventListDocument = gql`
     $isFree: Boolean
     $keyword: [String]
     $keywordAnd: [String]
+    $keywordOrSet1: [String]
     $keywordNot: [String]
     $language: String
     $localOngoingAnd: [String]
@@ -1591,6 +1600,7 @@ export const EventListDocument = gql`
       isFree: $isFree
       keyword: $keyword
       keywordAnd: $keywordAnd
+      keywordOrSet1: $keywordOrSet1
       keywordNot: $keywordNot
       language: $language
       localOngoingAnd: $localOngoingAnd
