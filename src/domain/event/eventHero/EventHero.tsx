@@ -22,9 +22,10 @@ import styles from './eventHero.module.scss';
 export interface Props {
   event: EventFields;
   eventType: EventType;
+  superEvent: EventFields | null | undefined;
 }
 
-const EventHero: React.FC<Props> = ({ event, eventType }) => {
+const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
   const { t } = useTranslation();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const locale = useLocale();
@@ -79,6 +80,9 @@ const EventHero: React.FC<Props> = ({ event, eventType }) => {
     }
   }, [imageUrl]);
 
+  const superEventStartTime = superEvent ? superEvent.startTime : startTime;
+  const superEventEndTime = superEvent ? superEvent.endTime : endTime;
+
   return (
     <div className={classNames(styles.heroWrapper)}>
       <Container>
@@ -111,10 +115,11 @@ const EventHero: React.FC<Props> = ({ event, eventType }) => {
                 <div className={styles.description}>{shortDescription}</div>
               )}
               <Visible above="sm" className={styles.date}>
-                {!!startTime &&
+                {superEvent !== undefined &&
+                  !!superEventStartTime &&
                   getDateRangeStr({
-                    start: startTime,
-                    end: endTime,
+                    start: superEventStartTime,
+                    end: superEventEndTime,
                     locale,
                     includeTime: true,
                     timeAbbreviation: t('commons.timeAbbreviation'),

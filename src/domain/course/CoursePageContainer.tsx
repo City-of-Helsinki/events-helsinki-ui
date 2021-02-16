@@ -1,11 +1,15 @@
-import React from 'react';
+import { last } from 'lodash';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import ErrorHero from '../../common/components/error/ErrorHero';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
-import { useCourseDetailsQuery } from '../../generated/graphql';
+import {
+  useCourseDetailsLazyQuery,
+  useCourseDetailsQuery,
+} from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import isClient from '../../util/isClient';
 import MainContent from '../app/layout/MainContent';
@@ -31,6 +35,7 @@ const CoursePageContainer: React.FC = () => {
   const params = useParams<RouteParams>();
   const courseId = params.id;
   const locale = useLocale();
+  const [superEventId, setSuperEventId] = useState('');
 
   const { data: courseData, loading } = useCourseDetailsQuery({
     variables: {
@@ -39,7 +44,28 @@ const CoursePageContainer: React.FC = () => {
     },
   });
 
+  const [getData, { data: superEvent }] = useCourseDetailsLazyQuery({
+    variables: {
+      id: superEventId,
+      include: ['in_language', 'keywords', 'location', 'audience'],
+    },
+  });
+
   const course = courseData?.courseDetails;
+
+  useEffect(() => {
+    if (course) {
+      setSuperEventId(
+        last(course.superEvent?.internalId?.split('/').filter((e) => e)) || ''
+      );
+    }
+  }, [course]);
+
+  useEffect(() => {
+    if (superEventId) {
+      getData();
+    }
+  }, [getData, superEventId]);
 
   const courseClosed = !course || isEventClosed(course);
 
@@ -55,7 +81,11 @@ const CoursePageContainer: React.FC = () => {
                 <EventClosedHero />
               ) : (
                 <>
-                  <EventHero event={course} eventType="course" />
+                  <EventHero
+                    event={course}
+                    superEvent={superEvent?.courseDetails}
+                    eventType="course"
+                  />
                   <EventContent event={course} eventType="course" />
                 </>
               )}
