@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import TestController, { ClientFunction } from 'testcafe';
 
+import { getCommonComponents } from '../common.components';
 import {
   BannerPageFieldsFragment,
   CollectionFieldsFragment,
@@ -14,6 +15,10 @@ const getUrl = ClientFunction(() => document.location.href);
 const getPageTitle = ClientFunction(() => document.title);
 
 export const getUrlUtils = (t: TestController) => {
+  const pageIsLoaded = async () => {
+    await getCommonComponents(t).loadingSpinner().expectations.isNotPresent();
+  };
+
   const actions = {
     async navigateToLandingPage() {
       await t.navigateTo(getEnvUrl(`/fi/home`));
@@ -37,21 +42,26 @@ export const getUrlUtils = (t: TestController) => {
       t.ctx.expectedEvent = event;
       await t
         .expect(getPathname())
-        .eql(`/fi/event/${event.id}`, await getErrorMessage(t))
+        .eql(`/fi/event/${event.id}`, await getErrorMessage(t));
+      await pageIsLoaded();
+      await t
         .expect(getPageTitle())
         .eql(event.name.fi, await getErrorMessage(t));
     },
     async urlChangedToEventSearchPage() {
+      await t.expect(getPathname()).eql(`/fi/events`, await getErrorMessage(t));
+
+      await pageIsLoaded();
       await t
-        .expect(getPathname())
-        .eql(`/fi/events`, await getErrorMessage(t))
         .expect(getPageTitle())
         .eql('Tapahtumat', await getErrorMessage(t));
     },
     async urlChangedToRecommendationsPage() {
       await t
         .expect(getPathname())
-        .eql(`/fi/collections`, await getErrorMessage(t))
+        .eql(`/fi/collections`, await getErrorMessage(t));
+      await pageIsLoaded();
+      await t
         .expect(getPageTitle())
         .eql('Tapahtumat', await getErrorMessage(t));
     },
