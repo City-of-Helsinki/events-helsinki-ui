@@ -1,6 +1,8 @@
 import classNames from 'classnames';
+import { Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
@@ -16,6 +18,7 @@ import EventCards from './EventCards';
 import OnlyExpiredEvents from './OnlyExpiredEvents';
 
 const PAST_EVENTS_DEFAULT_SIZE = 4;
+const PAGE_SIZE = 10;
 
 interface Props {
   collection: CollectionFieldsFragment;
@@ -25,6 +28,7 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const [showAllPastEvents, setShowAllPastEvents] = React.useState(false);
+  const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const eventIds = React.useMemo(
     () =>
       collection.curatedEvents
@@ -33,9 +37,24 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
     [collection.curatedEvents]
   );
 
-  const { data: eventsData, loading } = useEventsByIdsQuery({
-    variables: { ids: eventIds, include: ['keywords', 'location'] },
+  const queryVariables = {
+    ids: eventIds.slice(0, PAGE_SIZE),
+    include: ['keywords', 'location'],
+  };
+
+  const { data: eventsData, loading, fetchMore } = useEventsByIdsQuery({
+    variables: queryVariables,
   });
+
+  const pageNumber = React.useRef(
+    // if eventsByIds is available on first render, they are coming from cache
+    // Initialize page number based on its length
+    eventsData?.eventsByIds.length
+      ? Math.ceil(eventsData?.eventsByIds.length / PAGE_SIZE)
+      : 1
+  );
+  const eventCursorIndex = pageNumber.current * PAGE_SIZE;
+  const hasMoreEventsToLoad = eventCursorIndex < eventIds.length;
 
   const events =
     eventsData?.eventsByIds.filter((event) => !isEventClosed(event)) || [];
@@ -45,6 +64,34 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
 
   const handleShowAllPastEvents = () => {
     setShowAllPastEvents(true);
+  };
+
+  const onLoadMoreEvents = async () => {
+    if (hasMoreEventsToLoad) {
+      setIsFetchingMore(true);
+      try {
+        await fetchMore({
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+            const events = [
+              ...prev.eventsByIds,
+              ...fetchMoreResult.eventsByIds,
+            ];
+            fetchMoreResult.eventsByIds = events;
+            return fetchMoreResult;
+          },
+          variables: {
+            ids: eventIds.slice(eventCursorIndex, eventCursorIndex + PAGE_SIZE),
+            include: ['keywords', 'location'],
+          },
+        });
+        pageNumber.current = pageNumber.current + 1;
+      } catch (e) {
+        toast.error(t('collection.eventList.errorLoadMore'));
+      }
+
+      setIsFetchingMore(false);
+    }
   };
 
   const visiblePastEvent = pastEvents.slice(
@@ -89,6 +136,24 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
                     }
                   />
                 </>
+              )}
+              {hasMoreEventsToLoad && (
+                <div className={styles.loadMoreWrapper}>
+                  <LoadingSpinner
+                    hasPadding={!events.length}
+                    isLoading={isFetchingMore}
+                  >
+                    <Button
+                      onClick={onLoadMoreEvents}
+                      variant="success"
+                      disabled={isFetchingMore}
+                    >
+                      {t('eventSearch.buttonLoadMore', {
+                        count: eventIds.length - eventCursorIndex,
+                      })}
+                    </Button>
+                  </LoadingSpinner>
+                </div>
               )}
             </Container>
           </div>
