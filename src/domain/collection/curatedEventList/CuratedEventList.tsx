@@ -39,7 +39,7 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
 
   const queryVariables = {
     ids: eventIds.slice(0, PAGE_SIZE),
-    include: ['keywords', 'location'],
+    include: ['location'],
   };
 
   const { data: eventsData, loading, fetchMore } = useEventsByIdsQuery({
@@ -82,7 +82,7 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
           },
           variables: {
             ids: eventIds.slice(eventCursorIndex, eventCursorIndex + PAGE_SIZE),
-            include: ['keywords', 'location'],
+            include: ['location'],
           },
         });
         pageNumber.current = pageNumber.current + 1;
