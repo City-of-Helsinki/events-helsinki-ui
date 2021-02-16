@@ -1,4 +1,3 @@
-import { last } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router';
@@ -44,7 +43,10 @@ const CoursePageContainer: React.FC = () => {
     },
   });
 
-  const [getData, { data: superEvent }] = useCourseDetailsLazyQuery({
+  const [
+    getData,
+    { data: superEvent, loading: superEventLoading },
+  ] = useCourseDetailsLazyQuery({
     variables: {
       id: superEventId,
       include: ['in_language', 'keywords', 'location', 'audience'],
@@ -56,7 +58,10 @@ const CoursePageContainer: React.FC = () => {
   useEffect(() => {
     if (course) {
       setSuperEventId(
-        last(course.superEvent?.internalId?.split('/').filter((e) => e)) || ''
+        course.superEvent?.internalId
+          ?.split('/')
+          .filter((e) => e)
+          .pop() || ''
       );
     }
   }, [course]);
@@ -83,7 +88,9 @@ const CoursePageContainer: React.FC = () => {
                 <>
                   <EventHero
                     event={course}
-                    superEvent={superEvent?.courseDetails}
+                    superEvent={
+                      superEventLoading ? superEvent?.courseDetails : null
+                    }
                     eventType="course"
                   />
                   <EventContent event={course} eventType="course" />

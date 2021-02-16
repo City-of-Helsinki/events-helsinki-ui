@@ -45,7 +45,10 @@ const EventPageContainer: React.FC = () => {
     },
   });
 
-  const [getData, { data: superEvent }] = useEventDetailsLazyQuery({
+  const [
+    getData,
+    { data: superEvent, loading: superEventLoading },
+  ] = useEventDetailsLazyQuery({
     variables: {
       id: superEventId,
       include: ['in_language', 'keywords', 'location', 'audience'],
@@ -83,7 +86,9 @@ const EventPageContainer: React.FC = () => {
                 <>
                   <EventHero
                     event={event}
-                    superEvent={superEvent?.eventDetails}
+                    superEvent={
+                      superEventLoading ? superEvent?.eventDetails : null
+                    }
                     eventType="event"
                   />
                   <EventContent event={event} eventType="event" />
