@@ -44,6 +44,7 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
 
   const { data: eventsData, loading, fetchMore } = useEventsByIdsQuery({
     variables: queryVariables,
+    ssr: false,
   });
 
   const pageNumber = React.useRef(
