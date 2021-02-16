@@ -56,7 +56,12 @@ afterAll(() => {
 
 const renderComponent = (props?: Partial<EventHeroProps>) => {
   return render(
-    <EventHero event={getFakeEvent()} eventType="event" {...props} />
+    <EventHero
+      event={getFakeEvent()}
+      superEvent={getFakeEvent()}
+      eventType="event"
+      {...props}
+    />
   );
 };
 
