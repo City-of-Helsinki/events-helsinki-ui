@@ -16,6 +16,7 @@ import { Helmet } from 'react-helmet';
 
 import i18next from '../common/translation/i18n/init.server';
 import { SUPPORT_LANGUAGES } from '../constants';
+import { ServerRequestContextType } from '../contexts/ServerRequestContext';
 import getDomainFromRequest from '../util/getDomainFromRequest';
 import updateSitemaps from '../util/updateSitemap';
 import { getAssets } from './assets';
@@ -73,13 +74,16 @@ app.use(async (req: Request, res: Response) => {
     }),
     ssrMode: true,
   });
-  const context: StaticContext = {};
-
+  const staticContext: StaticContext = {};
+  const serverRequestContext: ServerRequestContextType = {
+    url: req.url,
+    host: getDomainFromRequest(req),
+  };
   const el = React.createElement(ServerApp, {
     client,
-    context,
+    staticContext,
+    serverRequestContext,
     i18n: (req as I18NextRequest).i18n,
-    url: req.url,
   });
 
   // Function to generate html and send response to client
@@ -104,8 +108,8 @@ app.use(async (req: Request, res: Response) => {
 
     const html = ReactDOMServer.renderToString(htmlEl);
 
-    if (context.url) {
-      res.redirect(302, context.url);
+    if (staticContext.url) {
+      res.redirect(302, staticContext.url);
     } else {
       res.status(200);
       res.send(`<!doctype html>${html}`);

@@ -5,6 +5,10 @@ import { ApolloProvider } from 'react-apollo';
 import { I18nextProvider } from 'react-i18next';
 import { StaticRouter } from 'react-router-dom';
 
+import {
+  ServerRequestContext,
+  ServerRequestContextType,
+} from '../contexts/ServerRequestContext';
 import App from '../domain/app/App';
 
 export interface StaticContext {
@@ -13,17 +17,27 @@ export interface StaticContext {
 
 interface Props {
   client: ApolloClient<Record<string, unknown>>;
-  context: StaticContext;
-  url: string;
+  staticContext: StaticContext;
+  serverRequestContext: ServerRequestContextType;
   i18n: i18nType;
 }
 
-const ServerApp: React.FC<Props> = ({ client, context, url, i18n }) => {
+const ServerApp: React.FC<Props> = ({
+  client,
+  staticContext,
+  serverRequestContext,
+  i18n,
+}) => {
   return (
     <I18nextProvider i18n={i18n}>
       <ApolloProvider client={client}>
-        <StaticRouter location={url} context={context}>
-          <App />
+        <StaticRouter
+          location={serverRequestContext.url}
+          context={staticContext}
+        >
+          <ServerRequestContext.Provider value={serverRequestContext}>
+            <App />
+          </ServerRequestContext.Provider>
         </StaticRouter>
       </ApolloProvider>
     </I18nextProvider>
