@@ -19,7 +19,6 @@ import OnlyExpiredEvents from './OnlyExpiredEvents';
 
 const PAST_EVENTS_DEFAULT_SIZE = 4;
 const PAGE_SIZE = 10;
-const INITIAL_PAGE = 1;
 
 interface Props {
   collection: CollectionFieldsFragment;
@@ -47,15 +46,15 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
     variables: queryVariables,
   });
 
-  const page = React.useRef(
+  const pageNumber = React.useRef(
     // if eventsByIds is available on first render, they are coming from cache
     // Initialize page number based on its length
     eventsData?.eventsByIds.length
       ? Math.ceil(eventsData?.eventsByIds.length / PAGE_SIZE)
-      : INITIAL_PAGE
+      : 1
   );
-  const currentEventsCount = page.current * PAGE_SIZE;
-  const isMoreToLoad = currentEventsCount < eventIds.length;
+  const eventCursorIndex = pageNumber.current * PAGE_SIZE;
+  const hasMoreEventsToLoad = eventCursorIndex < eventIds.length;
 
   const events =
     eventsData?.eventsByIds.filter((event) => !isEventClosed(event)) || [];
@@ -68,7 +67,7 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
   };
 
   const onLoadMoreEvents = async () => {
-    if (isMoreToLoad) {
+    if (hasMoreEventsToLoad) {
       setIsFetchingMore(true);
       try {
         await fetchMore({
@@ -82,14 +81,11 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
             return fetchMoreResult;
           },
           variables: {
-            ids: eventIds.slice(
-              currentEventsCount,
-              currentEventsCount + PAGE_SIZE
-            ),
+            ids: eventIds.slice(eventCursorIndex, eventCursorIndex + PAGE_SIZE),
             include: ['keywords', 'location'],
           },
         });
-        page.current = page.current + 1;
+        pageNumber.current = pageNumber.current + 1;
       } catch (e) {
         toast.error(t('collection.eventList.errorLoadMore'));
       }
@@ -141,7 +137,7 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
                   />
                 </>
               )}
-              {isMoreToLoad && (
+              {hasMoreEventsToLoad && (
                 <div className={styles.loadMoreWrapper}>
                   <LoadingSpinner
                     hasPadding={!events.length}
@@ -153,7 +149,7 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
                       disabled={isFetchingMore}
                     >
                       {t('eventSearch.buttonLoadMore', {
-                        count: eventIds.length - currentEventsCount,
+                        count: eventIds.length - eventCursorIndex,
                       })}
                     </Button>
                   </LoadingSpinner>
