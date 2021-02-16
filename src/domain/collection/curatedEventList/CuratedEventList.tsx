@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
   CollectionFieldsFragment,
-  EventsByIdsDocument,
   useEventsByIdsQuery,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
@@ -31,8 +30,6 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
   const locale = useLocale();
   const [showAllPastEvents, setShowAllPastEvents] = React.useState(false);
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
-  const page = React.useRef(INITIAL_PAGE);
-  const currentEventsCount = page.current * PAGE_SIZE;
   const eventIds = React.useMemo(
     () =>
       collection.curatedEvents
@@ -40,49 +37,25 @@ const CuratedEventList: React.FC<Props> = ({ collection }) => {
         .filter((e) => e),
     [collection.curatedEvents]
   );
-  const isMoreToLoad = currentEventsCount < eventIds.length;
 
   const queryVariables = {
     ids: eventIds.slice(0, PAGE_SIZE),
     include: ['keywords', 'location'],
   };
 
-  const {
-    data: eventsData,
-    loading,
-    fetchMore,
-    client: apolloClient,
-  } = useEventsByIdsQuery({
+  const { data: eventsData, loading, fetchMore } = useEventsByIdsQuery({
     variables: queryVariables,
   });
 
-  // When component is unmounting, we need to delete the paginated data from cache
-  // and only persist the first page with writeQuery. Otherwise when page count resets and
-  // events are fetched again, it returns all the events form cache that were previously fetched.
-  // Then page and event array lenght don't match up...
-  React.useEffect(() => {
-    return () => {
-      try {
-        const data = apolloClient.readQuery({
-          query: EventsByIdsDocument,
-          variables: queryVariables,
-        });
-        apolloClient.writeQuery({
-          query: EventsByIdsDocument,
-          variables: queryVariables,
-          data: {
-            eventsByIds: data.eventsByIds.slice(0, PAGE_SIZE),
-          },
-        });
-      } catch (e) {
-        if (process.env.NODE_ENV !== 'test') {
-          // eslint-disable-next-line no-console
-          console.error('Clearing cache failed: ', e);
-        }
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const page = React.useRef(
+    // if eventsByIds is available on first render, they are coming from cache
+    // Initialize page number based on its length
+    eventsData?.eventsByIds.length
+      ? Math.ceil(eventsData?.eventsByIds.length / PAGE_SIZE)
+      : INITIAL_PAGE
+  );
+  const currentEventsCount = page.current * PAGE_SIZE;
+  const isMoreToLoad = currentEventsCount < eventIds.length;
 
   const events =
     eventsData?.eventsByIds.filter((event) => !isEventClosed(event)) || [];
