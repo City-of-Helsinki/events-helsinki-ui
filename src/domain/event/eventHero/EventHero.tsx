@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { Button, IconArrowLeft, IconLocation, IconTicket } from 'hds-react';
 import React from 'react';
+import ContentLoader from 'react-content-loader';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -126,6 +127,18 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
                 <div className={styles.description}>{shortDescription}</div>
               )}
               <Visible above="sm" className={styles.date}>
+                {superEvent?.status === 'pending' && (
+                  <ContentLoader
+                    speed={2}
+                    width={'100%'}
+                    height={18}
+                    viewBox="0 0 100% 18"
+                    backgroundColor="#f3f3f3"
+                    foregroundColor="#ecebeb"
+                  >
+                    <rect x="0" y="0" rx="3" ry="3" width="100%" height="18" />
+                  </ContentLoader>
+                )}
                 {!!startTime &&
                   getDateRangeStr({
                     start: startTime,
