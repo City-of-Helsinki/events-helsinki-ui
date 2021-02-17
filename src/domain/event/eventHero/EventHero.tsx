@@ -34,13 +34,13 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
   const eventsRoute = EVENTS_ROUTE_MAPPER[eventType];
 
   const {
-    endTime,
+    endTime: eventEndTime,
     imageUrl,
     keywords,
     offerInfoUrl,
     placeholderImage,
     shortDescription,
-    startTime,
+    startTime: eventStartTime,
     today,
     thisWeek,
     showBuyButton,
@@ -80,8 +80,8 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
     }
   }, [imageUrl]);
 
-  const superEventStartTime = superEvent ? superEvent.startTime : startTime;
-  const superEventEndTime = superEvent ? superEvent.endTime : endTime;
+  const startTime = superEvent ? superEvent.startTime : eventStartTime;
+  const endTime = superEvent ? superEvent.endTime : eventEndTime;
 
   return (
     <div className={classNames(styles.heroWrapper)}>
@@ -116,10 +116,10 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
               )}
               <Visible above="sm" className={styles.date}>
                 {superEvent !== null &&
-                  !!superEventStartTime &&
+                  !!startTime &&
                   getDateRangeStr({
-                    start: superEventStartTime,
-                    end: superEventEndTime,
+                    start: startTime,
+                    end: endTime,
                     locale,
                     includeTime: true,
                     timeAbbreviation: t('commons.timeAbbreviation'),
