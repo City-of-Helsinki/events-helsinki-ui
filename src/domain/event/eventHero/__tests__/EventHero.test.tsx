@@ -218,7 +218,7 @@ test('should have super event dates when super event is defined', () => {
   render(
     <EventHero
       event={mockEvent}
-      superEvent={mockSuperEvent}
+      superEvent={{ data: mockSuperEvent, status: 'resolved' }}
       eventType="course"
     />
   );

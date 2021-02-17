@@ -6,11 +6,12 @@ import { Link } from 'react-router-dom';
 import ErrorHero from '../../common/components/error/ErrorHero';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import {
-  useCourseDetailsLazyQuery,
+  CourseDetailsDocument,
   useCourseDetailsQuery,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import isClient from '../../util/isClient';
+import apolloClient from '../app/apollo/apolloClient';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
@@ -21,7 +22,7 @@ import EventPageMeta from '../event/eventPageMeta/EventPageMeta';
 import { getEventIdFromUrl, isEventClosed } from '../event/EventUtils';
 import { useSimilarCoursesQuery } from '../event/queryUtils';
 import SimilarEvents from '../event/similarEvents/SimilarEvents';
-import { EventFields } from '../event/types';
+import { EventFields, SuperEventResponse } from '../event/types';
 import styles from './coursePage.module.scss';
 
 interface RouteParams {
@@ -34,9 +35,10 @@ const CoursePageContainer: React.FC = () => {
   const params = useParams<RouteParams>();
   const courseId = params.id;
   const locale = useLocale();
-  const [superEventData, setSuperEventData] = React.useState<
-    EventFields | null | undefined
-  >(null);
+  const [superEvent, setSuperEvent] = React.useState<SuperEventResponse>({
+    data: null,
+    status: 'pending',
+  });
 
   const { data: courseData, loading } = useCourseDetailsQuery({
     variables: {
@@ -45,33 +47,30 @@ const CoursePageContainer: React.FC = () => {
     },
   });
 
-  const [getSuperEventData, { data: superEvent }] = useCourseDetailsLazyQuery();
-
   const course = courseData?.courseDetails;
 
-  const superEventId =
-    getEventIdFromUrl(
-      courseData?.courseDetails?.superEvent?.internalId || ''
-    ) || '';
-
+  const superEventId = getEventIdFromUrl(course?.superEvent?.internalId ?? '');
   useEffect(() => {
-    if (course) {
-      if (superEventId) {
-        getSuperEventData({
+    if (superEventId) {
+      getSuperEventData();
+    } else if (course && !superEventId) {
+      setSuperEvent({ data: null, status: 'resolved' });
+    }
+    async function getSuperEventData() {
+      try {
+        const { data } = await apolloClient.query({
+          query: CourseDetailsDocument,
           variables: {
             id: superEventId,
             include: ['in_language', 'keywords', 'location', 'audience'],
           },
         });
-      } else {
-        setSuperEventData(undefined);
+        setSuperEvent({ data: data.courseDetails, status: 'resolved' });
+      } catch (e) {
+        setSuperEvent({ data: null, status: 'resolved' });
       }
     }
-  }, [course, getSuperEventData, superEventId]);
-
-  useEffect(() => {
-    setSuperEventData(superEvent?.courseDetails || null);
-  }, [superEvent]);
+  }, [course, superEventId]);
 
   const courseClosed = !course || isEventClosed(course);
 
@@ -89,7 +88,7 @@ const CoursePageContainer: React.FC = () => {
                 <>
                   <EventHero
                     event={course}
-                    superEvent={superEventData}
+                    superEvent={superEvent}
                     eventType="course"
                   />
                   <EventContent event={course} eventType="course" />

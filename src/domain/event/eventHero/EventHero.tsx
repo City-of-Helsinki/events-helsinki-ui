@@ -16,13 +16,18 @@ import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
 import EventName from '../eventName/EventName';
 import { getEventFields, getEventPrice } from '../EventUtils';
-import { EventFields, EVENTS_ROUTE_MAPPER, EventType } from '../types';
+import {
+  EventFields,
+  EVENTS_ROUTE_MAPPER,
+  EventType,
+  SuperEventResponse,
+} from '../types';
 import styles from './eventHero.module.scss';
 
 export interface Props {
   event: EventFields;
   eventType: EventType;
-  superEvent?: EventFields | null | undefined;
+  superEvent?: SuperEventResponse;
 }
 
 const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
@@ -80,8 +85,14 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
     }
   }, [imageUrl]);
 
-  const startTime = superEvent ? superEvent.startTime : eventStartTime;
-  const endTime = superEvent ? superEvent.endTime : eventEndTime;
+  const startTime =
+    superEvent?.status === 'pending'
+      ? ''
+      : superEvent?.data?.startTime || eventStartTime;
+  const endTime =
+    superEvent?.status === 'pending'
+      ? ''
+      : superEvent?.data?.endTime || eventEndTime;
 
   return (
     <div className={classNames(styles.heroWrapper)}>
@@ -115,8 +126,7 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
                 <div className={styles.description}>{shortDescription}</div>
               )}
               <Visible above="sm" className={styles.date}>
-                {superEvent !== null &&
-                  !!startTime &&
+                {!!startTime &&
                   getDateRangeStr({
                     start: startTime,
                     end: endTime,

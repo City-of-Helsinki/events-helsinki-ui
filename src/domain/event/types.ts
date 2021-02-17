@@ -11,6 +11,11 @@ export type KeywordOption = {
 
 export type EventFields = EventFieldsFragment | CourseFieldsFragment;
 
+export type SuperEventResponse = {
+  data: EventFields | null;
+  status: 'pending' | 'resolved';
+};
+
 export type EventType = 'event' | 'course';
 
 export const EVENT_ROUTE_MAPPER: Record<EventType, string> = {
