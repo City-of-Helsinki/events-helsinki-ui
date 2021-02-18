@@ -14,7 +14,7 @@ import {
   selectRandomValueFromArray,
   selectRandomValuesFromArray,
 } from '../utils/random.utils';
-import { splitBySentences } from '../utils/regexp.util';
+import { getRandomSentence } from '../utils/regexp.util';
 import { getEnvUrl } from '../utils/settings';
 import { clearContext } from '../utils/testcafe.utils';
 import { getUrlUtils } from '../utils/url.utils';
@@ -62,7 +62,7 @@ test('"click more events" -button works', async (t) => {
 
 test('Search url by event name shows event card data for helsinki event', async () => {
   const [event] = await getHelsinkiEvents();
-  await urlUtils.actions.navigateToSearchUrl(event.name.fi);
+  await urlUtils.actions.navigateToSearchUrl(getRandomSentence(event.name.fi));
   const searchResults = await eventSearchPage.findSearchResultList();
   const eventCard = await searchResults.eventCard(event);
   await eventCard.expectations.eventTimeIsPresent();
@@ -78,9 +78,7 @@ test('Free text search finds event by free text search', async (t) => {
     await testSearchEventByText(t, event, event.name[locale], 'name');
     const randomShortDescriptionSentence =
       event.shortDescription[locale] &&
-      selectRandomValueFromArray(
-        splitBySentences(event.shortDescription[locale])
-      );
+      getRandomSentence(event.shortDescription[locale]);
     await testSearchEventByText(
       t,
       event,
@@ -88,8 +86,7 @@ test('Free text search finds event by free text search', async (t) => {
       'shortDescription'
     );
     const randomDescriptionSentence =
-      event.description[locale] &&
-      selectRandomValueFromArray(splitBySentences(event.description[locale]));
+      event.description[locale] && getRandomSentence(event.description[locale]);
     await testSearchEventByText(
       t,
       event,
@@ -112,7 +109,7 @@ test('Free text search finds event by free text search', async (t) => {
     await testSearchEventByText(
       t,
       event,
-      randomKeyword.name[locale],
+      getRandomSentence(randomKeyword.name[locale]),
       'keywords'
     );
   }

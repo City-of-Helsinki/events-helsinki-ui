@@ -27,7 +27,7 @@ const getMocks = (events: EventFieldsFragment[]) => [
       query: EventsByIdsDocument,
       variables: {
         ids: eventIds,
-        include: ['keywords', 'location'],
+        include: ['location'],
       },
     },
     result: { data: { eventsByIds: events } },

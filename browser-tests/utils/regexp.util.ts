@@ -1,3 +1,5 @@
+import { selectRandomValueFromArray } from './random.utils';
+
 export const regExpEscaped = (text: string, flags?: string): RegExp => {
   return new RegExp(escapeRegExp(text), flags);
 };
@@ -11,3 +13,7 @@ export const splitBySentences = (text: string): string[] =>
     .split('____')
     .map((s) => s.trim())
     .filter((s) => /[^.,!?()]+/.test(s));
+
+export const getRandomSentence = (text: string): string => {
+  return selectRandomValueFromArray(splitBySentences(text));
+};

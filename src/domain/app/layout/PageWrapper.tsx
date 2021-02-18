@@ -7,7 +7,7 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import { DEFAULT_SOME_IMAGE } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
-import isClient from '../../../util/isClient';
+import { useURIComponents } from '../../../hooks/useURIComponents';
 
 interface Props {
   className?: string;
@@ -23,13 +23,10 @@ const PageWrapper: React.FC<Props> = ({
   const location = useLocation();
   const locale = useLocale();
   const { trackPageView } = useMatomo();
+  const { host, url } = useURIComponents();
 
   const translatedTitle =
     title !== 'appName' ? `${t(title)} - ${t('appName')}` : t('appName');
-
-  const path = isClient
-    ? window.location.pathname.replace(`/${locale}/`, '')
-    : '';
 
   const image = DEFAULT_SOME_IMAGE;
 
@@ -37,6 +34,8 @@ const PageWrapper: React.FC<Props> = ({
     image: image,
     title: translatedTitle,
   };
+
+  const path = url.replace(`/${locale}/`, '');
 
   // Track page view
   useDeepCompareEffect(() => {
@@ -52,9 +51,11 @@ const PageWrapper: React.FC<Props> = ({
         <html lang={locale} />
         <title>{translatedTitle}</title>
         <meta name="twitter:card" content="summary" />
-        <link rel="alternate" hrefLang="fi" href={'/fi/' + path} />
-        <link rel="alternate" hrefLang="sv" href={'/sv/' + path} />
-        <link rel="alternate" hrefLang="en" href={'/en/' + path} />
+
+        <link rel="canonical" href={host + url} />
+        <link rel="alternate" hrefLang="fi" href={`${host}/fi/${path}`} />
+        <link rel="alternate" hrefLang="sv" href={`${host}/sv/${path}`} />
+        <link rel="alternate" hrefLang="en" href={`${host}/en/${path}`} />
 
         {Object.entries(openGraphProperties).map(([property, value]) => (
           <meta key={property} property={`og:${property}`} content={value} />
