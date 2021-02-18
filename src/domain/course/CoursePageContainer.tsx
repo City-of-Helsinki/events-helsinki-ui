@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -50,10 +50,10 @@ const CoursePageContainer: React.FC = () => {
   const course = courseData?.courseDetails;
 
   const superEventId = getEventIdFromUrl(course?.superEvent?.internalId ?? '');
-  useEffect(() => {
+  React.useLayoutEffect(() => {
     if (superEventId) {
       getSuperEventData();
-    } else if (course && !superEventId) {
+    } else if (course) {
       setSuperEvent({ data: null, status: 'resolved' });
     }
     async function getSuperEventData() {
