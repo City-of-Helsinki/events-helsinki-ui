@@ -36,6 +36,7 @@ const getMocks = (events: EventFieldsFragment[], ids = eventIds) => [
   },
 ];
 
+// Creates array of mocks to match pagination queries
 const getMocksForPagination = (eventsCount = 35) => {
   const eventIds = range(eventsCount).map((i) => (i + 1).toString());
   const eventNames = eventIds.map((id) => `Event ${id}`);
@@ -162,6 +163,7 @@ test('event list pagination works', async () => {
     userEvent.click(screen.getByRole('button', { name, hidden: true }));
   };
 
+  // use loop to fetch all the events by clicking show more button (pagination)
   for (
     let eventsFetchedCount = PAGE_SIZE;
     eventsFetchedCount < eventsCount;
