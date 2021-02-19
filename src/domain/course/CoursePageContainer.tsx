@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/react-hooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router';
@@ -11,7 +12,6 @@ import {
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import isClient from '../../util/isClient';
-import apolloClient from '../app/apollo/apolloClient';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
@@ -30,6 +30,7 @@ interface RouteParams {
 }
 
 const CoursePageContainer: React.FC = () => {
+  const apolloClient = useApolloClient();
   const { t } = useTranslation();
   const { search } = useLocation();
   const params = useParams<RouteParams>();
@@ -70,7 +71,7 @@ const CoursePageContainer: React.FC = () => {
         setSuperEvent({ data: null, status: 'resolved' });
       }
     }
-  }, [course, superEventId]);
+  }, [apolloClient, course, superEventId]);
 
   const courseClosed = !course || isEventClosed(course);
 
