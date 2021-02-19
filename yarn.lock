@@ -65,6 +65,11 @@
     fast-json-stable-stringify "^2.0.0"
     tslib "^1.10.0"
 
+"@artsy/fresnel@1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@artsy/fresnel/-/fresnel-1.3.1.tgz#1df2ea9bb7b6a1a4e7ae9aa837f2af1a402ee3cf"
+  integrity sha512-p3tZxhtUWELqok1VLAYjGlMaBl30K6U+PVYXuV/8xD+Y+wgTxMMIrrKU61zKaRh3Py7xj9if9rpsOESVGJD4Wg==
+
 "@babel/code-frame@7.8.3", "@babel/code-frame@^7.8.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.8.3.tgz#33e25903d7481181534e12ec0a25f16b6fcf419e"
@@ -3647,6 +3652,18 @@
     deprecated-decorator "^0.1.6"
     iterall "^1.1.3"
     uuid "^3.1.0"
+
+"@kwsites/file-exists@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@kwsites/file-exists/-/file-exists-1.1.1.tgz#ad1efcac13e1987d8dbaf235ef3be5b0d96faa99"
+  integrity sha512-m9/5YGR18lIwxSFDwfE3oA7bWuq9kdau6ugN4H2rJeyhFQZcG9AgSHkQtSD15a8WvTgfz9aikZMrKPHvbpqFiw==
+  dependencies:
+    debug "^4.1.1"
+
+"@kwsites/promise-deferred@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@kwsites/promise-deferred/-/promise-deferred-1.1.1.tgz#8ace5259254426ccef57f3175bc64ed7095ed919"
+  integrity sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -7453,7 +7470,7 @@ debug@^3.0.0, debug@^3.1.1, debug@^3.2.5, debug@^3.2.6:
   dependencies:
     ms "^2.1.1"
 
-debug@^4.2.0:
+debug@^4.2.0, debug@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.1.tgz#f0d229c505e0c6d8c49ac553d1b13dc183f6b2ee"
   integrity sha512-doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ==
@@ -9772,15 +9789,18 @@ hash.js@^1.0.0, hash.js@^1.0.3, hash.js@^1.1.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-hds-core@0.17.0, hds-core@^0.17.0:
+hds-core@0.17.0:
   version "0.17.0"
   resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-0.17.0.tgz#f6b4378f1b1aa8679faae9b2cfe6a0bd687f417a"
   integrity sha512-WjaTqp3PB+Aq1eZXX+sAnmUHweHrClEJ2wucVC92SEzBc2kyTFZPRVDDfeG+P+K9hPfwLI53df3XrcxvOvdd6A==
 
-hds-design-tokens@^0.17.0:
-  version "0.17.0"
-  resolved "https://registry.yarnpkg.com/hds-design-tokens/-/hds-design-tokens-0.17.0.tgz#1fd4e80dd7e5d3a9af0790c3f8cfd66834298e15"
-  integrity sha512-eG23sNmSA7qL3Vy/PF8hDC7/BRIQMID3SsDgxPoUFTSxSRGTiCRI9+nlWUsES8SdTa7JdtHwm6L4tJ5yS+RwGA==
+hds-core@0.21.0, "hds-core@file:./hds-core-1613740208962.tgz":
+  version "0.21.0"
+  resolved "file:./hds-core-1613740208962.tgz#53dddde8f594209f32202c6e6510e3aa96903b5f"
+
+"hds-design-tokens@file:./hds-design-tokens-1613740208962.tgz":
+  version "0.21.0"
+  resolved "file:./hds-design-tokens-1613740208962.tgz#478d176b55483ec75df3227f15b6f2477b64b7f6"
 
 hds-react@^0.17.0:
   version "0.17.0"
@@ -9793,6 +9813,25 @@ hds-react@^0.17.0:
     "@react-aria/visually-hidden" "3.2.0"
     downshift "6.0.6"
     hds-core "0.17.0"
+    lodash.isequal "4.5.0"
+    lodash.uniqueid "4.0.1"
+    react-merge-refs "1.1.0"
+    react-popper "2.2.3"
+    react-spring "9.0.0-rc.3"
+    react-use-measure "2.0.1"
+    react-virtual "2.2.7"
+
+"hds-react@file:./hds-react-1613740208962.tgz":
+  version "0.21.1"
+  resolved "file:./hds-react-1613740208962.tgz#0916cdabeab60e42100ad4b439a8db17752bd775"
+  dependencies:
+    "@artsy/fresnel" "1.3.1"
+    "@babel/runtime" "7.11.2"
+    "@juggle/resize-observer" "3.2.0"
+    "@popperjs/core" "2.5.3"
+    "@react-aria/visually-hidden" "3.2.0"
+    downshift "6.0.6"
+    hds-core "0.21.0"
     lodash.isequal "4.5.0"
     lodash.uniqueid "4.0.1"
     react-merge-refs "1.1.0"
@@ -16342,6 +16381,15 @@ simple-git@1.126.0:
   integrity sha512-47mqHxgZnN8XRa9HbpWprzUv3Ooqz9RY/LSZgvA7jCkW8jcwLahMz7LKugY91KZehfG0sCVPtgXiU72hd6b1Bw==
   dependencies:
     debug "^4.0.1"
+
+simple-git@^2.35.1:
+  version "2.35.1"
+  resolved "https://registry.yarnpkg.com/simple-git/-/simple-git-2.35.1.tgz#d97dbc224c68b06b53c312d92f8cd915c3a181bf"
+  integrity sha512-Y5/hXf5ivfMziWRNGhVsbiG+1h4CkTW2qVC3dRidLuSZYAPFbLCPP1d7rgiL40lgRPhPTBuhVzNJAV9glWstEg==
+  dependencies:
+    "@kwsites/file-exists" "^1.1.1"
+    "@kwsites/promise-deferred" "^1.1.1"
+    debug "^4.3.1"
 
 simple-swizzle@^0.2.2:
   version "0.2.2"
