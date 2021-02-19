@@ -7,7 +7,6 @@ import { useHistory, useLocation } from 'react-router-dom';
 import buttonStyles from '../../../common/components/button/button.module.scss';
 import IconButton from '../../../common/components/iconButton/IconButton';
 import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
-import SkeletonLoader from '../../../common/components/skeletonLoader/SkeletonLoader';
 import Visible from '../../../common/components/visible/Visible';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
@@ -127,7 +126,6 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
                 <div className={styles.description}>{shortDescription}</div>
               )}
               <Visible above="sm" className={styles.date}>
-                {superEvent?.status === 'pending' && <SkeletonLoader />}
                 {!!startTime &&
                   getDateRangeStr({
                     start: startTime,
