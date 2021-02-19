@@ -10,6 +10,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import InfoWithIcon from '../../../../common/components/infoWithIcon/InfoWithIcon';
 import linkStyles from '../../../../common/components/link/link.module.scss';
+import SkeletonLoader from '../../../../common/components/skeletonLoader/SkeletonLoader';
 import LoadingSpinner from '../../../../common/components/spinner/LoadingSpinner';
 import useLocale from '../../../../hooks/useLocale';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
@@ -51,7 +52,15 @@ const OtherEventTimes: React.FC<Props> = ({
     history.push(eventUrl);
   };
 
-  if (!superEventId || events.length === 0) return null;
+  if (!superEventId) {
+    return null;
+  } else if (events.length === 0 && loading) {
+    return (
+      <div className={styles.skeletonWrapper}>
+        <SkeletonLoader />
+      </div>
+    );
+  }
 
   return (
     <div className={styles.otherEventTimes}>
