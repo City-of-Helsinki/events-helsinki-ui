@@ -2,13 +2,14 @@ import { SUPPORT_LANGUAGES } from '../constants';
 import { MAPPED_PLACES } from '../domain/eventSearch/constants';
 import { assertUnreachable } from './typescript.utils';
 
-// Add more known query parameters here
-export type QueryParam = 'places' | 'returnPath';
+type QueryParamValue = string | string[];
 
-export type QueryEntry = {
-  param: QueryParam;
-  value?: string;
+export type QueryParams = {
+  places?: string;
+  returnPath?: QueryParamValue;
 };
+
+export type QueryParam = keyof QueryParams;
 
 const langPathRegExp = new RegExp(
   `/(${Object.values(SUPPORT_LANGUAGES).join('|')})`
@@ -17,7 +18,13 @@ const langPathRegExp = new RegExp(
 const stripLanguageFromPath = (path: string) =>
   path.replace(langPathRegExp, '');
 
-const getParamValue = ({ param, value }: Required<QueryEntry>) => {
+const getParamValue = ({
+  param,
+  value,
+}: {
+  param: QueryParam;
+  value: string;
+}) => {
   switch (param) {
     case 'places':
       return MAPPED_PLACES[value];
@@ -28,20 +35,20 @@ const getParamValue = ({ param, value }: Required<QueryEntry>) => {
   }
 };
 
-export const addEntriesToQueryString = (
+export const addParamsToQueryString = (
   queryString: string,
-  ...entries: Array<QueryEntry>
+  queryParams: QueryParams
 ): string => {
   const searchParams = new URLSearchParams(queryString);
-  for (const { param, value } of entries) {
-    if (value) {
-      searchParams.append(param, getParamValue({ param, value }));
+  Object.entries(queryParams).forEach(([key, values]) => {
+    const param = key as QueryParam;
+    if (Array.isArray(values)) {
+      values.forEach((value) =>
+        searchParams.append(param, getParamValue({ param, value }))
+      );
+    } else if (values) {
+      searchParams.append(param, getParamValue({ param, value: values }));
     }
-  }
+  });
   return '?' + searchParams.toString();
 };
-
-export const addEntryToQueryString = (
-  queryString: string,
-  { param, value }: QueryEntry
-): string => addEntriesToQueryString(queryString, { param, value });

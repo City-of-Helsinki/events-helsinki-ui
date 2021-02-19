@@ -9,7 +9,6 @@ export type ReturnParams = {
  * Extracts latest return path from queryString. For example on:
  * http://localhost:3000/fi/event/kulke:53397?returnPath=%2Fevents&returnPath=%2Fevent%2Fhelsinki%3Aaf3pnza3zi
  * latest return path is in the last returnPath param on queryString : %2Fevent%2Fhelsinki%3Aaf3pnza3zi
- * @param queryString
  */
 export const extractLatestReturnPath = (queryString: string): ReturnParams => {
   const searchParams = new URLSearchParams(queryString);

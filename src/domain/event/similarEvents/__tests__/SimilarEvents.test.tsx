@@ -2,6 +2,7 @@ import { MockedResponse } from '@apollo/react-testing';
 import { clear } from 'console';
 import { advanceTo } from 'jest-date-mock';
 import * as React from 'react';
+import { act } from 'react-dom/test-utils';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import {
@@ -13,14 +14,7 @@ import {
   fakeEvents,
   fakeKeywords,
 } from '../../../../util/mockDataUtils';
-import {
-  CustomRenderResult,
-  render,
-  renderWithRoute,
-  screen,
-  userEvent,
-  waitFor,
-} from '../../../../util/testUtils';
+import { render, screen, userEvent, waitFor } from '../../../../util/testUtils';
 import { ROUTES } from '../../../app/routes/constants';
 import SimilarEvents from '../SimilarEvents';
 const keywordIds = ['yso:1', 'yso:2'];
@@ -68,9 +62,7 @@ afterAll(() => {
   clear();
 });
 
-const waitForComponentToBeLoaded = async (render: () => CustomRenderResult) => {
-  advanceTo(new Date('2020-08-11'));
-  const result = render();
+const waitForComponentToBeLoaded = async () => {
   await waitFor(() => {
     expect(
       screen.queryByRole('heading', {
@@ -78,14 +70,12 @@ const waitForComponentToBeLoaded = async (render: () => CustomRenderResult) => {
       })
     ).toBeInTheDocument();
   });
-  return result;
 };
 
 test('should render similar event cards', async () => {
   advanceTo(new Date('2020-08-11'));
-  await waitForComponentToBeLoaded(() =>
-    render(<SimilarEvents event={event} />, { mocks })
-  );
+  render(<SimilarEvents event={event} />, { mocks });
+  await waitForComponentToBeLoaded();
 
   expectedSimilarEvents.data.forEach((event) => {
     expect(
@@ -102,26 +92,28 @@ test('should render similar event cards', async () => {
 it('has return path on similar event link', async () => {
   const path = ROUTES.EVENT;
   const route = path.replace(':id', event.id);
-  const { history } = await waitForComponentToBeLoaded(() =>
-    renderWithRoute(<SimilarEvents event={event} />, {
-      mocks,
-      path,
-      routes: [route],
-    })
-  );
-  expectedSimilarEvents.data.forEach((similarEvent) => {
-    userEvent.click(
-      screen.queryByRole('button', {
-        name: translations.event.eventCard.ariaLabelLink.replace(
-          '{{name}}',
-          similarEvent.name.fi
-        ),
-      })
-    );
-    expect(history.location).toMatchObject({
-      pathname: `/fi${ROUTES.EVENT.replace(':id', similarEvent.id)}`,
-      search: `?returnPath=${encodeURIComponent(route)}`,
-    });
-    history.goBack();
+  const { history } = render(<SimilarEvents event={event} />, {
+    mocks,
+    path,
+    routes: [route],
   });
+  for (const similarEvent of expectedSimilarEvents.data) {
+    await act(async () => {
+      await waitForComponentToBeLoaded();
+      userEvent.click(
+        screen.queryByRole('button', {
+          name: translations.event.eventCard.ariaLabelLink.replace(
+            '{{name}}',
+            similarEvent.name.fi
+          ),
+        })
+      );
+      expect(history.location).toMatchObject({
+        pathname: `/fi${ROUTES.EVENT.replace(':id', similarEvent.id)}`,
+        search: `?returnPath=${encodeURIComponent(route)}`,
+      });
+      history.goBack();
+    });
+    await waitForComponentToBeLoaded();
+  }
 });

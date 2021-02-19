@@ -9,7 +9,7 @@ import IconButton from '../../../common/components/iconButton/IconButton';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
-import { addEntryToQueryString } from '../../../util/queryString';
+import { addParamsToQueryString } from '../../../util/queryString';
 import testImage from '../../../util/testImage';
 import { ROUTES } from '../../app/routes/constants';
 import EventKeywords from '../eventKeywords/EventKeywords';
@@ -44,10 +44,8 @@ const EventCard: React.FC<Props> = ({ event }) => {
     startTime,
   } = getEventFields(event, locale);
 
-  const queryString = addEntryToQueryString(search, {
-    param: 'returnPath',
-    value: pathname,
-  });
+  const queryString = addParamsToQueryString(search, { returnPath: pathname });
+
   const eventUrl = `/${locale}${ROUTES.EVENT.replace(':id', id)}${queryString}`;
   const eventClosed = isEventClosed(event);
   const eventPriceText = getEventPrice(

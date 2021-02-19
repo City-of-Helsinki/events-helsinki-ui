@@ -9,7 +9,7 @@ import buttonStyles from '../../../common/components/button/button.module.scss';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
-import { addEntryToQueryString } from '../../../util/queryString';
+import { addParamsToQueryString } from '../../../util/queryString';
 import testImage from '../../../util/testImage';
 import { ROUTES } from '../../app/routes/constants';
 import EventKeywords from '../eventKeywords/EventKeywords';
@@ -44,9 +44,8 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
     startTime,
   } = getEventFields(event, locale);
   const eventClosed = isEventClosed(event);
-  const queryString = addEntryToQueryString(search, {
-    param: 'returnPath',
-    value: pathname,
+  const queryString = addParamsToQueryString(search, {
+    returnPath: pathname,
   });
   const eventUrl = `/${locale}${ROUTES.EVENT.replace(
     ':id',
