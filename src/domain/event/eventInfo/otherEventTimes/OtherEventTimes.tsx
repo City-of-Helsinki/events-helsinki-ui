@@ -52,9 +52,9 @@ const OtherEventTimes: React.FC<Props> = ({
     history.push(eventUrl);
   };
 
-  if (!superEventId) {
+  if (!superEventId || (events.length === 0 && !loading)) {
     return null;
-  } else if (events.length === 0 && loading) {
+  } else if (loading) {
     return (
       <div className={styles.skeletonWrapper}>
         <SkeletonLoader />
