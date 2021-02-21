@@ -212,8 +212,8 @@ test('should have event dates when super event is not defined', () => {
 test('should have super event dates when super event is defined', () => {
   const mockEvent = getFakeEvent();
   const mockSuperEvent = getFakeEvent({
-    startTime: '2020-06-25T07:00:00.000000Z',
-    endTime: '2025-06-22T07:00:00.000000Z',
+    startTime: '2020-06-22T07:00:00.000000Z',
+    endTime: '2025-06-25T07:00:00.000000Z',
   });
   render(
     <EventHero

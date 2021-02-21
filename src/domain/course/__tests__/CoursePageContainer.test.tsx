@@ -6,6 +6,7 @@ import {
   CourseDetailsDocument,
   CourseListDocument,
 } from '../../../generated/graphql';
+import getDateRangeStr from '../../../util/getDateRangeStr';
 import {
   fakeEvent,
   fakeEvents,
@@ -70,6 +71,14 @@ const courseRequest = {
   },
 };
 
+const superEventRequest = {
+  query: CourseDetailsDocument,
+  variables: {
+    id: superEventId,
+    include: ['in_language', 'keywords', 'location', 'audience'],
+  },
+};
+
 const similarCoursesListRequest = {
   query: CourseListDocument,
   variables: {
@@ -105,6 +114,16 @@ const otherCoursesRequest = {
 
 const courseResponse = { data: { courseDetails: course } };
 
+const superEventResponse = {
+  data: {
+    courseDetails: {
+      ...course,
+      startTime: '2020-06-22T07:00:00.000000Z',
+      endTime: '2020-06-25T07:00:00.000000Z',
+    },
+  },
+};
+
 const similarCoursesResponse = {
   data: {
     courseList: fakeEvents(
@@ -122,6 +141,25 @@ const mocks = [
   {
     request: courseRequest,
     result: courseResponse,
+  },
+  {
+    request: otherCoursesRequest,
+    result: otherCoursesResponse,
+  },
+  {
+    request: similarCoursesListRequest,
+    result: similarCoursesResponse,
+  },
+];
+
+const superEventMocks = [
+  {
+    request: courseRequest,
+    result: courseResponse,
+  },
+  {
+    request: superEventRequest,
+    result: superEventResponse,
   },
   {
     request: otherCoursesRequest,
@@ -242,4 +280,30 @@ it('should link to courses search when clicking tags', async () => {
     pathname: '/fi/courses',
     search: '?text=Avouinti',
   });
+});
+
+it('should contain event hero with super event date', async () => {
+  advanceTo('2020-06-23');
+
+  renderWithRoute(<CoursePageContainer />, {
+    mocks: superEventMocks,
+    routes,
+    path: ROUTES.COURSE,
+  });
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  const superDateStr = getDateRangeStr({
+    start: superEventResponse.data.courseDetails.startTime,
+    end: superEventResponse.data.courseDetails.endTime,
+    locale: 'fi',
+    includeTime: true,
+    timeAbbreviation: translations.commons.timeAbbreviation,
+  });
+
+  expect(
+    screen.getAllByText((_content, el) => el.textContent === superDateStr)
+  ).toHaveLength(1);
 });
