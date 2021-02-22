@@ -1,3 +1,4 @@
+import { navigationStylesForSSR } from 'hds-react';
 import React from 'react';
 import serialize from 'serialize-javascript';
 
@@ -50,11 +51,13 @@ const Html: React.FC<Props> = ({
         {helmet.meta.toComponent()}
         {helmet.title.toComponent()}
         {helmet.link.toComponent()}
-        {Array.from(document.head.getElementsByTagName('style')).map(
-          (style) => (
-            <style type={style.type}>{style.innerHTML}</style>
-          )
-        )}
+        {Array.from(document.head.getElementsByTagName('style'))
+          .map((style) => <style type={style.type}>{style.innerHTML}</style>)
+          .push(
+            <style type="text/css" key="navigationStyles">
+              ${navigationStylesForSSR}
+            </style>
+          )}
         {assets.css &&
           assets.css.map((c: string, idx: number) => (
             <link key={idx} href={c} rel="stylesheet" />

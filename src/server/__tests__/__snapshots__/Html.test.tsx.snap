@@ -85,6 +85,7 @@ Object {
             href="http://localhost:3000"
             rel="canonical"
           />
+          46
           <link
             href="test1.css"
             rel="stylesheet"
@@ -180,7 +181,7 @@ window.initialLanguage=\\"fi\\";",
               href="http://localhost:3000"
               rel="canonical"
             />,
-            Array [],
+            46,
             Array [
               <link
                 href="test1.css"
@@ -305,7 +306,7 @@ window.initialLanguage=\\"fi\\";",
             "rendered": Array [],
             "type": "link",
           },
-          null,
+          "46",
           Object {
             "instance": null,
             "nodeType": "host",
