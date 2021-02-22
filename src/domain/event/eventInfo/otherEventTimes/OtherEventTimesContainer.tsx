@@ -9,9 +9,7 @@ const OtherEventTimesContainer: React.FC<{ event: EventFields }> = ({
 }) => {
   const { superEventId, ...props } = useOtherEventTimes(event);
 
-  return superEventId ? (
-    <OtherEventTimes {...props} superEventId={superEventId} eventType="event" />
-  ) : null;
+  return superEventId ? <OtherEventTimes {...props} eventType="event" /> : null;
 };
 
 export default OtherEventTimesContainer;

@@ -19,7 +19,6 @@ import styles from './otherEventTimes.module.scss';
 
 interface Props {
   isFetchingMore: boolean;
-  superEventId: string;
   loading: boolean;
   events: EventFields[];
   eventType: EventType;
@@ -31,7 +30,6 @@ const OtherEventTimes: React.FC<Props> = ({
   events,
   loading,
   isFetchingMore,
-  superEventId,
   eventType,
 }) => {
   const { t } = useTranslation();
@@ -52,14 +50,16 @@ const OtherEventTimes: React.FC<Props> = ({
     history.push(eventUrl);
   };
 
-  if (!superEventId || (events.length === 0 && !loading)) {
-    return null;
-  } else if (loading) {
+  if (loading) {
     return (
       <div className={styles.skeletonWrapper}>
         <SkeletonLoader />
       </div>
     );
+  }
+
+  if (events.length === 0) {
+    return null;
   }
 
   return (

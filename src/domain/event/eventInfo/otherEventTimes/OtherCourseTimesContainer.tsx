@@ -10,11 +10,7 @@ const OtherCourseTimesContainer: React.FC<{ event: EventFields }> = ({
   const { superEventId, ...props } = useOtherCourseTimes(event);
 
   return superEventId ? (
-    <OtherEventTimes
-      {...props}
-      superEventId={superEventId}
-      eventType="course"
-    />
+    <OtherEventTimes {...props} eventType="course" />
   ) : null;
 };
 
