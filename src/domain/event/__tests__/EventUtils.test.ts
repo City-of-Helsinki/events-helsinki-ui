@@ -12,6 +12,7 @@ import {
   fakePlace,
 } from '../../../util/mockDataUtils';
 import {
+  formatPrice,
   getEventFields,
   getEventIdFromUrl,
   getEventImageUrl,
@@ -172,5 +173,20 @@ describe('getEventFields function', () => {
 
     expect(thisWeek).toBe(false);
     expect(today).toBe(false);
+  });
+});
+
+describe('formatPrice function', () => {
+  // test separators
+  ['', '-', ',', '.', '/'].forEach((s) => {
+    it(`format correctly with separator: ${s}`, () => {
+      expect(formatPrice(`12${s}12`)).toEqual(`12${s}12 €`);
+    });
+  });
+
+  it("doesn't add € when not needed", () => {
+    expect(formatPrice('asd12-12')).toEqual(`asd12-12`);
+    expect(formatPrice('1212 €')).toEqual(`1212 €`);
+    expect(formatPrice('1212€')).toEqual(`1212€`);
   });
 });
