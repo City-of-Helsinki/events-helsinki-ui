@@ -7,6 +7,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import buttonStyles from '../../../common/components/button/button.module.scss';
 import IconButton from '../../../common/components/iconButton/IconButton';
 import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
+import SkeletonLoader from '../../../common/components/skeletonLoader/SkeletonLoader';
 import Visible from '../../../common/components/visible/Visible';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
@@ -16,15 +17,21 @@ import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
 import EventName from '../eventName/EventName';
 import { getEventFields, getEventPrice } from '../EventUtils';
-import { EventFields, EVENTS_ROUTE_MAPPER, EventType } from '../types';
+import {
+  EventFields,
+  EVENTS_ROUTE_MAPPER,
+  EventType,
+  SuperEventResponse,
+} from '../types';
 import styles from './eventHero.module.scss';
 
 export interface Props {
   event: EventFields;
   eventType: EventType;
+  superEvent?: SuperEventResponse;
 }
 
-const EventHero: React.FC<Props> = ({ event, eventType }) => {
+const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
   const { t } = useTranslation();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const locale = useLocale();
@@ -33,13 +40,13 @@ const EventHero: React.FC<Props> = ({ event, eventType }) => {
   const eventsRoute = EVENTS_ROUTE_MAPPER[eventType];
 
   const {
-    endTime,
+    endTime: eventEndTime,
     imageUrl,
     keywords,
     offerInfoUrl,
     placeholderImage,
     shortDescription,
-    startTime,
+    startTime: eventStartTime,
     today,
     thisWeek,
     showBuyButton,
@@ -79,6 +86,15 @@ const EventHero: React.FC<Props> = ({ event, eventType }) => {
     }
   }, [imageUrl]);
 
+  const startTime =
+    superEvent?.status === 'pending'
+      ? ''
+      : superEvent?.data?.startTime || eventStartTime;
+  const endTime =
+    superEvent?.status === 'pending'
+      ? ''
+      : superEvent?.data?.endTime || eventEndTime;
+
   return (
     <div className={classNames(styles.heroWrapper)}>
       <Container>
@@ -111,6 +127,7 @@ const EventHero: React.FC<Props> = ({ event, eventType }) => {
                 <div className={styles.description}>{shortDescription}</div>
               )}
               <Visible above="sm" className={styles.date}>
+                {superEvent?.status === 'pending' && <SkeletonLoader />}
                 {!!startTime &&
                   getDateRangeStr({
                     start: startTime,

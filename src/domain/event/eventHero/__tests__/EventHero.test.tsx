@@ -8,6 +8,7 @@ import {
   EventFieldsFragment,
   OfferFieldsFragment,
 } from '../../../../generated/graphql';
+import getDateRangeStr from '../../../../util/getDateRangeStr';
 import {
   fakeEvent,
   fakeExternalLink,
@@ -191,4 +192,43 @@ test('Register button should be visible and clickable', () => {
   );
 
   expect(global.open).toBeCalledWith(registrationUrl);
+});
+
+test('should have event dates when super event is not defined', () => {
+  const mockEvent = getFakeEvent();
+
+  render(<EventHero event={mockEvent} eventType="course" />);
+
+  const dateStr = getDateRangeStr({
+    start: mockEvent.startTime,
+    end: mockEvent.endTime,
+    locale: 'fi',
+    includeTime: true,
+    timeAbbreviation: translations.commons.timeAbbreviation,
+  });
+  expect(screen.getByText(dateStr)).toBeInTheDocument();
+});
+
+test('should have super event dates when super event is defined', () => {
+  const mockEvent = getFakeEvent();
+  const mockSuperEvent = getFakeEvent({
+    startTime: '2020-06-22T07:00:00.000000Z',
+    endTime: '2025-06-25T07:00:00.000000Z',
+  });
+  render(
+    <EventHero
+      event={mockEvent}
+      superEvent={{ data: mockSuperEvent, status: 'resolved' }}
+      eventType="course"
+    />
+  );
+
+  const superDateStr = getDateRangeStr({
+    start: mockSuperEvent.startTime,
+    end: mockSuperEvent.endTime,
+    locale: 'fi',
+    includeTime: true,
+    timeAbbreviation: translations.commons.timeAbbreviation,
+  });
+  expect(screen.getByText(superDateStr)).toBeInTheDocument();
 });
