@@ -304,6 +304,6 @@ it('should contain event hero with super event date', async () => {
   });
 
   expect(
-    screen.getAllByText((_content, el) => el.textContent === superDateStr)
-  ).toHaveLength(1);
+    screen.getByText((_content, el) => el.textContent === superDateStr)
+  ).toBeInTheDocument();
 });
