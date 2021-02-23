@@ -1,6 +1,4 @@
 import '../../../assets/styles/main.scss';
-import 'hds-core/lib/base.css';
-import 'hds-core/lib/components/all.css';
 
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
