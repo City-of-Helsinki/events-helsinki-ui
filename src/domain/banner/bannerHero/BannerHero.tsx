@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import { Button } from 'hds-react';
 import capitalize from 'lodash/capitalize';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import * as React from 'react';
 
+import { VisibleAfterComponentMounted } from '../../../common/components/ssr/VisibleAfterComponentMounted';
 import { BannerPage } from '../../../generated/graphql';
 import useBreakpoint from '../../../hooks/useBreakpoint';
 import useLocale from '../../../hooks/useLocale';
@@ -80,7 +81,7 @@ const BannerHero: React.FC<Props> = ({ banner, location }) => {
     window.open(buttonUrl, '_self');
   };
 
-  useLayoutEffect(() => {
+  React.useLayoutEffect(() => {
     if (textWrapper.current) {
       textWrapper.current.style.maxWidth = textWrapperWidth
         ? `${textWrapperWidth + 1}px`
@@ -99,15 +100,12 @@ const BannerHero: React.FC<Props> = ({ banner, location }) => {
 
   const testIds = getTestIds(location);
 
-  const [isComponentMounted, setComponentMounted] = useState(false);
-  useEffect(() => setComponentMounted(true), []);
-
   return (
-    <div
+    <VisibleAfterComponentMounted
+      as="div"
       className={classNames(styles.bannerHero, {
         [styles[`${backgroundColor}BackgroundColor`]]: backgroundColor,
       })}
-      style={{ visibility: !isComponentMounted ? 'hidden' : 'visible' }}
       data-testid={testIds.container}
     >
       <div
@@ -158,7 +156,7 @@ const BannerHero: React.FC<Props> = ({ banner, location }) => {
           )}
         </div>
       </Container>
-    </div>
+    </VisibleAfterComponentMounted>
   );
 };
 
