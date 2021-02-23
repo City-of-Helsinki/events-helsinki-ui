@@ -45,6 +45,7 @@ exports[`matches snapshot 1`] = `
         aria-hidden="true"
         class="Logo-module_logo__Y2mwP Logo-module_medium__1zyWm"
         role="img"
+        title="Helsingin kaupunki"
         viewBox="0 0 78 36"
         xmlns="http://www.w3.org/2000/svg"
       >
