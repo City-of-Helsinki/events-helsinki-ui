@@ -5,6 +5,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import express, { Request, Response } from 'express';
+import { navigationStylesForSSR } from 'hds-react';
 import { Resource } from 'i18next';
 import i18nextMiddleware, { I18NextRequest } from 'i18next-express-middleware';
 import cron from 'node-cron';
@@ -104,6 +105,7 @@ app.use(async (req: Request, res: Response) => {
       initialI18nStore,
       initialLanguage,
       state,
+      ssrStyles: navigationStylesForSSR,
     });
 
     const html = ReactDOMServer.renderToString(htmlEl);

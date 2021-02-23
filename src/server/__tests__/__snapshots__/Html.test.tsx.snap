@@ -85,7 +85,6 @@ Object {
             href="http://localhost:3000"
             rel="canonical"
           />
-          46
           <link
             href="test1.css"
             rel="stylesheet"
@@ -170,6 +169,14 @@ window.initialLanguage=\\"fi\\";",
               content="#da532c"
               name="msapplication-TileColor"
             />,
+<<<<<<< HEAD
+=======
+            <link
+              href="http://localhost:3000"
+              rel="canonical"
+            />,
+            undefined,
+>>>>>>> use navigationStylesForSSR style in header and avoid flickering on topbanner image
             <meta
               content="testing react helmet"
               name="description"
@@ -181,7 +188,7 @@ window.initialLanguage=\\"fi\\";",
               href="http://localhost:3000"
               rel="canonical"
             />,
-            46,
+            Array [],
             Array [
               <link
                 href="test1.css"
@@ -306,7 +313,7 @@ window.initialLanguage=\\"fi\\";",
             "rendered": Array [],
             "type": "link",
           },
-          "46",
+          null,
           Object {
             "instance": null,
             "nodeType": "host",
