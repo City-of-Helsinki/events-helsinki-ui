@@ -89,7 +89,6 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    border-bottom: 2px solid var(--color-black-10);
     padding: var(--spacing-m) var(--spacing-s);
     @include respond-between(sm, lg) {
       flex-direction: column;
