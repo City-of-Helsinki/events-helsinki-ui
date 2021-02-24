@@ -2,7 +2,6 @@ import { MockedResponse } from '@apollo/react-testing';
 import { clear } from 'console';
 import { advanceTo } from 'jest-date-mock';
 import * as React from 'react';
-import { act } from 'react-dom/test-utils';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import {
@@ -98,22 +97,19 @@ it('has return path on similar event link', async () => {
     routes: [route],
   });
   for (const similarEvent of expectedSimilarEvents.data) {
-    await act(async () => {
-      await waitForComponentToBeLoaded();
-      userEvent.click(
-        screen.queryByRole('button', {
-          name: translations.event.eventCard.ariaLabelLink.replace(
-            '{{name}}',
-            similarEvent.name.fi
-          ),
-        })
-      );
-      expect(history.location).toMatchObject({
-        pathname: `/fi${ROUTES.EVENT.replace(':id', similarEvent.id)}`,
-        search: `?returnPath=${encodeURIComponent(route)}`,
-      });
-      history.goBack();
-    });
     await waitForComponentToBeLoaded();
+    userEvent.click(
+      screen.queryByRole('button', {
+        name: translations.event.eventCard.ariaLabelLink.replace(
+          '{{name}}',
+          similarEvent.name.fi
+        ),
+      })
+    );
+    expect(history.location).toMatchObject({
+      pathname: `/fi${ROUTES.EVENT.replace(':id', similarEvent.id)}`,
+      search: `?returnPath=${encodeURIComponent(route)}`,
+    });
+    history.goBack();
   }
 });
