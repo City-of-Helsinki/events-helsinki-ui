@@ -78,7 +78,7 @@ export const formatPrice = (price?: string): string => {
     return '';
   }
 
-  const priceRegex = /^\d+([/\-.,]{1})?\d+?$/;
+  const priceRegex = /^\d+([/\-.,]{1}\d+)?$/;
   return price.match(priceRegex) ? `${price} €` : price;
 };
 

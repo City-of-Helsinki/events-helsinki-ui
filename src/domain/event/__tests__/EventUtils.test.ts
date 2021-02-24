@@ -184,9 +184,16 @@ describe('formatPrice function', () => {
     });
   });
 
+  it('adds € with one or more numbers', () => {
+    expect(formatPrice('2')).toEqual(`2 €`);
+    expect(formatPrice('20')).toEqual(`20 €`);
+    expect(formatPrice('222')).toEqual(`222 €`);
+  });
+
   it("doesn't add € when not needed", () => {
     expect(formatPrice('asd12-12')).toEqual(`asd12-12`);
     expect(formatPrice('1212 €')).toEqual(`1212 €`);
     expect(formatPrice('1212€')).toEqual(`1212€`);
+    expect(formatPrice('12s12')).toEqual(`12s12`);
   });
 });
