@@ -47,7 +47,6 @@ const Html: React.FC<Props> = ({
           href="/images/apple-touch-icon.png"
         />
         <meta name="msapplication-TileColor" content="#da532c" />
-        <link rel="canonical" href={canonicalUrl} />
         {helmet.meta.toComponent()}
         {helmet.title.toComponent()}
         {helmet.link.toComponent()}

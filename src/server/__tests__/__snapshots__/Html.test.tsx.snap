@@ -74,10 +74,6 @@ Object {
             content="#da532c"
             name="msapplication-TileColor"
           />
-          <link
-            href="http://localhost:3000"
-            rel="canonical"
-          />
           <meta
             content="testing react helmet"
             name="description"
@@ -172,10 +168,6 @@ window.initialLanguage=\\"fi\\";",
             <meta
               content="#da532c"
               name="msapplication-TileColor"
-            />,
-            <link
-              href="http://localhost:3000"
-              rel="canonical"
             />,
             <meta
               content="testing react helmet"
@@ -281,16 +273,6 @@ window.initialLanguage=\\"fi\\";",
             },
             "rendered": Array [],
             "type": "meta",
-          },
-          Object {
-            "instance": null,
-            "nodeType": "host",
-            "props": Object {
-              "href": "http://localhost:3000",
-              "rel": "canonical",
-            },
-            "rendered": Array [],
-            "type": "link",
           },
           Object {
             "instance": null,
