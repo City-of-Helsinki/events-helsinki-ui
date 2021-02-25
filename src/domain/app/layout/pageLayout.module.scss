@@ -13,18 +13,4 @@
     align-content: flex-start;
   }
 
-  &.mobileMenuOpen {
-    .pageBody {
-      @include respond-below(sm) {
-        visibility: hidden;
-        opacity: 0;
-        transition: visibility 0.5s, opacity 0.5s;
-      }
-    }
-    @include respond-below(sm) {
-      footer {
-        visibility: hidden;
-      }
-    }
-  }
 }

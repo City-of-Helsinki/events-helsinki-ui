@@ -2,6 +2,7 @@
 
 exports[`matches snapshot 1`] = `
 <div>
+  u
   <header
     class="Navigation-module_header__2HNOX Navigation-module_noTitle__3qbce Navigation-module_theme-light__36nmi navigation"
   >
@@ -321,7 +322,6 @@ exports[`matches snapshot 1`] = `
     </div>
   </header>
   <div
-    aria-hidden="false"
     class="pageBody"
   >
     <div>

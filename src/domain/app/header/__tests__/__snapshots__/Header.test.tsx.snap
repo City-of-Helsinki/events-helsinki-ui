@@ -11,7 +11,7 @@ exports[`matches snapshot 1`] = `
     Siirry sisältöön
   </a>
   <div
-    class="fresnel-container fresnel-between-xs-m "
+    class="visible-module_belowM__2GR1J"
   >
     <div
       class="Navigation-module_headerBackgroundWrapper__137R3"
@@ -21,7 +21,7 @@ exports[`matches snapshot 1`] = `
       >
         <a
           class="Navigation-module_title__3zRBe"
-          href="/sv/home"
+          tabindex="0"
         >
           <svg
             aria-hidden="true"
@@ -36,11 +36,6 @@ exports[`matches snapshot 1`] = `
               fill="currentColor"
             />
           </svg>
-          <span
-            style=""
-          >
-            Tapahtumat
-          </span>
         </a>
         <div
           class="MenuButton-module_menuButton__3T9k9 languageSelector"
@@ -154,7 +149,7 @@ exports[`matches snapshot 1`] = `
     </div>
   </div>
   <div
-    class="fresnel-container fresnel-greaterThanOrEqual-m "
+    class="visible-module_aboveM__31mn_"
   >
     <div
       class="Navigation-module_headerBackgroundWrapper__137R3"
@@ -164,7 +159,7 @@ exports[`matches snapshot 1`] = `
       >
         <a
           class="Navigation-module_title__3zRBe"
-          href="/sv/home"
+          tabindex="0"
         >
           <svg
             aria-hidden="true"
@@ -179,15 +174,44 @@ exports[`matches snapshot 1`] = `
               fill="currentColor"
             />
           </svg>
-          <span
-            style=""
-          >
-            Tapahtumat
-          </span>
         </a>
         <div
           class="Navigation-module_headerContent__3zHbK"
         >
+          <nav
+            class="NavigationRow-module_navigation__24tui"
+          >
+            <a
+              class="NavigationItem-module_rowItem__2QxRz navigationItem"
+              href="/sv/events"
+            >
+              <span
+                class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
+              >
+                Tapahtumat
+              </span>
+            </a>
+            <a
+              class="NavigationItem-module_rowItem__2QxRz navigationItem"
+              href="/sv/courses"
+            >
+              <span
+                class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
+              >
+                Harrastukset
+              </span>
+            </a>
+            <a
+              class="NavigationItem-module_rowItem__2QxRz navigationItem"
+              href="/sv/collections"
+            >
+              <span
+                class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
+              >
+                Suosittelemme
+              </span>
+            </a>
+          </nav>
           <div
             class="NavigationActions-module_navigationActions__2D8MK"
           >
@@ -275,40 +299,6 @@ exports[`matches snapshot 1`] = `
         </div>
       </div>
     </div>
-    <nav
-      class="NavigationRow-module_navigation__24tui"
-    >
-      <a
-        class="NavigationItem-module_rowItem__2QxRz navigationItem"
-        href="/sv/events"
-      >
-        <span
-          class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-        >
-          Etsi tapahtumia
-        </span>
-      </a>
-      <a
-        class="NavigationItem-module_rowItem__2QxRz navigationItem"
-        href="/sv/courses"
-      >
-        <span
-          class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-        >
-          Harrastukset
-        </span>
-      </a>
-      <a
-        class="NavigationItem-module_rowItem__2QxRz navigationItem"
-        href="/sv/collections"
-      >
-        <span
-          class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-        >
-          Suosittelemme
-        </span>
-      </a>
-    </nav>
   </div>
 </header>
 `;
