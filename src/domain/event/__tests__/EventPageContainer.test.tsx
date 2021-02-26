@@ -6,12 +6,12 @@ import {
   EventDetailsDocument,
   EventFieldsFragment,
 } from '../../../generated/graphql';
+import { createEventListRequestAndResultMocks } from '../../../test/apollo-mocks/eventListMocks';
 import { setFeatureFlags } from '../../../util/featureFlags.test.utils';
 import { fakeEvent, fakeEvents } from '../../../util/mockDataUtils';
 import { renderWithRoute, screen, waitFor } from '../../../util/testUtils';
 import { ROUTES } from '../../app/routes/constants';
 import EventPageContainer from '../EventPageContainer';
-import { createMocks as cresteSimilarEventsMocks } from '../similarEvents/__tests__/SimilarEvents.test';
 
 const id = '1';
 const name = 'Event title';
@@ -25,6 +25,8 @@ const event = fakeEvent({
   name: { fi: name },
 }) as EventFieldsFragment;
 
+const eventKeywordIds = event.keywords.map((keyword) => keyword.id);
+
 const request = {
   query: EventDetailsDocument,
   variables: {
@@ -34,13 +36,16 @@ const request = {
 };
 
 const eventResponse = { data: { eventDetails: event } };
-const similarEvents = fakeEvents(3);
+const responseEvents = fakeEvents(3);
 const mocks = [
   {
     request,
     result: eventResponse,
   },
-  ...cresteSimilarEventsMocks(event, similarEvents),
+  createEventListRequestAndResultMocks(
+    { allOngoing: true, keyword: eventKeywordIds },
+    responseEvents
+  ),
 ];
 
 const testPath = ROUTES.EVENT.replace(':id', id);

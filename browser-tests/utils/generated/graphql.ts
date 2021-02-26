@@ -429,6 +429,7 @@ export type QueryEventListArgs = {
   localOngoingOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
+  allOngoing?: Maybe<Scalars['Boolean']>;
   allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   allOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
   combinedText?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -436,6 +437,7 @@ export type QueryEventListArgs = {
   end?: Maybe<Scalars['String']>;
   endsAfter?: Maybe<Scalars['String']>;
   endsBefore?: Maybe<Scalars['String']>;
+  ids?: Maybe<Array<Maybe<Scalars['String']>>>;
   inLanguage?: Maybe<Scalars['String']>;
   include?: Maybe<Array<Maybe<Scalars['String']>>>;
   isFree?: Maybe<Scalars['Boolean']>;
@@ -482,6 +484,7 @@ export type QueryCourseListArgs = {
   localOngoingOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   internetOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
+  allOngoing?: Maybe<Scalars['Boolean']>;
   allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   allOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
   combinedText?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -489,6 +492,7 @@ export type QueryCourseListArgs = {
   end?: Maybe<Scalars['String']>;
   endsAfter?: Maybe<Scalars['String']>;
   endsBefore?: Maybe<Scalars['String']>;
+  ids?: Maybe<Array<Maybe<Scalars['String']>>>;
   inLanguage?: Maybe<Scalars['String']>;
   include?: Maybe<Array<Maybe<Scalars['String']>>>;
   isFree?: Maybe<Scalars['Boolean']>;
@@ -764,6 +768,7 @@ export type EventDetailsQuery = { __typename?: 'Query' } & {
 };
 
 export type EventListQueryVariables = {
+  allOngoing?: Maybe<Scalars['Boolean']>;
   allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   division?: Maybe<Array<Maybe<Scalars['String']>>>;
   end?: Maybe<Scalars['String']>;
@@ -1374,6 +1379,7 @@ export const EventDetailsDocument = gql`
 `;
 export const EventListDocument = gql`
   query EventList(
+    $allOngoing: Boolean
     $allOngoingAnd: [String]
     $division: [String]
     $end: String
@@ -1401,6 +1407,7 @@ export const EventListDocument = gql`
     $translation: String
   ) {
     eventList(
+      allOngoing: $allOngoing
       allOngoingAnd: $allOngoingAnd
       division: $division
       end: $end

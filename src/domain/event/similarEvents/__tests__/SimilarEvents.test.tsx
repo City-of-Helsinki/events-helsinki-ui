@@ -1,13 +1,10 @@
-import { MockedResponse } from '@apollo/react-testing';
 import { clear } from 'console';
 import { advanceTo } from 'jest-date-mock';
 import * as React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
-import {
-  EventFieldsFragment,
-  EventListDocument,
-} from '../../../../generated/graphql';
+import { EventFieldsFragment } from '../../../../generated/graphql';
+import { createEventListRequestAndResultMocks } from '../../../../test/apollo-mocks/eventListMocks';
 import {
   fakeEvent,
   fakeEvents,
@@ -26,36 +23,14 @@ const event = fakeEvent({
   keywords,
 }) as EventFieldsFragment;
 const expectedSimilarEvents = fakeEvents(3);
+const eventKeywords = event.keywords.map((keyword) => keyword.id);
 
-export const createMocks = (
-  rootEvent: EventFieldsFragment = event,
-  similarEvents = expectedSimilarEvents
-): MockedResponse[] => [
-  {
-    request: {
-      query: EventListDocument,
-      variables: {
-        end: '',
-        include: ['keywords', 'location'],
-        isFree: undefined,
-        keyword: rootEvent.keywords.map((keyword) => keyword.id),
-        keywordAnd: [],
-        keywordNot: [],
-        language: 'fi',
-        location: [],
-        pageSize: 10,
-        publisher: null,
-        sort: 'end_time',
-        start: 'now',
-        startsAfter: undefined,
-        superEventType: ['umbrella', 'none'],
-      },
-    },
-    result: { data: { eventList: similarEvents } },
-  },
+const mocks = [
+  createEventListRequestAndResultMocks(
+    { allOngoing: true, keyword: eventKeywords },
+    expectedSimilarEvents
+  ),
 ];
-
-const mocks = createMocks();
 
 afterAll(() => {
   clear();

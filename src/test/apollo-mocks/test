@@ -1,0 +1,10 @@
+[
+      {
+        request: { query: [Object], variables: [Object] },
+        result: { data: [Object] }
+      },
+      {
+        request: { query: [Object], variables: [Object] },
+        result: { data: [Object] }
+      }
+    ]
