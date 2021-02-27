@@ -23,6 +23,16 @@ export const eventListBaseVariables: EventListQueryVariables = {
   superEventType: ['umbrella', 'none'],
 };
 
+export const getOtherEventsVariables = (
+  superEvent: EventListQueryVariables['superEvent'],
+  start: EventListQueryVariables['start']
+): EventListQueryVariables => ({
+  include: ['keywords', 'location'],
+  sort: 'start_time',
+  start,
+  superEvent,
+});
+
 export const createEventListRequestAndResultMocks = (
   variablesOverride: EventListQueryVariables = {},
   expectedResponse: EventListResponse
@@ -48,6 +58,41 @@ export const createEventListRequestThrowsErrorMocks = (
     query: EventListDocument,
     variables: {
       ...eventListBaseVariables,
+      ...variablesOverride,
+    },
+  },
+  error: new Error('not found'),
+});
+
+export const createOtherEventTimesRequestAndResultMocks = (
+  superEvent: EventListQueryVariables['superEvent'],
+  start: EventListQueryVariables['start'],
+  variablesOverride: EventListQueryVariables = {},
+  expectedResponse: EventListResponse
+): MockedResponse => ({
+  request: {
+    query: EventListDocument,
+    variables: {
+      ...getOtherEventsVariables(superEvent, start),
+      ...variablesOverride,
+    },
+  },
+  result: {
+    data: {
+      eventList: expectedResponse,
+    },
+  },
+});
+
+export const createOtherEventTimesRequestThrowsErrorMocks = (
+  superEvent: EventListQueryVariables['superEvent'],
+  start: EventListQueryVariables['start'],
+  variablesOverride: EventListQueryVariables = {}
+): MockedResponse => ({
+  request: {
+    query: EventListDocument,
+    variables: {
+      ...getOtherEventsVariables(superEvent, start),
       ...variablesOverride,
     },
   },
