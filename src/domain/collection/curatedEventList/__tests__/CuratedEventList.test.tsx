@@ -1,5 +1,7 @@
 import { advanceTo, clear } from 'jest-date-mock';
-import chunk from 'lodash/chunk';
+import flow from 'lodash/flow';
+import chunk from 'lodash/fp/chunk';
+import map from 'lodash/fp/map';
 import range from 'lodash/range';
 import React from 'react';
 
@@ -7,6 +9,7 @@ import translations from '../../../../common/translation/i18n/fi.json';
 import {
   CollectionFieldsFragment,
   EventFieldsFragment,
+  EventListResponse,
   EventsByIdsDocument,
 } from '../../../../generated/graphql';
 import { fakeCollection, fakeEvents } from '../../../../util/mockDataUtils';
@@ -38,31 +41,36 @@ const getMocks = (events: EventFieldsFragment[], ids = eventIds) => [
 
 // Creates array of mocks to match pagination queries
 const getMocksForPagination = (eventsCount = 35) => {
-  const eventIds = range(eventsCount).map((i) => (i + 1).toString());
-  const eventNames = eventIds.map((id) => `Event ${id}`);
-  const curatedEvents = eventIds.map(
-    (id) => `http://localhost:3000/fi/event/${id}`
-  );
+  // Populate these arrays when creating fakeEvents in chunks.
+  const eventNames: string[] = [];
+  const curatedEvents: string[] = [];
 
-  const chunkedEventIds = chunk(eventIds, PAGE_SIZE);
-  const chunkedEvents = chunk(eventNames, PAGE_SIZE).map(
-    (splittedEventNames, chunkIndex) => {
-      return fakeEvents(
-        splittedEventNames.length,
-        splittedEventNames.map((event, index) => ({
-          endTime: '2020-12-12',
-          startTime: '2020-12-12',
-          id: chunkedEventIds[chunkIndex][index],
-          name: { fi: event },
-        }))
-      );
-    }
-  );
+  const chunkedEvents: EventListResponse[] = flow([
+    range,
+    map((id: number) => (id + 1).toString()),
+    chunk(PAGE_SIZE),
+    map((eventIdChunk: string[]) =>
+      fakeEvents(
+        eventIdChunk.length,
+        eventIdChunk.map((eventId) => {
+          const eventName = `Event ${eventId}`;
+          eventNames.push(eventName);
+          curatedEvents.push(`http://localhost:3000/fi/event/${eventId}`);
+          return {
+            endTime: '2020-12-12',
+            startTime: '2020-12-12',
+            id: eventId,
+            name: { fi: `Event ${eventId}` },
+          };
+        })
+      )
+    ),
+  ])(eventsCount);
 
-  const mocks = chunkedEventIds.map((eventIds, index) => {
+  const mocks = chunkedEvents.map((eventList) => {
     return getMocks(
-      chunkedEvents[index].data as EventFieldsFragment[],
-      eventIds
+      eventList.data as EventFieldsFragment[],
+      eventList.data.map((event) => event.id)
     )[0];
   });
 
@@ -150,7 +158,7 @@ test('should show expired events', async () => {
   });
 });
 
-test('event list pagination works', async () => {
+test.only('event list pagination works', async () => {
   advanceTo('2020-10-05');
   const eventsCount = 35;
   const { collection, mocks, eventNames } = getMocksForPagination(eventsCount);
@@ -176,6 +184,14 @@ test('event list pagination works', async () => {
       )
     );
     await waitForRequestToComplete();
+
+    // check that correct events were fetched and rendered
+    for (const eventName of eventNames.slice(
+      eventsFetchedCount,
+      eventsFetchedCount + PAGE_SIZE
+    )) {
+      expect(screen.queryByText(eventName)).toBeInTheDocument();
+    }
   }
 
   expect(
