@@ -1,33 +1,18 @@
 import { MockedResponse } from '@apollo/react-testing';
 import { clear } from 'console';
 import { advanceTo } from 'jest-date-mock';
-import React from 'react';
+import * as React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
-import {
-  EventFieldsFragment,
-  EventListDocument,
-} from '../../../../generated/graphql';
-import {
-  fakeEvent,
-  fakeEvents,
-  fakeKeywords,
-} from '../../../../util/mockDataUtils';
-import { render, screen, waitFor } from '../../../../util/testUtils';
+import { EventListDocument } from '../../../../generated/graphql';
+import { fakeEvents } from '../../../../util/mockDataUtils';
+import { render, screen, userEvent, waitFor } from '../../../../util/testUtils';
+import { ROUTES } from '../../../app/routes/constants';
 import SimilarEvents from '../SimilarEvents';
-const keywordIds = ['yso:1', 'yso:2'];
 
-const keywords = fakeKeywords(
-  keywordIds.length,
-  keywordIds.map((id) => ({ id, name: { fi: id } }))
-).data;
-const event = fakeEvent({
-  keywords,
-}) as EventFieldsFragment;
 const expectedSimilarEvents = fakeEvents(3);
 
 export const createMocks = (
-  rootEvent: EventFieldsFragment = event,
   similarEvents = expectedSimilarEvents
 ): MockedResponse[] => [
   {
@@ -63,18 +48,7 @@ afterAll(() => {
   clear();
 });
 
-test('should render similar event cards', async () => {
-  advanceTo(new Date('2020-08-11'));
-  render(
-    <SimilarEvents
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      events={expectedSimilarEvents.data as any}
-      eventsType="event"
-      loading={false}
-    />,
-    { mocks }
-  );
-
+const waitForComponentToBeLoaded = async () => {
   await waitFor(() => {
     expect(
       screen.queryByRole('heading', {
@@ -82,6 +56,19 @@ test('should render similar event cards', async () => {
       })
     ).toBeInTheDocument();
   });
+};
+
+test('should render similar event cards', async () => {
+  advanceTo(new Date('2020-08-11'));
+  render(
+    <SimilarEvents
+      events={expectedSimilarEvents.data}
+      eventsType="event"
+      loading={false}
+    />,
+    { mocks }
+  );
+  await waitForComponentToBeLoaded();
 
   expectedSimilarEvents.data.forEach((event) => {
     expect(
@@ -93,4 +80,37 @@ test('should render similar event cards', async () => {
       })
     ).toBeInTheDocument();
   });
+});
+
+it('has return path on similar event link', async () => {
+  const path = ROUTES.EVENT;
+  const route = path.replace(':id', 'rootEventId');
+  const { history } = render(
+    <SimilarEvents
+      events={expectedSimilarEvents.data}
+      eventsType="event"
+      loading={false}
+    />,
+    {
+      mocks,
+      path,
+      routes: [route],
+    }
+  );
+  for (const similarEvent of expectedSimilarEvents.data) {
+    await waitForComponentToBeLoaded();
+    userEvent.click(
+      screen.queryByRole('button', {
+        name: translations.event.eventCard.ariaLabelLink.replace(
+          '{{name}}',
+          similarEvent.name.fi
+        ),
+      })
+    );
+    expect(history.location).toMatchObject({
+      pathname: `/fi${ROUTES.EVENT.replace(':id', similarEvent.id)}`,
+      search: `?returnPath=${encodeURIComponent(route)}`,
+    });
+    history.goBack();
+  }
 });

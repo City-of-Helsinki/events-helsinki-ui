@@ -21,7 +21,7 @@ const SimilarEvents: React.FC<Props> = ({ events, loading, eventsType }) => {
   return (
     <div className={styles.similarEvents}>
       <LoadingSpinner hasPadding={false} isLoading={loading}>
-        {!!events.length && (
+        {events?.length && (
           <Container>
             <h2 className={styles.similarEventsTitle}>
               {t('event.similarEvents.title')}

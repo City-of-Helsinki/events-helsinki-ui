@@ -19,7 +19,7 @@ type CustomRender = {
   ): CustomRenderResult;
 };
 
-type CustomRenderResult = RenderResult & { history: History };
+export type CustomRenderResult = RenderResult & { history: History };
 
 export const arrowUpKeyPressHelper = (): boolean =>
   fireEvent.keyDown(document, { code: 38, key: 'ArrowUp' });

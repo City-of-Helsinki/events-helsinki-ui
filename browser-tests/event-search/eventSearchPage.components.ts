@@ -7,6 +7,7 @@ import { KeywordOption } from '../../src/domain/event/types';
 import { formatDate } from '../../src/util/dateUtils';
 import getDateRangeStr from '../../src/util/getDateRangeStr';
 import toPascalCase from '../../src/util/toPascalCase';
+import { getCommonComponents } from '../common.components';
 import { getExpectedEventContext } from '../utils/event.utils';
 import {
   EventFieldsFragment,
@@ -22,6 +23,7 @@ import {
 export const getEventSearchPage = (t: TestController) => {
   const within = withinContext(t);
   const screen = screenContext(t);
+  const commonComponents = getCommonComponents(t);
   const findSearchBanner = async () => {
     await t
       .expect(screen.findByTestId('searchContainer').exists)
@@ -167,9 +169,10 @@ export const getEventSearchPage = (t: TestController) => {
       if (searchedField) {
         t.ctx.expectedEvent = getExpectedEventContext(event, searchedField);
       }
-      await t
-        .expect(eventCard().exists)
-        .ok(await getErrorMessage(t), { timeout: 15000 });
+      await commonComponents
+        .loadingSpinner()
+        .expectations.isNotPresent({ timeout: 20000 });
+      await t.expect(eventCard().exists).ok(await getErrorMessage(t));
 
       const selectors = {
         keywordLink(keyword: KeywordOption) {

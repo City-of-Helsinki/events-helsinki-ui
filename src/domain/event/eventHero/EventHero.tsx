@@ -16,6 +16,10 @@ import Container from '../../app/layout/Container';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
 import EventName from '../eventName/EventName';
+import {
+  extractLatestReturnPath,
+  ReturnParams,
+} from '../eventQueryString.util';
 import { getEventFields, getEventPrice } from '../EventUtils';
 import {
   EventFields,
@@ -57,13 +61,14 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
     locale,
     t('event.hero.offers.isFree')
   );
-
   const showKeywords = Boolean(today || thisWeek || keywords.length);
 
-  const goToEventList = () => {
+  const returnParam = extractLatestReturnPath(search);
+
+  const goBack = ({ returnPath, remainingQueryString }: ReturnParams) => {
     history.push({
-      pathname: `/${locale}${EVENTS_ROUTE_MAPPER[eventType]}`,
-      search,
+      pathname: `/${locale}${returnPath}`,
+      search: remainingQueryString,
       state: { eventId: event.id },
     });
   };
@@ -104,7 +109,7 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
               ariaLabel={t('event.hero.ariaLabelBackButton')}
               backgroundColor="white"
               icon={<IconArrowLeft aria-hidden />}
-              onClick={goToEventList}
+              onClick={() => goBack(returnParam)}
               size="default"
             />
           </div>

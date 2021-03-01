@@ -2,12 +2,13 @@ import classNames from 'classnames';
 import { Button } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useLocation, useParams } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import buttonStyles from '../../../common/components/button/button.module.scss';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
+import { addParamsToQueryString } from '../../../util/queryString';
 import testImage from '../../../util/testImage';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
@@ -26,7 +27,6 @@ import {
   EventType,
 } from '../types';
 import styles from './largeEventCard.module.scss';
-import { addPlaceFromPathToQueryString } from './utils';
 
 interface Props {
   event: EventFields;
@@ -36,11 +36,8 @@ interface Props {
 const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
-  // place comes from place param in clean url on events search page
-  // see ROUTES.EVENT_PLACE (routes/constants.ts)
-  const params = useParams<{ place?: string }>();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
-  const { search } = useLocation();
+  const { search, pathname } = useLocation();
   const locale = useLocale();
   const button = React.useRef<HTMLDivElement>(null);
   const eventRoute = EVENT_ROUTE_MAPPER[eventType];
@@ -55,11 +52,13 @@ const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
     startTime,
   } = getEventFields(event, locale);
   const eventClosed = isEventClosed(event);
-  const modifiedSearch = addPlaceFromPathToQueryString(search, params.place);
+  const queryString = addParamsToQueryString(search, {
+    returnPath: pathname,
+  });
   const eventUrl = `/${locale}${eventRoute.replace(
     ':id',
     event.id
-  )}${modifiedSearch}`;
+  )}${queryString}`;
   const showBuyButton = !eventClosed && !!offerInfoUrl && !isEventFree(event);
 
   const goToBuyTicketsPage = (e: React.MouseEvent<HTMLButtonElement>) => {

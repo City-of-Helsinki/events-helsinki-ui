@@ -97,7 +97,7 @@ const mocks = [
     request: otherEventsRequest,
     result: otherEventsResponse,
   },
-  ...cresteSimilarEventsMocks(event, similarEvents),
+  ...cresteSimilarEventsMocks(similarEvents),
 ];
 
 const testPath = ROUTES.EVENT.replace(':id', id);

@@ -124,7 +124,7 @@
       "isFree": "Maksuton"
     },
     "hero": {
-      "ariaLabelBackButton": "Takaisin tapahtumahakuun",
+      "ariaLabelBackButton": "Palaa takaisin edelliselle sivulle",
       "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
       "ariaLabelEnrol": "Ilmoittaudu - Linkki avautuu uudessa ikkunassa",
       "buttonBuyTickets": "Osta liput",

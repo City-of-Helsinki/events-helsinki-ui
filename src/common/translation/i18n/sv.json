@@ -124,7 +124,7 @@
       "isFree": "Gratis"
     },
     "hero": {
-      "ariaLabelBackButton": "Tillbaka till händelsessökning",
+      "ariaLabelBackButton": "Gå tillbaka till föregående sida",
       "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
       "ariaLabelEnrol": "Registrera - Länken öppnas i ett annat fönster",
       "buttonBuyTickets": "Köp biljetter",
