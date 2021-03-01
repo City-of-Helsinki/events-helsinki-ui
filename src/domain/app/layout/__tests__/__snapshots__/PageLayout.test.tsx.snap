@@ -244,7 +244,15 @@ exports[`matches snapshot 1`] = `
           href="/fi/events"
         >
           <span>
-            Etsi tekemistä
+            Tapahtumat
+          </span>
+        </a>
+        <a
+          class="FooterItem-module_item__1i8Z8"
+          href="/fi/courses"
+        >
+          <span>
+            Harrastukset
           </span>
         </a>
         <a
