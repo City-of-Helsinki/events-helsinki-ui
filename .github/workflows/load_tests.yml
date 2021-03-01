@@ -2,7 +2,7 @@ name: k6 Load Tests
 on:
   schedule:
   # Mon-Fri 5AM Finnish time (UTC+3)
-  - cron: '0 8 * * 1-5'
+  - cron: '0 2 * * 1-5'
 jobs:
   k6_load_test:
     name: k6 Load Tests

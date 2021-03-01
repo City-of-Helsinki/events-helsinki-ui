@@ -7,7 +7,7 @@ export const options = {
   vus: 20,
   thresholds: {
     //avg is around 800ms on https://tapahtumat.test.kuva.hel.ninja
-    http_req_duration: ['p(95)<1000'],
+    http_req_duration: ['p(95)<1500'],
   },
 };
 
