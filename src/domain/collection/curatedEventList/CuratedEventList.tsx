@@ -18,7 +18,7 @@ import EventCards from './EventCards';
 import OnlyExpiredEvents from './OnlyExpiredEvents';
 
 const PAST_EVENTS_DEFAULT_SIZE = 4;
-const PAGE_SIZE = 10;
+export const PAGE_SIZE = 10;
 
 interface Props {
   collection: CollectionFieldsFragment;
