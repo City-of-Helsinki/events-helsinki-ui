@@ -6,8 +6,8 @@ export const options = {
   duration: '10m',
   vus: 20,
   thresholds: {
-    //todo: definition of failure
-    http_req_duration: ['p(95)<500'],
+    //avg is around 800ms on https://tapahtumat.test.kuva.hel.ninja
+    http_req_duration: ['p(95)<1000'],
   },
 };
 
