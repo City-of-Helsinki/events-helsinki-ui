@@ -11,7 +11,7 @@ import {
   screen,
   tabKeyPressHelper,
   userEvent,
-} from '../../../../../util/testUtils';
+} from '../../../../../test/testUtils';
 import LanguageDropdown, { LanguageDropdownProps } from '../LanguageDropdown';
 
 const languageOptions = Object.values(SUPPORT_LANGUAGES).map((language) => {

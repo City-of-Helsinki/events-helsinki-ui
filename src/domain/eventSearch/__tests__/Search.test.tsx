@@ -11,7 +11,7 @@ import {
   fakeKeywords,
   fakeNeighborhoods,
   fakePlaces,
-} from '../../../util/mockDataUtils';
+} from '../../../test/mockDataUtils';
 import {
   actWait,
   configure,
@@ -19,7 +19,7 @@ import {
   screen,
   userEvent,
   waitFor,
-} from '../../../util/testUtils';
+} from '../../../test/testUtils';
 import Search from '../Search';
 
 configure({ defaultHidden: true });

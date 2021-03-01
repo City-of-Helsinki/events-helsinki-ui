@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 
 import { CollectionFieldsFragment } from '../../../../generated/graphql';
-import { fakeCollection } from '../../../../util/mockDataUtils';
+import { fakeCollection } from '../../../../test/mockDataUtils';
 import CollectionHero from '../CollectionHero';
 
 const title = 'Collection title';

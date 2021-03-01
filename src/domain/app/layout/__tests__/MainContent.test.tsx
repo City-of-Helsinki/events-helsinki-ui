@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { MAIN_CONTENT_ID } from '../../../../constants';
-import { render } from '../../../../util/testUtils';
+import { render } from '../../../../test/testUtils';
 import MainContent from '../MainContent';
 
 test('matches snapshot', () => {

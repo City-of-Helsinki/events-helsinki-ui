@@ -11,14 +11,14 @@ import {
   fakeNeighborhoods,
   fakeOrganization,
   fakePlace,
-} from '../../../../util/mockDataUtils';
+} from '../../../../test/mockDataUtils';
 import {
   configure,
   render,
   screen,
   userEvent,
   waitFor,
-} from '../../../../util/testUtils';
+} from '../../../../test/testUtils';
 import FilterSummary from '../FilterSummary';
 
 configure({ defaultHidden: true });

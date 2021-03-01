@@ -2,14 +2,14 @@ import { advanceTo } from 'jest-date-mock';
 import React from 'react';
 
 import { KeywordListDocument } from '../../../../generated/graphql';
-import { fakeKeywords } from '../../../../util/mockDataUtils';
+import { fakeKeywords } from '../../../../test/mockDataUtils';
 import {
   configure,
   render,
   screen,
   userEvent,
   waitFor,
-} from '../../../../util/testUtils';
+} from '../../../../test/testUtils';
 import LandingPageSearch from '../LandingPageSearch';
 
 configure({ defaultHidden: true });

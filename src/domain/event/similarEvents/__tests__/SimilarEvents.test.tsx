@@ -9,8 +9,8 @@ import {
   fakeEvent,
   fakeEvents,
   fakeKeywords,
-} from '../../../../util/mockDataUtils';
-import { render, screen, userEvent, waitFor } from '../../../../util/testUtils';
+} from '../../../../test/mockDataUtils';
+import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import { ROUTES } from '../../../app/routes/constants';
 import SimilarEvents from '../SimilarEvents';
 const keywordIds = ['yso:1', 'yso:2'];

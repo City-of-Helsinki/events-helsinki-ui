@@ -22,8 +22,8 @@ import {
   fakeEvents,
   fakeNeighborhoods,
   fakePlaces,
-} from '../../../util/mockDataUtils';
-import { render } from '../../../util/testUtils';
+} from '../../../test/mockDataUtils';
+import { render } from '../../../test/testUtils';
 import EventSearchPageContainer from '../EventSearchPageContainer';
 
 const meta: Meta = {

@@ -8,8 +8,8 @@ import {
   CollectionDetailsDocument,
   CollectionFieldsFragment,
 } from '../../../generated/graphql';
-import { fakeCollection } from '../../../util/mockDataUtils';
-import { renderWithRoute } from '../../../util/testUtils';
+import { fakeCollection } from '../../../test/mockDataUtils';
+import { renderWithRoute } from '../../../test/testUtils';
 import { ROUTES } from '../../app/routes/constants';
 import CollectionPageContainer from '../CollectionPageContainer';
 

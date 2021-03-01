@@ -6,7 +6,7 @@ import wait from 'waait';
 
 import { AUTOSUGGEST_TYPES } from '../../../../constants';
 import { KeywordListDocument } from '../../../../generated/graphql';
-import { fakeKeywords } from '../../../../util/mockDataUtils';
+import { fakeKeywords } from '../../../../test/mockDataUtils';
 import {
   arrowDownKeyPressHelper,
   arrowUpKeyPressHelper,
@@ -14,7 +14,7 @@ import {
   escKeyPressHelper,
   render,
   tabKeyPressHelper,
-} from '../../../../util/testUtils';
+} from '../../../../test/testUtils';
 import SearchAutosuggest, {
   SearchAutosuggestProps,
 } from '../SearchAutosuggest';

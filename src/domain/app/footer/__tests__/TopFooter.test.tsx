@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import { axe } from 'jest-axe';
 import React from 'react';
 
-import { render, screen, userEvent } from '../../../../util/testUtils';
+import { render, screen, userEvent } from '../../../../test/testUtils';
 import TopFooter, { testIds } from '../TopFooter';
 
 beforeEach(() => {

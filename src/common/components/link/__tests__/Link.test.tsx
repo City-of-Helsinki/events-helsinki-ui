@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, screen } from '../../../../util/testUtils';
+import { render, screen } from '../../../../test/testUtils';
 import Link from '../Link';
 
 it('should be internal link', () => {

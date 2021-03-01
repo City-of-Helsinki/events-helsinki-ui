@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '../../../../util/testUtils';
+import { render } from '../../../../test/testUtils';
 import PageLayout from '../PageLayout';
 
 it('matched snapshot', () => {

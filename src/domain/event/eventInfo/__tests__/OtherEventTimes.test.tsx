@@ -12,9 +12,9 @@ import {
   createOtherEventTimesRequestAndResultMocks,
   createOtherEventTimesRequestThrowsErrorMocks,
 } from '../../../../test/apollo-mocks/eventListMocks';
+import { fakeEvent, fakeEvents } from '../../../../test/mockDataUtils';
+import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
-import { fakeEvent, fakeEvents } from '../../../../util/mockDataUtils';
-import { render, screen, userEvent, waitFor } from '../../../../util/testUtils';
 import OtherEventTimesEvents from '../OtherEventTimes';
 
 const startTime = '2020-10-01T16:00:00Z';

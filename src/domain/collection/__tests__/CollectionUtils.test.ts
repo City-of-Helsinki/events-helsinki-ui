@@ -1,5 +1,5 @@
 import { CollectionFieldsFragment } from '../../../generated/graphql';
-import { fakeCollection } from '../../../util/mockDataUtils';
+import { fakeCollection } from '../../../test/mockDataUtils';
 import {
   getCollectionFields,
   getHeroBackgroundColor,

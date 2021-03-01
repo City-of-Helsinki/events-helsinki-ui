@@ -5,14 +5,14 @@ import {
   PlaceDetailsDocument,
   PlaceListDocument,
 } from '../../../../generated/graphql';
-import { fakePlaces } from '../../../../util/mockDataUtils';
+import { fakePlaces } from '../../../../test/mockDataUtils';
 import {
   actWait,
   render,
   screen,
   userEvent,
   waitFor,
-} from '../../../../util/testUtils';
+} from '../../../../test/testUtils';
 import apolloClient from '../../../app/apollo/apolloClient';
 import PlaceSelector from '../PlaceSelector';
 

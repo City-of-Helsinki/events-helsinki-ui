@@ -4,8 +4,8 @@ import React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
-import { fakeEvent } from '../../../../util/mockDataUtils';
-import { render, renderWithRoute, screen } from '../../../../util/testUtils';
+import { fakeEvent } from '../../../../test/mockDataUtils';
+import { render, renderWithRoute, screen } from '../../../../test/testUtils';
 import { ROUTES } from '../../../app/routes/constants';
 import { MAPPED_PLACES } from '../../../eventSearch/constants';
 import LargeEventCard from '../LargeEventCard';

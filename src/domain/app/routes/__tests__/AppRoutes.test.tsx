@@ -9,7 +9,7 @@ import {
   PlaceDetailsDocument,
 } from '../../../../generated/graphql';
 import { createEventListRequestAndResultMocks } from '../../../../test/apollo-mocks/eventListMocks';
-import { getCollectionQueryListMocks } from '../../../../util/collections.common.tests';
+import { getCollectionQueryListMocks } from '../../../../test/collections/collections.common.tests';
 import {
   fakeCollection,
   fakeCollections,
@@ -17,14 +17,14 @@ import {
   fakeLandingPages,
   fakeLocalizedObject,
   fakePlace,
-} from '../../../../util/mockDataUtils';
+} from '../../../../test/mockDataUtils';
 import {
   actWait,
   configure,
   render,
   screen,
   waitFor,
-} from '../../../../util/testUtils';
+} from '../../../../test/testUtils';
 import { getMocks as getCollectionMocks } from '../../../collection/__tests__/CollectionPageContainer.test';
 import {
   MAPPED_PLACES,

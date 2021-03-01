@@ -183,7 +183,8 @@
       "src/util/scrollToTop.ts",
       "src/util/mockDataUtils.ts",
       "src/util/testImage.ts",
-      "src/util/testUtils.tsx",
+      "src/test/testUtils.tsx",
+      "src/test/apollo-mocks/eventListMocks.ts",
       "src/util/updateSitemap.ts",
       "src/util/date-fns/locale/buildLocalizeFn.ts"
     ]

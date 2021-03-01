@@ -2,8 +2,8 @@ import { render } from '@testing-library/react';
 import React from 'react';
 
 import { CollectionFieldsFragment } from '../../../../generated/graphql';
-import { fakeCollection } from '../../../../util/mockDataUtils';
-import { actWait } from '../../../../util/testUtils';
+import { fakeCollection } from '../../../../test/mockDataUtils';
+import { actWait } from '../../../../test/testUtils';
 import CollectionPageMeta from '../CollectionPageMeta';
 
 const image = 'https://localhost/example/path';

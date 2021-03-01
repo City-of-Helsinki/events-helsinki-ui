@@ -7,9 +7,9 @@ import {
   EventFieldsFragment,
 } from '../../../generated/graphql';
 import { createEventListRequestAndResultMocks } from '../../../test/apollo-mocks/eventListMocks';
+import { fakeEvent, fakeEvents } from '../../../test/mockDataUtils';
+import { renderWithRoute, screen, waitFor } from '../../../test/testUtils';
 import { setFeatureFlags } from '../../../util/featureFlags.test.utils';
-import { fakeEvent, fakeEvents } from '../../../util/mockDataUtils';
-import { renderWithRoute, screen, waitFor } from '../../../util/testUtils';
 import { ROUTES } from '../../app/routes/constants';
 import EventPageContainer from '../EventPageContainer';
 
