@@ -1,5 +1,7 @@
 name: k6 Load Tests
 on:
+  push:
+    branches: [k6-poc]
   schedule:
   # Mon-Fri 5AM Finnish time (UTC+3)
   - cron: '0 2 * * 1-5'
@@ -16,3 +18,9 @@ jobs:
         uses: k6io/action@v0.1
         with:
           filename: k6LoadTests.js
+      - name: k6 Load Tests failed notifications
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_TITLE: k6 Load tests has failed
+        if: failure()
