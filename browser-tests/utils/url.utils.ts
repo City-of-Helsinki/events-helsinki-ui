@@ -63,16 +63,18 @@ export const getUrlUtils = (t: TestController) => {
       await pageIsLoaded();
       await t
         .expect(getPageTitle())
-        .eql('Tapahtumat', await getErrorMessage(t));
+        .eql('Tapahtumat Helsinki', await getErrorMessage(t));
     },
     async urlChangedToBannerPage(banner: BannerPageFieldsFragment) {
       t.ctx.banner = banner;
+      await pageIsLoaded();
       await t
         .expect(getUrl())
         .eql(`${banner.buttonUrl.fi}`, await getErrorMessage(t));
     },
     async urlChangedToCollectionPage(collection: CollectionFieldsFragment) {
       t.ctx.collection = collection;
+      await pageIsLoaded();
       await t
         .expect(getPathname())
         .eql(
@@ -80,7 +82,7 @@ export const getUrlUtils = (t: TestController) => {
           await getErrorMessage(t)
         )
         .expect(getPageTitle())
-        .eql(collection.title.fi, await getErrorMessage(t), { timeout: 10000 });
+        .eql(collection.title.fi, await getErrorMessage(t));
     },
   };
   return {
