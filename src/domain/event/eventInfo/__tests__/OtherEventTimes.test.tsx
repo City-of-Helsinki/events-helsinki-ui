@@ -80,8 +80,6 @@ const secondPageLoadThrowsErrorMock = createOtherEventTimesRequestThrowsErrorMoc
 
 const defaultMocks = [firstLoadMock, secondLoadMock];
 
-console.log(defaultMocks);
-
 afterAll(() => {
   clear();
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useParams } from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import ErrorHero from '../../common/components/error/ErrorHero';
@@ -14,6 +14,7 @@ import useLocale from '../../hooks/useLocale';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import { ROUTES } from '../app/routes/constants';
+import { getLargeEventCardId } from '../event/EventUtils';
 import CollectionHero from './collectionHero/CollectionHero';
 import styles from './collectionPage.module.scss';
 import CollectionPageMeta from './collectionPageMeta/CollectionPageMeta';
@@ -37,6 +38,8 @@ type Error = {
 const CollectionPageContainer: React.FC = () => {
   const { search } = useLocation();
   const params = useParams<RouteParams>();
+  const location = useLocation();
+  const history = useHistory();
 
   const { t } = useTranslation();
   const locale = useLocale();
@@ -81,6 +84,24 @@ const CollectionPageContainer: React.FC = () => {
 
     return null;
   };
+
+  const scrollToEventCard = (id: string) => {
+    document
+      .getElementById(id)
+      ?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  };
+
+  // Scroll back to correct event card (event tat user is coming back from)
+  React.useEffect(() => {
+    if (location.state?.eventId) {
+      const cardId = getLargeEventCardId(location.state.eventId);
+      scrollToEventCard(cardId);
+      // Clear eventId value to keep scroll position correctly
+      const state = { ...location.state };
+      delete state.eventId;
+      history.replace({ ...location, state });
+    }
+  }, [history, location]);
 
   const renderErrorHero = (error: Error) => {
     return (
