@@ -15,7 +15,7 @@ import ReactDOMServer from 'react-dom/server';
 import { Helmet } from 'react-helmet';
 
 import i18next from '../common/translation/i18n/init.server';
-import { SUPPORT_LANGUAGES } from '../constants';
+import { SUPPORT_LANGUAGES, supportedLanguages } from '../constants';
 import { ServerRequestContextType } from '../contexts/ServerRequestContext';
 import getDomainFromRequest from '../util/getDomainFromRequest';
 import updateSitemaps from '../util/updateSitemap';
@@ -108,8 +108,19 @@ app.use(async (req: Request, res: Response) => {
 
     const html = ReactDOMServer.renderToString(htmlEl);
 
+    // Somewhere a `<Redirect>` was rendered (https://reactrouter.com/web/guides/server-rendering)
     if (staticContext.url) {
-      res.redirect(302, staticContext.url);
+      const langPathRegex = new RegExp(
+        `^/(?:${supportedLanguages.join('|')})/?$`,
+        'i'
+      );
+
+      // Redirect using 308 if only locale in path e.g. "/:locale" or "/:locale/""
+      if (req.path.match(langPathRegex)) {
+        res.redirect(308, staticContext.url);
+      } else {
+        res.redirect(302, staticContext.url);
+      }
     } else {
       res.status(200);
       res.send(`<!doctype html>${html}`);
