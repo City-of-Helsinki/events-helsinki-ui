@@ -4,7 +4,7 @@ import 'hds-core/lib/components/all.css';
 
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Redirect, Route, RouteComponentProps, Switch } from 'react-router';
+import { Route, RouteComponentProps, Switch } from 'react-router';
 
 import { SUPPORT_LANGUAGES } from '../../../constants';
 import AboutPage from '../../about/AboutPage';
@@ -33,7 +33,6 @@ const App: FunctionComponent<RouteComponentProps<{
 
   return (
     <Switch>
-      <Redirect exact path={`/${locale}/`} to={`/${locale}${ROUTES.HOME}`} />
       <Route exact path={`/${locale}${ROUTES.HOME}`} component={LandingPage} />
       <Route
         exact
