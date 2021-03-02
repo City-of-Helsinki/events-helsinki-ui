@@ -91,7 +91,7 @@ const CollectionPageContainer: React.FC = () => {
       ?.scrollIntoView({ block: 'center', behavior: 'smooth' });
   };
 
-  // Scroll back to correct event card (event tat user is coming back from)
+  // Scroll back to correct event card (event that user is coming back from)
   React.useEffect(() => {
     if (location.state?.eventId) {
       const cardId = getLargeEventCardId(location.state.eventId);
