@@ -59,9 +59,11 @@ export const getLandingPageComponents = (t: TestController) => {
         .ok(await getErrorMessage(t));
     };
     const bannerDescriptionIsVisible = async () => {
-      await t
-        .expect(selectors.descriptionText().exists)
-        .ok(await getErrorMessage(t));
+      if (banner.description.fi?.length > 0) {
+        await t
+          .expect(selectors.descriptionText().exists)
+          .ok(await getErrorMessage(t));
+      }
     };
     const expectations = {
       async bannerDataIsPresent() {
