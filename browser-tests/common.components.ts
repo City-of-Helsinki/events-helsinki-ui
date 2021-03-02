@@ -8,7 +8,7 @@ export const getCommonComponents = (t: TestController) => {
   const loadingSpinner = () => {
     const selectors = {
       spinner() {
-        return screen.queryAllByRole('loading-spinner');
+        return screen.queryAllByTestId('loading-spinner');
       },
     };
     const expectations = {
