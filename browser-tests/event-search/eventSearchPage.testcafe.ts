@@ -6,7 +6,7 @@ import {
   SUPPORT_LANGUAGES,
 } from '../../src/constants';
 import { PAGE_SIZE } from '../../src/domain/eventSearch/constants';
-import { getEvents, getHelsinkiEvents } from '../datasources/eventDataSource';
+import { getEvents } from '../datasources/eventDataSource';
 import { searchFilterDataSource } from '../datasources/searchFilterDataSource';
 import { getEventDate } from '../utils/event.utils';
 import { EventFieldsFragment } from '../utils/generated/graphql';
@@ -61,7 +61,7 @@ test('"click more events" -button works', async (t) => {
 });
 
 test('Search url by event name shows event card data for helsinki event', async () => {
-  const [event] = await getHelsinkiEvents();
+  const [event] = await getEvents();
   await urlUtils.actions.navigateToSearchUrl(getRandomSentence(event.name.fi));
   const searchResults = await eventSearchPage.findSearchResultList();
   const eventCard = await searchResults.eventCard(event);
@@ -73,7 +73,7 @@ test('Search url by event name shows event card data for helsinki event', async 
 });
 
 test('Free text search finds event by free text search', async (t) => {
-  const [event] = await getHelsinkiEvents();
+  const [event] = await getEvents();
   for (const locale of Object.values(SUPPORT_LANGUAGES)) {
     await testSearchEventByText(t, event, event.name[locale], 'name');
     const randomShortDescriptionSentence =
@@ -136,7 +136,7 @@ test('Future events can be searched', async () => {
   const searchBanner = await eventSearchPage.findSearchBanner();
   await searchBanner.actions.openDateFilters();
   for (const dateRange of [DATE_TYPES.TOMORROW, DATE_TYPES.WEEKEND]) {
-    const [event] = await getHelsinkiEvents(
+    const [event] = await getEvents(
       PAGE_SIZE,
       DEFAULT_LANGUAGE,
       `dateTypes=${dateRange}`

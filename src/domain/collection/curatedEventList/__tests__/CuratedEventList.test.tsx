@@ -158,7 +158,7 @@ test('should show expired events', async () => {
   });
 });
 
-test.only('event list pagination works', async () => {
+test('event list pagination works', async () => {
   advanceTo('2020-10-05');
   const eventsCount = 35;
   const { collection, mocks, eventNames } = getMocksForPagination(eventsCount);

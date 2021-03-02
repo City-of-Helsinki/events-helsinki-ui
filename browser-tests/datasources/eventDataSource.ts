@@ -11,18 +11,6 @@ import { getGraphQLUrl } from '../utils/settings';
 const client = new GraphQLClient(getGraphQLUrl());
 const sdk = getSdk(client);
 
-export const getHelsinkiEvents = async (
-  count = PAGE_SIZE,
-  locale = SUPPORT_LANGUAGES.FI,
-  queryParams = ''
-): Promise<EventFieldsFragment[]> => {
-  return await getEvents(
-    count,
-    locale,
-    `divisions=kunta:helsinki&${queryParams}`
-  );
-};
-
 export const getEvents = async (
   count = PAGE_SIZE,
   locale = SUPPORT_LANGUAGES.FI,
