@@ -54,7 +54,7 @@ export const getUrlUtils = (t: TestController) => {
       await pageIsLoaded();
       await t
         .expect(getPageTitle())
-        .eql('Tapahtumat', await getErrorMessage(t));
+        .eql('Tapahtumat Helsinki', await getErrorMessage(t));
     },
     async urlChangedToRecommendationsPage() {
       await t
