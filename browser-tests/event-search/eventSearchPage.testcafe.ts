@@ -8,7 +8,7 @@ import {
 import { PAGE_SIZE } from '../../src/domain/eventSearch/constants';
 import { getEvents } from '../datasources/eventDataSource';
 import { searchFilterDataSource } from '../datasources/searchFilterDataSource';
-import { getEventDate } from '../utils/event.utils';
+import { getEventDate, isInternetEvent } from '../utils/event.utils';
 import { EventFieldsFragment } from '../utils/generated/graphql';
 import {
   selectRandomValueFromArray,
@@ -66,7 +66,9 @@ test('Search url by event name shows event card data for helsinki event', async 
   const searchResults = await eventSearchPage.findSearchResultList();
   const eventCard = await searchResults.eventCard(event);
   await eventCard.expectations.eventTimeIsPresent();
-  await eventCard.expectations.addressIsPresent();
+  if (!isInternetEvent(event)) {
+    await eventCard.expectations.addressIsPresent();
+  }
   await eventCard.expectations.keywordButtonsArePresent();
   await eventCard.actions.clickEventLink();
   await urlUtils.expectations.urlChangedToEventPage(event);
