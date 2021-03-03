@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
-import { fakeEvents } from '../../../../util/mockDataUtils';
-import { render, screen, userEvent } from '../../../../util/testUtils';
+import { fakeEvents } from '../../../../test/mockDataUtils';
+import { render, screen, userEvent } from '../../../../test/testUtils';
 import EventCards from '../EventCards';
 
 const eventsResponse = fakeEvents(4);

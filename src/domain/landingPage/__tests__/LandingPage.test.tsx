@@ -6,14 +6,14 @@ import { LandingPagesDocument } from '../../../generated/graphql';
 import {
   collectionListFilterTests,
   getCollectionQueryListMocks,
-} from '../../../util/collections.common.tests';
+} from '../../../test/collections/collections.common.tests';
 import {
   fakeBanner,
   fakeCollections,
   fakeLandingPages,
   fakeLocalizedObject,
-} from '../../../util/mockDataUtils';
-import { render, screen } from '../../../util/testUtils';
+} from '../../../test/mockDataUtils';
+import { render, screen } from '../../../test/testUtils';
 import LandingPage from '../LandingPage';
 
 const topBannerDescription = 'topBanner page description';

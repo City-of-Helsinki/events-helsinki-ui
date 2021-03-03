@@ -3,7 +3,7 @@ import { axe } from 'jest-axe';
 import React from 'react';
 
 import translations from '../../../../../common/translation/i18n/fi.json';
-import { render, screen } from '../../../../../util/testUtils';
+import { render, screen } from '../../../../../test/testUtils';
 import MobileNavbar from '../MobileNavbar';
 
 beforeEach(() => {

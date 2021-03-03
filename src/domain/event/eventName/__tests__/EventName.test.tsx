@@ -3,7 +3,7 @@ import React from 'react';
 
 import { EVENT_STATUS } from '../../../../constants';
 import { EventFieldsFragment } from '../../../../generated/graphql';
-import { fakeEvent } from '../../../../util/mockDataUtils';
+import { fakeEvent } from '../../../../test/mockDataUtils';
 import EventName from '../EventName';
 
 const eventName = 'Event name fi';

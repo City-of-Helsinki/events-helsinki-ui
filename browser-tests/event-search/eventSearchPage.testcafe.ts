@@ -6,9 +6,13 @@ import {
   SUPPORT_LANGUAGES,
 } from '../../src/constants';
 import { PAGE_SIZE } from '../../src/domain/eventSearch/constants';
-import { getEvents, getHelsinkiEvents } from '../datasources/eventDataSource';
+import { getEvents } from '../datasources/eventDataSource';
 import { searchFilterDataSource } from '../datasources/searchFilterDataSource';
-import { getEventDate } from '../utils/event.utils';
+import {
+  getEventDate,
+  getExpectedEventContext,
+  isInternetEvent,
+} from '../utils/event.utils';
 import { EventFieldsFragment } from '../utils/generated/graphql';
 import {
   selectRandomValueFromArray,
@@ -16,7 +20,10 @@ import {
 } from '../utils/random.utils';
 import { getRandomSentence } from '../utils/regexp.util';
 import { getEnvUrl } from '../utils/settings';
-import { clearContext } from '../utils/testcafe.utils';
+import {
+  clearDataToPrintOnFailure,
+  setDataToPrintOnFailure,
+} from '../utils/testcafe.utils';
 import { getUrlUtils } from '../utils/url.utils';
 import { getEventSearchPage } from './eventSearchPage.components';
 
@@ -25,7 +32,7 @@ let urlUtils: ReturnType<typeof getUrlUtils>;
 fixture('Event search page')
   .page(getEnvUrl('/fi/events'))
   .beforeEach(async (t) => {
-    clearContext(t);
+    clearDataToPrintOnFailure(t);
     eventSearchPage = getEventSearchPage(t);
     urlUtils = getUrlUtils(t);
   });
@@ -52,6 +59,11 @@ test('shows Helsinki places in filter options', async (t) => {
 
 test('"click more events" -button works', async (t) => {
   const events = await getEvents(2 * PAGE_SIZE);
+  setDataToPrintOnFailure(
+    t,
+    'expectedEvents',
+    events.map((event) => getExpectedEventContext(event))
+  );
   // some events may have been filtered if they are not in finnish
   // we need to find more events than one PAGE_SIZE in order to try clickMoreEventsButton
   await t.expect(events.length).gt(PAGE_SIZE);
@@ -60,20 +72,28 @@ test('"click more events" -button works', async (t) => {
   await searchResults.expectations.allEventCardsAreVisible(events);
 });
 
-test('Search url by event name shows event card data for helsinki event', async () => {
-  const [event] = await getHelsinkiEvents();
+test('Search url by event name shows event card data for helsinki event', async (t) => {
+  const [event] = await getEvents();
+  setDataToPrintOnFailure(
+    t,
+    'expectedEvent',
+    getExpectedEventContext(event, 'startTime', 'endTime')
+  );
   await urlUtils.actions.navigateToSearchUrl(getRandomSentence(event.name.fi));
   const searchResults = await eventSearchPage.findSearchResultList();
   const eventCard = await searchResults.eventCard(event);
   await eventCard.expectations.eventTimeIsPresent();
-  await eventCard.expectations.addressIsPresent();
+  if (!isInternetEvent(event)) {
+    await eventCard.expectations.addressIsPresent();
+  }
   await eventCard.expectations.keywordButtonsArePresent();
   await eventCard.actions.clickEventLink();
   await urlUtils.expectations.urlChangedToEventPage(event);
 });
 
 test('Free text search finds event by free text search', async (t) => {
-  const [event] = await getHelsinkiEvents();
+  const [event] = await getEvents();
+  setDataToPrintOnFailure(t, 'expectedEvent', getExpectedEventContext(event));
   for (const locale of Object.values(SUPPORT_LANGUAGES)) {
     await testSearchEventByText(t, event, event.name[locale], 'name');
     const randomShortDescriptionSentence =
@@ -129,14 +149,14 @@ const testSearchEventByText = async (
   const searchResults = await eventSearchPage.findSearchResultList();
   await searchResults.eventCard(event, expectedField);
   await searchBanner.actions.clickClearFiltersButton();
-  clearContext(t);
+  clearDataToPrintOnFailure(t);
 };
 
 test('Future events can be searched', async () => {
   const searchBanner = await eventSearchPage.findSearchBanner();
   await searchBanner.actions.openDateFilters();
   for (const dateRange of [DATE_TYPES.TOMORROW, DATE_TYPES.WEEKEND]) {
-    const [event] = await getHelsinkiEvents(
+    const [event] = await getEvents(
       PAGE_SIZE,
       DEFAULT_LANGUAGE,
       `dateTypes=${dateRange}`

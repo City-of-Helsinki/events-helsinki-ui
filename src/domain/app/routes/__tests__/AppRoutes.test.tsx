@@ -5,11 +5,11 @@ import * as React from 'react';
 
 import {
   CollectionFieldsFragment,
-  EventListDocument,
   LandingPagesDocument,
   PlaceDetailsDocument,
 } from '../../../../generated/graphql';
-import { getCollectionQueryListMocks } from '../../../../util/collections.common.tests';
+import { createEventListRequestAndResultMocks } from '../../../../test/apollo-mocks/eventListMocks';
+import { getCollectionQueryListMocks } from '../../../../test/collections/collections.common.tests';
 import {
   fakeCollection,
   fakeCollections,
@@ -17,14 +17,14 @@ import {
   fakeLandingPages,
   fakeLocalizedObject,
   fakePlace,
-} from '../../../../util/mockDataUtils';
+} from '../../../../test/mockDataUtils';
 import {
   actWait,
   configure,
   render,
   screen,
   waitFor,
-} from '../../../../util/testUtils';
+} from '../../../../test/testUtils';
 import { getMocks as getCollectionMocks } from '../../../collection/__tests__/CollectionPageContainer.test';
 import {
   MAPPED_PLACES,
@@ -47,24 +47,8 @@ configure({ defaultHidden: true });
 
 const landingPagesResponse = { data: { landingPages: fakeLandingPages(1) } };
 const collections = fakeCollections(1);
-const eventListResponse = { data: { eventList: fakeEvents(3) } };
 
-const eventListBaseVariables = {
-  division: [],
-  end: '',
-  include: ['keywords', 'location'],
-  isFree: undefined,
-  keyword: [],
-  keywordAnd: [],
-  keywordNot: [],
-  language: 'fi',
-  pageSize: 10,
-  publisher: null,
-  sort: 'end_time',
-  start: 'now',
-  startsAfter: undefined,
-  superEventType: ['umbrella', 'none'],
-};
+const createFakeResponseEvents = () => fakeEvents(3);
 
 const mocks = [
   {
@@ -76,18 +60,12 @@ const mocks = [
   },
   ...getCollectionQueryListMocks(collections, { visibleOnFrontpage: true }),
   // generate mock response for each place query
-  ...Object.keys(MAPPED_PLACES).map((key) => {
-    return {
-      request: {
-        query: EventListDocument,
-        variables: {
-          ...eventListBaseVariables,
-          location: [MAPPED_PLACES[key]],
-        },
-      },
-      result: eventListResponse,
-    };
-  }),
+  ...Object.keys(MAPPED_PLACES).map((key) =>
+    createEventListRequestAndResultMocks(
+      { allOngoing: true, division: [], location: [MAPPED_PLACES[key]] },
+      createFakeResponseEvents()
+    )
+  ),
   ...Object.keys(MAPPED_PLACES).map((key) => {
     return {
       request: {

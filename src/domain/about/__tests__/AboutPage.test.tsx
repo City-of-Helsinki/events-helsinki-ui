@@ -3,8 +3,8 @@ import React from 'react';
 import wait from 'waait';
 
 import { AboutPagesDocument } from '../../../generated/graphql';
-import { fakeAboutPages } from '../../../util/mockDataUtils';
-import { act, render, screen } from '../../../util/testUtils';
+import { fakeAboutPages } from '../../../test/mockDataUtils';
+import { act, render, screen } from '../../../test/testUtils';
 import AboutPage from '../AboutPage';
 
 const fakeAboutPagesResponse = fakeAboutPages(1);

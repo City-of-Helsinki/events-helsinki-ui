@@ -2,8 +2,8 @@ import React from 'react';
 import wait from 'waait';
 
 import { AccessibilityPagesDocument } from '../../../generated/graphql';
-import { fakeAccessibilityPages } from '../../../util/mockDataUtils';
-import { act, render, screen } from '../../../util/testUtils';
+import { fakeAccessibilityPages } from '../../../test/mockDataUtils';
+import { act, render, screen } from '../../../test/testUtils';
 import AccessibilityPage from '../AccessbilityPage';
 
 const fakeAccessibilityPagesResponse = fakeAccessibilityPages(1);

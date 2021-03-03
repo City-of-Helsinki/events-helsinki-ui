@@ -2,8 +2,8 @@ import { render } from '@testing-library/react';
 import * as React from 'react';
 
 import { LandingPageFieldsFragment } from '../../../../generated/graphql';
-import { fakeBanner, fakeLandingPage } from '../../../../util/mockDataUtils';
-import { actWait } from '../../../../util/testUtils';
+import { fakeBanner, fakeLandingPage } from '../../../../test/mockDataUtils';
+import { actWait } from '../../../../test/testUtils';
 import LandingPageMeta from '../LandingPageMeta';
 
 const landingPageTitle = 'Landing page title';

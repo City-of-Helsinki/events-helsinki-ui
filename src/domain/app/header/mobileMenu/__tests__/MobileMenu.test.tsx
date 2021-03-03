@@ -3,7 +3,7 @@ import { axe } from 'jest-axe';
 import React from 'react';
 
 import translations from '../../../../../common/translation/i18n/fi.json';
-import { render, screen, userEvent } from '../../../../../util/testUtils';
+import { render, screen, userEvent } from '../../../../../test/testUtils';
 import MobileMenu from '../MobileMenu';
 
 const routes = ['/fi/home'];

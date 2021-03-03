@@ -6,9 +6,9 @@ import {
   CollectionListDocument,
   CollectionListQueryVariables,
   CollectionListResponse,
-} from '../generated/graphql';
-import { fakeCollections } from './mockDataUtils';
-import { render } from './testUtils';
+} from '../../generated/graphql';
+import { fakeCollections } from '../mockDataUtils';
+import { render } from '../testUtils';
 
 export const getCollectionQueryListMocks = (
   collections: CollectionListResponse,

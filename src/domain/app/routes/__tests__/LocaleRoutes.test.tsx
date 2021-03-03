@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 
-import { render } from '../../../../util/testUtils';
+import { render } from '../../../../test/testUtils';
 import LocaleRoutes from '../LocaleRoutes';
 
 const AppWithRouter = withRouter(LocaleRoutes);

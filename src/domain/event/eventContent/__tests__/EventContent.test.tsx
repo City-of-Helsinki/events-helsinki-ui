@@ -2,8 +2,8 @@ import React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
-import { fakeEvent } from '../../../../util/mockDataUtils';
-import { actWait, render, screen } from '../../../../util/testUtils';
+import { fakeEvent } from '../../../../test/mockDataUtils';
+import { actWait, render, screen } from '../../../../test/testUtils';
 import EventContent from '../EventContent';
 
 const startTime = '2020-06-22T07:00:00.000000Z';

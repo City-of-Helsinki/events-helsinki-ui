@@ -21,7 +21,10 @@ export const getExpectedEventContext = (
   removeEmpty(
     fieldsToPick.reduce(
       (fields, field) => ({ ...fields, [field]: event[field] }),
-      { id: event.id, name: event.name }
+      {
+        id: event.id,
+        name: event.name.fi,
+      }
     )
   );
 
@@ -39,3 +42,6 @@ export const getEventDate = (dateRange: string): Date => {
       return today && today > saturday ? today : saturday;
   }
 };
+
+export const isInternetEvent = (event: EventFieldsFragment): boolean =>
+  event.location.id === 'helsinki:internet';

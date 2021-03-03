@@ -222,12 +222,26 @@ export const getEventSearchVariables = ({
     .filter((e) => e);
 
   const hasLocation = !isEmpty(divisions) || !isEmpty(places);
-  const hasText = !isEmpty(text);
+
+  const getSearchParam = () => {
+    const hasText = !isEmpty(text);
+    if (hasText && hasLocation) {
+      // show helsinki events matching to text
+      return { localOngoingAnd: text };
+    } else if (hasText) {
+      // show internet and helsinki events matching to text
+      return { allOngoingAnd: text };
+    } else {
+      // show all internet and helsinki events
+      return { allOngoing: true };
+    }
+  };
+  const divisionParam = hasLocation && { division: divisions.sort() };
+
   // Combine and add keywords
   return {
-    ...(hasText &&
-      (hasLocation ? { localOngoingAnd: text } : { allOngoingAnd: text })),
-    ...(hasLocation && { division: divisions.sort() }),
+    ...getSearchParam(),
+    ...divisionParam,
     end,
     include,
     isFree: isFree || undefined,
@@ -277,21 +291,16 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
     ),
     divisions: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.DIVISIONS),
     end,
-    isFree:
-      searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true' ? true : false,
+    isFree: searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true',
     keyword: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.KEYWORD),
     keywordNot: getUrlParamAsArray(
       searchParams,
       EVENT_SEARCH_FILTERS.KEYWORD_NOT
     ),
     onlyChildrenEvents:
-      searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === 'true'
-        ? true
-        : false,
+      searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === 'true',
     onlyEveningEvents:
-      searchParams.get(EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS) === 'true'
-        ? true
-        : false,
+      searchParams.get(EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS) === 'true',
     places: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.PLACES),
     publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
     start,

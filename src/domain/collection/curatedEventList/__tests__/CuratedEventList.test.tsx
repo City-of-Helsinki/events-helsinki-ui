@@ -12,8 +12,8 @@ import {
   EventListResponse,
   EventsByIdsDocument,
 } from '../../../../generated/graphql';
-import { fakeCollection, fakeEvents } from '../../../../util/mockDataUtils';
-import { render, screen, userEvent, waitFor } from '../../../../util/testUtils';
+import { fakeCollection, fakeEvents } from '../../../../test/mockDataUtils';
+import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import CuratedEventList, { PAGE_SIZE } from '../CuratedEventList';
 
 const eventIds = ['1', '2', '3', '4', '5'];
@@ -158,7 +158,7 @@ test('should show expired events', async () => {
   });
 });
 
-test.only('event list pagination works', async () => {
+test('event list pagination works', async () => {
   advanceTo('2020-10-05');
   const eventsCount = 35;
   const { collection, mocks, eventNames } = getMocksForPagination(eventsCount);

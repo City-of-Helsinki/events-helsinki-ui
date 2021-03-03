@@ -17,6 +17,7 @@ import {
 import {
   getErrorMessage,
   screenContext,
+  setDataToPrintOnFailure,
   withinContext,
 } from '../utils/testcafe.utils';
 
@@ -100,17 +101,17 @@ export const getEventSearchPage = (t: TestController) => {
         await t.click(selectors.placeFilter());
       },
       async selectPlaceFilter(place: PlaceFieldsFragment) {
-        t.ctx.typeText = place.name.fi;
+        setDataToPrintOnFailure(t, 'typeText', place.name.fi);
         await t
           .click(selectors.placeSearchInput())
           .pressKey('ctrl+a delete') // clears previous input
-          .typeText(selectors.placeSearchInput(), t.ctx.typeText)
+          .typeText(selectors.placeSearchInput(), place.name.fi)
           .click(selectors.placeCheckbox(place));
       },
       async inputSearchTextAndPressEnter(searchString: string) {
-        t.ctx.typeText = searchString;
+        setDataToPrintOnFailure(t, 'typeText', searchString);
         await t
-          .typeText(selectors.searchInput(), t.ctx.typeText)
+          .typeText(selectors.searchInput(), searchString)
           .pressKey('enter');
       },
       async clickClearFiltersButton() {
@@ -152,7 +153,11 @@ export const getEventSearchPage = (t: TestController) => {
       event: EventFieldsFragment,
       searchedField?: keyof EventFieldsFragment
     ) => {
-      t.ctx.expectedEvent = getExpectedEventContext(event);
+      setDataToPrintOnFailure(
+        t,
+        'expectedEvent',
+        getExpectedEventContext(event)
+      );
       const {
         startTime,
         endTime,
@@ -167,7 +172,11 @@ export const getEventSearchPage = (t: TestController) => {
       const withinEventCard = () => within(screen.getByTestId(event.id));
 
       if (searchedField) {
-        t.ctx.expectedEvent = getExpectedEventContext(event, searchedField);
+        setDataToPrintOnFailure(
+          t,
+          'expectedEvent',
+          getExpectedEventContext(event, searchedField)
+        );
       }
       await commonComponents
         .loadingSpinner()

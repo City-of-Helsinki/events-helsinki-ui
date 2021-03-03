@@ -9,6 +9,7 @@ import IconButton from '../../../common/components/iconButton/IconButton';
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
   EventFieldsFragment,
+  EventListQueryVariables,
   useEventListQuery,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
@@ -36,15 +37,15 @@ const OtherEventTimes: React.FC<Props> = ({ event }) => {
     [event.superEvent]
   );
 
-  const variables = React.useMemo(
-    () => ({
+  const variables = React.useMemo(() => {
+    const vars: EventListQueryVariables = {
       include: ['keywords', 'location'],
       sort: EVENT_SORT_OPTIONS.START_TIME,
-      startDate: getCurrentHour(),
+      start: getCurrentHour(),
       superEvent: superEventId,
-    }),
-    [superEventId]
-  );
+    };
+    return vars;
+  }, [superEventId]);
 
   const { data: subEventsData, fetchMore, loading } = useEventListQuery({
     skip: !superEventId,

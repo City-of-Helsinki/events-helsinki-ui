@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { CollectionFieldsFragment } from '../../../../generated/graphql';
-import { fakeCollections } from '../../../../util/mockDataUtils';
-import { render, screen } from '../../../../util/testUtils';
+import { fakeCollections } from '../../../../test/mockDataUtils';
+import { render, screen } from '../../../../test/testUtils';
 import CollectionCards from '../CollectionCards';
 
 const collectionNames = [

@@ -11,18 +11,6 @@ import { getGraphQLUrl } from '../utils/settings';
 const client = new GraphQLClient(getGraphQLUrl());
 const sdk = getSdk(client);
 
-export const getHelsinkiEvents = async (
-  count = PAGE_SIZE,
-  locale = SUPPORT_LANGUAGES.FI,
-  queryParams = ''
-): Promise<EventFieldsFragment[]> => {
-  return await getEvents(
-    count,
-    locale,
-    `divisions=kunta:helsinki&${queryParams}`
-  );
-};
-
 export const getEvents = async (
   count = PAGE_SIZE,
   locale = SUPPORT_LANGUAGES.FI,
@@ -39,5 +27,6 @@ export const getEvents = async (
   const {
     eventList: { data },
   } = await sdk.EventList(searchVariables);
-  return data.filter((event) => Boolean(event.name[locale]));
+  // slice first event as it seems that some times first event is returned from cache and might have been expired.
+  return data.filter((event) => Boolean(event.name[locale])).slice(1);
 };

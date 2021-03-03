@@ -1,6 +1,6 @@
 import { SUPPORT_LANGUAGES } from '../../src/constants';
 import { getEnvUrl } from '../utils/settings';
-import { clearContext } from '../utils/testcafe.utils';
+import { clearDataToPrintOnFailure } from '../utils/testcafe.utils';
 import { getUrlUtils } from '../utils/url.utils';
 import { findHeader } from './header.components';
 
@@ -9,7 +9,7 @@ let urlUtils: ReturnType<typeof getUrlUtils>;
 fixture('Landing page header')
   .page(getEnvUrl('/fi/home'))
   .beforeEach(async (t) => {
-    clearContext(t);
+    clearDataToPrintOnFailure(t);
     urlUtils = getUrlUtils(t);
   });
 

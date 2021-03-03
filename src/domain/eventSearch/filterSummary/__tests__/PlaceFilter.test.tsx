@@ -2,8 +2,8 @@ import React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import { PlaceDetailsDocument } from '../../../../generated/graphql';
-import { fakePlace } from '../../../../util/mockDataUtils';
-import { render, screen, userEvent, waitFor } from '../../../../util/testUtils';
+import { fakePlace } from '../../../../test/mockDataUtils';
+import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import PlaceFilter from '../PlaceFilter';
 
 const placeId = 'helsinki:123';

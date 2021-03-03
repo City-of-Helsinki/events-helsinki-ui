@@ -2,8 +2,8 @@ import { render } from '@testing-library/react';
 import React from 'react';
 
 import { EventFieldsFragment } from '../../../../generated/graphql';
-import { fakeEvent } from '../../../../util/mockDataUtils';
-import { actWait } from '../../../../util/testUtils';
+import { fakeEvent } from '../../../../test/mockDataUtils';
+import { actWait } from '../../../../test/testUtils';
 import EventPageMeta from '../EventPageMeta';
 
 const eventName = 'Name of event';

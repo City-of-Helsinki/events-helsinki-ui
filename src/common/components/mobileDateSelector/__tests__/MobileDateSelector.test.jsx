@@ -7,7 +7,7 @@ import {
   arrowDownKeyPressHelper,
   arrowUpKeyPressHelper,
   escKeyPressHelper,
-} from '../../../../util/testUtils';
+} from '../../../../test/testUtils';
 import MobileDateSelector from '../MobileDateSelector';
 import { testIds } from '../MobileDateSelectorMenu';
 

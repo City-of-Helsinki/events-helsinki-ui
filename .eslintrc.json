@@ -8,7 +8,7 @@
     "plugin:import/typescript",
     "plugin:testcafe/recommended"
   ],
-  "plugins": ["simple-import-sort", "testcafe"],
+  "plugins": ["simple-import-sort", "testcafe", "no-only-tests"],
   "rules": {
     "@typescript-eslint/brace-style": [
       "error",
@@ -32,6 +32,7 @@
     "sort-imports": "off",
     "import/order": "off",
     "simple-import-sort/sort": "error",
-    "import/named": "off"
+    "import/named": "off",
+    "no-only-tests/no-only-tests": "error"
   }
 }

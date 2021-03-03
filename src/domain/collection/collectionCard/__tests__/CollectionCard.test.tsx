@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { ROUTES } from '../../../../domain/app/routes/constants';
 import { CollectionFieldsFragment } from '../../../../generated/graphql';
-import { fakeCollection } from '../../../../util/mockDataUtils';
-import { render, screen, userEvent } from '../../../../util/testUtils';
+import { fakeCollection } from '../../../../test/mockDataUtils';
+import { render, screen, userEvent } from '../../../../test/testUtils';
 import CollectionCard from '../CollectionCard';
 
 const description = 'Lorem ipsum';

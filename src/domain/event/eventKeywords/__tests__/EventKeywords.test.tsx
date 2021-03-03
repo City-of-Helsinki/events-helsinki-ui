@@ -11,8 +11,8 @@ import {
   fakeEvent,
   fakeKeyword,
   fakeOffer,
-} from '../../../../util/mockDataUtils';
-import { render, screen, userEvent } from '../../../../util/testUtils';
+} from '../../../../test/mockDataUtils';
+import { render, screen, userEvent } from '../../../../test/testUtils';
 import EventKeywords from '../EventKeywords';
 
 const startTime = '2020-06-22T07:00:00.000000Z';

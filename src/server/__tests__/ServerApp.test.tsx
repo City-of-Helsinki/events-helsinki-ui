@@ -1,7 +1,7 @@
 import React from 'react';
 
 import i18n from '../../test/test18nInit';
-import { render } from '../../util/testUtils';
+import { render } from '../../test/testUtils';
 import ServerApp from '../ServerApp';
 
 it('renders without crashing', () => {

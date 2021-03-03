@@ -9,6 +9,7 @@ import { regExpEscaped } from '../utils/regexp.util';
 import {
   getErrorMessage,
   screenContext,
+  setDataToPrintOnFailure,
   withinContext,
 } from '../utils/testcafe.utils';
 
@@ -20,10 +21,11 @@ export const getLandingPageComponents = (t: TestController) => {
     type: 'top' | 'bottom'
   ) => {
     t.ctx.expectedBannerType = type;
-    t.ctx.expectedBanner = {
+    setDataToPrintOnFailure(t, 'expectedBannerType', type);
+    setDataToPrintOnFailure(t, 'expectedBanner', {
       title: banner.title.fi,
       description: banner.description.fi,
-    };
+    });
     await t
       .expect(screen.findByTestId(`${type}-banner`).exists)
       .ok(await getErrorMessage(t));
@@ -32,22 +34,25 @@ export const getLandingPageComponents = (t: TestController) => {
 
     const selectors = {
       title() {
-        t.ctx.findByRole = [
+        const findByRole = [
           'heading',
           { name: regExpEscaped(banner.title.fi) },
         ];
-        return withinBanner().findByRole.apply(null, t.ctx.findByRole);
+        setDataToPrintOnFailure(t, 'findByRole', findByRole);
+        return withinBanner().findByRole.apply(null, findByRole);
       },
       buttonLink() {
-        t.ctx.findByRole = [
+        const findByRole = [
           'button',
           { name: regExpEscaped(banner.buttonText.fi) },
         ];
-        return withinBanner().findByRole.apply(null, t.ctx.findByRole);
+        setDataToPrintOnFailure(t, 'findByRole', findByRole);
+        return withinBanner().findByRole.apply(null, findByRole);
       },
       descriptionText() {
-        t.ctx.findByText = regExpEscaped(banner.description.fi);
-        return withinBanner().findByText(t.ctx.findByText);
+        const findByText = regExpEscaped(banner.description.fi);
+        setDataToPrintOnFailure(t, 'findByText', findByText);
+        return withinBanner().findByText(findByText);
       },
     };
     const bannerTitleIsVisible = async () => {
@@ -59,9 +64,11 @@ export const getLandingPageComponents = (t: TestController) => {
         .ok(await getErrorMessage(t));
     };
     const bannerDescriptionIsVisible = async () => {
-      await t
-        .expect(selectors.descriptionText().exists)
-        .ok(await getErrorMessage(t));
+      if (banner.description.fi?.length > 0) {
+        await t
+          .expect(selectors.descriptionText().exists)
+          .ok(await getErrorMessage(t));
+      }
     };
     const expectations = {
       async bannerDataIsPresent() {
@@ -95,8 +102,9 @@ export const getLandingPageComponents = (t: TestController) => {
 
     const selectors = {
       collectionTitle() {
-        t.ctx.findByLabelText = regExpEscaped(collection.title.fi);
-        return withinCollectionCard().findByLabelText(t.ctx.findByLabelText);
+        const text = regExpEscaped(collection.title.fi);
+        setDataToPrintOnFailure(t, 'findByLabelText', text);
+        return withinCollectionCard().findByLabelText(text);
       },
     };
     const expectations = {
