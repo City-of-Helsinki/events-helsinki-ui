@@ -245,11 +245,12 @@ it('renders title and search fields', async () => {
     })
   ).toBeInTheDocument();
 
-  expect(
+  //th-1040: temporary
+  /*expect(
     screen.getByRole('button', {
       name: translations.eventSearch.search.titleDropdownDivision,
     })
-  ).toBeInTheDocument();
+  ).toBeInTheDocument();*/
 
   expect(screen.getByText(/jazz/i)).toBeInTheDocument();
 });
@@ -276,11 +277,12 @@ it('initializes search fields correctly from query', async () => {
     })
   ).toHaveTextContent('Huomenna');
 
-  expect(
+  //th-1040: temporary
+  /*expect(
     screen.getByRole('button', {
       name: translations.eventSearch.search.titleDropdownDivision,
     })
-  ).toHaveTextContent(/Alppiharju \+ 1/i);
+  ).toHaveTextContent(/Alppiharju \+ 1/i);*/
 
   expect(
     screen.getByRole('button', {
@@ -334,7 +336,9 @@ it('all the course cards should be visible and load more button should load more
   });
 
   eventsLoadMoreResponse.data.courseList.data.forEach((event) => {
-    expect(screen.getByText(event.name.fi)).toBeInTheDocument();
+    expect(
+      screen.getByText((_content, el) => el.textContent === event.name.fi)
+    ).toBeInTheDocument();
   });
 });
 
