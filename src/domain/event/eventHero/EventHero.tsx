@@ -1,5 +1,11 @@
 import classNames from 'classnames';
-import { Button, IconArrowLeft, IconLocation, IconTicket } from 'hds-react';
+import {
+  Button,
+  IconArrowLeft,
+  IconLinkExternal,
+  IconLocation,
+  IconTicket,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -164,6 +170,7 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
                     <Button
                       aria-label={t('event.hero.ariaLabelBuyTickets')}
                       onClick={goToBuyTicketsPage}
+                      iconRight={<IconLinkExternal aria-hidden />}
                       variant="success"
                     >
                       {t('event.hero.buttonBuyTickets')}

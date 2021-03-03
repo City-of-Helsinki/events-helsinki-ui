@@ -1,4 +1,4 @@
-import { IconAngleRight, IconLinkExternal, IconLocation } from 'hds-react';
+import { IconLinkExternal, IconLocation } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -62,7 +62,7 @@ const EventLocation: React.FC<Props> = ({ event }) => {
       >
         {t('event.location.directionsGoogle')}
         <SrOnly>{t('commons.srOnly.opensInANewTab')}</SrOnly>
-        <IconAngleRight aria-hidden />
+        <IconLinkExternal size="xs" aria-hidden />
       </a>
       <a
         className={styles.directionsLink}
@@ -70,9 +70,9 @@ const EventLocation: React.FC<Props> = ({ event }) => {
         rel="noopener noreferrer"
         target="_blank"
       >
-        <SrOnly>{t('commons.srOnly.opensInANewTab')}</SrOnly>
         {t('event.location.directionsHSL')}
-        <IconAngleRight aria-hidden />
+        <SrOnly>{t('commons.srOnly.opensInANewTab')}</SrOnly>
+        <IconLinkExternal size="xs" aria-hidden />
       </a>
     </div>
   );
