@@ -27,5 +27,6 @@ export const getEvents = async (
   const {
     eventList: { data },
   } = await sdk.EventList(searchVariables);
-  return data.filter((event) => Boolean(event.name[locale]));
+  // slice first event as it seems that some times first event is returned from cache and might have been expired.
+  return data.filter((event) => Boolean(event.name[locale])).slice(1);
 };
