@@ -2,23 +2,35 @@ import { screen, within } from '@testing-library/testcafe';
 import pretty from 'pretty';
 import TestController, { ClientFunction } from 'testcafe';
 
+export const setDataToPrintOnFailure = (
+  t: TestController,
+  key: string,
+  value: unknown
+): void => {
+  t.ctx[key] = value;
+};
+
 export const screenContext = (t: TestController): typeof screen =>
   injectCallback(screen, (key, params) => {
     const [matcher, options] = params;
-    t.ctx[key?.startsWith('get') ? 'within' : 'latestSearch'] = {
-      matcher,
-      key,
-      ...(options && { options }),
-    };
+    setDataToPrintOnFailure(
+      t,
+      key?.startsWith('get') ? 'within' : 'latestSearch',
+      {
+        matcher,
+        key,
+        ...(options && { options }),
+      }
+    );
   });
 
 export const withinContext = (t: TestController): typeof within => (selector) =>
   injectCallback(within(selector), (key, params) => {
-    t.ctx.latestSearch = {
+    setDataToPrintOnFailure(t, 'latestSearch', {
       ...(t.ctx.within && { within: t.ctx.within }),
       key,
       params: params?.length === 1 ? params[0] : params,
-    };
+    });
   });
 
 const injectCallback = <
@@ -61,6 +73,6 @@ export const getErrorMessage = async (t: TestController): Promise<string> => {
   `;
 };
 
-export const clearContext = (t: TestController): void => {
+export const clearDataToPrintOnFailure = (t: TestController): void => {
   t.ctx = {};
 };

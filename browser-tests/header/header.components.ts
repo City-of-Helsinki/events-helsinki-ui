@@ -8,6 +8,7 @@ import { DEFAULT_LANGUAGE, SUPPORT_LANGUAGES } from '../../src/constants';
 import {
   getErrorMessage,
   screenContext,
+  setDataToPrintOnFailure,
   withinContext,
 } from '../utils/testcafe.utils';
 
@@ -26,7 +27,7 @@ export const findHeader = async (
   t: TestController,
   locale = DEFAULT_LANGUAGE
 ) => {
-  t.ctx.expectedLanguage = locale;
+  setDataToPrintOnFailure(t, 'expectedLanguage', locale);
   const within = withinContext(t);
   const screen = screenContext(t);
 
@@ -41,23 +42,22 @@ export const findHeader = async (
     const selectors = {
       languageSelector() {
         return withinHeader().findByRole('button', {
-          name: getTranslations(t.ctx.expectedLanguage).header.changeLanguage,
+          name: getTranslations(locale).header.changeLanguage,
         });
       },
       languageSelectorItem(lang: SUPPORT_LANGUAGES) {
         return withinHeader().findByRole('menuitem', {
-          name: getTranslations(t.ctx.expectedLanguage).header.languages[lang],
+          name: getTranslations(locale).header.languages[lang],
         });
       },
       eventSearchTab() {
         return withinHeader().findByRole('link', {
-          name: getTranslations(t.ctx.expectedLanguage).header.searchEvents,
+          name: getTranslations(locale).header.searchEvents,
         });
       },
       recommendationsTab() {
         return withinHeader().findByRole('link', {
-          name: getTranslations(t.ctx.expectedLanguage).header
-            .searchCollections,
+          name: getTranslations(locale).header.searchCollections,
         });
       },
     };
@@ -66,7 +66,7 @@ export const findHeader = async (
         const result = await t
           .click(selectors.languageSelector())
           .click(selectors.languageSelectorItem(lang));
-        t.ctx.expectedLanguage = lang;
+        setDataToPrintOnFailure(t, 'expectedLanguage', lang);
         return result;
       },
     };
@@ -78,13 +78,12 @@ export const findHeader = async (
     const selectors = {
       eventSearchTab() {
         return withinHeader().findByRole('link', {
-          name: getTranslations(t.ctx.expectedLanguage).header.searchEvents,
+          name: getTranslations(locale).header.searchEvents,
         });
       },
       recommendationsTab() {
         return withinHeader().findByRole('link', {
-          name: getTranslations(t.ctx.expectedLanguage).header
-            .searchCollections,
+          name: getTranslations(locale).header.searchCollections,
         });
       },
     };
