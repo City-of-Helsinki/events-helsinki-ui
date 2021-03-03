@@ -57,7 +57,7 @@ test('shows Helsinki places in filter options', async (t) => {
   }
 });
 
-test.only('"click more events" -button works', async (t) => {
+test('"click more events" -button works', async (t) => {
   const events = await getEvents(2 * PAGE_SIZE);
   setDataToPrintOnFailure(
     t,
