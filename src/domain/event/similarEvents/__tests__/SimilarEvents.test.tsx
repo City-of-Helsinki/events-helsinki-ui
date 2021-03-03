@@ -4,13 +4,17 @@ import { advanceTo } from 'jest-date-mock';
 import * as React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
-import { EventListDocument } from '../../../../generated/graphql';
+import {
+  EventFieldsFragment,
+  EventListDocument,
+} from '../../../../generated/graphql';
 import { fakeEvents } from '../../../../util/mockDataUtils';
 import { render, screen, userEvent, waitFor } from '../../../../util/testUtils';
 import { ROUTES } from '../../../app/routes/constants';
 import SimilarEvents from '../SimilarEvents';
 
 const expectedSimilarEvents = fakeEvents(3);
+const expectedSimilarEventsData = expectedSimilarEvents.data as EventFieldsFragment[];
 
 export const createMocks = (
   similarEvents = expectedSimilarEvents
@@ -62,11 +66,13 @@ test('should render similar event cards', async () => {
   advanceTo(new Date('2020-08-11'));
   render(
     <SimilarEvents
-      events={expectedSimilarEvents.data}
+      events={expectedSimilarEventsData}
       eventsType="event"
       loading={false}
     />,
-    { mocks }
+    {
+      mocks,
+    }
   );
   await waitForComponentToBeLoaded();
 
@@ -87,7 +93,7 @@ it('has return path on similar event link', async () => {
   const route = path.replace(':id', 'rootEventId');
   const { history } = render(
     <SimilarEvents
-      events={expectedSimilarEvents.data}
+      events={expectedSimilarEventsData}
       eventsType="event"
       loading={false}
     />,
