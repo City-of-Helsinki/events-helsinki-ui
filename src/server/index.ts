@@ -15,13 +15,14 @@ import ReactDOMServer from 'react-dom/server';
 import { Helmet } from 'react-helmet';
 
 import i18next from '../common/translation/i18n/init.server';
-import { SUPPORT_LANGUAGES, supportedLanguages } from '../constants';
+import { SUPPORT_LANGUAGES } from '../constants';
 import { ServerRequestContextType } from '../contexts/ServerRequestContext';
 import getDomainFromRequest from '../util/getDomainFromRequest';
 import updateSitemaps from '../util/updateSitemap';
 import { getAssets } from './assets';
 import Html from './Html';
 import ServerApp, { StaticContext } from './ServerApp';
+import { handleReactRouterRedirection } from './utils';
 
 const OK = 'OK';
 const SERVER_IS_NOT_READY = 'SERVER_IS_NOT_READY';
@@ -110,17 +111,7 @@ app.use(async (req: Request, res: Response) => {
 
     // Somewhere a `<Redirect>` was rendered (https://reactrouter.com/web/guides/server-rendering)
     if (staticContext.url) {
-      const langPathRegex = new RegExp(
-        `^/(?:${supportedLanguages.join('|')})/?$`,
-        'i'
-      );
-
-      // Redirect using 308 if only locale in path e.g. "/:locale" or "/:locale/""
-      if (req.path.match(langPathRegex)) {
-        res.redirect(308, staticContext.url);
-      } else {
-        res.redirect(302, staticContext.url);
-      }
+      handleReactRouterRedirection(req, res, staticContext.url);
     } else {
       res.status(200);
       res.send(`<!doctype html>${html}`);
