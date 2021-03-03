@@ -125,7 +125,7 @@ Performance tests are written in es6 with [k6](https://k6.io/) tool.
 
 To run k6 tests locally:
 
-1. Install and configure k6 locally using official documentation.
+1. Install and configure k6 locally using [official documentation](https://k6.io/docs/getting-started/installation).
 2. Run `k6 run k6LoadTests.js`
 
 ## Debugging
