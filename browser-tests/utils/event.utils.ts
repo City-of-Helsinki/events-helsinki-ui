@@ -24,8 +24,6 @@ export const getExpectedEventContext = (
       {
         id: event.id,
         name: event.name.fi,
-        start: event.startTime,
-        end: event.endTime,
       }
     )
   );

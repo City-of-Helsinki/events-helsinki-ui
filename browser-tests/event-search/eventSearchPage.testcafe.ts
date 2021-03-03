@@ -74,7 +74,11 @@ test('"click more events" -button works', async (t) => {
 
 test('Search url by event name shows event card data for helsinki event', async (t) => {
   const [event] = await getEvents();
-  setDataToPrintOnFailure(t, 'expectedEvent', getExpectedEventContext(event));
+  setDataToPrintOnFailure(
+    t,
+    'expectedEvent',
+    getExpectedEventContext(event, 'startTime', 'endTime')
+  );
   await urlUtils.actions.navigateToSearchUrl(getRandomSentence(event.name.fi));
   const searchResults = await eventSearchPage.findSearchResultList();
   const eventCard = await searchResults.eventCard(event);
