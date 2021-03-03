@@ -28,6 +28,7 @@ export const findHeader = async (
   locale = DEFAULT_LANGUAGE
 ) => {
   setDataToPrintOnFailure(t, 'expectedLanguage', locale);
+  let currentLang = locale;
   const within = withinContext(t);
   const screen = screenContext(t);
 
@@ -42,22 +43,22 @@ export const findHeader = async (
     const selectors = {
       languageSelector() {
         return withinHeader().findByRole('button', {
-          name: getTranslations(locale).header.changeLanguage,
+          name: getTranslations(currentLang).header.changeLanguage,
         });
       },
       languageSelectorItem(lang: SUPPORT_LANGUAGES) {
         return withinHeader().findByRole('menuitem', {
-          name: getTranslations(locale).header.languages[lang],
+          name: getTranslations(currentLang).header.languages[lang],
         });
       },
       eventSearchTab() {
         return withinHeader().findByRole('link', {
-          name: getTranslations(locale).header.searchEvents,
+          name: getTranslations(currentLang).header.searchEvents,
         });
       },
       recommendationsTab() {
         return withinHeader().findByRole('link', {
-          name: getTranslations(locale).header.searchCollections,
+          name: getTranslations(currentLang).header.searchCollections,
         });
       },
     };
@@ -66,6 +67,7 @@ export const findHeader = async (
         const result = await t
           .click(selectors.languageSelector())
           .click(selectors.languageSelectorItem(lang));
+        currentLang = lang;
         setDataToPrintOnFailure(t, 'expectedLanguage', lang);
         return result;
       },
@@ -78,12 +80,12 @@ export const findHeader = async (
     const selectors = {
       eventSearchTab() {
         return withinHeader().findByRole('link', {
-          name: getTranslations(locale).header.searchEvents,
+          name: getTranslations(currentLang).header.searchEvents,
         });
       },
       recommendationsTab() {
         return withinHeader().findByRole('link', {
-          name: getTranslations(locale).header.searchCollections,
+          name: getTranslations(currentLang).header.searchCollections,
         });
       },
     };
