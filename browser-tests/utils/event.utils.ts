@@ -21,7 +21,12 @@ export const getExpectedEventContext = (
   removeEmpty(
     fieldsToPick.reduce(
       (fields, field) => ({ ...fields, [field]: event[field] }),
-      { id: event.id, name: event.name }
+      {
+        id: event.id,
+        name: event.name.fi,
+        start: event.startTime,
+        end: event.endTime,
+      }
     )
   );
 
