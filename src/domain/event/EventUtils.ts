@@ -55,8 +55,7 @@ export const isEventFree = (event: EventFieldsFragment): boolean => {
 
 /**
  * Get event id from url
- * @param {string} url
- * @return {string}
+ * For example  https://api.hel.fi/linkedcourses/v1/event/harrastushaku:13433?query -> harrastushaku:13433
  */
 export const getEventIdFromUrl = (url: string): string | null => {
   const result = url.match(/\/event\/([^/?]*)/i);
