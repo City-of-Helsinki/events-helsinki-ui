@@ -1,5 +1,6 @@
 import { isPast, isThisWeek, isToday } from 'date-fns';
 import capitalize from 'lodash/capitalize';
+import sum from 'lodash/sum';
 
 import { EVENT_STATUS } from '../../constants';
 import {
@@ -58,10 +59,8 @@ export const isEventFree = (event: EventFieldsFragment): boolean => {
  * @return {string}
  */
 export const getEventIdFromUrl = (url: string): string | null => {
-  const trimmedUrl = url.replace(/\?(.*)/, '');
-  const eventId = trimmedUrl.match(/event\/(.*)/);
-
-  return eventId?.[1].replace('/', '') || null;
+  const result = url.match(/\/event\/([^/?]*)/i);
+  return result?.[1] || null;
 };
 
 /**
@@ -118,10 +117,7 @@ export const getEventPlaceholderImageUrl = (
   event: EventFieldsFragment
 ): string => {
   const numbers = event.id.match(/\d+/g);
-  const sum = numbers
-    ? numbers.reduce((prev: number, cur: string) => prev + Number(cur), 0)
-    : 0;
-  const index = sum % 4;
+  const index = numbers ? sum(numbers) % 4 : 0;
 
   return EVENT_PLACEHOLDER_IMAGES[index];
 };
