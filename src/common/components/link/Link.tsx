@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { IconAngleRight } from 'hds-react';
+import { IconAngleRight, IconLinkExternal } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, LinkProps } from 'react-router-dom';
@@ -36,7 +36,7 @@ const Link: React.FC<Props> = ({
     <a href={to} rel="noopener noreferrer" target="_blank" {...commonProps}>
       {children}
       <SrOnly>{t('commons.srOnly.opensInANewTab')}</SrOnly>
-      <IconAngleRight aria-hidden />
+      <IconLinkExternal aria-hidden />
     </a>
   ) : (
     <RouterLink to={to} {...commonProps} {...rest}>

@@ -55,10 +55,6 @@ it('should render event content fields', async () => {
       role: 'link',
       name: `${translations.event.location.openMap} ${translations.commons.srOnly.opensInANewTab}`,
     },
-    {
-      role: 'link',
-      name: `${translations.event.location.directionsHSL} ${translations.commons.srOnly.opensInANewTab}`,
-    },
   ];
   itemsByRole.forEach(({ role, name }) => {
     expect(screen.queryByRole(role, { name })).toBeInTheDocument();
@@ -78,6 +74,10 @@ it('should render event content fields', async () => {
     {
       role: 'link',
       name: `${translations.event.location.directionsGoogle} ${translations.commons.srOnly.opensInANewTab}`,
+    },
+    {
+      role: 'link',
+      name: `${translations.event.location.directionsHSL} ${translations.commons.srOnly.opensInANewTab}`,
     },
   ];
 

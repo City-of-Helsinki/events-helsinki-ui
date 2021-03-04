@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Button } from 'hds-react';
+import { Button, IconLinkExternal } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router';
@@ -143,6 +143,7 @@ const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
             {showBuyButton && (
               <Button
                 aria-label={t('event.eventCard.ariaLabelBuyTickets')}
+                iconRight={<IconLinkExternal aria-hidden />}
                 fullWidth
                 onClick={goToBuyTicketsPage}
                 size="small"
