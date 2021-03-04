@@ -6,7 +6,6 @@ import styles from './pageLayout.module.scss';
 const PageLayout: FunctionComponent = ({ children }) => {
   return (
     <div>
-      u
       <Header />
       <div className={styles.pageBody}>{children}</div>
       <Footer />

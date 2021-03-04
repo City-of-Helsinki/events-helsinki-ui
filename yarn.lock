@@ -9804,17 +9804,36 @@ hash.js@^1.0.0, hash.js@^1.0.3, hash.js@^1.1.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-hds-core@0.21.0, "hds-core@file:./hds-core-1614066228967.tgz":
+hds-core@0.21.0, "hds-core@file:./hds-core-1614877606462.tgz":
   version "0.21.0"
-  resolved "file:./hds-core-1614066228967.tgz#f1461281de09bd8042433914e1d358b3ec5a7d96"
+  resolved "file:./hds-core-1614877606462.tgz#f79deae4bea5c601dbfe73c571cdf508dce1a6ae"
 
-"hds-design-tokens@file:./hds-design-tokens-1614066228967.tgz":
+"hds-design-tokens@file:./hds-design-tokens-1614877606462.tgz":
   version "0.21.0"
-  resolved "file:./hds-design-tokens-1614066228967.tgz#294490f7e5081b85bda5b22db62b7fd18340073f"
+  resolved "file:./hds-design-tokens-1614877606462.tgz#e9920599a678fa40893170ebc80b7d0e9e65230c"
 
-"hds-react@file:./hds-react-1614066228967.tgz":
+"hds-react@file:./hds-react-1614871465180.tgz":
   version "0.21.1"
-  resolved "file:./hds-react-1614066228967.tgz#d189e3dfd384d44ab7ed7f72e3b4d2e5ac80622e"
+  resolved "file:./hds-react-1614871465180.tgz#02f20769256c825246dfed5ef398c30a60ae1689"
+  dependencies:
+    "@artsy/fresnel" "1.3.1"
+    "@babel/runtime" "7.11.2"
+    "@juggle/resize-observer" "3.2.0"
+    "@popperjs/core" "2.5.3"
+    "@react-aria/visually-hidden" "3.2.0"
+    downshift "6.0.6"
+    hds-core "0.21.0"
+    lodash.isequal "4.5.0"
+    lodash.uniqueid "4.0.1"
+    react-merge-refs "1.1.0"
+    react-popper "2.2.3"
+    react-spring "9.0.0-rc.3"
+    react-use-measure "2.0.1"
+    react-virtual "2.2.7"
+
+"hds-react@file:./hds-react-1614877606462.tgz":
+  version "0.21.1"
+  resolved "file:./hds-react-1614877606462.tgz#d13c1505a31b643488e8e5b0860528d1adc1500f"
   dependencies:
     "@artsy/fresnel" "1.3.1"
     "@babel/runtime" "7.11.2"

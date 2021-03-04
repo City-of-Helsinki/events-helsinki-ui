@@ -54,7 +54,10 @@ const Html: React.FC<Props> = ({
         {helmet.link.toComponent()}
         {Array.from(document.head.getElementsByTagName('style')).map(
           (style) => (
-            <style type={style.type}>{style.innerHTML}</style>
+            <style
+              type={style.type}
+              dangerouslySetInnerHTML={{ __html: style.innerHTML }}
+            />
           )
         )}
         {assets.css &&

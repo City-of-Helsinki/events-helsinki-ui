@@ -65,6 +65,7 @@ const Header: React.FC = () => {
       url: `/${locale}${ROUTES.COLLECTIONS}`,
     },
   ];
+
   return (
     <Navigation
       menuOpen={menuOpen}
