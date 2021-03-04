@@ -2,11 +2,11 @@ import { advanceTo, clear } from 'jest-date-mock';
 import React from 'react';
 
 import translations from '../../../common/translation/i18n/fi.json';
+import { CourseDetailsDocument } from '../../../generated/graphql';
 import {
-  CourseDetailsDocument,
-  CourseListDocument,
-} from '../../../generated/graphql';
-import { courseListBaseVariables } from '../../../test/apollo-mocks/eventListMocks';
+  createEventListRequestAndResultMocks,
+  createOtherEventTimesRequestAndResultMocks,
+} from '../../../test/apollo-mocks/eventListMocks';
 import {
   fakeEvent,
   fakeEvents,
@@ -80,21 +80,6 @@ const superEventRequest = {
   },
 };
 
-const similarCoursesListRequest = {
-  query: CourseListDocument,
-  variables: { ...courseListBaseVariables, allOngoing: true },
-};
-
-const otherCoursesRequest = {
-  query: CourseListDocument,
-  variables: {
-    include: ['keywords', 'location'],
-    sort: 'start_time',
-    start: 'now',
-    superEvent: superEventId,
-  },
-};
-
 const courseResponse = { data: { courseDetails: course } };
 
 const superEventResponse = {
@@ -107,32 +92,28 @@ const superEventResponse = {
   },
 };
 
-const similarCoursesResponse = {
-  data: {
-    courseList: fakeEvents(
-      similarEventTimesCount,
-      similarCoursesNames.map((name) => ({ name: fakeLocalizedObject(name) }))
-    ),
-  },
-};
+const otherCoursesMock = createOtherEventTimesRequestAndResultMocks({
+  type: 'course',
+  superEventId,
+  response: fakeEvents(otherEventTimesCount),
+});
 
-const otherCoursesResponse = {
-  data: { courseList: fakeEvents(otherEventTimesCount) },
-};
+const similarCoursesMock = createEventListRequestAndResultMocks({
+  type: 'course',
+  variables: { allOngoing: true },
+  response: fakeEvents(
+    similarEventTimesCount,
+    similarCoursesNames.map((name) => ({ name: fakeLocalizedObject(name) }))
+  ),
+});
 
 const mocks = [
   {
     request: courseRequest,
     result: courseResponse,
   },
-  {
-    request: otherCoursesRequest,
-    result: otherCoursesResponse,
-  },
-  {
-    request: similarCoursesListRequest,
-    result: similarCoursesResponse,
-  },
+  otherCoursesMock,
+  similarCoursesMock,
 ];
 
 const superEventMocks = [
@@ -144,14 +125,8 @@ const superEventMocks = [
     request: superEventRequest,
     result: superEventResponse,
   },
-  {
-    request: otherCoursesRequest,
-    result: otherCoursesResponse,
-  },
-  {
-    request: similarCoursesListRequest,
-    result: similarCoursesResponse,
-  },
+  otherCoursesMock,
+  similarCoursesMock,
 ];
 
 const testPath = ROUTES.COURSE.replace(':id', id);

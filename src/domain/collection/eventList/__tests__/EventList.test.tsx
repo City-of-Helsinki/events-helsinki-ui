@@ -40,19 +40,21 @@ const loadMoreEventsResponse = {
 
 const searchVariables = { allOngoingAnd: ['jooga'], isFree: true };
 
-const firstPageMock = createEventListRequestAndResultMocks(
-  searchVariables,
-  eventsResponse
-);
+const firstPageMock = createEventListRequestAndResultMocks({
+  variables: searchVariables,
+  response: eventsResponse,
+});
 
-const secondPageMock = createEventListRequestAndResultMocks(
-  { ...searchVariables, page: 2 },
-  loadMoreEventsResponse
-);
+const secondPageMock = createEventListRequestAndResultMocks({
+  variables: { ...searchVariables, page: 2 },
+  response: loadMoreEventsResponse,
+});
 
 const secondPageThrowsErrorMock = createEventListRequestThrowsErrorMocks({
-  ...searchVariables,
-  page: 2,
+  variables: {
+    ...searchVariables,
+    page: 2,
+  },
 });
 
 const defaultMocks = [firstPageMock, secondPageMock];

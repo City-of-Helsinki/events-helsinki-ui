@@ -13,6 +13,7 @@ const expectedSimilarEvents = fakeEvents(3);
 
 const mocks = [
   createEventListRequestAndResultMocks(
+    'event',
     { allOngoing: true },
     expectedSimilarEvents
   ),

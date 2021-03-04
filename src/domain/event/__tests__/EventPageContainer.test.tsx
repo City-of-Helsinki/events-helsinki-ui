@@ -102,15 +102,14 @@ const mocks = [
     request: otherEventsRequest,
     result: otherEventsResponse,
   },
-  createOtherEventTimesRequestAndResultMocks(
+  createOtherEventTimesRequestAndResultMocks({
     superEventId,
-    {},
-    fakeEvents(otherEventTimesCount)
-  ),
-  createEventListRequestAndResultMocks(
-    { allOngoing: true, keywordOrSet1: eventKeywordIds },
-    similarEvents
-  ),
+    response: fakeEvents(otherEventTimesCount),
+  }),
+  createEventListRequestAndResultMocks({
+    variables: { allOngoing: true, keywordOrSet1: eventKeywordIds },
+    response: similarEvents,
+  }),
 ];
 
 const testPath = ROUTES.EVENT.replace(':id', id);

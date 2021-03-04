@@ -61,10 +61,14 @@ const mocks = [
   ...getCollectionQueryListMocks(collections, { visibleOnFrontpage: true }),
   // generate mock response for each place query
   ...Object.keys(MAPPED_PLACES).map((key) =>
-    createEventListRequestAndResultMocks(
-      { allOngoing: true, division: [], location: [MAPPED_PLACES[key]] },
-      createFakeResponseEvents()
-    )
+    createEventListRequestAndResultMocks({
+      variables: {
+        allOngoing: true,
+        division: [],
+        location: [MAPPED_PLACES[key]],
+      },
+      response: createFakeResponseEvents(),
+    })
   ),
   ...Object.keys(MAPPED_PLACES).map((key) => {
     return {

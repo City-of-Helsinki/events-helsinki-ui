@@ -58,21 +58,22 @@ const otherEventsLoadMoreResponse = {
   meta: { ...meta, next: null },
 };
 
-const firstLoadMock = createOtherEventTimesRequestAndResultMocks(
+const firstLoadMock = createOtherEventTimesRequestAndResultMocks({
   superEventId,
-  {},
-  otherEventsResponse
-);
+  response: otherEventsResponse,
+});
 
-const secondLoadMock = createOtherEventTimesRequestAndResultMocks(
+const secondLoadMock = createOtherEventTimesRequestAndResultMocks({
   superEventId,
-  { page: 2 },
-  otherEventsLoadMoreResponse
-);
+  variables: { page: 2 },
+  response: otherEventsLoadMoreResponse,
+});
 
 const secondPageLoadThrowsErrorMock = createOtherEventTimesRequestThrowsErrorMocks(
-  superEventId,
-  { page: 2 }
+  {
+    superEventId,
+    variables: { page: 2 },
+  }
 );
 
 const defaultMocks = [firstLoadMock, secondLoadMock];

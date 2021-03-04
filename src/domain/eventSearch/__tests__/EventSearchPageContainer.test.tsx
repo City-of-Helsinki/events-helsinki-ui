@@ -55,10 +55,10 @@ const placesResponse = {
 };
 
 const searchJazzMocks = [
-  createEventListRequestAndResultMocks(
-    { allOngoingAnd: ['jazz'] },
-    eventsResponse
-  ),
+  createEventListRequestAndResultMocks({
+    variables: { allOngoingAnd: ['jazz'] },
+    response: eventsResponse,
+  }),
   {
     request: {
       query: NeighborhoodListDocument,
@@ -80,12 +80,15 @@ const searchJazzMocks = [
 
 const searchJazzThenClickLoadMoreMocks = [
   ...searchJazzMocks,
-  createEventListRequestAndResultMocks(
-    { allOngoingAnd: ['jazz'], page: 2 },
-    eventsLoadMoreResponse
-  ),
+  createEventListRequestAndResultMocks({
+    variables: { allOngoingAnd: ['jazz'], page: 2 },
+    response: eventsLoadMoreResponse,
+  }),
 ];
-const searchJazzThenClickLoadMoreThrowsErrorMock = createEventListRequestThrowsErrorMocks();
+const searchJazzThenClickLoadMoreThrowsErrorMock = [
+  ...searchJazzMocks,
+  createEventListRequestThrowsErrorMocks(),
+];
 
 afterAll(() => {
   clear();
@@ -144,12 +147,8 @@ it('all the event cards should be visible and load more button should load more 
 
 it('should show toastr message when loading next event page fails', async () => {
   toast.error = jest.fn();
-  const mocks = [
-    ...searchJazzMocks,
-    searchJazzThenClickLoadMoreThrowsErrorMock,
-  ];
 
-  renderComponent(mocks);
+  renderComponent(searchJazzThenClickLoadMoreThrowsErrorMock);
 
   await waitFor(() => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();

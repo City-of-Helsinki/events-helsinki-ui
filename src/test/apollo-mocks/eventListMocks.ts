@@ -1,6 +1,10 @@
 import { MockedResponse } from '@apollo/react-testing';
+import { FetchResult, GraphQLRequest } from 'apollo-link';
 
+import { EventType } from '../../domain/event/types';
 import {
+  CourseListDocument,
+  CourseListQueryVariables,
   EventListDocument,
   EventListQueryVariables,
   EventListResponse,
@@ -33,7 +37,7 @@ export const courseListBaseVariables: QueryEventListArgs = {
 };
 
 export const getOtherEventsVariables = (
-  superEvent: EventListQueryVariables['superEvent']
+  superEvent: (EventListQueryVariables | CourseListQueryVariables)['superEvent']
 ): EventListQueryVariables => ({
   include: ['keywords', 'location'],
   sort: 'start_time',
@@ -41,65 +45,79 @@ export const getOtherEventsVariables = (
   superEvent,
 });
 
-export const createEventListRequestAndResultMocks = (
-  variablesOverride: EventListQueryVariables = {},
-  expectedResponse: EventListResponse
-): MockedResponse => ({
-  request: {
-    query: EventListDocument,
-    variables: {
-      ...eventListBaseVariables,
-      ...variablesOverride,
-    },
-  },
-  result: {
-    data: {
-      eventList: expectedResponse,
-    },
+const createRequest = (
+  type: EventType = 'event',
+  variablesOverride: EventListQueryVariables | CourseListQueryVariables = {}
+): GraphQLRequest => ({
+  query: type === 'event' ? EventListDocument : CourseListDocument,
+  variables: {
+    ...(type === 'event' ? eventListBaseVariables : courseListBaseVariables),
+    ...variablesOverride,
   },
 });
 
-export const createEventListRequestThrowsErrorMocks = (
-  variablesOverride: EventListQueryVariables = {}
-): MockedResponse => ({
-  request: {
-    query: EventListDocument,
-    variables: {
-      ...eventListBaseVariables,
-      ...variablesOverride,
-    },
+const createResult = (
+  type: EventType = 'event',
+  expectedResponse: EventListResponse
+): FetchResult => ({
+  data: {
+    [`${type}List`]: expectedResponse,
   },
+});
+
+export type EventListMockArguments = {
+  type?: EventType;
+  superEventId?: (
+    | EventListQueryVariables
+    | CourseListQueryVariables
+  )['superEvent'];
+  variables?: EventListQueryVariables | CourseListQueryVariables;
+  response?: EventListResponse;
+};
+
+export const createEventListRequestAndResultMocks = ({
+  type = 'event',
+  variables = {},
+  response,
+}: EventListMockArguments): MockedResponse => ({
+  request: createRequest(type, variables),
+  result: createResult(type, response),
+});
+
+export const createEventListRequestThrowsErrorMocks = ({
+  type = 'event',
+  variables = {},
+}: EventListMockArguments = {}): MockedResponse => ({
+  request: createRequest(type, variables),
   error: new Error('not found'),
 });
 
-export const createOtherEventTimesRequestAndResultMocks = (
-  superEvent: EventListQueryVariables['superEvent'],
-  variablesOverride: EventListQueryVariables = {},
-  expectedResponse: EventListResponse
-): MockedResponse => ({
+export const createOtherEventTimesRequestAndResultMocks = ({
+  type = 'event',
+  superEventId,
+  variables,
+  response,
+}: EventListMockArguments): MockedResponse => ({
   request: {
-    query: EventListDocument,
+    query: type === 'event' ? EventListDocument : CourseListDocument,
     variables: {
-      ...getOtherEventsVariables(superEvent),
-      ...variablesOverride,
+      ...getOtherEventsVariables(superEventId),
+      ...variables,
     },
   },
-  result: {
-    data: {
-      eventList: expectedResponse,
-    },
-  },
+  result: createResult(type, response),
 });
 
-export const createOtherEventTimesRequestThrowsErrorMocks = (
-  superEvent: EventListQueryVariables['superEvent'],
-  variablesOverride: EventListQueryVariables = {}
-): MockedResponse => ({
+export const createOtherEventTimesRequestThrowsErrorMocks = ({
+  type = 'event',
+  superEventId,
+  variables,
+}: EventListMockArguments): MockedResponse => ({
   request: {
-    query: EventListDocument,
+    query: type === 'event' ? EventListDocument : CourseListDocument,
     variables: {
-      ...getOtherEventsVariables(superEvent),
-      ...variablesOverride,
+      ...getOtherEventsVariables(superEventId),
+      ...variables,
     },
   },
   error: new Error('not found'),
