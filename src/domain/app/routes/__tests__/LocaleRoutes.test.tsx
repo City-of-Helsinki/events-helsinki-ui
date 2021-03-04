@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 
-import { render, renderWithRoute, waitFor } from '../../../../util/testUtils';
+import { render, renderWithRoute, waitFor } from '../../../../test/testUtils';
 import { ROUTES } from '../constants';
 import LocaleRoutes from '../LocaleRoutes';
 

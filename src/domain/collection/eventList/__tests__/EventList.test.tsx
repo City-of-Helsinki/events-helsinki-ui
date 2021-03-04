@@ -1,21 +1,22 @@
 /* eslint-disable no-console */
 import { MockedResponse } from '@apollo/react-testing';
 import { advanceTo, clear } from 'jest-date-mock';
-import React from 'react';
+import * as React from 'react';
 import { toast } from 'react-toastify';
 
 import translations from '../../../../common/translation/i18n/fi.json';
+import { CollectionFieldsFragment, Meta } from '../../../../generated/graphql';
 import {
-  CollectionFieldsFragment,
-  EventListDocument,
-} from '../../../../generated/graphql';
-import { fakeCollection, fakeEvents } from '../../../../util/mockDataUtils';
-import { render, screen, userEvent, waitFor } from '../../../../util/testUtils';
+  createEventListRequestAndResultMocks,
+  createEventListRequestThrowsErrorMocks,
+} from '../../../../test/apollo-mocks/eventListMocks';
+import { fakeCollection, fakeEvents } from '../../../../test/mockDataUtils';
+import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import EventList from '../EventList';
 
 const eventListTitle = 'Event list title';
 
-const meta = {
+const meta: Meta = {
   count: 20,
   next:
     'https://api.hel.fi/linkedevents/v1/event/?page=2&sort=start_time&start=2020-10-05T03',
@@ -26,66 +27,35 @@ const meta = {
 const events = fakeEvents(10);
 
 const eventsResponse = {
-  data: {
-    eventList: {
-      ...events,
-      meta,
-    },
-  },
+  ...events,
+  meta,
 };
 
 const loadMoreEvents = fakeEvents(10);
 
 const loadMoreEventsResponse = {
-  data: {
-    eventList: {
-      ...loadMoreEvents,
-      meta: { ...meta, next: null },
-    },
-  },
+  ...loadMoreEvents,
+  meta: { ...meta, next: null },
 };
 
-const variables = {
-  allOngoingAnd: ['jooga'],
-  audienceMinAgeGt: '',
-  audienceMaxAgeLt: '',
-  end: '',
-  include: ['keywords', 'location'],
-  isFree: true,
-  keywordAnd: [],
-  keywordOrSet1: [],
-  keywordOrSet3: [],
-  keywordNot: [],
-  language: 'fi',
-  location: [],
-  pageSize: 10,
-  publisher: null,
-  sort: 'end_time',
-  start: 'now',
-  startsAfter: undefined,
-  superEventType: ['umbrella', 'none'],
-};
+const searchVariables = { allOngoingAnd: ['jooga'], isFree: true };
 
-const commonMocks = [
-  {
-    request: {
-      query: EventListDocument,
-      variables,
-    },
-    result: eventsResponse,
-  },
-];
+const firstPageMock = createEventListRequestAndResultMocks(
+  searchVariables,
+  eventsResponse
+);
 
-const defaultMocks = [
-  ...commonMocks,
-  {
-    request: {
-      query: EventListDocument,
-      variables: { ...variables, page: 2 },
-    },
-    result: loadMoreEventsResponse,
-  },
-];
+const secondPageMock = createEventListRequestAndResultMocks(
+  { ...searchVariables, page: 2 },
+  loadMoreEventsResponse
+);
+
+const secondPageThrowsErrorMock = createEventListRequestThrowsErrorMocks({
+  ...searchVariables,
+  page: 2,
+});
+
+const defaultMocks = [firstPageMock, secondPageMock];
 
 afterAll(() => {
   clear();
@@ -131,16 +101,7 @@ test('should show event list correctly', async () => {
 test('should show toastr if loading next page fails', async () => {
   advanceTo('2020-10-03');
   toast.error = jest.fn();
-  const mocks = [
-    ...commonMocks,
-    {
-      request: {
-        query: EventListDocument,
-        variables: { ...variables, page: 2 },
-      },
-      error: new Error('not found'),
-    },
-  ];
+  const mocks = [firstPageMock, secondPageThrowsErrorMock];
   const collection = fakeCollection({
     eventListTitle: { fi: eventListTitle },
   }) as CollectionFieldsFragment;

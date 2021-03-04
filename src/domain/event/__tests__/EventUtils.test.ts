@@ -10,7 +10,7 @@ import {
   fakeKeyword,
   fakeKeywords,
   fakePlace,
-} from '../../../util/mockDataUtils';
+} from '../../../test/mockDataUtils';
 import {
   getEventFields,
   getEventIdFromUrl,

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 
-import { useEventListQuery } from '../../generated/graphql';
+import { QueryEventListArgs, useEventListQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from './constants';
 import Search from './Search';
@@ -19,7 +19,7 @@ const EventSearchPageContainer: React.FC = () => {
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
 
   const eventFilters = React.useMemo(() => {
-    return getEventSearchVariables({
+    const variables: QueryEventListArgs = getEventSearchVariables({
       include: ['keywords', 'location'],
       language: locale,
       pageSize: PAGE_SIZE,
@@ -28,6 +28,7 @@ const EventSearchPageContainer: React.FC = () => {
       sortOrder: EVENT_SORT_OPTIONS.END_TIME,
       superEventType: ['umbrella', 'none'],
     });
+    return variables;
   }, [locale, params, searchParams]);
 
   const { data: eventsData, fetchMore, loading } = useEventListQuery({

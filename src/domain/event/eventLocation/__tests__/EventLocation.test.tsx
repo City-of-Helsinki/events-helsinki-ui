@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 
 import { EventFieldsFragment } from '../../../../generated/graphql';
-import { fakeEvent, fakePlace } from '../../../../util/mockDataUtils';
+import { fakeEvent, fakePlace } from '../../../../test/mockDataUtils';
 import EventLocation from '../EventLocation';
 
 const eventName = 'Event name';

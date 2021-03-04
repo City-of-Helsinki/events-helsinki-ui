@@ -6,20 +6,21 @@ import {
   CourseDetailsDocument,
   CourseListDocument,
 } from '../../../generated/graphql';
-import getDateRangeStr from '../../../util/getDateRangeStr';
+import { courseListBaseVariables } from '../../../test/apollo-mocks/eventListMocks';
 import {
   fakeEvent,
   fakeEvents,
   fakeKeyword,
   fakeLocalizedObject,
   fakeTargetGroup,
-} from '../../../util/mockDataUtils';
+} from '../../../test/mockDataUtils';
 import {
   renderWithRoute,
   screen,
   userEvent,
   waitFor,
-} from '../../../util/testUtils';
+} from '../../../test/testUtils';
+import getDateRangeStr from '../../../util/getDateRangeStr';
 import { ROUTES } from '../../app/routes/constants';
 import { otherEventTimesListTestId } from '../../event/eventInfo/otherEventTimes/OtherEventTimes';
 import { similarEventsListTestId } from '../../event/similarEvents/SimilarEvents';
@@ -81,25 +82,7 @@ const superEventRequest = {
 
 const similarCoursesListRequest = {
   query: CourseListDocument,
-  variables: {
-    audienceMinAgeGt: '',
-    audienceMaxAgeLt: '',
-    end: '',
-    include: ['keywords', 'location'],
-    isFree: undefined,
-    keywordAnd: [],
-    keywordOrSet1: ['keyword1', 'keyword2', 'keyword3'],
-    keywordOrSet3: [],
-    keywordNot: [],
-    language: 'fi',
-    location: [],
-    pageSize: 10,
-    publisher: null,
-    sort: 'end_time',
-    start: 'now',
-    startsAfter: undefined,
-    superEventType: ['umbrella', 'none'],
-  },
+  variables: { ...courseListBaseVariables, allOngoing: true },
 };
 
 const otherCoursesRequest = {

@@ -1,5 +1,5 @@
 import { LandingPageFieldsFragment } from '../../../generated/graphql';
-import { fakeBanner, fakeLandingPage } from '../../../util/mockDataUtils';
+import { fakeBanner, fakeLandingPage } from '../../../test/mockDataUtils';
 import { getLandingPageFields } from '../utils';
 
 describe('getLandingPageFields function', () => {

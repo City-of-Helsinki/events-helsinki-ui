@@ -6,8 +6,8 @@ import {
   fakeBanner,
   fakeLandingPage,
   fakeLocalizedObject,
-} from '../../../util/mockDataUtils';
-import { renderWithRoute, screen } from '../../../util/testUtils';
+} from '../../../test/mockDataUtils';
+import { renderWithRoute, screen } from '../../../test/testUtils';
 import { ROUTES } from '../../app/routes/constants';
 import LandingPagePreview from '../LandingPagePreview';
 

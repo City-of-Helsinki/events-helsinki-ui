@@ -2,8 +2,8 @@ import React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
-import { fakeEvent } from '../../../../util/mockDataUtils';
-import { actWait, configure, render, screen } from '../../../../util/testUtils';
+import { fakeEvent } from '../../../../test/mockDataUtils';
+import { actWait, configure, render, screen } from '../../../../test/testUtils';
 import EventContent from '../EventContent';
 
 configure({ defaultHidden: true });

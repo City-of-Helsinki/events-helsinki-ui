@@ -4,14 +4,14 @@ import translations from '../../../../common/translation/i18n/fi.json';
 import { KeywordListDocument } from '../../../../generated/graphql';
 import IconMovies from '../../../../icons/IconMovies';
 import IconMusic from '../../../../icons/IconMusic';
-import { fakeKeywords } from '../../../../util/mockDataUtils';
+import { fakeKeywords } from '../../../../test/mockDataUtils';
 import {
   configure,
   render,
   screen,
   userEvent,
   waitFor,
-} from '../../../../util/testUtils';
+} from '../../../../test/testUtils';
 import { EVENT_CATEGORIES } from '../../../eventSearch/constants';
 import LandingPageSearchSection, {
   popularCategoriesContainerTestId,

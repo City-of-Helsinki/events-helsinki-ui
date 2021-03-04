@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { DATE_TYPES } from '../../../../constants';
-import { render } from '../../../../util/testUtils';
+import { render } from '../../../../test/testUtils';
 import DateSelectorMenu from '../DateSelectorMenu';
 
 test('matches snapshot', () => {

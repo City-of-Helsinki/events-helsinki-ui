@@ -1,7 +1,7 @@
 import { act, render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { userEvent } from '../../../../util/testUtils';
+import { userEvent } from '../../../../test/testUtils';
 import CopyButton from '../CopyButton';
 
 // `copy-to-clipboard` is not jsdom compatible so we are replacing it with a

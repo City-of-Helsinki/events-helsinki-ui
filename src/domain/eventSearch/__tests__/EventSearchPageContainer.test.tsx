@@ -4,26 +4,30 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { advanceTo, clear } from 'jest-date-mock';
-import React from 'react';
+import * as React from 'react';
 import routeData from 'react-router';
 import { scroller } from 'react-scroll';
 import { toast } from 'react-toastify';
 
 import translations from '../../../common/translation/i18n/fi.json';
 import {
-  EventListDocument,
+  Meta,
   NeighborhoodListDocument,
   PlaceListDocument,
 } from '../../../generated/graphql';
 import {
+  createEventListRequestAndResultMocks,
+  createEventListRequestThrowsErrorMocks,
+} from '../../../test/apollo-mocks/eventListMocks';
+import {
   fakeEvents,
   fakeNeighborhoods,
   fakePlaces,
-} from '../../../util/mockDataUtils';
-import { render } from '../../../util/testUtils';
+} from '../../../test/mockDataUtils';
+import { render } from '../../../test/testUtils';
 import EventSearchPageContainer from '../EventSearchPageContainer';
 
-const meta = {
+const meta: Meta = {
   count: 20,
   next:
     // eslint-disable-next-line max-len
@@ -31,36 +35,11 @@ const meta = {
   previous: null,
   __typename: 'Meta',
 };
-const eventsResponse = {
-  data: { eventList: { ...fakeEvents(10), meta } },
-};
+const eventsResponse = { ...fakeEvents(10), meta };
+
 const eventsLoadMoreResponse = {
-  data: {
-    eventList: {
-      ...fakeEvents(10),
-      meta: { ...meta, next: null },
-    },
-  },
-};
-const eventListVariables = {
-  allOngoingAnd: ['jazz'],
-  audienceMinAgeGt: '',
-  audienceMaxAgeLt: '',
-  end: '',
-  include: ['keywords', 'location'],
-  isFree: undefined,
-  keywordAnd: [],
-  keywordOrSet1: [],
-  keywordOrSet3: [],
-  keywordNot: [],
-  language: 'fi',
-  location: [],
-  pageSize: 10,
-  publisher: null,
-  sort: 'end_time',
-  start: 'now',
-  startsAfter: undefined,
-  superEventType: ['umbrella', 'none'],
+  ...fakeEvents(10),
+  meta: { ...meta, next: null },
 };
 
 const neighborhoodsResponse = {
@@ -75,16 +54,11 @@ const placesResponse = {
   },
 };
 
-const commonMocks = [
-  {
-    request: {
-      query: EventListDocument,
-      variables: {
-        ...eventListVariables,
-      },
-    },
-    result: eventsResponse,
-  },
+const searchJazzMocks = [
+  createEventListRequestAndResultMocks(
+    { allOngoingAnd: ['jazz'] },
+    eventsResponse
+  ),
   {
     request: {
       query: NeighborhoodListDocument,
@@ -104,19 +78,14 @@ const commonMocks = [
   },
 ];
 
-const defaultMocks = [
-  ...commonMocks,
-  {
-    request: {
-      query: EventListDocument,
-      variables: {
-        ...eventListVariables,
-        page: 2,
-      },
-    },
-    result: eventsLoadMoreResponse,
-  },
+const searchJazzThenClickLoadMoreMocks = [
+  ...searchJazzMocks,
+  createEventListRequestAndResultMocks(
+    { allOngoingAnd: ['jazz'], page: 2 },
+    eventsLoadMoreResponse
+  ),
 ];
+const searchJazzThenClickLoadMoreThrowsErrorMock = createEventListRequestThrowsErrorMocks();
 
 afterAll(() => {
   clear();
@@ -131,7 +100,9 @@ const search = '?text=jazz';
 const testRoute = `${pathname}${search}`;
 const routes = [testRoute];
 
-const renderComponent = (mocks: MockedResponse[] = defaultMocks) =>
+const renderComponent = (
+  mocks: MockedResponse[] = searchJazzThenClickLoadMoreMocks
+) =>
   render(<EventSearchPageContainer />, {
     mocks,
     routes,
@@ -143,11 +114,11 @@ it('all the event cards should be visible and load more button should load more 
 
   await waitFor(() => {
     expect(
-      screen.getByText(eventsResponse.data.eventList.data[0].name.fi)
+      screen.getByText(eventsResponse.data[0].name.fi)
     ).toBeInTheDocument();
   });
 
-  eventsResponse.data.eventList.data.forEach((event) => {
+  eventsResponse.data.forEach((event) => {
     expect(screen.getByText(event.name.fi)).toBeInTheDocument();
   });
 
@@ -155,21 +126,18 @@ it('all the event cards should be visible and load more button should load more 
     screen.getByRole('button', {
       name: translations.eventSearch.buttonLoadMore.replace(
         '{{count}}',
-        (
-          eventsResponse.data.eventList.meta.count -
-          eventsResponse.data.eventList.data.length
-        ).toString()
+        (eventsResponse.meta.count - eventsResponse.data.length).toString()
       ),
     })
   );
 
   await waitFor(() => {
     expect(
-      screen.getByText(eventsLoadMoreResponse.data.eventList.data[0].name.fi)
+      screen.getByText(eventsLoadMoreResponse.data[0].name.fi)
     ).toBeInTheDocument();
   });
 
-  eventsLoadMoreResponse.data.eventList.data.forEach((event) => {
+  eventsLoadMoreResponse.data.forEach((event) => {
     expect(screen.getByText(event.name.fi)).toBeInTheDocument();
   });
 });
@@ -177,17 +145,8 @@ it('all the event cards should be visible and load more button should load more 
 it('should show toastr message when loading next event page fails', async () => {
   toast.error = jest.fn();
   const mocks = [
-    ...commonMocks,
-    {
-      request: {
-        query: EventListDocument,
-        variables: {
-          ...eventListVariables,
-          page: 2,
-        },
-      },
-      error: new Error('not found'),
-    },
+    ...searchJazzMocks,
+    searchJazzThenClickLoadMoreThrowsErrorMock,
   ];
 
   renderComponent(mocks);
@@ -200,10 +159,7 @@ it('should show toastr message when loading next event page fails', async () => 
     screen.getByRole('button', {
       name: translations.eventSearch.buttonLoadMore.replace(
         '{{count}}',
-        (
-          eventsResponse.data.eventList.meta.count -
-          eventsResponse.data.eventList.data.length
-        ).toString()
+        (eventsResponse.meta.count - eventsResponse.data.length).toString()
       ),
     })
   );
@@ -221,7 +177,7 @@ it('should scroll to event defined in react-router location state', async () => 
     pathname,
     hash: '',
     search,
-    state: { eventId: eventsResponse.data.eventList.data[0].id },
+    state: { eventId: eventsResponse.data[0].id },
   };
   jest.spyOn(routeData, 'useLocation').mockReturnValue(mockLocation);
 
@@ -288,7 +244,7 @@ it('scrolls to eventcard and calls history.replace correctly (deletes eventId fr
   const replaceSpy = jest.spyOn(history, 'replace');
 
   render(<EventSearchPageContainer />, {
-    mocks: defaultMocks,
+    mocks: searchJazzMocks,
     routes,
     history,
   });

@@ -8,15 +8,15 @@ import {
   EventFieldsFragment,
   OfferFieldsFragment,
 } from '../../../../generated/graphql';
-import getDateRangeStr from '../../../../util/getDateRangeStr';
 import {
   fakeEvent,
   fakeExternalLink,
   fakeKeyword,
   fakeLocalizedObject,
   fakeOffer,
-} from '../../../../util/mockDataUtils';
-import { render, screen, userEvent } from '../../../../util/testUtils';
+} from '../../../../test/mockDataUtils';
+import { render, screen, userEvent } from '../../../../test/testUtils';
+import getDateRangeStr from '../../../../util/getDateRangeStr';
 import EventHero, { Props as EventHeroProps } from '../EventHero';
 
 const name = 'Event name';

@@ -4,7 +4,7 @@ import { axe } from 'jest-axe';
 import * as React from 'react';
 
 import { BannerPageFieldsFragment } from '../../../../generated/graphql';
-import { fakeBanner } from '../../../../util/mockDataUtils';
+import { fakeBanner } from '../../../../test/mockDataUtils';
 import BannerHero, { getTestIds } from '../BannerHero';
 const title = 'Banner title';
 const description = 'Banner page description';

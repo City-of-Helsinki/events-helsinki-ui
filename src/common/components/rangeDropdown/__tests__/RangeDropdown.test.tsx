@@ -8,7 +8,7 @@ import {
 import { axe } from 'jest-axe';
 import React from 'react';
 
-import { userEvent } from '../../../../util/testUtils';
+import { userEvent } from '../../../../test/testUtils';
 import RangeDropdown, { RangeDropdownProps } from '../RangeDropdown';
 
 const title = 'test title';

@@ -1,4 +1,4 @@
-import * as FeatureFlags from './featureFlags';
+import * as FeatureFlags from '../../util/featureFlags';
 
 export const setFeatureFlags = (
   override: Partial<FeatureFlags.FeatureFlags>

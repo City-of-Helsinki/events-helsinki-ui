@@ -329,18 +329,26 @@ export const getEventSearchVariables = ({
   );
 
   const hasLocation = !isEmpty(divisions) || !isEmpty(places);
-  const hasText = !isEmpty(text);
 
-  //free text search
-  const isEventsSearch = searchSource === EVENT_SEARCH_SOURCES.EVENTS;
-  const freeTextSearchParam =
-    isEventsSearch && hasLocation
-      ? { localOngoingAnd: text }
-      : { allOngoingAnd: text };
+  const getSearchParam = () => {
+    const hasText = !isEmpty(text);
+    const isEventsSearch = searchSource === EVENT_SEARCH_SOURCES.EVENTS;
+    if (hasText && isEventsSearch && hasLocation) {
+      // show helsinki events matching to text
+      return { localOngoingAnd: text };
+    } else if (hasText) {
+      // show internet and helsinki events matching to text
+      return { allOngoingAnd: text };
+    } else {
+      // show all internet and helsinki events
+      return { allOngoing: true };
+    }
+  };
+  const divisionParam = hasLocation && { division: divisions.sort() };
 
   return {
-    ...(hasText && freeTextSearchParam),
-    ...(hasLocation && { division: divisions.sort() }),
+    ...getSearchParam(),
+    ...divisionParam,
     end,
     include,
     isFree: isFree || undefined,
@@ -397,25 +405,18 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
     ),
     divisions: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.DIVISIONS),
     end,
-    isFree:
-      searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true' ? true : false,
+    isFree: searchParams.get(EVENT_SEARCH_FILTERS.IS_FREE) === 'true',
     keyword: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.KEYWORD),
     keywordNot: getUrlParamAsArray(
       searchParams,
       EVENT_SEARCH_FILTERS.KEYWORD_NOT
     ),
     onlyChildrenEvents:
-      searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === 'true'
-        ? true
-        : false,
+      searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === 'true',
     onlyEveningEvents:
-      searchParams.get(EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS) === 'true'
-        ? true
-        : false,
+      searchParams.get(EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS) === 'true',
     alsoOngoingCourses:
-      searchParams.get(EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES) === 'true'
-        ? true
-        : false,
+      searchParams.get(EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES) === 'true',
     places: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.PLACES),
     publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
     start,

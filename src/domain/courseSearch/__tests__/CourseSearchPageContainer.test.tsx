@@ -17,7 +17,7 @@ import {
   fakeNeighborhoods,
   fakePlace,
   fakePlaces,
-} from '../../../util/mockDataUtils';
+} from '../../../test/mockDataUtils';
 import {
   configure,
   render,
@@ -25,7 +25,7 @@ import {
   userEvent,
   waitFor,
   within,
-} from '../../../util/testUtils';
+} from '../../../test/testUtils';
 import apolloClient from '../../app/apollo/apolloClient';
 import { filterSummaryContainerTestId } from '../../eventSearch/filterSummary/FilterSummary';
 import CourseSearchPageContainer from '../CourseSearchPageContainer';

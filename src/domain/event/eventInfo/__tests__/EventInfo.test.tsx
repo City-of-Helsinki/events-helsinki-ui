@@ -12,14 +12,14 @@ import {
   fakeOffer,
   fakeOrganization,
   fakeTargetGroup,
-} from '../../../../util/mockDataUtils';
+} from '../../../../test/mockDataUtils';
 import {
   actWait,
   configure,
   render,
   screen,
   userEvent,
-} from '../../../../util/testUtils';
+} from '../../../../test/testUtils';
 import EventInfo from '../EventInfo';
 configure({ defaultHidden: true });
 

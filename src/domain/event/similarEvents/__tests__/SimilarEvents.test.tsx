@@ -1,48 +1,22 @@
-import { MockedResponse } from '@apollo/react-testing';
 import { clear } from 'console';
 import { advanceTo } from 'jest-date-mock';
 import * as React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
-import { EventListDocument } from '../../../../generated/graphql';
-import { fakeEvents } from '../../../../util/mockDataUtils';
-import { render, screen, userEvent, waitFor } from '../../../../util/testUtils';
+import { createEventListRequestAndResultMocks } from '../../../../test/apollo-mocks/eventListMocks';
+import { fakeEvents } from '../../../../test/mockDataUtils';
+import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import { ROUTES } from '../../../app/routes/constants';
 import SimilarEvents from '../SimilarEvents';
 
 const expectedSimilarEvents = fakeEvents(3);
 
-export const createMocks = (
-  similarEvents = expectedSimilarEvents
-): MockedResponse[] => [
-  {
-    request: {
-      query: EventListDocument,
-      variables: {
-        audienceMinAgeGt: '',
-        audienceMaxAgeLt: '',
-        end: '',
-        include: ['keywords', 'location'],
-        isFree: undefined,
-        keywordAnd: [],
-        keywordOrSet1: ['keyword1', 'keyword2', 'keyword3'],
-        keywordOrSet3: [],
-        keywordNot: [],
-        language: 'fi',
-        location: [],
-        pageSize: 10,
-        publisher: null,
-        sort: 'end_time',
-        start: 'now',
-        startsAfter: undefined,
-        superEventType: ['umbrella', 'none'],
-      },
-    },
-    result: { data: { eventList: similarEvents } },
-  },
+const mocks = [
+  createEventListRequestAndResultMocks(
+    { allOngoing: true },
+    expectedSimilarEvents
+  ),
 ];
-
-const mocks = createMocks();
 
 afterAll(() => {
   clear();

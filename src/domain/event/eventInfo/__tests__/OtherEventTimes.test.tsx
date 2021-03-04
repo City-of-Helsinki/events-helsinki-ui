@@ -7,13 +7,14 @@ import React from 'react';
 import { toast } from 'react-toastify';
 
 import translations from '../../../../common/translation/i18n/fi.json';
+import { EventFieldsFragment, Meta } from '../../../../generated/graphql';
 import {
-  EventFieldsFragment,
-  EventListDocument,
-} from '../../../../generated/graphql';
+  createOtherEventTimesRequestAndResultMocks,
+  createOtherEventTimesRequestThrowsErrorMocks,
+} from '../../../../test/apollo-mocks/eventListMocks';
+import { fakeEvent, fakeEvents } from '../../../../test/mockDataUtils';
+import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
-import { fakeEvent, fakeEvents } from '../../../../util/mockDataUtils';
-import { render, screen, userEvent, waitFor } from '../../../../util/testUtils';
 import OtherEventTimesContainer from '../otherEventTimes/OtherEventTimesContainer';
 
 const startTime = '2020-10-01T16:00:00Z';
@@ -26,7 +27,7 @@ const event = fakeEvent({
   superEvent: { internalId: superEventInternalId },
 }) as EventFieldsFragment;
 
-const meta = {
+const meta: Meta = {
   count: 20,
   next:
     // eslint-disable-next-line max-len
@@ -36,62 +37,45 @@ const meta = {
 };
 
 const otherEventsResponse = {
-  data: {
-    eventList: {
-      ...fakeEvents(
-        10,
-        range(1, 11).map((i) => ({
-          endTime: addDays(new Date(endTime), i).toISOString(),
-          startTime: addDays(new Date(startTime), i).toISOString(),
-        }))
-      ),
-      meta,
-    },
-  },
+  ...fakeEvents(
+    10,
+    range(1, 11).map((i) => ({
+      endTime: addDays(new Date(endTime), i).toISOString(),
+      startTime: addDays(new Date(startTime), i).toISOString(),
+    }))
+  ),
+  meta,
 };
 
 const otherEventsLoadMoreResponse = {
-  data: {
-    eventList: {
-      ...fakeEvents(
-        10,
-        range(11, 21).map((i) => ({
-          endTime: addDays(new Date(endTime), i).toISOString(),
-          startTime: addDays(new Date(startTime), i).toISOString(),
-        }))
-      ),
-      meta: { ...meta, next: null },
-    },
-  },
+  ...fakeEvents(
+    10,
+    range(11, 21).map((i) => ({
+      endTime: addDays(new Date(endTime), i).toISOString(),
+      startTime: addDays(new Date(startTime), i).toISOString(),
+    }))
+  ),
+  meta: { ...meta, next: null },
 };
 
-const variables = {
-  include: ['keywords', 'location'],
-  sort: 'start_time',
-  start: 'now',
-  superEvent: superEventId,
-};
+const firstLoadMock = createOtherEventTimesRequestAndResultMocks(
+  superEventId,
+  {},
+  otherEventsResponse
+);
 
-const commonMocks = [
-  {
-    request: {
-      query: EventListDocument,
-      variables,
-    },
-    result: otherEventsResponse,
-  },
-];
+const secondLoadMock = createOtherEventTimesRequestAndResultMocks(
+  superEventId,
+  { page: 2 },
+  otherEventsLoadMoreResponse
+);
 
-const defaultMocks = [
-  ...commonMocks,
-  {
-    request: {
-      query: EventListDocument,
-      variables: { ...variables, page: 2 },
-    },
-    result: otherEventsLoadMoreResponse,
-  },
-];
+const secondPageLoadThrowsErrorMock = createOtherEventTimesRequestThrowsErrorMocks(
+  superEventId,
+  { page: 2 }
+);
+
+const defaultMocks = [firstLoadMock, secondLoadMock];
 
 afterAll(() => {
   clear();
@@ -114,7 +98,7 @@ test('should render other event times', async () => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  otherEventsResponse.data.eventList.data.forEach((event) => {
+  otherEventsResponse.data.forEach((event) => {
     const dateStr = getDateRangeStr({
       start: event.startTime,
       end: event.endTime,
@@ -130,7 +114,7 @@ test('should render other event times', async () => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  otherEventsLoadMoreResponse.data.eventList.data.forEach((event) => {
+  otherEventsLoadMoreResponse.data.forEach((event) => {
     const dateStr = getDateRangeStr({
       start: event.startTime,
       end: event.endTime,
@@ -145,16 +129,7 @@ test('should render other event times', async () => {
 test('should show toastr when loading next event page fails', async () => {
   toast.error = jest.fn();
   advanceTo(new Date('2020-08-11'));
-  const mocks = [
-    ...commonMocks,
-    {
-      request: {
-        query: EventListDocument,
-        variables: { ...variables, page: 2 },
-      },
-      error: new Error('not found'),
-    },
-  ];
+  const mocks = [firstLoadMock, secondPageLoadThrowsErrorMock];
   renderComponent(mocks);
 
   const toggleButton = await screen.findByRole('button', {
@@ -182,7 +157,7 @@ test('should go to event page of other event time', async () => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  const event = otherEventsResponse.data.eventList.data[0];
+  const event = otherEventsResponse.data[0];
   const dateStr = getDateRangeStr({
     start: event.startTime,
     end: event.endTime,

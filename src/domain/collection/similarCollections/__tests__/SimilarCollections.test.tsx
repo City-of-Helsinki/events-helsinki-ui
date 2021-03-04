@@ -4,9 +4,9 @@ import { CollectionFieldsFragment } from '../../../../generated/graphql';
 import {
   collectionListFilterTests,
   getCollectionQueryListMocks,
-} from '../../../../util/collections.common.tests';
-import { fakeCollections } from '../../../../util/mockDataUtils';
-import { render, screen, waitFor } from '../../../../util/testUtils';
+} from '../../../../test/collections/collections.common.tests';
+import { fakeCollections } from '../../../../test/mockDataUtils';
+import { render, screen, waitFor } from '../../../../test/testUtils';
 import { SIMILAR_COLLECTIONS_AMOUNT } from '../../constants';
 import SimilarCollections from '../SimilarCollections';
 

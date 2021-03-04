@@ -9,7 +9,7 @@ import {
   screen,
   userEvent,
   waitFor,
-} from '../../../../util/testUtils';
+} from '../../../../test/testUtils';
 import { ROUTES } from '../../routes/constants';
 import Header, { HeaderProps } from '../Header';
 

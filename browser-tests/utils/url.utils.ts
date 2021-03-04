@@ -8,7 +8,7 @@ import {
   EventFieldsFragment,
 } from './generated/graphql';
 import { getEnvUrl } from './settings';
-import { getErrorMessage } from './testcafe.utils';
+import { getErrorMessage, setDataToPrintOnFailure } from './testcafe.utils';
 
 const getPathname = ClientFunction(() => document.location.pathname);
 const getUrl = ClientFunction(() => document.location.href);
@@ -30,7 +30,7 @@ export const getUrlUtils = (t: TestController) => {
       const url = getEnvUrl(
         `/fi/events?text=${encodeURIComponent(searchString)}`
       );
-      t.ctx.url = url;
+      setDataToPrintOnFailure(t, 'url', url);
       await t.navigateTo(url);
     },
   };
@@ -39,7 +39,7 @@ export const getUrlUtils = (t: TestController) => {
       await t.expect(getPathname()).eql(`/fi/home`, await getErrorMessage(t));
     },
     async urlChangedToEventPage(event: EventFieldsFragment) {
-      t.ctx.expectedEvent = event;
+      setDataToPrintOnFailure(t, 'expectedEvent', event);
       await t
         .expect(getPathname())
         .eql(`/fi/events/${event.id}`, await getErrorMessage(t));
@@ -54,7 +54,7 @@ export const getUrlUtils = (t: TestController) => {
       await pageIsLoaded();
       await t
         .expect(getPageTitle())
-        .eql('Tapahtumat', await getErrorMessage(t));
+        .eql('Tapahtumat Helsinki', await getErrorMessage(t));
     },
     async urlChangedToCourseSearchPage() {
       await t
@@ -71,16 +71,18 @@ export const getUrlUtils = (t: TestController) => {
       await pageIsLoaded();
       await t
         .expect(getPageTitle())
-        .eql('Tapahtumat', await getErrorMessage(t));
+        .eql('Tapahtumat Helsinki', await getErrorMessage(t));
     },
     async urlChangedToBannerPage(banner: BannerPageFieldsFragment) {
-      t.ctx.banner = banner;
+      setDataToPrintOnFailure(t, 'banner', banner);
+      await pageIsLoaded();
       await t
         .expect(getUrl())
         .eql(`${banner.buttonUrl.fi}`, await getErrorMessage(t));
     },
     async urlChangedToCollectionPage(collection: CollectionFieldsFragment) {
-      t.ctx.collection = collection;
+      setDataToPrintOnFailure(t, 'collection', collection);
+      await pageIsLoaded();
       await t
         .expect(getPathname())
         .eql(
@@ -88,7 +90,7 @@ export const getUrlUtils = (t: TestController) => {
           await getErrorMessage(t)
         )
         .expect(getPageTitle())
-        .eql(collection.title.fi, await getErrorMessage(t), { timeout: 10000 });
+        .eql(collection.title.fi, await getErrorMessage(t));
     },
   };
   return {

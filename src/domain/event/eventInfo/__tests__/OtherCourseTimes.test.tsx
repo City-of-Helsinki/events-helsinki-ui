@@ -12,9 +12,9 @@ import {
   EventFieldsFragment,
   EventListDocument,
 } from '../../../../generated/graphql';
+import { fakeEvent, fakeEvents } from '../../../../test/mockDataUtils';
+import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
-import { fakeEvent, fakeEvents } from '../../../../util/mockDataUtils';
-import { render, screen, userEvent, waitFor } from '../../../../util/testUtils';
 import OtherCourseTimesContainer from '../otherEventTimes/OtherCourseTimesContainer';
 
 const startTime = '2020-10-01T16:00:00Z';

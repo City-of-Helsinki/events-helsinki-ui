@@ -1,7 +1,7 @@
 import React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
-import { render, screen, userEvent } from '../../../../util/testUtils';
+import { render, screen, userEvent } from '../../../../test/testUtils';
 import EventClosedHero from '../EventClosedHero';
 
 it('should render all text fields', () => {

@@ -8,7 +8,7 @@ import {
   render,
   screen,
   userEvent,
-} from '../../../../util/testUtils';
+} from '../../../../test/testUtils';
 import translations from '../../../translation/i18n/fi.json';
 import DateSelector, { DateSelectorProps } from '../DateSelector';
 import { testIds } from '../DateSelectorMenu';

@@ -4,8 +4,8 @@ import {
   LinkedEventsSource,
   PlaceDetailsDocument,
 } from '../../../generated/graphql';
-import { fakePlace } from '../../../util/mockDataUtils';
-import { render, screen, waitFor } from '../../../util/testUtils';
+import { fakePlace } from '../../../test/mockDataUtils';
+import { render, screen, waitFor } from '../../../test/testUtils';
 import PlaceText from '../PlaceText';
 
 const placeId = 'helsinki:123';

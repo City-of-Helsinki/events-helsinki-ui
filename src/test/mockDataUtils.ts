@@ -48,25 +48,11 @@ export const fakeEvents = (
 });
 
 export const fakeEvent = (overrides?: Partial<EventDetails>): EventDetails => {
-  const names: string[] = [];
-
-  const uniqueName = (): string => {
-    const name = faker.name.title();
-
-    if (names.includes(name)) {
-      return uniqueName();
-    } else {
-      names.push(name);
-    }
-
-    return name;
-  };
-
   return merge<EventDetails, typeof overrides>(
     {
       id: `hel:${faker.random.uuid()}`,
       internalId: faker.random.uuid(),
-      name: fakeLocalizedObject(uniqueName()),
+      name: fakeLocalizedObject(),
       publisher: 'provider:123',
       provider: fakeLocalizedObject(),
       shortDescription: fakeLocalizedObject(),
@@ -435,11 +421,24 @@ export const fakeStaticPage = (overrides?: Partial<StaticPage>): StaticPage =>
     overrides
   );
 
+const sentences: string[] = [];
+const uniqueSentences = (): string => {
+  const sentence = faker.random.words();
+
+  if (sentences.includes(sentence)) {
+    return uniqueSentences();
+  } else {
+    sentences.push(sentence);
+  }
+
+  return sentence;
+};
+
 export const fakeLocalizedObject = (text?: string): LocalizedObject => ({
   __typename: 'LocalizedObject',
-  en: faker.random.words(),
-  sv: faker.random.words(),
-  fi: text || faker.random.words(),
+  en: uniqueSentences(),
+  sv: uniqueSentences(),
+  fi: text || uniqueSentences(),
 });
 
 const generateNodeArray = <T extends (...args: any) => any>(

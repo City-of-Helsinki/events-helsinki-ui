@@ -7,24 +7,27 @@ import {
   EventFieldsFragment,
   EventListDocument,
 } from '../../../generated/graphql';
-import { setFeatureFlags } from '../../../util/featureFlags.test.utils';
+import {
+  createEventListRequestAndResultMocks,
+  createOtherEventTimesRequestAndResultMocks,
+} from '../../../test/apollo-mocks/eventListMocks';
+import { setFeatureFlags } from '../../../test/feature-flags/featureFlags.test.utils';
 import {
   fakeEvent,
   fakeEvents,
   fakeKeyword,
   fakeLocalizedObject,
   fakeTargetGroup,
-} from '../../../util/mockDataUtils';
+} from '../../../test/mockDataUtils';
 import {
   renderWithRoute,
   screen,
   userEvent,
   waitFor,
-} from '../../../util/testUtils';
+} from '../../../test/testUtils';
 import { ROUTES } from '../../app/routes/constants';
 import { otherEventTimesListTestId } from '../eventInfo/otherEventTimes/OtherEventTimes';
 import EventPageContainer from '../EventPageContainer';
-import { createMocks as cresteSimilarEventsMocks } from '../similarEvents/__tests__/SimilarEvents.test';
 
 const id = '1';
 const name = 'Event title';
@@ -58,6 +61,8 @@ const event = fakeEvent({
     internalId: `https://api.hel.fi/linkedevents/v1/event/${superEventId}/`,
   },
 }) as EventFieldsFragment;
+
+const eventKeywordIds = event.keywords.map((keyword) => keyword.id);
 
 const eventRequest = {
   query: EventDetailsDocument,
@@ -97,7 +102,15 @@ const mocks = [
     request: otherEventsRequest,
     result: otherEventsResponse,
   },
-  ...cresteSimilarEventsMocks(similarEvents),
+  createOtherEventTimesRequestAndResultMocks(
+    superEventId,
+    {},
+    fakeEvents(otherEventTimesCount)
+  ),
+  createEventListRequestAndResultMocks(
+    { allOngoing: true, keywordOrSet1: eventKeywordIds },
+    similarEvents
+  ),
 ];
 
 const testPath = ROUTES.EVENT.replace(':id', id);
