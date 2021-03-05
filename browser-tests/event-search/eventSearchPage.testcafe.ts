@@ -119,12 +119,14 @@ test('Free text search finds event by free text search', async (t) => {
       event.location.name[locale],
       'location'
     );
-    await testSearchEventByText(
-      t,
-      event,
-      event.location.streetAddress[locale],
-      'location'
-    );
+    if (!isInternetEvent(event)) {
+      await testSearchEventByText(
+        t,
+        event,
+        event.location.streetAddress[locale],
+        'location'
+      );
+    }
     const randomKeyword = selectRandomValueFromArray(event.keywords);
     await testSearchEventByText(
       t,
