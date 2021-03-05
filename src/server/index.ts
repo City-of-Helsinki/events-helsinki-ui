@@ -15,7 +15,7 @@ import ReactDOMServer from 'react-dom/server';
 import { Helmet } from 'react-helmet';
 
 import i18next from '../common/translation/i18n/init.server';
-import { SUPPORT_LANGUAGES } from '../constants';
+import { supportedLanguages } from '../constants';
 import { ServerRequestContextType } from '../contexts/ServerRequestContext';
 import getDomainFromRequest from '../util/getDomainFromRequest';
 import updateSitemaps from '../util/updateSitemap';
@@ -44,7 +44,7 @@ const checkIsServerReady = (response: Response) => {
 const getInitialI18nStore = (req: Request) => {
   const initialI18nStore: Resource = {};
 
-  Object.values(SUPPORT_LANGUAGES).forEach((l: string) => {
+  supportedLanguages.forEach((l: string) => {
     initialI18nStore[
       l
     ] = (req as I18NextRequest).i18n.services.resourceStore.data[l];

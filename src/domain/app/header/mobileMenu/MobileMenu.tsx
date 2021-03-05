@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 
 import { getCurrentLanguage } from '../../../../common/translation/TranslationUtils';
-import { SUPPORT_LANGUAGES } from '../../../../constants';
+import { supportedLanguages } from '../../../../constants';
 import useLocale from '../../../../hooks/useLocale';
 import scrollToTop from '../../../../util/scrollToTop';
 import { translateValue } from '../../../../util/translateUtils';
@@ -119,7 +119,7 @@ const MobileMenu: React.FC<Props> = ({ isMenuOpen, onClose }) => {
       </div>
       <div className={styles.languageSelectWrapper}>
         <ul>
-          {Object.values(SUPPORT_LANGUAGES).map((language) => {
+          {supportedLanguages.map((language) => {
             const lang = language.toLowerCase();
 
             return (

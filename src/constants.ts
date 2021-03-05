@@ -40,11 +40,7 @@ export enum SUPPORT_LANGUAGES {
   EN = 'en',
 }
 
-export const supportedLanguages = [
-  SUPPORT_LANGUAGES.EN,
-  SUPPORT_LANGUAGES.FI,
-  SUPPORT_LANGUAGES.SV,
-];
+export const supportedLanguages = Object.values(SUPPORT_LANGUAGES);
 
 export enum DATE_PICKER_INPUT {
   START = 'start',

@@ -2,7 +2,10 @@ import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 
 import translations from '../../../../../common/translation/i18n/fi.json';
-import { SUPPORT_LANGUAGES } from '../../../../../constants';
+import {
+  SUPPORT_LANGUAGES,
+  supportedLanguages,
+} from '../../../../../constants';
 import {
   arrowDownKeyPressHelper,
   arrowUpKeyPressHelper,
@@ -14,7 +17,7 @@ import {
 } from '../../../../../test/testUtils';
 import LanguageDropdown, { LanguageDropdownProps } from '../LanguageDropdown';
 
-const languageOptions = Object.values(SUPPORT_LANGUAGES).map((language) => {
+const languageOptions = supportedLanguages.map((language) => {
   return {
     label: `${language}Label`,
     value: language,
