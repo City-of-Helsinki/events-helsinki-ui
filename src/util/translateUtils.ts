@@ -1,4 +1,3 @@
-import { DEFAULT_LANGUAGE, SUPPORT_LANGUAGES } from '../constants';
 import toCamelCase from './toCamelCase';
 import toPascalCase from './toPascalCase';
 
@@ -28,19 +27,4 @@ export const translateList = (
   t: (s: string) => string
 ): string => {
   return list.map((value) => translateValue(prefix, value, t)).join(', ');
-};
-
-/**
- * Get language from the url
- * @param {string} url
- * @return {string}
- */
-export const getLanguageFromUrl = (url: string): string => {
-  const regEx = new RegExp(
-    '^/(' + Object.values(SUPPORT_LANGUAGES).join('|') + ')/'
-  );
-  const localeMatch = url.match(regEx);
-  return localeMatch && localeMatch.length
-    ? localeMatch[0].replace(/\//g, '')
-    : DEFAULT_LANGUAGE;
 };

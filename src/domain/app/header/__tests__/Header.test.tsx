@@ -40,25 +40,22 @@ test('matches snapshot', async () => {
 
 test('should show navigation links and click should route to correct pages', async () => {
   const { history } = renderComponent();
-  const links = [
-    {
-      name: translations.header.searchEvents,
-      url: `/fi${ROUTES.EVENTS}`,
-    },
-    {
-      name: translations.header.searchCollections,
-      url: `/fi${ROUTES.COLLECTIONS}`,
-    },
-  ];
 
-  links.forEach(({ name, url }) => {
-    const link = screen.queryByRole('link', { name });
+  const eventsUrl = `/fi${ROUTES.EVENTS}`;
+  const eventLink = screen.queryAllByRole('link', {
+    name: translations.header.searchEvents,
+  })[1];
+  expect(eventLink).toBeInTheDocument();
+  userEvent.click(eventLink);
+  expect(history.location.pathname).toBe(eventsUrl);
 
-    expect(link).toBeInTheDocument();
-
-    userEvent.click(link);
-    expect(history.location.pathname).toBe(url);
+  const collectionsUrl = `/fi${ROUTES.COLLECTIONS}`;
+  const collectionsLink = screen.queryByRole('link', {
+    name: translations.header.searchCollections,
   });
+  expect(collectionsLink).toBeInTheDocument();
+  userEvent.click(collectionsLink);
+  expect(history.location.pathname).toBe(collectionsUrl);
 });
 
 test('onMenuToggle function should be called', async () => {

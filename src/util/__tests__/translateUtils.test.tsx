@@ -1,8 +1,4 @@
-import {
-  getLanguageFromUrl,
-  translateList,
-  translateValue,
-} from '../translateUtils';
+import { translateList, translateValue } from '../translateUtils';
 
 const t = (text: string): string => text;
 
@@ -24,12 +20,5 @@ describe('Translation utils', () => {
     ).toBe(
       'somePrefixSomeValue, somePrefixSomeOtherValue, somePrefixYetAnotherValue'
     );
-  });
-
-  it('Get language from url', () => {
-    expect(getLanguageFromUrl('/fi/test')).toBe('fi');
-    expect(getLanguageFromUrl('/en/test')).toBe('en');
-    expect(getLanguageFromUrl('/sv/test')).toBe('sv');
-    expect(getLanguageFromUrl('/invalid/test')).toBe('fi');
   });
 });
