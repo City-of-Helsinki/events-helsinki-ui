@@ -85,7 +85,7 @@ export const findHeader = async (
       },
       courseSearchTab() {
         return withinHeader().findByRole('link', {
-          name: getTranslations(t.ctx.expectedLanguage).header.searchHobbies,
+          name: getTranslations(currentLang).header.searchHobbies,
         });
       },
       recommendationsTab() {

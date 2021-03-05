@@ -42,9 +42,9 @@ test('should show navigation links and click should route to correct pages', asy
   const { history } = renderComponent();
 
   const eventsUrl = `/fi${ROUTES.EVENTS}`;
-  const eventLink = screen.queryAllByRole('link', {
+  const eventLink = screen.queryByRole('link', {
     name: translations.header.searchEvents,
-  })[1];
+  });
   expect(eventLink).toBeInTheDocument();
   userEvent.click(eventLink);
   expect(history.location.pathname).toBe(eventsUrl);
