@@ -33,6 +33,11 @@ const FooterSection: FunctionComponent = () => {
         />
         <Footer.Item
           as={Link}
+          label={t('footer.searchHobbies')}
+          to={`/${locale}${ROUTES.COURSES}`}
+        />
+        <Footer.Item
+          as={Link}
           label={t('footer.searchCollections')}
           to={`/${locale}${ROUTES.COLLECTIONS}`}
         />
