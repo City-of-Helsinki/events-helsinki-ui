@@ -209,7 +209,7 @@ test('should have event dates when super event is not defined', () => {
   expect(screen.getByText(dateStr)).toBeInTheDocument();
 });
 
-test('should have super event dates when super event is defined', () => {
+test('should have super event dates and event dates when super event is defined', () => {
   const mockEvent = getFakeEvent();
   const mockSuperEvent = getFakeEvent({
     startTime: '2020-06-22T07:00:00.000000Z',
@@ -231,4 +231,14 @@ test('should have super event dates when super event is defined', () => {
     timeAbbreviation: translations.commons.timeAbbreviation,
   });
   expect(screen.getByText(superDateStr)).toBeInTheDocument();
+
+  const dateStr = getDateRangeStr({
+    start: mockEvent.startTime,
+    end: mockEvent.endTime,
+    locale: 'fi',
+    includeTime: true,
+    timeAbbreviation: translations.commons.timeAbbreviation,
+  });
+
+  expect(screen.getByText(dateStr)).toBeInTheDocument();
 });

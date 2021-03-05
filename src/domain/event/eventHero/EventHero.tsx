@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import {
   Button,
   IconArrowLeft,
+  IconCalendarClock,
   IconLinkExternal,
   IconLocation,
   IconTicket,
@@ -157,6 +158,27 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
                       showLocationName={true}
                     />
                   </InfoWithIcon>
+                </Visible>
+                <Visible above="sm" className={styles.start}>
+                  {superEvent?.status === 'pending' ? (
+                    <SkeletonLoader />
+                  ) : (
+                    (startTime !== eventStartTime ||
+                      endTime !== eventEndTime) && (
+                      <InfoWithIcon
+                        icon={<IconCalendarClock aria-hidden />}
+                        title={''}
+                      >
+                        {getDateRangeStr({
+                          start: eventStartTime || '',
+                          end: eventEndTime,
+                          locale,
+                          includeTime: true,
+                          timeAbbreviation: t('commons.timeAbbreviation'),
+                        })}
+                      </InfoWithIcon>
+                    )
+                  )}
                 </Visible>
                 {eventPriceText && (
                   <Visible above="sm" className={styles.price}>

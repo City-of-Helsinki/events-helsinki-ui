@@ -107,16 +107,20 @@ $logoWidth: 5.5rem;
       order: 5;
     }
 
-    .price {
+    .start {
       order: 6;
     }
 
-    .buyButtonWrapper {
+    .price {
       order: 7;
     }
 
-    .registrationButtonWrapper {
+    .buyButtonWrapper {
       order: 8;
+    }
+
+    .registrationButtonWrapper {
+      order: 9;
     }
   }
 
