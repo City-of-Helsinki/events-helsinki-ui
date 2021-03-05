@@ -10,7 +10,7 @@ test('matches snapshot', () => {
   expect(container.firstChild).toMatchSnapshot();
 });
 
-test.only('clicking links should route to right place', () => {
+test('clicking links should route to right place', () => {
   const { history } = render(<Footer />);
   const pushSpy = jest.spyOn(history, 'push');
 
