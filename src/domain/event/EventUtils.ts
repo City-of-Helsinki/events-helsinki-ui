@@ -62,6 +62,24 @@ export const getEventIdFromUrl = (url: string): string | null => {
   return result?.[1] || null;
 };
 
+/*
+ * Format string to price format (add €) if it is a number and is missing currency
+ * For example:
+ * 'random text' -> 'random text'
+ * '2' -> '2 €'
+ * '2.5' -> '2.5 €'
+ * '30/50' -> '30/50 €'
+ * '30-50' -> '30-50 €'
+ */
+export const formatPrice = (price?: string): string => {
+  if (!price) {
+    return '';
+  }
+
+  const priceRegex = /^\d+([/\-.,]\d+)?$/;
+  return price.match(priceRegex) ? `${price} €` : price;
+};
+
 /**
  * Get event price as a string
  * @param {object} event
@@ -78,7 +96,10 @@ export const getEventPrice = (
     ? isFreeText
     : event.offers
         .map((offer) =>
-          getLocalisedString(offer.price || offer.description, locale)
+          // Format text to price if it happens to be number e.g. '2' -> '2 €'
+          formatPrice(
+            getLocalisedString(offer.price || offer.description, locale)
+          )
         )
         .filter((e) => e)
         .sort()
