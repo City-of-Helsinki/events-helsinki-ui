@@ -194,7 +194,7 @@ test('Register button should be visible and clickable', () => {
   expect(global.open).toBeCalledWith(registrationUrl);
 });
 
-test('should have event dates when super event is not defined', () => {
+test('should show event dates when super event is not defined', () => {
   const mockEvent = getFakeEvent();
 
   render(<EventHero event={mockEvent} eventType="course" />);
@@ -209,7 +209,7 @@ test('should have event dates when super event is not defined', () => {
   expect(screen.getByText(dateStr)).toBeInTheDocument();
 });
 
-test('should have super event dates and event dates when super event is defined', () => {
+test('should show event dates and super event dates if super event is defined', () => {
   const mockEvent = getFakeEvent();
   const mockSuperEvent = getFakeEvent({
     startTime: '2020-06-22T07:00:00.000000Z',
