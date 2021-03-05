@@ -73,8 +73,6 @@ const Header: React.FC<HeaderProps> = ({ menuOpen, onMenuToggle }) => {
       skipToContentLabel={t('header.skipToContentLabel')}
       className={styles.navigation}
       onTitleClick={goToPage(`/${locale}${ROUTES.HOME}`)}
-      title={t('appName')}
-      titleUrl={`/${locale}${ROUTES.HOME}`}
       logoLanguage={logoLang}
     >
       <Navigation.Row variant="inline">

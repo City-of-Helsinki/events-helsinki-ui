@@ -3,7 +3,7 @@
 exports[`matches snapshot 1`] = `
 <div>
   <header
-    class="Navigation-module_header__2HNOX Navigation-module_theme-light__36nmi navigation"
+    class="Navigation-module_header__2HNOX Navigation-module_noTitle__3qbce Navigation-module_theme-light__36nmi navigation"
   >
     <a
       class="Navigation-module_skipToContent__2p54x"
@@ -19,7 +19,7 @@ exports[`matches snapshot 1`] = `
       >
         <a
           class="Navigation-module_title__3zRBe"
-          href="/fi/home"
+          tabindex="0"
         >
           <svg
             aria-hidden="true"
@@ -37,9 +37,6 @@ exports[`matches snapshot 1`] = `
               fill="currentColor"
             />
           </svg>
-          <span>
-            Tapahtumat
-          </span>
         </a>
         <div
           class="Navigation-module_headerContent__3zHbK"

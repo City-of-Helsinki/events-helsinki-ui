@@ -62,7 +62,7 @@ export const getUrlUtils = (t: TestController) => {
         .eql(`/fi/courses`, await getErrorMessage(t));
       await t
         .expect(getPageTitle())
-        .eql('Tapahtumat', await getErrorMessage(t)); // TODO: perhaps wrong title?
+        .eql('Tapahtumat Helsinki', await getErrorMessage(t)); // TODO: perhaps wrong title?
     },
     async urlChangedToRecommendationsPage() {
       await t
