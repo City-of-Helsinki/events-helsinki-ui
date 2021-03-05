@@ -23,7 +23,7 @@ beforeEach(() => {
 });
 
 /**
- * Due to ssr fix header is duplicated when navigationStylesForSSR are not injected to hide the duplicate
+ * Due to ssr fix header is duplicated accessisbility complains about duplicate-id-aria. Thus skipped
  */
 test.skip('component should be accessible', async () => {
   const { container } = renderComponent();
@@ -72,7 +72,7 @@ test('should change language', async () => {
   expect(history.location.pathname).toBe('/fi');
 
   /**
-   * Due to ssr fix header is duplicated when navigationStylesForSSR are not injected to hide the duplicate
+   * Due to ssr fix header is duplicated
    * That's why getAllByRole(...)[0] has been used.
    */
   const button = screen.getAllByRole('button', {
