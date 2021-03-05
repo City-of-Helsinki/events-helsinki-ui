@@ -11,6 +11,12 @@ import { getGraphQLUrl } from '../utils/settings';
 const client = new GraphQLClient(getGraphQLUrl());
 const sdk = getSdk(client);
 
+export const isPastEvent = (event: EventFieldsFragment): boolean => {
+  const eventEndTime = event.endTime && new Date(event.endTime);
+  const currentTime = new Date();
+  return eventEndTime && eventEndTime < currentTime;
+};
+
 export const getEvents = async (
   count = PAGE_SIZE,
   locale = SUPPORT_LANGUAGES.FI,
@@ -27,6 +33,8 @@ export const getEvents = async (
   const {
     eventList: { data },
   } = await sdk.EventList(searchVariables);
-  // slice first event as it seems that some times first event is returned from cache and might have been expired.
-  return data.filter((event) => Boolean(event.name[locale])).slice(1);
+  // Filter out events that have ended less than 15 minutes ago due to linked events cache.
+  return data.filter(
+    (event) => Boolean(event.name[locale]) && !isPastEvent(event)
+  );
 };
