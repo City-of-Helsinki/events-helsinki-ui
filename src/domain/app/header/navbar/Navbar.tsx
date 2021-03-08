@@ -6,7 +6,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 
 import IconLink from '../../../../common/components/link/IconLink';
 import { getCurrentLanguage } from '../../../../common/translation/TranslationUtils';
-import { SUPPORT_LANGUAGES } from '../../../../constants';
+import { supportedLanguages } from '../../../../constants';
 import useLocale from '../../../../hooks/useLocale';
 import { Language } from '../../../../types';
 import scrollToTop from '../../../../util/scrollToTop';
@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const locale = useLocale();
 
-  const languageOptions = Object.values(SUPPORT_LANGUAGES).map((language) => {
+  const languageOptions = supportedLanguages.map((language) => {
     return {
       label: t(`header.languages.${language}`),
       value: language,

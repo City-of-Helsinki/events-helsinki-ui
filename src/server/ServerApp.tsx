@@ -15,14 +15,14 @@ export interface StaticContext {
   url?: string;
 }
 
-interface Props {
+export interface ServerAppProps {
   client: ApolloClient<Record<string, unknown>>;
   staticContext: StaticContext;
   serverRequestContext: ServerRequestContextType;
   i18n: i18nType;
 }
 
-const ServerApp: React.FC<Props> = ({
+const ServerApp: React.FC<ServerAppProps> = ({
   client,
   staticContext,
   serverRequestContext,
