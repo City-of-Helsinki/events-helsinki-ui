@@ -2,7 +2,8 @@ import '../../../assets/styles/main.scss';
 
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Redirect, Route, RouteComponentProps, Switch } from 'react-router';
+import { Route, RouteComponentProps, Switch } from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 import { SUPPORT_LANGUAGES } from '../../../constants';
 import AboutPage from '../../about/AboutPage';
@@ -33,7 +34,6 @@ const App: FunctionComponent<RouteComponentProps<{
 
   return (
     <Switch>
-      <Redirect exact path={`/${locale}/`} to={`/${locale}${ROUTES.HOME}`} />
       <Route exact path={`/${locale}${ROUTES.HOME}`} component={LandingPage} />
       <Route
         exact

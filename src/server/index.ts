@@ -14,13 +14,14 @@ import ReactDOMServer from 'react-dom/server';
 import { Helmet } from 'react-helmet';
 
 import i18next from '../common/translation/i18n/init.server';
-import { SUPPORT_LANGUAGES } from '../constants';
+import { supportedLanguages } from '../constants';
 import { ServerRequestContextType } from '../contexts/ServerRequestContext';
 import getDomainFromRequest from '../util/getDomainFromRequest';
 import updateSitemaps from '../util/updateSitemap';
 import { getAssets } from './assets';
 import Html from './Html';
 import ServerApp, { StaticContext } from './ServerApp';
+import { handleReactRouterRedirection } from './utils';
 
 const OK = 'OK';
 const SERVER_IS_NOT_READY = 'SERVER_IS_NOT_READY';
@@ -42,7 +43,7 @@ const checkIsServerReady = (response: Response) => {
 const getInitialI18nStore = (req: Request) => {
   const initialI18nStore: Resource = {};
 
-  Object.values(SUPPORT_LANGUAGES).forEach((l: string) => {
+  supportedLanguages.forEach((l: string) => {
     initialI18nStore[
       l
     ] = (req as I18NextRequest).i18n.services.resourceStore.data[l];
@@ -107,8 +108,9 @@ app.use(async (req: Request, res: Response) => {
 
     const html = ReactDOMServer.renderToString(htmlEl);
 
+    // Somewhere a `<Redirect>` was rendered (https://reactrouter.com/web/guides/server-rendering)
     if (staticContext.url) {
-      res.redirect(302, staticContext.url);
+      handleReactRouterRedirection(req, res, staticContext.url);
     } else {
       res.status(200);
       res.send(`<!doctype html>${html}`);

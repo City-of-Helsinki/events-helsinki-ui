@@ -1,5 +1,6 @@
 import { MockedResponse } from '@apollo/react-testing';
 import { screen, waitFor } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
 import { axe } from 'jest-axe';
 import * as React from 'react';
 
@@ -7,18 +8,37 @@ import translations from '../../../common/translation/i18n/fi.json';
 import {
   CollectionDetailsDocument,
   CollectionFieldsFragment,
+  EventsByIdsDocument,
 } from '../../../generated/graphql';
-import { fakeCollection } from '../../../test/mockDataUtils';
+import {
+  fakeCollection,
+  fakeEvent,
+  fakeLocalizedObject,
+} from '../../../test/mockDataUtils';
 import { renderWithRoute } from '../../../test/testUtils';
 import { ROUTES } from '../../app/routes/constants';
 import CollectionPageContainer from '../CollectionPageContainer';
 
-const collection = fakeCollection() as CollectionFieldsFragment;
+const curatedEventId = 'kulke:51381';
+const curatedEventName = 'Curated test event';
+
+const collection = fakeCollection({
+  curatedEvents: [
+    `https://tapahtumat.test.kuva.hel.ninja/fi/event/${curatedEventId}?places=tprek%3A7254`,
+  ],
+}) as CollectionFieldsFragment;
 
 const path = ROUTES.COLLECTION;
 const routes = [ROUTES.COLLECTION.replace(':slug', collection.slug)];
 const draftRoutes = [
   `${ROUTES.COLLECTION.replace(':slug', collection.slug)}?draft=true`,
+];
+
+const eventsByIds = [
+  fakeEvent({
+    id: curatedEventId,
+    name: fakeLocalizedObject(curatedEventName),
+  }),
 ];
 
 export const getMocks = (
@@ -36,6 +56,20 @@ export const getMocks = (
     result: {
       data: {
         collectionDetails,
+      },
+    },
+  },
+  {
+    request: {
+      query: EventsByIdsDocument,
+      variables: {
+        ids: [curatedEventId],
+        include: ['location'],
+      },
+    },
+    result: {
+      data: {
+        eventsByIds,
       },
     },
   },
@@ -139,4 +173,35 @@ it('should show error hero if collection is expired', async () => {
   expect(
     screen.getByText(translations.collection.expired.text)
   ).toBeInTheDocument();
+});
+
+it('should fetch and render curated event and scroll to it', async () => {
+  const mocks = getMocks(collection, false);
+  const history = createMemoryHistory();
+  history.push({ pathname: routes[0], state: { eventId: curatedEventId } });
+
+  const scrollIntoViewMock = jest.fn();
+
+  jest.spyOn(document, 'getElementById').mockImplementation(() => {
+    const el = document.createElement('div');
+    el.scrollIntoView = scrollIntoViewMock;
+    return el;
+  });
+
+  renderWithRoute(<CollectionPageContainer />, {
+    mocks,
+    routes,
+    path,
+    history,
+  });
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  expect(screen.queryByText(curatedEventName)).toBeInTheDocument();
+  expect(scrollIntoViewMock).toHaveBeenCalledWith({
+    behavior: 'smooth',
+    block: 'center',
+  });
 });

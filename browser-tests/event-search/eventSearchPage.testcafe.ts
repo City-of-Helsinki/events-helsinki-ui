@@ -3,7 +3,7 @@ import TestController from 'testcafe';
 import {
   DATE_TYPES,
   DEFAULT_LANGUAGE,
-  SUPPORT_LANGUAGES,
+  supportedLanguages,
 } from '../../src/constants';
 import { PAGE_SIZE } from '../../src/domain/eventSearch/constants';
 import { getEvents } from '../datasources/eventDataSource';
@@ -94,7 +94,7 @@ test('Search url by event name shows event card data for helsinki event', async 
 test('Free text search finds event by free text search', async (t) => {
   const [event] = await getEvents();
   setDataToPrintOnFailure(t, 'expectedEvent', getExpectedEventContext(event));
-  for (const locale of Object.values(SUPPORT_LANGUAGES)) {
+  for (const locale of supportedLanguages) {
     await testSearchEventByText(t, event, event.name[locale], 'name');
     const randomShortDescriptionSentence =
       event.shortDescription[locale] &&

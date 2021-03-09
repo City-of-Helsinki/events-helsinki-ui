@@ -1,4 +1,4 @@
-import { SUPPORT_LANGUAGES } from '../constants';
+import { supportedLanguages } from '../constants';
 import { MAPPED_PLACES } from '../domain/eventSearch/constants';
 import { assertUnreachable } from './typescript.utils';
 
@@ -11,9 +11,7 @@ export type QueryParams = {
 
 export type QueryParam = keyof QueryParams;
 
-const langPathRegExp = new RegExp(
-  `/(${Object.values(SUPPORT_LANGUAGES).join('|')})`
-);
+const langPathRegExp = new RegExp(`/(${supportedLanguages.join('|')})`);
 
 const stripLanguageFromPath = (path: string) =>
   path.replace(langPathRegExp, '');

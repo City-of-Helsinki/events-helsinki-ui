@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 
 import isClient from '../../../util/isClient';
 
@@ -12,12 +12,13 @@ import isClient from '../../../util/isClient';
  */
 const ScrollToTop = (): null => {
   const { pathname } = useLocation();
+  const { action } = useHistory();
 
   React.useEffect(() => {
-    if (isClient) {
+    if (isClient && action === 'PUSH') {
       window.scrollTo(0, 0);
     }
-  }, [pathname]);
+  }, [action, pathname]);
 
   return null;
 };

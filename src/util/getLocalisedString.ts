@@ -1,4 +1,4 @@
-import { SUPPORT_LANGUAGES } from '../constants';
+import { supportedLanguages } from '../constants';
 import { LocalizedObject } from '../generated/graphql';
 import { Language } from '../types';
 
@@ -15,7 +15,7 @@ export default (
 
   const languages = [
     language,
-    ...Object.values(SUPPORT_LANGUAGES).filter((item) => item !== language),
+    ...supportedLanguages.filter((item) => item !== language),
   ];
   // Find first language which has value
   const locale = languages.find((lng) => obj[lng]);
