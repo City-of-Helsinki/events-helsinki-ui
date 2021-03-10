@@ -19,12 +19,12 @@ jobs:
         uses: k6io/action@v0.1
         with:
           filename: k6LoadTests.js
-      - name: k6 Load Tests failed notifications
+      - name: k6 Load Tests notifications
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_USERNAME: AlertManager
+          SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_48.png
           SLACK_TITLE: K6 load tests job result is ${{ job.status }}.
           SLACK_MESSAGE: K6 load tests job result is ${{ job.status }}.
-          SLACK_COLOR: ${{ job.status }}
