@@ -3,6 +3,9 @@ on:
   schedule:
   # Mon-Fri 5AM Finnish time (UTC+3)
   - cron: '0 2 * * 1-5'
+push:
+  branches:
+    - k6-improvements
 jobs:
   k6_load_test:
     name: k6 Load Tests
