@@ -22,6 +22,15 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_USERNAME: AlertManager
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_48.png
-          SLACK_TITLE: K6 Load Tests has failed.
+          SLACK_TITLE: K6 load tests has failed.
           SLACK_MESSAGE: Some of the k6 load tests has failed.
         if: failure()
+      - name: k6 Load Tests success notifications
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: AlertManager
+          SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_48.png
+          SLACK_TITLE: K6 load tests has succeeded.
+          SLACK_MESSAGE: All k6 load tests has succeeded.
+        if: success()
