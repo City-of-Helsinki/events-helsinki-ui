@@ -169,14 +169,6 @@ window.initialLanguage=\\"fi\\";",
               content="#da532c"
               name="msapplication-TileColor"
             />,
-<<<<<<< HEAD
-=======
-            <link
-              href="http://localhost:3000"
-              rel="canonical"
-            />,
-            undefined,
->>>>>>> use navigationStylesForSSR style in header and avoid flickering on topbanner image
             <meta
               content="testing react helmet"
               name="description"
