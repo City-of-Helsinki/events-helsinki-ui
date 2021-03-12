@@ -4,6 +4,9 @@ on:
   # Mon-Fri 5AM Finnish time (UTC+3)
   # production: - cron: '0 2 * * 1-5'
     - cron: '*/15 * * * *'
+  push:
+    branches:
+      - k6-improvements
 jobs:
   k6_load_test:
     name: k6 Load Tests
@@ -26,4 +29,4 @@ jobs:
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_48.png
           SLACK_TITLE: K6 load tests job result is ${{ job.status }}.
           SLACK_MESSAGE: K6 load tests job result is ${{ job.status }}.
-        if: always()
+        if: ${{ job.status == 'success' && 'good' || (job.status == 'failure' && 'danger' || 'warning') }}
