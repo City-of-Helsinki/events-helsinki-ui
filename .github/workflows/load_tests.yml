@@ -26,4 +26,4 @@ jobs:
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_48.png
           SLACK_TITLE: K6 load tests job result is ${{ job.status }}.
           SLACK_MESSAGE: K6 load tests job result is ${{ job.status }}.
-        if: ${{ always() }}
+        if: always()
