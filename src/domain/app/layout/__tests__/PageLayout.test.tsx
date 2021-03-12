@@ -28,7 +28,12 @@ describe('on mobile view', () => {
       name: translations.header.menuToggleAriaLabel,
     });
 
-    userEvent.click(button);
+    // Desktop navigation
     expect(withinHeader().getByRole('navigation')).toBeInTheDocument();
+
+    userEvent.click(button);
+
+    // Desktop navigation and mobile navigation rendered (desktop navigation should be hidden)
+    expect(withinHeader().getAllByRole('navigation')).toHaveLength(2);
   });
 });

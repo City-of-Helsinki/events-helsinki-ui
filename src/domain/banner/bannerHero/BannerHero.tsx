@@ -3,7 +3,6 @@ import { Button } from 'hds-react';
 import capitalize from 'lodash/capitalize';
 import * as React from 'react';
 
-import { VisibleAfterComponentMounted } from '../../../common/components/ssr/VisibleAfterComponentMounted';
 import { BannerPage } from '../../../generated/graphql';
 import useBreakpoint from '../../../hooks/useBreakpoint';
 import useLocale from '../../../hooks/useLocale';
@@ -101,8 +100,7 @@ const BannerHero: React.FC<Props> = ({ banner, location }) => {
   const testIds = getTestIds(location);
 
   return (
-    <VisibleAfterComponentMounted
-      as="div"
+    <div
       className={classNames(styles.bannerHero, {
         [styles[`${backgroundColor}BackgroundColor`]]: backgroundColor,
       })}
@@ -156,7 +154,7 @@ const BannerHero: React.FC<Props> = ({ banner, location }) => {
           )}
         </div>
       </Container>
-    </VisibleAfterComponentMounted>
+    </div>
   );
 };
 
