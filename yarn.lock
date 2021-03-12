@@ -7434,6 +7434,11 @@ date-fns-tz@^1.0.10:
   resolved "https://registry.yarnpkg.com/date-fns-tz/-/date-fns-tz-1.0.10.tgz#30fef0038f80534fddd8e133a6b8ca55ba313748"
   integrity sha512-cHQAz0/9uDABaUNDM80Mj1FL4ODlxs1xEY4b0DQuAooO2UdNKvDkNbV8ogLnxLbv02Ru1HXFcot0pVvDRBgptg==
 
+date-fns@2.16.1:
+  version "2.16.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.16.1.tgz#05775792c3f3331da812af253e1a935851d3834b"
+  integrity sha512-sAJVKx/FqrLYHAQeN7VpJrPhagZc9R4ImZIWYRFZaaohR3KzmuK88touwsSwSVT8Qcbd4zoDsnGfX4GFB4imyQ==
+
 date-fns@^1.27.2:
   version "1.30.1"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
@@ -9799,26 +9804,30 @@ hash.js@^1.0.0, hash.js@^1.0.3, hash.js@^1.1.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-hds-core@0.21.0, "hds-core@file:./hds-core-1614963638321.tgz":
-  version "0.21.0"
-  resolved "file:./hds-core-1614963638321.tgz#b78a41c6277f2973d7eea41f9d86ab5f35b5ca0e"
+hds-core@0.23.0, hds-core@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-0.23.0.tgz#3595c9d0b81ae84404c5b1262a559405ffd6fa6b"
+  integrity sha512-vKNPWOnDPLjliUWx134EGD1NPwJZbsGQzXZ1zHX3ofqPTTtr2OAAKVrAylJbLYL+DDBJ+2gXjvgz64h0ISzAvQ==
 
-"hds-design-tokens@file:./hds-design-tokens-1614963638321.tgz":
-  version "0.21.0"
-  resolved "file:./hds-design-tokens-1614963638321.tgz#29d141f3e7b30fe1982f85440c4b63a2f86349e1"
+hds-design-tokens@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/hds-design-tokens/-/hds-design-tokens-0.23.0.tgz#0aed558280a3d3dcda3ec50cd37b8b4ace2b1d65"
+  integrity sha512-/SSrIGRkBnlC83osmVNb2G4wJsQEMPTHw6usik0Yb7NNyCLfaQ4Cao7eTMd/cA9Vr7qcRy7RCn1am0/LoqWC7g==
 
-"hds-react@file:./hds-react-1614963638321.tgz":
-  version "0.21.0"
-  resolved "file:./hds-react-1614963638321.tgz#cb4ae1714ff153a9dd89001c22505595e0a1cb18"
+hds-react@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/hds-react/-/hds-react-0.23.0.tgz#b9ea5fe00a352b12d19489fe715d98500e85966a"
+  integrity sha512-Z0i3blJafn38GCeQq15nA4gOAzzreaASF/0ygzPH2ku0vTibCgaEbjOTi49W6f2quwe/jIcHt6R/X21LMKNt7Q==
   dependencies:
     "@babel/runtime" "7.11.2"
     "@juggle/resize-observer" "3.2.0"
     "@popperjs/core" "2.5.3"
     "@react-aria/visually-hidden" "3.2.0"
-    classnames "^2.2.6"
+    date-fns "2.16.1"
     downshift "6.0.6"
-    hds-core "0.21.0"
+    hds-core "0.23.0"
     lodash.isequal "4.5.0"
+    lodash.isfunction "3.0.9"
     lodash.uniqueid "4.0.1"
     react-merge-refs "1.1.0"
     react-popper "2.2.3"
@@ -12005,6 +12014,11 @@ lodash.isequal@4.5.0, lodash.isequal@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
   integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
+
+lodash.isfunction@3.0.9:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/lodash.isfunction/-/lodash.isfunction-3.0.9.tgz#06de25df4db327ac931981d1bdb067e5af68d051"
+  integrity sha512-AirXNj15uRIMMPihnkInB4i3NHeb4iBtNg9WRWuK2o31S+ePwwNmDPaTL3o7dTJ+VXNZim7rFs4rxN4YU1oUJw==
 
 lodash.isplainobject@^4.0.6:
   version "4.0.6"
