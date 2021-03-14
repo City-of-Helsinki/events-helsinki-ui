@@ -2,6 +2,9 @@ name: k6 Load Tests
 on:
   schedule:
     - cron: '*/15 * * * *'
+  push:
+    branches:
+      - k6-improvements
 jobs:
   k6_load_test:
     name: k6 Load Tests
