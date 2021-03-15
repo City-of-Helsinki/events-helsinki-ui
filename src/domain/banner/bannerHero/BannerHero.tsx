@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { Button } from 'hds-react';
 import capitalize from 'lodash/capitalize';
-import React from 'react';
+import * as React from 'react';
 
 import { BannerPage } from '../../../generated/graphql';
 import useBreakpoint from '../../../hooks/useBreakpoint';

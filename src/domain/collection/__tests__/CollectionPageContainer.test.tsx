@@ -5,11 +5,9 @@ import { axe } from 'jest-axe';
 import * as React from 'react';
 
 import translations from '../../../common/translation/i18n/fi.json';
-import {
-  CollectionDetailsDocument,
-  CollectionFieldsFragment,
-  EventsByIdsDocument,
-} from '../../../generated/graphql';
+import { CollectionFieldsFragment } from '../../../generated/graphql';
+import { getCollectionDetailsMock } from '../../../test/apollo-mocks/collectionsDetailsMocks';
+import { getEventsByIdsMock } from '../../../test/apollo-mocks/eventByIdsMocks';
 import {
   fakeCollection,
   fakeEvent,
@@ -41,38 +39,18 @@ const eventsByIds = [
   }),
 ];
 
-export const getMocks = (
+const getMocks = (
   collectionDetails: CollectionFieldsFragment,
   draft = false
 ): MockedResponse[] => [
-  {
-    request: {
-      query: CollectionDetailsDocument,
-      variables: {
-        draft,
-        slug: collectionDetails.slug,
-      },
-    },
-    result: {
-      data: {
-        collectionDetails,
-      },
-    },
-  },
-  {
-    request: {
-      query: EventsByIdsDocument,
-      variables: {
-        ids: [curatedEventId],
-        include: ['location'],
-      },
-    },
-    result: {
-      data: {
-        eventsByIds,
-      },
-    },
-  },
+  getCollectionDetailsMock({
+    collectionDetails,
+    variables: { draft, slug: collectionDetails.slug },
+  }),
+  getEventsByIdsMock({
+    variables: { ids: [curatedEventId], include: ['location'] },
+    eventsByIds,
+  }),
 ];
 
 it('component should be accessible', async () => {
@@ -85,6 +63,10 @@ it('component should be accessible', async () => {
 
   await waitFor(() => {
     expect(screen.getByText(collection.title.fi)).toBeInTheDocument();
+  });
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
   expect(await axe(container)).toHaveNoViolations();

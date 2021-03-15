@@ -8,11 +8,14 @@ import {
   LinkedEventsSource,
   PlaceDetailsDocument,
 } from '../../../../generated/graphql';
+import { getCollectionDetailsMock } from '../../../../test/apollo-mocks/collectionsDetailsMocks';
+import { getEventsByIdsMock } from '../../../../test/apollo-mocks/eventByIdsMocks';
 import { createEventListRequestAndResultMocks } from '../../../../test/apollo-mocks/eventListMocks';
 import { getCollectionQueryListMocks } from '../../../../test/collections/collections.common.tests';
 import {
   fakeCollection,
   fakeCollections,
+  fakeEvent,
   fakeEvents,
   fakeLandingPages,
   fakeLocalizedObject,
@@ -25,7 +28,6 @@ import {
   screen,
   waitFor,
 } from '../../../../test/testUtils';
-import { getMocks as getCollectionMocks } from '../../../collection/__tests__/CollectionPageContainer.test';
 import {
   MAPPED_PLACES,
   MARKETING_COLLECTION_SLUGS,
@@ -43,10 +45,20 @@ const placeToPlaceString = {
   vuotalo: 'Vuotalo',
 };
 
+const curatedEventId = 'kulke:51381';
+const curatedEventName = 'Curated event name';
+
 configure({ defaultHidden: true });
 
 const landingPagesResponse = { data: { landingPages: fakeLandingPages(1) } };
 const collections = fakeCollections(1);
+
+const eventsByIds = [
+  fakeEvent({
+    id: curatedEventId,
+    name: fakeLocalizedObject(curatedEventName),
+  }),
+];
 
 const createFakeResponseEvents = () => fakeEvents(3);
 
@@ -87,6 +99,20 @@ const mocks = [
         },
       },
     };
+  }),
+];
+
+const getCollectionMocks = (
+  collectionDetails: CollectionFieldsFragment,
+  draft = false
+): MockedResponse[] => [
+  getCollectionDetailsMock({
+    variables: { draft, slug: collectionDetails.slug },
+    collectionDetails,
+  }),
+  getEventsByIdsMock({
+    variables: { ids: [curatedEventId], include: ['location'] },
+    eventsByIds,
   }),
 ];
 

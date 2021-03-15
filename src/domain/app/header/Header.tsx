@@ -10,15 +10,15 @@ import { updateLocaleParam } from '../../../util/updateLocaleParam';
 import { ROUTES } from '../routes/constants';
 import styles from './header.module.scss';
 
-export interface HeaderProps {
-  menuOpen: boolean;
-  onMenuToggle: () => void;
-}
-const Header: React.FC<HeaderProps> = ({ menuOpen, onMenuToggle }) => {
+const Header: React.FC = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const location = useLocation();
   const locale = useLocale();
+
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const closeMenu = () => setMenuOpen(false);
 
   const languageOptions: OptionType[] = React.useMemo(() => {
     return Object.values(SUPPORT_LANGUAGES).map((language) => ({
@@ -46,6 +46,7 @@ const Header: React.FC<HeaderProps> = ({ menuOpen, onMenuToggle }) => {
   ) => {
     event?.preventDefault();
     history.push({ pathname });
+    closeMenu();
   };
 
   const logoLang = locale === 'sv' ? 'sv' : 'fi';
@@ -64,10 +65,11 @@ const Header: React.FC<HeaderProps> = ({ menuOpen, onMenuToggle }) => {
       url: `/${locale}${ROUTES.COLLECTIONS}`,
     },
   ];
+
   return (
     <Navigation
       menuOpen={menuOpen}
-      onMenuToggle={onMenuToggle}
+      onMenuToggle={toggleMenu}
       menuToggleAriaLabel={t('header.menuToggleAriaLabel')}
       skipTo={`#${MAIN_CONTENT_ID}`}
       skipToContentLabel={t('header.skipToContentLabel')}
