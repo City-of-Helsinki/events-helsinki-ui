@@ -66,6 +66,13 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
 
   //set values with prevalidation, rest of validation on blur
   const handleInputChange = (inputType: RANGE_INPUT, val: string) => {
+    //extra check for negative values
+    if (
+      val.match(/^-?\d\d?$/) &&
+      (val < minInputStartValue || val > maxInputEndValue)
+    ) {
+      return;
+    }
     const allowChange =
       (maxInputEndValue && val.length <= maxInputEndValue.length) ?? true;
     if (allowChange) {
