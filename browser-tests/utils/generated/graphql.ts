@@ -728,10 +728,7 @@ export type EventFieldsFragment = { __typename?: 'EventDetails' } & Pick<
       { __typename?: 'ExternalLink' } & Pick<ExternalLink, 'name' | 'link'>
     >;
     images: Array<
-      { __typename?: 'Image' } & Pick<
-        Image,
-        'id' | 'name' | 'url' | 'photographerName'
-      >
+      { __typename?: 'Image' } & Pick<Image, 'id' | 'name' | 'url'>
     >;
     superEvent: Maybe<
       { __typename?: 'InternalIdObject' } & Pick<InternalIdObject, 'internalId'>
@@ -1216,7 +1213,6 @@ export const EventFieldsFragmentDoc = gql`
       id
       name
       url
-      photographerName
     }
     superEvent {
       internalId
