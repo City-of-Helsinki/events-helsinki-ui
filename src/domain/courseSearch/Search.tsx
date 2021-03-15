@@ -112,6 +112,8 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
       audienceMaxAgeLt,
     } = getSearchFilters(searchParams);
 
+    setEnd(endTime);
+    setStart(startTime);
     setSelectedCategories(categories);
     setSelectedHobbyTypes(hobbyTypes || []);
     setSelectedDivisions(divisions);
