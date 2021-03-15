@@ -62,7 +62,8 @@
     },
     "yearsShort": "år",
     "supriseMe": "Jag har tur",
-    "timeAbbreviation": "kl."
+    "timeAbbreviation": "kl.",
+    "photographerText": "Foto: {{photographer}}"
   },
   "collection": {
     "buttonShowAllPastEvents": "Visa alla tidigare rekommendationer",

@@ -62,7 +62,8 @@
     "srOnly" : {
       "opensInANewTab": "Avautuu uudessa välilehdessä"
     },
-    "yearsShort": "v"
+    "yearsShort": "v",
+    "photographerText": "Kuva: {{photographer}}"
   },
   "collection": {
     "buttonShowAllPastEvents": "Näytä kaikki menneet",

@@ -2,7 +2,9 @@ import gql from 'graphql-tag';
 
 export const QUERY_KEYWORD = gql`
   fragment cmsImageFields on CmsImage {
-    photographerCredit
+    photographerCredit {
+      ...localizedFields
+    }
     url
   }
 

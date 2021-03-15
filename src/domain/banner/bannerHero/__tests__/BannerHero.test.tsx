@@ -4,23 +4,43 @@ import { axe } from 'jest-axe';
 import * as React from 'react';
 
 import { BannerPageFieldsFragment } from '../../../../generated/graphql';
-import { fakeBanner } from '../../../../test/mockDataUtils';
+import {
+  fakeBanner,
+  fakeCmsImage,
+  fakeLocalizedCmsImage,
+  fakeLocalizedObject,
+} from '../../../../test/mockDataUtils';
 import BannerHero, { getTestIds } from '../BannerHero';
 const title = 'Banner title';
 const description = 'Banner page description';
 const buttonText = 'Button text';
+const photographerCredit = 'Valo Valokuvaaja';
 const banner = fakeBanner({
   buttonText: { fi: buttonText },
   description: { fi: description },
   title: { fi: title },
+  heroBackgroundImage: fakeLocalizedCmsImage({
+    fi: fakeCmsImage({
+      photographerCredit: fakeLocalizedObject(photographerCredit),
+    }),
+  }),
 }) as BannerPageFieldsFragment;
 
 test('should be rendered correctly', () => {
-  render(<BannerHero banner={banner} location="top" />);
+  render(
+    <BannerHero
+      banner={{ ...banner, titleAndDescriptionColor: { fi: 'WHITE' } }}
+      location="top"
+    />
+  );
 
   expect(screen.getByText(title)).toBeInTheDocument();
   expect(screen.getByText(description)).toBeInTheDocument();
   expect(screen.getByText(buttonText)).toBeInTheDocument();
+
+  const creditsContainer = screen.queryByText(`Kuva: ${photographerCredit}`);
+  expect(creditsContainer).toBeInTheDocument();
+  expect(creditsContainer).toHaveStyle('background-color: rgba(0, 0, 0, 0.7)');
 });
 
 test('should set text wrapper background color and background images', () => {

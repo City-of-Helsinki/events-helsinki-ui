@@ -2,12 +2,13 @@ import classNames from 'classnames';
 import { Button } from 'hds-react';
 import capitalize from 'lodash/capitalize';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { BannerPage } from '../../../generated/graphql';
 import useBreakpoint from '../../../hooks/useBreakpoint';
 import useLocale from '../../../hooks/useLocale';
 import useTextWrapperWidth from '../../../hooks/useTextWrapperWidth';
-import { Breakpoint } from '../../../types';
+import { Breakpoint, LandingPageTextColor } from '../../../types';
 import Container from '../../app/layout/Container';
 import { getBannerFields } from '../bannerUtils';
 import styles from './bannerHero.module.scss';
@@ -46,10 +47,16 @@ export const getTestIds = (
   heroTopLayerImage: `${location}-heroTopLayerImage`,
 });
 
+const contentBackgroundColorMap: Record<LandingPageTextColor, string> = {
+  BLACK: 'rgba(255, 255, 255, 0.7)',
+  WHITE: 'rgba(0, 0, 0, 0.7)',
+};
+
 const BannerHero: React.FC<Props> = ({ banner, location }) => {
   const textWrapper = React.useRef<HTMLDivElement>(null);
   const locale = useLocale();
   const breakpoint = useBreakpoint();
+  const { t } = useTranslation();
   const { fontSize, maxTextWrapperWidth } = React.useMemo(
     () => ({
       fontSize: getTextFontSize(breakpoint),
@@ -68,7 +75,11 @@ const BannerHero: React.FC<Props> = ({ banner, location }) => {
     heroTopLayerImage,
     title,
     titleAndDescriptionColor,
+    heroImageCredits,
   } = getBannerFields(locale, banner);
+
+  const contentBackgroundColor =
+    contentBackgroundColorMap[titleAndDescriptionColor];
 
   const textWrapperWidth = useTextWrapperWidth({
     font: `600 ${fontSize}px HelsinkiGrotesk`,
@@ -85,17 +96,9 @@ const BannerHero: React.FC<Props> = ({ banner, location }) => {
       textWrapper.current.style.maxWidth = textWrapperWidth
         ? `${textWrapperWidth + 1}px`
         : '';
-      switch (titleAndDescriptionColor) {
-        case 'BLACK':
-          textWrapper.current.style.backgroundColor =
-            'rgba(0255, 255, 255, 0.7)';
-          break;
-        case 'WHITE':
-          textWrapper.current.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-          break;
-      }
+      textWrapper.current.style.backgroundColor = contentBackgroundColor;
     }
-  }, [textWrapperWidth, titleAndDescriptionColor]);
+  }, [contentBackgroundColor, textWrapperWidth, titleAndDescriptionColor]);
 
   const testIds = getTestIds(location);
 
@@ -134,6 +137,20 @@ const BannerHero: React.FC<Props> = ({ banner, location }) => {
             backgroundPosition: `center calc(100% - ${location === 'top' ? 5.5 : 0}rem)`,
           }}
         />
+      )}
+      {heroImageCredits && (
+        <div
+          className={classNames(
+            styles.imageCredits,
+            titleAndDescriptionColor &&
+              styles[`color${capitalize(titleAndDescriptionColor)}`]
+          )}
+          style={{
+            backgroundColor: contentBackgroundColor,
+          }}
+        >
+          {t('commons.photographerText', { photographer: heroImageCredits })}
+        </div>
       )}
       <Container>
         <div

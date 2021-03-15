@@ -24,8 +24,10 @@ const CollectionHero: React.FC<Props> = ({ collection }) => {
     linkText,
     linkUrl,
     title,
+    heroImageCredits,
   } = getCollectionFields(collection, locale);
   const { t } = useTranslation();
+
   return (
     <div className={styles.collectionHero}>
       <ImageWithCard
@@ -39,6 +41,11 @@ const CollectionHero: React.FC<Props> = ({ collection }) => {
       >
         <h1>{title}</h1>
         {!!description && <TextWithLineBreaks as="p" text={description} />}
+        {!!heroImageCredits && (
+          <p className={styles.imageCredit}>
+            {t('commons.photographerText', { photographer: heroImageCredits })}
+          </p>
+        )}
         {!!linkText && (
           <a href={linkUrl} target="_blank" rel="noopener noreferrer">
             {linkText}

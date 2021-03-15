@@ -48,7 +48,7 @@ export type BannerPage = {
 
 export type CmsImage = {
   __typename?: 'CmsImage';
-  photographerCredit?: Maybe<Scalars['String']>;
+  photographerCredit?: Maybe<LocalizedObject>;
   url?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
 };
@@ -798,7 +798,10 @@ export type EventFieldsFragment = { __typename?: 'EventDetails' } & Pick<
       { __typename?: 'ExternalLink' } & Pick<ExternalLink, 'name' | 'link'>
     >;
     images: Array<
-      { __typename?: 'Image' } & Pick<Image, 'id' | 'name' | 'url'>
+      { __typename?: 'Image' } & Pick<
+        Image,
+        'id' | 'name' | 'url' | 'photographerName'
+      >
     >;
     superEvent: Maybe<
       { __typename?: 'InternalIdObject' } & Pick<InternalIdObject, 'internalId'>
@@ -930,8 +933,12 @@ export type KeywordListQuery = { __typename?: 'Query' } & {
 
 export type CmsImageFieldsFragment = { __typename?: 'CmsImage' } & Pick<
   CmsImage,
-  'photographerCredit' | 'url'
->;
+  'url'
+> & {
+    photographerCredit: Maybe<
+      { __typename?: 'LocalizedObject' } & LocalizedFieldsFragment
+    >;
+  };
 
 export type LocalizedCmsImageFieldsFragment = {
   __typename?: 'LocalizedCmsImage';
@@ -1155,9 +1162,12 @@ export const StaticPageFieldsFragmentDoc = gql`
 `;
 export const CmsImageFieldsFragmentDoc = gql`
   fragment cmsImageFields on CmsImage {
-    photographerCredit
+    photographerCredit {
+      ...localizedFields
+    }
     url
   }
+  ${LocalizedFieldsFragmentDoc}
 `;
 export const CollectionFieldsFragmentDoc = gql`
   fragment collectionFields on CollectionDetails {
@@ -1287,6 +1297,7 @@ export const EventFieldsFragmentDoc = gql`
       id
       name
       url
+      photographerName
     }
     superEvent {
       internalId
