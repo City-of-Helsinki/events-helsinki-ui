@@ -29,6 +29,15 @@
     }
   }
 
+  .imageCredits {
+    position: absolute;
+    right: 0;
+    bottom: 50px;
+    transform: rotate(270deg) translateX(100%);
+    transform-origin: bottom right;
+    padding: 0.2rem 0.5rem;
+  }
+
   .mobileBackgroundImage {
     position: absolute;
     top: 0;
@@ -105,15 +114,15 @@
         line-height: 72px;
       }
     }
-
-    &.colorBlack {
-      color: var(--color-black);
-    }
-
-    &.colorWhite {
-      color: var(--color-white);
-    }
   }
+}
+
+.colorBlack {
+  color: var(--color-black);
+}
+
+.colorWhite {
+  color: var(--color-white);
 }
 
 .copperBackgroundColor {

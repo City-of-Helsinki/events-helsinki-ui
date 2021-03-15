@@ -106,6 +106,8 @@ export const getBannerFields = (
     heroBackgroundImage: getHeroBackgroundImage(locale, banner),
     heroBackgroundImageMobile: getHeroBackgroundImageMobile(locale, banner),
     heroTopLayerImage: getHeroTopLayerImage(locale, banner),
+    heroImageCredits:
+      banner?.heroBackgroundImage?.[locale]?.photographerCredit?.[locale],
     someImage: getSomeImageUrl(locale, banner),
   };
 };

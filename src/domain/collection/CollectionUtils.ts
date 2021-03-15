@@ -95,4 +95,5 @@ export const getCollectionFields = (
   eventListTitle: collection.eventListTitle?.[locale] || '',
   heroBackgroundColor: getHeroBackgroundColor(collection),
   heroBackgroundImage: getHeroBackgroundImage(collection),
+  heroImageCredits: collection.heroImage?.photographerCredit?.[locale],
 });

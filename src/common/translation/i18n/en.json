@@ -58,7 +58,8 @@
       "messageLinkCopySuccess": "Link copied into clipboard"
     },
     "supriseMe": "I'm Feeling Lucky",
-    "timeAbbreviation": "at"
+    "timeAbbreviation": "at",
+    "photographerText": "Image: {{photographer}}"
   },
   "collection": {
     "buttonShowAllPastEvents": "Show all past recommendations",

@@ -314,7 +314,7 @@ export const fakeCollection = (
 export const fakeCmsImage = (overrides?: Partial<CmsImage>): CmsImage =>
   merge(
     {
-      photographerCredit: faker.name.lastName(),
+      photographerCredit: fakeLocalizedObject(faker.name.lastName()),
       url: faker.internet.url(),
       __typename: 'CmsImage',
     },

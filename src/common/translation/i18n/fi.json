@@ -58,7 +58,12 @@
       "messageLinkCopySuccess": "Linkki kopioitu leikepöydälle"
     },
     "supriseMe": "Koeta onneasi",
-    "timeAbbreviation": "klo"
+    "timeAbbreviation": "klo",
+    "srOnly" : {
+      "opensInANewTab": "Avautuu uudessa välilehdessä"
+    },
+    "yearsShort": "v",
+    "photographerText": "Kuva: {{photographer}}"
   },
   "collection": {
     "buttonShowAllPastEvents": "Näytä kaikki menneet",

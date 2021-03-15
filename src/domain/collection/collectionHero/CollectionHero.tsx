@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { IconAngleRight, ImageWithCard } from 'hds-react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import TextWithLineBreaks from '../../../common/components/textWithLineBreaks/TextWithLineBreaks';
 import { CollectionFieldsFragment } from '../../../generated/graphql';
@@ -22,7 +23,9 @@ const CollectionHero: React.FC<Props> = ({ collection }) => {
     linkText,
     linkUrl,
     title,
+    heroImageCredits,
   } = getCollectionFields(collection, locale);
+  const { t } = useTranslation();
 
   return (
     <div className={styles.collectionHero}>
@@ -37,7 +40,12 @@ const CollectionHero: React.FC<Props> = ({ collection }) => {
       >
         <h1>{title}</h1>
         {!!description && <TextWithLineBreaks as="p" text={description} />}
-        {!!linkText && !!linkText && (
+        {!!heroImageCredits && (
+          <p className={styles.imageCredit}>
+            {t('commons.photographerText', { photographer: heroImageCredits })}
+          </p>
+        )}
+        {!!linkText && (
           <a href={linkUrl} target="_blank" rel="noopener noreferrer">
             {linkText}
             <IconAngleRight className={styles.linkIcon} />
