@@ -4,6 +4,7 @@ import './datePicker.scss';
 import isEqual from 'date-fns/isEqual';
 import fi from 'date-fns/locale/fi';
 import sv from 'date-fns/locale/sv';
+import { max } from 'lodash';
 import React, { FunctionComponent } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 
@@ -132,7 +133,7 @@ const DateRangePicker: FunctionComponent<DateRangePickerProps> = ({
       <DatePicker
         ref={datePicker}
         locale={locale}
-        minDate={new Date()}
+        minDate={max([new Date(), startDate])}
         inlineFocusSelectedMonth={false}
         selectsStart={true}
         selectsEnd={true}
