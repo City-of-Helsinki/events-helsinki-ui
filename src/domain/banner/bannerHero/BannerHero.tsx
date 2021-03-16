@@ -127,7 +127,7 @@ const BannerHero: React.FC<Props> = ({ banner, location }) => {
             : 'none',
         }}
       />
-      {heroTopLayerImage && (
+      {!!heroTopLayerImage && (
         <div
           className={styles.image}
           data-testid={testIds.heroTopLayerImage}
@@ -138,7 +138,7 @@ const BannerHero: React.FC<Props> = ({ banner, location }) => {
           }}
         />
       )}
-      {heroImageCredits && (
+      {!!heroImageCredits && (
         <div
           className={classNames(
             styles.imageCredits,
