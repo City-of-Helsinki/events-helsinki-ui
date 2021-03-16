@@ -7,6 +7,7 @@ import CategoryFilter from '../../../common/components/category/CategoryFilter';
 import { Category } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import scrollToTop from '../../../util/scrollToTop';
+import { EventRouteProp } from '../../event/types';
 import {
   COURSE_DEFAULT_SEARCH_FILTERS,
   EVENT_DEFAULT_SEARCH_FILTERS,
@@ -21,7 +22,7 @@ import { ROUTES } from '../routes/constants';
 import styles from './footerCategories.module.scss';
 
 interface FooterProps {
-  route: '/courses' | '/events';
+  route: EventRouteProp;
 }
 
 const FooterCategories: FunctionComponent<FooterProps> = ({ route }) => {
@@ -29,12 +30,12 @@ const FooterCategories: FunctionComponent<FooterProps> = ({ route }) => {
   const locale = useLocale();
   const { push } = useHistory();
 
-  const defaultSearchFiltersMap: Record<string, Filters> = {
+  const defaultSearchFiltersMap: Record<EventRouteProp, Filters> = {
     [ROUTES.EVENTS]: EVENT_DEFAULT_SEARCH_FILTERS,
     [ROUTES.COURSES]: COURSE_DEFAULT_SEARCH_FILTERS,
   };
 
-  const categoriesOptionsMap: Record<string, CategoryOption[]> = {
+  const categoriesOptionsMap: Record<EventRouteProp, CategoryOption[]> = {
     [ROUTES.EVENTS]: getEventCategoryOptions(t),
     [ROUTES.COURSES]: getCourseCategoryOptions(t),
   };

@@ -18,6 +18,8 @@ export type SuperEventResponse = {
 
 export type EventType = 'event' | 'course';
 
+export type EventRouteProp = '/events' | '/courses';
+
 export const EVENT_ROUTE_MAPPER: Record<EventType, string> = {
   event: ROUTES.EVENT,
   course: ROUTES.COURSE,
