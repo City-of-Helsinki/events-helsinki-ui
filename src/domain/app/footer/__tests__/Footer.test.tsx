@@ -35,3 +35,33 @@ test('clicking links should route to right place', () => {
     pushSpy.mockReset();
   }
 });
+
+test('should show courses footer title', () => {
+  render(<Footer />, {
+    routes: [`/fi/courses`],
+  });
+  expect(
+    screen.queryByText(/suositut harrastuskategoriat/i)
+  ).toBeInTheDocument();
+});
+
+test('should show events footer title', () => {
+  render(<Footer />, {
+    routes: [`/fi/events`],
+  });
+  expect(
+    screen.queryByText(/suositut tapahtumien kategoriat/i)
+  ).toBeInTheDocument();
+});
+
+test('should not show footer title', () => {
+  render(<Footer />, {
+    routes: [`/fi/home`],
+  });
+  expect(
+    screen.queryByText(/suositut harrastuskategoriat/i)
+  ).not.toBeInTheDocument();
+  expect(
+    screen.queryByText(/suositut tapahtumien kategoriat/i)
+  ).not.toBeInTheDocument();
+});

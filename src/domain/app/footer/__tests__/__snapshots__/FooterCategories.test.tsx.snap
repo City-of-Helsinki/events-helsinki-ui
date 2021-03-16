@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should route to course search page by clicking category  1`] = `"/fi/courses"`;
+
 exports[`should route to event search page by clicking category  1`] = `"/fi/events"`;
