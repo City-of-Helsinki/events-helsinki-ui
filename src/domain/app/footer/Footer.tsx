@@ -25,9 +25,17 @@ const FooterSection: FunctionComponent = () => {
     document.querySelector<HTMLDivElement>(`#${resetFocusId}`)?.focus();
   };
 
-  const showCategories =
-    pathname.startsWith(`/${locale}${ROUTES.COURSES}`) ||
-    pathname.startsWith(`/${locale}${ROUTES.EVENTS}`);
+  const getCategoriesRoute = () => {
+    if (pathname.startsWith(`/${locale}${ROUTES.COURSES}`)) {
+      return ROUTES.COURSES;
+    } else if (pathname.startsWith(`/${locale}${ROUTES.EVENTS}`)) {
+      return ROUTES.EVENTS;
+    } else {
+      return '';
+    }
+  };
+
+  const categoriesRoute = getCategoriesRoute();
 
   return (
     <Footer title={t('appName')} theme={footerTheme} className={styles.footer}>
@@ -48,7 +56,7 @@ const FooterSection: FunctionComponent = () => {
           to={`/${locale}${ROUTES.COLLECTIONS}`}
         />
       </Footer.Navigation>
-      {showCategories && <FooterCategories />}
+      {!!categoriesRoute && <FooterCategories route={categoriesRoute} />}
       <Footer.Utilities
         backToTopLabel={t('footer.backToTop')}
         onBackToTopClick={handleBackToTop}

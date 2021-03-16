@@ -1,6 +1,7 @@
+import capitalize from 'lodash/capitalize';
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory } from 'react-router';
 
 import CategoryFilter from '../../../common/components/category/CategoryFilter';
 import { Category } from '../../../common/types';
@@ -10,6 +11,7 @@ import {
   COURSE_DEFAULT_SEARCH_FILTERS,
   EVENT_DEFAULT_SEARCH_FILTERS,
 } from '../../eventSearch/constants';
+import { CategoryOption, Filters } from '../../eventSearch/types';
 import {
   getCourseCategoryOptions,
   getEventCategoryOptions,
@@ -18,47 +20,44 @@ import {
 import { ROUTES } from '../routes/constants';
 import styles from './footerCategories.module.scss';
 
-const FooterCategories: FunctionComponent = () => {
+interface FooterProps {
+  route: '/courses' | '/events';
+}
+
+const FooterCategories: FunctionComponent<FooterProps> = ({ route }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { push } = useHistory();
-  const { pathname } = useLocation();
 
-  const isCoursesPage = pathname.startsWith(`/${locale}${ROUTES.COURSES}`);
-  const defaultSearchFilters = isCoursesPage
-    ? COURSE_DEFAULT_SEARCH_FILTERS
-    : EVENT_DEFAULT_SEARCH_FILTERS;
-  const searchPathname = `/${locale}${
-    isCoursesPage ? ROUTES.COURSES : ROUTES.EVENTS
-  }`;
-  const pageType = isCoursesPage ? 'Course' : 'Event';
+  const defaultSearchFiltersMap: Record<string, Filters> = {
+    [ROUTES.EVENTS]: EVENT_DEFAULT_SEARCH_FILTERS,
+    [ROUTES.COURSES]: COURSE_DEFAULT_SEARCH_FILTERS,
+  };
+
+  const categoriesOptionsMap: Record<string, CategoryOption[]> = {
+    [ROUTES.EVENTS]: getEventCategoryOptions(t),
+    [ROUTES.COURSES]: getCourseCategoryOptions(t),
+  };
 
   const handleCategoryClick = (category: Category) => {
     const search = getSearchQuery({
-      ...defaultSearchFilters,
+      ...defaultSearchFiltersMap[route],
       categories: [category.value],
     });
 
-    push({ pathname: searchPathname, search });
+    push({ pathname: `/${locale}${route}`, search });
     scrollToTop();
   };
 
-  const getCategoryOptions = () => {
-    if (isCoursesPage) {
-      return getCourseCategoryOptions(t);
-    }
-    //default
-    return getEventCategoryOptions(t);
-  };
-
-  const categories = getCategoryOptions();
+  const categories = categoriesOptionsMap[route];
+  const footerTitle = t(
+    `footer.title${capitalize(route.substring(1))}Categories`
+  );
 
   return (
     <div className={styles.topFooterWrapper}>
       <hr className={styles.divider} aria-hidden />
-      <h2 className={styles.categoriesTitle}>
-        {t(`footer.title${pageType}Categories`)}
-      </h2>
+      <h2 className={styles.categoriesTitle}>{footerTitle}</h2>
       <div className={styles.categoriesInnerWrapper}>
         {categories.map((category) => {
           return (

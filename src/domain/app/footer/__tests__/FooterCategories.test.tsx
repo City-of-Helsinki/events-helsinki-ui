@@ -3,6 +3,7 @@ import { axe } from 'jest-axe';
 import React from 'react';
 
 import { render, screen, userEvent } from '../../../../test/testUtils';
+import { ROUTES } from '../../routes/constants';
 import FooterCategories from '../FooterCategories';
 
 beforeEach(() => {
@@ -10,13 +11,13 @@ beforeEach(() => {
 });
 
 test('component should be accessible', async () => {
-  const { container } = render(<FooterCategories />);
+  const { container } = render(<FooterCategories route={ROUTES.EVENTS} />);
 
   expect(await axe(container)).toHaveNoViolations();
 });
 
 test('should route to event search page by clicking category ', () => {
-  const { history } = render(<FooterCategories />);
+  const { history } = render(<FooterCategories route={ROUTES.EVENTS} />);
 
   userEvent.click(screen.getByRole('button', { name: /elokuva/i }));
 
@@ -26,7 +27,7 @@ test('should route to event search page by clicking category ', () => {
 //  TODO: It seems that hds Footer does not support logoLanguage yet
 test.skip('should show Swedish logo ', () => {
   i18n.changeLanguage('sv');
-  render(<FooterCategories />);
+  render(<FooterCategories route={ROUTES.EVENTS} />);
 
   userEvent.click(screen.getByRole('button', { name: /elokuva/i }));
 
