@@ -1,6 +1,7 @@
 import { Footer, FooterCustomTheme } from 'hds-react';
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import useLocale from '../../../hooks/useLocale';
@@ -16,12 +17,17 @@ const footerTheme = {
 const FooterSection: FunctionComponent = () => {
   const { t } = useTranslation();
   const locale = useLocale();
+  const { pathname } = useLocation();
 
   // override Footer component default behaviour which focuses skip-link
   const handleBackToTop = () => {
     window?.scrollTo({ top: 0 });
     document.querySelector<HTMLDivElement>(`#${resetFocusId}`)?.focus();
   };
+
+  const showCategories =
+    pathname.startsWith(`/${locale}${ROUTES.COURSES}`) ||
+    pathname.startsWith(`/${locale}${ROUTES.EVENTS}`);
 
   return (
     <Footer title={t('appName')} theme={footerTheme} className={styles.footer}>
@@ -42,7 +48,7 @@ const FooterSection: FunctionComponent = () => {
           to={`/${locale}${ROUTES.COLLECTIONS}`}
         />
       </Footer.Navigation>
-      <FooterCategories />
+      {showCategories && <FooterCategories />}
       <Footer.Utilities
         backToTopLabel={t('footer.backToTop')}
         onBackToTopClick={handleBackToTop}

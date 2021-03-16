@@ -1,13 +1,17 @@
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 
 import CategoryFilter from '../../../common/components/category/CategoryFilter';
 import { Category } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import scrollToTop from '../../../util/scrollToTop';
-import { EVENT_DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
 import {
+  COURSE_DEFAULT_SEARCH_FILTERS,
+  EVENT_DEFAULT_SEARCH_FILTERS,
+} from '../../eventSearch/constants';
+import {
+  getCourseCategoryOptions,
   getEventCategoryOptions,
   getSearchQuery,
 } from '../../eventSearch/utils';
@@ -18,23 +22,43 @@ const FooterCategories: FunctionComponent = () => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { push } = useHistory();
+  const { pathname } = useLocation();
+
+  const isCoursesPage = pathname.startsWith(`/${locale}${ROUTES.COURSES}`);
+  const defaultSearchFilters = isCoursesPage
+    ? COURSE_DEFAULT_SEARCH_FILTERS
+    : EVENT_DEFAULT_SEARCH_FILTERS;
+  const searchPathname = `/${locale}${
+    isCoursesPage ? ROUTES.COURSES : ROUTES.EVENTS
+  }`;
+  const pageType = isCoursesPage ? 'Course' : 'Event';
 
   const handleCategoryClick = (category: Category) => {
     const search = getSearchQuery({
-      ...EVENT_DEFAULT_SEARCH_FILTERS,
+      ...defaultSearchFilters,
       categories: [category.value],
     });
 
-    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+    push({ pathname: searchPathname, search });
     scrollToTop();
   };
 
-  const categories = getEventCategoryOptions(t);
+  const getCategoryOptions = () => {
+    if (isCoursesPage) {
+      return getCourseCategoryOptions(t);
+    }
+    //default
+    return getEventCategoryOptions(t);
+  };
+
+  const categories = getCategoryOptions();
 
   return (
     <div className={styles.topFooterWrapper}>
       <hr className={styles.divider} aria-hidden />
-      <h2 className={styles.categoriesTitle}>{t('footer.titleCategories')}</h2>
+      <h2 className={styles.categoriesTitle}>
+        {t(`footer.title${pageType}Categories`)}
+      </h2>
       <div className={styles.categoriesInnerWrapper}>
         {categories.map((category) => {
           return (
