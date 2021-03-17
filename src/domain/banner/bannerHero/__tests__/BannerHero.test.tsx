@@ -10,7 +10,9 @@ import {
   fakeLocalizedCmsImage,
   fakeLocalizedObject,
 } from '../../../../test/mockDataUtils';
-import BannerHero, { getTestIds } from '../BannerHero';
+import { contentBackgroundColorMap } from '../../bannerConstants';
+import { getTestIds } from '../../bannerUtils';
+import BannerHero from '../BannerHero';
 const title = 'Banner title';
 const description = 'Banner page description';
 const buttonText = 'Button text';
@@ -40,7 +42,9 @@ test('should be rendered correctly', () => {
 
   const creditsContainer = screen.queryByText(`Kuva: ${photographerCredit}`);
   expect(creditsContainer).toBeInTheDocument();
-  expect(creditsContainer).toHaveStyle('background-color: rgba(0, 0, 0, 0.7)');
+  expect(creditsContainer).toHaveStyle(
+    `background-color: ${contentBackgroundColorMap.WHITE}`
+  );
 });
 
 test('should set text wrapper background color and background images', () => {

@@ -8,59 +8,30 @@ import { BannerPage } from '../../../generated/graphql';
 import useBreakpoint from '../../../hooks/useBreakpoint';
 import useLocale from '../../../hooks/useLocale';
 import useTextWrapperWidth from '../../../hooks/useTextWrapperWidth';
-import { Breakpoint, LandingPageTextColor } from '../../../types';
 import Container from '../../app/layout/Container';
-import { getBannerFields } from '../bannerUtils';
+import { contentBackgroundColorMap } from '../bannerConstants';
+import {
+  getBannerContentTextFontSize,
+  getBannerContentTextWrapperMaxWidth,
+  getBannerFields,
+  getTestIds,
+} from '../bannerUtils';
 import styles from './bannerHero.module.scss';
 
-const getTextWrapperMaxWidth = (breakpoint: Breakpoint) => {
-  switch (breakpoint) {
-    case 'md':
-      return 400;
-    case 'lg':
-    case 'xlg':
-      return 560;
-  }
-};
-
-const getTextFontSize = (breakpoint: Breakpoint) => {
-  switch (breakpoint) {
-    case 'lg':
-    case 'xlg':
-      return 80;
-  }
-  return 52;
-};
-
-interface Props {
+export type BannerHeroProps = {
   banner: BannerPage;
   location: 'top' | 'bottom';
-}
-
-export const getTestIds = (
-  location: Props['location']
-): Record<string, string> => ({
-  container: `${location}-banner`,
-  content: `${location}-banner-content`,
-  desktopBackgroundImage: `${location}-desktopBackgroundImage`,
-  mobileBackgroundImage: `${location}-mobileBackgroundImage`,
-  heroTopLayerImage: `${location}-heroTopLayerImage`,
-});
-
-const contentBackgroundColorMap: Record<LandingPageTextColor, string> = {
-  BLACK: 'rgba(255, 255, 255, 0.7)',
-  WHITE: 'rgba(0, 0, 0, 0.7)',
 };
 
-const BannerHero: React.FC<Props> = ({ banner, location }) => {
+const BannerHero: React.FC<BannerHeroProps> = ({ banner, location }) => {
   const textWrapper = React.useRef<HTMLDivElement>(null);
   const locale = useLocale();
   const breakpoint = useBreakpoint();
   const { t } = useTranslation();
   const { fontSize, maxTextWrapperWidth } = React.useMemo(
     () => ({
-      fontSize: getTextFontSize(breakpoint),
-      maxTextWrapperWidth: getTextWrapperMaxWidth(breakpoint),
+      fontSize: getBannerContentTextFontSize(breakpoint),
+      maxTextWrapperWidth: getBannerContentTextWrapperMaxWidth(breakpoint),
     }),
     [breakpoint]
   );
@@ -101,6 +72,9 @@ const BannerHero: React.FC<Props> = ({ banner, location }) => {
   }, [contentBackgroundColor, textWrapperWidth, titleAndDescriptionColor]);
 
   const testIds = getTestIds(location);
+  const titleAndDescriptionStyle = titleAndDescriptionColor
+    ? styles[`color${capitalize(titleAndDescriptionColor)}`]
+    : null;
 
   return (
     <div
@@ -140,11 +114,7 @@ const BannerHero: React.FC<Props> = ({ banner, location }) => {
       )}
       {!!heroImageCredits && (
         <div
-          className={classNames(
-            styles.imageCredits,
-            titleAndDescriptionColor &&
-              styles[`color${capitalize(titleAndDescriptionColor)}`]
-          )}
+          className={classNames(styles.imageCredits, titleAndDescriptionStyle)}
           style={{
             backgroundColor: contentBackgroundColor,
           }}
@@ -155,11 +125,7 @@ const BannerHero: React.FC<Props> = ({ banner, location }) => {
       <Container>
         <div
           ref={textWrapper}
-          className={classNames(
-            styles.content,
-            titleAndDescriptionColor &&
-              styles[`color${capitalize(titleAndDescriptionColor)}`]
-          )}
+          className={classNames(styles.content, titleAndDescriptionStyle)}
           data-testid={testIds.content}
         >
           <div className={styles.description}>{description}</div>
