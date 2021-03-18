@@ -26,13 +26,9 @@ const FooterSection: FunctionComponent = () => {
   };
 
   const getCategoriesRoute = () => {
-    if (pathname.startsWith(`/${locale}${ROUTES.COURSES}`)) {
-      return ROUTES.COURSES;
-    } else if (pathname.startsWith(`/${locale}${ROUTES.EVENTS}`)) {
-      return ROUTES.EVENTS;
-    } else {
-      return '';
-    }
+    return [ROUTES.COURSES, ROUTES.EVENTS].find((route) =>
+      pathname.startsWith(`/${locale}${route}`)
+    );
   };
 
   const categoriesRoute = getCategoriesRoute();
@@ -56,7 +52,7 @@ const FooterSection: FunctionComponent = () => {
           to={`/${locale}${ROUTES.COLLECTIONS}`}
         />
       </Footer.Navigation>
-      {!!categoriesRoute && <FooterCategories route={categoriesRoute} />}
+      {categoriesRoute && <FooterCategories route={categoriesRoute} />}
       <Footer.Utilities
         backToTopLabel={t('footer.backToTop')}
         onBackToTopClick={handleBackToTop}
