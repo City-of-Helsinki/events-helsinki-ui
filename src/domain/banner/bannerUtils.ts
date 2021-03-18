@@ -1,6 +1,40 @@
 import { BannerPage, Maybe } from '../../generated/graphql';
-import { LandingPageTextColor, Language } from '../../types';
+import { Breakpoint, LandingPageTextColor, Language } from '../../types';
 import { BANNER_SOME_IMAGE } from './bannerConstants';
+import { BannerHeroProps } from './bannerHero/BannerHero';
+
+export const getTestIds = (
+  location: BannerHeroProps['location']
+): Record<string, string> => ({
+  container: `${location}-banner`,
+  content: `${location}-banner-content`,
+  desktopBackgroundImage: `${location}-desktopBackgroundImage`,
+  mobileBackgroundImage: `${location}-mobileBackgroundImage`,
+  heroTopLayerImage: `${location}-heroTopLayerImage`,
+});
+
+export const getBannerContentTextWrapperMaxWidth = (
+  breakpoint: Breakpoint
+): number | undefined => {
+  switch (breakpoint) {
+    case 'md':
+      return 400;
+    case 'lg':
+    case 'xlg':
+      return 560;
+  }
+};
+
+export const getBannerContentTextFontSize = (
+  breakpoint: Breakpoint
+): number => {
+  switch (breakpoint) {
+    case 'lg':
+    case 'xlg':
+      return 80;
+  }
+  return 52;
+};
 
 /**
  * Get banner hero background color
@@ -106,6 +140,8 @@ export const getBannerFields = (
     heroBackgroundImage: getHeroBackgroundImage(locale, banner),
     heroBackgroundImageMobile: getHeroBackgroundImageMobile(locale, banner),
     heroTopLayerImage: getHeroTopLayerImage(locale, banner),
+    heroImageCredits:
+      banner?.heroBackgroundImage?.[locale]?.photographerCredit?.[locale],
     someImage: getSomeImageUrl(locale, banner),
   };
 };
