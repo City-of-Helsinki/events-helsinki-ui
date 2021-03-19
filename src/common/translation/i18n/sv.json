@@ -230,7 +230,7 @@
       "placeholder": "Ange ett sökord, t. ex. Franska eller matlagning",
       "labelSearchField": "Vad letar du efter?",
       "checkboxAlsoOngoingCourses": "Visa även pågående kurser",
-      "titleDropdownHobbyType": "Hobby type",
+      "titleDropdownHobbyType": "Aktivitetsform",
       "showOnlyAdultCourses": "Show only adult courses",
       "ageLimitValues": "Ålder",
       "ageLimitMin": "Från",
@@ -283,21 +283,21 @@
         "literature": "Litteratur och ordkonst",
         "artsAndCulture": "Kultur och konst",
         "visualArts": "Bildkonst",
-        "handicrafts": "Kädentaidot (sv)",
+        "handicrafts": "Hantverk",
         "sport": "Motion och friluftsliv",
         "music": "Musik",
-        "games": "Pelit (sv)",
+        "games": "Spel",
         "food": "Mat",
         "dance": "Dans",
         "theatre": "Teater"
       }
     },
     "hobby": {
-      "clubs": "Clubs",
-      "courses": "Courses",
-      "camps": "Camps",
-      "trips": "Trips",
-      "workshops": "Workshops",
+      "clubs": "Klubbar",
+      "courses": "Kurser",
+      "camps": "Läger",
+      "trips": "Utfärder",
+      "workshops": "Verkstäder",
       "onlineStudies": "Online studies"
     },
     "collections": {
