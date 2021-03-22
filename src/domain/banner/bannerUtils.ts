@@ -1,7 +1,11 @@
 import { BannerPage, Maybe } from '../../generated/graphql';
 import { Breakpoint, LandingPageTextColor, Language } from '../../types';
 import { BANNER_SOME_IMAGE } from './bannerConstants';
-import { BannerHeroProps } from './bannerHero/BannerHero';
+
+export type BannerHeroProps = {
+  banner: BannerPage;
+  location: 'top' | 'bottom';
+};
 
 export const getTestIds = (
   location: BannerHeroProps['location']

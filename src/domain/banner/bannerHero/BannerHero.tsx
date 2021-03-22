@@ -4,24 +4,19 @@ import capitalize from 'lodash/capitalize';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { BannerPage } from '../../../generated/graphql';
 import useBreakpoint from '../../../hooks/useBreakpoint';
 import useLocale from '../../../hooks/useLocale';
 import useTextWrapperWidth from '../../../hooks/useTextWrapperWidth';
 import Container from '../../app/layout/Container';
 import { contentBackgroundColorMap } from '../bannerConstants';
 import {
+  BannerHeroProps,
   getBannerContentTextFontSize,
   getBannerContentTextWrapperMaxWidth,
   getBannerFields,
   getTestIds,
 } from '../bannerUtils';
 import styles from './bannerHero.module.scss';
-
-export type BannerHeroProps = {
-  banner: BannerPage;
-  location: 'top' | 'bottom';
-};
 
 const BannerHero: React.FC<BannerHeroProps> = ({ banner, location }) => {
   const textWrapper = React.useRef<HTMLDivElement>(null);
