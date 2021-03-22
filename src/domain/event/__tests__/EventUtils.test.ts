@@ -162,7 +162,7 @@ describe('getEventIdFromUrl function', () => {
       getEventIdFromUrl(
         'http://localhost:3000/fi/collection/helsinki:afxh3naida'
       )
-    ).toBe(null);
+    ).toBe(undefined);
   });
 });
 

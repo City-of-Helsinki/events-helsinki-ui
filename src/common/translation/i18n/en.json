@@ -74,7 +74,9 @@
     "curatedEvents": {
       "linkOnlyExpiredEvents": "To all collections",
       "textEventNotFound": "Event not found",
-      "textOnlyExpiredEvents": "Unfortunately all the events in this collection have already passed. Have a look at our other recommendations and collections to find more interesting events."
+      "textOnlyExpiredEvents": "Unfortunately all the events in this collection have already passed. Have a look at our other recommendations and collections to find more interesting events.",
+      "eventsTitle": "Collection events",
+      "coursesTitle": "Collection hobbies"
     },
     "eventList": {
       "errorLoadMore": "Failed to load events"

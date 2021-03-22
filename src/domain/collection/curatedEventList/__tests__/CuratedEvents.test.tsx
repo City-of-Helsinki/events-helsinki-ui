@@ -11,10 +11,11 @@ import {
   EventFieldsFragment,
   EventListResponse,
   EventsByIdsDocument,
+  LinkedEventsSource,
 } from '../../../../generated/graphql';
 import { fakeCollection, fakeEvents } from '../../../../test/mockDataUtils';
 import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
-import CuratedEventList, { PAGE_SIZE } from '../CuratedEventList';
+import CuratedEvents, { PAGE_SIZE } from '../CuratedEvents';
 
 const eventIds = ['1', '2', '3', '4', '5'];
 const curatedEvents = eventIds.map(
@@ -33,6 +34,7 @@ const getMocks = (events: EventFieldsFragment[], ids = eventIds) => [
       variables: {
         ids,
         include: ['location'],
+        source: LinkedEventsSource.Linkedevents,
       },
     },
     result: { data: { eventsByIds: events } },
@@ -102,7 +104,7 @@ test('should show all events', async () => {
   const eventsData = events.data as EventFieldsFragment[];
   const mocks = getMocks(eventsData);
 
-  render(<CuratedEventList collection={collection} />, {
+  render(<CuratedEvents collection={collection} />, {
     mocks,
   });
 
@@ -129,7 +131,7 @@ test('should show expired events', async () => {
   const eventsData = events.data as EventFieldsFragment[];
   const mocks = getMocks(eventsData);
 
-  render(<CuratedEventList collection={collection} />, {
+  render(<CuratedEvents collection={collection} />, {
     mocks,
   });
 
@@ -162,7 +164,7 @@ test('event list pagination works', async () => {
   advanceTo('2020-10-05');
   const eventsCount = 35;
   const { collection, mocks, eventNames } = getMocksForPagination(eventsCount);
-  render(<CuratedEventList collection={collection} />, {
+  render(<CuratedEvents collection={collection} />, {
     mocks,
   });
   await waitForRequestToComplete();

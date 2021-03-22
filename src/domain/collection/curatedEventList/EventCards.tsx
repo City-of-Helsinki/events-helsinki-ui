@@ -4,10 +4,12 @@ import { useTranslation } from 'react-i18next';
 
 import { EventFieldsFragment } from '../../../generated/graphql';
 import LargeEventCard from '../../event/eventCard/LargeEventCard';
+import { EventType } from '../../event/types';
 import styles from './eventCards.module.scss';
 
 interface Props {
   events: Array<EventFieldsFragment>;
+  eventType: EventType;
   onShowMore?: () => void;
   showMoreButton?: boolean;
 }
@@ -16,6 +18,7 @@ const EventCards: React.FC<Props> = ({
   events,
   onShowMore,
   showMoreButton,
+  eventType,
 }) => {
   const { t } = useTranslation();
 
@@ -23,7 +26,7 @@ const EventCards: React.FC<Props> = ({
     <>
       <div className={styles.eventCards}>
         {events.map((event, id) => (
-          <LargeEventCard key={id} event={event} />
+          <LargeEventCard key={id} event={event} eventType={eventType} />
         ))}
       </div>
       {showMoreButton && (

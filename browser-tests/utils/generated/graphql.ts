@@ -421,7 +421,8 @@ export type QueryCollectionListArgs = {
 
 export type QueryEventDetailsArgs = {
   id?: Maybe<Scalars['ID']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>
+  include?: Maybe<Array<Maybe<Scalars['String']>>>,
+  source?: Maybe<LinkedEventsSource>
 };
 
 
@@ -467,13 +468,15 @@ export type QueryEventListArgs = {
   audienceMinAgeLt?: Maybe<Scalars['String']>,
   audienceMinAgeGt?: Maybe<Scalars['String']>,
   audienceMaxAgeLt?: Maybe<Scalars['String']>,
-  audienceMaxAgeGt?: Maybe<Scalars['String']>
+  audienceMaxAgeGt?: Maybe<Scalars['String']>,
+  source?: Maybe<LinkedEventsSource>
 };
 
 
 export type QueryEventsByIdsArgs = {
   ids: Array<Scalars['ID']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>
+  include?: Maybe<Array<Maybe<Scalars['String']>>>,
+  source?: Maybe<LinkedEventsSource>
 };
 
 
@@ -955,7 +958,8 @@ export type EventListQuery = (
 
 export type EventsByIdsQueryVariables = {
   ids: Array<Scalars['ID']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>
+  include?: Maybe<Array<Maybe<Scalars['String']>>>,
+  source?: Maybe<LinkedEventsSource>
 };
 
 
@@ -1625,8 +1629,8 @@ export const EventListDocument = gql`
 }
     ${EventFieldsFragmentDoc}`;
 export const EventsByIdsDocument = gql`
-    query EventsByIds($ids: [ID!]!, $include: [String]) {
-  eventsByIds(ids: $ids, include: $include) {
+    query EventsByIds($ids: [ID!]!, $include: [String], $source: LinkedEventsSource) {
+  eventsByIds(ids: $ids, include: $include, source: $source) {
     ...eventFields
   }
 }

@@ -19,7 +19,7 @@ import CollectionHero from './collectionHero/CollectionHero';
 import styles from './collectionPage.module.scss';
 import CollectionPageMeta from './collectionPageMeta/CollectionPageMeta';
 import { isCollectionExpired, isLanguageSupported } from './CollectionUtils';
-import CuratedEventList from './curatedEventList/CuratedEventList';
+import CuratedEvents from './curatedEventList/CuratedEvents';
 import EventList from './eventList/EventList';
 import SimilarCollections from './similarCollections/SimilarCollections';
 
@@ -131,7 +131,7 @@ const CollectionPageContainer: React.FC = () => {
                 <>
                   {draft && <PreviewBanner />}
                   <CollectionHero collection={collection} />
-                  <CuratedEventList collection={collection} />
+                  <CuratedEvents collection={collection} />
                   <EventList collection={collection} />
                 </>
               )}
