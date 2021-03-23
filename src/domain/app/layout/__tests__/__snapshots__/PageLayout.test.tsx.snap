@@ -318,7 +318,7 @@ exports[`matches snapshot 1`] = `
     </div>
   </div>
   <footer
-    class="Footer-module_footer__1aD3T custom-theme-1 footer"
+    class="Footer-module_footer__1aD3T footer"
   >
     <div
       class="Koros-module_koros__1r3rg Footer-module_koros__Orx_W Footer-module_basic__2VejY"
@@ -332,7 +332,7 @@ exports[`matches snapshot 1`] = `
         <defs>
           <pattern
             height="85"
-            id="koros_basic-2"
+            id="koros_basic-1"
             patternUnits="userSpaceOnUse"
             width="106"
             x="0"
@@ -345,7 +345,7 @@ exports[`matches snapshot 1`] = `
           </pattern>
         </defs>
         <rect
-          fill="url(#koros_basic-2)"
+          fill="url(#koros_basic-1)"
           height="85"
           width="100%"
         />

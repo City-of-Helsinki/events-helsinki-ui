@@ -1,4 +1,4 @@
-import { Footer, FooterCustomTheme } from 'hds-react';
+import { Footer } from 'hds-react';
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
@@ -9,10 +9,6 @@ import { resetFocusId } from '../resetFocus/ResetFocus';
 import { ROUTES } from '../routes/constants';
 import styles from './footer.module.scss';
 import FooterCategories from './FooterCategories';
-
-const footerTheme = {
-  '--footer-background': 'var(--color-engel-medium-light)',
-} as FooterCustomTheme;
 
 const FooterSection: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -34,7 +30,7 @@ const FooterSection: FunctionComponent = () => {
   const categoriesRoute = getCategoriesRoute();
 
   return (
-    <Footer title={t('appName')} theme={footerTheme} className={styles.footer}>
+    <Footer title={t('appName')} className={styles.footer}>
       <Footer.Navigation>
         <Footer.Item
           as={Link}
