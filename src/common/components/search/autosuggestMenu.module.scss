@@ -1,3 +1,5 @@
+@import 'layout';
+
 .autosuggestMenu {
   --border-color-option: #f9f9f9;
 
@@ -11,6 +13,9 @@
 
   .title {
     padding: var(--spacing-s);
+    @include respond-below(sm) {
+      padding: var(--spacing-3-xs);
+    }
     text-align: center;
     color: var(--color-black-50);
     font-weight: 500;
@@ -57,6 +62,9 @@
       cursor: pointer;
       padding: var(--spacing-s) var(--spacing-m);
       color: var(--color-black);
+      @include respond-below(sm) {
+        padding: var(--spacing-3-xs) var(--spacing-m);
+      }
     }
   }
 
