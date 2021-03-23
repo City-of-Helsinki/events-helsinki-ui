@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import {
   Button,
   IconArrowRight,
+  IconCake,
+  IconGroup,
   IconHome,
   IconLocation,
   IconSearch,
@@ -266,7 +268,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
               <div>
                 <MultiSelectDropdown
                   checkboxName="hobbyTypeOptions"
-                  icon={<IconRead aria-hidden />}
+                  icon={<IconGroup aria-hidden />}
                   inputValue={hobbyTypeInput}
                   name="hobbyType"
                   onChange={setSelectedHobbyTypes}
@@ -312,6 +314,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
               <div>
                 <RangeDropdown
                   checkboxName="ageLimitValues"
+                  icon={<IconCake aria-hidden />}
                   rangeIcon={<IconArrowRight aria-hidden />}
                   minInputValue={minAgeInput}
                   minInputLabel={t('courseSearch.search.ageLimitMin')}
