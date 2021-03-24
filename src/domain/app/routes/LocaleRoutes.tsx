@@ -6,6 +6,7 @@ import { Route, RouteComponentProps, Switch } from 'react-router';
 import { Redirect } from 'react-router-dom';
 
 import { SUPPORT_LANGUAGES } from '../../../constants';
+import { getFeatureFlags } from '../../../util/featureFlags';
 import AboutPage from '../../about/AboutPage';
 import AccessbilityPage from '../../accessibility/AccessbilityPage';
 import CollectionPageContainer from '../../collection/CollectionPageContainer';
@@ -15,6 +16,7 @@ import CourseSearchPageContainer from '../../courseSearch/CourseSearchPageContai
 import EventPageContainer from '../../event/EventPageContainer';
 import EventSearchPageContainer from '../../eventSearch/EventSearchPageContainer';
 import LandingPage from '../../landingPage/LandingPage';
+import LandingPage__DEPRECATED from '../../landingPage/LandingPage__DEPRECATED';
 import LandingPagePreview from '../../landingPage/LandingPagePreview';
 import NotFound from '../../notFound/NotFound';
 import { ROUTES } from './constants';
@@ -34,7 +36,15 @@ const App: FunctionComponent<RouteComponentProps<{
 
   return (
     <Switch>
-      <Route exact path={`/${locale}${ROUTES.HOME}`} component={LandingPage} />
+      <Route
+        exact
+        path={`/${locale}${ROUTES.HOME}`}
+        component={
+          getFeatureFlags().EVENTS_HELSINKI_2
+            ? LandingPage
+            : LandingPage__DEPRECATED
+        }
+      />
       <Route
         exact
         path={`/${locale}${ROUTES.HOME_PREVIEW}`}
@@ -71,16 +81,20 @@ const App: FunctionComponent<RouteComponentProps<{
         path={`/${locale}${ROUTES.EVENT_PLACE}`}
         component={EventSearchPageContainer}
       />
-      <Route
-        exact
-        path={`/${locale}${ROUTES.COURSES}`}
-        component={CourseSearchPageContainer}
-      />
-      <Route
-        exact
-        path={`/${locale}${ROUTES.COURSE}`}
-        component={CoursePageContainer}
-      />
+      {getFeatureFlags().EVENTS_HELSINKI_2 && (
+        <Route
+          exact
+          path={`/${locale}${ROUTES.COURSES}`}
+          component={CourseSearchPageContainer}
+        />
+      )}
+      {getFeatureFlags().EVENTS_HELSINKI_2 && (
+        <Route
+          exact
+          path={`/${locale}${ROUTES.COURSE}`}
+          component={CoursePageContainer}
+        />
+      )}
       {/* Redirect to next single event page url */}
       <Redirect
         exact

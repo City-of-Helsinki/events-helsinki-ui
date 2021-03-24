@@ -1,4 +1,4 @@
-name: Build & Review & Acceptance Tests for Release 1.0
+name: Build & Review & Acceptance Tests for Release 2.0
 on:
   pull_request:
   push:
@@ -48,19 +48,29 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
           # Feature flags
           DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_EVENTS: 'false'
-          DOCKER_BUILD_ARG_EVENTS_HELSINKI_2: 'false'
+          DOCKER_BUILD_ARG_EVENTS_HELSINKI_2: 'true'
   review:
     runs-on: ubuntu-latest
     needs: build
-    name: Review + Acceptance Tests For Release 1.0
+    name: Review + Acceptance Tests for Release 2.0
     steps:
       - uses: actions/checkout@v2
       - uses: andersinno/kolga-setup-action@v2
+      - uses: actions/github-script@v3
+        id: namespace
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+              const namespace = "${{ env.K8S_NAMESPACE }}"
+              const postfix = "-latest"
+              return namespace.substring(0,namespace.length-postfix.length)+postfix
+          result-encoding: string
       - name: Deploy
         uses: andersinno/kolga-deploy-action@v2
         env:
           K8S_PROBE_INITIAL_DELAY: 120
-          ENVIRONMENT_URL: https://${{ env.K8S_NAMESPACE }}.${{ env.BASE_DOMAIN }}
+          K8S_NAMESPACE: ${{steps.namespace.outputs.result}}
+          ENVIRONMENT_URL: https://${{steps.namespace.outputs.result}}.${{ env.BASE_DOMAIN }}
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-review
       - name: Setup kubectl
         run: |
@@ -70,7 +80,7 @@ jobs:
       - name: Get Review Deploy URL
         id: deploy-url
         run: |
-          DEPLOY_URL=$(kubectl get ingress -n "${{ env.K8S_NAMESPACE }}" -o jsonpath='{.items[0].spec.rules[0].host}')
+          DEPLOY_URL=$(kubectl get ingress -n "${{steps.namespace.outputs.result}}" -o jsonpath='{.items[0].spec.rules[0].host}')
           echo "BROWSER_TESTS_LOCAL_ENV_URL=https://$DEPLOY_URL" >> $GITHUB_ENV
         shell: bash
       - name: Setup Node.js environment
