@@ -1,13 +1,15 @@
-import { render } from '@testing-library/react';
 import * as React from 'react';
 
 import { LandingPageFieldsFragment } from '../../../../generated/graphql';
 import { fakeBanner, fakeLandingPage } from '../../../../test/mockDataUtils';
-import { actWait } from '../../../../test/testUtils';
+import { actWait, render } from '../../../../test/testUtils';
 import LandingPageMeta from '../LandingPageMeta';
 
 const landingPageTitle = 'Landing page title';
-const landingPageDescription = 'Landing page description';
+// this value is localized.
+const landingPageDescription =
+  // eslint-disable-next-line max-len
+  'Tapahtumat.hel.fin tapahtumahaku. Konsertit, keikat, teatteriesitykset, näyttelyt, kulttuuri, tekeminen ja muut tapahtumat Helsingissä.';
 const landingPageKeyword = 'landing page keyword';
 const topBannerImage = 'www.topbannerurl.fi';
 const bottomBannerImage = 'www.bottombannerurl.fi';
@@ -46,7 +48,9 @@ afterEach(() => {
 });
 
 test('applies expected metadata', async () => {
-  render(<LandingPageMeta landingPage={landingPage} />);
+  render(<LandingPageMeta landingPage={landingPage} />, {
+    routes: [`/fi/events`],
+  });
 
   await actWait(300);
 
