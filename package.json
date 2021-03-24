@@ -84,6 +84,7 @@
     "start": "react-scripts start",
     "start:server": "node build/server.js",
     "build": "yarn build:client && yarn build:server",
+    "build:local-hds": "node scripts/hds.js && yarn build",
     "build:windows": "yarn build:client && yarn build:server-windows",
     "build:client": "react-scripts build",
     "build:server": "NODE_ENV=production webpack --progress --mode production --config config/webpack.server.config.js",
@@ -157,6 +158,7 @@
     "prettier": "^2.1.1",
     "pretty": "^2.0.0",
     "react-test-renderer": "^16.13.1",
+    "simple-git": "^2.37.0",
     "testcafe": "^1.10.1",
     "waait": "^1.0.5"
   },
