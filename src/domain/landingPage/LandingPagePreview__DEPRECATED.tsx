@@ -9,7 +9,7 @@ import { useLandingPageQuery } from '../../generated/graphql';
 import Container from '../app/layout/Container';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
-import BannerHero from '../banner/bannerHero/BannerHero__DEPRECATED';
+import BannerHero from '../banner/bannerHero/BannerHero';
 import LandingPageMeta from './landingPageMeta/LandingPageMeta';
 import Search from './landingPageSearch/LandingPageSearch__DEPRECATED';
 
