@@ -56,7 +56,11 @@ const targetGroups = ['lapset', 'aikuiset'];
 const maximumAttendeeCapacity = 20;
 const minimumAttendeeCapacity = 10;
 const remainingAttendeeCapacity = 5;
+const audienceMinAge = '5';
+const audienceMaxAge = '15';
 const event = fakeEvent({
+  audienceMinAge,
+  audienceMaxAge,
   startTime,
   endTime,
   provider: null,
@@ -205,4 +209,46 @@ it('should create ics file succesfully when end time is not defined', async () =
   );
 
   expect(FileSaver.saveAs).toBeCalled();
+});
+
+it('should show age limit info in signle course page', async () => {
+  render(<EventInfo event={event} eventType="course" />, {
+    routes: [`/fi/courses`],
+  });
+  await actWait();
+
+  expect(screen.queryByText(/5-15 -vuotiaat/i)).toBeInTheDocument();
+});
+
+it('should show formatted age limit info in signle course page if min age is not specified', async () => {
+  render(
+    <EventInfo event={{ ...event, audienceMinAge: null }} eventType="course" />,
+    {
+      routes: [`/fi/courses`],
+    }
+  );
+  await actWait();
+
+  expect(screen.queryByText(/0-15 -vuotiaat/i)).toBeInTheDocument();
+});
+
+it('should show formatted age limit info in signle course page if max age is not specified', async () => {
+  render(
+    <EventInfo event={{ ...event, audienceMaxAge: null }} eventType="course" />,
+    {
+      routes: [`/fi/courses`],
+    }
+  );
+  await actWait();
+
+  expect(screen.queryByText(/5\+ -vuotiaat/i)).toBeInTheDocument();
+});
+
+it('should hide age limit info in single event page', async () => {
+  render(<EventInfo event={event} eventType="event" />, {
+    routes: [`/fi/events`],
+  });
+  await actWait();
+
+  expect(screen.queryByText(/5-15 -vuotiaat/i)).not.toBeInTheDocument();
 });
