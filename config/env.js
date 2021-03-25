@@ -1,5 +1,3 @@
-import { skipFalsyType } from '../src/util/typescript.utils';
-
 const fs = require('fs');
 
 const paths = require('./paths');
@@ -20,7 +18,7 @@ const dotenvFiles = [
   // results for everyone
   NODE_ENV !== 'test' && `${paths.dotenv}.local`,
   paths.dotenv,
-].filter(skipFalsyType);
+].filter(Boolean);
 
 // Load environment variables from .env* files. Suppress warnings using silent
 // if this file is missing. dotenv will never modify any environment variables

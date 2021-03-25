@@ -31,8 +31,10 @@ jobs:
       matrix:
         service: [ "1", "2"]
         include:
-          - version: "1.0"
+          - service: "1"
+            version: "1.0"
             DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "false"
+          - service: "2"
           - version: "2.0"
             DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "true"
     runs-on: ubuntu-latest
@@ -66,11 +68,13 @@ jobs:
       matrix:
         service: [ "1", "2"]
         include:
-          - version: "1.0"
+          - service: "1"
+            version: "1.0"
             DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "false"
+          - service: "2"
           - version: "2.0"
             DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "true"
-    name: Review + Acceptance Tests for Version ${{ matrix.version }}
+    name: Review + Acceptance Tests V${{ matrix.version }}
     steps:
       - uses: actions/checkout@v2
       - uses: andersinno/kolga-setup-action@v2

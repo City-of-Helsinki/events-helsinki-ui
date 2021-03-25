@@ -27,10 +27,12 @@ jobs:
       matrix:
         service: [ "1", "2"]
         include:
-          - version: "1.0"
+          - service: "1"
+            version: "1.0"
             DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.test.kuva.hel.ninja
             DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "false"
-          - version: "2.0"
+          - service: "2"
+            version: "2.0"
             DOCKER_BUILD_ARG_PUBLIC_URL: https://latest-events.test.kuva.hel.ninja
             DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "true"
     runs-on: ubuntu-latest
