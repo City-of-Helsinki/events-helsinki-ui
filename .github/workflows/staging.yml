@@ -22,6 +22,10 @@ env:
 
 jobs:
   build:
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [ "1.0", "2.0" ]
     runs-on: ubuntu-latest
     name: Build
     steps:
@@ -29,8 +33,8 @@ jobs:
       - name: Build
         uses: andersinno/kolga-build-action@v2
         env:
-          DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-staging
-          DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.test.kuva.hel.ninja
+          DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-staging-${{ matrix.service == '1.0' && '1' || '2'}}
+          DOCKER_BUILD_ARG_PUBLIC_URL: https://${{matrix.service == '1.0' && 'https://tapahtumat.test.kuva.hel.ninja' || 'https://latest-events.test.kuva.hel.ninja'}}
           DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
           DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: ${{ secrets.GH_SENTRY_DSN }}
@@ -48,8 +52,12 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_GTM_PREVIEW: ${{ secrets.GH_QA_GTM_PREVIEW }}
           # Feature flags
           DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_EVENTS: 'false'
-          DOCKER_BUILD_ARG_EVENTS_HELSINKI_2: 'false'
+          DOCKER_BUILD_ARG_EVENTS_HELSINKI_2: ${{ matrix.service == '1.0' && 'false' || 'true' }}
   staging:
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [ "1.0", "2.0" ]
     runs-on: ubuntu-latest
     needs: build
     name: Staging
@@ -64,11 +72,12 @@ jobs:
         env:
           K8S_NAMESPACE: ${{ secrets.K8S_NAMESPACE_STAGING }}
           ENVIRONMENT_URL: https://${{ secrets.ENVIRONMENT_URL_STAGING }}
-          DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-staging
+          DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-staging-${{ matrix.service }}
+          PROJECT_NAME: ${{ matrix.service }}
   acceptance-tests:
     runs-on: windows-latest
     needs: staging
-    name: Acceptance tests for Staging for Release 1.0
+    name: Acceptance tests for Staging ${{ matrix.service}}
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js environment
