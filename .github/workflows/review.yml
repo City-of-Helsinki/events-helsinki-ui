@@ -83,7 +83,7 @@ jobs:
       - name: Get Review Deploy URL
         id: deploy-url
         run: |
-          DEPLOY_URL=$(kubectl get ingress "${{ env.ENVIRONMENT_SLUG }}-${{ matrix.service }}-ingress" -o jsonpath='{.spec.rules[0].host}')
+          DEPLOY_URL=$(kubectl get ingress "${{ env.ENVIRONMENT_SLUG }}-${{ matrix.service }}-ingress" -n ${{env.K8S_NAMESPACE}} -o jsonpath='{.spec.rules[0].host}')
           echo "BROWSER_TESTS_LOCAL_ENV_URL=https://$DEPLOY_URL" >> $GITHUB_ENV
         shell: bash
       - name: Create PR comment for Deploy url ${{ matrix.service }}
