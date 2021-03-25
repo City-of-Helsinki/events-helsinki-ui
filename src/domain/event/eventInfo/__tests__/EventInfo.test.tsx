@@ -211,7 +211,7 @@ it('should create ics file succesfully when end time is not defined', async () =
   expect(FileSaver.saveAs).toBeCalled();
 });
 
-it('should show age limit info in signle course page', async () => {
+it('should show audience age info in signle course page', async () => {
   render(<EventInfo event={event} eventType="course" />, {
     routes: [`/fi/courses`],
   });
@@ -220,7 +220,7 @@ it('should show age limit info in signle course page', async () => {
   expect(screen.queryByText(/5-15 -vuotiaat/i)).toBeInTheDocument();
 });
 
-it('should show formatted age limit info in signle course page if min age is not specified', async () => {
+it('should show formatted audience age info in signle course page if min age is not specified', async () => {
   render(
     <EventInfo event={{ ...event, audienceMinAge: null }} eventType="course" />,
     {
@@ -232,7 +232,7 @@ it('should show formatted age limit info in signle course page if min age is not
   expect(screen.queryByText(/0-15 -vuotiaat/i)).toBeInTheDocument();
 });
 
-it('should show formatted age limit info in signle course page if max age is not specified', async () => {
+it('should show formatted audience age info in signle course page if max age is not specified', async () => {
   render(
     <EventInfo event={{ ...event, audienceMaxAge: null }} eventType="course" />,
     {
@@ -244,7 +244,7 @@ it('should show formatted age limit info in signle course page if max age is not
   expect(screen.queryByText(/5\+ -vuotiaat/i)).toBeInTheDocument();
 });
 
-it('should hide age limit info in single event page', async () => {
+it('should hide audience age info in single event page', async () => {
   render(<EventInfo event={event} eventType="event" />, {
     routes: [`/fi/events`],
   });
