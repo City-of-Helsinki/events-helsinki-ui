@@ -32,9 +32,9 @@ jobs:
         service: [ "1", "2"]
         include:
           - service: "1"
-            upcoming: false
+            upcoming: "false"
           - service: "2"
-            upcoming: true
+            upcoming: "true"
     runs-on: ubuntu-latest
     name: Build
     steps:
@@ -83,7 +83,7 @@ jobs:
       - name: Get Review Deploy URL
         id: deploy-url
         run: |
-          DEPLOY_URL=$(kubectl get ingress -n "${{ env.K8S_NAMESPACE }}-${{ matrix.service }}" -o jsonpath='{.items[0].spec.rules[0].host}')
+          DEPLOY_URL=$(kubectl get ingress -l "${{ env.ENVIRONMENT_SLUG }}-${{ matrix.service }}-ingress" -o jsonpath='{.items[0].spec.rules[0].host}')
           echo "BROWSER_TESTS_LOCAL_ENV_URL=https://$DEPLOY_URL" >> $GITHUB_ENV
         shell: bash
       - name: Create PR comment for Deploy url ${{ matrix.service }}
