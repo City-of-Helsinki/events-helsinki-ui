@@ -25,7 +25,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        service: [ "1.0", "2.0" ]
+        service: [ "1", "2"]
+        include:
+          - version: "1.0"
+            DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.test.kuva.hel.ninja
+            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "false"
+          - version: "2.0"
+            DOCKER_BUILD_ARG_PUBLIC_URL: https://latest-events.test.kuva.hel.ninja
+            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "true"
     runs-on: ubuntu-latest
     name: Build
     steps:
@@ -33,8 +40,8 @@ jobs:
       - name: Build
         uses: andersinno/kolga-build-action@v2
         env:
-          DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-staging-${{ matrix.service == '1.0' && '1' || '2'}}
-          DOCKER_BUILD_ARG_PUBLIC_URL: https://${{matrix.service == '1.0' && 'https://tapahtumat.test.kuva.hel.ninja' || 'https://latest-events.test.kuva.hel.ninja'}}
+          DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-staging-${{ matrix.service }}
+          DOCKER_BUILD_ARG_PUBLIC_URL: ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
           DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
           DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: ${{ secrets.GH_SENTRY_DSN }}
@@ -52,7 +59,7 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_GTM_PREVIEW: ${{ secrets.GH_QA_GTM_PREVIEW }}
           # Feature flags
           DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_EVENTS: 'false'
-          DOCKER_BUILD_ARG_EVENTS_HELSINKI_2: ${{ matrix.service == '1.0' && 'false' || 'true' }}
+          DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: ${{ matrix.DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2}}
   staging:
     strategy:
       fail-fast: false
@@ -60,7 +67,7 @@ jobs:
         service: [ "1.0", "2.0" ]
     runs-on: ubuntu-latest
     needs: build
-    name: Staging
+    name: Staging {{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
     steps:
       - uses: actions/checkout@v2
       - uses: andersinno/kolga-setup-action@v2
@@ -70,14 +77,13 @@ jobs:
         with:
           track: 'staging'
         env:
-          K8S_NAMESPACE: ${{ secrets.K8S_NAMESPACE_STAGING }}
-          ENVIRONMENT_URL: https://${{ secrets.ENVIRONMENT_URL_STAGING }}
-          DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-staging-${{ matrix.service }}
+          ENVIRONMENT_URL: ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
+          DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-staging-${{ matrix.service }}}
           PROJECT_NAME: ${{ matrix.service }}
   acceptance-tests:
     runs-on: windows-latest
     needs: staging
-    name: Acceptance tests for Staging ${{ matrix.service}}
+    name: Acceptance tests for Staging {{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js environment
@@ -96,12 +102,12 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn --prefer-offline --frozen-lockfile --check-files --production=false
-      - name: Run TestCafe tests
+      - name: Run TestCafe tests For {{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
         run: yarn browser-test:ci
         env:
           BROWSER_TESTS_LOCAL_ENV_URL: https://${{ secrets.ENVIRONMENT_URL_STAGING }}
           REACT_APP_GRAPHQL_BASE_URL: https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql
-      - name: Upload screenshots of failed tests
+      - name: Upload screenshots of failed tests for {{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
         uses: actions/upload-artifact@v2
         if: failure()
         with:

@@ -1,4 +1,4 @@
-name: Build & Review & Acceptance Tests for Release 1.0
+name: Build & Review & Acceptance Tests for Release
 on:
   pull_request:
   push:
@@ -31,10 +31,10 @@ jobs:
       matrix:
         service: [ "1", "2"]
         include:
-          - service: "1"
-            upcoming: "false"
-          - service: "2"
-            upcoming: "true"
+          - version: "1.0"
+            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "false"
+          - version: "2.0"
+            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "true"
     runs-on: ubuntu-latest
     name: Build
     steps:
@@ -57,7 +57,7 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
           # Feature flags
           DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_EVENTS: 'false'
-          DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: ${{ matrix.upcoming }}
+          DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: ${{ matrix.DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2 }}
   review:
     runs-on: ubuntu-latest
     needs: build
@@ -65,7 +65,12 @@ jobs:
       fail-fast: false
       matrix:
         service: [ "1", "2"]
-    name: Review + Acceptance Tests V${{ matrix.service }}
+        include:
+          - version: "1.0"
+            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "false"
+          - version: "2.0"
+            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "true"
+    name: Review + Acceptance Tests for Version ${{ matrix.version }}
     steps:
       - uses: actions/checkout@v2
       - uses: andersinno/kolga-setup-action@v2
@@ -80,18 +85,26 @@ jobs:
           echo "${{ env.KUBECONFIG_RAW }}" > $(pwd)/kubeconfig
           echo "KUBECONFIG=$(pwd)/kubeconfig" >> $GITHUB_ENV
         shell: bash
-      - name: Get Review Deploy URL
+      - name: Get Review Deploy URL for version ${{ matrix.version }}
         id: deploy-url
         run: |
           DEPLOY_URL=$(kubectl get ingress "${{ env.ENVIRONMENT_SLUG }}-${{ matrix.service }}-ingress" -n ${{env.K8S_NAMESPACE}} -o jsonpath='{.spec.rules[0].host}')
           echo "BROWSER_TESTS_LOCAL_ENV_URL=https://$DEPLOY_URL" >> $GITHUB_ENV
         shell: bash
-      - name: Create PR comment for Deploy url ${{ matrix.service }}
+      - name: Create PR comment for version ${{ matrix.version }}
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           header: deployment
-          message: '**Service V${{ matrix.service }} is deployed to: ${{ env.BROWSER_TESTS_LOCAL_ENV_URL }}** :rocket::rocket:'
+          message: '**The Old version of Tapahtumat is deployed to: ${{ env.BROWSER_TESTS_LOCAL_ENV_URL }}** :rocket::rocket:'
+        if: success() && matrix.version == '1.0'
+      - name: Create PR comment for version ${{ matrix.version }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: deployment
+          message: '**The NEW version of Tapahtumat (with courses) is deployed to: ${{ env.BROWSER_TESTS_LOCAL_ENV_URL }}** :rocket::rocket:'
+        if: success() && matrix.version == '2.0'
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
         with:
@@ -108,11 +121,11 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn --prefer-offline --frozen-lockfile --check-files
-      - name: Run Acceptance Tests (TestCafe Browser Tests)
+      - name: Run Acceptance Tests For version ${{ matrix.version }}
         run: yarn browser-test:ci
         env:
           REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
-      - name: Upload screenshots of failed tests
+      - name: Upload screenshots of failed tests for version ${{ matrix.version }}
         uses: actions/upload-artifact@v2
         if: failure()
         with:
