@@ -1,5 +1,7 @@
 'use strict';
 
+import { skipFalsyType } from '../src/util/typescript.utils';
+
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
@@ -87,7 +89,7 @@ module.exports = function () {
           sourceMap: isEnvProduction && shouldUseSourceMap,
         },
       },
-    ].filter(Boolean);
+    ].filter(skipFalsyType);
     if (preProcessor) {
       loaders.push(
         {
@@ -383,7 +385,7 @@ module.exports = function () {
           // The formatter is invoked directly in WebpackDevServerUtils during development
           formatter: isEnvProduction ? typescriptFormatter : undefined,
         }),
-    ].filter(Boolean),
+    ].filter(skipFalsyType),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.
     node: {

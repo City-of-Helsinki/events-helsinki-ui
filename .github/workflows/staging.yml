@@ -100,7 +100,7 @@ jobs:
         run: yarn browser-test:ci
         env:
           BROWSER_TESTS_LOCAL_ENV_URL: https://${{ secrets.ENVIRONMENT_URL_STAGING }}
-          REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
+          REACT_APP_GRAPHQL_BASE_URL: https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql
       - name: Upload screenshots of failed tests
         uses: actions/upload-artifact@v2
         if: failure()

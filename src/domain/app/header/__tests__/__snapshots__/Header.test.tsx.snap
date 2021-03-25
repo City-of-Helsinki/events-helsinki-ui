@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EVENTS_HELSINKI_2 feature flag matches snapshot 1`] = `
+exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 feature is off 1`] = `
 <header
   class="Navigation-module_header__2HNOX Navigation-module_noTitle__3qbce Navigation-module_theme-light__36nmi navigation"
 >
@@ -293,7 +293,7 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot 1`] = `
 </header>
 `;
 
-exports[`EVENTS_HELSINKI_2 feature flag matches snapshot 2`] = `
+exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 feature is on 1`] = `
 <header
   class="Navigation-module_header__2HNOX Navigation-module_noTitle__3qbce Navigation-module_theme-light__36nmi navigation"
 >
@@ -482,16 +482,6 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot 2`] = `
                 class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
               >
                 Tapahtumat
-              </span>
-            </a>
-            <a
-              class="NavigationItem-module_rowItem__2QxRz navigationItem"
-              href="/sv/courses"
-            >
-              <span
-                class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
-              >
-                Harrastukset
               </span>
             </a>
             <a

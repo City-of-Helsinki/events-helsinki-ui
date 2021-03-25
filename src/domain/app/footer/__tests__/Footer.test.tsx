@@ -2,13 +2,21 @@ import * as React from 'react';
 
 import { setFeatureFlags } from '../../../../test/feature-flags/featureFlags.test.utils';
 import { render, screen, userEvent } from '../../../../test/testUtils';
-import { getFeatureFlags } from '../../../../util/featureFlags';
+import { isFeatureEnabled } from '../../../../util/featureFlags';
+import { skipFalsyType } from '../../../../util/typescript.utils';
 import { ROUTES } from '../../routes/constants';
 import Footer from '../Footer';
 
 describe('EVENTS_HELSINKI_2 feature flag', () => {
   [true, false].forEach((EVENTS_HELSINKI_2) => {
-    setFeatureFlags({ EVENTS_HELSINKI_2 });
+    beforeEach(() => {
+      setFeatureFlags({ EVENTS_HELSINKI_2 });
+    });
+
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
     it(`matches snapshot when EVENTS_HELSINKI_2 feature is ${
       EVENTS_HELSINKI_2 ? 'on' : 'off'
     }`, () => {
@@ -28,17 +36,15 @@ describe('EVENTS_HELSINKI_2 feature flag', () => {
           linkName: 'Tapahtumat',
           path: `/fi${ROUTES.EVENTS}`,
         },
-        ...[
-          getFeatureFlags().EVENTS_HELSINKI_2 && {
-            linkName: 'Harrastukset',
-            path: `/fi${ROUTES.COURSES}`,
-          },
-        ],
+        isFeatureEnabled('EVENTS_HELSINKI_2') && {
+          linkName: 'Harrastukset',
+          path: `/fi${ROUTES.COURSES}`,
+        },
         {
           linkName: 'Suosittelemme',
           path: `/fi${ROUTES.COLLECTIONS}`,
         },
-      ].filter(Boolean);
+      ].filter(skipFalsyType);
       for (const { linkName, path } of testValues) {
         userEvent.click(screen.getByRole('link', { name: linkName }));
         expect(pushSpy).toHaveBeenCalledWith(path);

@@ -6,7 +6,7 @@ import { Route, RouteComponentProps, Switch } from 'react-router';
 import { Redirect } from 'react-router-dom';
 
 import { SUPPORT_LANGUAGES } from '../../../constants';
-import { getFeatureFlags } from '../../../util/featureFlags';
+import { isFeatureEnabled } from '../../../util/featureFlags';
 import AboutPage from '../../about/AboutPage';
 import AccessbilityPage from '../../accessibility/AccessbilityPage';
 import CollectionPageContainer from '../../collection/CollectionPageContainer';
@@ -18,6 +18,7 @@ import EventSearchPageContainer from '../../eventSearch/EventSearchPageContainer
 import LandingPage from '../../landingPage/LandingPage';
 import LandingPage__DEPRECATED from '../../landingPage/LandingPage__DEPRECATED';
 import LandingPagePreview from '../../landingPage/LandingPagePreview';
+import LandingPagePreview__DEPRECATED from '../../landingPage/LandingPagePreview__DEPRECATED';
 import NotFound from '../../notFound/NotFound';
 import { ROUTES } from './constants';
 
@@ -40,7 +41,7 @@ const App: FunctionComponent<RouteComponentProps<{
         exact
         path={`/${locale}${ROUTES.HOME}`}
         component={
-          getFeatureFlags().EVENTS_HELSINKI_2
+          isFeatureEnabled('EVENTS_HELSINKI_2')
             ? LandingPage
             : LandingPage__DEPRECATED
         }
@@ -48,7 +49,11 @@ const App: FunctionComponent<RouteComponentProps<{
       <Route
         exact
         path={`/${locale}${ROUTES.HOME_PREVIEW}`}
-        component={LandingPagePreview}
+        component={
+          isFeatureEnabled('EVENTS_HELSINKI_2')
+            ? LandingPagePreview
+            : LandingPagePreview__DEPRECATED
+        }
       />
       <Route exact path={`/${locale}${ROUTES.ABOUT}`} component={AboutPage} />
       <Route
@@ -81,14 +86,14 @@ const App: FunctionComponent<RouteComponentProps<{
         path={`/${locale}${ROUTES.EVENT_PLACE}`}
         component={EventSearchPageContainer}
       />
-      {getFeatureFlags().EVENTS_HELSINKI_2 && (
+      {isFeatureEnabled('EVENTS_HELSINKI_2') && (
         <Route
           exact
           path={`/${locale}${ROUTES.COURSES}`}
           component={CourseSearchPageContainer}
         />
       )}
-      {getFeatureFlags().EVENTS_HELSINKI_2 && (
+      {isFeatureEnabled('EVENTS_HELSINKI_2') && (
         <Route
           exact
           path={`/${locale}${ROUTES.COURSE}`}

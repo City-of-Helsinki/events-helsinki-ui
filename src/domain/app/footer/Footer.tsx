@@ -5,7 +5,7 @@ import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import useLocale from '../../../hooks/useLocale';
-import { getFeatureFlags } from '../../../util/featureFlags';
+import { isFeatureEnabled } from '../../../util/featureFlags';
 import { resetFocusId } from '../resetFocus/ResetFocus';
 import { ROUTES } from '../routes/constants';
 import styles from './footer.module.scss';
@@ -38,7 +38,7 @@ const FooterSection: FunctionComponent = () => {
           label={t('footer.searchEvents')}
           to={`/${locale}${ROUTES.EVENTS}`}
         />
-        {getFeatureFlags().EVENTS_HELSINKI_2 && (
+        {isFeatureEnabled('EVENTS_HELSINKI_2') && (
           <Footer.Item
             as={Link}
             label={t('footer.searchHobbies')}

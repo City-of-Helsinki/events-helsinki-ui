@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { Checkbox, IconAngleDown, IconAngleUp, TextInput } from 'hds-react';
 import React from 'react';
 
+import { skipFalsyType } from '../../../util/typescript.utils';
 import DropdownMenu from '../dropdownMenu/DropdownMenu';
 import SearchLabel from '../search/searchLabel/SearchLabel';
 import styles from './rangeDropdown.module.scss';
@@ -209,7 +210,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
         tabIndex={0}
         type="button"
       >
-        {!!value.filter(Boolean).length && (
+        {!!value.filter(skipFalsyType).length && (
           <div className={styles.isSelectedIndicator} />
         )}
         <div className={styles.iconWrapper}>{icon}</div>

@@ -1,5 +1,5 @@
 import { SUPPORT_LANGUAGES } from '../../src/constants';
-import { getFeatureFlags } from '../../src/util/featureFlags';
+import { isFeatureEnabled } from '../../src/util/featureFlags';
 import { getEnvUrl } from '../utils/settings';
 import { clearDataToPrintOnFailure } from '../utils/testcafe.utils';
 import { getUrlUtils } from '../utils/url.utils';
@@ -19,7 +19,7 @@ test('Changing language on landing page', async (t) => {
   const headerTabs = header.headerTabs();
   const languageSelector = header.languageSelector();
   await headerTabs.expectations.eventSearchPageTabIsVisible();
-  if (getFeatureFlags().EVENTS_HELSINKI_2) {
+  if (isFeatureEnabled('EVENTS_HELSINKI_2')) {
     await headerTabs.expectations.courseSearchPageTabIsVisible();
   }
   await headerTabs.expectations.recommendationsPageTabIsVisible();
@@ -27,7 +27,7 @@ test('Changing language on landing page', async (t) => {
   await languageSelector.actions.changeLanguage(SUPPORT_LANGUAGES.SV);
 
   await headerTabs.expectations.eventSearchPageTabIsVisible();
-  if (getFeatureFlags().EVENTS_HELSINKI_2) {
+  if (isFeatureEnabled('EVENTS_HELSINKI_2')) {
     await headerTabs.expectations.courseSearchPageTabIsVisible();
   }
   await headerTabs.expectations.recommendationsPageTabIsVisible();
@@ -39,16 +39,14 @@ test('Event search page is navigable from landing page header', async (t) => {
   await headerTabs.actions.clickEventSearchPageTab();
   await urlUtils.expectations.urlChangedToEventSearchPage();
 });
-
-test('Course search page is navigable from landing page header', async (t) => {
-  if (getFeatureFlags().EVENTS_HELSINKI_2) {
+if (isFeatureEnabled('EVENTS_HELSINKI_2')) {
+  test('Course search page is navigable from landing page header', async (t) => {
     const header = await findHeader(t);
     const headerTabs = header.headerTabs();
     await headerTabs.actions.clickCourseSearchPageTab();
     await urlUtils.expectations.urlChangedToCourseSearchPage();
-  }
-});
-
+  });
+}
 test('Recommended page is navigable from landing page header', async (t) => {
   const header = await findHeader(t);
   const headerTabs = header.headerTabs();

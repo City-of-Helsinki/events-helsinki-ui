@@ -11,7 +11,8 @@ import {
   userEvent,
   waitFor,
 } from '../../../../test/testUtils';
-import { getFeatureFlags } from '../../../../util/featureFlags';
+import { isFeatureEnabled } from '../../../../util/featureFlags';
+import { skipFalsyType } from '../../../../util/typescript.utils';
 import { ROUTES } from '../../routes/constants';
 import Header from '../Header';
 
@@ -35,7 +36,10 @@ test.skip('component should be accessible', async () => {
 
 describe('EVENTS_HELSINKI_2 feature flag', () => {
   [true, false].forEach((EVENTS_HELSINKI_2) => {
-    it('matches snapshot', async () => {
+    setFeatureFlags({ EVENTS_HELSINKI_2 });
+    it(`matches snapshot when EVENTS_HELSINKI_2 feature is ${
+      EVENTS_HELSINKI_2 ? 'on' : 'off'
+    }`, async () => {
       i18n.changeLanguage('sv');
       const { container } = renderComponent('/sv');
       expect(container.firstChild).toMatchSnapshot();
@@ -44,25 +48,21 @@ describe('EVENTS_HELSINKI_2 feature flag', () => {
     it(`should show navigation links and click should route to correct pages when EVENTS_HELSINKI_2 feature is ${
       EVENTS_HELSINKI_2 ? 'on' : 'off'
     }`, async () => {
-      setFeatureFlags({ EVENTS_HELSINKI_2 });
       const { history } = renderComponent();
-
       const links = [
         {
           name: translations.header.searchEvents,
           url: `/fi${ROUTES.EVENTS}`,
         },
-        ...[
-          getFeatureFlags().EVENTS_HELSINKI_2 && {
-            name: translations.header.searchHobbies,
-            url: `/fi${ROUTES.COURSES}`,
-          },
-        ],
+        isFeatureEnabled('EVENTS_HELSINKI_2') && {
+          name: translations.header.searchHobbies,
+          url: `/fi${ROUTES.COURSES}`,
+        },
         {
           name: translations.header.searchCollections,
           url: `/fi${ROUTES.COLLECTIONS}`,
         },
-      ].filter(Boolean);
+      ].filter(skipFalsyType);
 
       links.forEach(({ name, url }) => {
         const link = screen.queryByRole('link', { name });

@@ -6,7 +6,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { MAIN_CONTENT_ID, SUPPORT_LANGUAGES } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
 import { OptionType } from '../../../types';
-import { getFeatureFlags } from '../../../util/featureFlags';
+import { isFeatureEnabled } from '../../../util/featureFlags';
+import { skipFalsyType } from '../../../util/typescript.utils';
 import { updateLocaleParam } from '../../../util/updateLocaleParam';
 import { ROUTES } from '../routes/constants';
 import styles from './header.module.scss';
@@ -57,17 +58,15 @@ const Header: React.FC = () => {
       label: t('header.searchEvents'),
       url: `/${locale}${ROUTES.EVENTS}`,
     },
-    ...[
-      getFeatureFlags().EVENTS_HELSINKI_2 && {
-        label: t('header.searchHobbies'),
-        url: `/${locale}${ROUTES.COURSES}`,
-      },
-    ],
+    isFeatureEnabled('EVENTS_HELSINKI_2') && {
+      label: t('header.searchHobbies'),
+      url: `/${locale}${ROUTES.COURSES}`,
+    },
     {
       label: t('header.searchCollections'),
       url: `/${locale}${ROUTES.COLLECTIONS}`,
     },
-  ].filter(Boolean) as Array<{ label: string; url: string }>;
+  ].filter(skipFalsyType);
 
   return (
     <Navigation
