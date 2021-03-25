@@ -20,7 +20,7 @@ interface Props {
 const EventContent: React.FC<Props> = ({ event, eventType }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const { description } = getEventFields(event, locale);
+  const { description, photographerName } = getEventFields(event, locale);
 
   return (
     <div className={styles.eventContent}>
@@ -41,6 +41,13 @@ const EventContent: React.FC<Props> = ({ event, eventType }) => {
                     __html: sanitizeHtml(description),
                   }}
                 />
+                {photographerName && (
+                  <p>
+                    {t('commons.photographerText', {
+                      photographer: photographerName,
+                    })}
+                  </p>
+                )}
               </>
             )}
             <ShareLinks title={t('event.shareLinks.title')} />
@@ -53,7 +60,7 @@ const EventContent: React.FC<Props> = ({ event, eventType }) => {
             <EventLocation event={event} />
           </div>
           {/* Dummy div to keep layout consistent with EventHero */}
-          <div></div>
+          <div />
         </div>
       </Container>
     </div>
