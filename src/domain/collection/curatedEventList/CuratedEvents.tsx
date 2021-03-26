@@ -69,6 +69,8 @@ const CollectionEventsList: React.FC<{
     eventCursorIndex,
   } = usePaginatedEventsByIdsQuery(eventIds, eventType);
 
+  const collectionHasEvents = events.length + pastEvents.length > 0;
+  const collectionHasUpcomingEvents = !!events.length;
   const visiblePastEvent = pastEvents.slice(
     0,
     showAllPastEvents ? undefined : PAST_EVENTS_DEFAULT_SIZE
@@ -78,52 +80,55 @@ const CollectionEventsList: React.FC<{
     setShowAllPastEvents(true);
   };
 
+  const PastEventsSection = () => {
+    return (
+      <>
+        <h3 className={styles.titlePastRecommendations}>
+          {t('collection.titlePastRecommendations')}
+        </h3>
+        <EventCards
+          events={visiblePastEvent}
+          onShowMore={handleShowAllPastEvents}
+          eventType={eventType}
+          showMoreButton={
+            !showAllPastEvents && pastEvents.length > PAST_EVENTS_DEFAULT_SIZE
+          }
+        />
+      </>
+    );
+  };
+
+  const LoadMoreButton = () => (
+    <div className={styles.loadMoreWrapper}>
+      <LoadingSpinner hasPadding={!events.length} isLoading={isFetchingMore}>
+        <Button
+          onClick={onLoadMoreEvents}
+          variant="success"
+          disabled={isFetchingMore}
+        >
+          {t('eventSearch.buttonLoadMore', {
+            count: eventIds.length - eventCursorIndex,
+          })}
+        </Button>
+      </LoadingSpinner>
+    </div>
+  );
+
   return (
     <div className={styles.curatedEventListContainer} data-testid={testId}>
       <h3>{title}</h3>
       <LoadingSpinner isLoading={loading}>
-        {(!!events.length || !!pastEvents.length) && (
+        {collectionHasEvents && (
           <div className={styles.curatedEventList}>
-            <div>{!events.length && <OnlyExpiredEvents />}</div>
-            <div>
-              {!!events.length && (
+            {collectionHasUpcomingEvents ? (
+              <>
                 <EventCards events={events} eventType={eventType} />
-              )}
-              {hasMoreEventsToLoad && (
-                <div className={styles.loadMoreWrapper}>
-                  <LoadingSpinner
-                    hasPadding={!events.length}
-                    isLoading={isFetchingMore}
-                  >
-                    <Button
-                      onClick={onLoadMoreEvents}
-                      variant="success"
-                      disabled={isFetchingMore}
-                    >
-                      {t('eventSearch.buttonLoadMore', {
-                        count: eventIds.length - eventCursorIndex,
-                      })}
-                    </Button>
-                  </LoadingSpinner>
-                </div>
-              )}
-              {!!visiblePastEvent.length && (
-                <>
-                  <h3 className={styles.titlePastRecommendations}>
-                    {t('collection.titlePastRecommendations')}
-                  </h3>
-                  <EventCards
-                    events={visiblePastEvent}
-                    onShowMore={handleShowAllPastEvents}
-                    eventType={eventType}
-                    showMoreButton={
-                      !showAllPastEvents &&
-                      pastEvents.length > PAST_EVENTS_DEFAULT_SIZE
-                    }
-                  />
-                </>
-              )}
-            </div>
+                {hasMoreEventsToLoad && <LoadMoreButton />}
+              </>
+            ) : (
+              <OnlyExpiredEvents />
+            )}
+            {!!visiblePastEvent.length && <PastEventsSection />}
           </div>
         )}
       </LoadingSpinner>
