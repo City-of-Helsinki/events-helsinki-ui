@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import { CollectionFieldsFragment } from '../../../generated/graphql';
-import useLocale from '../../../hooks/useLocale';
-import getLocalisedString from '../../../util/getLocalisedString';
 import Container from '../../app/layout/Container';
 import { getEventIdsFromUrls } from '../../event/EventUtils';
 import { EventType } from '../../event/types';
@@ -17,12 +15,14 @@ import { usePaginatedEventsByIdsQuery } from './utils';
 const PAST_EVENTS_DEFAULT_SIZE = 4;
 export const PAGE_SIZE = 10;
 
+export const coursesListTestId = 'curated-courses-list';
+export const eventsListTestId = 'curated-events-list';
+
 interface Props {
   collection: CollectionFieldsFragment;
 }
 
 const CuratedEvents: React.FC<Props> = ({ collection }) => {
-  const locale = useLocale();
   const { t } = useTranslation();
   const { eventIds, courseIds } = React.useMemo(
     () => getEventIdsFromUrls(collection.curatedEvents),
@@ -31,9 +31,9 @@ const CuratedEvents: React.FC<Props> = ({ collection }) => {
 
   return (
     <Container className={styles.container}>
-      <h2>{getLocalisedString(collection.curatedEventsTitle, locale)}</h2>
       {!!eventIds.length && (
         <CollectionEventsList
+          testId={eventsListTestId}
           eventIds={eventIds}
           eventType="event"
           title={t('collection.curatedEvents.eventsTitle')}
@@ -41,6 +41,7 @@ const CuratedEvents: React.FC<Props> = ({ collection }) => {
       )}
       {!!courseIds.length && (
         <CollectionEventsList
+          testId={coursesListTestId}
           eventIds={courseIds}
           eventType="course"
           title={t('collection.curatedEvents.coursesTitle')}
@@ -54,7 +55,8 @@ const CollectionEventsList: React.FC<{
   eventIds: string[];
   title: string;
   eventType: EventType;
-}> = ({ eventIds, title, eventType }) => {
+  testId: string;
+}> = ({ eventIds, title, eventType, testId }) => {
   const { t } = useTranslation();
   const [showAllPastEvents, setShowAllPastEvents] = React.useState(false);
 
@@ -78,7 +80,7 @@ const CollectionEventsList: React.FC<{
   };
 
   return (
-    <div className={styles.curatedEventListContainer}>
+    <div className={styles.curatedEventListContainer} data-testid={testId}>
       <h3>{title}</h3>
       <LoadingSpinner isLoading={loading}>
         {(!!events.length || !!pastEvents.length) && (

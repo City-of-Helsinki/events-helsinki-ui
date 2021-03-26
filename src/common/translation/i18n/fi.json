@@ -75,8 +75,8 @@
       "linkOnlyExpiredEvents": "Tutustu kaikkiin kokoelmiin",
       "textEventNotFound": "Tapahtumaa ei löydy",
       "textOnlyExpiredEvents": "Valitettavasti tämän kokoelman kaikki suositellut tapahtumat ovat jo ehtineet päättyä. Käy tutustumassa muihin suosituksiimme ja löydä itsellesi tekemistä.",
-      "eventsTitle": "Kokoelman tapahtumat",
-      "coursesTitle": "Kokoelman harrastukset"
+      "eventsTitle": "Suositellut tapahtumat",
+      "coursesTitle": "Suositellut harrastukset"
     },
     "eventList": {
       "errorLoadMore": "Tapahtumien lataaminen epäonnistui"

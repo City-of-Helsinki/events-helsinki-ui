@@ -1,7 +1,15 @@
 
 .curatedEventListContainer {
   padding-bottom: 1rem;
-  margin-top: 1rem;
+  margin-top: var(--spacing-s);
+
+  &:not(:first-child) {
+    margin-top: var(--spacing-xl);
+  }
+
+  h3 {
+    font-size: var(--fontsize-heading-m);
+  }
 }
 
 .container {
@@ -26,8 +34,6 @@
       line-height: 2rem;
       max-width: 65rem;
     }
-
-
   }
 
   .titlePastRecommendations {
