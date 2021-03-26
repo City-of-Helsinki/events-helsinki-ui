@@ -2,7 +2,9 @@ import { act } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import * as React from 'react';
 
+import translations from '../../../common/translation/i18n/fi.json';
 import { LandingPagesDocument } from '../../../generated/graphql';
+import * as useMobile from '../../../hooks/useMobile';
 import {
   collectionListFilterTests,
   getCollectionQueryListMocks,
@@ -39,6 +41,10 @@ const landingPagesResponse = {
 
 const collections = fakeCollections(1);
 
+beforeEach(() => {
+  jest.spyOn(useMobile, 'useMobile').mockReturnValue(false);
+});
+
 const collectionListQueryMock = getCollectionQueryListMocks(collections, {
   visibleOnFrontpage: true,
 });
@@ -54,6 +60,15 @@ const landingPagesQueryMocks = [
     result: landingPagesResponse,
   },
 ];
+
+test('Landing page should be accessible', async () => {
+  const { container } = render(<LandingPage />);
+  let axeResult = undefined;
+  await act(async () => {
+    axeResult = await axe(container);
+  });
+  expect(axeResult).toHaveNoViolations();
+});
 
 it('should render landing page correctly', async () => {
   render(<LandingPage />, {
@@ -73,13 +88,18 @@ it('should render landing page correctly', async () => {
   expect(screen.getByText(bottomBannerDescription)).toBeInTheDocument();
 });
 
-test('Landing page should be accessible', async () => {
-  const { container } = render(<LandingPage />);
-  let axeResult = undefined;
-  await act(async () => {
-    axeResult = await axe(container);
+it('renders different placeholder for inputs in mobile', async () => {
+  jest.spyOn(useMobile, 'useMobile').mockReturnValue(true);
+
+  render(<LandingPage />, {
+    mocks: landingPagesQueryMocks,
   });
-  expect(axeResult).toHaveNoViolations();
+
+  await screen.findByRole('heading', { name: topBannerTitle });
+
+  expect(
+    screen.getAllByPlaceholderText(translations.home.search.placeholder)
+  ).toHaveLength(2);
 });
 
 describe('collection list filters', () => {

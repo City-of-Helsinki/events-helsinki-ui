@@ -8,11 +8,7 @@ import {
 } from 'date-fns';
 import { IconSpeechbubbleText } from 'hds-react';
 import { TFunction } from 'i18next';
-import forEach from 'lodash/forEach';
-import isArray from 'lodash/isArray';
 import isEmpty from 'lodash/isEmpty';
-import isNil from 'lodash/isNil';
-import isNumber from 'lodash/isNumber';
 import React from 'react';
 
 import { DATE_TYPES } from '../../constants';
@@ -27,67 +23,169 @@ import IconSports from '../../icons/IconSports';
 import IconTheatre from '../../icons/IconTheatre';
 import IconTree from '../../icons/IconTree';
 import { Language } from '../../types';
+import buildQueryFromObject from '../../util/buildQueryFromObject';
 import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
 import {
-  CATEGORIES,
+  COURSE_CATEGORIES,
+  COURSE_HOBBY_TYPES,
+  EVENT_CATEGORIES,
   EVENT_SEARCH_FILTERS,
+  EVENT_SEARCH_SOURCES,
   EVENT_SORT_OPTIONS,
   MAPPED_CATEGORIES,
+  MAPPED_COURSE_HOBBY_TYPES,
+  MAPPED_KEYWORD_TERMS,
   MAPPED_PLACES,
 } from './constants';
-import { CategoryOption, Filters, MappedFilters } from './types';
+import {
+  CategoryOption,
+  Filters,
+  HobbyTypeOption,
+  MappedFilters,
+} from './types';
 
-export const getCategoryOptions = (t: TFunction): CategoryOption[] => [
+export const getEventCategoryOptions = (t: TFunction): CategoryOption[] => [
   {
     icon: <IconMovies />,
     text: t('home.category.movie'),
-    value: CATEGORIES.MOVIE,
+    value: EVENT_CATEGORIES.MOVIE,
   },
   {
     icon: <IconMusic />,
     text: t('home.category.music'),
-    value: CATEGORIES.MUSIC,
+    value: EVENT_CATEGORIES.MUSIC,
   },
   {
     icon: <IconSports />,
     text: t('home.category.sport'),
-    value: CATEGORIES.SPORT,
+    value: EVENT_CATEGORIES.SPORT,
   },
   {
     icon: <IconMuseum />,
     text: t('home.category.museum'),
-    value: CATEGORIES.MUSEUM,
+    value: EVENT_CATEGORIES.MUSEUM,
   },
   {
     icon: <IconDance />,
     text: t('home.category.dance'),
-    value: CATEGORIES.DANCE,
+    value: EVENT_CATEGORIES.DANCE,
   },
   {
     icon: <IconCultureAndArts />,
     text: t('home.category.culture'),
-    value: CATEGORIES.CULTURE,
+    value: EVENT_CATEGORIES.CULTURE,
   },
   {
     icon: <IconTree />,
     text: t('home.category.nature'),
-    value: CATEGORIES.NATURE,
+    value: EVENT_CATEGORIES.NATURE,
   },
   {
-    icon: <IconSpeechbubbleText />,
+    icon: <IconSpeechbubbleText aria-hidden />,
     text: t('home.category.influence'),
-    value: CATEGORIES.INFLUENCE,
+    value: EVENT_CATEGORIES.INFLUENCE,
   },
   {
     icon: <IconTheatre />,
     text: t('home.category.theatre'),
-    value: CATEGORIES.THEATRE,
+    value: EVENT_CATEGORIES.THEATRE,
   },
   {
     icon: <IconFood />,
     text: t('home.category.food'),
-    value: CATEGORIES.FOOD,
+    value: EVENT_CATEGORIES.FOOD,
+  },
+];
+
+export const getCourseCategoryOptions = (t: TFunction): CategoryOption[] => [
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.movieAndMedia'),
+    value: COURSE_CATEGORIES.MOVIE,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.languages'),
+    value: COURSE_CATEGORIES.LANGUAGES,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.literature'),
+    value: COURSE_CATEGORIES.LITERATURE,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.artsAndCulture'),
+    value: COURSE_CATEGORIES.ARTS_AND_CULTURE,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.visualArts'),
+    value: COURSE_CATEGORIES.VISUAL_ARTS,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.handicrafts'),
+    value: COURSE_CATEGORIES.HANDICRAFTS,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.sport'),
+    value: COURSE_CATEGORIES.SPORT,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.music'),
+    value: COURSE_CATEGORIES.MUSIC,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.games'),
+    value: COURSE_CATEGORIES.GAMES,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.food'),
+    value: COURSE_CATEGORIES.FOOD,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.dance'),
+    value: COURSE_CATEGORIES.DANCE,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.category.courses.theatre'),
+    value: COURSE_CATEGORIES.THEATRE,
+  },
+];
+
+export const getCourseHobbyTypeOptions = (t: TFunction): HobbyTypeOption[] => [
+  {
+    icon: <IconMovies />,
+    text: t('home.hobby.clubs'),
+    value: COURSE_HOBBY_TYPES.CLUBS,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.hobby.courses'),
+    value: COURSE_HOBBY_TYPES.COURSES,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.hobby.camps'),
+    value: COURSE_HOBBY_TYPES.CAMPS,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.hobby.trips'),
+    value: COURSE_HOBBY_TYPES.TRIPS,
+  },
+  {
+    icon: <IconMovies />,
+    text: t('home.hobby.workshops'),
+    value: COURSE_HOBBY_TYPES.WORKSHOPS,
   },
 ];
 
@@ -145,16 +243,6 @@ const getFilterDates = ({
 };
 
 /**
- * Get current hour as string to event query
- * @return {string}
- */
-export const getCurrentHour = (): string => {
-  const dateFormat = 'yyyy-MM-dd';
-  const now = new Date();
-  return `${formatDate(now, dateFormat)}T${formatDate(now, 'HH')}`;
-};
-
-/**
  * Get event list request filters from url parameters
  * @param {object} filterOptions
  * @return {object}
@@ -168,6 +256,7 @@ export const getEventSearchVariables = ({
   sortOrder,
   superEventType,
   place,
+  searchSource = EVENT_SEARCH_SOURCES.EVENTS,
 }: {
   include: string[];
   language: Language;
@@ -176,9 +265,11 @@ export const getEventSearchVariables = ({
   sortOrder: EVENT_SORT_OPTIONS;
   superEventType: string[];
   place?: string;
+  searchSource?: EVENT_SEARCH_SOURCES;
 }): QueryEventListArgs => {
   const {
     categories,
+    hobbyTypes,
     dateTypes,
     divisions,
     isFree,
@@ -189,6 +280,8 @@ export const getEventSearchVariables = ({
     places,
     publisher,
     text,
+    audienceMinAgeGt,
+    audienceMaxAgeLt,
   } = getSearchFilters(params);
 
   const pathPlace = place && MAPPED_PLACES[place.toLowerCase()];
@@ -217,15 +310,30 @@ export const getEventSearchVariables = ({
     keywordAnd.push('yso:p4354');
   }
 
-  const mappedCategories: string[] = categories
-    .map((category) => MAPPED_CATEGORIES[category])
-    .filter((e) => e);
+  const categoriesParamName = MAPPED_KEYWORD_TERMS[searchSource];
+  const categoryMap = MAPPED_CATEGORIES[searchSource];
+
+  const getMappedPropertyValues = (
+    list: string[],
+    map: Record<string, string[]>
+  ) =>
+    list?.reduce<string[]>(
+      (prev, val: string) => prev.concat(map[val] ?? []),
+      []
+    );
+
+  const mappedCategories = getMappedPropertyValues(categories, categoryMap);
+  const mappedHobbyTypes = getMappedPropertyValues(
+    hobbyTypes ?? [],
+    MAPPED_COURSE_HOBBY_TYPES
+  );
 
   const hasLocation = !isEmpty(divisions) || !isEmpty(places);
 
   const getSearchParam = () => {
     const hasText = !isEmpty(text);
-    if (hasText && hasLocation) {
+    const isEventsSearch = searchSource === EVENT_SEARCH_SOURCES.EVENTS;
+    if (hasText && isEventsSearch && hasLocation) {
       // show helsinki events matching to text
       return { localOngoingAnd: text };
     } else if (hasText) {
@@ -238,14 +346,14 @@ export const getEventSearchVariables = ({
   };
   const divisionParam = hasLocation && { division: divisions.sort() };
 
-  // Combine and add keywords
   return {
     ...getSearchParam(),
     ...divisionParam,
     end,
     include,
     isFree: isFree || undefined,
-    keyword: [...keyword, ...mappedCategories],
+    [categoriesParamName]: [...(keyword ?? []), ...mappedCategories],
+    keywordOrSet3: mappedHobbyTypes,
     keywordAnd,
     keywordNot,
     language,
@@ -256,6 +364,8 @@ export const getEventSearchVariables = ({
     start,
     startsAfter,
     superEventType,
+    audienceMinAgeGt,
+    audienceMaxAgeLt,
   };
 };
 
@@ -285,6 +395,10 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
       searchParams,
       EVENT_SEARCH_FILTERS.CATEGORIES
     ),
+    hobbyTypes: getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.HOBBY_TYPES
+    ),
     dateTypes: getUrlParamAsArray(
       searchParams,
       EVENT_SEARCH_FILTERS.DATE_TYPES
@@ -301,10 +415,14 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
       searchParams.get(EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS) === 'true',
     onlyEveningEvents:
       searchParams.get(EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS) === 'true',
+    alsoOngoingCourses:
+      searchParams.get(EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES) === 'true',
     places: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.PLACES),
     publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
     start,
     text: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.TEXT),
+    audienceMinAgeGt: searchParams.get(EVENT_SEARCH_FILTERS.MIN_AGE) || '',
+    audienceMaxAgeLt: searchParams.get(EVENT_SEARCH_FILTERS.MAX_AGE) || '',
   };
 };
 
@@ -315,29 +433,13 @@ export const getSearchQuery = (filters: Filters): string => {
     isFree: filters.isFree ? true : undefined,
     onlyChildrenEvents: filters.onlyChildrenEvents ? true : undefined,
     onlyEveningEvents: filters.onlyEveningEvents ? true : undefined,
+    alsoOngoingCourses: filters.alsoOngoingCourses ? true : undefined,
     start: formatDate(filters.start, 'yyyy-MM-dd'),
   };
 
   if (newFilters.end || newFilters.start) {
     delete newFilters.dateTypes;
   }
-  const query: string[] = [];
 
-  forEach(newFilters, (filter, key) => {
-    if (!isEmpty(filter) || isNumber(filter) || typeof filter === 'boolean') {
-      if (isArray(filter)) {
-        const items: Array<string | number> = [];
-
-        forEach(filter, (item: string | number) => {
-          items.push(encodeURIComponent(item));
-        });
-
-        query.push(`${key}=${items.join(',')}`);
-      } else if (!isNil(filter)) {
-        query.push(`${key}=${encodeURIComponent(filter)}`);
-      }
-    }
-  });
-
-  return query.length ? `?${query.join('&')}` : '';
+  return buildQueryFromObject(newFilters);
 };

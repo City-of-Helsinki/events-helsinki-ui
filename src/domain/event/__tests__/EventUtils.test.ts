@@ -12,24 +12,25 @@ import {
   fakePlace,
 } from '../../../test/mockDataUtils';
 import {
+  formatPrice,
   getEventFields,
   getEventIdFromUrl,
   getEventImageUrl,
-  getEventKeywords,
   getEventPlaceholderImageUrl,
   getEventSomeImageUrl,
+  getKeywordList,
   getLocationId,
   getServiceMapUrl,
 } from '../EventUtils';
 
-describe('getEventKeywords function', () => {
+describe('getKeywordList function', () => {
   it('should sort and capitalize keywords', () => {
     const keywords = fakeKeywords(2, [
       { name: { fi: 'keyword 2' } },
       { name: { fi: 'keyword 1' } },
     ]).data;
     const event = fakeEvent({ keywords }) as EventFieldsFragment;
-    const sortedKeywords = getEventKeywords(event, 'fi');
+    const sortedKeywords = getKeywordList(event.keywords, 'fi');
 
     expect(map(sortedKeywords, 'name')).toStrictEqual([
       'Keyword 1',
@@ -37,18 +38,21 @@ describe('getEventKeywords function', () => {
     ]);
   });
 
-  it('should remove duplicate keywords', () => {
-    const keywords = fakeKeywords(3, [
+  it('should remove duplicate keywords (not case sensitive)', () => {
+    const keywords = fakeKeywords(5, [
       { name: { fi: 'keyword 1' } },
       { name: { fi: 'keyword 2' } },
       { name: { fi: 'keyword 2' } },
+      { name: { fi: 'KeYwoRD 3' } },
+      { name: { fi: 'keyWord 3' } },
     ]).data;
     const event = fakeEvent({ keywords }) as EventFieldsFragment;
-    const sortedKeywords = getEventKeywords(event, 'fi');
+    const sortedKeywords = getKeywordList(event.keywords, 'fi');
 
     expect(map(sortedKeywords, 'name')).toStrictEqual([
       'Keyword 1',
       'Keyword 2',
+      'Keyword 3',
     ]);
   });
 
@@ -58,7 +62,7 @@ describe('getEventKeywords function', () => {
       { ...fakeKeyword(), name: null },
     ];
     const event = fakeEvent({ keywords }) as EventFieldsFragment;
-    const eventKeywords = getEventKeywords(event, 'fi');
+    const eventKeywords = getKeywordList(event.keywords, 'fi');
 
     expect(eventKeywords).toHaveLength(0);
   });
@@ -169,5 +173,27 @@ describe('getEventFields function', () => {
 
     expect(thisWeek).toBe(false);
     expect(today).toBe(false);
+  });
+});
+
+describe('formatPrice function', () => {
+  // test separators
+  ['', '-', ',', '.', '/'].forEach((s) => {
+    it(`format correctly with separator: ${s}`, () => {
+      expect(formatPrice(`12${s}12`)).toEqual(`12${s}12 €`);
+    });
+  });
+
+  it('adds € with one or more numbers', () => {
+    expect(formatPrice('2')).toEqual(`2 €`);
+    expect(formatPrice('20')).toEqual(`20 €`);
+    expect(formatPrice('222')).toEqual(`222 €`);
+  });
+
+  it("doesn't add € when not needed", () => {
+    expect(formatPrice('asd12-12')).toEqual(`asd12-12`);
+    expect(formatPrice('1212 €')).toEqual(`1212 €`);
+    expect(formatPrice('1212€')).toEqual(`1212€`);
+    expect(formatPrice('12s12')).toEqual(`12s12`);
   });
 });

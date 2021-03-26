@@ -57,6 +57,10 @@
       "buttonCopyLink": "Kopiera länk adress",
       "messageLinkCopySuccess": "Länk kopierad till urklipp"
     },
+    "srOnly" : {
+      "opensInANewTab": "Öppnas i en ny flik"
+    },
+    "yearsShort": "år",
     "supriseMe": "Jag har tur",
     "timeAbbreviation": "kl.",
     "photographerText": "Foto: {{photographer}}"
@@ -123,7 +127,9 @@
     "hero": {
       "ariaLabelBackButton": "Gå tillbaka till föregående sida",
       "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
+      "ariaLabelEnrol": "Registrera - Länken öppnas i ett annat fönster",
       "buttonBuyTickets": "Köp biljetter",
+      "buttonEnrol": "Registrering",
       "buttonToHomePage": "Till framsidan",
       "offers": {
         "isFree": "Gratis"
@@ -146,6 +152,10 @@
       "labelDirections": "Hitta fram",
       "labelLanguages": "Språk",
       "labelLocation": "Plats",
+      "labelAudience": "Målgrupper",
+      "labelMinAttendeeCapacity": "Min. deltagarkapacitet",
+      "labelMaxAttendeeCapacity": "Min. deltagarkapacitet",
+      "labelSeatsLeft": "Platser kvar",
       "labelOrganizer": "Arrangör",
       "labelOtherInfo": "Övrig information",
       "labelPrice": "Pris",
@@ -170,9 +180,9 @@
       "title": "Oj nej, nu blev det 404!"
     },
     "otherTimes": {
-      "buttonHide": "Dölj andra evenemangstider",
+      "buttonHide": "Dölj",
       "buttonReadMore": "Läs mer: {{date}}",
-      "buttonShow": "Visa andra evenemangstider",
+      "buttonShow": "Visa",
       "title": "Andra evenemangstider"
     },
     "shareLinks": {
@@ -213,19 +223,37 @@
     "textFoundEvents": "{{count}} sökresultat",
     "title": "Evenemang sök"
   },
+  "courseSearch": {
+    "title": "Hitta hobby",
+    "search": {
+      "checkboxIsFree": "Visa endast avgiftsfria",
+      "placeholder": "Ange ett sökord, t. ex. Franska eller matlagning",
+      "labelSearchField": "Vad letar du efter?",
+      "checkboxAlsoOngoingCourses": "Visa även pågående kurser",
+      "titleDropdownHobbyType": "Aktivitetsform",
+      "showOnlyAdultCourses": "Show only adult courses",
+      "ageLimitValues": "Ålder",
+      "ageLimitMin": "Från",
+      "ageLimitMax": "Till"
+    }
+  },
   "footer": {
     "linkAbout": "Om tjänsten",
     "linkAccessibility": "Tillgänglighets­utlåtande",
     "linkFeedback": "Ge respons",
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/sv/stad-och-forvaltning/delta/feedback/",
     "searchCollections": "Vi rekommenderar",
-    "searchEvents": "Sök saker att göra",
-    "titleCategories": "Kategorier"
+    "searchEvents": "Evenemangen",
+    "searchHobbies": "Hobbyer",
+    "titleEventsCategories": "Populära evenemangskategorier",
+    "titleCoursesCategories": "Populära hobbykategorier",
+    "backToTop": "Tillbaka till toppen",
+    "copyright": "Copyright",
+    "allRightsReserved": "Alla rättigheter förbehållna"
   },
   "header": {
-    "ariaButtonCloseMenu": "Stäng menyn",
-    "ariaButtonOpenMenu": "Öppna menyn",
-    "ariaLabelLogo": "Framsidan",
+    "menuToggleAriaLabel": "Menyn",
+    "skipToContentLabel": "Gå till innehållet",
     "changeLanguage": "Svenska - språkval",
     "languages": {
       "en": "In English",
@@ -233,7 +261,8 @@
       "sv": "På svenska"
     },
     "searchCollections": "Vi rekommenderar",
-    "searchEvents": "Sök saker att göra"
+    "searchEvents": "Evenemangen",
+    "searchHobbies": "Hobbyer"
   },
   "home": {
     "category": {
@@ -247,7 +276,29 @@
       "music": "Musik",
       "nature": "Natur och friluftsliv",
       "sport": "Motion och sport",
-      "theatre": "Teater"
+      "theatre": "Teater",
+      "courses": {
+        "movieAndMedia": "Film och media",
+        "languages": "Språk",
+        "literature": "Litteratur och ordkonst",
+        "artsAndCulture": "Kultur och konst",
+        "visualArts": "Bildkonst",
+        "handicrafts": "Hantverk",
+        "sport": "Motion och friluftsliv",
+        "music": "Musik",
+        "games": "Spel",
+        "food": "Mat",
+        "dance": "Dans",
+        "theatre": "Teater"
+      }
+    },
+    "hobby": {
+      "clubs": "Klubbar",
+      "courses": "Kurser",
+      "camps": "Läger",
+      "trips": "Utfärder",
+      "workshops": "Verkstäder",
+      "onlineStudies": "Online studies"
     },
     "collections": {
       "title": "Vi rekommenderar"
@@ -256,13 +307,29 @@
       "text": "Av en eller annan orsak så hittas inte sidan du letade efter.",
       "title": "Oj nej, nu blev det 404!"
     },
-    "search": {
+    "search__DEPRECATED": {
       "buttonSearch": "Sök",
       "labelDateRange": "För vilken period du letar efter?",
       "labelSearchField": "Vad letar du efter?",
       "linkAdvancedSearch": "Avancerad sökning",
       "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
       "title": "Sök saker att göra"
+    },
+    "search": {
+      "popularCategories": "Populära kategorier",
+      "placeholder": "Skriv sökord",
+      "showPopularCategories": "Visa de mest populära kategorierna",
+      "hidePopularCategories": "Dölj de mest populära kategorierna"
+    },
+    "eventSearch": {
+      "buttonSearch": "Sök",
+      "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
+      "title": "Sök saker att göra"
+    },
+    "courseSearch": {
+      "buttonSearch": "Sök",
+      "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
+      "title": "Hitta hobby"
     }
   },
   "menu": {

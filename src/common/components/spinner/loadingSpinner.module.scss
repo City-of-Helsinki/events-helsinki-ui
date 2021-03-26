@@ -4,7 +4,7 @@ $spinnerWidth: 4.375rem;
   display: flex;
   align-items: center;
   justify-content: center;
-
+  padding-bottom: 2rem;
   width: 100%;
 
   &.hasPadding {
@@ -17,7 +17,7 @@ $spinnerWidth: 4.375rem;
     transform: rotate(0deg);
   }
   8.33% {
-    fill: var(--color-coat-of-arms-blue);
+    fill: var(--color-coat-of-arms);
   }
   25% {
     fill: var(--color-copper);
@@ -38,7 +38,7 @@ $spinnerWidth: 4.375rem;
     fill: ar(--color-suomenlinna);
   }
   91.67% {
-    fill: var(--color-coat-of-arms-blue);
+    fill: var(--color-coat-of-arms);
   }
   100% {
     transform: rotate(1080deg);
@@ -49,7 +49,7 @@ $spinnerWidth: 4.375rem;
   width: $spinnerWidth;
   height: $spinnerWidth;
   border-radius: 50%;
-  fill: var(--color-coat-of-arms-blue);
+  fill: var(--color-coat-of-arms);
   animation: spinner 3.6s ease-in-out infinite;
 
   svg {

@@ -2,6 +2,7 @@
 import { MockedResponse } from '@apollo/react-testing';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createMemoryHistory } from 'history';
 import { advanceTo, clear } from 'jest-date-mock';
 import * as React from 'react';
 import routeData from 'react-router';
@@ -53,11 +54,11 @@ const placesResponse = {
   },
 };
 
-const firstLoadMocks = [
-  createEventListRequestAndResultMocks(
-    { allOngoingAnd: ['jazz'] },
-    eventsResponse
-  ),
+const searchJazzMocks = [
+  createEventListRequestAndResultMocks({
+    variables: { allOngoingAnd: ['jazz'] },
+    response: eventsResponse,
+  }),
   {
     request: {
       query: NeighborhoodListDocument,
@@ -77,18 +78,24 @@ const firstLoadMocks = [
   },
 ];
 
-const loadMoreMocks = [
-  ...firstLoadMocks,
-  createEventListRequestAndResultMocks(
-    { allOngoingAnd: ['jazz'], page: 2 },
-    eventsLoadMoreResponse
-  ),
+const searchJazzThenClickLoadMoreMocks = [
+  ...searchJazzMocks,
+  createEventListRequestAndResultMocks({
+    variables: { allOngoingAnd: ['jazz'], page: 2 },
+    response: eventsLoadMoreResponse,
+  }),
 ];
-
-const loadMoreThrowsErrorMock = createEventListRequestThrowsErrorMocks();
+const searchJazzThenClickLoadMoreThrowsErrorMock = [
+  ...searchJazzMocks,
+  createEventListRequestThrowsErrorMocks(),
+];
 
 afterAll(() => {
   clear();
+});
+
+afterEach(() => {
+  jest.restoreAllMocks();
 });
 
 const pathname = '/fi/events';
@@ -96,7 +103,9 @@ const search = '?text=jazz';
 const testRoute = `${pathname}${search}`;
 const routes = [testRoute];
 
-const renderComponent = (mocks: MockedResponse[] = loadMoreMocks) =>
+const renderComponent = (
+  mocks: MockedResponse[] = searchJazzThenClickLoadMoreMocks
+) =>
   render(<EventSearchPageContainer />, {
     mocks,
     routes,
@@ -138,9 +147,8 @@ it('all the event cards should be visible and load more button should load more 
 
 it('should show toastr message when loading next event page fails', async () => {
   toast.error = jest.fn();
-  const mocks = [...firstLoadMocks, loadMoreThrowsErrorMock];
 
-  renderComponent(mocks);
+  renderComponent(searchJazzThenClickLoadMoreThrowsErrorMock);
 
   await waitFor(() => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
@@ -219,6 +227,37 @@ it('should scroll to result list on mobile screen', async () => {
   });
 
   expect(scroller.scrollTo).toBeCalled();
+});
+
+it('scrolls to eventcard and calls history.replace correctly (deletes eventId from state)', async () => {
+  const history = createMemoryHistory();
+  const historyObject = {
+    search: '?dateTypes=tomorrow,this_week',
+    state: { eventId: '123' },
+    pathname: '/fi/events',
+  };
+  history.push(historyObject);
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  jest.spyOn(console, 'warn').mockImplementationOnce(() => {});
+  const replaceSpy = jest.spyOn(history, 'replace');
+
+  render(<EventSearchPageContainer />, {
+    mocks: searchJazzMocks,
+    routes,
+    history,
+  });
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  expect(replaceSpy).toHaveBeenCalledWith(
+    expect.objectContaining({
+      search: historyObject.search,
+      pathname: historyObject.pathname,
+    })
+  );
 });
 
 //it('searches events correctly with event place in path, e.g. /fi/annantalo', () => {});

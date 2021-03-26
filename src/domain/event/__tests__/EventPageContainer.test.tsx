@@ -5,28 +5,81 @@ import translations from '../../../common/translation/i18n/fi.json';
 import {
   EventDetailsDocument,
   EventFieldsFragment,
+  EventListDocument,
 } from '../../../generated/graphql';
-import { createEventListRequestAndResultMocks } from '../../../test/apollo-mocks/eventListMocks';
-import { fakeEvent, fakeEvents } from '../../../test/mockDataUtils';
-import { renderWithRoute, screen, waitFor } from '../../../test/testUtils';
-import { setFeatureFlags } from '../../../util/featureFlags.test.utils';
+import {
+  createEventListRequestAndResultMocks,
+  createOtherEventTimesRequestAndResultMocks,
+} from '../../../test/apollo-mocks/eventListMocks';
+import { setFeatureFlags } from '../../../test/feature-flags/featureFlags.test.utils';
+import {
+  fakeEvent,
+  fakeEvents,
+  fakeKeyword,
+  fakeLocalizedObject,
+  fakeTargetGroup,
+} from '../../../test/mockDataUtils';
+import {
+  renderWithRoute,
+  screen,
+  userEvent,
+  waitFor,
+} from '../../../test/testUtils';
 import { ROUTES } from '../../app/routes/constants';
+import { otherEventTimesListTestId } from '../eventInfo/otherEventTimes/OtherEventTimes';
 import EventPageContainer from '../EventPageContainer';
 
 const id = '1';
 const name = 'Event title';
+const description = 'Event descirption';
 const startTime = '2020-10-05T07:00:00.000000Z';
 const endTime = '2020-10-05T10:00:00.000000Z';
+
+const audience = ['Aikuiset', 'Lapset'];
+const keywords = [
+  { name: 'Avouinti', id: 'keyword1' },
+  { name: 'Eläimet', id: 'keyword2' },
+  { name: 'Grillaus', id: 'keyword3' },
+];
+const superEventId = 'harrastushaku:13433';
+const otherEventTimesCount = 3;
 
 const event = fakeEvent({
   id,
   startTime,
   endTime,
   name: { fi: name },
+  description: fakeLocalizedObject(description),
+  keywords: keywords.map((k) =>
+    fakeKeyword({ name: fakeLocalizedObject(k.name), id: k.id })
+  ),
+  audience: audience.map((targetGroup) =>
+    fakeTargetGroup({ name: fakeLocalizedObject(targetGroup) })
+  ),
+  superEvent: {
+    __typename: 'InternalIdObject',
+    internalId: `https://api.hel.fi/linkedevents/v1/event/${superEventId}/`,
+  },
 }) as EventFieldsFragment;
 
 const eventKeywordIds = event.keywords.map((keyword) => keyword.id);
 
+const eventRequest = {
+  query: EventDetailsDocument,
+  variables: {
+    id,
+    include: ['in_language', 'keywords', 'location', 'audience'],
+  },
+};
+const otherEventsRequest = {
+  query: EventListDocument,
+  variables: {
+    include: ['keywords', 'location'],
+    sort: 'start_time',
+    start: 'now',
+    superEvent: superEventId,
+  },
+};
 const request = {
   query: EventDetailsDocument,
   variables: {
@@ -36,16 +89,27 @@ const request = {
 };
 
 const eventResponse = { data: { eventDetails: event } };
-const responseEvents = fakeEvents(3);
+const otherEventsResponse = {
+  data: { eventList: fakeEvents(otherEventTimesCount) },
+};
+const similarEvents = fakeEvents(3);
 const mocks = [
   {
-    request,
+    request: eventRequest,
     result: eventResponse,
   },
-  createEventListRequestAndResultMocks(
-    { allOngoing: true, keyword: eventKeywordIds },
-    responseEvents
-  ),
+  {
+    request: otherEventsRequest,
+    result: otherEventsResponse,
+  },
+  createOtherEventTimesRequestAndResultMocks({
+    superEventId,
+    response: fakeEvents(otherEventTimesCount),
+  }),
+  createEventListRequestAndResultMocks({
+    variables: { allOngoing: true, keywordOrSet1: eventKeywordIds },
+    response: similarEvents,
+  }),
 ];
 
 const testPath = ROUTES.EVENT.replace(':id', id);
@@ -62,14 +126,33 @@ afterAll(() => {
   clear();
 });
 
-it('should render event', async () => {
+it('should render info and load other events + similar events', async () => {
   advanceTo('2020-10-01');
   renderComponent();
 
   await waitFor(() => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
+
   expect(screen.queryByRole('heading', { name })).toBeInTheDocument();
+
+  expect(screen.queryByRole('heading', { name: 'Kuvaus' })).toBeInTheDocument();
+  expect(screen.queryByText(description)).toBeInTheDocument();
+
+  keywords.forEach((keyword) => {
+    expect(
+      screen.queryByRole('button', { name: keyword.name })
+    ).toBeInTheDocument();
+  });
+
+  await screen.findByText('Tapahtuman muut ajat');
+
+  // click show other times
+  userEvent.click(screen.getByRole('button', { name: 'Näytä' }));
+
+  expect(screen.getByTestId(otherEventTimesListTestId).children).toHaveLength(
+    otherEventTimesCount
+  );
 });
 
 it('should show error info when event is closed', async () => {
@@ -125,7 +208,16 @@ describe(`SIMILAR_EVENTS feature flag`, () => {
         name: translations.event.similarEvents.title,
       })
     ).toBeInTheDocument();
+
+    similarEvents.data.forEach(({ name }) => {
+      expect(
+        screen.queryByLabelText(`Siirry tapahtumaan: ${name.fi}`, {
+          selector: 'a',
+        })
+      ).toBeInTheDocument();
+    });
   });
+
   it('doesnt show similar events when flag is off', async () => {
     setFeatureFlags({ SHOW_SIMILAR_EVENTS: false });
     advanceTo('2020-10-01');
@@ -138,5 +230,24 @@ describe(`SIMILAR_EVENTS feature flag`, () => {
         name: translations.event.similarEvents.title,
       })
     ).not.toBeInTheDocument();
+  });
+});
+
+it('should link to events search when clicking tags', async () => {
+  advanceTo('2020-10-01');
+  const { history } = renderComponent();
+
+  const pushSpy = jest.spyOn(history, 'push');
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  // click keyword / tag
+  userEvent.click(screen.getByRole('button', { name: 'Avouinti' }));
+
+  expect(pushSpy).toHaveBeenCalledWith({
+    pathname: '/fi/events',
+    search: '?text=Avouinti',
   });
 });

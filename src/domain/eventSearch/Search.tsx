@@ -11,21 +11,24 @@ import MultiSelectDropdown from '../../common/components/multiSelectDropdown/Mul
 import SearchAutosuggest from '../../common/components/search/SearchAutosuggest';
 import SearchLabel from '../../common/components/search/searchLabel/SearchLabel';
 import { AutosuggestMenuOption } from '../../common/types';
-import { useNeighborhoodListQuery } from '../../generated/graphql';
+import useDivisionOptions from '../../hooks/useDivisionOptions';
 import useLocale from '../../hooks/useLocale';
 import IconRead from '../../icons/IconRead';
-import getLocalisedString from '../../util/getLocalisedString';
 import Container from '../app/layout/Container';
 import { ROUTES } from '../app/routes/constants';
 import PlaceSelector from '../place/placeSelector/PlaceSelector';
 import {
-  DEFAULT_SEARCH_FILTERS,
+  EVENT_DEFAULT_SEARCH_FILTERS,
   EVENT_SEARCH_FILTERS,
   MAPPED_PLACES,
 } from './constants';
 import FilterSummary from './filterSummary/FilterSummary';
 import styles from './search.module.scss';
-import { getCategoryOptions, getSearchFilters, getSearchQuery } from './utils';
+import {
+  getEventCategoryOptions,
+  getSearchFilters,
+  getSearchQuery,
+} from './utils';
 
 interface Props {
   scrollToResultList: () => void;
@@ -90,18 +93,9 @@ const Search: React.FC<Props> = ({
     text: selectedTexts,
   };
 
-  const { data: neighborhoodsData } = useNeighborhoodListQuery();
+  const divisionOptions = useDivisionOptions();
 
-  const divisionOptions = neighborhoodsData
-    ? neighborhoodsData.neighborhoodList.data
-        .map((neighborhood) => ({
-          text: getLocalisedString(neighborhood.name, locale),
-          value: neighborhood.id,
-        }))
-        .sort((a, b) => (a.text >= b.text ? 1 : -1))
-    : [];
-
-  const categories = getCategoryOptions(t);
+  const categories = getEventCategoryOptions(t);
 
   const handleChangeDateTypes = (value: string[]) => {
     setSelectedDateTypes(value);
@@ -215,7 +209,7 @@ const Search: React.FC<Props> = ({
   };
 
   const clearFilters = () => {
-    const search = getSearchQuery(DEFAULT_SEARCH_FILTERS);
+    const search = getSearchQuery(EVENT_DEFAULT_SEARCH_FILTERS);
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
 
@@ -259,7 +253,7 @@ const Search: React.FC<Props> = ({
                 <div>
                   <MultiSelectDropdown
                     checkboxName="categoryOptions"
-                    icon={<IconRead />}
+                    icon={<IconRead aria-hidden />}
                     inputValue={categoryInput}
                     name="category"
                     onChange={setSelectedCategories}
@@ -286,7 +280,7 @@ const Search: React.FC<Props> = ({
                 <div>
                   <MultiSelectDropdown
                     checkboxName="divisionOptions"
-                    icon={<IconLocation />}
+                    icon={<IconLocation aria-hidden />}
                     inputValue={divisionInput}
                     name="division"
                     onChange={setSelectedDivisions}
@@ -302,7 +296,7 @@ const Search: React.FC<Props> = ({
                 <div>
                   <PlaceSelector
                     checkboxName="placesCheckboxes"
-                    icon={<IconHome />}
+                    icon={<IconHome aria-hidden />}
                     inputValue={placeInput}
                     name="places"
                     onChange={setSelectedPlaces}
@@ -318,7 +312,7 @@ const Search: React.FC<Props> = ({
               <div className={styles.buttonWrapper}>
                 <Button
                   fullWidth={true}
-                  iconLeft={<IconSearch />}
+                  iconLeft={<IconSearch aria-hidden />}
                   variant="success"
                   type="submit"
                 >

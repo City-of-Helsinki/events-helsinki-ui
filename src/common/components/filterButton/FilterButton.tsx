@@ -7,13 +7,16 @@ import styles from './filterButton.module.scss';
 
 export type FilterType =
   | 'category'
+  | 'hobbyType'
   | 'date'
   | 'dateType'
   | 'division'
   | 'place'
   | 'publisher'
   | 'target'
-  | 'text';
+  | 'text'
+  | 'minAge'
+  | 'maxAge';
 
 interface Props {
   onRemove: (value: string, type: FilterType) => void;
@@ -39,7 +42,7 @@ const FilterButton: React.FC<Props> = ({ onRemove, text, type, value }) => {
           filter: text,
         })}
       >
-        <IconCross size="s" />
+        <IconCross size="s" aria-hidden />
       </button>
       {text}
     </div>

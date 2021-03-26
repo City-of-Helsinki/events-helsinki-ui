@@ -15,7 +15,7 @@ import {
 import { fakeEvent, fakeEvents } from '../../../../test/mockDataUtils';
 import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
-import OtherEventTimesEvents from '../OtherEventTimes';
+import OtherEventTimesContainer from '../otherEventTimes/OtherEventTimesContainer';
 
 const startTime = '2020-10-01T16:00:00Z';
 const endTime = '2020-10-01T18:00:00Z';
@@ -58,24 +58,22 @@ const otherEventsLoadMoreResponse = {
   meta: { ...meta, next: null },
 };
 
-const firstLoadMock = createOtherEventTimesRequestAndResultMocks(
+const firstLoadMock = createOtherEventTimesRequestAndResultMocks({
   superEventId,
-  '2020-08-11T03',
-  {},
-  otherEventsResponse
-);
+  response: otherEventsResponse,
+});
 
-const secondLoadMock = createOtherEventTimesRequestAndResultMocks(
+const secondLoadMock = createOtherEventTimesRequestAndResultMocks({
   superEventId,
-  '2020-08-11T03',
-  { page: 2 },
-  otherEventsLoadMoreResponse
-);
+  variables: { page: 2 },
+  response: otherEventsLoadMoreResponse,
+});
 
 const secondPageLoadThrowsErrorMock = createOtherEventTimesRequestThrowsErrorMocks(
-  superEventId,
-  '2020-08-11T03',
-  { page: 2 }
+  {
+    superEventId,
+    variables: { page: 2 },
+  }
 );
 
 const defaultMocks = [firstLoadMock, secondLoadMock];
@@ -85,13 +83,13 @@ afterAll(() => {
 });
 
 const renderComponent = (mocks: MockedResponse[] = defaultMocks) =>
-  render(<OtherEventTimesEvents event={event} />, { mocks });
+  render(<OtherEventTimesContainer event={event} />, { mocks });
 
 test('should render other event times', async () => {
   advanceTo(new Date('2020-08-11'));
   renderComponent();
 
-  const toggleButton = screen.getByRole('button', {
+  const toggleButton = await screen.findByRole('button', {
     name: translations.event.otherTimes.buttonShow,
   });
 
@@ -135,29 +133,22 @@ test('should show toastr when loading next event page fails', async () => {
   const mocks = [firstLoadMock, secondPageLoadThrowsErrorMock];
   renderComponent(mocks);
 
-  const toggleButton = screen.getByRole('button', {
+  const toggleButton = await screen.findByRole('button', {
     name: translations.event.otherTimes.buttonShow,
   });
 
   userEvent.click(toggleButton);
 
-  // Have to wait loading spinner twice to get error
   await waitFor(() => {
-    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+    expect(toast.error).toBeCalledWith(translations.event.info.errorLoadMode);
   });
-
-  await waitFor(() => {
-    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-  });
-
-  expect(toast.error).toBeCalledWith(translations.event.info.errorLoadMode);
 });
 
 test('should go to event page of other event time', async () => {
   advanceTo(new Date('2020-08-11'));
   const { history } = renderComponent();
 
-  const toggleButton = screen.getByRole('button', {
+  const toggleButton = await screen.findByRole('button', {
     name: translations.event.otherTimes.buttonShow,
   });
 
@@ -186,5 +177,5 @@ test('should go to event page of other event time', async () => {
     })
   );
 
-  expect(history.location.pathname).toBe(`/fi/event/${event.id}`);
+  expect(history.location.pathname).toBe(`/fi/events/${event.id}`);
 });

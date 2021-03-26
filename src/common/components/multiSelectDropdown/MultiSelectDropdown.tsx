@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 
 import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
 import Checkbox from '../checkbox/Checkbox';
+import DropdownMenu from '../dropdownMenu/DropdownMenu';
 import ScrollIntoViewWithFocus from '../scrollIntoViewWithFocus/ScrollIntoViewWithFocus';
 import SearchLabel from '../search/searchLabel/SearchLabel';
-import DropdownMenu from './DropdownMenu';
 import styles from './multiSelectDropdown.module.scss';
 
 const SELECT_ALL = 'SELECT_ALL';
@@ -253,13 +253,17 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
           <div className={styles.titleText}>{selectedText || title}</div>
         </div>
         <div className={styles.arrowWrapper}>
-          {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
+          {isMenuOpen ? (
+            <IconAngleUp aria-hidden />
+          ) : (
+            <IconAngleDown aria-hidden />
+          )}
         </div>
       </button>
       <DropdownMenu isOpen={isMenuOpen} onClear={handleClear}>
         {showSearch && (
           <div className={styles.inputWrapper}>
-            <IconSearch size="s" />
+            <IconSearch size="s" aria-hidden />
             <SearchLabel htmlFor={name} srOnly={true}>
               {inputPlaceholderText}
             </SearchLabel>

@@ -164,7 +164,7 @@ const DateSelector: FunctionComponent<DateSelectorProps> = ({
         type="button"
       >
         <div className={styles.iconWrapper}>
-          <IconCalendarClock />
+          <IconCalendarClock aria-hidden />
         </div>
         <div className={styles.info}>
           <div className={styles.buttonTextWrapper}>
@@ -172,7 +172,11 @@ const DateSelector: FunctionComponent<DateSelectorProps> = ({
           </div>
         </div>
         <div className={styles.arrowWrapper}>
-          {isMenuOpen ? <IconAngleUp /> : <IconAngleDown />}
+          {isMenuOpen ? (
+            <IconAngleUp aria-hidden />
+          ) : (
+            <IconAngleDown aria-hidden />
+          )}
         </div>
       </button>
       {isSelected && <div className={styles.isSelectedIndicator} />}

@@ -42,7 +42,7 @@ export const getUrlUtils = (t: TestController) => {
       setDataToPrintOnFailure(t, 'expectedEvent', event);
       await t
         .expect(getPathname())
-        .eql(`/fi/event/${event.id}`, await getErrorMessage(t));
+        .eql(`/fi/events/${event.id}`, await getErrorMessage(t));
       await pageIsLoaded();
       await t
         .expect(getPageTitle())
@@ -55,6 +55,14 @@ export const getUrlUtils = (t: TestController) => {
       await t
         .expect(getPageTitle())
         .eql('Tapahtumat Helsinki', await getErrorMessage(t));
+    },
+    async urlChangedToCourseSearchPage() {
+      await t
+        .expect(getPathname())
+        .eql(`/fi/courses`, await getErrorMessage(t));
+      await t
+        .expect(getPageTitle())
+        .eql('Tapahtumat Helsinki', await getErrorMessage(t)); // TODO: perhaps wrong title?
     },
     async urlChangedToRecommendationsPage() {
       await t

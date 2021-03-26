@@ -6,12 +6,14 @@ import { EXTLINK } from '../constants';
 import {
   AboutPagesResponse,
   AccessibilityPagesResponse,
+  Audience,
   BannerPage,
   CmsImage,
   CollectionDetails,
   CollectionListResponse,
   EventDetails,
   EventListResponse,
+  ExtensionCourse,
   ExternalLink,
   Image,
   InLanguage,
@@ -46,7 +48,7 @@ export const fakeEvents = (
 });
 
 export const fakeEvent = (overrides?: Partial<EventDetails>): EventDetails => {
-  return merge(
+  return merge<EventDetails, typeof overrides>(
     {
       id: `hel:${faker.random.uuid()}`,
       internalId: faker.random.uuid(),
@@ -70,7 +72,44 @@ export const fakeEvent = (overrides?: Partial<EventDetails>): EventDetails => {
       eventStatus: 'EventScheduled',
       superEvent: null,
       dataSource: 'hel',
+      extensionCourse: fakeExtensionCourse(),
       __typename: 'EventDetails',
+    },
+    overrides
+  );
+};
+
+export const fakeAudience = (
+  count = 1,
+  audience?: Partial<Audience>[]
+): Audience[] => {
+  return generateNodeArray((i) => fakeTargetGroup(audience?.[i]), count);
+};
+
+export const fakeTargetGroup = (overrides?: Partial<Audience>): Audience => {
+  return merge<Audience, typeof overrides>(
+    {
+      __typename: 'Audience',
+      id: faker.random.uuid(),
+      internalContext: '',
+      internalId: faker.random.uuid(),
+      name: fakeLocalizedObject(faker.random.word()),
+    },
+    overrides
+  );
+};
+
+export const fakeExtensionCourse = (
+  overrides?: Partial<ExtensionCourse>
+): ExtensionCourse => {
+  return merge<ExtensionCourse, typeof overrides>(
+    {
+      __typename: 'ExtensionCourse',
+      enrolmentEndTime: '',
+      enrolmentStartTime: '',
+      maximumAttendeeCapacity: 10,
+      minimumAttendeeCapacity: 1,
+      remainingAttendeeCapacity: 5,
     },
     overrides
   );

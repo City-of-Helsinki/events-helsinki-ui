@@ -7,20 +7,26 @@ import {
   useLandingPagesQuery,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
+import { useMobile } from '../../hooks/useMobile';
 import Container from '../app/layout/Container';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import BannerHero from '../banner/bannerHero/BannerHero';
 import CollectionCards from '../collection/collectionCard/CollectionCards';
 import { isCollectionVisible } from '../collection/CollectionUtils';
+import {
+  getCourseCategoryOptions,
+  getEventCategoryOptions,
+} from '../eventSearch/utils';
 import styles from './landingPage.module.scss';
 import LandingPageMeta from './landingPageMeta/LandingPageMeta';
-import Search from './landingPageSearch/LandingPageSearch';
+import LandingPageSearch from './landingPageSearchSection/LandingPageSearchSection';
 import { isLanguageSupported as isLanguagePageLanguageSupported } from './utils';
 
-const Home: React.FC = () => {
+const LandingPage: React.FC = () => {
   const { t } = useTranslation();
   const locale = useLocale();
+  const isMobile = useMobile();
 
   const { data: landingPageData, loading } = useLandingPagesQuery({
     variables: { visibleOnFrontpage: true },
@@ -53,11 +59,36 @@ const Home: React.FC = () => {
             )}
           </>
         )}
-        {!!collectionsData && (
-          <MainContent offset={-150}>
-            <Container className={styles.searchContainer}>
-              <Search />
-            </Container>
+
+        <MainContent offset={-150}>
+          <div className={styles.searchContainer}>
+            <div className={styles.searchInnerContainer}>
+              <LandingPageSearch
+                type="event"
+                title={t('home.eventSearch.title')}
+                searchPlaceholder={
+                  isMobile
+                    ? t('home.search.placeholder')
+                    : t('home.eventSearch.placeholder')
+                }
+                popularCategories={getEventCategoryOptions(t)}
+              />
+              {/* Background helper used to get the wave-effect without
+                    course search panel being on top of event search panel */}
+              <div className={styles.backgroundHelper} />
+              <LandingPageSearch
+                type="course"
+                title={t('home.courseSearch.title')}
+                searchPlaceholder={
+                  isMobile
+                    ? t('home.search.placeholder')
+                    : t('home.courseSearch.placeholder')
+                }
+                popularCategories={getCourseCategoryOptions(t)}
+              />
+            </div>
+          </div>
+          {!!collectionsData && (
             <div className={styles.collectionCardContainer}>
               <Container>
                 <div>
@@ -70,8 +101,8 @@ const Home: React.FC = () => {
                 </div>
               </Container>
             </div>
-          </MainContent>
-        )}
+          )}
+        </MainContent>
         {landingPage?.bottomBanner && (
           <BannerHero banner={landingPage.bottomBanner} location="bottom" />
         )}
@@ -80,4 +111,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default LandingPage;

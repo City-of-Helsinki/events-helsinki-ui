@@ -102,7 +102,7 @@ test('should go to event page by click Read more button', () => {
     })
   );
 
-  expect(history.location.pathname).toEqual('/fi/event/123');
+  expect(history.location.pathname).toEqual('/fi/events/123');
 });
 
 test('should go to event page by clicking event card', () => {
@@ -115,7 +115,7 @@ test('should go to event page by clicking event card', () => {
   expect(history.location.pathname).toEqual('/');
 
   userEvent.click(
-    screen.queryByRole('link', {
+    screen.getByRole('link', {
       name: translations.event.eventCard.ariaLabelLink.replace(
         '{{name}}',
         event.name.fi
@@ -123,7 +123,7 @@ test('should go to event page by clicking event card', () => {
     })
   );
 
-  expect(history.location.pathname).toEqual('/fi/event/123');
+  expect(history.location.pathname).toEqual('/fi/events/123');
 });
 
 describe('test all event places for modified query string', () => {
@@ -159,8 +159,16 @@ describe('test all event places for modified query string', () => {
       );
 
       expect(push.mock.calls).toEqual([
-        [`/fi/event/${event.id}?returnPath=${encodeURIComponent('/' + place)}`],
-        [`/fi/event/${event.id}?returnPath=${encodeURIComponent('/' + place)}`],
+        [
+          `/fi/events/${event.id}?returnPath=${encodeURIComponent(
+            '/' + place
+          )}`,
+        ],
+        [
+          `/fi/events/${event.id}?returnPath=${encodeURIComponent(
+            '/' + place
+          )}`,
+        ],
       ]);
     });
   });

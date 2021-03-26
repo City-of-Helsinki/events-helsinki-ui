@@ -5,29 +5,18 @@ import * as React from 'react';
 import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
 import { createEventListRequestAndResultMocks } from '../../../../test/apollo-mocks/eventListMocks';
-import {
-  fakeEvent,
-  fakeEvents,
-  fakeKeywords,
-} from '../../../../test/mockDataUtils';
+import { fakeEvents } from '../../../../test/mockDataUtils';
 import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import { ROUTES } from '../../../app/routes/constants';
 import SimilarEvents from '../SimilarEvents';
-const keywordIds = ['yso:1', 'yso:2'];
 
-const keywords = fakeKeywords(
-  keywordIds.length,
-  keywordIds.map((id) => ({ id, name: { fi: id } }))
-).data;
-const event = fakeEvent({
-  keywords,
-}) as EventFieldsFragment;
 const expectedSimilarEvents = fakeEvents(3);
-const eventKeywords = event.keywords.map((keyword) => keyword.id);
+const expectedSimilarEventsData = expectedSimilarEvents.data as EventFieldsFragment[];
 
 const mocks = [
   createEventListRequestAndResultMocks(
-    { allOngoing: true, keyword: eventKeywords },
+    'event',
+    { allOngoing: true },
     expectedSimilarEvents
   ),
 ];
@@ -48,7 +37,16 @@ const waitForComponentToBeLoaded = async () => {
 
 test('should render similar event cards', async () => {
   advanceTo(new Date('2020-08-11'));
-  render(<SimilarEvents event={event} />, { mocks });
+  render(
+    <SimilarEvents
+      events={expectedSimilarEventsData}
+      eventsType="event"
+      loading={false}
+    />,
+    {
+      mocks,
+    }
+  );
   await waitForComponentToBeLoaded();
 
   expectedSimilarEvents.data.forEach((event) => {
@@ -65,12 +63,19 @@ test('should render similar event cards', async () => {
 
 it('has return path on similar event link', async () => {
   const path = ROUTES.EVENT;
-  const route = path.replace(':id', event.id);
-  const { history } = render(<SimilarEvents event={event} />, {
-    mocks,
-    path,
-    routes: [route],
-  });
+  const route = path.replace(':id', 'rootEventId');
+  const { history } = render(
+    <SimilarEvents
+      events={expectedSimilarEventsData}
+      eventsType="event"
+      loading={false}
+    />,
+    {
+      mocks,
+      path,
+      routes: [route],
+    }
+  );
   for (const similarEvent of expectedSimilarEvents.data) {
     await waitForComponentToBeLoaded();
     userEvent.click(

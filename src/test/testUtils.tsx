@@ -1,5 +1,6 @@
 import { MockedProvider, MockedResponse } from '@apollo/react-testing';
 import { act, fireEvent, render, RenderResult } from '@testing-library/react';
+import { ApolloCache } from 'apollo-cache';
 import { createMemoryHistory, History } from 'history';
 import React from 'react';
 import { Route, Router } from 'react-router-dom';
@@ -13,6 +14,7 @@ type CustomRender = {
       path?: string;
       history?: History;
       mocks?: MockedResponse[];
+      cache?: ApolloCache<null>;
     }
   ): CustomRenderResult;
 };
@@ -40,10 +42,11 @@ const customRender: CustomRender = (
     routes = ['/'],
     history = createMemoryHistory({ initialEntries: routes }),
     mocks = [],
+    cache,
   } = {}
 ) => {
   const Wrapper: React.FC = ({ children }) => (
-    <MockedProvider mocks={mocks}>
+    <MockedProvider mocks={mocks} cache={cache}>
       <Router history={history}>{children}</Router>
     </MockedProvider>
   );

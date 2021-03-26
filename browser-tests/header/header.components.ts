@@ -47,7 +47,7 @@ export const findHeader = async (
         });
       },
       languageSelectorItem(lang: SUPPORT_LANGUAGES) {
-        return withinHeader().findByRole('menuitem', {
+        return withinHeader().findByRole('link', {
           name: getTranslations(currentLang).header.languages[lang],
         });
       },
@@ -83,6 +83,11 @@ export const findHeader = async (
           name: getTranslations(currentLang).header.searchEvents,
         });
       },
+      courseSearchTab() {
+        return withinHeader().findByRole('link', {
+          name: getTranslations(currentLang).header.searchHobbies,
+        });
+      },
       recommendationsTab() {
         return withinHeader().findByRole('link', {
           name: getTranslations(currentLang).header.searchCollections,
@@ -95,6 +100,11 @@ export const findHeader = async (
           .expect(selectors.eventSearchTab().exists)
           .ok(await getErrorMessage(t));
       },
+      async courseSearchPageTabIsVisible() {
+        await t
+          .expect(selectors.courseSearchTab().exists)
+          .ok(await getErrorMessage(t));
+      },
       async recommendationsPageTabIsVisible() {
         await t
           .expect(selectors.recommendationsTab().exists)
@@ -104,6 +114,9 @@ export const findHeader = async (
     const actions = {
       async clickEventSearchPageTab() {
         await t.click(selectors.eventSearchTab());
+      },
+      async clickCourseSearchPageTab() {
+        await t.click(selectors.courseSearchTab());
       },
       async clickRecommendationsPageTab() {
         await t.click(selectors.recommendationsTab());

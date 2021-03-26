@@ -1,18 +1,21 @@
 import { MockedResponse } from '@apollo/react-testing';
-import { act } from '@testing-library/react';
 import i18n from 'i18next';
 import * as React from 'react';
 
 import {
   CollectionFieldsFragment,
   LandingPagesDocument,
+  LinkedEventsSource,
   PlaceDetailsDocument,
 } from '../../../../generated/graphql';
+import { getCollectionDetailsMock } from '../../../../test/apollo-mocks/collectionsDetailsMocks';
+import { getEventsByIdsMock } from '../../../../test/apollo-mocks/eventByIdsMocks';
 import { createEventListRequestAndResultMocks } from '../../../../test/apollo-mocks/eventListMocks';
 import { getCollectionQueryListMocks } from '../../../../test/collections/collections.common.tests';
 import {
   fakeCollection,
   fakeCollections,
+  fakeEvent,
   fakeEvents,
   fakeLandingPages,
   fakeLocalizedObject,
@@ -25,7 +28,6 @@ import {
   screen,
   waitFor,
 } from '../../../../test/testUtils';
-import { getMocks as getCollectionMocks } from '../../../collection/__tests__/CollectionPageContainer.test';
 import {
   MAPPED_PLACES,
   MARKETING_COLLECTION_SLUGS,
@@ -43,10 +45,20 @@ const placeToPlaceString = {
   vuotalo: 'Vuotalo',
 };
 
+const curatedEventId = 'kulke:51381';
+const curatedEventName = 'Curated event name';
+
 configure({ defaultHidden: true });
 
 const landingPagesResponse = { data: { landingPages: fakeLandingPages(1) } };
 const collections = fakeCollections(1);
+
+const eventsByIds = [
+  fakeEvent({
+    id: curatedEventId,
+    name: fakeLocalizedObject(curatedEventName),
+  }),
+];
 
 const createFakeResponseEvents = () => fakeEvents(3);
 
@@ -61,10 +73,14 @@ const mocks = [
   ...getCollectionQueryListMocks(collections, { visibleOnFrontpage: true }),
   // generate mock response for each place query
   ...Object.keys(MAPPED_PLACES).map((key) =>
-    createEventListRequestAndResultMocks(
-      { allOngoing: true, division: [], location: [MAPPED_PLACES[key]] },
-      createFakeResponseEvents()
-    )
+    createEventListRequestAndResultMocks({
+      variables: {
+        allOngoing: true,
+        division: [],
+        location: [MAPPED_PLACES[key]],
+      },
+      response: createFakeResponseEvents(),
+    })
   ),
   ...Object.keys(MAPPED_PLACES).map((key) => {
     return {
@@ -72,6 +88,7 @@ const mocks = [
         query: PlaceDetailsDocument,
         variables: {
           id: MAPPED_PLACES[key],
+          source: LinkedEventsSource.Linkedevents,
         },
       },
       result: {
@@ -85,22 +102,35 @@ const mocks = [
   }),
 ];
 
+const getCollectionMocks = (
+  collectionDetails: CollectionFieldsFragment,
+  draft = false
+): MockedResponse[] => [
+  getCollectionDetailsMock({
+    variables: { draft, slug: collectionDetails.slug },
+    collectionDetails,
+  }),
+  getEventsByIdsMock({
+    variables: { ids: [curatedEventId], include: ['location'] },
+    eventsByIds,
+  }),
+];
+
 const renderComponent = (
   route: string,
   requestMocks: MockedResponse[] = mocks
 ) => render(<AppRoutes />, { mocks: requestMocks, routes: [route] });
 
 beforeEach(() => {
-  act(() => {
-    i18n.changeLanguage('fi');
-  });
+  i18n.changeLanguage('fi');
 });
 
 it('user from supported locale will be redirect to App with that locale', async () => {
-  renderComponent('/en/');
-  await actWait();
+  renderComponent('/en');
 
-  expect(i18n.language).toEqual('en');
+  await waitFor(() => {
+    expect(i18n.language).toEqual('en');
+  });
 });
 
 it('user from unsupported locale prefix will be redirect to route with support prefix', async () => {

@@ -4,16 +4,20 @@ import * as React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import {
+  EventDetails,
   EventFieldsFragment,
   OfferFieldsFragment,
 } from '../../../../generated/graphql';
 import {
   fakeEvent,
+  fakeExternalLink,
   fakeKeyword,
+  fakeLocalizedObject,
   fakeOffer,
 } from '../../../../test/mockDataUtils';
 import { render, screen, userEvent } from '../../../../test/testUtils';
-import EventHero from '../EventHero';
+import getDateRangeStr from '../../../../util/getDateRangeStr';
+import EventHero, { Props as EventHeroProps } from '../EventHero';
 
 const name = 'Event name';
 const startTime = '2020-06-22T07:00:00.000000Z';
@@ -28,27 +32,37 @@ const keywords = keywordNames.map((name) =>
   fakeKeyword({ name: { fi: name } })
 );
 
-const event = fakeEvent({
-  name: { fi: name },
-  keywords,
-  startTime,
-  endTime,
-  publisher: '',
-  shortDescription: { fi: shortDescription },
-  location: {
-    internalId: 'tprek:8740',
-    addressLocality: { fi: addressLocality },
-    name: { fi: locationName },
-    streetAddress: { fi: streetAddress },
-  },
-}) as EventFieldsFragment;
+const getFakeEvent = (overrides?: Partial<EventDetails>) => {
+  return fakeEvent({
+    name: { fi: name },
+    keywords,
+    startTime,
+    endTime,
+    publisher: '',
+    shortDescription: { fi: shortDescription },
+    location: {
+      internalId: 'tprek:8740',
+      addressLocality: { fi: addressLocality },
+      name: { fi: locationName },
+      streetAddress: { fi: streetAddress },
+    },
+    externalLinks: null,
+    ...overrides,
+  }) as EventFieldsFragment;
+};
 
 afterAll(() => {
   clear();
 });
 
+const renderComponent = (props?: Partial<EventHeroProps>) => {
+  return render(
+    <EventHero event={getFakeEvent()} eventType="event" {...props} />
+  );
+};
+
 test('should render event name, description and location', () => {
-  render(<EventHero event={event} />);
+  renderComponent();
 
   expect(screen.queryByRole('heading', { name })).toBeInTheDocument();
   expect(screen.queryByText(shortDescription)).toBeInTheDocument();
@@ -60,10 +74,10 @@ test('should render event name, description and location', () => {
 });
 
 test('should go to event list', () => {
-  const { history } = render(<EventHero event={event} />);
+  const { history } = renderComponent();
 
   userEvent.click(
-    screen.queryByRole('button', {
+    screen.getByRole('button', {
       name: translations.event.hero.ariaLabelBackButton,
     })
   );
@@ -71,7 +85,7 @@ test('should go to event list', () => {
 });
 
 test('should render keywords', () => {
-  render(<EventHero event={event} />);
+  renderComponent();
 
   keywordNames.forEach((keyword) => {
     expect(screen.queryByText(capitalize(keyword))).toBeInTheDocument();
@@ -80,7 +94,7 @@ test('should render keywords', () => {
 
 test('should render today tag', () => {
   advanceTo('2020-06-22');
-  render(<EventHero event={event} />);
+  renderComponent();
 
   expect(
     screen.queryByRole('button', {
@@ -96,7 +110,7 @@ test('should render today tag', () => {
 
 test('should render this week tag', () => {
   advanceTo('2020-06-23');
-  render(<EventHero event={event} />);
+  renderComponent();
 
   expect(
     screen.queryByRole('button', {
@@ -111,11 +125,10 @@ test('should render this week tag', () => {
 });
 
 test('should hide buy button for free events', () => {
-  const mockEvent = {
-    ...event,
+  const mockEvent = getFakeEvent({
     offers: [fakeOffer({ isFree: true }) as OfferFieldsFragment],
-  };
-  render(<EventHero event={mockEvent} />);
+  });
+  render(<EventHero event={mockEvent} eventType="event" />);
 
   expect(
     screen.queryByRole('button', {
@@ -126,17 +139,106 @@ test('should hide buy button for free events', () => {
 
 test('should show buy button', () => {
   global.open = jest.fn();
-  const mockEvent = {
-    ...event,
-    offers: [fakeOffer({ isFree: false }) as OfferFieldsFragment],
-  };
+  const infoUrl = 'https://test.url';
+  const mockEvent = getFakeEvent({
+    offers: [
+      fakeOffer({
+        isFree: false,
+        infoUrl: fakeLocalizedObject(infoUrl),
+      }) as OfferFieldsFragment,
+    ],
+    externalLinks: null,
+  });
 
-  render(<EventHero event={mockEvent} />);
+  render(<EventHero event={mockEvent} eventType="event" />);
+
+  // shouldn't be rendred when externalLinks are not present
+  expect(
+    screen.queryByRole('button', {
+      name: new RegExp(translations.event.hero.buttonEnrol, 'i'),
+    })
+  ).not.toBeInTheDocument();
 
   userEvent.click(
-    screen.queryByRole('button', {
+    screen.getByRole('button', {
       name: new RegExp(translations.event.hero.buttonBuyTickets, 'i'),
     })
   );
-  expect(global.open).toBeCalledTimes(1);
+  expect(global.open).toHaveBeenCalledWith(infoUrl);
+});
+
+test('Register button should be visible and clickable', () => {
+  global.open = jest.fn();
+  const registrationUrl = 'https://harrastushaku.fi/register/13290';
+  const mockEvent = getFakeEvent({
+    externalLinks: [
+      fakeExternalLink({
+        link: registrationUrl,
+        name: 'registration',
+      }),
+    ],
+  });
+
+  render(<EventHero event={mockEvent} eventType="course" />);
+
+  expect(
+    screen.queryByText(translations.event.hero.buttonEnrol)
+  ).toBeInTheDocument();
+
+  userEvent.click(
+    screen.getByRole('button', {
+      name: translations.event.hero.ariaLabelEnrol,
+    })
+  );
+
+  expect(global.open).toBeCalledWith(registrationUrl);
+});
+
+test('should show event dates when super event is not defined', () => {
+  const mockEvent = getFakeEvent();
+
+  render(<EventHero event={mockEvent} eventType="course" />);
+
+  const dateStr = getDateRangeStr({
+    start: mockEvent.startTime,
+    end: mockEvent.endTime,
+    locale: 'fi',
+    includeTime: true,
+    timeAbbreviation: translations.commons.timeAbbreviation,
+  });
+  expect(screen.getByText(dateStr)).toBeInTheDocument();
+});
+
+test('should show event dates and super event dates if super event is defined', () => {
+  const mockEvent = getFakeEvent();
+  const mockSuperEvent = getFakeEvent({
+    startTime: '2020-06-22T07:00:00.000000Z',
+    endTime: '2025-06-25T07:00:00.000000Z',
+  });
+  render(
+    <EventHero
+      event={mockEvent}
+      superEvent={{ data: mockSuperEvent, status: 'resolved' }}
+      eventType="course"
+    />
+  );
+
+  const superDateStr = getDateRangeStr({
+    start: mockSuperEvent.startTime,
+    end: mockSuperEvent.endTime,
+    locale: 'fi',
+    includeTime: true,
+    timeAbbreviation: translations.commons.timeAbbreviation,
+  });
+  expect(screen.getByText(superDateStr)).toBeInTheDocument();
+
+  const dateStr = getDateRangeStr({
+    start: mockEvent.startTime,
+    end: mockEvent.endTime,
+    locale: 'fi',
+    includeTime: true,
+    timeAbbreviation: translations.commons.timeAbbreviation,
+  });
+
+  expect(screen.getByText(dateStr)).toBeInTheDocument();
 });

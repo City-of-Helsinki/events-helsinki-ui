@@ -85,7 +85,11 @@ const DateRangeInputs: React.FC<DateRangeInputsProps> = React.forwardRef<
     return (
       <div className={styles.dateRangeInputsContainer} ref={ref}>
         <div className={styles.dateInputWrapper}>
-          <label className={styles.label} htmlFor={`${inputName}_start_date`}>
+          <label
+            className={styles.label}
+            htmlFor={`${inputName}_start_date`}
+            id={`${inputName}_start_date_label`}
+          >
             {t('commons.dateSelector.labelStartDate')}
           </label>
           <div className={styles.formatInfo}>
@@ -109,13 +113,18 @@ const DateRangeInputs: React.FC<DateRangeInputsProps> = React.forwardRef<
               />
             </div>
             <div className={styles.icon}>
-              <IconCalendarPlus />
+              <IconCalendarPlus
+                aria-labelledby={`${inputName}_start_date_label`}
+              />
             </div>
           </div>
         </div>
         <div className={styles.dateSeparator}>—</div>
         <div className={styles.dateInputWrapper}>
-          <label htmlFor={`${inputName}_end_date`}>
+          <label
+            htmlFor={`${inputName}_end_date`}
+            id={`${inputName}_end_date_label`}
+          >
             {t('commons.dateSelector.labelEndDate')}
           </label>
           <div className={styles.formatInfo}>
@@ -137,7 +146,9 @@ const DateRangeInputs: React.FC<DateRangeInputsProps> = React.forwardRef<
               />
             </div>
             <div className={styles.icon}>
-              <IconCalendarPlus />
+              <IconCalendarPlus
+                aria-labelledby={`${inputName}_end_date_label`}
+              />
             </div>
           </div>
         </div>

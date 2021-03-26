@@ -1,4 +1,4 @@
-name: Build & Review & Acceptance Tests
+name: Build & Review & Acceptance Tests for Release
 on:
   pull_request:
   push:
@@ -26,6 +26,17 @@ env:
 
 jobs:
   build:
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [ "1", "2"]
+        include:
+          - service: "1"
+            version: "1.0"
+            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "false"
+          - service: "2"
+            version: "2.0"
+            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "true"
     runs-on: ubuntu-latest
     name: Build
     steps:
@@ -33,13 +44,14 @@ jobs:
       - name: Build
         uses: andersinno/kolga-build-action@v2
         env:
-          DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-review
+          DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-review-${{ matrix.service }}
           DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
           DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: ${{ secrets.GH_SENTRY_DSN }}
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'dev'
           DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.test.kuva.hel.ninja/api'
           DOCKER_BUILD_ARG_REACT_APP_LINKED_EVENTS_URL: 'https://api.hel.fi/linkedevents/v1'
+          DOCKER_BUILD_ARG_REACT_APP_LINKED_COURSES_URL: 'https://api.hel.fi/linkedcourses/v1'
           DOCKER_BUILD_ARG_REACT_APP_IMAGE_PROXY_URL: 'https://images.weserv.nl/?w=1024&url='
           DOCKER_BUILD_ARG_REACT_APP_GENERATE_SITEMAP: 'false'
           DOCKER_BUILD_ARG_REACT_APP_MATOMO_URL_BASE: 'https://analytics.hel.ninja/'
@@ -47,29 +59,56 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
           # Feature flags
           DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_EVENTS: 'false'
+          DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: ${{ matrix.DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2 }}
   review:
     runs-on: ubuntu-latest
     needs: build
-    name: Review + Acceptance Tests
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [ "1", "2"]
+        include:
+          - service: "1"
+            version: "1.0"
+            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "false"
+          - service: "2"
+            version: "2.0"
+            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "true"
+    name: Review + Acceptance Tests V${{ matrix.version }}
     steps:
       - uses: actions/checkout@v2
       - uses: andersinno/kolga-setup-action@v2
       - name: Deploy
         uses: andersinno/kolga-deploy-action@v2
         env:
-          ENVIRONMENT_URL: https://${{ env.K8S_NAMESPACE }}.${{ env.BASE_DOMAIN }}
-          DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-review
+          ENVIRONMENT_URL: https://${{env.K8S_NAMESPACE}}-${{ matrix.service }}.${{ env.BASE_DOMAIN }}
+          DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-review-${{ matrix.service }}
+          PROJECT_NAME: ${{ matrix.service }}
       - name: Setup kubectl
         run: |
           echo "${{ env.KUBECONFIG_RAW }}" > $(pwd)/kubeconfig
           echo "KUBECONFIG=$(pwd)/kubeconfig" >> $GITHUB_ENV
         shell: bash
-      - name: Get Review Deploy URL
+      - name: Get Review Deploy URL for version ${{ matrix.version }}
         id: deploy-url
         run: |
-          DEPLOY_URL=$(kubectl get ingress -n "${{ env.K8S_NAMESPACE }}" -o jsonpath='{.items[0].spec.rules[0].host}')
+          DEPLOY_URL=$(kubectl get ingress "${{ env.ENVIRONMENT_SLUG }}-${{ matrix.service }}-ingress" -n ${{env.K8S_NAMESPACE}} -o jsonpath='{.spec.rules[0].host}')
           echo "BROWSER_TESTS_LOCAL_ENV_URL=https://$DEPLOY_URL" >> $GITHUB_ENV
         shell: bash
+      - name: Create PR comment for version V1.0
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: deployment-1
+          message: '**The Old version of Tapahtumat (without courses) is deployed to: ${{ env.BROWSER_TESTS_LOCAL_ENV_URL }}** :rocket::rocket:'
+        if: success() && matrix.version == '1.0'
+      - name: Create PR comment for version V2.0
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: deployment-2
+          message: '**The NEW version of Tapahtumat (with courses) is deployed to: ${{ env.BROWSER_TESTS_LOCAL_ENV_URL }}** :rocket::rocket:'
+        if: success() && matrix.version == '2.0'
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
         with:
@@ -86,11 +125,11 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn --prefer-offline --frozen-lockfile --check-files
-      - name: Run Acceptance Tests (TestCafe Browser Tests)
+      - name: Run Acceptance Tests For version ${{ matrix.version }}
         run: yarn browser-test:ci
         env:
           REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
-      - name: Upload screenshots of failed tests
+      - name: Upload screenshots of failed tests for version ${{ matrix.version }}
         uses: actions/upload-artifact@v2
         if: failure()
         with:

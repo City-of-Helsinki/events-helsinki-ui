@@ -1,3 +1,7 @@
+@import 'layout';
+
+@import '../../domain//app/layout/container.module.scss';
+
 .collectionCardContainer {
   padding-top: 2.5rem;
   background-color: var(--color-black-5);
@@ -8,5 +12,53 @@
 }
 
 .searchContainer {
-  background-color: var(--color-white);
+  // act as a container when desktop size
+  @extend .container;
+  margin-top: -3rem;
+
+  @include respond-above(md) {
+    background: linear-gradient(
+      90deg,
+      var(--color-copper-medium-light) 50%,
+      var(--color-fog-medium-light) 50%
+    );
+    background-color: var(--color-white);
+    clip-path: url(#wave);
+  }
+
+  // override grid from .container class
+  @include respond-below(md) {
+    display: block;
+  }
+}
+
+.searchInnerContainer {
+  max-width: 100%;
+  > :not(:first-child) {
+    margin-top: -3rem;
+
+    @include respond-above(md) {
+      margin-top: 0;
+    }
+  }
+
+  > :first-child {
+    z-index: 2;
+  }
+
+  @include respond-above(md) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: calc(2 * var(--spacing-xl));
+    margin-top: 0;
+  }
+}
+
+.backgroundHelper {
+  background-color: var(--color-copper-medium-light);
+  height: 90px;
+
+  @include respond-above(md) {
+    display: none;
+  }
 }

@@ -8,5 +8,8 @@
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

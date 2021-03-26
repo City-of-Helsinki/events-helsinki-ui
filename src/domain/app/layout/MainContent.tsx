@@ -48,7 +48,12 @@ const MainContent: React.FC<Props> = ({
   }, [duration, hash, offset, onScrollFn, state]);
 
   return (
-    <main id={MAIN_CONTENT_ID} ref={mainContent}>
+    <main
+      id={MAIN_CONTENT_ID}
+      ref={mainContent}
+      // event out the minus margin of footer
+      style={{ paddingBottom: '2rem' }}
+    >
       {children}
     </main>
   );

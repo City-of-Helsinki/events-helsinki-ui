@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  class="filter minAge"
+>
+  <button
+    aria-label="Poista suodatin: Alkaen 10 v"
+    class="closeButton"
+    type="button"
+  >
+    <svg
+      aria-hidden="true"
+      class="Icon-module_icon__1Jtzj icon_hds-icon__1YqNC Icon-module_s__2WGWe icon_hds-icon--size-s__2Lkik"
+      role="img"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <rect
+          height="24"
+          width="24"
+        />
+        <polygon
+          fill="currentColor"
+          points="18 7.5 13.5 12 18 16.5 16.5 18 12 13.5 7.5 18 6 16.5 10.5 12 6 7.5 7.5 6 12 10.5 16.5 6"
+        />
+      </g>
+    </svg>
+  </button>
+  Alkaen 10 v
+</div>
+`;

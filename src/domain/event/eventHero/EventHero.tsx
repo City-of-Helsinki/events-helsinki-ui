@@ -1,12 +1,21 @@
-import { Button, IconArrowLeft, IconLocation, IconTicket } from 'hds-react';
+import classNames from 'classnames';
+import {
+  Button,
+  IconArrowLeft,
+  IconCalendarClock,
+  IconLinkExternal,
+  IconLocation,
+  IconTicket,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import buttonStyles from '../../../common/components/button/button.module.scss';
 import IconButton from '../../../common/components/iconButton/IconButton';
 import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
+import SkeletonLoader from '../../../common/components/skeletonLoader/SkeletonLoader';
 import Visible from '../../../common/components/visible/Visible';
-import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import testImage from '../../../util/testImage';
@@ -19,30 +28,40 @@ import {
   ReturnParams,
 } from '../eventQueryString.util';
 import { getEventFields, getEventPrice } from '../EventUtils';
+import {
+  EventFields,
+  EVENTS_ROUTE_MAPPER,
+  EventType,
+  SuperEventResponse,
+} from '../types';
 import styles from './eventHero.module.scss';
 
-interface Props {
-  event: EventFieldsFragment;
+export interface Props {
+  event: EventFields;
+  eventType: EventType;
+  superEvent?: SuperEventResponse;
 }
 
-const EventHero: React.FC<Props> = ({ event }) => {
+const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
   const { t } = useTranslation();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const locale = useLocale();
   const history = useHistory();
   const { search } = useLocation();
+  const eventsRoute = EVENTS_ROUTE_MAPPER[eventType];
 
   const {
-    endTime,
+    endTime: eventEndTime,
     imageUrl,
     keywords,
     offerInfoUrl,
     placeholderImage,
     shortDescription,
-    startTime,
+    startTime: eventStartTime,
     today,
     thisWeek,
     showBuyButton,
+    registrationUrl,
   } = getEventFields(event, locale);
   const eventPriceText = getEventPrice(
     event,
@@ -79,15 +98,24 @@ const EventHero: React.FC<Props> = ({ event }) => {
     }
   }, [imageUrl]);
 
+  const startTime =
+    superEvent?.status === 'pending'
+      ? ''
+      : superEvent?.data?.startTime || eventStartTime;
+  const endTime =
+    superEvent?.status === 'pending'
+      ? ''
+      : superEvent?.data?.endTime || eventEndTime;
+
   return (
-    <div className={styles.heroWrapper}>
+    <div className={classNames(styles.heroWrapper)}>
       <Container>
         <div className={styles.contentWrapper}>
           <div className={styles.backButtonWrapper}>
             <IconButton
               ariaLabel={t('event.hero.ariaLabelBackButton')}
               backgroundColor="white"
-              icon={<IconArrowLeft />}
+              icon={<IconArrowLeft aria-hidden />}
               onClick={() => goBack(returnParam)}
               size="default"
             />
@@ -107,8 +135,11 @@ const EventHero: React.FC<Props> = ({ event }) => {
               <h1 className={styles.title}>
                 <EventName event={event} />
               </h1>
-              <div className={styles.description}>{shortDescription}</div>
+              {shortDescription && (
+                <div className={styles.description}>{shortDescription}</div>
+              )}
               <Visible above="sm" className={styles.date}>
+                {superEvent?.status === 'pending' && <SkeletonLoader />}
                 {!!startTime &&
                   getDateRangeStr({
                     start: startTime,
@@ -118,42 +149,77 @@ const EventHero: React.FC<Props> = ({ event }) => {
                     timeAbbreviation: t('commons.timeAbbreviation'),
                   })}
               </Visible>
-
-              <Visible above="sm" className={styles.location}>
-                <InfoWithIcon icon={<IconLocation />} title={''}>
-                  <LocationText
-                    event={event}
-                    showDistrict={false}
-                    showLocationName={true}
-                  />
-                </InfoWithIcon>
-              </Visible>
-
-              <Visible above="sm" className={styles.price}>
-                <InfoWithIcon icon={<IconTicket />} title={''}>
-                  {eventPriceText || '-'}
-                </InfoWithIcon>
-              </Visible>
-
+              <div className={styles.additionalInfo}>
+                <Visible above="sm" className={styles.location}>
+                  <InfoWithIcon icon={<IconLocation aria-hidden />} title={''}>
+                    <LocationText
+                      event={event}
+                      showDistrict={false}
+                      showLocationName={true}
+                    />
+                  </InfoWithIcon>
+                </Visible>
+                <Visible above="sm" className={styles.start}>
+                  {superEvent?.status === 'pending' ? (
+                    <SkeletonLoader />
+                  ) : (
+                    (startTime !== eventStartTime ||
+                      endTime !== eventEndTime) && (
+                      <InfoWithIcon
+                        icon={<IconCalendarClock aria-hidden />}
+                        title={''}
+                      >
+                        {getDateRangeStr({
+                          start: eventStartTime || '',
+                          end: eventEndTime,
+                          locale,
+                          includeTime: true,
+                          timeAbbreviation: t('commons.timeAbbreviation'),
+                        })}
+                      </InfoWithIcon>
+                    )
+                  )}
+                </Visible>
+                {eventPriceText && (
+                  <Visible above="sm" className={styles.price}>
+                    <InfoWithIcon icon={<IconTicket aria-hidden />} title={''}>
+                      {eventPriceText}
+                    </InfoWithIcon>
+                  </Visible>
+                )}
+                {showBuyButton && (
+                  <Visible above="sm" className={styles.buyButtonWrapper}>
+                    <Button
+                      aria-label={t('event.hero.ariaLabelBuyTickets')}
+                      onClick={goToBuyTicketsPage}
+                      iconRight={<IconLinkExternal aria-hidden />}
+                      variant="success"
+                    >
+                      {t('event.hero.buttonBuyTickets')}
+                    </Button>
+                  </Visible>
+                )}
+                {registrationUrl && (
+                  <Visible className={styles.registrationButtonWrapper}>
+                    <Button
+                      className={buttonStyles.buttonCoatBlue}
+                      aria-label={t('event.hero.ariaLabelEnrol')}
+                      onClick={() => window.open(registrationUrl)}
+                    >
+                      {t('event.hero.buttonEnrol')}
+                    </Button>
+                  </Visible>
+                )}
+              </div>
               {showKeywords && (
                 <div className={styles.categoryWrapper}>
                   <EventKeywords
+                    eventsRoute={eventsRoute}
                     blackOnMobile={true}
                     event={event}
                     showIsFree={true}
                   />
                 </div>
-              )}
-              {showBuyButton && (
-                <Visible above="sm" className={styles.buyButtonWrapper}>
-                  <Button
-                    aria-label={t('event.hero.ariaLabelBuyTickets')}
-                    onClick={goToBuyTicketsPage}
-                    variant="success"
-                  >
-                    {t('event.hero.buttonBuyTickets')}
-                  </Button>
-                </Visible>
               )}
             </div>
           </div>

@@ -1,17 +1,15 @@
 import classNames from 'classnames';
-import { Button } from 'hds-react';
+import { Button, IconLinkExternal } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import buttonStyles from '../../../common/components/button/button.module.scss';
-import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import { addParamsToQueryString } from '../../../util/queryString';
 import testImage from '../../../util/testImage';
-import { ROUTES } from '../../app/routes/constants';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
 import EventName from '../eventName/EventName';
@@ -22,19 +20,29 @@ import {
   isEventClosed,
   isEventFree,
 } from '../EventUtils';
+import {
+  EVENT_ROUTE_MAPPER,
+  EventFields,
+  EVENTS_ROUTE_MAPPER,
+  EventType,
+} from '../types';
 import styles from './largeEventCard.module.scss';
 
 interface Props {
-  event: EventFieldsFragment;
+  event: EventFields;
+  eventType?: EventType;
 }
 
-const LargeEventCard: React.FC<Props> = ({ event }) => {
+const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const { search, pathname } = useLocation();
   const locale = useLocale();
   const button = React.useRef<HTMLDivElement>(null);
+  const eventRoute = EVENT_ROUTE_MAPPER[eventType];
+  const eventsRoute = EVENTS_ROUTE_MAPPER[eventType];
+
   const {
     endTime,
     imageUrl,
@@ -47,13 +55,15 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
   const queryString = addParamsToQueryString(search, {
     returnPath: pathname,
   });
-  const eventUrl = `/${locale}${ROUTES.EVENT.replace(
+  const eventUrl = `/${locale}${eventRoute.replace(
     ':id',
     event.id
   )}${queryString}`;
   const showBuyButton = !eventClosed && !!offerInfoUrl && !isEventFree(event);
 
-  const goToBuyTicketsPage = () => {
+  const goToBuyTicketsPage = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // avoids also navigating to details page
+    e.preventDefault();
     window.open(offerInfoUrl);
   };
 
@@ -125,6 +135,7 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
             event={event}
             hideKeywordsOnMobile={true}
             showIsFree={true}
+            eventsRoute={eventsRoute}
           />
         </div>
         <div className={styles.buttonWrapper}>
@@ -132,6 +143,7 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
             {showBuyButton && (
               <Button
                 aria-label={t('event.eventCard.ariaLabelBuyTickets')}
+                iconRight={<IconLinkExternal aria-hidden />}
                 fullWidth
                 onClick={goToBuyTicketsPage}
                 size="small"
@@ -170,6 +182,7 @@ const LargeEventCard: React.FC<Props> = ({ event }) => {
             event={event}
             hideKeywordsOnMobile={true}
             showIsFree={true}
+            eventsRoute={eventsRoute}
           />
         </div>
       </div>

@@ -8,7 +8,7 @@ import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import scrollToTop from '../../../util/scrollToTop';
 import { ROUTES } from '../../app/routes/constants';
-import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
+import { EVENT_DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
 import { getSearchQuery } from '../../eventSearch/utils';
 import { getEventFields } from '../EventUtils';
 
@@ -18,6 +18,7 @@ interface Props {
   hideKeywordsOnMobile?: boolean;
   showIsFree: boolean;
   showKeywords?: boolean;
+  eventsRoute?: string;
 }
 const EventKeywords: React.FC<Props> = ({
   blackOnMobile,
@@ -25,6 +26,7 @@ const EventKeywords: React.FC<Props> = ({
   hideKeywordsOnMobile = false,
   showIsFree,
   showKeywords = true,
+  eventsRoute = ROUTES.EVENTS,
 }) => {
   const history = useHistory();
   const { t } = useTranslation();
@@ -39,13 +41,16 @@ const EventKeywords: React.FC<Props> = ({
     value = ''
   ) => () => {
     const search = getSearchQuery({
-      ...DEFAULT_SEARCH_FILTERS,
+      ...EVENT_DEFAULT_SEARCH_FILTERS,
       dateTypes: type === 'dateType' ? [value] : [],
       isFree: type === 'isFree',
       text: type === 'text' ? [value] : [],
     });
 
-    history.push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+    history.push({
+      pathname: `/${locale}${eventsRoute}`,
+      search,
+    });
     scrollToTop();
   };
 

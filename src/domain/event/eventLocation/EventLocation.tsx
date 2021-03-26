@@ -1,7 +1,8 @@
-import { IconAngleRight, IconLinkExternal, IconLocation } from 'hds-react';
+import { IconLinkExternal, IconLocation } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import SrOnly from '../../../common/components/srOnly/SrOnly';
 import { EventFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import { getEventFields, getServiceMapUrl } from '../EventUtils';
@@ -24,7 +25,7 @@ const EventLocation: React.FC<Props> = ({ event }) => {
     <div className={styles.eventLocationContainer}>
       <div className={styles.titleWrapper}>
         <div className={styles.title}>
-          <IconLocation />
+          <IconLocation aria-hidden />
           <h2>{t('event.location.title')}</h2>
         </div>
         <a
@@ -34,7 +35,8 @@ const EventLocation: React.FC<Props> = ({ event }) => {
           target="_blank"
         >
           {t('event.location.openMap')}
-          <IconLinkExternal size="xs" />
+          <SrOnly>{t('commons.srOnly.opensInANewTab')}</SrOnly>
+          <IconLinkExternal size="xs" aria-hidden />
         </a>
       </div>
 
@@ -59,7 +61,8 @@ const EventLocation: React.FC<Props> = ({ event }) => {
         target="_blank"
       >
         {t('event.location.directionsGoogle')}
-        <IconAngleRight />
+        <SrOnly>{t('commons.srOnly.opensInANewTab')}</SrOnly>
+        <IconLinkExternal size="xs" aria-hidden />
       </a>
       <a
         className={styles.directionsLink}
@@ -68,7 +71,8 @@ const EventLocation: React.FC<Props> = ({ event }) => {
         target="_blank"
       >
         {t('event.location.directionsHSL')}
-        <IconAngleRight />
+        <SrOnly>{t('commons.srOnly.opensInANewTab')}</SrOnly>
+        <IconLinkExternal size="xs" aria-hidden />
       </a>
     </div>
   );

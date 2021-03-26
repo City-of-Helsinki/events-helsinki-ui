@@ -35,7 +35,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background-color: var(--color-tram-dark-50);
+    background-color: var(--color-tram-dark);
   }
 
   .iconWrapper {
@@ -52,6 +52,7 @@
     text-align: left;
     color: var(--color-black);
     position: relative;
+    overflow: hidden;
 
     input {
       height: 100%;

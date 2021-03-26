@@ -127,7 +127,9 @@
     "hero": {
       "ariaLabelBackButton": "Palaa takaisin edelliselle sivulle",
       "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
+      "ariaLabelEnrol": "Ilmoittaudu - Linkki avautuu uudessa ikkunassa",
       "buttonBuyTickets": "Osta liput",
+      "buttonEnrol": "Ilmoittaudu mukaan",
       "buttonToHomePage": "Siirry etusivulle",
       "offers": {
         "isFree": "Maksuton"
@@ -150,6 +152,10 @@
       "labelDirections": "Löydä perille",
       "labelLanguages": "Kielet",
       "labelLocation": "Paikka",
+      "labelAudience": "Kohderyhmät",
+      "labelMinAttendeeCapacity": "Min. osallistujamäärä",
+      "labelMaxAttendeeCapacity": "Max. osallistujamäärä",
+      "labelSeatsLeft": "Paikkoja jäljellä",
       "labelOrganizer": "Järjestäjän tiedot",
       "labelOtherInfo": "Muut tiedot",
       "labelPrice": "Hinta",
@@ -174,9 +180,9 @@
       "title": "Oho, nyt iski 404!"
     },
     "otherTimes": {
-      "buttonHide": "Piilota muut tapahtuma-ajat",
+      "buttonHide": "Piilota",
       "buttonReadMore": "Lue lisää: {{date}}",
-      "buttonShow": "Näytä muut tapahtuma-ajat",
+      "buttonShow": "Näytä",
       "title": "Tapahtuman muut ajat"
     },
     "shareLinks": {
@@ -217,19 +223,37 @@
     "textFoundEvents": "{{count}} hakutulosta",
     "title": "Tapahtumahaku"
   },
+  "courseSearch": {
+    "title": "Löydä harrastus",
+    "search": {
+      "placeholder": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
+      "labelSearchField": "Mitä etsit?",
+      "checkboxAlsoOngoingCourses": "Näytä myös meneillään olevat",
+      "checkboxIsFree": "Näytä vain maksuttomat",
+      "titleDropdownHobbyType": "Harrastusmuoto",
+      "showOnlyAdultCourses": "Näytä vain aikuisten harrastukset",
+      "ageLimitValues": "Ikä",
+      "ageLimitMin": "Alkaen",
+      "ageLimitMax": "Päättyen"
+    }
+  },
   "footer": {
     "linkAbout": "Tietoa palvelusta",
     "linkAccessibility": "Saavutettavuus­seloste",
     "linkFeedback": "Anna palautetta",
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta",
     "searchCollections": "Suosittelemme",
-    "searchEvents": "Etsi tekemistä",
-    "titleCategories": "Kategoriat"
+    "searchEvents": "Tapahtumat",
+    "searchHobbies": "Harrastukset",
+    "titleEventsCategories": "Suositut tapahtumien kategoriat",
+    "titleCoursesCategories": "Suositut harrastuskategoriat",
+    "backToTop": "Takaisin alkuun",
+    "copyright": "Copyright",
+    "allRightsReserved": "Kaikki oikeudet pidätetään"
   },
   "header": {
-    "ariaButtonCloseMenu": "Sulje valikko",
-    "ariaButtonOpenMenu": "Avaa valikko",
-    "ariaLabelLogo": "Etusivu",
+    "menuToggleAriaLabel": "Valikko",
+    "skipToContentLabel": "Siirry sisältöön",
     "changeLanguage": "Suomi - kielivalikko",
     "languages": {
       "en": "In English",
@@ -237,7 +261,8 @@
       "sv": "På svenska"
     },
     "searchCollections": "Suosittelemme",
-    "searchEvents": "Etsi tekemistä"
+    "searchEvents": "Tapahtumat",
+    "searchHobbies": "Harrastukset"
   },
   "home": {
     "category": {
@@ -251,7 +276,29 @@
       "music": "Musiikki",
       "nature": "Luonto ja ulkoilu",
       "sport": "Liikunta ja urheilu",
-      "theatre": "Teatteri"
+      "theatre": "Teatteri",
+      "courses": {
+        "movieAndMedia": "Elokuva ja media",
+        "languages": "Kielet",
+        "literature": "Kirjallisuus ja sanataide",
+        "artsAndCulture": "Kulttuuri ja taide",
+        "visualArts": "Kuvataide",
+        "handicrafts": "Kädentaidot",
+        "sport": "Liikunta ja ulkoilu",
+        "music": "Musiikki",
+        "games": "Pelit",
+        "food": "Ruoka",
+        "dance": "Tanssi",
+        "theatre": "Teatteri"
+      }
+    },
+    "hobby": {
+      "clubs": "Kerhot",
+      "courses": "Kurssit",
+      "camps": "Leirit",
+      "trips": "Retket",
+      "workshops": "Työpajat",
+      "onlineStudies": "Verkkoopetus"
     },
     "collections": {
       "title": "Suosittelemme"
@@ -260,13 +307,29 @@
       "text": "Syystä tai toisesta hakemaasi kotisivua ei löydy.",
       "title": "Oho, nyt iski 404!"
     },
-    "search": {
+    "search__DEPRECATED": {
       "buttonSearch": "Hae",
       "labelDateRange": "Mille ajankohdalle etsit?",
       "labelSearchField": "Mitä etsit?",
       "linkAdvancedSearch": "Tarkennettu haku",
       "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
       "title": "Löydä tekemistä"
+    },
+    "search": {
+      "popularCategories": "Suosituimmat kategoriat",
+      "placeholder": "Kirjoita hakusana",
+      "showPopularCategories": "Näytä suosituimmat kategoriat",
+      "hidePopularCategories": "Piilota suosituimmat kategoriat"
+    },
+    "eventSearch": {
+      "buttonSearch": "Hae",
+      "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
+      "title": "Löydä tekemistä"
+    },
+    "courseSearch": {
+      "buttonSearch": "Hae",
+      "placeholder": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
+      "title": "Löydä harrastuksia"
     }
   },
   "menu": {

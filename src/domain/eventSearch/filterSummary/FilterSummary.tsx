@@ -12,17 +12,21 @@ import getLocalisedString from '../../../util/getLocalisedString';
 import { translateValue } from '../../../util/translateUtils';
 import { ROUTES } from '../../app/routes/constants';
 import { getSearchFilters, getSearchQuery } from '../utils';
+import AgeFilter from './AgeFilter';
 import DateFilter from './DateFilter';
 import styles from './filterSummary.module.scss';
 import PlaceFilter from './PlaceFilter';
 import PublisherFilter from './PublisherFilter';
 import TextFilter from './TextFilter';
 
+export const filterSummaryContainerTestId = 'filter-summary';
+
 interface Props {
   onClear: () => void;
+  route?: '/events' | '/courses';
 }
 
-const FilterSummary: React.FC<Props> = ({ onClear }) => {
+const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { push } = useHistory();
@@ -40,6 +44,9 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
     publisher,
     start,
     text,
+    audienceMinAgeGt,
+    audienceMaxAgeLt,
+    hobbyTypes,
   } = getSearchFilters(searchParams);
 
   const dateText =
@@ -63,47 +70,49 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
   );
 
   const handleFilterRemove = (value: string, type: FilterType) => {
+    const getFilteredList = (listType: FilterType, list: string[] = []) =>
+      type === listType ? list.filter((v) => v !== value) : list;
+
     const search = getSearchQuery({
-      categories:
-        type === 'category'
-          ? categories.filter((category) => category !== value)
-          : categories,
-      dateTypes:
-        type === 'dateType'
-          ? dateTypes.filter((dateType) => dateType !== value)
-          : dateTypes,
-      divisions:
-        type === 'division'
-          ? divisions.filter((division) => division !== value)
-          : divisions,
+      categories: getFilteredList('category', categories),
+      hobbyTypes: getFilteredList('hobbyType', hobbyTypes),
+      dateTypes: getFilteredList('dateType', dateTypes),
+      divisions: getFilteredList('division', divisions),
       end: type === 'date' ? null : end,
       isFree,
       keyword,
       keywordNot,
       onlyChildrenEvents,
-      places:
-        type === 'place' ? places.filter((place) => place !== value) : places,
+      places: getFilteredList('place', places),
       publisher: type !== 'publisher' ? publisher : null,
       start: type === 'date' ? null : start,
-      text: type === 'text' ? text.filter((item) => item !== value) : text,
+      text: getFilteredList('text', text),
+      audienceMinAgeGt: type === 'minAge' ? '' : audienceMinAgeGt,
+      audienceMaxAgeLt: type === 'maxAge' ? '' : audienceMaxAgeLt,
     });
 
-    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+    push({ pathname: `/${locale}${route || ROUTES.EVENTS}`, search });
   };
 
   const hasFilters =
     !!publisher ||
     !!categories.length ||
+    !!hobbyTypes?.length ||
     !!dateText ||
     !!dateTypes.length ||
     !!divisions.length ||
     !!places.length ||
-    !!text.length;
+    !!text.length ||
+    !!(audienceMinAgeGt || '').length ||
+    !!(audienceMaxAgeLt || '').length;
 
   if (!hasFilters) return null;
 
   return (
-    <div className={styles.filterSummary}>
+    <div
+      className={styles.filterSummary}
+      data-testid={filterSummaryContainerTestId}
+    >
       {text.map((item, index) => (
         <TextFilter key={index} text={item} onRemove={handleFilterRemove} />
       ))}
@@ -111,9 +120,22 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
         <FilterButton
           key={category}
           onRemove={handleFilterRemove}
-          text={translateValue('home.category.', category, t)}
+          text={translateValue(
+            `home.category.${route === '/courses' ? 'courses.' : ''}`,
+            category,
+            t
+          )}
           type="category"
           value={category}
+        />
+      ))}
+      {hobbyTypes?.map((hobbyType) => (
+        <FilterButton
+          key={hobbyType}
+          onRemove={handleFilterRemove}
+          text={translateValue('home.hobby.', hobbyType, t)}
+          type="hobbyType"
+          value={hobbyType}
         />
       ))}
       {publisher && (
@@ -148,6 +170,20 @@ const FilterSummary: React.FC<Props> = ({ onClear }) => {
           value={dateType}
         />
       ))}
+      {audienceMinAgeGt && (
+        <AgeFilter
+          type="minAge"
+          value={audienceMinAgeGt}
+          onRemove={handleFilterRemove}
+        />
+      )}
+      {audienceMaxAgeLt && (
+        <AgeFilter
+          type="maxAge"
+          value={audienceMaxAgeLt}
+          onRemove={handleFilterRemove}
+        />
+      )}
       <button className={styles.clearButton} onClick={onClear} type="button">
         {t('eventSearch.buttonClearFilters')}
       </button>

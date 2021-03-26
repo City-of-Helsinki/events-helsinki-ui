@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import useBreakpoint from '../../../hooks/useBreakpoint';
 import useLocale from '../../../hooks/useLocale';
 import useTextWrapperWidth from '../../../hooks/useTextWrapperWidth';
+import { isFeatureEnabled } from '../../../util/featureFlags';
 import Container from '../../app/layout/Container';
 import { contentBackgroundColorMap } from '../bannerConstants';
 import {
@@ -16,9 +17,13 @@ import {
   getBannerFields,
   getTestIds,
 } from '../bannerUtils';
-import styles from './bannerHero.module.scss';
+import styles__DEPRECATED from './bannerHero__DEPRECATED.module.scss';
+import stylesNew from './bannerHero.module.scss';
 
 const BannerHero: React.FC<BannerHeroProps> = ({ banner, location }) => {
+  const styles = isFeatureEnabled('EVENTS_HELSINKI_2')
+    ? stylesNew
+    : styles__DEPRECATED;
   const textWrapper = React.useRef<HTMLDivElement>(null);
   const locale = useLocale();
   const breakpoint = useBreakpoint();

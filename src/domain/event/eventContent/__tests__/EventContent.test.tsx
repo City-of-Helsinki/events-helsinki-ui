@@ -3,8 +3,10 @@ import React from 'react';
 import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
 import { fakeEvent } from '../../../../test/mockDataUtils';
-import { actWait, render, screen } from '../../../../test/testUtils';
+import { actWait, configure, render, screen } from '../../../../test/testUtils';
 import EventContent from '../EventContent';
+
+configure({ defaultHidden: true });
 
 const startTime = '2020-06-22T07:00:00.000000Z';
 const endTime = '2020-06-22T10:00:00.000000Z';
@@ -32,7 +34,7 @@ const event = fakeEvent({
 }) as EventFieldsFragment;
 
 it('should render event content fields', async () => {
-  render(<EventContent event={event} />);
+  render(<EventContent event={event} eventType="event" />);
   await actWait();
 
   const itemsByRole = [
@@ -49,9 +51,11 @@ it('should render event content fields', async () => {
     { role: 'button', name: translations.commons.shareLink.shareOnTwitter },
     { role: 'button', name: translations.commons.shareLink.shareOnLinkedIn },
     { role: 'heading', name: translations.event.location.title },
-    { role: 'link', name: translations.event.location.openMap },
+    {
+      role: 'link',
+      name: `${translations.event.location.openMap} ${translations.commons.srOnly.opensInANewTab}`,
+    },
   ];
-
   itemsByRole.forEach(({ role, name }) => {
     expect(screen.queryByRole(role, { name })).toBeInTheDocument();
   });
@@ -67,8 +71,14 @@ it('should render event content fields', async () => {
 
   // Both location and event info have directions links so test that both are available
   const itemsAllByRole = [
-    { role: 'link', name: translations.event.location.directionsGoogle },
-    { role: 'link', name: translations.event.location.directionsHSL },
+    {
+      role: 'link',
+      name: `${translations.event.location.directionsGoogle} ${translations.commons.srOnly.opensInANewTab}`,
+    },
+    {
+      role: 'link',
+      name: `${translations.event.location.directionsHSL} ${translations.commons.srOnly.opensInANewTab}`,
+    },
   ];
 
   itemsAllByRole.forEach(({ role, name }) => {

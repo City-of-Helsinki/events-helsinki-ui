@@ -18,6 +18,7 @@ interface Props {
   canonicalUrl: string;
   initialI18nStore: Record<string, unknown>;
   initialLanguage: string;
+  ssrStyles?: string;
 }
 
 const Html: React.FC<Props> = ({
@@ -28,6 +29,7 @@ const Html: React.FC<Props> = ({
   canonicalUrl,
   initialI18nStore,
   initialLanguage,
+  ssrStyles,
 }) => {
   return (
     <html lang={initialLanguage}>
@@ -52,7 +54,10 @@ const Html: React.FC<Props> = ({
         {helmet.link.toComponent()}
         {Array.from(document.head.getElementsByTagName('style')).map(
           (style) => (
-            <style type={style.type}>{style.innerHTML}</style>
+            <style
+              type={style.type}
+              dangerouslySetInnerHTML={{ __html: style.innerHTML }}
+            />
           )
         )}
         {assets.css &&

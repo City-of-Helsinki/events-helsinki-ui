@@ -7,7 +7,7 @@ import ErrorHero from '../../common/components/error/ErrorHero';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import { useEventDetailsQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
-import { getFeatureFlags } from '../../util/featureFlags';
+import { isFeatureEnabled } from '../../util/featureFlags';
 import isClient from '../../util/isClient';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
@@ -18,7 +18,9 @@ import EventHero from './eventHero/EventHero';
 import styles from './eventPage.module.scss';
 import EventPageMeta from './eventPageMeta/EventPageMeta';
 import { isEventClosed } from './EventUtils';
+import { useSimilarEventsQuery } from './queryUtils';
 import SimilarEvents from './similarEvents/SimilarEvents';
+import { EventFields } from './types';
 
 interface RouteParams {
   id: string;
@@ -34,12 +36,11 @@ const EventPageContainer: React.FC = () => {
   const { data: eventData, loading } = useEventDetailsQuery({
     variables: {
       id: eventId,
-      include: ['in_language', 'keywords', 'location'],
+      include: ['in_language', 'keywords', 'location', 'audience'],
     },
   });
 
   const event = eventData?.eventDetails;
-
   const eventClosed = !event || isEventClosed(event);
   return (
     <PageWrapper className={styles.eventPageWrapper} title="event.title">
@@ -49,12 +50,17 @@ const EventPageContainer: React.FC = () => {
             <>
               {/* Wait for data to be accessible before updating metadata */}
               <EventPageMeta event={event} />
-              {eventClosed ? <EventClosedHero /> : <EventHero event={event} />}
-              {/* Show event content only if event is open */}
-              {!eventClosed && <EventContent event={event} />}
+              {eventClosed ? (
+                <EventClosedHero />
+              ) : (
+                <>
+                  <EventHero event={event} eventType="event" />
+                  <EventContent event={event} eventType="event" />
+                </>
+              )}
               {/* Hide similar event on SSR to make initial load faster */}
-              {isClient && getFeatureFlags().SHOW_SIMILAR_EVENTS && (
-                <SimilarEvents event={event} />
+              {isClient && isFeatureEnabled('SHOW_SIMILAR_EVENTS') && (
+                <SimilarEventsContainer event={event} />
               )}
             </>
           ) : (
@@ -71,6 +77,16 @@ const EventPageContainer: React.FC = () => {
       </MainContent>
     </PageWrapper>
   );
+};
+
+// this wrapper/container component is needed because we want to query similar events
+// in the client side but hooks cannot be conditional :)
+const SimilarEventsContainer: React.FC<{ event: EventFields }> = ({
+  event,
+}) => {
+  const { data, loading } = useSimilarEventsQuery(event);
+
+  return <SimilarEvents events={data} loading={loading} eventsType="event" />;
 };
 
 export default EventPageContainer;

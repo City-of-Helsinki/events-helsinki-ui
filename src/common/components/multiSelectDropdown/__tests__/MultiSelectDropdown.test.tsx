@@ -5,6 +5,7 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
+import { axe } from 'jest-axe';
 import React from 'react';
 import wait from 'waait';
 
@@ -51,6 +52,13 @@ const defaultProps: MultiselectDropdownProps = {
 };
 const renderComponent = (props?: Partial<MultiselectDropdownProps>) =>
   render(<MultiSelectDropdown {...defaultProps} {...props} />);
+
+test('test for accessibility violations', async () => {
+  const { container } = renderComponent();
+
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
 
 test('should set focus to input after clicking toggle button', async () => {
   renderComponent();

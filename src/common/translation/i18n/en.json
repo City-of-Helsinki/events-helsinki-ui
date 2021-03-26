@@ -57,6 +57,10 @@
       "buttonCopyLink": "Copy link address",
       "messageLinkCopySuccess": "Link copied into clipboard"
     },
+    "srOnly" : {
+      "opensInANewTab": "Opens in a new tab"
+    },
+    "yearsShort": "y",
     "supriseMe": "I'm Feeling Lucky",
     "timeAbbreviation": "at",
     "photographerText": "Image: {{photographer}}"
@@ -123,7 +127,9 @@
     "hero": {
       "ariaLabelBackButton": "Go back to previous page",
       "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
+      "ariaLabelEnrol": "Enrol - The link will open in a new window",
       "buttonBuyTickets": "Buy tickets",
+      "buttonEnrol": "Registration",
       "buttonToHomePage": "Visit the landing page",
       "offers": {
         "isFree": "Free"
@@ -146,6 +152,10 @@
       "labelDirections": "Find your way",
       "labelLanguages": "Languages",
       "labelLocation": "Location",
+      "labelAudience": "Target groups",
+      "labelMinAttendeeCapacity": "Min. attendee capacity",
+      "labelMaxAttendeeCapacity": "Max. attendee capacity",
+      "labelSeatsLeft": "Seats left",
       "labelOrganizer": "Organizer information",
       "labelOtherInfo": "Other information",
       "labelPrice": "Price",
@@ -171,9 +181,9 @@
       "title": "Oops, you got hit by a 404!"
     },
     "otherTimes": {
-      "buttonHide": "Hide other event times",
+      "buttonHide": "Hide",
       "buttonReadMore": "Read more; {{date}}",
-      "buttonShow": "Show other event times",
+      "buttonShow": "Show",
       "title": "Other times of the event"
     },
     "shareLinks": {
@@ -201,7 +211,7 @@
       "labelCategory": "What kind of event you are looking for?",
       "labelDateRange": "For what period you are looking for?",
       "labelDistrict": "From where are you looking for?",
-      "labelSearchField": "What are you looking for",
+      "labelSearchField": "What are you looking for?",
       "labelTargetGroup": "Whom you are looking for?",
       "placeholder": "Enter a keyword, eg rock or yoga",
       "selectAllDivisions": "All areas",
@@ -213,19 +223,37 @@
     "textFoundEvents": "{{count}} search results",
     "title": "Event search"
   },
+  "courseSearch": {
+    "title": "Find hobby",
+    "search": {
+      "placeholder": "Enter a keyword, eg. French or cooking",
+      "labelSearchField": "What are you looking for?",
+      "checkboxAlsoOngoingCourses": "Show also ongoing courses",
+      "checkboxIsFree": "Show only courses that are free",
+      "titleDropdownHobbyType": "Type of activity",
+      "showOnlyAdultCourses": "Show only adult courses",
+      "ageLimitValues": "Age",
+      "ageLimitMin": "From",
+      "ageLimitMax": "To"
+    }
+  },
   "footer": {
     "linkAbout": "About the service",
     "linkAccessibility": "Accessibility Statement",
     "linkFeedback": "Give feedback",
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/en/administration/participate/feedback/",
     "searchCollections": "We recommend",
-    "searchEvents": "Find something to do",
-    "titleCategories": "Categories"
+    "searchEvents": "Events",
+    "searchHobbies": "Hobbies",
+    "titleEventsCategories": "Popular events categories",
+    "titleCoursesCategories": "Popular courses categories",
+    "backToTop": "Back to top",
+    "copyright": "Copyright",
+    "allRightsReserved": "All rights reserved"
   },
   "header": {
-    "ariaButtonCloseMenu": "Close menu",
-    "ariaButtonOpenMenu": "Open menu",
-    "ariaLabelLogo": "Home",
+    "menuToggleAriaLabel": "Menu",
+    "skipToContentLabel": "Skip to content",
     "changeLanguage": "English - language selection",
     "languages": {
       "en": "In English",
@@ -233,7 +261,8 @@
       "sv": "På svenska"
     },
     "searchCollections": "We recommend",
-    "searchEvents": "Find something to do"
+    "searchEvents": "Events",
+    "searchHobbies": "Hobbies"
   },
   "home": {
     "category": {
@@ -247,7 +276,29 @@
       "music": "Music",
       "nature": "Nature and outdoor activities",
       "sport": "Exercise and sports",
-      "theatre": "Theatre"
+      "theatre": "Theatre",
+      "courses": {
+        "movieAndMedia": "Film and media",
+        "languages": "Languages",
+        "literature": "Literature and literary art",
+        "artsAndCulture": "Arts and culture",
+        "visualArts": "Visual arts",
+        "handicrafts": "Crafts",
+        "sport": "Sport",
+        "music": "Music",
+        "games": "Games",
+        "food": "Food",
+        "dance": "Dance",
+        "theatre": "Theatre"
+      }
+    },
+    "hobby": {
+      "clubs": "Clubs",
+      "courses": "Courses",
+      "camps": "Camps",
+      "trips": "Trips",
+      "workshops": "Workshops",
+      "onlineStudies": "Online studies"
     },
     "collections": {
       "title": "See our recommendations"
@@ -256,13 +307,29 @@
       "text": "For some reason we can't find the landing page you are looking for.",
       "title": "Oops, you got hit by a 404!"
     },
-    "search": {
+    "search__DEPRECATED": {
       "buttonSearch": "Search",
       "labelDateRange": "For what period you are looking for?",
       "labelSearchField": "What are you looking for",
       "linkAdvancedSearch": "Advanced search",
       "placeholder": "Enter a keyword, eg rock or yoga",
       "title": "Find something to do"
+    },
+    "search": {
+      "popularCategories": "Popular categories",
+      "placeholder": "Write search word",
+      "showPopularCategories": "Show most popular categories",
+      "hidePopularCategories": "Hide most popular categories"
+    },
+    "eventSearch": {
+      "buttonSearch": "Search",
+      "placeholder": "Enter a keyword, eg rock or yoga",
+      "title": "Find something to do"
+    },
+    "courseSearch": {
+      "buttonSearch": "Search",
+      "placeholder": "Enter a keyword, eg. French or cooking",
+      "title": "Find hobbies"
     }
   },
   "menu": {

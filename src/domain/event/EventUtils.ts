@@ -1,20 +1,23 @@
 import { isPast, isThisWeek, isToday } from 'date-fns';
 import capitalize from 'lodash/capitalize';
+import sum from 'lodash/sum';
 
 import { EVENT_STATUS } from '../../constants';
 import {
   EventFieldsFragment,
+  LocalizedObject,
   PlaceFieldsFragment,
 } from '../../generated/graphql';
 import { Language } from '../../types';
 import getLocalisedString from '../../util/getLocalisedString';
 import getSecureImage from '../../util/getSecureImage';
+import { isCourseEvent } from '../../util/typeGuards';
 import {
   EVENT_KEYWORD_BLACK_LIST,
   EVENT_PLACEHOLDER_IMAGES,
   EVENT_SOME_IMAGE,
 } from './constants';
-import { KeywordOption } from './types';
+import { EventFields, KeywordOption } from './types';
 
 export const getEventCardId = (id: string): string => `event-card_${id}`;
 
@@ -52,14 +55,29 @@ export const isEventFree = (event: EventFieldsFragment): boolean => {
 
 /**
  * Get event id from url
- * @param {string} url
- * @return {string}
+ * For example  https://api.hel.fi/linkedcourses/v1/event/harrastushaku:13433?query -> harrastushaku:13433
  */
 export const getEventIdFromUrl = (url: string): string | null => {
-  const trimmedUrl = url.replace(/\?(.*)/, '');
-  const eventId = trimmedUrl.match(/event\/(.*)/);
+  const result = url.match(/\/event\/([^/?]*)/i);
+  return result?.[1] || null;
+};
 
-  return eventId?.[1].replace('/', '') || null;
+/*
+ * Format string to price format (add €) if it is a number and is missing currency
+ * For example:
+ * 'random text' -> 'random text'
+ * '2' -> '2 €'
+ * '2.5' -> '2.5 €'
+ * '30/50' -> '30/50 €'
+ * '30-50' -> '30-50 €'
+ */
+export const formatPrice = (price?: string): string => {
+  if (!price) {
+    return '';
+  }
+
+  const priceRegex = /^\d+([/\-.,]\d+)?$/;
+  return price.match(priceRegex) ? `${price} €` : price;
 };
 
 /**
@@ -78,38 +96,36 @@ export const getEventPrice = (
     ? isFreeText
     : event.offers
         .map((offer) =>
-          getLocalisedString(offer.price || offer.description, locale)
+          // Format text to price if it happens to be number e.g. '2' -> '2 €'
+          formatPrice(
+            getLocalisedString(offer.price || offer.description, locale)
+          )
         )
         .filter((e) => e)
         .sort()
         .join(', ');
 };
 
-/**
- * Get event keywords
- * @param {object} event
- * @param {string} locale
- * @return {object[]}
- */
-export const getEventKeywords = (
-  event: EventFieldsFragment,
+export const getKeywordList = (
+  list: {
+    id?: string | null;
+    name: LocalizedObject | null;
+  }[] = [],
   locale: Language
 ): KeywordOption[] => {
-  return event.keywords
-    .map((keyword) => ({
-      id: keyword.id || '',
-      name: capitalize(keyword.name?.[locale] || '').trim(),
+  return list
+    .map((listItem) => ({
+      id: listItem.id || '',
+      name: capitalize(listItem.name?.[locale] || '').trim(),
     }))
     .filter(
-      (keyword, index, arr) =>
-        !!keyword.id &&
-        !!keyword.name &&
-        !EVENT_KEYWORD_BLACK_LIST.includes(keyword.id) &&
-        arr.findIndex(
-          (item) => item.name.toLowerCase() === keyword.name.toLowerCase()
-        ) === index
+      (listItem, index, arr) =>
+        !!listItem.id &&
+        !!listItem.name &&
+        !EVENT_KEYWORD_BLACK_LIST.includes(listItem.id) &&
+        arr.findIndex((item) => item.name === listItem.name) === index
     )
-    .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
+    .sort((a, b) => (a.name > b.name ? 1 : -1));
 };
 
 /**
@@ -121,10 +137,7 @@ export const getEventPlaceholderImageUrl = (
   event: EventFieldsFragment
 ): string => {
   const numbers = event.id.match(/\d+/g);
-  const sum = numbers
-    ? numbers.reduce((prev: number, cur: string) => prev + Number(cur), 0)
-    : 0;
-  const index = sum % 4;
+  const index = numbers ? sum(numbers) % 4 : 0;
 
   return EVENT_PLACEHOLDER_IMAGES[index];
 };
@@ -189,6 +202,15 @@ const getEventLocationFields = (
   };
 };
 
+const getCourseFields = (event: EventFields) => {
+  if (isCourseEvent(event)) {
+    // return all courseFields without __typename :)
+    // might be stupid?
+    const { __typename, ...courseFields } = event.extensionCourse || {};
+    return courseFields;
+  }
+};
+
 /**
  * Get palvelukartta compatible id for the location
  * @param {object} location
@@ -208,7 +230,7 @@ export const getLocationId = (
  * @return {string}
  */
 export const getServiceMapUrl = (
-  event: EventFieldsFragment,
+  event: EventFields,
   locale: Language,
   isEmbedded?: boolean
 ): string => {
@@ -281,6 +303,12 @@ const getOfferInfoUrl = (
   return getLocalisedString(offer?.infoUrl, locale);
 };
 
+const getRegistrationUrl = (event: EventFieldsFragment) => {
+  return event.externalLinks?.find((externalLink) => {
+    return externalLink.name === 'registration';
+  })?.link;
+};
+
 /**
  * Get event fields
  * @param {object} event
@@ -288,12 +316,10 @@ const getOfferInfoUrl = (
  * @return {object}
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const getEventFields = (
-  event: EventFieldsFragment,
-  locale: Language
-) => {
+export const getEventFields = (event: EventFields, locale: Language) => {
   const eventLocation = event.location;
   const offerInfoUrl = getOfferInfoUrl(event, locale);
+  const registrationUrl = getRegistrationUrl(event);
   const startTime = event.startTime;
   return {
     description: getLocalisedString(event.description, locale),
@@ -307,12 +333,13 @@ export const getEventFields = (
     hslDirectionsLink: getHslDirectionsLink(event, locale),
     imageUrl: getEventImageUrl(event),
     infoUrl: getLocalisedString(event.infoUrl, locale),
-    keywords: getEventKeywords(event, locale),
+    keywords: getKeywordList(event.keywords, locale),
     languages: event.inLanguage
       .map((item) => capitalize(getLocalisedString(item.name, locale)))
       .filter((e) => e),
     locationName: getLocalisedString(eventLocation?.name, locale),
     offerInfoUrl,
+    registrationUrl,
     placeholderImage: getEventPlaceholderImageUrl(event),
     provider: getLocalisedString(event.provider, locale),
     publisher: event.publisher || '',
@@ -324,6 +351,8 @@ export const getEventFields = (
     today: startTime ? isToday(new Date(startTime)) : false,
     thisWeek: startTime ? isThisWeek(new Date(startTime)) : false,
     showBuyButton: !!offerInfoUrl && !isEventFree(event),
+    audience: getKeywordList(event.audience, locale),
+    ...getCourseFields(event),
     ...getEventLocationFields(event, locale),
   };
 };

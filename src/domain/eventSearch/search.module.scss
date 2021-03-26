@@ -4,7 +4,7 @@ $buttonWidth: 180px;
 
 .searchContainer {
   color: var(--color-black);
-  background-color: var(--color-copper-light-20);
+  background-color: var(--color-copper-light);
   padding: 2.375rem 0 1.5rem 0;
   position: relative;
 
@@ -40,11 +40,10 @@ $buttonWidth: 180px;
 
     @include respond-above(sm) {
       grid-template-columns: 1fr 1fr;
-      grid-gap: var(--spacing-m);
     }
 
     @include respond-above(md) {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 

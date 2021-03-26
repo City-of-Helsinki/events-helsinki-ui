@@ -3,6 +3,7 @@ import { IconAngleRight, ImageWithCard } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import SrOnly from '../../../common/components/srOnly/SrOnly';
 import TextWithLineBreaks from '../../../common/components/textWithLineBreaks/TextWithLineBreaks';
 import { CollectionFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
@@ -48,7 +49,8 @@ const CollectionHero: React.FC<Props> = ({ collection }) => {
         {!!linkText && (
           <a href={linkUrl} target="_blank" rel="noopener noreferrer">
             {linkText}
-            <IconAngleRight className={styles.linkIcon} />
+            <SrOnly>{t('commons.srOnly.opensInANewTab')}</SrOnly>
+            <IconAngleRight className={styles.linkIcon} aria-hidden />
           </a>
         )}
 
