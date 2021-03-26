@@ -256,7 +256,7 @@ it('should hide audience age info on single course page if min and max ages are 
   );
   await actWait();
 
-  expect(screen.queryByText(/0\+ -vuotiaat/i)).not.toBeInTheDocument();
+  expect(screen.queryByText(/Ikäryhmä/i)).not.toBeInTheDocument();
 });
 
 it('should hide audience age info on single event page', async () => {
@@ -265,5 +265,5 @@ it('should hide audience age info on single event page', async () => {
   });
   await actWait();
 
-  expect(screen.queryByText(/5-15 -vuotiaat/i)).not.toBeInTheDocument();
+  expect(screen.queryByText(/Ikäryhmä/i)).not.toBeInTheDocument();
 });
