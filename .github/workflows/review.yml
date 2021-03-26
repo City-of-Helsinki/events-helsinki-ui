@@ -35,7 +35,7 @@ jobs:
             version: "1.0"
             DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "false"
           - service: "2"
-          - version: "2.0"
+            version: "2.0"
             DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "true"
     runs-on: ubuntu-latest
     name: Build
@@ -72,7 +72,7 @@ jobs:
             version: "1.0"
             DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "false"
           - service: "2"
-          - version: "2.0"
+            version: "2.0"
             DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "true"
     name: Review + Acceptance Tests V${{ matrix.version }}
     steps:
@@ -95,18 +95,18 @@ jobs:
           DEPLOY_URL=$(kubectl get ingress "${{ env.ENVIRONMENT_SLUG }}-${{ matrix.service }}-ingress" -n ${{env.K8S_NAMESPACE}} -o jsonpath='{.spec.rules[0].host}')
           echo "BROWSER_TESTS_LOCAL_ENV_URL=https://$DEPLOY_URL" >> $GITHUB_ENV
         shell: bash
-      - name: Create PR comment for version ${{ matrix.version }}
+      - name: Create PR comment for version V1.0
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          header: deployment
-          message: '**The Old version of Tapahtumat is deployed to: ${{ env.BROWSER_TESTS_LOCAL_ENV_URL }}** :rocket::rocket:'
+          header: deployment-1
+          message: '**The Old version of Tapahtumat (without courses) is deployed to: ${{ env.BROWSER_TESTS_LOCAL_ENV_URL }}** :rocket::rocket:'
         if: success() && matrix.version == '1.0'
-      - name: Create PR comment for version ${{ matrix.version }}
+      - name: Create PR comment for version V2.0
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          header: deployment
+          header: deployment-2
           message: '**The NEW version of Tapahtumat (with courses) is deployed to: ${{ env.BROWSER_TESTS_LOCAL_ENV_URL }}** :rocket::rocket:'
         if: success() && matrix.version == '2.0'
       - name: Setup Node.js environment
