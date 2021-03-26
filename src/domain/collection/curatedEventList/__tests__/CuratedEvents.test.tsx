@@ -24,8 +24,8 @@ import {
 import CuratedEvents, {
   coursesListTestId,
   eventsListTestId,
-  PAGE_SIZE,
 } from '../CuratedEvents';
+import { PAGE_SIZE } from '../utils';
 
 const eventIds = ['1', '2', '3', '4', '5'];
 const curatedEvents = eventIds.map(

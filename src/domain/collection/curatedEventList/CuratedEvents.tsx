@@ -13,7 +13,6 @@ import OnlyExpiredEvents from './OnlyExpiredEvents';
 import { usePaginatedEventsByIdsQuery } from './utils';
 
 const PAST_EVENTS_DEFAULT_SIZE = 4;
-export const PAGE_SIZE = 10;
 
 export const coursesListTestId = 'curated-courses-list';
 export const eventsListTestId = 'curated-events-list';
