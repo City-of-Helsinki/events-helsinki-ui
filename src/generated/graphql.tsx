@@ -742,6 +742,7 @@ export type CollectionListQuery = (
 
 export type CourseFieldsFragment = (
   { __typename?: 'EventDetails' }
+  & Pick<EventDetails, 'audienceMinAge' | 'audienceMaxAge'>
   & { extensionCourse: Maybe<(
     { __typename?: 'ExtensionCourse' }
     & Pick<ExtensionCourse, 'enrolmentStartTime' | 'enrolmentEndTime' | 'maximumAttendeeCapacity' | 'minimumAttendeeCapacity' | 'remainingAttendeeCapacity'>
@@ -1454,6 +1455,8 @@ ${OfferFieldsFragmentDoc}`;
 export const CourseFieldsFragmentDoc = gql`
     fragment courseFields on EventDetails {
   ...eventFields
+  audienceMinAge
+  audienceMaxAge
   extensionCourse {
     enrolmentStartTime
     enrolmentEndTime
