@@ -742,6 +742,7 @@ export type CollectionListQuery = (
 
 export type CourseFieldsFragment = (
   { __typename?: 'EventDetails' }
+  & Pick<EventDetails, 'audienceMinAge' | 'audienceMaxAge'>
   & { extensionCourse: Maybe<(
     { __typename?: 'ExtensionCourse' }
     & Pick<ExtensionCourse, 'enrolmentStartTime' | 'enrolmentEndTime' | 'maximumAttendeeCapacity' | 'minimumAttendeeCapacity' | 'remainingAttendeeCapacity'>
@@ -851,7 +852,7 @@ export type EventFieldsFragment = (
     & Pick<ExternalLink, 'name' | 'link'>
   )>, images: Array<(
     { __typename?: 'Image' }
-    & Pick<Image, 'id' | 'name' | 'url'>
+    & Pick<Image, 'id' | 'name' | 'url' | 'photographerName'>
   )>, superEvent: Maybe<(
     { __typename?: 'InternalIdObject' }
     & Pick<InternalIdObject, 'internalId'>
@@ -1403,6 +1404,7 @@ export const EventFieldsFragmentDoc = gql`
     id
     name
     url
+    photographerName
   }
   superEvent {
     internalId
@@ -1453,6 +1455,8 @@ ${OfferFieldsFragmentDoc}`;
 export const CourseFieldsFragmentDoc = gql`
     fragment courseFields on EventDetails {
   ...eventFields
+  audienceMinAge
+  audienceMaxAge
   extensionCourse {
     enrolmentStartTime
     enrolmentEndTime

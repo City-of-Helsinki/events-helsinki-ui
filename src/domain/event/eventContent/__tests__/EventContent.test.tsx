@@ -2,7 +2,7 @@ import React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
-import { fakeEvent } from '../../../../test/mockDataUtils';
+import { fakeEvent, fakeImage } from '../../../../test/mockDataUtils';
 import { actWait, configure, render, screen } from '../../../../test/testUtils';
 import EventContent from '../EventContent';
 
@@ -17,6 +17,7 @@ const addressLocality = 'Helsinki';
 const district = 'Malmi';
 const locationName = 'Location name';
 const streetAddress = 'Test address 1';
+const photographerName = 'Kuvaaja Helsinki';
 const event = fakeEvent({
   startTime,
   endTime,
@@ -31,6 +32,7 @@ const event = fakeEvent({
     name: { fi: locationName },
     streetAddress: { fi: streetAddress },
   },
+  images: [fakeImage({ photographerName })],
 }) as EventFieldsFragment;
 
 it('should render event content fields', async () => {
@@ -62,6 +64,7 @@ it('should render event content fields', async () => {
 
   const itemsByText = [
     description,
+    `Kuva: ${photographerName}`,
     [streetAddress, district, addressLocality].join(', '),
   ];
 

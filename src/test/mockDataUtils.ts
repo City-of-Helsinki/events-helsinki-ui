@@ -73,6 +73,8 @@ export const fakeEvent = (overrides?: Partial<EventDetails>): EventDetails => {
       superEvent: null,
       dataSource: 'hel',
       extensionCourse: fakeExtensionCourse(),
+      audienceMinAge: '5',
+      audienceMaxAge: '15',
       __typename: 'EventDetails',
     },
     overrides

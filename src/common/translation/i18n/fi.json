@@ -138,6 +138,7 @@
       "titleEventClosed": "Höh, etsimäsi tapahtuma on jo ehtinyt päättyä"
     },
     "info": {
+      "age": "vuotiaat",
       "ariaLabelBuyTickets": "Osta liput - Linkki avautuu uudessa ikkunassa",
       "buttonAddToCalendar": "Lisää kalenteriin",
       "buttonBuyTickets": "Osta liput",
@@ -148,6 +149,7 @@
       "extlinkInstagram": "Instagram",
       "extlinkTwitter": "Twitter",
       "extlinkYoutube": "Youtube",
+      "labelAge": "Ikäryhmä",
       "labelDateAndTime": "Päivä ja aika",
       "labelDirections": "Löydä perille",
       "labelLanguages": "Kielet",

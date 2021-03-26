@@ -138,6 +138,7 @@
       "titleEventClosed": "Äsch då, evenemanget du letar efter har redan tagit slut"
     },
     "info": {
+      "age": "åriga",
       "ariaLabelBuyTickets": "Köp biljetter - Länken öppnas i ett annat fönster",
       "buttonAddToCalendar": "Lägg till din kalender",
       "buttonBuyTickets": "Köp biljetter",
@@ -148,6 +149,7 @@
       "extlinkInstagram": "Instagram",
       "extlinkTwitter": "Twitter",
       "extlinkYoutube": "Youtube",
+      "labelAge": "Åldersgrupp",
       "labelDateAndTime": "Datum och tid",
       "labelDirections": "Hitta fram",
       "labelLanguages": "Språk",

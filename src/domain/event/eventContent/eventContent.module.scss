@@ -3,6 +3,7 @@
 $logoWidth: 5.5rem;
 
 .eventContent {
+  --description-font-size: var(--fontsize-body-l);
   background-color: var(--color-white);
 
   .contentWrapper {
@@ -17,12 +18,16 @@ $logoWidth: 5.5rem;
 
       .descriptionColumn {
         order: 2;
+
+        p {
+          font-size: var(--description-font-size)
+        }
       }
     }
   }
 }
 .descriptionTitle {
-  font-size: var(--fontsize-body-l);
+  font-size: var(--description-font-size);
   font-weight: 600;
   margin: 2rem 0 1rem;
 
@@ -35,7 +40,7 @@ $logoWidth: 5.5rem;
   line-height: 1.5;
 
   p {
-    font-size: var(--fontsize-body-l);
+    font-size: var(--description-font-size);
     margin: 1rem 0;
   }
 

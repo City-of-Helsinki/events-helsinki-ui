@@ -352,6 +352,7 @@ export const getEventFields = (event: EventFields, locale: Language) => {
     thisWeek: startTime ? isThisWeek(new Date(startTime)) : false,
     showBuyButton: !!offerInfoUrl && !isEventFree(event),
     audience: getKeywordList(event.audience, locale),
+    photographerName: event.images[0]?.photographerName,
     ...getCourseFields(event),
     ...getEventLocationFields(event, locale),
   };

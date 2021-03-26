@@ -3,6 +3,7 @@ import { saveAs } from 'file-saver';
 import {
   Button,
   IconAngleRight,
+  IconCake,
   IconCalendarClock,
   IconGlobe,
   IconGroup,
@@ -19,6 +20,7 @@ import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
 import Link from '../../../common/components/link/Link';
 import linkStyles from '../../../common/components/link/link.module.scss';
 import Visible from '../../../common/components/visible/Visible';
+import { CourseFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import useTabFocusStyle from '../../../hooks/useTabFocusStyle';
 import IconDirections from '../../../icons/IconDirections';
@@ -136,6 +138,16 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
     }
   };
 
+  const getAudienceAge = () => {
+    const { audienceMinAge, audienceMaxAge } = event as CourseFieldsFragment;
+    const ageLimit = `${audienceMinAge ?? '0'}${
+      audienceMaxAge ? `-${audienceMaxAge}` : '+'
+    }`;
+    return ageLimit !== '0+' ? `${ageLimit} -${t('event.info.age')}` : '';
+  };
+
+  const audienceAge = eventType === 'course' && getAudienceAge();
+
   return (
     <div className={styles.eventInfo} ref={eventInfoContainer}>
       <div className={styles.contentWrapper}>
@@ -167,7 +179,12 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
         ) : eventType === 'course' ? (
           <OtherCourseTimesContainer event={event} />
         ) : null}
-
+        {/* Age limitation info */}
+        {audienceAge && (
+          <InfoWithIcon icon={<IconCake />} title={t('event.info.labelAge')}>
+            {audienceAge}
+          </InfoWithIcon>
+        )}
         {/* Location info */}
         <InfoWithIcon
           icon={<IconLocation aria-hidden />}
@@ -189,6 +206,18 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
             {t('event.info.openMap')}
           </Link>
         </InfoWithIcon>
+
+        {/* Audience */}
+        {!!audience.length && (
+          <InfoWithIcon
+            icon={<IconGroup />}
+            title={t('event.info.labelAudience')}
+          >
+            {audience.map((item) => (
+              <div key={item.id}>{item.name}</div>
+            ))}
+          </InfoWithIcon>
+        )}
 
         {/* Audience */}
         {!!audience.length && (
