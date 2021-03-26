@@ -6,6 +6,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { MAIN_CONTENT_ID, SUPPORT_LANGUAGES } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
 import { OptionType } from '../../../types';
+import { isFeatureEnabled } from '../../../util/featureFlags';
+import { skipFalsyType } from '../../../util/typescript.utils';
 import { updateLocaleParam } from '../../../util/updateLocaleParam';
 import { ROUTES } from '../routes/constants';
 import styles from './header.module.scss';
@@ -56,7 +58,7 @@ const Header: React.FC = () => {
       label: t('header.searchEvents'),
       url: `/${locale}${ROUTES.EVENTS}`,
     },
-    {
+    isFeatureEnabled('EVENTS_HELSINKI_2') && {
       label: t('header.searchHobbies'),
       url: `/${locale}${ROUTES.COURSES}`,
     },
@@ -64,7 +66,7 @@ const Header: React.FC = () => {
       label: t('header.searchCollections'),
       url: `/${locale}${ROUTES.COLLECTIONS}`,
     },
-  ];
+  ].filter(skipFalsyType);
 
   return (
     <Navigation

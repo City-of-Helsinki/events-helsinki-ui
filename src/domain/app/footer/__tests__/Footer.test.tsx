@@ -1,41 +1,58 @@
 import * as React from 'react';
 
+import { setFeatureFlags } from '../../../../test/feature-flags/featureFlags.test.utils';
 import { render, screen, userEvent } from '../../../../test/testUtils';
+import { isFeatureEnabled } from '../../../../util/featureFlags';
+import { skipFalsyType } from '../../../../util/typescript.utils';
 import { ROUTES } from '../../routes/constants';
 import Footer from '../Footer';
 
-test('matches snapshot', () => {
-  const { container } = render(<Footer />);
+describe('EVENTS_HELSINKI_2 feature flag', () => {
+  [true, false].forEach((EVENTS_HELSINKI_2) => {
+    beforeEach(() => {
+      setFeatureFlags({ EVENTS_HELSINKI_2 });
+    });
 
-  expect(container.firstChild).toMatchSnapshot();
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it(`matches snapshot when EVENTS_HELSINKI_2 feature is ${
+      EVENTS_HELSINKI_2 ? 'on' : 'off'
+    }`, () => {
+      const { container } = render(<Footer />);
+
+      expect(container.firstChild).toMatchSnapshot();
+    });
+
+    it(`should route to right place when clicking links and EVENTS_HELSINKI_2 feature is ${
+      EVENTS_HELSINKI_2 ? 'on' : 'off'
+    }`, async () => {
+      const { history } = render(<Footer />);
+      const pushSpy = jest.spyOn(history, 'push');
+
+      const testValues = [
+        {
+          linkName: 'Tapahtumat',
+          path: `/fi${ROUTES.EVENTS}`,
+        },
+        isFeatureEnabled('EVENTS_HELSINKI_2') && {
+          linkName: 'Harrastukset',
+          path: `/fi${ROUTES.COURSES}`,
+        },
+        {
+          linkName: 'Suosittelemme',
+          path: `/fi${ROUTES.COLLECTIONS}`,
+        },
+      ].filter(skipFalsyType);
+      for (const { linkName, path } of testValues) {
+        userEvent.click(screen.getByRole('link', { name: linkName }));
+        expect(pushSpy).toHaveBeenCalledWith(path);
+        pushSpy.mockReset();
+      }
+    });
+  });
 });
-
-test('clicking links should route to right place', () => {
-  const { history } = render(<Footer />);
-  const pushSpy = jest.spyOn(history, 'push');
-
-  const testValues = [
-    {
-      linkName: 'Tapahtumat',
-      path: `/fi${ROUTES.EVENTS}`,
-    },
-    {
-      linkName: 'Harrastukset',
-      path: `/fi${ROUTES.COURSES}`,
-    },
-    {
-      linkName: 'Suosittelemme',
-      path: `/fi${ROUTES.COLLECTIONS}`,
-    },
-  ];
-
-  for (const { linkName, path } of testValues) {
-    userEvent.click(screen.getByRole('link', { name: linkName }));
-    expect(pushSpy).toHaveBeenCalledWith(path);
-    pushSpy.mockReset();
-  }
-});
-
 test('should show courses footer title', () => {
   render(<Footer />, {
     routes: [`/fi/courses`],

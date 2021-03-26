@@ -309,6 +309,14 @@
       "text": "Syystä tai toisesta hakemaasi kotisivua ei löydy.",
       "title": "Oho, nyt iski 404!"
     },
+    "search__DEPRECATED": {
+      "buttonSearch": "Hae",
+      "labelDateRange": "Mille ajankohdalle etsit?",
+      "labelSearchField": "Mitä etsit?",
+      "linkAdvancedSearch": "Tarkennettu haku",
+      "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
+      "title": "Löydä tekemistä"
+    },
     "search": {
       "popularCategories": "Suosituimmat kategoriat",
       "placeholder": "Kirjoita hakusana",

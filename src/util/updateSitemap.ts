@@ -5,18 +5,22 @@ import * as convert from 'xml-js';
 
 import { ROUTES } from '../domain/app/routes/constants';
 import { MAPPED_PLACES } from '../domain/eventSearch/constants';
+import { isFeatureEnabled } from './featureFlags';
+import { skipFalsyType } from './typescript.utils';
 
 export type Language = 'en' | 'fi' | 'sv';
 export type TitleKey = 'title_en' | 'title_fi' | 'title_sv';
 
 const eventTypeRouteMap = {
   event: ROUTES.EVENT,
-  course: ROUTES.COURSE,
+  ...(isFeatureEnabled('EVENTS_HELSINKI_2') && { course: ROUTES.COURSE }),
 };
 
 const eventTypeURLMap = {
   event: process.env.REACT_APP_LINKED_EVENTS_URL,
-  course: process.env.REACT_APP_LINKED_COURSES_URL,
+  ...(isFeatureEnabled('EVENTS_HELSINKI_2') && {
+    course: process.env.REACT_APP_LINKED_COURSES_URL,
+  }),
 };
 
 export type Collection = {
@@ -466,16 +470,19 @@ const updateSitemaps = async (): Promise<boolean> => {
       collectionUrlElements,
       eventUrlElements,
       courseUrlElements,
-    ] = await Promise.all([
-      getCollectionUrlElements(),
-      getEventUrlElements('event', time),
-      getEventUrlElements('course', time),
-    ]);
+    ] = await Promise.all(
+      [
+        getCollectionUrlElements(),
+        getEventUrlElements('event', time),
+        isFeatureEnabled('EVENTS_HELSINKI_2') &&
+          getEventUrlElements('course', time),
+      ].filter(skipFalsyType)
+    );
     const elements = [
       ...staticUrlElements,
       ...collectionUrlElements,
       ...eventUrlElements,
-      ...courseUrlElements,
+      ...(courseUrlElements || []),
     ];
 
     await saveSitemapFiles(elements, time);

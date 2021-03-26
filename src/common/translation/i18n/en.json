@@ -309,6 +309,14 @@
       "text": "For some reason we can't find the landing page you are looking for.",
       "title": "Oops, you got hit by a 404!"
     },
+    "search__DEPRECATED": {
+      "buttonSearch": "Search",
+      "labelDateRange": "For what period you are looking for?",
+      "labelSearchField": "What are you looking for",
+      "linkAdvancedSearch": "Advanced search",
+      "placeholder": "Enter a keyword, eg rock or yoga",
+      "title": "Find something to do"
+    },
     "search": {
       "popularCategories": "Popular categories",
       "placeholder": "Write search word",

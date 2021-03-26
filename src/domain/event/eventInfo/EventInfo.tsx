@@ -219,6 +219,18 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
           </InfoWithIcon>
         )}
 
+        {/* Audience */}
+        {!!audience.length && (
+          <InfoWithIcon
+            icon={<IconGroup />}
+            title={t('event.info.labelAudience')}
+          >
+            {audience.map((item) => (
+              <div key={item.id}>{item.name}</div>
+            ))}
+          </InfoWithIcon>
+        )}
+
         {/* Languages */}
         {!!languages.length && (
           <InfoWithIcon
