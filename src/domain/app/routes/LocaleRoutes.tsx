@@ -108,22 +108,6 @@ const App: FunctionComponent<RouteComponentProps<{
       />
       <Route
         exact
-        path={`/${locale}${ROUTES.COURSES}`}
-        component={CourseSearchPageContainer}
-      />
-      <Route
-        exact
-        path={`/${locale}${ROUTES.COURSE}`}
-        component={CoursePageContainer}
-      />
-      {/* Redirect to next single event page url */}
-      <Redirect
-        exact
-        path={`/${locale}${ROUTES.EVENT_DEPRECATED}`}
-        to={`/${locale}${ROUTES.EVENT}`}
-      />
-      <Route
-        exact
         path={`/${locale}${ROUTES.MARKETING_COLLECTION}`}
         component={CollectionPageContainer}
       />
