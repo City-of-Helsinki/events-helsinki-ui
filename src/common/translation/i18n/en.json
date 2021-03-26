@@ -138,7 +138,7 @@
       "titleEventClosed": "Oh no, the event you are looking for has already ended"
     },
     "info": {
-      "age": "years",
+      "age": "year olds",
       "ariaLabelBuyTickets": "Buy tickets - The link will open in a new window",
       "buttonAddToCalendar": "Add to calendar",
       "buttonBuyTickets": "Buy tickets",
@@ -149,7 +149,7 @@
       "extlinkInstagram": "Instagram",
       "extlinkTwitter": "Twitter",
       "extlinkYoutube": "Youtube",
-      "labelAge": "Ikäryhmä",
+      "labelAge": "Age group",
       "labelDateAndTime": "Date and time",
       "labelDirections": "Find your way",
       "labelLanguages": "Languages",
