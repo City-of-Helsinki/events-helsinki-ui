@@ -71,10 +71,9 @@ const CollectionEventsList: React.FC<{
 
   const collectionHasEvents = events.length + expiredEvents.length > 0;
   const collectionHasUpcomingEvents = !!events.length;
-  const visiblePastEvent = expiredEvents.slice(
-    0,
-    showAllExpiredEvents ? undefined : PAST_EVENTS_DEFAULT_SIZE
-  );
+  const visibleExpiredEvents = showAllExpiredEvents
+    ? expiredEvents
+    : expiredEvents.slice(0, PAST_EVENTS_DEFAULT_SIZE);
 
   const handleShowAllExpiredEvents = () => {
     setShowAllExpiredEvents(true);
@@ -87,7 +86,7 @@ const CollectionEventsList: React.FC<{
           {t('collection.titlePastRecommendations')}
         </h3>
         <EventCards
-          events={visiblePastEvent}
+          events={visibleExpiredEvents}
           onShowMore={handleShowAllExpiredEvents}
           eventType={eventType}
           showMoreButton={
@@ -129,7 +128,7 @@ const CollectionEventsList: React.FC<{
             ) : (
               <OnlyExpiredEvents />
             )}
-            {!!visiblePastEvent.length && <ExpiredEventsSection />}
+            {!!visibleExpiredEvents.length && <ExpiredEventsSection />}
           </div>
         )}
       </LoadingSpinner>
