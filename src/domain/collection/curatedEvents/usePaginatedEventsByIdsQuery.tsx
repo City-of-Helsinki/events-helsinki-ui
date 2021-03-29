@@ -27,7 +27,7 @@ const usePageNumber = (
   return { pageNumber, eventCursorIndex, hasMoreEventsToLoad };
 };
 
-export const usePaginatedEventsByIdsQuery = (
+const usePaginatedEventsByIdsQuery = (
   eventIds: string[],
   eventType: EventType
 ): {
@@ -102,3 +102,5 @@ export const usePaginatedEventsByIdsQuery = (
     eventCursorIndex,
   };
 };
+
+export default usePaginatedEventsByIdsQuery;

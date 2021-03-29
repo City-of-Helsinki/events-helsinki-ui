@@ -25,7 +25,7 @@ import CuratedEvents, {
   coursesListTestId,
   eventsListTestId,
 } from '../CuratedEvents';
-import { PAGE_SIZE } from '../utils';
+import { PAGE_SIZE } from '../usePaginatedEventsByIdsQuery';
 
 const eventIds = ['1', '2', '3', '4', '5'];
 const courseIds = ['6', '7', '8', '9', '10'];

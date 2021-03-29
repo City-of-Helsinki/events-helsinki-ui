@@ -10,7 +10,7 @@ import { EventType } from '../../event/types';
 import styles from './curatedEvents.module.scss';
 import EventCards from './EventCards';
 import OnlyExpiredEvents from './OnlyExpiredEvents';
-import { usePaginatedEventsByIdsQuery } from './utils';
+import usePaginatedEventsByIdsQuery from './usePaginatedEventsByIdsQuery';
 
 const PAST_EVENTS_DEFAULT_SIZE = 4;
 
