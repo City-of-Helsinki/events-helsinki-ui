@@ -7,7 +7,7 @@ import { CollectionFieldsFragment } from '../../../generated/graphql';
 import Container from '../../app/layout/Container';
 import { getEventIdsFromUrls } from '../../event/EventUtils';
 import { EventType } from '../../event/types';
-import styles from './curatedEventList.module.scss';
+import styles from './curatedEvents.module.scss';
 import EventCards from './EventCards';
 import OnlyExpiredEvents from './OnlyExpiredEvents';
 import { usePaginatedEventsByIdsQuery } from './utils';

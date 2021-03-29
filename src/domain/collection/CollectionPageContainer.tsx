@@ -19,7 +19,7 @@ import CollectionHero from './collectionHero/CollectionHero';
 import styles from './collectionPage.module.scss';
 import CollectionPageMeta from './collectionPageMeta/CollectionPageMeta';
 import { isCollectionExpired, isLanguageSupported } from './CollectionUtils';
-import CuratedEvents from './curatedEventList/CuratedEvents';
+import CuratedEvents from './curatedEvents/CuratedEvents';
 import EventList from './eventList/EventList';
 import SimilarCollections from './similarCollections/SimilarCollections';
 
