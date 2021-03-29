@@ -52,7 +52,7 @@ const PageWrapper: React.FC<Props> = ({
       <Helmet>
         <html lang={locale} />
         <title>{translatedTitle}</title>
-        {description && <meta name="description" content={t(description)} />}
+        <meta name="description" content={t(description)} />
         <meta name="twitter:card" content="summary" />
         <link rel="canonical" href={host + url} />
         <link rel="alternate" hrefLang="fi" href={`${host}/fi/${path}`} />
