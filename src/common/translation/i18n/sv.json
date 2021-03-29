@@ -74,7 +74,9 @@
     "curatedEvents": {
       "linkOnlyExpiredEvents": "Till alla kollektioner",
       "textEventNotFound": "Samlingen hittades inte",
-      "textOnlyExpiredEvents": "Tyvärr har denna kollektions rekommenderade evenemang redan gått. Bekanta dig mig våra övriga rekommendationer och hitta fler intressanta evenemang."
+      "textOnlyExpiredEvents": "Tyvärr har denna kollektions rekommenderade evenemang redan gått. Bekanta dig mig våra övriga rekommendationer och hitta fler intressanta evenemang.",
+      "eventsTitle": "Rekommenderade händelser",
+      "coursesTitle": "Rekommenderade hobbyer"
     },
     "eventList": {
       "errorLoadMore": "Det gick inte att ladda evenemangen"

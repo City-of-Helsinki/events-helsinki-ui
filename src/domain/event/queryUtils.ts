@@ -98,7 +98,7 @@ export const useSimilarCoursesQuery = <T extends CourseFieldsFragment>(
 
 const useOtherEventTimesVariables = (event: EventFields) => {
   const superEventId = React.useMemo(
-    () => getEventIdFromUrl(event.superEvent?.internalId || ''),
+    () => getEventIdFromUrl(event.superEvent?.internalId || '', 'event'),
     [event.superEvent]
   );
 

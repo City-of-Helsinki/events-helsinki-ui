@@ -11,10 +11,21 @@ import {
   EventFieldsFragment,
   EventListResponse,
   EventsByIdsDocument,
+  LinkedEventsSource,
 } from '../../../../generated/graphql';
 import { fakeCollection, fakeEvents } from '../../../../test/mockDataUtils';
-import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
-import CuratedEventList, { PAGE_SIZE } from '../CuratedEventList';
+import {
+  render,
+  screen,
+  userEvent,
+  waitFor,
+  within,
+} from '../../../../test/testUtils';
+import CuratedEvents, {
+  coursesListTestId,
+  eventsListTestId,
+} from '../CuratedEvents';
+import { PAGE_SIZE } from '../utils';
 
 const eventIds = ['1', '2', '3', '4', '5'];
 const curatedEvents = eventIds.map(
@@ -26,13 +37,21 @@ const collection = fakeCollection({
   curatedEvents,
 }) as CollectionFieldsFragment;
 
-const getMocks = (events: EventFieldsFragment[], ids = eventIds) => [
+const getMocks = (
+  events: EventFieldsFragment[],
+  ids = eventIds,
+  type: 'event' | 'course' = 'event'
+) => [
   {
     request: {
       query: EventsByIdsDocument,
       variables: {
         ids,
         include: ['location'],
+        source:
+          type === 'event'
+            ? LinkedEventsSource.Linkedevents
+            : LinkedEventsSource.Linkedcourses,
       },
     },
     result: { data: { eventsByIds: events } },
@@ -40,7 +59,10 @@ const getMocks = (events: EventFieldsFragment[], ids = eventIds) => [
 ];
 
 // Creates array of mocks to match pagination queries
-const getMocksForPagination = (eventsCount = 35) => {
+const getMocksForPagination = (
+  eventsCount = 35,
+  type: 'event' | 'course' = 'event'
+) => {
   // Populate these arrays when creating fakeEvents in chunks.
   const eventNames: string[] = [];
   const curatedEvents: string[] = [];
@@ -55,7 +77,7 @@ const getMocksForPagination = (eventsCount = 35) => {
         eventIdChunk.map((eventId) => {
           const eventName = `Event ${eventId}`;
           eventNames.push(eventName);
-          curatedEvents.push(`http://localhost:3000/fi/event/${eventId}`);
+          curatedEvents.push(`http://localhost:3000/fi/${type}/${eventId}`);
           return {
             endTime: '2020-12-12',
             startTime: '2020-12-12',
@@ -70,7 +92,8 @@ const getMocksForPagination = (eventsCount = 35) => {
   const mocks = chunkedEvents.map((eventList) => {
     return getMocks(
       eventList.data as EventFieldsFragment[],
-      eventList.data.map((event) => event.id)
+      eventList.data.map((event) => event.id),
+      type
     )[0];
   });
 
@@ -102,7 +125,7 @@ test('should show all events', async () => {
   const eventsData = events.data as EventFieldsFragment[];
   const mocks = getMocks(eventsData);
 
-  render(<CuratedEventList collection={collection} />, {
+  render(<CuratedEvents collection={collection} />, {
     mocks,
   });
 
@@ -129,7 +152,7 @@ test('should show expired events', async () => {
   const eventsData = events.data as EventFieldsFragment[];
   const mocks = getMocks(eventsData);
 
-  render(<CuratedEventList collection={collection} />, {
+  render(<CuratedEvents collection={collection} />, {
     mocks,
   });
 
@@ -159,16 +182,40 @@ test('should show expired events', async () => {
 });
 
 test('event list pagination works', async () => {
+  await paginationTest({ eventType: 'event' });
+});
+
+test('course list pagination works', async () => {
+  await paginationTest({ eventType: 'course' });
+});
+
+const paginationTest = async ({
+  eventType,
+}: {
+  eventType: 'event' | 'course';
+}) => {
   advanceTo('2020-10-05');
   const eventsCount = 35;
-  const { collection, mocks, eventNames } = getMocksForPagination(eventsCount);
-  render(<CuratedEventList collection={collection} />, {
+  const { collection, mocks, eventNames } = getMocksForPagination(
+    eventsCount,
+    eventType
+  );
+  render(<CuratedEvents collection={collection} />, {
     mocks,
   });
   await waitForRequestToComplete();
 
+  const testIds: Record<typeof eventType, string> = {
+    course: coursesListTestId,
+    event: eventsListTestId,
+  };
+
+  const curatedEventsList = within(screen.getByTestId(testIds[eventType]));
+
   const clickShowMoreEventsButton = (name: RegExp) => {
-    userEvent.click(screen.getByRole('button', { name, hidden: true }));
+    userEvent.click(
+      curatedEventsList.getByRole('button', { name, hidden: true })
+    );
   };
 
   // use loop to fetch all the events by clicking show more button (pagination)
@@ -201,4 +248,4 @@ test('event list pagination works', async () => {
   for (const eventName of eventNames) {
     expect(screen.queryByText(eventName)).toBeInTheDocument();
   }
-});
+};

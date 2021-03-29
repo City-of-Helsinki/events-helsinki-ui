@@ -70,8 +70,12 @@ export const QUERY_EVENT_LIST = gql`
     }
   }
 
-  query EventsByIds($ids: [ID!]!, $include: [String]) {
-    eventsByIds(ids: $ids, include: $include) {
+  query EventsByIds(
+    $ids: [ID!]!
+    $include: [String]
+    $source: LinkedEventsSource
+  ) {
+    eventsByIds(ids: $ids, include: $include, source: $source) {
       ...eventFields
     }
   }

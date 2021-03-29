@@ -50,7 +50,11 @@ const CoursePageContainer: React.FC = () => {
 
   const course = courseData?.courseDetails;
 
-  const superEventId = getEventIdFromUrl(course?.superEvent?.internalId ?? '');
+  const superEventId = getEventIdFromUrl(
+    course?.superEvent?.internalId ?? '',
+    'event'
+  );
+
   React.useLayoutEffect(() => {
     if (superEventId) {
       getSuperEventData();
