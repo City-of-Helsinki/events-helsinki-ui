@@ -28,87 +28,19 @@ import CuratedEvents, {
 import { PAGE_SIZE } from '../utils';
 
 const eventIds = ['1', '2', '3', '4', '5'];
+const courseIds = ['6', '7', '8', '9', '10'];
 const curatedEvents = eventIds.map(
   (id) => `http://localhost:3000/fi/event/${id}`
 );
+const curatedCourses = courseIds.map(
+  (id) => `http://localhost:3000/fi/courses/${id}`
+);
 const eventNames = eventIds.map((id) => `Event ${id}`);
+const courseNames = courseIds.map((id) => `Course ${id}`);
 
 const collection = fakeCollection({
-  curatedEvents,
+  curatedEvents: [...curatedEvents, ...curatedCourses],
 }) as CollectionFieldsFragment;
-
-const getMocks = (
-  events: EventFieldsFragment[],
-  ids = eventIds,
-  type: 'event' | 'course' = 'event'
-) => [
-  {
-    request: {
-      query: EventsByIdsDocument,
-      variables: {
-        ids,
-        include: ['location'],
-        source:
-          type === 'event'
-            ? LinkedEventsSource.Linkedevents
-            : LinkedEventsSource.Linkedcourses,
-      },
-    },
-    result: { data: { eventsByIds: events } },
-  },
-];
-
-// Creates array of mocks to match pagination queries
-const getMocksForPagination = (
-  eventsCount = 35,
-  type: 'event' | 'course' = 'event'
-) => {
-  // Populate these arrays when creating fakeEvents in chunks.
-  const eventNames: string[] = [];
-  const curatedEvents: string[] = [];
-
-  const chunkedEvents: EventListResponse[] = flow([
-    range,
-    map((id: number) => (id + 1).toString()),
-    chunk(PAGE_SIZE),
-    map((eventIdChunk: string[]) =>
-      fakeEvents(
-        eventIdChunk.length,
-        eventIdChunk.map((eventId) => {
-          const eventName = `Event ${eventId}`;
-          eventNames.push(eventName);
-          curatedEvents.push(`http://localhost:3000/fi/${type}/${eventId}`);
-          return {
-            endTime: '2020-12-12',
-            startTime: '2020-12-12',
-            id: eventId,
-            name: { fi: `Event ${eventId}` },
-          };
-        })
-      )
-    ),
-  ])(eventsCount);
-
-  const mocks = chunkedEvents.map((eventList) => {
-    return getMocks(
-      eventList.data as EventFieldsFragment[],
-      eventList.data.map((event) => event.id),
-      type
-    )[0];
-  });
-
-  const collection = fakeCollection({
-    curatedEvents,
-  }) as CollectionFieldsFragment;
-
-  return { mocks, collection, eventNames };
-};
-
-const waitForRequestToComplete = async () => {
-  await waitFor(() => {
-    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-  });
-};
 
 afterAll(() => {
   clear();
@@ -122,18 +54,40 @@ test('should show all events', async () => {
       name: { fi: event },
     }))
   );
+  const courses = fakeEvents(
+    courseNames.length,
+    courseNames.map((event, index) => ({
+      id: courseIds[index],
+      name: { fi: event },
+    }))
+  );
   const eventsData = events.data as EventFieldsFragment[];
-  const mocks = getMocks(eventsData);
+  const coursesData = courses.data as EventFieldsFragment[];
+  const eventMocks = getMocks(eventsData, eventIds, 'event');
+  const courseMocks = getMocks(coursesData, courseIds, 'course');
 
   render(<CuratedEvents collection={collection} />, {
-    mocks,
+    mocks: [...eventMocks, ...courseMocks],
   });
 
   await waitFor(() => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
+
+  // Test that both lists are
+
+  const eventsList = within(screen.getByTestId(eventsListTestId));
   eventNames.forEach((eventName) => {
-    expect(screen.getByText(eventName)).toBeInTheDocument();
+    expect(eventsList.getByText(eventName)).toBeInTheDocument();
+  });
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  const courseList = within(screen.getByTestId(coursesListTestId));
+  courseNames.forEach((courseName) => {
+    expect(courseList.getByText(courseName)).toBeInTheDocument();
   });
 });
 
@@ -248,4 +202,77 @@ const paginationTest = async ({
   for (const eventName of eventNames) {
     expect(screen.queryByText(eventName)).toBeInTheDocument();
   }
+};
+
+const getMocks = (
+  events: EventFieldsFragment[],
+  ids = eventIds,
+  type: 'event' | 'course' = 'event'
+) => [
+  {
+    request: {
+      query: EventsByIdsDocument,
+      variables: {
+        ids,
+        include: ['location'],
+        source:
+          type === 'event'
+            ? LinkedEventsSource.Linkedevents
+            : LinkedEventsSource.Linkedcourses,
+      },
+    },
+    result: { data: { eventsByIds: events } },
+  },
+];
+
+// Creates array of mocks to match pagination queries
+const getMocksForPagination = (
+  eventsCount = 35,
+  type: 'event' | 'course' = 'event'
+) => {
+  // Populate these arrays when creating fakeEvents in chunks.
+  const eventNames: string[] = [];
+  const curatedEvents: string[] = [];
+
+  const chunkedEvents: EventListResponse[] = flow([
+    range,
+    map((id: number) => (id + 1).toString()),
+    chunk(PAGE_SIZE),
+    map((eventIdChunk: string[]) =>
+      fakeEvents(
+        eventIdChunk.length,
+        eventIdChunk.map((eventId) => {
+          const eventName = `Event ${eventId}`;
+          eventNames.push(eventName);
+          curatedEvents.push(`http://localhost:3000/fi/${type}/${eventId}`);
+          return {
+            endTime: '2020-12-12',
+            startTime: '2020-12-12',
+            id: eventId,
+            name: { fi: `Event ${eventId}` },
+          };
+        })
+      )
+    ),
+  ])(eventsCount);
+
+  const mocks = chunkedEvents.map((eventList) => {
+    return getMocks(
+      eventList.data as EventFieldsFragment[],
+      eventList.data.map((event) => event.id),
+      type
+    )[0];
+  });
+
+  const collection = fakeCollection({
+    curatedEvents,
+  }) as CollectionFieldsFragment;
+
+  return { mocks, collection, eventNames };
+};
+
+const waitForRequestToComplete = async () => {
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
 };
