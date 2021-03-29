@@ -58,7 +58,10 @@ const EventList: React.FC<Props> = ({
         <LoadingSpinner hasPadding={!events.length} isLoading={loading}>
           {hasNext && (
             <Button onClick={onLoadMore} variant="success">
-              {t('eventSearch.buttonLoadMore', { count: eventsLeft })}
+              {eventType === 'event' &&
+                t('eventSearch.buttonLoadMore', { count: eventsLeft })}
+              {eventType === 'course' &&
+                t('courseSearch.buttonLoadMore', { count: eventsLeft })}
             </Button>
           )}
         </LoadingSpinner>

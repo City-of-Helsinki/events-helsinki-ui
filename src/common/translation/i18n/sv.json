@@ -227,13 +227,14 @@
   },
   "courseSearch": {
     "title": "Hitta hobby",
+    "buttonLoadMore": "Visa fler hobbyew ({{count}})",
     "search": {
       "checkboxIsFree": "Visa endast avgiftsfria",
       "placeholder": "Ange ett sökord, t. ex. Franska eller matlagning",
       "labelSearchField": "Vad letar du efter?",
       "checkboxAlsoOngoingCourses": "Visa även pågående kurser",
       "titleDropdownHobbyType": "Aktivitetsform",
-      "showOnlyAdultCourses": "Show only adult courses",
+      "showOnlyAdultCourses": "Visa endast vuxenkurser",
       "ageLimitValues": "Ålder",
       "ageLimitMin": "Från",
       "ageLimitMax": "Till"
