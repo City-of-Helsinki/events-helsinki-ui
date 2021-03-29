@@ -90,6 +90,17 @@ jobs:
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-staging-${{ matrix.service }}
           PROJECT_NAME: ${{ matrix.service }}
   acceptance-tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [ "1", "2" ]
+        include:
+          - service: "1"
+            version: "1.0"
+            DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.test.kuva.hel.ninja
+          - service: "2"
+            version: "2.0"
+            DOCKER_BUILD_ARG_PUBLIC_URL: https://latest-events.test.kuva.hel.ninja
     runs-on: windows-latest
     needs: staging
     name: Acceptance tests for Staging ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
@@ -114,9 +125,9 @@ jobs:
       - name: Run TestCafe tests For ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
         run: yarn browser-test:ci
         env:
-          BROWSER_TESTS_LOCAL_ENV_URL: https://${{ secrets.ENVIRONMENT_URL_STAGING }}
-          REACT_APP_GRAPHQL_BASE_URL: https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql
-      - name: Upload screenshots of failed tests for ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
+          BROWSER_TESTS_LOCAL_ENV_URL: ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
+          REACT_APP_GRAPHQL_BASE_URL: ${{env.DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL}}
+      - name: Upload videos and screenshots of failed tests for ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
         uses: actions/upload-artifact@v2
         if: failure()
         with:
