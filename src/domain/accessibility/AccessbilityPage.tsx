@@ -18,10 +18,7 @@ const AboutPage: React.FC = () => {
   );
 
   return (
-    <PageWrapper
-      title="accessibility.title"
-      description="meta.default.description"
-    >
+    <PageWrapper title="accessibility.title">
       <MainContent offset={-70}>
         <LoadingSpinner isLoading={loading}>
           {accessibilityPage && <StaticPage staticPage={accessibilityPage} />}

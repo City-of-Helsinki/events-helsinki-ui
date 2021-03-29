@@ -18,7 +18,7 @@ const AboutPage: React.FC = () => {
   );
 
   return (
-    <PageWrapper title="about.title" description="meta.default.description">
+    <PageWrapper title="about.title">
       <MainContent offset={-70}>
         <LoadingSpinner isLoading={loading}>
           {aboutPage && <StaticPage staticPage={aboutPage} />}

@@ -19,7 +19,7 @@ const PageWrapper: React.FC<Props> = ({
   children,
   className,
   title = 'appName',
-  description,
+  description = 'meta.default.description',
 }) => {
   const { t } = useTranslation();
   const location = useLocation();
