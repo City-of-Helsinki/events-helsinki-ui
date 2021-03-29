@@ -88,3 +88,17 @@ it('should render event content fields', async () => {
     expect(screen.queryAllByRole(role, { name })).toHaveLength(2);
   });
 });
+
+it('should hide map if internet event', async () => {
+  render(
+    <EventContent
+      event={{
+        ...event,
+        location: { ...event.location, id: 'helsinki:internet' },
+      }}
+      eventType="event"
+    />
+  );
+  await actWait();
+  expect(screen.queryByText(/sijainti/i)).not.toBeInTheDocument();
+});

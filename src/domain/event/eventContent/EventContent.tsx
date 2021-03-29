@@ -22,6 +22,8 @@ const EventContent: React.FC<Props> = ({ event, eventType }) => {
   const locale = useLocale();
   const { description, photographerName } = getEventFields(event, locale);
 
+  const isInternetEvent = event?.location?.id === 'helsinki:internet';
+
   return (
     <div className={styles.eventContent}>
       <Container>
@@ -57,7 +59,7 @@ const EventContent: React.FC<Props> = ({ event, eventType }) => {
                 styles.largeWhiteSpace
               )}
             />
-            <EventLocation event={event} />
+            {!isInternetEvent && <EventLocation event={event} />}
           </div>
           {/* Dummy div to keep layout consistent with EventHero */}
           <div />
