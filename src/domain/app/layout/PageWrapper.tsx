@@ -12,12 +12,14 @@ import { useURIComponents } from '../../../hooks/useURIComponents';
 interface Props {
   className?: string;
   title?: string;
+  description?: string;
 }
 
 const PageWrapper: React.FC<Props> = ({
   children,
   className,
   title = 'appName',
+  description,
 }) => {
   const { t } = useTranslation();
   const location = useLocation();
@@ -50,8 +52,8 @@ const PageWrapper: React.FC<Props> = ({
       <Helmet>
         <html lang={locale} />
         <title>{translatedTitle}</title>
+        {description && <meta name="description" content={t(description)} />}
         <meta name="twitter:card" content="summary" />
-
         <link rel="canonical" href={host + url} />
         <link rel="alternate" hrefLang="fi" href={`${host}/fi/${path}`} />
         <link rel="alternate" hrefLang="sv" href={`${host}/sv/${path}`} />

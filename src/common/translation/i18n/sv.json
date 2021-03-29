@@ -340,6 +340,20 @@
     "searchCategories": "Bläddra i kategorier",
     "searchEvents": "Sök saker att göra"
   },
+  "meta":{
+    "events": {
+      "description": "Evenemangssökning på tapahtumat.hel.fi. Konserter, spelningar, teaterföreställningar, utställningar, kultur, aktiviteter och andra evenemang i Helsingfors."
+    },
+    "courses": {
+      "description": "Hobbysökning på tapahtumat.hel.fi. Hobbyer, kurser, klubbar och läger för barn och unga i Helsingfors."
+    },
+    "collections": {
+      "description": "Läs våra rekommendationer om evenemang som är aktuella och intressanta just nu."
+    },
+    "default": {
+      "description": "Hitta evenemang i Helsingfors.  Musik, teater, dans, motion, utomhusaktiviteter och mer."
+    }
+  },
   "notFound": {
     "linkSearchEvents": "Sök saker att göra",
     "text": "Av en eller annan orsak så hittas inte sidan du letade efter. Försök istället att hitta något att göra härifrån:",

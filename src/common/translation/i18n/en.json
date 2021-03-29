@@ -340,6 +340,20 @@
     "searchCategories": "Browse Categories",
     "searchEvents": "Find something to do"
   },
+  "meta":{
+    "events": {
+      "description": "Tapahtumat.hel.fi’s event search. Concerts, gigs, theatre performances, exhibitions, culture, activities and other events in Helsinki."
+    },
+    "courses": {
+      "description": "Tapahtumat.hel.fi’s activity search. Activities, courses, clubs and camps for children and young people in Helsinki."
+    },
+    "collections": {
+      "description": "Check out our recommendations on the most interesting upcoming events!"
+    },
+    "default": {
+      "description": "Events in Helsinki."
+    }
+  },
   "notFound": {
     "linkSearchEvents": "Find something to do",
     "text": "For some reason we can't find the page you are looking for. Try searching for something else here:",

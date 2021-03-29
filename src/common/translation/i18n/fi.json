@@ -340,6 +340,20 @@
     "searchCategories": "Selaa kategorioita",
     "searchEvents": "Etsi tekemistä"
   },
+  "meta":{
+    "events": {
+      "description": "Tapahtumat.hel.fin tapahtumahaku. Konsertit, keikat, teatteriesitykset, näyttelyt, kulttuuri, tekeminen ja muut tapahtumat Helsingissä."
+    },
+    "courses": {
+      "description": "Tapahtumat.hel.fin harrastushaku. Lasten ja nuorten harrastukset, kurssit, kerhot ja leirit Helsingissä."
+    },
+    "collections": {
+      "description": "Tutustu suosituksiimme tämän hetken ajankohtaisimmista ja kiinnostavimmista tapahtumista."
+    },
+    "default": {
+      "description": "Löydä Helsingin tapahtumat. Musiikki, teatteri, tanssi, liikunta ja ulkoilu sekä muu tapahtumatarjonta."
+    }
+  },
   "notFound": {
     "linkSearchEvents": "Hae itsellesi tekemistä",
     "text": "Syystä tai toisesta hakemaasi sivua ei löydy. Löydä itsellesi tekemistä vaikkapa täältä:",
