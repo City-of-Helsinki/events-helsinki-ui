@@ -21,6 +21,7 @@ import {
   waitFor,
   within,
 } from '../../../../test/testUtils';
+import { isFeatureEnabled } from '../../../../util/featureFlags';
 import CuratedEvents, {
   coursesListTestId,
   eventsListTestId,
@@ -85,10 +86,12 @@ test('should show all events', async () => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  const courseList = within(screen.getByTestId(coursesListTestId));
-  courseNames.forEach((courseName) => {
-    expect(courseList.getByText(courseName)).toBeInTheDocument();
-  });
+  if (isFeatureEnabled('EVENTS_HELSINKI_2')) {
+    const courseList = within(screen.getByTestId(coursesListTestId));
+    courseNames.forEach((courseName) => {
+      expect(courseList.getByText(courseName)).toBeInTheDocument();
+    });
+  }
 });
 
 test('should show expired events', async () => {
@@ -139,9 +142,11 @@ test('event list pagination works', async () => {
   await paginationTest({ eventType: 'event' });
 });
 
-test('course list pagination works', async () => {
-  await paginationTest({ eventType: 'course' });
-});
+if (isFeatureEnabled('EVENTS_HELSINKI_2')) {
+  test('course list pagination works', async () => {
+    await paginationTest({ eventType: 'course' });
+  });
+}
 
 const paginationTest = async ({
   eventType,
