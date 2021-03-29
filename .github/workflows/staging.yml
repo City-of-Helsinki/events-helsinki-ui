@@ -85,6 +85,7 @@ jobs:
         with:
           track: 'staging'
         env:
+          K8S_NAMESPACE: ${{ secrets.K8S_NAMESPACE_STAGING }}
           ENVIRONMENT_URL: ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-staging-${{ matrix.service }}}
           PROJECT_NAME: ${{ matrix.service }}
