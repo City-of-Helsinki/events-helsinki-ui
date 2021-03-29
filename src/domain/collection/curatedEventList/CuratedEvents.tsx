@@ -57,11 +57,11 @@ const CollectionEventsList: React.FC<{
   testId: string;
 }> = ({ eventIds, title, eventType, testId }) => {
   const { t } = useTranslation();
-  const [showAllPastEvents, setShowAllPastEvents] = React.useState(false);
+  const [showAllExpiredEvents, setShowAllExpiredEvents] = React.useState(false);
 
   const {
     events,
-    pastEvents,
+    expiredEvents,
     isFetchingMore,
     loading,
     onLoadMoreEvents,
@@ -69,18 +69,18 @@ const CollectionEventsList: React.FC<{
     eventCursorIndex,
   } = usePaginatedEventsByIdsQuery(eventIds, eventType);
 
-  const collectionHasEvents = events.length + pastEvents.length > 0;
+  const collectionHasEvents = events.length + expiredEvents.length > 0;
   const collectionHasUpcomingEvents = !!events.length;
-  const visiblePastEvent = pastEvents.slice(
+  const visiblePastEvent = expiredEvents.slice(
     0,
-    showAllPastEvents ? undefined : PAST_EVENTS_DEFAULT_SIZE
+    showAllExpiredEvents ? undefined : PAST_EVENTS_DEFAULT_SIZE
   );
 
-  const handleShowAllPastEvents = () => {
-    setShowAllPastEvents(true);
+  const handleShowAllExpiredEvents = () => {
+    setShowAllExpiredEvents(true);
   };
 
-  const PastEventsSection = () => {
+  const ExpiredEventsSection = () => {
     return (
       <>
         <h3 className={styles.titlePastRecommendations}>
@@ -88,10 +88,11 @@ const CollectionEventsList: React.FC<{
         </h3>
         <EventCards
           events={visiblePastEvent}
-          onShowMore={handleShowAllPastEvents}
+          onShowMore={handleShowAllExpiredEvents}
           eventType={eventType}
           showMoreButton={
-            !showAllPastEvents && pastEvents.length > PAST_EVENTS_DEFAULT_SIZE
+            !showAllExpiredEvents &&
+            expiredEvents.length > PAST_EVENTS_DEFAULT_SIZE
           }
         />
       </>
@@ -128,7 +129,7 @@ const CollectionEventsList: React.FC<{
             ) : (
               <OnlyExpiredEvents />
             )}
-            {!!visiblePastEvent.length && <PastEventsSection />}
+            {!!visiblePastEvent.length && <ExpiredEventsSection />}
           </div>
         )}
       </LoadingSpinner>

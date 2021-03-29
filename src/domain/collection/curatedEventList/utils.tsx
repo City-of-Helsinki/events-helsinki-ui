@@ -34,7 +34,7 @@ export const usePaginatedEventsByIdsQuery = (
   isFetchingMore: boolean;
   loading: boolean;
   events: EventFieldsFragment[];
-  pastEvents: EventFieldsFragment[];
+  expiredEvents: EventFieldsFragment[];
   onLoadMoreEvents: () => Promise<void>;
   hasMoreEventsToLoad: boolean;
   eventCursorIndex: number;
@@ -61,7 +61,7 @@ export const usePaginatedEventsByIdsQuery = (
 
   const events =
     eventsData?.eventsByIds.filter((event) => !isEventClosed(event)) || [];
-  const pastEvents =
+  const expiredEvents =
     eventsData?.eventsByIds.filter((event) => isEventClosed(event)) || [];
 
   const onLoadMoreEvents = async () => {
@@ -96,7 +96,7 @@ export const usePaginatedEventsByIdsQuery = (
     isFetchingMore,
     loading,
     events,
-    pastEvents,
+    expiredEvents,
     onLoadMoreEvents,
     hasMoreEventsToLoad,
     eventCursorIndex,
