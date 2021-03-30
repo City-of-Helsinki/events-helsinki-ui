@@ -21,3 +21,5 @@ export const EVENT_PLACEHOLDER_IMAGES = [
 ];
 
 export const EVENT_SOME_IMAGE = '/images/activities_SoMe-share.jpg';
+
+export const EVENT_LOCATIONS = { INTERNET: 'helsinki:internet' };

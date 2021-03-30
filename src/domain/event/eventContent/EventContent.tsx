@@ -6,6 +6,7 @@ import ShareLinks from '../../../common/components/shareLinks/ShareLinks';
 import useLocale from '../../../hooks/useLocale';
 import sanitizeHtml from '../../../util/sanitizeHtml';
 import Container from '../../app/layout/Container';
+import { EVENT_LOCATIONS } from '../constants';
 import EventInfo from '../eventInfo/EventInfo';
 import EventLocation from '../eventLocation/EventLocation';
 import { getEventFields } from '../EventUtils';
@@ -22,7 +23,7 @@ const EventContent: React.FC<Props> = ({ event, eventType }) => {
   const locale = useLocale();
   const { description, photographerName } = getEventFields(event, locale);
 
-  const isInternetEvent = event?.location?.id === 'helsinki:internet';
+  const isInternetEvent = event?.location?.id === EVENT_LOCATIONS.INTERNET;
 
   return (
     <div className={styles.eventContent}>
