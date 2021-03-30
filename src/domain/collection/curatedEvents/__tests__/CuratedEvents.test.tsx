@@ -13,6 +13,7 @@ import {
   EventsByIdsDocument,
   LinkedEventsSource,
 } from '../../../../generated/graphql';
+import { setFeatureFlags } from '../../../../test/feature-flags/featureFlags.test.utils';
 import { fakeCollection, fakeEvents } from '../../../../test/mockDataUtils';
 import {
   render,
@@ -47,51 +48,60 @@ afterAll(() => {
   clear();
 });
 
-test('should show all events', async () => {
-  const events = fakeEvents(
-    eventNames.length,
-    eventNames.map((event, index) => ({
-      id: eventIds[index],
-      name: { fi: event },
-    }))
-  );
-  const courses = fakeEvents(
-    courseNames.length,
-    courseNames.map((event, index) => ({
-      id: courseIds[index],
-      name: { fi: event },
-    }))
-  );
-  const eventsData = events.data as EventFieldsFragment[];
-  const coursesData = courses.data as EventFieldsFragment[];
-  const eventMocks = getMocks(eventsData, eventIds, 'event');
-  const courseMocks = getMocks(coursesData, courseIds, 'course');
+afterEach(() => {
+  jest.restoreAllMocks();
+});
 
-  render(<CuratedEvents collection={collection} />, {
-    mocks: [...eventMocks, ...courseMocks],
-  });
+[true, false].forEach((EVENTS_HELSINKI_2) => {
+  test(`should show all events (EVENT_HELSINKI_2 feature is ${
+    EVENTS_HELSINKI_2 ? 'on' : 'off'
+  })`, async () => {
+    setFeatureFlags({ EVENTS_HELSINKI_2 });
+    const events = fakeEvents(
+      eventNames.length,
+      eventNames.map((event, index) => ({
+        id: eventIds[index],
+        name: { fi: event },
+      }))
+    );
+    const courses = fakeEvents(
+      courseNames.length,
+      courseNames.map((event, index) => ({
+        id: courseIds[index],
+        name: { fi: event },
+      }))
+    );
+    const eventsData = events.data as EventFieldsFragment[];
+    const coursesData = courses.data as EventFieldsFragment[];
+    const eventMocks = getMocks(eventsData, eventIds, 'event');
+    const courseMocks = getMocks(coursesData, courseIds, 'course');
 
-  await waitFor(() => {
-    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-  });
-
-  // Test that both lists are
-
-  const eventsList = within(screen.getByTestId(eventsListTestId));
-  eventNames.forEach((eventName) => {
-    expect(eventsList.getByText(eventName)).toBeInTheDocument();
-  });
-
-  await waitFor(() => {
-    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-  });
-
-  if (isFeatureEnabled('EVENTS_HELSINKI_2')) {
-    const courseList = within(screen.getByTestId(coursesListTestId));
-    courseNames.forEach((courseName) => {
-      expect(courseList.getByText(courseName)).toBeInTheDocument();
+    render(<CuratedEvents collection={collection} />, {
+      mocks: [...eventMocks, ...courseMocks],
     });
-  }
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+    });
+
+    // Test that both lists are
+
+    const eventsList = within(screen.getByTestId(eventsListTestId));
+    eventNames.forEach((eventName) => {
+      expect(eventsList.getByText(eventName)).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+    });
+
+    if (isFeatureEnabled('EVENTS_HELSINKI_2')) {
+      const courseList = within(screen.getByTestId(coursesListTestId));
+      courseNames.forEach((courseName) => {
+        expect(courseList.getByText(courseName)).toBeInTheDocument();
+      });
+    }
+  });
 });
 
 test('should show expired events', async () => {
@@ -142,11 +152,10 @@ test('event list pagination works', async () => {
   await paginationTest({ eventType: 'event' });
 });
 
-if (isFeatureEnabled('EVENTS_HELSINKI_2')) {
-  test('course list pagination works', async () => {
-    await paginationTest({ eventType: 'course' });
-  });
-}
+test('course list pagination works', async () => {
+  setFeatureFlags({ EVENTS_HELSINKI_2: true });
+  await paginationTest({ eventType: 'course' });
+});
 
 const paginationTest = async ({
   eventType,
