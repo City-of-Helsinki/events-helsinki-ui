@@ -1,4 +1,4 @@
-import { orderBy } from 'lodash';
+import orderBy from 'lodash/orderBy';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -51,19 +51,18 @@ const LandingPage: React.FC = () => {
 
   const getCourseCategoryOptionsExtended = () => {
     const hobbyTypes = getCourseHobbyTypeOptions(t) as CategoryExtendedOption[];
+    const hobbyTypesToAdd = [
+      COURSE_HOBBY_TYPES.CAMPS,
+      COURSE_HOBBY_TYPES.CLUBS,
+    ];
+    const includedHobbyTypes = hobbyTypes.filter((hobbyType) =>
+      hobbyTypesToAdd.some((h) => h === hobbyType.value)
+    );
     const courseCategories = getCourseCategoryOptions(
       t
     ) as CategoryExtendedOption[];
-    return orderBy(
-      courseCategories.concat(
-        hobbyTypes.filter(
-          (hobbyType) =>
-            hobbyType.value === COURSE_HOBBY_TYPES.CAMPS ||
-            hobbyType.value === COURSE_HOBBY_TYPES.CLUBS
-        ) || []
-      ),
-      'text'
-    );
+
+    return orderBy([...courseCategories, ...includedHobbyTypes], 'text');
   };
 
   const lgCollections = collections.slice(0, 1);
