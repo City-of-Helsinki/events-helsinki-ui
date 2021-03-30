@@ -14,6 +14,7 @@ import { EVENTS_ROUTE_MAPPER, EventType } from '../../event/types';
 import {
   COURSE_HOBBY_TYPES,
   EVENT_DEFAULT_SEARCH_FILTERS,
+  EVENT_SEARCH_FILTERS,
 } from '../../eventSearch/constants';
 import { CategoryExtendedOption } from '../../eventSearch/types';
 import { getSearchQuery } from '../../eventSearch/utils';
@@ -74,8 +75,8 @@ const Search: React.FC<SearchProps> = ({
     const categoryParam = Object.values(COURSE_HOBBY_TYPES).includes(
       category.value as COURSE_HOBBY_TYPES
     )
-      ? 'hobbyTypes'
-      : 'categories';
+      ? EVENT_SEARCH_FILTERS.HOBBY_TYPES
+      : EVENT_SEARCH_FILTERS.CATEGORIES;
     const search = getSearchQuery({
       ...EVENT_DEFAULT_SEARCH_FILTERS,
       [categoryParam]: [category.value],
