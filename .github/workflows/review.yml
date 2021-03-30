@@ -145,7 +145,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           header: testcafe-results-1
           append: true
-          message: ## TestCafe result is __${{ steps.testcafe.outcome }}__ for the Old version (without courses)! Check the report [here](${{ env.REPORT_URL }}).
+          message: '## TestCafe result is __${{ steps.testcafe.outcome }}__ for the Old version (without courses)! Check the report [here](${{ env.REPORT_URL }}).'
         if: (steps.testcafe.outcome == 'success' || steps.testcafe.outcome == 'failure') && matrix.version == '1.0'
       - name: Create/update PR comment for Acceptance Test results for V2.0
         uses: marocchino/sticky-pull-request-comment@v2
@@ -153,7 +153,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           header: testcafe-results-2
           append: true
-          message: ## TestCafe result is __${{ steps.testcafe.outcome }}__ for the NEW version (with courses)! Check the report [here](${{ env.REPORT_URL }}).
+          message: '## TestCafe result is __${{ steps.testcafe.outcome }}__ for the NEW version (with courses)! Check the report [here](${{ env.REPORT_URL }}).'
         if: (steps.testcafe.outcome == 'success' || steps.testcafe.outcome == 'failure') && matrix.version == '2.0'
       - name: Upload screenshots and videos of failed tests to artifact for V${{ matrix.version }}
         uses: actions/upload-artifact@v2
