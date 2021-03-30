@@ -135,7 +135,7 @@ jobs:
           zip -r report.zip report/ > no_output 2>&1
           curl -s -H "Content-Type: application/zip" -H "Authorization: Bearer ${{ secrets.NETLIFY_AUTH_TOKEN }}" --data-binary "@report.zip" https://api.netlify.com/api/v1/sites > response.json
           echo "REPORT_URL=$(cat response.json|python -c "import sys, json; print('https://' + json.load(sys.stdin)['subdomain'] + '.netlify.com')")" >> $GITHUB_ENV
-        if: steps.testcafe.outcome == 'failure'
+        if: always() && steps.testcafe.outcome == 'failure'
       - name: Create/update PR comment for Acceptance Test results for V1.0
         uses: marocchino/sticky-pull-request-comment@v2
         with:
@@ -143,7 +143,7 @@ jobs:
           header: testcafe-results-1
           append: true
           message: '## TestCafe result is __${{ steps.testcafe.outcome }}__ for the Old version (without courses)! Check the report [here](${{ env.REPORT_URL }}).'
-        if: (steps.testcafe.outcome == 'success' || steps.testcafe.outcome == 'failure') && matrix.version == '1.0'
+        if: always() && (steps.testcafe.outcome == 'success' || steps.testcafe.outcome == 'failure') && matrix.version == '1.0'
       - name: Create/update PR comment for Acceptance Test results for V2.0
         uses: marocchino/sticky-pull-request-comment@v2
         with:
@@ -151,7 +151,7 @@ jobs:
           header: testcafe-results-2
           append: true
           message: '## TestCafe result is __${{ steps.testcafe.outcome }}__ for the NEW version (with courses)! Check the report [here](${{ env.REPORT_URL }}).'
-        if: (steps.testcafe.outcome == 'success' || steps.testcafe.outcome == 'failure') && matrix.version == '2.0'
+        if: always() && (steps.testcafe.outcome == 'success' || steps.testcafe.outcome == 'failure') && matrix.version == '2.0'
       - name: Upload screenshots and videos of failed tests to artifact for V${{ matrix.version }}
         uses: actions/upload-artifact@v2
         with:
