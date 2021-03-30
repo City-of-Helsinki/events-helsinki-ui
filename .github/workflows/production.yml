@@ -19,7 +19,7 @@ env:
   K8S_LIMIT_CPU: 1000m
   K8S_LIMIT_RAM: 200Mi
   K8S_REPLICACOUNT: 2
-
+  REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.prod.kuva.hel.ninja/proxy/graphql'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,7 +32,7 @@ jobs:
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-production
           DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.hel.fi
           DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
-          DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.prod.kuva.hel.ninja/proxy/graphql'
+          DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: ${{ env.REACT_APP_GRAPHQL_BASE_URL }}
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: ${{ secrets.GH_SENTRY_DSN }}
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'production'
           DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.prod.kuva.hel.ninja/api'
@@ -92,7 +92,6 @@ jobs:
         run: yarn browser-test:ci
         env:
           BROWSER_TESTS_LOCAL_ENV_URL: https://${{ secrets.ENVIRONMENT_URL_STABLE }}
-          REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.prod.kuva.hel.ninja/proxy/graphql'
       - name: Upload screenshots of failed tests
         uses: actions/upload-artifact@v2
         if: failure()

@@ -1,8 +1,6 @@
 name: Build & Review & Acceptance Tests for Release
 on:
   pull_request:
-  push:
-    branches: [master]
   schedule:
     # Every hour from 6 - 23
     - cron: '0 6-23 * * *'
@@ -23,6 +21,7 @@ env:
   K8S_REQUEST_RAM: 150Mi
   K8S_LIMIT_CPU: 100m
   K8S_LIMIT_RAM: 200Mi
+  REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
 
 jobs:
   build:
@@ -46,7 +45,7 @@ jobs:
         env:
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-review-${{ matrix.service }}
           DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
-          DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
+          DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: ${{ env.REACT_APP_GRAPHQL_BASE_URL }}
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: ${{ secrets.GH_SENTRY_DSN }}
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'dev'
           DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.test.kuva.hel.ninja/api'
@@ -127,8 +126,6 @@ jobs:
         run: yarn --prefer-offline --frozen-lockfile --check-files
       - name: Run Acceptance Tests For version ${{ matrix.version }}
         run: yarn browser-test:ci
-        env:
-          REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
       - name: Upload screenshots of failed tests for version ${{ matrix.version }}
         uses: actions/upload-artifact@v2
         if: failure()

@@ -1,9 +1,7 @@
 name: Build & Staging & Acceptance tests for Release 1.0
 on:
   push:
-    branches:
-      - master
-
+    branches: [master]
 env:
   CONTAINER_REGISTRY: ghcr.io
   CONTAINER_REGISTRY_USER: ${{ secrets.GHCR_CONTAINER_REGISTRY_USER }}
@@ -19,6 +17,7 @@ env:
   K8S_LIMIT_CPU: 1000m
   K8S_LIMIT_RAM: 200Mi
   K8S_REPLICACOUNT: 2
+  REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
 
 jobs:
   build:
@@ -45,7 +44,7 @@ jobs:
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-staging-${{ matrix.service }}
           DOCKER_BUILD_ARG_PUBLIC_URL: ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
           DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
-          DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
+          DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: ${{ env.REACT_APP_GRAPHQL_BASE_URL }}
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: ${{ secrets.GH_SENTRY_DSN }}
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_ENVIRONMENT: 'test'
           DOCKER_BUILD_ARG_REACT_APP_CMS_URL: 'https://cms.test.kuva.hel.ninja/api'
@@ -109,7 +108,6 @@ jobs:
         run: yarn browser-test:ci
         env:
           BROWSER_TESTS_LOCAL_ENV_URL: ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
-          REACT_APP_GRAPHQL_BASE_URL: ${{env.DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL}}
       - name: Upload videos and screenshots of failed tests for ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
         uses: actions/upload-artifact@v2
         if: failure()
