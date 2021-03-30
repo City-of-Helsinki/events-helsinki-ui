@@ -10,6 +10,7 @@
 # testing
 /coverage
 /screenshots
+/report
 
 # production
 /build
@@ -31,4 +32,5 @@ yarn-error.log*
 # ItelliJ
 *.iml
 
-
+# Local Netlify folder
+.netlify

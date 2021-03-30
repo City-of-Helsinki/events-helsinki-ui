@@ -357,3 +357,13 @@ export const getEventFields = (event: EventFields, locale: Language) => {
     ...getEventLocationFields(event, locale),
   };
 };
+
+export const isLocalized = (
+  event: EventFieldsFragment,
+  locale: Language
+): boolean =>
+  Boolean(
+    event.name?.[locale] &&
+      event.shortDescription?.[locale] &&
+      event.description?.[locale]
+  );

@@ -1,4 +1,4 @@
-name: Build & Review & Acceptance Tests for Release
+name: Build & Review & Acceptance Tests
 on:
   pull_request:
   schedule:
@@ -124,11 +124,40 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn --prefer-offline --frozen-lockfile --check-files
-      - name: Run Acceptance Tests For version ${{ matrix.version }}
+      - name: Run Acceptance Tests for V${{ matrix.version }}
+        id: testcafe
         run: yarn browser-test:ci
-      - name: Upload screenshots of failed tests for version ${{ matrix.version }}
-        uses: actions/upload-artifact@v2
-        if: failure()
+        env:
+          GITHUB_WORKFLOW_NAME: ${{  github.workflow }}
+          GITHUB_WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          TESTCAFE_SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          TESTCAFE_SLACK_CHANNEL: "#pomodori-alerts"
+          TESTCAFE_SLACK_USERNAME: AlertManager
+      - name: Upload Acceptance Test results for V${{ matrix.version }}
+        run: |
+          zip -r report.zip report/ > no_output 2>&1
+          curl -s -H "Content-Type: application/zip" -H "Authorization: Bearer ${{ secrets.NETLIFY_AUTH_TOKEN }}" --data-binary "@report.zip" https://api.netlify.com/api/v1/sites > response.json
+          echo "REPORT_URL=$(cat response.json|python -c "import sys, json; print('https://' + json.load(sys.stdin)['subdomain'] + '.netlify.com')")" >> $GITHUB_ENV
+        if: steps.testcafe.outcome == 'failure'
+      - name: Create/update PR comment for Acceptance Test results for V1.0
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
-          name: screenshots
-          path: screenshots/
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: testcafe-results-1
+          append: true
+          message: ## TestCafe result is __${{ steps.testcafe.outcome }}__ for the Old version (without courses)! Check the report [here](${{ env.REPORT_URL }}).
+        if: (steps.testcafe.outcome == 'success' || steps.testcafe.outcome == 'failure') && matrix.version == '1.0'
+      - name: Create/update PR comment for Acceptance Test results for V2.0
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: testcafe-results-2
+          append: true
+          message: ## TestCafe result is __${{ steps.testcafe.outcome }}__ for the NEW version (with courses)! Check the report [here](${{ env.REPORT_URL }}).
+        if: (steps.testcafe.outcome == 'success' || steps.testcafe.outcome == 'failure') && matrix.version == '2.0'
+      - name: Upload screenshots and videos of failed tests to artifact for V${{ matrix.version }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: report
+          path: report/
+        if: always() && steps.testcafe.outcome == 'failure'
