@@ -130,9 +130,6 @@ jobs:
         env:
           GITHUB_WORKFLOW_NAME: ${{  github.workflow }}
           GITHUB_WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          TESTCAFE_SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          TESTCAFE_SLACK_CHANNEL: "#pomodori-alerts"
-          TESTCAFE_SLACK_USERNAME: AlertManager
       - name: Upload Acceptance Test results for V${{ matrix.version }}
         run: |
           zip -r report.zip report/ > no_output 2>&1
