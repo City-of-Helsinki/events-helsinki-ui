@@ -16,6 +16,12 @@ export interface HobbyTypeOption {
   value: COURSE_HOBBY_TYPES;
 }
 
+export interface CategoryExtendedOption {
+  icon: React.ReactElement;
+  text: string;
+  value: EVENT_CATEGORIES | COURSE_CATEGORIES | COURSE_HOBBY_TYPES;
+}
+
 export interface Filters {
   categories: string[];
   hobbyTypes?: string[];
