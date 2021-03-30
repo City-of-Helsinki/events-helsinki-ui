@@ -125,9 +125,9 @@ jobs:
       - name: Run TestCafe tests For ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
         run: yarn browser-test:ci
         env:
-          BROWSER_TESTS_LOCAL_ENV_URL: ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
-          REACT_APP_GRAPHQL_BASE_URL: ${{env.DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL}}
-      - name: Upload videos and screenshots of failed tests for ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}
+          BROWSER_TESTS_LOCAL_ENV_URL: https://${{ secrets.ENVIRONMENT_URL_STAGING }}
+          REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql'
+      - name: Upload videos and screenshots of failed tests
         uses: actions/upload-artifact@v2
         if: failure()
         with:
