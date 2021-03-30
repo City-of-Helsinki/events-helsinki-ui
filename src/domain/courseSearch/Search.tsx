@@ -8,7 +8,7 @@ import {
   IconLocation,
   IconSearch,
 } from 'hds-react';
-import { uniq } from 'lodash';
+import uniq from 'lodash/uniq';
 import React, { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router';

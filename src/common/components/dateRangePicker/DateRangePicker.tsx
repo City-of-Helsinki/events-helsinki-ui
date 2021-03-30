@@ -4,7 +4,7 @@ import './datePicker.scss';
 import isEqual from 'date-fns/isEqual';
 import fi from 'date-fns/locale/fi';
 import sv from 'date-fns/locale/sv';
-import { max } from 'lodash';
+import max from 'lodash/max';
 import React, { FunctionComponent } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 
