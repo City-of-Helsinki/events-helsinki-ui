@@ -486,6 +486,16 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
             </a>
             <a
               class="NavigationItem-module_rowItem__2QxRz navigationItem"
+              href="/sv/courses"
+            >
+              <span
+                class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
+              >
+                Harrastukset
+              </span>
+            </a>
+            <a
+              class="NavigationItem-module_rowItem__2QxRz navigationItem"
               href="/sv/collections"
             >
               <span

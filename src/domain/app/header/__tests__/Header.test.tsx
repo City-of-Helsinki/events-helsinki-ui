@@ -34,9 +34,16 @@ test.skip('component should be accessible', async () => {
   expect(await axe(container)).toHaveNoViolations();
 });
 
-describe('EVENTS_HELSINKI_2 feature flag', () => {
-  [true, false].forEach((EVENTS_HELSINKI_2) => {
-    setFeatureFlags({ EVENTS_HELSINKI_2 });
+[true, false].forEach((EVENTS_HELSINKI_2) => {
+  describe('EVENTS_HELSINKI_2 feature flag', () => {
+    beforeEach(() => {
+      setFeatureFlags({ EVENTS_HELSINKI_2 });
+    });
+
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
     it(`matches snapshot when EVENTS_HELSINKI_2 feature is ${
       EVENTS_HELSINKI_2 ? 'on' : 'off'
     }`, async () => {
@@ -63,7 +70,7 @@ describe('EVENTS_HELSINKI_2 feature flag', () => {
           url: `/fi${ROUTES.COLLECTIONS}`,
         },
       ].filter(skipFalsyType);
-
+      expect(links).toHaveLength(EVENTS_HELSINKI_2 ? 3 : 2);
       links.forEach(({ name, url }) => {
         const link = screen.queryByRole('link', { name });
         expect(link).toBeInTheDocument();

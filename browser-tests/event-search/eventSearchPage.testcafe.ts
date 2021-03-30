@@ -96,21 +96,16 @@ test('Free text search finds event by free text search', async (t) => {
   setDataToPrintOnFailure(t, 'expectedEvent', getExpectedEventContext(event));
   for (const locale of supportedLanguages) {
     await testSearchEventByText(t, event, event.name[locale], 'name');
-    const randomShortDescriptionSentence =
-      event.shortDescription[locale] &&
-      getRandomSentence(event.shortDescription[locale]);
     await testSearchEventByText(
       t,
       event,
-      randomShortDescriptionSentence,
+      event.shortDescription[locale],
       'shortDescription'
     );
-    const randomDescriptionSentence =
-      event.description[locale] && getRandomSentence(event.description[locale]);
     await testSearchEventByText(
       t,
       event,
-      randomDescriptionSentence,
+      event.description[locale],
       'description'
     );
     await testSearchEventByText(
@@ -131,7 +126,7 @@ test('Free text search finds event by free text search', async (t) => {
     await testSearchEventByText(
       t,
       event,
-      getRandomSentence(randomKeyword.name[locale]),
+      randomKeyword.name[locale],
       'keywords'
     );
   }
@@ -146,8 +141,11 @@ const testSearchEventByText = async (
   if (!freeText) {
     return;
   }
+  const randomSentenceFromText = getRandomSentence(freeText);
   const searchBanner = await eventSearchPage.findSearchBanner();
-  await searchBanner.actions.inputSearchTextAndPressEnter(freeText);
+  await searchBanner.actions.inputSearchTextAndPressEnter(
+    randomSentenceFromText
+  );
   const searchResults = await eventSearchPage.findSearchResultList();
   await searchResults.eventCard(event, expectedField);
   await searchBanner.actions.clickClearFiltersButton();
