@@ -11,8 +11,12 @@ import WaveClipPath from '../../../common/components/waveClipPath/WaveClipPath';
 import { AutosuggestMenuOption } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import { EVENTS_ROUTE_MAPPER, EventType } from '../../event/types';
-import { EVENT_DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
-import { CategoryOption } from '../../eventSearch/types';
+import {
+  COURSE_HOBBY_TYPES,
+  EVENT_DEFAULT_SEARCH_FILTERS,
+  EVENT_SEARCH_FILTERS,
+} from '../../eventSearch/constants';
+import { CategoryExtendedOption } from '../../eventSearch/types';
 import { getSearchQuery } from '../../eventSearch/utils';
 import styles from './landingPageSearchSection.module.scss';
 
@@ -22,7 +26,7 @@ export type SearchProps = {
   title: string;
   searchPlaceholder: string;
   type: EventType;
-  popularCategories: CategoryOption[];
+  popularCategories: CategoryExtendedOption[];
 };
 
 export const popularCategoriesContainerTestId = 'popular-categories-container';
@@ -66,10 +70,16 @@ const Search: React.FC<SearchProps> = ({
     goToSearchPage(search);
   };
 
-  const handleCategoryClick = (category: CategoryOption) => {
+  const handleCategoryClick = (category: CategoryExtendedOption) => {
+    //categories are extended to have hobby types, which has a different search query parameter.
+    const categoryParam = Object.values(COURSE_HOBBY_TYPES).includes(
+      category.value as COURSE_HOBBY_TYPES
+    )
+      ? EVENT_SEARCH_FILTERS.HOBBY_TYPES
+      : EVENT_SEARCH_FILTERS.CATEGORIES;
     const search = getSearchQuery({
       ...EVENT_DEFAULT_SEARCH_FILTERS,
-      categories: [category.value],
+      [categoryParam]: [category.value],
     });
 
     history.push({

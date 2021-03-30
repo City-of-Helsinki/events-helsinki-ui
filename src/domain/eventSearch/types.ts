@@ -2,6 +2,7 @@ import {
   COURSE_CATEGORIES,
   COURSE_HOBBY_TYPES,
   EVENT_CATEGORIES,
+  EVENT_SEARCH_FILTERS,
 } from './constants';
 
 export interface CategoryOption {
@@ -16,42 +17,48 @@ export interface HobbyTypeOption {
   value: COURSE_HOBBY_TYPES;
 }
 
+export interface CategoryExtendedOption {
+  icon: React.ReactElement;
+  text: string;
+  value: EVENT_CATEGORIES | COURSE_CATEGORIES | COURSE_HOBBY_TYPES;
+}
+
 export interface Filters {
-  categories: string[];
-  hobbyTypes?: string[];
-  dateTypes: string[];
-  divisions: string[];
-  end: Date | null;
-  isFree?: boolean;
-  keyword?: string[];
-  keywordNot?: string[];
-  onlyChildrenEvents?: boolean;
-  onlyEveningEvents?: boolean;
-  alsoOngoingCourses?: boolean;
-  places: string[];
-  publisher?: string | null;
-  start: Date | null;
-  text: string[];
-  audienceMinAgeGt?: string;
-  audienceMaxAgeLt?: string;
+  [EVENT_SEARCH_FILTERS.CATEGORIES]: string[];
+  [EVENT_SEARCH_FILTERS.HOBBY_TYPES]?: string[];
+  [EVENT_SEARCH_FILTERS.DATE_TYPES]: string[];
+  [EVENT_SEARCH_FILTERS.DIVISIONS]: string[];
+  [EVENT_SEARCH_FILTERS.END]: Date | null;
+  [EVENT_SEARCH_FILTERS.IS_FREE]?: boolean;
+  [EVENT_SEARCH_FILTERS.KEYWORD]?: string[];
+  [EVENT_SEARCH_FILTERS.KEYWORD_NOT]?: string[];
+  [EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS]?: boolean;
+  [EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS]?: boolean;
+  [EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES]?: boolean;
+  [EVENT_SEARCH_FILTERS.PLACES]: string[];
+  [EVENT_SEARCH_FILTERS.PUBLISHER]?: string | null;
+  [EVENT_SEARCH_FILTERS.START]: Date | null;
+  [EVENT_SEARCH_FILTERS.TEXT]: string[];
+  [EVENT_SEARCH_FILTERS.MIN_AGE]?: string;
+  [EVENT_SEARCH_FILTERS.MAX_AGE]?: string;
 }
 
 export interface MappedFilters {
-  categories: string[];
-  hobbyTypes?: string[];
-  dateTypes?: string[];
-  divisions: string[];
-  end?: string | null;
-  isFree?: boolean;
-  keyword?: string[];
-  keywordNot?: string[];
-  onlyChildrenEvents?: boolean;
-  onlyEveningEvents?: boolean;
-  alsoOngoingCourses?: boolean;
-  places: string[];
-  publisher?: string | null;
-  start?: string | null;
-  text: string[];
-  audienceMinAgeGt?: string;
-  audienceMaxAgeLt?: string;
+  [EVENT_SEARCH_FILTERS.CATEGORIES]: string[];
+  [EVENT_SEARCH_FILTERS.HOBBY_TYPES]?: string[];
+  [EVENT_SEARCH_FILTERS.DATE_TYPES]?: string[];
+  [EVENT_SEARCH_FILTERS.DIVISIONS]: string[];
+  [EVENT_SEARCH_FILTERS.END]?: string | null;
+  [EVENT_SEARCH_FILTERS.IS_FREE]?: boolean;
+  [EVENT_SEARCH_FILTERS.KEYWORD]?: string[];
+  [EVENT_SEARCH_FILTERS.KEYWORD_NOT]?: string[];
+  [EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS]?: boolean;
+  [EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS]?: boolean;
+  [EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES]?: boolean;
+  [EVENT_SEARCH_FILTERS.PLACES]: string[];
+  [EVENT_SEARCH_FILTERS.PUBLISHER]?: string | null;
+  [EVENT_SEARCH_FILTERS.START]?: string | null;
+  [EVENT_SEARCH_FILTERS.TEXT]: string[];
+  [EVENT_SEARCH_FILTERS.MIN_AGE]?: string;
+  [EVENT_SEARCH_FILTERS.MAX_AGE]?: string;
 }

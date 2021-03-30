@@ -1,3 +1,4 @@
+import orderBy from 'lodash/orderBy';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -14,8 +15,11 @@ import PageWrapper from '../app/layout/PageWrapper';
 import BannerHero from '../banner/bannerHero/BannerHero';
 import CollectionCards from '../collection/collectionCard/CollectionCards';
 import { isCollectionVisible } from '../collection/CollectionUtils';
+import { COURSE_HOBBY_TYPES } from '../eventSearch/constants';
+import { CategoryExtendedOption } from '../eventSearch/types';
 import {
   getCourseCategoryOptions,
+  getCourseHobbyTypeOptions,
   getEventCategoryOptions,
 } from '../eventSearch/utils';
 import styles from './landingPage.module.scss';
@@ -45,8 +49,29 @@ const LandingPage: React.FC = () => {
       )
     : [];
 
+  const getCourseCategoryOptionsExtended = () => {
+    const hobbyTypes = getCourseHobbyTypeOptions(t) as CategoryExtendedOption[];
+    const hobbyTypesToAdd = [
+      COURSE_HOBBY_TYPES.CAMPS,
+      COURSE_HOBBY_TYPES.CLUBS,
+    ];
+    const includedHobbyTypes = hobbyTypes.filter((hobbyType) =>
+      hobbyTypesToAdd.some((h) => h === hobbyType.value)
+    );
+    const courseCategories = getCourseCategoryOptions(
+      t
+    ) as CategoryExtendedOption[];
+
+    return orderBy([...courseCategories, ...includedHobbyTypes], 'text');
+  };
+
   const lgCollections = collections.slice(0, 1);
   const mdAndSmCollections = collections.slice(1);
+
+  const eventCategories = getEventCategoryOptions(
+    t
+  ) as CategoryExtendedOption[];
+  const courseCategories = getCourseCategoryOptionsExtended();
 
   return (
     <PageWrapper>
@@ -71,7 +96,7 @@ const LandingPage: React.FC = () => {
                     ? t('home.search.placeholder')
                     : t('home.eventSearch.placeholder')
                 }
-                popularCategories={getEventCategoryOptions(t)}
+                popularCategories={eventCategories}
               />
               {/* Background helper used to get the wave-effect without
                     course search panel being on top of event search panel */}
@@ -84,7 +109,7 @@ const LandingPage: React.FC = () => {
                     ? t('home.search.placeholder')
                     : t('home.courseSearch.placeholder')
                 }
-                popularCategories={getCourseCategoryOptions(t)}
+                popularCategories={courseCategories}
               />
             </div>
           </div>
