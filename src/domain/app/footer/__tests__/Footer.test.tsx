@@ -7,8 +7,8 @@ import { skipFalsyType } from '../../../../util/typescript.utils';
 import { ROUTES } from '../../routes/constants';
 import Footer from '../Footer';
 
-describe('EVENTS_HELSINKI_2 feature flag', () => {
-  [true, false].forEach((EVENTS_HELSINKI_2) => {
+[true, false].forEach((EVENTS_HELSINKI_2) => {
+  describe('EVENTS_HELSINKI_2 feature flag', () => {
     beforeEach(() => {
       setFeatureFlags({ EVENTS_HELSINKI_2 });
     });
@@ -31,7 +31,7 @@ describe('EVENTS_HELSINKI_2 feature flag', () => {
       const { history } = render(<Footer />);
       const pushSpy = jest.spyOn(history, 'push');
 
-      const testValues = [
+      const links = [
         {
           linkName: 'Tapahtumat',
           path: `/fi${ROUTES.EVENTS}`,
@@ -45,7 +45,8 @@ describe('EVENTS_HELSINKI_2 feature flag', () => {
           path: `/fi${ROUTES.COLLECTIONS}`,
         },
       ].filter(skipFalsyType);
-      for (const { linkName, path } of testValues) {
+      expect(links).toHaveLength(EVENTS_HELSINKI_2 ? 3 : 2);
+      for (const { linkName, path } of links) {
         userEvent.click(screen.getByRole('link', { name: linkName }));
         expect(pushSpy).toHaveBeenCalledWith(path);
         pushSpy.mockReset();
