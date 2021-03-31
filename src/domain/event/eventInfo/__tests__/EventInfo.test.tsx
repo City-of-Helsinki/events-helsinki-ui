@@ -164,6 +164,38 @@ it('should hide other info section', async () => {
   expect(screen.queryByText(telephone)).not.toBeInTheDocument();
 });
 
+it('should hide other info section registration url from external links', async () => {
+  const mockEvent = {
+    ...event,
+    externalLinks: [
+      {
+        name: 'registration',
+        link: 'https://harrastushaku.fi/register/14302',
+      },
+    ],
+    infoUrl: null,
+    location: {
+      ...event.location,
+      email: null,
+      externalLinks: [],
+      telephone: null,
+    },
+    extensionCourse: null,
+  };
+  render(<EventInfo event={mockEvent} eventType="event" />, {
+    mocks,
+  });
+  await actWait();
+
+  // Event info fields
+
+  expect(
+    screen.queryByRole('button', {
+      name: translations.event.info.registration,
+    })
+  ).not.toBeInTheDocument();
+});
+
 it('should open ticket buy page', async () => {
   global.open = jest.fn();
   render(<EventInfo event={event} eventType="event" />, { mocks });
