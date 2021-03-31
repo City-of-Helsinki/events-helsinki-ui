@@ -184,7 +184,7 @@
     "otherTimes": {
       "buttonHide": "Dölj",
       "buttonReadMore": "Läs mer: {{date}}",
-      "buttonShow": "Visa",
+      "buttonShow": "Visa alt",
       "title": "Andra evenemangstider"
     },
     "shareLinks": {

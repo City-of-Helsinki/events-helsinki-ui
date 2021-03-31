@@ -24,6 +24,7 @@ interface Props {
   eventType: EventType;
 }
 
+export const otherEventTimesShownListTestId = 'other-event-times-shown-list';
 export const otherEventTimesListTestId = 'other-event-times-list';
 
 const OtherEventTimes: React.FC<Props> = ({
@@ -33,26 +34,18 @@ const OtherEventTimes: React.FC<Props> = ({
   eventType,
 }) => {
   const { t } = useTranslation();
-  const locale = useLocale();
-  const history = useHistory();
-  const { search } = useLocation();
   const [isListOpen, setIsListOpen] = React.useState(false);
 
   const toggleList = () => {
     setIsListOpen(!isListOpen);
   };
 
-  const moveToEventPage = (eventId: string) => {
-    const eventUrl = `/${locale}${EVENT_ROUTE_MAPPER[eventType].replace(
-      ':id',
-      eventId
-    )}${search}`;
-    history.push(eventUrl);
-  };
-
   if (loading) {
     return (
-      <div className={styles.skeletonWrapper}>
+      <div
+        className={styles.skeletonWrapper}
+        data-testid="skeleton-loader-wrapper"
+      >
         <SkeletonLoader />
       </div>
     );
@@ -62,12 +55,29 @@ const OtherEventTimes: React.FC<Props> = ({
     return null;
   }
 
+  const shownEvents = events.slice(0, 3);
+  const hiddenEvents = events.slice(3);
+
   return (
     <div className={styles.otherEventTimes}>
       <InfoWithIcon
         icon={<IconCalendarPlus aria-hidden />}
         title={t('event.otherTimes.title')}
       >
+        <EventTimeList
+          key={otherEventTimesShownListTestId}
+          id={otherEventTimesShownListTestId}
+          events={shownEvents}
+          eventType={eventType}
+        />
+        {isListOpen && (
+          <EventTimeList
+            key={otherEventTimesListTestId}
+            id={otherEventTimesListTestId}
+            events={hiddenEvents}
+            eventType={eventType}
+          />
+        )}
         <button
           className={linkStyles.link}
           onClick={toggleList}
@@ -83,47 +93,61 @@ const OtherEventTimes: React.FC<Props> = ({
           )}
         </button>
       </InfoWithIcon>
-      {isListOpen && (
-        <>
-          <ul
-            className={styles.timeList}
-            data-testid={otherEventTimesListTestId}
-          >
-            {events.map((event) => {
-              const date = event.startTime
-                ? getDateRangeStr({
-                    start: event.startTime,
-                    end: event.endTime,
-                    includeTime: true,
-                    locale,
-                    timeAbbreviation: t('commons.timeAbbreviation'),
-                  })
-                : '';
-              return (
-                <li key={event.id}>
-                  <button
-                    className={styles.listButton}
-                    onClick={() => moveToEventPage(event.id)}
-                    aria-label={t('event.otherTimes.buttonReadMore', {
-                      date,
-                    })}
-                  >
-                    <span>{date}</span>
-                    <div className={styles.arrowContainer}>
-                      <IconArrowRight aria-hidden />
-                    </div>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-          <LoadingSpinner
-            hasPadding={false}
-            isLoading={loading || isFetchingMore}
-          />
-        </>
-      )}
+      <LoadingSpinner
+        hasPadding={false}
+        isLoading={loading || isFetchingMore}
+      />
     </div>
+  );
+};
+
+const EventTimeList: React.FC<{
+  events: EventFields[];
+  eventType: EventType;
+  id: string;
+}> = ({ events, eventType, id = otherEventTimesListTestId }) => {
+  const { t } = useTranslation();
+  const locale = useLocale();
+  const history = useHistory();
+  const { search } = useLocation();
+
+  const moveToEventPage = (eventId: string) => {
+    const eventUrl = `/${locale}${EVENT_ROUTE_MAPPER[eventType].replace(
+      ':id',
+      eventId
+    )}${search}`;
+    history.push(eventUrl);
+  };
+  return (
+    <ul className={styles.timeList} data-testid={id}>
+      {events.map((event) => {
+        const date = event.startTime
+          ? getDateRangeStr({
+              start: event.startTime,
+              end: event.endTime,
+              includeTime: true,
+              locale,
+              timeAbbreviation: t('commons.timeAbbreviation'),
+            })
+          : '';
+        return (
+          <li key={event.id}>
+            <button
+              className={styles.listButton}
+              onClick={() => moveToEventPage(event.id)}
+              aria-label={t('event.otherTimes.buttonReadMore', {
+                date,
+              })}
+            >
+              <span>{date}</span>
+              <div className={styles.arrowContainer}>
+                <IconArrowRight aria-hidden />
+              </div>
+            </button>
+          </li>
+        );
+      })}
+    </ul>
   );
 };
 
