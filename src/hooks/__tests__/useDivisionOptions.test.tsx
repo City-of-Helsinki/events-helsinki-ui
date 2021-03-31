@@ -10,9 +10,9 @@ import {
 import useDivisionOptions from '../useDivisionOptions';
 
 // Not imported from hook file for a reason :)
-const AREA_BLOCKLIST = ['aluemeri'];
+const DIVISION_BLOCKLIST = ['aluemeri'];
 
-const divisionBlockListOtions = AREA_BLOCKLIST.map((id) => ({
+const divisionBlockListOtions = DIVISION_BLOCKLIST.map((id) => ({
   text: capitalize(id),
   value: `kaupunginosa:${id}`,
 }));

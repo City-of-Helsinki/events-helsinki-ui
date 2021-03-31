@@ -4,7 +4,7 @@ import { Neighborhood, useNeighborhoodListQuery } from '../generated/graphql';
 import getLocalisedString from '../util/getLocalisedString';
 import useLocale from './useLocale';
 
-const AREA_BLOCKLIST = ['kaupunginosa:aluemeri'];
+const DIVISION_BLOCKLIST = ['kaupunginosa:aluemeri'];
 
 type DivisionOption = {
   text: string;
@@ -16,7 +16,7 @@ const useDivisionOptions = (): DivisionOption[] => {
   const { data: neighborhoodsData } = useNeighborhoodListQuery();
   const neighborhoodList = neighborhoodsData?.neighborhoodList.data;
   const filteredNeighborhoodOptionList = neighborhoodList?.filter((option) =>
-    AREA_BLOCKLIST.every((blockOption) => blockOption !== option.id)
+    DIVISION_BLOCKLIST.every((blockOption) => blockOption !== option.id)
   );
 
   const neighborhoodToOptionValue = (neighborhood: Neighborhood) => ({
