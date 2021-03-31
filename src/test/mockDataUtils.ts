@@ -438,8 +438,8 @@ const uniqueSentences = (): string => {
 
 export const fakeLocalizedObject = (text?: string): LocalizedObject => ({
   __typename: 'LocalizedObject',
-  en: uniqueSentences(),
-  sv: uniqueSentences(),
+  en: text || uniqueSentences(),
+  sv: text || uniqueSentences(),
   fi: text || uniqueSentences(),
 });
 

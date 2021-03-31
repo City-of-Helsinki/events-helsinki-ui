@@ -1,6 +1,10 @@
-import { useNeighborhoodListQuery } from '../generated/graphql';
+import sortBy from 'lodash/sortBy';
+
+import { Neighborhood, useNeighborhoodListQuery } from '../generated/graphql';
 import getLocalisedString from '../util/getLocalisedString';
 import useLocale from './useLocale';
+
+const AREA_BLOCKLIST = ['kaupunginosa:aluemeri'];
 
 type DivisionOption = {
   text: string;
@@ -10,15 +14,20 @@ type DivisionOption = {
 const useDivisionOptions = (): DivisionOption[] => {
   const locale = useLocale();
   const { data: neighborhoodsData } = useNeighborhoodListQuery();
+  const neighborhoodList = neighborhoodsData?.neighborhoodList.data;
+  const filteredNeighborhoodOptionList = neighborhoodList?.filter((option) =>
+    AREA_BLOCKLIST.every((blockOption) => blockOption !== option.id)
+  );
 
-  return neighborhoodsData
-    ? neighborhoodsData.neighborhoodList.data
-        .map((neighborhood) => ({
-          text: getLocalisedString(neighborhood.name, locale),
-          value: neighborhood.id,
-        }))
-        .sort((a, b) => (a.text >= b.text ? 1 : -1))
-    : [];
+  const neighborhoodToOptionValue = (neighborhood: Neighborhood) => ({
+    text: getLocalisedString(neighborhood.name, locale),
+    value: neighborhood.id,
+  });
+
+  const neighborhoodOptionList =
+    filteredNeighborhoodOptionList?.map(neighborhoodToOptionValue) ?? [];
+
+  return sortBy(neighborhoodOptionList, 'text');
 };
 
 export default useDivisionOptions;
