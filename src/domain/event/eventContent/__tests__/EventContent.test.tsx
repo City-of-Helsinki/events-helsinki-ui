@@ -3,7 +3,7 @@ import React from 'react';
 import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
 import { fakeEvent, fakeImage } from '../../../../test/mockDataUtils';
-import { actWait, configure, render, screen } from '../../../../test/testUtils';
+import { configure, render, screen } from '../../../../test/testUtils';
 import EventContent from '../EventContent';
 
 configure({ defaultHidden: true });
@@ -35,9 +35,8 @@ const event = fakeEvent({
   images: [fakeImage({ photographerName })],
 }) as EventFieldsFragment;
 
-it('should render event content fields', async () => {
+it('should render event content fields', () => {
   render(<EventContent event={event} eventType="event" />);
-  await actWait();
 
   const itemsByRole = [
     { role: 'heading', name: translations.event.info.labelDateAndTime },
@@ -87,4 +86,17 @@ it('should render event content fields', async () => {
   itemsAllByRole.forEach(({ role, name }) => {
     expect(screen.queryAllByRole(role, { name })).toHaveLength(2);
   });
+});
+
+it('should hide map if internet event', () => {
+  render(
+    <EventContent
+      event={{
+        ...event,
+        location: { ...event.location, id: 'helsinki:internet' },
+      }}
+      eventType="event"
+    />
+  );
+  expect(screen.queryByText(/sijainti/i)).not.toBeInTheDocument();
 });
