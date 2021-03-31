@@ -3,7 +3,7 @@ import React from 'react';
 import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
 import { fakeEvent, fakeImage } from '../../../../test/mockDataUtils';
-import { actWait, configure, render, screen } from '../../../../test/testUtils';
+import { configure, render, screen } from '../../../../test/testUtils';
 import EventContent from '../EventContent';
 
 configure({ defaultHidden: true });
@@ -35,9 +35,8 @@ const event = fakeEvent({
   images: [fakeImage({ photographerName })],
 }) as EventFieldsFragment;
 
-it('should render event content fields', async () => {
+it('should render event content fields', () => {
   render(<EventContent event={event} eventType="event" />);
-  await actWait();
 
   const itemsByRole = [
     { role: 'heading', name: translations.event.info.labelDateAndTime },
@@ -89,7 +88,7 @@ it('should render event content fields', async () => {
   });
 });
 
-it('should hide map if internet event', async () => {
+it('should hide map if internet event', () => {
   render(
     <EventContent
       event={{
@@ -99,6 +98,5 @@ it('should hide map if internet event', async () => {
       eventType="event"
     />
   );
-  await actWait();
   expect(screen.queryByText(/sijainti/i)).not.toBeInTheDocument();
 });
