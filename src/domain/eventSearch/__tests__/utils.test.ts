@@ -73,7 +73,9 @@ describe('getEventSearchVariables function', () => {
       ...defaultParams,
       params: new URLSearchParams(`?categories=${EVENT_CATEGORIES.INFLUENCE}`),
     });
-    expect(keyword4.join(',')).toContain('yso:p1657,yso:p10727');
+    expect(keyword4.join(',')).toContain(
+      'yso:p1657,yso:p742,yso:p5164,yso:p8268,yso:p15882,yso:p15292'
+    );
 
     const { keywordOrSet1: keyword5 } = getEventSearchVariables({
       ...defaultParams,
