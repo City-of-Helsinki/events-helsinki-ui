@@ -167,6 +167,7 @@
         "isFree": "Gratis"
       },
       "openMap": "Öppna kartan",
+      "registration": "Registrering",
       "textCalendarLinkDescription": "{{description}} Läs mer: {{link}}"
     },
     "location": {

@@ -167,6 +167,7 @@
         "isFree": "Free"
       },
       "openMap": "Open the map",
+      "registration": "Registration",
       "textCalendarLinkDescription": "{{description}} Read more: {{link}}",
       "title": "Loading event..."
     },

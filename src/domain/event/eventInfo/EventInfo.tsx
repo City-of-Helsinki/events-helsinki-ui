@@ -73,7 +73,9 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
     maximumAttendeeCapacity,
     minimumAttendeeCapacity,
     remainingAttendeeCapacity,
+    registrationUrl,
   } = getEventFields(event, locale);
+
   const eventPriceText = getEventPrice(
     event,
     locale,
@@ -253,7 +255,8 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
             ))}
             {externalLinks.map((externalLink, index) => {
               return (
-                !!externalLink.link && (
+                !!externalLink.link &&
+                externalLink.link !== registrationUrl && (
                   <Link key={index} isExternal={true} to={externalLink.link}>
                     {translateValue(
                       'event.info.',

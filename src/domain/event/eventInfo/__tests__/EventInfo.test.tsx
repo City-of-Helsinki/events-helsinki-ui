@@ -19,6 +19,7 @@ import {
   render,
   screen,
   userEvent,
+  waitFor,
 } from '../../../../test/testUtils';
 import EventInfo from '../EventInfo';
 configure({ defaultHidden: true });
@@ -135,7 +136,7 @@ it('should render event info fields', async () => {
   });
 });
 
-it('should hide other info section', async () => {
+it('should hide other info section', () => {
   const mockEvent = {
     ...event,
     externalLinks: [],
@@ -151,7 +152,6 @@ it('should hide other info section', async () => {
   render(<EventInfo event={mockEvent} eventType="event" />, {
     mocks,
   });
-  await actWait();
 
   // Event info fields
 
@@ -164,10 +164,38 @@ it('should hide other info section', async () => {
   expect(screen.queryByText(telephone)).not.toBeInTheDocument();
 });
 
+it('should hide other info section registration url from external links', () => {
+  const mockEvent = {
+    ...event,
+    externalLinks: [
+      {
+        name: 'registration',
+        link: 'https://harrastushaku.fi/register/14302',
+      },
+    ],
+    infoUrl: null,
+    location: {
+      ...event.location,
+      email: null,
+      externalLinks: [],
+      telephone: null,
+    },
+    extensionCourse: null,
+  };
+  render(<EventInfo event={mockEvent} eventType="event" />, {
+    mocks,
+  });
+
+  expect(
+    screen.queryByRole('button', {
+      name: translations.event.info.registration,
+    })
+  ).not.toBeInTheDocument();
+});
+
 it('should open ticket buy page', async () => {
   global.open = jest.fn();
   render(<EventInfo event={event} eventType="event" />, { mocks });
-  await actWait();
 
   // Event info fields
   userEvent.click(
@@ -176,13 +204,14 @@ it('should open ticket buy page', async () => {
     })
   );
 
-  expect(global.open).toBeCalled();
+  await waitFor(() => {
+    expect(global.open).toBeCalled();
+  });
 });
 
 it('should create ics file succesfully', async () => {
   FileSaver.saveAs = jest.fn();
   render(<EventInfo event={event} eventType="event" />, { mocks });
-  await actWait();
 
   // Event info fields
   userEvent.click(
@@ -191,7 +220,9 @@ it('should create ics file succesfully', async () => {
     })
   );
 
-  expect(FileSaver.saveAs).toBeCalled();
+  await waitFor(() => {
+    expect(FileSaver.saveAs).toBeCalled();
+  });
 });
 
 it('should create ics file succesfully when end time is not defined', async () => {
@@ -199,7 +230,6 @@ it('should create ics file succesfully when end time is not defined', async () =
   render(<EventInfo event={{ ...event, endTime: null }} eventType="event" />, {
     mocks,
   });
-  await actWait();
 
   // Event info fields
   userEvent.click(
@@ -208,16 +238,19 @@ it('should create ics file succesfully when end time is not defined', async () =
     })
   );
 
-  expect(FileSaver.saveAs).toBeCalled();
+  await waitFor(() => {
+    expect(FileSaver.saveAs).toBeCalled();
+  });
 });
 
 it('should show audience age info on signle course page', async () => {
   render(<EventInfo event={event} eventType="course" />, {
     routes: [`/fi/courses`],
   });
-  await actWait();
 
-  expect(screen.queryByText(/5-15 -vuotiaat/i)).toBeInTheDocument();
+  await waitFor(() => {
+    expect(screen.queryByText(/5-15 -vuotiaat/i)).toBeInTheDocument();
+  });
 });
 
 it('should show formatted audience age info on signle course page if min age is not specified', async () => {
@@ -227,9 +260,10 @@ it('should show formatted audience age info on signle course page if min age is 
       routes: [`/fi/courses`],
     }
   );
-  await actWait();
 
-  expect(screen.queryByText(/0-15 -vuotiaat/i)).toBeInTheDocument();
+  await waitFor(() => {
+    expect(screen.queryByText(/0-15 -vuotiaat/i)).toBeInTheDocument();
+  });
 });
 
 it('should show formatted audience age info on signle course page if max age is not specified', async () => {
@@ -239,9 +273,10 @@ it('should show formatted audience age info on signle course page if max age is 
       routes: [`/fi/courses`],
     }
   );
-  await actWait();
 
-  expect(screen.queryByText(/5\+ -vuotiaat/i)).toBeInTheDocument();
+  await waitFor(() => {
+    expect(screen.queryByText(/5\+ -vuotiaat/i)).toBeInTheDocument();
+  });
 });
 
 it('should hide audience age info on single course page if min and max ages are not specified', async () => {
@@ -254,16 +289,18 @@ it('should hide audience age info on single course page if min and max ages are 
       routes: [`/fi/courses`],
     }
   );
-  await actWait();
 
-  expect(screen.queryByText(/Ikäryhmä/i)).not.toBeInTheDocument();
+  await waitFor(() => {
+    expect(screen.queryByText(/Ikäryhmä/i)).not.toBeInTheDocument();
+  });
 });
 
 it('should hide audience age info on single event page', async () => {
   render(<EventInfo event={event} eventType="event" />, {
     routes: [`/fi/events`],
   });
-  await actWait();
 
-  expect(screen.queryByText(/Ikäryhmä/i)).not.toBeInTheDocument();
+  await waitFor(() => {
+    expect(screen.queryByText(/Ikäryhmä/i)).not.toBeInTheDocument();
+  });
 });

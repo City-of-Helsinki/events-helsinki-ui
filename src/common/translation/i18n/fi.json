@@ -167,6 +167,7 @@
         "isFree": "Maksuton"
       },
       "openMap": "Avaa kartta",
+      "registration": "Ilmoittaudu mukaan",
       "textCalendarLinkDescription": "{{description}} Lue lisää: {{link}}"
     },
     "location": {
