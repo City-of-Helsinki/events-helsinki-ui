@@ -43,7 +43,7 @@ export const createSlackMessageSender = (): SlackMessageSender => {
         text: message,
         ...slackProperties,
       },
-      function (err: Error, response: WebhookResponse) {
+      (err: Error, response: WebhookResponse) => {
         if (err) {
           // eslint-disable-next-line no-console
           console.log('Unable to send a message to slack', response, err.stack);
