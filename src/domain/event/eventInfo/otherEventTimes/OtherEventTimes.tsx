@@ -24,7 +24,6 @@ interface Props {
   eventType: EventType;
 }
 
-export const otherEventTimesShownListTestId = 'other-event-times-shown-list';
 export const otherEventTimesListTestId = 'other-event-times-list';
 
 const OtherEventTimes: React.FC<Props> = ({
@@ -55,8 +54,7 @@ const OtherEventTimes: React.FC<Props> = ({
     return null;
   }
 
-  const shownEvents = events.slice(0, 3);
-  const hiddenEvents = events.slice(3);
+  const shownEvents = isListOpen ? events : events.slice(0, 3);
 
   return (
     <div className={styles.otherEventTimes}>
@@ -65,19 +63,10 @@ const OtherEventTimes: React.FC<Props> = ({
         title={t('event.otherTimes.title')}
       >
         <EventTimeList
-          key={otherEventTimesShownListTestId}
-          id={otherEventTimesShownListTestId}
+          id={otherEventTimesListTestId}
           events={shownEvents}
           eventType={eventType}
         />
-        {isListOpen && (
-          <EventTimeList
-            key={otherEventTimesListTestId}
-            id={otherEventTimesListTestId}
-            events={hiddenEvents}
-            eventType={eventType}
-          />
-        )}
         <button
           className={linkStyles.link}
           onClick={toggleList}

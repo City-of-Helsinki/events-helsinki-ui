@@ -22,10 +22,7 @@ import {
 } from '../../../test/testUtils';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import { ROUTES } from '../../app/routes/constants';
-import {
-  otherEventTimesListTestId,
-  otherEventTimesShownListTestId,
-} from '../../event/eventInfo/otherEventTimes/OtherEventTimes';
+import { otherEventTimesListTestId } from '../../event/eventInfo/otherEventTimes/OtherEventTimes';
 import { similarEventsListTestId } from '../../event/similarEvents/SimilarEvents';
 import CoursePageContainer from '../CoursePageContainer';
 
@@ -166,15 +163,15 @@ it('should render info and load other courses + similar courses', async () => {
 
   await screen.findByText('Tapahtuman muut ajat');
 
-  expect(
-    screen.getByTestId(otherEventTimesShownListTestId).children
-  ).toHaveLength(3);
+  expect(screen.getByTestId(otherEventTimesListTestId).children).toHaveLength(
+    3
+  );
 
   // click show other times
   userEvent.click(screen.getByRole('button', { name: 'Näytä kaikki' }));
 
   expect(screen.getByTestId(otherEventTimesListTestId).children).toHaveLength(
-    otherEventTimesCount - 3
+    otherEventTimesCount
   );
 
   expect(screen.getByTestId(similarEventsListTestId).children).toHaveLength(8);
