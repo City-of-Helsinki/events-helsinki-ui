@@ -42,7 +42,7 @@ const keywords = [
   { name: 'Grillaus', id: 'keyword3' },
 ];
 const superEventId = 'harrastushaku:13433';
-const otherEventTimesCount = 3;
+const otherEventTimesCount = 10;
 
 const event = fakeEvent({
   id,
@@ -147,8 +147,12 @@ it('should render info and load other events + similar events', async () => {
 
   await screen.findByText('Tapahtuman muut ajat');
 
+  expect(screen.getByTestId(otherEventTimesListTestId).children).toHaveLength(
+    3
+  );
+
   // click show other times
-  userEvent.click(screen.getByRole('button', { name: 'Näytä' }));
+  userEvent.click(screen.getByRole('button', { name: 'Näytä kaikki' }));
 
   expect(screen.getByTestId(otherEventTimesListTestId).children).toHaveLength(
     otherEventTimesCount

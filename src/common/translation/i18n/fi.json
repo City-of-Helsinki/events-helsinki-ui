@@ -187,7 +187,7 @@
     "otherTimes": {
       "buttonHide": "Piilota",
       "buttonReadMore": "Lue lisää: {{date}}",
-      "buttonShow": "Näytä",
+      "buttonShow": "Näytä kaikki",
       "title": "Tapahtuman muut ajat"
     },
     "shareLinks": {

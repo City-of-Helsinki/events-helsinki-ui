@@ -37,7 +37,7 @@
   ul.timeList {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 0 var(--spacing-xs) 0;
 
     .listButton {
       width: 100%;
@@ -53,8 +53,8 @@
       align-items: center;
       justify-content: center;
       background-color: var(--color-copper-light);
-      height: 2.5rem;
-      width: 2.5rem;
+      height: 1.5rem;
+      width: 1.5rem;
     }
 
     li {

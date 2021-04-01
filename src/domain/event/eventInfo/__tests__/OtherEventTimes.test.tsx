@@ -7,7 +7,11 @@ import React from 'react';
 import { toast } from 'react-toastify';
 
 import translations from '../../../../common/translation/i18n/fi.json';
-import { EventFieldsFragment, Meta } from '../../../../generated/graphql';
+import {
+  EventDetails,
+  EventFieldsFragment,
+  Meta,
+} from '../../../../generated/graphql';
 import {
   createOtherEventTimesRequestAndResultMocks,
   createOtherEventTimesRequestThrowsErrorMocks,
@@ -85,9 +89,31 @@ afterAll(() => {
 const renderComponent = (mocks: MockedResponse[] = defaultMocks) =>
   render(<OtherEventTimesContainer event={event} />, { mocks });
 
+const getDateRangeStrProps = (event: EventDetails) => ({
+  start: event.startTime,
+  end: event.endTime,
+  locale: 'fi',
+  includeTime: true,
+  timeAbbreviation: translations.commons.timeAbbreviation,
+});
+
 test('should render other event times', async () => {
   advanceTo(new Date('2020-08-11'));
   renderComponent();
+
+  await waitFor(() => {
+    expect(
+      screen.queryByTestId('skeleton-loader-wrapper')
+    ).not.toBeInTheDocument();
+  });
+
+  otherEventsResponse.data.slice(0, 3).forEach((event) => {
+    const dateStr = getDateRangeStr(getDateRangeStrProps(event));
+    expect(screen.getByText(dateStr)).toBeInTheDocument();
+  });
+  const fourthevent = otherEventsResponse.data[3];
+  const fourthDateStr = getDateRangeStr(getDateRangeStrProps(fourthevent));
+  expect(screen.queryByText(fourthDateStr)).not.toBeInTheDocument();
 
   const toggleButton = await screen.findByRole('button', {
     name: translations.event.otherTimes.buttonShow,
@@ -100,13 +126,7 @@ test('should render other event times', async () => {
   });
 
   otherEventsResponse.data.forEach((event) => {
-    const dateStr = getDateRangeStr({
-      start: event.startTime,
-      end: event.endTime,
-      locale: 'fi',
-      includeTime: true,
-      timeAbbreviation: translations.commons.timeAbbreviation,
-    });
+    const dateStr = getDateRangeStr(getDateRangeStrProps(event));
     expect(screen.getByText(dateStr)).toBeInTheDocument();
   });
 
@@ -116,13 +136,7 @@ test('should render other event times', async () => {
   });
 
   otherEventsLoadMoreResponse.data.forEach((event) => {
-    const dateStr = getDateRangeStr({
-      start: event.startTime,
-      end: event.endTime,
-      locale: 'fi',
-      includeTime: true,
-      timeAbbreviation: translations.commons.timeAbbreviation,
-    });
+    const dateStr = getDateRangeStr(getDateRangeStrProps(event));
     expect(screen.getByText(dateStr)).toBeInTheDocument();
   });
 });
@@ -159,13 +173,7 @@ test('should go to event page of other event time', async () => {
   });
 
   const event = otherEventsResponse.data[0];
-  const dateStr = getDateRangeStr({
-    start: event.startTime,
-    end: event.endTime,
-    locale: 'fi',
-    includeTime: true,
-    timeAbbreviation: translations.commons.timeAbbreviation,
-  });
+  const dateStr = getDateRangeStr(getDateRangeStrProps(event));
   expect(screen.getByText(dateStr)).toBeInTheDocument();
 
   userEvent.click(
