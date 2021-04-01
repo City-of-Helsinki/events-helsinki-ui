@@ -132,7 +132,11 @@ export const CULTURE_KEYWORDS = [
 
 export const INFLUENCE_KEYWORDS = [
   'yso:p1657', // Vaikuttaminen
-  'yso:p10727', // Osallistuminen
+  'yso:p742', // Demokratia
+  'yso:p5164', // Osallisuus
+  'yso:p8268', // Kaavoitus
+  'yso:p15882', // Asemakaavoitus
+  'yso:p15292', // Kaupunkipolitiikka
 ];
 
 export const MUSEUM_KEYWORDS = [
