@@ -20,6 +20,7 @@ env:
   K8S_LIMIT_RAM: 200Mi
   K8S_REPLICACOUNT: 2
   REACT_APP_GRAPHQL_BASE_URL: 'https://tapahtumat-proxy.prod.kuva.hel.ninja/proxy/graphql'
+  PUBLIC_URL: https://tapahtumat.hel.fi
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,7 +31,7 @@ jobs:
         uses: andersinno/kolga-build-action@v2
         env:
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-production
-          DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.hel.fi
+          DOCKER_BUILD_ARG_PUBLIC_URL: ${{ env.PUBLIC_URL }}
           DOCKER_BUILD_ARG_SASS_PATH: './src/assets/styles'
           DOCKER_BUILD_ARG_REACT_APP_GRAPHQL_BASE_URL: ${{ env.REACT_APP_GRAPHQL_BASE_URL }}
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: ${{ secrets.GH_SENTRY_DSN }}
@@ -73,8 +74,9 @@ jobs:
           SLACK_USERNAME: AlertManager
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_48.png
           SLACK_TITLE: Production has been updated!
-          SLACK_MESSAGE: 'A new version of tapahtumat.hel.fi has been deployed! ${{ env.ENVIRONMENT_URL }} :tada: :tada: '
+          SLACK_MESSAGE: 'A new version of Tapahtumat has been deployed to production! ${{ env.PUBLIC_URL }} :tada: :tada: '
           SLACK_CHANNEL: pomodori
+          MSG_MINIMAL: true
   smoke-tests:
     runs-on: windows-latest
     needs: production
