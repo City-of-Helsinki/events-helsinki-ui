@@ -150,9 +150,15 @@ test('event list pagination works', async () => {
   await paginationTest({ eventType: 'event' });
 });
 
-test('course list pagination works', async () => {
-  setFeatureFlags({ EVENTS_HELSINKI_2: true });
-  await paginationTest({ eventType: 'course' });
+describe('EVENTS_HELSINKI_2 Feature flag', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  test('course list pagination works', async () => {
+    setFeatureFlags({ EVENTS_HELSINKI_2: true });
+    await paginationTest({ eventType: 'course' });
+  });
 });
 
 const paginationTest = async ({
