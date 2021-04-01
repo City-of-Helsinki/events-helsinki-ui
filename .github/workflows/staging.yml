@@ -1,4 +1,4 @@
-name: Build & Staging & Acceptance tests for Release 1.0
+name: Build & Staging & Acceptance tests for Release
 on:
   push:
     branches: [master]
