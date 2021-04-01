@@ -91,15 +91,13 @@ afterEach(() => {
       expect(eventsList.getByText(eventName)).toBeInTheDocument();
     });
 
-    await waitFor(() => {
-      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-    });
-
     if (isFeatureEnabled('EVENTS_HELSINKI_2')) {
       const courseList = within(screen.getByTestId(coursesListTestId));
       courseNames.forEach((courseName) => {
         expect(courseList.getByText(courseName)).toBeInTheDocument();
       });
+    } else {
+      expect(screen.queryByTestId(coursesListTestId)).not.toBeInTheDocument();
     }
   });
 });
