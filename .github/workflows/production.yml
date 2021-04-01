@@ -76,7 +76,6 @@ jobs:
           SLACK_TITLE: Production has been updated!
           SLACK_MESSAGE: 'A new version of Tapahtumat has been deployed to production! ${{ env.PUBLIC_URL }} :tada: :tada: '
           SLACK_CHANNEL: pomodori
-          MSG_MINIMAL: true
   smoke-tests:
     runs-on: windows-latest
     needs: production
