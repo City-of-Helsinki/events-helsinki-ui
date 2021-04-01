@@ -76,6 +76,17 @@ jobs:
           SLACK_TITLE: Production has been updated!
           SLACK_MESSAGE: 'A new version of Tapahtumat has been deployed to production! ${{ env.PUBLIC_URL }} :tada: :tada: '
           SLACK_CHANNEL: pomodori
+        if: success()
+      - name: production deploy failure notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: AlertManager
+          SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_48.png
+          SLACK_TITLE: Staging has been updated!
+          SLACK_MESSAGE: Deploying to ${{ env.PUBLIC_URL }} has *FAILED!*
+          SLACK_CHANNEL: pomodori
+        if: failure()
   smoke-tests:
     runs-on: windows-latest
     needs: production
