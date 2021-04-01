@@ -1,9 +1,27 @@
+.curatedEventListContainer {
+  padding-bottom: 1rem;
+  margin-top: var(--spacing-s);
+
+  &:not(:first-child) {
+    margin-top: var(--spacing-xl);
+  }
+
+  h3 {
+    font-size: var(--fontsize-heading-m);
+  }
+}
+
+.container {
+  padding-top: var(--spacing-s);
+}
+
 .curatedEventList {
   background-color: var(--color-black-5);
   padding: 0;
 
   h2 {
     margin: 0;
+    padding: var(--spacing-xl) 0;
   }
 
   .greyBackground {
@@ -14,16 +32,6 @@
       font-size: 1.25rem;
       line-height: 2rem;
       max-width: 65rem;
-    }
-
-    &.hasEvents {
-      padding-bottom: 10rem;
-    }
-  }
-
-  .content {
-    &.hasEvents {
-      margin-top: -8.125rem;
     }
   }
 
