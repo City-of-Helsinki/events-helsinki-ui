@@ -228,6 +228,7 @@
   },
   "courseSearch": {
     "title": "Löydä harrastus",
+    "buttonLoadMore": "Näytä lisää harrastuksia ({{count}})",
     "search": {
       "placeholder": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
       "labelSearchField": "Mitä etsit?",

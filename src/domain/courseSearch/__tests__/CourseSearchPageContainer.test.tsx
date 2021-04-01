@@ -220,6 +220,20 @@ const renderComponent = (
     routes: customRoutes,
   });
 
+const clickLoadMoreButton = () => {
+  userEvent.click(
+    screen.getByRole('button', {
+      name: translations.courseSearch.buttonLoadMore.replace(
+        '{{count}}',
+        (
+          coursesResponse.data.courseList.meta.count -
+          coursesResponse.data.courseList.data.length
+        ).toString()
+      ),
+    })
+  );
+};
+
 it('renders title and search fields', async () => {
   renderComponent();
 
@@ -317,17 +331,7 @@ it('all the course cards should be visible and load more button should load more
     expect(screen.getByText(event.name.fi)).toBeInTheDocument();
   });
 
-  userEvent.click(
-    screen.getByRole('button', {
-      name: translations.eventSearch.buttonLoadMore.replace(
-        '{{count}}',
-        (
-          coursesResponse.data.courseList.meta.count -
-          coursesResponse.data.courseList.data.length
-        ).toString()
-      ),
-    })
-  );
+  clickLoadMoreButton();
 
   await waitFor(() => {
     expect(
@@ -364,17 +368,7 @@ it('should show toastr message when loading next event page fails', async () => 
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  userEvent.click(
-    screen.getByRole('button', {
-      name: translations.eventSearch.buttonLoadMore.replace(
-        '{{count}}',
-        (
-          coursesResponse.data.courseList.meta.count -
-          coursesResponse.data.courseList.data.length
-        ).toString()
-      ),
-    })
-  );
+  clickLoadMoreButton();
 
   await waitFor(() => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();

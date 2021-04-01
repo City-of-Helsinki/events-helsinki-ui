@@ -228,6 +228,7 @@
   },
   "courseSearch": {
     "title": "Find hobby",
+    "buttonLoadMore": "Show more hobbies ({{count}})",
     "search": {
       "placeholder": "Enter a keyword, eg. French or cooking",
       "labelSearchField": "What are you looking for?",
