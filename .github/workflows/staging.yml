@@ -137,7 +137,7 @@ jobs:
           SLACK_COLOR: ${{ job.status }}
           SLACK_USERNAME: AlertManager
           SLACK_TITLE: ${{ github.workflow }} have *FAILED*!
-          SLACK_MESSAGE: "*Check the testcafe report here for {{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}: ${{env.REPORT_URL}}*"
+          SLACK_MESSAGE: "*Check the testcafe report here for ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}}: ${{env.REPORT_URL}}*"
           SLACK_CHANNEL: pomodori-alerts
           MSG_MINIMAL: true
         if: always() && steps.testcafe.outcome == 'failure'
