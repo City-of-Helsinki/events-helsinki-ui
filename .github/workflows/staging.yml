@@ -95,7 +95,7 @@ jobs:
           SLACK_USERNAME: AlertManager
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_48.png
           SLACK_TITLE: Staging has been updated!
-          SLACK_MESSAGE: 'V${{ matrix.service }} of tapahtumat-staging has been deployed to: ${{ env.DOCKER_BUILD_ARG_PUBLIC_URL }}'
+          SLACK_MESSAGE: 'V${{ matrix.service }} of tapahtumat-staging has been deployed to: ${{ matrix.DOCKER_BUILD_ARG_PUBLIC_URL }}'
           SLACK_CHANNEL: pomodori-alerts
           MSG_MINIMAL: true
       - name: Setup Node.js environment
