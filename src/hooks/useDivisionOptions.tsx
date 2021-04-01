@@ -15,17 +15,15 @@ const useDivisionOptions = (): DivisionOption[] => {
   const locale = useLocale();
   const { data: neighborhoodsData } = useNeighborhoodListQuery();
   const neighborhoodList = neighborhoodsData?.neighborhoodList.data;
-  const filteredNeighborhoodOptionList = neighborhoodList?.filter((option) =>
+  const filteredNeighborhoodList = neighborhoodList?.filter((option) =>
     DIVISION_BLOCKLIST.every((blockOption) => blockOption !== option.id)
   );
 
-  const neighborhoodToOptionValue = (neighborhood: Neighborhood) => ({
-    text: getLocalisedString(neighborhood.name, locale),
-    value: neighborhood.id,
-  });
-
   const neighborhoodOptionList =
-    filteredNeighborhoodOptionList?.map(neighborhoodToOptionValue) ?? [];
+    filteredNeighborhoodList?.map((neighborhood: Neighborhood) => ({
+      text: getLocalisedString(neighborhood.name, locale),
+      value: neighborhood.id,
+    })) ?? [];
 
   return sortBy(neighborhoodOptionList, 'text');
 };
