@@ -39,7 +39,7 @@ jobs:
           GITHUB_WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           TESTCAFE_SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           TESTCAFE_SLACK_CHANNEL: "#pomodori-alerts"
-          TESTCAFE_SLACK_USERNAME: AlertManager
+          TESTCAFE_SLACK_USERNAME: TestCafé
       - name: Upload results
         run: |
           zip -r report.zip report/ > no_output 2>&1
@@ -51,7 +51,7 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_COLOR: ${{ job.status }}
-          SLACK_USERNAME: AlertManager
+          SLACK_USERNAME: TestCafé
           SLACK_TITLE: ${{ github.workflow }} have *FAILED*!
           SLACK_MESSAGE: "*Check the testcafe report here: ${{env.REPORT_URL}}*"
           SLACK_CHANNEL: pomodori-alerts
