@@ -14,6 +14,7 @@ import getSecureImage from '../../util/getSecureImage';
 import { isCourseEvent } from '../../util/typeGuards';
 import {
   EVENT_KEYWORD_BLACK_LIST,
+  EVENT_LOCATIONS,
   EVENT_PLACEHOLDER_IMAGES,
   EVENT_SOME_IMAGE,
 } from './constants';
@@ -251,9 +252,12 @@ export const getServiceMapUrl = (
 ): string => {
   const location = event.location;
   const locationId = getLocationId(location);
-  return `https://palvelukartta.hel.fi/${locale}${
-    isEmbedded ? '/embed' : ''
-  }/unit/${locationId}`;
+  if (location?.id !== EVENT_LOCATIONS.INTERNET) {
+    return `https://palvelukartta.hel.fi/${locale}${
+      isEmbedded ? '/embed' : ''
+    }/unit/${locationId}`;
+  }
+  return '';
 };
 
 /**

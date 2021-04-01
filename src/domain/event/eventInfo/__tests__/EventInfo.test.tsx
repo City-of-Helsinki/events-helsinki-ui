@@ -193,6 +193,31 @@ it('should hide other info section registration url from external links', () => 
   ).not.toBeInTheDocument();
 });
 
+it('should hide the map link from location info if location is internet', () => {
+  const mockEvent = {
+    ...event,
+    externalLinks: [],
+    infoUrl: null,
+    location: {
+      ...event.location,
+      id: 'helsinki:internet',
+      email: null,
+      externalLinks: [],
+      telephone: null,
+    },
+    extensionCourse: null,
+  };
+  render(<EventInfo event={mockEvent} eventType="event" />, {
+    mocks,
+  });
+
+  expect(
+    screen.queryByRole('button', {
+      name: translations.event.info.openMap,
+    })
+  ).not.toBeInTheDocument();
+});
+
 it('should open ticket buy page', async () => {
   global.open = jest.fn();
   render(<EventInfo event={event} eventType="event" />, { mocks });
