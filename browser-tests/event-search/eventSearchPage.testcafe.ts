@@ -5,6 +5,7 @@ import {
   DEFAULT_LANGUAGE,
   supportedLanguages,
 } from '../../src/constants';
+import { isLocalized } from '../../src/domain/event/EventUtils';
 import { PAGE_SIZE } from '../../src/domain/eventSearch/constants';
 import { getEvents } from '../datasources/eventDataSource';
 import { searchFilterDataSource } from '../datasources/searchFilterDataSource';
@@ -64,9 +65,6 @@ test('"click more events" -button works', async (t) => {
     'expectedEvents',
     events.map((event) => getExpectedEventContext(event))
   );
-  // some events may have been filtered if they are not in finnish
-  // we need to find more events than one PAGE_SIZE in order to try clickMoreEventsButton
-  await t.expect(events.length).gt(PAGE_SIZE);
   const searchResults = await eventSearchPage.findSearchResultList();
   await searchResults.actions.clickShowMoreEventsButton();
   await searchResults.expectations.allEventCardsAreVisible(events);
@@ -94,7 +92,11 @@ test('Search url by event name shows event card data for helsinki event', async 
 test('Free text search finds event by free text search', async (t) => {
   const [event] = await getEvents();
   setDataToPrintOnFailure(t, 'expectedEvent', getExpectedEventContext(event));
-  for (const locale of supportedLanguages) {
+  const eventLanguages = supportedLanguages.filter((locale) =>
+    isLocalized(event, locale)
+  );
+
+  for (const locale of eventLanguages) {
     await testSearchEventByText(t, event, event.name[locale], 'name');
     await testSearchEventByText(
       t,

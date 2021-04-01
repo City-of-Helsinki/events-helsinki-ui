@@ -9,10 +9,9 @@ export const escapeRegExp = (text: string): string => {
 
 export const splitBySentences = (text: string): string[] =>
   text
-    .replace(/(<[^>]*>|[.,!?()])/g, '____')
-    .split('____')
+    .split(/(<[^>]*>|[.,!?()\r\n])/g)
     .map((s) => s.trim())
-    .filter((s) => /[^.,!?()]+/.test(s));
+    .filter((s) => /[^.,!?()\r\n]+/.test(s));
 
 export const getRandomSentence = (text: string): string => {
   return selectRandomValueFromArray(splitBySentences(text));

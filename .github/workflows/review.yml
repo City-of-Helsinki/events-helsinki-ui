@@ -1,4 +1,4 @@
-name: Build & Review & Acceptance Tests for Release
+name: Build & Review & Acceptance Tests
 on:
   pull_request:
   schedule:
@@ -70,9 +70,11 @@ jobs:
           - service: "1"
             version: "1.0"
             DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "false"
+            description: "The Old version of Tapahtumat (without courses)"
           - service: "2"
             version: "2.0"
             DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "true"
+            description: "The New version of Tapahtumat (with courses)"
     name: Review + Acceptance Tests V${{ matrix.version }}
     steps:
       - uses: actions/checkout@v2
@@ -94,20 +96,13 @@ jobs:
           DEPLOY_URL=$(kubectl get ingress "${{ env.ENVIRONMENT_SLUG }}-${{ matrix.service }}-ingress" -n ${{env.K8S_NAMESPACE}} -o jsonpath='{.spec.rules[0].host}')
           echo "BROWSER_TESTS_LOCAL_ENV_URL=https://$DEPLOY_URL" >> $GITHUB_ENV
         shell: bash
-      - name: Create PR comment for version V1.0
+      - name: Create PR comment for version V${{ matrix.version }}
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          header: deployment-1
-          message: '**The Old version of Tapahtumat (without courses) is deployed to: ${{ env.BROWSER_TESTS_LOCAL_ENV_URL }}** :rocket::rocket:'
-        if: success() && matrix.version == '1.0'
-      - name: Create PR comment for version V2.0
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          header: deployment-2
-          message: '**The NEW version of Tapahtumat (with courses) is deployed to: ${{ env.BROWSER_TESTS_LOCAL_ENV_URL }}** :rocket::rocket:'
-        if: success() && matrix.version == '2.0'
+          header: deployment-${{ matrix.service }}
+          message: |
+            **${{ matrix.description }} is deployed to: ${{ env.BROWSER_TESTS_LOCAL_ENV_URL }}** :rocket::rocket::rocket:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
         with:
@@ -124,11 +119,39 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn --prefer-offline --frozen-lockfile --check-files
-      - name: Run Acceptance Tests For version ${{ matrix.version }}
+      - name: Run Acceptance Tests for V${{ matrix.version }}
+        id: testcafe
         run: yarn browser-test:ci
-      - name: Upload screenshots of failed tests for version ${{ matrix.version }}
-        uses: actions/upload-artifact@v2
-        if: failure()
+        env:
+          GITHUB_WORKFLOW_NAME: ${{  github.workflow }}
+          GITHUB_WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      - name: Upload Acceptance Test results for V${{ matrix.version }}
+        run: |
+          zip -r report.zip report/ > no_output 2>&1
+          curl -s -H "Content-Type: application/zip" -H "Authorization: Bearer ${{ secrets.NETLIFY_AUTH_TOKEN }}" --data-binary "@report.zip" https://api.netlify.com/api/v1/sites > response.json
+          echo "REPORT_URL=$(cat response.json|python -c "import sys, json; print('https://' + json.load(sys.stdin)['subdomain'] + '.netlify.com')")" >> $GITHUB_ENV
+        if: always() && steps.testcafe.outcome == 'failure'
+      - name: Create/update PR comment for Acceptance Test results for V${{ matrix.version }}
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
-          name: screenshots
-          path: screenshots/
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: testcafe-results-${{matrix.service}}
+          append: true
+          message: |
+             ## TestCafe result is __${{ steps.testcafe.outcome }}__ for ${{ matrix.description }}! ${{steps.testcafe.outcome == 'success' && ':laughing::tada::tada::tada:' || ':crying_cat_face::anger::boom::boom:' }}
+        if: always() && (steps.testcafe.outcome == 'success' || steps.testcafe.outcome == 'failure')
+      - name: Create/update PR comment for Acceptance Test results for V${{ matrix.version }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: testcafe-results-${{matrix.service}}
+          append: true
+          message: |
+             **Check the report on: [${{ env.REPORT_URL }}](${{ env.REPORT_URL }})**
+        if: always() && steps.testcafe.outcome == 'failure'
+      - name: Upload screenshots and videos of failed tests to artifact for V${{ matrix.version }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: report
+          path: report/
+        if: always() && steps.testcafe.outcome == 'failure'

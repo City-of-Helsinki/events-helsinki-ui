@@ -1,6 +1,7 @@
 import { GraphQLClient } from 'graphql-request';
 
 import { SUPPORT_LANGUAGES } from '../../src/constants';
+import { isEventClosed, isLocalized } from '../../src/domain/event/EventUtils';
 import {
   EVENT_SORT_OPTIONS,
   PAGE_SIZE,
@@ -10,12 +11,6 @@ import { EventFieldsFragment, getSdk } from '../utils/generated/graphql';
 import { getGraphQLUrl } from '../utils/settings';
 const client = new GraphQLClient(getGraphQLUrl());
 const sdk = getSdk(client);
-
-export const isPastEvent = (event: EventFieldsFragment): boolean => {
-  const eventEndTime = event.endTime && new Date(event.endTime);
-  const currentTime = new Date();
-  return eventEndTime && eventEndTime < currentTime;
-};
 
 export const getEvents = async (
   count = PAGE_SIZE,
@@ -35,6 +30,6 @@ export const getEvents = async (
   } = await sdk.EventList(searchVariables);
   // Filter out events that have ended less than 15 minutes ago due to linked events cache.
   return data.filter(
-    (event) => Boolean(event.name[locale]) && !isPastEvent(event)
+    (event) => isLocalized(event, locale) && !isEventClosed(event)
   );
 };

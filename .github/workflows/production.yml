@@ -66,6 +66,15 @@ jobs:
           K8S_ADDITIONAL_HOSTNAMES: ${{ secrets.K8S_ADDITIONAL_HOSTNAMES }}
           ENVIRONMENT_URL: https://${{ secrets.ENVIRONMENT_URL_STABLE }}
           DOCKER_IMAGE_NAME: ${{ env.REPO_NAME }}-production
+      - name: production deploy notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: AlertManager
+          SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_48.png
+          SLACK_TITLE: Production has been updated!
+          SLACK_MESSAGE: 'A new version of tapahtumat.hel.fi has been deployed! ${{ env.ENVIRONMENT_URL }} :tada: :tada: '
+          SLACK_CHANNEL: pomodori
   smoke-tests:
     runs-on: windows-latest
     needs: production
@@ -89,12 +98,35 @@ jobs:
       - name: Install dependencies
         run: yarn --prefer-offline --frozen-lockfile --check-files --production=false
       - name: Run TestCafe tests
+        id: testcafe
         run: yarn browser-test:ci
         env:
           BROWSER_TESTS_LOCAL_ENV_URL: https://${{ secrets.ENVIRONMENT_URL_STABLE }}
-      - name: Upload screenshots of failed tests
+          GITHUB_WORKFLOW_NAME: ${{ github.workflow }}
+          GITHUB_WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          TESTCAFE_SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          TESTCAFE_SLACK_CHANNEL: "#pomodori-alerts"
+          TESTCAFE_SLACK_USERNAME: AlertManager
+      - name: Upload results
+        run: |
+          zip -r report.zip report/ > no_output 2>&1
+          curl -s -H "Content-Type: application/zip" -H "Authorization: Bearer ${{secrets.NETLIFY_AUTH_TOKEN}}" --data-binary "@report.zip" https://api.netlify.com/api/v1/sites > response.json
+          echo "REPORT_URL=$(cat response.json|python -c "import sys, json; print('https://' + json.load(sys.stdin)['subdomain'] + '.netlify.com')")" >> $GITHUB_ENV
+        if: always() && (steps.testcafe.outcome == 'success' || steps.testcafe.outcome == 'failure')
+      - name: link screenshots url to slack
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_USERNAME: AlertManager
+          SLACK_TITLE: ${{ github.workflow }} have *FAILED*!
+          SLACK_MESSAGE: "*Check the testcafe report here: ${{env.REPORT_URL}}*"
+          SLACK_CHANNEL: pomodori-alerts
+          MSG_MINIMAL: true
+        if: always() && steps.testcafe.outcome == 'failure'
+      - name: Upload screenshots and videos of failed tests to artifact
         uses: actions/upload-artifact@v2
-        if: failure()
         with:
-          name: screenshots
-          path: screenshots/
+          name: report
+          path: report/
+        if: always() && steps.testcafe.outcome == 'failure'

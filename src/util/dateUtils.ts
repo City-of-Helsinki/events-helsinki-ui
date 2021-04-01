@@ -12,10 +12,11 @@ const locales = { en, fi, sv };
  * Format date string
  * @param date
  * @param format
+ * @param locale
  * @returns {string}
  */
 export const formatDate = (
-  date: Date | null,
+  date: Date | number | null,
   format = 'dd.MM.yyyy',
   locale = 'fi'
 ): string => {
