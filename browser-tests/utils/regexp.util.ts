@@ -8,7 +8,7 @@ export const escapeRegExp = (text: string): string => {
 };
 
 export const splitBySentences = (text: string): string[] =>
-  text
+  replaceHtmlTags(text)
     .split(/(<[^>]*>|[.,!?()\r\n])/g)
     .map((s) => s.trim())
     .filter((s) => /[^.,!?()\r\n]+/.test(s));
@@ -16,3 +16,6 @@ export const splitBySentences = (text: string): string[] =>
 export const getRandomSentence = (text: string): string => {
   return selectRandomValueFromArray(splitBySentences(text));
 };
+
+export const replaceHtmlTags = (text: string, replacer = '.'): string =>
+  text.replace(/<\/?[^>]+(>|$)/g, replacer);
