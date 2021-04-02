@@ -149,6 +149,7 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
   };
 
   const audienceAge = eventType === 'course' && getAudienceAge();
+  const serviceMapUrl = getServiceMapUrl(event, locale, false);
 
   return (
     <div className={styles.eventInfo} ref={eventInfoContainer}>
@@ -204,9 +205,11 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
                 return <div key={item}>{item}</div>;
               })}
           </Visible>
-          <Link isExternal={true} to={getServiceMapUrl(event, locale, false)}>
-            {t('event.info.openMap')}
-          </Link>
+          {serviceMapUrl && (
+            <Link isExternal={true} to={serviceMapUrl}>
+              {t('event.info.openMap')}
+            </Link>
+          )}
         </InfoWithIcon>
 
         {/* Audience */}
