@@ -15,8 +15,8 @@ const useDivisionOptions = (): DivisionOption[] => {
   const locale = useLocale();
   const { data: neighborhoodsData } = useNeighborhoodListQuery();
   const neighborhoodList = neighborhoodsData?.neighborhoodList.data;
-  const filteredNeighborhoodList = neighborhoodList?.filter((option) =>
-    DIVISION_BLOCKLIST.every((blockOption) => blockOption !== option.id)
+  const filteredNeighborhoodList = getFilteredNeighborhoodList(
+    neighborhoodList
   );
 
   const neighborhoodOptionList =
@@ -26,6 +26,14 @@ const useDivisionOptions = (): DivisionOption[] => {
     })) ?? [];
 
   return sortBy(neighborhoodOptionList, 'text');
+};
+
+export const getFilteredNeighborhoodList = (
+  data: Neighborhood[] | undefined
+): Neighborhood[] => {
+  return (
+    data?.filter((option) => !DIVISION_BLOCKLIST.includes(option.id)) ?? []
+  );
 };
 
 export default useDivisionOptions;

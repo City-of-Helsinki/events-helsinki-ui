@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 
-import { DIVISION_BLOCKLIST } from '../../src/hooks/useDivisionOptions';
+import { getFilteredNeighborhoodList } from '../../src/hooks/useDivisionOptions';
 import {
   getSdk,
   Neighborhood,
@@ -15,10 +15,7 @@ const getNeighborhoodOptions = async (): Promise<Neighborhood[]> => {
   const {
     neighborhoodList: { data },
   } = await sdk.NeighborhoodList();
-  const filteredNeighborhoodList = data?.filter((option) =>
-    DIVISION_BLOCKLIST.every((blockOption) => blockOption !== option.id)
-  );
-  return filteredNeighborhoodList;
+  return getFilteredNeighborhoodList(data);
 };
 
 const getHelsinkiPlaceOptions = async (): Promise<PlaceFieldsFragment[]> => {
