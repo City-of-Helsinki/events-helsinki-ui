@@ -49,7 +49,7 @@ const LandingPagePreview: React.FC = () => {
                   <LandingPageSearch
                     type="event"
                     title={t('home.eventSearch.title')}
-                    searchPlaceholder={t('home.eventSearch.placeholder')}
+                    searchHelperText={t('home.eventSearch.helperText')}
                     popularCategories={getEventCategoryOptions(t)}
                   />
                   {/* Background helper used to get the wave-effect without 
@@ -58,7 +58,7 @@ const LandingPagePreview: React.FC = () => {
                   <LandingPageSearch
                     type="course"
                     title={t('home.courseSearch.title')}
-                    searchPlaceholder={t('home.courseSearch.placeholder')}
+                    searchHelperText={t('home.courseSearch.helperText')}
                     popularCategories={getCourseCategoryOptions(t)}
                   />
                 </div>

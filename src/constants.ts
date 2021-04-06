@@ -29,7 +29,7 @@ export const EVENT_STATUS = {
   EVENT_SCHEDULED: 'EventScheduled',
 };
 
-export enum AUTOSUGGEST_TYPES {
+export enum AUTOSUGGEST_TYPES__DEPRECATED {
   KEYWORD = 'keyword',
   TEXT = 'text',
 }

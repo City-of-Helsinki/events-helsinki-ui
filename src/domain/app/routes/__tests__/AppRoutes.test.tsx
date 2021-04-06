@@ -173,7 +173,7 @@ describe('test each place path /:locale/:place', () => {
 
       expect(screen.queryByText('Mitä etsit?')).toBeInTheDocument();
       expect(
-        screen.getByRole('heading', { name: 'Tapahtumahaku' })
+        screen.getByRole('heading', { name: 'Löydä tekemistä' })
       ).toBeInTheDocument();
       expect(
         screen.getByRole('heading', { name: '3 hakutulosta' })

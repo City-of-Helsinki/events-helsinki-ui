@@ -23,12 +23,11 @@ export interface CategoryExtendedOption {
   value: EVENT_CATEGORIES | COURSE_CATEGORIES | COURSE_HOBBY_TYPES;
 }
 
-export interface Filters {
+type FiltersBase = {
   [EVENT_SEARCH_FILTERS.CATEGORIES]: string[];
   [EVENT_SEARCH_FILTERS.HOBBY_TYPES]?: string[];
   [EVENT_SEARCH_FILTERS.DATE_TYPES]: string[];
   [EVENT_SEARCH_FILTERS.DIVISIONS]: string[];
-  [EVENT_SEARCH_FILTERS.END]: Date | null;
   [EVENT_SEARCH_FILTERS.IS_FREE]?: boolean;
   [EVENT_SEARCH_FILTERS.KEYWORD]?: string[];
   [EVENT_SEARCH_FILTERS.KEYWORD_NOT]?: string[];
@@ -37,28 +36,17 @@ export interface Filters {
   [EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES]?: boolean;
   [EVENT_SEARCH_FILTERS.PLACES]: string[];
   [EVENT_SEARCH_FILTERS.PUBLISHER]?: string | null;
-  [EVENT_SEARCH_FILTERS.START]: Date | null;
   [EVENT_SEARCH_FILTERS.TEXT]: string[];
   [EVENT_SEARCH_FILTERS.MIN_AGE]?: string;
   [EVENT_SEARCH_FILTERS.MAX_AGE]?: string;
-}
+};
 
-export interface MappedFilters {
-  [EVENT_SEARCH_FILTERS.CATEGORIES]: string[];
-  [EVENT_SEARCH_FILTERS.HOBBY_TYPES]?: string[];
-  [EVENT_SEARCH_FILTERS.DATE_TYPES]?: string[];
-  [EVENT_SEARCH_FILTERS.DIVISIONS]: string[];
+export type Filters = FiltersBase & {
+  [EVENT_SEARCH_FILTERS.END]: Date | null;
+  [EVENT_SEARCH_FILTERS.START]: Date | null;
+};
+
+export type MappedFilters = FiltersBase & {
   [EVENT_SEARCH_FILTERS.END]?: string | null;
-  [EVENT_SEARCH_FILTERS.IS_FREE]?: boolean;
-  [EVENT_SEARCH_FILTERS.KEYWORD]?: string[];
-  [EVENT_SEARCH_FILTERS.KEYWORD_NOT]?: string[];
-  [EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS]?: boolean;
-  [EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS]?: boolean;
-  [EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES]?: boolean;
-  [EVENT_SEARCH_FILTERS.PLACES]: string[];
-  [EVENT_SEARCH_FILTERS.PUBLISHER]?: string | null;
   [EVENT_SEARCH_FILTERS.START]?: string | null;
-  [EVENT_SEARCH_FILTERS.TEXT]: string[];
-  [EVENT_SEARCH_FILTERS.MIN_AGE]?: string;
-  [EVENT_SEARCH_FILTERS.MAX_AGE]?: string;
-}
+};

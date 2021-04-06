@@ -92,7 +92,6 @@ const SearchPage: React.FC<{
   return (
     <PageWrapper className={styles.eventSearchPageWrapper} title={pageTitle}>
       {landingPage && <LandingPageMeta landingPage={landingPage} />}
-      <SrOnly as="h1">{t(pageTitle)}</SrOnly>
       <SearchComponent
         scrollToResultList={scrollToResultList}
         data-testid="searchContainer"

@@ -7,7 +7,7 @@
   },
   "appName": "Events",
   "commons": {
-    "autosuggest": {
+    "autosuggest__DEPRECATED": {
       "menu": {
         "ariaButtonClose": "Close menu",
         "info": "You can also search by the keyword you entered",
@@ -218,7 +218,7 @@
       "labelDistrict": "From where are you looking for?",
       "labelSearchField": "What are you looking for?",
       "labelTargetGroup": "Whom you are looking for?",
-      "placeholder": "Enter a keyword, eg rock or yoga",
+      "helperText": "Enter a keyword, eg rock or yoga",
       "selectAllDivisions": "All areas",
       "selectAllPlaces": "All venues",
       "titleDropdownCategory": "Select category",
@@ -226,13 +226,13 @@
       "titleDropdownPlace": "Search venue"
     },
     "textFoundEvents": "{{count}} search results",
-    "title": "Event search"
+    "title": "Find something to do"
   },
   "courseSearch": {
-    "title": "Find hobby",
+    "title": "Find hobbies",
     "buttonLoadMore": "Show more hobbies ({{count}})",
     "search": {
-      "placeholder": "Enter a keyword, eg. French or cooking",
+      "helperText": "Enter a keyword, eg. French or cooking",
       "labelSearchField": "What are you looking for?",
       "checkboxAlsoOngoingCourses": "Show also ongoing courses",
       "checkboxIsFree": "Show only courses that are free",
@@ -329,12 +329,12 @@
     },
     "eventSearch": {
       "buttonSearch": "Search",
-      "placeholder": "Enter a keyword, eg rock or yoga",
+      "helperText": "Enter a keyword, eg rock or yoga",
       "title": "Find something to do"
     },
     "courseSearch": {
       "buttonSearch": "Search",
-      "placeholder": "Enter a keyword, eg. French or cooking",
+      "helperText": "Enter a keyword, eg. French or cooking",
       "title": "Find hobbies"
     }
   },

@@ -7,9 +7,12 @@ import CategoryFilter from '../../../common/components/category/CategoryFilter';
 import DateSelector from '../../../common/components/dateSelector/DateSelector';
 import Link from '../../../common/components/link/Link';
 import MobileDateSelector from '../../../common/components/mobileDateSelector/MobileDateSelector';
-import SearchAutosuggest from '../../../common/components/search/SearchAutosuggest';
+import SearchAutosuggest from '../../../common/components/search/SearchAutosuggest__DEPRECATED';
 import SearchLabel from '../../../common/components/search/searchLabel/SearchLabel';
-import { AutosuggestMenuOption, Category } from '../../../common/types';
+import {
+  AutosuggestMenuOption__DEPRECATED,
+  Category,
+} from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import { ROUTES } from '../../app/routes/constants';
 import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants__DEPRECATED';
@@ -59,7 +62,7 @@ const Search: React.FC = () => {
     goToSearchPage(search);
   };
 
-  const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
+  const handleMenuOptionClick = (option: AutosuggestMenuOption__DEPRECATED) => {
     const search = getSearchQuery({
       ...DEFAULT_SEARCH_FILTERS,
       dateTypes,
@@ -85,8 +88,6 @@ const Search: React.FC = () => {
   return (
     <>
       <div className={styles.landingPageSearch}>
-        {/* Hide Suprise me button on MVP version */}
-        {/* <SupriseMeButton onClick={handleClickSupriseMe} /> */}
         <div className={styles.searchRow}>
           <div className={styles.titleWrapper}>
             <h2>{t('home.search__DEPRECATED.title')}</h2>

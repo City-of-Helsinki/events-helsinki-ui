@@ -63,7 +63,7 @@ const renderComponent = (props?: Partial<SearchProps>) => {
   return render(
     <LandingPageSearchSection
       popularCategories={popularCategories}
-      searchPlaceholder="placeholder"
+      searchHelperText="placeholder"
       title="Löydä tekemistä"
       type="event"
       {...props}

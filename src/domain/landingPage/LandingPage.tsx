@@ -91,10 +91,10 @@ const LandingPage: React.FC = () => {
               <LandingPageSearch
                 type="event"
                 title={t('home.eventSearch.title')}
-                searchPlaceholder={
+                searchHelperText={
                   isMobile
-                    ? t('home.search.placeholder')
-                    : t('home.eventSearch.placeholder')
+                    ? t('home.search.helperText')
+                    : t('home.eventSearch.helperText')
                 }
                 popularCategories={eventCategories}
               />
@@ -104,10 +104,10 @@ const LandingPage: React.FC = () => {
               <LandingPageSearch
                 type="course"
                 title={t('home.courseSearch.title')}
-                searchPlaceholder={
+                searchHelperText={
                   isMobile
-                    ? t('home.search.placeholder')
-                    : t('home.courseSearch.placeholder')
+                    ? t('home.search.helperText')
+                    : t('home.courseSearch.helperText')
                 }
                 popularCategories={courseCategories}
               />
