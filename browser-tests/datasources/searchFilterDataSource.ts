@@ -1,5 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 
+import { getFilteredNeighborhoodList } from '../../src/hooks/useDivisionOptions';
 import {
   getSdk,
   Neighborhood,
@@ -14,7 +15,7 @@ const getNeighborhoodOptions = async (): Promise<Neighborhood[]> => {
   const {
     neighborhoodList: { data },
   } = await sdk.NeighborhoodList();
-  return data;
+  return getFilteredNeighborhoodList(data);
 };
 
 const getHelsinkiPlaceOptions = async (): Promise<PlaceFieldsFragment[]> => {
