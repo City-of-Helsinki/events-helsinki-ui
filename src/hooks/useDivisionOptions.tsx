@@ -4,7 +4,7 @@ import { Neighborhood, useNeighborhoodListQuery } from '../generated/graphql';
 import getLocalisedString from '../util/getLocalisedString';
 import useLocale from './useLocale';
 
-const DIVISION_BLOCKLIST = ['kaupunginosa:aluemeri'];
+export const DIVISION_BLOCKLIST = ['kaupunginosa:aluemeri'];
 
 type DivisionOption = {
   text: string;
