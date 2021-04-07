@@ -7,12 +7,16 @@
   },
   "appName": "Tapahtumat",
   "commons": {
-    "autosuggest": {
+    "autosuggest__DEPRECATED": {
       "menu": {
         "ariaButtonClose": "Sulje valikko",
         "info": "Voit myös etsiä kirjoittamallasi hakusanalla",
         "title": "Hakuehdotuksia"
       }
+    },
+    "searchAutoSuggest": {
+      "loadingSearchSuggestions": "Ladataan hakuehdotuksia...",
+      "loadingSearchSuggestionsFinished": "Lataus valmis"
     },
     "category": {
       "ariaButtonRemove": "Poista kategoria: {{category}}"
@@ -218,7 +222,8 @@
       "labelDistrict": "Mistä etsit?",
       "labelSearchField": "Mitä etsit?",
       "labelTargetGroup": "Kenelle etsit?",
-      "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
+      "loadingSearchSuggestions": "Ladataan hakuehdotuksia",
+      "helperText": "Kirjoita hakusana, esim. rock tai jooga",
       "selectAllDivisions": "Kaikki alueet",
       "selectAllPlaces": "Kaikki tapahtumapaikat",
       "titleDropdownCategory": "Valitse kategoria",
@@ -226,16 +231,17 @@
       "titleDropdownPlace": "Etsi tapahtumapaikka"
     },
     "textFoundEvents": "{{count}} hakutulosta",
-    "title": "Tapahtumahaku"
+    "title": "Löydä tekemistä"
   },
   "courseSearch": {
-    "title": "Löydä harrastus",
+    "title": "Löydä harrastuksia",
     "buttonLoadMore": "Näytä lisää harrastuksia ({{count}})",
     "search": {
-      "placeholder": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
+      "helperText": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
       "labelSearchField": "Mitä etsit?",
       "checkboxAlsoOngoingCourses": "Näytä myös meneillään olevat",
       "checkboxIsFree": "Näytä vain maksuttomat",
+      "loadingSearchSuggestions": "Ladataan hakuehdotuksia",
       "titleDropdownHobbyType": "Harrastusmuoto",
       "showOnlyAdultCourses": "Näytä vain aikuisten harrastukset",
       "ageLimitValues": "Ikä",
@@ -329,12 +335,12 @@
     },
     "eventSearch": {
       "buttonSearch": "Hae",
-      "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
+      "helperText": "Kirjoita hakusana, esim. rock tai jooga",
       "title": "Löydä tekemistä"
     },
     "courseSearch": {
       "buttonSearch": "Hae",
-      "placeholder": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
+      "helperText": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
       "title": "Löydä harrastuksia"
     }
   },

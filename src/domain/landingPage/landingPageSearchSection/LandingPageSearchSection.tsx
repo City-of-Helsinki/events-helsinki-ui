@@ -6,9 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 
 import SearchAutosuggest from '../../../common/components/search/SearchAutosuggest';
-import SearchLabel from '../../../common/components/search/searchLabel/SearchLabel';
 import WaveClipPath from '../../../common/components/waveClipPath/WaveClipPath';
-import { AutosuggestMenuOption } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import { EVENTS_ROUTE_MAPPER, EventType } from '../../event/types';
 import {
@@ -24,7 +22,7 @@ const buttonColor = 'black';
 
 export type SearchProps = {
   title: string;
-  searchPlaceholder: string;
+  searchHelperText: string;
   type: EventType;
   popularCategories: CategoryExtendedOption[];
 };
@@ -34,17 +32,15 @@ export const popularCategoriesContainerTestId = 'popular-categories-container';
 const Search: React.FC<SearchProps> = ({
   type,
   title,
-  searchPlaceholder,
+  searchHelperText,
   popularCategories,
 }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const [autosuggestInput, setAutosuggestInput] = React.useState('');
   const [categoriesVisibleMobile, setCategoriesVisibleMobile] = React.useState(
     false
   );
   const history = useHistory();
-  const inputName = `${type}Search`;
 
   const goToSearchPage = (search: string) => {
     history.push({
@@ -54,18 +50,10 @@ const Search: React.FC<SearchProps> = ({
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (text: string) => {
     const search = getSearchQuery({
       ...EVENT_DEFAULT_SEARCH_FILTERS,
-      text: autosuggestInput ? [autosuggestInput] : [],
-    });
-    goToSearchPage(search);
-  };
-
-  const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
-    const search = getSearchQuery({
-      ...EVENT_DEFAULT_SEARCH_FILTERS,
-      text: [option.text],
+      text: [text],
     });
     goToSearchPage(search);
   };
@@ -105,21 +93,10 @@ const Search: React.FC<SearchProps> = ({
           <div className={styles.titleWrapper}>
             <h2>{title}</h2>
           </div>
-          <div className={styles.autosuggestWrapper}>
-            <SearchLabel htmlFor={inputName} srOnly>
-              {title}
-            </SearchLabel>
-            <SearchAutosuggest
-              name={inputName}
-              onChangeSearchValue={setAutosuggestInput}
-              onOptionClick={handleMenuOptionClick}
-              placeholder={searchPlaceholder}
-              searchValue={autosuggestInput}
-            />
-            <Button onClick={handleSubmit} variant="success">
-              {t('home.eventSearch.buttonSearch')}
-            </Button>
-          </div>
+          <SearchAutosuggest
+            onSubmit={handleSubmit}
+            helperText={searchHelperText}
+          />
         </div>
         <button
           className={styles.showCategoriesButton}

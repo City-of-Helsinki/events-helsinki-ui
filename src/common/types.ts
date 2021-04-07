@@ -1,10 +1,10 @@
 import { ReactElement } from 'react';
 
-import { AUTOSUGGEST_TYPES } from '../constants';
+import { AUTOSUGGEST_TYPES__DEPRECATED } from '../constants';
 
-export interface AutosuggestMenuOption {
+export interface AutosuggestMenuOption__DEPRECATED {
   text: string;
-  type: AUTOSUGGEST_TYPES;
+  type: AUTOSUGGEST_TYPES__DEPRECATED;
   value: string;
 }
 

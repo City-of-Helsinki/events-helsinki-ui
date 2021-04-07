@@ -7,12 +7,16 @@
   },
   "appName": "Evenemang",
   "commons": {
-    "autosuggest": {
+    "autosuggest__DEPRECATED": {
       "menu": {
         "ariaButtonClose": "Stäng menyn",
         "info": "Du kan också leta med sökordet du angav",
         "title": "Sökförslag"
       }
+    },
+    "searchAutoSuggest": {
+      "loadingSearchSuggestions": "Laddar sökförslag...",
+      "loadingSearchSuggestionsFinished": "färdiga sökförslag"
     },
     "category": {
       "ariaButtonRemove": "Radera kategori: {{category}}"
@@ -218,7 +222,7 @@
       "labelDistrict": "Varifrån letar du efter??",
       "labelSearchField": "Vad letar du efter?",
       "labelTargetGroup": "Vem du letar efter?",
-      "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
+      "helperText": "Ange ett sökord, t. ex. rock eller yoga",
       "selectAllDivisions": "Alla områden",
       "selectAllPlaces": "Alla ställen",
       "titleDropdownCategory": "Välj kategori",
@@ -226,14 +230,14 @@
       "titleDropdownPlace": "Sök evenemangsplats"
     },
     "textFoundEvents": "{{count}} sökresultat",
-    "title": "Evenemang sök"
+    "title": "Sök saker att göra"
   },
   "courseSearch": {
     "title": "Hitta hobby",
     "buttonLoadMore": "Visa fler hobbyew ({{count}})",
     "search": {
       "checkboxIsFree": "Visa endast avgiftsfria",
-      "placeholder": "Ange ett sökord, t. ex. Franska eller matlagning",
+      "helperText": "Ange ett sökord, t. ex. Franska eller matlagning",
       "labelSearchField": "Vad letar du efter?",
       "checkboxAlsoOngoingCourses": "Visa även pågående kurser",
       "titleDropdownHobbyType": "Aktivitetsform",
@@ -329,12 +333,12 @@
     },
     "eventSearch": {
       "buttonSearch": "Sök",
-      "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
+      "helperText": "Ange ett sökord, t. ex. rock eller yoga",
       "title": "Sök saker att göra"
     },
     "courseSearch": {
       "buttonSearch": "Sök",
-      "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
+      "helperText": "Ange ett sökord, t. ex. rock eller yoga",
       "title": "Hitta hobby"
     }
   },

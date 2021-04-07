@@ -3,15 +3,15 @@ import { IconCross } from 'hds-react';
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { AutosuggestMenuOption } from '../../types';
-import styles from './autosuggestMenu.module.scss';
+import { AutosuggestMenuOption__DEPRECATED } from '../../types';
+import styles from './autosuggestMenu__DEPRECATED.module.scss';
 
 interface Props {
   focusedOption: number;
   isOpen: boolean;
   onClose: () => void;
-  onOptionClick: (item: AutosuggestMenuOption) => void;
-  options: AutosuggestMenuOption[];
+  onOptionClick: (item: AutosuggestMenuOption__DEPRECATED) => void;
+  options: AutosuggestMenuOption__DEPRECATED[];
 }
 
 const AutosuggestMenu: FunctionComponent<Props> = ({
@@ -28,9 +28,9 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
   return (
     <div className={styles.autosuggestMenu}>
       <div className={styles.title}>
-        {t('commons.autosuggest.menu.title')}
+        {t('commons.autosuggest__DEPRECATED.menu.title')}
         <button
-          aria-label={t('commons.autosuggest.menu.ariaButtonClose')}
+          aria-label={t('commons.autosuggest__DEPRECATED.menu.ariaButtonClose')}
           className={styles.closeButton}
           onClick={onClose}
         >
@@ -65,7 +65,9 @@ const AutosuggestMenu: FunctionComponent<Props> = ({
         })}
       </ul>
 
-      <div className={styles.info}>{t('commons.autosuggest.menu.info')}</div>
+      <div className={styles.info}>
+        {t('commons.autosuggest__DEPRECATED.menu.info')}
+      </div>
     </div>
   );
 };

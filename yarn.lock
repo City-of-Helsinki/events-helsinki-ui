@@ -9881,20 +9881,20 @@ hash.js@^1.0.0, hash.js@^1.0.3, hash.js@^1.1.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-hds-core@0.23.0, hds-core@^0.23.0:
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-0.23.0.tgz#3595c9d0b81ae84404c5b1262a559405ffd6fa6b"
-  integrity sha512-vKNPWOnDPLjliUWx134EGD1NPwJZbsGQzXZ1zHX3ofqPTTtr2OAAKVrAylJbLYL+DDBJ+2gXjvgz64h0ISzAvQ==
+hds-core@0.24.0, hds-core@^0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-0.24.0.tgz#9fcdf6f59fb295cc26940d93c3855c2b16d0e692"
+  integrity sha512-qBflENeTPYc7s+h745oGmSiRSXrmpVpXd94cmMnrZJcmjPIPxi7LFHz0sfOkNjpYfckrhXwRSkgbBmH9b1xENQ==
 
-hds-design-tokens@^0.23.0:
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/hds-design-tokens/-/hds-design-tokens-0.23.0.tgz#0aed558280a3d3dcda3ec50cd37b8b4ace2b1d65"
-  integrity sha512-/SSrIGRkBnlC83osmVNb2G4wJsQEMPTHw6usik0Yb7NNyCLfaQ4Cao7eTMd/cA9Vr7qcRy7RCn1am0/LoqWC7g==
+hds-design-tokens@^0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/hds-design-tokens/-/hds-design-tokens-0.24.0.tgz#66779390b65a7e9ca67bab632efdd4928f8506b8"
+  integrity sha512-Oop6+ObC4bHDUJO8wCdJ+6um5CcB1H5uAKLy8P4KY+mlI6cPwU5wbEIJwbCB/LMK8hpnvSL/ZIilCMJh8XWf/g==
 
-hds-react@^0.23.0:
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/hds-react/-/hds-react-0.23.0.tgz#b9ea5fe00a352b12d19489fe715d98500e85966a"
-  integrity sha512-Z0i3blJafn38GCeQq15nA4gOAzzreaASF/0ygzPH2ku0vTibCgaEbjOTi49W6f2quwe/jIcHt6R/X21LMKNt7Q==
+hds-react@^0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/hds-react/-/hds-react-0.24.0.tgz#43fc3aacb6d5b81e2d59ab7a2aa3ba554f8af5f7"
+  integrity sha512-M1SgDXJzL0/oiFKV3GNuIa57dtSEDT/UcC0kXLnf78LdGRwIBS3P1r+u6FqKwQGI9igE+uNHZZIf3wlVixiDpA==
   dependencies:
     "@babel/runtime" "7.11.2"
     "@juggle/resize-observer" "3.2.0"
@@ -9902,7 +9902,7 @@ hds-react@^0.23.0:
     "@react-aria/visually-hidden" "3.2.0"
     date-fns "2.16.1"
     downshift "6.0.6"
-    hds-core "0.23.0"
+    hds-core "0.24.0"
     lodash.isequal "4.5.0"
     lodash.isfunction "3.0.9"
     lodash.uniqueid "4.0.1"

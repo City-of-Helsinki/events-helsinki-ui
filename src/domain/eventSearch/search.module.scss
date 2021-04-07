@@ -8,6 +8,10 @@ $buttonWidth: 180px;
   padding: 2.375rem 0 1.5rem 0;
   position: relative;
 
+  h1 {
+    margin-top: 0;
+  }
+
   .rowWrapper {
     display: grid;
     height: fit-content;

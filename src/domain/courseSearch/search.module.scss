@@ -13,7 +13,6 @@
   }
 
   .autoSuggestRow {
-    align-items: flex-end;
 
     @include respond-above(sm) {
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -43,10 +42,6 @@
       grid-gap: var(--spacing-xs);
       margin-bottom: var(--spacing-xs);
     }
-  }
-
-  .autoSuggestRow {
-    align-items: flex-end;
   }
 
   .searchButtonWrapper {

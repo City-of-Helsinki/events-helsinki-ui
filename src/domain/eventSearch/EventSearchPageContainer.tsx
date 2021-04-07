@@ -75,7 +75,7 @@ const EventSearchPageContainer: React.FC = () => {
       handleLoadMore={handleLoadMore}
       isFetchingMoreEvents={isFetchingMore}
       isLoadingEvents={loading}
-      pageTitle={t('eventSearch.title')}
+      pageTitle="eventSearch.title"
       eventType="event"
     />
   );

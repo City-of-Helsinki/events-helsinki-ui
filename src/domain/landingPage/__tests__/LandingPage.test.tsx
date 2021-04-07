@@ -98,7 +98,7 @@ it('renders different placeholder for inputs in mobile', async () => {
   await screen.findByRole('heading', { name: topBannerTitle });
 
   expect(
-    screen.getAllByPlaceholderText(translations.home.search.placeholder)
+    screen.getAllByPlaceholderText(translations.home.search.helperText)
   ).toHaveLength(2);
 });
 

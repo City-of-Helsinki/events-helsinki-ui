@@ -3,15 +3,11 @@ import { advanceTo, clear } from 'jest-date-mock';
 import React from 'react';
 
 import {
-  KeywordListDocument,
   NeighborhoodListDocument,
   PlaceListDocument,
 } from '../../../generated/graphql';
-import {
-  fakeKeywords,
-  fakeNeighborhoods,
-  fakePlaces,
-} from '../../../test/mockDataUtils';
+import { getKeywordListMock } from '../../../test/apollo-mocks/keywordListMocks';
+import { fakeNeighborhoods, fakePlaces } from '../../../test/mockDataUtils';
 import {
   actWait,
   configure,
@@ -25,11 +21,7 @@ import Search from '../Search';
 configure({ defaultHidden: true });
 
 const searchValue = 'jaz';
-const keywords = fakeKeywords(2, [
-  { name: { fi: 'Jazz' } },
-  { name: { fi: 'musiikkiklubit' } },
-]);
-const keywordsResponse = { data: { keywordList: keywords } };
+const keywords = ['Jazz', 'musiikkiklubit'];
 
 const neighborhoodsResponse = {
   data: { neighborhoodList: fakeNeighborhoods(10) },
@@ -37,17 +29,7 @@ const neighborhoodsResponse = {
 const placesResponse = { data: { placeList: fakePlaces(10) } };
 
 const mocks = [
-  {
-    request: {
-      query: KeywordListDocument,
-      variables: {
-        hasUpcomingEvents: true,
-        pageSize: 5,
-        text: searchValue,
-      },
-    },
-    result: keywordsResponse,
-  },
+  ...getKeywordListMock(searchValue, keywords),
   {
     request: {
       query: NeighborhoodListDocument,
@@ -97,7 +79,7 @@ test('should clear all filters and search field', async () => {
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe(search);
 
-  const searchInput = screen.getByRole('textbox', { name: /mitä etsit\?/i });
+  const searchInput = screen.getByRole('combobox', { name: /mitä etsit\?/i });
   userEvent.type(searchInput, searchValue);
 
   await waitFor(() => {
@@ -114,7 +96,7 @@ test('should clear all filters and search field', async () => {
 test('should change search query after clicking autosuggest menu item', async () => {
   const { history } = renderComponent();
 
-  const searchInput = screen.getByRole('textbox', { name: /mitä etsit\?/i });
+  const searchInput = screen.getByRole('combobox', { name: /mitä etsit\?/i });
   userEvent.type(searchInput, searchValue);
 
   await waitFor(() => {
