@@ -167,9 +167,9 @@ export const getEventSearchPage = (t: TestController) => {
         keywords,
       } = getEventFields(event, 'fi');
       const eventCard = () => {
-        return withinSearchResultList().findByTestId(event.id);
+        return withinSearchResultList().queryByTestId(event.id);
       };
-      const withinEventCard = () => within(screen.getByTestId(event.id));
+      const withinEventCard = () => within(screen.queryByTestId(event.id));
 
       if (searchedField) {
         setDataToPrintOnFailure(
