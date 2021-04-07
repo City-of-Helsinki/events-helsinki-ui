@@ -24,7 +24,10 @@ import {
 export const getEventSearchPage = (t: TestController) => {
   const within = withinContext(t);
   const screen = screenContext(t);
-  const commonComponents = getCommonComponents(t);
+  const pageIsLoaded = async () =>
+    await getCommonComponents(t)
+      .loadingSpinner()
+      .expectations.isNotPresent({ timeout: 20000 });
   const findSearchBanner = async () => {
     await t
       .expect(screen.findByTestId('searchContainer').exists)
@@ -147,6 +150,7 @@ export const getEventSearchPage = (t: TestController) => {
     const actions = {
       async clickShowMoreEventsButton() {
         await t.click(selectors.clickMoreButton());
+        await pageIsLoaded();
       },
     };
     const eventCard = async (
@@ -167,9 +171,9 @@ export const getEventSearchPage = (t: TestController) => {
         keywords,
       } = getEventFields(event, 'fi');
       const eventCard = () => {
-        return withinSearchResultList().findByTestId(event.id);
+        return withinSearchResultList().getAllByTestId(event.id).nth(0);
       };
-      const withinEventCard = () => within(screen.getByTestId(event.id));
+      const withinEventCard = () => within(eventCard());
 
       if (searchedField) {
         setDataToPrintOnFailure(
@@ -178,9 +182,7 @@ export const getEventSearchPage = (t: TestController) => {
           getExpectedEventContext(event, searchedField)
         );
       }
-      await commonComponents
-        .loadingSpinner()
-        .expectations.isNotPresent({ timeout: 20000 });
+      await pageIsLoaded();
       await t.expect(eventCard().exists).ok(await getErrorMessage(t));
 
       const selectors = {
