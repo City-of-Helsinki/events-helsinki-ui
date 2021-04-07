@@ -1,4 +1,4 @@
-name: Scheduled Production browser tests
+name: Scheduled staging browser tests
 on:
   schedule:
   # At half past every hour from 7-24 (finnish winter time)
