@@ -171,9 +171,9 @@ export const getEventSearchPage = (t: TestController) => {
         keywords,
       } = getEventFields(event, 'fi');
       const eventCard = () => {
-        return withinSearchResultList().getAllByTestId(event.id).nth(0);
+        return withinSearchResultList().getAllByTestId(event.id);
       };
-      const withinEventCard = () => within(eventCard());
+      const withinEventCard = () => within(eventCard().nth(0));
 
       if (searchedField) {
         setDataToPrintOnFailure(
@@ -183,7 +183,7 @@ export const getEventSearchPage = (t: TestController) => {
         );
       }
       await pageIsLoaded();
-      await t.expect(eventCard().exists).ok(await getErrorMessage(t));
+      await t.expect(eventCard().count).gt(0, await getErrorMessage(t));
 
       const selectors = {
         keywordLink(keyword: KeywordOption) {

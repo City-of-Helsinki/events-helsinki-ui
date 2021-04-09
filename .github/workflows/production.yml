@@ -73,7 +73,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_USERNAME: Deployer
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_48.png
-          SLACK_TITLE: Production has been updated!
+          SLACK_TITLE: ${{ env.PUBLIC_URL }} has been updated!
           SLACK_MESSAGE: 'A new version of Tapahtumat has been deployed to production! ${{ env.PUBLIC_URL }} :tada: :tada: '
           SLACK_CHANNEL: pomodori
         if: success()
@@ -83,7 +83,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_USERNAME: Deployer
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_48.png
-          SLACK_TITLE: Staging has been updated!
+          SLACK_TITLE: Deploying to ${{ env.PUBLIC_URL }} has *FAILED!*
           SLACK_MESSAGE: Deploying to ${{ env.PUBLIC_URL }} has *FAILED!*
           SLACK_CHANNEL: pomodori
         if: failure()

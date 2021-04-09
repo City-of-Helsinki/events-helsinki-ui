@@ -94,7 +94,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_USERNAME: DeployManager
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_48.png
-          SLACK_TITLE: Staging has been updated!
+          SLACK_TITLE: Deploying to ${{ matrix.DOCKER_BUILD_ARG_PUBLIC_URL }} has *FAILED!*
           SLACK_MESSAGE: Deploying to ${{ matrix.DOCKER_BUILD_ARG_PUBLIC_URL }} has *FAILED!*
           SLACK_CHANNEL: pomodori-alerts
         if: failure()
