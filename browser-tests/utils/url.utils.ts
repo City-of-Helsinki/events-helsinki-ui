@@ -54,7 +54,7 @@ export const getUrlUtils = (t: TestController) => {
       await pageIsLoaded();
       await t
         .expect(getPageTitle())
-        .eql('Tapahtumat Helsinki', await getErrorMessage(t));
+        .contains('Tapahtumat', await getErrorMessage(t));
     },
     async urlChangedToCourseSearchPage() {
       await t
@@ -62,7 +62,7 @@ export const getUrlUtils = (t: TestController) => {
         .eql(`/fi/courses`, await getErrorMessage(t));
       await t
         .expect(getPageTitle())
-        .eql('Tapahtumat Helsinki', await getErrorMessage(t)); // TODO: perhaps wrong title?
+        .eql('Tapahtumat', await getErrorMessage(t)); // TODO: perhaps wrong title?
     },
     async urlChangedToRecommendationsPage() {
       await t
@@ -71,7 +71,7 @@ export const getUrlUtils = (t: TestController) => {
       await pageIsLoaded();
       await t
         .expect(getPageTitle())
-        .eql('Tapahtumat Helsinki', await getErrorMessage(t));
+        .eql('Tapahtumat', await getErrorMessage(t));
     },
     async urlChangedToBannerPage(banner: BannerPageFieldsFragment) {
       setDataToPrintOnFailure(t, 'banner', banner);

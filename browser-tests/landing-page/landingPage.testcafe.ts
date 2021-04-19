@@ -25,10 +25,13 @@ test('banner data is present and links work', async () => {
   await topBannerComponent.actions.clickButtonLink();
   await urlUtils.expectations.urlChangedToBannerPage(topBanner);
   await urlUtils.actions.navigateToLandingPage();
-  const bottomBannerComponent = await components.bottomBanner(bottomBanner);
-  await bottomBannerComponent.expectations.bannerDataIsPresent();
-  await bottomBannerComponent.actions.clickButtonLink();
-  await urlUtils.expectations.urlChangedToBannerPage(bottomBanner);
+  // bottom banner is not mandatory, not in use in production for example. Test it only if data exists
+  if (bottomBanner) {
+    const bottomBannerComponent = await components.bottomBanner(bottomBanner);
+    await bottomBannerComponent.expectations.bannerDataIsPresent();
+    await bottomBannerComponent.actions.clickButtonLink();
+    await urlUtils.expectations.urlChangedToBannerPage(bottomBanner);
+  }
 });
 
 test('collection urls work', async (t) => {
