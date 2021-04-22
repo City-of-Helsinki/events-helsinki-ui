@@ -6,7 +6,7 @@ import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import { CollectionFieldsFragment } from '../../../generated/graphql';
 import { isFeatureEnabled } from '../../../util/featureFlags';
 import Container from '../../app/layout/Container';
-import { getEventIdsFromUrls } from '../../event/EventUrlUtils';
+import { getEventIdsFromUrls } from '../../event/EventUtils';
 import { EventType } from '../../event/types';
 import styles from './curatedEvents.module.scss';
 import EventCards from './EventCards';

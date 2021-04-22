@@ -12,7 +12,7 @@ import {
   EventsByIdsDocument,
   EventsByIdsQuery,
 } from '../browser-tests/utils/generated/graphql';
-import { BASE_URL } from './k6-utils';
+import { BASE_URL, checkResponse } from './k6-utils';
 
 export const GRAPHQL_BASE_URL =
   // eslint-disable-next-line no-undef
@@ -43,6 +43,7 @@ export const loadGraphQlResponse = <Query>({
       },
     }
   );
+  checkResponse(response);
   return JSON.parse(response.body as string) as QueryResult<Query>;
 };
 

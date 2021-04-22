@@ -1,10 +1,14 @@
 // eslint-disable-next-line import/no-unresolved
+import { check } from 'k6';
+// eslint-disable-next-line import/no-unresolved
 import { parseHTML, Selection } from 'k6/html';
 // eslint-disable-next-line import/no-unresolved
-import http from 'k6/http';
+import http, { RefinedResponse, ResponseType } from 'k6/http';
 
 //TODO import does not work?
 import { ROUTES } from '../src/domain/app/routes/constants';
+import { getEventFields } from '../src/domain/event/EventUtils';
+import { EventFields } from '../src/domain/event/types';
 
 // Environment variables can be added to run command:
 // eslint-disable-next-line max-len
@@ -32,11 +36,33 @@ export const getUrl = (page: keyof PageType, value?: string): string =>
       : Page[page]
   }`;
 
+export const checkResponse = <R extends ResponseType | undefined>(
+  response: RefinedResponse<R>
+): void => {
+  check(response, {
+    'is status 200': (r) => r.status === 200,
+  });
+};
+
 export const loadUrlDocument = (
   page: keyof PageType,
   value?: string
 ): Selection => {
-  const res = http.get(getUrl(page, value));
-  // https://k6.io/docs/javascript-api/k6-html/parsehtml-src
-  return parseHTML(res.body as string);
+  const response = http.get(getUrl(page, value));
+  checkResponse(response);
+  return parseHTML(response.body as string);
+};
+
+export const loadEventImage = (event: EventFields): void => {
+  const { imageUrl } = getEventFields(event, 'fi');
+  loadImage(imageUrl);
+};
+
+export const loadImage = (imageUrl: string): void => {
+  const response = http.get(imageUrl, {
+    headers: {
+      referer: BASE_URL,
+    },
+  });
+  checkResponse(response);
 };
