@@ -15,7 +15,7 @@ jobs:
       - name: Run k6 tests
         uses: k6io/action@v0.1
         with:
-          filename: k6LoadTests.js
+          filename: load-tests/eventSearchPage.k6.test.js
       - name: k6 Load Tests failed notifications
         uses: rtCamp/action-slack-notify@v2
         env:

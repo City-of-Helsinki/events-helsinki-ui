@@ -1,3 +1,4 @@
 config
 **/generated/*
 src/serviceWorker.ts
+webpack*.config.js
