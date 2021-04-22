@@ -11,11 +11,10 @@ import {
   fakeKeywords,
   fakePlace,
 } from '../../../test/mockDataUtils';
+import { getEventIdFromUrl, getEventIdsFromUrls } from '../EventUrlUtils';
 import {
   formatPrice,
   getEventFields,
-  getEventIdFromUrl,
-  getEventIdsFromUrls,
   getEventImageUrl,
   getEventPlaceholderImageUrl,
   getEventSomeImageUrl,

@@ -1,16 +1,17 @@
 // eslint-disable-next-line import/no-unresolved
 import { sleep } from 'k6';
 // eslint-disable-next-line import/no-unresolved
-import http from 'k6/http';
-// eslint-disable-next-line import/no-unresolved
 import { Options } from 'k6/options';
-
+// eslint-disable-next-line import/no-unresolved
+import { Selection } from 'k6/html';
+import { getEventIdFromUrl } from '../src/domain/event/EventUrlUtils';
+import { skipFalsyType } from '../src/util/typescript.utils';
 import {
-  CollectionDetailsDocument,
-  EventDetailsDocument,
-  EventsByIdsDocument,
-} from '../browser-tests/utils/generated/graphql';
-import { BASE_URL, GRAPHQL_BASE_URL, loadUrlDocument } from './k6-utils';
+  loadCollection,
+  loadCuratedEvents,
+  loadEventDetails,
+} from './k6-graphql-utils';
+import { loadUrlDocument } from './k6-utils';
 
 export const options: Options = {
   duration: '1m',
@@ -24,17 +25,17 @@ export const options: Options = {
 
 const loadFrontPageDocument = () => loadUrlDocument('HOME');
 
-const getRandomSelectionElement = (selectionCollection) => {
+const getRandomSelectionElement = (selectionCollection: Selection) => {
   const randomIndex = Math.floor(Math.random() * selectionCollection.size());
   return selectionCollection.get(randomIndex);
 };
 
-const getRandomElement = (list) => {
+const getRandomElement = <T>(list: T[]): T => {
   const randomIndex = Math.floor(Math.random() * list.length);
   return list[randomIndex];
 };
 
-const getRandomCollectionLinkAndSlug = (doc) => {
+const getRandomCollectionLinkAndSlug = (doc: Selection) => {
   const collections = doc.find('a[aria-label^="Siirry kokoelmaan"]');
   const link = getRandomSelectionElement(collections).getAttribute('href');
   return {
@@ -42,65 +43,16 @@ const getRandomCollectionLinkAndSlug = (doc) => {
   };
 };
 
-const getEventIdFromUrl = (url) => {
-  const match = url.match(/\/(?:events?)\/([^/?]*)/i);
-  return match && match[1];
-};
-
-const loadGraphQlQuery = ({ operationName, variables, query }) => {
-  const response = http.post(
-    GRAPHQL_BASE_URL,
-    JSON.stringify({
-      operationName,
-      variables,
-      query,
-    }),
-    {
-      headers: {
-        referer: BASE_URL,
-        accept: '*/*',
-        'content-type': 'application/json',
-      },
-    }
-  );
-  return JSON.parse(response.body as string);
-};
-
-const loadCollectionPageCuratedEventIds = (slug) => {
-  const { data } = loadGraphQlQuery({
-    operationName: 'CollectionDetails',
-    variables: { draft: false, slug },
-    query: CollectionDetailsDocument,
-  });
+const loadCollectionPageCuratedEventIds = (slug: string) => {
+  const { data } = loadCollection(slug);
   return data.collectionDetails.curatedEvents
-    .map(getEventIdFromUrl)
-    .filter(Boolean);
+    .map((url) => getEventIdFromUrl(url, 'event'))
+    .filter(skipFalsyType);
 };
-
-const loadCuratedEvents = (eventIds) =>
-  loadGraphQlQuery({
-    operationName: 'EventsByIds',
-    variables: {
-      ids: eventIds,
-      include: ['location'],
-      source: 'LINKEDEVENTS',
-    },
-    query: EventsByIdsDocument,
-  });
 
 const loadEventPage = (eventId: string) => loadUrlDocument('EVENT', eventId);
 
-const loadEventDetails = (eventId) =>
-  loadGraphQlQuery({
-    operationName: 'EventDetails',
-    variables: {
-      id: eventId,
-      include: ['in_language', 'keywords', 'location', 'audience'],
-    },
-    query: EventDetailsDocument,
-  });
-
-const loadCollectionPage = (collectionSlug) => {
+const loadCollectionPage = (collectionSlug: string) => {
   // load collection page and its events
   loadUrlDocument('COLLECTION', collectionSlug);
   const curatedEventIds = loadCollectionPageCuratedEventIds(collectionSlug);

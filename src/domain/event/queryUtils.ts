@@ -24,7 +24,8 @@ import {
   getSearchQuery,
 } from '../eventSearch/utils';
 import { SIMILAR_EVENTS_AMOUNT } from './constants';
-import { getEventFields, getEventIdFromUrl } from './EventUtils';
+import { getEventFields } from './EventUtils';
+import { getEventIdFromUrl } from './EventUrlUtils';
 import { EventFields } from './types';
 
 const useSimilarEventsQueryVariables = (event: EventFields) => {

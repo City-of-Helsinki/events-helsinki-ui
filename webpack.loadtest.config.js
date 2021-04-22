@@ -13,7 +13,8 @@ module.exports = {
     filename: '[name].js',
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    // .mjs needed for https://github.com/graphql/graphql-js/issues/1272
+    extensions: ['.ts', '.js', '.mjs'],
   },
   module: {
     rules: [
@@ -21,6 +22,12 @@ module.exports = {
         test: /\.ts$/,
         use: 'babel-loader',
       },
+      // fixes https://github.com/graphql/graphql-js/issues/1272
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      }
     ],
   },
   target: 'web',
