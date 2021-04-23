@@ -3,6 +3,9 @@ on:
   schedule:
   # Mon-Fri 5AM Finnish time (UTC+3)
   - cron: '0 2 * * 1-5'
+  push:
+    branches:
+      - TH-1051-k6-collection-load-tests
 jobs:
   k6_load_test:
     name: k6 Load Tests
@@ -11,11 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Run k6 tests
-        uses: k6io/action@v0.1
-        with:
-          filename: load-tests/eventSearchPage.k6.test.js
+      - name: Build k6 tests
+        run: yarn load-test:staging
       - name: k6 Load Tests failed notifications
         uses: rtCamp/action-slack-notify@v2
         env:

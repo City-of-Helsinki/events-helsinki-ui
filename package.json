@@ -103,8 +103,9 @@
     "lint": "eslint --ext js,ts,tsx src",
     "format-code": "eslint --ext js,ts,tsx src --fix --max-warnings=0",
     "load-test-single": "yarn build:load-test && k6 run ",
-    "load-test-all": "yarn load-test-single dist/run-all.k6.test.js",
-    "load-test:staging": "yarn load-test-all -e BASE_URL=https://tapahtumat.test.kuva.hel.ninja -e GRAPHQL_BASE_URL=https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql"
+    "load-test": "yarn load-test-single dist/run-all.k6.test.js",
+    "load-test:staging": "yarn load-test -e BASE_URL=https://tapahtumat.test.kuva.hel.ninja -e GRAPHQL_BASE_URL=https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql",
+    "load-test:staging-single": "yarn load-test-single -e BASE_URL=https://tapahtumat.test.kuva.hel.ninja -e GRAPHQL_BASE_URL=https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql"
   },
   "eslintConfig": {
     "extends": "react-app"

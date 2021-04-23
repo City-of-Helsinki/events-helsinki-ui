@@ -5,9 +5,9 @@ import collectionsTest from './collections.k6.test';
 import eventSearchPageTest from './eventSearchPage.k6.test';
 
 export const options: Options = {
-  duration: '10m',
+  duration: '5m',
   // number of virtual users
-  vus: 20,
+  vus: 10,
   thresholds: {
     //95 % of requests should be under 1 second
     http_req_duration: ['p(95)<1000'],

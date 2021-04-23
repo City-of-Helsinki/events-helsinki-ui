@@ -35,7 +35,7 @@ export const checkResponse = <R extends ResponseType | undefined>(
   check(response, {
     'is status 200': (response) => {
       const isOk = response.status === 200;
-      failures += Number(isOk);
+      failures += Number(!isOk);
       return isOk;
     },
   });

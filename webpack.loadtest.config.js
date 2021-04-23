@@ -5,6 +5,7 @@ module.exports = {
   context: path.join(__dirname, 'load-tests'),
   entry: {
     'run-all.k6.test': './run-all.k6.test.ts',
+    'vappu-collection.k6.test': './vappu-collection.k6.test.ts',
   },
   output: {
     path: path.join(__dirname, 'dist'),

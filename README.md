@@ -119,11 +119,6 @@ Run linter to all the files in app
 Fix all the linter errors
 
 
-### `yarn load-test`
-
-Run all load tests. They will be run against staging environment by default. 
-
-
 ## Browser tests
 
 Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
