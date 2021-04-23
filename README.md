@@ -6,8 +6,7 @@ UI and SSR server for Tapahtumat Helsinki
 
 ## Environments
 
-Production environment:
-[TODO: Add url when deployed]
+Production environment: https://tapahtumat.test.kuva.hel.ninja/
 Project is automatically deployed to production when adding new relase tag, e.g. release-v0.1.0, to repo
 
 Testing environment: [https://tapahtumat.test.kuva.hel.ninja](https://tapahtumat.test.kuva.hel.ninja)
@@ -119,6 +118,12 @@ Run linter to all the files in app
 
 Fix all the linter errors
 
+
+### `yarn load-test`
+
+Run all load tests. They will be run against staging environment by default. 
+
+
 ## Browser tests
 
 Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
@@ -127,10 +132,15 @@ Browser tests are written in TypeScript with [TestCafe](https://devexpress.githu
 
 Performance tests are written in es6 with [k6](https://k6.io/) tool.
 
-To run k6 tests locally:
+### To run k6 tests locally
 
-1. Install and configure k6 locally using [official documentation](https://k6.io/docs/getting-started/installation).
-2. Run `k6 run k6LoadTests.js`
+- Install and configure k6 locally using [official documentation](https://k6.io/docs/getting-started/installation).
+- Run `yarn load-test` to run all tests locally (make sure that the server is running!)
+- Run `yarn load-test:staging` to run load tests against staging environment
+- Run `yarn load-test-single dist/myLoadTest.js` to run single test `load-tests/myLoadTest.ts` file
+
+You can override k6 options, for example Running a 30-second, 10-VU load test:
+   `yarn load-test --vus 10 --duration 30s`
 
 ## Debugging
 

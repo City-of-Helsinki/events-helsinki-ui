@@ -1,23 +1,14 @@
 // eslint-disable-next-line import/no-unresolved
-import { check } from 'k6';
+import { check, fail } from 'k6';
 // eslint-disable-next-line import/no-unresolved
 import { parseHTML, Selection } from 'k6/html';
 // eslint-disable-next-line import/no-unresolved
 import http, { RefinedResponse, ResponseType } from 'k6/http';
 
-//TODO import does not work?
-import { ROUTES } from '../src/domain/app/routes/constants';
-import { getEventFields } from '../src/domain/event/EventUtils';
-import { EventFields } from '../src/domain/event/types';
+import { ROUTES } from '../../src/domain/app/routes/constants';
 
-// Environment variables can be added to run command:
-// eslint-disable-next-line max-len
-// k6 run -e BASE_URL=https://tapahtumat.test.kuva.hel.ninja GRAPHQL_BASE_URL -e GRAPHQL_BASE_URL=https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql  some.k6.test.js
-// more info: https://k6.io/docs/using-k6/environment-variables/
-
-export const BASE_URL =
-  // eslint-disable-next-line no-undef
-  __ENV.BASE_URL || 'https://tapahtumat.test.kuva.hel.ninja';
+// eslint-disable-next-line no-undef
+export const BASE_URL = __ENV.BASE_URL ?? 'http://localhost:3000';
 
 export type PageType = {
   [K in keyof typeof ROUTES]: typeof ROUTES[K] | ((param: string) => string);
@@ -36,12 +27,21 @@ export const getUrl = (page: keyof PageType, value?: string): string =>
       : Page[page]
   }`;
 
+let failures = 0;
+
 export const checkResponse = <R extends ResponseType | undefined>(
   response: RefinedResponse<R>
 ): void => {
   check(response, {
-    'is status 200': (r) => r.status === 200,
+    'is status 200': (response) => {
+      const isOk = response.status === 200;
+      failures += Number(isOk);
+      return isOk;
+    },
   });
+  if (failures > 9) {
+    fail('too many failed responses');
+  }
 };
 
 export const loadUrlDocument = (
@@ -51,11 +51,6 @@ export const loadUrlDocument = (
   const response = http.get(getUrl(page, value));
   checkResponse(response);
   return parseHTML(response.body as string);
-};
-
-export const loadEventImage = (event: EventFields): void => {
-  const { imageUrl } = getEventFields(event, 'fi');
-  loadImage(imageUrl);
 };
 
 export const loadImage = (imageUrl: string): void => {

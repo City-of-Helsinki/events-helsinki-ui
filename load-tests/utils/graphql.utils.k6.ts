@@ -7,17 +7,20 @@ import http from 'k6/http';
 import {
   CollectionDetailsDocument,
   CollectionDetailsQuery,
+  CollectionListDocument,
+  CollectionListQuery,
   EventDetailsDocument,
   EventDetailsQuery,
   EventsByIdsDocument,
   EventsByIdsQuery,
-} from '../browser-tests/utils/generated/graphql';
-import { BASE_URL, checkResponse } from './k6-utils';
+  LandingPagesDocument,
+  LandingPagesQuery,
+} from '../../browser-tests/utils/generated/graphql';
+import { BASE_URL, checkResponse } from './utils.k6';
 
 export const GRAPHQL_BASE_URL =
   // eslint-disable-next-line no-undef
-  __ENV.GRAPHQL_BASE_URL ||
-  'https://tapahtumat-proxy.test.kuva.hel.ninja/proxy/graphql';
+  __ENV.GRAPHQL_BASE_URL || 'http://localhost:4000/proxy/graphql';
 
 export const loadGraphQlResponse = <Query>({
   operationName,
@@ -46,6 +49,24 @@ export const loadGraphQlResponse = <Query>({
   checkResponse(response);
   return JSON.parse(response.body as string) as QueryResult<Query>;
 };
+
+export const loadLandingPageData = (
+  visibleOnFrontpage = true
+): QueryResult<LandingPagesQuery> =>
+  loadGraphQlResponse<LandingPagesQuery>({
+    operationName: 'LandingPages',
+    variables: { visibleOnFrontpage },
+    query: LandingPagesDocument,
+  });
+
+export const loadLandingPageCollections = (
+  visibleOnFrontpage = true
+): QueryResult<CollectionListQuery> =>
+  loadGraphQlResponse<CollectionListQuery>({
+    operationName: 'CollectionList',
+    variables: { visibleOnFrontpage },
+    query: CollectionListDocument,
+  });
 
 export const loadCollection = (
   slug: string

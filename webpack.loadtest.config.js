@@ -4,8 +4,7 @@ module.exports = {
   mode: 'development',
   context: path.join(__dirname, 'load-tests'),
   entry: {
-    'collections.k6.test': './collections.k6.test.ts',
-    'eventSearchPage.k6.test': './eventSearchPage.k6.test.ts',
+    'run-all.k6.test': './run-all.k6.test.ts',
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -26,8 +25,8 @@ module.exports = {
       {
         test: /\.mjs$/,
         include: /node_modules/,
-        type: 'javascript/auto'
-      }
+        type: 'javascript/auto',
+      },
     ],
   },
   target: 'web',
