@@ -10,12 +10,24 @@ import { loadLandingPageDocument } from './pages/landingPage.k6';
 import { getRandomElement } from './utils/random.utils.k6';
 
 export const options: Options = {
-  duration: '1m',
-  // number of virtual users
-  vus: 5,
   thresholds: {
     //95 % of requests should be under 1 second
     http_req_duration: ['p(95)<1000'],
+  },
+  scenarios: {
+    contacts: {
+      executor: 'ramping-vus',
+      startVUs: 0,
+      stages: [
+        // ramping up from 0 to 1000 in 10 minutes
+        { duration: '10m', target: 1000 },
+        // keep running with 1000 users for 45 minutes
+        { duration: '45m', target: 1000 },
+        // ramping down to zero for last 5 minutes
+        { duration: '5m', target: 0 },
+      ],
+      gracefulRampDown: '0s',
+    },
   },
 };
 
