@@ -25,7 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies
-        run: yarn add webpack
+        run: yarn --prefer-offline --frozen-lockfile --check-files --only-dev
       - name: Build
         run: yarn build:load-test
       - name: Run k6 tests
