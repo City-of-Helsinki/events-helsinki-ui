@@ -3,6 +3,7 @@ import { Options } from 'k6/options';
 
 import collectionsTest from './collections.k6.test';
 import eventSearchPageTest from './eventSearchPage.k6.test';
+import { loadTestUserGoesToEventThroughVappuCollection } from './vappu-collection.k6.test';
 
 export const options: Options = {
   duration: '5m',
@@ -15,6 +16,5 @@ export const options: Options = {
 };
 
 export default (): void => {
-  eventSearchPageTest();
-  collectionsTest();
+  loadTestUserGoesToEventThroughVappuCollection();
 };

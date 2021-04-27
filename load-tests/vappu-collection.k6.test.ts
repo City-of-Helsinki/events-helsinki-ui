@@ -19,10 +19,10 @@ export const options: Options = {
       executor: 'ramping-vus',
       startVUs: 0,
       stages: [
-        // ramping up from 0 to 1000 in 10 minutes
-        { duration: '10m', target: 1000 },
-        // keep running with 1000 users for 45 minutes
-        { duration: '45m', target: 1000 },
+        // ramping up from 0 to 100 in 10 minutes
+        { duration: '10m', target: 100 },
+        // keep running with 100 users for 45 minutes
+        { duration: '45m', target: 100 },
         // ramping down to zero for last 5 minutes
         { duration: '5m', target: 0 },
       ],
@@ -31,7 +31,7 @@ export const options: Options = {
   },
 };
 
-const loadTestUserGoesToEventThroughVappuCollection = () => {
+export const loadTestUserGoesToEventThroughVappuCollection = () => {
   // load front page and load vappu collection
   loadLandingPageDocument();
   sleep(2);
