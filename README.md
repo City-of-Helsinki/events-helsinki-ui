@@ -52,6 +52,26 @@ The web application should run at http://localhost:3001
 
 Production docker container uses `package.prod.json` file instead of `package.json` to only included needed packages for server side code in the final image (to reduce image size). Whole node_modules directory from previous stages is not needed.
 
+## Feature flags
+
+There are 2 feature flags which can be enabled in `.env`:
+
+`REACT_APP_SHOW_SIMILAR_EVENTS`:
+
+Features enabled:
+
+- Link to the courses search in the header.
+- Link to the courses search in the footer.
+- Courses search, preview and course pages routes.
+- Updated Banner Hero styles.
+- Curated events component for courses.
+
+`REACT_APP_EVENTS_HELSINKI_2`:
+
+Features enabled:
+
+- Similar Events component will be shown in the bottom of Events page.
+
 ## Available Scripts
 
 In the project directory, you can run:
