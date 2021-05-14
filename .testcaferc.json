@@ -6,6 +6,9 @@
   "screenshots": {
     "takeOnFails": true
   },
+  "videoOptions": {
+    "failedOnly": true
+  },
   "compilerOptions": {
     "typescript": { "configPath": "./tsconfig.testcafe.json"}
   }
