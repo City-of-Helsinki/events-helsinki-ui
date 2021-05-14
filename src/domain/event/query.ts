@@ -21,6 +21,8 @@ export const QUERY_EVENT_DETAILS = gql`
   }
 
   fragment eventFields on EventDetails {
+    audienceMinAge
+    audienceMaxAge
     id
     eventStatus
     externalLinks {

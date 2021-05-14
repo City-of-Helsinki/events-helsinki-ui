@@ -28,7 +28,12 @@ import getDateArray from '../../../util/getDateArray';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import getDomain from '../../../util/getDomain';
 import { translateValue } from '../../../util/translateUtils';
-import { getEventFields, getEventPrice, getServiceMapUrl } from '../EventUtils';
+import {
+  getAudienceAge,
+  getEventFields,
+  getEventPrice,
+  getServiceMapUrl,
+} from '../EventUtils';
 import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../types';
 import styles from './eventInfo.module.scss';
 import OrganizationInfo from './OrganizationInfo';
@@ -140,15 +145,10 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
     }
   };
 
-  const getAudienceAge = () => {
-    const { audienceMinAge, audienceMaxAge } = event as CourseFieldsFragment;
-    const ageLimit = `${audienceMinAge ?? '0'}${
-      audienceMaxAge ? `-${audienceMaxAge}` : '+'
-    }`;
-    return ageLimit !== '0+' ? `${ageLimit} -${t('event.info.age')}` : '';
-  };
+  const { audienceMinAge, audienceMaxAge } = event as CourseFieldsFragment;
 
-  const audienceAge = eventType === 'course' && getAudienceAge();
+  const audienceAge =
+    eventType === 'course' && getAudienceAge(t, audienceMinAge, audienceMaxAge);
   const serviceMapUrl = getServiceMapUrl(event, locale, false);
 
   return (

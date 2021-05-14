@@ -1,4 +1,5 @@
 import { isPast, isThisWeek, isToday } from 'date-fns';
+import { TFunction } from 'i18next';
 import capitalize from 'lodash/capitalize';
 import sum from 'lodash/sum';
 
@@ -371,6 +372,8 @@ export const getEventFields = (event: EventFields, locale: Language) => {
     thisWeek: startTime ? isThisWeek(new Date(startTime)) : false,
     showBuyButton: !!offerInfoUrl && !isEventFree(event),
     audience: getKeywordList(event.audience, locale),
+    audienceMinAge: event.audienceMinAge,
+    audienceMaxAge: event.audienceMaxAge,
     photographerName: event.images[0]?.photographerName,
     ...getCourseFields(event),
     ...getEventLocationFields(event, locale),
@@ -386,3 +389,14 @@ export const isLocalized = (
       event.shortDescription?.[locale] &&
       event.description?.[locale]
   );
+
+export const getAudienceAge = (
+  t: TFunction,
+  audienceMinAge: string | null | undefined,
+  audienceMaxAge: string | null | undefined
+): string => {
+  const ageLimit = `${audienceMinAge ?? '0'}${
+    audienceMaxAge ? `-${audienceMaxAge}` : '+'
+  }`;
+  return ageLimit !== '0+' ? `${ageLimit} -${t('event.info.age')}` : '';
+};

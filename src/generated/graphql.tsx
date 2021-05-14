@@ -849,7 +849,7 @@ export type OfferFieldsFragment = (
 
 export type EventFieldsFragment = (
   { __typename?: 'EventDetails' }
-  & Pick<EventDetails, 'id' | 'eventStatus' | 'endTime' | 'startTime' | 'publisher'>
+  & Pick<EventDetails, 'audienceMinAge' | 'audienceMaxAge' | 'id' | 'eventStatus' | 'endTime' | 'startTime' | 'publisher'>
   & { externalLinks: Array<(
     { __typename?: 'ExternalLink' }
     & Pick<ExternalLink, 'name' | 'link'>
@@ -1398,6 +1398,8 @@ export const OfferFieldsFragmentDoc = gql`
     ${LocalizedFieldsFragmentDoc}`;
 export const EventFieldsFragmentDoc = gql`
     fragment eventFields on EventDetails {
+  audienceMinAge
+  audienceMaxAge
   id
   eventStatus
   externalLinks {

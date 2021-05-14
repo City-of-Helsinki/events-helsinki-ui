@@ -87,11 +87,11 @@
       }
     }
 
-    .eventPrice {
+    .eventAudienceAge {
       order: 5;
       font-size: var(--fontsize-body-m);
       line-height: var(--lineheight-l);
-      margin-bottom: var(--spacing-3-xs);
+      margin-bottom: var(--spacing-2-xs);
       color: var(color-black-80);
 
       @include respond_above(sm) {
@@ -99,8 +99,20 @@
       }
     }
 
-    .buttonWrapper {
+    .eventPrice {
       order: 6;
+      font-size: var(--fontsize-body-m);
+      line-height: var(--lineheight-l);
+      margin-bottom: var(--spacing-3-xs);
+      color: var(color-black-80);
+
+      @include respond_above(sm) {
+        order: 5;
+      }
+    }
+
+    .buttonWrapper {
+      order: 7;
       display: flex;
       flex-wrap: wrap;
 
