@@ -319,7 +319,7 @@
       "labelSearchField": "Mitä etsit?",
       "linkAdvancedSearch": "Tarkennettu haku",
       "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
-      "title": "Löydä tekemistä"
+      "title": "Löydä tapahtumia"
     },
     "search": {
       "popularCategories": "Suosituimmat kategoriat",
@@ -330,12 +330,12 @@
     "eventSearch": {
       "buttonSearch": "Hae",
       "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
-      "title": "Löydä tekemistä"
+      "title": "Löydä tapahtumia"
     },
     "courseSearch": {
       "buttonSearch": "Hae",
       "placeholder": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
-      "title": "Löydä harrastuksia"
+      "title": "Löydä tapahtumia"
     }
   },
   "menu": {

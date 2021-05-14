@@ -64,7 +64,7 @@ const renderComponent = (props?: Partial<SearchProps>) => {
     <LandingPageSearchSection
       popularCategories={popularCategories}
       searchPlaceholder="placeholder"
-      title="Löydä tekemistä"
+      title="Löydä tapahtumia"
       type="event"
       {...props}
     />,
@@ -102,7 +102,7 @@ test('should route to event search page with correct search query after clicking
   const { history } = renderComponent();
 
   const searchInput = screen.getByRole('textbox', {
-    name: /löydä tekemistä/i,
+    name: /löydä tapahtumia/i,
   });
   userEvent.type(searchInput, searchValue);
 
@@ -118,7 +118,7 @@ test('should route to event search page after clicking autosuggest menu item', a
   const { history } = renderComponent();
 
   const searchInput = screen.getByRole('textbox', {
-    name: /löydä tekemistä/i,
+    name: /löydä tapahtumia/i,
   });
   userEvent.type(searchInput, searchValue);
 
