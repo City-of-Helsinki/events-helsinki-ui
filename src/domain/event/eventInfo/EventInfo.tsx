@@ -29,7 +29,7 @@ import getDateRangeStr from '../../../util/getDateRangeStr';
 import getDomain from '../../../util/getDomain';
 import { translateValue } from '../../../util/translateUtils';
 import {
-  getAudienceAge,
+  getAudienceAgeText,
   getEventFields,
   getEventPrice,
   getServiceMapUrl,
@@ -148,7 +148,8 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
   const { audienceMinAge, audienceMaxAge } = event as CourseFieldsFragment;
 
   const audienceAge =
-    eventType === 'course' && getAudienceAge(t, audienceMinAge, audienceMaxAge);
+    eventType === 'course' &&
+    getAudienceAgeText(t, audienceMinAge, audienceMaxAge);
   const serviceMapUrl = getServiceMapUrl(event, locale, false);
 
   return (

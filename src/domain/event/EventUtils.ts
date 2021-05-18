@@ -390,13 +390,16 @@ export const isLocalized = (
       event.description?.[locale]
   );
 
-export const getAudienceAge = (
+export const getAudienceAgeText = (
   t: TFunction,
-  audienceMinAge: string | null | undefined,
-  audienceMaxAge: string | null | undefined
+  audienceMinAge?: string | null,
+  audienceMaxAge?: string | null
 ): string => {
+  if (!audienceMinAge && !audienceMaxAge) {
+    return '';
+  }
   const ageLimit = `${audienceMinAge ?? '0'}${
     audienceMaxAge ? `-${audienceMaxAge}` : '+'
   }`;
-  return ageLimit !== '0+' ? `${ageLimit} -${t('event.info.age')}` : '';
+  return `${ageLimit} -${t('event.info.age')}`;
 };
