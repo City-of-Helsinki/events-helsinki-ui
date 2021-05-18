@@ -14,6 +14,7 @@ import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
 import EventName from '../eventName/EventName';
 import {
+  getAudienceAgeText,
   getEventFields,
   getEventPrice,
   getLargeEventCardId,
@@ -50,7 +51,12 @@ const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
     offerInfoUrl,
     placeholderImage,
     startTime,
+    audienceMinAge,
+    audienceMaxAge,
   } = getEventFields(event, locale);
+
+  const audienceAge = getAudienceAgeText(t, audienceMinAge, audienceMaxAge);
+
   const eventClosed = isEventClosed(event);
   const queryString = addParamsToQueryString(search, {
     returnPath: pathname,
@@ -127,6 +133,9 @@ const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
             showLocationName={true}
           />
         </div>
+        {audienceAge && (
+          <div className={styles.eventAudienceAge}>{audienceAge}</div>
+        )}
         <div className={styles.eventPrice}>
           {getEventPrice(event, locale, t('event.eventCard.isFree'))}
         </div>
