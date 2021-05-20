@@ -15,7 +15,7 @@ export const getCommonComponents = (t: TestController) => {
       async isNotPresent({ timeout } = { timeout: 10000 }) {
         await t
           .expect(selectors.spinner().exists)
-          .notOk(await getErrorMessage(t), { timeout });
+          .ok(await getErrorMessage(t), { timeout });
       },
     };
     return {

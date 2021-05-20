@@ -61,15 +61,20 @@ const getHtml = ClientFunction(
 );
 
 export const getErrorMessage = async (t: TestController): Promise<string> => {
-  console.log('Requests in test:');
-  requestLogger.requests.forEach((request) => {
-    console.log(request);
-  });
-
   const testIdSelector = t.ctx.within?.key?.match(/TestId/gi)
     ? `[data-testid="${t.ctx.within.matcher}"]`
     : 'body';
   const componentHtml = pretty(await getHtml(testIdSelector));
+
+  let requestsText = '';
+  requestLogger.requests.forEach((request) => {
+    requestsText = `${requestsText}\r\n\r\n${JSON.stringify(
+      request,
+      null,
+      2
+    )} `;
+  });
+
   return `Expectation failed on test context: 
   ------------------------------------------------
   ${JSON.stringify(t.ctx, null, '\t')}
@@ -77,7 +82,11 @@ export const getErrorMessage = async (t: TestController): Promise<string> => {
   Failure occured within '${testIdSelector}' component:
   ------------------------------------------------
   ${componentHtml}
-  ------------------------------------------------  
+  ------------------------------------------------ 
+  Requests in tests:
+  ------------------------------------------------ 
+  ${requestsText}
+  ------------------------------------------------
   `;
 };
 
