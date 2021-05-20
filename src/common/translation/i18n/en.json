@@ -330,12 +330,12 @@
     "eventSearch": {
       "buttonSearch": "Search",
       "placeholder": "Enter a keyword, eg rock or yoga",
-      "title": "Find something to do"
+      "title": "Search for events"
     },
     "courseSearch": {
       "buttonSearch": "Search",
       "placeholder": "Enter a keyword, eg. French or cooking",
-      "title": "Find hobbies"
+      "title": "Search for hobbies"
     }
   },
   "menu": {

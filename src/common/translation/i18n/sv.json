@@ -330,12 +330,12 @@
     "eventSearch": {
       "buttonSearch": "Sök",
       "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
-      "title": "Sök saker att göra"
+      "title": "Hitta evenemang"
     },
     "courseSearch": {
       "buttonSearch": "Sök",
       "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
-      "title": "Hitta hobby"
+      "title": "Hitta hobbyer"
     }
   },
   "menu": {
