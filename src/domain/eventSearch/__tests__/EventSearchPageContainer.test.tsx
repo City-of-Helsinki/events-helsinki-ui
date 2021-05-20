@@ -260,4 +260,4 @@ it('scrolls to eventcard and calls history.replace correctly (deletes eventId fr
   );
 });
 
-//it('searches events correctly with event place in path, e.g. /fi/annantalo', () => {});
+// it('searches events correctly with event place in path, e.g. /fi/annantalo', () => {});

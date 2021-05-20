@@ -41,7 +41,8 @@ const PlaceSelector: React.FC<Props> = ({
       // TODO: set hasUpcomingEvents to true when Linked Courses is updated
       hasUpcomingEvents: source === LinkedEventsSource.Linkedevents,
       pageSize: 10,
-      text: searchValue,
+      // Seems like apollo can get stuck in loading when searched with different casings
+      text: searchValue.toLowerCase(),
       source,
     },
   });
