@@ -48,7 +48,7 @@ const places = fakePlaces(
 
 const placesResponse = { data: { placeList: places } };
 
-const searchWord = 'Malmi';
+const searchWord = 'malmi';
 
 const filteredPlaceNames = [
   'Malmin kirjasto',
@@ -120,7 +120,8 @@ test('should filter place options', async () => {
     screen.getByRole('textbox', {
       name: /etsi tapahtumapaikka kirjoita hakusana/i,
     }),
-    searchWord
+    // uppercase to test case insesitivity
+    searchWord.toUpperCase()
   );
 
   await waitFor(() => {
