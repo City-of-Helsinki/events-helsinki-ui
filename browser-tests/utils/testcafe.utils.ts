@@ -1,6 +1,9 @@
+/* eslint-disable no-console */
 import { screen, within } from '@testing-library/testcafe';
 import pretty from 'pretty';
 import TestController, { ClientFunction } from 'testcafe';
+
+import { requestLogger } from './requestLogger';
 
 export const setDataToPrintOnFailure = (
   t: TestController,
@@ -58,6 +61,11 @@ const getHtml = ClientFunction(
 );
 
 export const getErrorMessage = async (t: TestController): Promise<string> => {
+  console.log('Requests in test:');
+  requestLogger.requests.forEach((request) => {
+    console.log(request);
+  });
+
   const testIdSelector = t.ctx.within?.key?.match(/TestId/gi)
     ? `[data-testid="${t.ctx.within.matcher}"]`
     : 'body';

@@ -20,6 +20,7 @@ import {
   selectRandomValuesFromArray,
 } from '../utils/random.utils';
 import { getRandomSentence } from '../utils/regexp.util';
+import { requestLogger } from '../utils/requestLogger';
 import { getEnvUrl } from '../utils/settings';
 import {
   clearDataToPrintOnFailure,
@@ -36,7 +37,11 @@ fixture('Event search page')
     clearDataToPrintOnFailure(t);
     eventSearchPage = getEventSearchPage(t);
     urlUtils = getUrlUtils(t);
-  });
+  })
+  .afterEach(async () => {
+    requestLogger.clear();
+  })
+  .requestHooks(requestLogger);
 
 test('shows neighborhoods in filter options', async (t) => {
   const neighborhoodOptions = await searchFilterDataSource.getNeighborhoodOptions();

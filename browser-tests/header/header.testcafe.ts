@@ -1,5 +1,6 @@
 import { SUPPORT_LANGUAGES } from '../../src/constants';
 import { isFeatureEnabled } from '../../src/util/featureFlags';
+import { requestLogger } from '../utils/requestLogger';
 import { getEnvUrl } from '../utils/settings';
 import { clearDataToPrintOnFailure } from '../utils/testcafe.utils';
 import { getUrlUtils } from '../utils/url.utils';
@@ -12,6 +13,10 @@ fixture('Landing page header')
   .beforeEach(async (t) => {
     clearDataToPrintOnFailure(t);
     urlUtils = getUrlUtils(t);
+  })
+  .requestHooks(requestLogger)
+  .afterEach(async () => {
+    requestLogger.clear();
   });
 
 test('Changing language on landing page', async (t) => {

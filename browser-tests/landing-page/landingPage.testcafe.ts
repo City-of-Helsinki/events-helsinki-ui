@@ -1,4 +1,5 @@
 import { landingPageDataSource } from '../datasources/landingPageDataSource';
+import { requestLogger } from '../utils/requestLogger';
 import { getEnvUrl } from '../utils/settings';
 import { clearDataToPrintOnFailure } from '../utils/testcafe.utils';
 import { getUrlUtils } from '../utils/url.utils';
@@ -13,7 +14,11 @@ fixture('Landing page')
     clearDataToPrintOnFailure(t);
     components = getLandingPageComponents(t);
     urlUtils = getUrlUtils(t);
-  });
+  })
+  .afterEach(async () => {
+    requestLogger.clear();
+  })
+  .requestHooks(requestLogger);
 
 test('banner data is present and links work', async () => {
   const {
