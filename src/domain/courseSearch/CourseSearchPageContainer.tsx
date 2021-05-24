@@ -26,6 +26,7 @@ const CourseSearchPageContainer: React.FC = () => {
     language: locale,
     pageSize: PAGE_SIZE,
     params: searchParams,
+    // TODO: EventSearchPageContainer uses a place here
     sortOrder: EVENT_SORT_OPTIONS.END_TIME,
     superEventType: ['umbrella', 'none'],
     searchSource: EVENT_SEARCH_SOURCES.COURSES,
@@ -71,11 +72,11 @@ const CourseSearchPageContainer: React.FC = () => {
   return (
     <SearchPage
       SearchComponent={CourseSearch}
-      pageTitle="courseSearch.title"
-      isLoadingEvents={loading}
+      eventsList={coursesData?.courseList}
       handleLoadMore={handleLoadMore}
       isFetchingMoreEvents={isFetchingMore}
-      eventsList={coursesData?.courseList}
+      isLoadingEvents={loading}
+      pageTitle="courseSearch.title"
       eventType="course"
     />
   );

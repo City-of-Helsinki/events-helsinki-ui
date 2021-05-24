@@ -36,11 +36,9 @@ const CoursePageContainer: React.FC = () => {
   const params = useParams<RouteParams>();
   const courseId = params.id;
   const locale = useLocale();
-  const [superEvent, setSuperEvent] = React.useState<SuperEventResponse>({
-    data: null,
-    status: 'pending',
-  });
 
+  /* TODO: This hook could be merged with events: 
+  typeId parameter should then be given.*/
   const { data: courseData, loading } = useCourseDetailsQuery({
     variables: {
       id: courseId,
@@ -50,11 +48,19 @@ const CoursePageContainer: React.FC = () => {
 
   const course = courseData?.courseDetails;
 
+  // TODO: This differs from EventPageContainer
+  const [superEvent, setSuperEvent] = React.useState<SuperEventResponse>({
+    data: null,
+    status: 'pending',
+  });
+
+  // TODO: This differs from EventPageContainer
   const superEventId = getEventIdFromUrl(
     course?.superEvent?.internalId ?? '',
     'event'
   );
 
+  // TODO: This differs from EventPageContainer
   React.useLayoutEffect(() => {
     if (superEventId) {
       getSuperEventData();
@@ -91,6 +97,7 @@ const CoursePageContainer: React.FC = () => {
                 <EventClosedHero />
               ) : (
                 <>
+                  {/*TODO: This differs from EventPageContainer because of super events */}
                   <EventHero
                     event={course}
                     superEvent={superEvent}
@@ -100,6 +107,7 @@ const CoursePageContainer: React.FC = () => {
                 </>
               )}
               {/* Hide similar event on SSR to make initial load faster */}
+              {/*TODO: This differs from EventPageContainer - && isFeatureEnabled('SHOW_SIMILAR_EVENTS') */}
               {isClient && <SimilarCoursesContainer event={course} />}
             </>
           ) : (
@@ -108,6 +116,7 @@ const CoursePageContainer: React.FC = () => {
               title={t('event.notFound.title')}
             >
               <Link to={`/${locale}${ROUTES.COURSES}${search}`}>
+                {/* TODO: Should here be a course related translation */}
                 {t('event.notFound.linkSearchEvents')}
               </Link>
             </ErrorHero>

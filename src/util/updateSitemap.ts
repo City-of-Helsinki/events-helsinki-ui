@@ -266,6 +266,8 @@ const getEventsPage = async (
   start: Date,
   page: number
 ) => {
+  // TODO: course and event specific urls.
+  // ?event_Type=General or ?event_Type=Course param should be added?
   const url =
     `${eventTypeURLMap[eventType]}/event` +
     `?start=${start.toISOString()}` +
