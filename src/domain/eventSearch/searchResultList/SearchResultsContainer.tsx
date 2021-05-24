@@ -3,19 +3,22 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Container from '../../app/layout/Container';
-import NoResultsInfo from './NoResultsInfo';
+import { EventType } from '../../event/types';
+import ResultsInfoContainer from './ResultsInfo';
 import styles from './searchResultList.module.scss';
 
 interface Props {
   loading: boolean;
-  count: number;
+  eventsCount: number;
   eventList: React.ReactElement;
+  eventType: EventType;
 }
 
 const SearchResultsContainer: React.FC<Props> = ({
   loading,
-  count,
+  eventsCount,
   eventList,
+  eventType,
 }) => {
   const { t } = useTranslation();
 
@@ -25,11 +28,16 @@ const SearchResultsContainer: React.FC<Props> = ({
         <div className={classNames(styles.searchResultWrapper)}>
           <h2 className={styles.count}>
             {t('eventSearch.textFoundEvents', {
-              count,
+              count: eventsCount,
             })}
           </h2>
-          {!count && !loading && <NoResultsInfo />}
-          {eventList}
+          {!!eventsCount && eventList}
+          {!loading && (
+            <ResultsInfoContainer
+              resultsCount={eventsCount}
+              eventType={eventType}
+            />
+          )}
         </div>
       </Container>
     </div>

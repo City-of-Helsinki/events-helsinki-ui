@@ -159,8 +159,9 @@ const SearchPage: React.FC<{
           {eventsList && (
             <MainContent offset={-70}>
               <SearchResultsContainer
-                count={eventsList.meta.count}
+                eventsCount={eventsList.meta.count}
                 loading={isLoadingEvents}
+                eventType={eventType}
                 eventList={
                   <EventList
                     cardSize="large"
