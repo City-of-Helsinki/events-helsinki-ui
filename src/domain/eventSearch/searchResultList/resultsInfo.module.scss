@@ -25,7 +25,31 @@
     font-size: 1rem;
     font-weight: normal;
     text-align: center;
+    line-height: 1.5rem;
     max-width: 37.5rem;
     margin: auto;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    max-width: 25rem;
+    margin: auto;
+
+    button {
+      margin-top: var(--spacing-l)
+    }
+  }
+
+  .secondaryButton {
+    --color: black;
+    --color-hover: black;
+    --color-focus: black;
+    --color-hover-focus: black;
+  
+    --border-color: var(--color-success);
+    --border-color-hover: var(--color-success-dark);
+    --border-color-focus: var(--color-success);
+    --border-color-hover-focus: var(--color-success-dark);
   }
 }

@@ -204,9 +204,16 @@
     "buttonClearFilters": "Tyhjennä hakuehdot",
     "buttonLoadMore": "Näytä lisää tapahtumia ({{count}})",
     "errorLoadMode": "Tapahtumien lataaminen epäonnistui",
-    "noResultsInfo": {
-      "bigText": "Voi vitsi, valitsemillasi hakuehdoilla ei löytynyt yhtään hakutulosta",
-      "smallText": "Kokeile muuttamalla hakuehtoja ja varmasti löydät jotain kiinnostavaa tekemistä!"
+    "searchNotification": {
+      "noResultsTitle": "Valitsemillasi hakuehdoilla ei löytynyt yhtään tapahtumaa",
+      "noResultsText": "Valitsemillasi hakuehdoilla ei löytynyt tapahtumia. Kokeile muuttaa hakuehtoja tai siirry harrastusten hakuun.",
+      "fewResultsTitle": "Hakuehdoillasi löytyi vain vähän tapahtumia",
+      "fewResultsText": "Valitsemillasi hakuehdoilla löytyi vain vähän tapahtumia. Kokeile muuttaa hakuehtoja tai siirry harrastusten hakuun.",
+      "changeLanguageText": "Kokeile muuttaa hakuehtoja tai etsi suomen kielellä",
+      "buttons": {
+        "labelSearchOtherEventType": "Etsi hakutuloksia harrastuksista",
+        "labelSearchInFinnish": "Näytä hakutulokset suomeksi"
+      }
     },
     "search": {
       "buttonSearch": "Hae",
@@ -231,6 +238,17 @@
   "courseSearch": {
     "title": "Löydä harrastus",
     "buttonLoadMore": "Näytä lisää harrastuksia ({{count}})",
+    "searchNotification": {
+      "noResultsTitle": "Valitsemillasi hakuehdoilla ei löytynyt yhtään harrastusta",
+      "noResultsText": "Valitsemillasi hakuehdoilla ei löytynyt harrastuksia. Kokeile muuttaa hakuehtoja tai siirry tapahtumien hakuun.",
+      "fewResultsTitle": "Valitsemillasi hakuehdoilla löytyi vain vähän hakutuloksia",
+      "fewResultsText": "Valitsemillasi hakuehdoilla löytyi vain vähän harrastuksia. Kokeile muuttaa hakuehtoja tai siirry tapahtumien hakuun.",
+      "changeLanguageText": "Kokeile muuttaa hakuehtoja tai etsi suomen kielellä",
+      "buttons": {
+        "labelSearchOtherEventType": "Etsi hakutuloksia tapahtumista",
+        "labelSearchInFinnish": "Näytä hakutulokset suomeksi"
+      }
+    },
     "search": {
       "placeholder": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
       "labelSearchField": "Mitä etsit?",

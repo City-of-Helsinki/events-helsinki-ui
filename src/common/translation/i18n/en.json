@@ -204,9 +204,16 @@
     "buttonClearFilters": "Clear filters",
     "buttonLoadMore": "Show more events ({{count}})",
     "errorLoadMore": "Failed to load events",
-    "noResultsInfo": {
-      "bigText": "Sorry, no search results were found for the search criteria you selected",
-      "smallText": "Try changing your search criteria and you're sure to find something to do!"
+   "searchNotification": {
+      "noResultsTitle": "Sorry, no search results were found for the search criteria you selected.",
+      "noResultsText": "No search results were found for the search criteria you selected. Try to change search terms or change to hobby search.",
+      "fewResultsTitle": "Your search terms returned only a few results.",
+      "fewResultsText": "Your search terms returned only a few results. Try to change search terms or change to hobby search.",
+      "changeLanguageText": "Please change your search terms or display results in Finnish.",
+      "buttons": {
+        "labelSearchOtherEventType": "Search hobbies",
+        "labelSearchInFinnish": "Display results in Finnish"
+      }
     },
     "search": {
       "buttonSearch": "Search",
@@ -231,6 +238,17 @@
   "courseSearch": {
     "title": "Find hobby",
     "buttonLoadMore": "Show more hobbies ({{count}})",
+    "searchNotification": {
+      "noResultsTitle": "Sorry, no search results were found for the search criteria you selected.",
+      "noResultsText": "No search results were found for the search criteria you selected. Try to change search terms or change to event search.",
+      "fewResultsTitle": "Your search terms returned only a few results.",
+      "fewResultsText": "Your search terms returned only a few results. Try to change search terms or change to event search.",
+      "changeLanguageText": "Please change your search terms or display results in Finnish.",
+      "buttons": {
+        "labelSearchOtherEventType": "Search events",
+        "labelSearchInFinnish": "Display results in Finnish"
+      }
+    },
     "search": {
       "placeholder": "Enter a keyword, eg. French or cooking",
       "labelSearchField": "What are you looking for?",
