@@ -13,11 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      # Run latest master for now
       # to checkout latest tag we need to fetch unshallow clone
-        with:
-          fetch-depth: 0
+      #  with:
+      #    fetch-depth: 0
       # checkout latest tag (should be a production version)
-      - run: git describe --abbrev=0 --tags | xargs git checkout
+      # - run: git describe --abbrev=0 --tags | xargs git checkout
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
         with:
