@@ -259,12 +259,11 @@ it('renders title and search fields', async () => {
     })
   ).toBeInTheDocument();
 
-  //th-1040: temporary
-  /*expect(
+  expect(
     screen.getByRole('button', {
       name: translations.eventSearch.search.titleDropdownDivision,
     })
-  ).toBeInTheDocument();*/
+  ).toBeInTheDocument();
 
   expect(screen.getByText(/jazz/i)).toBeInTheDocument();
 });
@@ -291,12 +290,11 @@ it('initializes search fields correctly from query', async () => {
     })
   ).toHaveTextContent('Huomenna');
 
-  //th-1040: temporary
-  /*expect(
+  expect(
     screen.getByRole('button', {
       name: translations.eventSearch.search.titleDropdownDivision,
     })
-  ).toHaveTextContent(/Alppiharju \+ 1/i);*/
+  ).toHaveTextContent(/Alppiharju \+ 1/i);
 
   expect(
     screen.getByRole('button', {

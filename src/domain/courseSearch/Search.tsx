@@ -81,9 +81,6 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
 
   const { alsoOngoingCourses, isFree } = getSearchFilters(searchParams);
 
-  //th-1040: temporary
-  const showDivisions = false;
-
   const searchFilters = {
     alsoOngoingCourses,
     categories: selectedCategories,
@@ -292,24 +289,23 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                   toggleIsCustomDate={toggleIsCustomDate}
                 />
               </div>
-              {showDivisions && (
-                <div>
-                  <MultiSelectDropdown
-                    checkboxName="divisionOptions"
-                    icon={<IconLocation aria-hidden />}
-                    inputValue={divisionInput}
-                    name="division"
-                    onChange={setSelectedDivisions}
-                    options={divisionOptions}
-                    selectAllText={t('eventSearch.search.selectAllDivisions')}
-                    setInputValue={setDivisionInput}
-                    showSearch={true}
-                    showSelectAll={true}
-                    title={t('eventSearch.search.titleDropdownDivision')}
-                    value={selectedDivisions}
-                  />
-                </div>
-              )}
+
+              <div>
+                <MultiSelectDropdown
+                  checkboxName="divisionOptions"
+                  icon={<IconLocation aria-hidden />}
+                  inputValue={divisionInput}
+                  name="division"
+                  onChange={setSelectedDivisions}
+                  options={divisionOptions}
+                  selectAllText={t('eventSearch.search.selectAllDivisions')}
+                  setInputValue={setDivisionInput}
+                  showSearch={true}
+                  showSelectAll={true}
+                  title={t('eventSearch.search.titleDropdownDivision')}
+                  value={selectedDivisions}
+                />
+              </div>
 
               <div>
                 <RangeDropdown
