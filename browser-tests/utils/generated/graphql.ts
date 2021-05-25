@@ -140,7 +140,11 @@ export type EventDetails = {
   internalId?: Maybe<Scalars['String']>,
   internalContext?: Maybe<Scalars['String']>,
   internalType?: Maybe<Scalars['String']>,
-  extensionCourse?: Maybe<ExtensionCourse>,
+  enrolmentStartTime?: Maybe<Scalars['String']>,
+  enrolmentEndTime?: Maybe<Scalars['String']>,
+  maximumAttendeeCapacity?: Maybe<Scalars['Int']>,
+  minimumAttendeeCapacity?: Maybe<Scalars['Int']>,
+  remainingAttendeeCapacity?: Maybe<Scalars['Int']>,
 };
 
 export type EventListResponse = {
@@ -149,14 +153,10 @@ export type EventListResponse = {
   data: Array<EventDetails>,
 };
 
-export type ExtensionCourse = {
-   __typename?: 'ExtensionCourse',
-  enrolmentStartTime?: Maybe<Scalars['String']>,
-  enrolmentEndTime?: Maybe<Scalars['String']>,
-  maximumAttendeeCapacity?: Maybe<Scalars['Int']>,
-  minimumAttendeeCapacity?: Maybe<Scalars['Int']>,
-  remainingAttendeeCapacity?: Maybe<Scalars['Int']>,
-};
+export enum EventTypeId {
+  General = 'General',
+  Course = 'Course'
+}
 
 export type ExternalLink = {
    __typename?: 'ExternalLink',
@@ -260,11 +260,6 @@ export type LandingPagesResponse = {
    __typename?: 'LandingPagesResponse',
   data: Array<LandingPage>,
 };
-
-export enum LinkedEventsSource {
-  Linkedevents = 'LINKEDEVENTS',
-  Linkedcourses = 'LINKEDCOURSES'
-}
 
 export type LocalizedCmsImage = {
    __typename?: 'LocalizedCmsImage',
@@ -394,9 +389,6 @@ export type Query = {
   eventDetails: EventDetails,
   eventList: EventListResponse,
   eventsByIds: Array<EventDetails>,
-  courseDetails: EventDetails,
-  courseList: EventListResponse,
-  coursesByIds: Array<EventDetails>,
   keywordDetails: Keyword,
   keywordList: KeywordListResponse,
   landingPage: LandingPage,
@@ -421,72 +413,12 @@ export type QueryCollectionListArgs = {
 
 export type QueryEventDetailsArgs = {
   id?: Maybe<Scalars['ID']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>,
-  source?: Maybe<LinkedEventsSource>
-};
-
-
-export type QueryEventListArgs = {
-  localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
-  localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
-  localOngoingOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>,
-  localOngoingOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>,
-  localOngoingOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>,
-  internetOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
-  internetOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
-  allOngoing?: Maybe<Scalars['Boolean']>,
-  allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
-  allOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
-  combinedText?: Maybe<Array<Maybe<Scalars['String']>>>,
-  division?: Maybe<Array<Maybe<Scalars['String']>>>,
-  end?: Maybe<Scalars['String']>,
-  endsAfter?: Maybe<Scalars['String']>,
-  endsBefore?: Maybe<Scalars['String']>,
-  ids?: Maybe<Array<Maybe<Scalars['String']>>>,
-  inLanguage?: Maybe<Scalars['String']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>,
-  isFree?: Maybe<Scalars['Boolean']>,
-  keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keyword?: Maybe<Array<Maybe<Scalars['String']>>>,
-  language?: Maybe<Scalars['String']>,
-  location?: Maybe<Array<Maybe<Scalars['String']>>>,
-  page?: Maybe<Scalars['Int']>,
-  pageSize?: Maybe<Scalars['Int']>,
-  publisher?: Maybe<Scalars['ID']>,
-  sort?: Maybe<Scalars['String']>,
-  start?: Maybe<Scalars['String']>,
-  startsAfter?: Maybe<Scalars['String']>,
-  startsBefore?: Maybe<Scalars['String']>,
-  superEvent?: Maybe<Scalars['ID']>,
-  superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
-  text?: Maybe<Scalars['String']>,
-  translation?: Maybe<Scalars['String']>,
-  audienceMinAgeLt?: Maybe<Scalars['String']>,
-  audienceMinAgeGt?: Maybe<Scalars['String']>,
-  audienceMaxAgeLt?: Maybe<Scalars['String']>,
-  audienceMaxAgeGt?: Maybe<Scalars['String']>,
-  source?: Maybe<LinkedEventsSource>
-};
-
-
-export type QueryEventsByIdsArgs = {
-  ids: Array<Scalars['ID']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>,
-  source?: Maybe<LinkedEventsSource>
-};
-
-
-export type QueryCourseDetailsArgs = {
-  id?: Maybe<Scalars['ID']>,
   include?: Maybe<Array<Maybe<Scalars['String']>>>
 };
 
 
-export type QueryCourseListArgs = {
+export type QueryEventListArgs = {
+  eventType?: Maybe<EventTypeId>,
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
   localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
   localOngoingOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>,
@@ -532,15 +464,14 @@ export type QueryCourseListArgs = {
 };
 
 
-export type QueryCoursesByIdsArgs = {
+export type QueryEventsByIdsArgs = {
   ids: Array<Scalars['ID']>,
   include?: Maybe<Array<Maybe<Scalars['String']>>>
 };
 
 
 export type QueryKeywordDetailsArgs = {
-  id: Scalars['ID'],
-  source?: Maybe<LinkedEventsSource>
+  id: Scalars['ID']
 };
 
 
@@ -551,8 +482,7 @@ export type QueryKeywordListArgs = {
   pageSize?: Maybe<Scalars['Int']>,
   showAllKeywords?: Maybe<Scalars['Boolean']>,
   sort?: Maybe<Scalars['String']>,
-  text?: Maybe<Scalars['String']>,
-  source?: Maybe<LinkedEventsSource>
+  text?: Maybe<Scalars['String']>
 };
 
 
@@ -568,14 +498,12 @@ export type QueryLandingPagesArgs = {
 
 
 export type QueryOrganizationDetailsArgs = {
-  id: Scalars['ID'],
-  source?: Maybe<LinkedEventsSource>
+  id: Scalars['ID']
 };
 
 
 export type QueryPlaceDetailsArgs = {
-  id: Scalars['ID'],
-  source?: Maybe<LinkedEventsSource>
+  id: Scalars['ID']
 };
 
 
@@ -587,8 +515,7 @@ export type QueryPlaceListArgs = {
   pageSize?: Maybe<Scalars['Int']>,
   showAllPlaces?: Maybe<Scalars['Boolean']>,
   sort?: Maybe<Scalars['String']>,
-  text?: Maybe<Scalars['String']>,
-  source?: Maybe<LinkedEventsSource>
+  text?: Maybe<Scalars['String']>
 };
 
 export type StaticPage = {
@@ -742,90 +669,6 @@ export type CollectionListQuery = (
   ) }
 );
 
-export type CourseFieldsFragment = (
-  { __typename?: 'EventDetails' }
-  & Pick<EventDetails, 'audienceMinAge' | 'audienceMaxAge'>
-  & { extensionCourse: Maybe<(
-    { __typename?: 'ExtensionCourse' }
-    & Pick<ExtensionCourse, 'enrolmentStartTime' | 'enrolmentEndTime' | 'maximumAttendeeCapacity' | 'minimumAttendeeCapacity' | 'remainingAttendeeCapacity'>
-  )> }
-  & EventFieldsFragment
-);
-
-export type CourseDetailsQueryVariables = {
-  id: Scalars['ID'],
-  include?: Maybe<Array<Maybe<Scalars['String']>>>
-};
-
-
-export type CourseDetailsQuery = (
-  { __typename?: 'Query' }
-  & { courseDetails: (
-    { __typename?: 'EventDetails' }
-    & CourseFieldsFragment
-  ) }
-);
-
-export type CourseListQueryVariables = {
-  allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
-  audienceMaxAgeLt?: Maybe<Scalars['String']>,
-  audienceMinAgeGt?: Maybe<Scalars['String']>,
-  division?: Maybe<Array<Maybe<Scalars['String']>>>,
-  end?: Maybe<Scalars['String']>,
-  endsAfter?: Maybe<Scalars['String']>,
-  endsBefore?: Maybe<Scalars['String']>,
-  inLanguage?: Maybe<Scalars['String']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>,
-  isFree?: Maybe<Scalars['Boolean']>,
-  keyword?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>,
-  language?: Maybe<Scalars['String']>,
-  location?: Maybe<Array<Maybe<Scalars['String']>>>,
-  page?: Maybe<Scalars['Int']>,
-  pageSize?: Maybe<Scalars['Int']>,
-  publisher?: Maybe<Scalars['ID']>,
-  sort?: Maybe<Scalars['String']>,
-  start?: Maybe<Scalars['String']>,
-  startsAfter?: Maybe<Scalars['String']>,
-  startsBefore?: Maybe<Scalars['String']>,
-  superEvent?: Maybe<Scalars['ID']>,
-  superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
-  text?: Maybe<Scalars['String']>,
-  translation?: Maybe<Scalars['String']>
-};
-
-
-export type CourseListQuery = (
-  { __typename?: 'Query' }
-  & { courseList: (
-    { __typename?: 'EventListResponse' }
-    & { meta: (
-      { __typename?: 'Meta' }
-      & Pick<Meta, 'count' | 'next' | 'previous'>
-    ), data: Array<(
-      { __typename?: 'EventDetails' }
-      & CourseFieldsFragment
-    )> }
-  ) }
-);
-
-export type CoursesByIdsQueryVariables = {
-  ids: Array<Scalars['ID']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>
-};
-
-
-export type CoursesByIdsQuery = (
-  { __typename?: 'Query' }
-  & { coursesByIds: Array<(
-    { __typename?: 'EventDetails' }
-    & CourseFieldsFragment
-  )> }
-);
-
 export type LocalizedFieldsFragment = (
   { __typename?: 'LocalizedObject' }
   & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
@@ -846,7 +689,7 @@ export type OfferFieldsFragment = (
   )> }
 );
 
-export type EventFieldsFragment = (
+export type GeneralEventFieldsFragment = (
   { __typename?: 'EventDetails' }
   & Pick<EventDetails, 'audienceMinAge' | 'audienceMaxAge' | 'id' | 'eventStatus' | 'endTime' | 'startTime' | 'publisher'>
   & { externalLinks: Array<(
@@ -898,6 +741,23 @@ export type EventFieldsFragment = (
   )> }
 );
 
+export type CourseExtensionFieldsFragment = (
+  { __typename?: 'EventDetails' }
+  & Pick<EventDetails, 'enrolmentStartTime' | 'enrolmentEndTime' | 'maximumAttendeeCapacity' | 'minimumAttendeeCapacity' | 'remainingAttendeeCapacity'>
+);
+
+export type CourseEventFieldsFragment = (
+  { __typename?: 'EventDetails' }
+  & GeneralEventFieldsFragment
+  & CourseExtensionFieldsFragment
+);
+
+export type EventFieldsFragment = (
+  { __typename?: 'EventDetails' }
+  & GeneralEventFieldsFragment
+  & CourseExtensionFieldsFragment
+);
+
 export type EventDetailsQueryVariables = {
   id: Scalars['ID'],
   include?: Maybe<Array<Maybe<Scalars['String']>>>
@@ -913,6 +773,7 @@ export type EventDetailsQuery = (
 );
 
 export type EventListQueryVariables = {
+  eventType?: Maybe<EventTypeId>,
   allOngoing?: Maybe<Scalars['Boolean']>,
   allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
   division?: Maybe<Array<Maybe<Scalars['String']>>>,
@@ -959,8 +820,7 @@ export type EventListQuery = (
 
 export type EventsByIdsQueryVariables = {
   ids: Array<Scalars['ID']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>,
-  source?: Maybe<LinkedEventsSource>
+  include?: Maybe<Array<Maybe<Scalars['String']>>>
 };
 
 
@@ -1001,8 +861,7 @@ export type KeywordListQueryVariables = {
   pageSize?: Maybe<Scalars['Int']>,
   showAllKeywords?: Maybe<Scalars['Boolean']>,
   sort?: Maybe<Scalars['String']>,
-  text?: Maybe<Scalars['String']>,
-  source?: Maybe<LinkedEventsSource>
+  text?: Maybe<Scalars['String']>
 };
 
 
@@ -1203,8 +1062,7 @@ export type PlaceFieldsFragment = (
 );
 
 export type PlaceDetailsQueryVariables = {
-  id: Scalars['ID'],
-  source?: Maybe<LinkedEventsSource>
+  id: Scalars['ID']
 };
 
 
@@ -1224,8 +1082,7 @@ export type PlaceListQueryVariables = {
   pageSize?: Maybe<Scalars['Int']>,
   showAllPlaces?: Maybe<Scalars['Boolean']>,
   sort?: Maybe<Scalars['String']>,
-  text?: Maybe<Scalars['String']>,
-  source?: Maybe<LinkedEventsSource>
+  text?: Maybe<Scalars['String']>
 };
 
 
@@ -1395,8 +1252,8 @@ export const OfferFieldsFragmentDoc = gql`
   }
 }
     ${LocalizedFieldsFragmentDoc}`;
-export const EventFieldsFragmentDoc = gql`
-    fragment eventFields on EventDetails {
+export const GeneralEventFieldsFragmentDoc = gql`
+    fragment generalEventFields on EventDetails {
   audienceMinAge
   audienceMaxAge
   id
@@ -1457,20 +1314,29 @@ export const EventFieldsFragmentDoc = gql`
 ${KeywordFieldsFragmentDoc}
 ${PlaceFieldsFragmentDoc}
 ${OfferFieldsFragmentDoc}`;
-export const CourseFieldsFragmentDoc = gql`
-    fragment courseFields on EventDetails {
-  ...eventFields
-  audienceMinAge
-  audienceMaxAge
-  extensionCourse {
-    enrolmentStartTime
-    enrolmentEndTime
-    maximumAttendeeCapacity
-    minimumAttendeeCapacity
-    remainingAttendeeCapacity
-  }
+export const CourseExtensionFieldsFragmentDoc = gql`
+    fragment courseExtensionFields on EventDetails {
+  enrolmentStartTime
+  enrolmentEndTime
+  maximumAttendeeCapacity
+  minimumAttendeeCapacity
+  remainingAttendeeCapacity
 }
-    ${EventFieldsFragmentDoc}`;
+    `;
+export const CourseEventFieldsFragmentDoc = gql`
+    fragment courseEventFields on EventDetails {
+  ...generalEventFields
+  ...courseExtensionFields
+}
+    ${GeneralEventFieldsFragmentDoc}
+${CourseExtensionFieldsFragmentDoc}`;
+export const EventFieldsFragmentDoc = gql`
+    fragment eventFields on EventDetails {
+  ...generalEventFields
+  ...courseExtensionFields
+}
+    ${GeneralEventFieldsFragmentDoc}
+${CourseExtensionFieldsFragmentDoc}`;
 export const LocalizedCmsImageFieldsFragmentDoc = gql`
     fragment localizedCmsImageFields on LocalizedCmsImage {
   en {
@@ -1585,34 +1451,6 @@ export const CollectionListDocument = gql`
   }
 }
     ${CollectionFieldsFragmentDoc}`;
-export const CourseDetailsDocument = gql`
-    query CourseDetails($id: ID!, $include: [String]) {
-  courseDetails(id: $id, include: $include) {
-    ...courseFields
-  }
-}
-    ${CourseFieldsFragmentDoc}`;
-export const CourseListDocument = gql`
-    query CourseList($allOngoingAnd: [String], $audienceMaxAgeLt: String, $audienceMinAgeGt: String, $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordNot: [String], $keywordOrSet2: [String], $keywordOrSet3: [String], $language: String, $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
-  courseList(audienceMaxAgeLt: $audienceMaxAgeLt, audienceMinAgeGt: $audienceMinAgeGt, combinedText: $allOngoingAnd, division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordOrSet2: $keywordOrSet2, keywordOrSet3: $keywordOrSet3, keywordNot: $keywordNot, language: $language, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
-    meta {
-      count
-      next
-      previous
-    }
-    data {
-      ...courseFields
-    }
-  }
-}
-    ${CourseFieldsFragmentDoc}`;
-export const CoursesByIdsDocument = gql`
-    query CoursesByIds($ids: [ID!]!, $include: [String]) {
-  coursesByIds(ids: $ids, include: $include) {
-    ...courseFields
-  }
-}
-    ${CourseFieldsFragmentDoc}`;
 export const EventDetailsDocument = gql`
     query EventDetails($id: ID!, $include: [String]) {
   eventDetails(id: $id, include: $include) {
@@ -1621,8 +1459,8 @@ export const EventDetailsDocument = gql`
 }
     ${EventFieldsFragmentDoc}`;
 export const EventListDocument = gql`
-    query EventList($allOngoing: Boolean, $allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordNot: [String], $language: String, $localOngoingAnd: [String], $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
-  eventList(allOngoing: $allOngoing, allOngoingAnd: $allOngoingAnd, division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordOrSet1: $keywordOrSet1, keywordNot: $keywordNot, language: $language, localOngoingAnd: $localOngoingAnd, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
+    query EventList($eventType: EventTypeId, $allOngoing: Boolean, $allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordNot: [String], $language: String, $localOngoingAnd: [String], $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+  eventList(eventType: $eventType, allOngoing: $allOngoing, allOngoingAnd: $allOngoingAnd, division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordOrSet1: $keywordOrSet1, keywordNot: $keywordNot, language: $language, localOngoingAnd: $localOngoingAnd, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
     meta {
       count
       next
@@ -1635,8 +1473,8 @@ export const EventListDocument = gql`
 }
     ${EventFieldsFragmentDoc}`;
 export const EventsByIdsDocument = gql`
-    query EventsByIds($ids: [ID!]!, $include: [String], $source: LinkedEventsSource) {
-  eventsByIds(ids: $ids, include: $include, source: $source) {
+    query EventsByIds($ids: [ID!]!, $include: [String]) {
+  eventsByIds(ids: $ids, include: $include) {
     ...eventFields
   }
 }
@@ -1649,8 +1487,8 @@ export const KeywordDetailsDocument = gql`
 }
     ${KeywordFieldsFragmentDoc}`;
 export const KeywordListDocument = gql`
-    query KeywordList($dataSource: String, $hasUpcomingEvents: Boolean, $page: Int, $pageSize: Int, $showAllKeywords: Boolean, $sort: String, $text: String, $source: LinkedEventsSource) {
-  keywordList(dataSource: $dataSource, hasUpcomingEvents: $hasUpcomingEvents, page: $page, pageSize: $pageSize, showAllKeywords: $showAllKeywords, sort: $sort, text: $text, source: $source) {
+    query KeywordList($dataSource: String, $hasUpcomingEvents: Boolean, $page: Int, $pageSize: Int, $showAllKeywords: Boolean, $sort: String, $text: String) {
+  keywordList(dataSource: $dataSource, hasUpcomingEvents: $hasUpcomingEvents, page: $page, pageSize: $pageSize, showAllKeywords: $showAllKeywords, sort: $sort, text: $text) {
     meta {
       count
       next
@@ -1705,15 +1543,15 @@ export const OrganizationDetailsDocument = gql`
 }
     ${OrganizationFieldsFragmentDoc}`;
 export const PlaceDetailsDocument = gql`
-    query PlaceDetails($id: ID!, $source: LinkedEventsSource) {
-  placeDetails(id: $id, source: $source) {
+    query PlaceDetails($id: ID!) {
+  placeDetails(id: $id) {
     ...placeFields
   }
 }
     ${PlaceFieldsFragmentDoc}`;
 export const PlaceListDocument = gql`
-    query PlaceList($dataSource: String, $divisions: [String], $hasUpcomingEvents: Boolean, $page: Int, $pageSize: Int, $showAllPlaces: Boolean, $sort: String, $text: String, $source: LinkedEventsSource) {
-  placeList(dataSource: $dataSource, divisions: $divisions, hasUpcomingEvents: $hasUpcomingEvents, page: $page, pageSize: $pageSize, showAllPlaces: $showAllPlaces, sort: $sort, text: $text, source: $source) {
+    query PlaceList($dataSource: String, $divisions: [String], $hasUpcomingEvents: Boolean, $page: Int, $pageSize: Int, $showAllPlaces: Boolean, $sort: String, $text: String) {
+  placeList(dataSource: $dataSource, divisions: $divisions, hasUpcomingEvents: $hasUpcomingEvents, page: $page, pageSize: $pageSize, showAllPlaces: $showAllPlaces, sort: $sort, text: $text) {
     meta {
       count
       next
@@ -1738,15 +1576,6 @@ export function getSdk(client: GraphQLClient) {
     },
     CollectionList(variables?: CollectionListQueryVariables): Promise<CollectionListQuery> {
       return client.request<CollectionListQuery>(print(CollectionListDocument), variables);
-    },
-    CourseDetails(variables: CourseDetailsQueryVariables): Promise<CourseDetailsQuery> {
-      return client.request<CourseDetailsQuery>(print(CourseDetailsDocument), variables);
-    },
-    CourseList(variables?: CourseListQueryVariables): Promise<CourseListQuery> {
-      return client.request<CourseListQuery>(print(CourseListDocument), variables);
-    },
-    CoursesByIds(variables: CoursesByIdsQueryVariables): Promise<CoursesByIdsQuery> {
-      return client.request<CoursesByIdsQuery>(print(CoursesByIdsDocument), variables);
     },
     EventDetails(variables: EventDetailsQueryVariables): Promise<EventDetailsQuery> {
       return client.request<EventDetailsQuery>(print(EventDetailsDocument), variables);

@@ -12,7 +12,6 @@ import {
 import { Language } from '../../types';
 import getLocalisedString from '../../util/getLocalisedString';
 import getSecureImage from '../../util/getSecureImage';
-import { isCourseEvent } from '../../util/typeGuards';
 import {
   EVENT_KEYWORD_BLACK_LIST,
   EVENT_LOCATIONS,
@@ -220,12 +219,13 @@ const getEventLocationFields = (
 };
 
 const getCourseFields = (event: EventFields) => {
-  if (isCourseEvent(event)) {
-    // return all courseFields without __typename :)
-    // might be stupid?
-    const { __typename, ...courseFields } = event.extensionCourse || {};
-    return courseFields;
-  }
+  return {
+    enrolmentStartTime: event.enrolmentStartTime,
+    enrolmentEndTime: event.enrolmentEndTime,
+    maximumAttendeeCapacity: event.maximumAttendeeCapacity,
+    minimumAttendeeCapacity: event.minimumAttendeeCapacity,
+    remainingAttendeeCapacity: event.remainingAttendeeCapacity,
+  };
 };
 
 /**

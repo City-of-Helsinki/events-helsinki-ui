@@ -5,7 +5,6 @@ import * as React from 'react';
 import {
   CollectionFieldsFragment,
   LandingPagesDocument,
-  LinkedEventsSource,
   PlaceDetailsDocument,
 } from '../../../../generated/graphql';
 import { getCollectionDetailsMock } from '../../../../test/apollo-mocks/collectionsDetailsMocks';
@@ -88,7 +87,6 @@ const mocks = [
         query: PlaceDetailsDocument,
         variables: {
           id: MAPPED_PLACES[key],
-          source: LinkedEventsSource.Linkedevents,
         },
       },
       result: {

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import ErrorHero from '../../common/components/error/ErrorHero';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
-import { useEventDetailsQuery } from '../../generated/graphql';
+import { EventTypeId, useEventDetailsQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import { isFeatureEnabled } from '../../util/featureFlags';
 import isClient from '../../util/isClient';
@@ -84,7 +84,7 @@ const EventPageContainer: React.FC = () => {
 const SimilarEventsContainer: React.FC<{ event: EventFields }> = ({
   event,
 }) => {
-  const { data, loading } = useSimilarEventsQuery(event);
+  const { data, loading } = useSimilarEventsQuery(event, EventTypeId.General);
 
   return <SimilarEvents events={data} loading={loading} eventsType="event" />;
 };

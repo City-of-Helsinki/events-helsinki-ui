@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 
 import {
   EventFieldsFragment,
-  LinkedEventsSource,
   useEventsByIdsQuery,
 } from '../../../generated/graphql';
 import { isEventClosed } from '../../event/EventUtils';
@@ -46,10 +45,10 @@ const usePaginatedEventsByIdsQuery = (
     variables: {
       ids: eventIds.slice(0, PAGE_SIZE),
       include: ['location'],
-      source: {
-        course: LinkedEventsSource.Linkedcourses,
-        event: LinkedEventsSource.Linkedevents,
-      }[eventType],
+      // source: {
+      //   course: LinkedEventsSource.Linkedcourses,
+      //   event: LinkedEventsSource.Linkedevents,
+      // }[eventType],
     },
     ssr: false,
   });

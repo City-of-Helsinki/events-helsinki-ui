@@ -20,7 +20,7 @@ export const QUERY_EVENT_DETAILS = gql`
     }
   }
 
-  fragment eventFields on EventDetails {
+  fragment generalEventFields on EventDetails {
     audienceMinAge
     audienceMaxAge
     id
@@ -77,6 +77,25 @@ export const QUERY_EVENT_DETAILS = gql`
       }
     }
   }
+
+  fragment courseExtensionFields on EventDetails {
+    enrolmentStartTime
+    enrolmentEndTime
+    maximumAttendeeCapacity
+    minimumAttendeeCapacity
+    remainingAttendeeCapacity
+  }
+
+  fragment courseEventFields on EventDetails {
+    ...generalEventFields
+    ...courseExtensionFields
+  }
+
+  fragment eventFields on EventDetails {
+    ...generalEventFields
+    ...courseExtensionFields
+  }
+
   query EventDetails($id: ID!, $include: [String]) {
     eventDetails(id: $id, include: $include) {
       ...eventFields

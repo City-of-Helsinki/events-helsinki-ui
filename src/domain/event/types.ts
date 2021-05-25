@@ -1,7 +1,4 @@
-import {
-  CourseFieldsFragment,
-  EventFieldsFragment,
-} from '../../generated/graphql';
+import { EventFieldsFragment } from '../../generated/graphql';
 import { ROUTES } from '../app/routes/constants';
 
 export type KeywordOption = {
@@ -9,7 +6,7 @@ export type KeywordOption = {
   name: string;
 };
 
-export type EventFields = EventFieldsFragment | CourseFieldsFragment;
+export type EventFields = EventFieldsFragment;
 
 export type SuperEventResponse = {
   data: EventFields | null;

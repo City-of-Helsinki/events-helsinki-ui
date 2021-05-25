@@ -3,7 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 
-import { QueryEventListArgs, useEventListQuery } from '../../generated/graphql';
+import {
+  EventTypeId,
+  QueryEventListArgs,
+  useEventListQuery,
+} from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from './constants';
 import Search from './Search';
@@ -27,6 +31,7 @@ const EventSearchPageContainer: React.FC = () => {
       place: params.place,
       sortOrder: EVENT_SORT_OPTIONS.END_TIME,
       superEventType: ['umbrella', 'none'],
+      eventType: EventTypeId.General,
     });
     return variables;
   }, [locale, params, searchParams]);

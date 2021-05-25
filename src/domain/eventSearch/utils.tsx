@@ -12,7 +12,7 @@ import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 
 import { DATE_TYPES } from '../../constants';
-import { Meta, QueryEventListArgs } from '../../generated/graphql';
+import { EventTypeId, Meta, QueryEventListArgs } from '../../generated/graphql';
 import IconCultureAndArts from '../../icons/IconCultureAndArts';
 import IconDance from '../../icons/IconDance';
 import IconFood from '../../icons/IconFood';
@@ -257,6 +257,7 @@ export const getEventSearchVariables = ({
   superEventType,
   place,
   searchSource = EVENT_SEARCH_SOURCES.EVENTS,
+  eventType,
 }: {
   include: string[];
   language: Language;
@@ -266,6 +267,7 @@ export const getEventSearchVariables = ({
   superEventType: string[];
   place?: string;
   searchSource?: EVENT_SEARCH_SOURCES;
+  eventType: EventTypeId;
 }): QueryEventListArgs => {
   const {
     categories,
@@ -366,6 +368,7 @@ export const getEventSearchVariables = ({
     superEventType,
     audienceMinAgeGt,
     audienceMaxAgeLt,
+    eventType,
   };
 };
 

@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 import ErrorHero from '../../common/components/error/ErrorHero';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import {
-  CourseDetailsDocument,
-  useCourseDetailsQuery,
+  EventDetailsDocument,
+  useEventDetailsQuery,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import isClient from '../../util/isClient';
@@ -41,14 +41,14 @@ const CoursePageContainer: React.FC = () => {
     status: 'pending',
   });
 
-  const { data: courseData, loading } = useCourseDetailsQuery({
+  const { data: courseData, loading } = useEventDetailsQuery({
     variables: {
       id: courseId,
       include: ['in_language', 'keywords', 'location', 'audience'],
     },
   });
 
-  const course = courseData?.courseDetails;
+  const course = courseData?.eventDetails;
 
   const superEventId = getEventIdFromUrl(
     course?.superEvent?.internalId ?? '',
@@ -64,7 +64,7 @@ const CoursePageContainer: React.FC = () => {
     async function getSuperEventData() {
       try {
         const { data } = await apolloClient.query({
-          query: CourseDetailsDocument,
+          query: EventDetailsDocument,
           variables: {
             id: superEventId,
             include: ['in_language', 'keywords', 'location', 'audience'],

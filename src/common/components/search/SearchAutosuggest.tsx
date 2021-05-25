@@ -5,10 +5,7 @@ import {
   AUTOSUGGEST_KEYWORD_BLACK_LIST,
   AUTOSUGGEST_TYPES,
 } from '../../../constants';
-import {
-  LinkedEventsSource,
-  useKeywordListQuery,
-} from '../../../generated/graphql';
+import { useKeywordListQuery } from '../../../generated/graphql';
 import useDebounce from '../../../hooks/useDebounce';
 import useKeyboardNavigation from '../../../hooks/useDropdownKeyboardNavigation';
 import useLocale from '../../../hooks/useLocale';
@@ -23,7 +20,6 @@ export interface SearchAutosuggestProps {
   onOptionClick: (item: AutosuggestMenuOption) => void;
   placeholder: string;
   searchValue: string;
-  source?: LinkedEventsSource;
 }
 
 const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
@@ -32,7 +28,6 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
   onChangeSearchValue,
   placeholder,
   searchValue,
-  source,
 }) => {
   const locale = useLocale();
   const container = React.useRef<HTMLDivElement | null>(null);
@@ -46,7 +41,6 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
       hasUpcomingEvents: true,
       pageSize: 5,
       text: internalInputValue,
-      source,
     },
   });
 

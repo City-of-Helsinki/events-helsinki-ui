@@ -20,7 +20,6 @@ import RangeDropdown from '../../common/components/rangeDropdown/RangeDropdown';
 import SearchAutosuggest from '../../common/components/search/SearchAutosuggest';
 import SearchLabel from '../../common/components/search/searchLabel/SearchLabel';
 import { AutosuggestMenuOption } from '../../common/types';
-import { LinkedEventsSource } from '../../generated/graphql';
 import useDivisionOptions from '../../hooks/useDivisionOptions';
 import useLocale from '../../hooks/useLocale';
 import IconRead from '../../icons/IconRead';
@@ -345,7 +344,6 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                   showSelectAll={true}
                   title={t('eventSearch.search.titleDropdownPlace')}
                   value={selectedPlaces}
-                  source={LinkedEventsSource.Linkedcourses}
                 />
               </div>
             </div>

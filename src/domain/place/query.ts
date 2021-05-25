@@ -44,8 +44,8 @@ export const QUERY_PLACE = gql`
       en
     }
   }
-  query PlaceDetails($id: ID!, $source: LinkedEventsSource) {
-    placeDetails(id: $id, source: $source) {
+  query PlaceDetails($id: ID!) {
+    placeDetails(id: $id) {
       ...placeFields
     }
   }
@@ -58,7 +58,6 @@ export const QUERY_PLACE = gql`
     $showAllPlaces: Boolean
     $sort: String
     $text: String
-    $source: LinkedEventsSource
   ) {
     placeList(
       dataSource: $dataSource
@@ -69,7 +68,6 @@ export const QUERY_PLACE = gql`
       showAllPlaces: $showAllPlaces
       sort: $sort
       text: $text
-      source: $source
     ) {
       meta {
         count

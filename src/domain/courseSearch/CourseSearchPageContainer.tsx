@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 import { toast } from 'react-toastify';
 
-import { useCourseListQuery } from '../../generated/graphql';
+import { EventTypeId, useEventListQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import {
   EVENT_SEARCH_SOURCES,
@@ -21,7 +21,7 @@ const CourseSearchPageContainer: React.FC = () => {
   const searchParams = new URLSearchParams(location.search);
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
 
-  const eventFilters = getEventSearchVariables({
+  const variables = getEventSearchVariables({
     include: ['keywords', 'location'],
     language: locale,
     pageSize: PAGE_SIZE,
@@ -29,17 +29,18 @@ const CourseSearchPageContainer: React.FC = () => {
     sortOrder: EVENT_SORT_OPTIONS.END_TIME,
     superEventType: ['umbrella', 'none'],
     searchSource: EVENT_SEARCH_SOURCES.COURSES,
+    eventType: EventTypeId.Course,
   });
 
-  const { data: coursesData, fetchMore, loading } = useCourseListQuery({
+  const { data: coursesData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
     ssr: false,
-    variables: eventFilters,
+    variables,
   });
 
   const handleLoadMore = async () => {
-    const page = coursesData?.courseList.meta
-      ? getNextPage(coursesData.courseList.meta)
+    const page = coursesData?.eventList.meta
+      ? getNextPage(coursesData.eventList.meta)
       : null;
 
     setIsFetchingMore(true);
@@ -50,14 +51,14 @@ const CourseSearchPageContainer: React.FC = () => {
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev;
             const events = [
-              ...prev.courseList.data,
-              ...fetchMoreResult.courseList.data,
+              ...prev.eventList.data,
+              ...fetchMoreResult.eventList.data,
             ];
-            fetchMoreResult.courseList.data = events;
+            fetchMoreResult.eventList.data = events;
             return fetchMoreResult;
           },
           variables: {
-            ...eventFilters,
+            ...variables,
             page: page,
           },
         });
@@ -75,7 +76,7 @@ const CourseSearchPageContainer: React.FC = () => {
       isLoadingEvents={loading}
       handleLoadMore={handleLoadMore}
       isFetchingMoreEvents={isFetchingMore}
-      eventsList={coursesData?.courseList}
+      eventsList={coursesData?.eventList}
       eventType="course"
     />
   );

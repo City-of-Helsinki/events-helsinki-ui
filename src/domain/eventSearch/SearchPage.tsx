@@ -5,11 +5,7 @@ import { scroller } from 'react-scroll';
 
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import SrOnly from '../../common/components/srOnly/SrOnly';
-import {
-  CourseListQuery,
-  EventListQuery,
-  useLandingPagesQuery,
-} from '../../generated/graphql';
+import { EventListQuery, useLandingPagesQuery } from '../../generated/graphql';
 import useIsSmallScreen from '../../hooks/useIsSmallScreen';
 import useLocale from '../../hooks/useLocale';
 import MainContent from '../app/layout/MainContent';
@@ -28,7 +24,7 @@ const SearchPage: React.FC<{
     'data-testid'?: string;
   }>;
   pageTitle: string;
-  eventsList?: CourseListQuery['courseList'] | EventListQuery['eventList'];
+  eventsList?: EventListQuery['eventList'];
   isLoadingEvents: boolean;
   eventType: EventType;
   handleLoadMore: () => Promise<void>;

@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 
 export const QUERY_EVENT_LIST = gql`
   query EventList(
+    $eventType: EventTypeId
     $allOngoing: Boolean
     $allOngoingAnd: [String]
     $division: [String]
@@ -31,6 +32,7 @@ export const QUERY_EVENT_LIST = gql`
     $translation: String
   ) {
     eventList(
+      eventType: $eventType
       allOngoing: $allOngoing
       allOngoingAnd: $allOngoingAnd
       division: $division
@@ -70,12 +72,8 @@ export const QUERY_EVENT_LIST = gql`
     }
   }
 
-  query EventsByIds(
-    $ids: [ID!]!
-    $include: [String]
-    $source: LinkedEventsSource
-  ) {
-    eventsByIds(ids: $ids, include: $include, source: $source) {
+  query EventsByIds($ids: [ID!]!, $include: [String]) {
+    eventsByIds(ids: $ids, include: $include) {
       ...eventFields
     }
   }
