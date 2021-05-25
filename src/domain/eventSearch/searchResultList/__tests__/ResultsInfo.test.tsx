@@ -12,22 +12,6 @@ test('events with 0 results matches snapshot for no results', () => {
   expect(container).toMatchSnapshot();
 });
 
-test('events with 1 results matches snapshot of few results', () => {
-  const { container } = render(
-    <ResultsInfo resultsCount={1} eventType="event" />
-  );
-
-  expect(container).toMatchSnapshot();
-});
-
-test('events with 5 results matches snapshot of normal results', () => {
-  const { container } = render(
-    <ResultsInfo resultsCount={5} eventType="event" />
-  );
-
-  expect(container).toMatchSnapshot();
-});
-
 test('renders no events found text and hobby search button', async () => {
   const { history } = render(
     <ResultsInfo resultsCount={0} eventType="event" />
