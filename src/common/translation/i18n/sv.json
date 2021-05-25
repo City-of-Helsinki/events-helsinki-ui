@@ -209,7 +209,7 @@
       "noResultsText": "Tyvärr hittades inga resultat för de sökkriterier du valt. Kokeile muuttaa hakuehtoja tai siirry harrastusten hakuun.",
       "fewResultsTitle": "Med de sökvillkor du valde hittades bara några få resultat.",
       "fewResultsText": "Med de sökvillkor du valde hittades bara några få resultat. Kokeile muuttaa hakuehtoja tai siirry harrastusten hakuun.",
-      "changeLanguageText": "Ändra sökvillkoren eller visa resultaten på finska.",
+      "changeLanguageText": "Ändra sökvillkoren eller visa resultaten på finska. Du kan också välja att söka bland hobbyer.",
       "buttons": {
         "labelSearchOtherEventType": "Sök hobbyer",
         "labelSearchInFinnish": "Visa sökresultaten på finska "
@@ -243,7 +243,7 @@
       "noResultsText": "Tyvärr hittades inga resultat för de sökkriterier du valt. Kokeile muuttaa hakuehtoja tai siirry tapahtumien hakuun.",
       "fewResultsTitle": "Med de sökvillkor du valde hittades bara några få resultat.",
       "fewResultsText": "Med de sökvillkor du valde hittades bara några få resultat. Kokeile muuttaa hakuehtoja tai siirry tapahtumien hakuun.",
-      "changeLanguageText": "Ändra sökvillkoren eller visa resultaten på finska.",
+      "changeLanguageText": "Ändra sökvillkoren eller visa resultaten på finska. Du kan också välja att söka bland evenemang.",
       "buttons": {
         "labelSearchOtherEventType": "Sök evenemang",
         "labelSearchInFinnish": "Visa sökresultaten på finska "

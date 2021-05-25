@@ -1,7 +1,7 @@
 import { Button, IconSearch } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory } from 'react-router';
 
 import useLocale from '../../../hooks/useLocale';
 import { ROUTES } from '../../app/routes/constants';
@@ -18,21 +18,20 @@ const ResultsInfoContainer: React.FC<{
   eventType: EventType;
 }> = ({ resultsCount, eventType }) => {
   const { t } = useTranslation();
-  const location = useLocation();
   const history = useHistory();
   const locale = useLocale();
   const isFinnish = locale === 'fi';
   const translationKey = translationKeys[eventType];
 
   const goToFinnishSearch = () => {
-    history.push(`/fi${EVENTS_ROUTE_MAPPER[eventType]}${location.search}`);
+    history.push(`/fi${EVENTS_ROUTE_MAPPER[eventType]}`);
   };
 
   const goToOtherEventTypeSearch = () => {
     if (eventType === 'event') {
-      history.push(`/${locale}${ROUTES.COURSES}${location.search}`);
+      history.push(`/${locale}${ROUTES.COURSES}`);
     } else if (eventType === 'course') {
-      history.push(`/${locale}${ROUTES.EVENTS}${location.search}`);
+      history.push(`/${locale}${ROUTES.EVENTS}`);
     }
   };
 

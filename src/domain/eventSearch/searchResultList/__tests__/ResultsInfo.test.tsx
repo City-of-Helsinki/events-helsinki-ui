@@ -24,7 +24,7 @@ test('renders no events found text and hobby search button', () => {
   });
 
   expect(
-    screen.queryByRole('button', { name: 'Etsi hakutuloksia harrastuksista' })
+    screen.queryByRole('button', { name: 'Siirry hakemaan harrastuksia' })
   ).toBeInTheDocument();
 });
 
@@ -41,7 +41,7 @@ test('renders no courses found text and event search button', () => {
   });
 
   expect(
-    screen.queryByRole('button', { name: 'Etsi hakutuloksia tapahtumista' })
+    screen.queryByRole('button', { name: 'Siirry hakemaan tapahtumia' })
   ).toBeInTheDocument();
 });
 

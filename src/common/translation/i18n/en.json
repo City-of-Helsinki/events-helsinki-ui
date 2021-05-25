@@ -209,9 +209,9 @@
       "noResultsText": "No search results were found for the search criteria you selected. Try to change search terms or change to hobby search.",
       "fewResultsTitle": "Your search terms returned only a few results.",
       "fewResultsText": "Your search terms returned only a few results. Try to change search terms or change to hobby search.",
-      "changeLanguageText": "Please change your search terms or display results in Finnish.",
+      "changeLanguageText": "Please change your search terms or display results in Finnish. You could also switch to a Hobbies search.",
       "buttons": {
-        "labelSearchOtherEventType": "Search hobbies",
+        "labelSearchOtherEventType": "Switch to a Hobbies search",
         "labelSearchInFinnish": "Display results in Finnish"
       }
     },
@@ -243,9 +243,9 @@
       "noResultsText": "No search results were found for the search criteria you selected. Try to change search terms or change to event search.",
       "fewResultsTitle": "Your search terms returned only a few results.",
       "fewResultsText": "Your search terms returned only a few results. Try to change search terms or change to event search.",
-      "changeLanguageText": "Please change your search terms or display results in Finnish.",
+      "changeLanguageText": "Please change your search terms or display results in Finnish. You could also switch to a Events search.",
       "buttons": {
-        "labelSearchOtherEventType": "Search events",
+        "labelSearchOtherEventType": "Switch to an Events search",
         "labelSearchInFinnish": "Display results in Finnish"
       }
     },
