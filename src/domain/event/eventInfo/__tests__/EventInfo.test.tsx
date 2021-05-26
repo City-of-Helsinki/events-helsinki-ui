@@ -126,9 +126,6 @@ it('should render event info fields', async () => {
     telephone,
     organizationName,
     price,
-    `${translations.event.info.labelMinAttendeeCapacity}: ${minimumAttendeeCapacity}`,
-    `${translations.event.info.labelMaxAttendeeCapacity}: ${maximumAttendeeCapacity}`,
-    `${translations.event.info.labelSeatsLeft}: ${remainingAttendeeCapacity}`,
   ];
 
   itemsByText.forEach((item) => {

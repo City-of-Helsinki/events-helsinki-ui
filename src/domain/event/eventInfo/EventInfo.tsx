@@ -12,7 +12,6 @@ import {
   IconTicket,
 } from 'hds-react';
 import { createEvent, EventAttributes } from 'ics';
-import isNil from 'lodash/isNil';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -39,9 +38,6 @@ import styles from './eventInfo.module.scss';
 import OrganizationInfo from './OrganizationInfo';
 import OtherCourseTimesContainer from './otherEventTimes/OtherCourseTimesContainer';
 import OtherEventTimesContainer from './otherEventTimes/OtherEventTimesContainer';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const isDefined = (value: any) => !isNil(value);
 
 interface Props {
   event: EventFields;
@@ -75,9 +71,6 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
     streetAddress,
     telephone,
     audience,
-    maximumAttendeeCapacity,
-    minimumAttendeeCapacity,
-    remainingAttendeeCapacity,
     registrationUrl,
   } = getEventFields(event, locale);
 
@@ -87,27 +80,8 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
     t('event.info.offers.isFree')
   );
 
-  const courseInfoRows = [
-    {
-      value: minimumAttendeeCapacity,
-      label: t('event.info.labelMinAttendeeCapacity'),
-    },
-    {
-      value: maximumAttendeeCapacity,
-      label: t('event.info.labelMaxAttendeeCapacity'),
-    },
-    {
-      value: remainingAttendeeCapacity,
-      label: t('event.info.labelSeatsLeft'),
-    },
-  ].filter(({ value }) => isDefined(value));
-
   const showOtherInfo = Boolean(
-    email ||
-      externalLinks.length ||
-      infoUrl ||
-      telephone ||
-      courseInfoRows.length
+    email || externalLinks.length || infoUrl || telephone
   );
 
   const moveToBuyTicketsPage = () => {
@@ -252,11 +226,6 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
                 {t('event.info.linkWebPage')}
               </Link>
             )}
-            {courseInfoRows.map((row) => (
-              <div key={row.label}>
-                {row.label}: {row.value}
-              </div>
-            ))}
             {externalLinks.map((externalLink, index) => {
               return (
                 !!externalLink.link &&
