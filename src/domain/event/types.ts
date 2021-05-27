@@ -1,4 +1,4 @@
-import { EventFieldsFragment } from '../../generated/graphql';
+import { EventFieldsFragment, EventTypeId } from '../../generated/graphql';
 import { ROUTES } from '../app/routes/constants';
 
 export type KeywordOption = {
@@ -16,6 +16,11 @@ export type SuperEventResponse = {
 export type EventType = 'event' | 'course';
 
 export type EventRouteProp = typeof ROUTES.EVENTS | typeof ROUTES.COURSES;
+
+export const EVENT_TYPE_TO_ID: Record<EventType, EventTypeId> = {
+  event: EventTypeId.General,
+  course: EventTypeId.Course,
+};
 
 export const EVENT_ROUTE_MAPPER: Record<EventType, string> = {
   event: ROUTES.EVENT,

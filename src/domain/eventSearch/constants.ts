@@ -1,11 +1,7 @@
+import { EventType } from '../event/types';
 import { Filters } from './types';
 // Page size of the event list
 export const PAGE_SIZE = 10;
-
-export enum EVENT_SEARCH_SOURCES {
-  EVENTS = 'events',
-  COURSES = 'courses',
-}
 
 export enum EVENT_CATEGORIES {
   CULTURE = 'culture',
@@ -349,9 +345,9 @@ export const MAPPED_COURSE_CATEGORIES: Record<string, string[]> = {
   [COURSE_CATEGORIES.THEATRE]: THEATRE_COURSES_KEYWORDS,
 };
 
-export const MAPPED_CATEGORIES: Record<string, Record<string, string[]>> = {
-  [EVENT_SEARCH_SOURCES.COURSES]: MAPPED_COURSE_CATEGORIES,
-  [EVENT_SEARCH_SOURCES.EVENTS]: MAPPED_EVENT_CATEGORIES,
+export const MAPPED_CATEGORIES: Record<EventType, Record<string, string[]>> = {
+  course: MAPPED_COURSE_CATEGORIES,
+  event: MAPPED_EVENT_CATEGORIES,
 };
 
 export const MAPPED_COURSE_HOBBY_TYPES: Record<string, string[]> = {
@@ -362,9 +358,9 @@ export const MAPPED_COURSE_HOBBY_TYPES: Record<string, string[]> = {
   [COURSE_HOBBY_TYPES.WORKSHOPS]: WORKSHOPS_KEYWORDS,
 };
 
-export const MAPPED_KEYWORD_TERMS: Record<string, string> = {
-  [EVENT_SEARCH_SOURCES.COURSES]: 'keywordOrSet2',
-  [EVENT_SEARCH_SOURCES.EVENTS]: 'keywordOrSet1',
+export const MAPPED_KEYWORD_TERMS: Record<EventType, string> = {
+  course: 'keywordOrSet2',
+  event: 'keywordOrSet1',
 };
 
 export const MAPPED_PLACES: Record<string, string> = {

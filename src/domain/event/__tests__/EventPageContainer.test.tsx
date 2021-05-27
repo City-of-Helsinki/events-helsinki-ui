@@ -11,7 +11,6 @@ import {
   createEventListRequestAndResultMocks,
   createOtherEventTimesRequestAndResultMocks,
 } from '../../../test/apollo-mocks/eventListMocks';
-import { setFeatureFlags } from '../../../test/feature-flags/featureFlags.test.utils';
 import {
   fakeEvent,
   fakeEvents,
@@ -27,7 +26,9 @@ import {
 } from '../../../test/testUtils';
 import { ROUTES } from '../../app/routes/constants';
 import { otherEventTimesListTestId } from '../eventInfo/otherEventTimes/OtherEventTimes';
-import EventPageContainer from '../EventPageContainer';
+import EventPageContainer, {
+  EventPageContainerProps,
+} from '../EventPageContainer';
 
 const id = '1';
 const name = 'Event title';
@@ -115,8 +116,8 @@ const mocks = [
 const testPath = ROUTES.EVENT.replace(':id', id);
 const routes = [testPath];
 
-const renderComponent = () =>
-  renderWithRoute(<EventPageContainer />, {
+const renderComponent = (props?: Partial<EventPageContainerProps>) =>
+  renderWithRoute(<EventPageContainer eventType="event" {...props} />, {
     mocks,
     routes,
     path: ROUTES.EVENT,
@@ -182,7 +183,7 @@ it("should show error info when event doesn't exist", async () => {
     },
   ];
 
-  renderWithRoute(<EventPageContainer />, {
+  renderWithRoute(<EventPageContainer eventType="event" />, {
     mocks,
     routes,
     path: ROUTES.EVENT,
@@ -201,9 +202,8 @@ it("should show error info when event doesn't exist", async () => {
 
 describe(`SIMILAR_EVENTS feature flag`, () => {
   it('shows similar events when flag is on', async () => {
-    setFeatureFlags({ SHOW_SIMILAR_EVENTS: true });
     advanceTo('2020-10-01');
-    renderComponent();
+    renderComponent({ showSimilarEvents: true });
     await waitFor(() => {
       expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
     });
@@ -223,9 +223,8 @@ describe(`SIMILAR_EVENTS feature flag`, () => {
   });
 
   it('doesnt show similar events when flag is off', async () => {
-    setFeatureFlags({ SHOW_SIMILAR_EVENTS: false });
     advanceTo('2020-10-01');
-    renderComponent();
+    renderComponent({ showSimilarEvents: false });
     await waitFor(() => {
       expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
     });

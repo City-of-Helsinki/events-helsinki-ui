@@ -7,7 +7,6 @@ import {
   useEventsByIdsQuery,
 } from '../../../generated/graphql';
 import { isEventClosed } from '../../event/EventUtils';
-import { EventType } from '../../event/types';
 
 export const PAGE_SIZE = 10;
 
@@ -27,8 +26,7 @@ const usePageNumber = (
 };
 
 const usePaginatedEventsByIdsQuery = (
-  eventIds: string[],
-  eventType: EventType
+  eventIds: string[]
 ): {
   isFetchingMore: boolean;
   loading: boolean;
@@ -45,10 +43,6 @@ const usePaginatedEventsByIdsQuery = (
     variables: {
       ids: eventIds.slice(0, PAGE_SIZE),
       include: ['location'],
-      // source: {
-      //   course: LinkedEventsSource.Linkedcourses,
-      //   event: LinkedEventsSource.Linkedevents,
-      // }[eventType],
     },
     ssr: false,
   });

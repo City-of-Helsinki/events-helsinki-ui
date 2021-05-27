@@ -15,6 +15,8 @@ export const QUERY_EVENT_LIST = gql`
     $keyword: [String]
     $keywordAnd: [String]
     $keywordOrSet1: [String]
+    $keywordOrSet2: [String]
+    $keywordOrSet3: [String]
     $keywordNot: [String]
     $language: String
     $localOngoingAnd: [String]
@@ -45,6 +47,8 @@ export const QUERY_EVENT_LIST = gql`
       keyword: $keyword
       keywordAnd: $keywordAnd
       keywordOrSet1: $keywordOrSet1
+      keywordOrSet2: $keywordOrSet2
+      keywordOrSet3: $keywordOrSet3
       keywordNot: $keywordNot
       language: $language
       localOngoingAnd: $localOngoingAnd

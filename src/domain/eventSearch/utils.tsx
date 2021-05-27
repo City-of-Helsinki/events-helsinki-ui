@@ -12,7 +12,7 @@ import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 
 import { DATE_TYPES } from '../../constants';
-import { EventTypeId, Meta, QueryEventListArgs } from '../../generated/graphql';
+import { Meta, QueryEventListArgs } from '../../generated/graphql';
 import IconCultureAndArts from '../../icons/IconCultureAndArts';
 import IconDance from '../../icons/IconDance';
 import IconFood from '../../icons/IconFood';
@@ -26,12 +26,12 @@ import { Language } from '../../types';
 import buildQueryFromObject from '../../util/buildQueryFromObject';
 import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
+import { EVENT_TYPE_TO_ID, EventType } from '../event/types';
 import {
   COURSE_CATEGORIES,
   COURSE_HOBBY_TYPES,
   EVENT_CATEGORIES,
   EVENT_SEARCH_FILTERS,
-  EVENT_SEARCH_SOURCES,
   EVENT_SORT_OPTIONS,
   MAPPED_CATEGORIES,
   MAPPED_COURSE_HOBBY_TYPES,
@@ -256,8 +256,7 @@ export const getEventSearchVariables = ({
   sortOrder,
   superEventType,
   place,
-  searchSource = EVENT_SEARCH_SOURCES.EVENTS,
-  eventType,
+  eventType = 'event',
 }: {
   include: string[];
   language: Language;
@@ -266,8 +265,7 @@ export const getEventSearchVariables = ({
   sortOrder: EVENT_SORT_OPTIONS;
   superEventType: string[];
   place?: string;
-  searchSource?: EVENT_SEARCH_SOURCES;
-  eventType: EventTypeId;
+  eventType: EventType;
 }): QueryEventListArgs => {
   const {
     categories,
@@ -312,8 +310,8 @@ export const getEventSearchVariables = ({
     keywordAnd.push('yso:p4354');
   }
 
-  const categoriesParamName = MAPPED_KEYWORD_TERMS[searchSource];
-  const categoryMap = MAPPED_CATEGORIES[searchSource];
+  const categoriesParamName = MAPPED_KEYWORD_TERMS[eventType];
+  const categoryMap = MAPPED_CATEGORIES[eventType];
 
   const getMappedPropertyValues = (
     list: string[],
@@ -334,7 +332,7 @@ export const getEventSearchVariables = ({
 
   const getSearchParam = () => {
     const hasText = !isEmpty(text);
-    const isEventsSearch = searchSource === EVENT_SEARCH_SOURCES.EVENTS;
+    const isEventsSearch = eventType === 'event';
     if (hasText && isEventsSearch && hasLocation) {
       // show helsinki events matching to text
       return { localOngoingAnd: text };
@@ -368,7 +366,7 @@ export const getEventSearchVariables = ({
     superEventType,
     audienceMinAgeGt,
     audienceMaxAgeLt,
-    eventType,
+    eventType: EVENT_TYPE_TO_ID[eventType],
   };
 };
 

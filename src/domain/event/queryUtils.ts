@@ -4,7 +4,6 @@ import { useLocation } from 'react-router';
 import { toast } from 'react-toastify';
 
 import {
-  EventFieldsFragment,
   EventListQuery,
   EventListQueryVariables,
   EventTypeId,
@@ -23,11 +22,11 @@ import {
 } from '../eventSearch/utils';
 import { SIMILAR_EVENTS_AMOUNT } from './constants';
 import { getEventFields, getEventIdFromUrl } from './EventUtils';
-import { EventFields } from './types';
+import { EventFields, EventType } from './types';
 
 const useSimilarEventsQueryVariables = (
   event: EventFields,
-  type: EventTypeId
+  type: EventType
 ) => {
   const locale = useLocale();
   const { search } = useLocation();
@@ -52,46 +51,25 @@ const useSimilarEventsQueryVariables = (
   }, [locale, searchParams, type]);
 };
 
-const getSimilarEventsQueryData = (query: EventListQuery | undefined) => {
-  if (!query) return null;
-
-  if ('eventList' in query) {
-    return query.eventList.data;
-  }
-  if ('courseList' in query) {
-    return query.eventList.data;
-  }
-  throw new Error('invalid type' + query);
-};
-
-type SimilarEventsQueryResult<T> = {
-  data: T[];
-  loading: boolean;
-};
-
-export const useSimilarEventsQuery = <T extends EventFieldsFragment>(
+export const useSimilarEventsQuery = (
   event: EventFields,
-  type: EventTypeId
-): SimilarEventsQueryResult<T> => {
+  type: EventType
+): { loading: boolean; data: EventListQuery['eventList']['data'] } => {
   const eventFilters = useSimilarEventsQueryVariables(event, type);
   const { data: eventsData, loading } = useEventListQuery({
     ssr: false,
     variables: eventFilters,
   });
+
   // To display only certain amount of events.
   // Always fetch data by using same page size to get events from cache
-  const data = (getSimilarEventsQueryData(eventsData)
-    // Don't show current event on the list
-    ?.filter((item) => item.id !== event.id)
-    .slice(0, SIMILAR_EVENTS_AMOUNT) || []) as T[];
+  const data =
+    eventsData?.eventList.data
+      // Don't show current event on the list
+      ?.filter((item) => item.id !== event.id)
+      .slice(0, SIMILAR_EVENTS_AMOUNT) || [];
 
   return { data, loading };
-};
-
-export const useSimilarCoursesQuery = <T extends EventFieldsFragment>(
-  event: EventFields
-): SimilarEventsQueryResult<T> => {
-  return useSimilarEventsQuery(event, EventTypeId.Course);
 };
 
 const useOtherEventTimesVariables = (

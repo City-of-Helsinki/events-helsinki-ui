@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import {
   CollectionFieldsFragment,
-  EventTypeId,
   useEventListQuery,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
@@ -40,7 +39,7 @@ const EventList: React.FC<Props> = ({ collection }) => {
       params: searchParams,
       sortOrder: EVENT_SORT_OPTIONS.END_TIME,
       superEventType: ['umbrella', 'none'],
-      eventType: EventTypeId.General,
+      eventType: 'event',
     });
   }, [locale, searchParams]);
 

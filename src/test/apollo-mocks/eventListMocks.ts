@@ -10,7 +10,7 @@ import {
   QueryEventListArgs,
 } from '../../generated/graphql';
 
-export const eventListBaseVariables: QueryEventListArgs = {
+export const baseVariables = {
   audienceMaxAgeLt: '',
   audienceMinAgeGt: '',
   end: '',
@@ -18,7 +18,6 @@ export const eventListBaseVariables: QueryEventListArgs = {
   isFree: undefined,
   keywordAnd: [],
   keywordNot: [],
-  keywordOrSet1: [],
   keywordOrSet3: [],
   language: 'fi',
   location: [],
@@ -30,9 +29,14 @@ export const eventListBaseVariables: QueryEventListArgs = {
   superEventType: ['umbrella', 'none'],
 };
 
+export const eventListBaseVariables: QueryEventListArgs = {
+  ...baseVariables,
+  keywordOrSet1: [],
+};
+
 export const courseListBaseVariables: QueryEventListArgs = {
-  ...eventListBaseVariables,
-  keywordOrSet1: ['keyword1', 'keyword2', 'keyword3'],
+  ...baseVariables,
+  keywordOrSet2: ['keyword1', 'keyword2', 'keyword3'],
 };
 
 export const getOtherEventsVariables = (

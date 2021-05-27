@@ -24,6 +24,8 @@ interface Props {
   eventType: EventType;
 }
 
+const EVENTS_LIST_LIMIT = 3;
+
 export const otherEventTimesListTestId = 'other-event-times-list';
 
 const OtherEventTimes: React.FC<Props> = ({
@@ -54,7 +56,7 @@ const OtherEventTimes: React.FC<Props> = ({
     return null;
   }
 
-  const shownEvents = isListOpen ? events : events.slice(0, 3);
+  const shownEvents = isListOpen ? events : events.slice(0, EVENTS_LIST_LIMIT);
 
   return (
     <div className={styles.otherEventTimes}>
@@ -67,20 +69,22 @@ const OtherEventTimes: React.FC<Props> = ({
           events={shownEvents}
           eventType={eventType}
         />
-        <button
-          className={linkStyles.link}
-          onClick={toggleList}
-          aria-expanded={isListOpen}
-        >
-          {isListOpen
-            ? t('event.otherTimes.buttonHide')
-            : t('event.otherTimes.buttonShow')}
-          {isListOpen ? (
-            <IconAngleUp aria-hidden />
-          ) : (
-            <IconAngleDown aria-hidden />
-          )}
-        </button>
+        {events.length > EVENTS_LIST_LIMIT && (
+          <button
+            className={linkStyles.link}
+            onClick={toggleList}
+            aria-expanded={isListOpen}
+          >
+            {isListOpen
+              ? t('event.otherTimes.buttonHide')
+              : t('event.otherTimes.buttonShow')}
+            {isListOpen ? (
+              <IconAngleUp aria-hidden />
+            ) : (
+              <IconAngleDown aria-hidden />
+            )}
+          </button>
+        )}
       </InfoWithIcon>
       <LoadingSpinner
         hasPadding={false}

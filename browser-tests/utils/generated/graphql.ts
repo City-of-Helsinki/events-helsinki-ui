@@ -387,8 +387,8 @@ export type Query = {
   collectionDetails: CollectionDetails,
   collectionList: CollectionListResponse,
   eventDetails: EventDetails,
-  eventList: EventListResponse,
   eventsByIds: Array<EventDetails>,
+  eventList: EventListResponse,
   keywordDetails: Keyword,
   keywordList: KeywordListResponse,
   landingPage: LandingPage,
@@ -413,6 +413,12 @@ export type QueryCollectionListArgs = {
 
 export type QueryEventDetailsArgs = {
   id?: Maybe<Scalars['ID']>,
+  include?: Maybe<Array<Maybe<Scalars['String']>>>
+};
+
+
+export type QueryEventsByIdsArgs = {
+  ids: Array<Scalars['ID']>,
   include?: Maybe<Array<Maybe<Scalars['String']>>>
 };
 
@@ -461,12 +467,6 @@ export type QueryEventListArgs = {
   audienceMinAgeGt?: Maybe<Scalars['String']>,
   audienceMaxAgeLt?: Maybe<Scalars['String']>,
   audienceMaxAgeGt?: Maybe<Scalars['String']>
-};
-
-
-export type QueryEventsByIdsArgs = {
-  ids: Array<Scalars['ID']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>
 };
 
 
@@ -786,6 +786,8 @@ export type EventListQueryVariables = {
   keyword?: Maybe<Array<Maybe<Scalars['String']>>>,
   keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
   keywordOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keywordOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keywordOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>,
   keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>,
   language?: Maybe<Scalars['String']>,
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
@@ -1459,8 +1461,8 @@ export const EventDetailsDocument = gql`
 }
     ${EventFieldsFragmentDoc}`;
 export const EventListDocument = gql`
-    query EventList($eventType: EventTypeId, $allOngoing: Boolean, $allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordNot: [String], $language: String, $localOngoingAnd: [String], $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
-  eventList(eventType: $eventType, allOngoing: $allOngoing, allOngoingAnd: $allOngoingAnd, division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordOrSet1: $keywordOrSet1, keywordNot: $keywordNot, language: $language, localOngoingAnd: $localOngoingAnd, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
+    query EventList($eventType: EventTypeId, $allOngoing: Boolean, $allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordOrSet2: [String], $keywordOrSet3: [String], $keywordNot: [String], $language: String, $localOngoingAnd: [String], $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+  eventList(eventType: $eventType, allOngoing: $allOngoing, allOngoingAnd: $allOngoingAnd, division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordOrSet1: $keywordOrSet1, keywordOrSet2: $keywordOrSet2, keywordOrSet3: $keywordOrSet3, keywordNot: $keywordNot, language: $language, localOngoingAnd: $localOngoingAnd, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
     meta {
       count
       next

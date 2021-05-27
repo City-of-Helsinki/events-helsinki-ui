@@ -270,13 +270,10 @@ it('renders title and search fields', async () => {
 
 it('initializes search fields correctly from query', async () => {
   advanceTo('2020-12-01');
-  renderComponent(
-    [...defaultMocks],
-    [
-      // eslint-disable-next-line max-len
-      '/fi/courses?categories=movie_and_media&dateTypes=tomorrow&divisions=kaupunginosa%3Aalppiharju,kaupunginosa%3Aaluemeri&places=tprek%3A9302&text=jazz',
-    ]
-  );
+  renderComponent(defaultMocks, [
+    // eslint-disable-next-line max-len
+    '/fi/courses?categories=movie_and_media&dateTypes=tomorrow&divisions=kaupunginosa%3Aalppiharju,kaupunginosa%3Aaluemeri&places=tprek%3A9302&text=jazz',
+  ]);
 
   await waitFor(() => {
     expect(
