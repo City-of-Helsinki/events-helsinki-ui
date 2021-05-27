@@ -11,7 +11,11 @@ import useLocale from '../../../hooks/useLocale';
 import Container from '../../app/layout/Container';
 import EventSearchList from '../../eventList/EventList';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from '../../eventSearch/constants';
-import { getEventSearchVariables, getNextPage } from '../../eventSearch/utils';
+import {
+  getEventSearchVariables,
+  getEventTypeFromRouteUrl,
+  getNextPage,
+} from '../../eventSearch/utils';
 import { getCollectionFields } from '../CollectionUtils';
 import styles from './eventList.module.scss';
 
@@ -28,6 +32,7 @@ const EventList: React.FC<Props> = ({ collection }) => {
     collection,
     locale
   );
+  const eventType = getEventTypeFromRouteUrl(eventListQuery);
   const searchParams = new URLSearchParams(
     eventListQuery ? new URL(eventListQuery).search : ''
   );

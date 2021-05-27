@@ -10,6 +10,7 @@ import { IconSpeechbubbleText } from 'hds-react';
 import { TFunction } from 'i18next';
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
+import { matchPath } from 'react-router';
 
 import { DATE_TYPES } from '../../constants';
 import { Meta, QueryEventListArgs } from '../../generated/graphql';
@@ -26,6 +27,7 @@ import { Language } from '../../types';
 import buildQueryFromObject from '../../util/buildQueryFromObject';
 import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
+import { ROUTES } from '../app/routes/constants';
 import { EVENT_TYPE_TO_ID, EventType } from '../event/types';
 import {
   COURSE_CATEGORIES,
@@ -443,4 +445,11 @@ export const getSearchQuery = (filters: Filters): string => {
   }
 
   return buildQueryFromObject(newFilters);
+};
+
+export const getEventTypeFromRouteUrl = (url: string): EventType => {
+  if (matchPath(url, { path: ROUTES.COURSES, exact: true, strict: false })) {
+    return 'course';
+  }
+  return 'event';
 };
