@@ -75,11 +75,9 @@ const event = fakeEvent({
     name: { fi: locationName },
     streetAddress: { fi: streetAddress },
   },
-  extensionCourse: {
-    maximumAttendeeCapacity: maximumAttendeeCapacity,
-    minimumAttendeeCapacity: minimumAttendeeCapacity,
-    remainingAttendeeCapacity: remainingAttendeeCapacity,
-  },
+  maximumAttendeeCapacity: maximumAttendeeCapacity,
+  minimumAttendeeCapacity: minimumAttendeeCapacity,
+  remainingAttendeeCapacity: remainingAttendeeCapacity,
   offers: [fakeOffer({ isFree: false, price: { fi: price } })],
   audience: targetGroups.map((targetGroup) =>
     fakeTargetGroup({ name: fakeLocalizedObject(targetGroup) })
@@ -148,6 +146,9 @@ it('should hide other info section', () => {
       telephone: null,
     },
     extensionCourse: null,
+    minimumAttendeeCapacity: null,
+    maximumAttendeeCapacity: null,
+    remainingAttendeeCapacity: null,
   };
   render(<EventInfo event={mockEvent} eventType="event" />, {
     mocks,

@@ -141,7 +141,11 @@ export type EventDetails = {
   internalId?: Maybe<Scalars['String']>,
   internalContext?: Maybe<Scalars['String']>,
   internalType?: Maybe<Scalars['String']>,
-  extensionCourse?: Maybe<ExtensionCourse>,
+  enrolmentStartTime?: Maybe<Scalars['String']>,
+  enrolmentEndTime?: Maybe<Scalars['String']>,
+  maximumAttendeeCapacity?: Maybe<Scalars['Int']>,
+  minimumAttendeeCapacity?: Maybe<Scalars['Int']>,
+  remainingAttendeeCapacity?: Maybe<Scalars['Int']>,
 };
 
 export type EventListResponse = {
@@ -150,14 +154,10 @@ export type EventListResponse = {
   data: Array<EventDetails>,
 };
 
-export type ExtensionCourse = {
-   __typename?: 'ExtensionCourse',
-  enrolmentStartTime?: Maybe<Scalars['String']>,
-  enrolmentEndTime?: Maybe<Scalars['String']>,
-  maximumAttendeeCapacity?: Maybe<Scalars['Int']>,
-  minimumAttendeeCapacity?: Maybe<Scalars['Int']>,
-  remainingAttendeeCapacity?: Maybe<Scalars['Int']>,
-};
+export enum EventTypeId {
+  General = 'General',
+  Course = 'Course'
+}
 
 export type ExternalLink = {
    __typename?: 'ExternalLink',
@@ -261,11 +261,6 @@ export type LandingPagesResponse = {
    __typename?: 'LandingPagesResponse',
   data: Array<LandingPage>,
 };
-
-export enum LinkedEventsSource {
-  Linkedevents = 'LINKEDEVENTS',
-  Linkedcourses = 'LINKEDCOURSES'
-}
 
 export type LocalizedCmsImage = {
    __typename?: 'LocalizedCmsImage',
@@ -393,11 +388,8 @@ export type Query = {
   collectionDetails: CollectionDetails,
   collectionList: CollectionListResponse,
   eventDetails: EventDetails,
-  eventList: EventListResponse,
   eventsByIds: Array<EventDetails>,
-  courseDetails: EventDetails,
-  courseList: EventListResponse,
-  coursesByIds: Array<EventDetails>,
+  eventList: EventListResponse,
   keywordDetails: Keyword,
   keywordList: KeywordListResponse,
   landingPage: LandingPage,
@@ -422,72 +414,18 @@ export type QueryCollectionListArgs = {
 
 export type QueryEventDetailsArgs = {
   id?: Maybe<Scalars['ID']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>,
-  source?: Maybe<LinkedEventsSource>
-};
-
-
-export type QueryEventListArgs = {
-  localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
-  localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
-  localOngoingOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>,
-  localOngoingOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>,
-  localOngoingOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>,
-  internetOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
-  internetOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
-  allOngoing?: Maybe<Scalars['Boolean']>,
-  allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
-  allOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
-  combinedText?: Maybe<Array<Maybe<Scalars['String']>>>,
-  division?: Maybe<Array<Maybe<Scalars['String']>>>,
-  end?: Maybe<Scalars['String']>,
-  endsAfter?: Maybe<Scalars['String']>,
-  endsBefore?: Maybe<Scalars['String']>,
-  ids?: Maybe<Array<Maybe<Scalars['String']>>>,
-  inLanguage?: Maybe<Scalars['String']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>,
-  isFree?: Maybe<Scalars['Boolean']>,
-  keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keyword?: Maybe<Array<Maybe<Scalars['String']>>>,
-  language?: Maybe<Scalars['String']>,
-  location?: Maybe<Array<Maybe<Scalars['String']>>>,
-  page?: Maybe<Scalars['Int']>,
-  pageSize?: Maybe<Scalars['Int']>,
-  publisher?: Maybe<Scalars['ID']>,
-  sort?: Maybe<Scalars['String']>,
-  start?: Maybe<Scalars['String']>,
-  startsAfter?: Maybe<Scalars['String']>,
-  startsBefore?: Maybe<Scalars['String']>,
-  superEvent?: Maybe<Scalars['ID']>,
-  superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
-  text?: Maybe<Scalars['String']>,
-  translation?: Maybe<Scalars['String']>,
-  audienceMinAgeLt?: Maybe<Scalars['String']>,
-  audienceMinAgeGt?: Maybe<Scalars['String']>,
-  audienceMaxAgeLt?: Maybe<Scalars['String']>,
-  audienceMaxAgeGt?: Maybe<Scalars['String']>,
-  source?: Maybe<LinkedEventsSource>
+  include?: Maybe<Array<Maybe<Scalars['String']>>>
 };
 
 
 export type QueryEventsByIdsArgs = {
   ids: Array<Scalars['ID']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>,
-  source?: Maybe<LinkedEventsSource>
-};
-
-
-export type QueryCourseDetailsArgs = {
-  id?: Maybe<Scalars['ID']>,
   include?: Maybe<Array<Maybe<Scalars['String']>>>
 };
 
 
-export type QueryCourseListArgs = {
+export type QueryEventListArgs = {
+  eventType?: Maybe<EventTypeId>,
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
   localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>,
   localOngoingOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>,
@@ -533,15 +471,8 @@ export type QueryCourseListArgs = {
 };
 
 
-export type QueryCoursesByIdsArgs = {
-  ids: Array<Scalars['ID']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>
-};
-
-
 export type QueryKeywordDetailsArgs = {
-  id: Scalars['ID'],
-  source?: Maybe<LinkedEventsSource>
+  id: Scalars['ID']
 };
 
 
@@ -552,8 +483,7 @@ export type QueryKeywordListArgs = {
   pageSize?: Maybe<Scalars['Int']>,
   showAllKeywords?: Maybe<Scalars['Boolean']>,
   sort?: Maybe<Scalars['String']>,
-  text?: Maybe<Scalars['String']>,
-  source?: Maybe<LinkedEventsSource>
+  text?: Maybe<Scalars['String']>
 };
 
 
@@ -569,14 +499,12 @@ export type QueryLandingPagesArgs = {
 
 
 export type QueryOrganizationDetailsArgs = {
-  id: Scalars['ID'],
-  source?: Maybe<LinkedEventsSource>
+  id: Scalars['ID']
 };
 
 
 export type QueryPlaceDetailsArgs = {
-  id: Scalars['ID'],
-  source?: Maybe<LinkedEventsSource>
+  id: Scalars['ID']
 };
 
 
@@ -588,8 +516,7 @@ export type QueryPlaceListArgs = {
   pageSize?: Maybe<Scalars['Int']>,
   showAllPlaces?: Maybe<Scalars['Boolean']>,
   sort?: Maybe<Scalars['String']>,
-  text?: Maybe<Scalars['String']>,
-  source?: Maybe<LinkedEventsSource>
+  text?: Maybe<Scalars['String']>
 };
 
 export type StaticPage = {
@@ -743,90 +670,6 @@ export type CollectionListQuery = (
   ) }
 );
 
-export type CourseFieldsFragment = (
-  { __typename?: 'EventDetails' }
-  & Pick<EventDetails, 'audienceMinAge' | 'audienceMaxAge'>
-  & { extensionCourse: Maybe<(
-    { __typename?: 'ExtensionCourse' }
-    & Pick<ExtensionCourse, 'enrolmentStartTime' | 'enrolmentEndTime' | 'maximumAttendeeCapacity' | 'minimumAttendeeCapacity' | 'remainingAttendeeCapacity'>
-  )> }
-  & EventFieldsFragment
-);
-
-export type CourseDetailsQueryVariables = {
-  id: Scalars['ID'],
-  include?: Maybe<Array<Maybe<Scalars['String']>>>
-};
-
-
-export type CourseDetailsQuery = (
-  { __typename?: 'Query' }
-  & { courseDetails: (
-    { __typename?: 'EventDetails' }
-    & CourseFieldsFragment
-  ) }
-);
-
-export type CourseListQueryVariables = {
-  allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
-  audienceMaxAgeLt?: Maybe<Scalars['String']>,
-  audienceMinAgeGt?: Maybe<Scalars['String']>,
-  division?: Maybe<Array<Maybe<Scalars['String']>>>,
-  end?: Maybe<Scalars['String']>,
-  endsAfter?: Maybe<Scalars['String']>,
-  endsBefore?: Maybe<Scalars['String']>,
-  inLanguage?: Maybe<Scalars['String']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>,
-  isFree?: Maybe<Scalars['Boolean']>,
-  keyword?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>,
-  keywordOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>,
-  language?: Maybe<Scalars['String']>,
-  location?: Maybe<Array<Maybe<Scalars['String']>>>,
-  page?: Maybe<Scalars['Int']>,
-  pageSize?: Maybe<Scalars['Int']>,
-  publisher?: Maybe<Scalars['ID']>,
-  sort?: Maybe<Scalars['String']>,
-  start?: Maybe<Scalars['String']>,
-  startsAfter?: Maybe<Scalars['String']>,
-  startsBefore?: Maybe<Scalars['String']>,
-  superEvent?: Maybe<Scalars['ID']>,
-  superEventType?: Maybe<Array<Maybe<Scalars['String']>>>,
-  text?: Maybe<Scalars['String']>,
-  translation?: Maybe<Scalars['String']>
-};
-
-
-export type CourseListQuery = (
-  { __typename?: 'Query' }
-  & { courseList: (
-    { __typename?: 'EventListResponse' }
-    & { meta: (
-      { __typename?: 'Meta' }
-      & Pick<Meta, 'count' | 'next' | 'previous'>
-    ), data: Array<(
-      { __typename?: 'EventDetails' }
-      & CourseFieldsFragment
-    )> }
-  ) }
-);
-
-export type CoursesByIdsQueryVariables = {
-  ids: Array<Scalars['ID']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>
-};
-
-
-export type CoursesByIdsQuery = (
-  { __typename?: 'Query' }
-  & { coursesByIds: Array<(
-    { __typename?: 'EventDetails' }
-    & CourseFieldsFragment
-  )> }
-);
-
 export type LocalizedFieldsFragment = (
   { __typename?: 'LocalizedObject' }
   & Pick<LocalizedObject, 'en' | 'fi' | 'sv'>
@@ -847,7 +690,7 @@ export type OfferFieldsFragment = (
   )> }
 );
 
-export type EventFieldsFragment = (
+export type GeneralEventFieldsFragment = (
   { __typename?: 'EventDetails' }
   & Pick<EventDetails, 'audienceMinAge' | 'audienceMaxAge' | 'id' | 'eventStatus' | 'endTime' | 'startTime' | 'publisher'>
   & { externalLinks: Array<(
@@ -899,6 +742,23 @@ export type EventFieldsFragment = (
   )> }
 );
 
+export type CourseExtensionFieldsFragment = (
+  { __typename?: 'EventDetails' }
+  & Pick<EventDetails, 'enrolmentStartTime' | 'enrolmentEndTime' | 'maximumAttendeeCapacity' | 'minimumAttendeeCapacity' | 'remainingAttendeeCapacity'>
+);
+
+export type CourseEventFieldsFragment = (
+  { __typename?: 'EventDetails' }
+  & GeneralEventFieldsFragment
+  & CourseExtensionFieldsFragment
+);
+
+export type EventFieldsFragment = (
+  { __typename?: 'EventDetails' }
+  & GeneralEventFieldsFragment
+  & CourseExtensionFieldsFragment
+);
+
 export type EventDetailsQueryVariables = {
   id: Scalars['ID'],
   include?: Maybe<Array<Maybe<Scalars['String']>>>
@@ -914,6 +774,7 @@ export type EventDetailsQuery = (
 );
 
 export type EventListQueryVariables = {
+  eventType?: Maybe<EventTypeId>,
   allOngoing?: Maybe<Scalars['Boolean']>,
   allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
   division?: Maybe<Array<Maybe<Scalars['String']>>>,
@@ -926,6 +787,8 @@ export type EventListQueryVariables = {
   keyword?: Maybe<Array<Maybe<Scalars['String']>>>,
   keywordAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
   keywordOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keywordOrSet2?: Maybe<Array<Maybe<Scalars['String']>>>,
+  keywordOrSet3?: Maybe<Array<Maybe<Scalars['String']>>>,
   keywordNot?: Maybe<Array<Maybe<Scalars['String']>>>,
   language?: Maybe<Scalars['String']>,
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
@@ -960,8 +823,7 @@ export type EventListQuery = (
 
 export type EventsByIdsQueryVariables = {
   ids: Array<Scalars['ID']>,
-  include?: Maybe<Array<Maybe<Scalars['String']>>>,
-  source?: Maybe<LinkedEventsSource>
+  include?: Maybe<Array<Maybe<Scalars['String']>>>
 };
 
 
@@ -1002,8 +864,7 @@ export type KeywordListQueryVariables = {
   pageSize?: Maybe<Scalars['Int']>,
   showAllKeywords?: Maybe<Scalars['Boolean']>,
   sort?: Maybe<Scalars['String']>,
-  text?: Maybe<Scalars['String']>,
-  source?: Maybe<LinkedEventsSource>
+  text?: Maybe<Scalars['String']>
 };
 
 
@@ -1204,8 +1065,7 @@ export type PlaceFieldsFragment = (
 );
 
 export type PlaceDetailsQueryVariables = {
-  id: Scalars['ID'],
-  source?: Maybe<LinkedEventsSource>
+  id: Scalars['ID']
 };
 
 
@@ -1225,8 +1085,7 @@ export type PlaceListQueryVariables = {
   pageSize?: Maybe<Scalars['Int']>,
   showAllPlaces?: Maybe<Scalars['Boolean']>,
   sort?: Maybe<Scalars['String']>,
-  text?: Maybe<Scalars['String']>,
-  source?: Maybe<LinkedEventsSource>
+  text?: Maybe<Scalars['String']>
 };
 
 
@@ -1396,8 +1255,8 @@ export const OfferFieldsFragmentDoc = gql`
   }
 }
     ${LocalizedFieldsFragmentDoc}`;
-export const EventFieldsFragmentDoc = gql`
-    fragment eventFields on EventDetails {
+export const GeneralEventFieldsFragmentDoc = gql`
+    fragment generalEventFields on EventDetails {
   audienceMinAge
   audienceMaxAge
   id
@@ -1458,20 +1317,29 @@ export const EventFieldsFragmentDoc = gql`
 ${KeywordFieldsFragmentDoc}
 ${PlaceFieldsFragmentDoc}
 ${OfferFieldsFragmentDoc}`;
-export const CourseFieldsFragmentDoc = gql`
-    fragment courseFields on EventDetails {
-  ...eventFields
-  audienceMinAge
-  audienceMaxAge
-  extensionCourse {
-    enrolmentStartTime
-    enrolmentEndTime
-    maximumAttendeeCapacity
-    minimumAttendeeCapacity
-    remainingAttendeeCapacity
-  }
+export const CourseExtensionFieldsFragmentDoc = gql`
+    fragment courseExtensionFields on EventDetails {
+  enrolmentStartTime
+  enrolmentEndTime
+  maximumAttendeeCapacity
+  minimumAttendeeCapacity
+  remainingAttendeeCapacity
 }
-    ${EventFieldsFragmentDoc}`;
+    `;
+export const CourseEventFieldsFragmentDoc = gql`
+    fragment courseEventFields on EventDetails {
+  ...generalEventFields
+  ...courseExtensionFields
+}
+    ${GeneralEventFieldsFragmentDoc}
+${CourseExtensionFieldsFragmentDoc}`;
+export const EventFieldsFragmentDoc = gql`
+    fragment eventFields on EventDetails {
+  ...generalEventFields
+  ...courseExtensionFields
+}
+    ${GeneralEventFieldsFragmentDoc}
+${CourseExtensionFieldsFragmentDoc}`;
 export const LocalizedCmsImageFieldsFragmentDoc = gql`
     fragment localizedCmsImageFields on LocalizedCmsImage {
   en {
@@ -1733,174 +1601,6 @@ export function useCollectionListLazyQuery(baseOptions?: ApolloReactHooks.LazyQu
 export type CollectionListQueryHookResult = ReturnType<typeof useCollectionListQuery>;
 export type CollectionListLazyQueryHookResult = ReturnType<typeof useCollectionListLazyQuery>;
 export type CollectionListQueryResult = ApolloReactCommon.QueryResult<CollectionListQuery, CollectionListQueryVariables>;
-export const CourseDetailsDocument = gql`
-    query CourseDetails($id: ID!, $include: [String]) {
-  courseDetails(id: $id, include: $include) {
-    ...courseFields
-  }
-}
-    ${CourseFieldsFragmentDoc}`;
-export type CourseDetailsProps<TChildProps = {}> = ApolloReactHoc.DataProps<CourseDetailsQuery, CourseDetailsQueryVariables> | TChildProps;
-export function withCourseDetails<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  CourseDetailsQuery,
-  CourseDetailsQueryVariables,
-  CourseDetailsProps<TChildProps>>) {
-    return ApolloReactHoc.withQuery<TProps, CourseDetailsQuery, CourseDetailsQueryVariables, CourseDetailsProps<TChildProps>>(CourseDetailsDocument, {
-      alias: 'courseDetails',
-      ...operationOptions
-    });
-};
-
-/**
- * __useCourseDetailsQuery__
- *
- * To run a query within a React component, call `useCourseDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useCourseDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCourseDetailsQuery({
- *   variables: {
- *      id: // value for 'id'
- *      include: // value for 'include'
- *   },
- * });
- */
-export function useCourseDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CourseDetailsQuery, CourseDetailsQueryVariables>) {
-        return ApolloReactHooks.useQuery<CourseDetailsQuery, CourseDetailsQueryVariables>(CourseDetailsDocument, baseOptions);
-      }
-export function useCourseDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CourseDetailsQuery, CourseDetailsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<CourseDetailsQuery, CourseDetailsQueryVariables>(CourseDetailsDocument, baseOptions);
-        }
-export type CourseDetailsQueryHookResult = ReturnType<typeof useCourseDetailsQuery>;
-export type CourseDetailsLazyQueryHookResult = ReturnType<typeof useCourseDetailsLazyQuery>;
-export type CourseDetailsQueryResult = ApolloReactCommon.QueryResult<CourseDetailsQuery, CourseDetailsQueryVariables>;
-export const CourseListDocument = gql`
-    query CourseList($allOngoingAnd: [String], $audienceMaxAgeLt: String, $audienceMinAgeGt: String, $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordNot: [String], $keywordOrSet2: [String], $keywordOrSet3: [String], $language: String, $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
-  courseList(audienceMaxAgeLt: $audienceMaxAgeLt, audienceMinAgeGt: $audienceMinAgeGt, combinedText: $allOngoingAnd, division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordOrSet2: $keywordOrSet2, keywordOrSet3: $keywordOrSet3, keywordNot: $keywordNot, language: $language, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
-    meta {
-      count
-      next
-      previous
-    }
-    data {
-      ...courseFields
-    }
-  }
-}
-    ${CourseFieldsFragmentDoc}`;
-export type CourseListProps<TChildProps = {}> = ApolloReactHoc.DataProps<CourseListQuery, CourseListQueryVariables> | TChildProps;
-export function withCourseList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  CourseListQuery,
-  CourseListQueryVariables,
-  CourseListProps<TChildProps>>) {
-    return ApolloReactHoc.withQuery<TProps, CourseListQuery, CourseListQueryVariables, CourseListProps<TChildProps>>(CourseListDocument, {
-      alias: 'courseList',
-      ...operationOptions
-    });
-};
-
-/**
- * __useCourseListQuery__
- *
- * To run a query within a React component, call `useCourseListQuery` and pass it any options that fit your needs.
- * When your component renders, `useCourseListQuery` returns an object from Apollo Client that contains loading, error, and data properties 
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCourseListQuery({
- *   variables: {
- *      allOngoingAnd: // value for 'allOngoingAnd'
- *      audienceMaxAgeLt: // value for 'audienceMaxAgeLt'
- *      audienceMinAgeGt: // value for 'audienceMinAgeGt'
- *      division: // value for 'division'
- *      end: // value for 'end'
- *      endsAfter: // value for 'endsAfter'
- *      endsBefore: // value for 'endsBefore'
- *      inLanguage: // value for 'inLanguage'
- *      include: // value for 'include'
- *      isFree: // value for 'isFree'
- *      keyword: // value for 'keyword'
- *      keywordAnd: // value for 'keywordAnd'
- *      keywordNot: // value for 'keywordNot'
- *      keywordOrSet2: // value for 'keywordOrSet2'
- *      keywordOrSet3: // value for 'keywordOrSet3'
- *      language: // value for 'language'
- *      location: // value for 'location'
- *      page: // value for 'page'
- *      pageSize: // value for 'pageSize'
- *      publisher: // value for 'publisher'
- *      sort: // value for 'sort'
- *      start: // value for 'start'
- *      startsAfter: // value for 'startsAfter'
- *      startsBefore: // value for 'startsBefore'
- *      superEvent: // value for 'superEvent'
- *      superEventType: // value for 'superEventType'
- *      text: // value for 'text'
- *      translation: // value for 'translation'
- *   },
- * });
- */
-export function useCourseListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CourseListQuery, CourseListQueryVariables>) {
-        return ApolloReactHooks.useQuery<CourseListQuery, CourseListQueryVariables>(CourseListDocument, baseOptions);
-      }
-export function useCourseListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CourseListQuery, CourseListQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<CourseListQuery, CourseListQueryVariables>(CourseListDocument, baseOptions);
-        }
-export type CourseListQueryHookResult = ReturnType<typeof useCourseListQuery>;
-export type CourseListLazyQueryHookResult = ReturnType<typeof useCourseListLazyQuery>;
-export type CourseListQueryResult = ApolloReactCommon.QueryResult<CourseListQuery, CourseListQueryVariables>;
-export const CoursesByIdsDocument = gql`
-    query CoursesByIds($ids: [ID!]!, $include: [String]) {
-  coursesByIds(ids: $ids, include: $include) {
-    ...courseFields
-  }
-}
-    ${CourseFieldsFragmentDoc}`;
-export type CoursesByIdsProps<TChildProps = {}> = ApolloReactHoc.DataProps<CoursesByIdsQuery, CoursesByIdsQueryVariables> | TChildProps;
-export function withCoursesByIds<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  CoursesByIdsQuery,
-  CoursesByIdsQueryVariables,
-  CoursesByIdsProps<TChildProps>>) {
-    return ApolloReactHoc.withQuery<TProps, CoursesByIdsQuery, CoursesByIdsQueryVariables, CoursesByIdsProps<TChildProps>>(CoursesByIdsDocument, {
-      alias: 'coursesByIds',
-      ...operationOptions
-    });
-};
-
-/**
- * __useCoursesByIdsQuery__
- *
- * To run a query within a React component, call `useCoursesByIdsQuery` and pass it any options that fit your needs.
- * When your component renders, `useCoursesByIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCoursesByIdsQuery({
- *   variables: {
- *      ids: // value for 'ids'
- *      include: // value for 'include'
- *   },
- * });
- */
-export function useCoursesByIdsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CoursesByIdsQuery, CoursesByIdsQueryVariables>) {
-        return ApolloReactHooks.useQuery<CoursesByIdsQuery, CoursesByIdsQueryVariables>(CoursesByIdsDocument, baseOptions);
-      }
-export function useCoursesByIdsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CoursesByIdsQuery, CoursesByIdsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<CoursesByIdsQuery, CoursesByIdsQueryVariables>(CoursesByIdsDocument, baseOptions);
-        }
-export type CoursesByIdsQueryHookResult = ReturnType<typeof useCoursesByIdsQuery>;
-export type CoursesByIdsLazyQueryHookResult = ReturnType<typeof useCoursesByIdsLazyQuery>;
-export type CoursesByIdsQueryResult = ApolloReactCommon.QueryResult<CoursesByIdsQuery, CoursesByIdsQueryVariables>;
 export const EventDetailsDocument = gql`
     query EventDetails($id: ID!, $include: [String]) {
   eventDetails(id: $id, include: $include) {
@@ -1947,8 +1647,8 @@ export type EventDetailsQueryHookResult = ReturnType<typeof useEventDetailsQuery
 export type EventDetailsLazyQueryHookResult = ReturnType<typeof useEventDetailsLazyQuery>;
 export type EventDetailsQueryResult = ApolloReactCommon.QueryResult<EventDetailsQuery, EventDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($allOngoing: Boolean, $allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordNot: [String], $language: String, $localOngoingAnd: [String], $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
-  eventList(allOngoing: $allOngoing, allOngoingAnd: $allOngoingAnd, division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordOrSet1: $keywordOrSet1, keywordNot: $keywordNot, language: $language, localOngoingAnd: $localOngoingAnd, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
+    query EventList($eventType: EventTypeId, $allOngoing: Boolean, $allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordOrSet2: [String], $keywordOrSet3: [String], $keywordNot: [String], $language: String, $localOngoingAnd: [String], $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+  eventList(eventType: $eventType, allOngoing: $allOngoing, allOngoingAnd: $allOngoingAnd, division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordOrSet1: $keywordOrSet1, keywordOrSet2: $keywordOrSet2, keywordOrSet3: $keywordOrSet3, keywordNot: $keywordNot, language: $language, localOngoingAnd: $localOngoingAnd, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
     meta {
       count
       next
@@ -1984,6 +1684,7 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  * @example
  * const { data, loading, error } = useEventListQuery({
  *   variables: {
+ *      eventType: // value for 'eventType'
  *      allOngoing: // value for 'allOngoing'
  *      allOngoingAnd: // value for 'allOngoingAnd'
  *      division: // value for 'division'
@@ -1996,6 +1697,8 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  *      keyword: // value for 'keyword'
  *      keywordAnd: // value for 'keywordAnd'
  *      keywordOrSet1: // value for 'keywordOrSet1'
+ *      keywordOrSet2: // value for 'keywordOrSet2'
+ *      keywordOrSet3: // value for 'keywordOrSet3'
  *      keywordNot: // value for 'keywordNot'
  *      language: // value for 'language'
  *      localOngoingAnd: // value for 'localOngoingAnd'
@@ -2024,8 +1727,8 @@ export type EventListQueryHookResult = ReturnType<typeof useEventListQuery>;
 export type EventListLazyQueryHookResult = ReturnType<typeof useEventListLazyQuery>;
 export type EventListQueryResult = ApolloReactCommon.QueryResult<EventListQuery, EventListQueryVariables>;
 export const EventsByIdsDocument = gql`
-    query EventsByIds($ids: [ID!]!, $include: [String], $source: LinkedEventsSource) {
-  eventsByIds(ids: $ids, include: $include, source: $source) {
+    query EventsByIds($ids: [ID!]!, $include: [String]) {
+  eventsByIds(ids: $ids, include: $include) {
     ...eventFields
   }
 }
@@ -2056,7 +1759,6 @@ export function withEventsByIds<TProps, TChildProps = {}>(operationOptions?: Apo
  *   variables: {
  *      ids: // value for 'ids'
  *      include: // value for 'include'
- *      source: // value for 'source'
  *   },
  * });
  */
@@ -2114,8 +1816,8 @@ export type KeywordDetailsQueryHookResult = ReturnType<typeof useKeywordDetailsQ
 export type KeywordDetailsLazyQueryHookResult = ReturnType<typeof useKeywordDetailsLazyQuery>;
 export type KeywordDetailsQueryResult = ApolloReactCommon.QueryResult<KeywordDetailsQuery, KeywordDetailsQueryVariables>;
 export const KeywordListDocument = gql`
-    query KeywordList($dataSource: String, $hasUpcomingEvents: Boolean, $page: Int, $pageSize: Int, $showAllKeywords: Boolean, $sort: String, $text: String, $source: LinkedEventsSource) {
-  keywordList(dataSource: $dataSource, hasUpcomingEvents: $hasUpcomingEvents, page: $page, pageSize: $pageSize, showAllKeywords: $showAllKeywords, sort: $sort, text: $text, source: $source) {
+    query KeywordList($dataSource: String, $hasUpcomingEvents: Boolean, $page: Int, $pageSize: Int, $showAllKeywords: Boolean, $sort: String, $text: String) {
+  keywordList(dataSource: $dataSource, hasUpcomingEvents: $hasUpcomingEvents, page: $page, pageSize: $pageSize, showAllKeywords: $showAllKeywords, sort: $sort, text: $text) {
     meta {
       count
       next
@@ -2158,7 +1860,6 @@ export function withKeywordList<TProps, TChildProps = {}>(operationOptions?: Apo
  *      showAllKeywords: // value for 'showAllKeywords'
  *      sort: // value for 'sort'
  *      text: // value for 'text'
- *      source: // value for 'source'
  *   },
  * });
  */
@@ -2362,8 +2063,8 @@ export type OrganizationDetailsQueryHookResult = ReturnType<typeof useOrganizati
 export type OrganizationDetailsLazyQueryHookResult = ReturnType<typeof useOrganizationDetailsLazyQuery>;
 export type OrganizationDetailsQueryResult = ApolloReactCommon.QueryResult<OrganizationDetailsQuery, OrganizationDetailsQueryVariables>;
 export const PlaceDetailsDocument = gql`
-    query PlaceDetails($id: ID!, $source: LinkedEventsSource) {
-  placeDetails(id: $id, source: $source) {
+    query PlaceDetails($id: ID!) {
+  placeDetails(id: $id) {
     ...placeFields
   }
 }
@@ -2393,7 +2094,6 @@ export function withPlaceDetails<TProps, TChildProps = {}>(operationOptions?: Ap
  * const { data, loading, error } = usePlaceDetailsQuery({
  *   variables: {
  *      id: // value for 'id'
- *      source: // value for 'source'
  *   },
  * });
  */
@@ -2407,8 +2107,8 @@ export type PlaceDetailsQueryHookResult = ReturnType<typeof usePlaceDetailsQuery
 export type PlaceDetailsLazyQueryHookResult = ReturnType<typeof usePlaceDetailsLazyQuery>;
 export type PlaceDetailsQueryResult = ApolloReactCommon.QueryResult<PlaceDetailsQuery, PlaceDetailsQueryVariables>;
 export const PlaceListDocument = gql`
-    query PlaceList($dataSource: String, $divisions: [String], $hasUpcomingEvents: Boolean, $page: Int, $pageSize: Int, $showAllPlaces: Boolean, $sort: String, $text: String, $source: LinkedEventsSource) {
-  placeList(dataSource: $dataSource, divisions: $divisions, hasUpcomingEvents: $hasUpcomingEvents, page: $page, pageSize: $pageSize, showAllPlaces: $showAllPlaces, sort: $sort, text: $text, source: $source) {
+    query PlaceList($dataSource: String, $divisions: [String], $hasUpcomingEvents: Boolean, $page: Int, $pageSize: Int, $showAllPlaces: Boolean, $sort: String, $text: String) {
+  placeList(dataSource: $dataSource, divisions: $divisions, hasUpcomingEvents: $hasUpcomingEvents, page: $page, pageSize: $pageSize, showAllPlaces: $showAllPlaces, sort: $sort, text: $text) {
     meta {
       count
       next
@@ -2452,7 +2152,6 @@ export function withPlaceList<TProps, TChildProps = {}>(operationOptions?: Apoll
  *      showAllPlaces: // value for 'showAllPlaces'
  *      sort: // value for 'sort'
  *      text: // value for 'text'
- *      source: // value for 'source'
  *   },
  * });
  */

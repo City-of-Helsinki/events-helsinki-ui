@@ -2,7 +2,7 @@ import { advanceTo, clear } from 'jest-date-mock';
 import React from 'react';
 
 import translations from '../../../common/translation/i18n/fi.json';
-import { CourseDetailsDocument } from '../../../generated/graphql';
+import { EventDetailsDocument } from '../../../generated/graphql';
 import {
   createEventListRequestAndResultMocks,
   createOtherEventTimesRequestAndResultMocks,
@@ -24,7 +24,7 @@ import getDateRangeStr from '../../../util/getDateRangeStr';
 import { ROUTES } from '../../app/routes/constants';
 import { otherEventTimesListTestId } from '../../event/eventInfo/otherEventTimes/OtherEventTimes';
 import { similarEventsListTestId } from '../../event/similarEvents/SimilarEvents';
-import CoursePageContainer from '../CoursePageContainer';
+import CoursePageContainer from '../EventPageContainer';
 
 const id = '1';
 const name = 'Course title';
@@ -65,7 +65,7 @@ const course = fakeEvent({
 });
 
 const courseRequest = {
-  query: CourseDetailsDocument,
+  query: EventDetailsDocument,
   variables: {
     id,
     include: ['in_language', 'keywords', 'location', 'audience'],
@@ -73,18 +73,18 @@ const courseRequest = {
 };
 
 const superEventRequest = {
-  query: CourseDetailsDocument,
+  query: EventDetailsDocument,
   variables: {
     id: superEventId,
     include: ['in_language', 'keywords', 'location', 'audience'],
   },
 };
 
-const courseResponse = { data: { courseDetails: course } };
+const courseResponse = { data: { eventDetails: course } };
 
 const superEventResponse = {
   data: {
-    courseDetails: {
+    eventDetails: {
       ...course,
       startTime: '2020-06-22T07:00:00.000000Z',
       endTime: '2020-06-25T07:00:00.000000Z',
@@ -133,7 +133,7 @@ const testPath = ROUTES.COURSE.replace(':id', id);
 const routes = [testPath];
 
 const renderComponent = () =>
-  renderWithRoute(<CoursePageContainer />, {
+  renderWithRoute(<CoursePageContainer eventType="course" />, {
     mocks,
     routes,
     path: ROUTES.COURSE,
@@ -208,7 +208,7 @@ it("should show error info when event doesn't exist", async () => {
     },
   ];
 
-  renderWithRoute(<CoursePageContainer />, {
+  renderWithRoute(<CoursePageContainer eventType="course" />, {
     mocks,
     routes,
     path: ROUTES.COURSE,
@@ -247,7 +247,7 @@ it('should link to courses search when clicking tags', async () => {
 it('should contain event hero with super event date', async () => {
   advanceTo('2020-06-23');
 
-  renderWithRoute(<CoursePageContainer />, {
+  renderWithRoute(<CoursePageContainer eventType="course" />, {
     mocks: superEventMocks,
     routes,
     path: ROUTES.COURSE,
@@ -258,8 +258,8 @@ it('should contain event hero with super event date', async () => {
   });
 
   const superDateStr = getDateRangeStr({
-    start: superEventResponse.data.courseDetails.startTime,
-    end: superEventResponse.data.courseDetails.endTime,
+    start: superEventResponse.data.eventDetails.startTime,
+    end: superEventResponse.data.eventDetails.endTime,
     locale: 'fi',
     includeTime: true,
     timeAbbreviation: translations.commons.timeAbbreviation,

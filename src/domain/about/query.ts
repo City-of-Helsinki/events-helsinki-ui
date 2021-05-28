@@ -10,7 +10,6 @@ export const QUERY_ABOUT = gql`
   fragment staticPageFields on StaticPage {
     id
     expired
-
     headingSection {
       ...localizedFields
     }

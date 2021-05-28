@@ -11,9 +11,10 @@ import { getLandingPageFields } from '../utils';
 
 interface Props {
   landingPage: LandingPageFieldsFragment;
+  noTitle?: boolean;
 }
 
-const LandingPageMeta: React.FC<Props> = ({ landingPage }) => {
+const LandingPageMeta: React.FC<Props> = ({ landingPage, noTitle }) => {
   const locale = useLocale();
   const { pathname } = useLocation();
   const { t } = useTranslation();
@@ -50,7 +51,7 @@ const LandingPageMeta: React.FC<Props> = ({ landingPage }) => {
 
   return (
     <Helmet>
-      <title>{pageTitle}</title>
+      {!noTitle && <title>{pageTitle}</title>}
       <meta name="description" content={getDescription()} />
       <meta
         name="keywords"

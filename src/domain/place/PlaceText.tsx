@@ -1,24 +1,17 @@
 import React from 'react';
 
-import {
-  LinkedEventsSource,
-  usePlaceDetailsQuery,
-} from '../../generated/graphql';
+import { usePlaceDetailsQuery } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
 import getLocalisedString from '../../util/getLocalisedString';
 
 interface Props {
   id: string;
-  source?: LinkedEventsSource;
 }
 
-const PlaceText: React.FC<Props> = ({
-  id,
-  source = LinkedEventsSource.Linkedevents,
-}) => {
+const PlaceText: React.FC<Props> = ({ id }) => {
   const locale = useLocale();
   const { data } = usePlaceDetailsQuery({
-    variables: { id, source },
+    variables: { id },
   });
 
   return (

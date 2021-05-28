@@ -11,7 +11,6 @@ import {
   EventFieldsFragment,
   EventListResponse,
   EventsByIdsDocument,
-  LinkedEventsSource,
 } from '../../../../generated/graphql';
 import { setFeatureFlags } from '../../../../test/feature-flags/featureFlags.test.utils';
 import { fakeCollection, fakeEvents } from '../../../../test/mockDataUtils';
@@ -233,10 +232,6 @@ const getMocks = (
       variables: {
         ids,
         include: ['location'],
-        source:
-          type === 'event'
-            ? LinkedEventsSource.Linkedevents
-            : LinkedEventsSource.Linkedcourses,
       },
     },
     result: { data: { eventsByIds: events } },

@@ -5,10 +5,7 @@ import { axe } from 'jest-axe';
 import * as React from 'react';
 
 import translations from '../../../common/translation/i18n/fi.json';
-import {
-  CollectionFieldsFragment,
-  LinkedEventsSource,
-} from '../../../generated/graphql';
+import { CollectionFieldsFragment } from '../../../generated/graphql';
 import { getCollectionDetailsMock } from '../../../test/apollo-mocks/collectionsDetailsMocks';
 import { getEventsByIdsMock } from '../../../test/apollo-mocks/eventByIdsMocks';
 import {
@@ -54,7 +51,6 @@ const getMocks = (
     variables: {
       ids: [curatedEventId],
       include: ['location'],
-      source: LinkedEventsSource.Linkedevents,
     },
     eventsByIds,
   }),

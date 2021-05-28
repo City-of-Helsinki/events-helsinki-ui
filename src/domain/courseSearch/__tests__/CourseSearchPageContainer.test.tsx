@@ -6,10 +6,11 @@ import { toast } from 'react-toastify';
 
 import translations from '../../../common/translation/i18n/fi.json';
 import {
-  CourseListDocument,
   NeighborhoodListDocument,
   PlaceDetailsDocument,
   PlaceListDocument,
+  EventListDocument,
+  EventTypeId,
 } from '../../../generated/graphql';
 import {
   fakeEvents,
@@ -43,11 +44,11 @@ const meta = {
 
 const placeId = 'tprek:9302';
 
-const coursesResponse = { data: { courseList: { ...fakeEvents(10), meta } } };
+const coursesResponse = { data: { eventList: { ...fakeEvents(10), meta } } };
 
 const eventsLoadMoreResponse = {
   data: {
-    courseList: {
+    eventList: {
       ...fakeEvents(10),
       meta: { ...meta, next: null },
     },
@@ -73,6 +74,7 @@ const courseListVariables = {
   superEventType: ['umbrella', 'none'],
   audienceMinAgeGt: '',
   audienceMaxAgeLt: '',
+  eventType: EventTypeId.Course,
 };
 
 const courseListVariables2 = {
@@ -103,6 +105,7 @@ const courseListVariables2 = {
   superEventType: ['umbrella', 'none'],
   audienceMinAgeGt: '',
   audienceMaxAgeLt: '',
+  eventType: EventTypeId.Course,
 };
 
 const neighborhoodsResponse = {
@@ -131,19 +134,15 @@ const placesResponse = {
 const commonMocks = [
   {
     request: {
-      query: CourseListDocument,
-      variables: {
-        ...courseListVariables,
-      },
+      query: EventListDocument,
+      variables: courseListVariables,
     },
     result: coursesResponse,
   },
   {
     request: {
-      query: CourseListDocument,
-      variables: {
-        ...courseListVariables2,
-      },
+      query: EventListDocument,
+      variables: courseListVariables2,
     },
     result: coursesResponse,
   },
@@ -183,7 +182,7 @@ const defaultMocks = [
   ...commonMocks,
   {
     request: {
-      query: CourseListDocument,
+      query: EventListDocument,
       variables: {
         ...courseListVariables,
         page: 2,
@@ -226,8 +225,8 @@ const clickLoadMoreButton = () => {
       name: translations.courseSearch.buttonLoadMore.replace(
         '{{count}}',
         (
-          coursesResponse.data.courseList.meta.count -
-          coursesResponse.data.courseList.data.length
+          coursesResponse.data.eventList.meta.count -
+          coursesResponse.data.eventList.data.length
         ).toString()
       ),
     })
@@ -239,7 +238,7 @@ it('renders title and search fields', async () => {
 
   await waitFor(() => {
     expect(
-      screen.getByText(coursesResponse.data.courseList.data[0].name.fi)
+      screen.getByText(coursesResponse.data.eventList.data[0].name.fi)
     ).toBeInTheDocument();
   });
 
@@ -271,17 +270,14 @@ it('renders title and search fields', async () => {
 
 it('initializes search fields correctly from query', async () => {
   advanceTo('2020-12-01');
-  renderComponent(
-    [...defaultMocks],
-    [
-      // eslint-disable-next-line max-len
-      '/fi/courses?categories=movie_and_media&dateTypes=tomorrow&divisions=kaupunginosa%3Aalppiharju,kaupunginosa%3Aaluemeri&places=tprek%3A9302&text=jazz',
-    ]
-  );
+  renderComponent(defaultMocks, [
+    // eslint-disable-next-line max-len
+    '/fi/courses?categories=movie_and_media&dateTypes=tomorrow&divisions=kaupunginosa%3Aalppiharju,kaupunginosa%3Aaluemeri&places=tprek%3A9302&text=jazz',
+  ]);
 
   await waitFor(() => {
     expect(
-      screen.getByText(coursesResponse.data.courseList.data[0].name.fi)
+      screen.getByText(coursesResponse.data.eventList.data[0].name.fi)
     ).toBeInTheDocument();
   });
 
@@ -323,11 +319,11 @@ it('all the course cards should be visible and load more button should load more
 
   await waitFor(() => {
     expect(
-      screen.getByText(coursesResponse.data.courseList.data[0].name.fi)
+      screen.getByText(coursesResponse.data.eventList.data[0].name.fi)
     ).toBeInTheDocument();
   });
 
-  coursesResponse.data.courseList.data.forEach((event) => {
+  coursesResponse.data.eventList.data.forEach((event) => {
     expect(screen.getByText(event.name.fi)).toBeInTheDocument();
   });
 
@@ -335,11 +331,11 @@ it('all the course cards should be visible and load more button should load more
 
   await waitFor(() => {
     expect(
-      screen.getByText(eventsLoadMoreResponse.data.courseList.data[0].name.fi)
+      screen.getByText(eventsLoadMoreResponse.data.eventList.data[0].name.fi)
     ).toBeInTheDocument();
   });
 
-  eventsLoadMoreResponse.data.courseList.data.forEach((event) => {
+  eventsLoadMoreResponse.data.eventList.data.forEach((event) => {
     expect(
       screen.getByText((_content, el) => el.textContent === event.name.fi)
     ).toBeInTheDocument();
@@ -352,7 +348,7 @@ it('should show toastr message when loading next event page fails', async () => 
     ...commonMocks,
     {
       request: {
-        query: CourseListDocument,
+        query: EventListDocument,
         variables: {
           ...courseListVariables,
           page: 2,

@@ -20,7 +20,6 @@ import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
 import Link from '../../../common/components/link/Link';
 import linkStyles from '../../../common/components/link/link.module.scss';
 import Visible from '../../../common/components/visible/Visible';
-import { CourseFieldsFragment } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import useTabFocusStyle from '../../../hooks/useTabFocusStyle';
 import IconDirections from '../../../icons/IconDirections';
@@ -145,7 +144,7 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
     }
   };
 
-  const { audienceMinAge, audienceMaxAge } = event as CourseFieldsFragment;
+  const { audienceMinAge, audienceMaxAge } = event;
 
   const audienceAge =
     eventType === 'course' &&

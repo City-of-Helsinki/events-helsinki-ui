@@ -1,37 +1,56 @@
 import React from 'react';
+import { useApolloClient } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import ErrorHero from '../../common/components/error/ErrorHero';
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
-import { useEventDetailsQuery } from '../../generated/graphql';
+import {
+  EventDetailsDocument,
+  useEventDetailsQuery,
+} from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
-import { isFeatureEnabled } from '../../util/featureFlags';
 import isClient from '../../util/isClient';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
-import { ROUTES } from '../app/routes/constants';
 import EventClosedHero from './eventClosedHero/EventClosedHero';
 import EventContent from './eventContent/EventContent';
 import EventHero from './eventHero/EventHero';
 import styles from './eventPage.module.scss';
 import EventPageMeta from './eventPageMeta/EventPageMeta';
-import { isEventClosed } from './EventUtils';
-import { useSimilarEventsQuery } from './queryUtils';
+import { getEventIdFromUrl, isEventClosed } from './EventUtils';
 import SimilarEvents from './similarEvents/SimilarEvents';
-import { EventFields } from './types';
+import { EVENTS_ROUTE_MAPPER, EventType, SuperEventResponse } from './types';
 
 interface RouteParams {
   id: string;
 }
 
-const EventPageContainer: React.FC = () => {
+export interface EventPageContainerProps {
+  eventType: EventType;
+  showSimilarEvents?: boolean;
+}
+
+const eventPageStyles = {
+  event: styles.eventPageWrapper,
+  course: styles.coursePageWrapper,
+};
+
+const EventPageContainer: React.FC<EventPageContainerProps> = ({
+  eventType,
+  showSimilarEvents = true,
+}) => {
+  const apolloClient = useApolloClient();
   const { t } = useTranslation();
   const { search } = useLocation();
   const params = useParams<RouteParams>();
   const eventId = params.id;
   const locale = useLocale();
+  const [superEvent, setSuperEvent] = React.useState<SuperEventResponse>({
+    data: null,
+    status: 'pending',
+  });
 
   const { data: eventData, loading } = useEventDetailsQuery({
     variables: {
@@ -39,11 +58,39 @@ const EventPageContainer: React.FC = () => {
       include: ['in_language', 'keywords', 'location', 'audience'],
     },
   });
-
   const event = eventData?.eventDetails;
+  const superEventId = getEventIdFromUrl(
+    event?.superEvent?.internalId ?? '',
+    'event'
+  );
+
+  React.useLayoutEffect(() => {
+    const isCoursePage = eventType === 'course';
+    // Only course page uses super event
+    if (superEventId && isCoursePage) {
+      getSuperEventData();
+    } else if (event) {
+      setSuperEvent({ data: null, status: 'resolved' });
+    }
+    async function getSuperEventData() {
+      try {
+        const { data } = await apolloClient.query({
+          query: EventDetailsDocument,
+          variables: {
+            id: superEventId,
+            include: ['in_language', 'keywords', 'location', 'audience'],
+          },
+        });
+        setSuperEvent({ data: data.courseDetails, status: 'resolved' });
+      } catch (e) {
+        setSuperEvent({ data: null, status: 'resolved' });
+      }
+    }
+  }, [apolloClient, event, superEventId, eventType]);
+
   const eventClosed = !event || isEventClosed(event);
   return (
-    <PageWrapper className={styles.eventPageWrapper} title="event.title">
+    <PageWrapper className={eventPageStyles[eventType]} title="event.title">
       <MainContent offset={-70}>
         <LoadingSpinner isLoading={loading}>
           {event ? (
@@ -54,13 +101,17 @@ const EventPageContainer: React.FC = () => {
                 <EventClosedHero />
               ) : (
                 <>
-                  <EventHero event={event} eventType="event" />
-                  <EventContent event={event} eventType="event" />
+                  <EventHero
+                    event={event}
+                    eventType={eventType}
+                    superEvent={superEvent}
+                  />
+                  <EventContent event={event} eventType={eventType} />
                 </>
               )}
               {/* Hide similar event on SSR to make initial load faster */}
-              {isClient && isFeatureEnabled('SHOW_SIMILAR_EVENTS') && (
-                <SimilarEventsContainer event={event} />
+              {isClient && showSimilarEvents && (
+                <SimilarEvents event={event} eventType={eventType} />
               )}
             </>
           ) : (
@@ -68,7 +119,7 @@ const EventPageContainer: React.FC = () => {
               text={t('event.notFound.text')}
               title={t('event.notFound.title')}
             >
-              <Link to={`/${locale}${ROUTES.EVENTS}${search}`}>
+              <Link to={`/${locale}${EVENTS_ROUTE_MAPPER[eventType]}${search}`}>
                 {t('event.notFound.linkSearchEvents')}
               </Link>
             </ErrorHero>
@@ -77,16 +128,6 @@ const EventPageContainer: React.FC = () => {
       </MainContent>
     </PageWrapper>
   );
-};
-
-// this wrapper/container component is needed because we want to query similar events
-// in the client side but hooks cannot be conditional :)
-const SimilarEventsContainer: React.FC<{ event: EventFields }> = ({
-  event,
-}) => {
-  const { data, loading } = useSimilarEventsQuery(event);
-
-  return <SimilarEvents events={data} loading={loading} eventsType="event" />;
 };
 
 export default EventPageContainer;

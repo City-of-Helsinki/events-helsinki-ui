@@ -5,20 +5,54 @@ import * as React from 'react';
 import translations from '../../../../common/translation/i18n/fi.json';
 import { EventFieldsFragment } from '../../../../generated/graphql';
 import { createEventListRequestAndResultMocks } from '../../../../test/apollo-mocks/eventListMocks';
-import { fakeEvents } from '../../../../test/mockDataUtils';
+import {
+  fakeEvent,
+  fakeEvents,
+  fakeKeyword,
+  fakeLocalizedObject,
+  fakeTargetGroup,
+} from '../../../../test/mockDataUtils';
 import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import { ROUTES } from '../../../app/routes/constants';
 import SimilarEvents from '../SimilarEvents';
 
+const id = '1';
+const name = 'Course title';
+const description = 'Course descirption';
+const startTime = '2020-10-05T07:00:00.000000Z';
+const endTime = '2020-10-05T10:00:00.000000Z';
+const audience = ['Aikuiset', 'Lapset'];
+const keywords = [
+  { name: 'Avouinti', id: 'keyword1' },
+  { name: 'Eläimet', id: 'keyword2' },
+  { name: 'Grillaus', id: 'keyword3' },
+];
+
 const expectedSimilarEvents = fakeEvents(3);
-const expectedSimilarEventsData = expectedSimilarEvents.data as EventFieldsFragment[];
+
+const event = fakeEvent({
+  id,
+  startTime,
+  endTime,
+  name: fakeLocalizedObject(name),
+  description: fakeLocalizedObject(description),
+  keywords: keywords.map((k) =>
+    fakeKeyword({ name: fakeLocalizedObject(k.name), id: k.id })
+  ),
+  audience: audience.map((targetGroup) =>
+    fakeTargetGroup({ name: fakeLocalizedObject(targetGroup) })
+  ),
+});
 
 const mocks = [
-  createEventListRequestAndResultMocks(
-    'event',
-    { allOngoing: true },
-    expectedSimilarEvents
-  ),
+  createEventListRequestAndResultMocks({
+    type: 'event',
+    variables: {
+      allOngoing: true,
+      keywordOrSet1: ['keyword1', 'keyword2', 'keyword3'],
+    },
+    response: expectedSimilarEvents,
+  }),
 ];
 
 afterAll(() => {
@@ -38,11 +72,7 @@ const waitForComponentToBeLoaded = async () => {
 test('should render similar event cards', async () => {
   advanceTo(new Date('2020-08-11'));
   render(
-    <SimilarEvents
-      events={expectedSimilarEventsData}
-      eventsType="event"
-      loading={false}
-    />,
+    <SimilarEvents event={event as EventFieldsFragment} eventType="event" />,
     {
       mocks,
     }
@@ -65,11 +95,7 @@ it('has return path on similar event link', async () => {
   const path = ROUTES.EVENT;
   const route = path.replace(':id', 'rootEventId');
   const { history } = render(
-    <SimilarEvents
-      events={expectedSimilarEventsData}
-      eventsType="event"
-      loading={false}
-    />,
+    <SimilarEvents event={event as EventFieldsFragment} eventType="event" />,
     {
       mocks,
       path,

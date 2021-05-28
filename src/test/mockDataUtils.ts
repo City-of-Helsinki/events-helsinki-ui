@@ -13,7 +13,6 @@ import {
   CollectionListResponse,
   EventDetails,
   EventListResponse,
-  ExtensionCourse,
   ExternalLink,
   Image,
   InLanguage,
@@ -72,7 +71,11 @@ export const fakeEvent = (overrides?: Partial<EventDetails>): EventDetails => {
       eventStatus: 'EventScheduled',
       superEvent: null,
       dataSource: 'hel',
-      extensionCourse: fakeExtensionCourse(),
+      enrolmentEndTime: '',
+      enrolmentStartTime: '',
+      maximumAttendeeCapacity: 10,
+      minimumAttendeeCapacity: 1,
+      remainingAttendeeCapacity: 5,
       audienceMinAge: '5',
       audienceMaxAge: '15',
       __typename: 'EventDetails',
@@ -96,22 +99,6 @@ export const fakeTargetGroup = (overrides?: Partial<Audience>): Audience => {
       internalContext: '',
       internalId: faker.random.uuid(),
       name: fakeLocalizedObject(faker.random.word()),
-    },
-    overrides
-  );
-};
-
-export const fakeExtensionCourse = (
-  overrides?: Partial<ExtensionCourse>
-): ExtensionCourse => {
-  return merge<ExtensionCourse, typeof overrides>(
-    {
-      __typename: 'ExtensionCourse',
-      enrolmentEndTime: '',
-      enrolmentStartTime: '',
-      maximumAttendeeCapacity: 10,
-      minimumAttendeeCapacity: 1,
-      remainingAttendeeCapacity: 5,
     },
     overrides
   );

@@ -4,12 +4,9 @@ import { useLocation } from 'react-router';
 import { toast } from 'react-toastify';
 
 import {
-  CourseFieldsFragment,
-  CourseListQuery,
-  EventFieldsFragment,
   EventListQuery,
   EventListQueryVariables,
-  useCourseListQuery,
+  EventTypeId,
   useEventListQuery,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
@@ -25,9 +22,12 @@ import {
 } from '../eventSearch/utils';
 import { SIMILAR_EVENTS_AMOUNT } from './constants';
 import { getEventFields, getEventIdFromUrl } from './EventUtils';
-import { EventFields } from './types';
+import { EventFields, EventType } from './types';
 
-const useSimilarEventsQueryVariables = (event: EventFields) => {
+const useSimilarEventsQueryVariables = (
+  event: EventFields,
+  type: EventType
+) => {
   const locale = useLocale();
   const { search } = useLocation();
   const { keywords } = getEventFields(event, locale);
@@ -46,57 +46,36 @@ const useSimilarEventsQueryVariables = (event: EventFields) => {
       params: searchParams,
       sortOrder: EVENT_SORT_OPTIONS.END_TIME,
       superEventType: ['umbrella', 'none'],
+      eventType: type,
     });
-  }, [locale, searchParams]);
+  }, [locale, searchParams, type]);
 };
 
-const getSimilarEventsQueryData = (
-  query: EventListQuery | CourseListQuery | undefined
-) => {
-  if (!query) return null;
-
-  if ('eventList' in query) {
-    return query.eventList.data;
-  }
-  if ('courseList' in query) {
-    return query.courseList.data;
-  }
-  throw new Error('invalid type' + query);
-};
-
-type UseEventQuery = typeof useCourseListQuery | typeof useEventListQuery;
-
-type SimilarEventsQueryResult<T> = {
-  data: T[];
-  loading: boolean;
-};
-
-export const useSimilarEventsQuery = <T extends EventFieldsFragment>(
+export const useSimilarEventsQuery = (
   event: EventFields,
-  useEventQuery: UseEventQuery = useEventListQuery
-): SimilarEventsQueryResult<T> => {
-  const eventFilters = useSimilarEventsQueryVariables(event);
-  const { data: eventsData, loading } = useEventQuery({
+  type: EventType
+): { loading: boolean; data: EventListQuery['eventList']['data'] } => {
+  const eventFilters = useSimilarEventsQueryVariables(event, type);
+  const { data: eventsData, loading } = useEventListQuery({
     ssr: false,
     variables: eventFilters,
   });
+
   // To display only certain amount of events.
   // Always fetch data by using same page size to get events from cache
-  const data = (getSimilarEventsQueryData(eventsData)
-    // Don't show current event on the list
-    ?.filter((item) => item.id !== event.id)
-    .slice(0, SIMILAR_EVENTS_AMOUNT) || []) as T[];
+  const data =
+    eventsData?.eventList.data
+      // Don't show current event on the list
+      ?.filter((item) => item.id !== event.id)
+      .slice(0, SIMILAR_EVENTS_AMOUNT) || [];
 
   return { data, loading };
 };
 
-export const useSimilarCoursesQuery = <T extends CourseFieldsFragment>(
-  event: EventFields
-): SimilarEventsQueryResult<T> => {
-  return useSimilarEventsQuery(event, useCourseListQuery);
-};
-
-const useOtherEventTimesVariables = (event: EventFields) => {
+const useOtherEventTimesVariables = (
+  event: EventFields,
+  eventType: EventTypeId = EventTypeId.General
+) => {
   const superEventId = React.useMemo(
     () => getEventIdFromUrl(event.superEvent?.internalId || '', 'event'),
     [event.superEvent]
@@ -108,8 +87,9 @@ const useOtherEventTimesVariables = (event: EventFields) => {
       sort: EVENT_SORT_OPTIONS.START_TIME,
       start: 'now',
       superEvent: superEventId,
+      eventType,
     }),
-    [superEventId]
+    [eventType, superEventId]
   );
 
   return { superEventId, variables };
@@ -119,7 +99,10 @@ const useOtherEventTimesVariables = (event: EventFields) => {
 export const useOtherEventTimes = (event: EventFields) => {
   const { t } = useTranslation();
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
-  const { variables, superEventId } = useOtherEventTimesVariables(event);
+  const { variables, superEventId } = useOtherEventTimesVariables(
+    event,
+    EventTypeId.General
+  );
   const { data: subEventsData, fetchMore, loading } = useEventListQuery({
     skip: !superEventId,
     ssr: false,
@@ -178,8 +161,11 @@ export const useOtherEventTimes = (event: EventFields) => {
 export const useOtherCourseTimes = (event: EventFields) => {
   const { t } = useTranslation();
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
-  const { variables, superEventId } = useOtherEventTimesVariables(event);
-  const { data: subEventsData, fetchMore, loading } = useCourseListQuery({
+  const { variables, superEventId } = useOtherEventTimesVariables(
+    event,
+    EventTypeId.Course
+  );
+  const { data: subEventsData, fetchMore, loading } = useEventListQuery({
     skip: !superEventId,
     ssr: false,
     variables,
@@ -195,10 +181,10 @@ export const useOtherCourseTimes = (event: EventFields) => {
             if (!fetchMoreResult) return prev;
 
             const events = [
-              ...prev.courseList.data,
-              ...fetchMoreResult.courseList.data,
+              ...prev.eventList.data,
+              ...fetchMoreResult.eventList.data,
             ];
-            fetchMoreResult.courseList.data = events;
+            fetchMoreResult.eventList.data = events;
 
             return fetchMoreResult;
           },
@@ -216,8 +202,8 @@ export const useOtherCourseTimes = (event: EventFields) => {
   );
 
   React.useEffect(() => {
-    const page = subEventsData?.courseList.meta
-      ? getNextPage(subEventsData.courseList.meta)
+    const page = subEventsData?.eventList.meta
+      ? getNextPage(subEventsData.eventList.meta)
       : null;
 
     if (page) {
@@ -226,7 +212,7 @@ export const useOtherCourseTimes = (event: EventFields) => {
   }, [handleLoadMore, subEventsData]);
 
   const subEvents =
-    subEventsData?.courseList.data.filter(
+    subEventsData?.eventList.data.filter(
       (subEvent) => subEvent.id !== event.id
     ) || [];
 

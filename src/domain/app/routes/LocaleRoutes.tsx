@@ -11,7 +11,6 @@ import AboutPage from '../../about/AboutPage';
 import AccessbilityPage from '../../accessibility/AccessbilityPage';
 import CollectionPageContainer from '../../collection/CollectionPageContainer';
 import CollectionListPage from '../../collectionList/CollectionListPage';
-import CoursePageContainer from '../../course/CoursePageContainer';
 import CourseSearchPageContainer from '../../courseSearch/CourseSearchPageContainer';
 import EventPageContainer from '../../event/EventPageContainer';
 import EventSearchPageContainer from '../../eventSearch/EventSearchPageContainer';
@@ -79,7 +78,12 @@ const App: FunctionComponent<RouteComponentProps<{
       <Route
         exact
         path={`/${locale}${ROUTES.EVENT}`}
-        component={EventPageContainer}
+        component={() => (
+          <EventPageContainer
+            eventType="event"
+            showSimilarEvents={isFeatureEnabled('SHOW_SIMILAR_EVENTS')}
+          />
+        )}
       />
       <Route
         exact
@@ -97,7 +101,9 @@ const App: FunctionComponent<RouteComponentProps<{
         <Route
           exact
           path={`/${locale}${ROUTES.COURSE}`}
-          component={CoursePageContainer}
+          component={() => (
+            <EventPageContainer eventType="course" showSimilarEvents />
+          )}
         />
       )}
       {/* Redirect to next single event page url */}

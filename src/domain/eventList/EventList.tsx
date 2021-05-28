@@ -4,10 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
-import {
-  CourseFieldsFragment,
-  EventFieldsFragment,
-} from '../../generated/graphql';
+import { EventFieldsFragment } from '../../generated/graphql';
 import BasicEventCard from '../event/eventCard/EventCard';
 import LargeEventCard from '../event/eventCard/LargeEventCard';
 import { EventFields, EventType } from '../event/types';
@@ -21,7 +18,7 @@ const eventCardsMap = {
 interface Props {
   buttonCentered?: boolean;
   cardSize?: 'default' | 'large';
-  events: EventFieldsFragment[] | CourseFieldsFragment[];
+  events: EventFieldsFragment[];
   count: number;
   loading: boolean;
   hasNext: boolean;

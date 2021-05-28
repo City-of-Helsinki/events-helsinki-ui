@@ -8,9 +8,9 @@ import { toast } from 'react-toastify';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import {
-  CourseListDocument,
   EventFieldsFragment,
   EventListDocument,
+  EventTypeId,
 } from '../../../../generated/graphql';
 import { fakeEvent, fakeEvents } from '../../../../test/mockDataUtils';
 import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
@@ -38,7 +38,7 @@ const meta = {
 
 const otherEventsResponse = {
   data: {
-    courseList: {
+    eventList: {
       ...fakeEvents(
         10,
         range(1, 11).map((i) => ({
@@ -53,7 +53,7 @@ const otherEventsResponse = {
 
 const otherEventsLoadMoreResponse = {
   data: {
-    courseList: {
+    eventList: {
       ...fakeEvents(
         10,
         range(11, 21).map((i) => ({
@@ -71,12 +71,13 @@ const variables = {
   sort: 'start_time',
   start: 'now',
   superEvent: superEventId,
+  eventType: EventTypeId.Course,
 };
 
 const commonMocks = [
   {
     request: {
-      query: CourseListDocument,
+      query: EventListDocument,
       variables,
     },
     result: otherEventsResponse,
@@ -87,7 +88,7 @@ const defaultMocks = [
   ...commonMocks,
   {
     request: {
-      query: CourseListDocument,
+      query: EventListDocument,
       variables: { ...variables, page: 2 },
     },
     result: otherEventsLoadMoreResponse,
@@ -115,7 +116,7 @@ test('should render other event times', async () => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  otherEventsResponse.data.courseList.data.forEach((event) => {
+  otherEventsResponse.data.eventList.data.forEach((event) => {
     const dateStr = getDateRangeStr({
       start: event.startTime,
       end: event.endTime,
@@ -131,7 +132,7 @@ test('should render other event times', async () => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  otherEventsLoadMoreResponse.data.courseList.data.forEach((event) => {
+  otherEventsLoadMoreResponse.data.eventList.data.forEach((event) => {
     const dateStr = getDateRangeStr({
       start: event.startTime,
       end: event.endTime,
@@ -183,7 +184,7 @@ test('should go to event page of other event time', async () => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 
-  const event = otherEventsResponse.data.courseList.data[0];
+  const event = otherEventsResponse.data.eventList.data[0];
   const dateStr = getDateRangeStr({
     start: event.startTime,
     end: event.endTime,
