@@ -36,8 +36,7 @@ import {
 import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../types';
 import styles from './eventInfo.module.scss';
 import OrganizationInfo from './OrganizationInfo';
-import OtherCourseTimesContainer from './otherEventTimes/OtherCourseTimesContainer';
-import OtherEventTimesContainer from './otherEventTimes/OtherEventTimesContainer';
+import OtherEventTimes from './otherEventTimes/OtherEventTimes';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isDefined = (value: any) => !isNil(value);
@@ -176,12 +175,7 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
           )}
         </InfoWithIcon>
 
-        {/* Other event times */}
-        {eventType === 'event' ? (
-          <OtherEventTimesContainer event={event} />
-        ) : eventType === 'course' ? (
-          <OtherCourseTimesContainer event={event} />
-        ) : null}
+        <OtherEventTimes event={event} eventType={eventType} />
         {/* Age limitation info */}
         {audienceAge && (
           <InfoWithIcon icon={<IconCake />} title={t('event.info.labelAge')}>

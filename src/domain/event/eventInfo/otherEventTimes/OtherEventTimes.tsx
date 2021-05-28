@@ -14,13 +14,12 @@ import SkeletonLoader from '../../../../common/components/skeletonLoader/Skeleto
 import LoadingSpinner from '../../../../common/components/spinner/LoadingSpinner';
 import useLocale from '../../../../hooks/useLocale';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
+import { useOtherEventTimes } from '../../queryUtils';
 import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../../types';
 import styles from './otherEventTimes.module.scss';
 
 interface Props {
-  isFetchingMore: boolean;
-  loading: boolean;
-  events: EventFields[];
+  event: EventFields;
   eventType: EventType;
 }
 
@@ -28,14 +27,16 @@ const EVENTS_LIST_LIMIT = 3;
 
 export const otherEventTimesListTestId = 'other-event-times-list';
 
-const OtherEventTimes: React.FC<Props> = ({
-  events,
-  loading,
-  isFetchingMore,
-  eventType,
-}) => {
+const OtherEventTimes: React.FC<Props> = ({ event, eventType }) => {
   const { t } = useTranslation();
   const [isListOpen, setIsListOpen] = React.useState(false);
+
+  const { superEventId, loading, events, isFetchingMore } = useOtherEventTimes(
+    event,
+    eventType
+  );
+
+  if (!superEventId) return null;
 
   const toggleList = () => {
     setIsListOpen(!isListOpen);
