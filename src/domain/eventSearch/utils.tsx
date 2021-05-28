@@ -12,8 +12,8 @@ import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 import { matchPath } from 'react-router';
 
+import { Meta, QueryEventListArgs } from '../../../src/generated/graphql';
 import { DATE_TYPES } from '../../constants';
-import { Meta, QueryEventListArgs } from '../../generated/graphql';
 import IconCultureAndArts from '../../icons/IconCultureAndArts';
 import IconDance from '../../icons/IconDance';
 import IconFood from '../../icons/IconFood';
@@ -447,9 +447,35 @@ export const getSearchQuery = (filters: Filters): string => {
   return buildQueryFromObject(newFilters);
 };
 
-export const getEventTypeFromRouteUrl = (url: string): EventType => {
-  if (matchPath(url, { path: ROUTES.COURSES, exact: true, strict: false })) {
-    return 'course';
+export const getEventTypeFromRouteUrl = (
+  url: string,
+  locale: Language
+): EventType | undefined => {
+  let eventType = 'event';
+  const routeToEventType = {
+    [`/${locale}${ROUTES.EVENTS}`]: 'event',
+    [`/${locale}${ROUTES.COURSES}`]: 'course',
+  };
+  if (!url) {
+    return undefined;
   }
-  return 'event';
+  try {
+    for (const route in routeToEventType) {
+      if (
+        matchPath(new URL(url).pathname, {
+          path: route,
+          exact: true,
+          strict: true,
+        })
+      ) {
+        eventType = routeToEventType[route];
+        break;
+      }
+    }
+  } catch (e) {
+    // Safe fallback for invalid URL.
+    return undefined;
+  }
+
+  return eventType as EventType;
 };
