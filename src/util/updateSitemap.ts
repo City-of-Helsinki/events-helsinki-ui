@@ -19,7 +19,7 @@ const eventTypeRouteMap = {
 const eventTypeURLMap = {
   event: process.env.REACT_APP_LINKED_EVENTS_URL,
   ...(isFeatureEnabled('EVENTS_HELSINKI_2') && {
-    course: process.env.REACT_APP_LINKED_COURSES_URL,
+    course: process.env.REACT_APP_LINKED_EVENTS_URL,
   }),
 };
 
