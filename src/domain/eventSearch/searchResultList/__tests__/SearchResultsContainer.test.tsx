@@ -1,8 +1,11 @@
 import React from 'react';
 
+import { setFeatureFlags } from '../../../../test/feature-flags/featureFlags.test.utils';
 import { render, screen } from '../../../../test/testUtils';
 import { EventType } from '../../../event/types';
 import SearchResultsContainer from '../SearchResultsContainer';
+
+setFeatureFlags({ EVENTS_HELSINKI_2: true });
 
 it.each<[number, EventType, string]>([
   [0, 'event', 'Valitsemillasi hakuehdoilla ei löytynyt yhtään tapahtumaa'],
