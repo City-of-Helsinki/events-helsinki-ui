@@ -151,45 +151,7 @@ describe('events', () => {
   test('should render other event times', async () => {
     advanceTo(new Date('2020-08-11'));
     renderComponent();
-
-    await waitFor(() => {
-      expect(
-        screen.queryByTestId('skeleton-loader-wrapper')
-      ).not.toBeInTheDocument();
-    });
-
-    otherEventsResponse.data.slice(0, 3).forEach((event) => {
-      const dateStr = getDateRangeStr(getDateRangeStrProps(event));
-      expect(screen.getByText(dateStr)).toBeInTheDocument();
-    });
-    const fourthevent = otherEventsResponse.data[3];
-    const fourthDateStr = getDateRangeStr(getDateRangeStrProps(fourthevent));
-    expect(screen.queryByText(fourthDateStr)).not.toBeInTheDocument();
-
-    const toggleButton = await screen.findByRole('button', {
-      name: translations.event.otherTimes.buttonShow,
-    });
-
-    userEvent.click(toggleButton);
-
-    await waitFor(() => {
-      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-    });
-
-    otherEventsResponse.data.forEach((event) => {
-      const dateStr = getDateRangeStr(getDateRangeStrProps(event));
-      expect(screen.getByText(dateStr)).toBeInTheDocument();
-    });
-
-    // Make sure that loading more events is completed
-    await waitFor(() => {
-      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-    });
-
-    otherEventsLoadMoreResponse.data.forEach((event) => {
-      const dateStr = getDateRangeStr(getDateRangeStrProps(event));
-      expect(screen.getByText(dateStr)).toBeInTheDocument();
-    });
+    await testOtherEventTimes();
   });
 
   test('should show toastr when loading next event page fails', async () => {
@@ -197,46 +159,13 @@ describe('events', () => {
     advanceTo(new Date('2020-08-11'));
     const mocks = [firstLoadMock, secondPageLoadThrowsErrorMock];
     renderComponent({ mocks });
-
-    const toggleButton = await screen.findByRole('button', {
-      name: translations.event.otherTimes.buttonShow,
-    });
-
-    userEvent.click(toggleButton);
-
-    await waitFor(() => {
-      expect(toast.error).toBeCalledWith(translations.event.info.errorLoadMode);
-    });
+    await testToaster();
   });
 
   test('should go to event page of other event time', async () => {
     advanceTo(new Date('2020-08-11'));
     const { history } = renderComponent();
-
-    const toggleButton = await screen.findByRole('button', {
-      name: translations.event.otherTimes.buttonShow,
-    });
-
-    userEvent.click(toggleButton);
-
-    await waitFor(() => {
-      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-    });
-
-    const event = otherEventsResponse.data[0];
-    const dateStr = getDateRangeStr(getDateRangeStrProps(event));
-    expect(screen.getByText(dateStr)).toBeInTheDocument();
-
-    userEvent.click(
-      screen.getByRole('button', {
-        name: translations.event.otherTimes.buttonReadMore.replace(
-          '{{date}}',
-          dateStr
-        ),
-      })
-    );
-
-    expect(history.location.pathname).toBe(`/fi/events/${event.id}`);
+    await testNavigation(history, '/fi/events/');
   });
 });
 
@@ -244,45 +173,7 @@ describe('courses', () => {
   test('should render other course times', async () => {
     advanceTo(new Date('2020-08-11'));
     renderComponent({ eventType: 'course' });
-
-    await waitFor(() => {
-      expect(
-        screen.queryByTestId('skeleton-loader-wrapper')
-      ).not.toBeInTheDocument();
-    });
-
-    otherEventsResponse.data.slice(0, 3).forEach((event) => {
-      const dateStr = getDateRangeStr(getDateRangeStrProps(event));
-      expect(screen.getByText(dateStr)).toBeInTheDocument();
-    });
-    const fourthevent = otherEventsResponse.data[3];
-    const fourthDateStr = getDateRangeStr(getDateRangeStrProps(fourthevent));
-    expect(screen.queryByText(fourthDateStr)).not.toBeInTheDocument();
-
-    const toggleButton = await screen.findByRole('button', {
-      name: translations.event.otherTimes.buttonShow,
-    });
-
-    userEvent.click(toggleButton);
-
-    await waitFor(() => {
-      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-    });
-
-    otherEventsResponse.data.forEach((event) => {
-      const dateStr = getDateRangeStr(getDateRangeStrProps(event));
-      expect(screen.getByText(dateStr)).toBeInTheDocument();
-    });
-
-    // Make sure that loading more events is completed
-    await waitFor(() => {
-      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-    });
-
-    otherEventsLoadMoreResponse.data.forEach((event) => {
-      const dateStr = getDateRangeStr(getDateRangeStrProps(event));
-      expect(screen.getByText(dateStr)).toBeInTheDocument();
-    });
+    await testOtherEventTimes();
   });
 
   test('should show toastr when loading next course page fails', async () => {
@@ -290,45 +181,79 @@ describe('courses', () => {
     advanceTo(new Date('2020-08-11'));
     const mocks = [firstCourseLoadMock, secondCoursePageLoadThrowsErrorMock];
     renderComponent({ eventType: 'course', mocks });
-
-    const toggleButton = await screen.findByRole('button', {
-      name: translations.event.otherTimes.buttonShow,
-    });
-
-    userEvent.click(toggleButton);
-
-    await waitFor(() => {
-      expect(toast.error).toBeCalledWith(translations.event.info.errorLoadMode);
-    });
+    await testToaster();
   });
 
   test('should go to course page of other course time', async () => {
     advanceTo(new Date('2020-08-11'));
     const { history } = renderComponent({ eventType: 'course' });
-
-    const toggleButton = await screen.findByRole('button', {
-      name: translations.event.otherTimes.buttonShow,
-    });
-
-    userEvent.click(toggleButton);
-
-    await waitFor(() => {
-      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-    });
-
-    const event = otherEventsResponse.data[0];
-    const dateStr = getDateRangeStr(getDateRangeStrProps(event));
-    expect(screen.getByText(dateStr)).toBeInTheDocument();
-
-    userEvent.click(
-      screen.getByRole('button', {
-        name: translations.event.otherTimes.buttonReadMore.replace(
-          '{{date}}',
-          dateStr
-        ),
-      })
-    );
-
-    expect(history.location.pathname).toBe(`/fi/courses/${event.id}`);
+    await testNavigation(history, '/fi/courses/');
   });
 });
+
+async function testOtherEventTimes() {
+  await waitFor(() => {
+    expect(
+      screen.queryByTestId('skeleton-loader-wrapper')
+    ).not.toBeInTheDocument();
+  });
+
+  otherEventsResponse.data.slice(0, 3).forEach((event) => {
+    const dateStr = getDateRangeStr(getDateRangeStrProps(event));
+    expect(screen.getByText(dateStr)).toBeInTheDocument();
+  });
+  const fourthevent = otherEventsResponse.data[3];
+  const fourthDateStr = getDateRangeStr(getDateRangeStrProps(fourthevent));
+  expect(screen.queryByText(fourthDateStr)).not.toBeInTheDocument();
+
+  const toggleButton = await screen.findByRole('button', {
+    name: translations.event.otherTimes.buttonShow,
+  });
+
+  userEvent.click(toggleButton);
+
+  otherEventsResponse.data.forEach((event) => {
+    const dateStr = getDateRangeStr(getDateRangeStrProps(event));
+    expect(screen.getByText(dateStr)).toBeInTheDocument();
+  });
+  otherEventsLoadMoreResponse.data.forEach((event) => {
+    const dateStr = getDateRangeStr(getDateRangeStrProps(event));
+    expect(screen.getByText(dateStr)).toBeInTheDocument();
+  });
+}
+
+async function testToaster() {
+  const toggleButton = await screen.findByRole('button', {
+    name: translations.event.otherTimes.buttonShow,
+  });
+
+  userEvent.click(toggleButton);
+
+  await waitFor(() => {
+    expect(toast.error).toBeCalledWith(translations.event.info.errorLoadMode);
+  });
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function testNavigation(history: any, url: string) {
+  const toggleButton = await screen.findByRole('button', {
+    name: translations.event.otherTimes.buttonShow,
+  });
+
+  userEvent.click(toggleButton);
+
+  const event = otherEventsResponse.data[0];
+  const dateStr = getDateRangeStr(getDateRangeStrProps(event));
+  expect(screen.getByText(dateStr)).toBeInTheDocument();
+
+  userEvent.click(
+    screen.getByRole('button', {
+      name: translations.event.otherTimes.buttonReadMore.replace(
+        '{{date}}',
+        dateStr
+      ),
+    })
+  );
+
+  expect(history.location.pathname).toBe(`${url}${event.id}`);
+}
