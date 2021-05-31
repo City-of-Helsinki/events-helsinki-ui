@@ -10,9 +10,10 @@ import { IconSpeechbubbleText } from 'hds-react';
 import { TFunction } from 'i18next';
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
+import { matchPath } from 'react-router';
 
+import { Meta, QueryEventListArgs } from '../../../src/generated/graphql';
 import { DATE_TYPES } from '../../constants';
-import { Meta, QueryEventListArgs } from '../../generated/graphql';
 import IconCultureAndArts from '../../icons/IconCultureAndArts';
 import IconDance from '../../icons/IconDance';
 import IconFood from '../../icons/IconFood';
@@ -26,6 +27,7 @@ import { Language } from '../../types';
 import buildQueryFromObject from '../../util/buildQueryFromObject';
 import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
+import { ROUTES } from '../app/routes/constants';
 import { EVENT_TYPE_TO_ID, EventType } from '../event/types';
 import {
   COURSE_CATEGORIES,
@@ -443,4 +445,37 @@ export const getSearchQuery = (filters: Filters): string => {
   }
 
   return buildQueryFromObject(newFilters);
+};
+
+export const getEventTypeFromRouteUrl = (
+  url: string,
+  locale: Language
+): EventType | undefined => {
+  let eventType = 'event';
+  const routeToEventType = {
+    [`/${locale}${ROUTES.EVENTS}`]: 'event',
+    [`/${locale}${ROUTES.COURSES}`]: 'course',
+  };
+  if (!url) {
+    return undefined;
+  }
+  try {
+    for (const route in routeToEventType) {
+      if (
+        matchPath(new URL(url).pathname, {
+          path: route,
+          exact: true,
+          strict: true,
+        })
+      ) {
+        eventType = routeToEventType[route];
+        break;
+      }
+    }
+  } catch (e) {
+    // Safe fallback for invalid URL.
+    return undefined;
+  }
+
+  return eventType as EventType;
 };

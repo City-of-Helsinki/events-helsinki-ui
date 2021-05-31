@@ -64,7 +64,6 @@ export type CollectionDetails = {
   description?: Maybe<LocalizedObject>,
   draftTitle?: Maybe<Scalars['String']>,
   eventListQuery?: Maybe<LocalizedObject>,
-  courseListQuery?: Maybe<LocalizedObject>,
   eventListTitle?: Maybe<LocalizedObject>,
   expireAt?: Maybe<Scalars['String']>,
   expired?: Maybe<Scalars['Boolean']>,

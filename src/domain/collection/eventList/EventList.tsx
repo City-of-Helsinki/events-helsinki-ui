@@ -11,7 +11,11 @@ import useLocale from '../../../hooks/useLocale';
 import Container from '../../app/layout/Container';
 import EventSearchList from '../../eventList/EventList';
 import { EVENT_SORT_OPTIONS, PAGE_SIZE } from '../../eventSearch/constants';
-import { getEventSearchVariables, getNextPage } from '../../eventSearch/utils';
+import {
+  getEventSearchVariables,
+  getEventTypeFromRouteUrl,
+  getNextPage,
+} from '../../eventSearch/utils';
 import { getCollectionFields } from '../CollectionUtils';
 import styles from './eventList.module.scss';
 
@@ -28,6 +32,7 @@ const EventList: React.FC<Props> = ({ collection }) => {
     collection,
     locale
   );
+  const eventType = getEventTypeFromRouteUrl(eventListQuery, locale);
   const searchParams = new URLSearchParams(
     eventListQuery ? new URL(eventListQuery).search : ''
   );
@@ -39,13 +44,13 @@ const EventList: React.FC<Props> = ({ collection }) => {
       params: searchParams,
       sortOrder: EVENT_SORT_OPTIONS.END_TIME,
       superEventType: ['umbrella', 'none'],
-      eventType: 'event',
+      eventType: eventType ?? 'event',
     });
-  }, [locale, searchParams]);
+  }, [eventType, locale, searchParams]);
 
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
-    skip: !eventListQuery,
+    skip: !eventListQuery || !eventType,
     ssr: false,
     variables: eventFilters,
   });
