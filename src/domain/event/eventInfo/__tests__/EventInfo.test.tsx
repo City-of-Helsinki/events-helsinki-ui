@@ -21,6 +21,7 @@ import {
   userEvent,
   waitFor,
 } from '../../../../test/testUtils';
+import { EventType } from '../../types';
 import EventInfo from '../EventInfo';
 configure({ defaultHidden: true });
 
@@ -348,4 +349,18 @@ it('should hide audience age info on single event page', async () => {
   await waitFor(() => {
     expect(screen.queryByText(/Ikäryhmä/i)).not.toBeInTheDocument();
   });
+});
+
+describe('OrganizationInfo', () => {
+  it.each<[EventType, string]>([
+    ['event', 'Katso julkaisijan muut tapahtumat'],
+    ['course', 'Katso julkaisijan muut harrastuskurssit'],
+  ])(
+    'should show event type related providers link text in events info',
+    async (eventType, linkText) => {
+      render(<EventInfo event={event} eventType={eventType} />, { mocks });
+      await actWait();
+      expect(screen.queryByText(linkText)).toBeInTheDocument();
+    }
+  );
 });

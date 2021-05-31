@@ -53,7 +53,7 @@ const OrganizationInfo: React.FC<Props> = ({ event, eventType }) => {
               <>
                 <div>{organizationName}</div>
                 <Link to={getSearchLink()}>
-                  {t('event.info.linkSearchByPublisher')}
+                  {t(`${eventType}.info.linkSearchByPublisher`)}
                 </Link>
               </>
             )}

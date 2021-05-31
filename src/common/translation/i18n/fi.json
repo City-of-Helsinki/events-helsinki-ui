@@ -199,6 +199,11 @@
     },
     "title": "Ladataan tapahtumaa..."
   },
+  "course": {
+    "info":{
+      "linkSearchByPublisher": "Katso julkaisijan muut harrastuskurssit"
+    }
+  },
   "eventSearch": {
     "ariaLiveLoading": "Haetaan tapahtumia",
     "ariaLiveSearchReady": "{{count}} hakutulosta",

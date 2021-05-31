@@ -57,7 +57,7 @@
       "buttonCopyLink": "Kopiera länk adress",
       "messageLinkCopySuccess": "Länk kopierad till urklipp"
     },
-    "srOnly" : {
+    "srOnly": {
       "opensInANewTab": "Öppnas i en ny flik"
     },
     "yearsShort": "år",
@@ -198,6 +198,11 @@
       "title": "Liknande evenemang"
     },
     "title": "Laddar evenemang..."
+  },
+  "course": {
+    "info":{
+      "linkSearchByPublisher": "Se utgivarens övriga hobby kurser"
+    }
   },
   "eventSearch": {
     "ariaLiveLoading": "Söker efter evenemang",
@@ -363,7 +368,7 @@
     "searchCategories": "Bläddra i kategorier",
     "searchEvents": "Sök saker att göra"
   },
-  "meta":{
+  "meta": {
     "events": {
       "description": "Evenemangssökning på tapahtumat.hel.fi. Konserter, spelningar, teaterföreställningar, utställningar, kultur, aktiviteter och andra evenemang i Helsingfors."
     },
