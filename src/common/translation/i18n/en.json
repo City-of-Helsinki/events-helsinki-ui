@@ -163,7 +163,8 @@
       "labelOrganizer": "Organizer information",
       "labelOtherInfo": "Other information",
       "labelPrice": "Price",
-      "linkSearchByOrganization": "See other events by organizer",
+      "labelPublisher": "Publisher information",
+      "linkSearchByPublisher": "See other events by publisher",
       "linkWebPage": "Web page",
       "offers": {
         "isFree": "Free"

@@ -59,12 +59,13 @@ const minimumAttendeeCapacity = 10;
 const remainingAttendeeCapacity = 5;
 const audienceMinAge = '5';
 const audienceMaxAge = '15';
+const organizerName = 'provider organisation';
 const event = fakeEvent({
   audienceMinAge,
   audienceMaxAge,
   startTime,
   endTime,
-  provider: null,
+  provider: { fi: organizerName },
   publisher: organizationId,
   location: {
     divisions: [{ name: { fi: district }, type: 'neighborhood' }],
@@ -94,6 +95,8 @@ it('should render event info fields', async () => {
     { role: 'heading', name: translations.event.info.labelLanguages },
     { role: 'heading', name: translations.event.info.labelOtherInfo },
     { role: 'heading', name: translations.event.info.labelAudience },
+    { role: 'heading', name: translations.event.info.labelPublisher },
+    { role: 'heading', name: translations.event.info.labelOrganizer },
     {
       role: 'link',
       name: `${translations.event.info.extlinkFacebook} ${translations.commons.srOnly.opensInANewTab}`,
@@ -107,7 +110,6 @@ it('should render event info fields', async () => {
       role: 'link',
       name: `${translations.event.location.directionsHSL} ${translations.commons.srOnly.opensInANewTab}`,
     },
-    { role: 'heading', name: translations.event.info.labelOrganizer },
     { role: 'heading', name: translations.event.info.labelPrice },
   ];
 
@@ -123,12 +125,32 @@ it('should render event info fields', async () => {
     email,
     telephone,
     organizationName,
+    organizerName,
     price,
   ];
 
   itemsByText.forEach((item) => {
     expect(screen.queryByText(item)).toBeInTheDocument();
   });
+});
+
+it('should hide the organizer section when the organizer name is not given', async () => {
+  const mockEvent = {
+    ...event,
+    provider: null,
+  };
+  render(<EventInfo event={mockEvent} eventType="event" />, { mocks });
+  await actWait();
+  expect(
+    screen.queryByRole('heading', {
+      name: translations.event.info.labelPublisher,
+    })
+  ).toBeInTheDocument();
+  expect(
+    screen.queryByRole('heading', {
+      name: translations.event.info.labelOrganizer,
+    })
+  ).not.toBeInTheDocument();
 });
 
 it('should hide other info section', () => {

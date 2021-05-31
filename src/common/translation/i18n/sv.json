@@ -163,7 +163,8 @@
       "labelOrganizer": "Arrangör",
       "labelOtherInfo": "Övrig information",
       "labelPrice": "Pris",
-      "linkSearchByOrganization": "Se arrangörens andra evenemang",
+      "labelPublisher": "Utgivare",
+      "linkSearchByPublisher": "Se utgivarens övriga evenemang",
       "linkWebPage": "Webbsida",
       "offers": {
         "isFree": "Gratis"

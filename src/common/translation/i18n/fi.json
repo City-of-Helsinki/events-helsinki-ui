@@ -163,7 +163,8 @@
       "labelOrganizer": "Järjestäjän tiedot",
       "labelOtherInfo": "Muut tiedot",
       "labelPrice": "Hinta",
-      "linkSearchByOrganization": "Katso muut järjestäjän tapahtumat",
+      "labelPublisher": "Julkaisijan tiedot",
+      "linkSearchByPublisher": "Katso julkaisijan muut tapahtumat",
       "linkWebPage": "Verkkosivu",
       "offers": {
         "isFree": "Maksuton"
