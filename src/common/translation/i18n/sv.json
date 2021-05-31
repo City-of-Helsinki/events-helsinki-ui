@@ -204,9 +204,16 @@
     "buttonClearFilters": "Töm sökfilter",
     "buttonLoadMore": "Visa fler evenemang ({{count}})",
     "errorLoadMore": "Det gick inte att ladda evenemangen",
-    "noResultsInfo": {
-      "bigText": "Tyvärr hittades inga resultat för de sökkriterier du valt.",
-      "smallText": "Försök att ändra dina sökkriterier så hittar du säkert något som passar dig!"
+    "searchNotification": {
+      "noResultsTitle": "Tyvärr hittades inga resultat för de sökkriterier du valt. ",
+      "noResultsText": "Tyvärr hittades inga resultat för de sökkriterier du valt. Kokeile muuttaa hakuehtoja tai siirry harrastusten hakuun.",
+      "fewResultsTitle": "Med de sökvillkor du valde hittades bara några få resultat.",
+      "fewResultsText": "Med de sökvillkor du valde hittades bara några få resultat. Kokeile muuttaa hakuehtoja tai siirry harrastusten hakuun.",
+      "changeLanguageText": "Ändra sökvillkoren eller visa resultaten på finska. Du kan också välja att söka bland hobbyer.",
+      "buttons": {
+        "labelSearchOtherEventType": "Sök hobbyer",
+        "labelSearchInFinnish": "Visa sökresultaten på finska "
+      }
     },
     "search": {
       "buttonSearch": "Sök",
@@ -231,6 +238,17 @@
   "courseSearch": {
     "title": "Hitta hobby",
     "buttonLoadMore": "Visa fler hobbyew ({{count}})",
+    "searchNotification": {
+      "noResultsTitle": "Tyvärr hittades inga resultat för de sökkriterier du valt.",
+      "noResultsText": "Tyvärr hittades inga resultat för de sökkriterier du valt. Kokeile muuttaa hakuehtoja tai siirry tapahtumien hakuun.",
+      "fewResultsTitle": "Med de sökvillkor du valde hittades bara några få resultat.",
+      "fewResultsText": "Med de sökvillkor du valde hittades bara några få resultat. Kokeile muuttaa hakuehtoja tai siirry tapahtumien hakuun.",
+      "changeLanguageText": "Ändra sökvillkoren eller visa resultaten på finska. Du kan också välja att söka bland evenemang.",
+      "buttons": {
+        "labelSearchOtherEventType": "Sök evenemang",
+        "labelSearchInFinnish": "Visa sökresultaten på finska "
+      }
+    },
     "search": {
       "checkboxIsFree": "Visa endast avgiftsfria",
       "placeholder": "Ange ett sökord, t. ex. Franska eller matlagning",
