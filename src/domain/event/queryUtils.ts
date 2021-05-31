@@ -22,7 +22,7 @@ import {
 } from '../eventSearch/utils';
 import { SIMILAR_EVENTS_AMOUNT } from './constants';
 import { getEventFields, getEventIdFromUrl } from './EventUtils';
-import { EventFields, EventType } from './types';
+import { EVENT_TYPE_TO_ID, EventFields, EventType } from './types';
 
 const useSimilarEventsQueryVariables = (
   event: EventFields,
@@ -96,74 +96,15 @@ const useOtherEventTimesVariables = (
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const useOtherEventTimes = (event: EventFields) => {
+export const useOtherEventTimes = (
+  event: EventFields,
+  eventType: EventType
+) => {
   const { t } = useTranslation();
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const { variables, superEventId } = useOtherEventTimesVariables(
     event,
-    EventTypeId.General
-  );
-  const { data: subEventsData, fetchMore, loading } = useEventListQuery({
-    skip: !superEventId,
-    ssr: false,
-    variables,
-  });
-
-  const handleLoadMore = React.useCallback(
-    async (page: number) => {
-      setIsFetchingMore(true);
-
-      try {
-        await fetchMore({
-          updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult) return prev;
-
-            const events = [
-              ...prev.eventList.data,
-              ...fetchMoreResult.eventList.data,
-            ];
-            fetchMoreResult.eventList.data = events;
-
-            return fetchMoreResult;
-          },
-          variables: {
-            ...variables,
-            page: page,
-          },
-        });
-      } catch (e) {
-        toast.error(t('event.info.errorLoadMode'));
-      }
-      setIsFetchingMore(false);
-    },
-    [fetchMore, t, variables]
-  );
-
-  React.useEffect(() => {
-    const page = subEventsData?.eventList.meta
-      ? getNextPage(subEventsData.eventList.meta)
-      : null;
-
-    if (page) {
-      handleLoadMore(page);
-    }
-  }, [handleLoadMore, subEventsData]);
-
-  const subEvents =
-    subEventsData?.eventList.data.filter(
-      (subEvent) => subEvent.id !== event.id
-    ) || [];
-
-  return { events: subEvents, loading, isFetchingMore, superEventId };
-};
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const useOtherCourseTimes = (event: EventFields) => {
-  const { t } = useTranslation();
-  const [isFetchingMore, setIsFetchingMore] = React.useState(false);
-  const { variables, superEventId } = useOtherEventTimesVariables(
-    event,
-    EventTypeId.Course
+    EVENT_TYPE_TO_ID[eventType]
   );
   const { data: subEventsData, fetchMore, loading } = useEventListQuery({
     skip: !superEventId,

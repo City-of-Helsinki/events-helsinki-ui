@@ -10,6 +10,8 @@ import translations from '../../../../common/translation/i18n/fi.json';
 import {
   EventDetails,
   EventFieldsFragment,
+  EventListQueryVariables,
+  EventListResponse,
   Meta,
 } from '../../../../generated/graphql';
 import {
@@ -19,7 +21,8 @@ import {
 import { fakeEvent, fakeEvents } from '../../../../test/mockDataUtils';
 import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
-import OtherEventTimesContainer from '../otherEventTimes/OtherEventTimesContainer';
+import { EventType } from '../../types';
+import OtherEventTimes from '../otherEventTimes/OtherEventTimes';
 
 const startTime = '2020-10-01T16:00:00Z';
 const endTime = '2020-10-01T18:00:00Z';
@@ -62,32 +65,79 @@ const otherEventsLoadMoreResponse = {
   meta: { ...meta, next: null },
 };
 
-const firstLoadMock = createOtherEventTimesRequestAndResultMocks({
-  superEventId,
+const getEventTimesMocks = ({
+  eventType = 'event',
+  response,
+  variables,
+}: {
+  eventType: EventType;
+  response: EventListResponse;
+  variables?: EventListQueryVariables;
+}) =>
+  createOtherEventTimesRequestAndResultMocks({
+    superEventId,
+    response,
+    variables,
+    type: eventType,
+  });
+
+const firstLoadMock = getEventTimesMocks({
+  eventType: 'event',
   response: otherEventsResponse,
 });
 
-const secondLoadMock = createOtherEventTimesRequestAndResultMocks({
-  superEventId,
+const secondLoadMock = getEventTimesMocks({
   variables: { page: 2 },
   response: otherEventsLoadMoreResponse,
+  eventType: 'event',
 });
 
 const secondPageLoadThrowsErrorMock = createOtherEventTimesRequestThrowsErrorMocks(
   {
     superEventId,
     variables: { page: 2 },
+    type: 'event',
   }
 );
 
-const defaultMocks = [firstLoadMock, secondLoadMock];
+const firstCourseLoadMock = getEventTimesMocks({
+  response: otherEventsResponse,
+  eventType: 'course',
+});
+
+const secondCourseLoadMock = getEventTimesMocks({
+  variables: { page: 2 },
+  response: otherEventsLoadMoreResponse,
+  eventType: 'course',
+});
+
+const secondCoursePageLoadThrowsErrorMock = createOtherEventTimesRequestThrowsErrorMocks(
+  {
+    superEventId,
+    variables: { page: 2 },
+    type: 'course',
+  }
+);
+
+const defaultMocks = [
+  firstLoadMock,
+  secondLoadMock,
+  firstCourseLoadMock,
+  secondCourseLoadMock,
+];
 
 afterAll(() => {
   clear();
 });
 
-const renderComponent = (mocks: MockedResponse[] = defaultMocks) =>
-  render(<OtherEventTimesContainer event={event} />, { mocks });
+const renderComponent = ({
+  mocks = defaultMocks,
+  eventType = 'event',
+}: {
+  mocks?: MockedResponse[];
+  eventType?: EventType;
+} = {}) =>
+  render(<OtherEventTimes event={event} eventType={eventType} />, { mocks });
 
 const getDateRangeStrProps = (event: EventDetails) => ({
   start: event.startTime,
@@ -97,10 +147,51 @@ const getDateRangeStrProps = (event: EventDetails) => ({
   timeAbbreviation: translations.commons.timeAbbreviation,
 });
 
-test('should render other event times', async () => {
-  advanceTo(new Date('2020-08-11'));
-  renderComponent();
+describe('events', () => {
+  test('should render other event times', async () => {
+    advanceTo(new Date('2020-08-11'));
+    renderComponent();
+    await testOtherEventTimes();
+  });
 
+  test('should show toastr when loading next event page fails', async () => {
+    toast.error = jest.fn();
+    advanceTo(new Date('2020-08-11'));
+    const mocks = [firstLoadMock, secondPageLoadThrowsErrorMock];
+    renderComponent({ mocks });
+    await testToaster();
+  });
+
+  test('should go to event page of other event time', async () => {
+    advanceTo(new Date('2020-08-11'));
+    const { history } = renderComponent();
+    await testNavigation(history, '/fi/events/');
+  });
+});
+
+describe('courses', () => {
+  test('should render other course times', async () => {
+    advanceTo(new Date('2020-08-11'));
+    renderComponent({ eventType: 'course' });
+    await testOtherEventTimes();
+  });
+
+  test('should show toastr when loading next course page fails', async () => {
+    toast.error = jest.fn();
+    advanceTo(new Date('2020-08-11'));
+    const mocks = [firstCourseLoadMock, secondCoursePageLoadThrowsErrorMock];
+    renderComponent({ eventType: 'course', mocks });
+    await testToaster();
+  });
+
+  test('should go to course page of other course time', async () => {
+    advanceTo(new Date('2020-08-11'));
+    const { history } = renderComponent({ eventType: 'course' });
+    await testNavigation(history, '/fi/courses/');
+  });
+});
+
+async function testOtherEventTimes() {
   await waitFor(() => {
     expect(
       screen.queryByTestId('skeleton-loader-wrapper')
@@ -121,32 +212,17 @@ test('should render other event times', async () => {
 
   userEvent.click(toggleButton);
 
-  await waitFor(() => {
-    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-  });
-
   otherEventsResponse.data.forEach((event) => {
     const dateStr = getDateRangeStr(getDateRangeStrProps(event));
     expect(screen.getByText(dateStr)).toBeInTheDocument();
   });
-
-  // Make sure that loading more events is completed
-  await waitFor(() => {
-    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-  });
-
   otherEventsLoadMoreResponse.data.forEach((event) => {
     const dateStr = getDateRangeStr(getDateRangeStrProps(event));
     expect(screen.getByText(dateStr)).toBeInTheDocument();
   });
-});
+}
 
-test('should show toastr when loading next event page fails', async () => {
-  toast.error = jest.fn();
-  advanceTo(new Date('2020-08-11'));
-  const mocks = [firstLoadMock, secondPageLoadThrowsErrorMock];
-  renderComponent(mocks);
-
+async function testToaster() {
   const toggleButton = await screen.findByRole('button', {
     name: translations.event.otherTimes.buttonShow,
   });
@@ -156,21 +232,15 @@ test('should show toastr when loading next event page fails', async () => {
   await waitFor(() => {
     expect(toast.error).toBeCalledWith(translations.event.info.errorLoadMode);
   });
-});
+}
 
-test('should go to event page of other event time', async () => {
-  advanceTo(new Date('2020-08-11'));
-  const { history } = renderComponent();
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function testNavigation(history: any, url: string) {
   const toggleButton = await screen.findByRole('button', {
     name: translations.event.otherTimes.buttonShow,
   });
 
   userEvent.click(toggleButton);
-
-  await waitFor(() => {
-    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-  });
 
   const event = otherEventsResponse.data[0];
   const dateStr = getDateRangeStr(getDateRangeStrProps(event));
@@ -185,5 +255,5 @@ test('should go to event page of other event time', async () => {
     })
   );
 
-  expect(history.location.pathname).toBe(`/fi/events/${event.id}`);
-});
+  expect(history.location.pathname).toBe(`${url}${event.id}`);
+}
