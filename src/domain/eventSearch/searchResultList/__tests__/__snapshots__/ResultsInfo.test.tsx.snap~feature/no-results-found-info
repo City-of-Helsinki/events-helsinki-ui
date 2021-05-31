@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`events with 0 results matches snapshot for no results 1`] = `
+exports[`matches snapshot 1`] = `
 <div>
   <div
     class="noResultsInfo"
