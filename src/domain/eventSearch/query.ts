@@ -3,6 +3,8 @@ import gql from 'graphql-tag';
 export const QUERY_EVENT_LIST = gql`
   query EventList(
     $eventType: EventTypeId
+    $audienceMaxAgeLt: String
+    $audienceMinAgeGt: String
     $allOngoing: Boolean
     $allOngoingAnd: [String]
     $division: [String]
@@ -35,6 +37,8 @@ export const QUERY_EVENT_LIST = gql`
   ) {
     eventList(
       eventType: $eventType
+      audienceMaxAgeLt: $audienceMaxAgeLt
+      audienceMinAgeGt: $audienceMinAgeGt
       allOngoing: $allOngoing
       allOngoingAnd: $allOngoingAnd
       division: $division

@@ -163,9 +163,10 @@ it('should render info and load other courses + similar courses', async () => {
 
   await screen.findByText('Tapahtuman muut ajat');
 
-  expect(screen.getByTestId(otherEventTimesListTestId).children).toHaveLength(
-    3
+  const otherEventTimesList = await screen.findByTestId(
+    otherEventTimesListTestId
   );
+  expect(otherEventTimesList.children).toHaveLength(3);
 
   // click show other times
   userEvent.click(screen.getByRole('button', { name: 'Näytä kaikki' }));
