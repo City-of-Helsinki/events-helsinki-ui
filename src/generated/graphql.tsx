@@ -774,6 +774,8 @@ export type EventDetailsQuery = (
 
 export type EventListQueryVariables = {
   eventType?: Maybe<EventTypeId>,
+  audienceMaxAgeLt?: Maybe<Scalars['String']>,
+  audienceMinAgeGt?: Maybe<Scalars['String']>,
   allOngoing?: Maybe<Scalars['Boolean']>,
   allOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>,
   division?: Maybe<Array<Maybe<Scalars['String']>>>,
@@ -1646,8 +1648,8 @@ export type EventDetailsQueryHookResult = ReturnType<typeof useEventDetailsQuery
 export type EventDetailsLazyQueryHookResult = ReturnType<typeof useEventDetailsLazyQuery>;
 export type EventDetailsQueryResult = ApolloReactCommon.QueryResult<EventDetailsQuery, EventDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($eventType: EventTypeId, $allOngoing: Boolean, $allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordOrSet2: [String], $keywordOrSet3: [String], $keywordNot: [String], $language: String, $localOngoingAnd: [String], $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
-  eventList(eventType: $eventType, allOngoing: $allOngoing, allOngoingAnd: $allOngoingAnd, division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordOrSet1: $keywordOrSet1, keywordOrSet2: $keywordOrSet2, keywordOrSet3: $keywordOrSet3, keywordNot: $keywordNot, language: $language, localOngoingAnd: $localOngoingAnd, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
+    query EventList($eventType: EventTypeId, $audienceMaxAgeLt: String, $audienceMinAgeGt: String, $allOngoing: Boolean, $allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordOrSet2: [String], $keywordOrSet3: [String], $keywordNot: [String], $language: String, $localOngoingAnd: [String], $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+  eventList(eventType: $eventType, audienceMaxAgeLt: $audienceMaxAgeLt, audienceMinAgeGt: $audienceMinAgeGt, allOngoing: $allOngoing, allOngoingAnd: $allOngoingAnd, division: $division, end: $end, endsAfter: $endsAfter, endsBefore: $endsBefore, include: $include, inLanguage: $inLanguage, isFree: $isFree, keyword: $keyword, keywordAnd: $keywordAnd, keywordOrSet1: $keywordOrSet1, keywordOrSet2: $keywordOrSet2, keywordOrSet3: $keywordOrSet3, keywordNot: $keywordNot, language: $language, localOngoingAnd: $localOngoingAnd, location: $location, page: $page, pageSize: $pageSize, publisher: $publisher, sort: $sort, start: $start, startsAfter: $startsAfter, startsBefore: $startsBefore, superEvent: $superEvent, superEventType: $superEventType, text: $text, translation: $translation) {
     meta {
       count
       next
@@ -1684,6 +1686,8 @@ export function withEventList<TProps, TChildProps = {}>(operationOptions?: Apoll
  * const { data, loading, error } = useEventListQuery({
  *   variables: {
  *      eventType: // value for 'eventType'
+ *      audienceMaxAgeLt: // value for 'audienceMaxAgeLt'
+ *      audienceMinAgeGt: // value for 'audienceMinAgeGt'
  *      allOngoing: // value for 'allOngoing'
  *      allOngoingAnd: // value for 'allOngoingAnd'
  *      division: // value for 'division'
