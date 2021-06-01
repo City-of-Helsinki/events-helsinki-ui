@@ -57,7 +57,7 @@
       "buttonCopyLink": "Copy link address",
       "messageLinkCopySuccess": "Link copied into clipboard"
     },
-    "srOnly" : {
+    "srOnly": {
       "opensInANewTab": "Opens in a new tab"
     },
     "yearsShort": "y",
@@ -199,13 +199,18 @@
       "title": "Similar events"
     }
   },
+  "course": {
+    "info":{
+      "linkSearchByPublisher": "See other hobby courses by publisher"
+    }
+  },
   "eventSearch": {
     "ariaLiveLoading": "Searching for events",
     "ariaLiveSearchReady": "{{count}} search results",
     "buttonClearFilters": "Clear filters",
     "buttonLoadMore": "Show more events ({{count}})",
     "errorLoadMore": "Failed to load events",
-   "searchNotification": {
+    "searchNotification": {
       "noResultsTitle": "Sorry, no search results were found for the search criteria you selected.",
       "noResultsText": "No search results were found for the search criteria you selected. Try to change search terms or change to hobby search.",
       "fewResultsTitle": "Your search terms returned only a few results.",
@@ -363,7 +368,7 @@
     "searchCategories": "Browse Categories",
     "searchEvents": "Find something to do"
   },
-  "meta":{
+  "meta": {
     "events": {
       "description": "Tapahtumat.hel.fi’s event search. Concerts, gigs, theatre performances, exhibitions, culture, activities and other events in Helsinki."
     },
