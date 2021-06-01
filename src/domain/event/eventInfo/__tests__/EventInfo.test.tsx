@@ -354,7 +354,7 @@ it('should hide audience age info on single event page', async () => {
 describe('OrganizationInfo', () => {
   it.each<[EventType, string]>([
     ['event', 'Katso julkaisijan muut tapahtumat'],
-    ['course', 'Katso julkaisijan muut harrastuskurssit'],
+    ['course', 'Katso julkaisijan muut harrastukset'],
   ])(
     'should show event type related providers link text in events info',
     async (eventType, linkText) => {
