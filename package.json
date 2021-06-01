@@ -86,7 +86,7 @@
     "build": "yarn build:client && yarn build:server",
     "build:windows": "yarn build:client && yarn build:server-windows",
     "build:client": "react-scripts build",
-    "build:server": "NODE_ENV=production webpack --progress --mode production --config config/webpack.server.config.js",
+    "build:server": "NODE_ENV=production webpack --mode production --config config/webpack.server.config.js",
     "build:server-windows": "set NODE_ENV=production webpack --progress --mode production --config config/webpack.server.config.js",
     "codegen": "graphql-codegen -r dotenv/config dotenv_config_path=.env.development.local  --config codegen.yml",
     "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
