@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 export const QUERY_EVENT_DETAILS = gql`
   fragment localizedFields on LocalizedObject {

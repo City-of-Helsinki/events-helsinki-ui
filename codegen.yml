@@ -1,17 +1,19 @@
 overwrite: true
+require:
+  - dotenv/config
 schema: ${REACT_APP_GRAPHQL_BASE_URL}
-documents: "./src/**/query.ts"
+documents: ['./src/**/query.ts']
 generates:
   src/generated/graphql.tsx:
     plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-react-apollo"
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
     config:
       withHooks: true
       withComponent: false
   browser-tests/utils/generated/graphql.ts:
     plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-graphql-request"
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-graphql-request'

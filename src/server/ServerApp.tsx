@@ -1,7 +1,6 @@
-import { ApolloClient } from 'apollo-client';
+import { ApolloClient, ApolloProvider } from '@apollo/client';
 import { i18n as i18nType } from 'i18next';
 import * as React from 'react';
-import { ApolloProvider } from 'react-apollo';
 import { I18nextProvider } from 'react-i18next';
 import { StaticRouter } from 'react-router-dom';
 

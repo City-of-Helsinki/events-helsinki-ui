@@ -1,15 +1,13 @@
 /* eslint-disable no-console */
 import 'isomorphic-fetch';
 
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloClient } from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
+import { getDataFromTree } from '@apollo/client/react/ssr';
 import express, { Request, Response } from 'express';
 import { Resource } from 'i18next';
 import i18nextMiddleware, { I18NextRequest } from 'i18next-express-middleware';
 import cron from 'node-cron';
 import React from 'react';
-import { getDataFromTree } from 'react-apollo';
 import ReactDOMServer from 'react-dom/server';
 import { Helmet } from 'react-helmet';
 

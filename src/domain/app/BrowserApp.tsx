@@ -2,10 +2,10 @@ import '../../common/translation/i18n/init.client';
 import '../../globals';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { ApolloProvider } from '@apollo/client';
+// import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
 import { createInstance, MatomoProvider } from '@datapunt/matomo-tracker-react';
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
-import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import { useSSR } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -24,11 +24,11 @@ const BrowserApp: React.FC = () => {
   return (
     <BrowserRouter>
       <ApolloProvider client={apolloClient}>
-        <ApolloHooksProvider client={apolloClient}>
-          <MatomoProvider value={instance}>
-            <App />
-          </MatomoProvider>
-        </ApolloHooksProvider>
+        {/* <ApolloHooksProvider client={apolloClient}> */}
+        <MatomoProvider value={instance}>
+          <App />
+        </MatomoProvider>
+        {/* </ApolloHooksProvider> */}
       </ApolloProvider>
     </BrowserRouter>
   );
