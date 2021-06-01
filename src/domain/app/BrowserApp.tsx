@@ -3,7 +3,6 @@ import '../../globals';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { ApolloProvider } from '@apollo/client';
-// import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
 import { createInstance, MatomoProvider } from '@datapunt/matomo-tracker-react';
 import React from 'react';
 import { useSSR } from 'react-i18next';
@@ -24,11 +23,9 @@ const BrowserApp: React.FC = () => {
   return (
     <BrowserRouter>
       <ApolloProvider client={apolloClient}>
-        {/* <ApolloHooksProvider client={apolloClient}> */}
         <MatomoProvider value={instance}>
           <App />
         </MatomoProvider>
-        {/* </ApolloHooksProvider> */}
       </ApolloProvider>
     </BrowserRouter>
   );
