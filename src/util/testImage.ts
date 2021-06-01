@@ -1,8 +1,7 @@
 /**
  * Test that loading image is successful
- * @param {string} url
  */
-export default (url: string): Promise<unknown> => {
+const testImage = (url: string): Promise<unknown> => {
   // Define the promise
   const imgPromise = new Promise<void>((resolve, reject) => {
     // Create the image
@@ -20,3 +19,5 @@ export default (url: string): Promise<unknown> => {
 
   return imgPromise;
 };
+
+export default testImage;

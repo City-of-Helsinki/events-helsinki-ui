@@ -15,7 +15,7 @@ import getTimeFormat from './getTimeFormat';
 /**
  * Format and localise date range to show on UI
  */
-export default ({
+const getDateRangeStr = ({
   start,
   end,
   locale,
@@ -82,3 +82,5 @@ export default ({
     }
   }
 };
+
+export default getDateRangeStr;

@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 type Props = { className?: string };
 
 // TODO: Import this icon from HDS when it's added there
-export default ({ className = '' }: Props): ReactElement => (
+const IconMovies = ({ className = '' }: Props): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="100%"
@@ -17,3 +17,5 @@ export default ({ className = '' }: Props): ReactElement => (
     </g>
   </svg>
 );
+
+export default IconMovies;

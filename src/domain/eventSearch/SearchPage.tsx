@@ -38,11 +38,11 @@ const SearchPage: React.FC<{
   const history = useHistory();
   const location = useLocation();
   const params = useParams<{ place?: string }>();
-  const searchParams = new URLSearchParams(location.search);
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const isSmallScreen = useIsSmallScreen();
 
   const eventFilters = React.useMemo(() => {
+    const searchParams = new URLSearchParams(location.search);
     const variables: QueryEventListArgs = getEventSearchVariables({
       include: ['keywords', 'location'],
       language: locale,
@@ -54,7 +54,7 @@ const SearchPage: React.FC<{
       eventType,
     });
     return variables;
-  }, [eventType, locale, params.place, searchParams]);
+  }, [eventType, locale, location.search, params.place]);
 
   const { data: landingPageData } = useLandingPagesQuery({
     variables: { visibleOnFrontpage: true },

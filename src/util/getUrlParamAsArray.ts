@@ -1,12 +1,6 @@
 import intersection from 'lodash/intersection';
 
-/**
- * Get single url param as an array
- * @param params
- * @param key
- * @return {string[]}
- */
-export default (params: URLSearchParams, key: string): string[] => {
+const getUrlParamAsArray = (params: URLSearchParams, key: string): string[] => {
   return intersection(
     params
       .getAll(key)
@@ -17,3 +11,5 @@ export default (params: URLSearchParams, key: string): string[] => {
       )
   );
 };
+
+export default getUrlParamAsArray;

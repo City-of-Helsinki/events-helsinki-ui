@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Language } from '../types';
 
-export default (): Language => {
+const useLocale = (): Language => {
   const { i18n } = useTranslation();
   const language = i18n.language;
 
@@ -15,3 +15,5 @@ export default (): Language => {
       return 'fi';
   }
 };
+
+export default useLocale;

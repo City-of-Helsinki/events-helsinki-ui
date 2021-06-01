@@ -5,7 +5,7 @@ import { Language } from '../types';
 /**
  * Check is the instance that is rendering component client (not SSR)
  */
-export default (
+const getLocalizedString = (
   obj: LocalizedObject | undefined | null = {},
   language: Language
 ): string => {
@@ -22,3 +22,5 @@ export default (
   // Return value in correct language
   return (locale && obj[locale]) || '';
 };
+
+export default getLocalizedString;
