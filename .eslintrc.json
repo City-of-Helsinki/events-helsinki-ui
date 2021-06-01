@@ -1,11 +1,7 @@
 {
   "extends": [
     "react-app",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:import/typescript",
+    "react-app/jest",
     "plugin:testcafe/recommended"
   ],
   "plugins": ["simple-import-sort", "testcafe", "no-only-tests"],
@@ -15,7 +11,6 @@
       "1tbs",
       { "allowSingleLine": true }
     ],
-
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/func-call-spacing": ["error"],
     "@typescript-eslint/member-ordering": ["warn"],
