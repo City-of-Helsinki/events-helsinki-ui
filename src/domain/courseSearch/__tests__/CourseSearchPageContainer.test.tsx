@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { MockedResponse } from '@apollo/react-testing';
+import { MockedResponse } from '@apollo/client/testing';
 import { advanceTo } from 'jest-date-mock';
 import React from 'react';
 import { toast } from 'react-toastify';

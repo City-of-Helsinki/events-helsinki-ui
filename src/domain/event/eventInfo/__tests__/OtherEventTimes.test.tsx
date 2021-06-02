@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { MockedResponse } from '@apollo/react-testing';
+import { MockedResponse } from '@apollo/client/testing';
 import { addDays } from 'date-fns';
 import { advanceTo, clear } from 'jest-date-mock';
 import range from 'lodash/range';

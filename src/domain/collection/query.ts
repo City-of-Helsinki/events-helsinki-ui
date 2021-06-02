@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 export const QUERY_COLLECTION_DETAILS = gql`
   fragment collectionFields on CollectionDetails {

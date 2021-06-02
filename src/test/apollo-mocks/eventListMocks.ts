@@ -1,5 +1,5 @@
-import { MockedResponse } from '@apollo/react-testing';
-import { FetchResult, GraphQLRequest } from 'apollo-link';
+import { FetchResult, GraphQLRequest } from '@apollo/client';
+import { MockedResponse } from '@apollo/client/testing';
 
 import { EventType } from '../../domain/event/types';
 import {

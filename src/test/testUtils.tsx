@@ -1,6 +1,6 @@
-import { MockedProvider, MockedResponse } from '@apollo/react-testing';
+import { ApolloCache } from '@apollo/client/cache';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { act, fireEvent, render, RenderResult } from '@testing-library/react';
-import { ApolloCache } from 'apollo-cache';
 import { createMemoryHistory, History } from 'history';
 import React from 'react';
 import { Route, Router } from 'react-router-dom';

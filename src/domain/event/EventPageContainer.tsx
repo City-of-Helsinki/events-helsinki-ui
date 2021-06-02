@@ -1,5 +1,5 @@
+import { useApolloClient } from '@apollo/client';
 import React from 'react';
-import { useApolloClient } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';

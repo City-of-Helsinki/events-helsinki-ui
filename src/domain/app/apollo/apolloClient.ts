@@ -1,19 +1,29 @@
+import {
+  ApolloClient,
+  ApolloLink,
+  HttpLink,
+  InMemoryCache,
+} from '@apollo/client';
+import { onError } from '@apollo/client/link/error';
 import * as Sentry from '@sentry/browser';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloClient } from 'apollo-client';
-import { ApolloLink } from 'apollo-link';
-import { onError } from 'apollo-link-error';
-import { HttpLink } from 'apollo-link-http';
 import get from 'lodash/get';
 
 const cache = new InMemoryCache({
-  cacheRedirects: {
+  typePolicies: {
     Query: {
-      keywordDetails: (_, args, { getCacheKey }) => {
-        return getCacheKey({ __typename: 'Keyword', id: args.id });
-      },
-      placeDetails: (_, args, { getCacheKey }) => {
-        return getCacheKey({ __typename: 'Place', id: args.id });
+      fields: {
+        event(_, { args, toReference }) {
+          return toReference({
+            __typename: 'Keyword',
+            id: args?.id,
+          });
+        },
+        image(_, { args, toReference }) {
+          return toReference({
+            __typename: 'Place',
+            id: args?.id,
+          });
+        },
       },
     },
   },

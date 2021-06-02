@@ -125,7 +125,7 @@ export const getEventPrice = (
 export const getKeywordList = (
   list: {
     id?: string | null;
-    name: LocalizedObject | null;
+    name?: LocalizedObject | null;
   }[] = [],
   locale: Language
 ): KeywordOption[] => {
