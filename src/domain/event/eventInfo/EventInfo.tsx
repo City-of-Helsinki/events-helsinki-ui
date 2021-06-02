@@ -36,6 +36,7 @@ import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../types';
 import styles from './eventInfo.module.scss';
 import OrganizationInfo from './OrganizationInfo';
 import OtherEventTimes from './otherEventTimes/OtherEventTimes';
+import SubEvents from './SubEvents';
 
 interface Props {
   event: EventFields;
@@ -148,6 +149,8 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
             </>
           )}
         </InfoWithIcon>
+
+        <SubEvents event={event} />
 
         <OtherEventTimes event={event} eventType={eventType} />
         {/* Age limitation info */}

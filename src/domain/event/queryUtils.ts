@@ -1,3 +1,4 @@
+import { FetchMoreOptions } from 'apollo-client';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
@@ -21,7 +22,11 @@ import {
   getSearchQuery,
 } from '../eventSearch/utils';
 import { SIMILAR_EVENTS_AMOUNT } from './constants';
-import { getEventFields, getEventIdFromUrl } from './EventUtils';
+import {
+  getEventFields,
+  getEventIdFromUrl,
+  getEventTypeByEventTypeId,
+} from './EventUtils';
 import { EVENT_TYPE_TO_ID, EventFields, EventType } from './types';
 
 const useSimilarEventsQueryVariables = (
@@ -95,23 +100,33 @@ const useOtherEventTimesVariables = (
   return { superEventId, variables };
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const useOtherEventTimes = (
+export const useSubEventsQueryVariables = (event: EventFields) => {
+  const variables = React.useMemo(
+    (): EventListQueryVariables => ({
+      include: ['keywords', 'location'],
+      sort: EVENT_SORT_OPTIONS.START_TIME,
+      start: 'now',
+      superEvent: event.id,
+      eventType: event.typeId,
+    }),
+    [event.id, event.typeId]
+  );
+
+  return { superEventId: event.id, variables };
+};
+
+export const useSubEvents = (
   event: EventFields,
-  eventType: EventType
+  variables: EventListQueryVariables,
+  superEventId: string | undefined
 ) => {
   const { t } = useTranslation();
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
-  const { variables, superEventId } = useOtherEventTimesVariables(
-    event,
-    EVENT_TYPE_TO_ID[eventType]
-  );
   const { data: subEventsData, fetchMore, loading } = useEventListQuery({
     skip: !superEventId,
     ssr: false,
     variables,
   });
-
   const handleLoadMore = React.useCallback(
     async (page: number) => {
       setIsFetchingMore(true);
@@ -156,6 +171,26 @@ export const useOtherEventTimes = (
     subEventsData?.eventList.data.filter(
       (subEvent) => subEvent.id !== event.id
     ) || [];
+
+  return { subEvents, isFetchingMore, loading };
+};
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const useOtherEventTimes = (
+  event: EventFields,
+  eventType: EventType
+) => {
+  const { t } = useTranslation();
+  const { variables, superEventId } = useOtherEventTimesVariables(
+    event,
+    EVENT_TYPE_TO_ID[eventType]
+  );
+
+  const { subEvents, isFetchingMore, loading } = useSubEvents(
+    event,
+    variables,
+    superEventId
+  );
 
   return { events: subEvents, loading, isFetchingMore, superEventId };
 };

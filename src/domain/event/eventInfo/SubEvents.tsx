@@ -8,35 +8,34 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import InfoWithIcon from '../../../../common/components/infoWithIcon/InfoWithIcon';
-import linkStyles from '../../../../common/components/link/link.module.scss';
-import SkeletonLoader from '../../../../common/components/skeletonLoader/SkeletonLoader';
-import LoadingSpinner from '../../../../common/components/spinner/LoadingSpinner';
-import useLocale from '../../../../hooks/useLocale';
-import getDateRangeStr from '../../../../util/getDateRangeStr';
-import { useOtherEventTimes } from '../../queryUtils';
-import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../../types';
-import styles from './otherEventTimes.module.scss';
-
-interface Props {
-  event: EventFields;
-  eventType: EventType;
-}
+import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
+import linkStyles from '../../../common/components/link/link.module.scss';
+import SkeletonLoader from '../../../common/components/skeletonLoader/SkeletonLoader';
+import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
+import useLocale from '../../../hooks/useLocale';
+import getDateRangeStr from '../../../util/getDateRangeStr';
+import { getEventTypeByEventTypeId } from '../EventUtils';
+import { useSubEvents, useSubEventsQueryVariables } from '../queryUtils';
+import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../types';
+import styles from './otherEventTimes/otherEventTimes.module.scss';
 
 const EVENTS_LIST_LIMIT = 3;
+export const subEventsListTestId = 'other-event-times-list';
 
-export const otherEventTimesListTestId = 'other-event-times-list';
-
-const OtherEventTimes: React.FC<Props> = ({ event, eventType }) => {
+const SubEvents: React.FC<{ event: EventFields }> = ({ event }) => {
   const { t } = useTranslation();
   const [isListOpen, setIsListOpen] = React.useState(false);
+  const eventType = event.typeId
+    ? getEventTypeByEventTypeId(event.typeId)
+    : 'event';
 
-  const { superEventId, loading, events, isFetchingMore } = useOtherEventTimes(
+  const { superEventId, variables } = useSubEventsQueryVariables(event);
+
+  const { subEvents: events, isFetchingMore, loading } = useSubEvents(
     event,
-    eventType
+    variables,
+    superEventId
   );
-
-  if (!superEventId) return null;
 
   const toggleList = () => {
     setIsListOpen(!isListOpen);
@@ -63,10 +62,10 @@ const OtherEventTimes: React.FC<Props> = ({ event, eventType }) => {
     <div className={styles.otherEventTimes}>
       <InfoWithIcon
         icon={<IconCalendarPlus aria-hidden />}
-        title={t('event.otherTimes.title')}
+        title={t('event.subEvents.title')}
       >
         <EventTimeList
-          id={otherEventTimesListTestId}
+          id={subEventsListTestId}
           events={shownEvents}
           eventType={eventType}
         />
@@ -77,8 +76,8 @@ const OtherEventTimes: React.FC<Props> = ({ event, eventType }) => {
             aria-expanded={isListOpen}
           >
             {isListOpen
-              ? t('event.otherTimes.buttonHide')
-              : t('event.otherTimes.buttonShow')}
+              ? t('event.subEvents.buttonHide')
+              : t('event.subEvents.buttonShow')}
             {isListOpen ? (
               <IconAngleUp aria-hidden />
             ) : (
@@ -99,7 +98,7 @@ export const EventTimeList: React.FC<{
   events: EventFields[];
   eventType: EventType;
   id: string;
-}> = ({ events, eventType, id = otherEventTimesListTestId }) => {
+}> = ({ events, eventType, id = subEventsListTestId }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const history = useHistory();
@@ -133,7 +132,9 @@ export const EventTimeList: React.FC<{
                 date,
               })}
             >
-              <span>{date}</span>
+              <span>
+                {date} {event.name.fi}
+              </span>
               <div className={styles.arrowContainer}>
                 <IconArrowRight aria-hidden />
               </div>
@@ -145,4 +146,4 @@ export const EventTimeList: React.FC<{
   );
 };
 
-export default OtherEventTimes;
+export default SubEvents;

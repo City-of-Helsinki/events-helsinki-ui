@@ -38,6 +38,7 @@ export const QUERY_EVENT_DETAILS = gql`
     subEvents {
       internalId
     }
+    typeId
     superEvent {
       internalId
     }

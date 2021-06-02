@@ -6,6 +6,7 @@ import sum from 'lodash/sum';
 import { EVENT_STATUS } from '../../constants';
 import {
   EventFieldsFragment,
+  EventTypeId,
   LocalizedObject,
   PlaceFieldsFragment,
 } from '../../generated/graphql';
@@ -18,7 +19,12 @@ import {
   EVENT_PLACEHOLDER_IMAGES,
   EVENT_SOME_IMAGE,
 } from './constants';
-import { EventFields, EventType, KeywordOption } from './types';
+import {
+  EVENT_TYPE_TO_ID,
+  EventFields,
+  EventType,
+  KeywordOption,
+} from './types';
 
 export const getEventCardId = (id: string): string => `event-card_${id}`;
 
@@ -403,3 +409,10 @@ export const getAudienceAgeText = (
   }`;
   return `${ageLimit} -${t('event.info.age')}`;
 };
+
+export const getEventTypeByEventTypeId = (
+  eventTypeId: EventTypeId
+): EventType =>
+  Object.keys(EVENT_TYPE_TO_ID).find(
+    (eventType) => EVENT_TYPE_TO_ID[eventType as EventType] === eventTypeId
+  ) as EventType;

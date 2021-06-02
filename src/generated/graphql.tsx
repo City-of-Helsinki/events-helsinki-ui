@@ -692,7 +692,7 @@ export type OfferFieldsFragment = (
 
 export type GeneralEventFieldsFragment = (
   { __typename?: 'EventDetails' }
-  & Pick<EventDetails, 'audienceMinAge' | 'audienceMaxAge' | 'id' | 'eventStatus' | 'endTime' | 'startTime' | 'publisher'>
+  & Pick<EventDetails, 'audienceMinAge' | 'audienceMaxAge' | 'id' | 'eventStatus' | 'typeId' | 'endTime' | 'startTime' | 'publisher'>
   & { externalLinks: Array<(
     { __typename?: 'ExternalLink' }
     & Pick<ExternalLink, 'name' | 'link'>
@@ -1279,6 +1279,7 @@ export const GeneralEventFieldsFragmentDoc = gql`
   subEvents {
     internalId
   }
+  typeId
   superEvent {
     internalId
   }
