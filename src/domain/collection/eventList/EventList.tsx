@@ -33,10 +33,11 @@ const EventList: React.FC<Props> = ({ collection }) => {
     locale
   );
   const eventType = getEventTypeFromRouteUrl(eventListQuery, locale);
-  const searchParams = new URLSearchParams(
-    eventListQuery ? new URL(eventListQuery).search : ''
-  );
+
   const eventFilters = React.useMemo(() => {
+    const searchParams = new URLSearchParams(
+      eventListQuery ? new URL(eventListQuery).search : ''
+    );
     return getEventSearchVariables({
       include: ['keywords', 'location'],
       language: locale,
@@ -46,7 +47,7 @@ const EventList: React.FC<Props> = ({ collection }) => {
       superEventType: ['umbrella', 'none'],
       eventType: eventType ?? 'event',
     });
-  }, [eventType, locale, searchParams]);
+  }, [eventListQuery, eventType, locale]);
 
   const { data: eventsData, fetchMore, loading } = useEventListQuery({
     notifyOnNetworkStatusChange: true,

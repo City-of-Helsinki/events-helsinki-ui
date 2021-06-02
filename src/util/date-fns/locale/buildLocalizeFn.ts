@@ -3,7 +3,7 @@
 
 // This helper function is copied from
 // https://github.com/date-fns/date-fns/blob/master/src/locale/_lib/buildLocalizeFn/index.js
-export default (args: any) => {
+const buildLocalizeFn = (args: any) => {
   return function (dirtyIndex: number, dirtyOptions: any) {
     const options = dirtyOptions || {};
 
@@ -26,3 +26,5 @@ export default (args: any) => {
     return valuesArray[index];
   };
 };
+
+export default buildLocalizeFn;

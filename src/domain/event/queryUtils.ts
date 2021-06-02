@@ -36,9 +36,9 @@ const useSimilarEventsQueryVariables = (
     keyword: keywords.map((keyword) => keyword.id),
   });
 
-  // Filter by search query if exists, if not filter by event keywords
-  const searchParams = new URLSearchParams(search || eventSearch);
   return React.useMemo(() => {
+    // Filter by search query if exists, if not filter by event keywords
+    const searchParams = new URLSearchParams(search || eventSearch);
     return getEventSearchVariables({
       include: ['keywords', 'location'],
       language: locale,
@@ -48,7 +48,7 @@ const useSimilarEventsQueryVariables = (
       superEventType: ['umbrella', 'none'],
       eventType: type,
     });
-  }, [locale, searchParams, type]);
+  }, [eventSearch, locale, search, type]);
 };
 
 export const useSimilarEventsQuery = (

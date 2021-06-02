@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 type Props = { className?: string };
 
-export default ({ className = '' }: Props): ReactElement => (
+const IconTree = ({ className = '' }: Props): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="100%"
@@ -16,3 +16,5 @@ export default ({ className = '' }: Props): ReactElement => (
     </g>
   </svg>
 );
+
+export default IconTree;

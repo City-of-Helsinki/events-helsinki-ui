@@ -4,7 +4,7 @@
  * event_type => EventType
  * event_end_date => EventEndDate
  */
-export default (snakecase: string): string => {
+const toPascalCase = (snakecase: string): string => {
   return (
     snakecase[0].toUpperCase() +
     snakecase
@@ -13,3 +13,5 @@ export default (snakecase: string): string => {
       .replace(/(_[a-z])/g, ($1) => $1.toUpperCase().replace('_', ''))
   );
 };
+
+export default toPascalCase;

@@ -8,7 +8,9 @@ import { ROUTES } from '../../../app/routes/constants';
 import { EventType } from '../../../event/types';
 import ResultsInfo from '../ResultsInfo';
 
-setFeatureFlags({ EVENTS_HELSINKI_2: true });
+beforeEach(() => {
+  setFeatureFlags({ EVENTS_HELSINKI_2: true });
+});
 
 test('events with 0 results matches snapshot for no results', () => {
   const { container } = render(

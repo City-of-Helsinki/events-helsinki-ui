@@ -1,7 +1,7 @@
 /**
  * Get localised time format
  */
-export default (lng: string): string => {
+const getTimeFormat = (lng: string): string => {
   switch (lng) {
     case 'en':
       return 'h:mm aaaa';
@@ -12,3 +12,5 @@ export default (lng: string): string => {
       return 'HH.mm';
   }
 };
+
+export default getTimeFormat;
