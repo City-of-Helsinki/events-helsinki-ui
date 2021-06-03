@@ -16,11 +16,17 @@ import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import { getEventTypeByEventTypeId } from '../EventUtils';
 import { useSubEvents, useSubEventsQueryVariables } from '../queryUtils';
-import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../types';
+import {
+  EVENT_ROUTE_MAPPER,
+  EventFields,
+  EventType,
+  SuperEventResponse,
+} from '../types';
 import styles from './otherEventTimes/otherEventTimes.module.scss';
 
 const EVENTS_LIST_LIMIT = 3;
-export const subEventsListTestId = 'other-event-times-list';
+export const subEventsListTestId = 'sub-events-list';
+export const superEventTestId = 'super-event';
 
 const SubEvents: React.FC<{ event: EventFields }> = ({ event }) => {
   const { t } = useTranslation();
@@ -36,7 +42,6 @@ const SubEvents: React.FC<{ event: EventFields }> = ({ event }) => {
     variables,
     superEventId
   );
-
   const toggleList = () => {
     setIsListOpen(!isListOpen);
   };
@@ -64,7 +69,7 @@ const SubEvents: React.FC<{ event: EventFields }> = ({ event }) => {
         icon={<IconCalendarPlus aria-hidden />}
         title={t('event.subEvents.title')}
       >
-        <EventTimeList
+        <Eventlist
           id={subEventsListTestId}
           events={shownEvents}
           eventType={eventType}
@@ -94,7 +99,7 @@ const SubEvents: React.FC<{ event: EventFields }> = ({ event }) => {
   );
 };
 
-export const EventTimeList: React.FC<{
+export const Eventlist: React.FC<{
   events: EventFields[];
   eventType: EventType;
   id: string;
@@ -146,4 +151,34 @@ export const EventTimeList: React.FC<{
   );
 };
 
+const SuperEvent: React.FC<{ superEvent: SuperEventResponse | undefined }> = ({
+  superEvent,
+}) => {
+  const { t } = useTranslation();
+
+  if (!superEvent || !superEvent.data) return null;
+
+  if (superEvent?.status === 'pending') return <SkeletonLoader />;
+
+  const eventType = superEvent.data.typeId
+    ? getEventTypeByEventTypeId(superEvent.data.typeId)
+    : 'event';
+
+  return (
+    <div className={styles.otherEventTimes}>
+      <InfoWithIcon
+        icon={<IconCalendarPlus aria-hidden />}
+        title={t('event.superEvent.title')}
+      >
+        <Eventlist
+          id={superEventTestId}
+          events={[superEvent.data]}
+          eventType={eventType}
+        />
+      </InfoWithIcon>
+    </div>
+  );
+};
+
 export default SubEvents;
+export { SuperEvent };

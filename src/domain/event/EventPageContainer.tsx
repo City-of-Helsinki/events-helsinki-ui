@@ -81,7 +81,7 @@ const EventPageContainer: React.FC<EventPageContainerProps> = ({
             include: ['in_language', 'keywords', 'location', 'audience'],
           },
         });
-        setSuperEvent({ data: data.courseDetails, status: 'resolved' });
+        setSuperEvent({ data: data.eventDetails, status: 'resolved' });
       } catch (e) {
         setSuperEvent({ data: null, status: 'resolved' });
       }
@@ -106,7 +106,11 @@ const EventPageContainer: React.FC<EventPageContainerProps> = ({
                     eventType={eventType}
                     superEvent={superEvent}
                   />
-                  <EventContent event={event} eventType={eventType} />
+                  <EventContent
+                    event={event}
+                    eventType={eventType}
+                    superEvent={superEvent}
+                  />
                 </>
               )}
               {/* Hide similar event on SSR to make initial load faster */}

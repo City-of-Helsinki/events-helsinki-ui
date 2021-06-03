@@ -32,18 +32,24 @@ import {
   getEventPrice,
   getServiceMapUrl,
 } from '../EventUtils';
-import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../types';
+import {
+  EVENT_ROUTE_MAPPER,
+  EventFields,
+  EventType,
+  SuperEventResponse,
+} from '../types';
 import styles from './eventInfo.module.scss';
 import OrganizationInfo from './OrganizationInfo';
 import OtherEventTimes from './otherEventTimes/OtherEventTimes';
-import SubEvents from './SubEvents';
+import SubEvents, { SuperEvent } from './SubEvents';
 
 interface Props {
   event: EventFields;
   eventType: EventType;
+  superEvent?: SuperEventResponse;
 }
 
-const EventInfo: React.FC<Props> = ({ event, eventType }) => {
+const EventInfo: React.FC<Props> = ({ event, eventType, superEvent }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const eventInfoContainer = React.useRef<HTMLDivElement | null>(null);
@@ -149,6 +155,7 @@ const EventInfo: React.FC<Props> = ({ event, eventType }) => {
             </>
           )}
         </InfoWithIcon>
+        <SuperEvent superEvent={superEvent} />
 
         <SubEvents event={event} />
 

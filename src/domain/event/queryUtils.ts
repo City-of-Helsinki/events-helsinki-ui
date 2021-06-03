@@ -1,4 +1,3 @@
-import { FetchMoreOptions } from 'apollo-client';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
@@ -22,11 +21,7 @@ import {
   getSearchQuery,
 } from '../eventSearch/utils';
 import { SIMILAR_EVENTS_AMOUNT } from './constants';
-import {
-  getEventFields,
-  getEventIdFromUrl,
-  getEventTypeByEventTypeId,
-} from './EventUtils';
+import { getEventFields, getEventIdFromUrl } from './EventUtils';
 import { EVENT_TYPE_TO_ID, EventFields, EventType } from './types';
 
 const useSimilarEventsQueryVariables = (
@@ -100,7 +95,9 @@ const useOtherEventTimesVariables = (
   return { superEventId, variables };
 };
 
-export const useSubEventsQueryVariables = (event: EventFields) => {
+export const useSubEventsQueryVariables = (
+  event: EventFields
+): { superEventId: string | undefined; variables: EventListQueryVariables } => {
   const variables = React.useMemo(
     (): EventListQueryVariables => ({
       include: ['keywords', 'location'],
@@ -119,7 +116,7 @@ export const useSubEvents = (
   event: EventFields,
   variables: EventListQueryVariables,
   superEventId: string | undefined
-) => {
+): { subEvents: EventFields[]; isFetchingMore: boolean; loading: boolean } => {
   const { t } = useTranslation();
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const { data: subEventsData, fetchMore, loading } = useEventListQuery({
@@ -179,8 +176,12 @@ export const useSubEvents = (
 export const useOtherEventTimes = (
   event: EventFields,
   eventType: EventType
-) => {
-  const { t } = useTranslation();
+): {
+  events: EventFields[];
+  loading: boolean;
+  isFetchingMore: boolean;
+  superEventId: string | undefined;
+} => {
   const { variables, superEventId } = useOtherEventTimesVariables(
     event,
     EVENT_TYPE_TO_ID[eventType]
