@@ -155,11 +155,11 @@ const SuperEvent: React.FC<{ superEvent: SuperEventResponse | undefined }> = ({
   superEvent,
 }) => {
   const { t } = useTranslation();
-
+  console.debug('superEvent', superEvent);
   if (!superEvent || !superEvent.data) return null;
 
   if (superEvent?.status === 'pending') return <SkeletonLoader />;
-
+  console.debug('superEvent data', superEvent.data);
   const eventType = superEvent.data.typeId
     ? getEventTypeByEventTypeId(superEvent.data.typeId)
     : 'event';

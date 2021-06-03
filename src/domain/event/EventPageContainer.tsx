@@ -65,9 +65,7 @@ const EventPageContainer: React.FC<EventPageContainerProps> = ({
   );
 
   React.useLayoutEffect(() => {
-    const isCoursePage = eventType === 'course';
-    // Only course page uses super event
-    if (superEventId && isCoursePage) {
+    if (superEventId) {
       getSuperEventData();
     } else if (event) {
       setSuperEvent({ data: null, status: 'resolved' });
