@@ -41,9 +41,9 @@ import {
   SuperEventResponse,
 } from '../types';
 import styles from './eventInfo.module.scss';
+import { SubEvents, SuperEvent } from './EventsHierarchy';
 import OrganizationInfo from './OrganizationInfo';
-import OtherEventTimes from './otherEventTimes/OtherEventTimes';
-import SubEvents, { SuperEvent } from './SubEvents';
+import OtherEventTimes from './OtherEventTimes';
 
 interface Props {
   event: EventFields;

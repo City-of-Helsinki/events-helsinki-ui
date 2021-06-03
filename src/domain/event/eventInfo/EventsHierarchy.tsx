@@ -1,28 +1,16 @@
-import {
-  IconAngleDown,
-  IconAngleUp,
-  IconArrowRight,
-  IconCalendarPlus,
-} from 'hds-react';
+import { IconAngleDown, IconAngleUp, IconLayers } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useLocation } from 'react-router-dom';
 
 import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
 import linkStyles from '../../../common/components/link/link.module.scss';
 import SkeletonLoader from '../../../common/components/skeletonLoader/SkeletonLoader';
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
-import useLocale from '../../../hooks/useLocale';
-import getDateRangeStr from '../../../util/getDateRangeStr';
 import { getEventTypeByEventTypeId } from '../EventUtils';
 import { useSubEvents, useSubEventsQueryVariables } from '../queryUtils';
-import {
-  EVENT_ROUTE_MAPPER,
-  EventFields,
-  EventType,
-  SuperEventResponse,
-} from '../types';
-import styles from './otherEventTimes/otherEventTimes.module.scss';
+import { EventFields, SuperEventResponse } from '../types';
+import { Eventlist } from './eventList/EventList';
+import styles from './eventList/eventList.module.scss';
 
 const EVENTS_LIST_LIMIT = 3;
 export const subEventsListTestId = 'sub-events-list';
@@ -64,9 +52,9 @@ const SubEvents: React.FC<{ event: EventFields }> = ({ event }) => {
   const shownEvents = isListOpen ? events : events.slice(0, EVENTS_LIST_LIMIT);
 
   return (
-    <div className={styles.otherEventTimes}>
+    <div className={styles.eventList}>
       <InfoWithIcon
-        icon={<IconCalendarPlus aria-hidden />}
+        icon={<IconLayers aria-hidden />}
         title={t('event.subEvents.title')}
       >
         <Eventlist
@@ -81,8 +69,8 @@ const SubEvents: React.FC<{ event: EventFields }> = ({ event }) => {
             aria-expanded={isListOpen}
           >
             {isListOpen
-              ? t('event.subEvents.buttonHide')
-              : t('event.subEvents.buttonShow')}
+              ? t('event.relatedEvents.buttonHide')
+              : t('event.relatedEvents.buttonShow')}
             {isListOpen ? (
               <IconAngleUp aria-hidden />
             ) : (
@@ -99,75 +87,23 @@ const SubEvents: React.FC<{ event: EventFields }> = ({ event }) => {
   );
 };
 
-export const Eventlist: React.FC<{
-  events: EventFields[];
-  eventType: EventType;
-  id: string;
-}> = ({ events, eventType, id = subEventsListTestId }) => {
-  const { t } = useTranslation();
-  const locale = useLocale();
-  const history = useHistory();
-  const { search } = useLocation();
-
-  const moveToEventPage = (eventId: string) => {
-    const eventUrl = `/${locale}${EVENT_ROUTE_MAPPER[eventType].replace(
-      ':id',
-      eventId
-    )}${search}`;
-    history.push(eventUrl);
-  };
-  return (
-    <ul className={styles.timeList} data-testid={id}>
-      {events.map((event) => {
-        const date = event.startTime
-          ? getDateRangeStr({
-              start: event.startTime,
-              end: event.endTime,
-              includeTime: true,
-              locale,
-              timeAbbreviation: t('commons.timeAbbreviation'),
-            })
-          : '';
-        return (
-          <li key={event.id}>
-            <button
-              className={styles.listButton}
-              onClick={() => moveToEventPage(event.id)}
-              aria-label={t('event.otherTimes.buttonReadMore', {
-                date,
-              })}
-            >
-              <span>
-                {date} {event.name.fi}
-              </span>
-              <div className={styles.arrowContainer}>
-                <IconArrowRight aria-hidden />
-              </div>
-            </button>
-          </li>
-        );
-      })}
-    </ul>
-  );
-};
-
 const SuperEvent: React.FC<{ superEvent: SuperEventResponse | undefined }> = ({
   superEvent,
 }) => {
   const { t } = useTranslation();
 
   if (!superEvent || !superEvent.data) return null;
-  
+
   if (superEvent?.status === 'pending') return <SkeletonLoader />;
-  
+
   const eventType = superEvent.data.typeId
     ? getEventTypeByEventTypeId(superEvent.data.typeId)
     : 'event';
 
   return (
-    <div className={styles.otherEventTimes}>
+    <div className={styles.eventList}>
       <InfoWithIcon
-        icon={<IconCalendarPlus aria-hidden />}
+        icon={<IconLayers aria-hidden />}
         title={t('event.superEvent.title')}
       >
         <Eventlist
@@ -180,5 +116,4 @@ const SuperEvent: React.FC<{ superEvent: SuperEventResponse | undefined }> = ({
   );
 };
 
-export default SubEvents;
-export { SuperEvent };
+export { SuperEvent, SubEvents };
