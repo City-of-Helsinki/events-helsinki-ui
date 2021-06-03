@@ -14,27 +14,20 @@ import SkeletonLoader from '../../../../common/components/skeletonLoader/Skeleto
 import LoadingSpinner from '../../../../common/components/spinner/LoadingSpinner';
 import useLocale from '../../../../hooks/useLocale';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
+import { getEventTypeByEventTypeId } from '../../EventUtils';
 import { useOtherEventTimes } from '../../queryUtils';
 import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../../types';
 import styles from './otherEventTimes.module.scss';
-
-interface Props {
-  event: EventFields;
-  eventType: EventType;
-}
 
 const EVENTS_LIST_LIMIT = 3;
 
 export const otherEventTimesListTestId = 'other-event-times-list';
 
-const OtherEventTimes: React.FC<Props> = ({ event, eventType }) => {
+const OtherEventTimes: React.FC<{event: EventFields;}> = ({ event }) => {
   const { t } = useTranslation();
   const [isListOpen, setIsListOpen] = React.useState(false);
 
-  const { superEventId, loading, events, isFetchingMore } = useOtherEventTimes(
-    event,
-    eventType
-  );
+  const { superEventId, loading, events, isFetchingMore } = useOtherEventTimes(event);
 
   if (!superEventId) return null;
 
@@ -68,7 +61,6 @@ const OtherEventTimes: React.FC<Props> = ({ event, eventType }) => {
         <EventTimeList
           id={otherEventTimesListTestId}
           events={shownEvents}
-          eventType={eventType}
         />
         {events.length > EVENTS_LIST_LIMIT && (
           <button
@@ -97,15 +89,14 @@ const OtherEventTimes: React.FC<Props> = ({ event, eventType }) => {
 
 export const EventTimeList: React.FC<{
   events: EventFields[];
-  eventType: EventType;
   id: string;
-}> = ({ events, eventType, id = otherEventTimesListTestId }) => {
+}> = ({ events, id = otherEventTimesListTestId }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const history = useHistory();
   const { search } = useLocation();
 
-  const moveToEventPage = (eventId: string) => {
+  const moveToEventPage = (eventId: string, eventType: EventType) => {
     const eventUrl = `/${locale}${EVENT_ROUTE_MAPPER[eventType].replace(
       ':id',
       eventId
@@ -128,7 +119,8 @@ export const EventTimeList: React.FC<{
           <li key={event.id}>
             <button
               className={styles.listButton}
-              onClick={() => moveToEventPage(event.id)}
+              // Events can have different event type id than it's super event or sibling has - purposely or accidentally.
+              onClick={() => moveToEventPage(event.id, event?.typeId ? getEventTypeByEventTypeId(event.typeId) : 'event')}
               aria-label={t('event.otherTimes.buttonReadMore', {
                 date,
               })}

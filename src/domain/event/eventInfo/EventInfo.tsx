@@ -156,10 +156,8 @@ const EventInfo: React.FC<Props> = ({ event, eventType, superEvent }) => {
           )}
         </InfoWithIcon>
         <SuperEvent superEvent={superEvent} />
-
         <SubEvents event={event} />
-
-        <OtherEventTimes event={event} eventType={eventType} />
+        <OtherEventTimes event={event} />
         {/* Age limitation info */}
         {audienceAge && (
           <InfoWithIcon icon={<IconCake />} title={t('event.info.labelAge')}>
