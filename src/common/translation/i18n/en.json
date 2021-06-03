@@ -197,6 +197,15 @@
       "buttonShow": "Show all",
       "title": "Other times of the event"
     },
+    "subEvents": {
+      "buttonHide": "Hide",
+      "buttonReadMore": "Read more; {{date}}",
+      "buttonShow": "Show all",
+      "title": "Related to the event"
+    },
+    "superEvent": {
+      "title": "Relates to the event"
+    },
     "shareLinks": {
       "title": "Share Event"
     },

@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import {
   EventListQuery,
   EventListQueryVariables,
+  // EventTypeId,
   useEventListQuery,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
@@ -83,7 +84,11 @@ const useOtherEventTimesVariables = (event: EventFields) => {
       sort: EVENT_SORT_OPTIONS.START_TIME,
       start: 'now',
       superEvent: superEventId,
-      // eventType,
+      // TODO: Since LE v2 is listing general type of events 
+      // when no event type is given as a parameter,
+      // this needs a list of eventTypes, 
+      // or otherwise some events or courses are always excluded.
+      // eventType: EventTypeId.Course //event.typeId,
     }),
     [superEventId]
   );
@@ -100,7 +105,11 @@ export const useSubEventsQueryVariables = (
       sort: EVENT_SORT_OPTIONS.START_TIME,
       start: 'now',
       superEvent: event.id,
-      // eventType: event.typeId,
+      // TODO: Since LE v2 is listing general type of events 
+      // when no event type is given as a parameter,
+      // this needs a list of eventTypes
+      // or otherwise some events or courses are always excluded.
+      // eventType: EventTypeId.Course //event.typeId
     }),
     [event.id]
   );
