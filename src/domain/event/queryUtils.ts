@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import {
   EventListQuery,
   EventListQueryVariables,
-  EventTypeId,
   useEventListQuery,
 } from '../../generated/graphql';
 import useLocale from '../../hooks/useLocale';
@@ -22,7 +21,7 @@ import {
 } from '../eventSearch/utils';
 import { SIMILAR_EVENTS_AMOUNT } from './constants';
 import { getEventFields, getEventIdFromUrl } from './EventUtils';
-import { EVENT_TYPE_TO_ID, EventFields, EventType } from './types';
+import { EventFields, EventType } from './types';
 
 const useSimilarEventsQueryVariables = (
   event: EventFields,
@@ -72,10 +71,7 @@ export const useSimilarEventsQuery = (
   return { data, loading };
 };
 
-const useOtherEventTimesVariables = (
-  event: EventFields,
-  eventType: EventTypeId = EventTypeId.General
-) => {
+const useOtherEventTimesVariables = (event: EventFields) => {
   const superEventId = React.useMemo(
     () => getEventIdFromUrl(event.superEvent?.internalId || '', 'event'),
     [event.superEvent]
@@ -83,13 +79,13 @@ const useOtherEventTimesVariables = (
 
   const variables = React.useMemo(
     (): EventListQueryVariables => ({
-      include: ['keywords', 'location'],
+      // include: ['keywords', 'location'],
       sort: EVENT_SORT_OPTIONS.START_TIME,
       start: 'now',
       superEvent: superEventId,
-      eventType,
+      // eventType,
     }),
-    [eventType, superEventId]
+    [superEventId]
   );
 
   return { superEventId, variables };
@@ -100,13 +96,13 @@ export const useSubEventsQueryVariables = (
 ): { superEventId: string | undefined; variables: EventListQueryVariables } => {
   const variables = React.useMemo(
     (): EventListQueryVariables => ({
-      include: ['keywords', 'location'],
+      // include: ['keywords', 'location'],
       sort: EVENT_SORT_OPTIONS.START_TIME,
       start: 'now',
       superEvent: event.id,
-      eventType: event.typeId,
+      // eventType: event.typeId,
     }),
-    [event.id, event.typeId]
+    [event.id]
   );
 
   return { superEventId: event.id, variables };
@@ -182,10 +178,7 @@ export const useOtherEventTimes = (
   isFetchingMore: boolean;
   superEventId: string | undefined;
 } => {
-  const { variables, superEventId } = useOtherEventTimesVariables(
-    event,
-    EVENT_TYPE_TO_ID[eventType]
-  );
+  const { variables, superEventId } = useOtherEventTimesVariables(event);
 
   const { subEvents, isFetchingMore, loading } = useSubEvents(
     event,
