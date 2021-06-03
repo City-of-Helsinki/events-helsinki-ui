@@ -6,7 +6,6 @@
   &__no-popper {
     position: unset !important;
     transform: unset !important;
-    margin-top: 10px;
   }
 
   &__triangle {
@@ -16,22 +15,6 @@
   &__header {
     background-color: var(--color-white);
     border-bottom: none;
-  }
-
-  &__navigation--previous {
-    background-image: url('../../../assets/icons/svg/copied-from-hds/angle-left.svg');
-    border: none;
-    background-repeat: no-repeat;
-    background-size: 0.75rem 0.75rem;
-    top: 0.75rem;
-  }
-
-  &__navigation--next {
-    background-image: url('../../../assets/icons/svg/copied-from-hds/angle-right.svg');
-    border: none;
-    background-repeat: no-repeat;
-    background-size: 0.75rem 0.75rem;
-    top: 0.75rem;
   }
 
   &__day-names {

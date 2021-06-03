@@ -13,7 +13,7 @@ import LargeEventCard from '../LargeEventCard';
 const renderComponent = (event: EventFieldsFragment) =>
   render(<LargeEventCard event={event} />);
 
-test('test for accessibility violations', async () => {
+test('for accessibility violations', async () => {
   const event = fakeEvent() as EventFieldsFragment;
   const { container } = renderComponent(event);
 

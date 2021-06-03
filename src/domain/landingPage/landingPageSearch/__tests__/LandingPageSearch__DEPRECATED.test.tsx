@@ -4,11 +4,11 @@ import React from 'react';
 import { KeywordListDocument } from '../../../../generated/graphql';
 import { fakeKeywords } from '../../../../test/mockDataUtils';
 import {
+  act,
   configure,
   render,
   screen,
   userEvent,
-  waitFor,
 } from '../../../../test/testUtils';
 import LandingPageSearch from '../LandingPageSearch__DEPRECATED';
 
@@ -52,7 +52,7 @@ test('should route to event search page with correct search query after clicking
   // Check that auto-suggest menu is open
   expect(screen.getByText(/hakuehdotuksia/i)).toBeInTheDocument();
 
-  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe('/fi/events');
   expect(history.location.search).toBe(`?text=${searchValue}`);
 });
@@ -63,12 +63,8 @@ test('should route to event search page after clicking autosuggest menu item', a
   const searchInput = screen.getByRole('textbox', { name: /mitä etsit\?/i });
   userEvent.type(searchInput, searchValue);
 
-  // Wait autosuggest search internal input debounce
-  await waitFor(() => {
-    screen.getByRole('option', { name: /musiikkiklubit/i });
-  });
-
-  userEvent.click(screen.getByRole('option', { name: /musiikkiklubit/i }));
+  const option = await screen.findByRole('option', { name: /musiikkiklubit/i });
+  act(() => userEvent.click(option));
   expect(history.location.pathname).toBe('/fi/events');
   expect(history.location.search).toBe(`?text=musiikkiklubit`);
 });
@@ -88,7 +84,7 @@ test('should route to event search page after selecting today date type and pres
   userEvent.click(screen.getByRole('button', { name: /valitse ajankohta/i }));
   userEvent.click(screen.getByRole('checkbox', { name: /tänään/i }));
 
-  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe('/fi/events');
   expect(history.location.search).toBe('?dateTypes=today');
 });
@@ -103,9 +99,13 @@ test('should route to event search page after selecting start date and pressing 
     // which is hidden using css
     screen.getAllByRole('button', { name: /valitse päivät/i })[0]
   );
-  userEvent.click(screen.getByRole('option', { name: /day-6/i }));
+  userEvent.click(
+    screen.getByRole('button', {
+      name: /Valitse tiistaina 6\. lokakuuta 2020/i,
+    })
+  );
 
-  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe('/fi/events');
   expect(history.location.search).toBe('?start=2020-10-06');
 });

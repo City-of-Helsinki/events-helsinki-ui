@@ -31,7 +31,12 @@
         "buttonClose": "Close",
         "buttonCustom": "Select dates"
       },
-      "title": "Select dates"
+      "title": "Select dates",
+      "accessibility": {
+        "chooseDayPrefix": "Choose",
+        "nextMonth": "Next month",
+        "previousMonth": "Previous month"
+      }
     },
     "dropdown": {
       "menu": {
@@ -200,7 +205,7 @@
     }
   },
   "course": {
-    "info":{
+    "info": {
       "linkSearchByPublisher": "See other hobbies by publisher"
     }
   },

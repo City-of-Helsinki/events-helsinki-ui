@@ -10,22 +10,27 @@ const eventsResponse = fakeEvents(4);
 const events = eventsResponse.data as EventFieldsFragment[];
 
 test('should show fields for each event card', async () => {
-  render(<EventCards events={events} />);
+  render(<EventCards events={events} eventType="event" />);
 
   events.forEach((event) => {
-    expect(screen.getByText(event.name.fi));
+    expect(screen.queryByText(event.name.fi)).toBeInTheDocument();
     expect(
-      screen.getByText(
+      screen.queryByText(
         `${event.location.name.fi}, ${event.location.streetAddress.fi}, ${event.location.addressLocality.fi}`
       )
-    );
+    ).toBeInTheDocument();
   });
 });
 
 test('should call onShowMore', async () => {
   const onShowMore = jest.fn();
   render(
-    <EventCards events={events} onShowMore={onShowMore} showMoreButton={true} />
+    <EventCards
+      events={events}
+      onShowMore={onShowMore}
+      showMoreButton={true}
+      eventType="event"
+    />
   );
 
   userEvent.click(

@@ -57,15 +57,18 @@ const MobileDateSelector: React.FC<Props> = ({
     return current?.contains(active);
   }, []);
 
-  const handleDocumentClick = (event: MouseEvent) => {
-    const target = event.target;
-    const current = dateSelector.current;
+  const handleDocumentClick = React.useCallback(
+    (event: MouseEvent) => {
+      const target = event.target;
+      const current = dateSelector.current;
 
-    // Close menu when clicking outside of the component
-    if (!(target instanceof Node && current?.contains(target))) {
-      setIsMenuOpen(false);
-    }
-  };
+      // Close menu when clicking outside of the component
+      if (!(target instanceof Node && current?.contains(target))) {
+        isMenuOpen && setIsMenuOpen(false);
+      }
+    },
+    [isMenuOpen]
+  );
 
   const handleDocumentFocusin = React.useCallback(() => {
     if (!isDateSelectorFocused()) {
@@ -107,7 +110,7 @@ const MobileDateSelector: React.FC<Props> = ({
       document.removeEventListener('keydown', handleDocumentKeyDown);
       document.removeEventListener('focusin', handleDocumentFocusin);
     };
-  }, [handleDocumentFocusin, handleDocumentKeyDown]);
+  }, [handleDocumentClick, handleDocumentFocusin, handleDocumentKeyDown]);
 
   const closeMenu = () => {
     setIsMenuOpen(false);

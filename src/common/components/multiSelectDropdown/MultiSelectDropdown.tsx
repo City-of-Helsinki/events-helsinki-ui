@@ -113,15 +113,18 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const handleDocumentClick = (event: MouseEvent) => {
-    const target = event.target;
-    const current = dropdown.current;
+  const handleDocumentClick = React.useCallback(
+    (event: MouseEvent) => {
+      const target = event.target;
+      const current = dropdown.current;
 
-    // Close menu when clicking outside of the component
-    if (!(target instanceof Node && current?.contains(target))) {
-      setIsMenuOpen(false);
-    }
-  };
+      // Close menu when clicking outside of the component
+      if (!(target instanceof Node && current?.contains(target))) {
+        isMenuOpen && setIsMenuOpen(false);
+      }
+    },
+    [isMenuOpen]
+  );
 
   const toggleOption = React.useCallback(
     (option: string) => {
@@ -174,7 +177,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
       document.removeEventListener('click', handleDocumentClick);
       document.removeEventListener('focusin', handleDocumentFocusin);
     };
-  }, [setupKeyboardNav, teardownKeyboardNav]);
+  }, [handleDocumentClick, setupKeyboardNav, teardownKeyboardNav]);
 
   const setFocusToInput = () => {
     inputRef.current?.focus();

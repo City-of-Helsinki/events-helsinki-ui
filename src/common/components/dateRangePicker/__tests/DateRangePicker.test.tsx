@@ -1,10 +1,18 @@
-import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { utcToZonedTime } from 'date-fns-tz';
 import { advanceTo } from 'jest-date-mock';
 import React from 'react';
 
+import {
+  act,
+  configure,
+  render,
+  screen,
+  waitFor,
+} from '../../../../test/testUtils';
 import DateRangePicker, { DateRangePickerProps } from '../DateRangePicker';
+
+configure({ defaultHidden: true });
 
 const defaultProps: DateRangePickerProps = {
   endDate: null,
@@ -31,16 +39,18 @@ test('should call onChangeEndDate', async () => {
   const endDateStr = '12.10.2020';
   userEvent.click(endDateInput);
   userEvent.clear(endDateInput);
-  await userEvent.type(endDateInput, endDateStr);
+  userEvent.type(endDateInput, endDateStr);
 
   const startDateInput = screen.getByRole('textbox', {
     name: /alkamispäivä/i,
   });
-  userEvent.click(startDateInput);
+  act(() => userEvent.click(startDateInput));
 
-  expect(onChangeEndDate).toBeCalledWith(
-    utcToZonedTime(new Date('2020-10-12'), 'UTC')
-  );
+  await waitFor(() => {
+    expect(onChangeEndDate).toBeCalledWith(
+      utcToZonedTime(new Date('2020-10-12'), 'UTC')
+    );
+  });
 });
 
 test('should call onChangeEndDate with old end date when starting to select past date', async () => {
@@ -56,14 +66,17 @@ test('should call onChangeEndDate with old end date when starting to select past
   const endDateStr = '12.12.2019';
   userEvent.click(endDateInput);
   userEvent.clear(endDateInput);
-  await userEvent.type(endDateInput, endDateStr);
+  userEvent.type(endDateInput, endDateStr);
 
   const startDateInput = screen.getByRole('textbox', {
     name: /alkamispäivä/i,
   });
-  userEvent.click(startDateInput);
+  act(() => userEvent.click(startDateInput));
 
-  expect(onChangeEndDate).toBeCalledWith(endDate);
+  await waitFor(() => {
+    expect(onChangeEndDate).toBeCalledWith(endDate);
+    expect(startDateInput).toHaveFocus();
+  });
 });
 
 test('should call onChangeEndDate with clicking date', async () => {
@@ -77,15 +90,21 @@ test('should call onChangeEndDate with clicking date', async () => {
   });
 
   userEvent.click(endDateInput);
-  userEvent.click(screen.getByRole('option', { name: /day-15/i }));
+  userEvent.click(
+    screen.getByRole('button', {
+      name: /Valitse torstaina 15\. lokakuuta 2020/i,
+    })
+  );
 
   const startDateInput = screen.getByRole('textbox', {
     name: /alkamispäivä/i,
   });
-  userEvent.click(startDateInput);
+  act(() => userEvent.click(startDateInput));
 
-  expect(onChangeEndDate).toBeCalledWith(
-    utcToZonedTime(new Date('2020-10-15'), 'UTC')
+  await waitFor(() =>
+    expect(onChangeEndDate).toBeCalledWith(
+      utcToZonedTime(new Date('2020-10-15'), 'UTC')
+    )
   );
 });
 
@@ -102,15 +121,17 @@ test('should call onChangeStartDate', async () => {
   const startDateStr = '12.10.2020';
   userEvent.click(startDateInput);
   userEvent.clear(startDateInput);
-  await userEvent.type(startDateInput, startDateStr);
+  userEvent.type(startDateInput, startDateStr);
 
   const endDateInput = screen.getByRole('textbox', {
     name: /loppumispäivä/i,
   });
-  userEvent.click(endDateInput);
+  act(() => userEvent.click(endDateInput));
 
-  expect(onChangeStartDate).toBeCalledWith(
-    utcToZonedTime(new Date('2020-10-12'), 'UTC')
+  await waitFor(() =>
+    expect(onChangeStartDate).toBeCalledWith(
+      utcToZonedTime(new Date('2020-10-12'), 'UTC')
+    )
   );
 });
 
@@ -127,14 +148,14 @@ test('should call onChangeStartDate with old end date when starting to select pa
   const startDateStr = '12.12.2019';
   userEvent.click(startDateInput);
   userEvent.clear(startDateInput);
-  await userEvent.type(startDateInput, startDateStr);
+  userEvent.type(startDateInput, startDateStr);
 
   const endDateInput = screen.getByRole('textbox', {
     name: /loppumispäivä/i,
   });
-  userEvent.click(endDateInput);
+  act(() => userEvent.click(endDateInput));
 
-  expect(onChangeStartDate).toBeCalledWith(startDate);
+  await waitFor(() => expect(onChangeStartDate).toBeCalledWith(startDate));
 });
 
 test('should call onChangeStartDate with clicking date', async () => {
@@ -148,14 +169,20 @@ test('should call onChangeStartDate with clicking date', async () => {
   });
   userEvent.click(startDateInput);
 
-  userEvent.click(screen.getByRole('option', { name: /day-15/i }));
+  userEvent.click(
+    screen.getByRole('button', {
+      name: /Valitse torstaina 15\. lokakuuta 2020/i,
+    })
+  );
 
   const endDateInput = screen.getByRole('textbox', {
     name: /loppumispäivä/i,
   });
-  userEvent.click(endDateInput);
+  act(() => userEvent.click(endDateInput));
 
-  expect(onChangeStartDate).toBeCalledWith(
-    utcToZonedTime(new Date('2020-10-15'), 'UTC')
+  await waitFor(() =>
+    expect(onChangeStartDate).toBeCalledWith(
+      utcToZonedTime(new Date('2020-10-15'), 'UTC')
+    )
   );
 });
