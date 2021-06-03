@@ -89,6 +89,7 @@ const useOtherEventTimesVariables = (event: EventFields) => {
       // this needs a list of eventTypes, 
       // or otherwise some events or courses are always excluded.
       // eventType: EventTypeId.Course //event.typeId,
+      eventType: [EventTypeId.Course, EventTypeId.General],
     }),
     [superEventId]
   );

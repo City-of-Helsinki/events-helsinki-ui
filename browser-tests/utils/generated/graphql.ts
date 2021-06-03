@@ -427,7 +427,7 @@ export type QueryEventsByIdsArgs = {
 
 
 export type QueryEventListArgs = {
-  eventType?: Maybe<EventTypeId>;
+  eventType?: Maybe<Array<Maybe<EventTypeId>>>;
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
   localOngoingOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -779,7 +779,7 @@ export type EventDetailsQuery = (
 );
 
 export type EventListQueryVariables = Exact<{
-  eventType?: Maybe<EventTypeId>;
+  eventType?: Maybe<Array<Maybe<EventTypeId>> | Maybe<EventTypeId>>;
   audienceMaxAgeLt?: Maybe<Scalars['String']>;
   audienceMinAgeGt?: Maybe<Scalars['String']>;
   allOngoing?: Maybe<Scalars['Boolean']>;
@@ -1473,7 +1473,7 @@ export const EventDetailsDocument = gql`
 }
     ${EventFieldsFragmentDoc}`;
 export const EventListDocument = gql`
-    query EventList($eventType: EventTypeId, $audienceMaxAgeLt: String, $audienceMinAgeGt: String, $allOngoing: Boolean, $allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordOrSet2: [String], $keywordOrSet3: [String], $keywordNot: [String], $language: String, $localOngoingAnd: [String], $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+    query EventList($eventType: [EventTypeId], $audienceMaxAgeLt: String, $audienceMinAgeGt: String, $allOngoing: Boolean, $allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordOrSet2: [String], $keywordOrSet3: [String], $keywordNot: [String], $language: String, $localOngoingAnd: [String], $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
   eventList(
     eventType: $eventType
     audienceMaxAgeLt: $audienceMaxAgeLt
