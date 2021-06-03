@@ -43,7 +43,7 @@ const renderComponent = (props?: Partial<RangeDropdownProps>) => {
   };
 };
 
-test('test for accessibility violations', async () => {
+test('for accessibility violations', async () => {
   const { container } = renderComponent();
 
   const results = await axe(container);

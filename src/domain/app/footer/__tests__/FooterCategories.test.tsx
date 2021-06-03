@@ -16,7 +16,7 @@ test('component should be accessible', async () => {
   expect(await axe(container)).toHaveNoViolations();
 });
 
-test('should route to event search page by clicking category ', () => {
+test('should route to event search page by clicking category', () => {
   const { history } = render(<FooterCategories route={ROUTES.EVENTS} />);
 
   userEvent.click(screen.getByRole('button', { name: /elokuva/i }));
@@ -24,16 +24,8 @@ test('should route to event search page by clicking category ', () => {
   expect(history.location.pathname).toMatchSnapshot();
 });
 
-test('should route to course search page by clicking category ', () => {
-  const { history } = render(<FooterCategories route={ROUTES.COURSES} />);
-
-  userEvent.click(screen.getByRole('button', { name: /elokuva/i }));
-
-  expect(history.location.pathname).toMatchSnapshot();
-});
-
 //  TODO: It seems that hds Footer does not support logoLanguage yet
-test.skip('should show Swedish logo ', () => {
+test.skip('should show Swedish logo', () => {
   i18n.changeLanguage('sv');
   render(<FooterCategories route={ROUTES.EVENTS} />);
 

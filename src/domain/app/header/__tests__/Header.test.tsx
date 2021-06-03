@@ -4,19 +4,13 @@ import * as React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import { setFeatureFlags } from '../../../../test/feature-flags/featureFlags.test.utils';
-import {
-  act,
-  render,
-  screen,
-  userEvent,
-  waitFor,
-} from '../../../../test/testUtils';
+import { act, render, screen, userEvent } from '../../../../test/testUtils';
 import { isFeatureEnabled } from '../../../../util/featureFlags';
 import { skipFalsyType } from '../../../../util/typescript.utils';
 import { ROUTES } from '../../routes/constants';
 import Header from '../Header';
 
-const renderComponent = (route = '/fi') =>
+const renderComponent = (route = '/fi/') =>
   render(<Header />, { routes: [route] });
 
 beforeEach(() => {
@@ -80,11 +74,12 @@ test.skip('component should be accessible', async () => {
     });
   });
 });
+
 test('should change language', async () => {
   global.innerWidth = 1200;
   const { history } = renderComponent();
 
-  expect(history.location.pathname).toBe('/fi');
+  expect(history.location.pathname).toBe('/fi/');
 
   /**
    * Due to ssr fix header is duplicated
@@ -99,5 +94,5 @@ test('should change language', async () => {
     name: translations.header.languages.sv,
   });
   userEvent.click(svOption);
-  waitFor(() => expect(history.location.pathname).toBe('/sv'));
+  expect(history.location.pathname).toBe('/sv/');
 });

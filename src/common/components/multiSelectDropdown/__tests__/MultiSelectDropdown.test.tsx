@@ -53,7 +53,7 @@ const defaultProps: MultiselectDropdownProps = {
 const renderComponent = (props?: Partial<MultiselectDropdownProps>) =>
   render(<MultiSelectDropdown {...defaultProps} {...props} />);
 
-test('test for accessibility violations', async () => {
+test('for accessibility violations', async () => {
   const { container } = renderComponent();
 
   const results = await axe(container);
@@ -292,7 +292,7 @@ test('should show selected text for single value', () => {
   expect(screen.queryByText(options[0].text)).toBeInTheDocument();
 });
 
-test('should show selected text for single value', () => {
+test('should show selected text for single value 2', () => {
   renderComponent({ value: [options[0].value, options[1].value] });
 
   expect(screen.queryByText(`${options[1].text} + 1`)).toBeInTheDocument();

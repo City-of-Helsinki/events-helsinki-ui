@@ -150,15 +150,18 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
     setFocusToInput();
   };
 
-  const onDocumentClick = (event: MouseEvent) => {
-    const target = event.target;
-    const current = container.current;
+  const onDocumentClick = React.useCallback(
+    (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      const current = container.current;
 
-    // Close menu when clicking outside of the component
-    if (!(target instanceof Node && current?.contains(target))) {
-      setIsMenuOpen(false);
-    }
-  };
+      // Close menu when clicking outside of the component
+      if (!(target instanceof Node && current?.contains(target))) {
+        isMenuOpen && setIsMenuOpen(false);
+      }
+    },
+    [isMenuOpen]
+  );
 
   const onDocumentFocusin = React.useCallback(
     (event: FocusEvent) => {
@@ -194,7 +197,12 @@ const SearchAutosuggest: React.FC<SearchAutosuggestProps> = ({
       document.removeEventListener('click', onDocumentClick);
       document.removeEventListener('focusin', onDocumentFocusin);
     };
-  }, [onDocumentFocusin, setupKeyboardNav, teardownKeyboardNav]);
+  }, [
+    onDocumentClick,
+    onDocumentFocusin,
+    setupKeyboardNav,
+    teardownKeyboardNav,
+  ]);
 
   return (
     <div

@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-conditional-expect */
 import { advanceTo, clear } from 'jest-date-mock';
 import flow from 'lodash/flow';
 import chunk from 'lodash/fp/chunk';

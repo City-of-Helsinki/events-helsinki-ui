@@ -31,7 +31,12 @@
         "buttonClose": "Sulje",
         "buttonCustom": "Valitse päivät"
       },
-      "title": "Valitse ajankohta"
+      "title": "Valitse ajankohta",
+      "accessibility": {
+        "chooseDayPrefix": "Valitse",
+        "nextMonth": "Seuraava kuukausi",
+        "previousMonth": "Edellinen kuukausi"
+      }
     },
     "dropdown": {
       "menu": {
@@ -59,7 +64,7 @@
     },
     "supriseMe": "Koeta onneasi",
     "timeAbbreviation": "klo",
-    "srOnly" : {
+    "srOnly": {
       "opensInANewTab": "Avautuu uudessa välilehdessä"
     },
     "yearsShort": "v",
@@ -200,7 +205,7 @@
     "title": "Ladataan tapahtumaa..."
   },
   "course": {
-    "info":{
+    "info": {
       "linkSearchByPublisher": "Katso julkaisijan muut harrastukset"
     }
   },
@@ -368,7 +373,7 @@
     "searchCategories": "Selaa kategorioita",
     "searchEvents": "Etsi tekemistä"
   },
-  "meta":{
+  "meta": {
     "events": {
       "description": "Tapahtumat.hel.fin tapahtumahaku. Konsertit, keikat, teatteriesitykset, näyttelyt, kulttuuri, tekeminen ja muut tapahtumat Helsingissä."
     },

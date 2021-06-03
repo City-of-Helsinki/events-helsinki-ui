@@ -130,15 +130,18 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
     }
   };
 
-  const handleDocumentClick = (event: MouseEvent) => {
-    const target = event.target;
-    const current = dropdown.current;
+  const handleDocumentClick = React.useCallback(
+    (event: MouseEvent) => {
+      const target = event.target;
+      const current = dropdown.current;
 
-    // Close menu when clicking outside of the component
-    if (!(target instanceof Node && current?.contains(target))) {
-      setIsMenuOpen(false);
-    }
-  };
+      // Close menu when clicking outside of the component
+      if (!(target instanceof Node && current?.contains(target))) {
+        isMenuOpen && setIsMenuOpen(false);
+      }
+    },
+    [isMenuOpen]
+  );
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -165,7 +168,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
       document.removeEventListener('click', handleDocumentClick);
       document.removeEventListener('focusin', handleDocumentFocusin);
     };
-  }, []);
+  }, [handleDocumentClick]);
 
   const handleToggleButtonClick = () => {
     toggleMenu();

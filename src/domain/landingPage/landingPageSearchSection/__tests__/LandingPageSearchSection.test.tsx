@@ -6,11 +6,11 @@ import IconMovies from '../../../../icons/IconMovies';
 import IconMusic from '../../../../icons/IconMusic';
 import { fakeKeywords } from '../../../../test/mockDataUtils';
 import {
+  act,
   configure,
   render,
   screen,
   userEvent,
-  waitFor,
 } from '../../../../test/testUtils';
 import { EVENT_CATEGORIES } from '../../../eventSearch/constants';
 import LandingPageSearchSection, {
@@ -109,7 +109,7 @@ test('should route to event search page with correct search query after clicking
   // Check that auto-suggest menu is open
   expect(screen.getByText(/hakuehdotuksia/i)).toBeInTheDocument();
 
-  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe('/fi/events');
   expect(history.location.search).toBe(`?text=${searchValue}`);
 });
@@ -122,12 +122,9 @@ test('should route to event search page after clicking autosuggest menu item', a
   });
   userEvent.type(searchInput, searchValue);
 
-  // Wait autosuggest search internal input debounce
-  await waitFor(() => {
-    screen.getByRole('option', { name: /musiikkiklubit/i });
-  });
+  const option = await screen.findByRole('option', { name: /musiikkiklubit/i });
 
-  userEvent.click(screen.getByRole('option', { name: /musiikkiklubit/i }));
+  act(() => userEvent.click(option));
   expect(history.location.pathname).toBe('/fi/events');
   expect(history.location.search).toBe(`?text=musiikkiklubit`);
 });

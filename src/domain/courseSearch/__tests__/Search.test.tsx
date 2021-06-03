@@ -13,12 +13,12 @@ import {
   fakePlaces,
 } from '../../../test/mockDataUtils';
 import {
+  act,
   actWait,
   configure,
   render,
   screen,
   userEvent,
-  waitFor,
 } from '../../../test/testUtils';
 import Search from '../Search';
 
@@ -82,7 +82,7 @@ afterAll(() => {
   clear();
 });
 
-test('test for accessibility violations', async () => {
+test('for accessibility violations', async () => {
   const { container } = renderComponent();
 
   await actWait();
@@ -100,11 +100,11 @@ test('should clear all filters and search field', async () => {
   const searchInput = screen.getByRole('textbox', { name: /mitä etsit\?/i });
   userEvent.type(searchInput, searchValue);
 
-  await waitFor(() => {
-    screen.getByRole('option', { name: /musiikkiklubit/i });
-  });
+  await screen.findByRole('option', { name: /musiikkiklubit/i });
 
-  userEvent.click(screen.getByRole('button', { name: /tyhjennä hakuehdot/i }));
+  act(() =>
+    userEvent.click(screen.getByRole('button', { name: /tyhjennä hakuehdot/i }))
+  );
 
   expect(searchInput).toHaveValue('');
   expect(history.location.pathname).toBe(pathname);
@@ -117,17 +117,16 @@ test('should change search query after clicking autosuggest menu item', async ()
   const searchInput = screen.getByRole('textbox', { name: /mitä etsit\?/i });
   userEvent.type(searchInput, searchValue);
 
-  await waitFor(() => {
-    screen.getByRole('option', { name: /musiikkiklubit/i });
-  });
-
-  userEvent.click(screen.getByRole('option', { name: /musiikkiklubit/i }));
+  const option = await screen.findByRole('option', { name: /musiikkiklubit/i });
+  act(() => userEvent.click(option));
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe(`?text=jazz,musiikkiklubit`);
 
   //  Should add menu item only once
   userEvent.type(searchInput, searchValue);
-  userEvent.click(screen.getByRole('option', { name: /musiikkiklubit/i }));
+  act(() =>
+    userEvent.click(screen.getByRole('option', { name: /musiikkiklubit/i }))
+  );
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe(`?text=jazz,musiikkiklubit`);
 });
@@ -142,7 +141,7 @@ test('should change search query after selecting today date type and pressing su
   userEvent.click(chooseDateButton);
   userEvent.click(screen.getByRole('checkbox', { name: /tänään/i }));
 
-  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe('?dateTypes=today&text=jazz');
 });
@@ -161,9 +160,13 @@ test('should change search query after selecting start date and pressing submit 
     // which is hidden using css
     screen.getAllByRole('button', { name: /valitse päivät/i })[0]
   );
-  userEvent.click(screen.getByRole('option', { name: /day-6/i }));
+  userEvent.click(
+    screen.getByRole('button', {
+      name: /Valitse tiistaina 6\. lokakuuta 2020/i,
+    })
+  );
 
-  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
 
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe('?text=jazz&start=2020-10-06');
@@ -192,7 +195,7 @@ test('should change search query after clicking category menu item', async () =>
   userEvent.click(chooseCategoryButton);
   userEvent.click(screen.getByRole('checkbox', { name: /elokuva/i }));
 
-  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe('?categories=movie_and_media&text=jazz');
 });
@@ -207,7 +210,7 @@ test('should change search query after clicking hobby type menu item', async () 
   userEvent.click(chooseHobbyTypeButton);
   userEvent.click(screen.getByRole('checkbox', { name: /kerhot/i }));
 
-  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe('?hobbyTypes=clubs&text=jazz');
 
@@ -215,7 +218,7 @@ test('should change search query after clicking hobby type menu item', async () 
   userEvent.click(chooseHobbyTypeButton);
   userEvent.click(screen.getByRole('checkbox', { name: /leirit/i }));
   userEvent.click(screen.getByRole('checkbox', { name: /retket/i }));
-  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe(
     '?hobbyTypes=clubs,camps,trips&text=jazz'
@@ -236,7 +239,7 @@ test('should change search query after clicking age limit menu item', async () =
   const minAge = '10';
   userEvent.type(minAgeInput, minAge);
 
-  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe('?text=jazz&audienceMinAgeGt=10');
 
@@ -248,7 +251,7 @@ test('should change search query after clicking age limit menu item', async () =
   const maxAge = '20';
   userEvent.type(maxAgeInput, maxAge);
 
-  userEvent.click(screen.getByRole('button', { name: /hae/i }));
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe(
     '?text=jazz&audienceMinAgeGt=10&audienceMaxAgeLt=20'

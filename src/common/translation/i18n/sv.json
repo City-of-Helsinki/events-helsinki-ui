@@ -31,7 +31,12 @@
         "buttonClose": "Stäng",
         "buttonCustom": "Välj datum"
       },
-      "title": "Välj tidpunkt"
+      "title": "Välj tidpunkt",
+      "accessibility": {
+        "chooseDayPrefix": "Välja",
+        "nextMonth": "Nästa månad",
+        "previousMonth": "Förra månaden"
+      }
     },
     "dropdown": {
       "menu": {
@@ -200,7 +205,7 @@
     "title": "Laddar evenemang..."
   },
   "course": {
-    "info":{
+    "info": {
       "linkSearchByPublisher": "Se utgivarens övriga hobbyer"
     }
   },

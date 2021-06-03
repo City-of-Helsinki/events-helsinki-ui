@@ -60,12 +60,13 @@ const DateSelector: FunctionComponent<DateSelectorProps> = ({
 
   const handleDocumentClick = React.useCallback(
     (event: MouseEvent) => {
-      const target = event.target;
+      const target = event.target as HTMLElement;
       const current = dateSelector.current;
 
       // Close menu when clicking outside of the component
       if (!(target instanceof Node && current?.contains(target))) {
-        ensureMenuIsClosed();
+        // target might not be part of dom anymore
+        target?.isConnected && ensureMenuIsClosed();
       }
     },
     [ensureMenuIsClosed]
@@ -107,7 +108,7 @@ const DateSelector: FunctionComponent<DateSelectorProps> = ({
     setIsMenuOpen(!isMenuOpen);
   };
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     document.addEventListener('click', handleDocumentClick);
     document.addEventListener('keydown', handleDocumentKeyDown);
     document.addEventListener('focusin', handleDocumentFocusin);

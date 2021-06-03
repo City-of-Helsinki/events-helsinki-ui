@@ -37,15 +37,10 @@ it('should render correct sizes collection cards for mdAndSm layout', () => {
   render(<CollectionCards collections={collectionsData} layout="mdAndSm" />);
 
   collectionsData.forEach((collection, index) => {
+    const isMdSize = index % 5 === 0 || index % 5 === 4;
     expect(screen.getByText(collection.title.fi)).toBeInTheDocument();
-    if (index % 5 === 0 || index % 5 === 4) {
-      expect(
-        screen.getByRole('link', { name: new RegExp(collection.title.fi, 'i') })
-      ).toHaveClass('mdSize');
-    } else {
-      expect(
-        screen.getByRole('link', { name: new RegExp(collection.title.fi, 'i') })
-      ).toHaveClass('smSize');
-    }
+    expect(
+      screen.getByRole('link', { name: new RegExp(collection.title.fi, 'i') })
+    ).toHaveClass(isMdSize ? 'mdSize' : 'smSize');
   });
 });

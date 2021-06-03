@@ -8,6 +8,7 @@ import {
   render,
   screen,
   userEvent,
+  waitFor,
 } from '../../../../test/testUtils';
 import translations from '../../../translation/i18n/fi.json';
 import DateSelector, { DateSelectorProps } from '../DateSelector';
@@ -31,15 +32,17 @@ const renderComponent = (props?: Partial<DateSelectorProps>) =>
 test('should render selected date types when single option is selected', () => {
   renderComponent({ dateTypes: [DATE_TYPES.TODAY] });
 
-  expect(screen.getByText(translations.commons.dateSelector.dateTypeToday));
+  expect(
+    screen.queryByText(translations.commons.dateSelector.dateTypeToday)
+  ).toBeInTheDocument();
 });
 
 test('should render selected date types when multiple options are selected', () => {
   renderComponent({ dateTypes: [DATE_TYPES.TOMORROW, DATE_TYPES.TODAY] });
 
   expect(
-    screen.getByText(`${translations.commons.dateSelector.dateTypeToday} + 1`)
-  );
+    screen.queryByText(`${translations.commons.dateSelector.dateTypeToday} + 1`)
+  ).toBeInTheDocument();
 });
 
 test('should add date type', () => {
@@ -65,7 +68,7 @@ test('should add date type', () => {
   expect(onChangeDateTypes).toBeCalledWith([DATE_TYPES.TODAY]);
 });
 
-test('should call toggleIsCustomDate function ', async () => {
+test('should call toggleIsCustomDate function', async () => {
   const toggleIsCustomDate = jest.fn();
   renderComponent({
     dateTypes: [],
@@ -123,20 +126,22 @@ describe('should open menu with', () => {
 
     escKeyPressHelper();
 
-    expect(screen.queryByTestId(testIds.menu)).not.toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.queryByTestId(testIds.menu)).not.toBeInTheDocument()
+    );
     expect(toggleButton).toHaveFocus();
   };
 
-  test('ArrowDown', () => {
-    getClosedMenu();
+  test('ArrowDown', async () => {
+    await getClosedMenu();
 
     arrowDownKeyPressHelper();
 
     expect(screen.queryByTestId(testIds.menu)).toBeInTheDocument();
   });
 
-  test('ArrowUp', () => {
-    getClosedMenu();
+  test('ArrowUp', async () => {
+    await getClosedMenu();
 
     arrowUpKeyPressHelper();
 

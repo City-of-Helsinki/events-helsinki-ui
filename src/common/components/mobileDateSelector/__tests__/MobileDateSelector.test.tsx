@@ -1,4 +1,3 @@
-import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -7,6 +6,9 @@ import {
   arrowDownKeyPressHelper,
   arrowUpKeyPressHelper,
   escKeyPressHelper,
+  render,
+  screen,
+  waitFor,
 } from '../../../../test/testUtils';
 import MobileDateSelector from '../MobileDateSelector';
 import { testIds } from '../MobileDateSelectorMenu';
@@ -29,7 +31,7 @@ const defaultProps = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const renderComponent = (props) =>
+const renderComponent = (props?) =>
   render(<MobileDateSelector {...defaultProps} {...props} />);
 
 test('should have correct date types selected', async () => {
@@ -129,14 +131,18 @@ describe('when menu has been closed, it should reopen with', () => {
 
     arrowDownKeyPressHelper();
 
-    expect(screen.getByTestId(testIds.menu)).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByTestId(testIds.menu)).toBeInTheDocument()
+    );
   });
 
-  test('ArrowUp', () => {
+  test('ArrowUp', async () => {
     renderClosedMenu();
 
     arrowUpKeyPressHelper();
 
-    expect(screen.getByTestId(testIds.menu)).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByTestId(testIds.menu)).toBeInTheDocument()
+    );
   });
 });

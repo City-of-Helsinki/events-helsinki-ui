@@ -7,6 +7,7 @@ import sv from 'date-fns/locale/sv';
 import max from 'lodash/max';
 import React, { FunctionComponent } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
+import { useTranslation } from 'react-i18next';
 
 import { DATE_PICKER_INPUT_STATE } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
@@ -34,6 +35,7 @@ const DateRangePicker: FunctionComponent<DateRangePickerProps> = ({
   startDate,
 }) => {
   // References to input fields to set focus
+  const { t } = useTranslation();
   const datePicker = React.useRef(null);
   const endDateRef = React.useRef<HTMLInputElement>(null);
   const startDateRef = React.useRef<HTMLInputElement>(null);
@@ -134,10 +136,16 @@ const DateRangePicker: FunctionComponent<DateRangePickerProps> = ({
         ref={datePicker}
         locale={locale}
         minDate={max([new Date(), startDate])}
-        inlineFocusSelectedMonth={false}
         selectsStart={true}
         selectsEnd={true}
         selected={selectedDate}
+        chooseDayAriaLabelPrefix={t(
+          'commons.dateSelector.accessibility.chooseDayPrefix'
+        )}
+        previousMonthButtonLabel={t(
+          'commons.dateSelector.accessibility.previousMonth'
+        )}
+        nextMonthButtonLabel={t('commons.dateSelector.accessibility.nextMonth')}
         // Inline datepicker doesn't have field so keep datepicker alway open instead
         open
         popperClassName={'react-datepicker__no-popper'}

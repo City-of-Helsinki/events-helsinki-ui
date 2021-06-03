@@ -37,13 +37,11 @@ test('should show similar collections', async () => {
   });
 
   // Should hide current collection from the list
-  collectionNames.forEach((name, index) => {
-    if (index === 0) {
-      // Current collection should not be in the list
-      expect(screen.queryByText(name)).not.toBeInTheDocument();
-    } else {
-      expect(screen.getByText(name)).toBeInTheDocument();
-    }
+  expect(screen.queryByText(collectionNames[0])).not.toBeInTheDocument();
+
+  // rest should be visible
+  collectionNames.slice(1).forEach((name) => {
+    expect(screen.getByText(name)).toBeInTheDocument();
   });
 });
 
