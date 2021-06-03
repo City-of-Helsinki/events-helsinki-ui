@@ -10,6 +10,8 @@ import ResetFocus from './resetFocus/ResetFocus';
 import AppRoutes from './routes/AppRoutes';
 import ScrollToTop from './scrollToTop/ScrollToTop';
 
+// accessibility audit environent ;D
+
 const App: React.FC = () => {
   return (
     <>
