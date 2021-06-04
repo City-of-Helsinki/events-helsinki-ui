@@ -1,8 +1,4 @@
-import {
-  IconAngleDown,
-  IconAngleUp,
-  IconCalendarPlus,
-} from 'hds-react';
+import { IconAngleDown, IconAngleUp, IconCalendarPlus } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -19,11 +15,13 @@ const EVENTS_LIST_LIMIT = 3;
 
 export const otherEventTimesListTestId = 'other-event-times-list';
 
-const OtherEventTimes: React.FC<{event: EventFields;}> = ({ event }) => {
+const OtherEventTimes: React.FC<{ event: EventFields }> = ({ event }) => {
   const { t } = useTranslation();
   const [isListOpen, setIsListOpen] = React.useState(false);
 
-  const { superEventId, loading, events, isFetchingMore } = useOtherEventTimes(event);
+  const { superEventId, loading, events, isFetchingMore } = useOtherEventTimes(
+    event
+  );
 
   if (!superEventId) return null;
 
@@ -54,10 +52,7 @@ const OtherEventTimes: React.FC<{event: EventFields;}> = ({ event }) => {
         icon={<IconCalendarPlus aria-hidden />}
         title={t('event.otherTimes.title')}
       >
-        <EventTimeList
-          id={otherEventTimesListTestId}
-          events={shownEvents}
-        />
+        <EventTimeList id={otherEventTimesListTestId} events={shownEvents} />
         {events.length > EVENTS_LIST_LIMIT && (
           <button
             className={linkStyles.link}

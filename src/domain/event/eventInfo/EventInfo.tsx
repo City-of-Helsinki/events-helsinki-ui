@@ -81,7 +81,7 @@ const EventInfo: React.FC<Props> = ({ event, eventType, superEvent }) => {
         <SuperEvent superEvent={superEvent} />
         <SubEvents event={event} />
         <OtherEventTimes event={event} />
-        {(audienceMinAge || audienceMaxAge) && (
+        {eventType !== 'event' && (audienceMinAge || audienceMaxAge) && (
           <AudienceAgeLimitations
             audienceMinAge={audienceMinAge}
             audienceMaxAge={audienceMaxAge}
