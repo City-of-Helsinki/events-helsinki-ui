@@ -77,7 +77,7 @@ export const EventTimeList: React.FC<{
             })
           : '';
         return (
-          <li key={event.id}>
+          <li key={`eventTimeList-${event.id}`}>
             <button
               className={styles.listButton}
               // Events can have different event type id than it's super event or sibling has - purposely or accidentally.

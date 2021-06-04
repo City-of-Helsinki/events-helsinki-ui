@@ -13,6 +13,7 @@ import {
   CollectionListResponse,
   EventDetails,
   EventListResponse,
+  EventTypeId,
   ExternalLink,
   Image,
   InLanguage,
@@ -78,6 +79,7 @@ export const fakeEvent = (overrides?: Partial<EventDetails>): EventDetails => {
       remainingAttendeeCapacity: 5,
       audienceMinAge: '5',
       audienceMaxAge: '15',
+      typeId: EventTypeId.General,
       __typename: 'EventDetails',
     },
     overrides

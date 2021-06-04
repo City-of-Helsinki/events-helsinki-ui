@@ -3,7 +3,9 @@ import React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import {
+  EventDetailsDocument,
   EventFieldsFragment,
+  EventTypeId,
   OrganizationDetailsDocument,
 } from '../../../../generated/graphql';
 import {
@@ -21,6 +23,7 @@ import {
   userEvent,
   waitFor,
 } from '../../../../test/testUtils';
+import { EVENT_SORT_OPTIONS } from '../../../eventSearch/constants';
 import { EventType } from '../../types';
 import EventInfo from '../EventInfo';
 configure({ defaultHidden: true });
@@ -32,18 +35,6 @@ const organization = fakeOrganization({
   name: organizationName,
 });
 const organizationResponse = { data: { organizationDetails: organization } };
-
-const mocks = [
-  {
-    request: {
-      query: OrganizationDetailsDocument,
-      variables: {
-        id: organizationId,
-      },
-    },
-    result: organizationResponse,
-  },
-];
 
 const startTime = '2020-06-22T07:00:00.000000Z';
 const endTime = '2020-06-22T10:00:00.000000Z';
@@ -85,6 +76,43 @@ const event = fakeEvent({
     fakeTargetGroup({ name: fakeLocalizedObject(targetGroup) })
   ),
 }) as EventFieldsFragment;
+
+const mocks = [
+  {
+    request: {
+      query: OrganizationDetailsDocument,
+      variables: {
+        id: organizationId,
+      },
+    },
+    result: organizationResponse,
+  },
+  {
+    request: {
+      query: EventDetailsDocument,
+      variables: {
+        sort: EVENT_SORT_OPTIONS.START_TIME,
+        start: 'now',
+        superEvent: event.id,
+
+        eventType: [EventTypeId.General, EventTypeId.Course],
+      },
+    },
+    result: organizationResponse,
+  },
+  {
+    request: {
+      query: EventDetailsDocument,
+      variables: {
+        sort: EVENT_SORT_OPTIONS.START_TIME,
+        start: 'now',
+        superEvent: event.id,
+        eventType: [EventTypeId.General, EventTypeId.Course],
+      },
+    },
+    result: organizationResponse,
+  },
+];
 
 it('should render event info fields', async () => {
   render(<EventInfo event={event} eventType="event" />, { mocks });

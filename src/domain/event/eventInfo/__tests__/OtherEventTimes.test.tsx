@@ -12,6 +12,7 @@ import {
   EventFieldsFragment,
   EventListQueryVariables,
   EventListResponse,
+  EventTypeId,
   Meta,
 } from '../../../../generated/graphql';
 import {
@@ -22,7 +23,7 @@ import { fakeEvent, fakeEvents } from '../../../../test/mockDataUtils';
 import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
 import { EventType } from '../../types';
-import OtherEventTimes from '../otherEventTimes/OtherEventTimes';
+import OtherEventTimes from '../OtherEventTimes';
 
 const startTime = '2020-10-01T16:00:00Z';
 const endTime = '2020-10-01T18:00:00Z';
@@ -30,8 +31,13 @@ const endTime = '2020-10-01T18:00:00Z';
 const superEventId = 'hel:123';
 const superEventInternalId = `https://api.hel.fi/linkedevents/v1/event/${superEventId}`;
 
-const event = fakeEvent({
+const generalEvent = fakeEvent({
   superEvent: { internalId: superEventInternalId },
+  typeId: EventTypeId.General,
+}) as EventFieldsFragment;
+
+const courseEvent = Object.assign({}, generalEvent, {
+  typeId: EventTypeId.Course,
 }) as EventFieldsFragment;
 
 const meta: Meta = {
@@ -132,12 +138,11 @@ afterAll(() => {
 
 const renderComponent = ({
   mocks = defaultMocks,
-  eventType = 'event',
+  event = generalEvent,
 }: {
   mocks?: MockedResponse[];
-  eventType?: EventType;
-} = {}) =>
-  render(<OtherEventTimes event={event} eventType={eventType} />, { mocks });
+  event?: EventFieldsFragment;
+} = {}) => render(<OtherEventTimes event={event} />, { mocks });
 
 const getDateRangeStrProps = (event: EventDetails) => ({
   start: event.startTime,
@@ -148,9 +153,9 @@ const getDateRangeStrProps = (event: EventDetails) => ({
 });
 
 describe('events', () => {
-  test('should render other event times', async () => {
+  test.only('should render other event times', async () => {
     advanceTo(new Date('2020-08-11'));
-    renderComponent();
+    renderComponent({ event: courseEvent });
     await testOtherEventTimes();
   });
 
@@ -172,7 +177,7 @@ describe('events', () => {
 describe('courses', () => {
   test('should render other course times', async () => {
     advanceTo(new Date('2020-08-11'));
-    renderComponent({ eventType: 'course' });
+    renderComponent({ event: courseEvent });
     await testOtherEventTimes();
   });
 
@@ -180,13 +185,13 @@ describe('courses', () => {
     toast.error = jest.fn();
     advanceTo(new Date('2020-08-11'));
     const mocks = [firstCourseLoadMock, secondCoursePageLoadThrowsErrorMock];
-    renderComponent({ eventType: 'course', mocks });
+    renderComponent({ event: courseEvent, mocks });
     await testToaster();
   });
 
   test('should go to course page of other course time', async () => {
     advanceTo(new Date('2020-08-11'));
-    const { history } = renderComponent({ eventType: 'course' });
+    const { history } = renderComponent({ event: courseEvent });
     await testNavigation(history, '/fi/courses/');
   });
 });
@@ -197,7 +202,6 @@ async function testOtherEventTimes() {
       screen.queryByTestId('skeleton-loader-wrapper')
     ).not.toBeInTheDocument();
   });
-
   otherEventsResponse.data.slice(0, 3).forEach((event) => {
     const dateStr = getDateRangeStr(getDateRangeStrProps(event));
     expect(screen.getByText(dateStr)).toBeInTheDocument();
