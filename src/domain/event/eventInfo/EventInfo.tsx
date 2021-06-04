@@ -67,9 +67,9 @@ const EventInfo: React.FC<Props> = ({ event, eventType, superEvent }) => {
     telephone,
     audience,
   } = getEventFields(event, locale);
-  
+
   const { audienceMinAge, audienceMaxAge } = event;
-  
+
   const showOtherInfo = Boolean(
     email || externalLinks.length || infoUrl || telephone
   );
@@ -81,17 +81,17 @@ const EventInfo: React.FC<Props> = ({ event, eventType, superEvent }) => {
         <SuperEvent superEvent={superEvent} />
         <SubEvents event={event} />
         <OtherEventTimes event={event} />
-        {(audienceMinAge || audienceMaxAge) && <AudienceAgeLimitations audienceMinAge={audienceMinAge} audienceMaxAge={audienceMaxAge} eventType={eventType} />}
-        <LocationInfo event={event}/>
-        {!!audience.length && (
-          <Audience audience={audience} />
+        {(audienceMinAge || audienceMaxAge) && (
+          <AudienceAgeLimitations
+            audienceMinAge={audienceMinAge}
+            audienceMaxAge={audienceMaxAge}
+            eventType={eventType}
+          />
         )}
-        {!!languages.length && (
-          <Languages languages={languages} />
-        )}
-        {showOtherInfo && (
-          <OtherInfo event={event}/>
-        )}
+        <LocationInfo event={event} />
+        {!!audience.length && <Audience audience={audience} />}
+        {!!languages.length && <Languages languages={languages} />}
+        {showOtherInfo && <OtherInfo event={event} />}
         <Directions event={event} />
         <OrganizationInfo event={event} eventType={eventType} />
         <PriceInfo event={event} />
@@ -100,7 +100,10 @@ const EventInfo: React.FC<Props> = ({ event, eventType, superEvent }) => {
   );
 };
 
-const DateInfo: React.FC<{event: EventFields, eventType: EventType}> = ({ event, eventType }) => {
+const DateInfo: React.FC<{ event: EventFields; eventType: EventType }> = ({
+  event,
+  eventType,
+}) => {
   const { t } = useTranslation();
   const locale = useLocale();
 
@@ -145,7 +148,7 @@ const DateInfo: React.FC<{event: EventFields, eventType: EventType}> = ({ event,
       });
     }
   };
-  
+
   return (
     <InfoWithIcon
       icon={<IconCalendarClock aria-hidden />}
@@ -167,22 +170,28 @@ const DateInfo: React.FC<{event: EventFields, eventType: EventType}> = ({ event,
         </>
       )}
     </InfoWithIcon>
-  )
-} 
+  );
+};
 
-const AudienceAgeLimitations: React.FC<{audienceMinAge: Maybe<string> | undefined, audienceMaxAge: Maybe<string> | undefined, eventType: EventType}> = ({ audienceMinAge, audienceMaxAge, eventType }) => {
+const AudienceAgeLimitations: React.FC<{
+  audienceMinAge: Maybe<string> | undefined;
+  audienceMaxAge: Maybe<string> | undefined;
+  eventType: EventType;
+}> = ({ audienceMinAge, audienceMaxAge, eventType }) => {
   const { t } = useTranslation();
 
-  const audienceAge = eventType === 'course' && getAudienceAgeText(t, audienceMinAge, audienceMaxAge);
+  const audienceAge =
+    eventType === 'course' &&
+    getAudienceAgeText(t, audienceMinAge, audienceMaxAge);
 
   return (
     <InfoWithIcon icon={<IconCake />} title={t('event.info.labelAge')}>
       {audienceAge}
     </InfoWithIcon>
-  )
-}
+  );
+};
 
-const LocationInfo: React.FC<{event: EventFields}> = ({ event }) => {
+const LocationInfo: React.FC<{ event: EventFields }> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const {
@@ -192,51 +201,47 @@ const LocationInfo: React.FC<{event: EventFields}> = ({ event }) => {
     streetAddress,
   } = getEventFields(event, locale);
 
-    const serviceMapUrl = getServiceMapUrl(event, locale, false);
-
-    return (
-      <InfoWithIcon
-        icon={<IconLocation aria-hidden />}
-        title={t('event.info.labelLocation')}
-      >
-        <Visible below="sm">
-          {[locationName, streetAddress, district, addressLocality]
-            .filter((e) => e)
-            .join(', ')}
-        </Visible>
-        <Visible above="sm">
-          {[locationName, streetAddress, district, addressLocality]
-            .filter((e) => e)
-            .map((item) => {
-              return <div key={item}>{item}</div>;
-            })}
-        </Visible>
-        {serviceMapUrl && (
-          <Link isExternal={true} to={serviceMapUrl}>
-            {t('event.info.openMap')}
-          </Link>
-        )}
-      </InfoWithIcon>
-    )
-}
-
-const Audience: React.FC<{audience:KeywordOption[]}> = ({ audience }) => {
-  const { t } = useTranslation();
+  const serviceMapUrl = getServiceMapUrl(event, locale, false);
 
   return (
     <InfoWithIcon
-      icon={<IconGroup />}
-      title={t('event.info.labelAudience')}
+      icon={<IconLocation aria-hidden />}
+      title={t('event.info.labelLocation')}
     >
+      <Visible below="sm">
+        {[locationName, streetAddress, district, addressLocality]
+          .filter((e) => e)
+          .join(', ')}
+      </Visible>
+      <Visible above="sm">
+        {[locationName, streetAddress, district, addressLocality]
+          .filter((e) => e)
+          .map((item) => {
+            return <div key={item}>{item}</div>;
+          })}
+      </Visible>
+      {serviceMapUrl && (
+        <Link isExternal={true} to={serviceMapUrl}>
+          {t('event.info.openMap')}
+        </Link>
+      )}
+    </InfoWithIcon>
+  );
+};
+
+const Audience: React.FC<{ audience: KeywordOption[] }> = ({ audience }) => {
+  const { t } = useTranslation();
+
+  return (
+    <InfoWithIcon icon={<IconGroup />} title={t('event.info.labelAudience')}>
       {audience.map((item) => (
         <div key={item.id}>{item.name}</div>
       ))}
     </InfoWithIcon>
-  )
-}
+  );
+};
 
-
-const Languages: React.FC<{languages: string[]}> = ({ languages }) => {
+const Languages: React.FC<{ languages: string[] }> = ({ languages }) => {
   const { t } = useTranslation();
 
   return (
@@ -246,11 +251,11 @@ const Languages: React.FC<{languages: string[]}> = ({ languages }) => {
     >
       <div>{languages.join(', ')}</div>
     </InfoWithIcon>
-  )
-} 
+  );
+};
 
 const OtherInfo: React.FC<{
-  event: EventFields
+  event: EventFields;
 }> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
@@ -284,30 +289,26 @@ const OtherInfo: React.FC<{
           !!externalLink.link &&
           externalLink.link !== registrationUrl && (
             <Link key={index} isExternal={true} to={externalLink.link}>
-              {translateValue(
-                'event.info.',
-                externalLink.name as string,
-                t
-              )}
+              {translateValue('event.info.', externalLink.name as string, t)}
             </Link>
           )
         );
       })}
     </InfoWithIcon>
-  )
-}
+  );
+};
 
 const Directions: React.FC<{
-  event: EventFields
+  event: EventFields;
 }> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
 
-  const {
-    googleDirectionsLink,
-    hslDirectionsLink,
-  } = getEventFields(event, locale);
-  
+  const { googleDirectionsLink, hslDirectionsLink } = getEventFields(
+    event,
+    locale
+  );
+
   return (
     <InfoWithIcon
       icon={<IconDirections aria-hidden />}
@@ -320,47 +321,47 @@ const Directions: React.FC<{
         {t('event.info.directionsHSL')}
       </Link>
     </InfoWithIcon>
-  )
-}
+  );
+};
 
-const PriceInfo: React.FC<{event: EventFields}> = ({ event }) => {
-    const { t } = useTranslation();
-    const locale = useLocale();
-    const eventPriceText = getEventPrice(
-      event,
-      locale,
-      t('event.info.offers.isFree')
-    );
-    const { offerInfoUrl } = getEventFields(event, locale);
-    const moveToBuyTicketsPage = () => {
-      window.open(offerInfoUrl);
-    };
-    return (
-      <>
-        {/* Price info */}
-        <Visible below="sm">
-          <InfoWithIcon
-            icon={<IconTicket aria-hidden />}
-            title={t('event.info.labelPrice')}
+const PriceInfo: React.FC<{ event: EventFields }> = ({ event }) => {
+  const { t } = useTranslation();
+  const locale = useLocale();
+  const eventPriceText = getEventPrice(
+    event,
+    locale,
+    t('event.info.offers.isFree')
+  );
+  const { offerInfoUrl } = getEventFields(event, locale);
+  const moveToBuyTicketsPage = () => {
+    window.open(offerInfoUrl);
+  };
+  return (
+    <>
+      {/* Price info */}
+      <Visible below="sm">
+        <InfoWithIcon
+          icon={<IconTicket aria-hidden />}
+          title={t('event.info.labelPrice')}
+        >
+          {eventPriceText || '-'}
+        </InfoWithIcon>
+      </Visible>
+
+      {offerInfoUrl && (
+        <Visible below="sm" className={styles.buyButtonWrapper}>
+          <Button
+            aria-label={t('event.info.ariaLabelBuyTickets')}
+            fullWidth={true}
+            onClick={moveToBuyTicketsPage}
+            variant="success"
           >
-            {eventPriceText || '-'}
-          </InfoWithIcon>
+            {t('event.info.buttonBuyTickets')}
+          </Button>
         </Visible>
-
-        {offerInfoUrl && (
-          <Visible below="sm" className={styles.buyButtonWrapper}>
-            <Button
-              aria-label={t('event.info.ariaLabelBuyTickets')}
-              fullWidth={true}
-              onClick={moveToBuyTicketsPage}
-              variant="success"
-            >
-              {t('event.info.buttonBuyTickets')}
-            </Button>
-          </Visible>
-        )}
-      </>
-    )
-}
+      )}
+    </>
+  );
+};
 
 export default EventInfo;

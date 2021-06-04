@@ -92,7 +92,7 @@ const SuperEvent: React.FC<{ superEvent: SuperEventResponse | undefined }> = ({
 }) => {
   const { t } = useTranslation();
 
-  if (!superEvent || !superEvent.data) return null;
+  if (!superEvent?.data) return null;
 
   if (superEvent?.status === 'pending') return <SkeletonLoader />;
 

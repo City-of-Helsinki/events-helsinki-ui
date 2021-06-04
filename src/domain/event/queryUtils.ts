@@ -73,27 +73,23 @@ export const useSimilarEventsQuery = (
 };
 
 const useOtherEventTimesVariables = (event: EventFields) => {
-  const superEventId = React.useMemo(
-    () => getEventIdFromUrl(event.superEvent?.internalId || '', 'event'),
-    [event.superEvent]
+  const superEventId = getEventIdFromUrl(
+    event.superEvent?.internalId || '',
+    'event'
   );
 
-  const variables = React.useMemo(
-    (): EventListQueryVariables => ({
-      // include: ['keywords', 'location'],
-      sort: EVENT_SORT_OPTIONS.START_TIME,
-      start: 'now',
-      superEvent: superEventId,
-      /* 
-      Since LE v2 is listing general type of events 
-      when no event type is given as a parameter,
-      this needs a list of eventTypes
-      or otherwise some events or courses are always excluded.
-      */
-      eventType: [EventTypeId.General, EventTypeId.Course] //event.typeId
-    }),
-    [superEventId]
-  );
+  const variables = {
+    sort: EVENT_SORT_OPTIONS.START_TIME,
+    start: 'now',
+    superEvent: superEventId,
+    /* 
+    Since LE v2 is listing general type of events 
+    when no event type is given as a parameter,
+    this needs a list of eventTypes
+    or otherwise some events or courses are always excluded.
+    */
+    eventType: [EventTypeId.General, EventTypeId.Course], //event.typeId
+  };
 
   return { superEventId, variables };
 };
@@ -101,26 +97,21 @@ const useOtherEventTimesVariables = (event: EventFields) => {
 export const useSubEventsQueryVariables = (
   event: EventFields
 ): { superEventId: string | undefined; variables: EventListQueryVariables } => {
-  const variables = React.useMemo(
-    (): EventListQueryVariables => ({
-      // include: ['keywords', 'location'],
-      sort: EVENT_SORT_OPTIONS.START_TIME,
-      start: 'now',
-      superEvent: event.id,
-      /* 
+  const variables = {
+    sort: EVENT_SORT_OPTIONS.START_TIME,
+    start: 'now',
+    superEvent: event.id,
+    /* 
       Since LE v2 is listing general type of events 
       when no event type is given as a parameter,
       this needs a list of eventTypes
       or otherwise some events or courses are always excluded.
       */
-      eventType: [EventTypeId.General, EventTypeId.Course] //event.typeId
-    }),
-    [event.id]
-  );
+    eventType: [EventTypeId.General, EventTypeId.Course], //event.typeId
+  };
 
   return { superEventId: event.id, variables };
 };
-
 export const useSubEvents = (
   event: EventFields,
   variables: EventListQueryVariables,
