@@ -14,9 +14,15 @@ import { matchPath } from 'react-router';
 
 import { Meta, QueryEventListArgs } from '../../../src/generated/graphql';
 import { DATE_TYPES } from '../../constants';
+import IconArt from '../../icons/IconArt';
+import IconCamp from '../../icons/IconCamp';
+import IconCraft from '../../icons/IconCraft';
 import IconCultureAndArts from '../../icons/IconCultureAndArts';
 import IconDance from '../../icons/IconDance';
 import IconFood from '../../icons/IconFood';
+import IconGames from '../../icons/IconGames';
+import IconLanguages from '../../icons/IconLanguages';
+import IconLiterature from '../../icons/IconLiterature';
 import IconMovies from '../../icons/IconMovies';
 import IconMuseum from '../../icons/IconMuseum';
 import IconMusic from '../../icons/IconMusic';
@@ -107,57 +113,57 @@ export const getCourseCategoryOptions = (t: TFunction): CategoryOption[] => [
     value: COURSE_CATEGORIES.MOVIE,
   },
   {
-    icon: <IconMovies />,
+    icon: <IconLanguages />,
     text: t('home.category.courses.languages'),
     value: COURSE_CATEGORIES.LANGUAGES,
   },
   {
-    icon: <IconMovies />,
+    icon: <IconLiterature />,
     text: t('home.category.courses.literature'),
     value: COURSE_CATEGORIES.LITERATURE,
   },
   {
-    icon: <IconMovies />,
+    icon: <IconArt />,
     text: t('home.category.courses.artsAndCulture'),
     value: COURSE_CATEGORIES.ARTS_AND_CULTURE,
   },
   {
-    icon: <IconMovies />,
+    icon: <IconArt />,
     text: t('home.category.courses.visualArts'),
     value: COURSE_CATEGORIES.VISUAL_ARTS,
   },
   {
-    icon: <IconMovies />,
+    icon: <IconCraft />,
     text: t('home.category.courses.handicrafts'),
     value: COURSE_CATEGORIES.HANDICRAFTS,
   },
   {
-    icon: <IconMovies />,
+    icon: <IconSports />,
     text: t('home.category.courses.sport'),
     value: COURSE_CATEGORIES.SPORT,
   },
   {
-    icon: <IconMovies />,
+    icon: <IconMusic />,
     text: t('home.category.courses.music'),
     value: COURSE_CATEGORIES.MUSIC,
   },
   {
-    icon: <IconMovies />,
+    icon: <IconGames />,
     text: t('home.category.courses.games'),
     value: COURSE_CATEGORIES.GAMES,
   },
   {
-    icon: <IconMovies />,
+    icon: <IconFood />,
     text: t('home.category.courses.food'),
     value: COURSE_CATEGORIES.FOOD,
   },
   {
-    icon: <IconMovies />,
+    icon: <IconDance />,
     text: t('home.category.courses.dance'),
     value: COURSE_CATEGORIES.DANCE,
   },
   {
-    icon: <IconMovies />,
+    icon: <IconTheatre />,
     text: t('home.category.courses.theatre'),
     value: COURSE_CATEGORIES.THEATRE,
   },
@@ -175,7 +181,7 @@ export const getCourseHobbyTypeOptions = (t: TFunction): HobbyTypeOption[] => [
     value: COURSE_HOBBY_TYPES.COURSES,
   },
   {
-    icon: <IconMovies />,
+    icon: <IconCamp />,
     text: t('home.hobby.camps'),
     value: COURSE_HOBBY_TYPES.CAMPS,
   },
