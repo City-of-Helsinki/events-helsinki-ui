@@ -102,7 +102,10 @@ const App: FunctionComponent<RouteComponentProps<{
           exact
           path={`/${locale}${ROUTES.COURSE}`}
           component={() => (
-            <EventPageContainer eventType="course" showSimilarEvents />
+            <EventPageContainer
+              eventType="course"
+              showSimilarEvents={isFeatureEnabled('SHOW_SIMILAR_COURSES')}
+            />
           )}
         />
       )}
