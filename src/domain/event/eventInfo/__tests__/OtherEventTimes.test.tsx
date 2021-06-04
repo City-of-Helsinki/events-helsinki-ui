@@ -153,7 +153,7 @@ const getDateRangeStrProps = (event: EventDetails) => ({
 });
 
 describe('events', () => {
-  test.only('should render other event times', async () => {
+  test('should render other event times', async () => {
     advanceTo(new Date('2020-08-11'));
     renderComponent({ event: courseEvent });
     await testOtherEventTimes();

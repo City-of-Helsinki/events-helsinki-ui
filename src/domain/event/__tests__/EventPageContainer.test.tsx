@@ -25,7 +25,7 @@ import {
   waitFor,
 } from '../../../test/testUtils';
 import { ROUTES } from '../../app/routes/constants';
-import { otherEventTimesListTestId } from '../eventInfo/otherEventTimes/OtherEventTimes';
+import { otherEventTimesListTestId } from '../eventInfo/OtherEventTimes';
 import EventPageContainer, {
   EventPageContainerProps,
 } from '../EventPageContainer';

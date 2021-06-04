@@ -45,7 +45,6 @@ export const getOtherEventsVariables = (
   sort: 'start_time',
   start: 'now',
   superEvent,
-  eventType: [EventTypeId.General, EventTypeId.Course]
 });
 
 const createRequest = (
@@ -56,7 +55,7 @@ const createRequest = (
   variables: {
     ...(type === 'event' ? eventListBaseVariables : courseListBaseVariables),
     ...variablesOverride,
-    eventType: [EventTypeId.General, EventTypeId.Course]
+    eventType: type === 'event' ? EventTypeId.General : EventTypeId.Course,
   },
 });
 
@@ -101,6 +100,7 @@ export const createOtherEventTimesRequestAndResultMocks = ({
     variables: {
       ...getOtherEventsVariables(superEventId),
       ...variables,
+      eventType: [EventTypeId.General, EventTypeId.Course]
     },
   },
   result: createResult(response),
@@ -116,6 +116,7 @@ export const createOtherEventTimesRequestThrowsErrorMocks = ({
     variables: {
       ...getOtherEventsVariables(superEventId),
       ...variables,
+      eventType: [EventTypeId.General, EventTypeId.Course]
     },
   },
   error: new Error('not found'),
