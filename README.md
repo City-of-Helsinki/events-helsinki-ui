@@ -28,7 +28,7 @@ Clone the repository (https://github.com/City-of-Helsinki/events-helsinki-api-pr
 
 ### Run events-helsinki-ui
 
-Create `.env.development.local` file and set 
+Create `.env.development.local` file and set
 
     REACT_APP_GRAPHQL_BASE_URL=http://localhost:4000/proxy/graphql
 
@@ -60,17 +60,23 @@ There are 2 feature flags which can be enabled in `.env`:
 
 Features enabled:
 
-- Link to the courses search in the header.
-- Link to the courses search in the footer.
-- Courses search, preview and course pages routes.
-- Updated Banner Hero styles.
-- Curated events component for courses.
+- Similar Events component will be shown in the bottom of Event page.
+
+`REACT_APP_SHOW_SIMILAR_COURSES`:
+
+Features enabled:
+
+- Similar Events component will be shown in the bottom of Course page.
 
 `REACT_APP_EVENTS_HELSINKI_2`:
 
 Features enabled:
 
-- Similar Events component will be shown in the bottom of Events page.
+- Link to the courses search in the header.
+- Link to the courses search in the footer.
+- Courses search, preview and course pages routes.
+- Updated Banner Hero styles.
+- Curated events component for courses.
 
 ## Available Scripts
 
