@@ -231,6 +231,7 @@
       "checkboxIsFree": "Visa endast avgiftsfria",
       "checkboxOnlyChildrenEvents": "Visa endast evenemang för barn",
       "checkboxOnlyEveningEvents": "Visa endast kvällsprogram",
+      "checkboxOnlyRemoteEvents": "Visa bara avlägsna händelser",
       "labelCategory": "Vilken typ av evenemang du letar efter?",
       "labelDateRange": "För vilken period du letar efter?",
       "labelDistrict": "Varifrån letar du efter??",

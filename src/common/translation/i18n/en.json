@@ -231,6 +231,7 @@
       "checkboxIsFree": "Show only events that are free",
       "checkboxOnlyChildrenEvents": "Show only events for children",
       "checkboxOnlyEveningEvents": "Show only evening events",
+      "checkboxOnlyRemoteEvents": "Show only remote events",
       "labelCategory": "What kind of event you are looking for?",
       "labelDateRange": "For what period you are looking for?",
       "labelDistrict": "From where are you looking for?",

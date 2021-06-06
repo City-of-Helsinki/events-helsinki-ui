@@ -74,6 +74,7 @@ const Search: React.FC<Props> = ({
     keywordNot,
     onlyChildrenEvents,
     onlyEveningEvents,
+    onlyRemoteEvents,
     publisher,
   } = getSearchFilters(searchParams);
 
@@ -87,6 +88,7 @@ const Search: React.FC<Props> = ({
     keywordNot,
     onlyChildrenEvents,
     onlyEveningEvents,
+    onlyRemoteEvents,
     places: selectedPlaces,
     publisher,
     start,
@@ -187,6 +189,17 @@ const Search: React.FC<Props> = ({
     const search = getSearchQuery({
       ...searchFilters,
       onlyEveningEvents: e.target.checked,
+    });
+
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
+  };
+
+  const handleOnlyRemoteEventChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const search = getSearchQuery({
+      ...searchFilters,
+      onlyRemoteEvents: e.target.checked,
     });
 
     push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
@@ -347,6 +360,15 @@ const Search: React.FC<Props> = ({
                     id={EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS}
                     label={t('eventSearch.search.checkboxOnlyEveningEvents')}
                     onChange={handleOnlyEveningEventChange}
+                  />
+                </div>
+                <div>
+                  <Checkbox
+                    className={styles.checkbox}
+                    checked={onlyRemoteEvents}
+                    id={EVENT_SEARCH_FILTERS.ONLY_REMOTE_EVENTS}
+                    label={t('eventSearch.search.checkboxOnlyRemoteEvents')}
+                    onChange={handleOnlyRemoteEventChange}
                   />
                 </div>
               </div>

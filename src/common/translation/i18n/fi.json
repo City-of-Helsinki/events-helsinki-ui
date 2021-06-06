@@ -231,6 +231,7 @@
       "checkboxIsFree": "Näytä vain maksuttomat",
       "checkboxOnlyChildrenEvents": "Näytä vain lastentapahtumat",
       "checkboxOnlyEveningEvents": "Näytä vain iltatapahtumat",
+      "checkboxOnlyRemoteEvents": "Näytä vain etätapahtumat",
       "labelCategory": "Millaista haet?",
       "labelDateRange": "Mille ajankohdalle etsit?",
       "labelDistrict": "Mistä etsit?",

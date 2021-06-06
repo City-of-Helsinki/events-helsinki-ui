@@ -235,3 +235,15 @@ test('should change search query after clicking category menu item', async () =>
     '?categories=movie,music,museum&text=jazz'
   );
 });
+
+test('should change search query with remote events checkbox', async () => {
+  const { history } = renderComponent();
+
+  const remoteEventsCheckbox = await screen.findByRole('checkbox', {
+    name: /näytä vain etätapahtumat/i,
+  });
+  userEvent.click(remoteEventsCheckbox);
+
+  expect(history.location.pathname).toBe(pathname);
+  expect(history.location.search).toBe('?onlyRemoteEvents=true&text=jazz');
+});

@@ -91,6 +91,7 @@ export enum EVENT_SEARCH_FILTERS {
   ONLY_CHILDREN_EVENTS = 'onlyChildrenEvents',
   ALSO_ONGOING_COURSES = 'alsoOngoingCourses',
   ONLY_EVENING_EVENTS = 'onlyEveningEvents',
+  ONLY_REMOTE_EVENTS = 'onlyRemoteEvents',
   PAGE = 'page',
   PLACES = 'places',
   PUBLISHER = 'publisher',
