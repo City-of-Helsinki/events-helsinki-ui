@@ -79,7 +79,7 @@ const EventInfo: React.FC<Props> = ({ event, eventType, superEvent }) => {
   Then the so called sibbling events (the events that have the same super event)
   are not wanted to be seen. 
   */
-  const isMiddleLevelEvent = Boolean(superEvent && event.subEvents.length);
+  const isMiddleLevelEvent = Boolean(superEvent && event.subEvents?.length);
 
   return (
     <div className={styles.eventInfo} ref={eventInfoContainer}>

@@ -1,15 +1,23 @@
+import { addDays } from 'date-fns';
 import FileSaver from 'file-saver';
+import { clear } from 'jest-date-mock';
+import { range } from 'lodash';
 import React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
 import {
-  EventDetailsDocument,
+  EventDetails,
   EventFieldsFragment,
+  EventListQueryVariables,
+  EventListResponse,
   EventTypeId,
+  Meta,
   OrganizationDetailsDocument,
 } from '../../../../generated/graphql';
+import { createOtherEventTimesRequestAndResultMocks } from '../../../../test/apollo-mocks/eventListMocks';
 import {
   fakeEvent,
+  fakeEvents,
   fakeLocalizedObject,
   fakeOffer,
   fakeOrganization,
@@ -22,10 +30,12 @@ import {
   screen,
   userEvent,
   waitFor,
+  within,
 } from '../../../../test/testUtils';
-import { EVENT_SORT_OPTIONS } from '../../../eventSearch/constants';
-import { EventType } from '../../types';
+import getDateRangeStr from '../../../../util/getDateRangeStr';
+import { EventType, SuperEventResponse } from '../../types';
 import EventInfo from '../EventInfo';
+import { subEventsListTestId, superEventTestId } from '../EventsHierarchy';
 configure({ defaultHidden: true });
 
 const organizationId = '1';
@@ -36,6 +46,8 @@ const organization = fakeOrganization({
 });
 const organizationResponse = { data: { organizationDetails: organization } };
 
+const superEventId = 'hel:123';
+const superEventInternalId = `https://api.hel.fi/linkedevents/v1/event/${superEventId}`;
 const startTime = '2020-06-22T07:00:00.000000Z';
 const endTime = '2020-06-22T10:00:00.000000Z';
 const email = 'test@email.com';
@@ -87,32 +99,19 @@ const mocks = [
     },
     result: organizationResponse,
   },
-  {
-    request: {
-      query: EventDetailsDocument,
-      variables: {
-        sort: EVENT_SORT_OPTIONS.START_TIME,
-        start: 'now',
-        superEvent: event.id,
-
-        eventType: [EventTypeId.General, EventTypeId.Course],
-      },
-    },
-    result: organizationResponse,
-  },
-  {
-    request: {
-      query: EventDetailsDocument,
-      variables: {
-        sort: EVENT_SORT_OPTIONS.START_TIME,
-        start: 'now',
-        superEvent: event.id,
-        eventType: [EventTypeId.General, EventTypeId.Course],
-      },
-    },
-    result: organizationResponse,
-  },
 ];
+
+afterAll(() => {
+  clear();
+});
+
+const getDateRangeStrProps = (event: EventDetails) => ({
+  start: event.startTime,
+  end: event.endTime,
+  locale: 'fi',
+  includeTime: true,
+  timeAbbreviation: translations.commons.timeAbbreviation,
+});
 
 it('should render event info fields', async () => {
   render(<EventInfo event={event} eventType="event" />, { mocks });
@@ -391,4 +390,226 @@ describe('OrganizationInfo', () => {
       expect(screen.queryByText(linkText)).toBeInTheDocument();
     }
   );
+});
+
+describe('superEvent', () => {
+  it('should render super event title and link when super event is given', async () => {
+    const superEvent = fakeEvent({
+      superEvent: { internalId: superEventInternalId },
+    });
+    const superEventResponse = {
+      data: superEvent,
+      status: 'resolved',
+    } as SuperEventResponse;
+    const { history } = render(
+      <EventInfo
+        event={event}
+        superEvent={superEventResponse}
+        eventType="event"
+      />,
+      {
+        mocks,
+      }
+    );
+    await actWait();
+    expect(
+      screen.queryByRole('heading', {
+        name: translations.event.superEvent.title,
+      })
+    ).toBeInTheDocument();
+
+    userEvent.click(
+      within(screen.getByTestId(superEventTestId)).queryByText(
+        superEvent.name.fi
+      )
+    );
+    expect(history.location.pathname).toBe(`/fi/events/${superEvent.id}`);
+  });
+
+  it('should should not render super event title when super event is not given', async () => {
+    render(<EventInfo event={event} eventType="event" />, {
+      mocks,
+    });
+    await actWait();
+
+    expect(
+      screen.queryByRole('heading', {
+        name: translations.event.superEvent.title,
+      })
+    ).not.toBeInTheDocument();
+  });
+});
+
+describe('subEvents', () => {
+  const meta: Meta = {
+    count: 20,
+    next:
+      // eslint-disable-next-line max-len
+      'https://api.hel.fi/linkedevents/v1/event/?include=keyword,location&page=2&sort=start_time&start=2020-08-11T03&super_event=hel:123',
+    previous: null,
+    __typename: 'Meta',
+  };
+
+  const subEventsResponse = {
+    ...fakeEvents(
+      10,
+      range(1, 11).map((i) => ({
+        endTime: addDays(new Date(endTime), i).toISOString(),
+        startTime: addDays(new Date(startTime), i).toISOString(),
+        typeId: i % 2 === 0 ? EventTypeId.Course : EventTypeId.General,
+        superEvent: { internalId: superEventInternalId },
+      }))
+    ),
+    meta,
+  };
+
+  const subEventsLoadMoreResponse = {
+    ...fakeEvents(
+      10,
+      range(11, 21).map((i) => ({
+        endTime: addDays(new Date(endTime), i).toISOString(),
+        startTime: addDays(new Date(startTime), i).toISOString(),
+        superEvent: { internalId: superEventInternalId },
+      }))
+    ),
+    meta: { ...meta, next: null },
+  };
+
+  const getSubEventsMocks = ({
+    eventType = 'event',
+    response,
+    variables,
+  }: {
+    eventType: EventType;
+    response: EventListResponse;
+    variables?: EventListQueryVariables;
+  }) =>
+    createOtherEventTimesRequestAndResultMocks({
+      superEventId: event.id,
+      response,
+      variables,
+      type: eventType,
+    });
+
+  const firstSubEventsLoadMock = getSubEventsMocks({
+    eventType: 'event',
+    response: subEventsResponse,
+  });
+
+  const secondSubEventsLoadMock = getSubEventsMocks({
+    variables: { page: 2 },
+    response: subEventsLoadMoreResponse,
+    eventType: 'event',
+  });
+
+  const mocksWithSubEvents = [
+    ...mocks,
+    firstSubEventsLoadMock,
+    secondSubEventsLoadMock,
+  ];
+
+  it('should render sub events title and content when sub events are given', async () => {
+    render(<EventInfo event={event} eventType="event" />, {
+      mocks: mocksWithSubEvents,
+    });
+    await actWait();
+    expect(
+      screen.queryByRole('heading', {
+        name: translations.event.subEvents.title,
+      })
+    ).toBeInTheDocument();
+    await testSubEvents();
+  });
+
+  it.each([
+    [EventTypeId.General, '/fi/events/'],
+    [EventTypeId.Course, '/fi/courses/'],
+  ])(
+    'should navigate to sub events page when it is clicked',
+    async (eventTypeId: EventTypeId, url: string) => {
+      const { history } = render(
+        <EventInfo event={event} eventType="event" />,
+        {
+          mocks: mocksWithSubEvents,
+        }
+      );
+      await actWait();
+      const subEvent = subEventsResponse.data.find(
+        (e) => e.typeId === eventTypeId
+      );
+      const dateStr = getDateRangeStr(getDateRangeStrProps(subEvent));
+
+      userEvent.click(
+        within(screen.getByTestId(subEventsListTestId)).queryByText(
+          `${subEvent.name.fi} ${dateStr}`
+        )
+      );
+      expect(history.location.pathname).toBe(`${url}${subEvent.id}`);
+    }
+  );
+
+  it('should render subEvents with other times title when the event is a middle level event in event hierarchy', async () => {
+    render(
+      <EventInfo
+        event={Object.assign({}, event, {
+          superEvent: { internalId: 'super:123' },
+          subEvents: [{ internalId: 'sub:123' }],
+        })}
+        eventType="event"
+      />,
+      {
+        mocks: mocksWithSubEvents,
+      }
+    );
+    await actWait();
+    expect(
+      screen.queryByRole('heading', {
+        name: translations.event.subEvents.title,
+      })
+    ).not.toBeInTheDocument();
+
+    expect(
+      screen.queryByRole('heading', {
+        name: translations.event.otherTimes.title,
+      })
+    ).toBeInTheDocument();
+  });
+
+  async function testSubEvents() {
+    await waitFor(() => {
+      expect(
+        screen.queryByTestId('skeleton-loader-wrapper')
+      ).not.toBeInTheDocument();
+    });
+    subEventsResponse.data.slice(0, 3).forEach((event) => {
+      const dateStr = getDateRangeStr(getDateRangeStrProps(event));
+      expect(
+        screen.getByText(`${event.name.fi} ${dateStr}`)
+      ).toBeInTheDocument();
+    });
+    const fourthevent = subEventsResponse.data[3];
+    const fourthDateStr = getDateRangeStr(getDateRangeStrProps(fourthevent));
+    expect(
+      screen.queryByText(`${event.name.fi} ${fourthDateStr}`)
+    ).not.toBeInTheDocument();
+
+    const toggleButton = await screen.findByRole('button', {
+      name: translations.event.relatedEvents.buttonShow,
+    });
+
+    userEvent.click(toggleButton);
+
+    subEventsResponse.data.forEach((event) => {
+      const dateStr = getDateRangeStr(getDateRangeStrProps(event));
+      expect(
+        screen.getByText(`${event.name.fi} ${dateStr}`)
+      ).toBeInTheDocument();
+    });
+    subEventsLoadMoreResponse.data.forEach((event) => {
+      const dateStr = getDateRangeStr(getDateRangeStrProps(event));
+      expect(
+        screen.getByText(`${event.name.fi} ${dateStr}`)
+      ).toBeInTheDocument();
+    });
+  }
 });
