@@ -7,6 +7,9 @@
   },
   "appName": "Tapahtumat",
   "commons": {
+    "notification": {
+      "labelClose": "Sulje ilmoitus"
+    },
     "autosuggest": {
       "menu": {
         "ariaButtonClose": "Sulje valikko",
@@ -248,6 +251,8 @@
   },
   "courseSearch": {
     "title": "Löydä harrastus",
+    "betaNotificationText": "Haluatko antaa meille palautetta harrastusten hakusivun kehitysveriosta? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Tästä pääset palautelomakkeeseen {{openInNewTab}}\">Tästä pääset palautelomakkeeseen.</a>",
+    "betaResultsNotificationText": "Kehitämme sivustoa. Tällä hetkellä palvelu sisältää vain lapsille ja nuorille suunnattuja harrastuksia.",
     "buttonLoadMore": "Näytä lisää harrastuksia ({{count}})",
     "searchNotification": {
       "noResultsTitle": "Valitsemillasi hakuehdoilla ei löytynyt yhtään harrastusta",

@@ -1,5 +1,12 @@
 {
-  "extends": ["react-app", "react-app/jest", "plugin:testcafe/recommended"],
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "plugin:testcafe/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
   "plugins": ["simple-import-sort", "testcafe", "no-only-tests"],
   "rules": {
     "no-console": "warn",
