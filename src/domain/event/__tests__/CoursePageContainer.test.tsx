@@ -22,7 +22,7 @@ import {
 } from '../../../test/testUtils';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import { ROUTES } from '../../app/routes/constants';
-import { otherEventTimesListTestId } from '../../event/eventInfo/otherEventTimes/OtherEventTimes';
+import { otherEventTimesListTestId } from '../../event/eventInfo/OtherEventTimes';
 import { similarEventsListTestId } from '../../event/similarEvents/SimilarEvents';
 import CoursePageContainer from '../EventPageContainer';
 

@@ -55,6 +55,7 @@ const otherEventsResponse = {
     range(1, 11).map((i) => ({
       endTime: addDays(new Date(endTime), i).toISOString(),
       startTime: addDays(new Date(startTime), i).toISOString(),
+      typeId: i % 2 === 0 ? EventTypeId.Course : EventTypeId.General,
     }))
   ),
   meta,
@@ -155,7 +156,7 @@ const getDateRangeStrProps = (event: EventDetails) => ({
 describe('events', () => {
   test('should render other event times', async () => {
     advanceTo(new Date('2020-08-11'));
-    renderComponent({ event: courseEvent });
+    renderComponent();
     await testOtherEventTimes();
   });
 
@@ -170,7 +171,7 @@ describe('events', () => {
   test('should go to event page of other event time', async () => {
     advanceTo(new Date('2020-08-11'));
     const { history } = renderComponent();
-    await testNavigation(history, '/fi/events/');
+    await testNavigation(history, '/fi/events/', generalEvent.typeId);
   });
 });
 
@@ -192,7 +193,7 @@ describe('courses', () => {
   test('should go to course page of other course time', async () => {
     advanceTo(new Date('2020-08-11'));
     const { history } = renderComponent({ event: courseEvent });
-    await testNavigation(history, '/fi/courses/');
+    await testNavigation(history, '/fi/courses/', courseEvent.typeId);
   });
 });
 
@@ -239,14 +240,18 @@ async function testToaster() {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function testNavigation(history: any, url: string) {
+async function testNavigation(
+  history: any,
+  url: string,
+  eventTypeId = EventTypeId.General
+) {
   const toggleButton = await screen.findByRole('button', {
     name: translations.event.otherTimes.buttonShow,
   });
 
   userEvent.click(toggleButton);
 
-  const event = otherEventsResponse.data[0];
+  const event = otherEventsResponse.data.find((e) => e.typeId === eventTypeId);
   const dateStr = getDateRangeStr(getDateRangeStrProps(event));
   expect(screen.getByText(dateStr)).toBeInTheDocument();
 
