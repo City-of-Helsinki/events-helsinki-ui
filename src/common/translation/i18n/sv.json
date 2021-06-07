@@ -80,7 +80,7 @@
       "linkOnlyExpiredEvents": "Till alla kollektioner",
       "textEventNotFound": "Samlingen hittades inte",
       "textOnlyExpiredEvents": "Tyvärr har denna kollektions rekommenderade evenemang redan gått. Bekanta dig mig våra övriga rekommendationer och hitta fler intressanta evenemang.",
-      "eventsTitle": "Rekommenderade händelser",
+      "eventsTitle": "Rekommenderade evenemang",
       "coursesTitle": "Rekommenderade hobbyer"
     },
     "eventList": {
@@ -282,7 +282,7 @@
     "searchHobbies": "Hobbyer",
     "titleEventsCategories": "Populära evenemangskategorier",
     "titleCoursesCategories": "Populära hobbykategorier",
-    "backToTop": "Tillbaka till toppen",
+    "backToTop": "Tillbaka upp",
     "copyright": "Copyright",
     "allRightsReserved": "Alla rättigheter förbehållna"
   },
