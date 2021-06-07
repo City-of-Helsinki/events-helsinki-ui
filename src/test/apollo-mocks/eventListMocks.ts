@@ -56,7 +56,7 @@ const createRequest = (
   variables: {
     ...(type === 'event' ? eventListBaseVariables : courseListBaseVariables),
     ...variablesOverride,
-    eventType: type === 'event' ? EventTypeId.General : EventTypeId.Course,
+    eventType: type === 'event' ? [EventTypeId.General] : [EventTypeId.Course],
   },
 });
 
