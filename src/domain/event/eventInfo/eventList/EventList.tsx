@@ -5,21 +5,21 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import useLocale from '../../../../hooks/useLocale';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
-import { getEventTypeByEventTypeId } from '../../EventUtils';
+import { getEventFields, getEventTypeByEventTypeId } from '../../EventUtils';
 import { EVENT_ROUTE_MAPPER, EventFields, EventType } from '../../types';
 import styles from './eventList.module.scss';
 
 export const Eventlist: React.FC<{
   events: EventFields[];
-  eventType: EventType;
+  showDate?: Boolean;
   id: string;
-}> = ({ events, eventType, id }) => {
+}> = ({ events, showDate = true, id }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const history = useHistory();
   const { search } = useLocation();
 
-  const moveToEventPage = (eventId: string) => {
+  const moveToEventPage = (eventId: string, eventType: EventType) => {
     const eventUrl = `/${locale}${EVENT_ROUTE_MAPPER[eventType].replace(
       ':id',
       eventId
@@ -29,14 +29,31 @@ export const Eventlist: React.FC<{
   return (
     <ul className={styles.timeList} data-testid={id}>
       {events.map((event) => {
+        const { name } = getEventFields(event, locale);
+        const date = event.startTime
+          ? getDateRangeStr({
+              start: event.startTime,
+              end: event.endTime,
+              includeTime: true,
+              locale,
+              timeAbbreviation: t('commons.timeAbbreviation'),
+            })
+          : '';
         return (
           <li key={event.id}>
             <button
               className={styles.listButton}
-              onClick={() => moveToEventPage(event.id)}
+              onClick={() =>
+                moveToEventPage(
+                  event.id,
+                  event?.typeId
+                    ? getEventTypeByEventTypeId(event.typeId)
+                    : 'event'
+                )
+              }
               aria-label={t('event.relatedEvents.buttonReadMore')}
             >
-              <span>{event.name.fi}</span>
+              <span>{`${name}${showDate ? ' ' + date : ''}`}</span>
               <div className={styles.arrowContainer}>
                 <IconArrowRight aria-hidden />
               </div>

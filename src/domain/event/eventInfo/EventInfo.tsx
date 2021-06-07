@@ -74,13 +74,20 @@ const EventInfo: React.FC<Props> = ({ event, eventType, superEvent }) => {
     email || externalLinks.length || infoUrl || telephone
   );
 
+  /* 
+  Middle level events are all the events that have super event and subEvents
+  Then the so called sibbling events (the events that have the same super event)
+  are not wanted to be seen. 
+  */
+  const isMiddleLevelEvent = Boolean(superEvent && event.subEvents.length);
+
   return (
     <div className={styles.eventInfo} ref={eventInfoContainer}>
       <div className={styles.contentWrapper}>
         <DateInfo event={event} eventType={eventType} />
         <SuperEvent superEvent={superEvent} />
         <SubEvents event={event} />
-        <OtherEventTimes event={event} />
+        {!isMiddleLevelEvent && <OtherEventTimes event={event} />}
         {eventType !== 'event' && (audienceMinAge || audienceMaxAge) && (
           <AudienceAgeLimitations
             audienceMinAge={audienceMinAge}

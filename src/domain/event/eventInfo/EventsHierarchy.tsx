@@ -1,4 +1,9 @@
-import { IconAngleDown, IconAngleUp, IconLayers } from 'hds-react';
+import {
+  IconAngleDown,
+  IconAngleUp,
+  IconCalendarPlus,
+  IconLayers,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -6,10 +11,9 @@ import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
 import linkStyles from '../../../common/components/link/link.module.scss';
 import SkeletonLoader from '../../../common/components/skeletonLoader/SkeletonLoader';
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
-import { getEventTypeByEventTypeId } from '../EventUtils';
 import { useSubEvents, useSubEventsQueryVariables } from '../queryUtils';
 import { EventFields, SuperEventResponse } from '../types';
-import { Eventlist } from './eventList/EventList';
+import { Eventlist, EventTimeList } from './eventList/EventList';
 import styles from './eventList/eventList.module.scss';
 
 const EVENTS_LIST_LIMIT = 3;
@@ -19,9 +23,6 @@ export const superEventTestId = 'super-event';
 const SubEvents: React.FC<{ event: EventFields }> = ({ event }) => {
   const { t } = useTranslation();
   const [isListOpen, setIsListOpen] = React.useState(false);
-  const eventType = event.typeId
-    ? getEventTypeByEventTypeId(event.typeId)
-    : 'event';
 
   const { superEventId, variables } = useSubEventsQueryVariables(event);
 
@@ -51,17 +52,37 @@ const SubEvents: React.FC<{ event: EventFields }> = ({ event }) => {
 
   const shownEvents = isListOpen ? events : events.slice(0, EVENTS_LIST_LIMIT);
 
+  /**
+   * When an event is a middle level event,
+   * it is wanted that it's subevents acts as sibling events.
+   * Middle level events are all the events that have super event and subEvents.
+   */
+  const isMiddleLevelEvent = Boolean(
+    event.superEvent && event.subEvents.length
+  );
+
+  const isLowestLevelEvent = Boolean(
+    event.superEvent && !event.subEvents.length
+  );
+
+  /**
+   * When the event is a middle level event, then the so called sibbling events
+   * (the events that have the same super event)
+   * are not wanted to be seen.
+   * NOTE: This means that there should never be more than 3 levels in event hierarchy.
+   */
+  const [title, titleIcon] = isMiddleLevelEvent
+    ? [t('event.otherTimes.title'), <IconCalendarPlus aria-hidden />]
+    : [t('event.subEvents.title'), <IconLayers aria-hidden />];
+
   return (
     <div className={styles.eventList}>
-      <InfoWithIcon
-        icon={<IconLayers aria-hidden />}
-        title={t('event.subEvents.title')}
-      >
-        <Eventlist
-          id={subEventsListTestId}
-          events={shownEvents}
-          eventType={eventType}
-        />
+      <InfoWithIcon icon={titleIcon} title={title}>
+        {isLowestLevelEvent || isMiddleLevelEvent ? (
+          <EventTimeList id={subEventsListTestId} events={shownEvents} />
+        ) : (
+          <Eventlist id={subEventsListTestId} events={shownEvents} />
+        )}
         {events.length > EVENTS_LIST_LIMIT && (
           <button
             className={linkStyles.link}
@@ -96,10 +117,6 @@ const SuperEvent: React.FC<{ superEvent: SuperEventResponse | undefined }> = ({
 
   if (superEvent?.status === 'pending') return <SkeletonLoader />;
 
-  const eventType = superEvent.data.typeId
-    ? getEventTypeByEventTypeId(superEvent.data.typeId)
-    : 'event';
-
   return (
     <div className={styles.eventList}>
       <InfoWithIcon
@@ -108,8 +125,8 @@ const SuperEvent: React.FC<{ superEvent: SuperEventResponse | undefined }> = ({
       >
         <Eventlist
           id={superEventTestId}
+          showDate={false}
           events={[superEvent.data]}
-          eventType={eventType}
         />
       </InfoWithIcon>
     </div>
