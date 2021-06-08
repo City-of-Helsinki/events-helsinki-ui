@@ -147,7 +147,11 @@ const SearchPage: React.FC<{
         scrollToResultList={scrollToResultList}
         data-testid="searchContainer"
       />
-      <div id="resultList" data-testid="resultList">
+      <div
+        className={styles.resultList}
+        id="resultList"
+        data-testid="resultList"
+      >
         <SrOnly aria-live="polite" aria-atomic={true}>
           {isLoadingEvents
             ? t('eventSearch.ariaLiveLoading')
