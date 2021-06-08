@@ -58,3 +58,6 @@ export const DEFAULT_LANGUAGE = SUPPORT_LANGUAGES.FI;
 export const DEFAULT_SOME_IMAGE = '/images/activities_SoMe-share.jpg';
 
 export const MAIN_CONTENT_ID = 'maincontent';
+
+export const feedbackUrl =
+  'https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta';

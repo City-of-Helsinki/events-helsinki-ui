@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { setFeatureFlags } from '../../../../test/feature-flags/featureFlags.test.utils';
-import { render, screen } from '../../../../test/testUtils';
+import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import { EventType } from '../../../event/types';
 import SearchResultsContainer from '../SearchResultsContainer';
 
@@ -62,5 +62,36 @@ it('should not return any results info if more than 5 or more results are found'
         screen.queryByRole('button', { name: actionButtonText })
       ).not.toBeInTheDocument();
     }
+  );
+});
+
+it('renders beta notification for course result list', async () => {
+  render(
+    <SearchResultsContainer
+      eventList={<div />}
+      eventsCount={5}
+      eventType="course"
+      loading={false}
+    />
+  );
+
+  const notification = screen.getByRole('region', {
+    name: /notification/i,
+  });
+  expect(notification).toHaveTextContent(
+    /Kehitämme sivustoa\. Tällä hetkellä palvelu sisältää vain lapsille ja nuorille suunnattuja harrastuksia\./i
+  );
+
+  const closeButton = screen.getByRole('button', {
+    name: /sulje ilmoitus/i,
+  });
+  userEvent.click(closeButton);
+
+  await waitFor(() =>
+    expect(
+      screen.queryByRole('region', {
+        name: /notification/i,
+      })
+    ).not.toBeInTheDocument()
   );
 });
