@@ -22,7 +22,7 @@ import {
 } from '../eventSearch/utils';
 import { SIMILAR_EVENTS_AMOUNT } from './constants';
 import { getEventFields, getEventIdFromUrl } from './EventUtils';
-import { EVENT_TYPE_TO_ID, EventFields, EventType } from './types';
+import { EventFields, EventType } from './types';
 
 const useSimilarEventsQueryVariables = (
   event: EventFields,
@@ -72,10 +72,7 @@ export const useSimilarEventsQuery = (
   return { data, loading };
 };
 
-const useOtherEventTimesVariables = (
-  event: EventFields,
-  eventType: EventTypeId = EventTypeId.General
-) => {
+const useOtherEventTimesVariables = (event: EventFields) => {
   const superEventId = React.useMemo(
     () => getEventIdFromUrl(event.superEvent?.internalId || '', 'event'),
     [event.superEvent]
@@ -83,35 +80,59 @@ const useOtherEventTimesVariables = (
 
   const variables = React.useMemo(
     (): EventListQueryVariables => ({
-      include: ['keywords', 'location'],
+      // include: ['keywords', 'location'],
       sort: EVENT_SORT_OPTIONS.START_TIME,
       start: 'now',
       superEvent: superEventId,
-      eventType,
+      /* 
+      Since LE v2 is listing general type of events 
+      when no event type is given as a parameter,
+      this needs a list of eventTypes
+      or otherwise some events or courses are always excluded.
+      */
+      eventType: [EventTypeId.General, EventTypeId.Course] //event.typeId
     }),
-    [eventType, superEventId]
+    [superEventId]
   );
 
   return { superEventId, variables };
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const useOtherEventTimes = (
+export const useSubEventsQueryVariables = (
+  event: EventFields
+): { superEventId: string | undefined; variables: EventListQueryVariables } => {
+  const variables = React.useMemo(
+    (): EventListQueryVariables => ({
+      // include: ['keywords', 'location'],
+      sort: EVENT_SORT_OPTIONS.START_TIME,
+      start: 'now',
+      superEvent: event.id,
+      /* 
+      Since LE v2 is listing general type of events 
+      when no event type is given as a parameter,
+      this needs a list of eventTypes
+      or otherwise some events or courses are always excluded.
+      */
+      eventType: [EventTypeId.General, EventTypeId.Course] //event.typeId
+    }),
+    [event.id]
+  );
+
+  return { superEventId: event.id, variables };
+};
+
+export const useSubEvents = (
   event: EventFields,
-  eventType: EventType
-) => {
+  variables: EventListQueryVariables,
+  superEventId: string | undefined
+): { subEvents: EventFields[]; isFetchingMore: boolean; loading: boolean } => {
   const { t } = useTranslation();
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
-  const { variables, superEventId } = useOtherEventTimesVariables(
-    event,
-    EVENT_TYPE_TO_ID[eventType]
-  );
   const { data: subEventsData, fetchMore, loading } = useEventListQuery({
     skip: !superEventId,
     ssr: false,
     variables,
   });
-
   const handleLoadMore = React.useCallback(
     async (page: number) => {
       setIsFetchingMore(true);
@@ -156,6 +177,26 @@ export const useOtherEventTimes = (
     subEventsData?.eventList.data.filter(
       (subEvent) => subEvent.id !== event.id
     ) || [];
+
+  return { subEvents, isFetchingMore, loading };
+};
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const useOtherEventTimes = (
+  event: EventFields,
+): {
+  events: EventFields[];
+  loading: boolean;
+  isFetchingMore: boolean;
+  superEventId: string | undefined;
+} => {
+  const { variables, superEventId } = useOtherEventTimesVariables(event);
+
+  const { subEvents, isFetchingMore, loading } = useSubEvents(
+    event,
+    variables,
+    superEventId
+  );
 
   return { events: subEvents, loading, isFetchingMore, superEventId };
 };

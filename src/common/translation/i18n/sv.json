@@ -199,6 +199,17 @@
       "buttonShow": "Visa alt",
       "title": "Andra evenemangstider"
     },
+    "subEvents": {
+      "title": "Relaterade till evenemanget"
+    },
+    "superEvent": {
+      "title": "Relaterat till evenemanget"
+    },
+    "relatedEvents": {
+      "buttonHide": "Dölj",
+      "buttonReadMore": "Läs mer",
+      "buttonShow": "Visa alt"
+    },
     "shareLinks": {
       "title": "Dela detta"
     },

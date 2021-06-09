@@ -35,6 +35,10 @@ export const QUERY_EVENT_DETAILS = gql`
       url
       photographerName
     }
+    subEvents {
+      internalId
+    }
+    typeId
     superEvent {
       internalId
     }

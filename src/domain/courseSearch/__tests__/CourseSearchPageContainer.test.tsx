@@ -44,7 +44,11 @@ const meta = {
 
 const placeId = 'tprek:9302';
 
-const coursesResponse = { data: { eventList: { ...fakeEvents(10), meta } } };
+const coursesResponse = {
+  data: {
+    eventList: { ...fakeEvents(10, { typeId: EventTypeId.Course }), meta },
+  },
+};
 
 const eventsLoadMoreResponse = {
   data: {
@@ -74,7 +78,7 @@ const courseListVariables = {
   superEventType: ['umbrella', 'none'],
   audienceMinAgeGt: '',
   audienceMaxAgeLt: '',
-  eventType: EventTypeId.Course,
+  eventType: [EventTypeId.Course],
 };
 
 const courseListVariables2 = {
@@ -105,7 +109,7 @@ const courseListVariables2 = {
   superEventType: ['umbrella', 'none'],
   audienceMinAgeGt: '',
   audienceMaxAgeLt: '',
-  eventType: EventTypeId.Course,
+  eventType: [EventTypeId.Course],
 };
 
 const neighborhoodsResponse = {

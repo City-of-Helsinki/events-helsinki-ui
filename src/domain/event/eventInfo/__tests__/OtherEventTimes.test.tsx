@@ -12,6 +12,7 @@ import {
   EventFieldsFragment,
   EventListQueryVariables,
   EventListResponse,
+  EventTypeId,
   Meta,
 } from '../../../../generated/graphql';
 import {
@@ -22,7 +23,7 @@ import { fakeEvent, fakeEvents } from '../../../../test/mockDataUtils';
 import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
 import { EventType } from '../../types';
-import OtherEventTimes from '../otherEventTimes/OtherEventTimes';
+import OtherEventTimes from '../OtherEventTimes';
 
 const startTime = '2020-10-01T16:00:00Z';
 const endTime = '2020-10-01T18:00:00Z';
@@ -30,8 +31,13 @@ const endTime = '2020-10-01T18:00:00Z';
 const superEventId = 'hel:123';
 const superEventInternalId = `https://api.hel.fi/linkedevents/v1/event/${superEventId}`;
 
-const event = fakeEvent({
+const generalEvent = fakeEvent({
   superEvent: { internalId: superEventInternalId },
+  typeId: EventTypeId.General,
+}) as EventFieldsFragment;
+
+const courseEvent = Object.assign({}, generalEvent, {
+  typeId: EventTypeId.Course,
 }) as EventFieldsFragment;
 
 const meta: Meta = {
@@ -49,6 +55,7 @@ const otherEventsResponse = {
     range(1, 11).map((i) => ({
       endTime: addDays(new Date(endTime), i).toISOString(),
       startTime: addDays(new Date(startTime), i).toISOString(),
+      typeId: i % 2 === 0 ? EventTypeId.Course : EventTypeId.General,
     }))
   ),
   meta,
@@ -132,12 +139,11 @@ afterAll(() => {
 
 const renderComponent = ({
   mocks = defaultMocks,
-  eventType = 'event',
+  event = generalEvent,
 }: {
   mocks?: MockedResponse[];
-  eventType?: EventType;
-} = {}) =>
-  render(<OtherEventTimes event={event} eventType={eventType} />, { mocks });
+  event?: EventFieldsFragment;
+} = {}) => render(<OtherEventTimes event={event} />, { mocks });
 
 const getDateRangeStrProps = (event: EventDetails) => ({
   start: event.startTime,
@@ -165,14 +171,14 @@ describe('events', () => {
   test('should go to event page of other event time', async () => {
     advanceTo(new Date('2020-08-11'));
     const { history } = renderComponent();
-    await testNavigation(history, '/fi/events/');
+    await testNavigation(history, '/fi/events/', generalEvent.typeId);
   });
 });
 
 describe('courses', () => {
   test('should render other course times', async () => {
     advanceTo(new Date('2020-08-11'));
-    renderComponent({ eventType: 'course' });
+    renderComponent({ event: courseEvent });
     await testOtherEventTimes();
   });
 
@@ -180,14 +186,14 @@ describe('courses', () => {
     toast.error = jest.fn();
     advanceTo(new Date('2020-08-11'));
     const mocks = [firstCourseLoadMock, secondCoursePageLoadThrowsErrorMock];
-    renderComponent({ eventType: 'course', mocks });
+    renderComponent({ event: courseEvent, mocks });
     await testToaster();
   });
 
   test('should go to course page of other course time', async () => {
     advanceTo(new Date('2020-08-11'));
-    const { history } = renderComponent({ eventType: 'course' });
-    await testNavigation(history, '/fi/courses/');
+    const { history } = renderComponent({ event: courseEvent });
+    await testNavigation(history, '/fi/courses/', courseEvent.typeId);
   });
 });
 
@@ -197,7 +203,6 @@ async function testOtherEventTimes() {
       screen.queryByTestId('skeleton-loader-wrapper')
     ).not.toBeInTheDocument();
   });
-
   otherEventsResponse.data.slice(0, 3).forEach((event) => {
     const dateStr = getDateRangeStr(getDateRangeStrProps(event));
     expect(screen.getByText(dateStr)).toBeInTheDocument();
@@ -235,14 +240,18 @@ async function testToaster() {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function testNavigation(history: any, url: string) {
+async function testNavigation(
+  history: any,
+  url: string,
+  eventTypeId = EventTypeId.General
+) {
   const toggleButton = await screen.findByRole('button', {
     name: translations.event.otherTimes.buttonShow,
   });
 
   userEvent.click(toggleButton);
 
-  const event = otherEventsResponse.data[0];
+  const event = otherEventsResponse.data.find((e) => e.typeId === eventTypeId);
   const dateStr = getDateRangeStr(getDateRangeStrProps(event));
   expect(screen.getByText(dateStr)).toBeInTheDocument();
 

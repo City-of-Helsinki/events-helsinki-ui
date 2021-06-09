@@ -2,17 +2,8 @@ import FileSaver from 'file-saver';
 import React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
-import {
-  EventFieldsFragment,
-  OrganizationDetailsDocument,
-} from '../../../../generated/graphql';
-import {
-  fakeEvent,
-  fakeLocalizedObject,
-  fakeOffer,
-  fakeOrganization,
-  fakeTargetGroup,
-} from '../../../../test/mockDataUtils';
+import { EventDetails, EventTypeId } from '../../../../generated/graphql';
+import { fakeEvent } from '../../../../test/mockDataUtils';
 import {
   actWait,
   configure,
@@ -20,71 +11,37 @@ import {
   screen,
   userEvent,
   waitFor,
+  within,
 } from '../../../../test/testUtils';
-import { EventType } from '../../types';
+import getDateRangeStr from '../../../../util/getDateRangeStr';
+import { EventType, SuperEventResponse } from '../../types';
 import EventInfo from '../EventInfo';
+import { subEventsListTestId, superEventTestId } from '../EventsHierarchy';
+import {
+  addressLocality,
+  email,
+  event,
+  locationName,
+  mocks,
+  mocksWithSubEvents,
+  organizationName,
+  organizerName,
+  price,
+  streetAddress,
+  subEventsLoadMoreResponse,
+  subEventsResponse,
+  superEventInternalId,
+  telephone,
+} from '../utils/EventInfo.mocks';
 configure({ defaultHidden: true });
 
-const organizationId = '1';
-const organizationName = 'Organization name';
-const organization = fakeOrganization({
-  id: organizationId,
-  name: organizationName,
+const getDateRangeStrProps = (event: EventDetails) => ({
+  start: event.startTime,
+  end: event.endTime,
+  locale: 'fi',
+  includeTime: true,
+  timeAbbreviation: translations.commons.timeAbbreviation,
 });
-const organizationResponse = { data: { organizationDetails: organization } };
-
-const mocks = [
-  {
-    request: {
-      query: OrganizationDetailsDocument,
-      variables: {
-        id: organizationId,
-      },
-    },
-    result: organizationResponse,
-  },
-];
-
-const startTime = '2020-06-22T07:00:00.000000Z';
-const endTime = '2020-06-22T10:00:00.000000Z';
-const email = 'test@email.com';
-const telephone = '0441234567';
-const addressLocality = 'Helsinki';
-const district = 'Malmi';
-const locationName = 'Location name';
-const streetAddress = 'Test address 1';
-const price = '12 €';
-const targetGroups = ['lapset', 'aikuiset'];
-const maximumAttendeeCapacity = 20;
-const minimumAttendeeCapacity = 10;
-const remainingAttendeeCapacity = 5;
-const audienceMinAge = '5';
-const audienceMaxAge = '15';
-const organizerName = 'provider organisation';
-const event = fakeEvent({
-  audienceMinAge,
-  audienceMaxAge,
-  startTime,
-  endTime,
-  provider: { fi: organizerName },
-  publisher: organizationId,
-  location: {
-    divisions: [{ name: { fi: district }, type: 'neighborhood' }],
-    email,
-    telephone: { fi: telephone },
-    internalId: 'tprek:8740',
-    addressLocality: { fi: addressLocality },
-    name: { fi: locationName },
-    streetAddress: { fi: streetAddress },
-  },
-  maximumAttendeeCapacity: maximumAttendeeCapacity,
-  minimumAttendeeCapacity: minimumAttendeeCapacity,
-  remainingAttendeeCapacity: remainingAttendeeCapacity,
-  offers: [fakeOffer({ isFree: false, price: { fi: price } })],
-  audience: targetGroups.map((targetGroup) =>
-    fakeTargetGroup({ name: fakeLocalizedObject(targetGroup) })
-  ),
-}) as EventFieldsFragment;
 
 it('should render event info fields', async () => {
   render(<EventInfo event={event} eventType="event" />, { mocks });
@@ -363,4 +320,151 @@ describe('OrganizationInfo', () => {
       expect(screen.queryByText(linkText)).toBeInTheDocument();
     }
   );
+});
+
+describe('superEvent', () => {
+  it('should render super event title and link when super event is given', async () => {
+    const superEvent = fakeEvent({
+      superEvent: { internalId: superEventInternalId },
+    });
+    const superEventResponse = {
+      data: superEvent,
+      status: 'resolved',
+    } as SuperEventResponse;
+    const { history } = render(
+      <EventInfo
+        event={event}
+        superEvent={superEventResponse}
+        eventType="event"
+      />,
+      {
+        mocks,
+      }
+    );
+    await actWait();
+    expect(
+      screen.queryByRole('heading', {
+        name: translations.event.superEvent.title,
+      })
+    ).toBeInTheDocument();
+
+    userEvent.click(
+      within(screen.getByTestId(superEventTestId)).getByText(superEvent.name.fi)
+    );
+    expect(history.location.pathname).toBe(`/fi/events/${superEvent.id}`);
+  });
+
+  it('should should not render super event title when super event is not given', async () => {
+    render(<EventInfo event={event} eventType="event" />, {
+      mocks,
+    });
+    await actWait();
+
+    expect(
+      screen.queryByRole('heading', {
+        name: translations.event.superEvent.title,
+      })
+    ).not.toBeInTheDocument();
+  });
+});
+
+describe('subEvents', () => {
+  it('should render sub events title and content when sub events are given', async () => {
+    render(<EventInfo event={event} eventType="event" />, {
+      mocks: mocksWithSubEvents,
+    });
+    await actWait();
+    expect(
+      screen.queryByRole('heading', {
+        name: translations.event.subEvents.title,
+      })
+    ).toBeInTheDocument();
+    await testSubEvents();
+  });
+
+  it.each([
+    [EventTypeId.General, '/fi/events/'],
+    [EventTypeId.Course, '/fi/courses/'],
+  ])(
+    'should navigate to sub events page when it is clicked',
+    async (eventTypeId: EventTypeId, url: string) => {
+      const { history } = render(
+        <EventInfo event={event} eventType="event" />,
+        {
+          mocks: mocksWithSubEvents,
+        }
+      );
+      const eventsList = await screen.findByTestId(subEventsListTestId);
+      const subEvent = subEventsResponse.data.find(
+        (e) => e.typeId === eventTypeId
+      );
+      const dateStr = getDateRangeStr(getDateRangeStrProps(subEvent));
+
+      userEvent.click(
+        within(eventsList).queryByText(`${subEvent.name.fi} ${dateStr}`)
+      );
+      expect(history.location.pathname).toBe(`${url}${subEvent.id}`);
+    }
+  );
+
+  it('should render subEvents with other times title when the event is a middle level event in event hierarchy', async () => {
+    render(
+      <EventInfo
+        event={Object.assign({}, event, {
+          superEvent: { internalId: 'super:123' },
+          subEvents: [{ internalId: 'sub:123' }],
+        })}
+        eventType="event"
+      />,
+      {
+        mocks: mocksWithSubEvents,
+      }
+    );
+    await screen.findByRole('heading', {
+      name: translations.event.otherTimes.title,
+    });
+    expect(
+      screen.queryByRole('heading', {
+        name: translations.event.subEvents.title,
+      })
+    ).not.toBeInTheDocument();
+  });
+
+  async function testSubEvents() {
+    await waitFor(() => {
+      expect(
+        screen.queryByTestId('skeleton-loader-wrapper')
+      ).not.toBeInTheDocument();
+    });
+    subEventsResponse.data.slice(0, 3).forEach((event) => {
+      const dateStr = getDateRangeStr(getDateRangeStrProps(event));
+      expect(
+        screen.getByText(`${event.name.fi} ${dateStr}`)
+      ).toBeInTheDocument();
+    });
+    const fourthevent = subEventsResponse.data[3];
+    const fourthDateStr = getDateRangeStr(getDateRangeStrProps(fourthevent));
+    expect(
+      screen.queryByText(`${event.name.fi} ${fourthDateStr}`)
+    ).not.toBeInTheDocument();
+
+    const toggleButton = await screen.findByRole('button', {
+      name: translations.event.relatedEvents.buttonShow,
+    });
+
+    userEvent.click(toggleButton);
+
+    subEventsResponse.data.forEach((event) => {
+      const dateStr = getDateRangeStr(getDateRangeStrProps(event));
+      expect(
+        screen.getByText(`${event.name.fi} ${dateStr}`)
+      ).toBeInTheDocument();
+    });
+    subEventsLoadMoreResponse.data.forEach((event) => {
+      const dateStr = getDateRangeStr(getDateRangeStrProps(event));
+      expect(
+        screen.getByText(`${event.name.fi} ${dateStr}`)
+      ).toBeInTheDocument();
+    });
+  }
 });

@@ -106,7 +106,7 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
     superEvent?.status === 'pending'
       ? ''
       : superEvent?.data?.endTime || eventEndTime;
-
+  const isCoursePage = eventType === 'course';
   return (
     <div className={classNames(styles.heroWrapper)}>
       <Container>
@@ -138,17 +138,20 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
               {shortDescription && (
                 <div className={styles.description}>{shortDescription}</div>
               )}
-              <Visible above="sm" className={styles.date}>
-                {superEvent?.status === 'pending' && <SkeletonLoader />}
-                {!!startTime &&
-                  getDateRangeStr({
-                    start: startTime,
-                    end: endTime,
-                    locale,
-                    includeTime: true,
-                    timeAbbreviation: t('commons.timeAbbreviation'),
-                  })}
-              </Visible>
+              {/* Only course page should use super event date info */}
+              {isCoursePage && (
+                <Visible above="sm" className={styles.date}>
+                  {superEvent?.status === 'pending' && <SkeletonLoader />}
+                  {!!startTime &&
+                    getDateRangeStr({
+                      start: startTime,
+                      end: endTime,
+                      locale,
+                      includeTime: true,
+                      timeAbbreviation: t('commons.timeAbbreviation'),
+                    })}
+                </Visible>
+              )}
               <div className={styles.additionalInfo}>
                 <Visible above="sm" className={styles.location}>
                   <InfoWithIcon icon={<IconLocation aria-hidden />} title={''}>

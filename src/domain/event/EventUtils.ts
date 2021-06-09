@@ -6,6 +6,7 @@ import sum from 'lodash/sum';
 import { EVENT_STATUS } from '../../constants';
 import {
   EventFieldsFragment,
+  EventTypeId,
   LocalizedObject,
   PlaceFieldsFragment,
 } from '../../generated/graphql';
@@ -18,7 +19,12 @@ import {
   EVENT_PLACEHOLDER_IMAGES,
   EVENT_SOME_IMAGE,
 } from './constants';
-import { EventFields, EventType, KeywordOption } from './types';
+import {
+  EVENT_TYPE_TO_ID,
+  EventFields,
+  EventType,
+  KeywordOption,
+} from './types';
 
 export const getEventCardId = (id: string): string => `event-card_${id}`;
 
@@ -403,3 +409,20 @@ export const getAudienceAgeText = (
   }`;
   return `${ageLimit} -${t('event.info.age')}`;
 };
+
+/**
+ * EVENT_TYPE_TO_ID configuration object is a mapper between event type and eventTypeId
+ * where an EventType instance is a key and EventTypeId instance is a value.
+ * To avoid writing yet another configuration table, this function does the opposite -
+ * it flips the configuration around and the value can be used to find the related key.
+ *
+ * E.g. The event objects contains a typeId that is an instance of EventTypeId,
+ * so it is sometimes needed to get a related event type for an eventTypeId instance
+ * and this function does exactly that.
+ */
+export const getEventTypeByEventTypeId = (
+  eventTypeId: EventTypeId
+): EventType =>
+  Object.keys(EVENT_TYPE_TO_ID).find(
+    (eventType) => EVENT_TYPE_TO_ID[eventType as EventType] === eventTypeId
+  ) as EventType;

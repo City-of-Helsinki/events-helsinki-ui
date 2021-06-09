@@ -111,6 +111,7 @@ export type Division = {
 export type EventDetails = {
   __typename?: 'EventDetails';
   id: Scalars['ID'];
+  typeId?: Maybe<EventTypeId>;
   location?: Maybe<Place>;
   keywords: Array<Keyword>;
   superEvent?: Maybe<InternalIdObject>;
@@ -426,7 +427,7 @@ export type QueryEventsByIdsArgs = {
 
 
 export type QueryEventListArgs = {
-  eventType?: Maybe<EventTypeId>;
+  eventType?: Maybe<Array<Maybe<EventTypeId>>>;
   internetBased?: Maybe<Scalars['Boolean']>;
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -694,13 +695,16 @@ export type OfferFieldsFragment = (
 
 export type GeneralEventFieldsFragment = (
   { __typename?: 'EventDetails' }
-  & Pick<EventDetails, 'audienceMinAge' | 'audienceMaxAge' | 'id' | 'eventStatus' | 'endTime' | 'startTime' | 'publisher'>
+  & Pick<EventDetails, 'audienceMinAge' | 'audienceMaxAge' | 'id' | 'eventStatus' | 'typeId' | 'endTime' | 'startTime' | 'publisher'>
   & { externalLinks: Array<(
     { __typename?: 'ExternalLink' }
     & Pick<ExternalLink, 'name' | 'link'>
   )>, images: Array<(
     { __typename?: 'Image' }
     & Pick<Image, 'id' | 'name' | 'url' | 'photographerName'>
+  )>, subEvents: Array<(
+    { __typename?: 'InternalIdObject' }
+    & Pick<InternalIdObject, 'internalId'>
   )>, superEvent?: Maybe<(
     { __typename?: 'InternalIdObject' }
     & Pick<InternalIdObject, 'internalId'>
@@ -776,7 +780,7 @@ export type EventDetailsQuery = (
 );
 
 export type EventListQueryVariables = Exact<{
-  eventType?: Maybe<EventTypeId>;
+  eventType?: Maybe<Array<Maybe<EventTypeId>> | Maybe<EventTypeId>>;
   internetBased?: Maybe<Scalars['Boolean']>;
   audienceMaxAgeLt?: Maybe<Scalars['String']>;
   audienceMinAgeGt?: Maybe<Scalars['String']>;
@@ -1276,6 +1280,10 @@ export const GeneralEventFieldsFragmentDoc = gql`
     url
     photographerName
   }
+  subEvents {
+    internalId
+  }
+  typeId
   superEvent {
     internalId
   }
@@ -1607,7 +1615,7 @@ export type EventDetailsQueryHookResult = ReturnType<typeof useEventDetailsQuery
 export type EventDetailsLazyQueryHookResult = ReturnType<typeof useEventDetailsLazyQuery>;
 export type EventDetailsQueryResult = Apollo.QueryResult<EventDetailsQuery, EventDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($eventType: EventTypeId, $internetBased: Boolean, $audienceMaxAgeLt: String, $audienceMinAgeGt: String, $allOngoing: Boolean, $allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordOrSet2: [String], $keywordOrSet3: [String], $keywordNot: [String], $language: String, $localOngoingAnd: [String], $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+    query EventList($eventType: [EventTypeId], $internetBased: Boolean, $audienceMaxAgeLt: String, $audienceMinAgeGt: String, $allOngoing: Boolean, $allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordOrSet2: [String], $keywordOrSet3: [String], $keywordNot: [String], $language: String, $localOngoingAnd: [String], $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
   eventList(
     eventType: $eventType
     internetBased: $internetBased

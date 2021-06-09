@@ -200,6 +200,17 @@
       "buttonShow": "Show all",
       "title": "Other times of the event"
     },
+    "subEvents": {
+      "title": "Related to the event"
+    },
+    "superEvent": {
+      "title": "Relates to the event"
+    },
+    "relatedEvents": {
+      "buttonHide": "Hide",
+      "buttonReadMore": "Read more",
+      "buttonShow": "Show all"
+    },
     "shareLinks": {
       "title": "Share Event"
     },

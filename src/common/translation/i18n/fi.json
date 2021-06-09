@@ -199,6 +199,17 @@
       "buttonShow": "Näytä kaikki",
       "title": "Tapahtuman muut ajat"
     },
+    "subEvents": {
+      "title": "Tapahtumaan liittyvät"
+    },
+    "superEvent": {
+      "title": "Liittyy tapahtumaan"
+    },
+    "relatedEvents": {
+      "buttonHide": "Piilota",
+      "buttonReadMore": "Lue lisää",
+      "buttonShow": "Näytä kaikki"
+    },
     "shareLinks": {
       "title": "Jaa tapahtuma"
     },

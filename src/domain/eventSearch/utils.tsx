@@ -376,7 +376,7 @@ export const getEventSearchVariables = ({
     superEventType,
     audienceMinAgeGt,
     audienceMaxAgeLt,
-    eventType: EVENT_TYPE_TO_ID[eventType],
+    eventType: [EVENT_TYPE_TO_ID[eventType]],
   };
 };
 

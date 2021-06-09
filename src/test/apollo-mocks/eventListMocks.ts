@@ -42,10 +42,10 @@ export const courseListBaseVariables: QueryEventListArgs = {
 export const getOtherEventsVariables = (
   superEvent: EventListQueryVariables['superEvent']
 ): EventListQueryVariables => ({
-  include: ['keywords', 'location'],
   sort: 'start_time',
   start: 'now',
   superEvent,
+  eventType: [EventTypeId.General, EventTypeId.Course],
 });
 
 const createRequest = (
@@ -56,11 +56,13 @@ const createRequest = (
   variables: {
     ...(type === 'event' ? eventListBaseVariables : courseListBaseVariables),
     ...variablesOverride,
-    eventType: type === 'event' ? EventTypeId.General : EventTypeId.Course,
+    eventType: type === 'event' ? [EventTypeId.General] : [EventTypeId.Course],
   },
 });
 
-const createResult = (expectedResponse: EventListResponse): FetchResult => ({
+const createResult = (
+  expectedResponse: EventListResponse | undefined
+): FetchResult => ({
   data: {
     eventList: expectedResponse,
   },
@@ -101,7 +103,6 @@ export const createOtherEventTimesRequestAndResultMocks = ({
     variables: {
       ...getOtherEventsVariables(superEventId),
       ...variables,
-      eventType: type === 'event' ? EventTypeId.General : EventTypeId.Course,
     },
   },
   result: createResult(response),
@@ -117,7 +118,6 @@ export const createOtherEventTimesRequestThrowsErrorMocks = ({
     variables: {
       ...getOtherEventsVariables(superEventId),
       ...variables,
-      eventType: type === 'event' ? EventTypeId.General : EventTypeId.Course,
     },
   },
   error: new Error('not found'),
