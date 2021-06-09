@@ -2,3 +2,8 @@
   min-height: 20rem;
   display: grid;
 }
+
+.resultList {
+  /* Search dropdowns go under Notification components without this */
+  z-index: 0;
+}

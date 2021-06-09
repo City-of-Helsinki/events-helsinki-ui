@@ -48,6 +48,7 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_GTM_PREVIEW: ${{ secrets.GH_PRODUCTION_GTM_PREVIEW }}
           # Feature flags
           DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_EVENTS: 'false'
+          DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_COURSES: 'false'
           DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: 'false'
   production:
     runs-on: ubuntu-latest
@@ -116,7 +117,7 @@ jobs:
           GITHUB_WORKFLOW_NAME: ${{ github.workflow }}
           GITHUB_WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           TESTCAFE_SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          TESTCAFE_SLACK_CHANNEL: "#pomodori-alerts"
+          TESTCAFE_SLACK_CHANNEL: '#pomodori-alerts'
           TESTCAFE_SLACK_USERNAME: TestCafé
       - name: Upload results
         run: |
@@ -131,7 +132,7 @@ jobs:
           SLACK_COLOR: ${{ job.status }}
           SLACK_USERNAME: TestCafé
           SLACK_TITLE: ${{ github.workflow }} have *FAILED*!
-          SLACK_MESSAGE: "*Check the testcafe report here: ${{env.REPORT_URL}}*"
+          SLACK_MESSAGE: '*Check the testcafe report here: ${{env.REPORT_URL}}*'
           SLACK_CHANNEL: pomodori-alerts
           MSG_MINIMAL: true
         if: always() && steps.testcafe.outcome == 'failure'

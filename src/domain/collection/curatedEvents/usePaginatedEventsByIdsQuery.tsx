@@ -26,19 +26,19 @@ const usePaginatedEventsByIdsQuery = (
 } => {
   const { t } = useTranslation();
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
-  const [eventCursorIndex, setEventCursorIndex] = React.useState(1);
+  const [eventCursorIndex, setEventCursorIndex] = React.useState(PAGE_SIZE);
   const [hasMoreEventsToLoad, setHasMoreEventsToLoad] = React.useState(false);
 
-  const { data: eventsData, loading, fetchMore } = useEventsByIdsQuery({
+  const { data: eventsData, loading, fetchMore, error } = useEventsByIdsQuery({
     variables: {
       ids: eventIds,
       include: ['location'],
       pageSize: PAGE_SIZE,
-
       sort: EVENT_SORT_OPTIONS.END_TIME,
     },
     ssr: false,
   });
+  console.log('error', error);
 
   React.useEffect(() => {
     setHasMoreEventsToLoad(!!eventsData?.eventsByIds.meta.next);

@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const QUERY_EVENT_LIST = gql`
   query EventList(
     $eventType: [EventTypeId]
+    $internetBased: Boolean
     $audienceMaxAgeLt: String
     $audienceMinAgeGt: String
     $allOngoing: Boolean
@@ -37,6 +38,7 @@ export const QUERY_EVENT_LIST = gql`
   ) {
     eventList(
       eventType: $eventType
+      internetBased: $internetBased
       audienceMaxAgeLt: $audienceMaxAgeLt
       audienceMinAgeGt: $audienceMinAgeGt
       allOngoing: $allOngoing
