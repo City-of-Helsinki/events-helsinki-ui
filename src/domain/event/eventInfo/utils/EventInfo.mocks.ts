@@ -3,6 +3,8 @@ import { range } from 'lodash';
 
 import {
   EventFieldsFragment,
+  EventListQueryVariables,
+  EventListResponse,
   EventTypeId,
   Meta,
   OrganizationDetailsDocument,
@@ -16,6 +18,7 @@ import {
   fakeOrganization,
   fakeTargetGroup,
 } from '../../../../test/mockDataUtils';
+import { EventType } from '../../types';
 
 export const organizationId = '1';
 export const organizationName = 'Organization name';

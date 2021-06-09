@@ -45,7 +45,7 @@ export const getOtherEventsVariables = (
   sort: 'start_time',
   start: 'now',
   superEvent,
-  eventType: [EventTypeId.General, EventTypeId.Course]
+  eventType: [EventTypeId.General, EventTypeId.Course],
 });
 
 const createRequest = (
@@ -60,7 +60,9 @@ const createRequest = (
   },
 });
 
-const createResult = (expectedResponse: EventListResponse): FetchResult => ({
+const createResult = (
+  expectedResponse: EventListResponse | undefined
+): FetchResult => ({
   data: {
     eventList: expectedResponse,
   },
