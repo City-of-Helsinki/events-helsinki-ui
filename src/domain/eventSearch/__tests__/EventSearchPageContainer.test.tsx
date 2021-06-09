@@ -21,6 +21,7 @@ import {
 } from '../../../test/apollo-mocks/eventListMocks';
 import {
   fakeEvents,
+  fakeLocalizedObject,
   fakeNeighborhoods,
   fakePlaces,
 } from '../../../test/mockDataUtils';
@@ -35,6 +36,15 @@ const meta: Meta = {
   previous: null,
   __typename: 'Meta',
 };
+const meta2: Meta = {
+  count: 1,
+  next: null,
+  previous: null,
+  __typename: 'Meta',
+};
+
+const testEventName = 'Testituloskortti 1';
+
 const eventsResponse = { ...fakeEvents(10), meta };
 
 const eventsLoadMoreResponse = {
@@ -58,6 +68,13 @@ const searchJazzMocks = [
   createEventListRequestAndResultMocks({
     variables: { allOngoingAnd: ['jazz'] },
     response: eventsResponse,
+  }),
+  createEventListRequestAndResultMocks({
+    variables: { internetBased: true, allOngoingAnd: ['jazz'] },
+    response: {
+      ...fakeEvents(1, [{ name: fakeLocalizedObject(testEventName) }]),
+      meta: meta2,
+    },
   }),
   {
     request: {
@@ -260,4 +277,28 @@ it('scrolls to eventcard and calls history.replace correctly (deletes eventId fr
   );
 });
 
-// it('searches events correctly with event place in path, e.g. /fi/annantalo', () => {});
+it('should search remote events with remote event checkbox', async () => {
+  advanceTo(new Date(2020, 7, 12));
+  renderComponent();
+
+  await waitFor(() => {
+    expect(
+      screen.getByText(eventsResponse.data[0].name.fi)
+    ).toBeInTheDocument();
+  });
+
+  const remoteEventCheckbox = screen.getByRole('checkbox', {
+    name: /näytä vain etätapahtumat/i,
+  });
+
+  userEvent.click(remoteEventCheckbox);
+  // remote events search result should be visibe
+  await screen.findByText(testEventName);
+
+  // uncheck and previous search data comes from cache
+  userEvent.click(remoteEventCheckbox);
+
+  eventsResponse.data.forEach((event) => {
+    expect(screen.getByText(event.name.fi)).toBeInTheDocument();
+  });
+});
