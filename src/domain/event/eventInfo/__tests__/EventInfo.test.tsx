@@ -1,6 +1,5 @@
 import { addDays } from 'date-fns';
 import FileSaver from 'file-saver';
-import { clear } from 'jest-date-mock';
 import { range } from 'lodash';
 import React from 'react';
 
@@ -100,10 +99,6 @@ const mocks = [
     result: organizationResponse,
   },
 ];
-
-afterAll(() => {
-  clear();
-});
 
 const getDateRangeStrProps = (event: EventDetails) => ({
   start: event.startTime,
@@ -419,9 +414,7 @@ describe('superEvent', () => {
     ).toBeInTheDocument();
 
     userEvent.click(
-      within(screen.getByTestId(superEventTestId)).queryByText(
-        superEvent.name.fi
-      )
+      within(screen.getByTestId(superEventTestId)).getByText(superEvent.name.fi)
     );
     expect(history.location.pathname).toBe(`/fi/events/${superEvent.id}`);
   });
@@ -533,16 +526,14 @@ describe('subEvents', () => {
           mocks: mocksWithSubEvents,
         }
       );
-      await actWait();
+      const eventsList = await screen.findByTestId(subEventsListTestId);
       const subEvent = subEventsResponse.data.find(
         (e) => e.typeId === eventTypeId
       );
       const dateStr = getDateRangeStr(getDateRangeStrProps(subEvent));
 
       userEvent.click(
-        within(screen.getByTestId(subEventsListTestId)).queryByText(
-          `${subEvent.name.fi} ${dateStr}`
-        )
+        within(eventsList).queryByText(`${subEvent.name.fi} ${dateStr}`)
       );
       expect(history.location.pathname).toBe(`${url}${subEvent.id}`);
     }
@@ -561,18 +552,14 @@ describe('subEvents', () => {
         mocks: mocksWithSubEvents,
       }
     );
-    await actWait();
+    await screen.findByRole('heading', {
+      name: translations.event.otherTimes.title,
+    });
     expect(
       screen.queryByRole('heading', {
         name: translations.event.subEvents.title,
       })
     ).not.toBeInTheDocument();
-
-    expect(
-      screen.queryByRole('heading', {
-        name: translations.event.otherTimes.title,
-      })
-    ).toBeInTheDocument();
   });
 
   async function testSubEvents() {

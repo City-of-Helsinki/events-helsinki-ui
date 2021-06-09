@@ -81,6 +81,11 @@ const EventInfo: React.FC<Props> = ({ event, eventType, superEvent }) => {
   */
   const isMiddleLevelEvent = Boolean(superEvent && event.subEvents?.length);
 
+  // Age limitations are not wanted to be shown on general events.
+  const showAudienceAgeLimitations = Boolean(
+    eventType !== 'event' && (audienceMinAge || audienceMaxAge)
+  );
+
   return (
     <div className={styles.eventInfo} ref={eventInfoContainer}>
       <div className={styles.contentWrapper}>
@@ -88,7 +93,7 @@ const EventInfo: React.FC<Props> = ({ event, eventType, superEvent }) => {
         <SuperEvent superEvent={superEvent} />
         <SubEvents event={event} />
         {!isMiddleLevelEvent && <OtherEventTimes event={event} />}
-        {eventType !== 'event' && (audienceMinAge || audienceMaxAge) && (
+        {showAudienceAgeLimitations && (
           <AudienceAgeLimitations
             audienceMinAge={audienceMinAge}
             audienceMaxAge={audienceMaxAge}
