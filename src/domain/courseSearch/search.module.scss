@@ -12,6 +12,40 @@
     margin-top: 0;
   }
 
+  .headerContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+
+    @include respond_above(md) {
+      flex-direction: row;
+    }
+  }
+
+  .headerTextContainer {
+    display: flex;
+
+    button {
+      font-size: 1.3rem;
+      line-height: 1rem;
+      align-self: flex-start;
+      font-weight: bold;
+      padding: 0 var(--spacing-2-xs);
+      color: var(--color-coat-of-arms-dark);
+    }
+  }
+
+  .betaNotification {
+    --notification-background-color: white;
+    line-height: 1.8rem;
+    margin-bottom: 1rem;
+
+    @include respond_above(md) {
+      margin-left: var(--spacing-s);
+      max-width: 500px;
+    }
+  }
+
   .autoSuggestRow {
     align-items: flex-end;
 
@@ -51,9 +85,7 @@
 
   .searchButtonWrapper {
     @include respond-above(sm) {
-     grid-column: 4;
+      grid-column: 4;
     }
   }
 }
-
-

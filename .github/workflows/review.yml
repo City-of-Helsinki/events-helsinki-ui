@@ -23,14 +23,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        service: [ "1", "2"]
+        service: ['1', '2']
         include:
-          - service: "1"
-            version: "1.0"
-            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "false"
-          - service: "2"
-            version: "2.0"
-            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "true"
+          - service: '1'
+            version: '1.0'
+            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: 'false'
+          - service: '2'
+            version: '2.0'
+            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: 'true'
     runs-on: ubuntu-latest
     name: Build
     steps:
@@ -52,6 +52,7 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_MATOMO_ENABLED: 'false'
           # Feature flags
           DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_EVENTS: 'false'
+          DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_COURSES: 'false'
           DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: ${{ matrix.DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2 }}
   review:
     runs-on: ubuntu-latest
@@ -59,16 +60,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        service: [ "1", "2"]
+        service: ['1', '2']
         include:
-          - service: "1"
-            version: "1.0"
-            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "false"
-            description: "The Old version of Tapahtumat (without courses)"
-          - service: "2"
-            version: "2.0"
-            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: "true"
-            description: "The New version of Tapahtumat (with courses)"
+          - service: '1'
+            version: '1.0'
+            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: 'false'
+            description: 'The Old version of Tapahtumat (without courses)'
+          - service: '2'
+            version: '2.0'
+            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: 'true'
+            description: 'The New version of Tapahtumat (with courses)'
     name: Review + Acceptance Tests V${{ matrix.version }}
     steps:
       - uses: actions/checkout@v2
@@ -132,7 +133,7 @@ jobs:
           header: testcafe-results-${{matrix.service}}
           append: true
           message: |
-             ## TestCafe result is __${{ steps.testcafe.outcome }}__ for ${{ matrix.description }}! ${{steps.testcafe.outcome == 'success' && ':laughing::tada::tada::tada:' || ':crying_cat_face::anger::boom::boom:' }}
+            ## TestCafe result is __${{ steps.testcafe.outcome }}__ for ${{ matrix.description }}! ${{steps.testcafe.outcome == 'success' && ':laughing::tada::tada::tada:' || ':crying_cat_face::anger::boom::boom:' }}
         if: always() && (steps.testcafe.outcome == 'success' || steps.testcafe.outcome == 'failure')
       - name: Create/update PR comment for Acceptance Test results for V${{ matrix.version }}
         uses: marocchino/sticky-pull-request-comment@v2
@@ -141,7 +142,7 @@ jobs:
           header: testcafe-results-${{matrix.service}}
           append: true
           message: |
-             **Check the report on: [${{ env.REPORT_URL }}](${{ env.REPORT_URL }})**
+            **Check the report on: [${{ env.REPORT_URL }}](${{ env.REPORT_URL }})**
         if: always() && steps.testcafe.outcome == 'failure'
       - name: Upload screenshots and videos of failed tests to artifact for V${{ matrix.version }}
         uses: actions/upload-artifact@v2

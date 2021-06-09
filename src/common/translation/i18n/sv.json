@@ -7,6 +7,9 @@
   },
   "appName": "Evenemang",
   "commons": {
+    "notification": {
+      "labelClose": "Stäng anmälan"
+    },
     "autosuggest": {
       "menu": {
         "ariaButtonClose": "Stäng menyn",
@@ -80,7 +83,7 @@
       "linkOnlyExpiredEvents": "Till alla kollektioner",
       "textEventNotFound": "Samlingen hittades inte",
       "textOnlyExpiredEvents": "Tyvärr har denna kollektions rekommenderade evenemang redan gått. Bekanta dig mig våra övriga rekommendationer och hitta fler intressanta evenemang.",
-      "eventsTitle": "Rekommenderade händelser",
+      "eventsTitle": "Rekommenderade evenemang",
       "coursesTitle": "Rekommenderade hobbyer"
     },
     "eventList": {
@@ -242,6 +245,7 @@
       "checkboxIsFree": "Visa endast avgiftsfria",
       "checkboxOnlyChildrenEvents": "Visa endast evenemang för barn",
       "checkboxOnlyEveningEvents": "Visa endast kvällsprogram",
+      "checkboxOnlyRemoteEvents": "Visa bara avlägsna händelser",
       "labelCategory": "Vilken typ av evenemang du letar efter?",
       "labelDateRange": "För vilken period du letar efter?",
       "labelDistrict": "Varifrån letar du efter??",
@@ -259,6 +263,8 @@
   },
   "courseSearch": {
     "title": "Hitta hobby",
+    "betaNotificationText": "Vill du ge oss respons på utvecklingsversionen av hobbysöksidan? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Gå till responsformuläret {{openInNewTab}}\">Gå till responsformuläret.</a>",
+    "betaResultsNotificationText": "Vi arbetar med att vidareutveckla webbsidan. För tillfället innehåller tjänsten enbart hobbyer för barn och unga.",
     "buttonLoadMore": "Visa fler hobbyew ({{count}})",
     "searchNotification": {
       "noResultsTitle": "Tyvärr hittades inga resultat för de sökkriterier du valt.",
@@ -293,7 +299,7 @@
     "searchHobbies": "Hobbyer",
     "titleEventsCategories": "Populära evenemangskategorier",
     "titleCoursesCategories": "Populära hobbykategorier",
-    "backToTop": "Tillbaka till toppen",
+    "backToTop": "Tillbaka upp",
     "copyright": "Copyright",
     "allRightsReserved": "Alla rättigheter förbehållna"
   },

@@ -428,6 +428,7 @@ export type QueryEventsByIdsArgs = {
 
 export type QueryEventListArgs = {
   eventType?: Maybe<Array<Maybe<EventTypeId>>>;
+  internetBased?: Maybe<Scalars['Boolean']>;
   localOngoingAnd?: Maybe<Array<Maybe<Scalars['String']>>>;
   localOngoingOr?: Maybe<Array<Maybe<Scalars['String']>>>;
   localOngoingOrSet1?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -780,6 +781,7 @@ export type EventDetailsQuery = (
 
 export type EventListQueryVariables = Exact<{
   eventType?: Maybe<Array<Maybe<EventTypeId>> | Maybe<EventTypeId>>;
+  internetBased?: Maybe<Scalars['Boolean']>;
   audienceMaxAgeLt?: Maybe<Scalars['String']>;
   audienceMinAgeGt?: Maybe<Scalars['String']>;
   allOngoing?: Maybe<Scalars['Boolean']>;
@@ -1613,9 +1615,10 @@ export type EventDetailsQueryHookResult = ReturnType<typeof useEventDetailsQuery
 export type EventDetailsLazyQueryHookResult = ReturnType<typeof useEventDetailsLazyQuery>;
 export type EventDetailsQueryResult = Apollo.QueryResult<EventDetailsQuery, EventDetailsQueryVariables>;
 export const EventListDocument = gql`
-    query EventList($eventType: [EventTypeId], $audienceMaxAgeLt: String, $audienceMinAgeGt: String, $allOngoing: Boolean, $allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordOrSet2: [String], $keywordOrSet3: [String], $keywordNot: [String], $language: String, $localOngoingAnd: [String], $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
+    query EventList($eventType: [EventTypeId], $internetBased: Boolean, $audienceMaxAgeLt: String, $audienceMinAgeGt: String, $allOngoing: Boolean, $allOngoingAnd: [String], $division: [String], $end: String, $endsAfter: String, $endsBefore: String, $inLanguage: String, $include: [String], $isFree: Boolean, $keyword: [String], $keywordAnd: [String], $keywordOrSet1: [String], $keywordOrSet2: [String], $keywordOrSet3: [String], $keywordNot: [String], $language: String, $localOngoingAnd: [String], $location: [String], $page: Int, $pageSize: Int, $publisher: ID, $sort: String, $start: String, $startsAfter: String, $startsBefore: String, $superEvent: ID, $superEventType: [String], $text: String, $translation: String) {
   eventList(
     eventType: $eventType
+    internetBased: $internetBased
     audienceMaxAgeLt: $audienceMaxAgeLt
     audienceMinAgeGt: $audienceMinAgeGt
     allOngoing: $allOngoing
@@ -1673,6 +1676,7 @@ export const EventListDocument = gql`
  * const { data, loading, error } = useEventListQuery({
  *   variables: {
  *      eventType: // value for 'eventType'
+ *      internetBased: // value for 'internetBased'
  *      audienceMaxAgeLt: // value for 'audienceMaxAgeLt'
  *      audienceMinAgeGt: // value for 'audienceMinAgeGt'
  *      allOngoing: // value for 'allOngoing'

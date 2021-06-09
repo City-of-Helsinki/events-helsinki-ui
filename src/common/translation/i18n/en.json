@@ -7,6 +7,9 @@
   },
   "appName": "Events",
   "commons": {
+    "notification": {
+      "labelClose": "Close notification"
+    },
     "autosuggest": {
       "menu": {
         "ariaButtonClose": "Close menu",
@@ -242,6 +245,7 @@
       "checkboxIsFree": "Show only events that are free",
       "checkboxOnlyChildrenEvents": "Show only events for children",
       "checkboxOnlyEveningEvents": "Show only evening events",
+      "checkboxOnlyRemoteEvents": "Show only remote events",
       "labelCategory": "What kind of event you are looking for?",
       "labelDateRange": "For what period you are looking for?",
       "labelDistrict": "From where are you looking for?",
@@ -259,6 +263,8 @@
   },
   "courseSearch": {
     "title": "Find hobby",
+    "betaNotificationText": "Would you like to give us feedback on the beta version of our ‘Find hobby’ search page? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Click here to be directed to the feedback form {{openInNewTab}}\">Click here to be directed to the feedback form.</a>",
+    "betaResultsNotificationText": "The website is under development. At present, there are only hobbies for children and young people.",
     "buttonLoadMore": "Show more hobbies ({{count}})",
     "searchNotification": {
       "noResultsTitle": "Sorry, no search results were found for the search criteria you selected.",

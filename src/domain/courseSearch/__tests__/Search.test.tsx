@@ -19,6 +19,7 @@ import {
   render,
   screen,
   userEvent,
+  waitFor,
 } from '../../../test/testUtils';
 import Search from '../Search';
 
@@ -256,17 +257,54 @@ test('should change search query after clicking age limit menu item', async () =
   expect(history.location.search).toBe(
     '?text=jazz&audienceMinAgeGt=10&audienceMaxAgeLt=20'
   );
+});
 
-  //for default age value (18+)
-  //tempoaray disabled, not real search scenario
-  /*userEvent.click(chooseAgeLimitButton);
-  userEvent.click(
-    screen.getByRole('checkbox', {
-      name: /näytä vain aikuisten harrastukset/i,
-    })
-  );
+test('beta notification is rendered when beta button is clicked', async () => {
+  renderComponent();
 
-  userEvent.click(screen.getByRole('button', { name: /hae/i }));
-  expect(history.location.pathname).toBe(pathname);
-  expect(history.location.search).toBe('?text=jazz&audienceMinAgeGt=18');*/
+  expectNotificationToNotBeRendered();
+  clickBetaButton();
+  expectBetanotificationToBeRendered();
+  closeNotification();
+  await expectNotificationToDisappear();
+
+  /************************************/
+  /* ONLY helper functions below this */
+  /************************************/
+
+  function clickBetaButton() {
+    userEvent.click(screen.getByRole('button', { name: 'Beta' }));
+  }
+
+  function expectNotificationToNotBeRendered() {
+    const betaNotification = screen.queryByRole('region', {
+      name: /notification/i,
+    });
+    expect(betaNotification).not.toBeInTheDocument();
+  }
+
+  function closeNotification() {
+    const closeButton = screen.getByRole('button', {
+      name: /sulje ilmoitus/i,
+    });
+    userEvent.click(closeButton);
+  }
+
+  function expectBetanotificationToBeRendered() {
+    const betaNotification = screen.queryByRole('region', {
+      name: /notification/i,
+    });
+    expect(betaNotification).toHaveTextContent(
+      /Haluatko antaa meille palautetta harrastusten hakusivun kehitysveriosta\? Tästä pääset palautelomakkeeseen\./i
+    );
+  }
+
+  async function expectNotificationToDisappear() {
+    const betaNotification = screen.queryByRole('region', {
+      name: /notification/i,
+    });
+    await waitFor(() => {
+      expect(betaNotification).not.toBeInTheDocument();
+    });
+  }
 });

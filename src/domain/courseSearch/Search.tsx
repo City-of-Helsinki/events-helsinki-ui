@@ -7,6 +7,7 @@ import {
   IconHome,
   IconLocation,
   IconSearch,
+  Notification,
 } from 'hds-react';
 import uniq from 'lodash/uniq';
 import React, { FormEvent } from 'react';
@@ -20,6 +21,7 @@ import RangeDropdown from '../../common/components/rangeDropdown/RangeDropdown';
 import SearchAutosuggest from '../../common/components/search/SearchAutosuggest';
 import SearchLabel from '../../common/components/search/searchLabel/SearchLabel';
 import { AutosuggestMenuOption } from '../../common/types';
+import { feedbackUrl } from '../../constants';
 import useDivisionOptions from '../../hooks/useDivisionOptions';
 import useLocale from '../../hooks/useLocale';
 import IconRead from '../../icons/IconRead';
@@ -229,7 +231,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   return (
     <div className={styles.searchContainer}>
       <Container>
-        <h1>{t('courseSearch.title')}</h1>
+        <SearchHeader />
         <form onSubmit={handleSubmit}>
           <div className={styles.searchWrapper}>
             <div className={classNames(styles.gridRow, styles.autoSuggestRow)}>
@@ -376,6 +378,46 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
           </div>
         </form>
       </Container>
+    </div>
+  );
+};
+
+// Put to its own component because of temporary beta notifiction logic :)
+const SearchHeader = () => {
+  const { t } = useTranslation();
+  const [showBetaNotification, setShowBetaNotification] = React.useState<
+    boolean
+  >(false);
+
+  return (
+    <div className={styles.headerContainer}>
+      <div className={styles.headerTextContainer}>
+        <h1>{t('courseSearch.title')}</h1>
+        <button onClick={() => setShowBetaNotification(true)}>Beta</button>
+      </div>
+      <div>
+        {showBetaNotification && (
+          <Notification
+            dismissible
+            type="info"
+            size="small"
+            className={styles.betaNotification}
+            closeButtonLabelText={
+              t('commons.notification.labelClose') as string
+            }
+            onClose={() => setShowBetaNotification(false)}
+          >
+            <div
+              dangerouslySetInnerHTML={{
+                __html: t('courseSearch.betaNotificationText', {
+                  openInNewTab: t('commons.srOnly.opensInANewTab'),
+                  url: feedbackUrl,
+                }),
+              }}
+            />
+          </Notification>
+        )}
+      </div>
     </div>
   );
 };
