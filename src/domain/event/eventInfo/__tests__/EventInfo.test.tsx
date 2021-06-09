@@ -1,27 +1,9 @@
-import { addDays } from 'date-fns';
 import FileSaver from 'file-saver';
-import { range } from 'lodash';
 import React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
-import {
-  EventDetails,
-  EventFieldsFragment,
-  EventListQueryVariables,
-  EventListResponse,
-  EventTypeId,
-  Meta,
-  OrganizationDetailsDocument,
-} from '../../../../generated/graphql';
-import { createOtherEventTimesRequestAndResultMocks } from '../../../../test/apollo-mocks/eventListMocks';
-import {
-  fakeEvent,
-  fakeEvents,
-  fakeLocalizedObject,
-  fakeOffer,
-  fakeOrganization,
-  fakeTargetGroup,
-} from '../../../../test/mockDataUtils';
+import { EventDetails, EventTypeId } from '../../../../generated/graphql';
+import { fakeEvent } from '../../../../test/mockDataUtils';
 import {
   actWait,
   configure,
@@ -35,70 +17,23 @@ import getDateRangeStr from '../../../../util/getDateRangeStr';
 import { EventType, SuperEventResponse } from '../../types';
 import EventInfo from '../EventInfo';
 import { subEventsListTestId, superEventTestId } from '../EventsHierarchy';
+import {
+  addressLocality,
+  email,
+  event,
+  locationName,
+  mocks,
+  mocksWithSubEvents,
+  organizationName,
+  organizerName,
+  price,
+  streetAddress,
+  subEventsLoadMoreResponse,
+  subEventsResponse,
+  superEventInternalId,
+  telephone,
+} from '../utils/EventInfo.mocks';
 configure({ defaultHidden: true });
-
-const organizationId = '1';
-const organizationName = 'Organization name';
-const organization = fakeOrganization({
-  id: organizationId,
-  name: organizationName,
-});
-const organizationResponse = { data: { organizationDetails: organization } };
-
-const superEventId = 'hel:123';
-const superEventInternalId = `https://api.hel.fi/linkedevents/v1/event/${superEventId}`;
-const startTime = '2020-06-22T07:00:00.000000Z';
-const endTime = '2020-06-22T10:00:00.000000Z';
-const email = 'test@email.com';
-const telephone = '0441234567';
-const addressLocality = 'Helsinki';
-const district = 'Malmi';
-const locationName = 'Location name';
-const streetAddress = 'Test address 1';
-const price = '12 €';
-const targetGroups = ['lapset', 'aikuiset'];
-const maximumAttendeeCapacity = 20;
-const minimumAttendeeCapacity = 10;
-const remainingAttendeeCapacity = 5;
-const audienceMinAge = '5';
-const audienceMaxAge = '15';
-const organizerName = 'provider organisation';
-const event = fakeEvent({
-  audienceMinAge,
-  audienceMaxAge,
-  startTime,
-  endTime,
-  provider: { fi: organizerName },
-  publisher: organizationId,
-  location: {
-    divisions: [{ name: { fi: district }, type: 'neighborhood' }],
-    email,
-    telephone: { fi: telephone },
-    internalId: 'tprek:8740',
-    addressLocality: { fi: addressLocality },
-    name: { fi: locationName },
-    streetAddress: { fi: streetAddress },
-  },
-  maximumAttendeeCapacity: maximumAttendeeCapacity,
-  minimumAttendeeCapacity: minimumAttendeeCapacity,
-  remainingAttendeeCapacity: remainingAttendeeCapacity,
-  offers: [fakeOffer({ isFree: false, price: { fi: price } })],
-  audience: targetGroups.map((targetGroup) =>
-    fakeTargetGroup({ name: fakeLocalizedObject(targetGroup) })
-  ),
-}) as EventFieldsFragment;
-
-const mocks = [
-  {
-    request: {
-      query: OrganizationDetailsDocument,
-      variables: {
-        id: organizationId,
-      },
-    },
-    result: organizationResponse,
-  },
-];
 
 const getDateRangeStrProps = (event: EventDetails) => ({
   start: event.startTime,
@@ -434,73 +369,6 @@ describe('superEvent', () => {
 });
 
 describe('subEvents', () => {
-  const meta: Meta = {
-    count: 20,
-    next:
-      // eslint-disable-next-line max-len
-      'https://api.hel.fi/linkedevents/v1/event/?include=keyword,location&page=2&sort=start_time&start=2020-08-11T03&super_event=hel:123',
-    previous: null,
-    __typename: 'Meta',
-  };
-
-  const subEventsResponse = {
-    ...fakeEvents(
-      10,
-      range(1, 11).map((i) => ({
-        endTime: addDays(new Date(endTime), i).toISOString(),
-        startTime: addDays(new Date(startTime), i).toISOString(),
-        typeId: i % 2 === 0 ? EventTypeId.Course : EventTypeId.General,
-        superEvent: { internalId: superEventInternalId },
-      }))
-    ),
-    meta,
-  };
-
-  const subEventsLoadMoreResponse = {
-    ...fakeEvents(
-      10,
-      range(11, 21).map((i) => ({
-        endTime: addDays(new Date(endTime), i).toISOString(),
-        startTime: addDays(new Date(startTime), i).toISOString(),
-        superEvent: { internalId: superEventInternalId },
-      }))
-    ),
-    meta: { ...meta, next: null },
-  };
-
-  const getSubEventsMocks = ({
-    eventType = 'event',
-    response,
-    variables,
-  }: {
-    eventType: EventType;
-    response: EventListResponse;
-    variables?: EventListQueryVariables;
-  }) =>
-    createOtherEventTimesRequestAndResultMocks({
-      superEventId: event.id,
-      response,
-      variables,
-      type: eventType,
-    });
-
-  const firstSubEventsLoadMock = getSubEventsMocks({
-    eventType: 'event',
-    response: subEventsResponse,
-  });
-
-  const secondSubEventsLoadMock = getSubEventsMocks({
-    variables: { page: 2 },
-    response: subEventsLoadMoreResponse,
-    eventType: 'event',
-  });
-
-  const mocksWithSubEvents = [
-    ...mocks,
-    firstSubEventsLoadMock,
-    secondSubEventsLoadMock,
-  ];
-
   it('should render sub events title and content when sub events are given', async () => {
     render(<EventInfo event={event} eventType="event" />, {
       mocks: mocksWithSubEvents,
