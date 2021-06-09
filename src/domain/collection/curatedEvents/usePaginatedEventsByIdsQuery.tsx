@@ -7,23 +7,10 @@ import {
   useEventsByIdsQuery,
 } from '../../../generated/graphql';
 import { isEventClosed } from '../../event/EventUtils';
+import { EVENT_SORT_OPTIONS } from '../../eventSearch/constants';
+import { getNextPage } from '../../eventSearch/utils';
 
 export const PAGE_SIZE = 10;
-
-const usePageNumber = (
-  eventsCount: number | undefined,
-  eventIdsCount: number
-) => {
-  const pageNumber = React.useRef(
-    // if eventsByIds is available on first render, they are coming from cache
-    // Initialize page number based on its length
-    eventsCount ? Math.ceil(eventsCount / PAGE_SIZE) : 1
-  );
-  const eventCursorIndex = pageNumber.current * PAGE_SIZE;
-  const hasMoreEventsToLoad = eventCursorIndex < eventIdsCount;
-
-  return { pageNumber, eventCursorIndex, hasMoreEventsToLoad };
-};
 
 const usePaginatedEventsByIdsQuery = (
   eventIds: string[]
@@ -35,52 +22,63 @@ const usePaginatedEventsByIdsQuery = (
   onLoadMoreEvents: () => Promise<void>;
   hasMoreEventsToLoad: boolean;
   eventCursorIndex: number;
+  eventsTotalCount: number;
 } => {
   const { t } = useTranslation();
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
+  const [eventCursorIndex, setEventCursorIndex] = React.useState(1);
+  const [hasMoreEventsToLoad, setHasMoreEventsToLoad] = React.useState(false);
 
   const { data: eventsData, loading, fetchMore } = useEventsByIdsQuery({
     variables: {
-      ids: eventIds.slice(0, PAGE_SIZE),
+      ids: eventIds,
       include: ['location'],
+      pageSize: PAGE_SIZE,
+
+      sort: EVENT_SORT_OPTIONS.END_TIME,
     },
     ssr: false,
   });
 
-  const { pageNumber, eventCursorIndex, hasMoreEventsToLoad } = usePageNumber(
-    eventsData?.eventsByIds.length,
-    eventIds.length
-  );
+  React.useEffect(() => {
+    setHasMoreEventsToLoad(!!eventsData?.eventsByIds.meta.next);
+  }, [eventsData]);
 
   const events =
-    eventsData?.eventsByIds.filter((event) => !isEventClosed(event)) || [];
+    eventsData?.eventsByIds.data.filter((event) => !isEventClosed(event)) || [];
   const expiredEvents =
-    eventsData?.eventsByIds.filter((event) => isEventClosed(event)) || [];
+    eventsData?.eventsByIds.data.filter((event) => isEventClosed(event)) || [];
 
   const onLoadMoreEvents = async () => {
-    if (hasMoreEventsToLoad) {
-      setIsFetchingMore(true);
+    const page = eventsData?.eventsByIds.meta
+      ? getNextPage(eventsData.eventsByIds.meta)
+      : null;
+    setHasMoreEventsToLoad(!!eventsData?.eventsByIds.meta.next);
+    setIsFetchingMore(true);
+    if (page) {
       try {
         await fetchMore({
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev;
             const events = [
-              ...prev.eventsByIds,
-              ...fetchMoreResult.eventsByIds,
+              ...prev.eventsByIds.data,
+              ...fetchMoreResult.eventsByIds.data,
             ];
-            fetchMoreResult.eventsByIds = events;
+            fetchMoreResult.eventsByIds.data = events;
             return fetchMoreResult;
           },
           variables: {
-            ids: eventIds.slice(eventCursorIndex, eventCursorIndex + PAGE_SIZE),
+            ids: eventIds,
             include: ['location'],
+            pageSize: PAGE_SIZE,
+            sort: EVENT_SORT_OPTIONS.END_TIME,
+            page: page,
           },
         });
-        pageNumber.current = pageNumber.current + 1;
       } catch (e) {
         toast.error(t('collection.eventList.errorLoadMore'));
       }
-
+      setEventCursorIndex(page * PAGE_SIZE);
       setIsFetchingMore(false);
     }
   };
@@ -93,6 +91,7 @@ const usePaginatedEventsByIdsQuery = (
     onLoadMoreEvents,
     hasMoreEventsToLoad,
     eventCursorIndex,
+    eventsTotalCount: eventsData?.eventsByIds.meta.count ?? 0,
   };
 };
 
