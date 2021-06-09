@@ -79,7 +79,7 @@ const courseListVariables = {
 
 const courseListVariables2 = {
   allOngoingAnd: ['jazz'],
-  division: ['kaupunginosa:alppiharju', 'kaupunginosa:aluemeri'],
+  division: ['kaupunginosa:alppiharju', 'kaupunginosa:eira'],
   end: '2020-12-02',
   include: ['keywords', 'location'],
   isFree: undefined,
@@ -111,7 +111,7 @@ const courseListVariables2 = {
 const neighborhoodsResponse = {
   data: {
     neighborhoodList: fakeNeighborhoods(10, [
-      { id: 'kaupunginosa:aluemeri', name: fakeLocalizedObject('Aluemeri') },
+      { id: 'kaupunginosa:eira', name: fakeLocalizedObject('Eira') },
       {
         id: 'kaupunginosa:alppiharju',
         name: fakeLocalizedObject('Alppiharju'),
@@ -271,7 +271,7 @@ it('initializes search fields correctly from query', async () => {
   advanceTo('2020-12-01');
   renderComponent(defaultMocks, [
     // eslint-disable-next-line max-len
-    '/fi/courses?categories=movie_and_media&dateTypes=tomorrow&divisions=kaupunginosa%3Aalppiharju,kaupunginosa%3Aaluemeri&places=tprek%3A9302&text=jazz',
+    '/fi/courses?categories=movie_and_media&dateTypes=tomorrow&divisions=kaupunginosa%3Aalppiharju,kaupunginosa%3Aeira&places=tprek%3A9302&text=jazz',
   ]);
 
   await waitFor(() => {
@@ -304,7 +304,6 @@ it('initializes search fields correctly from query', async () => {
 
   expect(filterSummaryContainer.queryByText('jazz')).toBeInTheDocument();
   expect(filterSummaryContainer.queryByText('Alppiharju')).toBeInTheDocument();
-  expect(filterSummaryContainer.queryByText('Aluemeri')).toBeInTheDocument();
   expect(filterSummaryContainer.queryByText('Huomenna')).toBeInTheDocument();
   expect(
     filterSummaryContainer.queryByText('Helsingin Kaupunginteatteri')
