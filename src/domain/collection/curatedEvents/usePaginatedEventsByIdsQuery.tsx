@@ -28,7 +28,7 @@ const usePaginatedEventsByIdsQuery = (
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const [eventCursorIndex, setEventCursorIndex] = React.useState(PAGE_SIZE);
   const [hasMoreEventsToLoad, setHasMoreEventsToLoad] = React.useState(false);
-  const { data: eventsData, loading, fetchMore, error } = useEventsByIdsQuery({
+  const { data: eventsData, loading, fetchMore } = useEventsByIdsQuery({
     variables: {
       ids: eventIds,
       include: ['location'],
@@ -37,13 +37,6 @@ const usePaginatedEventsByIdsQuery = (
     },
     ssr: false,
   });
-  console.log(
-    'usePaginatedEventsByIdsQuery',
-    'error',
-    error,
-    'loading',
-    loading
-  );
   React.useEffect(() => {
     setHasMoreEventsToLoad(!!eventsData?.eventsByIds.meta.next);
   }, [eventsData, isFetchingMore]);
@@ -58,11 +51,9 @@ const usePaginatedEventsByIdsQuery = (
       ? getNextPage(eventsData.eventsByIds.meta)
       : null;
     setHasMoreEventsToLoad(!!eventsData?.eventsByIds.meta.next);
-    console.log('page', page);
     setIsFetchingMore(true);
     if (page) {
       try {
-        console.log('await fetchMore');
         await fetchMore({
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev;
@@ -82,21 +73,11 @@ const usePaginatedEventsByIdsQuery = (
           },
         });
       } catch (e) {
-        console.log('fetchMore error', e);
         toast.error(t('collection.eventList.errorLoadMore'));
       }
       setEventCursorIndex(page * PAGE_SIZE);
     }
     setIsFetchingMore(false);
-    console.log(
-      'onLoadMoreEvents',
-      'eventCursorIndex',
-      eventCursorIndex,
-      'isFetchingMore',
-      isFetchingMore,
-      'hasMoreEventsToLoad',
-      hasMoreEventsToLoad
-    );
   };
 
   return {

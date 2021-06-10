@@ -114,12 +114,6 @@ const CollectionEventsList: React.FC<{
       </LoadingSpinner>
     </div>
   );
-  console.log(
-    'hasMoreEventsToLoad',
-    hasMoreEventsToLoad,
-    'isFetchingMore',
-    isFetchingMore
-  );
 
   return (
     <div className={styles.curatedEventListContainer} data-testid={testId}>

@@ -149,7 +149,7 @@ test('should show expired events', async () => {
   });
 });
 
-test.only('event list pagination works', async () => {
+test('event list pagination works', async () => {
   await paginationTest({ eventType: 'event' });
 });
 
@@ -208,12 +208,12 @@ const paginationTest = async ({
     await waitForRequestToComplete();
 
     // check that correct events were fetched and rendered
-    // for (const eventName of eventNames.slice(
-    //   eventsFetchedCount,
-    //   eventsFetchedCount + PAGE_SIZE
-    // )) {
-    //   expect(screen.queryByText(eventName)).toBeInTheDocument();
-    // }
+    for (const eventName of eventNames.slice(
+      eventsFetchedCount,
+      eventsFetchedCount + PAGE_SIZE
+    )) {
+      expect(screen.queryByText(eventName)).toBeInTheDocument();
+    }
   }
 
   expect(
@@ -241,7 +241,7 @@ const getMocks = (
   let meta = {
     count: ids.length,
     previous: null,
-    next: 'asdf',
+    next: null,
     __typename: 'Meta',
   };
 
@@ -260,7 +260,6 @@ const getMocks = (
       page - 1
     }&sort=end_time&include=location`;
   }
-
   return [
     {
       request: {
@@ -315,7 +314,8 @@ const getMocksForPagination = (
       return getMocks(
         eventList.data as EventFieldsFragment[],
         range(eventsCount).map((id: number) => (id + 1).toString()),
-        index + 1
+        index + 1,
+        chunkedEvents.length
       );
     })
     .flat();
