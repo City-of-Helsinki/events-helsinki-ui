@@ -115,7 +115,10 @@ test('should show expired events', async () => {
     }))
   );
   const eventsData = events.data as EventFieldsFragment[];
-  const mocks = getMocks(eventsData);
+  const mocks = getMocks(
+    eventsData,
+    eventsData.map((event) => event.id)
+  );
 
   render(<CuratedEvents collection={collection} />, {
     mocks,
@@ -231,43 +234,7 @@ const getMocks = (
     request: {
       query: EventsByIdsDocument,
       variables: {
-        ids: [
-          '1',
-          '2',
-          '3',
-          '4',
-          '5',
-          '6',
-          '7',
-          '8',
-          '9',
-          '10',
-          '11',
-          '12',
-          '13',
-          '14',
-          '15',
-          '16',
-          '17',
-          '18',
-          '19',
-          '20',
-          '21',
-          '22',
-          '23',
-          '24',
-          '25',
-          '26',
-          '27',
-          '28',
-          '29',
-          '30',
-          '31',
-          '32',
-          '33',
-          '34',
-          '35',
-        ],
+        ids,
         include: ['location'],
         pageSize: 10,
         sort: 'end_time',

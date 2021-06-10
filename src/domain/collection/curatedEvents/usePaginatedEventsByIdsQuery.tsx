@@ -38,8 +38,8 @@ const usePaginatedEventsByIdsQuery = (
     },
     ssr: false,
   });
-  console.log('error', error);
-
+  console.log('error', error, 'loading', loading);
+  console.log('eventsData', eventsData);
   React.useEffect(() => {
     setHasMoreEventsToLoad(!!eventsData?.eventsByIds.meta.next);
   }, [eventsData]);
