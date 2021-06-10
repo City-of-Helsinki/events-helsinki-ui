@@ -162,7 +162,7 @@ it('should show error hero if collection is expired', async () => {
   ).toBeInTheDocument();
 });
 
-it.only('should fetch and render curated event and scroll to it', async () => {
+it('should fetch and render curated event and scroll to it', async () => {
   const mocks = getMocks(collection, false);
   const history = createMemoryHistory();
   history.push({ pathname: routes[0], state: { eventId: curatedEventId } });

@@ -149,7 +149,7 @@ test('should show expired events', async () => {
   });
 });
 
-test('event list pagination works', async () => {
+test.only('event list pagination works', async () => {
   await paginationTest({ eventType: 'event' });
 });
 
@@ -194,27 +194,22 @@ const paginationTest = async ({
   };
 
   // use loop to fetch all the events by clicking show more button (pagination)
-  // for (
-  //   let eventsFetchedCount = PAGE_SIZE;
-  //   eventsFetchedCount < eventsCount;
-  //   eventsFetchedCount += PAGE_SIZE
-  // ) {
-  //   clickShowMoreEventsButton(
-  //     new RegExp(
-  //       `Näytä lisää tapahtumia \\(${eventsCount - eventsFetchedCount}\\)`,
-  //       'i'
-  //     )
-  //   );
-  //   await waitForRequestToComplete();
+  for (
+    let eventsFetchedCount = PAGE_SIZE;
+    eventsFetchedCount < eventsCount;
+    eventsFetchedCount += PAGE_SIZE
+  ) {
+    clickShowMoreEventsButton(new RegExp(`Näytä lisää tapahtumia`, 'i'));
+    // await waitForRequestToComplete();
 
-  //   // check that correct events were fetched and rendered
-  //   for (const eventName of eventNames.slice(
-  //     eventsFetchedCount,
-  //     eventsFetchedCount + PAGE_SIZE
-  //   )) {
-  //     expect(screen.queryByText(eventName)).toBeInTheDocument();
-  //   }
-  // }
+    // check that correct events were fetched and rendered
+    // for (const eventName of eventNames.slice(
+    //   eventsFetchedCount,
+    //   eventsFetchedCount + PAGE_SIZE
+    // )) {
+    //   expect(screen.queryByText(eventName)).toBeInTheDocument();
+    // }
+  }
 
   // expect(
   //   screen.queryByRole('button', { name: /näytä lisää tapahtumia/ })
@@ -241,7 +236,16 @@ const getMocks = (
       },
     },
     result: {
-      data: { eventsByIds: { data: events, meta: { count: ids.length } } },
+      data: {
+        eventsByIds: {
+          data: events,
+          meta: {
+            count: ids.length,
+            previous: 'asdf?page=1',
+            next: 'qwer?page=2',
+          },
+        },
+      },
     },
   },
 ];
@@ -280,7 +284,7 @@ const getMocksForPagination = (
   const mocks = chunkedEvents.map((eventList) => {
     return getMocks(
       eventList.data as EventFieldsFragment[],
-      eventList.data.map((event) => event.id),
+      range(eventsCount).map((id: number) => (id + 1).toString()),
       type
     )[0];
   });
@@ -293,7 +297,10 @@ const getMocksForPagination = (
 };
 
 const waitForRequestToComplete = async () => {
-  await waitFor(() => {
-    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-  });
+  await waitFor(
+    () => {
+      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+    },
+    { timeout: 5000 }
+  );
 };

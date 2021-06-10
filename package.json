@@ -3,7 +3,7 @@
   "version": "0.8.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.3.19",
+    "@apollo/client": "^3.4.0-rc.6",
     "@datapunt/matomo-tracker-react": "^0.2.1",
     "@sentry/browser": "^5.14.2",
     "@types/classnames": "^2.2.9",

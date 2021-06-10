@@ -70,7 +70,6 @@ const CollectionEventsList: React.FC<{
     eventCursorIndex,
     eventsTotalCount,
   } = usePaginatedEventsByIdsQuery(eventIds);
-  console.log('events', events, 'expiredEvents', expiredEvents);
   const collectionHasEvents = events.length + expiredEvents.length > 0;
   const collectionHasUpcomingEvents = !!events.length;
   const visibleExpiredEvents = showAllExpiredEvents
@@ -114,6 +113,12 @@ const CollectionEventsList: React.FC<{
         </Button>
       </LoadingSpinner>
     </div>
+  );
+  console.log(
+    'hasMoreEventsToLoad',
+    hasMoreEventsToLoad,
+    'isFetchingMore',
+    isFetchingMore
   );
 
   return (

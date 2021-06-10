@@ -13,7 +13,6 @@ export const getEventsByIdsMock = ({
   variables: Partial<EventsByIdsQueryVariables>;
   eventsByIds: EventDetails[];
 }): MockedResponse => {
-  console.log("eventsByIds", eventsByIds)
   return {
     request: {
       query: EventsByIdsDocument,
@@ -21,9 +20,13 @@ export const getEventsByIdsMock = ({
     },
     result: {
       data: {
-        data: eventsByIds,
-        meta: {
-          count: eventsByIds.length
+        eventsByIds: {
+          data: eventsByIds,
+          meta: {
+            count: eventsByIds.length,
+            previous: 'asdf',
+            next: 'qwer'
+          }
         }
       },
     },
