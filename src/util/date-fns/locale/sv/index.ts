@@ -9,9 +9,11 @@ const dayValues = {
   wide: ['söndag', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag'],
 };
 
-sv.localize.day = buildLocalizeFn({
-  defaultWidth: 'wide',
-  values: dayValues,
-});
+if (sv.localize?.day) {
+  sv.localize.day = buildLocalizeFn({
+    defaultWidth: 'wide',
+    values: dayValues,
+  });
+}
 
 export default sv;

@@ -17,8 +17,8 @@ import {
   getBannerFields,
   getTestIds,
 } from '../bannerUtils';
-import styles__DEPRECATED from './bannerHero__DEPRECATED.module.scss';
 import stylesNew from './bannerHero.module.scss';
+import styles__DEPRECATED from './bannerHero__DEPRECATED.module.scss';
 
 const BannerHero: React.FC<BannerHeroProps> = ({ banner, location }) => {
   const styles = isFeatureEnabled('EVENTS_HELSINKI_2')

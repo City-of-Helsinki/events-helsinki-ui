@@ -14,7 +14,8 @@
     "no-undef": "warn",
     "no-unused-expressions": "off",
     "object-curly-spacing": ["warn", "always"],
-    "simple-import-sort/sort": "error",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
     "import/named": "off",
     "no-only-tests/no-only-tests": "error"
   },
