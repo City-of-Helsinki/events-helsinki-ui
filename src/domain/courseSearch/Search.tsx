@@ -182,16 +182,17 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     setIsCustomDate(!isCustomDate);
   };
 
-  const handleAlsoOngoingCoursesEventChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const search = getSearchQuery({
-      ...searchFilters,
-      alsoOngoingCourses: e.target.checked,
-    });
+  // Not working yet
+  // const handleAlsoOngoingCoursesEventChange = (
+  //   e: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   const search = getSearchQuery({
+  //     ...searchFilters,
+  //     alsoOngoingCourses: e.target.checked,
+  //   });
 
-    push({ pathname: `/${locale}${ROUTES.COURSES}`, search });
-  };
+  //   push({ pathname: `/${locale}${ROUTES.COURSES}`, search });
+  // };
 
   const handleMenuOptionClick = async (option: AutosuggestMenuOption) => {
     const value = option.text;
@@ -346,14 +347,15 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
               </div>
             </div>
             <div className={classNames(styles.gridRow)}>
-              <div>
+              {/* Not working yet */}
+              {/* <div>
                 <Checkbox
                   checked={alsoOngoingCourses}
                   id={EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES}
                   label={t('courseSearch.search.checkboxAlsoOngoingCourses')}
                   onChange={handleAlsoOngoingCoursesEventChange}
                 />
-              </div>
+              </div> */}
               <div>
                 <Checkbox
                   className={styles.checkbox}
