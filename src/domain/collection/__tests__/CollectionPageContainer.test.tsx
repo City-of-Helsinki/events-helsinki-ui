@@ -1,14 +1,11 @@
 import { MockedResponse } from '@apollo/client/testing';
-import { screen, waitFor } from '@testing-library/react';
+import { screen, waitFor, within } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { axe } from 'jest-axe';
 import * as React from 'react';
 
 import translations from '../../../common/translation/i18n/fi.json';
-import {
-  CollectionFieldsFragment,
-  EventListResponse,
-} from '../../../generated/graphql';
+import { CollectionFieldsFragment } from '../../../generated/graphql';
 import { getCollectionDetailsMock } from '../../../test/apollo-mocks/collectionsDetailsMocks';
 import { getEventsByIdsMock } from '../../../test/apollo-mocks/eventByIdsMocks';
 import {
@@ -54,7 +51,6 @@ const getMocks = (
     variables: {
       ids: [curatedEventId],
       include: ['location'],
-      page: 1,
       pageSize: 10,
       sort: 'end_time',
     },
@@ -179,7 +175,7 @@ it('should fetch and render curated event and scroll to it', async () => {
     return el;
   });
 
-  renderWithRoute(<CollectionPageContainer />, {
+  const { debug } = renderWithRoute(<CollectionPageContainer />, {
     mocks,
     routes,
     path,
@@ -189,8 +185,13 @@ it('should fetch and render curated event and scroll to it', async () => {
   await waitFor(() => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
-
-  expect(screen.queryByText(curatedEventName)).toBeInTheDocument();
+  const eventsList = screen.getByTestId('curated-events-list');
+  debug();
+  await waitFor(() => {
+    expect(
+      within(eventsList).queryByText(curatedEventName)
+    ).toBeInTheDocument();
+  });
   expect(scrollIntoViewMock).toHaveBeenCalledWith({
     behavior: 'smooth',
     block: 'center',

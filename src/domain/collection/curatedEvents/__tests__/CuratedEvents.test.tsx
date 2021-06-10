@@ -73,8 +73,8 @@ afterEach(() => {
     );
     const eventsData = events.data as EventFieldsFragment[];
     const coursesData = courses.data as EventFieldsFragment[];
-    const eventMocks = getMocks(eventsData, eventIds, 'event');
-    const courseMocks = getMocks(coursesData, courseIds, 'course');
+    const eventMocks = getMocks(eventsData, eventIds);
+    const courseMocks = getMocks(coursesData, courseIds);
 
     render(<CuratedEvents collection={collection} />, {
       mocks: [...eventMocks, ...courseMocks],
@@ -115,7 +115,10 @@ test('should show expired events', async () => {
     }))
   );
   const eventsData = events.data as EventFieldsFragment[];
-  const mocks = getMocks(eventsData);
+  const mocks = getMocks(
+    eventsData,
+    eventsData.map((event) => event.id)
+  );
 
   render(<CuratedEvents collection={collection} />, {
     mocks,
@@ -191,93 +194,89 @@ const paginationTest = async ({
   };
 
   // use loop to fetch all the events by clicking show more button (pagination)
-  // for (
-  //   let eventsFetchedCount = PAGE_SIZE;
-  //   eventsFetchedCount < eventsCount;
-  //   eventsFetchedCount += PAGE_SIZE
-  // ) {
-  //   clickShowMoreEventsButton(
-  //     new RegExp(
-  //       `Näytä lisää tapahtumia \\(${eventsCount - eventsFetchedCount}\\)`,
-  //       'i'
-  //     )
-  //   );
-  //   await waitForRequestToComplete();
+  for (
+    let eventsFetchedCount = PAGE_SIZE;
+    eventsFetchedCount < eventsCount;
+    eventsFetchedCount += PAGE_SIZE
+  ) {
+    clickShowMoreEventsButton(
+      new RegExp(
+        `Näytä lisää tapahtumia \\(${eventsCount - eventsFetchedCount}\\)`,
+        'i'
+      )
+    );
+    await waitForRequestToComplete();
 
-  //   // check that correct events were fetched and rendered
-  //   for (const eventName of eventNames.slice(
-  //     eventsFetchedCount,
-  //     eventsFetchedCount + PAGE_SIZE
-  //   )) {
-  //     expect(screen.queryByText(eventName)).toBeInTheDocument();
-  //   }
-  // }
+    // check that correct events were fetched and rendered
+    for (const eventName of eventNames.slice(
+      eventsFetchedCount,
+      eventsFetchedCount + PAGE_SIZE
+    )) {
+      expect(screen.queryByText(eventName)).toBeInTheDocument();
+    }
+  }
 
-  // expect(
-  //   screen.queryByRole('button', { name: /näytä lisää tapahtumia/ })
-  // ).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole('button', { name: /näytä lisää tapahtumia/i })
+  ).not.toBeInTheDocument();
 
-  // for (const eventName of eventNames) {
-  //   expect(screen.queryByText(eventName)).toBeInTheDocument();
-  // }
+  for (const eventName of eventNames) {
+    expect(screen.queryByText(eventName)).toBeInTheDocument();
+  }
 };
 
 const getMocks = (
   events: EventFieldsFragment[],
   ids = eventIds,
-  type: 'event' | 'course' = 'event'
-) => [
-  {
-    request: {
-      query: EventsByIdsDocument,
-      variables: {
-        ids: [
-          '1',
-          '2',
-          '3',
-          '4',
-          '5',
-          '6',
-          '7',
-          '8',
-          '9',
-          '10',
-          '11',
-          '12',
-          '13',
-          '14',
-          '15',
-          '16',
-          '17',
-          '18',
-          '19',
-          '20',
-          '21',
-          '22',
-          '23',
-          '24',
-          '25',
-          '26',
-          '27',
-          '28',
-          '29',
-          '30',
-          '31',
-          '32',
-          '33',
-          '34',
-          '35',
-        ],
-        include: ['location'],
-        pageSize: 10,
-        sort: 'end_time',
+  page?: number | undefined,
+  maxPage: number = 1
+) => {
+  let variables = {
+    ids,
+    include: ['location'],
+    pageSize: 10,
+    sort: 'end_time',
+  };
+
+  let meta = {
+    count: ids.length,
+    previous: null,
+    next: null,
+    __typename: 'Meta',
+  };
+
+  if (page && page < maxPage) {
+    meta[
+      'next'
+    ] = `https://api.hel.fi/linkedevents/v1/event/?ids=${ids.toString()}&page_size=10&page=${
+      page + 1
+    }&sort=end_time&include=location`;
+  }
+  if (page > 1) {
+    variables['page'] = page;
+    meta[
+      'previous'
+    ] = `https://api.hel.fi/linkedevents/v1/event/?ids=${ids.toString()}&page_size=10&page=${
+      page - 1
+    }&sort=end_time&include=location`;
+  }
+  return [
+    {
+      request: {
+        query: EventsByIdsDocument,
+        variables,
+      },
+      result: {
+        data: {
+          eventsByIds: {
+            data: events,
+            meta,
+          },
+        },
       },
     },
-    result: {
-      data: { eventsByIds: { data: events, meta: { count: ids.length } } },
-    },
-  },
-];
+  ];
+};
 
 // Creates array of mocks to match pagination queries
 const getMocksForPagination = (
@@ -310,14 +309,16 @@ const getMocksForPagination = (
     ),
   ])(eventsCount);
 
-  const mocks = chunkedEvents.map((eventList) => {
-    return getMocks(
-      eventList.data as EventFieldsFragment[],
-      eventList.data.map((event) => event.id),
-      type
-    )[0];
-  });
-
+  const mocks = chunkedEvents
+    .map((eventList, index) => {
+      return getMocks(
+        eventList.data as EventFieldsFragment[],
+        range(eventsCount).map((id: number) => (id + 1).toString()),
+        index + 1,
+        chunkedEvents.length
+      );
+    })
+    .flat();
   const collection = fakeCollection({
     curatedEvents,
   }) as CollectionFieldsFragment;

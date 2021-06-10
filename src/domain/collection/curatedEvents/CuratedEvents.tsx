@@ -70,7 +70,6 @@ const CollectionEventsList: React.FC<{
     eventCursorIndex,
     eventsTotalCount,
   } = usePaginatedEventsByIdsQuery(eventIds);
-
   const collectionHasEvents = events.length + expiredEvents.length > 0;
   const collectionHasUpcomingEvents = !!events.length;
   const visibleExpiredEvents = showAllExpiredEvents

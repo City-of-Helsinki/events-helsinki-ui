@@ -20,9 +20,13 @@ export const getEventsByIdsMock = ({
     },
     result: {
       data: {
-        data: eventsByIds,
-        meta: {
-          count: eventsByIds.length
+        eventsByIds: {
+          data: eventsByIds,
+          meta: {
+            count: eventsByIds.length,
+            previous: 'asdf',
+            next: 'qwer'
+          }
         }
       },
     },
