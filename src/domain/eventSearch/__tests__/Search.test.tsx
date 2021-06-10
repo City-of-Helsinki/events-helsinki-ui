@@ -20,6 +20,7 @@ import {
   screen,
   userEvent,
 } from '../../../test/testUtils';
+import { additionalDivisions } from '../../neighborhood/additionalDivisions';
 import Search from '../Search';
 
 configure({ defaultHidden: true });
@@ -246,4 +247,21 @@ test('should change search query with remote events checkbox', async () => {
 
   expect(history.location.pathname).toBe(pathname);
   expect(history.location.search).toBe('?onlyRemoteEvents=true&text=jazz');
+});
+
+test('disivions dropdown has additional divisions', async () => {
+  renderComponent();
+
+  const chooseCategoryButton = await screen.findByRole('button', {
+    name: /etsi alue/i,
+  });
+  userEvent.click(chooseCategoryButton);
+
+  additionalDivisions.forEach((divisionName) => {
+    expect(
+      screen.getByRole('checkbox', {
+        name: divisionName.name.fi,
+      })
+    ).toBeInTheDocument();
+  });
 });

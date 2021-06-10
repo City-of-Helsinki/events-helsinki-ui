@@ -5,10 +5,9 @@ import { useHistory, useLocation } from 'react-router';
 import FilterButton, {
   FilterType,
 } from '../../../common/components/filterButton/FilterButton';
-import { useNeighborhoodListQuery } from '../../../generated/graphql';
+import useDivisionOptions from '../../../hooks/useDivisionOptions';
 import useLocale from '../../../hooks/useLocale';
 import { formatDate } from '../../../util/dateUtils';
-import getLocalisedString from '../../../util/getLocalisedString';
 import { translateValue } from '../../../util/translateUtils';
 import { ROUTES } from '../../app/routes/constants';
 import { getSearchFilters, getSearchQuery } from '../utils';
@@ -56,17 +55,13 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
         }`.trim()
       : '';
 
-  const { data: neighborhoodsData } = useNeighborhoodListQuery();
-
+  const neighborhoods = useDivisionOptions();
   const getNeighorhoodName = React.useCallback(
     (id: string) => {
-      const neighborhoods = neighborhoodsData
-        ? neighborhoodsData.neighborhoodList.data
-        : [];
-      const neighborhood = neighborhoods.find((item) => item.id === id);
-      return getLocalisedString(neighborhood ? neighborhood.name : {}, locale);
+      const neighborhood = neighborhoods.find((item) => item.value === id);
+      return neighborhood?.text ?? '';
     },
-    [locale, neighborhoodsData]
+    [neighborhoods]
   );
 
   const handleFilterRemove = (value: string, type: FilterType) => {
