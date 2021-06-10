@@ -73,8 +73,8 @@ afterEach(() => {
     );
     const eventsData = events.data as EventFieldsFragment[];
     const coursesData = courses.data as EventFieldsFragment[];
-    const eventMocks = getMocks(eventsData, eventIds, 'event');
-    const courseMocks = getMocks(coursesData, courseIds, 'course');
+    const eventMocks = getMocks(eventsData, eventIds);
+    const courseMocks = getMocks(coursesData, courseIds);
 
     render(<CuratedEvents collection={collection} />, {
       mocks: [...eventMocks, ...courseMocks],
@@ -199,8 +199,13 @@ const paginationTest = async ({
     eventsFetchedCount < eventsCount;
     eventsFetchedCount += PAGE_SIZE
   ) {
-    clickShowMoreEventsButton(new RegExp(`Näytä lisää tapahtumia`, 'i'));
-    // await waitForRequestToComplete();
+    clickShowMoreEventsButton(
+      new RegExp(
+        `Näytä lisää tapahtumia \\(${eventsCount - eventsFetchedCount}\\)`,
+        'i'
+      )
+    );
+    await waitForRequestToComplete();
 
     // check that correct events were fetched and rendered
     // for (const eventName of eventNames.slice(
@@ -211,44 +216,68 @@ const paginationTest = async ({
     // }
   }
 
-  // expect(
-  //   screen.queryByRole('button', { name: /näytä lisää tapahtumia/ })
-  // ).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole('button', { name: /näytä lisää tapahtumia/i })
+  ).not.toBeInTheDocument();
 
-  // for (const eventName of eventNames) {
-  //   expect(screen.queryByText(eventName)).toBeInTheDocument();
-  // }
+  for (const eventName of eventNames) {
+    expect(screen.queryByText(eventName)).toBeInTheDocument();
+  }
 };
 
 const getMocks = (
   events: EventFieldsFragment[],
   ids = eventIds,
-  type: 'event' | 'course' = 'event'
-) => [
-  {
-    request: {
-      query: EventsByIdsDocument,
-      variables: {
-        ids,
-        include: ['location'],
-        pageSize: 10,
-        sort: 'end_time',
+  page?: number | undefined,
+  maxPage: number = 1
+) => {
+  let variables = {
+    ids,
+    include: ['location'],
+    pageSize: 10,
+    sort: 'end_time',
+  };
+
+  let meta = {
+    count: ids.length,
+    previous: null,
+    next: 'asdf',
+    __typename: 'Meta',
+  };
+
+  if (page && page < maxPage) {
+    meta[
+      'next'
+    ] = `https://api.hel.fi/linkedevents/v1/event/?ids=${ids.toString()}&page_size=10&page=${
+      page + 1
+    }&sort=end_time&include=location`;
+  }
+  if (page > 1) {
+    variables['page'] = page;
+    meta[
+      'previous'
+    ] = `https://api.hel.fi/linkedevents/v1/event/?ids=${ids.toString()}&page_size=10&page=${
+      page - 1
+    }&sort=end_time&include=location`;
+  }
+
+  return [
+    {
+      request: {
+        query: EventsByIdsDocument,
+        variables,
       },
-    },
-    result: {
-      data: {
-        eventsByIds: {
-          data: events,
-          meta: {
-            count: ids.length,
-            previous: 'asdf?page=1',
-            next: 'qwer?page=2',
+      result: {
+        data: {
+          eventsByIds: {
+            data: events,
+            meta,
           },
         },
       },
     },
-  },
-];
+  ];
+};
 
 // Creates array of mocks to match pagination queries
 const getMocksForPagination = (
@@ -281,14 +310,15 @@ const getMocksForPagination = (
     ),
   ])(eventsCount);
 
-  const mocks = chunkedEvents.map((eventList) => {
-    return getMocks(
-      eventList.data as EventFieldsFragment[],
-      range(eventsCount).map((id: number) => (id + 1).toString()),
-      type
-    )[0];
-  });
-
+  const mocks = chunkedEvents
+    .map((eventList, index) => {
+      return getMocks(
+        eventList.data as EventFieldsFragment[],
+        range(eventsCount).map((id: number) => (id + 1).toString()),
+        index + 1
+      );
+    })
+    .flat();
   const collection = fakeCollection({
     curatedEvents,
   }) as CollectionFieldsFragment;
@@ -297,10 +327,7 @@ const getMocksForPagination = (
 };
 
 const waitForRequestToComplete = async () => {
-  await waitFor(
-    () => {
-      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-    },
-    { timeout: 5000 }
-  );
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
 };
