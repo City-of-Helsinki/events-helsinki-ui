@@ -236,6 +236,7 @@ const getMocks = (
     include: ['location'],
     pageSize: 10,
     sort: 'end_time',
+    page: undefined,
   };
 
   let meta = {
@@ -246,17 +247,13 @@ const getMocks = (
   };
 
   if (page && page < maxPage) {
-    meta[
-      'next'
-    ] = `https://api.hel.fi/linkedevents/v1/event/?ids=${ids.toString()}&page_size=10&page=${
+    meta.next = `https://api.hel.fi/linkedevents/v1/event/?ids=${ids.toString()}&page_size=10&page=${
       page + 1
     }&sort=end_time&include=location`;
   }
   if (page > 1) {
-    variables['page'] = page;
-    meta[
-      'previous'
-    ] = `https://api.hel.fi/linkedevents/v1/event/?ids=${ids.toString()}&page_size=10&page=${
+    variables.page = page;
+    meta.previous = `https://api.hel.fi/linkedevents/v1/event/?ids=${ids.toString()}&page_size=10&page=${
       page - 1
     }&sort=end_time&include=location`;
   }
