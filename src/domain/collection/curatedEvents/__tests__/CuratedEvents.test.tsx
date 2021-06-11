@@ -217,7 +217,7 @@ const paginationTest = async ({
   }
 
   expect(
-    screen.queryByRole('button', { name: /näytä lisää tapahtumia/i })
+    screen.queryByRole('button', { name: /näytä lisää tapahtumia/ })
   ).not.toBeInTheDocument();
 
   for (const eventName of eventNames) {
@@ -311,11 +311,15 @@ const getMocksForPagination = (
 
   const mocks = chunkedEvents
     .map((eventList, index) => {
+      const ids = range(eventsCount).map((id: number) => (id + 1).toString());
+      const page = index + 1;
+      const maxPage = chunkedEvents.length;
+
       return getMocks(
         eventList.data as EventFieldsFragment[],
-        range(eventsCount).map((id: number) => (id + 1).toString()),
-        index + 1,
-        chunkedEvents.length
+        ids,
+        page,
+        maxPage
       );
     })
     .flat();

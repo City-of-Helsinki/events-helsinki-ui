@@ -175,7 +175,7 @@ it('should fetch and render curated event and scroll to it', async () => {
     return el;
   });
 
-  const { debug } = renderWithRoute(<CollectionPageContainer />, {
+  renderWithRoute(<CollectionPageContainer />, {
     mocks,
     routes,
     path,
@@ -186,7 +186,7 @@ it('should fetch and render curated event and scroll to it', async () => {
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
   const eventsList = screen.getByTestId('curated-events-list');
-  debug();
+
   await waitFor(() => {
     expect(
       within(eventsList).queryByText(curatedEventName)
