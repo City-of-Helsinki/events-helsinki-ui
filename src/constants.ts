@@ -59,5 +59,9 @@ export const DEFAULT_SOME_IMAGE = '/images/activities_SoMe-share.jpg';
 
 export const MAIN_CONTENT_ID = 'maincontent';
 
-export const feedbackUrl =
-  'https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta';
+export const FEEDBACK_LINKS = {
+  fi:
+    'https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute',
+  en: 'https://www.hel.fi/helsinki/en/administration/participate/feedback',
+  sv: 'https://www.hel.fi/helsinki/sv/stad-och-forvaltning/delta/feedback',
+};

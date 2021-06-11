@@ -21,7 +21,7 @@ import RangeDropdown from '../../common/components/rangeDropdown/RangeDropdown';
 import SearchAutosuggest from '../../common/components/search/SearchAutosuggest';
 import SearchLabel from '../../common/components/search/searchLabel/SearchLabel';
 import { AutosuggestMenuOption } from '../../common/types';
-import { feedbackUrl } from '../../constants';
+import { FEEDBACK_LINKS } from '../../constants';
 import useDivisionOptions from '../../hooks/useDivisionOptions';
 import useLocale from '../../hooks/useLocale';
 import IconRead from '../../icons/IconRead';
@@ -387,6 +387,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
 // Put to its own component because of temporary beta notifiction logic :)
 const SearchHeader = () => {
   const { t } = useTranslation();
+  const locale = useLocale();
   const [showBetaNotification, setShowBetaNotification] = React.useState<
     boolean
   >(false);
@@ -413,7 +414,7 @@ const SearchHeader = () => {
               dangerouslySetInnerHTML={{
                 __html: t('courseSearch.betaNotificationText', {
                   openInNewTab: t('commons.srOnly.opensInANewTab'),
-                  url: feedbackUrl,
+                  url: FEEDBACK_LINKS[locale],
                 }),
               }}
             />
