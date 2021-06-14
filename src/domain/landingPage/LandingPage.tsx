@@ -15,7 +15,6 @@ import PageWrapper from '../app/layout/PageWrapper';
 import BannerHero from '../banner/bannerHero/BannerHero';
 import CollectionCards from '../collection/collectionCard/CollectionCards';
 import { isCollectionVisible } from '../collection/CollectionUtils';
-import { COURSE_HOBBY_TYPES } from '../eventSearch/constants';
 import { CategoryExtendedOption } from '../eventSearch/types';
 import {
   getCourseCategoryOptions,
@@ -51,15 +50,12 @@ const LandingPage: React.FC = () => {
 
   const getCourseCategoryOptionsExtended = () => {
     const hobbyTypes = getCourseHobbyTypeOptions(t) as CategoryExtendedOption[];
-    const hobbyTypesToAdd = [
-      COURSE_HOBBY_TYPES.CAMPS,
-      COURSE_HOBBY_TYPES.CLUBS,
-    ];
-    const includedHobbyTypes = hobbyTypes.filter((hobbyType) =>
-      hobbyTypesToAdd.some((h) => h === hobbyType.value)
+
+    const includedHobbyTypes = hobbyTypes.filter(
+      (hobbyType) => !hobbyType.secondary
     );
-    const courseCategories = getCourseCategoryOptions(
-      t
+    const courseCategories = getCourseCategoryOptions(t).filter(
+      (category) => !category.secondary
     ) as CategoryExtendedOption[];
 
     return orderBy([...courseCategories, ...includedHobbyTypes], 'text');
@@ -68,8 +64,8 @@ const LandingPage: React.FC = () => {
   const lgCollections = collections.slice(0, 1);
   const mdAndSmCollections = collections.slice(1);
 
-  const eventCategories = getEventCategoryOptions(
-    t
+  const eventCategories = getEventCategoryOptions(t).filter(
+    (category) => !category.secondary
   ) as CategoryExtendedOption[];
   const courseCategories = getCourseCategoryOptionsExtended();
 

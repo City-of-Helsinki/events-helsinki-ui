@@ -9,18 +9,21 @@ export interface CategoryOption {
   icon: React.ReactElement;
   text: string;
   value: EVENT_CATEGORIES | COURSE_CATEGORIES;
+  secondary?: boolean
 }
 
 export interface HobbyTypeOption {
   icon: React.ReactElement;
   text: string;
   value: COURSE_HOBBY_TYPES;
+  secondary?: boolean
 }
 
 export interface CategoryExtendedOption {
   icon: React.ReactElement;
   text: string;
   value: EVENT_CATEGORIES | COURSE_CATEGORIES | COURSE_HOBBY_TYPES;
+  secondary?: boolean
 }
 
 export interface Filters {

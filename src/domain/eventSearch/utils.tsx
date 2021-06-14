@@ -106,16 +106,22 @@ export const getEventCategoryOptions = (t: TFunction): CategoryOption[] => [
   },
 ];
 
+/**
+ * Get a list of course category button options.
+ * Secondary options are not shown in landing page.
+ */
 export const getCourseCategoryOptions = (t: TFunction): CategoryOption[] => [
   {
     icon: <IconMovies />,
     text: t('home.category.courses.movieAndMedia'),
     value: COURSE_CATEGORIES.MOVIE,
+    secondary: true,
   },
   {
     icon: <IconLanguages />,
     text: t('home.category.courses.languages'),
     value: COURSE_CATEGORIES.LANGUAGES,
+    secondary: true,
   },
   {
     icon: <IconLiterature />,
@@ -126,6 +132,7 @@ export const getCourseCategoryOptions = (t: TFunction): CategoryOption[] => [
     icon: <IconArt />,
     text: t('home.category.courses.artsAndCulture'),
     value: COURSE_CATEGORIES.ARTS_AND_CULTURE,
+    secondary: true,
   },
   {
     icon: <IconArt />,
@@ -156,6 +163,7 @@ export const getCourseCategoryOptions = (t: TFunction): CategoryOption[] => [
     icon: <IconFood />,
     text: t('home.category.courses.food'),
     value: COURSE_CATEGORIES.FOOD,
+    secondary: true,
   },
   {
     icon: <IconDance />,
@@ -169,6 +177,10 @@ export const getCourseCategoryOptions = (t: TFunction): CategoryOption[] => [
   },
 ];
 
+/**
+ * Get a list of course hobby type button options.
+ * Secondary options are not shown in landing page.
+ */
 export const getCourseHobbyTypeOptions = (t: TFunction): HobbyTypeOption[] => [
   {
     icon: <IconMovies />,
@@ -179,6 +191,7 @@ export const getCourseHobbyTypeOptions = (t: TFunction): HobbyTypeOption[] => [
     icon: <IconMovies />,
     text: t('home.hobby.courses'),
     value: COURSE_HOBBY_TYPES.COURSES,
+    secondary: true,
   },
   {
     icon: <IconCamp />,
@@ -189,11 +202,13 @@ export const getCourseHobbyTypeOptions = (t: TFunction): HobbyTypeOption[] => [
     icon: <IconMovies />,
     text: t('home.hobby.trips'),
     value: COURSE_HOBBY_TYPES.TRIPS,
+    secondary: true,
   },
   {
     icon: <IconMovies />,
     text: t('home.hobby.workshops'),
     value: COURSE_HOBBY_TYPES.WORKSHOPS,
+    secondary: true,
   },
 ];
 

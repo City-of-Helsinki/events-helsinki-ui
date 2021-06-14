@@ -14,7 +14,7 @@ import {
 } from '../../../../test/testUtils';
 import { EVENT_CATEGORIES } from '../../../eventSearch/constants';
 import LandingPageSearchSection, {
-  popularCategoriesContainerTestId,
+  eventsPopularCategoriesContainerTestId,
   SearchProps,
 } from '../LandingPageSearchSection';
 
@@ -141,9 +141,9 @@ test('should route to event search page after clicking category', async () => {
 test('toggling categories in mobile work correctly', () => {
   renderComponent();
 
-  expect(screen.getByTestId(popularCategoriesContainerTestId)).not.toHaveClass(
-    'categoriesOpen'
-  );
+  expect(
+    screen.getByTestId(eventsPopularCategoriesContainerTestId)
+  ).not.toHaveClass('categoriesOpen');
 
   const showPopularCategoriesButton = screen.getByRole('button', {
     name: translations.home.search.showPopularCategories,
@@ -153,9 +153,9 @@ test('toggling categories in mobile work correctly', () => {
   userEvent.click(showPopularCategoriesButton);
   expect(showPopularCategoriesButton).toHaveAttribute('aria-expanded', 'true');
 
-  expect(screen.getByTestId(popularCategoriesContainerTestId)).toHaveClass(
-    'categoriesOpen'
-  );
+  expect(
+    screen.getByTestId(eventsPopularCategoriesContainerTestId)
+  ).toHaveClass('categoriesOpen');
 
   expect(
     screen.queryByRole('button', {
@@ -170,7 +170,7 @@ test('toggling categories in mobile work correctly', () => {
   userEvent.click(hidePopularCategoriesButton);
   expect(hidePopularCategoriesButton).toHaveAttribute('aria-expanded', 'false');
 
-  expect(screen.getByTestId(popularCategoriesContainerTestId)).not.toHaveClass(
-    'categoriesOpen'
-  );
+  expect(
+    screen.getByTestId(eventsPopularCategoriesContainerTestId)
+  ).not.toHaveClass('categoriesOpen');
 });
