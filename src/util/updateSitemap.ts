@@ -336,7 +336,7 @@ const getEventUrlElements = async (
         elements: [
           getTextElement(
             'loc',
-            `${HOST}/${language}${eventTypeRouteMap[eventType].replace(
+            `${HOST}/${language}${eventTypeRouteMap[eventType]?.replace(
               ':id',
               event.id
             )}`
@@ -352,7 +352,7 @@ const getEventUrlElements = async (
                 hreflang,
                 href: `${HOST}/${hreflang}${eventTypeRouteMap[
                   eventType
-                ].replace(':id', event.id)}`,
+                ]?.replace(':id', event.id)}`,
               },
               elements: [],
             })
@@ -466,18 +466,15 @@ const updateSitemaps = async (): Promise<boolean> => {
   try {
     const time = new Date();
     const staticUrlElements = getStaticUrlElements(time);
-    const [
-      collectionUrlElements,
-      eventUrlElements,
-      courseUrlElements,
-    ] = await Promise.all(
-      [
-        getCollectionUrlElements(),
-        getEventUrlElements('event', time),
-        isFeatureEnabled('EVENTS_HELSINKI_2') &&
-          getEventUrlElements('course', time),
-      ].filter(skipFalsyType)
-    );
+    const [collectionUrlElements, eventUrlElements, courseUrlElements] =
+      await Promise.all(
+        [
+          getCollectionUrlElements(),
+          getEventUrlElements('event', time),
+          isFeatureEnabled('EVENTS_HELSINKI_2') &&
+            getEventUrlElements('course', time),
+        ].filter(skipFalsyType)
+      );
     const elements = [
       ...staticUrlElements,
       ...collectionUrlElements,

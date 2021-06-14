@@ -21,9 +21,11 @@ import LandingPagePreview__DEPRECATED from '../../landingPage/LandingPagePreview
 import NotFound from '../../notFound/NotFound';
 import { ROUTES } from './constants';
 
-const App: FunctionComponent<RouteComponentProps<{
-  locale: SUPPORT_LANGUAGES;
-}>> = ({
+const App: FunctionComponent<
+  RouteComponentProps<{
+    locale: SUPPORT_LANGUAGES;
+  }>
+> = ({
   match: {
     params: { locale },
   },
@@ -87,7 +89,7 @@ const App: FunctionComponent<RouteComponentProps<{
       />
       <Route
         exact
-        path={`/${locale}${ROUTES.EVENT_PLACE}`}
+        path={`/${locale}${ROUTES.EVENT_PLACE}` as string}
         component={EventSearchPageContainer}
       />
       {isFeatureEnabled('EVENTS_HELSINKI_2') && (
@@ -117,7 +119,7 @@ const App: FunctionComponent<RouteComponentProps<{
       />
       <Route
         exact
-        path={`/${locale}${ROUTES.MARKETING_COLLECTION}`}
+        path={`/${locale}${ROUTES.MARKETING_COLLECTION}` as string}
         component={CollectionPageContainer}
       />
       <Route component={NotFound} />

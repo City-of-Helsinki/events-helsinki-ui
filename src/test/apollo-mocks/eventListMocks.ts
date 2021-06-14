@@ -93,7 +93,6 @@ export const createEventListRequestThrowsErrorMocks = ({
 });
 
 export const createOtherEventTimesRequestAndResultMocks = ({
-  type = 'event',
   superEventId,
   variables,
   response,
@@ -109,7 +108,6 @@ export const createOtherEventTimesRequestAndResultMocks = ({
 });
 
 export const createOtherEventTimesRequestThrowsErrorMocks = ({
-  type = 'event',
   superEventId,
   variables,
 }: EventListMockArguments): MockedResponse => ({
