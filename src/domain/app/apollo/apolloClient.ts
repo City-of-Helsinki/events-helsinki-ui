@@ -8,7 +8,7 @@ import { onError } from '@apollo/client/link/error';
 import * as Sentry from '@sentry/browser';
 import get from 'lodash/get';
 
-const cache = new InMemoryCache({
+export const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
@@ -24,6 +24,27 @@ const cache = new InMemoryCache({
             id: args?.id,
           });
         },
+        eventList: {
+          keyArgs: (args) =>
+            args
+              ? Object.keys(args).filter((key: string) => key !== 'page')
+              : false,
+          merge(existing, incoming) {
+            return {
+              data: [...(existing?.data ?? []), ...incoming.data],
+              meta: incoming.meta,
+            };
+          },
+        },
+        // TODO: finish this when new eventsByIds pagination is merged
+        // eventsByIds: {
+        //   merge(
+        //     existing: EventDetails[] | undefined,
+        //     incoming: EventDetails[]
+        //   ) {
+        //     return [...(existing ?? []), ...incoming];
+        //   },
+        // },
       },
     },
   },

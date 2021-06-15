@@ -85,17 +85,7 @@ const SearchPage: React.FC<{
     if (page) {
       try {
         await fetchMore({
-          updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult) return prev;
-            const events = [
-              ...prev.eventList.data,
-              ...fetchMoreResult.eventList.data,
-            ];
-            fetchMoreResult.eventList.data = events;
-            return fetchMoreResult;
-          },
           variables: {
-            ...eventFilters,
             page: page,
           },
         });

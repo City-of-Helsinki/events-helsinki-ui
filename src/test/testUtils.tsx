@@ -6,6 +6,8 @@ import React from 'react';
 import { Route, Router } from 'react-router-dom';
 import wait from 'waait';
 
+import { cache } from '../domain/app/apollo/apolloClient';
+
 type CustomRender = {
   (
     ui: React.ReactElement,
@@ -42,7 +44,6 @@ const customRender: CustomRender = (
     routes = ['/'],
     history = createMemoryHistory({ initialEntries: routes }),
     mocks = [],
-    cache,
   } = {}
 ) => {
   const Wrapper: React.FC = ({ children }) => (
@@ -65,7 +66,7 @@ const renderWithRoute: CustomRender = (
   } = {}
 ) => {
   const Wrapper: React.FC = ({ children }) => (
-    <MockedProvider mocks={mocks}>
+    <MockedProvider mocks={mocks} cache={cache}>
       <Router history={history}>
         <Route exact path={path}>
           {children}
