@@ -6,7 +6,7 @@ import React from 'react';
 import { Route, Router } from 'react-router-dom';
 import wait from 'waait';
 
-import { cache } from '../domain/app/apollo/apolloClient';
+import { createApolloCache } from '../domain/app/apollo/apolloClient';
 
 type CustomRender = {
   (
@@ -44,6 +44,7 @@ const customRender: CustomRender = (
     routes = ['/'],
     history = createMemoryHistory({ initialEntries: routes }),
     mocks = [],
+    cache = createApolloCache(),
   } = {}
 ) => {
   const Wrapper: React.FC = ({ children }) => (
@@ -63,6 +64,7 @@ const renderWithRoute: CustomRender = (
     path = '/',
     history = createMemoryHistory({ initialEntries: routes }),
     mocks = [],
+    cache = createApolloCache(),
   } = {}
 ) => {
   const Wrapper: React.FC = ({ children }) => (
