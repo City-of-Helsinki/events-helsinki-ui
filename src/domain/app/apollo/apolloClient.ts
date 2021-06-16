@@ -40,15 +40,19 @@ export const createApolloCache = () =>
               };
             },
           },
-          // TODO: finish this when new eventsByIds pagination is merged
-          // eventsByIds: {
-          //   merge(
-          //     existing: EventDetails[] | undefined,
-          //     incoming: EventDetails[]
-          //   ) {
-          //     return [...(existing ?? []), ...incoming];
-          //   },
-          // },
+          // See eventList keyArgs for explanation why page is filtered.
+          eventsByIds: {
+            keyArgs: (args) =>
+              args
+                ? Object.keys(args).filter((key: string) => key !== 'page')
+                : false,
+            merge(existing, incoming, options) {
+              return {
+                data: [...(existing?.data ?? []), ...incoming.data],
+                meta: incoming.meta,
+              };
+            },
+          },
         },
       },
     },

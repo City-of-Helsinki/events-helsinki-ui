@@ -86,7 +86,7 @@ const SearchPage: React.FC<{
       try {
         await fetchMore({
           variables: {
-            page: page,
+            page,
           },
         });
       } catch (e) {

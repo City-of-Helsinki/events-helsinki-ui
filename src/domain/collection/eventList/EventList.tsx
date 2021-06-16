@@ -49,7 +49,11 @@ const EventList: React.FC<Props> = ({ collection }) => {
     });
   }, [eventListQuery, eventType, locale]);
 
-  const { data: eventsData, fetchMore, loading } = useEventListQuery({
+  const {
+    data: eventsData,
+    fetchMore,
+    loading,
+  } = useEventListQuery({
     notifyOnNetworkStatusChange: true,
     skip: !eventListQuery || !eventType,
     ssr: false,
@@ -67,7 +71,7 @@ const EventList: React.FC<Props> = ({ collection }) => {
       try {
         await fetchMore({
           variables: {
-            page: page,
+            page,
           },
         });
       } catch (e) {
