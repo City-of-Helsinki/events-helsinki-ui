@@ -1,3 +1,6 @@
+import React from 'react';
+
+import { CourseExtensionFieldsFragment } from '../../generated/graphql';
 import {
   COURSE_CATEGORIES,
   COURSE_HOBBY_TYPES,
@@ -25,6 +28,15 @@ export interface CategoryExtendedOption {
   value: EVENT_CATEGORIES | COURSE_CATEGORIES | COURSE_HOBBY_TYPES;
   secondary?: boolean
 }
+
+export type SearchCategoryType = EVENT_CATEGORIES | COURSE_CATEGORIES | COURSE_HOBBY_TYPES
+
+export interface SearchCategoryOption {
+  icon: React.ReactElement;
+  transKey: string
+}
+
+export type SearchCategory = Record<SearchCategoryType, SearchCategoryOption>
 
 export interface Filters {
   [EVENT_SEARCH_FILTERS.CATEGORIES]: string[];
