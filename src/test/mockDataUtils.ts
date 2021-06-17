@@ -50,8 +50,8 @@ export const fakeEvents = (
 export const fakeEvent = (overrides?: Partial<EventDetails>): EventDetails => {
   return merge<EventDetails, typeof overrides>(
     {
-      id: `hel:${faker.random.uuid()}`,
-      internalId: faker.random.uuid(),
+      id: `hel:${faker.datatype.uuid()}`,
+      internalId: faker.datatype.uuid(),
       name: fakeLocalizedObject(),
       publisher: 'provider:123',
       provider: fakeLocalizedObject(),
@@ -97,9 +97,9 @@ export const fakeTargetGroup = (overrides?: Partial<Audience>): Audience => {
   return merge<Audience, typeof overrides>(
     {
       __typename: 'Audience',
-      id: faker.random.uuid(),
+      id: faker.datatype.uuid(),
       internalContext: '',
-      internalId: faker.random.uuid(),
+      internalId: faker.datatype.uuid(),
       name: fakeLocalizedObject(faker.random.word()),
     },
     overrides
@@ -121,7 +121,7 @@ export const fakeExternalLink = (
 export const fakeImage = (overrides?: Partial<Image>): Image =>
   merge(
     {
-      id: faker.random.uuid(),
+      id: faker.datatype.uuid(),
       internalId: 'https://api.hel.fi/linkedevents-test/v1/image/48566/',
       license: 'cc_by',
       name: faker.random.words(),
@@ -166,7 +166,7 @@ export const fakePlaces = (
 export const fakePlace = (overrides?: Partial<Place>): Place =>
   merge(
     {
-      id: faker.random.uuid(),
+      id: faker.datatype.uuid(),
       internalId: 'https://api.hel.fi/linkedevents-test/v1/place/tprek:15376/',
       name: fakeLocalizedObject(),
       streetAddress: fakeLocalizedObject(),
@@ -200,7 +200,7 @@ export const fakeKeywords = (
 export const fakeKeyword = (overrides?: Partial<Keyword>): Keyword =>
   merge(
     {
-      id: faker.random.uuid(),
+      id: faker.datatype.uuid(),
       dataSource: 'yso',
       hasUpcomingEvents: true,
       name: fakeLocalizedObject(),
@@ -227,8 +227,8 @@ export const fakeOrganization = (
 ): OrganizationDetails =>
   merge(
     {
-      id: faker.random.uuid(),
-      internalId: faker.random.uuid(),
+      id: faker.datatype.uuid(),
+      internalId: faker.datatype.uuid(),
       isAffiliated: false,
       name: faker.company.companyName(),
       __typename: 'OrganizationDetails',
@@ -275,7 +275,7 @@ export const fakeLandingPage = (
 ): LandingPage =>
   merge(
     {
-      id: faker.random.uuid(),
+      id: faker.datatype.uuid(),
       topBanner: fakeBanner(),
       bottomBanner: fakeBanner(),
       keywords: fakeLocalizedCmsKeywords(),
@@ -318,7 +318,7 @@ export const fakeCollection = (
 ): CollectionDetails =>
   merge(
     {
-      id: faker.random.uuid(),
+      id: faker.datatype.uuid(),
       boxColor: fakeLocalizedObject('FOG'),
       curatedEvents: [],
       curatedEventsTitle: fakeLocalizedObject(),
@@ -333,7 +333,7 @@ export const fakeCollection = (
       linkText: fakeLocalizedObject(),
       linkUrl: fakeLocalizedObject(faker.internet.url()),
       live: true,
-      slug: faker.random.uuid(),
+      slug: faker.datatype.uuid(),
       socialMediaDescription: fakeLocalizedObject(),
       title: fakeLocalizedObject(),
       __typename: 'CollectionDetails',
@@ -402,7 +402,7 @@ export const fakeAccessibilityPages = (
 export const fakeStaticPage = (overrides?: Partial<StaticPage>): StaticPage =>
   merge(
     {
-      id: faker.random.uuid(),
+      id: faker.datatype.uuid(),
       expired: false,
       headingSection: fakeLocalizedObject(),
       contentSection: fakeLocalizedObject(),
