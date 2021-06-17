@@ -8,6 +8,12 @@ import { onError } from '@apollo/client/link/error';
 import * as Sentry from '@sentry/browser';
 import get from 'lodash/get';
 
+const excludeArgs =
+  (excludedArgs: string[]) => (args: Record<string, any> | null) =>
+    args
+      ? Object.keys(args).filter((key: string) => !excludedArgs.includes(key))
+      : false;
+
 export const createApolloCache = () =>
   new InMemoryCache({
     typePolicies: {
@@ -29,10 +35,7 @@ export const createApolloCache = () =>
             // Only ignore page argument in caching to get fetchMore pagination working correctly
             // Other args are needed to separate different serch queries to separate caches
             // Docs: https://www.apollographql.com/docs/react/pagination/key-args/
-            keyArgs: (args) =>
-              args
-                ? Object.keys(args).filter((key: string) => key !== 'page')
-                : false,
+            keyArgs: excludeArgs(['page']),
             merge(existing, incoming) {
               return {
                 data: [...(existing?.data ?? []), ...incoming.data],
@@ -42,10 +45,7 @@ export const createApolloCache = () =>
           },
           // See eventList keyArgs for explanation why page is filtered.
           eventsByIds: {
-            keyArgs: (args) =>
-              args
-                ? Object.keys(args).filter((key: string) => key !== 'page')
-                : false,
+            keyArgs: excludeArgs(['page']),
             merge(existing, incoming, options) {
               return {
                 data: [...(existing?.data ?? []), ...incoming.data],
