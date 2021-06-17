@@ -390,7 +390,7 @@ export type Query = {
   collectionDetails: CollectionDetails;
   collectionList: CollectionListResponse;
   eventDetails: EventDetails;
-  eventsByIds: Array<EventDetails>;
+  eventsByIds: EventListResponse;
   eventList: EventListResponse;
   keywordDetails: Keyword;
   keywordList: KeywordListResponse;
@@ -423,6 +423,9 @@ export type QueryEventDetailsArgs = {
 export type QueryEventsByIdsArgs = {
   ids: Array<Scalars['ID']>;
   include?: Maybe<Array<Maybe<Scalars['String']>>>;
+  sort?: Maybe<Scalars['String']>;
+  pageSize?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
 };
 
 
@@ -833,15 +836,24 @@ export type EventListQuery = (
 export type EventsByIdsQueryVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID'];
   include?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
+  sort?: Maybe<Scalars['String']>;
+  pageSize?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
 }>;
 
 
 export type EventsByIdsQuery = (
   { __typename?: 'Query' }
-  & { eventsByIds: Array<(
-    { __typename?: 'EventDetails' }
-    & EventFieldsFragment
-  )> }
+  & { eventsByIds: (
+    { __typename?: 'EventListResponse' }
+    & { data: Array<(
+      { __typename?: 'EventDetails' }
+      & EventFieldsFragment
+    )>, meta: (
+      { __typename?: 'Meta' }
+      & Pick<Meta, 'count' | 'next' | 'previous'>
+    ) }
+  ) }
 );
 
 export type KeywordFieldsFragment = (
@@ -1723,9 +1735,22 @@ export type EventListQueryHookResult = ReturnType<typeof useEventListQuery>;
 export type EventListLazyQueryHookResult = ReturnType<typeof useEventListLazyQuery>;
 export type EventListQueryResult = Apollo.QueryResult<EventListQuery, EventListQueryVariables>;
 export const EventsByIdsDocument = gql`
-    query EventsByIds($ids: [ID!]!, $include: [String]) {
-  eventsByIds(ids: $ids, include: $include) {
-    ...eventFields
+    query EventsByIds($ids: [ID!]!, $include: [String], $sort: String, $pageSize: Int, $page: Int) {
+  eventsByIds(
+    ids: $ids
+    include: $include
+    sort: $sort
+    pageSize: $pageSize
+    page: $page
+  ) {
+    data {
+      ...eventFields
+    }
+    meta {
+      count
+      next
+      previous
+    }
   }
 }
     ${EventFieldsFragmentDoc}`;
@@ -1744,6 +1769,9 @@ export const EventsByIdsDocument = gql`
  *   variables: {
  *      ids: // value for 'ids'
  *      include: // value for 'include'
+ *      sort: // value for 'sort'
+ *      pageSize: // value for 'pageSize'
+ *      page: // value for 'page'
  *   },
  * });
  */

@@ -158,6 +158,12 @@ To run k6 tests locally:
 1. Install and configure k6 locally using [official documentation](https://k6.io/docs/getting-started/installation).
 2. Run `k6 run k6LoadTests.js`
 
+## Updating packages
+
+### Known issues
+
+- Updating jsdom to 16.5.0 causes errors when building to production for some reason
+
 ## Debugging
 
 ### Debugging project in VS Code
