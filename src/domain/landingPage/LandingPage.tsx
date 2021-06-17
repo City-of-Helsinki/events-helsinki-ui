@@ -1,4 +1,3 @@
-import orderBy from 'lodash/orderBy';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -15,19 +14,11 @@ import PageWrapper from '../app/layout/PageWrapper';
 import BannerHero from '../banner/bannerHero/BannerHero';
 import CollectionCards from '../collection/collectionCard/CollectionCards';
 import { isCollectionVisible } from '../collection/CollectionUtils';
+import { CATEGORY_CATALOG } from '../eventSearch/constants';
 import {
-  COURSE_CATEGORIES,
-  COURSE_HOBBY_TYPES,
-  EVENT_CATEGORIES,
-} from '../eventSearch/constants';
-import { CategoryExtendedOption } from '../eventSearch/types';
-import {
-  courseCategories,
-  eventCategories,
   getCourseCategoryOptions,
   getCourseHobbyTypeOptions,
   getEventCategoryOptions,
-  hobbyTypes,
   sortExtendedCategoryOptions,
 } from '../eventSearch/utils';
 import styles from './landingPage.module.scss';
@@ -57,34 +48,14 @@ const LandingPage: React.FC = () => {
       )
     : [];
 
-  const eventCategoryOptions = getEventCategoryOptions(t, [
-    EVENT_CATEGORIES.MOVIE,
-    EVENT_CATEGORIES.MUSIC,
-    EVENT_CATEGORIES.SPORT,
-    EVENT_CATEGORIES.MUSEUM,
-    EVENT_CATEGORIES.DANCE,
-    EVENT_CATEGORIES.CULTURE,
-    EVENT_CATEGORIES.NATURE,
-    EVENT_CATEGORIES.INFLUENCE,
-    EVENT_CATEGORIES.THEATRE,
-    EVENT_CATEGORIES.FOOD,
-  ]);
+  const eventCategoryOptions = getEventCategoryOptions(
+    t,
+    CATEGORY_CATALOG.General.default
+  );
 
   const courseCategoryOptions = [
-    ...getCourseCategoryOptions(t, [
-      COURSE_CATEGORIES.LITERATURE,
-      COURSE_CATEGORIES.VISUAL_ARTS,
-      COURSE_CATEGORIES.HANDICRAFTS,
-      COURSE_CATEGORIES.SPORT,
-      COURSE_CATEGORIES.MUSIC,
-      COURSE_CATEGORIES.GAMES,
-      COURSE_CATEGORIES.DANCE,
-      COURSE_CATEGORIES.THEATRE,
-    ]),
-    ...getCourseHobbyTypeOptions(t, [
-      COURSE_HOBBY_TYPES.CLUBS,
-      COURSE_HOBBY_TYPES.CAMPS,
-    ]),
+    ...getCourseCategoryOptions(t, CATEGORY_CATALOG.Course.landingPage),
+    ...getCourseHobbyTypeOptions(t, CATEGORY_CATALOG.hobbyTypes.landingPage),
   ].sort(sortExtendedCategoryOptions);
 
   const lgCollections = collections.slice(0, 1);

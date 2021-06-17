@@ -34,6 +34,7 @@ export interface SearchCategoryOption {
 
 export type SearchCategory = Record<SearchCategoryType, SearchCategoryOption>
 
+
 export interface Filters {
   [EVENT_SEARCH_FILTERS.CATEGORIES]: string[];
   [EVENT_SEARCH_FILTERS.HOBBY_TYPES]?: string[];

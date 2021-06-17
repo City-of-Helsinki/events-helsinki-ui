@@ -9,10 +9,11 @@ import useLocale from '../../../hooks/useLocale';
 import scrollToTop from '../../../util/scrollToTop';
 import { EventRouteProp } from '../../event/types';
 import {
+  CATEGORY_CATALOG,
   COURSE_DEFAULT_SEARCH_FILTERS,
   EVENT_DEFAULT_SEARCH_FILTERS,
 } from '../../eventSearch/constants';
-import { CategoryOption, Filters } from '../../eventSearch/types';
+import { CategoryExtendedOption, Filters } from '../../eventSearch/types';
 import {
   getCourseCategoryOptions,
   getEventCategoryOptions,
@@ -35,10 +36,17 @@ const FooterCategories: FunctionComponent<FooterProps> = ({ route }) => {
     [ROUTES.COURSES]: COURSE_DEFAULT_SEARCH_FILTERS,
   };
 
-  const categoriesOptionsMap: Record<EventRouteProp, CategoryOption[]> = {
-    [ROUTES.EVENTS]: getEventCategoryOptions(t),
-    [ROUTES.COURSES]: getCourseCategoryOptions(t),
-  };
+  const categoriesOptionsMap: Record<EventRouteProp, CategoryExtendedOption[]> =
+    {
+      [ROUTES.EVENTS]: getEventCategoryOptions(
+        t,
+        CATEGORY_CATALOG.General.default
+      ),
+      [ROUTES.COURSES]: getCourseCategoryOptions(
+        t,
+        CATEGORY_CATALOG.Course.default
+      ),
+    };
 
   const handleCategoryClick = (category: Category) => {
     const search = getSearchQuery({
