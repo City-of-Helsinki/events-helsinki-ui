@@ -51,278 +51,212 @@ import {
   Filters,
   HobbyTypeOption,
   MappedFilters,
-  SearchCategory,
+  SearchCategoryOption,
 } from './types';
 
-export const getEventCategoryOptions = (t: TFunction): CategoryOption[] => [
-  {
-    icon: <IconMovies />,
-    text: t('home.category.movie'),
-    value: EVENT_CATEGORIES.MOVIE,
-  },
-  {
-    icon: <IconMusic />,
-    text: t('home.category.music'),
-    value: EVENT_CATEGORIES.MUSIC,
-  },
-  {
-    icon: <IconSports />,
-    text: t('home.category.sport'),
-    value: EVENT_CATEGORIES.SPORT,
-  },
-  {
-    icon: <IconMuseum />,
-    text: t('home.category.museum'),
-    value: EVENT_CATEGORIES.MUSEUM,
-  },
-  {
-    icon: <IconDance />,
-    text: t('home.category.dance'),
-    value: EVENT_CATEGORIES.DANCE,
-  },
-  {
-    icon: <IconCultureAndArts />,
-    text: t('home.category.culture'),
-    value: EVENT_CATEGORIES.CULTURE,
-  },
-  {
-    icon: <IconTree />,
-    text: t('home.category.nature'),
-    value: EVENT_CATEGORIES.NATURE,
-  },
-  {
-    icon: <IconSpeechbubbleText aria-hidden />,
-    text: t('home.category.influence'),
-    value: EVENT_CATEGORIES.INFLUENCE,
-  },
-  {
-    icon: <IconTheatre />,
-    text: t('home.category.theatre'),
-    value: EVENT_CATEGORIES.THEATRE,
-  },
-  {
-    icon: <IconFood />,
-    text: t('home.category.food'),
-    value: EVENT_CATEGORIES.FOOD,
-  },
-];
+export const sortExtendedCategoryOptions = (
+  a: CategoryOption | HobbyTypeOption,
+  b: CategoryOption | HobbyTypeOption
+) => (a.text > b.text ? 1 : b.text > a.text ? -1 : 0);
 
-export const getCourseCategoryOptions = (t: TFunction): CategoryOption[] => [
-  {
-    icon: <IconMovies />,
-    text: t('home.category.courses.movieAndMedia'),
-    value: COURSE_CATEGORIES.MOVIE,
-    secondary: true,
-  },
-  {
-    icon: <IconLanguages />,
-    text: t('home.category.courses.languages'),
-    value: COURSE_CATEGORIES.LANGUAGES,
-    secondary: true,
-  },
-  {
-    icon: <IconLiterature />,
-    text: t('home.category.courses.literature'),
-    value: COURSE_CATEGORIES.LITERATURE,
-  },
-  {
-    icon: <IconArt />,
-    text: t('home.category.courses.artsAndCulture'),
-    value: COURSE_CATEGORIES.ARTS_AND_CULTURE,
-    secondary: true,
-  },
-  {
-    icon: <IconArt />,
-    text: t('home.category.courses.visualArts'),
-    value: COURSE_CATEGORIES.VISUAL_ARTS,
-  },
-  {
-    icon: <IconCraft />,
-    text: t('home.category.courses.handicrafts'),
-    value: COURSE_CATEGORIES.HANDICRAFTS,
-  },
-  {
-    icon: <IconSports />,
-    text: t('home.category.courses.sport'),
-    value: COURSE_CATEGORIES.SPORT,
-  },
-  {
-    icon: <IconMusic />,
-    text: t('home.category.courses.music'),
-    value: COURSE_CATEGORIES.MUSIC,
-  },
-  {
-    icon: <IconGames />,
-    text: t('home.category.courses.games'),
-    value: COURSE_CATEGORIES.GAMES,
-  },
-  {
-    icon: <IconFood />,
-    text: t('home.category.courses.food'),
-    value: COURSE_CATEGORIES.FOOD,
-    secondary: true,
-  },
-  {
-    icon: <IconDance />,
-    text: t('home.category.courses.dance'),
-    value: COURSE_CATEGORIES.DANCE,
-  },
-  {
-    icon: <IconTheatre />,
-    text: t('home.category.courses.theatre'),
-    value: COURSE_CATEGORIES.THEATRE,
-  },
-];
+export const getEventCategoryOptions = (
+  t: TFunction,
+  categories = [
+    EVENT_CATEGORIES.MOVIE,
+    EVENT_CATEGORIES.MUSIC,
+    EVENT_CATEGORIES.SPORT,
+    EVENT_CATEGORIES.MUSEUM,
+    EVENT_CATEGORIES.DANCE,
+    EVENT_CATEGORIES.CULTURE,
+    EVENT_CATEGORIES.NATURE,
+    EVENT_CATEGORIES.INFLUENCE,
+    EVENT_CATEGORIES.THEATRE,
+    EVENT_CATEGORIES.FOOD,
+  ]
+): CategoryOption[] =>
+  categories
+    .map((category) => {
+      const { icon, labelKey } = eventCategories[category];
+      return {
+        icon,
+        text: t(labelKey),
+        value: category,
+      } as CategoryOption;
+    })
+    .sort(sortExtendedCategoryOptions);
 
-/**
- * Get a list of course hobby type button options.
- * Secondary options are not shown in landing page.
- */
-export const getCourseHobbyTypeOptions = (t: TFunction): HobbyTypeOption[] => [
-  {
-    icon: <IconMovies />,
-    text: t('home.hobby.clubs'),
-    value: COURSE_HOBBY_TYPES.CLUBS,
-  },
-  {
-    icon: <IconMovies />,
-    text: t('home.hobby.courses'),
-    value: COURSE_HOBBY_TYPES.COURSES,
-    secondary: true,
-  },
-  {
-    icon: <IconCamp />,
-    text: t('home.hobby.camps'),
-    value: COURSE_HOBBY_TYPES.CAMPS,
-  },
-  {
-    icon: <IconMovies />,
-    text: t('home.hobby.trips'),
-    value: COURSE_HOBBY_TYPES.TRIPS,
-    secondary: true,
-  },
-  {
-    icon: <IconMovies />,
-    text: t('home.hobby.workshops'),
-    value: COURSE_HOBBY_TYPES.WORKSHOPS,
-    secondary: true,
-  },
-];
+export const getCourseCategoryOptions = (
+  t: TFunction,
+  categories = [
+    COURSE_CATEGORIES.MOVIE,
+    COURSE_CATEGORIES.LANGUAGES,
+    COURSE_CATEGORIES.LITERATURE,
+    COURSE_CATEGORIES.ARTS_AND_CULTURE,
+    COURSE_CATEGORIES.VISUAL_ARTS,
+    COURSE_CATEGORIES.HANDICRAFTS,
+    COURSE_CATEGORIES.SPORT,
+    COURSE_CATEGORIES.MUSIC,
+    COURSE_CATEGORIES.GAMES,
+    COURSE_CATEGORIES.FOOD,
+    COURSE_CATEGORIES.DANCE,
+    COURSE_CATEGORIES.THEATRE,
+  ]
+): CategoryOption[] =>
+  categories
+    .map((category) => {
+      const { icon, labelKey } = courseCategories[category];
+      return {
+        icon,
+        text: t(labelKey),
+        value: category,
+      } as CategoryOption;
+    })
+    .sort(sortExtendedCategoryOptions);
 
-export const eventCategories: SearchCategory = {
+export const getCourseHobbyTypeOptions = (
+  t: TFunction,
+  categories = [
+    COURSE_HOBBY_TYPES.CLUBS,
+    COURSE_HOBBY_TYPES.COURSES,
+    COURSE_HOBBY_TYPES.CAMPS,
+    COURSE_HOBBY_TYPES.TRIPS,
+    COURSE_HOBBY_TYPES.WORKSHOPS,
+  ]
+): HobbyTypeOption[] =>
+  categories
+    .map((category) => {
+      const { icon, labelKey } = hobbyTypes[category];
+      return {
+        icon,
+        text: t(labelKey),
+        value: category,
+      } as HobbyTypeOption;
+    })
+    .sort(sortExtendedCategoryOptions);
+
+export const eventCategories: Record<EVENT_CATEGORIES, SearchCategoryOption> = {
   [EVENT_CATEGORIES.MOVIE]: {
     icon: <IconMovies />,
-    transKey: 'home.category.movie',
+    labelKey: 'home.category.movie',
   },
   [EVENT_CATEGORIES.MUSIC]: {
     icon: <IconMusic />,
-    transKey: 'home.category.music',
+    labelKey: 'home.category.music',
   },
   [EVENT_CATEGORIES.SPORT]: {
     icon: <IconSports />,
-    transKey: 'home.category.sport',
+    labelKey: 'home.category.sport',
   },
   [EVENT_CATEGORIES.MUSEUM]: {
     icon: <IconMuseum />,
-    transKey: 'home.category.museum',
+    labelKey: 'home.category.museum',
   },
   [EVENT_CATEGORIES.DANCE]: {
     icon: <IconDance />,
-    transKey: 'home.category.dance',
+    labelKey: 'home.category.dance',
   },
   [EVENT_CATEGORIES.CULTURE]: {
     icon: <IconCultureAndArts />,
-    transKey: 'home.category.culture',
+    labelKey: 'home.category.culture',
   },
   [EVENT_CATEGORIES.NATURE]: {
     icon: <IconTree />,
-    transKey: 'home.category.nature',
+    labelKey: 'home.category.nature',
   },
   [EVENT_CATEGORIES.INFLUENCE]: {
     icon: <IconSpeechbubbleText aria-hidden />,
-    transKey: 'home.category.influence',
+    labelKey: 'home.category.influence',
   },
   [EVENT_CATEGORIES.THEATRE]: {
     icon: <IconTheatre />,
-    transKey: 'home.category.theatre',
+    labelKey: 'home.category.theatre',
   },
   [EVENT_CATEGORIES.FOOD]: {
     icon: <IconFood />,
-    transKey: 'home.category.food',
+    labelKey: 'home.category.food',
+  },
+  [EVENT_CATEGORIES.MISC]: {
+    icon: <></>,
+    labelKey: 'home.category.misc',
   },
 };
 
-export const courseCategories: SearchCategory = {
-  [COURSE_CATEGORIES.MOVIE]: {
-    icon: <IconMovies />,
-    transKey: 'home.category.courses.movieAndMedia',
-  },
-  [COURSE_CATEGORIES.LANGUAGES]: {
-    icon: <IconLanguages />,
-    transKey: 'home.category.courses.languages',
-  },
-  [COURSE_CATEGORIES.LITERATURE]: {
-    icon: <IconLiterature />,
-    transKey: 'home.category.courses.literature',
-  },
-  [COURSE_CATEGORIES.ARTS_AND_CULTURE]: {
-    icon: <IconArt />,
-    transKey: 'home.category.courses.artsAndCulture',
-  },
-  [COURSE_CATEGORIES.VISUAL_ARTS]: {
-    icon: <IconArt />,
-    transKey: 'home.category.courses.visualArts',
-  },
-  [COURSE_CATEGORIES.HANDICRAFTS]: {
-    icon: <IconCraft />,
-    transKey: 'home.category.courses.handicrafts',
-  },
-  [COURSE_CATEGORIES.SPORT]: {
-    icon: <IconSports />,
-    transKey: 'home.category.courses.sport',
-  },
-  [COURSE_CATEGORIES.MUSIC]: {
-    icon: <IconMusic />,
-    transKey: 'home.category.courses.music',
-  },
-  [COURSE_CATEGORIES.GAMES]: {
-    icon: <IconGames />,
-    transKey: 'home.category.courses.games',
-  },
-  [COURSE_CATEGORIES.FOOD]: {
-    icon: <IconFood />,
-    transKey: 'home.category.courses.food',
-  },
-  [COURSE_CATEGORIES.DANCE]: {
-    icon: <IconDance />,
-    transKey: 'home.category.courses.dance',
-  },
-  [COURSE_CATEGORIES.THEATRE]: {
-    icon: <IconTheatre />,
-    transKey: 'home.category.courses.theatre',
-  },
-};
+export const courseCategories: Record<COURSE_CATEGORIES, SearchCategoryOption> =
+  {
+    [COURSE_CATEGORIES.MOVIE]: {
+      icon: <IconMovies />,
+      labelKey: 'home.category.courses.movieAndMedia',
+    },
+    [COURSE_CATEGORIES.LANGUAGES]: {
+      icon: <IconLanguages />,
+      labelKey: 'home.category.courses.languages',
+    },
+    [COURSE_CATEGORIES.LITERATURE]: {
+      icon: <IconLiterature />,
+      labelKey: 'home.category.courses.literature',
+    },
+    [COURSE_CATEGORIES.ARTS_AND_CULTURE]: {
+      icon: <IconArt />,
+      labelKey: 'home.category.courses.artsAndCulture',
+    },
+    [COURSE_CATEGORIES.VISUAL_ARTS]: {
+      icon: <IconArt />,
+      labelKey: 'home.category.courses.visualArts',
+    },
+    [COURSE_CATEGORIES.HANDICRAFTS]: {
+      icon: <IconCraft />,
+      labelKey: 'home.category.courses.handicrafts',
+    },
+    [COURSE_CATEGORIES.SPORT]: {
+      icon: <IconSports />,
+      labelKey: 'home.category.courses.sport',
+    },
+    [COURSE_CATEGORIES.MUSIC]: {
+      icon: <IconMusic />,
+      labelKey: 'home.category.courses.music',
+    },
+    [COURSE_CATEGORIES.GAMES]: {
+      icon: <IconGames />,
+      labelKey: 'home.category.courses.games',
+    },
+    [COURSE_CATEGORIES.FOOD]: {
+      icon: <IconFood />,
+      labelKey: 'home.category.courses.food',
+    },
+    [COURSE_CATEGORIES.DANCE]: {
+      icon: <IconDance />,
+      labelKey: 'home.category.courses.dance',
+    },
+    [COURSE_CATEGORIES.THEATRE]: {
+      icon: <IconTheatre />,
+      labelKey: 'home.category.courses.theatre',
+    },
+  };
 
-export const hobbyTypes: SearchCategory = {
+export const hobbyTypes: Record<COURSE_HOBBY_TYPES, SearchCategoryOption> = {
   [COURSE_HOBBY_TYPES.CLUBS]: {
     icon: <IconMovies />,
-    transKey: 'home.hobby.clubs',
+    labelKey: 'home.hobby.clubs',
   },
   [COURSE_HOBBY_TYPES.COURSES]: {
-    icon: <IconMovies />,
-    transKey: 'home.hobby.courses',
+    icon: <></>,
+    labelKey: 'home.hobby.courses',
   },
   [COURSE_HOBBY_TYPES.CAMPS]: {
     icon: <IconCamp />,
-    transKey: 'home.hobby.camps',
+    labelKey: 'home.hobby.camps',
   },
   [COURSE_HOBBY_TYPES.TRIPS]: {
-    icon: <IconMovies />,
-    transKey: 'home.hobby.trips',
+    icon: <></>,
+    labelKey: 'home.hobby.trips',
   },
   [COURSE_HOBBY_TYPES.WORKSHOPS]: {
-    icon: <IconMovies />,
-    transKey: 'home.hobby.workshops',
+    icon: <></>,
+    labelKey: 'home.hobby.workshops',
+  },
+  [COURSE_HOBBY_TYPES.ONLINE_STUDIES]: {
+    icon: <></>,
+    labelKey: 'home.hobby.onlineStudies',
   },
 };
 

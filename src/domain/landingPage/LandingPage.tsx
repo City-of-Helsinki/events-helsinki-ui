@@ -24,7 +24,11 @@ import { CategoryExtendedOption } from '../eventSearch/types';
 import {
   courseCategories,
   eventCategories,
+  getCourseCategoryOptions,
+  getCourseHobbyTypeOptions,
+  getEventCategoryOptions,
   hobbyTypes,
+  sortExtendedCategoryOptions,
 } from '../eventSearch/utils';
 import styles from './landingPage.module.scss';
 import LandingPageMeta from './landingPageMeta/LandingPageMeta';
@@ -53,7 +57,7 @@ const LandingPage: React.FC = () => {
       )
     : [];
 
-  const eventCategoryOptions = [
+  const eventCategoryOptions = getEventCategoryOptions(t, [
     EVENT_CATEGORIES.MOVIE,
     EVENT_CATEGORIES.MUSIC,
     EVENT_CATEGORIES.SPORT,
@@ -64,40 +68,24 @@ const LandingPage: React.FC = () => {
     EVENT_CATEGORIES.INFLUENCE,
     EVENT_CATEGORIES.THEATRE,
     EVENT_CATEGORIES.FOOD,
-  ].map((category) => {
-    const { icon, transKey } = eventCategories[category];
-    return {
-      icon,
-      text: t(transKey),
-    } as CategoryExtendedOption;
-  });
+  ]);
 
   const courseCategoryOptions = [
-    COURSE_CATEGORIES.MOVIE,
-    COURSE_CATEGORIES.LANGUAGES,
-    COURSE_CATEGORIES.LITERATURE,
-    COURSE_CATEGORIES.ARTS_AND_CULTURE,
-    COURSE_CATEGORIES.VISUAL_ARTS,
-    COURSE_CATEGORIES.HANDICRAFTS,
-    COURSE_CATEGORIES.SPORT,
-    COURSE_CATEGORIES.MUSIC,
-    COURSE_CATEGORIES.GAMES,
-    COURSE_CATEGORIES.FOOD,
-    COURSE_CATEGORIES.DANCE,
-    COURSE_CATEGORIES.THEATRE,
-    COURSE_HOBBY_TYPES.CLUBS,
-    COURSE_HOBBY_TYPES.COURSES,
-    COURSE_HOBBY_TYPES.CAMPS,
-    COURSE_HOBBY_TYPES.TRIPS,
-    COURSE_HOBBY_TYPES.WORKSHOPS,
-  ].map((category) => {
-    const { icon, transKey } =
-      courseCategories[category] ?? hobbyTypes[category];
-    return {
-      icon,
-      text: t(transKey),
-    } as CategoryExtendedOption;
-  });
+    ...getCourseCategoryOptions(t, [
+      COURSE_CATEGORIES.LITERATURE,
+      COURSE_CATEGORIES.VISUAL_ARTS,
+      COURSE_CATEGORIES.HANDICRAFTS,
+      COURSE_CATEGORIES.SPORT,
+      COURSE_CATEGORIES.MUSIC,
+      COURSE_CATEGORIES.GAMES,
+      COURSE_CATEGORIES.DANCE,
+      COURSE_CATEGORIES.THEATRE,
+    ]),
+    ...getCourseHobbyTypeOptions(t, [
+      COURSE_HOBBY_TYPES.CLUBS,
+      COURSE_HOBBY_TYPES.CAMPS,
+    ]),
+  ].sort(sortExtendedCategoryOptions);
 
   const lgCollections = collections.slice(0, 1);
   const mdAndSmCollections = collections.slice(1);
