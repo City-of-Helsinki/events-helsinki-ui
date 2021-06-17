@@ -90,7 +90,7 @@ const useOtherEventTimesVariables = (event: EventFields) => {
       this needs a list of eventTypes
       or otherwise some events or courses are always excluded.
       */
-      eventType: [EventTypeId.General, EventTypeId.Course] //event.typeId
+      eventType: [EventTypeId.General, EventTypeId.Course], //event.typeId
     }),
     [superEventId]
   );
@@ -113,7 +113,7 @@ export const useSubEventsQueryVariables = (
       this needs a list of eventTypes
       or otherwise some events or courses are always excluded.
       */
-      eventType: [EventTypeId.General, EventTypeId.Course] //event.typeId
+      eventType: [EventTypeId.General, EventTypeId.Course], //event.typeId
     }),
     [event.id]
   );
@@ -139,20 +139,8 @@ export const useSubEvents = (
 
       try {
         await fetchMore({
-          updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult) return prev;
-
-            const events = [
-              ...prev.eventList.data,
-              ...fetchMoreResult.eventList.data,
-            ];
-            fetchMoreResult.eventList.data = events;
-
-            return fetchMoreResult;
-          },
           variables: {
-            ...variables,
-            page: page,
+            page,
           },
         });
       } catch (e) {
@@ -160,7 +148,7 @@ export const useSubEvents = (
       }
       setIsFetchingMore(false);
     },
-    [fetchMore, t, variables]
+    [fetchMore, t]
   );
 
   React.useEffect(() => {
@@ -183,7 +171,7 @@ export const useSubEvents = (
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useOtherEventTimes = (
-  event: EventFields,
+  event: EventFields
 ): {
   events: EventFields[];
   loading: boolean;

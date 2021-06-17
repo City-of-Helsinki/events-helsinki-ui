@@ -28,7 +28,11 @@ const usePaginatedEventsByIdsQuery = (
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
   const [eventCursorIndex, setEventCursorIndex] = React.useState(PAGE_SIZE);
   const [hasMoreEventsToLoad, setHasMoreEventsToLoad] = React.useState(false);
-  const { data: eventsData, loading, fetchMore } = useEventsByIdsQuery({
+  const {
+    data: eventsData,
+    loading,
+    fetchMore,
+  } = useEventsByIdsQuery({
     variables: {
       ids: eventIds,
       include: ['location'],
@@ -55,21 +59,8 @@ const usePaginatedEventsByIdsQuery = (
     if (page) {
       try {
         await fetchMore({
-          updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult) return prev;
-            const events = [
-              ...prev.eventsByIds.data,
-              ...fetchMoreResult.eventsByIds.data,
-            ];
-            fetchMoreResult.eventsByIds.data = events;
-            return fetchMoreResult;
-          },
           variables: {
-            ids: eventIds,
-            include: ['location'],
-            pageSize: PAGE_SIZE,
-            sort: EVENT_SORT_OPTIONS.END_TIME,
-            page: page,
+            page,
           },
         });
       } catch (e) {
