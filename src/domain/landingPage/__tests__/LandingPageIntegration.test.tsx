@@ -30,12 +30,8 @@ describe('LandingPageSearch popular categories', () => {
       CATEGORY_CATALOG.General.default
     );
     const categoryButtons = popularCategoriesContainer.queryAllByRole('button');
-    categoryOptions.every((category) => {
-      expect(categoryButtons.map((button) => button.textContent)).toContain(
-        category.text
-      );
-    });
     expect(categoryButtons.length).toBe(categoryOptions.length);
+    expect(categoryButtons).toMatchSnapshot();
   });
 
   test("Landing page's popular course categories should not contain secondary items", async () => {
@@ -51,11 +47,7 @@ describe('LandingPageSearch popular categories', () => {
       ...getCourseHobbyTypeOptions(t, CATEGORY_CATALOG.hobbyTypes.landingPage),
     ];
     const categoryButtons = popularCategoriesContainer.queryAllByRole('button');
-    categoryOptions.every((category) => {
-      expect(categoryButtons.map((button) => button.textContent)).toContain(
-        category.text
-      );
-    });
     expect(categoryButtons.length).toBe(categoryOptions.length);
+    expect(categoryButtons).toMatchSnapshot();
   });
 });
