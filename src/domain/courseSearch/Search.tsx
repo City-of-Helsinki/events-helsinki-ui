@@ -9,6 +9,7 @@ import {
   IconSearch,
   Notification,
 } from 'hds-react';
+import { compact, toInteger } from 'lodash';
 import uniq from 'lodash/uniq';
 import React, { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -83,6 +84,11 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
 
   const { alsoOngoingCourses, isFree } = getSearchFilters(searchParams);
 
+  const suitableFor = compact([
+    toInteger(minAgeInput) || null,
+    toInteger(maxAgeInput) || null,
+  ]);
+
   const searchFilters = {
     alsoOngoingCourses,
     categories: selectedCategories,
@@ -94,8 +100,9 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     text: selectedTexts,
     start,
     end,
-    audienceMinAgeGt: minAgeInput,
-    audienceMaxAgeLt: maxAgeInput,
+    suitableFor,
+    // audienceMinAgeGt: minAgeInput,
+    // audienceMaxAgeLt: maxAgeInput,
   };
 
   // Initialize fields when page is loaded
@@ -109,8 +116,9 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
       text,
       end: endTime,
       start: startTime,
-      audienceMinAgeGt,
-      audienceMaxAgeLt,
+      suitableFor,
+      // audienceMinAgeGt,
+      // audienceMaxAgeLt,
     } = getSearchFilters(searchParams);
 
     setEnd(endTime);
@@ -121,9 +129,14 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     setSelectedPlaces(places);
     setSelectedTexts(text);
     setSelectedDateTypes(dateTypes);
-    setMinAgeInput(audienceMinAgeGt || '');
-    setMaxAgeInput(audienceMaxAgeLt || '');
-
+    // setMinAgeInput(audienceMinAgeGt || '');
+    // setMaxAgeInput(audienceMaxAgeLt || '');
+    if (suitableFor?.length) {
+      setMinAgeInput(suitableFor[0].toString() || '');
+    }
+    if (suitableFor?.length === 2) {
+      setMaxAgeInput(suitableFor[1].toString() || '');
+    }
     if (endTime || startTime) {
       setIsCustomDate(true);
     } else {

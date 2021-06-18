@@ -73,6 +73,7 @@ export const EVENT_DEFAULT_SEARCH_FILTERS: Filters = {
   publisher: null,
   start: null,
   text: [],
+  suitableFor: [],
 };
 
 export const COURSE_DEFAULT_SEARCH_FILTERS = {
@@ -86,6 +87,7 @@ export const COURSE_DEFAULT_SEARCH_FILTERS = {
   places: [],
   start: null,
   text: [],
+  suitableFor: [],
 };
 
 export enum EVENT_SORT_OPTIONS {
@@ -119,6 +121,7 @@ export enum EVENT_SEARCH_FILTERS {
   TEXT = 'text',
   MIN_AGE = 'audienceMinAgeGt',
   MAX_AGE = 'audienceMaxAgeLt',
+  SUITABLE = 'suitableFor',
 }
 
 export const CULTURE_KEYWORDS = [

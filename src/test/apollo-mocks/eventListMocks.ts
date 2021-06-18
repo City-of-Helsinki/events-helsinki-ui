@@ -11,8 +11,9 @@ import {
 } from '../../generated/graphql';
 
 export const baseVariables = {
-  audienceMaxAgeLt: '',
-  audienceMinAgeGt: '',
+  // audienceMaxAgeLt: '',
+  // audienceMinAgeGt: '',
+  suitableFor: [],
   end: '',
   include: ['keywords', 'location'],
   isFree: undefined,

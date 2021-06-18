@@ -247,7 +247,7 @@ test('should change search query after clicking age limit menu item', async () =
 
   act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe(pathname);
-  expect(history.location.search).toBe('?text=jazz&audienceMinAgeGt=10');
+  expect(history.location.search).toBe('?text=jazz&suitableFor=10');
 
   userEvent.click(chooseAgeLimitButton);
   const maxAgeInput = screen.getByRole('spinbutton', {
@@ -259,9 +259,7 @@ test('should change search query after clicking age limit menu item', async () =
 
   act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe(pathname);
-  expect(history.location.search).toBe(
-    '?text=jazz&audienceMinAgeGt=10&audienceMaxAgeLt=20'
-  );
+  expect(history.location.search).toBe('?text=jazz&suitableFor=10,20');
 });
 
 test('beta notification is rendered when beta button is clicked', async () => {

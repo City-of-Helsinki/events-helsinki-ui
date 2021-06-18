@@ -7,6 +7,7 @@ import {
   subDays,
 } from 'date-fns';
 import { TFunction } from 'i18next';
+import { toInteger } from 'lodash';
 import isEmpty from 'lodash/isEmpty';
 import { matchPath } from 'react-router';
 
@@ -183,10 +184,11 @@ export const getEventSearchVariables = ({
     places,
     publisher,
     text,
-    audienceMinAgeGt,
-    audienceMaxAgeLt,
+    suitableFor,
+    // audienceMinAgeGt,
+    // audienceMaxAgeLt,
   } = getSearchFilters(params);
-
+  // const [audienceMinAgeGt, audienceMaxAgeLt] = suitableFor;
   const pathPlace = place && MAPPED_PLACES[place.toLowerCase()];
 
   if (pathPlace) {
@@ -268,8 +270,9 @@ export const getEventSearchVariables = ({
     start,
     startsAfter,
     superEventType,
-    audienceMinAgeGt,
-    audienceMaxAgeLt,
+    suitableFor,
+    // audienceMinAgeGt,
+    // audienceMaxAgeLt,
     eventType: [EVENT_TYPE_TO_ID[eventType]],
   };
 };
@@ -294,6 +297,11 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
 
   const startTime = searchParams.get(EVENT_SEARCH_FILTERS.START);
   const start = startTime ? new Date(startTime) : null;
+
+  // const minAge = searchParams.get(EVENT_SEARCH_FILTERS.MIN_AGE) || null;
+  // const maxAge = searchParams.get(EVENT_SEARCH_FILTERS.MAX_AGE) || null;
+  // Sort and remove empty
+  // const suitableFor = filter([minAge, maxAge], size).sort() || null;
 
   return {
     categories: getUrlParamAsArray(
@@ -328,8 +336,12 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
     publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
     start,
     text: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.TEXT),
-    audienceMinAgeGt: searchParams.get(EVENT_SEARCH_FILTERS.MIN_AGE) || '',
-    audienceMaxAgeLt: searchParams.get(EVENT_SEARCH_FILTERS.MAX_AGE) || '',
+    suitableFor: getUrlParamAsArray(
+      searchParams,
+      EVENT_SEARCH_FILTERS.SUITABLE
+    ).map((value) => toInteger(value)),
+    // audienceMinAgeGt: minAge,
+    // audienceMaxAgeLt: maxAge,
   };
 };
 

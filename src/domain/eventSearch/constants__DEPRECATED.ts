@@ -12,4 +12,5 @@ export const DEFAULT_SEARCH_FILTERS: Filters = {
   publisher: null,
   start: null,
   text: [],
+  suitableFor: []
 };
