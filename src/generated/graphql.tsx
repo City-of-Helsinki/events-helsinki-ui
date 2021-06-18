@@ -421,6 +421,7 @@ export type QueryEventDetailsArgs = {
 
 
 export type QueryEventsByIdsArgs = {
+  eventType?: Maybe<Array<Maybe<EventTypeId>>>;
   ids: Array<Scalars['ID']>;
   include?: Maybe<Array<Maybe<Scalars['String']>>>;
   sort?: Maybe<Scalars['String']>;
@@ -835,6 +836,7 @@ export type EventListQuery = (
 
 export type EventsByIdsQueryVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID'];
+  eventType?: Maybe<Array<Maybe<EventTypeId>> | Maybe<EventTypeId>>;
   include?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
   sort?: Maybe<Scalars['String']>;
   pageSize?: Maybe<Scalars['Int']>;
@@ -1735,9 +1737,10 @@ export type EventListQueryHookResult = ReturnType<typeof useEventListQuery>;
 export type EventListLazyQueryHookResult = ReturnType<typeof useEventListLazyQuery>;
 export type EventListQueryResult = Apollo.QueryResult<EventListQuery, EventListQueryVariables>;
 export const EventsByIdsDocument = gql`
-    query EventsByIds($ids: [ID!]!, $include: [String], $sort: String, $pageSize: Int, $page: Int) {
+    query EventsByIds($ids: [ID!]!, $eventType: [EventTypeId], $include: [String], $sort: String, $pageSize: Int, $page: Int) {
   eventsByIds(
     ids: $ids
+    eventType: $eventType
     include: $include
     sort: $sort
     pageSize: $pageSize
@@ -1768,6 +1771,7 @@ export const EventsByIdsDocument = gql`
  * const { data, loading, error } = useEventsByIdsQuery({
  *   variables: {
  *      ids: // value for 'ids'
+ *      eventType: // value for 'eventType'
  *      include: // value for 'include'
  *      sort: // value for 'sort'
  *      pageSize: // value for 'pageSize'

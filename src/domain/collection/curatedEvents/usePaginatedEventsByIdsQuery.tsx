@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 
 import {
   EventFieldsFragment,
+  EventTypeId,
   useEventsByIdsQuery,
 } from '../../../generated/graphql';
 import { isEventClosed } from '../../event/EventUtils';
@@ -35,6 +36,7 @@ const usePaginatedEventsByIdsQuery = (
   } = useEventsByIdsQuery({
     variables: {
       ids: eventIds,
+      eventType: [EventTypeId.General, EventTypeId.Course],
       include: ['location'],
       pageSize: PAGE_SIZE,
       sort: EVENT_SORT_OPTIONS.END_TIME,
