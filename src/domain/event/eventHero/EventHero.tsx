@@ -140,7 +140,7 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
               )}
               {/* Only course page should use super event date info */}
               {isCoursePage && (
-                <Visible above="sm" className={styles.date}>
+                <Visible above="sm" className={styles.date} aria-hidden={true}>
                   {superEvent?.status === 'pending' && <SkeletonLoader />}
                   {!!startTime &&
                     getDateRangeStr({

@@ -265,6 +265,7 @@
   },
   "courseSearch": {
     "title": "Hitta hobby",
+    "betaButtonArialLabel": "Vill du ge oss respons på utvecklingsversionen av hobbysöksidan?",
     "betaNotificationText": "Vill du ge oss respons på utvecklingsversionen av hobbysöksidan? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Gå till responsformuläret {{openInNewTab}}\">Gå till responsformuläret.</a>",
     "betaResultsNotificationText": "Vi arbetar med att vidareutveckla webbsidan. För tillfället innehåller tjänsten enbart hobbyer för barn och unga.",
     "buttonLoadMore": "Visa fler hobbyew ({{count}})",
@@ -308,7 +309,7 @@
   "header": {
     "menuToggleAriaLabel": "Menyn",
     "skipToContentLabel": "Gå till innehållet",
-    "changeLanguage": "Svenska - språkval",
+    "changeLanguage": "Andra språk, Valitse kieli, Select language",
     "languages": {
       "en": "In English",
       "fi": "Suomeksi",
@@ -316,7 +317,8 @@
     },
     "searchCollections": "Vi rekommenderar",
     "searchEvents": "Evenemang",
-    "searchHobbies": "Hobbyer"
+    "searchHobbies": "Hobbyer",
+    "titleAriaLabel": "Evenemang Helsinki framsida"
   },
   "home": {
     "category": {
