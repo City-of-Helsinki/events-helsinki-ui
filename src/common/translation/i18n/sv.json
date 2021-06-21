@@ -263,6 +263,7 @@
   },
   "courseSearch": {
     "title": "Hitta hobby",
+    "betaButtonArialLabel": "Vill du ge oss respons på utvecklingsversionen av hobbysöksidan?",
     "betaNotificationText": "Vill du ge oss respons på utvecklingsversionen av hobbysöksidan? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Gå till responsformuläret {{openInNewTab}}\">Gå till responsformuläret.</a>",
     "betaResultsNotificationText": "Vi arbetar med att vidareutveckla webbsidan. För tillfället innehåller tjänsten enbart hobbyer för barn och unga.",
     "buttonLoadMore": "Visa fler hobbyew ({{count}})",
