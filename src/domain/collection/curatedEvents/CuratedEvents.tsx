@@ -13,7 +13,7 @@ import EventCards from './EventCards';
 import OnlyExpiredEvents from './OnlyExpiredEvents';
 import usePaginatedEventsByIdsQuery from './usePaginatedEventsByIdsQuery';
 
-const PAST_EVENTS_DEFAULT_SIZE = 4;
+// const PAST_EVENTS_DEFAULT_SIZE = 4;
 
 export const coursesListTestId = 'curated-courses-list';
 export const eventsListTestId = 'curated-events-list';
@@ -58,11 +58,11 @@ const CollectionEventsList: React.FC<{
   testId: string;
 }> = ({ eventIds, title, eventType, testId }) => {
   const { t } = useTranslation();
-  const [showAllExpiredEvents, setShowAllExpiredEvents] = React.useState(false);
+  // const [showAllExpiredEvents, setShowAllExpiredEvents] = React.useState(false);
 
   const {
     events,
-    expiredEvents,
+    // expiredEvents,
     isFetchingMore,
     loading,
     onLoadMoreEvents,
@@ -70,34 +70,41 @@ const CollectionEventsList: React.FC<{
     eventCursorIndex,
     eventsTotalCount,
   } = usePaginatedEventsByIdsQuery(eventIds);
-  const collectionHasEvents = events.length + expiredEvents.length > 0;
+  const collectionHasEvents = !!events.length; //+ expiredEvents.length > 0;
   const collectionHasUpcomingEvents = !!events.length;
-  const visibleExpiredEvents = showAllExpiredEvents
-    ? expiredEvents
-    : expiredEvents.slice(0, PAST_EVENTS_DEFAULT_SIZE);
 
-  const handleShowAllExpiredEvents = () => {
-    setShowAllExpiredEvents(true);
-  };
-
-  const ExpiredEventsSection = () => {
-    return (
-      <>
-        <h3 className={styles.titlePastRecommendations}>
-          {t('collection.titlePastRecommendations')}
-        </h3>
-        <EventCards
-          events={visibleExpiredEvents}
-          onShowMore={handleShowAllExpiredEvents}
-          eventType={eventType}
-          showMoreButton={
-            !showAllExpiredEvents &&
-            expiredEvents.length > PAST_EVENTS_DEFAULT_SIZE
-          }
-        />
-      </>
-    );
-  };
+  /* 
+  TODO: TH-1166
+  Expired events section was decided to be left hidden, 
+  because it was a hit for usability and there were some issues 
+  with the pagination.
+  */
+  // const visibleExpiredEvents = showAllExpiredEvents
+  //   ? expiredEvents
+  //   : expiredEvents.slice(0, PAST_EVENTS_DEFAULT_SIZE);
+  //
+  // const handleShowAllExpiredEvents = () => {
+  //   setShowAllExpiredEvents(true);
+  // };
+  //
+  // const ExpiredEventsSection = () => {
+  //   return (
+  //     <>
+  //       <h3 className={styles.titlePastRecommendations}>
+  //         {t('collection.titlePastRecommendations')}
+  //       </h3>
+  //       <EventCards
+  //         events={visibleExpiredEvents}
+  //         onShowMore={handleShowAllExpiredEvents}
+  //         eventType={eventType}
+  //         showMoreButton={
+  //           !showAllExpiredEvents &&
+  //           expiredEvents.length > PAST_EVENTS_DEFAULT_SIZE
+  //         }
+  //       />
+  //     </>
+  //   );
+  // };
 
   const LoadMoreButton = () => (
     <div className={styles.loadMoreWrapper}>
@@ -129,7 +136,7 @@ const CollectionEventsList: React.FC<{
             ) : (
               <OnlyExpiredEvents />
             )}
-            {!!visibleExpiredEvents.length && <ExpiredEventsSection />}
+            {/* {!!visibleExpiredEvents.length && <ExpiredEventsSection />} */}
           </div>
         )}
       </LoadingSpinner>

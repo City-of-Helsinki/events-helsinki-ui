@@ -103,7 +103,13 @@ afterEach(() => {
   });
 });
 
-test('should show expired events', async () => {
+/* 
+TODO: TH-1166
+Expired events section was decided to be left hidden, 
+because it was a hit for usability and there were some issues 
+with the pagination.
+*/
+test.skip('should show expired events', async () => {
   advanceTo('2020-10-05');
 
   const events = fakeEvents(
