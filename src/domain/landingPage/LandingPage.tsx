@@ -1,4 +1,3 @@
-import orderBy from 'lodash/orderBy';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -15,11 +14,12 @@ import PageWrapper from '../app/layout/PageWrapper';
 import BannerHero from '../banner/bannerHero/BannerHero';
 import CollectionCards from '../collection/collectionCard/CollectionCards';
 import { isCollectionVisible } from '../collection/CollectionUtils';
-import { CategoryExtendedOption } from '../eventSearch/types';
+import { CATEGORY_CATALOG } from '../eventSearch/constants';
 import {
   getCourseCategoryOptions,
   getCourseHobbyTypeOptions,
   getEventCategoryOptions,
+  sortExtendedCategoryOptions,
 } from '../eventSearch/utils';
 import styles from './landingPage.module.scss';
 import LandingPageMeta from './landingPageMeta/LandingPageMeta';
@@ -48,26 +48,18 @@ const LandingPage: React.FC = () => {
       )
     : [];
 
-  const getCourseCategoryOptionsExtended = () => {
-    const hobbyTypes = getCourseHobbyTypeOptions(t) as CategoryExtendedOption[];
+  const eventCategoryOptions = getEventCategoryOptions(
+    t,
+    CATEGORY_CATALOG.General.default
+  );
 
-    const includedHobbyTypes = hobbyTypes.filter(
-      (hobbyType) => !hobbyType.secondary
-    );
-    const courseCategories = getCourseCategoryOptions(t).filter(
-      (category) => !category.secondary
-    ) as CategoryExtendedOption[];
-
-    return orderBy([...courseCategories, ...includedHobbyTypes], 'text');
-  };
+  const courseCategoryOptions = [
+    ...getCourseCategoryOptions(t, CATEGORY_CATALOG.Course.landingPage),
+    ...getCourseHobbyTypeOptions(t, CATEGORY_CATALOG.hobbyTypes.landingPage),
+  ].sort(sortExtendedCategoryOptions);
 
   const lgCollections = collections.slice(0, 1);
   const mdAndSmCollections = collections.slice(1);
-
-  const eventCategories = getEventCategoryOptions(t).filter(
-    (category) => !category.secondary
-  ) as CategoryExtendedOption[];
-  const courseCategories = getCourseCategoryOptionsExtended();
 
   return (
     <PageWrapper>
@@ -92,7 +84,7 @@ const LandingPage: React.FC = () => {
                     ? t('home.search.placeholder')
                     : t('home.eventSearch.placeholder')
                 }
-                popularCategories={eventCategories}
+                popularCategories={eventCategoryOptions}
               />
               {/* Background helper used to get the wave-effect without
                     course search panel being on top of event search panel */}
@@ -105,7 +97,7 @@ const LandingPage: React.FC = () => {
                     ? t('home.search.placeholder')
                     : t('home.courseSearch.placeholder')
                 }
-                popularCategories={courseCategories}
+                popularCategories={courseCategoryOptions}
               />
             </div>
           </div>

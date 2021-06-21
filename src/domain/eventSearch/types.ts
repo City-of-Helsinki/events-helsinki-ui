@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
   COURSE_CATEGORIES,
   COURSE_HOBBY_TYPES,
@@ -9,22 +11,29 @@ export interface CategoryOption {
   icon: React.ReactElement;
   text: string;
   value: EVENT_CATEGORIES | COURSE_CATEGORIES;
-  secondary?: boolean
 }
 
 export interface HobbyTypeOption {
   icon: React.ReactElement;
   text: string;
   value: COURSE_HOBBY_TYPES;
-  secondary?: boolean
 }
 
 export interface CategoryExtendedOption {
   icon: React.ReactElement;
   text: string;
   value: EVENT_CATEGORIES | COURSE_CATEGORIES | COURSE_HOBBY_TYPES;
-  secondary?: boolean
 }
+
+export type SearchCategoryType = EVENT_CATEGORIES | COURSE_CATEGORIES | COURSE_HOBBY_TYPES
+
+export interface SearchCategoryOption {
+  icon: React.ReactElement;
+  labelKey: string
+}
+
+export type SearchCategory = Record<SearchCategoryType, SearchCategoryOption>
+
 
 export interface Filters {
   [EVENT_SEARCH_FILTERS.CATEGORIES]: string[];

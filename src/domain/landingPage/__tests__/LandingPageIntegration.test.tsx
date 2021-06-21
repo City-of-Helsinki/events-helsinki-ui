@@ -2,6 +2,7 @@ import i18next from 'i18next';
 import * as React from 'react';
 
 import { render, screen, waitFor, within } from '../../../test/testUtils';
+import { CATEGORY_CATALOG } from '../../eventSearch/constants';
 import {
   getCourseCategoryOptions,
   getCourseHobbyTypeOptions,
@@ -24,26 +25,13 @@ describe('LandingPageSearch popular categories', () => {
     const popularCategoriesContainer = within(
       screen.queryByTestId(eventsPopularCategoriesContainerTestId)
     );
-    const categoryOptions = getEventCategoryOptions(t);
-
-    categoryOptions
-      .filter((category) => !!category.secondary)
-      .forEach((category) => {
-        expect(
-          popularCategoriesContainer.queryByRole('button', {
-            name: category.text,
-          })
-        ).toBeInTheDocument();
-      });
-    categoryOptions
-      .filter((category) => category.secondary)
-      .forEach((category) => {
-        expect(
-          popularCategoriesContainer.queryByRole('button', {
-            name: category.text,
-          })
-        ).not.toBeInTheDocument();
-      });
+    const categoryOptions = getEventCategoryOptions(
+      t,
+      CATEGORY_CATALOG.General.default
+    );
+    const categoryButtons = popularCategoriesContainer.queryAllByRole('button');
+    expect(categoryButtons.length).toBe(categoryOptions.length);
+    expect(categoryButtons).toMatchSnapshot();
   });
 
   test("Landing page's popular course categories should not contain secondary items", async () => {
@@ -55,27 +43,11 @@ describe('LandingPageSearch popular categories', () => {
       screen.queryByTestId(coursesPopularCategoriesContainerTestId)
     );
     const categoryOptions = [
-      ...getCourseCategoryOptions(t),
-      ...getCourseHobbyTypeOptions(t),
+      ...getCourseCategoryOptions(t, CATEGORY_CATALOG.Course.landingPage),
+      ...getCourseHobbyTypeOptions(t, CATEGORY_CATALOG.hobbyTypes.landingPage),
     ];
-
-    categoryOptions
-      .filter((category) => !category.secondary)
-      .forEach((category) => {
-        expect(
-          popularCategoriesContainer.queryByRole('button', {
-            name: category.text,
-          })
-        ).toBeInTheDocument();
-      });
-    categoryOptions
-      .filter((category) => category.secondary)
-      .forEach((category) => {
-        expect(
-          popularCategoriesContainer.queryByRole('button', {
-            name: category.text,
-          })
-        ).not.toBeInTheDocument();
-      });
+    const categoryButtons = popularCategoriesContainer.queryAllByRole('button');
+    expect(categoryButtons.length).toBe(categoryOptions.length);
+    expect(categoryButtons).toMatchSnapshot();
   });
 });
