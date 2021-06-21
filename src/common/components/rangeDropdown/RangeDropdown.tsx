@@ -57,9 +57,8 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
   title,
   value,
 }) => {
-  const [internalIsFixedValues, setInternalIsFixedValues] = React.useState(
-    false
-  );
+  const [internalIsFixedValues, setInternalIsFixedValues] =
+    React.useState(false);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const dropdown = React.useRef<HTMLDivElement | null>(null);
@@ -206,6 +205,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
     <div className={styles.dropdown} ref={dropdown}>
       <button
         aria-label={title}
+        aria-expanded={isMenuOpen}
         className={styles.toggleButton}
         onClick={handleToggleButtonClick}
         onKeyDown={handleToggleButtonKeyDown}
