@@ -12,6 +12,7 @@ import {
   EventFieldsFragment,
   EventListResponse,
   EventsByIdsDocument,
+  EventTypeId,
 } from '../../../../generated/graphql';
 import { setFeatureFlags } from '../../../../test/feature-flags/featureFlags.test.utils';
 import { fakeCollection, fakeEvents } from '../../../../test/mockDataUtils';
@@ -233,6 +234,7 @@ const getMocks = (
 ) => {
   let variables = {
     ids,
+    eventType: [EventTypeId.General, EventTypeId.Course],
     include: ['location'],
     pageSize: 10,
     sort: 'end_time',
