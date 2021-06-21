@@ -273,7 +273,11 @@ test('beta notification is rendered when beta button is clicked', async () => {
   /************************************/
 
   function clickBetaButton() {
-    userEvent.click(screen.getByRole('button', { name: 'Beta' }));
+    userEvent.click(
+      screen.getByRole('button', {
+        name: /Haluatko antaa meille palautetta harrastusten hakusivun kehitysveriosta/,
+      })
+    );
   }
 
   function expectNotificationToNotBeRendered() {
