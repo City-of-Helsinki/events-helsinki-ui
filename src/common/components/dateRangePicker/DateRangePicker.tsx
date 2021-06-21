@@ -81,11 +81,19 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
       return;
     }
 
-    setErrors({
-      ...errors,
-      startDateIsInvalid: !startDateIsValid,
-      endDateIsInvalid: !endDateIsValid,
-    });
+    if (startDateIsValid) {
+      setErrors({
+        ...errors,
+        startDateIsInvalid: false,
+      });
+    }
+
+    if (endDateIsValid) {
+      setErrors({
+        ...errors,
+        endDateIsInvalid: false,
+      });
+    }
 
     startDateIsValid
       ? onChangeStartDate(parseDate(internalStartDateString))
