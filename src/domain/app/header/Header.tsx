@@ -29,27 +29,30 @@ const Header: React.FC = () => {
     }));
   }, [t]);
 
-  const changeLanguage = (newLanguage: OptionType) => (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    event.preventDefault();
-    history.push({
-      pathname: updateLocaleParam(location.pathname, locale, newLanguage.value),
-      search: location.search,
-    });
-  };
+  const changeLanguage =
+    (newLanguage: OptionType) =>
+    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+      event.preventDefault();
+      history.push({
+        pathname: updateLocaleParam(
+          location.pathname,
+          locale,
+          newLanguage.value
+        ),
+        search: location.search,
+      });
+    };
 
   const isTabActive = (pathname: string): boolean => {
     return location.pathname.startsWith(pathname);
   };
 
-  const goToPage = (pathname: string) => (
-    event?: React.MouseEvent<HTMLAnchorElement>
-  ) => {
-    event?.preventDefault();
-    history.push({ pathname });
-    closeMenu();
-  };
+  const goToPage =
+    (pathname: string) => (event?: React.MouseEvent<HTMLAnchorElement>) => {
+      event?.preventDefault();
+      history.push({ pathname });
+      closeMenu();
+    };
 
   const logoLang = locale === 'sv' ? 'sv' : 'fi';
 
@@ -78,6 +81,7 @@ const Header: React.FC = () => {
       className={styles.navigation}
       onTitleClick={goToPage(`/${locale}${ROUTES.HOME}`)}
       logoLanguage={logoLang}
+      titleAriaLabel={t('header.titleAriaLabel')}
     >
       <Navigation.Row variant="inline">
         {navigationItems.map((item, index) => (

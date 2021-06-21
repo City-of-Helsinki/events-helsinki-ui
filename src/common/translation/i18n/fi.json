@@ -314,7 +314,8 @@
     },
     "searchCollections": "Suosittelemme",
     "searchEvents": "Tapahtumat",
-    "searchHobbies": "Harrastukset"
+    "searchHobbies": "Harrastukset",
+    "titleAriaLabel": "Tapahtumat Helsinki etusivu"
   },
   "home": {
     "category": {

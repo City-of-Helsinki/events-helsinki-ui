@@ -314,7 +314,8 @@
     },
     "searchCollections": "Vi rekommenderar",
     "searchEvents": "Evenemang",
-    "searchHobbies": "Hobbyer"
+    "searchHobbies": "Hobbyer",
+    "titleAriaLabel": "Evenemang Helsinki framsida"
   },
   "home": {
     "category": {

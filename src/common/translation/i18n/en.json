@@ -314,7 +314,8 @@
     },
     "searchCollections": "We recommend",
     "searchEvents": "Events",
-    "searchHobbies": "Hobbies"
+    "searchHobbies": "Hobbies",
+    "titleAriaLabel": "Events in Helsinki frontpage"
   },
   "home": {
     "category": {
