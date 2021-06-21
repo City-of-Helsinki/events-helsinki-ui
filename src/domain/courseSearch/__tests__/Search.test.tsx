@@ -162,10 +162,15 @@ test('should change search query after selecting start date and pressing submit 
     screen.getAllByRole('button', { name: /valitse päivät/i })[0]
   );
   userEvent.click(
+    screen.getAllByRole('button', { name: /valitse päivämäärä/i })[0]
+  );
+  userEvent.click(
     screen.getByRole('button', {
-      name: /Valitse tiistaina 6\. lokakuuta 2020/i,
+      name: /lokakuu 6/i,
     })
   );
+  // need to wait one useEffect cycle for date go take effect
+  await actWait();
 
   act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
 

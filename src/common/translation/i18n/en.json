@@ -29,6 +29,8 @@
       "infoDate": "dd.mm.yyyy",
       "labelEndDate": "End date",
       "labelStartDate": "Start date",
+      "errorEndDateBeforeStartDate": "Loppumispäivä ei voi olla ennen alkamispäivää",
+      "errorDateFormat": "Date must be in format dd.mm.yyyy",
       "menu": {
         "buttonBack": "Back",
         "buttonClose": "Close",

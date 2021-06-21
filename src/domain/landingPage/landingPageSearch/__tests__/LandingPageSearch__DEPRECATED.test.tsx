@@ -5,6 +5,7 @@ import { KeywordListDocument } from '../../../../generated/graphql';
 import { fakeKeywords } from '../../../../test/mockDataUtils';
 import {
   act,
+  actWait,
   configure,
   render,
   screen,
@@ -100,10 +101,15 @@ test('should route to event search page after selecting start date and pressing 
     screen.getAllByRole('button', { name: /valitse päivät/i })[0]
   );
   userEvent.click(
+    screen.getAllByRole('button', { name: /valitse päivämäärä/i })[0]
+  );
+  userEvent.click(
     screen.getByRole('button', {
-      name: /Valitse tiistaina 6\. lokakuuta 2020/i,
+      name: /lokakuu 6/i,
     })
   );
+  // need to wait one useEffect cycle for date go take effect
+  await actWait();
 
   act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe('/fi/events');

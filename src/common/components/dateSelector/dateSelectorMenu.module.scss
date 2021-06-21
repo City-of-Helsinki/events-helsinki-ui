@@ -8,10 +8,6 @@
 
   min-width: fit-content;
 
-  &.isCustomDate {
-    min-width: 21rem;
-  }
-
   @include respond_above(sm) {
     position: absolute;
     top: 100%;

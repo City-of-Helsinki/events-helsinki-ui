@@ -11,7 +11,7 @@ const locales = { en, fi, sv };
 
 export const formatDate = (
   date: Date | number | null,
-  format = 'dd.MM.yyyy',
+  format = 'dd.M.yyyy',
   locale = 'fi'
 ): string => {
   if (!date) {
@@ -21,6 +21,14 @@ export const formatDate = (
   return formatDateStr(date, format, {
     locale: get(locales, locale),
   }).trim();
+};
+
+export const isValidDateString = (date: string) => {
+  return isValidDate(parse(date, 'dd.M.yyyy', new Date()));
+};
+
+export const parseDate = (date: string) => {
+  return parse(date, 'dd.M.yyyy', new Date());
 };
 
 /**
@@ -42,7 +50,7 @@ const getShortDateStr = (str: string): string =>
  * Get date object from valid Finnish date string
  */
 const getParsedDate = (value: string): Date =>
-  parse(value, 'dd.MM.yyyy', new Date(), { locale: fi });
+  parse(value, 'dd.M.yyyy', new Date(), { locale: fi });
 
 /**
  * Convert string in Finnish date format (e.g. 31.12.2019) or in format without dots (e.g. 31122019) to Date object
