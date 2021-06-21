@@ -40,9 +40,8 @@ const Search: React.FC<SearchProps> = ({
   const { t } = useTranslation();
   const locale = useLocale();
   const [autosuggestInput, setAutosuggestInput] = React.useState('');
-  const [categoriesVisibleMobile, setCategoriesVisibleMobile] = React.useState(
-    false
-  );
+  const [categoriesVisibleMobile, setCategoriesVisibleMobile] =
+    React.useState(false);
   const history = useHistory();
   const inputName = `${type}Search`;
 
@@ -124,7 +123,6 @@ const Search: React.FC<SearchProps> = ({
         <button
           className={styles.showCategoriesButton}
           onClick={toggleCategories}
-          aria-expanded={categoriesVisibleMobile}
         >
           {categoriesVisibleMobile
             ? t('home.search.hidePopularCategories')
