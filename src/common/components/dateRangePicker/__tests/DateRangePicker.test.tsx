@@ -22,11 +22,14 @@ const defaultProps: DateRangePickerProps = {
   startDate: null,
 };
 
+beforeEach(() => {
+  advanceTo('2020-10-10');
+});
+
 const renderComponent = (props?: Partial<DateRangePickerProps>) =>
   render(<DateRangePicker {...defaultProps} {...props} />);
 
 test('should call onChangeEndDate', async () => {
-  advanceTo('2020-10-10');
   const endDate = new Date('2020-10-10');
   const onChangeEndDate = jest.fn();
   renderComponent({ endDate, onChangeEndDate });
@@ -53,7 +56,6 @@ test('should call onChangeEndDate', async () => {
 });
 
 test('should call onChangeEndDate with clicking date', async () => {
-  advanceTo('2020-10-10');
   const endDate = new Date('2020-10-10');
   const onChangeEndDate = jest.fn();
   renderComponent({ endDate, onChangeEndDate });
@@ -87,7 +89,6 @@ test('should call onChangeEndDate with clicking date', async () => {
 });
 
 test('should call onChangeStartDate', async () => {
-  advanceTo('2020-10-10');
   const startDate = new Date('2020-10-10');
   const onChangeStartDate = jest.fn();
   renderComponent({ startDate, onChangeStartDate });
@@ -114,7 +115,6 @@ test('should call onChangeStartDate', async () => {
 });
 
 test('should call onChangeStartDate with clicking date', async () => {
-  advanceTo('2020-10-10');
   const startDate = new Date('2020-10-10');
   const onChangeStartDate = jest.fn();
   renderComponent({ startDate, onChangeStartDate });
@@ -145,4 +145,52 @@ test('should call onChangeStartDate with clicking date', async () => {
       utcToZonedTime(new Date('2020-10-15'), 'UTC')
     )
   );
+});
+
+test('should show error start date must be before end date', async () => {
+  renderComponent();
+
+  const startDateInput = screen.getByRole('textbox', {
+    name: /alkamispäivä/i,
+  });
+  userEvent.type(startDateInput, '23.6.2021');
+
+  const endDateInput = screen.getByRole('textbox', {
+    name: /loppumispäivä/i,
+  });
+  userEvent.type(endDateInput, '22.6.2021');
+
+  await screen.findByText(/Alkamispäivän on oltava ennen loppumispäivää/i);
+
+  userEvent.clear(endDateInput);
+  userEvent.type(endDateInput, '24.6.2021');
+
+  expect(
+    screen.queryByText(/Alkamispäivän on oltava ennen loppumispäivää/i)
+  ).not.toBeInTheDocument();
+});
+
+test('should show formatting error', async () => {
+  advanceTo('2020-10-10');
+  renderComponent();
+
+  const startDateInput = screen.getByRole('textbox', {
+    name: /alkamispäivä/i,
+  });
+  userEvent.type(startDateInput, '23..2021');
+
+  expect(
+    screen.queryByText(/Päivämäärän on oltava muotoa pp\.kk\.vvvv/i)
+  ).not.toBeInTheDocument();
+
+  // should show error when focusing out of the element
+  userEvent.tab();
+  await screen.findByText(/Päivämäärän on oltava muotoa pp\.kk\.vvvv/i);
+
+  // Error should disappear
+  userEvent.clear(startDateInput);
+  userEvent.type(startDateInput, '23.6.2021');
+  expect(
+    screen.queryByText(/Päivämäärän on oltava muotoa pp\.kk\.vvvv/i)
+  ).not.toBeInTheDocument();
 });

@@ -29,7 +29,7 @@
       "infoDate": "pp.kk.vvvv",
       "labelEndDate": "Loppumispäivä",
       "labelStartDate": "Alkamispäivä",
-      "errorEndDateBeforeStartDate": "Loppumispäivä ei voi olla ennen alkamispäivää",
+      "errorEndDateBeforeStartDate": "Alkamispäivän on oltava ennen loppumispäivää",
       "errorDateFormat": "Päivämäärän on oltava muotoa pp.kk.vvvv",
       "menu": {
         "buttonBack": "Takaisin",
