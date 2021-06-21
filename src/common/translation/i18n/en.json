@@ -306,7 +306,7 @@
   "header": {
     "menuToggleAriaLabel": "Menu",
     "skipToContentLabel": "Skip to content",
-    "changeLanguage": "English - language selection",
+    "changeLanguage": "Select language, Valitse kieli, Andra språk",
     "languages": {
       "en": "In English",
       "fi": "Suomeksi",

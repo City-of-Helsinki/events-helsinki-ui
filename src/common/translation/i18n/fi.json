@@ -306,7 +306,7 @@
   "header": {
     "menuToggleAriaLabel": "Valikko",
     "skipToContentLabel": "Siirry sisältöön",
-    "changeLanguage": "Suomi - kielivalikko",
+    "changeLanguage": "Valitse kieli, Select language, Andra språk",
     "languages": {
       "en": "In English",
       "fi": "Suomeksi",
