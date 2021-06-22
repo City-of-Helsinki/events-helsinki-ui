@@ -40,6 +40,8 @@
     margin: 0 0 var(--spacing-xs) 0;
 
     .listButton {
+      text-decoration: none;
+      color: black;
       width: 100%;
       display: flex;
       justify-content: space-between;

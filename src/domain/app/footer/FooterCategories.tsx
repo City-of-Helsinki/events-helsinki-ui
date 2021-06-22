@@ -1,12 +1,9 @@
 import capitalize from 'lodash/capitalize';
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
 
 import CategoryFilter from '../../../common/components/category/CategoryFilter';
-import { Category } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
-import scrollToTop from '../../../util/scrollToTop';
 import { EventRouteProp } from '../../event/types';
 import {
   COURSE_DEFAULT_SEARCH_FILTERS,
@@ -28,7 +25,13 @@ interface FooterProps {
 const FooterCategories: FunctionComponent<FooterProps> = ({ route }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const { push } = useHistory();
+
+  const getCategoryLink = (category: CategoryOption) => {
+    return `/${locale}${route}${getSearchQuery({
+      ...defaultSearchFiltersMap[route],
+      categories: [category.value],
+    })}`;
+  };
 
   const defaultSearchFiltersMap: Record<EventRouteProp, Filters> = {
     [ROUTES.EVENTS]: EVENT_DEFAULT_SEARCH_FILTERS,
@@ -38,16 +41,6 @@ const FooterCategories: FunctionComponent<FooterProps> = ({ route }) => {
   const categoriesOptionsMap: Record<EventRouteProp, CategoryOption[]> = {
     [ROUTES.EVENTS]: getEventCategoryOptions(t),
     [ROUTES.COURSES]: getCourseCategoryOptions(t),
-  };
-
-  const handleCategoryClick = (category: Category) => {
-    const search = getSearchQuery({
-      ...defaultSearchFiltersMap[route],
-      categories: [category.value],
-    });
-
-    push({ pathname: `/${locale}${route}`, search });
-    scrollToTop();
   };
 
   const categories = categoriesOptionsMap[route];
@@ -63,10 +56,10 @@ const FooterCategories: FunctionComponent<FooterProps> = ({ route }) => {
         {categories.map((category) => {
           return (
             <CategoryFilter
+              href={getCategoryLink(category)}
               key={category.value}
               hasHorizontalPadding={true}
               icon={category.icon}
-              onClick={handleCategoryClick}
               text={category.text}
               value={category.value}
             />

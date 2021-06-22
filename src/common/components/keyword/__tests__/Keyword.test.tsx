@@ -20,7 +20,7 @@ it('calls onClick callback when clicking', () => {
 
   expect(screen.queryByText(keyword)).toBeInTheDocument();
 
-  userEvent.click(screen.getByRole('button'));
+  userEvent.click(screen.getByRole('link'));
 
   expect(onClickMock).toHaveBeenCalled();
 });

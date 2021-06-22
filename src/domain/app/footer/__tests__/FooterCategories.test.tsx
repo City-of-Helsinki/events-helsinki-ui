@@ -19,7 +19,7 @@ test('component should be accessible', async () => {
 test('should route to event search page by clicking category', () => {
   const { history } = render(<FooterCategories route={ROUTES.EVENTS} />);
 
-  userEvent.click(screen.getByRole('button', { name: /elokuva/i }));
+  userEvent.click(screen.getByRole('link', { name: /elokuva/i }));
 
   expect(history.location.pathname).toMatchSnapshot();
 });

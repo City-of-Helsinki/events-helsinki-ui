@@ -113,6 +113,7 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
         <div className={styles.contentWrapper}>
           <div className={styles.backButtonWrapper}>
             <IconButton
+              role="link"
               ariaLabel={t('event.hero.ariaLabelBackButton')}
               backgroundColor="white"
               icon={<IconArrowLeft aria-hidden />}
