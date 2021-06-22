@@ -1,5 +1,25 @@
+import { IconSpeechbubbleText } from 'hds-react';
+import * as React from 'react';
+
+import { EventTypeId } from '../../generated/graphql';
+import IconArt from '../../icons/IconArt';
+import IconCamp from '../../icons/IconCamp';
+import IconCraft from '../../icons/IconCraft';
+import IconCultureAndArts from '../../icons/IconCultureAndArts';
+import IconDance from '../../icons/IconDance';
+import IconFood from '../../icons/IconFood';
+import IconGames from '../../icons/IconGames';
+import IconLanguages from '../../icons/IconLanguages';
+import IconLiterature from '../../icons/IconLiterature';
+import IconMovies from '../../icons/IconMovies';
+import IconMuseum from '../../icons/IconMuseum';
+import IconMusic from '../../icons/IconMusic';
+import IconSports from '../../icons/IconSports';
+import IconTheatre from '../../icons/IconTheatre';
+import IconTree from '../../icons/IconTree';
 import { EventType } from '../event/types';
-import { Filters } from './types';
+import { Filters, SearchCategoryOption } from './types';
+
 // Page size of the event list
 export const PAGE_SIZE = 10;
 
@@ -377,3 +397,182 @@ export const MAPPED_PLACES: Record<string, string> = {
 };
 
 export const MARKETING_COLLECTION_SLUGS = ['talviloma'];
+
+export const CATEGORY_CATALOG = {
+  [EventTypeId.General]: {
+    default: [
+      EVENT_CATEGORIES.MOVIE,
+      EVENT_CATEGORIES.MUSIC,
+      EVENT_CATEGORIES.SPORT,
+      EVENT_CATEGORIES.MUSEUM,
+      EVENT_CATEGORIES.DANCE,
+      EVENT_CATEGORIES.CULTURE,
+      EVENT_CATEGORIES.NATURE,
+      EVENT_CATEGORIES.INFLUENCE,
+      EVENT_CATEGORIES.THEATRE,
+      EVENT_CATEGORIES.FOOD,
+    ],
+  },
+  [EventTypeId.Course]: {
+    default: [
+      COURSE_CATEGORIES.MOVIE,
+      COURSE_CATEGORIES.LANGUAGES,
+      COURSE_CATEGORIES.LITERATURE,
+      COURSE_CATEGORIES.ARTS_AND_CULTURE,
+      COURSE_CATEGORIES.VISUAL_ARTS,
+      COURSE_CATEGORIES.HANDICRAFTS,
+      COURSE_CATEGORIES.SPORT,
+      COURSE_CATEGORIES.MUSIC,
+      COURSE_CATEGORIES.GAMES,
+      COURSE_CATEGORIES.FOOD,
+      COURSE_CATEGORIES.DANCE,
+      COURSE_CATEGORIES.THEATRE,
+    ],
+    landingPage: [
+      COURSE_CATEGORIES.LITERATURE,
+      COURSE_CATEGORIES.VISUAL_ARTS,
+      COURSE_CATEGORIES.HANDICRAFTS,
+      COURSE_CATEGORIES.SPORT,
+      COURSE_CATEGORIES.MUSIC,
+      COURSE_CATEGORIES.GAMES,
+      COURSE_CATEGORIES.DANCE,
+      COURSE_CATEGORIES.THEATRE,
+    ],
+  },
+  hobbyTypes: {
+    default: [
+      COURSE_HOBBY_TYPES.CLUBS,
+      COURSE_HOBBY_TYPES.COURSES,
+      COURSE_HOBBY_TYPES.CAMPS,
+      COURSE_HOBBY_TYPES.TRIPS,
+      COURSE_HOBBY_TYPES.WORKSHOPS,
+    ],
+    landingPage: [COURSE_HOBBY_TYPES.CLUBS, COURSE_HOBBY_TYPES.CAMPS],
+  },
+};
+
+export const eventCategories: Record<EVENT_CATEGORIES, SearchCategoryOption> = {
+  [EVENT_CATEGORIES.MOVIE]: {
+    icon: <IconMovies />,
+    labelKey: 'home.category.movie',
+  },
+  [EVENT_CATEGORIES.MUSIC]: {
+    icon: <IconMusic />,
+    labelKey: 'home.category.music',
+  },
+  [EVENT_CATEGORIES.SPORT]: {
+    icon: <IconSports />,
+    labelKey: 'home.category.sport',
+  },
+  [EVENT_CATEGORIES.MUSEUM]: {
+    icon: <IconMuseum />,
+    labelKey: 'home.category.museum',
+  },
+  [EVENT_CATEGORIES.DANCE]: {
+    icon: <IconDance />,
+    labelKey: 'home.category.dance',
+  },
+  [EVENT_CATEGORIES.CULTURE]: {
+    icon: <IconCultureAndArts />,
+    labelKey: 'home.category.culture',
+  },
+  [EVENT_CATEGORIES.NATURE]: {
+    icon: <IconTree />,
+    labelKey: 'home.category.nature',
+  },
+  [EVENT_CATEGORIES.INFLUENCE]: {
+    icon: <IconSpeechbubbleText aria-hidden />,
+    labelKey: 'home.category.influence',
+  },
+  [EVENT_CATEGORIES.THEATRE]: {
+    icon: <IconTheatre />,
+    labelKey: 'home.category.theatre',
+  },
+  [EVENT_CATEGORIES.FOOD]: {
+    icon: <IconFood />,
+    labelKey: 'home.category.food',
+  },
+  [EVENT_CATEGORIES.MISC]: {
+    icon: <></>,
+    labelKey: 'home.category.misc',
+  },
+};
+
+export const courseCategories: Record<COURSE_CATEGORIES, SearchCategoryOption> =
+  {
+    [COURSE_CATEGORIES.MOVIE]: {
+      icon: <IconMovies />,
+      labelKey: 'home.category.courses.movieAndMedia',
+    },
+    [COURSE_CATEGORIES.LANGUAGES]: {
+      icon: <IconLanguages />,
+      labelKey: 'home.category.courses.languages',
+    },
+    [COURSE_CATEGORIES.LITERATURE]: {
+      icon: <IconLiterature />,
+      labelKey: 'home.category.courses.literature',
+    },
+    [COURSE_CATEGORIES.ARTS_AND_CULTURE]: {
+      icon: <IconArt />,
+      labelKey: 'home.category.courses.artsAndCulture',
+    },
+    [COURSE_CATEGORIES.VISUAL_ARTS]: {
+      icon: <IconArt />,
+      labelKey: 'home.category.courses.visualArts',
+    },
+    [COURSE_CATEGORIES.HANDICRAFTS]: {
+      icon: <IconCraft />,
+      labelKey: 'home.category.courses.handicrafts',
+    },
+    [COURSE_CATEGORIES.SPORT]: {
+      icon: <IconSports />,
+      labelKey: 'home.category.courses.sport',
+    },
+    [COURSE_CATEGORIES.MUSIC]: {
+      icon: <IconMusic />,
+      labelKey: 'home.category.courses.music',
+    },
+    [COURSE_CATEGORIES.GAMES]: {
+      icon: <IconGames />,
+      labelKey: 'home.category.courses.games',
+    },
+    [COURSE_CATEGORIES.FOOD]: {
+      icon: <IconFood />,
+      labelKey: 'home.category.courses.food',
+    },
+    [COURSE_CATEGORIES.DANCE]: {
+      icon: <IconDance />,
+      labelKey: 'home.category.courses.dance',
+    },
+    [COURSE_CATEGORIES.THEATRE]: {
+      icon: <IconTheatre />,
+      labelKey: 'home.category.courses.theatre',
+    },
+  };
+
+export const hobbyTypes: Record<COURSE_HOBBY_TYPES, SearchCategoryOption> = {
+  [COURSE_HOBBY_TYPES.CLUBS]: {
+    icon: <IconMovies />,
+    labelKey: 'home.hobby.clubs',
+  },
+  [COURSE_HOBBY_TYPES.COURSES]: {
+    icon: <></>,
+    labelKey: 'home.hobby.courses',
+  },
+  [COURSE_HOBBY_TYPES.CAMPS]: {
+    icon: <IconCamp />,
+    labelKey: 'home.hobby.camps',
+  },
+  [COURSE_HOBBY_TYPES.TRIPS]: {
+    icon: <></>,
+    labelKey: 'home.hobby.trips',
+  },
+  [COURSE_HOBBY_TYPES.WORKSHOPS]: {
+    icon: <></>,
+    labelKey: 'home.hobby.workshops',
+  },
+  [COURSE_HOBBY_TYPES.ONLINE_STUDIES]: {
+    icon: <></>,
+    labelKey: 'home.hobby.onlineStudies',
+  },
+};

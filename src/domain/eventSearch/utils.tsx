@@ -6,29 +6,16 @@ import {
   startOfWeek,
   subDays,
 } from 'date-fns';
-import { IconSpeechbubbleText } from 'hds-react';
 import { TFunction } from 'i18next';
 import isEmpty from 'lodash/isEmpty';
-import React from 'react';
 import { matchPath } from 'react-router';
 
-import { Meta, QueryEventListArgs } from '../../../src/generated/graphql';
+import {
+  EventTypeId,
+  Meta,
+  QueryEventListArgs,
+} from '../../../src/generated/graphql';
 import { DATE_TYPES } from '../../constants';
-import IconArt from '../../icons/IconArt';
-import IconCamp from '../../icons/IconCamp';
-import IconCraft from '../../icons/IconCraft';
-import IconCultureAndArts from '../../icons/IconCultureAndArts';
-import IconDance from '../../icons/IconDance';
-import IconFood from '../../icons/IconFood';
-import IconGames from '../../icons/IconGames';
-import IconLanguages from '../../icons/IconLanguages';
-import IconLiterature from '../../icons/IconLiterature';
-import IconMovies from '../../icons/IconMovies';
-import IconMuseum from '../../icons/IconMuseum';
-import IconMusic from '../../icons/IconMusic';
-import IconSports from '../../icons/IconSports';
-import IconTheatre from '../../icons/IconTheatre';
-import IconTree from '../../icons/IconTree';
 import { Language } from '../../types';
 import buildQueryFromObject from '../../util/buildQueryFromObject';
 import { formatDate } from '../../util/dateUtils';
@@ -36,166 +23,73 @@ import getUrlParamAsArray from '../../util/getUrlParamAsArray';
 import { ROUTES } from '../app/routes/constants';
 import { EVENT_TYPE_TO_ID, EventType } from '../event/types';
 import {
+  CATEGORY_CATALOG,
   COURSE_CATEGORIES,
   COURSE_HOBBY_TYPES,
+  courseCategories,
   EVENT_CATEGORIES,
   EVENT_SEARCH_FILTERS,
   EVENT_SORT_OPTIONS,
+  eventCategories,
+  hobbyTypes,
   MAPPED_CATEGORIES,
   MAPPED_COURSE_HOBBY_TYPES,
   MAPPED_KEYWORD_TERMS,
   MAPPED_PLACES,
 } from './constants';
 import {
-  CategoryOption,
+  CategoryExtendedOption,
   Filters,
-  HobbyTypeOption,
   MappedFilters,
+  SearchCategoryOption,
+  SearchCategoryType,
 } from './types';
 
-export const getEventCategoryOptions = (t: TFunction): CategoryOption[] => [
-  {
-    icon: <IconMovies />,
-    text: t('home.category.movie'),
-    value: EVENT_CATEGORIES.MOVIE,
-  },
-  {
-    icon: <IconMusic />,
-    text: t('home.category.music'),
-    value: EVENT_CATEGORIES.MUSIC,
-  },
-  {
-    icon: <IconSports />,
-    text: t('home.category.sport'),
-    value: EVENT_CATEGORIES.SPORT,
-  },
-  {
-    icon: <IconMuseum />,
-    text: t('home.category.museum'),
-    value: EVENT_CATEGORIES.MUSEUM,
-  },
-  {
-    icon: <IconDance />,
-    text: t('home.category.dance'),
-    value: EVENT_CATEGORIES.DANCE,
-  },
-  {
-    icon: <IconCultureAndArts />,
-    text: t('home.category.culture'),
-    value: EVENT_CATEGORIES.CULTURE,
-  },
-  {
-    icon: <IconTree />,
-    text: t('home.category.nature'),
-    value: EVENT_CATEGORIES.NATURE,
-  },
-  {
-    icon: <IconSpeechbubbleText aria-hidden />,
-    text: t('home.category.influence'),
-    value: EVENT_CATEGORIES.INFLUENCE,
-  },
-  {
-    icon: <IconTheatre />,
-    text: t('home.category.theatre'),
-    value: EVENT_CATEGORIES.THEATRE,
-  },
-  {
-    icon: <IconFood />,
-    text: t('home.category.food'),
-    value: EVENT_CATEGORIES.FOOD,
-  },
-];
+export const sortExtendedCategoryOptions = (
+  a: CategoryExtendedOption,
+  b: CategoryExtendedOption
+) => (a.text > b.text ? 1 : b.text > a.text ? -1 : 0);
 
-export const getCourseCategoryOptions = (t: TFunction): CategoryOption[] => [
-  {
-    icon: <IconMovies />,
-    text: t('home.category.courses.movieAndMedia'),
-    value: COURSE_CATEGORIES.MOVIE,
-  },
-  {
-    icon: <IconLanguages />,
-    text: t('home.category.courses.languages'),
-    value: COURSE_CATEGORIES.LANGUAGES,
-  },
-  {
-    icon: <IconLiterature />,
-    text: t('home.category.courses.literature'),
-    value: COURSE_CATEGORIES.LITERATURE,
-  },
-  {
-    icon: <IconArt />,
-    text: t('home.category.courses.artsAndCulture'),
-    value: COURSE_CATEGORIES.ARTS_AND_CULTURE,
-  },
-  {
-    icon: <IconArt />,
-    text: t('home.category.courses.visualArts'),
-    value: COURSE_CATEGORIES.VISUAL_ARTS,
-  },
-  {
-    icon: <IconCraft />,
-    text: t('home.category.courses.handicrafts'),
-    value: COURSE_CATEGORIES.HANDICRAFTS,
-  },
-  {
-    icon: <IconSports />,
-    text: t('home.category.courses.sport'),
-    value: COURSE_CATEGORIES.SPORT,
-  },
-  {
-    icon: <IconMusic />,
-    text: t('home.category.courses.music'),
-    value: COURSE_CATEGORIES.MUSIC,
-  },
-  {
-    icon: <IconGames />,
-    text: t('home.category.courses.games'),
-    value: COURSE_CATEGORIES.GAMES,
-  },
-  {
-    icon: <IconFood />,
-    text: t('home.category.courses.food'),
-    value: COURSE_CATEGORIES.FOOD,
-  },
-  {
-    icon: <IconDance />,
-    text: t('home.category.courses.dance'),
-    value: COURSE_CATEGORIES.DANCE,
-  },
-  {
-    icon: <IconTheatre />,
-    text: t('home.category.courses.theatre'),
-    value: COURSE_CATEGORIES.THEATRE,
-  },
-];
+export const getCategoryOptions = (
+  category: SearchCategoryType,
+  categoryOption: SearchCategoryOption,
+  t: TFunction
+): CategoryExtendedOption => {
+  const { icon, labelKey } = categoryOption;
+  return {
+    icon,
+    text: t(labelKey),
+    value: category,
+  };
+};
 
-export const getCourseHobbyTypeOptions = (t: TFunction): HobbyTypeOption[] => [
-  {
-    icon: <IconMovies />,
-    text: t('home.hobby.clubs'),
-    value: COURSE_HOBBY_TYPES.CLUBS,
-  },
-  {
-    icon: <IconMovies />,
-    text: t('home.hobby.courses'),
-    value: COURSE_HOBBY_TYPES.COURSES,
-  },
-  {
-    icon: <IconCamp />,
-    text: t('home.hobby.camps'),
-    value: COURSE_HOBBY_TYPES.CAMPS,
-  },
-  {
-    icon: <IconMovies />,
-    text: t('home.hobby.trips'),
-    value: COURSE_HOBBY_TYPES.TRIPS,
-  },
-  {
-    icon: <IconMovies />,
-    text: t('home.hobby.workshops'),
-    value: COURSE_HOBBY_TYPES.WORKSHOPS,
-  },
-];
+export const getEventCategoryOptions = (
+  t: TFunction,
+  categories: EVENT_CATEGORIES[] = CATEGORY_CATALOG[EventTypeId.General].default
+): CategoryExtendedOption[] =>
+  categories
+    .map((category) =>
+      getCategoryOptions(category, eventCategories[category], t)
+    )
+    .sort(sortExtendedCategoryOptions);
+
+export const getCourseCategoryOptions = (
+  t: TFunction,
+  categories: COURSE_CATEGORIES[] = CATEGORY_CATALOG[EventTypeId.Course].default
+): CategoryExtendedOption[] =>
+  categories
+    .map((category) =>
+      getCategoryOptions(category, courseCategories[category], t)
+    )
+    .sort(sortExtendedCategoryOptions);
+
+export const getCourseHobbyTypeOptions = (
+  t: TFunction,
+  categories: COURSE_HOBBY_TYPES[] = CATEGORY_CATALOG.hobbyTypes.default
+): CategoryExtendedOption[] =>
+  categories
+    .map((category) => getCategoryOptions(category, hobbyTypes[category], t))
+    .sort(sortExtendedCategoryOptions);
 
 /**
  * Get start and end dates to event list filtering

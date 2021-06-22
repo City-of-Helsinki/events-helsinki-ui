@@ -29,7 +29,10 @@ export type SearchProps = {
   popularCategories: CategoryExtendedOption[];
 };
 
-export const popularCategoriesContainerTestId = 'popular-categories-container';
+export const eventsPopularCategoriesContainerTestId =
+  'events-popular-categories-container';
+export const coursesPopularCategoriesContainerTestId =
+  'courses-popular-categories-container';
 
 const Search: React.FC<SearchProps> = ({
   type,
@@ -132,7 +135,11 @@ const Search: React.FC<SearchProps> = ({
           </div>
         </button>
         <div
-          data-testid={popularCategoriesContainerTestId}
+          data-testid={
+            type === 'event'
+              ? eventsPopularCategoriesContainerTestId
+              : coursesPopularCategoriesContainerTestId
+          }
           className={classNames(styles.popularCategories, {
             [styles.categoriesOpen]: categoriesVisibleMobile,
           })}
