@@ -265,8 +265,8 @@
   },
   "courseSearch": {
     "title": "Löydä harrastus",
-    "betaButtonArialLabel": "Haluatko antaa meille palautetta harrastusten hakusivun kehitysveriosta?",
-    "betaNotificationText": "Haluatko antaa meille palautetta harrastusten hakusivun kehitysveriosta? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Tästä pääset palautelomakkeeseen {{openInNewTab}}\">Tästä pääset palautelomakkeeseen.</a>",
+    "betaButtonArialLabel": "Haluatko antaa meille palautetta harrastusten hakusivun kehitysversiosta?",
+    "betaNotificationText": "Haluatko antaa meille palautetta harrastusten hakusivun kehitysversiosta? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Tästä pääset palautelomakkeeseen {{openInNewTab}}\">Tästä pääset palautelomakkeeseen.</a>",
     "betaResultsNotificationText": "Kehitämme sivustoa. Tällä hetkellä palvelu sisältää vain lapsille ja nuorille suunnattuja harrastuksia.",
     "buttonLoadMore": "Näytä lisää harrastuksia ({{count}})",
     "searchNotification": {
