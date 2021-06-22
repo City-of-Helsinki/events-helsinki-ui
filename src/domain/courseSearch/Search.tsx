@@ -101,8 +101,6 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     start,
     end,
     suitableFor,
-    // audienceMinAgeGt: minAgeInput,
-    // audienceMaxAgeLt: maxAgeInput,
   };
 
   // Initialize fields when page is loaded
@@ -117,8 +115,6 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
       end: endTime,
       start: startTime,
       suitableFor,
-      // audienceMinAgeGt,
-      // audienceMaxAgeLt,
     } = getSearchFilters(searchParams);
 
     setEnd(endTime);
@@ -129,8 +125,6 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     setSelectedPlaces(places);
     setSelectedTexts(text);
     setSelectedDateTypes(dateTypes);
-    // setMinAgeInput(audienceMinAgeGt || '');
-    // setMaxAgeInput(audienceMaxAgeLt || '');
     if (suitableFor?.length) {
       setMinAgeInput(suitableFor[0].toString() || '');
     }

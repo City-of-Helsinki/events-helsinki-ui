@@ -44,12 +44,10 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
     start,
     text,
     suitableFor,
-    // audienceMinAgeGt,
-    // audienceMaxAgeLt,
     hobbyTypes,
   } = getSearchFilters(searchParams);
 
-  const [audienceMinAgeGt, audienceMaxAgeLt] = suitableFor ?? [];
+  const [minAge, maxAge] = suitableFor ?? [];
 
   const dateText =
     start || end
@@ -89,8 +87,6 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
         type === 'minAge' || type === 'maxAge'
           ? suitableFor?.filter((v) => v.toString() !== value.toString())
           : suitableFor,
-      // audienceMinAgeGt: type === 'minAge' ? '' : audienceMinAgeGt,
-      // audienceMaxAgeLt: type === 'maxAge' ? '' : audienceMaxAgeLt,
     });
 
     push({ pathname: `/${locale}${route || ROUTES.EVENTS}`, search });
@@ -106,8 +102,6 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
     !!places.length ||
     !!text.length ||
     !!suitableFor?.length;
-  // !!(audienceMinAgeGt || '').length ||
-  // !!(audienceMaxAgeLt || '').length;
 
   if (!hasFilters) return null;
 
@@ -173,17 +167,17 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
           value={dateType}
         />
       ))}
-      {audienceMinAgeGt && (
+      {minAge && (
         <AgeFilter
           type="minAge"
-          value={audienceMinAgeGt?.toString()}
+          value={minAge?.toString()}
           onRemove={handleFilterRemove}
         />
       )}
-      {audienceMaxAgeLt && (
+      {maxAge && (
         <AgeFilter
           type="maxAge"
-          value={audienceMaxAgeLt?.toString()}
+          value={maxAge?.toString()}
           onRemove={handleFilterRemove}
         />
       )}

@@ -53,8 +53,6 @@ export interface Filters {
   [EVENT_SEARCH_FILTERS.START]: Date | null;
   [EVENT_SEARCH_FILTERS.TEXT]: string[];
   [EVENT_SEARCH_FILTERS.SUITABLE]?: number[];
-  // [EVENT_SEARCH_FILTERS.MIN_AGE]?: string;
-  // [EVENT_SEARCH_FILTERS.MAX_AGE]?: string;
 }
 
 export type MappedFilters = Partial<Omit<Filters, 'start' | 'end'>> & {
