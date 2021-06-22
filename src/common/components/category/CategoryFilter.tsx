@@ -33,7 +33,7 @@ const CategoryFilter: FunctionComponent<Props> = ({
       )}
       style={style}
     >
-      <Link to={href} onClick={() => window.scrollTo({ top: 0 })}>
+      <Link to={href} onClick={() => window?.scrollTo({ top: 0 })}>
         {icon}
         <span>{text}</span>
         <IconAngleRight aria-hidden />
