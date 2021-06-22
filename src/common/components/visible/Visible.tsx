@@ -11,13 +11,20 @@ interface Props {
   className?: string;
 }
 
-const Visible: React.FC<Props> = ({ above, below, children, className }) => {
+const Visible: React.FC<Props> = ({
+  above,
+  below,
+  children,
+  className,
+  ...rest
+}) => {
   return (
     <div
       className={classNames(className, {
         [styles[`above${capitalize(above)}`]]: above,
         [styles[`below${capitalize(below)}`]]: below,
       })}
+      {...rest}
     >
       {children}
     </div>

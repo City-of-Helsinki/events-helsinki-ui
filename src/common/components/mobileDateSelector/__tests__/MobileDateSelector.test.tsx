@@ -3,6 +3,7 @@ import React from 'react';
 
 import { DATE_TYPES } from '../../../../constants';
 import {
+  act,
   arrowDownKeyPressHelper,
   arrowUpKeyPressHelper,
   escKeyPressHelper,
@@ -103,7 +104,7 @@ test('should close date selector menu with close button', () => {
 
   // Check that menu is open
   expect(screen.queryByTestId(testIds.menu)).toBeInTheDocument();
-  userEvent.click(screen.getByRole('button', { name: /sulje/i }));
+  act(() => userEvent.click(screen.getByRole('button', { name: /sulje/i })));
   // Check that menu is closed
   expect(screen.queryByTestId(testIds.menu)).not.toBeInTheDocument();
 });

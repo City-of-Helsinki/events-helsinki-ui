@@ -9,7 +9,7 @@ describe('formatDate function', () => {
     );
 
     expect(
-      formatDate(new Date('2019-11-08T12:27:34+02:00'), 'dd.MM.yyy hh:mm')
+      formatDate(new Date('2019-11-08T12:27:34+02:00'), 'dd.M.yyy hh:mm')
     ).toBe('08.11.2019 12:27');
   });
 });

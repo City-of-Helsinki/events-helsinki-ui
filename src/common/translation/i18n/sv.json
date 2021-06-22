@@ -29,6 +29,8 @@
       "infoDate": "dd.mm.åååå",
       "labelEndDate": "Slutdatum",
       "labelStartDate": "Startdatum",
+      "errorEndDateBeforeStartDate": "Alkamispäivän on oltava ennen loppumispäivää",
+      "errorDateFormat": "Datum bör skrivas i formatet dd.mm.åååå",
       "menu": {
         "buttonBack": "Tillbaka",
         "buttonClose": "Stäng",
@@ -203,7 +205,7 @@
       "title": "Relaterade till evenemanget"
     },
     "superEvent": {
-      "title": "Relaterat till evenemanget"
+      "title": "Hör till evenemanget"
     },
     "relatedEvents": {
       "buttonHide": "Dölj",
@@ -263,6 +265,7 @@
   },
   "courseSearch": {
     "title": "Hitta hobby",
+    "betaButtonArialLabel": "Vill du ge oss respons på utvecklingsversionen av hobbysöksidan?",
     "betaNotificationText": "Vill du ge oss respons på utvecklingsversionen av hobbysöksidan? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Gå till responsformuläret {{openInNewTab}}\">Gå till responsformuläret.</a>",
     "betaResultsNotificationText": "Vi arbetar med att vidareutveckla webbsidan. För tillfället innehåller tjänsten enbart hobbyer för barn och unga.",
     "buttonLoadMore": "Visa fler hobbyew ({{count}})",
@@ -271,7 +274,7 @@
       "noResultsText": "Tyvärr hittades inga resultat för de sökkriterier du valt. Kokeile muuttaa hakuehtoja tai siirry tapahtumien hakuun.",
       "fewResultsTitle": "Med de sökvillkor du valde hittades bara några få resultat.",
       "fewResultsText": "Med de sökvillkor du valde hittades bara några få resultat. Kokeile muuttaa hakuehtoja tai siirry tapahtumien hakuun.",
-      "changeLanguageText": "Ändra sökvillkoren eller visa resultaten på finska. Du kan också välja att söka bland evenemang.",
+      "changeLanguageText": "Ändra sökvillkoren eller visa resultaten på finska. Du kan också välja att söka bland evenemang. Tillsvidare finns alla svenska hobbyer inte ännu på hemsidan.",
       "buttons": {
         "labelSearchOtherEventType": "Sök evenemang",
         "labelSearchInFinnish": "Visa sökresultaten på finska "
@@ -306,7 +309,7 @@
   "header": {
     "menuToggleAriaLabel": "Menyn",
     "skipToContentLabel": "Gå till innehållet",
-    "changeLanguage": "Svenska - språkval",
+    "changeLanguage": "Andra språk, Valitse kieli, Select language",
     "languages": {
       "en": "In English",
       "fi": "Suomeksi",
@@ -314,7 +317,8 @@
     },
     "searchCollections": "Vi rekommenderar",
     "searchEvents": "Evenemang",
-    "searchHobbies": "Hobbyer"
+    "searchHobbies": "Hobbyer",
+    "titleAriaLabel": "Evenemang Helsinki framsida"
   },
   "home": {
     "category": {

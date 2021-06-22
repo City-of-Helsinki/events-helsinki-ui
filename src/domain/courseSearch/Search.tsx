@@ -50,9 +50,10 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
   const locale = useLocale();
   const { push } = useHistory();
   const { search } = useLocation();
-  const searchParams = React.useMemo(() => new URLSearchParams(search), [
-    search,
-  ]);
+  const searchParams = React.useMemo(
+    () => new URLSearchParams(search),
+    [search]
+  );
 
   const [autosuggestInput, setAutosuggestInput] = React.useState('');
   const [categoryInput, setCategoryInput] = React.useState('');
@@ -388,15 +389,19 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
 const SearchHeader = () => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const [showBetaNotification, setShowBetaNotification] = React.useState<
-    boolean
-  >(false);
+  const [showBetaNotification, setShowBetaNotification] =
+    React.useState<boolean>(false);
 
   return (
     <div className={styles.headerContainer}>
       <div className={styles.headerTextContainer}>
         <h1>{t('courseSearch.title')}</h1>
-        <button onClick={() => setShowBetaNotification(true)}>Beta</button>
+        <button
+          onClick={() => setShowBetaNotification(true)}
+          aria-label={t('courseSearch.betaButtonArialLabel')}
+        >
+          Beta
+        </button>
       </div>
       <div>
         {showBetaNotification && (

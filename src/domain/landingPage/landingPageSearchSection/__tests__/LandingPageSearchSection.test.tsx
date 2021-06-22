@@ -148,10 +148,10 @@ test('toggling categories in mobile work correctly', () => {
   const showPopularCategoriesButton = screen.getByRole('button', {
     name: translations.home.search.showPopularCategories,
   });
-
-  expect(showPopularCategoriesButton).toHaveAttribute('aria-expanded', 'false');
   userEvent.click(showPopularCategoriesButton);
-  expect(showPopularCategoriesButton).toHaveAttribute('aria-expanded', 'true');
+  expect(showPopularCategoriesButton).toHaveTextContent(
+    translations.home.search.hidePopularCategories
+  );
 
   expect(
     screen.getByTestId(eventsPopularCategoriesContainerTestId)
@@ -166,9 +166,10 @@ test('toggling categories in mobile work correctly', () => {
   const hidePopularCategoriesButton = screen.getByRole('button', {
     name: translations.home.search.hidePopularCategories,
   });
-  expect(hidePopularCategoriesButton).toHaveAttribute('aria-expanded', 'true');
   userEvent.click(hidePopularCategoriesButton);
-  expect(hidePopularCategoriesButton).toHaveAttribute('aria-expanded', 'false');
+  expect(hidePopularCategoriesButton).toHaveTextContent(
+    translations.home.search.showPopularCategories
+  );
 
   expect(
     screen.getByTestId(eventsPopularCategoriesContainerTestId)

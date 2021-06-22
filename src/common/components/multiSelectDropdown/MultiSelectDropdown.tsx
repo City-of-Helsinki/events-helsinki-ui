@@ -242,6 +242,7 @@ const MultiSelectDropdown: React.FC<MultiselectDropdownProps> = ({
     <div className={styles.dropdown} ref={dropdown}>
       <button
         aria-label={title}
+        aria-expanded={isMenuOpen}
         className={styles.toggleButton}
         onClick={handleToggleButtonClick}
         ref={toggleButton}

@@ -1,190 +1,168 @@
-import 'react-datepicker/dist/react-datepicker.css';
-import './datePicker.scss';
-
-import isEqual from 'date-fns/isEqual';
+import isBefore from 'date-fns/isBefore';
+import isValidDate from 'date-fns/isValid';
 import fi from 'date-fns/locale/fi';
 import sv from 'date-fns/locale/sv';
-import max from 'lodash/max';
-import React, { FunctionComponent } from 'react';
-import DatePicker, { registerLocale } from 'react-datepicker';
+import { DateInput } from 'hds-react';
+import React from 'react';
+import { registerLocale } from 'react-datepicker';
 import { useTranslation } from 'react-i18next';
 
-import { DATE_PICKER_INPUT_STATE } from '../../../constants';
 import useLocale from '../../../hooks/useLocale';
-import { formatDate } from '../../../util/dateUtils';
-import DateRangeInputs from './DateRangeInputs';
+import {
+  formatDate,
+  isValidDateString,
+  parseDate,
+} from '../../../util/dateUtils';
+import styles from './datePicker.module.scss';
 
 registerLocale('fi', fi);
 registerLocale('sv', sv);
 
+const initDate = (date: Date | null): string => {
+  return date ? formatDate(date) : '';
+};
+
 export interface DateRangePickerProps {
   endDate: Date | null;
-  isMenuOpen: boolean;
-  name: string;
+  startDate: Date | null;
   onChangeEndDate: (date: Date | null) => void;
   onChangeStartDate: (date: Date | null) => void;
-  startDate: Date | null;
 }
 
-const DateRangePicker: FunctionComponent<DateRangePickerProps> = ({
+const DateRangePicker: React.FC<DateRangePickerProps> = ({
   endDate,
-  isMenuOpen,
-  name,
+  startDate,
   onChangeEndDate,
   onChangeStartDate,
-  startDate,
 }) => {
-  // References to input fields to set focus
+  const [internalStartDateString, setInternalStartDateString] =
+    React.useState<string>(() => initDate(startDate));
+  const [internalEndDateString, setInternalEndDateString] =
+    React.useState<string>(() => initDate(endDate));
+  const [errors, setErrors] = React.useState({
+    startDateIsInvalid: false,
+    endDateIsInvalid: false,
+  });
+
   const { t } = useTranslation();
-  const datePicker = React.useRef(null);
-  const endDateRef = React.useRef<HTMLInputElement>(null);
-  const startDateRef = React.useRef<HTMLInputElement>(null);
-  // Variable to keep track on date field
-  const [selectedDatePickerInput, setDatePickerInput] = React.useState<
-    DATE_PICKER_INPUT_STATE
-  >(DATE_PICKER_INPUT_STATE.NOT_SELECTED);
   const locale = useLocale();
-  // Raw dates to be saved for input fields
-  const [startDateRaw, setStartDateRaw] = React.useState<string>(
-    formatDate(startDate)
-  );
-  const [endDateRaw, setEndDateRaw] = React.useState<string>(
-    formatDate(endDate)
-  );
-  const [shouldChangeFocusToEnd, setShouldChangeFocusToEnd] = React.useState(
-    false
-  );
+  const helperText = t('commons.dateSelector.infoDate');
 
-  const handleInputBlur = (
-    selectedInput: DATE_PICKER_INPUT_STATE,
-    date: Date | null
-  ) => {
-    switch (selectedInput) {
-      case DATE_PICKER_INPUT_STATE.END_TIME_SELECTED:
-        onChangeEndDate(date);
-        setEndDateRaw(formatDate(date));
-        break;
-      case DATE_PICKER_INPUT_STATE.START_TIME_SELECTED:
-        onChangeStartDate(date);
-        setStartDateRaw(formatDate(date));
-        break;
+  const internalStartDate = parseDate(internalStartDateString);
+  const internalEndDate = parseDate(internalEndDateString);
+
+  const endDateIsBeforeStartDate =
+    isValidDate(internalStartDate) &&
+    isValidDate(internalEndDate) &&
+    isBefore(internalEndDate, internalStartDate)
+      ? true
+      : false;
+
+  React.useEffect(() => {
+    if (!startDate && !endDate) {
+      setInternalStartDateString('');
+      setInternalEndDateString('');
     }
-  };
+  }, [startDate, endDate]);
 
-  const handleDocumentFocusin = React.useCallback(() => {
-    const active = document.activeElement;
-    const endDateInput = endDateRef.current;
-    const startDateInput = startDateRef.current;
-    // setSelected method is not added to ReactDatePicker types, but method still exists
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const current: any = datePicker.current;
+  React.useEffect(() => {
+    const startDateIsValid = isValidDateString(internalStartDateString);
+    const endDateIsValid = isValidDateString(internalEndDateString);
+    const startDateObj = parseDate(internalStartDateString);
+    const endDateObj = parseDate(internalEndDateString);
 
     if (
-      endDateInput &&
-      active instanceof Node &&
-      endDateInput.contains(active)
+      startDateIsValid &&
+      endDateIsValid &&
+      isBefore(endDateObj, startDateObj)
     ) {
-      current?.setSelected(endDate);
+      onChangeStartDate(startDateObj);
+      onChangeEndDate(null);
+      return;
     }
 
-    if (
-      startDateInput &&
-      active instanceof Node &&
-      startDateInput.contains(active)
-    ) {
-      current?.setSelected(startDate);
+    if (startDateIsValid) {
+      setErrors({
+        ...errors,
+        startDateIsInvalid: false,
+      });
     }
-  }, [endDate, startDate]);
 
-  React.useEffect(() => {
-    document.addEventListener('focusin', handleDocumentFocusin);
-    // Clean up event listener to prevent memory leaks
-    return () => {
-      document.removeEventListener('focusin', handleDocumentFocusin);
-    };
-  }, [handleDocumentFocusin]);
-
-  React.useEffect(() => {
-    if (isMenuOpen) {
-      startDateRef.current?.focus();
+    if (endDateIsValid) {
+      setErrors({
+        ...errors,
+        endDateIsInvalid: false,
+      });
     }
-  }, [isMenuOpen]);
 
-  // Change focus to end date input on this hook so
-  // all other states has been changed as well
-  React.useEffect(() => {
-    if (shouldChangeFocusToEnd) {
-      endDateRef.current?.focus();
-      setShouldChangeFocusToEnd(false);
-    }
-  }, [shouldChangeFocusToEnd]);
+    startDateIsValid
+      ? onChangeStartDate(parseDate(internalStartDateString))
+      : onChangeStartDate(null);
+    endDateIsValid
+      ? onChangeEndDate(parseDate(internalEndDateString))
+      : onChangeEndDate(null);
 
-  const getSelectedDate = () => {
-    switch (selectedDatePickerInput) {
-      case DATE_PICKER_INPUT_STATE.END_TIME_SELECTED:
-        return startDate;
-      case DATE_PICKER_INPUT_STATE.START_TIME_SELECTED:
-        return endDate;
-      case DATE_PICKER_INPUT_STATE.NOT_SELECTED:
-        return null;
-    }
+    // ignore change handlers to avoid infinite loops (if func changes on every render)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [internalStartDateString, internalEndDateString, setErrors]);
+
+  const handleStartDateValidation = (e: React.FocusEvent<HTMLInputElement>) => {
+    setErrors({
+      ...errors,
+      startDateIsInvalid: !isValidDateString(e.target.value),
+    });
   };
-  const selectedDate = getSelectedDate();
+
+  const handleEndDateValidation = (e: React.FocusEvent<HTMLInputElement>) => {
+    setErrors({
+      ...errors,
+      endDateIsInvalid: !isValidDateString(e.target.value),
+    });
+  };
+
   return (
-    <>
-      <DatePicker
-        ref={datePicker}
-        locale={locale}
-        minDate={max([new Date(), startDate])}
-        selectsStart={true}
-        selectsEnd={true}
-        selected={selectedDate}
-        chooseDayAriaLabelPrefix={t(
-          'commons.dateSelector.accessibility.chooseDayPrefix'
-        )}
-        previousMonthButtonLabel={t(
-          'commons.dateSelector.accessibility.previousMonth'
-        )}
-        nextMonthButtonLabel={t('commons.dateSelector.accessibility.nextMonth')}
-        // Inline datepicker doesn't have field so keep datepicker alway open instead
-        open
-        popperClassName={'react-datepicker__no-popper'}
-        showPopperArrow={false}
-        onChange={(date: Date) => {
-          switch (selectedDatePickerInput) {
-            case DATE_PICKER_INPUT_STATE.START_TIME_SELECTED:
-              onChangeStartDate(date);
-              setStartDateRaw(formatDate(date));
-
-              if (!startDate || !isEqual(startDate, date)) {
-                setShouldChangeFocusToEnd(true);
-              }
-              break;
-            case DATE_PICKER_INPUT_STATE.END_TIME_SELECTED:
-              onChangeEndDate(date);
-              setEndDateRaw(formatDate(date));
-              break;
-          }
-        }}
-        customInput={
-          <DateRangeInputs
-            endDate={endDate}
-            endDateRaw={endDateRaw}
-            endDateRef={endDateRef}
-            inputName={name}
-            onBlurInput={handleInputBlur}
-            setDatePickerInput={setDatePickerInput}
-            setEndDateRaw={setEndDateRaw}
-            setStartDateRaw={setStartDateRaw}
-            startDate={startDate}
-            startDateRaw={startDateRaw}
-            startDateRef={startDateRef}
-          />
+    <div className={styles.dateInputsContainer}>
+      <DateInput
+        id="start-date"
+        value={internalStartDateString}
+        onBlur={handleStartDateValidation}
+        disableConfirmation
+        helperText={!errors.startDateIsInvalid ? helperText : undefined}
+        minDate={new Date()}
+        initialMonth={new Date()}
+        label={t('commons.dateSelector.labelStartDate')}
+        language={locale}
+        onChange={(date) => setInternalStartDateString(date)}
+        errorText={
+          errors.startDateIsInvalid
+            ? t('commons.dateSelector.errorDateFormat')
+            : undefined
         }
-        startDate={startDate}
-        endDate={endDate}
       />
-    </>
+      <DateInput
+        id="end-date"
+        value={internalEndDateString}
+        onBlur={handleEndDateValidation}
+        disableConfirmation
+        helperText={
+          !endDateIsBeforeStartDate && !errors.endDateIsInvalid
+            ? helperText
+            : undefined
+        }
+        minDate={new Date()}
+        initialMonth={startDate ?? new Date()}
+        label={t('commons.dateSelector.labelEndDate')}
+        language={locale}
+        onChange={(date) => setInternalEndDateString(date)}
+        errorText={
+          endDateIsBeforeStartDate
+            ? t('commons.dateSelector.errorEndDateBeforeStartDate')
+            : errors.endDateIsInvalid
+            ? t('commons.dateSelector.errorDateFormat')
+            : undefined
+        }
+      />
+    </div>
   );
 };
 

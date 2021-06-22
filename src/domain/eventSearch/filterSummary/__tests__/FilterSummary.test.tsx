@@ -156,7 +156,7 @@ it('routes to correct url after deleting filters', async () => {
   const items: { button: string; params: UrlParamKeys[] }[] = [
     { button: 'Poista suodatin: Tänään', params: ['dateTypes'] },
     {
-      button: 'Poista suodatin: 20.08.2020 - 23.08.2020',
+      button: 'Poista suodatin: 20.8.2020 - 23.8.2020',
       params: ['end', 'start'],
     },
     { button: 'Poista suodatin: Elokuva', params: ['categories'] },

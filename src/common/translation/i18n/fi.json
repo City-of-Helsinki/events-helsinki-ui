@@ -29,6 +29,8 @@
       "infoDate": "pp.kk.vvvv",
       "labelEndDate": "Loppumispäivä",
       "labelStartDate": "Alkamispäivä",
+      "errorEndDateBeforeStartDate": "Alkamispäivän on oltava ennen loppumispäivää",
+      "errorDateFormat": "Päivämäärän on oltava muotoa pp.kk.vvvv",
       "menu": {
         "buttonBack": "Takaisin",
         "buttonClose": "Sulje",
@@ -263,6 +265,7 @@
   },
   "courseSearch": {
     "title": "Löydä harrastus",
+    "betaButtonArialLabel": "Haluatko antaa meille palautetta harrastusten hakusivun kehitysveriosta?",
     "betaNotificationText": "Haluatko antaa meille palautetta harrastusten hakusivun kehitysveriosta? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Tästä pääset palautelomakkeeseen {{openInNewTab}}\">Tästä pääset palautelomakkeeseen.</a>",
     "betaResultsNotificationText": "Kehitämme sivustoa. Tällä hetkellä palvelu sisältää vain lapsille ja nuorille suunnattuja harrastuksia.",
     "buttonLoadMore": "Näytä lisää harrastuksia ({{count}})",
@@ -306,7 +309,7 @@
   "header": {
     "menuToggleAriaLabel": "Valikko",
     "skipToContentLabel": "Siirry sisältöön",
-    "changeLanguage": "Suomi - kielivalikko",
+    "changeLanguage": "Valitse kieli, Select language, Andra språk",
     "languages": {
       "en": "In English",
       "fi": "Suomeksi",
@@ -314,7 +317,8 @@
     },
     "searchCollections": "Suosittelemme",
     "searchEvents": "Tapahtumat",
-    "searchHobbies": "Harrastukset"
+    "searchHobbies": "Harrastukset",
+    "titleAriaLabel": "Tapahtumat Helsinki etusivu"
   },
   "home": {
     "category": {

@@ -26,11 +26,12 @@ const SubEvents: React.FC<{ event: EventFields }> = ({ event }) => {
 
   const { superEventId, variables } = useSubEventsQueryVariables(event);
 
-  const {
-    subEvents: events,
-    isFetchingMore,
-    loading,
-  } = useSubEvents(event, variables, superEventId);
+  const { subEvents: events, isFetchingMore, loading } = useSubEvents(
+    event,
+    variables,
+    superEventId
+  );
+
   const toggleList = () => {
     setIsListOpen(!isListOpen);
   };

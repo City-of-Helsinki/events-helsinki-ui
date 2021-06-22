@@ -13,7 +13,6 @@ interface Props {
   closeBtnRef?: MutableRefObject<HTMLButtonElement | null>;
   endDate: Date | null;
   isOpen: boolean;
-  name: string;
   onChangeEndDate: (date: Date | null) => void;
   onChangeStartDate: (date: Date | null) => void;
   onCloseMenu: () => void;
@@ -24,7 +23,6 @@ const MobileDateSelectorMenu: FunctionComponent<Props> = ({
   closeBtnRef,
   endDate,
   isOpen,
-  name,
   onChangeEndDate,
   onChangeStartDate,
   onCloseMenu,
@@ -38,8 +36,6 @@ const MobileDateSelectorMenu: FunctionComponent<Props> = ({
       <div className={styles.wrapper}>
         <DateRangePicker
           endDate={endDate}
-          isMenuOpen={isOpen}
-          name={name}
           onChangeEndDate={onChangeEndDate}
           onChangeStartDate={onChangeStartDate}
           startDate={startDate}

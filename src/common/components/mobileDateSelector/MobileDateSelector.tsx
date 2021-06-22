@@ -155,7 +155,6 @@ const MobileDateSelector: React.FC<Props> = ({
           closeBtnRef={closeBtnRef}
           endDate={endDate}
           isOpen={isMenuOpen}
-          name={name}
           onChangeEndDate={onChangeEndDate}
           onChangeStartDate={onChangeStartDate}
           onCloseMenu={closeMenu}

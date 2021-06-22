@@ -12,6 +12,7 @@ import {
   EventFieldsFragment,
   EventListResponse,
   EventsByIdsDocument,
+  EventTypeId,
 } from '../../../../generated/graphql';
 import { setFeatureFlags } from '../../../../test/feature-flags/featureFlags.test.utils';
 import { fakeCollection, fakeEvents } from '../../../../test/mockDataUtils';
@@ -73,8 +74,8 @@ afterEach(() => {
     );
     const eventsData = events.data as EventFieldsFragment[];
     const coursesData = courses.data as EventFieldsFragment[];
-    const eventMocks = getMocks(eventsData, eventIds, 'event');
-    const courseMocks = getMocks(coursesData, courseIds, 'course');
+    const eventMocks = getMocks(eventsData, eventIds);
+    const courseMocks = getMocks(coursesData, courseIds);
 
     render(<CuratedEvents collection={collection} />, {
       mocks: [...eventMocks, ...courseMocks],
@@ -102,7 +103,13 @@ afterEach(() => {
   });
 });
 
-test('should show expired events', async () => {
+/* 
+TODO: TH-1166
+Expired events section was decided to be left hidden, 
+because it was a hit for usability and there were some issues 
+with the pagination.
+*/
+test.skip('should show expired events', async () => {
   advanceTo('2020-10-05');
 
   const events = fakeEvents(
@@ -115,7 +122,10 @@ test('should show expired events', async () => {
     }))
   );
   const eventsData = events.data as EventFieldsFragment[];
-  const mocks = getMocks(eventsData);
+  const mocks = getMocks(
+    eventsData,
+    eventsData.map((event) => event.id)
+  );
 
   render(<CuratedEvents collection={collection} />, {
     mocks,
@@ -225,19 +235,53 @@ const paginationTest = async ({
 const getMocks = (
   events: EventFieldsFragment[],
   ids = eventIds,
-  type: 'event' | 'course' = 'event'
-) => [
-  {
-    request: {
-      query: EventsByIdsDocument,
-      variables: {
-        ids,
-        include: ['location'],
+  page?: number | undefined,
+  maxPage: number = 1
+) => {
+  let variables = {
+    ids,
+    eventType: [EventTypeId.General, EventTypeId.Course],
+    include: ['location'],
+    pageSize: 10,
+    sort: 'end_time',
+    page: undefined,
+  };
+
+  let meta = {
+    count: ids.length,
+    previous: null,
+    next: null,
+    __typename: 'Meta',
+  };
+
+  if (page && page < maxPage) {
+    meta.next = `https://api.hel.fi/linkedevents/v1/event/?ids=${ids.toString()}&page_size=10&page=${
+      page + 1
+    }&sort=end_time&include=location`;
+  }
+  if (page > 1) {
+    variables.page = page;
+    meta.previous = `https://api.hel.fi/linkedevents/v1/event/?ids=${ids.toString()}&page_size=10&page=${
+      page - 1
+    }&sort=end_time&include=location`;
+  }
+  return [
+    {
+      request: {
+        query: EventsByIdsDocument,
+        variables,
+      },
+      result: {
+        data: {
+          eventsByIds: {
+            data: events,
+            meta,
+          },
+        },
       },
     },
-    result: { data: { eventsByIds: events } },
-  },
-];
+  ];
+};
 
 // Creates array of mocks to match pagination queries
 const getMocksForPagination = (
@@ -270,14 +314,20 @@ const getMocksForPagination = (
     ),
   ])(eventsCount);
 
-  const mocks = chunkedEvents.map((eventList) => {
-    return getMocks(
-      eventList.data as EventFieldsFragment[],
-      eventList.data.map((event) => event.id),
-      type
-    )[0];
-  });
+  const mocks = chunkedEvents
+    .map((eventList, index) => {
+      const ids = range(eventsCount).map((id: number) => (id + 1).toString());
+      const page = index + 1;
+      const maxPage = chunkedEvents.length;
 
+      return getMocks(
+        eventList.data as EventFieldsFragment[],
+        ids,
+        page,
+        maxPage
+      );
+    })
+    .flat();
   const collection = fakeCollection({
     curatedEvents,
   }) as CollectionFieldsFragment;

@@ -20,6 +20,7 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
         class="Navigation-module_headerContainer__2YPsu"
       >
         <a
+          aria-label="Tapahtumat Helsinki etusivu"
           class="Navigation-module_title__3zRBe"
           tabindex="0"
         >
@@ -44,7 +45,7 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
             aria-controls="languageSelector-menu"
             aria-expanded="false"
             aria-haspopup="true"
-            aria-label="Suomi - kielivalikko"
+            aria-label="Valitse kieli, Select language, Andra språk"
             class="MenuButton-module_toggleButton__3WH1a"
             id="languageSelector-button"
             type="button"
@@ -158,6 +159,7 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
         class="Navigation-module_headerContainer__2YPsu"
       >
         <a
+          aria-label="Tapahtumat Helsinki etusivu"
           class="Navigation-module_title__3zRBe"
           tabindex="0"
         >
@@ -212,7 +214,7 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
                 aria-controls="languageSelector-menu"
                 aria-expanded="false"
                 aria-haspopup="true"
-                aria-label="Suomi - kielivalikko"
+                aria-label="Valitse kieli, Select language, Andra språk"
                 class="MenuButton-module_toggleButton__3WH1a"
                 id="languageSelector-button"
                 type="button"
@@ -313,6 +315,7 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
         class="Navigation-module_headerContainer__2YPsu"
       >
         <a
+          aria-label="Tapahtumat Helsinki etusivu"
           class="Navigation-module_title__3zRBe"
           tabindex="0"
         >
@@ -337,7 +340,7 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
             aria-controls="languageSelector-menu"
             aria-expanded="false"
             aria-haspopup="true"
-            aria-label="Suomi - kielivalikko"
+            aria-label="Valitse kieli, Select language, Andra språk"
             class="MenuButton-module_toggleButton__3WH1a"
             id="languageSelector-button"
             type="button"
@@ -451,6 +454,7 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
         class="Navigation-module_headerContainer__2YPsu"
       >
         <a
+          aria-label="Tapahtumat Helsinki etusivu"
           class="Navigation-module_title__3zRBe"
           tabindex="0"
         >
@@ -515,7 +519,7 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
                 aria-controls="languageSelector-menu"
                 aria-expanded="false"
                 aria-haspopup="true"
-                aria-label="Suomi - kielivalikko"
+                aria-label="Valitse kieli, Select language, Andra språk"
                 class="MenuButton-module_toggleButton__3WH1a"
                 id="languageSelector-button"
                 type="button"

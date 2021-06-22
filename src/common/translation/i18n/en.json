@@ -29,6 +29,8 @@
       "infoDate": "dd.mm.yyyy",
       "labelEndDate": "End date",
       "labelStartDate": "Start date",
+      "errorEndDateBeforeStartDate": "The start date must be before the end date",
+      "errorDateFormat": "Date must be in format dd.mm.yyyy",
       "menu": {
         "buttonBack": "Back",
         "buttonClose": "Close",
@@ -204,7 +206,7 @@
       "title": "Related to the event"
     },
     "superEvent": {
-      "title": "Relates to the event"
+      "title": "Related to the event"
     },
     "relatedEvents": {
       "buttonHide": "Hide",
@@ -263,6 +265,7 @@
   },
   "courseSearch": {
     "title": "Find hobby",
+    "betaButtonArialLabel": "Would you like to give us feedback on the beta version of our ‘Find hobby’ search page?",
     "betaNotificationText": "Would you like to give us feedback on the beta version of our ‘Find hobby’ search page? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Click here to be directed to the feedback form {{openInNewTab}}\">Click here to be directed to the feedback form.</a>",
     "betaResultsNotificationText": "The website is under development. At present, there are only hobbies for children and young people.",
     "buttonLoadMore": "Show more hobbies ({{count}})",
@@ -306,7 +309,7 @@
   "header": {
     "menuToggleAriaLabel": "Menu",
     "skipToContentLabel": "Skip to content",
-    "changeLanguage": "English - language selection",
+    "changeLanguage": "Select language, Valitse kieli, Andra språk",
     "languages": {
       "en": "In English",
       "fi": "Suomeksi",
@@ -314,7 +317,8 @@
     },
     "searchCollections": "We recommend",
     "searchEvents": "Events",
-    "searchHobbies": "Hobbies"
+    "searchHobbies": "Hobbies",
+    "titleAriaLabel": "Events in Helsinki frontpage"
   },
   "home": {
     "category": {
