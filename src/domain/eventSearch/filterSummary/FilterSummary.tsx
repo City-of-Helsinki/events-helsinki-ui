@@ -67,7 +67,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
     [neighborhoods]
   );
 
-  const handleFilterRemove = (value: string, type: FilterType) => {
+  const handleFilterRemove = (value: string | number, type: FilterType) => {
     const getFilteredList = (listType: FilterType, list: string[] = []) =>
       type === listType ? list.filter((v) => v !== value) : list;
 
@@ -85,7 +85,10 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
       publisher: type !== 'publisher' ? publisher : null,
       start: type === 'date' ? null : start,
       text: getFilteredList('text', text),
-      suitableFor: suitableFor,
+      suitableFor:
+        type === 'minAge' || type === 'maxAge'
+          ? suitableFor?.filter((v) => v.toString() !== value.toString())
+          : suitableFor,
       // audienceMinAgeGt: type === 'minAge' ? '' : audienceMinAgeGt,
       // audienceMaxAgeLt: type === 'maxAge' ? '' : audienceMaxAgeLt,
     });
