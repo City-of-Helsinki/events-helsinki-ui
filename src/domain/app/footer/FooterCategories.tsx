@@ -27,8 +27,7 @@ const FooterCategories: FunctionComponent<FooterProps> = ({ route }) => {
   const { t } = useTranslation();
   const locale = useLocale();
 
-  // test
-  const getCategoryLink = (category: CategoryOption) => {
+  const getCategoryLink = (category: CategoryExtendedOption) => {
     return `/${locale}${route}${getSearchQuery({
       ...defaultSearchFiltersMap[route],
       categories: [category.value],
