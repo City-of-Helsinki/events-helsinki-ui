@@ -59,9 +59,9 @@
     },
     "preview": "Esikatselu",
     "shareLink": {
-      "shareOnFacebook": "Jaa Facebookissa",
-      "shareOnTwitter": "Jaa Twitterissä",
-      "shareOnLinkedIn": "Jaa LinkedInissä"
+      "shareOnFacebook": "Jaa Facebookissa - Avautuu uudessa välilehdessä",
+      "shareOnTwitter": "Jaa Twitterissä - Avautuu uudessa välilehdessä",
+      "shareOnLinkedIn": "Jaa LinkedInissä - Avautuu uudessa välilehdessä"
     },
     "shareLinks": {
       "buttonCopyLink": "Kopioi linkin osoite",
