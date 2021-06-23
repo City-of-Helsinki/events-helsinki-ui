@@ -13,7 +13,7 @@ import SkeletonLoader from '../../../common/components/skeletonLoader/SkeletonLo
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import { useSubEvents, useSubEventsQueryVariables } from '../queryUtils';
 import { EventFields, SuperEventResponse } from '../types';
-import { Eventlist, EventTimeList } from './eventList/EventList';
+import EventList from './eventList/EventList';
 import styles from './eventList/eventList.module.scss';
 
 const EVENTS_LIST_LIMIT = 3;
@@ -26,11 +26,11 @@ const SubEvents: React.FC<{ event: EventFields }> = ({ event }) => {
 
   const { superEventId, variables } = useSubEventsQueryVariables(event);
 
-  const { subEvents: events, isFetchingMore, loading } = useSubEvents(
-    event,
-    variables,
-    superEventId
-  );
+  const {
+    subEvents: events,
+    isFetchingMore,
+    loading,
+  } = useSubEvents(event, variables, superEventId);
 
   const toggleList = () => {
     setIsListOpen(!isListOpen);
@@ -80,9 +80,14 @@ const SubEvents: React.FC<{ event: EventFields }> = ({ event }) => {
     <div className={styles.eventList}>
       <InfoWithIcon icon={titleIcon} title={title}>
         {isLowestLevelEvent || isMiddleLevelEvent ? (
-          <EventTimeList id={subEventsListTestId} events={shownEvents} />
+          <EventList id={subEventsListTestId} events={shownEvents} showDate />
         ) : (
-          <Eventlist id={subEventsListTestId} events={shownEvents} />
+          <EventList
+            id={subEventsListTestId}
+            events={shownEvents}
+            showName
+            showDate
+          />
         )}
         {events.length > EVENTS_LIST_LIMIT && (
           <button
@@ -124,11 +129,7 @@ const SuperEvent: React.FC<{ superEvent: SuperEventResponse | undefined }> = ({
         icon={<IconLayers aria-hidden />}
         title={t('event.superEvent.title')}
       >
-        <Eventlist
-          id={superEventTestId}
-          showDate={false}
-          events={[superEvent.data]}
-        />
+        <EventList id={superEventTestId} showName events={[superEvent.data]} />
       </InfoWithIcon>
     </div>
   );

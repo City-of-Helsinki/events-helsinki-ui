@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IconHome } from 'hds-react';
 import React from 'react';
 
+import { render, screen } from '../../../../test/testUtils';
 import CategoryFilter from '../CategoryFilter';
 
 const category = {
@@ -13,8 +13,8 @@ const category = {
 it('matches snapshot', () => {
   const { container } = render(
     <CategoryFilter
+      href="/test"
       icon={<IconHome />}
-      onClick={jest.fn()}
       text={category.text}
       value={category.value}
     />
@@ -24,19 +24,20 @@ it('matches snapshot', () => {
 });
 
 it('calls onClick callback when category filter button is clicked', () => {
-  const onClickMock = jest.fn();
-  render(
+  const testUrl = '/test';
+  const { history } = render(
     <CategoryFilter
+      href={testUrl}
       icon={<IconHome />}
-      onClick={onClickMock}
       text={category.text}
       value={category.value}
     />
   );
 
+  const historyPush = jest.spyOn(history, 'push');
+
   expect(screen.queryByText(category.text)).toBeInTheDocument();
 
   userEvent.click(screen.getByText(category.text));
-
-  expect(onClickMock).toHaveBeenCalled();
+  expect(historyPush).toHaveBeenCalledWith(testUrl);
 });

@@ -131,7 +131,7 @@ const BannerHero: React.FC<BannerHeroProps> = ({ banner, location }) => {
           <div className={styles.description}>{description}</div>
           <h1 className={styles.title}>{title}</h1>
           {!!buttonText && !!buttonUrl && (
-            <Button onClick={handleButtonClick} variant="success">
+            <Button onClick={handleButtonClick} variant="success" role="link">
               {buttonText}
             </Button>
           )}

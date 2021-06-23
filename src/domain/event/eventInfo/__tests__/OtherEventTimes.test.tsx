@@ -99,13 +99,12 @@ const secondLoadMock = getEventTimesMocks({
   eventType: 'event',
 });
 
-const secondPageLoadThrowsErrorMock = createOtherEventTimesRequestThrowsErrorMocks(
-  {
+const secondPageLoadThrowsErrorMock =
+  createOtherEventTimesRequestThrowsErrorMocks({
     superEventId,
     variables: { page: 2 },
     type: 'event',
-  }
-);
+  });
 
 const firstCourseLoadMock = getEventTimesMocks({
   response: otherEventsResponse,
@@ -118,13 +117,12 @@ const secondCourseLoadMock = getEventTimesMocks({
   eventType: 'course',
 });
 
-const secondCoursePageLoadThrowsErrorMock = createOtherEventTimesRequestThrowsErrorMocks(
-  {
+const secondCoursePageLoadThrowsErrorMock =
+  createOtherEventTimesRequestThrowsErrorMocks({
     superEventId,
     variables: { page: 2 },
     type: 'course',
-  }
-);
+  });
 
 const defaultMocks = [
   firstLoadMock,
@@ -256,7 +254,7 @@ async function testNavigation(
   expect(screen.getByText(dateStr)).toBeInTheDocument();
 
   userEvent.click(
-    screen.getByRole('button', {
+    screen.getByRole('link', {
       name: translations.event.otherTimes.buttonReadMore.replace(
         '{{date}}',
         dateStr

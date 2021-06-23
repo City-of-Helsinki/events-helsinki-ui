@@ -31,6 +31,7 @@ const Keyword: FunctionComponent<Props> = ({
       })}
       onClick={handleClick}
       type="button"
+      role="link"
     >
       {keyword}
     </button>

@@ -8,7 +8,7 @@ import SkeletonLoader from '../../../common/components/skeletonLoader/SkeletonLo
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import { useOtherEventTimes } from '../queryUtils';
 import { EventFields } from '../types';
-import { EventTimeList } from './eventList/EventList';
+import EventList from './eventList/EventList';
 import styles from './eventList/eventList.module.scss';
 
 const EVENTS_LIST_LIMIT = 3;
@@ -19,9 +19,8 @@ const OtherEventTimes: React.FC<{ event: EventFields }> = ({ event }) => {
   const { t } = useTranslation();
   const [isListOpen, setIsListOpen] = React.useState(false);
 
-  const { superEventId, loading, events, isFetchingMore } = useOtherEventTimes(
-    event
-  );
+  const { superEventId, loading, events, isFetchingMore } =
+    useOtherEventTimes(event);
 
   if (!superEventId) return null;
 
@@ -52,7 +51,11 @@ const OtherEventTimes: React.FC<{ event: EventFields }> = ({ event }) => {
         icon={<IconCalendarPlus aria-hidden />}
         title={t('event.otherTimes.title')}
       >
-        <EventTimeList id={otherEventTimesListTestId} events={shownEvents} />
+        <EventList
+          id={otherEventTimesListTestId}
+          events={shownEvents}
+          showDate
+        />
         {events.length > EVENTS_LIST_LIMIT && (
           <button
             className={linkStyles.link}

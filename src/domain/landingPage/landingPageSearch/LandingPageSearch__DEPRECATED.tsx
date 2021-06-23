@@ -9,7 +9,7 @@ import Link from '../../../common/components/link/Link';
 import MobileDateSelector from '../../../common/components/mobileDateSelector/MobileDateSelector';
 import SearchAutosuggest from '../../../common/components/search/SearchAutosuggest';
 import SearchLabel from '../../../common/components/search/searchLabel/SearchLabel';
-import { AutosuggestMenuOption, Category } from '../../../common/types';
+import { AutosuggestMenuOption } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import { ROUTES } from '../../app/routes/constants';
 import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants__DEPRECATED';
@@ -67,18 +67,6 @@ const Search: React.FC = () => {
       start,
       text: [option.text],
     });
-    goToSearchPage(search);
-  };
-
-  const handleCategoryClick = (category: Category) => {
-    const search = getSearchQuery({
-      ...DEFAULT_SEARCH_FILTERS,
-      categories: [category.value],
-      dateTypes,
-      end,
-      start,
-    });
-
     goToSearchPage(search);
   };
 
@@ -153,9 +141,15 @@ const Search: React.FC = () => {
         {categories.map((category) => {
           return (
             <CategoryFilter
+              href={`/${locale}${ROUTES.EVENTS}${getSearchQuery({
+                ...DEFAULT_SEARCH_FILTERS,
+                categories: [category.value],
+                dateTypes,
+                end,
+                start,
+              })}`}
               key={category.value}
               icon={category.icon}
-              onClick={handleCategoryClick}
               text={category.text}
               value={category.value}
             />
