@@ -13,12 +13,16 @@ export interface AgeFilterProps {
 
 const AgeFilter: React.FC<AgeFilterProps> = ({ value, type, onRemove }) => {
   const { t } = useTranslation();
-  const text = type === 'minAge' ? 'ageLimitMin' : 'ageLimitMax';
+
+  const texts = {
+    minAge: 'ageLimitMin',
+    maxAge: 'ageLimitMax',
+  };
 
   return (
     <FilterButton
       onRemove={onRemove}
-      text={`${t(`courseSearch.search.${text}`)} ${value} ${t(
+      text={`${t(`courseSearch.search.${texts[type]}`)} ${value} ${t(
         'commons.yearsShort'
       )}`}
       type={type}

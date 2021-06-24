@@ -10,7 +10,11 @@ import useLocale from '../../../hooks/useLocale';
 import { formatDate } from '../../../util/dateUtils';
 import { translateValue } from '../../../util/translateUtils';
 import { ROUTES } from '../../app/routes/constants';
-import { getSearchFilters, getSearchQuery } from '../utils';
+import {
+  getSearchFilters,
+  getSearchQuery,
+  removeSuitableForFilterValue,
+} from '../utils';
 import AgeFilter from './AgeFilter';
 import DateFilter from './DateFilter';
 import styles from './filterSummary.module.scss';
@@ -83,10 +87,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
       publisher: type !== 'publisher' ? publisher : null,
       start: type === 'date' ? null : start,
       text: getFilteredList('text', text),
-      suitableFor:
-        type === 'minAge' || type === 'maxAge'
-          ? suitableFor?.filter((v) => v.toString() !== value.toString())
-          : suitableFor,
+      suitableFor: removeSuitableForFilterValue(suitableFor, type),
     });
 
     push({ pathname: `/${locale}${route || ROUTES.EVENTS}`, search });

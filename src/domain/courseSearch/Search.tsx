@@ -122,11 +122,9 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     setSelectedPlaces(places);
     setSelectedTexts(text);
     setSelectedDateTypes(dateTypes);
-    if (suitableForFilter?.length) {
-      setMinAgeInput(suitableForFilter[0].toString() || '');
-    }
-    if (suitableForFilter?.length === 2) {
-      setMaxAgeInput(suitableForFilter[1].toString() || '');
+    if (suitableForFilter) {
+      setMinAgeInput(suitableForFilter[0]?.toString() || '');
+      setMaxAgeInput(suitableForFilter[1]?.toString() || '');
     }
     if (endTime || startTime) {
       setIsCustomDate(true);

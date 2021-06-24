@@ -7,9 +7,8 @@ import {
   subDays,
 } from 'date-fns';
 import { TFunction } from 'i18next';
+import { compact, isNil, reject } from 'lodash';
 import isEmpty from 'lodash/isEmpty';
-import isNil from 'lodash/isNil';
-import reject from 'lodash/reject';
 import { matchPath } from 'react-router';
 
 import {
@@ -17,6 +16,7 @@ import {
   Meta,
   QueryEventListArgs,
 } from '../../../src/generated/graphql';
+import { FilterType } from '../../common/components/filterButton/FilterButton';
 import { DATE_TYPES } from '../../constants';
 import { Language } from '../../types';
 import buildQueryFromObject from '../../util/buildQueryFromObject';
@@ -328,16 +328,46 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
     start,
     text: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.TEXT),
     suitableFor: normalizeSuitableFor(
-      getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.SUITABLE)
+      getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.SUITABLE, false)
     ),
   };
 };
 
-export const normalizeSuitableFor = (values: number[] | string[]): number[] => {
-  return reject(
-    values.map((value) => parseInt(value.toString()) ?? null),
-    isNil
-  ).sort();
+export const normalizeSuitableFor = (values: number[] | string[]) => {
+  let [minAge, maxAge] = values
+    .map((value) => parseInt(value.toString()))
+    .map((value) => (isNaN(value) ? null : value));
+
+  if (minAge == null && maxAge == null) {
+    return undefined;
+  }
+  if (maxAge != null && minAge == null) {
+    minAge = 0;
+  }
+  if (minAge != null && maxAge == null) {
+    maxAge = 99;
+  }
+
+  // Sort cannot be done before the default values are assigned.
+  // Othwerise it can't be known which value is missing
+  return [minAge, maxAge].sort();
+};
+
+export const removeSuitableForFilterValue = (
+  initValue: (number | null)[] | undefined,
+  type: FilterType
+) => {
+  let updatedSuitableFor = initValue;
+  if (initValue) {
+    if (type === 'minAge' && initValue[1] !== null) {
+      updatedSuitableFor = [0, initValue[1]];
+    } else if (type === 'maxAge' && initValue[0] !== null) {
+      updatedSuitableFor = [initValue[0], 99];
+    } else {
+      updatedSuitableFor = undefined;
+    }
+  }
+  return updatedSuitableFor;
 };
 
 export const getSearchQuery = (filters: Filters): string => {

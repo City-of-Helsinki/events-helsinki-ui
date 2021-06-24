@@ -52,7 +52,7 @@ export interface Filters {
   [EVENT_SEARCH_FILTERS.PUBLISHER]?: string | null;
   [EVENT_SEARCH_FILTERS.START]: Date | null;
   [EVENT_SEARCH_FILTERS.TEXT]: string[];
-  [EVENT_SEARCH_FILTERS.SUITABLE]?: number[];
+  [EVENT_SEARCH_FILTERS.SUITABLE]?: (number|null)[];
 }
 
 export type MappedFilters = Partial<Omit<Filters, 'start' | 'end'>> & {
