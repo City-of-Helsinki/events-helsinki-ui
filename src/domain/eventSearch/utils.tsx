@@ -7,8 +7,9 @@ import {
   subDays,
 } from 'date-fns';
 import { TFunction } from 'i18next';
-import { toInteger } from 'lodash';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
+import reject from 'lodash/reject';
 import { matchPath } from 'react-router';
 
 import {
@@ -326,11 +327,17 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
     publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
     start,
     text: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.TEXT),
-    suitableFor: getUrlParamAsArray(
-      searchParams,
-      EVENT_SEARCH_FILTERS.SUITABLE
-    ).map((value) => toInteger(value)),
+    suitableFor: normalizeSuitableFor(
+      getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.SUITABLE)
+    ),
   };
+};
+
+export const normalizeSuitableFor = (values: number[] | string[]): number[] => {
+  return reject(
+    values.map((value) => parseInt(value.toString()) ?? null),
+    isNil
+  ).sort();
 };
 
 export const getSearchQuery = (filters: Filters): string => {

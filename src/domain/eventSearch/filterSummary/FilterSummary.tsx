@@ -167,14 +167,14 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
           value={dateType}
         />
       ))}
-      {minAge && (
+      {minAge != null && (
         <AgeFilter
           type="minAge"
           value={minAge?.toString()}
           onRemove={handleFilterRemove}
         />
       )}
-      {maxAge && (
+      {maxAge != null && (
         <AgeFilter
           type="maxAge"
           value={maxAge?.toString()}

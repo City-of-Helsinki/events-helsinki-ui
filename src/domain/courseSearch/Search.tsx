@@ -9,7 +9,6 @@ import {
   IconSearch,
   Notification,
 } from 'hds-react';
-import { compact, toInteger } from 'lodash';
 import uniq from 'lodash/uniq';
 import React, { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -38,6 +37,7 @@ import {
   getCourseHobbyTypeOptions,
   getSearchFilters,
   getSearchQuery,
+  normalizeSuitableFor,
 } from '../eventSearch/utils';
 import PlaceSelector from '../place/placeSelector/PlaceSelector';
 import styles from './search.module.scss';
@@ -84,10 +84,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
 
   const { alsoOngoingCourses, isFree } = getSearchFilters(searchParams);
 
-  const suitableFor = compact([
-    toInteger(minAgeInput) || null,
-    toInteger(maxAgeInput) || null,
-  ]);
+  const suitableFor = normalizeSuitableFor([minAgeInput, maxAgeInput]);
 
   const searchFilters = {
     alsoOngoingCourses,
@@ -114,7 +111,7 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
       text,
       end: endTime,
       start: startTime,
-      suitableFor,
+      suitableFor: suitableForFilter,
     } = getSearchFilters(searchParams);
 
     setEnd(endTime);
@@ -125,11 +122,11 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
     setSelectedPlaces(places);
     setSelectedTexts(text);
     setSelectedDateTypes(dateTypes);
-    if (suitableFor?.length) {
-      setMinAgeInput(suitableFor[0].toString() || '');
+    if (suitableForFilter?.length) {
+      setMinAgeInput(suitableForFilter[0].toString() || '');
     }
-    if (suitableFor?.length === 2) {
-      setMaxAgeInput(suitableFor[1].toString() || '');
+    if (suitableForFilter?.length === 2) {
+      setMaxAgeInput(suitableForFilter[1].toString() || '');
     }
     if (endTime || startTime) {
       setIsCustomDate(true);
