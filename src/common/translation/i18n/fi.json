@@ -289,7 +289,12 @@
       "showOnlyAdultCourses": "Näytä vain aikuisten harrastukset",
       "ageLimitValues": "Ikä",
       "ageLimitMin": "Alkaen",
-      "ageLimitMax": "Päättyen"
+      "ageLimitMax": "Päättyen",
+      "ageFilter": {
+        "minAge": "Alkaen {{age}} {{yearAbbr}}",
+        "maxAge": "Päättyen {{age}} {{yearAbbr}}",
+        "exactAge": "{{age}}-vuotiaalle"
+      }
     }
   },
   "footer": {

@@ -15,7 +15,7 @@ import {
   getSearchQuery,
   removeSuitableForFilterValue,
 } from '../utils';
-import AgeFilter from './AgeFilter';
+import AgeFilter, { AgeFilterProps } from './AgeFilter';
 import DateFilter from './DateFilter';
 import styles from './filterSummary.module.scss';
 import PlaceFilter from './PlaceFilter';
@@ -106,6 +106,39 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
 
   if (!hasFilters) return null;
 
+  const getAgeFilters = () => {
+    let ageFilters = [];
+    if (minAge != null && minAge === maxAge) {
+      ageFilters.push(
+        <AgeFilter
+          type="exactAge"
+          value={minAge?.toString()}
+          onRemove={handleFilterRemove}
+        />
+      );
+    } else {
+      if (minAge != null) {
+        ageFilters.push(
+          <AgeFilter
+            type="minAge"
+            value={minAge?.toString()}
+            onRemove={handleFilterRemove}
+          />
+        );
+      }
+      if (maxAge != null) {
+        ageFilters.push(
+          <AgeFilter
+            type="maxAge"
+            value={maxAge?.toString()}
+            onRemove={handleFilterRemove}
+          />
+        );
+      }
+    }
+    return ageFilters;
+  };
+
   return (
     <div
       className={styles.filterSummary}
@@ -168,20 +201,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
           value={dateType}
         />
       ))}
-      {minAge != null && (
-        <AgeFilter
-          type="minAge"
-          value={minAge?.toString()}
-          onRemove={handleFilterRemove}
-        />
-      )}
-      {maxAge != null && (
-        <AgeFilter
-          type="maxAge"
-          value={maxAge?.toString()}
-          onRemove={handleFilterRemove}
-        />
-      )}
+      {getAgeFilters()}
       <button className={styles.clearButton} onClick={onClear} type="button">
         {t('eventSearch.buttonClearFilters')}
       </button>

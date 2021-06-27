@@ -16,7 +16,8 @@ export type FilterType =
   | 'target'
   | 'text'
   | 'minAge'
-  | 'maxAge';
+  | 'maxAge'
+  | 'exactAge';
 
 interface Props {
   onRemove: (value: string, type: FilterType) => void;
