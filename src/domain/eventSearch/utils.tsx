@@ -7,7 +7,6 @@ import {
   subDays,
 } from 'date-fns';
 import { TFunction } from 'i18next';
-import { compact, isNil, reject } from 'lodash';
 import isEmpty from 'lodash/isEmpty';
 import { matchPath } from 'react-router';
 
@@ -335,22 +334,23 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
 
 export const normalizeSuitableFor = (values: number[] | string[]) => {
   let [minAge, maxAge] = values
-    .map((value) => parseInt(value.toString()))
-    .map((value) => (isNaN(value) ? null : value));
-
+    // Convert strings to an integer
+    // using null as a default for unparseable strings.
+    .map((value) => {
+      const parsed = parseInt(value.toString());
+      return isNaN(parsed) ? null : parsed;
+    })
+    // Sort ascending leaving the nulls to the end.
+    .sort();
+  // If no range is given, return undefined.
   if (minAge == null && maxAge == null) {
     return undefined;
   }
-  if (maxAge != null && minAge == null) {
-    minAge = 0;
+  // Set both the numbers the same, if one is null.
+  if (maxAge == null && minAge != null) {
+    maxAge = minAge;
   }
-  if (minAge != null && maxAge == null) {
-    maxAge = 99;
-  }
-
-  // Sort cannot be done before the default values are assigned.
-  // Othwerise it can't be known which value is missing
-  return [minAge, maxAge].sort();
+  return [minAge, maxAge];
 };
 
 export const removeSuitableForFilterValue = (
