@@ -87,7 +87,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
       publisher: type !== 'publisher' ? publisher : null,
       start: type === 'date' ? null : start,
       text: getFilteredList('text', text),
-      suitableFor: removeSuitableForFilterValue(suitableFor, type),
+      suitableFor: removeSuitableForFilterValue(suitableFor, type) ?? [],
     });
 
     push({ pathname: `/${locale}${route || ROUTES.EVENTS}`, search });

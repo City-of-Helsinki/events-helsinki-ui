@@ -46,6 +46,9 @@ import {
   SearchCategoryType,
 } from './types';
 
+export const MIN_AGE = 0;
+export const MAX_AGE = 99;
+
 export const sortExtendedCategoryOptions = (
   a: CategoryExtendedOption,
   b: CategoryExtendedOption
@@ -327,47 +330,35 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
     start,
     text: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.TEXT),
     suitableFor: normalizeSuitableFor(
-      getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.SUITABLE)
+      getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.SUITABLE, false)
     ),
   };
 };
 
-export const normalizeSuitableFor = (values: number[] | string[]) => {
-  let [minAge, maxAge] = values
+export const normalizeSuitableFor = (values: number[] | string[]): number[] => {
+  const [minAge, maxAge] = values
     // Convert strings to an integer
     // using null as a default for unparseable strings.
     .map((value) => {
       const parsed = parseInt(value.toString());
       return isNaN(parsed) ? null : parsed;
-    })
-    // Sort ascending leaving the nulls to the end.
-    .sort();
+    });
+
   // If no range is given, return an empty list.
   if (minAge == null && maxAge == null) {
     return [];
   }
-  // Set both the numbers the same, if one is null.
-  if (maxAge == null && minAge != null) {
-    maxAge = minAge;
-  }
-  return [minAge, maxAge];
+
+  // Sort should be done last, so the right number is full filled with a default.
+  return [minAge ?? MIN_AGE, maxAge ?? MAX_AGE].sort((a, b) => a - b);
 };
 
 export const removeSuitableForFilterValue = (
-  initValue: (number | null)[] | undefined,
+  initValue: number[] | undefined,
   type: FilterType
 ) => {
-  let updatedSuitableFor = initValue;
-  if (initValue) {
-    if (type === 'minAge' && initValue[1] !== null) {
-      updatedSuitableFor = [0, initValue[1]];
-    } else if (type === 'maxAge' && initValue[0] !== null) {
-      updatedSuitableFor = [initValue[0], 99];
-    } else {
-      updatedSuitableFor = undefined;
-    }
-  }
-  return updatedSuitableFor;
+  if (['minAge', 'maxAge', 'exactAge'].includes(type)) return undefined;
+  return initValue;
 };
 
 export const getSearchQuery = (filters: Filters): string => {

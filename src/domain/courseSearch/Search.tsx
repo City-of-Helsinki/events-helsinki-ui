@@ -37,6 +37,8 @@ import {
   getCourseHobbyTypeOptions,
   getSearchFilters,
   getSearchQuery,
+  MAX_AGE,
+  MIN_AGE,
   normalizeSuitableFor,
 } from '../eventSearch/utils';
 import PlaceSelector from '../place/placeSelector/PlaceSelector';
@@ -86,20 +88,6 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
 
   const suitableFor = normalizeSuitableFor([minAgeInput, maxAgeInput]);
 
-  const searchFilters = {
-    alsoOngoingCourses,
-    categories: selectedCategories,
-    hobbyTypes: selectedHobbyTypes,
-    dateTypes: selectedDateTypes,
-    divisions: selectedDivisions,
-    isFree,
-    places: selectedPlaces,
-    text: selectedTexts,
-    start,
-    end,
-    suitableFor,
-  };
-
   // Initialize fields when page is loaded
   React.useEffect(() => {
     const {
@@ -132,6 +120,20 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
       setSelectedDateTypes(dateTypes);
     }
   }, [searchParams]);
+
+  const searchFilters = {
+    alsoOngoingCourses,
+    categories: selectedCategories,
+    hobbyTypes: selectedHobbyTypes,
+    dateTypes: selectedDateTypes,
+    divisions: selectedDivisions,
+    isFree,
+    places: selectedPlaces,
+    text: selectedTexts,
+    start,
+    end,
+    suitableFor,
+  };
 
   const clearInputValues = () => {
     setCategoryInput('');
@@ -319,11 +321,11 @@ const Search: React.FC<Props> = ({ scrollToResultList }) => {
                   rangeIcon={<IconArrowRight aria-hidden />}
                   minInputValue={minAgeInput}
                   minInputLabel={t('courseSearch.search.ageLimitMin')}
-                  minInputStartValue={'0'}
+                  minInputStartValue={MIN_AGE.toString()}
                   minInputFixedValue={'18'}
                   maxInputValue={maxAgeInput}
                   maxInputLabel={t('courseSearch.search.ageLimitMax')}
-                  maxInputEndValue={'99'}
+                  maxInputEndValue={MAX_AGE.toString()}
                   name="ageLimitValues"
                   onChange={handleSetAgeValues}
                   fixedValuesText={t(

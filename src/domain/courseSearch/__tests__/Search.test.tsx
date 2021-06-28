@@ -21,6 +21,7 @@ import {
   userEvent,
   waitFor,
 } from '../../../test/testUtils';
+import { MAX_AGE, MIN_AGE } from '../../eventSearch/utils';
 import Search from '../Search';
 
 configure({ defaultHidden: true });
@@ -232,37 +233,113 @@ test('should change search query after clicking hobby type menu item', async () 
 });
 
 test('should change search query after clicking age limit menu item', async () => {
+  const minAge = 10;
+  const maxAge = 20;
   const { history } = renderComponent();
-
   const chooseAgeLimitButton = await screen.findByRole('button', {
-    name: /ikä/i,
+    name: 'Ikä',
   });
 
+  /* Test with min input only */
   userEvent.click(chooseAgeLimitButton);
+  let begin = screen.getByRole('spinbutton', {
+    name: /alkaen/i,
+  });
+  expect(begin).toHaveValue(null);
+  userEvent.type(begin, minAge.toString());
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
+  expect(history.location.pathname).toBe(pathname);
+  expect(history.location.search).toBe(
+    `?text=jazz&suitableFor=${minAge},${MAX_AGE}`
+  );
+  expect(
+    screen.getByText(new RegExp(`alkaen ${minAge} v`, 'i'))
+  ).toBeInTheDocument();
+  expect(
+    screen.getByText(new RegExp(`päättyen ${MAX_AGE} v`, 'i'))
+  ).toBeInTheDocument();
 
+  /* Add the max input */
+  userEvent.click(chooseAgeLimitButton);
+  let end = screen.getByRole('spinbutton', {
+    name: /päättyen/i,
+  });
+  userEvent.clear(end);
+  userEvent.type(end, maxAge.toString());
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
+  expect(history.location.pathname).toBe(pathname);
+  expect(history.location.search).toBe(
+    `?text=jazz&suitableFor=${minAge},${maxAge}`
+  );
+  expect(
+    screen.getByText(new RegExp(`alkaen ${minAge} v`, 'i'))
+  ).toBeInTheDocument();
+  expect(
+    screen.getByText(new RegExp(`päättyen ${maxAge} v`, 'i'))
+  ).toBeInTheDocument();
+
+  /* Remove the min input and test with max input only */
+  userEvent.click(chooseAgeLimitButton);
+  begin = screen.getByRole('spinbutton', {
+    name: /alkaen/i,
+  });
+  userEvent.clear(begin);
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
+  expect(history.location.pathname).toBe(pathname);
+  expect(history.location.search).toBe(
+    `?text=jazz&suitableFor=${MIN_AGE},${maxAge}`
+  );
+  expect(
+    screen.getByText(new RegExp(`alkaen ${MIN_AGE} v`, 'i'))
+  ).toBeInTheDocument();
+  expect(
+    screen.getByText(new RegExp(`päättyen ${maxAge} v`, 'i'))
+  ).toBeInTheDocument();
+
+  /* Clear age inputs */
+  userEvent.click(chooseAgeLimitButton);
+  begin = screen.getByRole('spinbutton', {
+    name: /alkaen/i,
+  });
+  end = screen.getByRole('spinbutton', {
+    name: /päättyen/i,
+  });
+  userEvent.clear(begin);
+  userEvent.clear(end);
+  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
+  expect(history.location.pathname).toBe(pathname);
+  expect(history.location.search).toBe('?text=jazz');
+  expect(screen.queryByText(/alkaen/i)).not.toBeInTheDocument();
+  expect(screen.queryByText(/päättyen/i)).not.toBeInTheDocument();
+
+  /* Same value in both age inputs */
+  userEvent.click(chooseAgeLimitButton);
+  begin = screen.getByRole('spinbutton', {
+    name: /alkaen/i,
+  });
+  end = screen.getByRole('spinbutton', {
+    name: /päättyen/i,
+  });
   userEvent.type(
     screen.getByRole('spinbutton', {
       name: /alkaen/i,
     }),
-    '10'
+    minAge.toString()
   );
-
-  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
-  expect(history.location.pathname).toBe(pathname);
-  expect(history.location.search).toBe('?text=jazz&suitableFor=10,10');
-
-  userEvent.click(chooseAgeLimitButton);
-
   userEvent.type(
     screen.getByRole('spinbutton', {
       name: /päättyen/i,
     }),
-    '20'
+    minAge.toString()
   );
-
   act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe(pathname);
-  expect(history.location.search).toBe('?text=jazz&suitableFor=10,20');
+  expect(history.location.search).toBe(
+    `?text=jazz&suitableFor=${minAge},${minAge}`
+  );
+  expect(
+    screen.getByText(new RegExp(`${minAge}-vuotiaalle`, 'i'))
+  ).toBeInTheDocument();
 });
 
 test('beta notification is rendered when beta button is clicked', async () => {
