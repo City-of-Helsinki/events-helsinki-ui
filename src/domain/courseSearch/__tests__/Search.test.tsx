@@ -255,9 +255,10 @@ test('should change search query after clicking age limit menu item', async () =
   expect(
     screen.getByText(new RegExp(`alkaen ${minAge} v`, 'i'))
   ).toBeInTheDocument();
+  // don't show the bax value badge
   expect(
-    screen.getByText(new RegExp(`päättyen ${MAX_AGE} v`, 'i'))
-  ).toBeInTheDocument();
+    screen.queryByText(new RegExp(`päättyen ${MAX_AGE} v`, 'i'))
+  ).not.toBeInTheDocument();
 
   /* Add the max input */
   userEvent.click(chooseAgeLimitButton);
@@ -289,9 +290,10 @@ test('should change search query after clicking age limit menu item', async () =
   expect(history.location.search).toBe(
     `?text=jazz&suitableFor=${MIN_AGE},${maxAge}`
   );
+  // Don't show the min value badge
   expect(
-    screen.getByText(new RegExp(`alkaen ${MIN_AGE} v`, 'i'))
-  ).toBeInTheDocument();
+    screen.queryByText(new RegExp(`alkaen ${MIN_AGE} v`, 'i'))
+  ).not.toBeInTheDocument();
   expect(
     screen.getByText(new RegExp(`päättyen ${maxAge} v`, 'i'))
   ).toBeInTheDocument();

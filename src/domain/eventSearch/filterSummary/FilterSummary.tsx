@@ -13,6 +13,8 @@ import { ROUTES } from '../../app/routes/constants';
 import {
   getSearchFilters,
   getSearchQuery,
+  MAX_AGE,
+  MIN_AGE,
   removeSuitableForFilterValue,
 } from '../utils';
 import AgeFilter from './AgeFilter';
@@ -118,7 +120,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
         />
       );
     } else {
-      if (minAge != null) {
+      if (minAge != null && minAge !== MIN_AGE) {
         ageFilters.push(
           <AgeFilter
             key="minAgeFilter"
@@ -128,7 +130,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
           />
         );
       }
-      if (maxAge != null) {
+      if (maxAge != null && maxAge !== MAX_AGE) {
         ageFilters.push(
           <AgeFilter
             key="maxAgeFilter"
