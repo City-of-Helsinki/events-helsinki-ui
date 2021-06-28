@@ -239,23 +239,26 @@ test('should change search query after clicking age limit menu item', async () =
   });
 
   userEvent.click(chooseAgeLimitButton);
-  const minAgeInput = screen.getByRole('spinbutton', {
-    name: /alkaen/i,
-  });
-  const minAge = '10';
-  userEvent.type(minAgeInput, minAge);
+
+  userEvent.type(
+    screen.getByRole('spinbutton', {
+      name: /alkaen/i,
+    }),
+    '10'
+  );
 
   act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe(pathname);
-  expect(history.location.search).toBe('?text=jazz&suitableFor=10');
+  expect(history.location.search).toBe('?text=jazz&suitableFor=10,10');
 
   userEvent.click(chooseAgeLimitButton);
-  const maxAgeInput = screen.getByRole('spinbutton', {
-    name: /päättyen/i,
-  });
 
-  const maxAge = '20';
-  userEvent.type(maxAgeInput, maxAge);
+  userEvent.type(
+    screen.getByRole('spinbutton', {
+      name: /päättyen/i,
+    }),
+    '20'
+  );
 
   act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
   expect(history.location.pathname).toBe(pathname);

@@ -15,7 +15,7 @@ import {
   getSearchQuery,
   removeSuitableForFilterValue,
 } from '../utils';
-import AgeFilter, { AgeFilterProps } from './AgeFilter';
+import AgeFilter from './AgeFilter';
 import DateFilter from './DateFilter';
 import styles from './filterSummary.module.scss';
 import PlaceFilter from './PlaceFilter';
@@ -111,6 +111,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
     if (minAge != null && minAge === maxAge) {
       ageFilters.push(
         <AgeFilter
+          key="exactAgeFilter"
           type="exactAge"
           value={minAge?.toString()}
           onRemove={handleFilterRemove}
@@ -120,6 +121,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
       if (minAge != null) {
         ageFilters.push(
           <AgeFilter
+            key="minAgeFilter"
             type="minAge"
             value={minAge?.toString()}
             onRemove={handleFilterRemove}
@@ -129,6 +131,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
       if (maxAge != null) {
         ageFilters.push(
           <AgeFilter
+            key="maxAgeFilter"
             type="maxAge"
             value={maxAge?.toString()}
             onRemove={handleFilterRemove}

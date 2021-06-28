@@ -327,7 +327,7 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
     start,
     text: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.TEXT),
     suitableFor: normalizeSuitableFor(
-      getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.SUITABLE, false)
+      getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.SUITABLE)
     ),
   };
 };
@@ -342,9 +342,9 @@ export const normalizeSuitableFor = (values: number[] | string[]) => {
     })
     // Sort ascending leaving the nulls to the end.
     .sort();
-  // If no range is given, return undefined.
+  // If no range is given, return an empty list.
   if (minAge == null && maxAge == null) {
-    return undefined;
+    return [];
   }
   // Set both the numbers the same, if one is null.
   if (maxAge == null && minAge != null) {
