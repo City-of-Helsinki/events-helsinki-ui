@@ -120,7 +120,10 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
         />
       );
     } else {
-      if (minAge != null && minAge !== MIN_AGE) {
+      if (
+        minAge != null &&
+        (minAge !== MIN_AGE || (minAge === MIN_AGE && maxAge === MAX_AGE))
+      ) {
         ageFilters.push(
           <AgeFilter
             key="minAgeFilter"
@@ -130,7 +133,10 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
           />
         );
       }
-      if (maxAge != null && maxAge !== MAX_AGE) {
+      if (
+        maxAge != null &&
+        (maxAge !== MAX_AGE || (minAge === MIN_AGE && maxAge === MAX_AGE))
+      ) {
         ageFilters.push(
           <AgeFilter
             key="maxAgeFilter"
