@@ -4,8 +4,7 @@ export const QUERY_EVENT_LIST = gql`
   query EventList(
     $eventType: [EventTypeId]
     $internetBased: Boolean
-    $audienceMaxAgeLt: String
-    $audienceMinAgeGt: String
+    $suitableFor: [Int]
     $allOngoing: Boolean
     $allOngoingAnd: [String]
     $division: [String]
@@ -39,8 +38,7 @@ export const QUERY_EVENT_LIST = gql`
     eventList(
       eventType: $eventType
       internetBased: $internetBased
-      audienceMaxAgeLt: $audienceMaxAgeLt
-      audienceMinAgeGt: $audienceMinAgeGt
+      suitableFor: $suitableFor
       allOngoing: $allOngoing
       allOngoingAnd: $allOngoingAnd
       division: $division

@@ -289,7 +289,12 @@
       "showOnlyAdultCourses": "Show only adult courses",
       "ageLimitValues": "Age",
       "ageLimitMin": "From",
-      "ageLimitMax": "To"
+      "ageLimitMax": "To",
+      "ageFilter": {
+        "minAge": "From {{age}} {{yearAbbr}}",
+        "maxAge": "To {{age}} {{yearAbbr}}",
+        "exactAge": "For a {{age}}-year-old"
+      }
     }
   },
   "footer": {

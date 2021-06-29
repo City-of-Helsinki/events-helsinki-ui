@@ -21,6 +21,7 @@ import {
   userEvent,
   waitFor,
 } from '../../../test/testUtils';
+import { MAX_AGE, MIN_AGE } from '../../eventSearch/utils';
 import Search from '../Search';
 
 configure({ defaultHidden: true });
@@ -231,39 +232,6 @@ test('should change search query after clicking hobby type menu item', async () 
   );
 });
 
-test('should change search query after clicking age limit menu item', async () => {
-  const { history } = renderComponent();
-
-  const chooseAgeLimitButton = await screen.findByRole('button', {
-    name: /ikä/i,
-  });
-
-  userEvent.click(chooseAgeLimitButton);
-  const minAgeInput = screen.getByRole('spinbutton', {
-    name: /alkaen/i,
-  });
-  const minAge = '10';
-  userEvent.type(minAgeInput, minAge);
-
-  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
-  expect(history.location.pathname).toBe(pathname);
-  expect(history.location.search).toBe('?text=jazz&audienceMinAgeGt=10');
-
-  userEvent.click(chooseAgeLimitButton);
-  const maxAgeInput = screen.getByRole('spinbutton', {
-    name: /päättyen/i,
-  });
-
-  const maxAge = '20';
-  userEvent.type(maxAgeInput, maxAge);
-
-  act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
-  expect(history.location.pathname).toBe(pathname);
-  expect(history.location.search).toBe(
-    '?text=jazz&audienceMinAgeGt=10&audienceMaxAgeLt=20'
-  );
-});
-
 test('beta notification is rendered when beta button is clicked', async () => {
   renderComponent();
 
@@ -316,4 +284,108 @@ test('beta notification is rendered when beta button is clicked', async () => {
       expect(betaNotification).not.toBeInTheDocument();
     });
   }
+});
+
+describe('ageFilter', () => {
+  const openAndSelectAgeFilterInputs = async () => {
+    const chooseAgeLimitButton = await screen.findByRole('button', {
+      name: 'Ikä',
+    });
+    userEvent.click(chooseAgeLimitButton);
+    const begin = screen.getByRole('spinbutton', {
+      name: /alkaen/i,
+    });
+    const end = screen.getByRole('spinbutton', {
+      name: /päättyen/i,
+    });
+    return [begin, end];
+  };
+
+  const search = () => {
+    act(() => userEvent.click(screen.getByRole('button', { name: /hae/i })));
+  };
+
+  const testBeginBadgeToBeInTheDocument = (age: string | number) => {
+    expect(
+      screen.getByText(new RegExp(`alkaen ${age} v`, 'i'))
+    ).toBeInTheDocument();
+  };
+
+  const testEndBadgeToBeInTheDocument = (age: string | number) => {
+    expect(
+      screen.getByText(new RegExp(`päättyen ${age} v`, 'i'))
+    ).toBeInTheDocument();
+  };
+
+  test('should change search query after clicking age limit menu item', async () => {
+    const minAge = 10;
+    const maxAge = 20;
+    const { history } = renderComponent();
+    const testLocation = (from: string | number, to: string | number) => {
+      expect(history.location.pathname).toBe(pathname);
+      expect(history.location.search).toBe(
+        `?text=jazz&suitableFor=${from},${to}`
+      );
+    };
+
+    /* Test with min input only */
+    let [begin, end] = await openAndSelectAgeFilterInputs();
+    expect(begin).toHaveValue(null);
+    userEvent.type(begin, minAge.toString());
+    search();
+    testLocation(minAge, MAX_AGE);
+    testBeginBadgeToBeInTheDocument(minAge);
+    // don't show the bax value badge
+    expect(screen.queryByText(/päättyen/i)).not.toBeInTheDocument();
+
+    /* Add the max input */
+    [begin, end] = await openAndSelectAgeFilterInputs();
+    userEvent.clear(end);
+    userEvent.type(end, maxAge.toString());
+    search();
+    testLocation(minAge, maxAge);
+    testBeginBadgeToBeInTheDocument(minAge);
+    testEndBadgeToBeInTheDocument(maxAge);
+
+    /* Remove the min input and test with max input only */
+    [begin] = await openAndSelectAgeFilterInputs();
+    userEvent.clear(begin);
+    search();
+    testLocation(MIN_AGE, maxAge);
+    // Don't show the min value badge
+    expect(screen.queryByText(/alkaen/i)).not.toBeInTheDocument();
+    testEndBadgeToBeInTheDocument(maxAge);
+
+    /* Clear age inputs */
+    [begin, end] = await openAndSelectAgeFilterInputs();
+    userEvent.clear(begin);
+    userEvent.clear(end);
+    search();
+    expect(history.location.pathname).toBe(pathname);
+    expect(history.location.search).toBe('?text=jazz');
+    expect(screen.queryByText(/alkaen/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/päättyen/i)).not.toBeInTheDocument();
+
+    /* Same value in both age inputs */
+    [begin, end] = await openAndSelectAgeFilterInputs();
+    userEvent.type(begin, minAge.toString());
+    userEvent.type(end, minAge.toString());
+    search();
+    testLocation(minAge, minAge);
+    expect(
+      screen.getByText(new RegExp(`${minAge}-vuotiaalle`, 'i'))
+    ).toBeInTheDocument();
+
+    /* Show the age filter badges when age filter is active 
+    and both the ends are at the limit */
+    [begin, end] = await openAndSelectAgeFilterInputs();
+    userEvent.clear(begin);
+    userEvent.clear(end);
+    userEvent.type(begin, MIN_AGE.toString());
+    userEvent.type(end, MAX_AGE.toString());
+    search();
+    testLocation(MIN_AGE, MAX_AGE);
+    testBeginBadgeToBeInTheDocument(MIN_AGE);
+    testEndBadgeToBeInTheDocument(MAX_AGE);
+  });
 });

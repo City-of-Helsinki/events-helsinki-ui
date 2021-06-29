@@ -10,7 +10,13 @@ import useLocale from '../../../hooks/useLocale';
 import { formatDate } from '../../../util/dateUtils';
 import { translateValue } from '../../../util/translateUtils';
 import { ROUTES } from '../../app/routes/constants';
-import { getSearchFilters, getSearchQuery } from '../utils';
+import {
+  getSearchFilters,
+  getSearchQuery,
+  getSuitableForFilterValue,
+  MAX_AGE,
+  MIN_AGE,
+} from '../utils';
 import AgeFilter from './AgeFilter';
 import DateFilter from './DateFilter';
 import styles from './filterSummary.module.scss';
@@ -43,10 +49,11 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
     publisher,
     start,
     text,
-    audienceMinAgeGt,
-    audienceMaxAgeLt,
+    suitableFor,
     hobbyTypes,
   } = getSearchFilters(searchParams);
+
+  const [minAge, maxAge] = suitableFor ?? [];
 
   const dateText =
     start || end
@@ -64,7 +71,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
     [neighborhoods]
   );
 
-  const handleFilterRemove = (value: string, type: FilterType) => {
+  const handleFilterRemove = (value: string | number, type: FilterType) => {
     const getFilteredList = (listType: FilterType, list: string[] = []) =>
       type === listType ? list.filter((v) => v !== value) : list;
 
@@ -82,8 +89,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
       publisher: type !== 'publisher' ? publisher : null,
       start: type === 'date' ? null : start,
       text: getFilteredList('text', text),
-      audienceMinAgeGt: type === 'minAge' ? '' : audienceMinAgeGt,
-      audienceMaxAgeLt: type === 'maxAge' ? '' : audienceMaxAgeLt,
+      suitableFor: getSuitableForFilterValue(suitableFor, type) ?? [],
     });
 
     push({ pathname: `/${locale}${route || ROUTES.EVENTS}`, search });
@@ -98,10 +104,51 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
     !!divisions.length ||
     !!places.length ||
     !!text.length ||
-    !!(audienceMinAgeGt || '').length ||
-    !!(audienceMaxAgeLt || '').length;
+    !!suitableFor?.length;
 
   if (!hasFilters) return null;
+
+  const getAgeFilters = () => {
+    let ageFilters = [];
+    if (minAge != null && minAge === maxAge) {
+      ageFilters.push(
+        <AgeFilter
+          key="exactAgeFilter"
+          type="exactAge"
+          value={minAge?.toString()}
+          onRemove={handleFilterRemove}
+        />
+      );
+    } else {
+      if (
+        minAge != null &&
+        (minAge !== MIN_AGE || (minAge === MIN_AGE && maxAge === MAX_AGE))
+      ) {
+        ageFilters.push(
+          <AgeFilter
+            key="minAgeFilter"
+            type="minAge"
+            value={minAge?.toString()}
+            onRemove={handleFilterRemove}
+          />
+        );
+      }
+      if (
+        maxAge != null &&
+        (maxAge !== MAX_AGE || (minAge === MIN_AGE && maxAge === MAX_AGE))
+      ) {
+        ageFilters.push(
+          <AgeFilter
+            key="maxAgeFilter"
+            type="maxAge"
+            value={maxAge?.toString()}
+            onRemove={handleFilterRemove}
+          />
+        );
+      }
+    }
+    return ageFilters;
+  };
 
   return (
     <div
@@ -165,20 +212,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
           value={dateType}
         />
       ))}
-      {audienceMinAgeGt && (
-        <AgeFilter
-          type="minAge"
-          value={audienceMinAgeGt}
-          onRemove={handleFilterRemove}
-        />
-      )}
-      {audienceMaxAgeLt && (
-        <AgeFilter
-          type="maxAge"
-          value={audienceMaxAgeLt}
-          onRemove={handleFilterRemove}
-        />
-      )}
+      {getAgeFilters()}
       <button className={styles.clearButton} onClick={onClear} type="button">
         {t('eventSearch.buttonClearFilters')}
       </button>

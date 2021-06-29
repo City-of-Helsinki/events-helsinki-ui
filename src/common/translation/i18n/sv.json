@@ -289,7 +289,12 @@
       "showOnlyAdultCourses": "Visa endast vuxenkurser",
       "ageLimitValues": "Ålder",
       "ageLimitMin": "Från",
-      "ageLimitMax": "Till"
+      "ageLimitMax": "Till",
+      "ageFilter": {
+        "minAge": "Från {{age}} {{yearAbbr}}",
+        "maxAge": "Till {{age}} {{yearAbbr}}",
+        "exactAge": "För en {{age}}-åring"
+      }
     }
   },
   "footer": {

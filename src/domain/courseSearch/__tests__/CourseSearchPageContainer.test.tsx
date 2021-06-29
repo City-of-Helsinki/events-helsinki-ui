@@ -76,8 +76,7 @@ const courseListVariables = {
   start: 'now',
   startsAfter: undefined,
   superEventType: ['umbrella', 'none'],
-  audienceMinAgeGt: '',
-  audienceMaxAgeLt: '',
+  suitableFor: [],
   eventType: [EventTypeId.Course],
 };
 
@@ -107,8 +106,7 @@ const courseListVariables2 = {
   start: '2020-12-02',
   startsAfter: undefined,
   superEventType: ['umbrella', 'none'],
-  audienceMinAgeGt: '',
-  audienceMaxAgeLt: '',
+  suitableFor: [],
   eventType: [EventTypeId.Course],
 };
 

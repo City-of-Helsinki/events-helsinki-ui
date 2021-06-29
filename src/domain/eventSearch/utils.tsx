@@ -15,6 +15,7 @@ import {
   Meta,
   QueryEventListArgs,
 } from '../../../src/generated/graphql';
+import { FilterType } from '../../common/components/filterButton/FilterButton';
 import { DATE_TYPES } from '../../constants';
 import { Language } from '../../types';
 import buildQueryFromObject from '../../util/buildQueryFromObject';
@@ -44,6 +45,9 @@ import {
   SearchCategoryOption,
   SearchCategoryType,
 } from './types';
+
+export const MIN_AGE = 0;
+export const MAX_AGE = 99;
 
 export const sortExtendedCategoryOptions = (
   a: CategoryExtendedOption,
@@ -183,10 +187,8 @@ export const getEventSearchVariables = ({
     places,
     publisher,
     text,
-    audienceMinAgeGt,
-    audienceMaxAgeLt,
+    suitableFor,
   } = getSearchFilters(params);
-
   const pathPlace = place && MAPPED_PLACES[place.toLowerCase()];
 
   if (pathPlace) {
@@ -268,8 +270,7 @@ export const getEventSearchVariables = ({
     start,
     startsAfter,
     superEventType,
-    audienceMinAgeGt,
-    audienceMaxAgeLt,
+    suitableFor,
     eventType: [EVENT_TYPE_TO_ID[eventType]],
   };
 };
@@ -328,9 +329,36 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
     publisher: searchParams.get(EVENT_SEARCH_FILTERS.PUBLISHER),
     start,
     text: getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.TEXT),
-    audienceMinAgeGt: searchParams.get(EVENT_SEARCH_FILTERS.MIN_AGE) || '',
-    audienceMaxAgeLt: searchParams.get(EVENT_SEARCH_FILTERS.MAX_AGE) || '',
+    suitableFor: normalizeSuitableFor(
+      getUrlParamAsArray(searchParams, EVENT_SEARCH_FILTERS.SUITABLE, false)
+    ),
   };
+};
+
+export const normalizeSuitableFor = (values: number[] | string[]): number[] => {
+  const [minAge, maxAge] = values
+    // Convert strings to an integer
+    // using null as a default for unparseable strings.
+    .map((value) => {
+      const parsed = parseInt(value.toString());
+      return isNaN(parsed) ? null : parsed;
+    });
+
+  // If no range is given, return an empty list.
+  if (minAge == null && maxAge == null) {
+    return [];
+  }
+
+  // Sort should be done last, so the right number is full filled with a default.
+  return [minAge ?? MIN_AGE, maxAge ?? MAX_AGE].sort((a, b) => a - b);
+};
+
+export const getSuitableForFilterValue = (
+  initValue: number[] | undefined,
+  type: FilterType
+) => {
+  if (['minAge', 'maxAge', 'exactAge'].includes(type)) return undefined;
+  return initValue;
 };
 
 export const getSearchQuery = (filters: Filters): string => {
