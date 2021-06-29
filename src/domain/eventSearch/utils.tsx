@@ -353,7 +353,7 @@ export const normalizeSuitableFor = (values: number[] | string[]): number[] => {
   return [minAge ?? MIN_AGE, maxAge ?? MAX_AGE].sort((a, b) => a - b);
 };
 
-export const removeSuitableForFilterValue = (
+export const getSuitableForFilterValue = (
   initValue: number[] | undefined,
   type: FilterType
 ) => {

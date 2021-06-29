@@ -13,9 +13,9 @@ import { ROUTES } from '../../app/routes/constants';
 import {
   getSearchFilters,
   getSearchQuery,
+  getSuitableForFilterValue,
   MAX_AGE,
   MIN_AGE,
-  removeSuitableForFilterValue,
 } from '../utils';
 import AgeFilter from './AgeFilter';
 import DateFilter from './DateFilter';
@@ -89,7 +89,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
       publisher: type !== 'publisher' ? publisher : null,
       start: type === 'date' ? null : start,
       text: getFilteredList('text', text),
-      suitableFor: removeSuitableForFilterValue(suitableFor, type) ?? [],
+      suitableFor: getSuitableForFilterValue(suitableFor, type) ?? [],
     });
 
     push({ pathname: `/${locale}${route || ROUTES.EVENTS}`, search });
