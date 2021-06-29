@@ -150,6 +150,7 @@ const Search: React.FC<SearchProps> = ({
           <div className={styles.categoriesButtons}>
             {popularCategories.map((category) => (
               <Button
+                role="link"
                 key={category.value}
                 variant="secondary"
                 iconLeft={category.icon}

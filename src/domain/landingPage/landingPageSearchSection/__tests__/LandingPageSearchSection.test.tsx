@@ -77,7 +77,7 @@ test('should render all categories buttons', () => {
 
   popularCategories.forEach((category) => {
     expect(
-      screen.queryByRole('button', { name: category.text })
+      screen.queryByRole('link', { name: category.text })
     ).toBeInTheDocument();
   });
 });

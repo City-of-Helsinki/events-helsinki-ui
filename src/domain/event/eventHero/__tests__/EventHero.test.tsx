@@ -77,7 +77,7 @@ test('should go to event list', () => {
   const { history } = renderComponent();
 
   userEvent.click(
-    screen.getByRole('button', {
+    screen.getByRole('link', {
       name: translations.event.hero.ariaLabelBackButton,
     })
   );
@@ -97,12 +97,12 @@ test('should render today tag', () => {
   renderComponent();
 
   expect(
-    screen.queryByRole('button', {
+    screen.queryByRole('link', {
       name: translations.event.categories.labelToday,
     })
   ).toBeInTheDocument();
   expect(
-    screen.queryByRole('button', {
+    screen.queryByRole('link', {
       name: translations.event.categories.labelThisWeek,
     })
   ).not.toBeInTheDocument();
@@ -113,12 +113,12 @@ test('should render this week tag', () => {
   renderComponent();
 
   expect(
-    screen.queryByRole('button', {
+    screen.queryByRole('link', {
       name: translations.event.categories.labelToday,
     })
   ).not.toBeInTheDocument();
   expect(
-    screen.queryByRole('button', {
+    screen.queryByRole('link', {
       name: translations.event.categories.labelThisWeek,
     })
   ).toBeInTheDocument();

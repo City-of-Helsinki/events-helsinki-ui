@@ -59,9 +59,9 @@
     },
     "preview": "Förhandsvisning",
     "shareLink": {
-      "shareOnFacebook": "Dela på Facebook",
-      "shareOnTwitter": "Dela på Twitter",
-      "shareOnLinkedIn": "Dela på LinkedIn"
+      "shareOnFacebook": "Dela på Facebook - Öppnas i en ny flik",
+      "shareOnTwitter": "Dela på Twitter - Öppnas i en ny flik",
+      "shareOnLinkedIn": "Dela på LinkedIn - Öppnas i en ny flik"
     },
     "shareLinks": {
       "buttonCopyLink": "Kopiera länk adress",

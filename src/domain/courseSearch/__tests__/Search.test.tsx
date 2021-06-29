@@ -360,7 +360,7 @@ test('beta notification is rendered when beta button is clicked', async () => {
   function clickBetaButton() {
     userEvent.click(
       screen.getByRole('button', {
-        name: /Haluatko antaa meille palautetta harrastusten hakusivun kehitysveriosta/,
+        name: /Haluatko antaa meille palautetta harrastusten hakusivun kehitysversiosta/,
       })
     );
   }
@@ -384,7 +384,7 @@ test('beta notification is rendered when beta button is clicked', async () => {
       name: /notification/i,
     });
     expect(betaNotification).toHaveTextContent(
-      /Haluatko antaa meille palautetta harrastusten hakusivun kehitysveriosta\? Tästä pääset palautelomakkeeseen\./i
+      /Haluatko antaa meille palautetta harrastusten hakusivun kehitysversiosta\? Tästä pääset palautelomakkeeseen\./i
     );
   }
 

@@ -142,7 +142,7 @@ it('should render info and load other events + similar events', async () => {
 
   keywords.forEach((keyword) => {
     expect(
-      screen.queryByRole('button', { name: keyword.name })
+      screen.queryByRole('link', { name: keyword.name })
     ).toBeInTheDocument();
   });
 
@@ -247,7 +247,7 @@ it('should link to events search when clicking tags', async () => {
   });
 
   // click keyword / tag
-  userEvent.click(screen.getByRole('button', { name: 'Avouinti' }));
+  userEvent.click(screen.getByRole('link', { name: 'Avouinti' }));
 
   expect(pushSpy).toHaveBeenCalledWith({
     pathname: '/fi/events',

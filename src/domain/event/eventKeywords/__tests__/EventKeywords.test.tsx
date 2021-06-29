@@ -40,12 +40,12 @@ test('should render keywords and handle click', () => {
 
   keywordNames.forEach((keyword) => {
     expect(
-      screen.queryByRole('button', { name: new RegExp(keyword, 'i') })
+      screen.queryByRole('link', { name: new RegExp(keyword, 'i') })
     ).toBeInTheDocument();
   });
 
   userEvent.click(
-    screen.queryByRole('button', { name: new RegExp(keywordNames[0], 'i') })
+    screen.queryByRole('link', { name: new RegExp(keywordNames[0], 'i') })
   );
 
   expect(history.location.pathname).toBe('/fi/events');
@@ -61,7 +61,7 @@ test('should not show keywords', () => {
 
   keywordNames.forEach((keyword) => {
     expect(
-      screen.queryByRole('button', { name: new RegExp(keyword, 'i') })
+      screen.queryByRole('link', { name: new RegExp(keyword, 'i') })
     ).not.toBeInTheDocument();
   });
 });
@@ -73,7 +73,7 @@ test('should render today tag and handle click', () => {
   );
 
   userEvent.click(
-    screen.queryByRole('button', {
+    screen.queryByRole('link', {
       name: translations.event.categories.labelToday,
     })
   );
@@ -88,7 +88,7 @@ test('should render this week tag and handle click', () => {
   );
 
   userEvent.click(
-    screen.queryByRole('button', {
+    screen.queryByRole('link', {
       name: translations.event.categories.labelThisWeek,
     })
   );
@@ -106,7 +106,7 @@ test('should hide buy button for free events', () => {
   );
 
   expect(
-    screen.queryByRole('button', {
+    screen.queryByRole('link', {
       name: translations.event.categories.labelFree,
     })
   ).toBeInTheDocument();

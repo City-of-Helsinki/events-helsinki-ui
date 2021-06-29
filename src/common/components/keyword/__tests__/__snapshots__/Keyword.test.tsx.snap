@@ -3,6 +3,7 @@
 exports[`matches snapshot 1`] = `
 <button
   class="keyword"
+  role="link"
   type="button"
 >
   test keyword

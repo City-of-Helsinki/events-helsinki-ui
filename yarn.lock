@@ -10017,20 +10017,20 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-hds-core@1.1.0, hds-core@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-1.1.0.tgz#de4b696c39e70b1c8256a0f104463ec509259576"
-  integrity sha512-eXT/X3Ts7pdGjH6nYoBuyGjZZDz534TUMJZD3uvvE4U0ousUwJ8J8QQBAggLUyhmiR8piSl7ODuzU3ZFJQYOMg==
+hds-core@1.2.0, hds-core@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-1.2.0.tgz#8cd191e324d503aa934b5b0443fb5955ab744d48"
+  integrity sha512-KqUh2JlVVuvyARnFkOjhjGNzESkG5i2WtU1qNeYFDXggPAt/eEoZTMXcxj8U2j9Hc3xXBluf4Kkx+u68dpOsmA==
 
-hds-design-tokens@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/hds-design-tokens/-/hds-design-tokens-1.1.0.tgz#a5bec355e0f6224fb4dc2de46e7bc62bfc192973"
-  integrity sha512-N6/UY6NZxc5rA7uULE7TcwIdpWomoIyq+ByBYh4KbB2SpLrMkxTFNcoat2Iqct1uiSw1hZinQd8/JtBuwLrjDg==
+hds-design-tokens@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/hds-design-tokens/-/hds-design-tokens-1.2.0.tgz#458efb6210f2bfbc53bd1d5f2f08857fb220faeb"
+  integrity sha512-05bo4sK5rD4yVDSd0aCgRRQa04mrgk56Ok2OsqgtkEt0hDRgAcmJDHoX0HhKHGfMxy9h+bB1OhAMuIjpnVSDUQ==
 
-hds-react@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/hds-react/-/hds-react-1.1.0.tgz#0caa01f41c30b1137eea84fbfcff1bf23d908c8a"
-  integrity sha512-K9pz/Ffsl9AmGn0vplTbuCJ1BNC3GWIy7bGNFD/vsRdI5mLbvLkUheDsD5m+xpsafgCQtG1XraHVvVADlrLNUg==
+hds-react@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/hds-react/-/hds-react-1.2.0.tgz#9add96e3fef986bdfc730af1745567593d97faf6"
+  integrity sha512-CurVKMSjrFqMkeUnpVpLZEA6CM9w4b+WZ+kxE77poDeAs9qOQ3ssY5K2rFpDqxQht08DNFJx5ujCkmtxiZch9Q==
   dependencies:
     "@babel/runtime" "7.11.2"
     "@juggle/resize-observer" "3.2.0"
@@ -10038,7 +10038,7 @@ hds-react@^1.1.0:
     "@react-aria/visually-hidden" "3.2.0"
     date-fns "2.16.1"
     downshift "6.0.6"
-    hds-core "1.1.0"
+    hds-core "1.2.0"
     lodash.isequal "4.5.0"
     lodash.isfunction "3.0.9"
     lodash.uniqueid "4.0.1"

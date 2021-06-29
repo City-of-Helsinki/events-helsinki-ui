@@ -29,7 +29,7 @@ describe('LandingPageSearch popular categories', () => {
       t,
       CATEGORY_CATALOG.General.default
     );
-    const categoryButtons = popularCategoriesContainer.queryAllByRole('button');
+    const categoryButtons = popularCategoriesContainer.queryAllByRole('link');
     expect(categoryButtons.length).toBe(categoryOptions.length);
     expect(categoryButtons).toMatchSnapshot();
   });
@@ -46,7 +46,7 @@ describe('LandingPageSearch popular categories', () => {
       ...getCourseCategoryOptions(t, CATEGORY_CATALOG.Course.landingPage),
       ...getCourseHobbyTypeOptions(t, CATEGORY_CATALOG.hobbyTypes.landingPage),
     ];
-    const categoryButtons = popularCategoriesContainer.queryAllByRole('button');
+    const categoryButtons = popularCategoriesContainer.queryAllByRole('link');
     expect(categoryButtons.length).toBe(categoryOptions.length);
     expect(categoryButtons).toMatchSnapshot();
   });

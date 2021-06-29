@@ -59,9 +59,9 @@
     },
     "preview": "Preview",
     "shareLink": {
-      "shareOnFacebook": "Share on Facebook",
-      "shareOnTwitter": "Share on Twitter",
-      "shareOnLinkedIn": "Share on LinkedIn"
+      "shareOnFacebook": "Share on Facebook - Opens in a new tab.",
+      "shareOnTwitter": "Share on Twitter - Opens in a new tab.",
+      "shareOnLinkedIn": "Share on LinkedIn - Opens in a new tab"
     },
     "shareLinks": {
       "buttonCopyLink": "Copy link address",

@@ -92,11 +92,11 @@ test('should open buttonUrl', () => {
   global.open = jest.fn();
   render(<BannerHero banner={banner} location="top" />);
 
-  userEvent.click(screen.getByRole('button', { name: buttonText }));
+  userEvent.click(screen.getByRole('link', { name: buttonText }));
   expect(global.open).toBeCalled();
 });
 
 test('Banner should be accessible', async () => {
-  const { container } = render(<BannerHero banner={banner} />);
+  const { container } = render(<BannerHero banner={banner} location="top" />);
   expect(await axe(container)).toHaveNoViolations();
 });
