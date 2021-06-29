@@ -9,10 +9,10 @@ const renderComponent = (props: ShareLinksProps) =>
 test('should have discoverable link address copy button as well as Facebook, Twitter and LinkedIn share links', () => {
   const { queryByLabelText } = renderComponent({ title: 'Jaa tapahtuma' });
   const shareLinkLabelsFI = [
-    'Kopioi linkin osoite',
-    'Jaa Facebookissa',
-    'Jaa Twitterissä',
-    'Jaa LinkedInissä',
+    /Kopioi linkin osoite/,
+    /Jaa Facebookissa/,
+    /Jaa Twitterissä/,
+    /Jaa LinkedInissä/,
   ];
 
   shareLinkLabelsFI.forEach((label) => {

@@ -2,7 +2,7 @@
 
 exports[`<LinkedInShareLink /> matches snapshot 1`] = `
 <button
-  aria-label="Jaa LinkedInissä"
+  aria-label="Jaa LinkedInissä - Avautuu uudessa välilehdessä"
   type="button"
 >
   <svg>

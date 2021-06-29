@@ -9,7 +9,7 @@ test('should apply aria label', () => {
   const sharedLink = 'https://helsinki.fi/some/';
   const { getByLabelText } = renderComponent({ sharedLink });
 
-  expect(getByLabelText('Jaa LinkedInissä'));
+  expect(getByLabelText(/Jaa LinkedInissä/i)).toBeInTheDocument();
 });
 
 test('<LinkedInShareLink /> matches snapshot', () => {
