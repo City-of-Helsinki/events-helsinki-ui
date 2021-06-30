@@ -1,9 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import FilterButton, {
-  FilterType,
-} from '../../../common/components/filterButton/FilterButton';
+import FilterButton from '../../../common/components/filterButton/FilterButton';
+import { FilterType } from '../../../common/components/filterButton/types';
 import { usePlaceDetailsQuery } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import getLocalisedString from '../../../util/getLocalisedString';

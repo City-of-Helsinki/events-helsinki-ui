@@ -2,9 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router';
 
-import FilterButton, {
-  FilterType,
-} from '../../../common/components/filterButton/FilterButton';
+import FilterButton from '../../../common/components/filterButton/FilterButton';
+import { FilterType } from '../../../common/components/filterButton/types';
 import useDivisionOptions from '../../../hooks/useDivisionOptions';
 import useLocale from '../../../hooks/useLocale';
 import { formatDate } from '../../../util/dateUtils';

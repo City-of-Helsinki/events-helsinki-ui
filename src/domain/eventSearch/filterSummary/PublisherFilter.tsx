@@ -1,9 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import FilterButton, {
-  FilterType,
-} from '../../../common/components/filterButton/FilterButton';
+import FilterButton from '../../../common/components/filterButton/FilterButton';
+import { FilterType } from '../../../common/components/filterButton/types';
 import { useOrganizationDetailsQuery } from '../../../generated/graphql';
 
 interface Props {
