@@ -4,20 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './filterButton.module.scss';
-
-export type FilterType =
-  | 'category'
-  | 'hobbyType'
-  | 'date'
-  | 'dateType'
-  | 'division'
-  | 'place'
-  | 'publisher'
-  | 'target'
-  | 'text'
-  | 'minAge'
-  | 'maxAge'
-  | 'exactAge';
+import { FilterType } from './types';
 
 interface Props {
   onRemove: (value: string, type: FilterType) => void;

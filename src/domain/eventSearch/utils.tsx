@@ -15,7 +15,7 @@ import {
   Meta,
   QueryEventListArgs,
 } from '../../../src/generated/graphql';
-import { FilterType } from '../../common/components/filterButton/FilterButton';
+import { FilterType } from '../../common/components/filterButton/types';
 import { DATE_TYPES } from '../../constants';
 import { Language } from '../../types';
 import buildQueryFromObject from '../../util/buildQueryFromObject';
@@ -335,14 +335,13 @@ export const getSearchFilters = (searchParams: URLSearchParams): Filters => {
   };
 };
 
-export const normalizeSuitableFor = (values: number[] | string[]): number[] => {
-  const [minAge, maxAge] = values
-    // Convert strings to an integer
-    // using null as a default for unparseable strings.
-    .map((value) => {
-      const parsed = parseInt(value.toString());
-      return isNaN(parsed) ? null : parsed;
-    });
+export const normalizeSuitableFor = (values: (number | string)[]): number[] => {
+  if (!values?.length) return [];
+
+  const [minAge, maxAge] = values.map((value) => {
+    const parsed = parseInt(value.toString());
+    return isNaN(parsed) ? null : parsed;
+  });
 
   // If no range is given, return an empty list.
   if (minAge == null && maxAge == null) {
