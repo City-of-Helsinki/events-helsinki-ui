@@ -123,6 +123,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
   return (
     <div className={styles.dateInputsContainer}>
       <DateInput
+        autoComplete="off"
         id="start-date"
         value={internalStartDateString}
         onBlur={handleStartDateValidation}
@@ -140,6 +141,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
         }
       />
       <DateInput
+        autoComplete="off"
         id="end-date"
         value={internalEndDateString}
         onBlur={handleEndDateValidation}
