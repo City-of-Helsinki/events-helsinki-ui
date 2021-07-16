@@ -145,6 +145,14 @@ Run linter to all the files in app
 
 Fix all the linter errors
 
+## Versioning
+
+This project uses [Standard Version](https://github.com/conventional-changelog/standard-version) with [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+
+To make a new release, run:
+
+`yarn release`
+
 ## Browser tests
 
 Browser tests are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework.
