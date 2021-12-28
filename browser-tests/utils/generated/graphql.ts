@@ -427,6 +427,8 @@ export type QueryEventsByIdsArgs = {
   sort?: Maybe<Scalars['String']>;
   pageSize?: Maybe<Scalars['Int']>;
   page?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['String']>;
+  end?: Maybe<Scalars['String']>;
 };
 
 
@@ -837,6 +839,8 @@ export type EventsByIdsQueryVariables = Exact<{
   sort?: Maybe<Scalars['String']>;
   pageSize?: Maybe<Scalars['Int']>;
   page?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['String']>;
+  end?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -1532,7 +1536,7 @@ export const EventListDocument = gql`
 }
     ${EventFieldsFragmentDoc}`;
 export const EventsByIdsDocument = gql`
-    query EventsByIds($ids: [ID!]!, $eventType: [EventTypeId], $include: [String], $sort: String, $pageSize: Int, $page: Int) {
+    query EventsByIds($ids: [ID!]!, $eventType: [EventTypeId], $include: [String], $sort: String, $pageSize: Int, $page: Int, $start: String, $end: String) {
   eventsByIds(
     ids: $ids
     eventType: $eventType
@@ -1540,6 +1544,8 @@ export const EventsByIdsDocument = gql`
     sort: $sort
     pageSize: $pageSize
     page: $page
+    start: $start
+    end: $end
   ) {
     data {
       ...eventFields

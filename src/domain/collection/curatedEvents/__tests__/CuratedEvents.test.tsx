@@ -245,6 +245,7 @@ const getMocks = (
     pageSize: 10,
     sort: 'end_time',
     page: undefined,
+    start: 'now',
   };
 
   let meta = {
