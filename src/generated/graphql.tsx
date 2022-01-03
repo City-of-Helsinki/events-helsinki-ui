@@ -427,6 +427,8 @@ export type QueryEventsByIdsArgs = {
   sort?: Maybe<Scalars['String']>;
   pageSize?: Maybe<Scalars['Int']>;
   page?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['String']>;
+  end?: Maybe<Scalars['String']>;
 };
 
 
@@ -837,6 +839,8 @@ export type EventsByIdsQueryVariables = Exact<{
   sort?: Maybe<Scalars['String']>;
   pageSize?: Maybe<Scalars['Int']>;
   page?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['String']>;
+  end?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -1731,7 +1735,7 @@ export type EventListQueryHookResult = ReturnType<typeof useEventListQuery>;
 export type EventListLazyQueryHookResult = ReturnType<typeof useEventListLazyQuery>;
 export type EventListQueryResult = Apollo.QueryResult<EventListQuery, EventListQueryVariables>;
 export const EventsByIdsDocument = gql`
-    query EventsByIds($ids: [ID!]!, $eventType: [EventTypeId], $include: [String], $sort: String, $pageSize: Int, $page: Int) {
+    query EventsByIds($ids: [ID!]!, $eventType: [EventTypeId], $include: [String], $sort: String, $pageSize: Int, $page: Int, $start: String, $end: String) {
   eventsByIds(
     ids: $ids
     eventType: $eventType
@@ -1739,6 +1743,8 @@ export const EventsByIdsDocument = gql`
     sort: $sort
     pageSize: $pageSize
     page: $page
+    start: $start
+    end: $end
   ) {
     data {
       ...eventFields
@@ -1770,6 +1776,8 @@ export const EventsByIdsDocument = gql`
  *      sort: // value for 'sort'
  *      pageSize: // value for 'pageSize'
  *      page: // value for 'page'
+ *      start: // value for 'start'
+ *      end: // value for 'end'
  *   },
  * });
  */

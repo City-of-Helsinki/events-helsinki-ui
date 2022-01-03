@@ -57,6 +57,7 @@ const getMocks = (
       include: ['location'],
       pageSize: 10,
       sort: 'end_time',
+      start: 'now',
     },
     eventsByIds,
   }),

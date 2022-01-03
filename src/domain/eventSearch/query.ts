@@ -81,20 +81,24 @@ export const QUERY_EVENT_LIST = gql`
   }
 
   query EventsByIds(
-    $ids: [ID!]!, 
-    $eventType: [EventTypeId],
-    $include: [String], 
-    $sort: String, 
-    $pageSize: Int, 
+    $ids: [ID!]!
+    $eventType: [EventTypeId]
+    $include: [String]
+    $sort: String
+    $pageSize: Int
     $page: Int
+    $start: String
+    $end: String
   ) {
     eventsByIds(
-      ids: $ids,
-      eventType: $eventType,
-      include: $include,
-      sort: $sort,
-      pageSize: $pageSize,
+      ids: $ids
+      eventType: $eventType
+      include: $include
+      sort: $sort
+      pageSize: $pageSize
       page: $page
+      start: $start
+      end: $end
     ) {
       data {
         ...eventFields

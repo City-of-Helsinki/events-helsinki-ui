@@ -40,6 +40,7 @@ const usePaginatedEventsByIdsQuery = (
       include: ['location'],
       pageSize: PAGE_SIZE,
       sort: EVENT_SORT_OPTIONS.END_TIME,
+      start: 'now',
     },
     ssr: false,
   });
