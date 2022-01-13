@@ -303,7 +303,7 @@
     "linkFeedback": "Give feedback",
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/en/administration/participate/feedback/",
     "searchCollections": "We recommend",
-    "searchEvents": "Events",
+    "searchEvents": "Events calendar",
     "searchHobbies": "Hobbies",
     "titleEventsCategories": "Popular events categories",
     "titleCoursesCategories": "Popular courses categories",
@@ -321,9 +321,10 @@
       "sv": "På svenska"
     },
     "searchCollections": "We recommend",
-    "searchEvents": "Events",
+    "searchEvents": "Events calendar",
     "searchHobbies": "Hobbies",
-    "titleAriaLabel": "Events in Helsinki frontpage"
+    "titleAriaLabel": "Events in Helsinki frontpage",
+    "linkAbout": "About the service"
   },
   "home": {
     "category": {

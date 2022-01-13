@@ -69,6 +69,10 @@ const Header: React.FC = () => {
       label: t('header.searchCollections'),
       url: `/${locale}${ROUTES.COLLECTIONS}`,
     },
+    {
+      label: t('header.linkAbout'),
+      url: `/${locale}${ROUTES.ABOUT}`,
+    },
   ].filter(skipFalsyType);
 
   return (
@@ -81,6 +85,7 @@ const Header: React.FC = () => {
       className={styles.navigation}
       onTitleClick={goToPage(`/${locale}${ROUTES.HOME}`)}
       logoLanguage={logoLang}
+      title={t('appName')}
       titleAriaLabel={t('header.titleAriaLabel')}
     >
       <Navigation.Row variant="inline">

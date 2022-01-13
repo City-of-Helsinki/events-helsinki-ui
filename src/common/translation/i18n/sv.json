@@ -303,7 +303,7 @@
     "linkFeedback": "Ge respons",
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/sv/stad-och-forvaltning/delta/feedback/",
     "searchCollections": "Vi rekommenderar",
-    "searchEvents": "Evenemang",
+    "searchEvents": "Evenemangskalender",
     "searchHobbies": "Hobbyer",
     "titleEventsCategories": "Populära evenemangskategorier",
     "titleCoursesCategories": "Populära hobbykategorier",
@@ -321,9 +321,10 @@
       "sv": "På svenska"
     },
     "searchCollections": "Vi rekommenderar",
-    "searchEvents": "Evenemang",
+    "searchEvents": "Evenemangskalender",
     "searchHobbies": "Hobbyer",
-    "titleAriaLabel": "Evenemang Helsinki framsida"
+    "titleAriaLabel": "Evenemang Helsinki framsida",
+    "linkAbout": "Om tjänsten"
   },
   "home": {
     "category": {

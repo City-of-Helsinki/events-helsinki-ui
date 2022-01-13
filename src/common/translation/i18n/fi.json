@@ -303,7 +303,7 @@
     "linkFeedback": "Anna palautetta",
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta",
     "searchCollections": "Suosittelemme",
-    "searchEvents": "Tapahtumat",
+    "searchEvents": "Tapahtumakalenteri",
     "searchHobbies": "Harrastukset",
     "titleEventsCategories": "Suositut tapahtumien kategoriat",
     "titleCoursesCategories": "Suositut harrastuskategoriat",
@@ -321,9 +321,10 @@
       "sv": "På svenska"
     },
     "searchCollections": "Suosittelemme",
-    "searchEvents": "Tapahtumat",
+    "searchEvents": "Tapahtumakalenteri",
     "searchHobbies": "Harrastukset",
-    "titleAriaLabel": "Tapahtumat Helsinki etusivu"
+    "titleAriaLabel": "Tapahtumat Helsinki etusivu",
+    "linkAbout": "Tietoa palvelusta"
   },
   "home": {
     "category": {
