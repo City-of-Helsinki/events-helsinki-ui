@@ -2,7 +2,7 @@
 
 exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 feature is off 1`] = `
 <header
-  class="Navigation-module_header__2HNOX Navigation-module_noTitle__3qbce Navigation-module_theme-light__36nmi navigation"
+  class="Navigation-module_header__2HNOX Navigation-module_theme-light__36nmi navigation"
 >
   <a
     class="Navigation-module_skipToContent__2p54x"
@@ -37,6 +37,9 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
               fill="currentColor"
             />
           </svg>
+          <span>
+            Tapahtumat
+          </span>
         </a>
         <div
           class="MenuButton-module_menuButton__3T9k9 languageSelector"
@@ -176,6 +179,9 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
               fill="currentColor"
             />
           </svg>
+          <span>
+            Tapahtumat
+          </span>
         </a>
         <div
           class="Navigation-module_headerContent__3zHbK"
@@ -190,7 +196,7 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
               <span
                 class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
               >
-                Tapahtumat
+                Tapahtumakalenteri
               </span>
             </a>
             <a
@@ -201,6 +207,16 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
                 class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
               >
                 Suosittelemme
+              </span>
+            </a>
+            <a
+              class="NavigationItem-module_rowItem__2QxRz navigationItem"
+              href="/sv/about"
+            >
+              <span
+                class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
+              >
+                Tietoa palvelusta
               </span>
             </a>
           </nav>
@@ -297,7 +313,7 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
 
 exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 feature is on 1`] = `
 <header
-  class="Navigation-module_header__2HNOX Navigation-module_noTitle__3qbce Navigation-module_theme-light__36nmi navigation"
+  class="Navigation-module_header__2HNOX Navigation-module_theme-light__36nmi navigation"
 >
   <a
     class="Navigation-module_skipToContent__2p54x"
@@ -332,6 +348,9 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
               fill="currentColor"
             />
           </svg>
+          <span>
+            Tapahtumat
+          </span>
         </a>
         <div
           class="MenuButton-module_menuButton__3T9k9 languageSelector"
@@ -471,6 +490,9 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
               fill="currentColor"
             />
           </svg>
+          <span>
+            Tapahtumat
+          </span>
         </a>
         <div
           class="Navigation-module_headerContent__3zHbK"
@@ -485,7 +507,7 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
               <span
                 class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
               >
-                Tapahtumat
+                Tapahtumakalenteri
               </span>
             </a>
             <a
@@ -506,6 +528,16 @@ exports[`EVENTS_HELSINKI_2 feature flag matches snapshot when EVENTS_HELSINKI_2 
                 class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
               >
                 Suosittelemme
+              </span>
+            </a>
+            <a
+              class="NavigationItem-module_rowItem__2QxRz navigationItem"
+              href="/sv/about"
+            >
+              <span
+                class="NavigationItem-module_label__1UsXG button_hds-button__label__3r3Mi"
+              >
+                Tietoa palvelusta
               </span>
             </a>
           </nav>
