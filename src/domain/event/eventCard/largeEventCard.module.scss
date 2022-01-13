@@ -115,6 +115,7 @@
       order: 7;
       display: flex;
       flex-wrap: wrap;
+      margin-top: auto;
 
       @include respond_above(sm) {
         justify-content: flex-end;
