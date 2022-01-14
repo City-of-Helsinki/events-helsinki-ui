@@ -13,10 +13,7 @@ import {
   getSearchFilters,
   getSearchQuery,
   getSuitableForFilterValue,
-  MAX_AGE,
-  MIN_AGE,
 } from '../utils';
-import AgeFilter from './AgeFilter';
 import DateFilter from './DateFilter';
 import styles from './filterSummary.module.scss';
 import PlaceFilter from './PlaceFilter';
@@ -49,10 +46,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
     start,
     text,
     suitableFor,
-    hobbyTypes,
   } = getSearchFilters(searchParams);
-
-  const [minAge, maxAge] = suitableFor ?? [];
 
   const dateText =
     start || end
@@ -76,7 +70,6 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
 
     const search = getSearchQuery({
       categories: getFilteredList('category', categories),
-      hobbyTypes: getFilteredList('hobbyType', hobbyTypes),
       dateTypes: getFilteredList('dateType', dateTypes),
       divisions: getFilteredList('division', divisions),
       end: type === 'date' ? null : end,
@@ -97,7 +90,6 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
   const hasFilters =
     !!publisher ||
     !!categories.length ||
-    !!hobbyTypes?.length ||
     !!dateText ||
     !!dateTypes.length ||
     !!divisions.length ||
@@ -106,48 +98,6 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
     !!suitableFor?.length;
 
   if (!hasFilters) return null;
-
-  const getAgeFilters = () => {
-    let ageFilters = [];
-    if (minAge != null && minAge === maxAge) {
-      ageFilters.push(
-        <AgeFilter
-          key="exactAgeFilter"
-          type="exactAge"
-          value={minAge?.toString()}
-          onRemove={handleFilterRemove}
-        />
-      );
-    } else {
-      if (
-        minAge != null &&
-        (minAge !== MIN_AGE || (minAge === MIN_AGE && maxAge === MAX_AGE))
-      ) {
-        ageFilters.push(
-          <AgeFilter
-            key="minAgeFilter"
-            type="minAge"
-            value={minAge?.toString()}
-            onRemove={handleFilterRemove}
-          />
-        );
-      }
-      if (
-        maxAge != null &&
-        (maxAge !== MAX_AGE || (minAge === MIN_AGE && maxAge === MAX_AGE))
-      ) {
-        ageFilters.push(
-          <AgeFilter
-            key="maxAgeFilter"
-            type="maxAge"
-            value={maxAge?.toString()}
-            onRemove={handleFilterRemove}
-          />
-        );
-      }
-    }
-    return ageFilters;
-  };
 
   return (
     <div
@@ -168,15 +118,6 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
           )}
           type="category"
           value={category}
-        />
-      ))}
-      {hobbyTypes?.map((hobbyType) => (
-        <FilterButton
-          key={hobbyType}
-          onRemove={handleFilterRemove}
-          text={translateValue('home.hobby.', hobbyType, t)}
-          type="hobbyType"
-          value={hobbyType}
         />
       ))}
       {publisher && (
@@ -211,7 +152,6 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
           value={dateType}
         />
       ))}
-      {getAgeFilters()}
       <button className={styles.clearButton} onClick={onClear} type="button">
         {t('eventSearch.buttonClearFilters')}
       </button>

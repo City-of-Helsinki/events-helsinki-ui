@@ -156,7 +156,6 @@ const SearchPage: React.FC<{
               <SearchResultsContainer
                 eventsCount={eventsList.meta.count}
                 loading={isLoadingEvents}
-                eventType={eventType}
                 eventList={
                   <EventList
                     cardSize="large"

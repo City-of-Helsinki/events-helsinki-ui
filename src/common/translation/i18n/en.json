@@ -263,40 +263,6 @@
     "textFoundEvents": "{{count}} search results",
     "title": "Event search"
   },
-  "courseSearch": {
-    "title": "Find hobby",
-    "betaButtonArialLabel": "Would you like to give us feedback on the beta version of our ‘Find hobby’ search page?",
-    "betaNotificationText": "Would you like to give us feedback on the beta version of our ‘Find hobby’ search page? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Click here to be directed to the feedback form {{openInNewTab}}\">Click here to be directed to the feedback form.</a>",
-    "betaResultsNotificationText": "The website is under development. At present, there are only hobbies for children and young people.",
-    "buttonLoadMore": "Show more hobbies ({{count}})",
-    "searchNotification": {
-      "noResultsTitle": "Sorry, no search results were found for the search criteria you selected.",
-      "noResultsText": "No search results were found for the search criteria you selected. Try to change search terms or change to event search.",
-      "fewResultsTitle": "Your search terms returned only a few results.",
-      "fewResultsText": "Your search terms returned only a few results. Try to change search terms or change to event search.",
-      "changeLanguageText": "Please change your search terms or display results in Finnish. You could also switch to an Events search.",
-      "buttons": {
-        "labelSearchOtherEventType": "Switch to an Events search",
-        "labelSearchInFinnish": "Display results in Finnish"
-      }
-    },
-    "search": {
-      "placeholder": "Enter a keyword, eg. French or cooking",
-      "labelSearchField": "What are you looking for?",
-      "checkboxAlsoOngoingCourses": "Show also ongoing courses",
-      "checkboxIsFree": "Show only courses that are free",
-      "titleDropdownHobbyType": "Type of activity",
-      "showOnlyAdultCourses": "Show only adult courses",
-      "ageLimitValues": "Age",
-      "ageLimitMin": "From",
-      "ageLimitMax": "To",
-      "ageFilter": {
-        "minAge": "From {{age}} {{yearAbbr}}",
-        "maxAge": "To {{age}} {{yearAbbr}}",
-        "exactAge": "For a {{age}}-year-old"
-      }
-    }
-  },
   "footer": {
     "linkAbout": "About the service",
     "linkAccessibility": "Accessibility Statement",
@@ -369,19 +335,13 @@
       "text": "For some reason we can't find the landing page you are looking for.",
       "title": "Oops, you got hit by a 404!"
     },
-    "search__DEPRECATED": {
+    "search": {
       "buttonSearch": "Search",
       "labelDateRange": "For what period you are looking for?",
       "labelSearchField": "What are you looking for",
       "linkAdvancedSearch": "Advanced search",
       "placeholder": "Enter a keyword, eg rock or yoga",
       "title": "Find something to do"
-    },
-    "search": {
-      "popularCategories": "Popular categories",
-      "placeholder": "Write search word",
-      "showPopularCategories": "Show most popular categories",
-      "hidePopularCategories": "Hide most popular categories"
     },
     "eventSearch": {
       "buttonSearch": "Search",

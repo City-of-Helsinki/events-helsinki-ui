@@ -39,10 +39,7 @@ const EventList: React.FC<Props> = ({
   const { t } = useTranslation();
   const eventsLeft = count - events.length;
   const EventCard = eventCardsMap[cardSize];
-  const loadMoreTextMap: Record<EventType, string> = {
-    event: 'eventSearch.buttonLoadMore',
-    course: 'courseSearch.buttonLoadMore',
-  };
+
   return (
     <div className={classNames(styles.eventListWrapper, styles[cardSize])}>
       <div className={styles.eventsWrapper}>
@@ -58,7 +55,7 @@ const EventList: React.FC<Props> = ({
         <LoadingSpinner hasPadding={!events.length} isLoading={loading}>
           {hasNext && (
             <Button onClick={onLoadMore} variant="success">
-              {t(loadMoreTextMap[eventType], { count: eventsLeft })}
+              {t('eventSearch.buttonLoadMore', { count: eventsLeft })}
             </Button>
           )}
         </LoadingSpinner>

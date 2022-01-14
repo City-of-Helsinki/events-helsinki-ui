@@ -233,9 +233,9 @@
     "errorLoadMode": "Tapahtumien lataaminen epäonnistui",
     "searchNotification": {
       "noResultsTitle": "Valitsemillasi hakuehdoilla ei löytynyt yhtään tapahtumaa",
-      "noResultsText": "Valitsemillasi hakuehdoilla ei löytynyt tapahtumia. Kokeile muuttaa hakuehtoja tai siirry harrastusten hakuun.",
+      "noResultsText": "Valitsemillasi hakuehdoilla ei löytynyt tapahtumia. Kokeile muuttaa hakuehtoja.",
       "fewResultsTitle": "Hakuehdoillasi löytyi vain vähän tapahtumia.",
-      "fewResultsText": "Valitsemillasi hakuehdoilla löytyi vain vähän tapahtumia. Kokeile muuttaa hakuehtoja tai siirry harrastusten hakuun.",
+      "fewResultsText": "Valitsemillasi hakuehdoilla löytyi vain vähän tapahtumia. Kokeile muuttaa hakuehtoja.",
       "changeLanguageText": "Kokeile muuttaa hakuehtoja tai etsi suomen kielellä.",
       "buttons": {
         "labelSearchOtherEventType": "Siirry hakemaan harrastuksia",
@@ -262,40 +262,6 @@
     },
     "textFoundEvents": "{{count}} hakutulosta",
     "title": "Tapahtumahaku"
-  },
-  "courseSearch": {
-    "title": "Löydä harrastus",
-    "betaButtonArialLabel": "Haluatko antaa meille palautetta harrastusten hakusivun kehitysversiosta?",
-    "betaNotificationText": "Haluatko antaa meille palautetta harrastusten hakusivun kehitysversiosta? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Tästä pääset palautelomakkeeseen {{openInNewTab}}\">Tästä pääset palautelomakkeeseen.</a>",
-    "betaResultsNotificationText": "Kehitämme sivustoa. Tällä hetkellä palvelu sisältää vain lapsille ja nuorille suunnattuja harrastuksia.",
-    "buttonLoadMore": "Näytä lisää harrastuksia ({{count}})",
-    "searchNotification": {
-      "noResultsTitle": "Valitsemillasi hakuehdoilla ei löytynyt yhtään harrastusta",
-      "noResultsText": "Valitsemillasi hakuehdoilla ei löytynyt harrastuksia. Kokeile muuttaa hakuehtoja tai siirry tapahtumien hakuun.",
-      "fewResultsTitle": "Valitsemillasi hakuehdoilla löytyi vain vähän hakutuloksia.",
-      "fewResultsText": "Valitsemillasi hakuehdoilla löytyi vain vähän harrastuksia. Kokeile muuttaa hakuehtoja tai siirry tapahtumien hakuun.",
-      "changeLanguageText": "Kokeile muuttaa hakuehtoja tai etsi suomen kielellä.",
-      "buttons": {
-        "labelSearchOtherEventType": "Siirry hakemaan tapahtumia",
-        "labelSearchInFinnish": "Näytä hakutulokset suomeksi"
-      }
-    },
-    "search": {
-      "placeholder": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
-      "labelSearchField": "Mitä etsit?",
-      "checkboxAlsoOngoingCourses": "Näytä myös meneillään olevat",
-      "checkboxIsFree": "Näytä vain maksuttomat",
-      "titleDropdownHobbyType": "Harrastusmuoto",
-      "showOnlyAdultCourses": "Näytä vain aikuisten harrastukset",
-      "ageLimitValues": "Ikä",
-      "ageLimitMin": "Alkaen",
-      "ageLimitMax": "Päättyen",
-      "ageFilter": {
-        "minAge": "Alkaen {{age}} {{yearAbbr}}",
-        "maxAge": "Päättyen {{age}} {{yearAbbr}}",
-        "exactAge": "{{age}}-vuotiaalle"
-      }
-    }
   },
   "footer": {
     "linkAbout": "Tietoa palvelusta",
@@ -369,19 +335,13 @@
       "text": "Syystä tai toisesta hakemaasi kotisivua ei löydy.",
       "title": "Oho, nyt iski 404!"
     },
-    "search__DEPRECATED": {
+    "search": {
       "buttonSearch": "Hae",
       "labelDateRange": "Mille ajankohdalle etsit?",
       "labelSearchField": "Mitä etsit?",
       "linkAdvancedSearch": "Tarkennettu haku",
       "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
       "title": "Löydä tapahtumia"
-    },
-    "search": {
-      "popularCategories": "Suosituimmat kategoriat",
-      "placeholder": "Kirjoita hakusana",
-      "showPopularCategories": "Näytä suosituimmat kategoriat",
-      "hidePopularCategories": "Piilota suosituimmat kategoriat"
     },
     "eventSearch": {
       "buttonSearch": "Hae",

@@ -35,24 +35,8 @@ exports[`events with 0 results matches snapshot for no results 1`] = `
       Valitsemillasi hakuehdoilla ei löytynyt yhtään tapahtumaa
     </div>
     <div
-      class="smallText"
-    >
-      Valitsemillasi hakuehdoilla ei löytynyt tapahtumia. Kokeile muuttaa hakuehtoja tai siirry harrastusten hakuun.
-    </div>
-    <div
       class="actions"
-    >
-      <button
-        class="Button-module_button__1msFE button_hds-button__2A0je Button-module_success__CU9nK button_hds-button--success__9hpuD"
-        type="button"
-      >
-        <span
-          class="Button-module_label__a4np1 button_hds-button__label__2EQa-"
-        >
-          Siirry hakemaan harrastuksia
-        </span>
-      </button>
-    </div>
+    />
   </div>
 </div>
 `;

@@ -13,21 +13,18 @@ export type SuperEventResponse = {
   status: 'pending' | 'resolved';
 };
 
-export type EventType = 'event' | 'course';
+export type EventType = 'event';
 
-export type EventRouteProp = typeof ROUTES.EVENTS | typeof ROUTES.COURSES;
+export type EventRouteProp = typeof ROUTES.EVENTS;
 
 export const EVENT_TYPE_TO_ID: Record<EventType, EventTypeId> = {
   event: EventTypeId.General,
-  course: EventTypeId.Course,
 };
 
 export const EVENT_ROUTE_MAPPER: Record<EventType, string> = {
   event: ROUTES.EVENT,
-  course: ROUTES.COURSE,
 };
 
 export const EVENTS_ROUTE_MAPPER = {
   event: ROUTES.EVENTS,
-  course: ROUTES.COURSES,
 };

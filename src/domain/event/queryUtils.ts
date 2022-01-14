@@ -128,7 +128,11 @@ export const useSubEvents = (
 ): { subEvents: EventFields[]; isFetchingMore: boolean; loading: boolean } => {
   const { t } = useTranslation();
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
-  const { data: subEventsData, fetchMore, loading } = useEventListQuery({
+  const {
+    data: subEventsData,
+    fetchMore,
+    loading,
+  } = useEventListQuery({
     skip: !superEventId,
     ssr: false,
     variables,

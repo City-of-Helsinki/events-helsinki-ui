@@ -4,56 +4,26 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 
 import useLocale from '../../../hooks/useLocale';
-import { isFeatureEnabled } from '../../../util/featureFlags';
 import { ROUTES } from '../../app/routes/constants';
-import { EVENTS_ROUTE_MAPPER, EventType } from '../../event/types';
 import styles from './resultsInfo.module.scss';
-
-const translationKeys: Record<EventType, string> = {
-  event: 'eventSearch',
-  course: 'courseSearch',
-};
 
 const ResultsInfoContainer: React.FC<{
   resultsCount: number;
-  eventType: EventType;
-}> = ({ resultsCount, eventType }) => {
+}> = ({ resultsCount }) => {
   const { t } = useTranslation();
   const history = useHistory();
   const locale = useLocale();
   const isFinnish = locale === 'fi';
-  const translationKey = translationKeys[eventType];
 
   const goToFinnishSearch = () => {
-    history.push(`/fi${EVENTS_ROUTE_MAPPER[eventType]}`);
-  };
-
-  const goToOtherEventTypeSearch = () => {
-    if (eventType === 'event') {
-      history.push(`/${locale}${ROUTES.COURSES}`);
-    } else if (eventType === 'course') {
-      history.push(`/${locale}${ROUTES.EVENTS}`);
-    }
+    history.push(`/fi${ROUTES.EVENTS}`);
   };
 
   const ActionButtons = () => (
     <>
       {!isFinnish && (
         <Button variant="success" onClick={goToFinnishSearch}>
-          {t(
-            `${translationKey}.searchNotification.buttons.labelSearchInFinnish`
-          )}
-        </Button>
-      )}
-      {isFeatureEnabled('EVENTS_HELSINKI_2') && (
-        <Button
-          className={isFinnish ? undefined : styles.secondaryButton}
-          variant={isFinnish ? 'success' : 'secondary'}
-          onClick={goToOtherEventTypeSearch}
-        >
-          {t(
-            `${translationKey}.searchNotification.buttons.labelSearchOtherEventType`
-          )}
+          {t('eventSearch.searchNotification.buttons.labelSearchInFinnish')}
         </Button>
       )}
     </>
@@ -62,15 +32,7 @@ const ResultsInfoContainer: React.FC<{
   if (resultsCount === 0) {
     return (
       <ResultsInfo
-        bigText={t(`${translationKey}.searchNotification.noResultsTitle`)}
-        smallText={
-          // Hide small text if event helsinki v1
-          isFeatureEnabled('EVENTS_HELSINKI_2')
-            ? isFinnish
-              ? t(`${translationKey}.searchNotification.noResultsText`)
-              : t(`${translationKey}.searchNotification.changeLanguageText`)
-            : undefined
-        }
+        bigText={t(`eventSearch.searchNotification.noResultsTitle`)}
         actionsSection={<ActionButtons />}
       />
     );
@@ -79,15 +41,7 @@ const ResultsInfoContainer: React.FC<{
   if (resultsCount < 5) {
     return (
       <ResultsInfo
-        bigText={t(`${translationKey}.searchNotification.fewResultsTitle`)}
-        smallText={
-          // Hide small text if event helsinki v1
-          isFeatureEnabled('EVENTS_HELSINKI_2')
-            ? isFinnish
-              ? t(`${translationKey}.searchNotification.fewResultsText`)
-              : t(`${translationKey}.searchNotification.changeLanguageText`)
-            : undefined
-        }
+        bigText={t(`eventSearch.searchNotification.fewResultsTitle`)}
         actionsSection={<ActionButtons />}
       />
     );

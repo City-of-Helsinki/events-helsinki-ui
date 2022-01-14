@@ -22,7 +22,6 @@ import {
 import { fakeEvent, fakeEvents } from '../../../../test/mockDataUtils';
 import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
-import { EventType } from '../../types';
 import OtherEventTimes from '../OtherEventTimes';
 
 const startTime = '2020-10-01T16:00:00Z';
@@ -34,10 +33,6 @@ const superEventInternalId = `https://api.hel.fi/linkedevents/v1/event/${superEv
 const generalEvent = fakeEvent({
   superEvent: { internalId: superEventInternalId },
   typeId: EventTypeId.General,
-}) as EventFieldsFragment;
-
-const courseEvent = Object.assign({}, generalEvent, {
-  typeId: EventTypeId.Course,
 }) as EventFieldsFragment;
 
 const meta: Meta = {
@@ -55,7 +50,7 @@ const otherEventsResponse = {
     range(1, 11).map((i) => ({
       endTime: addDays(new Date(endTime), i).toISOString(),
       startTime: addDays(new Date(startTime), i).toISOString(),
-      typeId: i % 2 === 0 ? EventTypeId.Course : EventTypeId.General,
+      typeId: EventTypeId.General,
     }))
   ),
   meta,
@@ -73,11 +68,9 @@ const otherEventsLoadMoreResponse = {
 };
 
 const getEventTimesMocks = ({
-  eventType = 'event',
   response,
   variables,
 }: {
-  eventType: EventType;
   response: EventListResponse;
   variables?: EventListQueryVariables;
 }) =>
@@ -85,51 +78,24 @@ const getEventTimesMocks = ({
     superEventId,
     response,
     variables,
-    type: eventType,
   });
 
 const firstLoadMock = getEventTimesMocks({
-  eventType: 'event',
   response: otherEventsResponse,
 });
 
 const secondLoadMock = getEventTimesMocks({
   variables: { page: 2 },
   response: otherEventsLoadMoreResponse,
-  eventType: 'event',
 });
 
 const secondPageLoadThrowsErrorMock =
   createOtherEventTimesRequestThrowsErrorMocks({
     superEventId,
     variables: { page: 2 },
-    type: 'event',
   });
 
-const firstCourseLoadMock = getEventTimesMocks({
-  response: otherEventsResponse,
-  eventType: 'course',
-});
-
-const secondCourseLoadMock = getEventTimesMocks({
-  variables: { page: 2 },
-  response: otherEventsLoadMoreResponse,
-  eventType: 'course',
-});
-
-const secondCoursePageLoadThrowsErrorMock =
-  createOtherEventTimesRequestThrowsErrorMocks({
-    superEventId,
-    variables: { page: 2 },
-    type: 'course',
-  });
-
-const defaultMocks = [
-  firstLoadMock,
-  secondLoadMock,
-  firstCourseLoadMock,
-  secondCourseLoadMock,
-];
+const defaultMocks = [firstLoadMock, secondLoadMock];
 
 afterAll(() => {
   clear();
@@ -170,28 +136,6 @@ describe('events', () => {
     advanceTo(new Date('2020-08-11'));
     const { history } = renderComponent();
     await testNavigation(history, '/fi/events/', generalEvent.typeId);
-  });
-});
-
-describe('courses', () => {
-  test('should render other course times', async () => {
-    advanceTo(new Date('2020-08-11'));
-    renderComponent({ event: courseEvent });
-    await testOtherEventTimes();
-  });
-
-  test('should show toastr when loading next course page fails', async () => {
-    toast.error = jest.fn();
-    advanceTo(new Date('2020-08-11'));
-    const mocks = [firstCourseLoadMock, secondCoursePageLoadThrowsErrorMock];
-    renderComponent({ event: courseEvent, mocks });
-    await testToaster();
-  });
-
-  test('should go to course page of other course time', async () => {
-    advanceTo(new Date('2020-08-11'));
-    const { history } = renderComponent({ event: courseEvent });
-    await testNavigation(history, '/fi/courses/', courseEvent.typeId);
   });
 });
 

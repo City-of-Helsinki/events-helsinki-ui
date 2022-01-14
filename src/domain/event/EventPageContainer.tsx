@@ -99,16 +99,8 @@ const EventPageContainer: React.FC<EventPageContainerProps> = ({
                 <EventClosedHero />
               ) : (
                 <>
-                  <EventHero
-                    event={event}
-                    eventType={eventType}
-                    superEvent={superEvent}
-                  />
-                  <EventContent
-                    event={event}
-                    eventType={eventType}
-                    superEvent={superEvent}
-                  />
+                  <EventHero event={event} superEvent={superEvent} />
+                  <EventContent event={event} superEvent={superEvent} />
                 </>
               )}
               {/* Hide similar event on SSR to make initial load faster */}

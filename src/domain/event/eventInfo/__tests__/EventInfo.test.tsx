@@ -132,7 +132,6 @@ it('should hide other info section', () => {
   });
 
   // Event info fields
-
   expect(
     screen.queryByRole('heading', {
       name: translations.event.info.labelOtherInfo,
@@ -246,58 +245,6 @@ it('should create ics file succesfully when end time is not defined', async () =
   });
 });
 
-it('should show audience age info on signle course page', async () => {
-  render(<EventInfo event={event} eventType="course" />, {
-    routes: [`/fi/courses`],
-  });
-
-  await waitFor(() => {
-    expect(screen.queryByText(/5-15 -vuotiaat/i)).toBeInTheDocument();
-  });
-});
-
-it('should show formatted audience age info on signle course page if min age is not specified', async () => {
-  render(
-    <EventInfo event={{ ...event, audienceMinAge: null }} eventType="course" />,
-    {
-      routes: [`/fi/courses`],
-    }
-  );
-
-  await waitFor(() => {
-    expect(screen.queryByText(/0-15 -vuotiaat/i)).toBeInTheDocument();
-  });
-});
-
-it('should show formatted audience age info on signle course page if max age is not specified', async () => {
-  render(
-    <EventInfo event={{ ...event, audienceMaxAge: null }} eventType="course" />,
-    {
-      routes: [`/fi/courses`],
-    }
-  );
-
-  await waitFor(() => {
-    expect(screen.queryByText(/5\+ -vuotiaat/i)).toBeInTheDocument();
-  });
-});
-
-it('should hide audience age info on single course page if min and max ages are not specified', async () => {
-  render(
-    <EventInfo
-      event={{ ...event, audienceMinAge: null, audienceMaxAge: null }}
-      eventType="course"
-    />,
-    {
-      routes: [`/fi/courses`],
-    }
-  );
-
-  await waitFor(() => {
-    expect(screen.queryByText(/Ikäryhmä/i)).not.toBeInTheDocument();
-  });
-});
-
 it('should hide audience age info on single event page', async () => {
   render(<EventInfo event={event} eventType="event" />, {
     routes: [`/fi/events`],
@@ -311,7 +258,6 @@ it('should hide audience age info on single event page', async () => {
 describe('OrganizationInfo', () => {
   it.each<[EventType, string]>([
     ['event', 'Katso julkaisijan muut tapahtumat'],
-    ['course', 'Katso julkaisijan muut harrastukset'],
   ])(
     'should show event type related providers link text in events info',
     async (eventType, linkText) => {
@@ -382,10 +328,7 @@ describe('subEvents', () => {
     await testSubEvents();
   });
 
-  it.each([
-    [EventTypeId.General, '/fi/events/'],
-    [EventTypeId.Course, '/fi/courses/'],
-  ])(
+  it.each([[EventTypeId.General, '/fi/events/']])(
     'should navigate to sub events page when it is clicked',
     async (eventTypeId: EventTypeId, url: string) => {
       const { history } = render(

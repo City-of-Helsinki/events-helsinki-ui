@@ -71,15 +71,10 @@ export const getEventIdFromUrl = (
   return url.match(new RegExp(`/(?:${type}s?)/([^/?]*)`, 'i'))?.[1];
 };
 
-export const getEventIdsFromUrls = (
-  urls: string[]
-): { eventIds: string[]; courseIds: string[] } => {
+export const getEventIdsFromUrls = (urls: string[]): { eventIds: string[] } => {
   return {
     eventIds: urls
       .map((url) => getEventIdFromUrl(url, 'event') as string)
-      .filter(Boolean),
-    courseIds: urls
-      .map((url) => getEventIdFromUrl(url, 'course') as string)
       .filter(Boolean),
   };
 };
@@ -277,12 +272,8 @@ export const getGoogleDirectionsLink = (
   event: EventFieldsFragment,
   locale: Language
 ): string => {
-  const {
-    addressLocality,
-    coordinates,
-    postalCode,
-    streetAddress,
-  } = getEventLocationFields(event, locale);
+  const { addressLocality, coordinates, postalCode, streetAddress } =
+    getEventLocationFields(event, locale);
 
   return `https://www.google.com/maps/dir//${streetAddress},+${postalCode}+${addressLocality}/@${coordinates.join(
     ','
@@ -299,11 +290,8 @@ export const getHslDirectionsLink = (
   event: EventFieldsFragment,
   locale: Language
 ): string => {
-  const {
-    addressLocality,
-    coordinates,
-    streetAddress,
-  } = getEventLocationFields(event, locale);
+  const { addressLocality, coordinates, streetAddress } =
+    getEventLocationFields(event, locale);
 
   return `https://reittiopas.hsl.fi/%20/${encodeURIComponent(
     streetAddress

@@ -28,27 +28,20 @@ import {
   ReturnParams,
 } from '../eventQueryString.util';
 import { getEventFields, getEventPrice } from '../EventUtils';
-import {
-  EventFields,
-  EVENTS_ROUTE_MAPPER,
-  EventType,
-  SuperEventResponse,
-} from '../types';
+import { EventFields, SuperEventResponse } from '../types';
 import styles from './eventHero.module.scss';
 
 export interface Props {
   event: EventFields;
-  eventType: EventType;
   superEvent?: SuperEventResponse;
 }
 
-const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
+const EventHero: React.FC<Props> = ({ event, superEvent }) => {
   const { t } = useTranslation();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const locale = useLocale();
   const history = useHistory();
   const { search } = useLocation();
-  const eventsRoute = EVENTS_ROUTE_MAPPER[eventType];
 
   const {
     endTime: eventEndTime,
@@ -69,7 +62,6 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
     t('event.hero.offers.isFree')
   );
   const showKeywords = Boolean(today || thisWeek || keywords.length);
-
   const returnParam = extractLatestReturnPath(search);
 
   const goBack = ({ returnPath, remainingQueryString }: ReturnParams) => {
@@ -106,7 +98,7 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
     superEvent?.status === 'pending'
       ? ''
       : superEvent?.data?.endTime || eventEndTime;
-  const isCoursePage = eventType === 'course';
+
   return (
     <div className={classNames(styles.heroWrapper)}>
       <Container>
@@ -138,20 +130,6 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
               </h1>
               {shortDescription && (
                 <div className={styles.description}>{shortDescription}</div>
-              )}
-              {/* Only course page should use super event date info */}
-              {isCoursePage && (
-                <Visible above="sm" className={styles.date} aria-hidden={true}>
-                  {superEvent?.status === 'pending' && <SkeletonLoader />}
-                  {!!startTime &&
-                    getDateRangeStr({
-                      start: startTime,
-                      end: endTime,
-                      locale,
-                      includeTime: true,
-                      timeAbbreviation: t('commons.timeAbbreviation'),
-                    })}
-                </Visible>
               )}
               <div className={styles.additionalInfo}>
                 <Visible above="sm" className={styles.location}>
@@ -218,7 +196,6 @@ const EventHero: React.FC<Props> = ({ event, eventType, superEvent }) => {
               {showKeywords && (
                 <div className={styles.categoryWrapper}>
                   <EventKeywords
-                    eventsRoute={eventsRoute}
                     blackOnMobile={true}
                     event={event}
                     showIsFree={true}

@@ -10,6 +10,7 @@ import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import { addParamsToQueryString } from '../../../util/queryString';
 import testImage from '../../../util/testImage';
+import { ROUTES } from '../../app/routes/constants';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
 import EventName from '../eventName/EventName';
@@ -19,12 +20,7 @@ import {
   getEventPrice,
   isEventClosed,
 } from '../EventUtils';
-import {
-  EVENT_ROUTE_MAPPER,
-  EventFields,
-  EVENTS_ROUTE_MAPPER,
-  EventType,
-} from '../types';
+import { EventFields, EventType } from '../types';
 import styles from './eventCard.module.scss';
 
 interface Props {
@@ -39,20 +35,12 @@ const EventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const locale = useLocale();
   const button = React.useRef<HTMLDivElement>(null);
-  const eventRoute = EVENT_ROUTE_MAPPER[eventType];
-  const eventsRoute = EVENTS_ROUTE_MAPPER[eventType];
 
-  const {
-    endTime,
-    id,
-    imageUrl,
-    name,
-    placeholderImage,
-    startTime,
-  } = getEventFields(event, locale);
+  const { endTime, id, imageUrl, name, placeholderImage, startTime } =
+    getEventFields(event, locale);
 
   const queryString = addParamsToQueryString(search, { returnPath: pathname });
-  const eventUrl = `/${locale}${eventRoute.replace(':id', id)}${queryString}`;
+  const eventUrl = `/${locale}${ROUTES.EVENT.replace(':id', id)}${queryString}`;
   const eventClosed = isEventClosed(event);
   const eventPriceText = getEventPrice(
     event,
@@ -130,7 +118,6 @@ const EventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
               event={event}
               showIsFree={true}
               showKeywords={false}
-              eventsRoute={eventsRoute}
             />
           </div>
         </div>
@@ -158,12 +145,7 @@ const EventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
         }}
       >
         <div className={styles.keywordWrapperDesktop}>
-          <EventKeywords
-            event={event}
-            showIsFree={true}
-            showKeywords={false}
-            eventsRoute={eventsRoute}
-          />
+          <EventKeywords event={event} showIsFree={true} showKeywords={false} />
         </div>
       </div>
     </Link>

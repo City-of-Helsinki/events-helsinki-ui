@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import { CollectionFieldsFragment } from '../../../generated/graphql';
-import { isFeatureEnabled } from '../../../util/featureFlags';
 import Container from '../../app/layout/Container';
 import { getEventIdsFromUrls } from '../../event/EventUtils';
 import { EventType } from '../../event/types';
@@ -24,7 +23,7 @@ interface Props {
 
 const CuratedEvents: React.FC<Props> = ({ collection }) => {
   const { t } = useTranslation();
-  const { eventIds, courseIds } = React.useMemo(
+  const { eventIds } = React.useMemo(
     () => getEventIdsFromUrls(collection.curatedEvents),
     [collection.curatedEvents]
   );
@@ -37,14 +36,6 @@ const CuratedEvents: React.FC<Props> = ({ collection }) => {
           eventIds={eventIds}
           eventType="event"
           title={t('collection.curatedEvents.eventsTitle')}
-        />
-      )}
-      {isFeatureEnabled('EVENTS_HELSINKI_2') && !!courseIds.length && (
-        <CollectionEventsList
-          testId={coursesListTestId}
-          eventIds={courseIds}
-          eventType="course"
-          title={t('collection.curatedEvents.coursesTitle')}
         />
       )}
     </Container>

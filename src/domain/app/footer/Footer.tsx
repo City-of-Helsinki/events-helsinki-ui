@@ -1,11 +1,10 @@
 import { Footer } from 'hds-react';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import useLocale from '../../../hooks/useLocale';
-import { isFeatureEnabled } from '../../../util/featureFlags';
 import { resetFocusId } from '../resetFocus/ResetFocus';
 import { ROUTES } from '../routes/constants';
 import styles from './footer.module.scss';
@@ -22,13 +21,7 @@ const FooterSection: FunctionComponent = () => {
     document.querySelector<HTMLDivElement>(`#${resetFocusId}`)?.focus();
   };
 
-  const getCategoriesRoute = () => {
-    return [ROUTES.COURSES, ROUTES.EVENTS].find((route) =>
-      pathname.startsWith(`/${locale}${route}`)
-    );
-  };
-
-  const categoriesRoute = getCategoriesRoute();
+  const categoriesRoute = pathname.startsWith(`/${locale}${ROUTES.EVENTS}`);
 
   return (
     <Footer title={t('appName')} className={styles.footer}>
@@ -38,20 +31,13 @@ const FooterSection: FunctionComponent = () => {
           label={t('footer.searchEvents')}
           to={`/${locale}${ROUTES.EVENTS}`}
         />
-        {isFeatureEnabled('EVENTS_HELSINKI_2') && (
-          <Footer.Item
-            as={Link}
-            label={t('footer.searchHobbies')}
-            to={`/${locale}${ROUTES.COURSES}`}
-          />
-        )}
         <Footer.Item
           as={Link}
           label={t('footer.searchCollections')}
           to={`/${locale}${ROUTES.COLLECTIONS}`}
         />
       </Footer.Navigation>
-      {categoriesRoute && <FooterCategories route={categoriesRoute} />}
+      {categoriesRoute && <FooterCategories route={ROUTES.EVENTS} />}
       <Footer.Utilities
         backToTopLabel={t('footer.backToTop')}
         onBackToTopClick={handleBackToTop}

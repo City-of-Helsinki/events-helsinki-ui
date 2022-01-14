@@ -92,14 +92,11 @@ it('renders different placeholder for inputs in mobile', async () => {
   jest.spyOn(useMobile, 'useMobile').mockReturnValue(true);
 
   render(<LandingPage />, {
-    mocks: landingPagesQueryMocks,
+    mocks: [...landingPagesQueryMocks, ...collectionListQueryMock],
   });
 
   await screen.findByRole('heading', { name: topBannerTitle });
-
-  expect(
-    screen.getAllByPlaceholderText(translations.home.search.placeholder)
-  ).toHaveLength(2);
+  screen.getByPlaceholderText(translations.home.search.placeholder);
 });
 
 describe('collection list filters', () => {

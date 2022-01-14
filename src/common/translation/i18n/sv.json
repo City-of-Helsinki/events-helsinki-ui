@@ -263,40 +263,6 @@
     "textFoundEvents": "{{count}} sökresultat",
     "title": "Evenemang sök"
   },
-  "courseSearch": {
-    "title": "Hitta hobby",
-    "betaButtonArialLabel": "Vill du ge oss respons på utvecklingsversionen av hobbysöksidan?",
-    "betaNotificationText": "Vill du ge oss respons på utvecklingsversionen av hobbysöksidan? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Gå till responsformuläret {{openInNewTab}}\">Gå till responsformuläret.</a>",
-    "betaResultsNotificationText": "Vi arbetar med att vidareutveckla webbsidan. För tillfället innehåller tjänsten enbart hobbyer för barn och unga.",
-    "buttonLoadMore": "Visa fler hobbyew ({{count}})",
-    "searchNotification": {
-      "noResultsTitle": "Tyvärr hittades inga resultat för de sökkriterier du valt.",
-      "noResultsText": "Tyvärr hittades inga resultat för de sökkriterier du valt. Kokeile muuttaa hakuehtoja tai siirry tapahtumien hakuun.",
-      "fewResultsTitle": "Med de sökvillkor du valde hittades bara några få resultat.",
-      "fewResultsText": "Med de sökvillkor du valde hittades bara några få resultat. Kokeile muuttaa hakuehtoja tai siirry tapahtumien hakuun.",
-      "changeLanguageText": "Ändra sökvillkoren eller visa resultaten på finska. Du kan också välja att söka bland evenemang. Tillsvidare finns alla svenska hobbyer inte ännu på hemsidan.",
-      "buttons": {
-        "labelSearchOtherEventType": "Sök evenemang",
-        "labelSearchInFinnish": "Visa sökresultaten på finska "
-      }
-    },
-    "search": {
-      "checkboxIsFree": "Visa endast avgiftsfria",
-      "placeholder": "Ange ett sökord, t. ex. Franska eller matlagning",
-      "labelSearchField": "Vad letar du efter?",
-      "checkboxAlsoOngoingCourses": "Visa även pågående kurser",
-      "titleDropdownHobbyType": "Aktivitetsform",
-      "showOnlyAdultCourses": "Visa endast vuxenkurser",
-      "ageLimitValues": "Ålder",
-      "ageLimitMin": "Från",
-      "ageLimitMax": "Till",
-      "ageFilter": {
-        "minAge": "Från {{age}} {{yearAbbr}}",
-        "maxAge": "Till {{age}} {{yearAbbr}}",
-        "exactAge": "För en {{age}}-åring"
-      }
-    }
-  },
   "footer": {
     "linkAbout": "Om tjänsten",
     "linkAccessibility": "Tillgänglighets­utlåtande",
@@ -369,19 +335,13 @@
       "text": "Av en eller annan orsak så hittas inte sidan du letade efter.",
       "title": "Oj nej, nu blev det 404!"
     },
-    "search__DEPRECATED": {
+    "search": {
       "buttonSearch": "Sök",
       "labelDateRange": "För vilken period du letar efter?",
       "labelSearchField": "Vad letar du efter?",
       "linkAdvancedSearch": "Avancerad sökning",
       "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
       "title": "Sök saker att göra"
-    },
-    "search": {
-      "popularCategories": "Populära kategorier",
-      "placeholder": "Skriv sökord",
-      "showPopularCategories": "Visa de mest populära kategorierna",
-      "hidePopularCategories": "Dölj de mest populära kategorierna"
     },
     "eventSearch": {
       "buttonSearch": "Sök",
