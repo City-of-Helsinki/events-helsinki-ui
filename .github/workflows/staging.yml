@@ -54,7 +54,6 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_GTM_PREVIEW: ${{ secrets.GH_QA_GTM_PREVIEW }}
           # Feature flags
           DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_EVENTS: 'false'
-          DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_COURSES: 'false'
   staging:
     strategy:
       fail-fast: false

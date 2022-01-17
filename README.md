@@ -62,12 +62,6 @@ Features enabled:
 
 - Similar Events component will be shown in the bottom of Event page.
 
-`REACT_APP_SHOW_SIMILAR_COURSES`:
-
-Features enabled:
-
-- Similar Events component will be shown in the bottom of Course page.
-
 ## Available Scripts
 
 In the project directory, you can run:
