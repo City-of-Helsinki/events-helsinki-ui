@@ -68,16 +68,6 @@ Features enabled:
 
 - Similar Events component will be shown in the bottom of Course page.
 
-`REACT_APP_EVENTS_HELSINKI_2`:
-
-Features enabled:
-
-- Link to the courses search in the header.
-- Link to the courses search in the footer.
-- Courses search, preview and course pages routes.
-- Updated Banner Hero styles.
-- Curated events component for courses.
-
 ## Available Scripts
 
 In the project directory, you can run:

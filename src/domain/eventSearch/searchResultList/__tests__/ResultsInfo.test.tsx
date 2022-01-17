@@ -1,16 +1,11 @@
 import * as React from 'react';
 
 import * as useLocale from '../../../../hooks/useLocale';
-import { setFeatureFlags } from '../../../../test/feature-flags/featureFlags.test.utils';
 import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import { Language } from '../../../../types';
 import { ROUTES } from '../../../app/routes/constants';
 import { EventType } from '../../../event/types';
 import ResultsInfo from '../ResultsInfo';
-
-beforeEach(() => {
-  setFeatureFlags({ EVENTS_HELSINKI_2: true });
-});
 
 test('events with 0 results matches snapshot for no results', () => {
   const { container } = render(<ResultsInfo resultsCount={0} />);

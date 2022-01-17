@@ -14,7 +14,6 @@ import {
   EventsByIdsDocument,
   EventTypeId,
 } from '../../../../generated/graphql';
-import { setFeatureFlags } from '../../../../test/feature-flags/featureFlags.test.utils';
 import { fakeCollection, fakeEvents } from '../../../../test/mockDataUtils';
 import {
   render,
@@ -44,35 +43,30 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
-[true, false].forEach((EVENTS_HELSINKI_2) => {
-  test(`should show all events (EVENT_HELSINKI_2 feature is ${
-    EVENTS_HELSINKI_2 ? 'on' : 'off'
-  })`, async () => {
-    setFeatureFlags({ EVENTS_HELSINKI_2 });
-    const events = fakeEvents(
-      eventNames.length,
-      eventNames.map((event, index) => ({
-        id: eventIds[index],
-        name: { fi: event },
-      }))
-    );
-    const eventsData = events.data as EventFieldsFragment[];
-    const eventMocks = getMocks(eventsData, eventIds);
+test('should show all events', async () => {
+  const events = fakeEvents(
+    eventNames.length,
+    eventNames.map((event, index) => ({
+      id: eventIds[index],
+      name: { fi: event },
+    }))
+  );
+  const eventsData = events.data as EventFieldsFragment[];
+  const eventMocks = getMocks(eventsData, eventIds);
 
-    render(<CuratedEvents collection={collection} />, {
-      mocks: eventMocks,
-    });
+  render(<CuratedEvents collection={collection} />, {
+    mocks: eventMocks,
+  });
 
-    await waitFor(() => {
-      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
-    });
+  await waitFor(() => {
+    expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
 
-    // Test that both lists are
+  // Test that both lists are
 
-    const eventsList = within(screen.getByTestId(eventsListTestId));
-    eventNames.forEach((eventName) => {
-      expect(eventsList.getByText(eventName)).toBeInTheDocument();
-    });
+  const eventsList = within(screen.getByTestId(eventsListTestId));
+  eventNames.forEach((eventName) => {
+    expect(eventsList.getByText(eventName)).toBeInTheDocument();
   });
 });
 
@@ -130,25 +124,6 @@ test.skip('should show expired events', async () => {
 });
 
 test('event list pagination works', async () => {
-  await paginationTest({ eventType: 'event' });
-});
-
-describe('EVENTS_HELSINKI_2 Feature flag', () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
-  test('course list pagination works', async () => {
-    setFeatureFlags({ EVENTS_HELSINKI_2: true });
-    await paginationTest({ eventType: 'course' });
-  });
-});
-
-const paginationTest = async ({
-  eventType,
-}: {
-  eventType: 'event' | 'course';
-}) => {
   advanceTo('2020-10-05');
   const eventsCount = 35;
   const { collection, mocks, eventNames } = getMocksForPagination(eventsCount);
@@ -195,7 +170,7 @@ const paginationTest = async ({
   for (const eventName of eventNames) {
     expect(screen.queryByText(eventName)).toBeInTheDocument();
   }
-};
+});
 
 const getMocks = (
   events: EventFieldsFragment[],

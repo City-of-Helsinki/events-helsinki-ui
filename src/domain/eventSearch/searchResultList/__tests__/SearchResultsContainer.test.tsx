@@ -1,13 +1,8 @@
 /* eslint-disable jest/no-conditional-expect */
 import React from 'react';
 
-import { setFeatureFlags } from '../../../../test/feature-flags/featureFlags.test.utils';
 import { render, screen } from '../../../../test/testUtils';
 import SearchResultsContainer from '../SearchResultsContainer';
-
-beforeEach(() => {
-  setFeatureFlags({ EVENTS_HELSINKI_2: true });
-});
 
 it.each<[number, string]>([
   [0, 'Valitsemillasi hakuehdoilla ei löytynyt yhtään tapahtumaa'],
