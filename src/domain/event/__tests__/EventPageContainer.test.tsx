@@ -75,7 +75,7 @@ const eventRequest = {
 const otherEventsRequest = {
   query: EventListDocument,
   variables: {
-    include: ['keywords', 'location'],
+    include: ['in_language', 'keywords', 'location', 'audience'],
     sort: 'start_time',
     start: 'now',
     superEvent: superEventId,

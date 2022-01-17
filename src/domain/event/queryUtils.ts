@@ -75,7 +75,7 @@ const useOtherEventTimesVariables = (event: EventFields) => {
 
   const variables = React.useMemo(
     (): EventListQueryVariables => ({
-      // include: ['keywords', 'location'],
+      include: ['in_language', 'keywords', 'location', 'audience'],
       sort: EVENT_SORT_OPTIONS.START_TIME,
       start: 'now',
       superEvent: superEventId,
@@ -96,6 +96,7 @@ export const useSubEventsQueryVariables = (
       start: 'now',
       superEvent: event.id,
       eventType: [EventTypeId.General],
+      include: ['in_language', 'keywords', 'location', 'audience'],
     }),
     [event.id]
   );
@@ -119,6 +120,7 @@ export const useSubEvents = (
     ssr: false,
     variables,
   });
+
   const handleLoadMore = React.useCallback(
     async (page: number) => {
       setIsFetchingMore(true);

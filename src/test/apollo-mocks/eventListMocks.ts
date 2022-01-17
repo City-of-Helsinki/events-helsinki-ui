@@ -34,6 +34,7 @@ export const eventListBaseVariables: QueryEventListArgs = {
 export const getOtherEventsVariables = (
   superEvent: EventListQueryVariables['superEvent']
 ): EventListQueryVariables => ({
+  include: ['in_language', 'keywords', 'location', 'audience'],
   sort: 'start_time',
   start: 'now',
   superEvent,
