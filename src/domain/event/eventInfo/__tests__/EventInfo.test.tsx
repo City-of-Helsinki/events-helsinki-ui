@@ -2,7 +2,7 @@ import FileSaver from 'file-saver';
 import React from 'react';
 
 import translations from '../../../../common/translation/i18n/fi.json';
-import { EventDetails, EventTypeId } from '../../../../generated/graphql';
+import { EventDetails } from '../../../../generated/graphql';
 import { fakeEvent } from '../../../../test/mockDataUtils';
 import {
   actWait,
@@ -250,14 +250,13 @@ it('should hide audience age info on single event page', async () => {
 });
 
 describe('OrganizationInfo', () => {
-  it.each<[string]>([['Katso julkaisijan muut tapahtumat']])(
-    'should show event type related providers link text in events info',
-    async (linkText) => {
-      render(<EventInfo event={event} />, { mocks });
-      await actWait();
-      expect(screen.queryByText(linkText)).toBeInTheDocument();
-    }
-  );
+  it('should show event type related providers link text in events info', async () => {
+    render(<EventInfo event={event} />, { mocks });
+    await actWait();
+    expect(
+      screen.queryByText('Katso julkaisijan muut tapahtumat')
+    ).toBeInTheDocument();
+  });
 });
 
 describe('superEvent', () => {
@@ -316,24 +315,19 @@ describe('subEvents', () => {
     await testSubEvents();
   });
 
-  it.each([[EventTypeId.General, '/fi/events/']])(
-    'should navigate to sub events page when it is clicked',
-    async (eventTypeId: EventTypeId, url: string) => {
-      const { history } = render(<EventInfo event={event} />, {
-        mocks: mocksWithSubEvents,
-      });
-      const eventsList = await screen.findByTestId(subEventsListTestId);
-      const subEvent = subEventsResponse.data.find(
-        (e) => e.typeId === eventTypeId
-      );
-      const dateStr = getDateRangeStr(getDateRangeStrProps(subEvent));
+  it('should navigate to sub events page when it is clicked', async () => {
+    const { history } = render(<EventInfo event={event} />, {
+      mocks: mocksWithSubEvents,
+    });
+    const eventsList = await screen.findByTestId(subEventsListTestId);
+    const subEvent = subEventsResponse.data[0];
+    const dateStr = getDateRangeStr(getDateRangeStrProps(subEvent));
 
-      userEvent.click(
-        within(eventsList).queryByText(`${subEvent.name.fi} ${dateStr}`)
-      );
-      expect(history.location.pathname).toBe(`${url}${subEvent.id}`);
-    }
-  );
+    userEvent.click(
+      within(eventsList).queryByText(`${subEvent.name.fi} ${dateStr}`)
+    );
+    expect(history.location.pathname).toBe(`${'/fi/events/'}${subEvent.id}`);
+  });
 
   it('should render subEvents with other times title when the event is a middle level event in event hierarchy', async () => {
     render(

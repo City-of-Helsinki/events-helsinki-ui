@@ -1,4 +1,5 @@
 import { IconSpeechbubbleText } from 'hds-react';
+import React from 'react';
 
 import { EventTypeId } from '../../generated/graphql';
 import IconCultureAndArts from '../../icons/IconCultureAndArts';

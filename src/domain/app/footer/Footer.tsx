@@ -37,7 +37,7 @@ const FooterSection: FunctionComponent = () => {
           to={`/${locale}${ROUTES.COLLECTIONS}`}
         />
       </Footer.Navigation>
-      {categoriesRoute && <FooterCategories route={ROUTES.EVENTS} />}
+      {categoriesRoute && <FooterCategories />}
       <Footer.Utilities
         backToTopLabel={t('footer.backToTop')}
         onBackToTopClick={handleBackToTop}
