@@ -8,7 +8,6 @@ import {
 } from 'date-fns';
 import { TFunction } from 'i18next';
 import isEmpty from 'lodash/isEmpty';
-import { matchPath } from 'react-router';
 
 import {
   EventTypeId,
@@ -21,16 +20,13 @@ import { Language } from '../../types';
 import buildQueryFromObject from '../../util/buildQueryFromObject';
 import { formatDate } from '../../util/dateUtils';
 import getUrlParamAsArray from '../../util/getUrlParamAsArray';
-import { ROUTES } from '../app/routes/constants';
-import { EVENT_TYPE_TO_ID, EventType } from '../event/types';
 import {
   CATEGORY_CATALOG,
   EVENT_CATEGORIES,
   EVENT_SEARCH_FILTERS,
   EVENT_SORT_OPTIONS,
   eventCategories,
-  MAPPED_CATEGORIES,
-  MAPPED_KEYWORD_TERMS,
+  MAPPED_EVENT_CATEGORIES,
   MAPPED_PLACES,
 } from './constants';
 import {
@@ -139,7 +135,6 @@ export const getEventSearchVariables = ({
   sortOrder,
   superEventType,
   place,
-  eventType = 'event',
 }: {
   include: string[];
   language: Language;
@@ -148,7 +143,6 @@ export const getEventSearchVariables = ({
   sortOrder: EVENT_SORT_OPTIONS;
   superEventType: string[];
   place?: string;
-  eventType: EventType;
 }): QueryEventListArgs => {
   const {
     categories,
@@ -191,8 +185,8 @@ export const getEventSearchVariables = ({
     keywordAnd.push('yso:p4354');
   }
 
-  const categoriesParamName = MAPPED_KEYWORD_TERMS[eventType];
-  const categoryMap = MAPPED_CATEGORIES[eventType];
+  const categoriesParamName = 'keywordOrSet1';
+  const categoryMap = MAPPED_EVENT_CATEGORIES;
 
   const getMappedPropertyValues = (
     list: string[],
@@ -209,8 +203,7 @@ export const getEventSearchVariables = ({
 
   const getSearchParam = () => {
     const hasText = !isEmpty(text);
-    const isEventsSearch = eventType === 'event';
-    if (hasText && isEventsSearch && hasLocation) {
+    if (hasText && hasLocation) {
       // show helsinki events matching to text
       return { localOngoingAnd: text };
     } else if (hasText) {
@@ -242,7 +235,7 @@ export const getEventSearchVariables = ({
     startsAfter,
     superEventType,
     suitableFor,
-    eventType: [EVENT_TYPE_TO_ID[eventType]],
+    eventType: [EventTypeId.General],
   };
 };
 
@@ -341,37 +334,4 @@ export const getSearchQuery = (filters: Filters): string => {
   }
 
   return buildQueryFromObject(newFilters);
-};
-
-export const getEventTypeFromRouteUrl = (
-  url: string,
-  locale: Language
-): EventType | undefined => {
-  let eventType = 'event';
-  const routeToEventType = {
-    [`/${locale}${ROUTES.EVENTS}`]: 'event',
-    [`/${locale}${ROUTES.COURSES}`]: 'course',
-  };
-  if (!url) {
-    return undefined;
-  }
-  try {
-    for (const route in routeToEventType) {
-      if (
-        matchPath(new URL(url).pathname, {
-          path: route,
-          exact: true,
-          strict: true,
-        })
-      ) {
-        eventType = routeToEventType[route];
-        break;
-      }
-    }
-  } catch (e) {
-    // Safe fallback for invalid URL.
-    return undefined;
-  }
-
-  return eventType as EventType;
 };

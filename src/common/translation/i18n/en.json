@@ -85,8 +85,7 @@
       "linkOnlyExpiredEvents": "To all collections",
       "textEventNotFound": "Event not found",
       "textOnlyExpiredEvents": "Unfortunately all the events in this collection have already passed. Have a look at our other recommendations and collections to find more interesting events.",
-      "eventsTitle": "Recommended events",
-      "coursesTitle": "Recommended hobbies"
+      "eventsTitle": "Recommended events"
     },
     "eventList": {
       "errorLoadMore": "Failed to load events"
@@ -220,11 +219,6 @@
       "title": "Similar events"
     }
   },
-  "course": {
-    "info": {
-      "linkSearchByPublisher": "See other hobbies by publisher"
-    }
-  },
   "eventSearch": {
     "ariaLiveLoading": "Searching for events",
     "ariaLiveSearchReady": "{{count}} search results",
@@ -233,12 +227,11 @@
     "errorLoadMore": "Failed to load events",
     "searchNotification": {
       "noResultsTitle": "Sorry, no search results were found for the search criteria you selected.",
-      "noResultsText": "No search results were found for the search criteria you selected. Try to change search terms or change to hobby search.",
+      "noResultsText": "No search results were found for the search criteria you selected. Try to change search terms.",
       "fewResultsTitle": "Your search terms returned only a few results.",
-      "fewResultsText": "Your search terms returned only a few results. Try to change search terms or change to hobby search.",
-      "changeLanguageText": "Please change your search terms or display results in Finnish. You could also switch to a Hobbies search.",
+      "fewResultsText": "Your search terms returned only a few results. Try to change search terms.",
+      "changeLanguageText": "Please change your search terms or display results in Finnish.",
       "buttons": {
-        "labelSearchOtherEventType": "Switch to a Hobbies search",
         "labelSearchInFinnish": "Display results in Finnish"
       }
     },
@@ -270,9 +263,7 @@
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/en/administration/participate/feedback/",
     "searchCollections": "We recommend",
     "searchEvents": "Events calendar",
-    "searchHobbies": "Hobbies",
     "titleEventsCategories": "Popular events categories",
-    "titleCoursesCategories": "Popular courses categories",
     "backToTop": "Back to top",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
@@ -288,7 +279,6 @@
     },
     "searchCollections": "We recommend",
     "searchEvents": "Events calendar",
-    "searchHobbies": "Hobbies",
     "titleAriaLabel": "Events in Helsinki frontpage",
     "linkAbout": "About the service"
   },
@@ -304,29 +294,7 @@
       "music": "Music",
       "nature": "Nature and outdoor activities",
       "sport": "Exercise and sports",
-      "theatre": "Theatre",
-      "courses": {
-        "movieAndMedia": "Film and media",
-        "languages": "Languages",
-        "literature": "Literature and literary art",
-        "artsAndCulture": "Arts and culture",
-        "visualArts": "Visual arts",
-        "handicrafts": "Crafts",
-        "sport": "Sport",
-        "music": "Music",
-        "games": "Games",
-        "food": "Food",
-        "dance": "Dance",
-        "theatre": "Theatre"
-      }
-    },
-    "hobby": {
-      "clubs": "Clubs",
-      "courses": "Courses",
-      "camps": "Camps",
-      "trips": "Trips",
-      "workshops": "Workshops",
-      "onlineStudies": "Online studies"
+      "theatre": "Theatre"
     },
     "collections": {
       "title": "See our recommendations"
@@ -347,11 +315,6 @@
       "buttonSearch": "Search",
       "placeholder": "Enter a keyword, eg rock or yoga",
       "title": "Search for events"
-    },
-    "courseSearch": {
-      "buttonSearch": "Search",
-      "placeholder": "Enter a keyword, eg. French or cooking",
-      "title": "Search for hobbies"
     }
   },
   "menu": {
@@ -362,10 +325,7 @@
   },
   "meta": {
     "events": {
-      "description": "Tapahtumat.hel.fi’s event search. Concerts, gigs, theatre performances, exhibitions, culture, activities and other events in Helsinki."
-    },
-    "courses": {
-      "description": "Tapahtumat.hel.fi’s activity search. Activities, courses, clubs and camps for children and young people in Helsinki."
+      "description": "Tapahtumat.hel.fi's event search. Concerts, gigs, theatre performances, exhibitions, culture, activities and other events in Helsinki."
     },
     "collections": {
       "description": "Check out our recommendations on the most interesting upcoming events!"

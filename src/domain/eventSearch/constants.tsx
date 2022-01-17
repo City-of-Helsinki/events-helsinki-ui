@@ -1,5 +1,4 @@
 import { IconSpeechbubbleText } from 'hds-react';
-import * as React from 'react';
 
 import { EventTypeId } from '../../generated/graphql';
 import IconCultureAndArts from '../../icons/IconCultureAndArts';
@@ -11,7 +10,6 @@ import IconMusic from '../../icons/IconMusic';
 import IconSports from '../../icons/IconSports';
 import IconTheatre from '../../icons/IconTheatre';
 import IconTree from '../../icons/IconTree';
-import { EventType } from '../event/types';
 import { Filters, SearchCategoryOption } from './types';
 
 // Page size of the event list
@@ -152,14 +150,6 @@ export const MAPPED_EVENT_CATEGORIES: Record<string, string[]> = {
   [EVENT_CATEGORIES.NATURE]: ['yso:p2771'],
   [EVENT_CATEGORIES.SPORT]: SPORT_KEYWORDS,
   [EVENT_CATEGORIES.THEATRE]: ['yso:p2625'],
-};
-
-export const MAPPED_CATEGORIES: Record<EventType, Record<string, string[]>> = {
-  event: MAPPED_EVENT_CATEGORIES,
-};
-
-export const MAPPED_KEYWORD_TERMS: Record<EventType, string> = {
-  event: 'keywordOrSet1',
 };
 
 export const MAPPED_PLACES: Record<string, string> = {

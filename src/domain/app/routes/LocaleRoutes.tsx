@@ -67,7 +67,6 @@ const App: FunctionComponent<
         path={`/${locale}${ROUTES.EVENT}`}
         component={() => (
           <EventPageContainer
-            eventType="event"
             showSimilarEvents={isFeatureEnabled('SHOW_SIMILAR_EVENTS')}
           />
         )}

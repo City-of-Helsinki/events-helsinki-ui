@@ -22,15 +22,14 @@ import {
   isEventClosed,
   isEventFree,
 } from '../EventUtils';
-import { EventFields, EventType } from '../types';
+import { EventFields } from '../types';
 import styles from './largeEventCard.module.scss';
 
 interface Props {
   event: EventFields;
-  eventType?: EventType;
 }
 
-const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
+const LargeEventCard: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
   const [showBackupImage, setShowBackupImage] = React.useState(false);

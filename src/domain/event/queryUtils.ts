@@ -22,12 +22,9 @@ import {
 } from '../eventSearch/utils';
 import { SIMILAR_EVENTS_AMOUNT } from './constants';
 import { getEventFields, getEventIdFromUrl } from './EventUtils';
-import { EventFields, EventType } from './types';
+import { EventFields } from './types';
 
-const useSimilarEventsQueryVariables = (
-  event: EventFields,
-  type: EventType
-) => {
+const useSimilarEventsQueryVariables = (event: EventFields) => {
   const locale = useLocale();
   const { search } = useLocation();
   const { keywords } = getEventFields(event, locale);
@@ -46,16 +43,14 @@ const useSimilarEventsQueryVariables = (
       params: searchParams,
       sortOrder: EVENT_SORT_OPTIONS.END_TIME,
       superEventType: ['umbrella', 'none'],
-      eventType: type,
     });
-  }, [eventSearch, locale, search, type]);
+  }, [eventSearch, locale, search]);
 };
 
 export const useSimilarEventsQuery = (
-  event: EventFields,
-  type: EventType
+  event: EventFields
 ): { loading: boolean; data: EventListQuery['eventList']['data'] } => {
-  const eventFilters = useSimilarEventsQueryVariables(event, type);
+  const eventFilters = useSimilarEventsQueryVariables(event);
   const { data: eventsData, loading } = useEventListQuery({
     ssr: false,
     variables: eventFilters,
@@ -84,13 +79,7 @@ const useOtherEventTimesVariables = (event: EventFields) => {
       sort: EVENT_SORT_OPTIONS.START_TIME,
       start: 'now',
       superEvent: superEventId,
-      /* 
-      Since LE v2 is listing general type of events 
-      when no event type is given as a parameter,
-      this needs a list of eventTypes
-      or otherwise some events or courses are always excluded.
-      */
-      eventType: [EventTypeId.General, EventTypeId.Course], //event.typeId
+      eventType: [EventTypeId.General],
     }),
     [superEventId]
   );
@@ -103,17 +92,10 @@ export const useSubEventsQueryVariables = (
 ): { superEventId: string | undefined; variables: EventListQueryVariables } => {
   const variables = React.useMemo(
     (): EventListQueryVariables => ({
-      // include: ['keywords', 'location'],
       sort: EVENT_SORT_OPTIONS.START_TIME,
       start: 'now',
       superEvent: event.id,
-      /* 
-      Since LE v2 is listing general type of events 
-      when no event type is given as a parameter,
-      this needs a list of eventTypes
-      or otherwise some events or courses are always excluded.
-      */
-      eventType: [EventTypeId.General, EventTypeId.Course], //event.typeId
+      eventType: [EventTypeId.General],
     }),
     [event.id]
   );

@@ -36,7 +36,7 @@ const event = fakeEvent({
 }) as EventFieldsFragment;
 
 it('should render event content fields', () => {
-  render(<EventContent event={event} eventType="event" />);
+  render(<EventContent event={event} />);
 
   const itemsByRole = [
     { role: 'heading', name: translations.event.info.labelDateAndTime },
@@ -95,7 +95,6 @@ it('should hide map if internet event', () => {
         ...event,
         location: { ...event.location, id: 'helsinki:internet' },
       }}
-      eventType="event"
     />
   );
   expect(screen.queryByText(/sijainti/i)).not.toBeInTheDocument();

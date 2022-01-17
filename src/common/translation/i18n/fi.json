@@ -85,8 +85,7 @@
       "linkOnlyExpiredEvents": "Tutustu kaikkiin kokoelmiin",
       "textEventNotFound": "Tapahtumaa ei löydy",
       "textOnlyExpiredEvents": "Valitettavasti tämän kokoelman kaikki suositellut tapahtumat ovat jo ehtineet päättyä. Käy tutustumassa muihin suosituksiimme ja löydä itsellesi tekemistä.",
-      "eventsTitle": "Suositellut tapahtumat",
-      "coursesTitle": "Suositellut harrastukset"
+      "eventsTitle": "Suositellut tapahtumat"
     },
     "eventList": {
       "errorLoadMore": "Tapahtumien lataaminen epäonnistui"
@@ -220,11 +219,6 @@
     },
     "title": "Ladataan tapahtumaa..."
   },
-  "course": {
-    "info": {
-      "linkSearchByPublisher": "Katso julkaisijan muut harrastukset"
-    }
-  },
   "eventSearch": {
     "ariaLiveLoading": "Haetaan tapahtumia",
     "ariaLiveSearchReady": "{{count}} hakutulosta",
@@ -238,7 +232,6 @@
       "fewResultsText": "Valitsemillasi hakuehdoilla löytyi vain vähän tapahtumia. Kokeile muuttaa hakuehtoja.",
       "changeLanguageText": "Kokeile muuttaa hakuehtoja tai etsi suomen kielellä.",
       "buttons": {
-        "labelSearchOtherEventType": "Siirry hakemaan harrastuksia",
         "labelSearchInFinnish": "Näytä hakutulokset suomeksi"
       }
     },
@@ -270,9 +263,7 @@
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta",
     "searchCollections": "Suosittelemme",
     "searchEvents": "Tapahtumakalenteri",
-    "searchHobbies": "Harrastukset",
     "titleEventsCategories": "Suositut tapahtumien kategoriat",
-    "titleCoursesCategories": "Suositut harrastuskategoriat",
     "backToTop": "Takaisin alkuun",
     "copyright": "Copyright",
     "allRightsReserved": "Kaikki oikeudet pidätetään"
@@ -288,7 +279,6 @@
     },
     "searchCollections": "Suosittelemme",
     "searchEvents": "Tapahtumakalenteri",
-    "searchHobbies": "Harrastukset",
     "titleAriaLabel": "Tapahtumat Helsinki etusivu",
     "linkAbout": "Tietoa palvelusta"
   },
@@ -304,29 +294,7 @@
       "music": "Musiikki",
       "nature": "Luonto ja ulkoilu",
       "sport": "Liikunta ja urheilu",
-      "theatre": "Teatteri",
-      "courses": {
-        "movieAndMedia": "Elokuva ja media",
-        "languages": "Kielet",
-        "literature": "Kirjallisuus ja sanataide",
-        "artsAndCulture": "Kulttuuri ja taide",
-        "visualArts": "Kuvataide",
-        "handicrafts": "Kädentaidot",
-        "sport": "Liikunta ja ulkoilu",
-        "music": "Musiikki",
-        "games": "Pelit",
-        "food": "Ruoka",
-        "dance": "Tanssi",
-        "theatre": "Teatteri"
-      }
-    },
-    "hobby": {
-      "clubs": "Kerhot",
-      "courses": "Kurssit",
-      "camps": "Leirit",
-      "trips": "Retket",
-      "workshops": "Työpajat",
-      "onlineStudies": "Verkkoopetus"
+      "theatre": "Teatteri"
     },
     "collections": {
       "title": "Suosittelemme"
@@ -347,11 +315,6 @@
       "buttonSearch": "Hae",
       "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
       "title": "Löydä tapahtumia"
-    },
-    "courseSearch": {
-      "buttonSearch": "Hae",
-      "placeholder": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
-      "title": "Löydä harrastuksia"
     }
   },
   "menu": {
@@ -363,9 +326,6 @@
   "meta": {
     "events": {
       "description": "Tapahtumat.hel.fin tapahtumahaku. Konsertit, keikat, teatteriesitykset, näyttelyt, kulttuuri, tekeminen ja muut tapahtumat Helsingissä."
-    },
-    "courses": {
-      "description": "Tapahtumat.hel.fin harrastushaku. Lasten ja nuorten harrastukset, kurssit, kerhot ja leirit Helsingissä."
     },
     "collections": {
       "description": "Tutustu suosituksiimme tämän hetken ajankohtaisimmista ja kiinnostavimmista tapahtumista."

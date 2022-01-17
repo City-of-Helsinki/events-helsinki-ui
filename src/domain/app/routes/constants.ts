@@ -12,8 +12,6 @@ export type ROUTE_TYPES = {
   EVENTS: '/events';
   EVENT: '/events/:id';
   EVENT_DEPRECATED: '/event/:id';
-  COURSES: '/courses';
-  COURSE: '/courses/:id';
   HOME: '/home';
   HOME_PREVIEW: '/home/:id';
   EVENT_PLACE: string;
@@ -28,8 +26,6 @@ export const ROUTES: ROUTE_TYPES = {
   EVENTS: '/events',
   EVENT: '/events/:id',
   EVENT_DEPRECATED: '/event/:id',
-  COURSES: '/courses',
-  COURSE: '/courses/:id',
   HOME: '/home',
   HOME_PREVIEW: '/home/:id',
   EVENT_PLACE: `/:place(${Object.keys(MAPPED_PLACES).join('|')})`,

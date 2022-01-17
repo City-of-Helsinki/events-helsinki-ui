@@ -4,7 +4,6 @@ import * as useLocale from '../../../../hooks/useLocale';
 import { render, screen, userEvent, waitFor } from '../../../../test/testUtils';
 import { Language } from '../../../../types';
 import { ROUTES } from '../../../app/routes/constants';
-import { EventType } from '../../../event/types';
 import ResultsInfo from '../ResultsInfo';
 
 test('events with 0 results matches snapshot for no results', () => {
@@ -24,7 +23,7 @@ test('renders no events found text', async () => {
 });
 
 test.each([1, 4])(
-  'renders few events found text and hobby search button when event count is %i',
+  'renders few events found text when event count is %i',
   async (resultsCount) => {
     render(<ResultsInfo resultsCount={resultsCount} />);
 
@@ -39,13 +38,13 @@ test.each([1, 4])(
   }
 );
 
-it.each<[Language, number, EventType, string]>([
-  ['en', 4, 'event', `/fi${ROUTES.EVENTS}`],
-  ['en', 0, 'event', `/fi${ROUTES.EVENTS}`],
-  ['sv', 0, 'event', `/fi${ROUTES.EVENTS}`],
+it.each<[Language, number]>([
+  ['en', 4],
+  ['en', 0],
+  ['sv', 0],
 ])(
   'renders language change button under search results when current language is %s and there are %i %s search items',
-  async (language, resultsCount, eventType, finalRoute) => {
+  async (language, resultsCount) => {
     jest.spyOn(useLocale, 'default').mockReturnValue(language);
 
     const { history } = render(<ResultsInfo resultsCount={resultsCount} />);
@@ -56,20 +55,17 @@ it.each<[Language, number, EventType, string]>([
     );
 
     await waitFor(() => {
-      expect(historyPush).toHaveBeenCalledWith(finalRoute);
+      expect(historyPush).toHaveBeenCalledWith(`/fi${ROUTES.EVENTS}`);
     });
   }
 );
 
-it.each<EventType>(['event'])(
-  'renders does not render language change button under %s search results when current language is Finnish',
-  (eventType) => {
-    jest.spyOn(useLocale, 'default').mockReturnValue('fi');
+it('renders does not render language change button under eventss search results when current language is Finnish', () => {
+  jest.spyOn(useLocale, 'default').mockReturnValue('fi');
 
-    render(<ResultsInfo resultsCount={0} />);
+  render(<ResultsInfo resultsCount={0} />);
 
-    expect(
-      screen.queryByRole('button', { name: 'Näytä hakutulokset suomeksi' })
-    ).not.toBeInTheDocument();
-  }
-);
+  expect(
+    screen.queryByRole('button', { name: 'Näytä hakutulokset suomeksi' })
+  ).not.toBeInTheDocument();
+});

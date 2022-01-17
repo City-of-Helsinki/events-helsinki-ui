@@ -1,7 +1,6 @@
 import { FetchResult, GraphQLRequest } from '@apollo/client';
 import { MockedResponse } from '@apollo/client/testing';
 
-import { EventType } from '../../domain/event/types';
 import {
   EventListDocument,
   EventListQueryVariables,
@@ -32,29 +31,23 @@ export const eventListBaseVariables: QueryEventListArgs = {
   keywordOrSet1: [],
 };
 
-export const courseListBaseVariables: QueryEventListArgs = {
-  ...baseVariables,
-  keywordOrSet2: ['keyword1', 'keyword2', 'keyword3'],
-};
-
 export const getOtherEventsVariables = (
   superEvent: EventListQueryVariables['superEvent']
 ): EventListQueryVariables => ({
   sort: 'start_time',
   start: 'now',
   superEvent,
-  eventType: [EventTypeId.General, EventTypeId.Course],
+  eventType: [EventTypeId.General],
 });
 
 const createRequest = (
-  type: EventType = 'event',
   variablesOverride: EventListQueryVariables = {}
 ): GraphQLRequest => ({
   query: EventListDocument,
   variables: {
-    ...(type === 'event' ? eventListBaseVariables : courseListBaseVariables),
+    ...eventListBaseVariables,
     ...variablesOverride,
-    eventType: type === 'event' ? [EventTypeId.General] : [EventTypeId.Course],
+    eventType: [EventTypeId.General],
   },
 });
 
@@ -67,26 +60,23 @@ const createResult = (
 });
 
 export type EventListMockArguments = {
-  type?: EventType;
   superEventId?: EventListQueryVariables['superEvent'];
   variables?: EventListQueryVariables;
   response?: EventListResponse;
 };
 
 export const createEventListRequestAndResultMocks = ({
-  type = 'event',
   variables = {},
   response,
 }: EventListMockArguments): MockedResponse => ({
-  request: createRequest(type, variables),
+  request: createRequest(variables),
   result: createResult(response),
 });
 
 export const createEventListRequestThrowsErrorMocks = ({
-  type = 'event',
   variables = {},
 }: EventListMockArguments = {}): MockedResponse => ({
-  request: createRequest(type, variables),
+  request: createRequest(variables),
   error: new Error('not found'),
 });
 

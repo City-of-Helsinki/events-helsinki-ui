@@ -41,11 +41,9 @@ const LandingPageMeta: React.FC<Props> = ({ landingPage, noTitle }) => {
   };
 
   const getDescription = () => {
-    const route = [
-      ROUTES.COURSES,
-      ROUTES.EVENTS,
-      ROUTES.COLLECTIONS,
-    ].find((route) => pathname.startsWith(`/${locale}${route}`));
+    const route = [ROUTES.EVENTS, ROUTES.COLLECTIONS].find((route) =>
+      pathname.startsWith(`/${locale}${route}`)
+    );
     return t(`meta.${route?.substring(1) || 'default'}.description`);
   };
 

@@ -24,10 +24,9 @@ export const filterSummaryContainerTestId = 'filter-summary';
 
 interface Props {
   onClear: () => void;
-  route?: '/events' | '/courses';
 }
 
-const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
+const FilterSummary: React.FC<Props> = ({ onClear }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { push } = useHistory();
@@ -84,7 +83,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
       suitableFor: getSuitableForFilterValue(suitableFor, type) ?? [],
     });
 
-    push({ pathname: `/${locale}${route || ROUTES.EVENTS}`, search });
+    push({ pathname: `/${locale}${ROUTES.EVENTS}`, search });
   };
 
   const hasFilters =
@@ -111,11 +110,7 @@ const FilterSummary: React.FC<Props> = ({ onClear, route }) => {
         <FilterButton
           key={category}
           onRemove={handleFilterRemove}
-          text={translateValue(
-            `home.category.${route === '/courses' ? 'courses.' : ''}`,
-            category,
-            t
-          )}
+          text={translateValue('home.category.', category, t)}
           type="category"
           value={category}
         />

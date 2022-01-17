@@ -85,8 +85,7 @@
       "linkOnlyExpiredEvents": "Till alla kollektioner",
       "textEventNotFound": "Samlingen hittades inte",
       "textOnlyExpiredEvents": "Tyvärr har denna kollektions rekommenderade evenemang redan gått. Bekanta dig mig våra övriga rekommendationer och hitta fler intressanta evenemang.",
-      "eventsTitle": "Rekommenderade evenemang",
-      "coursesTitle": "Rekommenderade hobbyer"
+      "eventsTitle": "Rekommenderade evenemang"
     },
     "eventList": {
       "errorLoadMore": "Det gick inte att ladda evenemangen"
@@ -220,11 +219,6 @@
     },
     "title": "Laddar evenemang..."
   },
-  "course": {
-    "info": {
-      "linkSearchByPublisher": "Se utgivarens övriga hobbyer"
-    }
-  },
   "eventSearch": {
     "ariaLiveLoading": "Söker efter evenemang",
     "ariaLiveSearchReady": "{{count}} sökresultat",
@@ -233,12 +227,11 @@
     "errorLoadMore": "Det gick inte att ladda evenemangen",
     "searchNotification": {
       "noResultsTitle": "Tyvärr hittades inga resultat för de sökkriterier du valt. ",
-      "noResultsText": "Tyvärr hittades inga resultat för de sökkriterier du valt. Kokeile muuttaa hakuehtoja tai siirry harrastusten hakuun.",
+      "noResultsText": "Tyvärr hittades inga resultat för de sökkriterier du valt.",
       "fewResultsTitle": "Med de sökvillkor du valde hittades bara några få resultat.",
-      "fewResultsText": "Med de sökvillkor du valde hittades bara några få resultat. Kokeile muuttaa hakuehtoja tai siirry harrastusten hakuun.",
-      "changeLanguageText": "Ändra sökvillkoren eller visa resultaten på finska. Du kan också välja att söka bland hobbyer.",
+      "fewResultsText": "Med de sökvillkor du valde hittades bara några få resultat.",
+      "changeLanguageText": "Ändra sökvillkoren eller visa resultaten på finska",
       "buttons": {
-        "labelSearchOtherEventType": "Sök hobbyer",
         "labelSearchInFinnish": "Visa sökresultaten på finska "
       }
     },
@@ -270,9 +263,7 @@
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/sv/stad-och-forvaltning/delta/feedback/",
     "searchCollections": "Vi rekommenderar",
     "searchEvents": "Evenemangskalender",
-    "searchHobbies": "Hobbyer",
     "titleEventsCategories": "Populära evenemangskategorier",
-    "titleCoursesCategories": "Populära hobbykategorier",
     "backToTop": "Tillbaka upp",
     "copyright": "Copyright",
     "allRightsReserved": "Alla rättigheter förbehållna"
@@ -288,7 +279,6 @@
     },
     "searchCollections": "Vi rekommenderar",
     "searchEvents": "Evenemangskalender",
-    "searchHobbies": "Hobbyer",
     "titleAriaLabel": "Evenemang Helsinki framsida",
     "linkAbout": "Om tjänsten"
   },
@@ -304,29 +294,7 @@
       "music": "Musik",
       "nature": "Natur och friluftsliv",
       "sport": "Motion och sport",
-      "theatre": "Teater",
-      "courses": {
-        "movieAndMedia": "Film och media",
-        "languages": "Språk",
-        "literature": "Litteratur och ordkonst",
-        "artsAndCulture": "Kultur och konst",
-        "visualArts": "Bildkonst",
-        "handicrafts": "Hantverk",
-        "sport": "Motion och friluftsliv",
-        "music": "Musik",
-        "games": "Spel",
-        "food": "Mat",
-        "dance": "Dans",
-        "theatre": "Teater"
-      }
-    },
-    "hobby": {
-      "clubs": "Klubbar",
-      "courses": "Kurser",
-      "camps": "Läger",
-      "trips": "Utfärder",
-      "workshops": "Verkstäder",
-      "onlineStudies": "Online studies"
+      "theatre": "Teater"
     },
     "collections": {
       "title": "Vi rekommenderar"
@@ -347,11 +315,6 @@
       "buttonSearch": "Sök",
       "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
       "title": "Hitta evenemang"
-    },
-    "courseSearch": {
-      "buttonSearch": "Sök",
-      "placeholder": "Ange ett sökord, t. ex. rock eller yoga",
-      "title": "Hitta hobbyer"
     }
   },
   "menu": {
@@ -363,9 +326,6 @@
   "meta": {
     "events": {
       "description": "Evenemangssökning på tapahtumat.hel.fi. Konserter, spelningar, teaterföreställningar, utställningar, kultur, aktiviteter och andra evenemang i Helsingfors."
-    },
-    "courses": {
-      "description": "Hobbysökning på tapahtumat.hel.fi. Hobbyer, kurser, klubbar och läger för barn och unga i Helsingfors."
     },
     "collections": {
       "description": "Läs våra rekommendationer om evenemang som är aktuella och intressanta just nu."

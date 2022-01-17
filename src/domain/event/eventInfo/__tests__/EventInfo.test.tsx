@@ -14,7 +14,7 @@ import {
   within,
 } from '../../../../test/testUtils';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
-import { EventType, SuperEventResponse } from '../../types';
+import { SuperEventResponse } from '../../types';
 import EventInfo from '../EventInfo';
 import { subEventsListTestId, superEventTestId } from '../EventsHierarchy';
 import {
@@ -44,7 +44,7 @@ const getDateRangeStrProps = (event: EventDetails) => ({
 });
 
 it('should render event info fields', async () => {
-  render(<EventInfo event={event} eventType="event" />, { mocks });
+  render(<EventInfo event={event} />, { mocks });
   await actWait();
 
   const itemsByRole = [
@@ -97,7 +97,7 @@ it('should hide the organizer section when the organizer name is not given', asy
     ...event,
     provider: null,
   };
-  render(<EventInfo event={mockEvent} eventType="event" />, { mocks });
+  render(<EventInfo event={mockEvent} />, { mocks });
   await actWait();
   expect(
     screen.queryByRole('heading', {
@@ -122,12 +122,8 @@ it('should hide other info section', () => {
       externalLinks: [],
       telephone: null,
     },
-    extensionCourse: null,
-    minimumAttendeeCapacity: null,
-    maximumAttendeeCapacity: null,
-    remainingAttendeeCapacity: null,
   };
-  render(<EventInfo event={mockEvent} eventType="event" />, {
+  render(<EventInfo event={mockEvent} />, {
     mocks,
   });
 
@@ -157,9 +153,8 @@ it('should hide other info section registration url from external links', () => 
       externalLinks: [],
       telephone: null,
     },
-    extensionCourse: null,
   };
-  render(<EventInfo event={mockEvent} eventType="event" />, {
+  render(<EventInfo event={mockEvent} />, {
     mocks,
   });
 
@@ -182,9 +177,8 @@ it('should hide the map link from location info if location is internet', () => 
       externalLinks: [],
       telephone: null,
     },
-    extensionCourse: null,
   };
-  render(<EventInfo event={mockEvent} eventType="event" />, {
+  render(<EventInfo event={mockEvent} />, {
     mocks,
   });
 
@@ -197,7 +191,7 @@ it('should hide the map link from location info if location is internet', () => 
 
 it('should open ticket buy page', async () => {
   global.open = jest.fn();
-  render(<EventInfo event={event} eventType="event" />, { mocks });
+  render(<EventInfo event={event} />, { mocks });
 
   // Event info fields
   userEvent.click(
@@ -213,7 +207,7 @@ it('should open ticket buy page', async () => {
 
 it('should create ics file succesfully', async () => {
   FileSaver.saveAs = jest.fn();
-  render(<EventInfo event={event} eventType="event" />, { mocks });
+  render(<EventInfo event={event} />, { mocks });
 
   // Event info fields
   userEvent.click(
@@ -229,7 +223,7 @@ it('should create ics file succesfully', async () => {
 
 it('should create ics file succesfully when end time is not defined', async () => {
   FileSaver.saveAs = jest.fn();
-  render(<EventInfo event={{ ...event, endTime: null }} eventType="event" />, {
+  render(<EventInfo event={{ ...event, endTime: null }} />, {
     mocks,
   });
 
@@ -246,7 +240,7 @@ it('should create ics file succesfully when end time is not defined', async () =
 });
 
 it('should hide audience age info on single event page', async () => {
-  render(<EventInfo event={event} eventType="event" />, {
+  render(<EventInfo event={event} />, {
     routes: [`/fi/events`],
   });
 
@@ -256,12 +250,10 @@ it('should hide audience age info on single event page', async () => {
 });
 
 describe('OrganizationInfo', () => {
-  it.each<[EventType, string]>([
-    ['event', 'Katso julkaisijan muut tapahtumat'],
-  ])(
+  it.each<[string]>([['Katso julkaisijan muut tapahtumat']])(
     'should show event type related providers link text in events info',
-    async (eventType, linkText) => {
-      render(<EventInfo event={event} eventType={eventType} />, { mocks });
+    async (linkText) => {
+      render(<EventInfo event={event} />, { mocks });
       await actWait();
       expect(screen.queryByText(linkText)).toBeInTheDocument();
     }
@@ -278,11 +270,7 @@ describe('superEvent', () => {
       status: 'resolved',
     } as SuperEventResponse;
     const { history } = render(
-      <EventInfo
-        event={event}
-        superEvent={superEventResponse}
-        eventType="event"
-      />,
+      <EventInfo event={event} superEvent={superEventResponse} />,
       {
         mocks,
       }
@@ -301,7 +289,7 @@ describe('superEvent', () => {
   });
 
   it('should should not render super event title when super event is not given', async () => {
-    render(<EventInfo event={event} eventType="event" />, {
+    render(<EventInfo event={event} />, {
       mocks,
     });
     await actWait();
@@ -316,7 +304,7 @@ describe('superEvent', () => {
 
 describe('subEvents', () => {
   it('should render sub events title and content when sub events are given', async () => {
-    render(<EventInfo event={event} eventType="event" />, {
+    render(<EventInfo event={event} />, {
       mocks: mocksWithSubEvents,
     });
     await actWait();
@@ -331,12 +319,9 @@ describe('subEvents', () => {
   it.each([[EventTypeId.General, '/fi/events/']])(
     'should navigate to sub events page when it is clicked',
     async (eventTypeId: EventTypeId, url: string) => {
-      const { history } = render(
-        <EventInfo event={event} eventType="event" />,
-        {
-          mocks: mocksWithSubEvents,
-        }
-      );
+      const { history } = render(<EventInfo event={event} />, {
+        mocks: mocksWithSubEvents,
+      });
       const eventsList = await screen.findByTestId(subEventsListTestId);
       const subEvent = subEventsResponse.data.find(
         (e) => e.typeId === eventTypeId
@@ -357,7 +342,6 @@ describe('subEvents', () => {
           superEvent: { internalId: 'super:123' },
           subEvents: [{ internalId: 'sub:123' }],
         })}
-        eventType="event"
       />,
       {
         mocks: mocksWithSubEvents,

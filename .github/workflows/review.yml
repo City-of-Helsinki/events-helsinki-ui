@@ -58,7 +58,7 @@ jobs:
         include:
           - service: '1'
             version: '1.0'
-            description: 'The Old version of Tapahtumat (without courses)'
+            description: 'The Old version of Tapahtumat'
     name: Review + Acceptance Tests V${{ matrix.version }}
     steps:
       - uses: actions/checkout@v2

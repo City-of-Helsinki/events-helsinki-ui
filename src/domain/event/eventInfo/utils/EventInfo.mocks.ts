@@ -18,7 +18,6 @@ import {
   fakeOrganization,
   fakeTargetGroup,
 } from '../../../../test/mockDataUtils';
-import { EventType } from '../../types';
 
 export const organizationId = '1';
 export const organizationName = 'Organization name';
@@ -108,11 +107,9 @@ export const subEventsLoadMoreResponse = {
 };
 
 export const getSubEventsMocks = ({
-  eventType = 'event',
   response,
   variables,
 }: {
-  eventType: EventType;
   response: EventListResponse;
   variables?: EventListQueryVariables;
 }) =>
@@ -120,18 +117,15 @@ export const getSubEventsMocks = ({
     superEventId: event.id,
     response,
     variables,
-    type: eventType,
   });
 
 export const firstSubEventsLoadMock = getSubEventsMocks({
-  eventType: 'event',
   response: subEventsResponse,
 });
 
 export const secondSubEventsLoadMock = getSubEventsMocks({
   variables: { page: 2 },
   response: subEventsLoadMoreResponse,
-  eventType: 'event',
 });
 
 export const mocks = [

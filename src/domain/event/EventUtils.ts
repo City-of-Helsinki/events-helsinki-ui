@@ -6,7 +6,6 @@ import sum from 'lodash/sum';
 import { EVENT_STATUS } from '../../constants';
 import {
   EventFieldsFragment,
-  EventTypeId,
   LocalizedObject,
   PlaceFieldsFragment,
 } from '../../generated/graphql';
@@ -19,12 +18,7 @@ import {
   EVENT_PLACEHOLDER_IMAGES,
   EVENT_SOME_IMAGE,
 } from './constants';
-import {
-  EVENT_TYPE_TO_ID,
-  EventFields,
-  EventType,
-  KeywordOption,
-} from './types';
+import { EventFields, KeywordOption } from './types';
 
 export const getEventCardId = (id: string): string => `event-card_${id}`;
 
@@ -62,11 +56,10 @@ export const isEventFree = (event: EventFieldsFragment): boolean => {
 
 /**
  * Get event id from url
- * For example  https://api.hel.fi/linkedcourses/v1/event/harrastushaku:13433?query -> harrastushaku:13433
  */
 export const getEventIdFromUrl = (
   url: string,
-  type: EventType = 'event'
+  type: 'event' = 'event'
 ): string | undefined => {
   return url.match(new RegExp(`/(?:${type}s?)/([^/?]*)`, 'i'))?.[1];
 };
@@ -74,7 +67,7 @@ export const getEventIdFromUrl = (
 export const getEventIdsFromUrls = (urls: string[]): { eventIds: string[] } => {
   return {
     eventIds: urls
-      .map((url) => getEventIdFromUrl(url, 'event') as string)
+      .map((url) => getEventIdFromUrl(url) as string)
       .filter(Boolean),
   };
 };
@@ -219,16 +212,6 @@ const getEventLocationFields = (
   };
 };
 
-const getCourseFields = (event: EventFields) => {
-  return {
-    enrolmentStartTime: event.enrolmentStartTime,
-    enrolmentEndTime: event.enrolmentEndTime,
-    maximumAttendeeCapacity: event.maximumAttendeeCapacity,
-    minimumAttendeeCapacity: event.minimumAttendeeCapacity,
-    remainingAttendeeCapacity: event.remainingAttendeeCapacity,
-  };
-};
-
 /**
  * Get palvelukartta compatible id for the location
  * @param {object} location
@@ -369,7 +352,6 @@ export const getEventFields = (event: EventFields, locale: Language) => {
     audienceMinAge: event.audienceMinAge,
     audienceMaxAge: event.audienceMaxAge,
     photographerName: event.images[0]?.photographerName,
-    ...getCourseFields(event),
     ...getEventLocationFields(event, locale),
   };
 };
@@ -397,20 +379,3 @@ export const getAudienceAgeText = (
   }`;
   return `${ageLimit} -${t('event.info.age')}`;
 };
-
-/**
- * EVENT_TYPE_TO_ID configuration object is a mapper between event type and eventTypeId
- * where an EventType instance is a key and EventTypeId instance is a value.
- * To avoid writing yet another configuration table, this function does the opposite -
- * it flips the configuration around and the value can be used to find the related key.
- *
- * E.g. The event objects contains a typeId that is an instance of EventTypeId,
- * so it is sometimes needed to get a related event type for an eventTypeId instance
- * and this function does exactly that.
- */
-export const getEventTypeByEventTypeId = (
-  eventTypeId: EventTypeId
-): EventType =>
-  Object.keys(EVENT_TYPE_TO_ID).find(
-    (eventType) => EVENT_TYPE_TO_ID[eventType as EventType] === eventTypeId
-  ) as EventType;

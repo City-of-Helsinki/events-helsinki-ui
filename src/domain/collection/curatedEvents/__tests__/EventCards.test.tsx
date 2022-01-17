@@ -10,7 +10,7 @@ const eventsResponse = fakeEvents(4);
 const events = eventsResponse.data as EventFieldsFragment[];
 
 test('should show fields for each event card', async () => {
-  render(<EventCards events={events} eventType="event" />);
+  render(<EventCards events={events} />);
 
   events.forEach((event) => {
     expect(screen.queryByText(event.name.fi)).toBeInTheDocument();
@@ -25,12 +25,7 @@ test('should show fields for each event card', async () => {
 test('should call onShowMore', async () => {
   const onShowMore = jest.fn();
   render(
-    <EventCards
-      events={events}
-      onShowMore={onShowMore}
-      showMoreButton={true}
-      eventType="event"
-    />
+    <EventCards events={events} onShowMore={onShowMore} showMoreButton={true} />
   );
 
   userEvent.click(

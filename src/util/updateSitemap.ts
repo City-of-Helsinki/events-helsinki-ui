@@ -303,10 +303,7 @@ const getEvents = async (start: Date) => {
  * @param {string} time
  * @return {Object[]}
  */
-const getEventUrlElements = async (
-  eventType: 'event' | 'course',
-  time: Date
-): Promise<Element[]> => {
+const getEventUrlElements = async (time: Date): Promise<Element[]> => {
   const events = await getEvents(time);
 
   const elements: Element[] = [];
@@ -447,17 +444,15 @@ const updateSitemaps = async (): Promise<boolean> => {
   try {
     const time = new Date();
     const staticUrlElements = getStaticUrlElements(time);
-    const [collectionUrlElements, eventUrlElements, courseUrlElements] =
-      await Promise.all(
-        [getCollectionUrlElements(), getEventUrlElements('event', time)].filter(
-          skipFalsyType
-        )
-      );
+    const [collectionUrlElements, eventUrlElements] = await Promise.all(
+      [getCollectionUrlElements(), getEventUrlElements(time)].filter(
+        skipFalsyType
+      )
+    );
     const elements = [
       ...staticUrlElements,
       ...collectionUrlElements,
       ...eventUrlElements,
-      ...(courseUrlElements || []),
     ];
 
     await saveSitemapFiles(elements, time);

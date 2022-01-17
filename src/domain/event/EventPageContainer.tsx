@@ -14,6 +14,7 @@ import useLocale from '../../hooks/useLocale';
 import isClient from '../../util/isClient';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
+import { ROUTES } from '../app/routes/constants';
 import EventClosedHero from './eventClosedHero/EventClosedHero';
 import EventContent from './eventContent/EventContent';
 import EventHero from './eventHero/EventHero';
@@ -21,24 +22,17 @@ import styles from './eventPage.module.scss';
 import EventPageMeta from './eventPageMeta/EventPageMeta';
 import { getEventIdFromUrl, isEventClosed } from './EventUtils';
 import SimilarEvents from './similarEvents/SimilarEvents';
-import { EVENTS_ROUTE_MAPPER, EventType, SuperEventResponse } from './types';
+import { SuperEventResponse } from './types';
 
 interface RouteParams {
   id: string;
 }
 
 export interface EventPageContainerProps {
-  eventType: EventType;
   showSimilarEvents?: boolean;
 }
 
-const eventPageStyles = {
-  event: styles.eventPageWrapper,
-  course: styles.coursePageWrapper,
-};
-
 const EventPageContainer: React.FC<EventPageContainerProps> = ({
-  eventType,
   showSimilarEvents = true,
 }) => {
   const apolloClient = useApolloClient();
@@ -84,11 +78,11 @@ const EventPageContainer: React.FC<EventPageContainerProps> = ({
         setSuperEvent({ data: null, status: 'resolved' });
       }
     }
-  }, [apolloClient, event, superEventId, eventType]);
+  }, [apolloClient, event, superEventId]);
 
   const eventClosed = !event || isEventClosed(event);
   return (
-    <PageWrapper className={eventPageStyles[eventType]} title="event.title">
+    <PageWrapper className={styles.eventPageWrapper} title="event.title">
       <MainContent offset={-70}>
         <LoadingSpinner isLoading={loading}>
           {event ? (
@@ -104,16 +98,14 @@ const EventPageContainer: React.FC<EventPageContainerProps> = ({
                 </>
               )}
               {/* Hide similar event on SSR to make initial load faster */}
-              {isClient && showSimilarEvents && (
-                <SimilarEvents event={event} eventType={eventType} />
-              )}
+              {isClient && showSimilarEvents && <SimilarEvents event={event} />}
             </>
           ) : (
             <ErrorHero
               text={t('event.notFound.text')}
               title={t('event.notFound.title')}
             >
-              <Link to={`/${locale}${EVENTS_ROUTE_MAPPER[eventType]}${search}`}>
+              <Link to={`/${locale}${ROUTES.EVENTS}${search}`}>
                 {t('event.notFound.linkSearchEvents')}
               </Link>
             </ErrorHero>

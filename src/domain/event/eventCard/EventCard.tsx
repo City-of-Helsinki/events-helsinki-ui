@@ -20,15 +20,14 @@ import {
   getEventPrice,
   isEventClosed,
 } from '../EventUtils';
-import { EventFields, EventType } from '../types';
+import { EventFields } from '../types';
 import styles from './eventCard.module.scss';
 
 interface Props {
   event: EventFields;
-  eventType?: EventType;
 }
 
-const EventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
+const EventCard: React.FC<Props> = ({ event }) => {
   const history = useHistory();
   const { search, pathname } = useLocation();
   const { t } = useTranslation();

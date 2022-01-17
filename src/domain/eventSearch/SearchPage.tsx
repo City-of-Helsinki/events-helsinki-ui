@@ -16,7 +16,6 @@ import useLocale from '../../hooks/useLocale';
 import MainContent from '../app/layout/MainContent';
 import PageWrapper from '../app/layout/PageWrapper';
 import { getLargeEventCardId } from '../event/EventUtils';
-import { EventType } from '../event/types';
 import EventList from '../eventList/EventList';
 import LandingPageMeta from '../landingPage/landingPageMeta/LandingPageMeta';
 import { isLanguageSupported } from '../landingPage/utils';
@@ -31,8 +30,7 @@ const SearchPage: React.FC<{
     'data-testid'?: string;
   }>;
   pageTitle: string;
-  eventType: EventType;
-}> = ({ SearchComponent, pageTitle, eventType }) => {
+}> = ({ SearchComponent, pageTitle }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const history = useHistory();
@@ -51,10 +49,9 @@ const SearchPage: React.FC<{
       place: params.place,
       sortOrder: EVENT_SORT_OPTIONS.END_TIME,
       superEventType: ['umbrella', 'none'],
-      eventType,
     });
     return variables;
-  }, [eventType, locale, location.search, params.place]);
+  }, [locale, location.search, params.place]);
 
   const { data: landingPageData } = useLandingPagesQuery({
     variables: { visibleOnFrontpage: true },
@@ -160,7 +157,6 @@ const SearchPage: React.FC<{
                   <EventList
                     cardSize="large"
                     events={eventsList.data}
-                    eventType={eventType}
                     hasNext={!!eventsList.meta.next}
                     count={eventsList.meta.count}
                     loading={isLoadingEvents}
