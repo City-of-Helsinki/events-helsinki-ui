@@ -10,15 +10,14 @@ import {
   useOrganizationDetailsQuery,
 } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
+import { ROUTES } from '../../app/routes/constants';
 import { getEventFields } from '../EventUtils';
-import { EVENTS_ROUTE_MAPPER, EventType } from '../types';
 
 interface Props {
   event: EventFieldsFragment;
-  eventType: EventType;
 }
 
-const OrganizationInfo: React.FC<Props> = ({ event, eventType }) => {
+const OrganizationInfo: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { provider, publisher } = getEventFields(event, locale);
@@ -30,7 +29,7 @@ const OrganizationInfo: React.FC<Props> = ({ event, eventType }) => {
   const organizationName = organizationData?.organizationDetails.name;
 
   const getSearchLink = () => {
-    return `/${locale}${EVENTS_ROUTE_MAPPER[eventType]}?publisher=${publisher}`;
+    return `/${locale}${ROUTES.EVENTS}?publisher=${publisher}`;
   };
 
   return (
@@ -53,7 +52,7 @@ const OrganizationInfo: React.FC<Props> = ({ event, eventType }) => {
               <>
                 <div>{organizationName}</div>
                 <Link to={getSearchLink()}>
-                  {t(`${eventType}.info.linkSearchByPublisher`)}
+                  {t(`event.info.linkSearchByPublisher`)}
                 </Link>
               </>
             )}

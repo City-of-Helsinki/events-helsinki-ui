@@ -4,10 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 import LoadingSpinner from '../../../common/components/spinner/LoadingSpinner';
 import { CollectionFieldsFragment } from '../../../generated/graphql';
-import { isFeatureEnabled } from '../../../util/featureFlags';
 import Container from '../../app/layout/Container';
 import { getEventIdsFromUrls } from '../../event/EventUtils';
-import { EventType } from '../../event/types';
 import styles from './curatedEvents.module.scss';
 import EventCards from './EventCards';
 import OnlyExpiredEvents from './OnlyExpiredEvents';
@@ -15,7 +13,6 @@ import usePaginatedEventsByIdsQuery from './usePaginatedEventsByIdsQuery';
 
 // const PAST_EVENTS_DEFAULT_SIZE = 4;
 
-export const coursesListTestId = 'curated-courses-list';
 export const eventsListTestId = 'curated-events-list';
 
 interface Props {
@@ -24,7 +21,7 @@ interface Props {
 
 const CuratedEvents: React.FC<Props> = ({ collection }) => {
   const { t } = useTranslation();
-  const { eventIds, courseIds } = React.useMemo(
+  const { eventIds } = React.useMemo(
     () => getEventIdsFromUrls(collection.curatedEvents),
     [collection.curatedEvents]
   );
@@ -35,16 +32,7 @@ const CuratedEvents: React.FC<Props> = ({ collection }) => {
         <CollectionEventsList
           testId={eventsListTestId}
           eventIds={eventIds}
-          eventType="event"
           title={t('collection.curatedEvents.eventsTitle')}
-        />
-      )}
-      {isFeatureEnabled('EVENTS_HELSINKI_2') && !!courseIds.length && (
-        <CollectionEventsList
-          testId={coursesListTestId}
-          eventIds={courseIds}
-          eventType="course"
-          title={t('collection.curatedEvents.coursesTitle')}
         />
       )}
     </Container>
@@ -54,9 +42,8 @@ const CuratedEvents: React.FC<Props> = ({ collection }) => {
 const CollectionEventsList: React.FC<{
   eventIds: string[];
   title: string;
-  eventType: EventType;
   testId: string;
-}> = ({ eventIds, title, eventType, testId }) => {
+}> = ({ eventIds, title, testId }) => {
   const { t } = useTranslation();
   // const [showAllExpiredEvents, setShowAllExpiredEvents] = React.useState(false);
 
@@ -96,7 +83,6 @@ const CollectionEventsList: React.FC<{
   //       <EventCards
   //         events={visibleExpiredEvents}
   //         onShowMore={handleShowAllExpiredEvents}
-  //         eventType={eventType}
   //         showMoreButton={
   //           !showAllExpiredEvents &&
   //           expiredEvents.length > PAST_EVENTS_DEFAULT_SIZE
@@ -130,7 +116,7 @@ const CollectionEventsList: React.FC<{
           <div className={styles.curatedEventList}>
             {collectionHasUpcomingEvents ? (
               <>
-                <EventCards events={events} eventType={eventType} />
+                <EventCards events={events} />
                 {hasMoreEventsToLoad && <LoadMoreButton />}
               </>
             ) : (

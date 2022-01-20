@@ -5,23 +5,10 @@ import * as convert from 'xml-js';
 
 import { ROUTES } from '../domain/app/routes/constants';
 import { MAPPED_PLACES } from '../domain/eventSearch/constants';
-import { isFeatureEnabled } from './featureFlags';
 import { skipFalsyType } from './typescript.utils';
 
 export type Language = 'en' | 'fi' | 'sv';
 export type TitleKey = 'title_en' | 'title_fi' | 'title_sv';
-
-const eventTypeRouteMap = {
-  event: ROUTES.EVENT,
-  ...(isFeatureEnabled('EVENTS_HELSINKI_2') && { course: ROUTES.COURSE }),
-};
-
-const eventTypeURLMap = {
-  event: process.env.REACT_APP_LINKED_EVENTS_URL,
-  ...(isFeatureEnabled('EVENTS_HELSINKI_2') && {
-    course: process.env.REACT_APP_LINKED_EVENTS_URL,
-  }),
-};
 
 export type Collection = {
   expired: boolean;
@@ -261,13 +248,9 @@ const getCollectionUrlElements = async (): Promise<Element[]> => {
  * @param {number} page
  * @return {Object[]}
  */
-const getEventsPage = async (
-  eventType: 'event' | 'course',
-  start: Date,
-  page: number
-) => {
+const getEventsPage = async (start: Date, page: number) => {
   const url =
-    `${eventTypeURLMap[eventType]}/event` +
+    `${process.env.REACT_APP_LINKED_EVENTS_URL}/event` +
     `?start=${start.toISOString()}` +
     `&page_size=${PAGE_SIZE}` +
     `&page=${page}` +
@@ -296,10 +279,10 @@ const getEventsPage = async (
  * @param {string} start
  * @return {Object[]}
  */
-const getEvents = async (eventType: 'event' | 'course', start: Date) => {
+const getEvents = async (start: Date) => {
   const events: Event[] = [];
 
-  const result = await getEventsPage(eventType, start, 1);
+  const result = await getEventsPage(start, 1);
   events.push(...result.data);
 
   const count = result.meta.count;
@@ -308,7 +291,7 @@ const getEvents = async (eventType: 'event' | 'course', start: Date) => {
   if (pageAmount > 1) {
     const pages = range(2, pageAmount + 1);
     const results = await Promise.all(
-      pages.map((page) => getEventsPage(eventType, start, page))
+      pages.map((page) => getEventsPage(start, page))
     );
     results.forEach((result) => events.push(...result.data));
   }
@@ -320,11 +303,8 @@ const getEvents = async (eventType: 'event' | 'course', start: Date) => {
  * @param {string} time
  * @return {Object[]}
  */
-const getEventUrlElements = async (
-  eventType: 'event' | 'course',
-  time: Date
-): Promise<Element[]> => {
-  const events = await getEvents(eventType, time);
+const getEventUrlElements = async (time: Date): Promise<Element[]> => {
+  const events = await getEvents(time);
 
   const elements: Element[] = [];
   events.forEach((event) => {
@@ -336,10 +316,7 @@ const getEventUrlElements = async (
         elements: [
           getTextElement(
             'loc',
-            `${HOST}/${language}${eventTypeRouteMap[eventType]?.replace(
-              ':id',
-              event.id
-            )}`
+            `${HOST}/${language}${ROUTES.EVENT.replace(':id', event.id)}`
           ),
           ...LANGUAGES.filter(
             (l) =>
@@ -350,9 +327,10 @@ const getEventUrlElements = async (
               attributes: {
                 rel: 'alternate',
                 hreflang,
-                href: `${HOST}/${hreflang}${eventTypeRouteMap[
-                  eventType
-                ]?.replace(':id', event.id)}`,
+                href: `${HOST}/${hreflang}${ROUTES.EVENT.replace(
+                  ':id',
+                  event.id
+                )}`,
               },
               elements: [],
             })
@@ -466,20 +444,15 @@ const updateSitemaps = async (): Promise<boolean> => {
   try {
     const time = new Date();
     const staticUrlElements = getStaticUrlElements(time);
-    const [collectionUrlElements, eventUrlElements, courseUrlElements] =
-      await Promise.all(
-        [
-          getCollectionUrlElements(),
-          getEventUrlElements('event', time),
-          isFeatureEnabled('EVENTS_HELSINKI_2') &&
-            getEventUrlElements('course', time),
-        ].filter(skipFalsyType)
-      );
+    const [collectionUrlElements, eventUrlElements] = await Promise.all(
+      [getCollectionUrlElements(), getEventUrlElements(time)].filter(
+        skipFalsyType
+      )
+    );
     const elements = [
       ...staticUrlElements,
       ...collectionUrlElements,
       ...eventUrlElements,
-      ...(courseUrlElements || []),
     ];
 
     await saveSitemapFiles(elements, time);

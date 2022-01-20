@@ -10,16 +10,15 @@ import { EVENT_LOCATIONS } from '../constants';
 import EventInfo from '../eventInfo/EventInfo';
 import EventLocation from '../eventLocation/EventLocation';
 import { getEventFields } from '../EventUtils';
-import { EventFields, EventType, SuperEventResponse } from '../types';
+import { EventFields, SuperEventResponse } from '../types';
 import styles from './eventContent.module.scss';
 
 interface Props {
   event: EventFields;
-  eventType: EventType;
   superEvent?: SuperEventResponse;
 }
 
-const EventContent: React.FC<Props> = ({ event, eventType, superEvent }) => {
+const EventContent: React.FC<Props> = ({ event, superEvent }) => {
   const { t } = useTranslation();
   const locale = useLocale();
   const { description, photographerName } = getEventFields(event, locale);
@@ -31,11 +30,7 @@ const EventContent: React.FC<Props> = ({ event, eventType, superEvent }) => {
       <Container>
         <div className={styles.contentWrapper}>
           <div className={styles.infoColumn}>
-            <EventInfo
-              event={event}
-              eventType={eventType}
-              superEvent={superEvent}
-            />
+            <EventInfo event={event} superEvent={superEvent} />
           </div>
           <div className={styles.descriptionColumn}>
             {description && (

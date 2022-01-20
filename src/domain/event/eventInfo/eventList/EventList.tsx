@@ -6,8 +6,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { EventFieldsFragment } from '../../../../generated/graphql';
 import useLocale from '../../../../hooks/useLocale';
 import getDateRangeStr from '../../../../util/getDateRangeStr';
-import { getEventFields, getEventTypeByEventTypeId } from '../../EventUtils';
-import { EVENT_ROUTE_MAPPER, EventFields } from '../../types';
+import { ROUTES } from '../../../app/routes/constants';
+import { getEventFields } from '../../EventUtils';
+import { EventFields } from '../../types';
 import styles from './eventList.module.scss';
 
 const EventList: React.FC<{
@@ -21,9 +22,7 @@ const EventList: React.FC<{
   const { search } = useLocation();
 
   const getLinkUrl = (event: EventFieldsFragment) => {
-    return `/${locale}${EVENT_ROUTE_MAPPER[
-      event?.typeId ? getEventTypeByEventTypeId(event.typeId) : 'event'
-    ].replace(':id', event.id)}${search}`;
+    return `/${locale}${ROUTES.EVENT.replace(':id', event.id)}${search}`;
   };
 
   return (

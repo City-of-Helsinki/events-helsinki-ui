@@ -24,7 +24,6 @@ export const getEvents = async (
     pageSize: count,
     sortOrder: EVENT_SORT_OPTIONS.END_TIME,
     superEventType: ['umbrella', 'none'],
-    eventType: 'event',
   });
   const {
     eventList: { data },

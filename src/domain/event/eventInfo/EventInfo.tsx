@@ -3,7 +3,6 @@ import { saveAs } from 'file-saver';
 import {
   Button,
   IconAngleRight,
-  IconCake,
   IconCalendarClock,
   IconGlobe,
   IconGroup,
@@ -19,7 +18,6 @@ import InfoWithIcon from '../../../common/components/infoWithIcon/InfoWithIcon';
 import Link from '../../../common/components/link/Link';
 import linkStyles from '../../../common/components/link/link.module.scss';
 import Visible from '../../../common/components/visible/Visible';
-import { Maybe } from '../../../generated/graphql';
 import useLocale from '../../../hooks/useLocale';
 import useTabFocusStyle from '../../../hooks/useTabFocusStyle';
 import IconDirections from '../../../icons/IconDirections';
@@ -27,19 +25,9 @@ import getDateArray from '../../../util/getDateArray';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import getDomain from '../../../util/getDomain';
 import { translateValue } from '../../../util/translateUtils';
-import {
-  getAudienceAgeText,
-  getEventFields,
-  getEventPrice,
-  getServiceMapUrl,
-} from '../EventUtils';
-import {
-  EVENT_ROUTE_MAPPER,
-  EventFields,
-  EventType,
-  KeywordOption,
-  SuperEventResponse,
-} from '../types';
+import { ROUTES } from '../../app/routes/constants';
+import { getEventFields, getEventPrice, getServiceMapUrl } from '../EventUtils';
+import { EventFields, KeywordOption, SuperEventResponse } from '../types';
 import styles from './eventInfo.module.scss';
 import { SubEvents, SuperEvent } from './EventsHierarchy';
 import OrganizationInfo from './OrganizationInfo';
@@ -47,29 +35,18 @@ import OtherEventTimes from './OtherEventTimes';
 
 interface Props {
   event: EventFields;
-  eventType: EventType;
   superEvent?: SuperEventResponse;
 }
 
-const EventInfo: React.FC<Props> = ({ event, eventType, superEvent }) => {
+const EventInfo: React.FC<Props> = ({ event, superEvent }) => {
   const locale = useLocale();
   const eventInfoContainer = React.useRef<HTMLDivElement | null>(null);
   useTabFocusStyle({
     container: eventInfoContainer,
     className: styles.focusVisible,
   });
-
-  const {
-    email,
-    externalLinks,
-    infoUrl,
-    languages,
-    telephone,
-    audience,
-  } = getEventFields(event, locale);
-
-  const { audienceMinAge, audienceMaxAge } = event;
-
+  const { email, externalLinks, infoUrl, languages, telephone, audience } =
+    getEventFields(event, locale);
   const showOtherInfo = Boolean(
     email || externalLinks.length || infoUrl || telephone
   );
@@ -81,41 +58,26 @@ const EventInfo: React.FC<Props> = ({ event, eventType, superEvent }) => {
   */
   const isMiddleLevelEvent = Boolean(superEvent && event.subEvents?.length);
 
-  // Age limitations are not wanted to be shown on general events.
-  const showAudienceAgeLimitations = Boolean(
-    eventType !== 'event' && (audienceMinAge || audienceMaxAge)
-  );
-
   return (
     <div className={styles.eventInfo} ref={eventInfoContainer}>
       <div className={styles.contentWrapper}>
-        <DateInfo event={event} eventType={eventType} />
+        <DateInfo event={event} />
         <SuperEvent superEvent={superEvent} />
         <SubEvents event={event} />
         {!isMiddleLevelEvent && <OtherEventTimes event={event} />}
-        {showAudienceAgeLimitations && (
-          <AudienceAgeLimitations
-            audienceMinAge={audienceMinAge}
-            audienceMaxAge={audienceMaxAge}
-            eventType={eventType}
-          />
-        )}
         <LocationInfo event={event} />
         {!!audience.length && <Audience audience={audience} />}
         {!!languages.length && <Languages languages={languages} />}
         {showOtherInfo && <OtherInfo event={event} />}
         <Directions event={event} />
-        <OrganizationInfo event={event} eventType={eventType} />
+        <OrganizationInfo event={event} />
         <PriceInfo event={event} />
       </div>
     </div>
   );
 };
 
-const DateInfo: React.FC<{ event: EventFields; eventType: EventType }> = ({
-  event,
-  eventType,
-}) => {
+const DateInfo: React.FC<{ event: EventFields }> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
 
@@ -136,10 +98,7 @@ const DateInfo: React.FC<{ event: EventFields; eventType: EventType }> = ({
       const icsEvent: EventAttributes = {
         description: t('event.info.textCalendarLinkDescription', {
           description: shortDescription,
-          link: `${domain}/${locale}${EVENT_ROUTE_MAPPER[eventType].replace(
-            ':id',
-            event.id
-          )}`,
+          link: `${domain}/${locale}${ROUTES.EVENT.replace(':id', event.id)}`,
         }),
         end: endTime ? getDateArray(endTime) : getDateArray(startTime),
         location: [locationName, streetAddress, district, addressLocality]
@@ -185,33 +144,11 @@ const DateInfo: React.FC<{ event: EventFields; eventType: EventType }> = ({
   );
 };
 
-const AudienceAgeLimitations: React.FC<{
-  audienceMinAge: Maybe<string> | undefined;
-  audienceMaxAge: Maybe<string> | undefined;
-  eventType: EventType;
-}> = ({ audienceMinAge, audienceMaxAge, eventType }) => {
-  const { t } = useTranslation();
-
-  const audienceAge =
-    eventType === 'course' &&
-    getAudienceAgeText(t, audienceMinAge, audienceMaxAge);
-
-  return (
-    <InfoWithIcon icon={<IconCake />} title={t('event.info.labelAge')}>
-      {audienceAge}
-    </InfoWithIcon>
-  );
-};
-
 const LocationInfo: React.FC<{ event: EventFields }> = ({ event }) => {
   const { t } = useTranslation();
   const locale = useLocale();
-  const {
-    addressLocality,
-    district,
-    locationName,
-    streetAddress,
-  } = getEventFields(event, locale);
+  const { addressLocality, district, locationName, streetAddress } =
+    getEventFields(event, locale);
 
   const serviceMapUrl = getServiceMapUrl(event, locale, false);
 
@@ -272,13 +209,8 @@ const OtherInfo: React.FC<{
   const { t } = useTranslation();
   const locale = useLocale();
 
-  const {
-    email,
-    externalLinks,
-    infoUrl,
-    telephone,
-    registrationUrl,
-  } = getEventFields(event, locale);
+  const { email, externalLinks, infoUrl, telephone, registrationUrl } =
+    getEventFields(event, locale);
 
   return (
     <InfoWithIcon

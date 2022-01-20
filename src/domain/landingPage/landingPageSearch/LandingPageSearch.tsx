@@ -12,12 +12,12 @@ import SearchLabel from '../../../common/components/search/searchLabel/SearchLab
 import { AutosuggestMenuOption } from '../../../common/types';
 import useLocale from '../../../hooks/useLocale';
 import { ROUTES } from '../../app/routes/constants';
-import { DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants__DEPRECATED';
+import { EVENT_DEFAULT_SEARCH_FILTERS } from '../../eventSearch/constants';
 import {
   getEventCategoryOptions,
   getSearchQuery,
 } from '../../eventSearch/utils';
-import styles from './landingPageSearch__DEPRECATED.module.scss';
+import styles from './landingPageSearch.module.scss';
 
 const Search: React.FC = () => {
   const { t } = useTranslation();
@@ -49,7 +49,7 @@ const Search: React.FC = () => {
 
   const handleSubmit = () => {
     const search = getSearchQuery({
-      ...DEFAULT_SEARCH_FILTERS,
+      ...EVENT_DEFAULT_SEARCH_FILTERS,
       dateTypes,
       end,
       start,
@@ -61,7 +61,7 @@ const Search: React.FC = () => {
 
   const handleMenuOptionClick = (option: AutosuggestMenuOption) => {
     const search = getSearchQuery({
-      ...DEFAULT_SEARCH_FILTERS,
+      ...EVENT_DEFAULT_SEARCH_FILTERS,
       dateTypes,
       end,
       start,
@@ -77,24 +77,24 @@ const Search: React.FC = () => {
         {/* <SupriseMeButton onClick={handleClickSupriseMe} /> */}
         <div className={styles.searchRow}>
           <div className={styles.titleWrapper}>
-            <h2>{t('home.search__DEPRECATED.title')}</h2>
+            <h2>{t('home.search.title')}</h2>
           </div>
           <div className={styles.autosuggestWrapper}>
             <SearchLabel htmlFor={'search'}>
-              {t('home.search__DEPRECATED.labelSearchField')}
+              {t('home.search.labelSearchField')}
             </SearchLabel>
             <SearchAutosuggest
               name="search"
               onChangeSearchValue={setAutosuggestInput}
               onOptionClick={handleMenuOptionClick}
-              placeholder={t('home.search__DEPRECATED.placeholder')}
+              placeholder={t('home.search.placeholder')}
               searchValue={autosuggestInput}
             />
           </div>
           <div className={styles.dateAndButtonWrapper}>
             <div className={styles.dateSelectorWrapper}>
               <SearchLabel color="black" htmlFor="date" srOnly={true}>
-                {t('home.search__DEPRECATED.labelDateRange')}
+                {t('home.search.labelDateRange')}
               </SearchLabel>
               <div className={styles.desktopDateSelector}>
                 <DateSelector
@@ -126,14 +126,14 @@ const Search: React.FC = () => {
                 onClick={handleSubmit}
                 variant="success"
               >
-                {t('home.search__DEPRECATED.buttonSearch')}
+                {t('home.search.buttonSearch')}
               </Button>
             </div>
           </div>
         </div>
         <div className={styles.linkRow}>
           <Link color="white" size="small" to={`/${locale}${ROUTES.EVENTS}`}>
-            {t('home.search__DEPRECATED.linkAdvancedSearch')}
+            {t('home.search.linkAdvancedSearch')}
           </Link>
         </div>
       </div>
@@ -142,7 +142,7 @@ const Search: React.FC = () => {
           return (
             <CategoryFilter
               href={`/${locale}${ROUTES.EVENTS}${getSearchQuery({
-                ...DEFAULT_SEARCH_FILTERS,
+                ...EVENT_DEFAULT_SEARCH_FILTERS,
                 categories: [category.value],
                 dateTypes,
                 end,

@@ -18,7 +18,6 @@ interface Props {
   hideKeywordsOnMobile?: boolean;
   showIsFree: boolean;
   showKeywords?: boolean;
-  eventsRoute?: string;
 }
 const EventKeywords: React.FC<Props> = ({
   blackOnMobile,
@@ -26,7 +25,6 @@ const EventKeywords: React.FC<Props> = ({
   hideKeywordsOnMobile = false,
   showIsFree,
   showKeywords = true,
-  eventsRoute = ROUTES.EVENTS,
 }) => {
   const history = useHistory();
   const { t } = useTranslation();
@@ -36,23 +34,22 @@ const EventKeywords: React.FC<Props> = ({
     locale
   );
 
-  const handleClick = (
-    type: 'dateType' | 'isFree' | 'text',
-    value = ''
-  ) => () => {
-    const search = getSearchQuery({
-      ...EVENT_DEFAULT_SEARCH_FILTERS,
-      dateTypes: type === 'dateType' ? [value] : [],
-      isFree: type === 'isFree',
-      text: type === 'text' ? [value] : [],
-    });
+  const handleClick =
+    (type: 'dateType' | 'isFree' | 'text', value = '') =>
+    () => {
+      const search = getSearchQuery({
+        ...EVENT_DEFAULT_SEARCH_FILTERS,
+        dateTypes: type === 'dateType' ? [value] : [],
+        isFree: type === 'isFree',
+        text: type === 'text' ? [value] : [],
+      });
 
-    history.push({
-      pathname: `/${locale}${eventsRoute}`,
-      search,
-    });
-    scrollToTop();
-  };
+      history.push({
+        pathname: `/${locale}${ROUTES.EVENTS}`,
+        search,
+      });
+      scrollToTop();
+    };
 
   const showComponent =
     today ||

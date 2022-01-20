@@ -85,8 +85,7 @@
       "linkOnlyExpiredEvents": "Tutustu kaikkiin kokoelmiin",
       "textEventNotFound": "Tapahtumaa ei löydy",
       "textOnlyExpiredEvents": "Valitettavasti tämän kokoelman kaikki suositellut tapahtumat ovat jo ehtineet päättyä. Käy tutustumassa muihin suosituksiimme ja löydä itsellesi tekemistä.",
-      "eventsTitle": "Suositellut tapahtumat",
-      "coursesTitle": "Suositellut harrastukset"
+      "eventsTitle": "Suositellut tapahtumat"
     },
     "eventList": {
       "errorLoadMore": "Tapahtumien lataaminen epäonnistui"
@@ -220,11 +219,6 @@
     },
     "title": "Ladataan tapahtumaa..."
   },
-  "course": {
-    "info": {
-      "linkSearchByPublisher": "Katso julkaisijan muut harrastukset"
-    }
-  },
   "eventSearch": {
     "ariaLiveLoading": "Haetaan tapahtumia",
     "ariaLiveSearchReady": "{{count}} hakutulosta",
@@ -233,12 +227,11 @@
     "errorLoadMode": "Tapahtumien lataaminen epäonnistui",
     "searchNotification": {
       "noResultsTitle": "Valitsemillasi hakuehdoilla ei löytynyt yhtään tapahtumaa",
-      "noResultsText": "Valitsemillasi hakuehdoilla ei löytynyt tapahtumia. Kokeile muuttaa hakuehtoja tai siirry harrastusten hakuun.",
+      "noResultsText": "Valitsemillasi hakuehdoilla ei löytynyt tapahtumia. Kokeile muuttaa hakuehtoja.",
       "fewResultsTitle": "Hakuehdoillasi löytyi vain vähän tapahtumia.",
-      "fewResultsText": "Valitsemillasi hakuehdoilla löytyi vain vähän tapahtumia. Kokeile muuttaa hakuehtoja tai siirry harrastusten hakuun.",
+      "fewResultsText": "Valitsemillasi hakuehdoilla löytyi vain vähän tapahtumia. Kokeile muuttaa hakuehtoja.",
       "changeLanguageText": "Kokeile muuttaa hakuehtoja tai etsi suomen kielellä.",
       "buttons": {
-        "labelSearchOtherEventType": "Siirry hakemaan harrastuksia",
         "labelSearchInFinnish": "Näytä hakutulokset suomeksi"
       }
     },
@@ -263,40 +256,6 @@
     "textFoundEvents": "{{count}} hakutulosta",
     "title": "Tapahtumahaku"
   },
-  "courseSearch": {
-    "title": "Löydä harrastus",
-    "betaButtonArialLabel": "Haluatko antaa meille palautetta harrastusten hakusivun kehitysversiosta?",
-    "betaNotificationText": "Haluatko antaa meille palautetta harrastusten hakusivun kehitysversiosta? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Tästä pääset palautelomakkeeseen {{openInNewTab}}\">Tästä pääset palautelomakkeeseen.</a>",
-    "betaResultsNotificationText": "Kehitämme sivustoa. Tällä hetkellä palvelu sisältää vain lapsille ja nuorille suunnattuja harrastuksia.",
-    "buttonLoadMore": "Näytä lisää harrastuksia ({{count}})",
-    "searchNotification": {
-      "noResultsTitle": "Valitsemillasi hakuehdoilla ei löytynyt yhtään harrastusta",
-      "noResultsText": "Valitsemillasi hakuehdoilla ei löytynyt harrastuksia. Kokeile muuttaa hakuehtoja tai siirry tapahtumien hakuun.",
-      "fewResultsTitle": "Valitsemillasi hakuehdoilla löytyi vain vähän hakutuloksia.",
-      "fewResultsText": "Valitsemillasi hakuehdoilla löytyi vain vähän harrastuksia. Kokeile muuttaa hakuehtoja tai siirry tapahtumien hakuun.",
-      "changeLanguageText": "Kokeile muuttaa hakuehtoja tai etsi suomen kielellä.",
-      "buttons": {
-        "labelSearchOtherEventType": "Siirry hakemaan tapahtumia",
-        "labelSearchInFinnish": "Näytä hakutulokset suomeksi"
-      }
-    },
-    "search": {
-      "placeholder": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
-      "labelSearchField": "Mitä etsit?",
-      "checkboxAlsoOngoingCourses": "Näytä myös meneillään olevat",
-      "checkboxIsFree": "Näytä vain maksuttomat",
-      "titleDropdownHobbyType": "Harrastusmuoto",
-      "showOnlyAdultCourses": "Näytä vain aikuisten harrastukset",
-      "ageLimitValues": "Ikä",
-      "ageLimitMin": "Alkaen",
-      "ageLimitMax": "Päättyen",
-      "ageFilter": {
-        "minAge": "Alkaen {{age}} {{yearAbbr}}",
-        "maxAge": "Päättyen {{age}} {{yearAbbr}}",
-        "exactAge": "{{age}}-vuotiaalle"
-      }
-    }
-  },
   "footer": {
     "linkAbout": "Tietoa palvelusta",
     "linkAccessibility": "Saavutettavuus­seloste",
@@ -304,9 +263,7 @@
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta",
     "searchCollections": "Suosittelemme",
     "searchEvents": "Tapahtumakalenteri",
-    "searchHobbies": "Harrastukset",
     "titleEventsCategories": "Suositut tapahtumien kategoriat",
-    "titleCoursesCategories": "Suositut harrastuskategoriat",
     "backToTop": "Takaisin alkuun",
     "copyright": "Copyright",
     "allRightsReserved": "Kaikki oikeudet pidätetään"
@@ -322,7 +279,6 @@
     },
     "searchCollections": "Suosittelemme",
     "searchEvents": "Tapahtumakalenteri",
-    "searchHobbies": "Harrastukset",
     "titleAriaLabel": "Tapahtumat Helsinki etusivu",
     "linkAbout": "Tietoa palvelusta"
   },
@@ -338,29 +294,7 @@
       "music": "Musiikki",
       "nature": "Luonto ja ulkoilu",
       "sport": "Liikunta ja urheilu",
-      "theatre": "Teatteri",
-      "courses": {
-        "movieAndMedia": "Elokuva ja media",
-        "languages": "Kielet",
-        "literature": "Kirjallisuus ja sanataide",
-        "artsAndCulture": "Kulttuuri ja taide",
-        "visualArts": "Kuvataide",
-        "handicrafts": "Kädentaidot",
-        "sport": "Liikunta ja ulkoilu",
-        "music": "Musiikki",
-        "games": "Pelit",
-        "food": "Ruoka",
-        "dance": "Tanssi",
-        "theatre": "Teatteri"
-      }
-    },
-    "hobby": {
-      "clubs": "Kerhot",
-      "courses": "Kurssit",
-      "camps": "Leirit",
-      "trips": "Retket",
-      "workshops": "Työpajat",
-      "onlineStudies": "Verkkoopetus"
+      "theatre": "Teatteri"
     },
     "collections": {
       "title": "Suosittelemme"
@@ -369,7 +303,7 @@
       "text": "Syystä tai toisesta hakemaasi kotisivua ei löydy.",
       "title": "Oho, nyt iski 404!"
     },
-    "search__DEPRECATED": {
+    "search": {
       "buttonSearch": "Hae",
       "labelDateRange": "Mille ajankohdalle etsit?",
       "labelSearchField": "Mitä etsit?",
@@ -377,21 +311,10 @@
       "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
       "title": "Löydä tapahtumia"
     },
-    "search": {
-      "popularCategories": "Suosituimmat kategoriat",
-      "placeholder": "Kirjoita hakusana",
-      "showPopularCategories": "Näytä suosituimmat kategoriat",
-      "hidePopularCategories": "Piilota suosituimmat kategoriat"
-    },
     "eventSearch": {
       "buttonSearch": "Hae",
       "placeholder": "Kirjoita hakusana, esim. rock tai jooga",
       "title": "Löydä tapahtumia"
-    },
-    "courseSearch": {
-      "buttonSearch": "Hae",
-      "placeholder": "Kirjoita hakusana, esim. ranska tai ruoanlaitto",
-      "title": "Löydä harrastuksia"
     }
   },
   "menu": {
@@ -403,9 +326,6 @@
   "meta": {
     "events": {
       "description": "Tapahtumat.hel.fin tapahtumahaku. Konsertit, keikat, teatteriesitykset, näyttelyt, kulttuuri, tekeminen ja muut tapahtumat Helsingissä."
-    },
-    "courses": {
-      "description": "Tapahtumat.hel.fin harrastushaku. Lasten ja nuorten harrastukset, kurssit, kerhot ja leirit Helsingissä."
     },
     "collections": {
       "description": "Tutustu suosituksiimme tämän hetken ajankohtaisimmista ja kiinnostavimmista tapahtumista."

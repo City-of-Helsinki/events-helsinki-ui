@@ -7,7 +7,7 @@ import LoadingSpinner from '../../common/components/spinner/LoadingSpinner';
 import { EventFieldsFragment } from '../../generated/graphql';
 import BasicEventCard from '../event/eventCard/EventCard';
 import LargeEventCard from '../event/eventCard/LargeEventCard';
-import { EventFields, EventType } from '../event/types';
+import { EventFields } from '../event/types';
 import styles from './eventList.module.scss';
 
 const eventCardsMap = {
@@ -22,13 +22,11 @@ interface Props {
   count: number;
   loading: boolean;
   hasNext: boolean;
-  eventType?: EventType;
   onLoadMore: () => void;
 }
 
 const EventList: React.FC<Props> = ({
   buttonCentered = false,
-  eventType = 'event',
   cardSize = 'default',
   events,
   loading,
@@ -39,15 +37,12 @@ const EventList: React.FC<Props> = ({
   const { t } = useTranslation();
   const eventsLeft = count - events.length;
   const EventCard = eventCardsMap[cardSize];
-  const loadMoreTextMap: Record<EventType, string> = {
-    event: 'eventSearch.buttonLoadMore',
-    course: 'courseSearch.buttonLoadMore',
-  };
+
   return (
     <div className={classNames(styles.eventListWrapper, styles[cardSize])}>
       <div className={styles.eventsWrapper}>
         {(events as EventFields[]).map((event) => (
-          <EventCard key={event.id} event={event} eventType={eventType} />
+          <EventCard key={event.id} event={event} />
         ))}
       </div>
       <div
@@ -58,7 +53,7 @@ const EventList: React.FC<Props> = ({
         <LoadingSpinner hasPadding={!events.length} isLoading={loading}>
           {hasNext && (
             <Button onClick={onLoadMore} variant="success">
-              {t(loadMoreTextMap[eventType], { count: eventsLeft })}
+              {t('eventSearch.buttonLoadMore', { count: eventsLeft })}
             </Button>
           )}
         </LoadingSpinner>

@@ -24,17 +24,11 @@ test('Changing language on landing page', async (t) => {
   const headerTabs = header.headerTabs();
   const languageSelector = header.languageSelector();
   await headerTabs.expectations.eventSearchPageTabIsVisible();
-  if (isFeatureEnabled('EVENTS_HELSINKI_2')) {
-    await headerTabs.expectations.courseSearchPageTabIsVisible();
-  }
   await headerTabs.expectations.recommendationsPageTabIsVisible();
 
   await languageSelector.actions.changeLanguage(SUPPORT_LANGUAGES.SV);
 
   await headerTabs.expectations.eventSearchPageTabIsVisible();
-  if (isFeatureEnabled('EVENTS_HELSINKI_2')) {
-    await headerTabs.expectations.courseSearchPageTabIsVisible();
-  }
   await headerTabs.expectations.recommendationsPageTabIsVisible();
 });
 
@@ -44,14 +38,7 @@ test('Event search page is navigable from landing page header', async (t) => {
   await headerTabs.actions.clickEventSearchPageTab();
   await urlUtils.expectations.urlChangedToEventSearchPage();
 });
-if (isFeatureEnabled('EVENTS_HELSINKI_2')) {
-  test('Course search page is navigable from landing page header', async (t) => {
-    const header = await findHeader(t);
-    const headerTabs = header.headerTabs();
-    await headerTabs.actions.clickCourseSearchPageTab();
-    await urlUtils.expectations.urlChangedToCourseSearchPage();
-  });
-}
+
 test('Recommended page is navigable from landing page header', async (t) => {
   const header = await findHeader(t);
   const headerTabs = header.headerTabs();

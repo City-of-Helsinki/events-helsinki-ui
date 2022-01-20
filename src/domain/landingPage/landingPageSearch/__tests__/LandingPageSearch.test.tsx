@@ -11,7 +11,7 @@ import {
   screen,
   userEvent,
 } from '../../../../test/testUtils';
-import LandingPageSearch from '../LandingPageSearch__DEPRECATED';
+import LandingPageSearch from '../LandingPageSearch';
 
 configure({ defaultHidden: true });
 

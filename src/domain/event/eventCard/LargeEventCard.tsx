@@ -10,6 +10,7 @@ import useLocale from '../../../hooks/useLocale';
 import getDateRangeStr from '../../../util/getDateRangeStr';
 import { addParamsToQueryString } from '../../../util/queryString';
 import testImage from '../../../util/testImage';
+import { ROUTES } from '../../app/routes/constants';
 import EventKeywords from '../eventKeywords/EventKeywords';
 import LocationText from '../eventLocation/EventLocationText';
 import EventName from '../eventName/EventName';
@@ -21,28 +22,20 @@ import {
   isEventClosed,
   isEventFree,
 } from '../EventUtils';
-import {
-  EVENT_ROUTE_MAPPER,
-  EventFields,
-  EVENTS_ROUTE_MAPPER,
-  EventType,
-} from '../types';
+import { EventFields } from '../types';
 import styles from './largeEventCard.module.scss';
 
 interface Props {
   event: EventFields;
-  eventType?: EventType;
 }
 
-const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
+const LargeEventCard: React.FC<Props> = ({ event }) => {
   const { t } = useTranslation();
   const { push } = useHistory();
   const [showBackupImage, setShowBackupImage] = React.useState(false);
   const { search, pathname } = useLocation();
   const locale = useLocale();
   const button = React.useRef<HTMLDivElement>(null);
-  const eventRoute = EVENT_ROUTE_MAPPER[eventType];
-  const eventsRoute = EVENTS_ROUTE_MAPPER[eventType];
 
   const {
     endTime,
@@ -61,7 +54,7 @@ const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
   const queryString = addParamsToQueryString(search, {
     returnPath: pathname,
   });
-  const eventUrl = `/${locale}${eventRoute.replace(
+  const eventUrl = `/${locale}${ROUTES.EVENT.replace(
     ':id',
     event.id
   )}${queryString}`;
@@ -144,7 +137,6 @@ const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
             event={event}
             hideKeywordsOnMobile={true}
             showIsFree={true}
-            eventsRoute={eventsRoute}
           />
         </div>
         <div className={styles.buttonWrapper}>
@@ -191,7 +183,6 @@ const LargeEventCard: React.FC<Props> = ({ event, eventType = 'event' }) => {
             event={event}
             hideKeywordsOnMobile={true}
             showIsFree={true}
-            eventsRoute={eventsRoute}
           />
         </div>
       </div>

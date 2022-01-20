@@ -168,30 +168,16 @@ describe('getEventIdFromUrl function', () => {
 });
 
 describe('getEventIdsFromUrls function', () => {
-  it('gets event ids and course ids from urls', () => {
+  it('gets event idsfrom urls', () => {
     expect(
       getEventIdsFromUrls([
         'http://localhost:3000/fi/event/helsinki:sdbdfh5t',
         'http://localhost:3000/fi/event/helsinki:2346tyhjrfgg',
         'http://localhost:3000/fi/event/helsinki:sdgbdfngfr65',
-        'http://localhost:3000/fi/courses/helsinki:lkjgfcv',
         'http://localhost:3000/fi/event/helsinki:sdfhgjrfd2',
-        'http://localhost:3000/fi/courses/helsinki:lytgbntry',
-        'http://localhost:3000/fi/courses/helsinki:yterdfghnf',
-        'http://localhost:3000/fi/courses/helsinki:cvhgsdrerh',
-        'http://localhost:3000/fi/courses/helsinki:dfgjrt234d',
         'http://localhost:3000/fi/events/helsinki:zxcvsdfdhg',
-        'http://localhost:3000/fi/course/helsinki:werghjgfd',
       ])
     ).toEqual({
-      courseIds: [
-        'helsinki:lkjgfcv',
-        'helsinki:lytgbntry',
-        'helsinki:yterdfghnf',
-        'helsinki:cvhgsdrerh',
-        'helsinki:dfgjrt234d',
-        'helsinki:werghjgfd',
-      ],
       eventIds: [
         'helsinki:sdbdfh5t',
         'helsinki:2346tyhjrfgg',

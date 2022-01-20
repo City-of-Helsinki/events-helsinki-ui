@@ -53,7 +53,7 @@ const getMocks = (
   getEventsByIdsMock({
     variables: {
       ids: [curatedEventId],
-      eventType: [EventTypeId.General, EventTypeId.Course],
+      eventType: [EventTypeId.General],
       include: ['location'],
       pageSize: 10,
       sort: 'end_time',

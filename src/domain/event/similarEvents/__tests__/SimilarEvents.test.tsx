@@ -17,8 +17,8 @@ import { ROUTES } from '../../../app/routes/constants';
 import SimilarEvents from '../SimilarEvents';
 
 const id = '1';
-const name = 'Course title';
-const description = 'Course descirption';
+const name = 'Event title';
+const description = 'Event description';
 const startTime = '2020-10-05T07:00:00.000000Z';
 const endTime = '2020-10-05T10:00:00.000000Z';
 const audience = ['Aikuiset', 'Lapset'];
@@ -46,7 +46,6 @@ const event = fakeEvent({
 
 const mocks = [
   createEventListRequestAndResultMocks({
-    type: 'event',
     variables: {
       allOngoing: true,
       keywordOrSet1: ['keyword1', 'keyword2', 'keyword3'],
@@ -71,12 +70,9 @@ const waitForComponentToBeLoaded = async () => {
 
 test('should render similar event cards', async () => {
   advanceTo(new Date('2020-08-11'));
-  render(
-    <SimilarEvents event={event as EventFieldsFragment} eventType="event" />,
-    {
-      mocks,
-    }
-  );
+  render(<SimilarEvents event={event as EventFieldsFragment} />, {
+    mocks,
+  });
   await waitForComponentToBeLoaded();
 
   expectedSimilarEvents.data.forEach((event) => {
@@ -95,7 +91,7 @@ it('has return path on similar event link', async () => {
   const path = ROUTES.EVENT;
   const route = path.replace(':id', 'rootEventId');
   const { history } = render(
-    <SimilarEvents event={event as EventFieldsFragment} eventType="event" />,
+    <SimilarEvents event={event as EventFieldsFragment} />,
     {
       mocks,
       path,

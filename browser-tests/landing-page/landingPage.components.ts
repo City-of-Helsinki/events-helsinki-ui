@@ -43,7 +43,7 @@ export const getLandingPageComponents = (t: TestController) => {
       },
       buttonLink() {
         const findByRole = [
-          'button',
+          'link',
           { name: regExpEscaped(banner.buttonText.fi) },
         ];
         setDataToPrintOnFailure(t, 'findByRole', findByRole);

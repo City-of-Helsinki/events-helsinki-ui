@@ -75,7 +75,7 @@ const eventRequest = {
 const otherEventsRequest = {
   query: EventListDocument,
   variables: {
-    include: ['keywords', 'location'],
+    include: ['in_language', 'keywords', 'location', 'audience'],
     sort: 'start_time',
     start: 'now',
     superEvent: superEventId,
@@ -117,7 +117,7 @@ const testPath = ROUTES.EVENT.replace(':id', id);
 const routes = [testPath];
 
 const renderComponent = (props?: Partial<EventPageContainerProps>) =>
-  renderWithRoute(<EventPageContainer eventType="event" {...props} />, {
+  renderWithRoute(<EventPageContainer {...props} />, {
     mocks,
     routes,
     path: ROUTES.EVENT,
@@ -183,7 +183,7 @@ it("should show error info when event doesn't exist", async () => {
     },
   ];
 
-  renderWithRoute(<EventPageContainer eventType="event" />, {
+  renderWithRoute(<EventPageContainer />, {
     mocks,
     routes,
     path: ROUTES.EVENT,

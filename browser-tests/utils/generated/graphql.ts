@@ -696,7 +696,7 @@ export type OfferFieldsFragment = (
   )> }
 );
 
-export type GeneralEventFieldsFragment = (
+export type EventFieldsFragment = (
   { __typename?: 'EventDetails' }
   & Pick<EventDetails, 'audienceMinAge' | 'audienceMaxAge' | 'id' | 'eventStatus' | 'typeId' | 'endTime' | 'startTime' | 'publisher'>
   & { externalLinks: Array<(
@@ -749,23 +749,6 @@ export type GeneralEventFieldsFragment = (
       & LocalizedFieldsFragment
     )> }
   )> }
-);
-
-export type CourseExtensionFieldsFragment = (
-  { __typename?: 'EventDetails' }
-  & Pick<EventDetails, 'enrolmentStartTime' | 'enrolmentEndTime' | 'maximumAttendeeCapacity' | 'minimumAttendeeCapacity' | 'remainingAttendeeCapacity'>
-);
-
-export type CourseEventFieldsFragment = (
-  { __typename?: 'EventDetails' }
-  & GeneralEventFieldsFragment
-  & CourseExtensionFieldsFragment
-);
-
-export type EventFieldsFragment = (
-  { __typename?: 'EventDetails' }
-  & GeneralEventFieldsFragment
-  & CourseExtensionFieldsFragment
 );
 
 export type EventDetailsQueryVariables = Exact<{
@@ -1278,8 +1261,8 @@ export const OfferFieldsFragmentDoc = gql`
   }
 }
     ${LocalizedFieldsFragmentDoc}`;
-export const GeneralEventFieldsFragmentDoc = gql`
-    fragment generalEventFields on EventDetails {
+export const EventFieldsFragmentDoc = gql`
+    fragment eventFields on EventDetails {
   audienceMinAge
   audienceMaxAge
   id
@@ -1344,29 +1327,6 @@ export const GeneralEventFieldsFragmentDoc = gql`
 ${KeywordFieldsFragmentDoc}
 ${PlaceFieldsFragmentDoc}
 ${OfferFieldsFragmentDoc}`;
-export const CourseExtensionFieldsFragmentDoc = gql`
-    fragment courseExtensionFields on EventDetails {
-  enrolmentStartTime
-  enrolmentEndTime
-  maximumAttendeeCapacity
-  minimumAttendeeCapacity
-  remainingAttendeeCapacity
-}
-    `;
-export const CourseEventFieldsFragmentDoc = gql`
-    fragment courseEventFields on EventDetails {
-  ...generalEventFields
-  ...courseExtensionFields
-}
-    ${GeneralEventFieldsFragmentDoc}
-${CourseExtensionFieldsFragmentDoc}`;
-export const EventFieldsFragmentDoc = gql`
-    fragment eventFields on EventDetails {
-  ...generalEventFields
-  ...courseExtensionFields
-}
-    ${GeneralEventFieldsFragmentDoc}
-${CourseExtensionFieldsFragmentDoc}`;
 export const LocalizedCmsImageFieldsFragmentDoc = gql`
     fragment localizedCmsImageFields on LocalizedCmsImage {
   en {

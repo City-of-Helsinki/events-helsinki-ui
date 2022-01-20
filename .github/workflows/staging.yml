@@ -24,16 +24,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        service: ['1', '2']
+        service: ['1']
         include:
           - service: '1'
             version: '1.0'
             DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.test.kuva.hel.ninja
-            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: 'false'
-          - service: '2'
-            version: '2.0'
-            DOCKER_BUILD_ARG_PUBLIC_URL: https://latest-events.test.kuva.hel.ninja
-            DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: 'true'
     runs-on: ubuntu-latest
     name: Build
     steps:
@@ -59,20 +54,15 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_GTM_PREVIEW: ${{ secrets.GH_QA_GTM_PREVIEW }}
           # Feature flags
           DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_EVENTS: 'false'
-          DOCKER_BUILD_ARG_REACT_APP_SHOW_SIMILAR_COURSES: 'false'
-          DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2: ${{ matrix.DOCKER_BUILD_ARG_REACT_APP_EVENTS_HELSINKI_2}}
   staging:
     strategy:
       fail-fast: false
       matrix:
-        service: ['1', '2']
+        service: ['1']
         include:
           - service: '1'
             version: '1.0'
             DOCKER_BUILD_ARG_PUBLIC_URL: https://tapahtumat.test.kuva.hel.ninja
-          - service: '2'
-            version: '2.0'
-            DOCKER_BUILD_ARG_PUBLIC_URL: https://latest-events.test.kuva.hel.ninja
     runs-on: ubuntu-latest
     needs: build
     name: Deploy to ${{matrix.DOCKER_BUILD_ARG_PUBLIC_URL}} + Acceptance tests

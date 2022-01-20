@@ -85,8 +85,7 @@
       "linkOnlyExpiredEvents": "To all collections",
       "textEventNotFound": "Event not found",
       "textOnlyExpiredEvents": "Unfortunately all the events in this collection have already passed. Have a look at our other recommendations and collections to find more interesting events.",
-      "eventsTitle": "Recommended events",
-      "coursesTitle": "Recommended hobbies"
+      "eventsTitle": "Recommended events"
     },
     "eventList": {
       "errorLoadMore": "Failed to load events"
@@ -220,11 +219,6 @@
       "title": "Similar events"
     }
   },
-  "course": {
-    "info": {
-      "linkSearchByPublisher": "See other hobbies by publisher"
-    }
-  },
   "eventSearch": {
     "ariaLiveLoading": "Searching for events",
     "ariaLiveSearchReady": "{{count}} search results",
@@ -233,12 +227,11 @@
     "errorLoadMore": "Failed to load events",
     "searchNotification": {
       "noResultsTitle": "Sorry, no search results were found for the search criteria you selected.",
-      "noResultsText": "No search results were found for the search criteria you selected. Try to change search terms or change to hobby search.",
+      "noResultsText": "No search results were found for the search criteria you selected. Try to change search terms.",
       "fewResultsTitle": "Your search terms returned only a few results.",
-      "fewResultsText": "Your search terms returned only a few results. Try to change search terms or change to hobby search.",
-      "changeLanguageText": "Please change your search terms or display results in Finnish. You could also switch to a Hobbies search.",
+      "fewResultsText": "Your search terms returned only a few results. Try to change search terms.",
+      "changeLanguageText": "Please change your search terms or display results in Finnish.",
       "buttons": {
-        "labelSearchOtherEventType": "Switch to a Hobbies search",
         "labelSearchInFinnish": "Display results in Finnish"
       }
     },
@@ -263,40 +256,6 @@
     "textFoundEvents": "{{count}} search results",
     "title": "Event search"
   },
-  "courseSearch": {
-    "title": "Find hobby",
-    "betaButtonArialLabel": "Would you like to give us feedback on the beta version of our ‘Find hobby’ search page?",
-    "betaNotificationText": "Would you like to give us feedback on the beta version of our ‘Find hobby’ search page? <a href=\"{{url}}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Click here to be directed to the feedback form {{openInNewTab}}\">Click here to be directed to the feedback form.</a>",
-    "betaResultsNotificationText": "The website is under development. At present, there are only hobbies for children and young people.",
-    "buttonLoadMore": "Show more hobbies ({{count}})",
-    "searchNotification": {
-      "noResultsTitle": "Sorry, no search results were found for the search criteria you selected.",
-      "noResultsText": "No search results were found for the search criteria you selected. Try to change search terms or change to event search.",
-      "fewResultsTitle": "Your search terms returned only a few results.",
-      "fewResultsText": "Your search terms returned only a few results. Try to change search terms or change to event search.",
-      "changeLanguageText": "Please change your search terms or display results in Finnish. You could also switch to an Events search.",
-      "buttons": {
-        "labelSearchOtherEventType": "Switch to an Events search",
-        "labelSearchInFinnish": "Display results in Finnish"
-      }
-    },
-    "search": {
-      "placeholder": "Enter a keyword, eg. French or cooking",
-      "labelSearchField": "What are you looking for?",
-      "checkboxAlsoOngoingCourses": "Show also ongoing courses",
-      "checkboxIsFree": "Show only courses that are free",
-      "titleDropdownHobbyType": "Type of activity",
-      "showOnlyAdultCourses": "Show only adult courses",
-      "ageLimitValues": "Age",
-      "ageLimitMin": "From",
-      "ageLimitMax": "To",
-      "ageFilter": {
-        "minAge": "From {{age}} {{yearAbbr}}",
-        "maxAge": "To {{age}} {{yearAbbr}}",
-        "exactAge": "For a {{age}}-year-old"
-      }
-    }
-  },
   "footer": {
     "linkAbout": "About the service",
     "linkAccessibility": "Accessibility Statement",
@@ -304,9 +263,7 @@
     "linkFeedbackUrl": "https://www.hel.fi/helsinki/en/administration/participate/feedback/",
     "searchCollections": "We recommend",
     "searchEvents": "Events calendar",
-    "searchHobbies": "Hobbies",
     "titleEventsCategories": "Popular events categories",
-    "titleCoursesCategories": "Popular courses categories",
     "backToTop": "Back to top",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
@@ -322,7 +279,6 @@
     },
     "searchCollections": "We recommend",
     "searchEvents": "Events calendar",
-    "searchHobbies": "Hobbies",
     "titleAriaLabel": "Events in Helsinki frontpage",
     "linkAbout": "About the service"
   },
@@ -338,29 +294,7 @@
       "music": "Music",
       "nature": "Nature and outdoor activities",
       "sport": "Exercise and sports",
-      "theatre": "Theatre",
-      "courses": {
-        "movieAndMedia": "Film and media",
-        "languages": "Languages",
-        "literature": "Literature and literary art",
-        "artsAndCulture": "Arts and culture",
-        "visualArts": "Visual arts",
-        "handicrafts": "Crafts",
-        "sport": "Sport",
-        "music": "Music",
-        "games": "Games",
-        "food": "Food",
-        "dance": "Dance",
-        "theatre": "Theatre"
-      }
-    },
-    "hobby": {
-      "clubs": "Clubs",
-      "courses": "Courses",
-      "camps": "Camps",
-      "trips": "Trips",
-      "workshops": "Workshops",
-      "onlineStudies": "Online studies"
+      "theatre": "Theatre"
     },
     "collections": {
       "title": "See our recommendations"
@@ -369,7 +303,7 @@
       "text": "For some reason we can't find the landing page you are looking for.",
       "title": "Oops, you got hit by a 404!"
     },
-    "search__DEPRECATED": {
+    "search": {
       "buttonSearch": "Search",
       "labelDateRange": "For what period you are looking for?",
       "labelSearchField": "What are you looking for",
@@ -377,21 +311,10 @@
       "placeholder": "Enter a keyword, eg rock or yoga",
       "title": "Find something to do"
     },
-    "search": {
-      "popularCategories": "Popular categories",
-      "placeholder": "Write search word",
-      "showPopularCategories": "Show most popular categories",
-      "hidePopularCategories": "Hide most popular categories"
-    },
     "eventSearch": {
       "buttonSearch": "Search",
       "placeholder": "Enter a keyword, eg rock or yoga",
       "title": "Search for events"
-    },
-    "courseSearch": {
-      "buttonSearch": "Search",
-      "placeholder": "Enter a keyword, eg. French or cooking",
-      "title": "Search for hobbies"
     }
   },
   "menu": {
@@ -402,10 +325,7 @@
   },
   "meta": {
     "events": {
-      "description": "Tapahtumat.hel.fi’s event search. Concerts, gigs, theatre performances, exhibitions, culture, activities and other events in Helsinki."
-    },
-    "courses": {
-      "description": "Tapahtumat.hel.fi’s activity search. Activities, courses, clubs and camps for children and young people in Helsinki."
+      "description": "Tapahtumat.hel.fi's event search. Concerts, gigs, theatre performances, exhibitions, culture, activities and other events in Helsinki."
     },
     "collections": {
       "description": "Check out our recommendations on the most interesting upcoming events!"

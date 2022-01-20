@@ -56,9 +56,7 @@ afterAll(() => {
 });
 
 const renderComponent = (props?: Partial<EventHeroProps>) => {
-  return render(
-    <EventHero event={getFakeEvent()} eventType="event" {...props} />
-  );
+  return render(<EventHero event={getFakeEvent()} {...props} />);
 };
 
 test('should render event name, description and location', () => {
@@ -128,7 +126,7 @@ test('should hide buy button for free events', () => {
   const mockEvent = getFakeEvent({
     offers: [fakeOffer({ isFree: true }) as OfferFieldsFragment],
   });
-  render(<EventHero event={mockEvent} eventType="event" />);
+  render(<EventHero event={mockEvent} />);
 
   expect(
     screen.queryByRole('button', {
@@ -150,7 +148,7 @@ test('should show buy button', () => {
     externalLinks: null,
   });
 
-  render(<EventHero event={mockEvent} eventType="event" />);
+  render(<EventHero event={mockEvent} />);
 
   // shouldn't be rendred when externalLinks are not present
   expect(
@@ -179,7 +177,7 @@ test('Register button should be visible and clickable', () => {
     ],
   });
 
-  render(<EventHero event={mockEvent} eventType="course" />);
+  render(<EventHero event={mockEvent} />);
 
   expect(
     screen.queryByText(translations.event.hero.buttonEnrol)
@@ -194,43 +192,18 @@ test('Register button should be visible and clickable', () => {
   expect(global.open).toBeCalledWith(registrationUrl);
 });
 
-test('should show event dates when super event is not defined', () => {
-  const mockEvent = getFakeEvent();
-
-  render(<EventHero event={mockEvent} eventType="course" />);
-
-  const dateStr = getDateRangeStr({
-    start: mockEvent.startTime,
-    end: mockEvent.endTime,
-    locale: 'fi',
-    includeTime: true,
-    timeAbbreviation: translations.commons.timeAbbreviation,
-  });
-  expect(screen.getByText(dateStr)).toBeInTheDocument();
-});
-
-test('should show event dates and super event dates if super event is defined', () => {
+test('should show event dates if super event is defined', () => {
   const mockEvent = getFakeEvent();
   const mockSuperEvent = getFakeEvent({
     startTime: '2020-06-22T07:00:00.000000Z',
-    endTime: '2025-06-25T07:00:00.000000Z',
+    endTime: '2025-06-26T07:00:00.000000Z',
   });
   render(
     <EventHero
       event={mockEvent}
       superEvent={{ data: mockSuperEvent, status: 'resolved' }}
-      eventType="course"
     />
   );
-
-  const superDateStr = getDateRangeStr({
-    start: mockSuperEvent.startTime,
-    end: mockSuperEvent.endTime,
-    locale: 'fi',
-    includeTime: true,
-    timeAbbreviation: translations.commons.timeAbbreviation,
-  });
-  expect(screen.getByText(superDateStr)).toBeInTheDocument();
 
   const dateStr = getDateRangeStr({
     start: mockEvent.startTime,

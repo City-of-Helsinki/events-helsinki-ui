@@ -11,13 +11,10 @@ import AboutPage from '../../about/AboutPage';
 import AccessbilityPage from '../../accessibility/AccessbilityPage';
 import CollectionPageContainer from '../../collection/CollectionPageContainer';
 import CollectionListPage from '../../collectionList/CollectionListPage';
-import CourseSearchPageContainer from '../../courseSearch/CourseSearchPageContainer';
 import EventPageContainer from '../../event/EventPageContainer';
 import EventSearchPageContainer from '../../eventSearch/EventSearchPageContainer';
 import LandingPage from '../../landingPage/LandingPage';
-import LandingPage__DEPRECATED from '../../landingPage/LandingPage__DEPRECATED';
 import LandingPagePreview from '../../landingPage/LandingPagePreview';
-import LandingPagePreview__DEPRECATED from '../../landingPage/LandingPagePreview__DEPRECATED';
 import NotFound from '../../notFound/NotFound';
 import { ROUTES } from './constants';
 
@@ -38,23 +35,11 @@ const App: FunctionComponent<
 
   return (
     <Switch>
-      <Route
-        exact
-        path={`/${locale}${ROUTES.HOME}`}
-        component={
-          isFeatureEnabled('EVENTS_HELSINKI_2')
-            ? LandingPage
-            : LandingPage__DEPRECATED
-        }
-      />
+      <Route exact path={`/${locale}${ROUTES.HOME}`} component={LandingPage} />
       <Route
         exact
         path={`/${locale}${ROUTES.HOME_PREVIEW}`}
-        component={
-          isFeatureEnabled('EVENTS_HELSINKI_2')
-            ? LandingPagePreview
-            : LandingPagePreview__DEPRECATED
-        }
+        component={LandingPagePreview}
       />
       <Route exact path={`/${locale}${ROUTES.ABOUT}`} component={AboutPage} />
       <Route
@@ -82,7 +67,6 @@ const App: FunctionComponent<
         path={`/${locale}${ROUTES.EVENT}`}
         component={() => (
           <EventPageContainer
-            eventType="event"
             showSimilarEvents={isFeatureEnabled('SHOW_SIMILAR_EVENTS')}
           />
         )}
@@ -92,25 +76,6 @@ const App: FunctionComponent<
         path={`/${locale}${ROUTES.EVENT_PLACE}` as string}
         component={EventSearchPageContainer}
       />
-      {isFeatureEnabled('EVENTS_HELSINKI_2') && (
-        <Route
-          exact
-          path={`/${locale}${ROUTES.COURSES}`}
-          component={CourseSearchPageContainer}
-        />
-      )}
-      {isFeatureEnabled('EVENTS_HELSINKI_2') && (
-        <Route
-          exact
-          path={`/${locale}${ROUTES.COURSE}`}
-          component={() => (
-            <EventPageContainer
-              eventType="course"
-              showSimilarEvents={isFeatureEnabled('SHOW_SIMILAR_COURSES')}
-            />
-          )}
-        />
-      )}
       {/* Redirect to next single event page url */}
       <Redirect
         exact

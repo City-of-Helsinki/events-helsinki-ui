@@ -1,43 +1,30 @@
 import React from 'react';
 
-import {
-  COURSE_CATEGORIES,
-  COURSE_HOBBY_TYPES,
-  EVENT_CATEGORIES,
-  EVENT_SEARCH_FILTERS,
-} from './constants';
+import { EVENT_CATEGORIES, EVENT_SEARCH_FILTERS } from './constants';
 
 export interface CategoryOption {
   icon: React.ReactElement;
   text: string;
-  value: EVENT_CATEGORIES | COURSE_CATEGORIES;
-}
-
-export interface HobbyTypeOption {
-  icon: React.ReactElement;
-  text: string;
-  value: COURSE_HOBBY_TYPES;
+  value: EVENT_CATEGORIES;
 }
 
 export interface CategoryExtendedOption {
   icon: React.ReactElement;
   text: string;
-  value: EVENT_CATEGORIES | COURSE_CATEGORIES | COURSE_HOBBY_TYPES;
+  value: EVENT_CATEGORIES;
 }
 
-export type SearchCategoryType = EVENT_CATEGORIES | COURSE_CATEGORIES | COURSE_HOBBY_TYPES
+export type SearchCategoryType = EVENT_CATEGORIES;
 
 export interface SearchCategoryOption {
   icon: React.ReactElement;
-  labelKey: string
+  labelKey: string;
 }
 
-export type SearchCategory = Record<SearchCategoryType, SearchCategoryOption>
-
+export type SearchCategory = Record<SearchCategoryType, SearchCategoryOption>;
 
 export interface Filters {
   [EVENT_SEARCH_FILTERS.CATEGORIES]: string[];
-  [EVENT_SEARCH_FILTERS.HOBBY_TYPES]?: string[];
   [EVENT_SEARCH_FILTERS.DATE_TYPES]: string[];
   [EVENT_SEARCH_FILTERS.DIVISIONS]: string[];
   [EVENT_SEARCH_FILTERS.END]: Date | null;
@@ -47,7 +34,6 @@ export interface Filters {
   [EVENT_SEARCH_FILTERS.ONLY_CHILDREN_EVENTS]?: boolean;
   [EVENT_SEARCH_FILTERS.ONLY_EVENING_EVENTS]?: boolean;
   [EVENT_SEARCH_FILTERS.ONLY_REMOTE_EVENTS]?: boolean;
-  [EVENT_SEARCH_FILTERS.ALSO_ONGOING_COURSES]?: boolean;
   [EVENT_SEARCH_FILTERS.PLACES]: string[];
   [EVENT_SEARCH_FILTERS.PUBLISHER]?: string | null;
   [EVENT_SEARCH_FILTERS.START]: Date | null;
