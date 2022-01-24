@@ -52,6 +52,7 @@ const EventPageContainer: React.FC<EventPageContainerProps> = ({
       include: ['in_language', 'keywords', 'location', 'audience'],
     },
   });
+
   const event = eventData?.eventDetails;
   const superEventId = getEventIdFromUrl(
     event?.superEvent?.internalId ?? '',

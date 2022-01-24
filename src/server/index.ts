@@ -42,9 +42,9 @@ const getInitialI18nStore = (req: Request) => {
   const initialI18nStore: Resource = {};
 
   supportedLanguages.forEach((l: string) => {
-    initialI18nStore[
-      l
-    ] = (req as I18NextRequest).i18n.services.resourceStore.data[l];
+    initialI18nStore[l] = (
+      req as I18NextRequest
+    ).i18n.services.resourceStore.data[l];
   });
 
   return initialI18nStore;

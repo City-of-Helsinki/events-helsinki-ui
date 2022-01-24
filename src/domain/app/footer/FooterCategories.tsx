@@ -1,5 +1,5 @@
 import capitalize from 'lodash/capitalize';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import CategoryFilter from '../../../common/components/category/CategoryFilter';

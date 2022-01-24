@@ -1,5 +1,5 @@
 import { Footer } from 'hds-react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
