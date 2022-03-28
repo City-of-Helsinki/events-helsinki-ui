@@ -11,10 +11,13 @@ import { BrowserRouter } from 'react-router-dom';
 import apolloClient from './apollo/apolloClient';
 import App from './App';
 
+const matomoUrlBase = process.env.REACT_APP_MATOMO_URL_BASE as string;
 const instance = createInstance({
   disabled: process.env.REACT_APP_MATOMO_ENABLED !== 'true',
-  urlBase: process.env.REACT_APP_MATOMO_URL_BASE as string,
+  urlBase: matomoUrlBase,
   siteId: Number(process.env.REACT_APP_MATOMO_SITE_ID),
+  trackerUrl: `${matomoUrlBase}tracker.php`,
+  srcUrl: `${matomoUrlBase}piwik.min.js`,
 });
 
 const BrowserApp: React.FC = () => {
