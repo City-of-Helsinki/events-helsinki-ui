@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [Unreleased]
 
+## [0.10.0](https://github.com/City-of-Helsinki/events-helsinki-ui/compare/v0.9.0...v0.§0.0) (2022-03-28)
+
 ### Changed
 
 - Analytics from self hosted Matomo into Digia Iiris Matomo
