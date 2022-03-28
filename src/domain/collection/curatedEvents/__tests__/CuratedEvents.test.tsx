@@ -183,7 +183,7 @@ const getMocks = (
     eventType: [EventTypeId.General],
     include: ['location'],
     pageSize: 10,
-    sort: 'end_time',
+    sort: 'start_time',
     page: undefined,
     start: 'now',
   };
