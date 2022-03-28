@@ -39,7 +39,7 @@ const usePaginatedEventsByIdsQuery = (
       eventType: [EventTypeId.General],
       include: ['location'],
       pageSize: PAGE_SIZE,
-      sort: EVENT_SORT_OPTIONS.END_TIME,
+      sort: EVENT_SORT_OPTIONS.START_TIME,
       start: 'now',
     },
     ssr: false,
