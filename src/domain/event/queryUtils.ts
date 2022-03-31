@@ -41,7 +41,7 @@ const useSimilarEventsQueryVariables = (event: EventFields) => {
       language: locale,
       pageSize: PAGE_SIZE,
       params: searchParams,
-      sortOrder: EVENT_SORT_OPTIONS.END_TIME,
+      sortOrder: EVENT_SORT_OPTIONS.START_TIME,
       superEventType: ['umbrella', 'none'],
     });
   }, [eventSearch, locale, search]);

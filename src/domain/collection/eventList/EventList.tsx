@@ -38,7 +38,7 @@ const EventList: React.FC<Props> = ({ collection }) => {
       language: locale,
       pageSize: PAGE_SIZE,
       params: searchParams,
-      sortOrder: EVENT_SORT_OPTIONS.END_TIME,
+      sortOrder: EVENT_SORT_OPTIONS.START_TIME,
       superEventType: ['umbrella', 'none'],
     });
   }, [eventListQuery, locale]);

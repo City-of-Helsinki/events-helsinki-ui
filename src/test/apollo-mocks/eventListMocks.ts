@@ -20,7 +20,7 @@ export const baseVariables = {
   location: [],
   pageSize: 10,
   publisher: null,
-  sort: 'end_time',
+  sort: 'start_time',
   start: 'now',
   startsAfter: undefined,
   superEventType: ['umbrella', 'none'],

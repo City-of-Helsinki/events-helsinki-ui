@@ -47,7 +47,7 @@ const SearchPage: React.FC<{
       pageSize: PAGE_SIZE,
       params: searchParams,
       place: params.place,
-      sortOrder: EVENT_SORT_OPTIONS.END_TIME,
+      sortOrder: EVENT_SORT_OPTIONS.START_TIME,
       superEventType: ['umbrella', 'none'],
     });
     return variables;
