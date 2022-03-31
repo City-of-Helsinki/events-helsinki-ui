@@ -198,13 +198,13 @@ const getMocks = (
   if (page && page < maxPage) {
     meta.next = `https://api.hel.fi/linkedevents/v1/event/?ids=${ids.toString()}&page_size=10&page=${
       page + 1
-    }&sort=end_time&include=location`;
+    }&sort=start_time&include=location`;
   }
   if (page > 1) {
     variables.page = page;
     meta.previous = `https://api.hel.fi/linkedevents/v1/event/?ids=${ids.toString()}&page_size=10&page=${
       page - 1
-    }&sort=end_time&include=location`;
+    }&sort=start_time&include=location`;
   }
   return [
     {

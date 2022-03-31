@@ -22,7 +22,7 @@ export const getEvents = async (
     include: ['keywords', 'location'],
     language: SUPPORT_LANGUAGES.FI,
     pageSize: count,
-    sortOrder: EVENT_SORT_OPTIONS.END_TIME,
+    sortOrder: EVENT_SORT_OPTIONS.START_TIME,
     superEventType: ['umbrella', 'none'],
   });
   const {
