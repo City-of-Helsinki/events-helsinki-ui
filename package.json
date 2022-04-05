@@ -1,6 +1,6 @@
 {
   "name": "events-helsinki-ui",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.4.0-rc.6",
