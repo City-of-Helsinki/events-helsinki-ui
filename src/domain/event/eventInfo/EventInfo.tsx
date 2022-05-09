@@ -26,7 +26,12 @@ import getDateRangeStr from '../../../util/getDateRangeStr';
 import getDomain from '../../../util/getDomain';
 import { translateValue } from '../../../util/translateUtils';
 import { ROUTES } from '../../app/routes/constants';
-import { getEventFields, getEventPrice, getServiceMapUrl } from '../EventUtils';
+import {
+  getAudienceAgeText,
+  getEventFields,
+  getEventPrice,
+  getServiceMapUrl,
+} from '../EventUtils';
 import { EventFields, KeywordOption, SuperEventResponse } from '../types';
 import styles from './eventInfo.module.scss';
 import { SubEvents, SuperEvent } from './EventsHierarchy';
@@ -45,8 +50,16 @@ const EventInfo: React.FC<Props> = ({ event, superEvent }) => {
     container: eventInfoContainer,
     className: styles.focusVisible,
   });
-  const { email, externalLinks, infoUrl, languages, telephone, audience } =
-    getEventFields(event, locale);
+  const {
+    email,
+    externalLinks,
+    infoUrl,
+    languages,
+    telephone,
+    audience,
+    audienceMinAge,
+    audienceMaxAge,
+  } = getEventFields(event, locale);
   const showOtherInfo = Boolean(
     email || externalLinks.length || infoUrl || telephone
   );
@@ -66,7 +79,13 @@ const EventInfo: React.FC<Props> = ({ event, superEvent }) => {
         <SubEvents event={event} />
         {!isMiddleLevelEvent && <OtherEventTimes event={event} />}
         <LocationInfo event={event} />
-        {!!audience.length && <Audience audience={audience} />}
+        {(!!audience.length || !!audienceMinAge || !!audienceMaxAge) && (
+          <Audience
+            audience={audience}
+            audienceMinAge={audienceMinAge}
+            audienceMaxAge={audienceMaxAge}
+          />
+        )}
         {!!languages.length && <Languages languages={languages} />}
         {showOtherInfo && <OtherInfo event={event} />}
         <Directions event={event} />
@@ -178,11 +197,18 @@ const LocationInfo: React.FC<{ event: EventFields }> = ({ event }) => {
   );
 };
 
-const Audience: React.FC<{ audience: KeywordOption[] }> = ({ audience }) => {
+const Audience: React.FC<{
+  audience: KeywordOption[];
+  audienceMinAge?: string | null;
+  audienceMaxAge?: string | null;
+}> = ({ audience, audienceMinAge, audienceMaxAge }) => {
   const { t } = useTranslation();
 
   return (
     <InfoWithIcon icon={<IconGroup />} title={t('event.info.labelAudience')}>
+      {(audienceMinAge || audienceMaxAge) && (
+        <div>{getAudienceAgeText(t, audienceMinAge, audienceMaxAge)}</div>
+      )}
       {audience.map((item) => (
         <div key={item.id}>{item.name}</div>
       ))}
