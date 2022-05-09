@@ -245,7 +245,32 @@ it('should hide audience age info on single event page', async () => {
   });
 
   await waitFor(() => {
-    expect(screen.queryByText(/Ikäryhmä/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/5-15 -vuotiaat/i)).toBeInTheDocument();
+  });
+});
+
+it('should show formatted audience age info on signle event page if max age is not specified', async () => {
+  render(<EventInfo event={{ ...event, audienceMaxAge: null }} />, {
+    routes: [`/fi/events`],
+  });
+
+  await waitFor(() => {
+    expect(screen.queryByText(/5\+ -vuotiaat/i)).toBeInTheDocument();
+  });
+});
+
+it('should hide audience age info on single event page if min and max ages are not specified', async () => {
+  render(
+    <EventInfo
+      event={{ ...event, audienceMinAge: null, audienceMaxAge: null }}
+    />,
+    {
+      routes: [`/fi/events`],
+    }
+  );
+
+  await waitFor(() => {
+    expect(screen.queryByText(/-vuotiaat/i)).not.toBeInTheDocument();
   });
 });
 
