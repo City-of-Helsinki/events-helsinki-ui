@@ -48,7 +48,7 @@
     "i18next-express-middleware": "^2.0.0",
     "ics": "^2.29.0",
     "isomorphic-fetch": "^3.0.0",
-    "jsdom": "16.4.0",
+    "jsdom": "16.5.0",
     "node-cron": "^3.0.0",
     "node-sass": "^6.0.0",
     "query-string": "^7.0.0",
